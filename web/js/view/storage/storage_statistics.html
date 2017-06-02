@@ -1,0 +1,23 @@
+<div class="storage_statistics">
+    <div style="width: 95%;margin: 0 auto">
+        <div class="row z-depth-2">
+            <div class="col s12 blue-grey input-field lighten-4  bold grey-text text-darken-1   statisticsTitle no-mp">
+                <select class="col s2 grey-text text-darken-1  " material-select watch name="login_storage_name" ng-change="change_statistics()" ng-options="storageBox.storage_name for storageBox in storageName|filter:{storage_status:'1'}" ng-model="storage_id" required>
+                    <option value=""  selected>请选择</option>
+                    <!--<option ng-repeat="el in storageName" ng-value="el.id">{{el.storage_name}}</option>-->
+                </select>
+            </div>
+
+            <div class="col s12" >
+                <div class="col s6 statisticsContent" id="statistics_month" >
+
+                </div>
+                <div class="col s6 statisticsContent" id="statistics_day" >
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

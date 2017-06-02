@@ -1,0 +1,168 @@
+<div class="CarMsgWrap" ng-controller="truckMsgController" >
+    <div class="row searchBoxWrap valign-wrapper">
+        <div class="col s2-0">
+            <div class="row valign-wrapper">
+                <div class="col s5 center-align">
+                    车辆类型:
+                </div>
+                <select car-select class="col s7 browser-default "  ng-model="carType" style="margin-bottom: 20px">
+                    <option value="" disabled selected>请选择</option>
+                    <option value="1">选项 1</option>
+                    <option value="2">选项 2</option>
+                    <option value="3">选项 3</option>
+                </select>
+            </div>
+            <div class="row valign-wrapper">
+                <div class="col s5 center-align">
+                    所属类型:
+                </div>
+                <select car-select class="col s7 browser-default " ng-model="beToType">
+                    <option value="" disabled selected>请选择</option>
+                    <option value="1">选项 1</option>
+                    <option value="2">选项 2</option>
+                    <option value="3">选项 3</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="col s2-0">
+            <div class="row valign-wrapper">
+                <div class="col s5 center-align">
+                    关联司机:
+                </div>
+                <select car-select class="col s7 browser-default "  ng-model="carType" style="margin-bottom: 20px">
+                    <option value="" disabled selected>请选择</option>
+                    <option value="1">选项 1</option>
+                    <option value="2">选项 2</option>
+                    <option value="3">选项 3</option>
+                </select>
+            </div>
+            <div class="row valign-wrapper">
+                <div class="col s5 center-align">
+                    所属公司:
+                </div>
+                <select car-select class="col s7 browser-default " ng-model="beToType">
+                    <option value="" disabled selected>请选择</option>
+                    <option value="1">选项 1</option>
+                    <option value="2">选项 2</option>
+                    <option value="3">选项 3</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="col s2-0">
+            <div class="row valign-wrapper">
+                <div class="col s4 center-align">
+                    车检:
+                </div>
+                <select car-select class="col s8 browser-default "  ng-model="carType" style="margin-bottom: 20px">
+                    <option value="" disabled selected>请选择</option>
+                    <option value="1">选项 1</option>
+                    <option value="2">选项 2</option>
+                    <option value="3">选项 3</option>
+                </select>
+            </div>
+            <div class="row valign-wrapper">
+                <div class="col s4 center-align">
+                    险种:
+                </div>
+                <select car-select class="col s8 browser-default " ng-model="beToType">
+                    <option value="" disabled selected>请选择</option>
+                    <option value="1">选项 1</option>
+                    <option value="2">选项 2</option>
+                    <option value="3">选项 3</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="col s2-0">
+            <div class="row valign-wrapper">
+                <div class="col s4 center-align">
+                    牌号:
+                </div>
+                <!--<select car-select class="col s8 ">-->
+                <!--<option value="" disabled selected>Choose your option</option>-->
+                <!--<option value="1">选项 1</option>-->
+                <!--<option value="2">选项 2</option>-->
+                <!--<option value="3">选项 3</option>-->
+                <!--</select>-->
+                <div class="input-field col s8">
+                    <input placeholder=""  type="text" ng-model="carNum" class="validate">
+                </div>
+            </div>
+            <div class="row valign-wrapper">
+                <div class="col s4 center-align">
+                    保险:
+                </div>
+                <select car-select class="col s8 browser-default " ng-model="beToType">
+                    <option value="" disabled selected>请选择</option>
+                    <option value="1">选项 1</option>
+                    <option value="2">选项 2</option>
+                    <option value="3">选项 3</option>
+                </select>
+            </div>
+        </div>
+        <div class="col s2-0">
+            <div class="row valign-wrapper ">
+                <div class="col s5 center-align">
+                    车辆状态:
+                </div>
+                <select car-select class="col s7 browser-default " ng-model="carState" style="margin-bottom: 20px">
+                    <option value="" disabled selected>请选择</option>
+                    <option value="1">选项 1</option>
+                    <option value="2">选项 2</option>
+                    <option value="3">选项 3</option>
+                </select>
+            </div>
+            <div class="row valign-wrapper input-field">
+                <div class="col s5 center-align">
+                    调度状态:
+                </div>
+                <select car-select class="col s7 browser-default " ng-model="insurance" ng-change="change(x)">
+                    <option value="" disabled selected>请选择</option>
+                    <option value="1">选项 1</option>
+                    <option value="2">选项 2</option>
+                    <option value="3">选项 3</option>
+                </select>
+            </div>
+        </div>
+        <div class="col s1">
+            <a style="width: 100%;padding:0  1rem" class="waves-effect waves-light btn-large" ng-click="search()">搜索</a>
+        </div>
+        <div class="col s2">
+            <a style="width: 100%" class="waves-effect waves-light materialize-red lighten-1 btn-large" ng-click="addTruck()">增加车辆</a>
+            <div id="modal1" class="modal ">
+                <div class="modal-content">
+                    <h4 class="ch4 classign center-align">增加车辆</h4>
+                    <div class="divider"></div>
+                    <div class="row">
+
+                        <!--<ul class="PublicTabs">-->
+                        <!--<li class="tab col s3"><a class="active" href="#test1">基本信息</a>-->
+                        <!--<li class="tab col s3"><a  href="#test1">车检</a></li>-->
+                        <!--<li class="tab col s3"><a  href="#test2">车保</a></li>-->
+                        <!--<li class="tab col s3"><a href="#test4">备注</a></li>-->
+                        <!--</ul>-->
+                        <add-nav></add-nav>
+                    </div>
+                    <div class="add_Truck_view" ></div>
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">下一步</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <ul class="tabs" car-msg  >
+                <li class="tab col s6" ui-sref=".carRefuel"><a class="active" href="#">车辆加油</a></li>
+                <li class="tab col s6" ui-sref=".oilMass"><a  href="#">油量库存</a></li>
+            </ul>
+        </div>
+        <div class="col s12">
+            <div ui-view=""></div>
+        </div>
+    </div>
+
+</div>

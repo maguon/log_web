@@ -1,0 +1,46 @@
+<div class="storage_store_Wrap" >
+    <div class="storage_store_subject">
+        <div class="row searchBoxWrap ">
+            <div class="col s3 ">
+            </div>
+            <div class="col s3 ">
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col s12" >
+                <div class= "divider cyan lighten-1"  style="height: 2px"></div>
+                <table class=" bordered striped">
+                    <thead class="blue-grey lighten-5">
+                    <tr class="grey-text text-darken-1">
+                        <th data-field="">仓库名称</th>
+                        <th data-field="">总车位</th>
+                        <th data-field="">剩余车位</th>
+                        <th data-field="">已用车位</th>
+                        <th data-field="">今日入库</th>
+                        <th data-field="">今日出库</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody class="grey-text text-darken-1">
+                    <tr ng-repeat="el in store_storage"   ng-if="el.storage_status==1">
+                        <td ng-bind="el.storage_name"></td>
+                        <td >{{el.row*el.col}}</td>
+                        <td ng-bind="el.row*el.col-el.balance"></td>
+                        <td ng-bind="el.balance"></td>
+                        <td ng-bind="el.imports"></td>
+                        <td ng-bind="el.exports"></td>
+                        <td ng-if="el.storage_status==1">在用</td>
+                        <td ng-if="el.storage_status==0">停用</td>
+                        <td class="operation">
+                            <span><a href="#" ui-sref="storage_car_map({id:el.id,form:'storageStore'})"><i class="mdi mdi-file-outline cyan-text lighten-1"  ></i></a></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

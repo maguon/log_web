@@ -1,0 +1,182 @@
+<div class="system_warehouseWrap">
+    <div class="row">
+        <div class="row">
+            <h5 class="cyan-text text-lighten-1 center-align">仓库设置</h5>
+            <a class="waves-light btn-floating btn-large waves-effect btn right cyan lighten-1"  ng-click="newStorage()">
+                <i class="mdi mdi-plus"></i>
+            </a>
+            <div id="newStorage" class="modal">
+                <form name="StorageForm" ng-submit="newStorageForm(StorageForm.$valid)" novalidate>
+                    <div class="modal-content">
+                        <h4 class="center-align">创建新仓库</h4>
+                        <div class="divider a1_divider" ></div>
+                        <div class="container">
+                            <div class="row" style="margin-top:40px">
+                                <div class="row" ng-class="{ 'has-error':StorageForm.storageName.$invalid&&submitted }" >
+                                    <h5 class="col s2-0">
+                                        <span style="color: red">*</span>
+                                        仓库名称:
+                                    </h5>
+                                    <input  id="storageName" name="storageName" autocomplete="off" ng-model="newStorageName" type="text"   required class=" col s6-0">
+                                </div>
+                                <div class="row" >
+                                    <h5 class="col s2-0">
+                                        <span style="color: red">*</span>
+                                        创建车位:
+                                    </h5>
+                                    <div class=" col s4-0" ng-class="{ 'has-error':StorageForm.storageCol.$invalid&&submitted }">
+                                        <div class="row">
+                                            <input  id="storageCol" name="storageCol" autocomplete="off" ng-model="newStorageCol" type="text" required class="col s9-0">
+                                            <h5 class="col s1-0">排</h5>
+                                        </div>
+
+                                    </div>
+                                    <div class=" col s4-0" ng-class="{ 'has-error':StorageForm.storageRoad.$invalid&&submitted }">
+                                        <div class="row">
+                                            <input  id="storageRoad" name="storageRoad" autocomplete="off" ng-model="newStorageRoad" type="text" required class="col s9-0">
+                                            <h5 class="col s1-0">位</h5>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="row" ng-class="{ 'has-error' : StorageForm.storage_remark.$invalid&&submitted }">
+                                    <h5 class="col s2-0 ">
+                                        <span style="color: red">*</span>
+                                        备注:
+                                    </h5>
+                                    <textarea  id="storage_remark"  style="height: 100px" name="storage_remark" type="text" autocomplete="off"  ng-model="newStorageRemark" required  class="col s8-0"></textarea>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+                    <div class="modal-footer right-align">
+                        <button class="btn btn-floating waves-light waves-effect cyan lighten-1" type="submit" name="action" style="margin-left: 10px" >
+                            <i class="mdi mdi-check"></i>
+                        </button>
+                        <a  class=" btn-floating modal-action modal-close waves-effect waves-light grey lighten-1 btn"  >
+                            <i class="mdi mdi-close"></i>
+                        </a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+        <div class="col s12" >
+            <table class="highlight bordered">
+                <thead class="blue-grey lighten-5">
+                <tr class="table_header grey-text text-darken-1">
+                    <th class="s4" data-field="">仓库名称</th>
+                    <th class="s3" data-field="">总车位</th>
+                    <th class="s3" data-field="">状态</th>
+                    <th  class="s2 table_operation">操作</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr ng-repeat="el in storage" class="grey-text text-darken-1">
+                    <td ng-bind="el.storage_name"></td>
+                    <td  ng-bind="el.row*el.col"></td>
+                    <td ng-if="el.storage_status==1">在用</td>
+                    <td ng-if="el.storage_status==0">停用</td>
+                    <td class="operation table_operation vc-center">
+                        <span><i class="mdi mdi-eye cyan-text text-lighten-1" ng-click="lookStorage(el.id)"></i></span>
+                        <span class="switch" ng-click="changeStorage_status(el.id,el.storage_status)" style="height: 30px">
+                              <!--<span class="switch">-->
+                                <label>
+                                  <input type="checkbox" ng-checked="el.storage_status==1">
+                                  <span class="lever"></span>
+                                </label>
+                              <!--</span>-->
+                            <!--<i ng-if="el.storage_status==0" class="mdi mdi-link cyan-text text-lighten-1" ></i>-->
+                             <!--<i ng-if="el.storage_status==1" class="mdi mdi-link-off cyan-text text-lighten-1" ></i>-->
+                        </span>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+            <div id="look_Storage" class="modal">
+                <form name="selfStorageForm" ng-submit="lookStorageForm(selfStorageForm.$valid,selfStorage.id)" novalidate>
+                    <div class="modal-content">
+                        <h4 class="center-align">查看仓库详情</h4>
+                        <div class="divider a1_divider" ></div>
+                        <div class="container">
+                            <div class="row" style="margin-top: 40px">
+                                <div class="row" ng-class="{ 'has-error':selfStorageForm.selfStorageName.$invalid&&submitted }" >
+                                    <h5 class="col s2-0">
+                                        <span style="color: red">*</span>
+                                        仓库名称:
+                                    </h5>
+                                    <input  id="selfStorageName" name="selfStorageName" autocomplete="off" ng-model="selfStorage.storage_name" type="text"   required class=" col s4-0">
+                                    <div class="col s4-0">
+                                        <div class="row">
+                                            <h5 class="col s4-0 right-align">状态:</h5>
+                                            <div class="col s6-0">
+                                                <h5 ng-if="selfStorage.storage_status==1">在用</h5>
+                                                <h5 ng-if="selfStorage.storage_status==0">停用</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" >
+                                    <h5 class="col s2-0">
+                                        <span style="color: red">*</span>
+                                        创建车位:
+                                    </h5>
+                                    <div class=" col s4-0" ng-class="{ 'has-error':selfStorageForm.selfStorageCol.$invalid&&submitted }">
+                                        <div class="row">
+                                            <input  id="selfStorageCol" name="selfStorageCol" disabled autocomplete="off" ng-model="selfStorage.row" type="text" required class="col s9-0">
+                                            <h5 class="col s1-0">排</h5>
+                                        </div>
+
+                                    </div>
+                                    <div class=" col s4-0" ng-class="{ 'has-error':selfStorageForm.selfStorageRoad.$invalid&&submitted }">
+                                        <div class="row">
+                                            <input  id="selfStorageRoad" name="selfStorageRoad" disabled autocomplete="off" ng-model="selfStorage.col" type="text" required class="col s9-0">
+                                            <h5 class="col s1-0">位</h5>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <!--<div class="row valign-wrapper">-->
+                                    <!--<h5 class="col s2-0 ">-->
+                                        <!--<span style="color: red">*</span>-->
+                                        <!--运营记录:-->
+                                    <!--</h5>-->
+                                    <!--<div class="col s8-0 ">-->
+                                       <!--交电话费假大空弗兰克电视剧咖啡几点开始你发-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <div class="row" ng-class="{ 'has-error' : selfStorageForm.selfStorage_remark.$invalid&&submitted }">
+                                    <h5 class="col s2-0 ">
+                                        <span style="color: red">*</span>
+                                        备注:
+                                    </h5>
+                                    <textarea  id="selfStorage_remark"  style="height: 100px" name="selfStorage_remark" type="text" autocomplete="off"  ng-model="selfStorage.remark" required  class="col s8-0"></textarea>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+                    <div class="modal-footer vc-center">
+                        <button class="btn waves-light waves-effect cyan lighten-1" type="submit" name="action" >
+                            <i class="mdi mdi-check"></i>
+                        </button>
+                        <a  class=" modal-action modal-close waves-effect waves-light grey lighten-1 btn" style="margin-left: 10px" >
+                            <i class="mdi mdi-close"></i>
+                        </a>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-cn" ng-app="log_dev">
+<head>
+    <meta charset="UTF-8">
+    <title>E-Storage</title>
+    <link rel="stylesheet" href="./assets/plugins/materialize/css/materialize.css">
+    <link rel="stylesheet" href="/assets/plugins/alert/sweetalert.css">
+    <link rel="stylesheet" href="/assets/plugins/material_icon/css/materialdesignicons.css">
+    <link rel="stylesheet" href="/assets/plugins/fullcalendar-3.3.0/fullcalendar.css">
+    <link rel="stylesheet" href="/assets/plugins/jQueryViewer/css/viewer.min.css">
+    <link rel="stylesheet" href="/assets/css/index.css">
+    <link rel="stylesheet" href="/assets/css/flex.css">
+    <link rel="stylesheet" href="/assets/css/col.css">
+    <link rel="icon" href="/assets/images/ico/storage_32.ico">
+</head>
+<body>
+<header type="99" url="../assets/images/my_logo.png"></header>
+<!--<navigator></navigator>-->
+<ul id="slide-out" side-nav class="side-nav blue-grey darken-4">
+    <li class="nav-logo valign-wrapper " style="border-bottom: 1px solid #182024">
+        <div class="userBox ">
+            <img src="../assets/images/office.jpg" alt="" class="logo_img responsive-img left" style="height: 50px"> <!-- notice the "circle" class -->
+            <div class=" userBoxMsg left">
+              <span class="white-text">
+                操作员:
+              </span>
+                <span class="white-text" ng-bind="userName">
+
+                </span>
+            </div>
+        </div>
+    </li>
+    <!--<li class="divider grey lighten-2"></li>-->
+    <li class="bold side_navigator" >
+        <!--<a class="waves-effect waves-purple" href="#!/"  onclick="Materialize.toast('收到即时消息', 4000,'rounded');"><i class="mdi mdi-view-dashboard "></i>主页</a>-->
+        <!--<a class="waves-effect waves-light first-N" ui-sref="index" onclick="Materialize.toast('收到即时消息', 4000,'rounded');"><i class="white-text mdi mdi-crop-free "></i>主页</a>-->
+        <a class="waves-effect waves-light first-N" ui-sref="storage_index" ><i class="white-text mdi mdi-crop-free "></i>主控面板</a>
+    </li>
+    <li class="bold side_navigator">
+        <ul class="collapsible collapsible-accordion">
+            <li class="bold">
+                <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-account-settings-variant "></i>车辆管理</a>
+                <div class="collapsible-body blue-grey darken-3" style="padding: 0;">
+                    <ul >
+                        <li><a href="#!" ui-sref="car_sv_driver"><i class="mdi mdi-chevron-right white-text "></i>综合信息</a></li>
+                        <li><a href="#!" ui-sref="car_sv_driver"><i class="mdi mdi-chevron-right white-text "></i>车辆信息</a></li>
+                        <li><a href="#!" ui-sref="car_sv_driver"><i class="mdi mdi-chevron-right white-text "></i>事故故障管理</a></li>
+                        <li><a href="#!" ui-sref="car_sv_driver"><i class="mdi mdi-chevron-right white-text"></i>车辆加油管理</a></li>
+                        <li><a href="#!" ui-sref="car_sv_driver"  ><i class="white-text mdi mdi-chevron-right"></i>车辆配件管理</a></li>
+                        <li><a href="#!" ui-sref="car_sv_driver"  ><i class="white-text mdi mdi-chevron-right"></i>司机管理</a></li>
+                        <li><a href="#!" ui-sref="company"  ><i class="white-text mdi mdi-chevron-right"></i>所属公司管理</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+    <li class="bold side_navigator">
+        <a href="#!" ui-sref="user_info" class=" waves-effect waves-light first-N" ><i class="white-text mdi mdi-account-card-details"></i>用户信息</a>
+    </li>
+    <li class="bold side_navigator">
+        <a href="#!" ui-sref="company" class=" waves-effect waves-light first-N" ><i class="white-text mdi mdi-home"></i>公司信息</a>
+    </li>
+    <li class="bold side_navigator">
+        <a href="#!" ui-sref="car_demand" class=" waves-effect waves-light first-N" ><i class="white-text mdi mdi-magnify"></i>车辆查询</a>
+    </li>
+    <li class="bold side_navigator">
+        <ul class="collapsible collapsible-accordion">
+            <li class="bold">
+                <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-home-variant "></i>仓储管理</a>
+                <div class="collapsible-body slider_nav_box blue-grey darken-3" style="padding: 0;">
+                    <ul>
+                        <!--<li><a href="#!" ui-sref="index"><i class="mdi mdi-chevron-right white-text "></i>仓储首页</a></li>-->
+                        <li><a href="#!" ui-sref="calendar"><i class="mdi mdi-chevron-right white-text "></i>工作日历</a></li>
+                        <li><a href="#!" ui-sref="statistics"  ><i class="white-text mdi mdi-chevron-right"></i>仓储统计</a></li>
+                        <li><a href="#!" ui-sref="storage_store"  ><i class="white-text mdi mdi-chevron-right"></i>仓储存放</a></li>
+                        <li><a href="#!" ui-sref="storage_car"  ><i class="white-text mdi mdi-chevron-right"></i>仓储车辆</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+    <!--<li class="divider grey lighten-2"></li>-->
+    <li class="bold side_navigator">
+        <ul class="collapsible collapsible-accordion">
+            <li class="bold">
+                <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-account-settings-variant "></i>管理员设置</a>
+                <div class="collapsible-body blue-grey darken-3" style="padding: 0;">
+                    <ul >
+                        <li><a href="#!" ui-sref="setting_wh"><i class="mdi mdi-chevron-right white-text "></i>仓库设置</a></li>
+                        <li><a href="#!" ui-sref="setting_truck"><i class="mdi mdi-chevron-right white-text "></i>车辆设置</a></li>
+                        <li><a href="#!" ui-sref="setting_pw"><i class="mdi mdi-chevron-right white-text "></i>管理员设置</a></li>
+                        <li><a href="#!" ui-sref="setting_users"><i class="mdi mdi-chevron-right white-text"></i>用户管理</a></li>
+                        <li><a href="#!" ui-sref="setting_amend_vin"  ><i class="white-text mdi mdi-chevron-right"></i>修改VIN</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+
+
+</ul>
+<div class="ConWrap ">
+    <div class="containerBox" >
+        <div ui-view></div>
+    </div>
+    </h1>
+</div>
+    <div class="footer blue-grey darken-1">
+        <h5 class="footer-msg right">洺源信息技术</h5>
+        <h5 class="footer-msg right">物流系统1.0</h5>
+    </div>
+<div class="shadeDowWrap">
+    <div class="shadeDow vc-center">
+        <div class="preloader-wrapper big active ">
+            <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div><div class="gap-patch">
+                <div class="circle"></div>
+            </div><div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="/assets/plugins/fullcalendar-3.3.0/lib/moment.min.js"></script>
+<script src="/lib/jquery.min.js"></script>
+<script src="/lib/jquery.form.min.js"></script>
+<script src="/assets/plugins/jQueryViewer/js/viewer.min.js"></script>
+<script src="/assets/plugins/materialize/js/materialize.js"></script>
+<script src="/assets/plugins/alert/sweetalert.min.js"></script>
+<script src="/lib/angular/angular.min.js"></script>
+<script src="/assets/plugins/angular/angular-materialize.js"></script>
+<script src="/assets/plugins/fullcalendar-3.3.0/fullcalendar.min.js"></script>
+<script src="/lib/highcharts.js"></script>
+<script src="/lib/parse.min.js"></script>
+<script src="/assets/custom.js"></script>
+<script src="/lib/angular/angular-ui-router.min.js"></script>
+<script src="/lib/angular/angular-cookies.min.js"></script>
+<script src="/lib/angular/angular-messages.min.js"></script>
+<script src="/js/module/app_admin_module.js"></script>
+<script src="/js/controller/data_controller.js"></script>
+<script src="/js/controller/index_controller.js"></script>
+<script src="/js/controller/common_login_controller.js"></script>
+<!--<script src="/js/controller/setting_controller.js"></script>-->
+<script src="/js/controller/dispatch/truck_controller.js"></script>
+<script src="/js/controller/car/car_supervise/car_sv_driver_controller.js"></script>
+<script src="/js/controller/company/company_controller.js"></script>
+<script src="/js/controller/setting/setting_controller.js"></script>
+<script src="/js/controller/setting/setting_amend_vin_controller.js"></script>
+<script src="/js/controller/storage/storage_car_controller.js"></script>
+<script src="/js/controller/storage/storage_index_controller.js"></script>
+<script src="/js/controller/storage/storage_controller.js"></script>
+<script src="/js/controller/storage/storage_calendar_controller.js"></script>
+<script src="/js/controller/storage/storage_car_details_controller.js"></script>
+<script src="/js/controller/storage/storage_car_map_controller.js"></script>
+<script src="/js/controller/storage/storage_statistics_controller.js"></script>
+<script src="/js/controller/user/user_info_controller.js"></script>
+<script src="/js/controller/car/car_demand/car_demand_controller.js"></script>
+<script src="/js/controller/car/car_demand/demand_car_details_controller.js"></script>
+<script src="/js/filter/filters.js"></script>
+<script src="/js/service/base_service.js"></script>
+<script src="/js/service/config_service.js"></script>
+<script src="/js/service/http_service.js"></script>
+<script src="/js/host/host_config.js"></script>
+<script src="/js/directive/admin_directive.js"></script>
+<script src="/js/directive/public_directive.js"></script>
+<script src="/js/router/index_router.js"></script>
+
+<!--<script src="/config.js"></script>-->
+</html>

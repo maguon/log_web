@@ -47,7 +47,7 @@ var restify = require('restify');
         console.log("log web project start at :" +new Date().toLocaleString())
         server.get('/',restify.serveStatic({
             directory: './web',
-            default: 'index.html',
+            default: 'index_home.html',
             maxAge: 0
         }));
     });

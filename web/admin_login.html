@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-cn" ng-app="admin_login_dev">
+<head>
+    <meta charset="UTF-8">
+    <title>E-Storage</title>
+    <link rel="stylesheet" href="./assets/plugins/materialize/css/materialize.css">
+    <link rel="stylesheet" href="/assets/plugins/alert/sweetalert.css">
+    <link rel="stylesheet" href="/assets/plugins/material_icon/css/materialdesignicons.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/css/login.css">
+    <link rel="icon" href="/assets/images/ico/storage_32.ico">
+</head>
+<body class="cyan lighten-1" ng-controller="admin_login_controller">
+<div>
+    <div>
+        <div class="row">
+            <div class="col s4 push-l4 z-depth-4 card-panel" style="margin-top: 100px;">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12 center">
+                            <img style="width: 150px;height:150px;" src="/assets/images/storage_logo_128.png" alt="" class="circle responsive-img valign profile-image-login">
+                            <p class="center cyan-text text-lighten-1 login-form-text">欢迎进入E-Storage系统</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="mdi mdi-account-card-details prefix"></i>
+                            <input id="username" ng-model="username" autocomplete="off"   type="text" class="validate">
+                            <label for="username" class="active" >用户名</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="mdi mdi-lock prefix"></i>
+                            <input id="password" ng-model="password"  type="password">
+                            <label for="password" class="active" >密码</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <button class="btn waves-effect waves-light col s12 cyan lighten-1" ng-click="login()">登录</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="shadeDowWrap" >
+    <div class="shadeDow vc-center">
+        <div class="preloader-wrapper big active ">
+            <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div><div class="gap-patch">
+                <div class="circle"></div>
+            </div><div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script src="/lib/jquery.js"></script>
+<script src="/assets/plugins/materialize/js/materialize.js"></script>
+<script src="/assets/plugins/alert/sweetalert.min.js"></script>
+<script src="/assets/custom.js"></script>
+<script src="/lib/angular/angular.min.js"></script>
+<script src="/lib/angular/angular-ui-router.min.js"></script>
+<script src="/lib/angular/angular-cookies.min.js"></script>
+<script src="/js/module/admin_login_module.js"></script>
+<script src="/js/host/host_config.js"></script>
+<script src="/js/service/base_service.js"></script>
+<script src="/js/service/http_service.js"></script>
+<script src="/js/service/config_service.js"></script>
+<script src="/js/controller/admin_login_controller.js"></script>
+</html>

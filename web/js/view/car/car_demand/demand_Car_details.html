@@ -1,0 +1,162 @@
+<div id="demand_car_details" >
+    <div class="" >
+        <div class="modal-content grey-text text-darken-2">
+            <!--<div class="" style="width: 95%;margin: 0 auto">-->
+            <div class="storage_storeTitle vc-center ">
+                <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
+                    <i class="mdi mdi-arrow-left-bold"></i>
+                </a>
+                <h4 class="center-align cyan-text text-lighten-1">仓储车辆信息</h4>
+            </div>
+            <!--<div class="divider" style="background: #00bcd4;height: 2px;"></div>-->
+            <div class="row no-marBottom" ul-tabs>
+                <div class="col s12 p0">
+                    <ul class="tabWrap grey lighten-4 ">
+                        <li class="tab col s6  look_msg vc-center" ng-click="look_msg()">基本信息</li>
+                        <li  class="tab  col s6 look_car_img vc-center" ng-click="look_car_img()">车辆照片</li>
+                    </ul>
+                    <!--<div class="divider" style="background: #00bcd4;height: 2px;"></div>-->
+                </div>
+                <div id="look_msg" class="col s12 tab_box" style="width: 95%; margin:0 2% ">
+                    <form name="change_newStorage_carForm" style="color:#616161" ng-submit="submitForm(change_newStorage_carForm.$valid,self_car.id,self_car.r_id)" novalidate>
+                        <div class="row" style="margin-top: 20px;">
+                            <div class="row">
+                                <div class="col s4 valign-wrapper " style="padding: 0" ng-class="{ 'has-error':change_newStorage_carForm.look_win.$invalid&&submitted }">
+                                    <div class="input-field col s12">
+                                        <input  id="look_win" name="look_win" autocomplete="off" ng-model="self_car.vin" type="text" disabled   required >
+                                        <label for="look_win" ><span style="color: red">*</span>
+                                            VIN码</label>
+                                    </div>
+                                </div>
+                                <div class="col s4 valign-wrapper ">
+                                    <div class="input-field col s12">
+                                        <input  id="look_makecarName" name="look_win" autocomplete="off" ng-model="self_car.make_name" type="text" disabled   required >
+                                        <label for="look_makecarName" ><span style="color: red">*</span>
+                                            制造商</label>
+                                    </div>
+                                </div>
+                                <div class="col s4 valign-wrapper ">
+                                    <div class="input-field col s12">
+                                        <input  id="look_model_name" name="look_win" autocomplete="off" ng-model="self_car.model_name" type="text" disabled   required >
+                                        <label for="look_model_name" ><span style="color: red">*</span>
+                                            型号</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row "  >
+                                <div class="col s4 valign-wrapper p0" style="position: relative ;">
+                                    <div class="input-field col s12">
+                                        <input type="text" id="look_create_time" form-date   name="look_create_time" class="datepicker" disabled autocomplete="off" ng-model="self_car.pro_date" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                        <label for="look_create_time" >
+                                            生产日期</label>
+                                    </div>
+                                </div>
+                                <div class="col s4 valign-wrapper">
+                                    <div class="input-field col s12">
+                                        <!--<input  id="look_car_color" name="look_win" autocomplete="off" ng-model="self_car.colour" type="text" disabled   required >-->
+                                        <!--<label for="look_car_color" ><span style="color: red">*</span>-->
+                                            <!--颜色</label>-->
+                                        <select material-select watch id="look_car_color" name="look_car_color" class="" disabled ng-model="self_car.colour" required>
+                                            <option value="" disabled selected>请选择</option>
+                                            <option ng-repeat="el in color" ng-value="el.colorId" >{{el.colorName}}</option>
+                                        </select>
+                                        <label for="look_car_color" >
+                                            颜色</label>
+                                    </div>
+                                </div>
+                                <div class="col s4 valign-wrapper ">
+                                    <div class="input-field col s12">
+                                        <input  id="look_engineNum" name="look_engineNum" autocomplete="off" disabled ng-model="self_car.engine_num" type="text"   required >
+                                        <label for="look_engineNum" >
+                                            发动机号</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-if="self_car.rel_status==1" class="row ">
+                                <div class="col s4 valign-wrapper p0" >
+                                    <div class="input-field col s12">
+                                        <input  id="look_storageName"  name="look_storageName"  autocomplete="off" disabled ng-model="look_storageName" class=" red-text text-lighten-2" type="text"   required >
+                                        <label for="look_storageName" ><span style="color: red">*</span>
+                                            存放位置</label>
+                                    </div>
+                                </div>
+                                <div class="col s4 valign-wrapper ">
+                                    <div class="input-field col s12">
+                                        <input  id="look_enter_time" form-date name="look_enter_time" autocomplete="off" disabled ng-model="self_car.enter_time" type="text"   required class="datepicker " date><i class="mdi dataIcon mdi-table-large"></i>
+                                        <label for="look_enter_time" ><span style="color: red">*</span>
+                                            入库时间</label>
+                                    </div>
+
+                                </div>
+                                <div class="col s4 valign-wrapper ">
+                                    <div class="input-field col s12">
+                                        <input  id="look_plan_out_time" form-date name="look_plan_out_time"  autocomplete="off" ng-model="self_car.plan_out_time" type="text"  disabled  required class="datepicker " date><i class="mdi dataIcon mdi-table-large"></i>
+                                        <label for="look_plan_out_time" ><span style="color: red">*</span>
+                                            计划出库时间</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <p class="col s12 min-width-2 left-align" style="color: #26c6da" >
+                                    <span style="color: red">*</span>
+                                    备注:</p>
+                                <div class="col s12 valign-wrapper " style="position: relative">
+                                    <p class=" col s12 p0" >
+                                        <textarea disabled id="look_remark" style="height: 100px" name="remark" class="col s12" ng-model="self_car.remark"></textarea>
+
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row" style="height: 100px;overflow-y: auto">
+                                <p class="col s12  left-align " style="color: #26c6da" >
+                                    <span style="color: red">*</span>
+                                    操作记录:</p>
+                                <div ng-repeat="el in comment" class="col s12 valign-wrapper " style="position: relative">
+                                    <p class=" col s12 p0" >
+                                        <span class="col s12 p0">
+                                            <span ng-bind="el.timez|formdate"></span>
+                                            <span>
+                                                操作内容：
+                                            </span>
+                                            <span ng-bind="el.content">
+
+                                            </span>
+                                            <span>
+                                                操作员：
+                                            </span>
+                                            <span ng-bind="el.name">
+                                                王大锤
+                                            </span>
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div id="look_car_img" class="col s12 tab_box">
+                    <div class="row no-marBottom">
+                        <div class="col s12 valign-wrapper " >
+                            <div class="storage_car_picture_wrap col s12 p0" >
+                                <form name="uploadImageForm" class="uploadImageForm">
+                                    <ul id="look_img" >
+
+                                        <li ng-repeat="el in storage_imageBox" ng-mouseenter="show=true" ng-mouseleave="show=false"  repeat-finish="renderFinish()" class="storage_car_picture col s2 vc-center  p0 grey white-text">
+                                            <img ng-src="{{el.src}}"  class="responsive-img">
+                                            <p class="img_date white-text center-align" ng-show="show" ng-cloak>{{el.user}}上传于{{el.time|date:'yyyy-MM-dd hh:mm:ss'}}</p>
+                                        </li>
+                                    </ul>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+</div>

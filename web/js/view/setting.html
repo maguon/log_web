@@ -1,0 +1,53 @@
+<div>
+    <div class="row">
+        <div class="col s12 m6">
+            <div class="z-depth-1 blue-grey darken-1">
+                    <form class="col s12 z-depth-5  darken-1">
+                        <div class="row">
+                            <nav class="z-depth-0 purple darken-3">
+                                <div class="nav-wrapper">
+                                   <span style="padding-left: 20px;">个人设置</span>
+                                </div>
+                            </nav>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="mdi mdi-email prefix"></i>
+                                <input disabled id="email" type="email" class="validate" ng-model="email">
+                                <label for="email" class={{email!=null?'active':'inactive'}}>邮箱</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="mdi mdi-phone prefix"></i>
+                                <input id="phone" type="text" ng-model="phone" class="validate">
+                                <label for="phone" class={{phone!=null?'active':'inactive'}}>电话</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="mdi mdi-cake-layered prefix"></i>
+                                <label for="birth" style="text-decoration: none;">生日</label>
+                                <input type="date" class="datepicker" id="birth" >
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="mdi mdi-gender-transgender prefix"></i>
+                                <input name="gender" value="1" type="radio" id="male" ng-checked={{gender==1}} ng-model="gender">
+                                <label for="male" style="width: calc(3% - 3rem - 1.5rem);">男</label>
+                                <input name="gender" value="0" type="radio" id="female" ng-checked={{gender==0}} ng-model="gender">
+                                <label for="female" style="width: calc(30% - 3rem - 1.5rem);">女</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <button class="btn waves-effect waves-light col s12 purple darken-3"
+                                    ng-click="updateUser()">确定</button>
+                            </div>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>

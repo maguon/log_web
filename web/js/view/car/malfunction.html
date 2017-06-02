@@ -1,0 +1,207 @@
+<div class="CarMsgWrap" ng-controller="truckMsgController" >
+    <div class="row searchBoxWrap valign-wrapper">
+        <div class="col s9">
+            <div class="row valign-wrapper">
+                <div class="col s3">
+                    <div class="row valign-wrapper">
+                        <div class="col s4 center-align">
+                            车辆类型:
+                        </div>
+                        <select car-select class="col s8 browser-default "  ng-model="carType" >
+                            <option value="" disabled selected>请选择</option>
+                            <option value="1">选项 1</option>
+                            <option value="2">选项 2</option>
+                            <option value="3">选项 3</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="col s3">
+                    <div class="row valign-wrapper">
+                        <div class="col s5 center-align">
+                            车牌号:
+                        </div>
+                        <!--<select car-select class="col s8 ">-->
+                        <!--<option value="" disabled selected>Choose your option</option>-->
+                        <!--<option value="1">选项 1</option>-->
+                        <!--<option value="2">选项 2</option>-->
+                        <!--<option value="3">选项 3</option>-->
+                        <!--</select>-->
+                        <div class="input-field col s7">
+                            <input placeholder=""  type="text" ng-model="carNum" class="validate">
+                        </div>
+                    </div>
+                </div>
+                <div class="col s3">
+                    <div class="row valign-wrapper">
+                        <div class="col s5 center-align">
+                            事故地点:
+                        </div>
+                        <!--<select car-select class="col s8 ">-->
+                        <!--<option value="" disabled selected>Choose your option</option>-->
+                        <!--<option value="1">选项 1</option>-->
+                        <!--<option value="2">选项 2</option>-->
+                        <!--<option value="3">选项 3</option>-->
+                        <!--</select>-->
+                        <div class="input-field col s7">
+                            <input placeholder=""  type="text" ng-model="carNum" class="validate">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col s3">
+                    <div class="row valign-wrapper ">
+                        <div class="col s5 center-align">
+                            处理状态:
+                        </div>
+                        <select car-select class="col s7 browser-default " ng-model="carState" >
+                            <option value="" disabled selected>请选择</option>
+                            <option value="1">选项 1</option>
+                            <option value="2">选项 2</option>
+                            <option value="3">选项 3</option>
+                        </select>
+                    </div>
+                </div>
+                    </div>
+            <div class="row valign-wrapper">
+                <div class="col s2-0">
+                    <div class="row valign-wrapper">
+                        <div class="col s5 center-align">
+                            责任人:
+                        </div>
+                        <div class="input-field col s7">
+                            <input placeholder=""  type="text" ng-model="carNum" class="validate">
+                        </div>
+                    </div>
+                </div>
+                <div class="col s4-0">
+                    <div class="row valign-wrapper">
+                        <div class="col s5 center-align">
+                            事故时间:
+                        </div>
+                        <!--<select car-select class="col s8 ">-->
+                        <!--<option value="" disabled selected>Choose your option</option>-->
+                        <!--<option value="1">选项 1</option>-->
+                        <!--<option value="2">选项 2</option>-->
+                        <!--<option value="3">选项 3</option>-->
+                        <!--</select>-->
+                        <div class="input-field col s7">
+                            <input type="date" class="datepicker"  date>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s2-0">
+                    <div class="row valign-wrapper ">
+                        <div class="col s6 center-align">
+                            事故类别:
+                        </div>
+                        <select car-select class="col s6 browser-default " ng-model="carState">
+                            <option value="" disabled selected>请选择</option>
+                            <option value="1">选项 1</option>
+                            <option value="2">选项 2</option>
+                            <option value="3">选项 3</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="col s2-0">
+                    <div class="row valign-wrapper ">
+                        <div class="col s5 center-align">
+                            处理方式:
+                        </div>
+                        <select car-select class="col s7 browser-default " ng-model="carState" >
+                            <option value="" disabled selected>请选择</option>
+                            <option value="1">选项 1</option>
+                            <option value="2">选项 2</option>
+                            <option value="3">选项 3</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s1">
+            <a style="width: 100%;padding:0  1rem" class="waves-effect waves-light btn-large" ng-click="search()">搜索</a>
+        </div>
+        <div class="col s2">
+            <a style="width: 100%" class="waves-effect waves-light materialize-red lighten-1 btn-large">增加</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="divider"></div>
+        <div class="col s12" >
+            <table class="highlight bordered">
+                <thead>
+                <tr>
+                    <th data-field="">事故时间</th>
+                    <th data-field="">车辆类型</th>
+                    <th data-field="">车牌号</th>
+                    <th data-field="">所属类型</th>
+                    <th data-field="">所属公司</th>
+                    <th data-field="">司机</th>
+                    <th data-field="">事故地点</th>
+                    <th data-field="">事故类别</th>
+                    <th data-field="">处理方式</th>
+                    <th data-field="">状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr>
+                    <td>张三</td>
+                    <td>17</td>
+                    <td>汉</td>
+                    <td>张三</td>
+                    <td>17</td>
+                    <td>汉</td>
+                    <td>张三</td>
+                    <td>17</td>
+                    <td>17</td>
+                    <td>17</td>
+                    <td class="operation">
+                        <span><i class="mdi mdi-eye"></i></span>
+                        <span><i class="mdi mdi-truck-delivery"></i></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>李四</td>
+                    <td>12</td>
+                    <td>苗</td>
+                    <td>张三</td>
+                    <td>17</td>
+                    <td>汉</td>
+                    <td>张三</td>
+                    <td>17</td>
+                    <td>17</td>
+                    <td>17</td>
+                    <td class="operation">
+                        <span><i class="mdi mdi-eye"></i></span>
+                        <span><i class="mdi mdi-truck-delivery"></i></span>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>李明</td>
+                    <td>25</td>
+                    <td>汉</td>
+                    <td>张三</td>
+                    <td>17</td>
+                    <td>汉</td>
+                    <td>张三</td>
+                    <td>17</td>
+                    <td>17</td>
+                    <td>17</td>
+                    <td class="operation">
+                        <span><i class="mdi mdi-eye"></i></span>
+                        <span><i class="mdi mdi-truck-delivery"></i></span>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>

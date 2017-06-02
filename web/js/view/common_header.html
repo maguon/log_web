@@ -1,0 +1,82 @@
+<div>
+    <nav class="row cyan lighten-1 z-depth-2 header">
+        <div class="nav-wrapper " >
+            <ul class="left" >
+                <li >
+                    <a id="menu_link"  style="margin-left: 0;display: block" data-activates="slide-out" class="button-collapse "><i class="mdi mdi-menu mdi-36px"></i></a>
+                </li>
+            </ul>
+
+            <a href="#" class="brand-logo " >
+                <div class="vc-center" style="height: 100% ">
+                    <img class="responsive-img"  id="brand-logo" src="" alt="">
+                    <!--<img class="responsive-img"   src="../assets/images/honya_white_logo.png" alt="">-->
+                </div>
+
+            </a>
+            <ul class="right">
+                <!--<li>-->
+                <!--<div class="row valign-wrapper hSearch">-->
+                <!--<input class="col s9  search" style="margin: 0" type="text">-->
+                <!--<i  class="col s3 mdi mdi-magnify searchIcon" style="font-size: 45px"></i>-->
+                <!--</div>-->
+                <!--</li>-->
+                <li>
+                    <a class="right-align" onclick="toggleFullScreen()"><i class="mdi mdi-fullscreen mdi-36px"></i>
+
+                    </a>
+                </li>
+                <li>
+                    <a class="right-align"><i class="mdi mdi-account mdi-36px" ng-click="amend_user()" ></i></a>
+                </li>
+                <!--<li>-->
+                <!--<a><i class="mdi mdi-account-circle mdi-36px"></i></a>-->
+                <!--</li>-->
+                <li ng-click="logOut()">
+                    <a><i class="mdi mdi-exit-to-app mdi-36px"></i></a>
+                </li>
+            </ul>
+        </div>
+
+    </nav>
+    <div id="user_modal" class="modal">
+        <form name="amend_userFrom" ng-submit="amend_user_submit(amend_userFrom.$valid)" novalidate>
+            <div class="modal-content">
+                <h5 class="center-align grey-text">修改个人密码</h5>
+                <div class="divider cyan lighten-1" style="height: 2px"></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="input-field col s12" ng-class="{'has-error':amend_userFrom.user_old_password.$invalid&&submitted}">
+                            <i class="mdi mdi-lock-open-outline prefix"></i>
+                            <input id="user_old_password" name="user_old_password" ng-model="user_old_password" type="text" required >
+                            <label class="grey-text" for="user_old_password">原始密码</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12" ng-class="{'has-error':amend_userFrom.user_new_password.$invalid&&submitted}">
+                            <i class="mdi mdi-lock-outline prefix"></i>
+                            <input id="user_new_password" name="user_new_password" ng-model="user_new_password" type="text"  required>
+                            <label class="grey-text" for="user_new_password">新密码</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12" ng-class="{'has-error':amend_userFrom.user_confirm_password.$invalid&&submitted}">
+                            <i class="mdi mdi-lock-outline prefix"></i>
+                            <input id="user_confirm_password" name="user_confirm_password" ng-model="user_confirm_password" type="text" required>
+                            <label class="grey-text" for="user_confirm_password">确认密码</label>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="input-field col s12"></div>-->
+                <!--<div class="input-field col s12"></div>-->
+            </div>
+            <div class="modal-footer vc-center">
+                <button class="btn btn-floating waves-light waves-effect  cyan lighten-1" type="submit" name="action" >
+                    <i  class="mdi mdi-check"></i>
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
+

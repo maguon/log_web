@@ -1,0 +1,57 @@
+<ul id="slide-out" class="side-nav blue-grey darken-4">
+    <li class="nav-logo valign-wrapper " style="border-bottom: 1px solid #182024">
+        <div class="  userBox">
+            <!--<div class="col s3 valign-wrapper">-->
+                <img src="../../assets/images/office.jpg" alt="" class=" responsive-img left logo_img" style="height: 50px"> <!-- notice the "circle" class -->
+            <!--</div>-->
+            <div class=" userBoxMsg left">
+              <span class="white-text">
+                操作员:
+              </span>
+                <span class="white-text" ng-bind="userName">
+
+                </span>
+            </div>
+        </div>
+    </li>
+    <li class="bold side_navigator" >
+        <!--<a class="waves-effect waves-purple" href="#!/"  onclick="Materialize.toast('收到即时消息', 4000,'rounded');"><i class="mdi mdi-view-dashboard "></i>主页</a>-->
+        <a class="waves-effect waves-light first-N" ui-sref="storage_index" ><i class="white-text mdi mdi-crop-free "></i>主控面板</a>
+
+    </li>
+    <li class="bold side_navigator">
+        <ul class="collapsible collapsible-accordion">
+            <li class="bold">
+                <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-home-variant "></i>仓储管理</a>
+                <div class="collapsible-body slider_nav_box blue-grey darken-3" style="padding: 0;">
+                    <ul >
+                        <li><a href="#!" ui-sref="calendar"><i class="mdi mdi-chevron-right white-text "></i>工作日历</a></li>
+                        <li><a href="#!" ui-sref="statistics"  ><i class="white-text mdi mdi-chevron-right"></i>仓储统计</a></li>
+                        <li><a href="#!" ui-sref="storageStore"  ><i class="white-text mdi mdi-chevron-right"></i>仓储存放</a></li>
+                        <li><a href="#!" ui-sref="storageCar"  ><i class="white-text mdi mdi-chevron-right"></i>仓储车辆</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+    <li class="bold side_navigator">
+        <ul class="collapsible collapsible-accordion">
+            <li class="bold">
+                <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-settings "></i>系统设置</a>
+                <div class="collapsible-body blue-grey darken-3" style="padding: 0;">
+                    <ul >
+                        <li><a href="#!" ui-sref="storage_setting_car"><i class="mdi mdi-chevron-right white-text "></i>车辆设置</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+    <li class="bold side_navigator">
+        <ul class="collapsible collapsible-accordion">
+            <li class="bold">
+                <a href="#!" ui-sref="user_info" class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-account-card-details"></i>用户信息</a>
+            </li>
+        </ul>
+    </li>
+
+</ul>

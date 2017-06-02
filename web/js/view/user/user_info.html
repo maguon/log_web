@@ -1,0 +1,45 @@
+<div class="user_info ">
+    <div class="row">
+        <div class="row valign-wrapper">
+            <h5 class="col s12 cyan-text lighten-1  center-align">
+                用户信息
+            </h5>
+            <!--<div class="col s8 right-align">-->
+            <!---->
+            <!--</div>-->
+        </div>
+        <div class="row">
+            <div class="divider"></div>
+        </div>
+        <div style="width: 75%;margin: 0 auto">
+            <ul class="collapsible"  data-collapsible="accordion" collapsible>
+                <li  style="border-bottom: 1px solid #4dd0e1" ng-repeat="el in user_info_section" >
+                    <div class="collapsible-header user_info_list " flag="true" ng-click="get_userInfo($event,el.user_type)"><i class="mdi   mdi-account" ></i><span>{{el.type_name}}</span></div>
+                    <div class="collapsible-body" style="padding: 0">
+                            <div class="col s12 p0" >
+                                <table class=" bordered striped">
+                                    <thead class="blue-grey lighten-5">
+                                    <tr class="grey-text text-darken-1">
+                                        <th class="center-align" data-field="">姓名</th>
+                                        <th class="center-align" data-field="">性别</th>
+                                        <th class="center-align" data-field="">联系电话</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="grey-text text-darken-1">
+                                    <tr ng-repeat="els in el.user_info_list_array" >
+                                        <td class="center-align" ng-bind="els.real_name"></td>
+                                        <td class="center-align" ng-if="els.gender==1">男</td>
+                                        <td class="center-align" ng-if="els.gender==0">女</td>
+                                        <td class="center-align" ng-bind="els.mobile"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+</div>

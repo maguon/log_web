@@ -1,0 +1,278 @@
+<div class="CompanyWrap" >
+    <div class="row searchBoxWrap valign-wrapper">
+        <div class="col s8">
+            <div class="row valign-wrapper">
+                <div class="col s1-5">
+                    公司名称:
+                </div>
+                <div class="input-field col s8-5">
+                    <input placeholder=""  type="text" ng-model="s_computer" class="validate">
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col s6">
+                    <div class="row valign-wrapper">
+                        <div class="col s3-0" style="padding: 0">
+                            所属类型:
+                        </div>
+                        <select material-select watch class="col s7-0  " ng-model="s_type">
+                            <option value="" disabled selected>请选择</option>
+                            <option value="1">自营</option>
+                            <option value="2">供方</option>
+                            <option value="3">外协</option>
+                            <option value="4">承包</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col s6">
+                    <div class="row valign-wrapper">
+                        <div class="col s3-0 no-pm">
+                            所属城市:
+                        </div>
+                        <select material-select watch class="col s7-0 " ng-model="s_city">
+                            <option value="" disabled selected>请选择</option>
+                            <option ng-value="{{op.id}}" ng-repeat="op in citys">{{op.city_name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s1">
+            <a style="width: 100%;padding:0  1rem;" class="waves-effect waves-light cyan lighten-1 btn-large " ng-click="search()">搜索</a>
+        </div>
+        <div class="col s2">
+            <a style="width: 100%" class="waves-effect waves-light  red lighten-2 btn-large " ng-click="addCompany()">增加公司</a>
+            <div id="addCompany" class="modal">
+                <form name="new_companyForm" ng-submit="submitForm(new_companyForm.$valid)" novalidate>
+                    <div class="modal-content">
+                        <h4 class="center-align">增加公司</h4>
+                        <div class="divider"></div>
+                        <div class="row">
+                            <div class="container" style="padding: 20px 0">
+                                <div class="row form_box" ng-class="{ 'has-error' : new_companyForm.company_name.$invalid&&submitted }">
+                                    <p class="col s2-0" style="padding: 10px 0.75rem"><span class="red-text">*</span><span style="font-size: 20px">公司名称:</span></p>
+                                    <input   type="text" name="company_name" autocomplete="off" ng-model="addCompanyName" class="col s8-0 " required>
+                                    <!--<div class="form-tips red white-text" ng-if="new_companyForm.company_name.$error&&submitted" ng-messages="new_companyForm.company_name.$error">-->
+                                        <!--<div ng-message="required">不能为空</div>-->
+                                    <!--</div>-->
+                                </div>
+                                <div class="row ">
+                                    <div class="col s6">
+                                        <div class="row valign-wrapper no-marBottom" ng-class="{ 'has-error' : new_companyForm.OperateType.$invalid&&submitted }">
+                                            <p class="col s4-0"><span class="red-text">*</span><span >合作性质:</span></p>
+                                            <select car-select name="OperateType" class="browser-default col s6-0" ng-model="addOperateType" required>
+                                                <option value="" disabled selected>请选择</option>
+                                                <option value="1">自营</option>
+                                                <option value="2">供方</option>
+                                                <option value="3">外协</option>
+                                                <option value="4">承包</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <div class="col s6">
+                                        <div class="row valign-wrapper no-marBottom" ng-class="{ 'has-error' : new_companyForm.City.$invalid&&submitted }">
+                                            <p class="col s4-0"><span class="red-text">*</span><span >所在城市:</span></p>
+                                            <select car-select name="City" class="browser-default col s6-0" ng-model="addCityId" required>
+                                                <option value="" disabled selected>请选择</option>
+                                                <option ng-value="{{op.id}}" ng-repeat="op in citys">{{op.city_name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s6">
+                                        <div class="row form_box valign-wrapper no-marBottom" ng-class="{ 'has-error' : new_companyForm.contacts.$invalid&&submitted }">
+                                            <p class="col s4-0"><span class="red-text">*</span><span >联系人:</span></p>
+                                            <input  type="text" name="contacts" ng-model="addContacts" autocomplete="off" class=" col s6-0 " required>
+                                            <!--<div class="form-tips red white-text" ng-if="new_companyForm.contacts.$error&&submitted" ng-messages="new_companyForm.contacts.$error">-->
+                                                <!--<div ng-message="required">不能为空</div>-->
+                                            <!--</div>-->
+                                        </div>
+
+
+                                    </div>
+                                    <div class="col s6">
+                                        <div class="row form_box valign-wrapper no-marBottom" ng-class="{ 'has-error' : new_companyForm.Tel.$invalid&&submitted }">
+                                            <p class="col s4-0"><span class="red-text">*</span><span >联系电话:</span></p>
+                                            <input name="Tel"  type="text" ng-model="addTel"v autocomplete="off" class="col s6-0 " required>
+                                            <!--<div class="form-tips red white-text" ng-if="new_companyForm.Tel.$error&&submitted" ng-messages="new_companyForm.Tel.$error">-->
+                                                <!--<div ng-message="required">不能为空</div>-->
+                                            <!--</div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row valign-wrapper " ng-class="{ 'has-error' : new_companyForm.company_name.$invalid&&submitted }">
+                                    <p class="col s2-0"><span class="red-text">*</span><span>合作时间:</span></p>
+                                    <div class="dateBox col s8-0 form_box" style="padding:0">
+                                        <input type="text" name="CooperationTime" class="datepicker" autocomplete="off" ng-model="addCooperationTime" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                        <!--<div class="form-tips red white-text" ng-if="new_companyForm.CooperationTime.$error&&submitted" ng-messages="new_companyForm.CooperationTime.$error">-->
+                                            <!--<div ng-message="required">不能为空</div>-->
+                                        <!--</div>-->
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <p class="col s6"><span >备注:</span></p>
+                                    <div class="col s12">
+                                        <textarea style="height: 80px"  ng-model="addMark"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="modal-footer vc-center">
+                        <button class="btn waves-light waves-effect" type="submit" name="action" >
+                            <i class="mdi mdi-check"></i>
+                        </button>
+                        <a  class=" modal-action modal-close waves-effect waves-light materialize-red lighten-1 btn" style="margin-left: 10px" >
+                            <i class="mdi mdi-close"></i>
+                        </a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="divider"></div>
+        <div class="col s12" >
+            <table class="highlight bordered">
+                <thead>
+                <tr>
+                    <th data-field="">公司名称</th>
+                    <th data-field="">合作性质</th>
+                    <th data-field="">可用车辆(辆)</th>
+                    <th data-field="">联系人</th>
+                    <th data-field="">公司电话</th>
+                    <th data-field="">所属城市</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="el in Company">
+                    <td ng-bind="el.company_name"></td>
+                    <td ng-if="el.operate_type=='1'">自营</td>
+                    <td ng-if="el.operate_type=='2'">供方</td>
+                    <td ng-if="el.operate_type=='3'">外协</td>
+                    <td ng-if="el.operate_type=='4'">承包</td>
+                    <td>汉</td>
+                    <td ng-bind="el.contacts"></td>
+                    <td ng-bind="el.tel"></td>
+                    <td ng-bind="el.city_name"></td>
+                    <td class="operation">
+                        <span><i class="mdi mdi-eye"  ng-click="LookCompany(el.id)"></i></span>
+                        <span><i class="mdi mdi-truck-delivery"></i></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="LookCompany" class="modal">
+        <form name="look_companyForm"  ng-submit="look_submitForm(company.id,look_companyForm.$valid)" novalidate>
+            <div class="modal-content">
+                <h4 class="center-align">公司信息</h4>
+                <div class="divider"></div>
+                <div class="row" >
+                    <div class="container" style="padding: 20px 0;font-size: 15px">
+                        <div class="row form_box" ng-class="{ 'has-error' : look_companyForm.company_name.$invalid&&look_submitted }">
+                            <p class="col s2-0" style="padding: 10px 0.75rem"><span class="red-text">*</span><span >公司名称:</span></p>
+                            <input  type="text" name="company_name" autocomplete="off" ng-model="company.company_name" class="col s8-0 validate" required>
+                            <!--<div class="form-tips red white-text" ng-if="look_companyForm.company_name.$error&&look_submitted" ng-messages="look_companyForm.company_name.$error">-->
+                                <!--<div ng-message="required">不能为空</div>-->
+                            <!--</div>-->
+                        </div>
+                        <div class="row ">
+                            <div class="col s6">
+                                <div class="row valign-wrapper no-marBottom" ng-class="{ 'has-error' : look_companyForm.look_operate_type.$invalid&&look_submitted }">
+                                    <p class="col s4-0"><span class="red-text">*</span><span >合作性质:</span></p>
+                                    <select car-select name="look_operate_type" class="browser-default col s6-0" ng-model="company.operate_type" required>
+                                        <option value="" disabled selected>请选择</option>
+                                        <option ng-value="1" >自营</option>
+                                        <option ng-value="2">供方</option>
+                                        <option ng-value="3">外协</option>
+                                        <option ng-value="4">承包</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="col s6">
+                                <div class="row valign-wrapper no-marBottom" ng-class="{ 'has-error' : look_companyForm.look_city.$invalid&&look_submitted }">
+                                    <p class="col s4-0"><span class="red-text">*</span><span >所在城市:</span></p>
+                                    <select car-select name="look_city" class="browser-default col s6-0" ng-model="company.city_id" required>
+                                        <!--<option value="" disabled selected>请选择</option>-->
+                                        <option ng-value="op.id"  ng-repeat="op in citys">{{op.city_name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s6">
+                                <div class="row form_box valign-wrapper no-marBottom" ng-class="{'has-error':look_companyForm.look_contacts.$invalid&&look_submitted}">
+                                    <p class="col s4-0"><span class="red-text">*</span><span >联系人:</span></p>
+                                    <input  type="text" name="look_contacts" autocomplete="off" ng-model="company.contacts" class=" col s6-0 validate" required>
+                                    <!--<div class="form-tips red white-text" ng-if="look_companyForm.look_contacts.$error&&look_submitted" ng-messages="look_companyForm.look_contacts.$error">-->
+                                        <!--<div ng-message="required">不能为空</div>-->
+                                    <!--</div>-->
+                                </div>
+
+
+                            </div>
+                            <div class="col s6">
+                                <div class="row form_box valign-wrapper no-marBottom" ng-class="{'has-error':look_companyForm.look_tel.$invalid&&look_submitted}">
+                                    <p class="col s4-0"><span class="red-text">*</span><span >联系电话:</span></p>
+                                    <input  type="text" name="look_tel" autocomplete="off" ng-model="company.tel" class="col s6-0 validate" required>
+                                    <!--<div class="form-tips red white-text" ng-if="look_companyForm.look_tel.$error&&look_submitted" ng-messages="look_companyForm.look_tel.$error">-->
+                                        <!--<div ng-message="required">不能为空</div>-->
+                                    <!--</div>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row valign-wrapper ">
+                            <p class="col s2-0"><span class="red-text">*</span><span >合作时间:</span></p>
+                            <div class="dateBox col s8-0 form_box" style="padding:0" ng-class="{'has-error':look_companyForm.look_cooperation_time.$invalid&&look_submitted}">
+                                <input type="text" autocomplete="off" name="look_cooperation_time" class="datepicker" ng-model="look_cooperation_time"  date required><i class="mdi dataIcon mdi-table-large"></i>
+                                <!--<div class="form-tips red white-text" ng-if="look_companyForm.look_cooperation_time.$error&&look_submitted" ng-messages="look_companyForm.look_cooperation_time.$error">-->
+                                    <!--<div ng-message="required">不能为空</div>-->
+                                <!--</div>-->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col s4">
+                                拥有头车:
+                                <span class="red-text" ng-bind="firstCount"></span>
+                            </p>
+                            <p class="col s4">
+                                拥有挂车:
+                                <span class="red-text" ng-bind="trailerCount"></span>
+                            </p>
+                            <p class="col s4">
+                                拥有司机:
+                                <span class="red-text" ng-bind="driveCount"></span>
+                            </p>
+                        </div>
+                        <div class="row">
+                            <p class="left col s6"><span >备注:</span></p>
+                            <div class="col s12">
+                                <textarea style="height: 80px"  ng-model="company.remark"></textarea>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class="modal-footer vc-center">
+                <button class="btn waves-light waves-effect" type="submit" name="action" >
+                    <i class="mdi mdi-check"></i>
+                </button>
+                <a  class=" modal-action modal-close waves-effect waves-light materialize-red lighten-1 btn" style="margin-left: 10px" >
+                    <i class="mdi mdi-close"></i>
+                </a>
+
+            </div>
+        </form>
+
+    </div>
+</div>

@@ -1,0 +1,20 @@
+{
+  "name": "log-web",
+  "version": "0.0.1",
+  "dependencies": {
+    "assert-plus": "*",
+    "extend": "*",
+    "posix-getopt": "1.0.0",
+    "request": "*",
+    "restify": "4.0.3",
+    "restify-errors": "*"
+  },
+  "scripts": {
+    "start": "node main.js"
+  },
+  "author": "MingYuan",
+  "license": "",
+  "devDependencies": {
+    "restify": "^4.0.3"
+  }
+}

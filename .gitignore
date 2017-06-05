@@ -1,7 +1,7 @@
 *.log
 config/config.js
 conf.json
-web/host/host_config.js
+web/js/host/host_config.js
 public/apidocs/json/index.json
 .idea/*
 uploads/*

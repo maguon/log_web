@@ -8,10 +8,53 @@ publicDirective.directive('header', function () {
         replace: true,
         transclude: false,
         restrict: 'E',
-        controller: function ($scope, $element, $rootScope, _basic,_config,$host) {
-                var str_type=$element.attr("type");
-                $("#brand-logo").attr("src",$element.attr("url"));
-                if (_basic.getSession(_basic.USER_TYPE)==str_type) {
+        controller: function ($scope, $element, $rootScope, _basic,_config,$host,_socket) {
+            var str_type=$element.attr("type");
+            $("#brand-logo").attr("src",$element.attr("url"));
+            //修改个人密码
+            $scope.amend_user=function () {
+                $(".modal").modal();
+                $("#user_modal").modal("open");
+            };
+            $scope.amend_user_submit=function (valid) {
+                $scope.submitted=true;
+                if(valid&&$scope.user_new_password==$scope.user_confirm_password){
+                    var obj={
+                        "originPassword":$scope.user_old_password,
+                        "newPassword": $scope.user_new_password
+                    };
+                    _basic.put($host.api_url + "/user/" + userid + "/password", obj).then(function (data) {
+                        if (data.success == true) {
+                            swal("密码重置成功", "", "success");
+                            $("#user_modal").modal("close");
+                        } else {
+                            swal(data.msg, "", "error");
+                        }
+                    })
+                }
+            };
+
+            //退出登录
+            $scope.logOut = function () {
+                swal({
+                    title: "注销账号",
+                    text: "是否确认退出登录",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "确认",
+                    cancelButtonText: "取消",
+                    closeOnConfirm: false
+                }, function () {
+                    _basic.removeSession(_basic.COMMON_AUTH_NAME);
+                    _basic.removeSession(_basic.USER_ID);
+                    _basic.removeSession(_basic.USER_TYPE);
+                    _basic.removeSession(_basic.USER_NAME);
+                    window.location.href = '/common_login.html';
+                });
+
+            }
+            if (_basic.getSession(_basic.USER_TYPE)==str_type) {
                 var userid=_basic.getSession(_basic.USER_ID);
 
                 //触发侧边栏导航
@@ -23,59 +66,26 @@ publicDirective.directive('header', function () {
                 });
                 $('.collapsible').collapsible();
 
-                //修改个人密码
-                $scope.amend_user=function () {
-                    $(".modal").modal();
-                    $("#user_modal").modal("open");
-                };
-                $scope.amend_user_submit=function (valid) {
-                    $scope.submitted=true;
-                    if(valid&&$scope.user_new_password==$scope.user_confirm_password){
-                        var obj={
-                            "originPassword":$scope.user_old_password,
-                            "newPassword": $scope.user_new_password
-                        };
-                        _basic.put($host.api_url + "/user/" + userid + "/password", obj).then(function (data) {
-                            if (data.success == true) {
-                                swal("密码重置成功", "", "success");
-                                $("#user_modal").modal("close");
-                            } else {
-                                swal(data.msg, "", "error");
-                            }
-                        })
-                    }
-                };
-
-                //退出登录
-                $scope.logOut = function () {
-                    swal({
-                        title: "注销账号",
-                        text: "是否确认退出登录",
-                        type: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "确认",
-                        cancelButtonText: "取消",
-                        closeOnConfirm: false
-                    }, function () {
-                        _basic.removeSession(_basic.COMMON_AUTH_NAME);
-                        _basic.removeSession(_basic.USER_ID);
-                        _basic.removeSession(_basic.USER_TYPE);
-                        _basic.removeSession(_basic.USER_NAME);
-                        window.location.href = '/common_login.html';
-                    });
-
-                }
 
                 //存储信息到sessionStorage
-                    _basic.setHeader(_basic.USER_TYPE, _basic.getSession(_basic.USER_TYPE));
-                    _basic.setHeader(_basic.COMMON_AUTH_NAME,  _basic.getSession(_basic.COMMON_AUTH_NAME) );
-                    _basic.get($host.api_url + "/user/" + _basic.getSession(_basic.USER_ID)).then(function (data) {
-                    // $(".shadeDowWrap").hide();
+
+                var userId = _basic.getSession(_basic.USER_ID);
+                var userType = _basic.getSession(_basic.USER_TYPE);
+                _basic.setHeader(_basic.USER_TYPE, userType);
+                _basic.setHeader(_basic.COMMON_AUTH_NAME,  _basic.getSession(_basic.COMMON_AUTH_NAME) );
+                _basic.get($host.api_url + "/user/" + userId).then(function (data) {
+                // $(".shadeDowWrap").hide();
                     if (data.success == true) {
                         $scope.userName = data.result[0].mobile;
                         _basic.setSession(_basic.USER_NAME, $scope.userName);
                         _basic.setHeader(_basic.USER_NAME, $scope.userName);
+                        var user = {
+                            id:userId,
+                            type:userType,
+                            name:data.result[0].real_name
+                        }
+                        console.log(user);
+                        _socket.connectSocket(user);
                     } else {
                         swal(data.msg, "", "error");
                     }

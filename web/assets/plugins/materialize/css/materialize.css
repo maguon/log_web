@@ -5291,7 +5291,7 @@ input[type=range]:focus::-ms-fill-upper {
     line-height: 48px; }
 .side-nav li.active {
     background-color: rgba(0, 0, 0, 0.05); }
-.side-nav li > a {
+.side-nav  a {
     color: rgba(0, 0, 0, 0.87);
     display: block;
     font-size: 14px;

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/assets/css/index.css">
     <link rel="stylesheet" href="/assets/css/flex.css">
     <link rel="stylesheet" href="/assets/css/col.css">
+    <link rel="stylesheet" href="/assets/css/font.css">
     <link rel="icon" href="/assets/images/ico/storage_32.ico">
 </head>
 <body>
@@ -61,6 +62,9 @@
         <a href="#!" ui-sref="company" class=" waves-effect waves-light first-N" ><i class="white-text mdi mdi-home"></i>公司信息</a>
     </li>
     <li class="bold side_navigator">
+        <a href="#!" ui-sref="data" class=" waves-effect waves-light first-N" ><i class="white-text mdi mdi-home"></i>数据</a>
+    </li>
+    <li class="bold side_navigator">
         <a href="#!" ui-sref="car_demand" class=" waves-effect waves-light first-N" ><i class="white-text mdi mdi-magnify"></i>车辆查询</a>
     </li>
     <li class="bold side_navigator">
@@ -84,15 +88,18 @@
         <ul class="collapsible collapsible-accordion">
             <li class="bold">
                 <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-account-settings-variant "></i>管理员设置</a>
-                <div class="collapsible-body blue-grey darken-3" style="padding: 0;">
-                    <ul >
-                        <li><a href="#!" ui-sref="setting_wh"><i class="mdi mdi-chevron-right white-text "></i>仓库设置</a></li>
-                        <li><a href="#!" ui-sref="setting_truck"><i class="mdi mdi-chevron-right white-text "></i>车辆设置</a></li>
-                        <li><a href="#!" ui-sref="setting_pw"><i class="mdi mdi-chevron-right white-text "></i>管理员设置</a></li>
-                        <li><a href="#!" ui-sref="setting_users"><i class="mdi mdi-chevron-right white-text"></i>用户管理</a></li>
-                        <li><a href="#!" ui-sref="setting_amend_vin"  ><i class="white-text mdi mdi-chevron-right"></i>修改VIN</a></li>
-                    </ul>
-                </div>
+                    <div class="collapsible-body blue-grey darken-3" style="padding: 0;">
+                        <ul>
+                            <li><a href="#!" ui-sref="setting_users"><i class="mdi mdi-chevron-right white-text"></i>用户管理</a></li>
+                            <li><a href="#!" ui-sref="setting_wh"><i class="mdi mdi-chevron-right white-text "></i>仓库设置</a></li>
+                            <li><a href="#!" ui-sref="setting_car_brand"><i class="mdi mdi-chevron-right white-text "></i>车辆设置</a></li>
+                            <li><a href="#!" ui-sref="setting_pw"><i class="mdi mdi-chevron-right white-text "></i>管理员设置</a></li>
+                            <li><a href="#!" ui-sref="setting_amend_vin" ><i class="white-text mdi mdi-chevron-right"></i>修改VIN码</a></li>
+                            <li><a href="#!" ui-sref="setting_city" ><i class="white-text mdi mdi-chevron-right"></i>城市设置</a></li>
+                            <li><a href="#!" ui-sref="setting_client"><i class="white-text mdi mdi-chevron-right"></i>委托方</a></li>
+                            <li><a href="#!" ui-sref="setting_dealer" ><i class="white-text mdi mdi-chevron-right"></i>经销商</a></li>
+                        </ul>
+                    </div>
             </li>
         </ul>
     </li>
@@ -125,6 +132,8 @@
     </div>
 </div>
 </body>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=8iGBbYV3ghkvGehg79nG5LaGX2vVawjG"></script>
+<!--<script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>-->
 <script src="/assets/plugins/fullcalendar-3.3.0/lib/moment.min.js"></script>
 <script src="/lib/jquery.min.js"></script>
 <script src="/lib/jquery.form.min.js"></script>
@@ -141,7 +150,7 @@
 <script src="/lib/angular/angular-cookies.min.js"></script>
 <script src="/lib/angular/angular-messages.min.js"></script>
 <script src="/js/module/app_admin_module.js"></script>
-<script src="/js/controller/data_controller.js"></script>
+<!--<script src="/js/controller/data_controller.js"></script>-->
 <script src="/js/controller/index_controller.js"></script>
 <script src="/js/controller/common_login_controller.js"></script>
 <!--<script src="/js/controller/setting_controller.js"></script>-->
@@ -150,9 +159,17 @@
 <script src="/js/controller/company/company_controller.js"></script>
 <script src="/js/controller/setting/setting_controller.js"></script>
 <script src="/js/controller/setting/setting_amend_vin_controller.js"></script>
+<script src="/js/controller/setting/setting_city_controller.js"></script>
+<script src="/js/controller/setting/setting_dealer_controller/setting_dealer_controller.js"></script>
+<script src="/js/controller/setting/setting_dealer_controller/add_setting_dealer_controller.js"></script>
+<script src="/js/controller/setting/setting_dealer_controller/setting_dealer_details_controller.js"></script>
+<script src="/js/controller/setting/setting_client/setting_client_controller.js"></script>
+<script src="/js/controller/setting/setting_client/setting_add_client_controller.js"></script>
+<script src="/js/controller/setting/setting_client/setting_client_details_controller.js"></script>
 <script src="/js/controller/storage/storage_car_controller.js"></script>
 <script src="/js/controller/storage/storage_index_controller.js"></script>
 <script src="/js/controller/storage/storage_controller.js"></script>
+<script src="/js/controller/storage/data_controller.js"></script>
 <script src="/js/controller/storage/storage_calendar_controller.js"></script>
 <script src="/js/controller/storage/storage_car_details_controller.js"></script>
 <script src="/js/controller/storage/storage_car_map_controller.js"></script>

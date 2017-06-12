@@ -2,6 +2,7 @@
  * Created by ASUS on 2017/5/15.
  */
 var publicDirective = angular.module("publicDirective", []);
+
 publicDirective.directive('header', function () {
     return {
         templateUrl: '/js/view/common_header.html',

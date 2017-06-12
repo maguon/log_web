@@ -87,9 +87,8 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         .state("data", {
             url: "/data",  //路由路径
             templateUrl: "js/view/data.html",  //路由填充的模板
-            controller:'dataController'
+            controller:'data_controller'
         })
-
         .state("setting_users", {
             url: "/setting_users",  //路由路径
             templateUrl: "js/view/system_settings/user_manager.html", //路由填充的模板
@@ -105,15 +104,50 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/system_settings/system_warehouse.html",
             controller:'settingWH_controller'
         })
-        .state("setting_truck", {
-            url:"/setting_truck",
-            templateUrl: "js/view/system_settings/setting_truck.html",
+        .state("setting_car_brand", {
+            url:"/setting_car_brand",
+            templateUrl: "js/view/system_settings/setting_car_brand.html",
             controller:'settingT_controller'
         })
         .state("setting_amend_vin",{
             url:"/setting_amend_vin",
             templateUrl: "js/view/system_settings/setting_amend_vin.html",
             controller:'setting_amend_vin_controller'
+        })
+        .state("setting_city",{
+            url:"/setting_city",
+            templateUrl: "js/view/system_settings/setting_city.html",
+            controller:'setting_city_controller'
+        })
+        .state("setting_client",{
+            url:"/setting_client",
+            templateUrl: "js/view/system_settings/setting_client/setting_client.html",
+            controller:'setting_client_controller'
+        })
+        .state("add_setting_client",{
+            url:"/add_setting_client",
+            templateUrl: "js/view/system_settings/setting_client/add_setting_client.html",
+            controller:'setting_add_client_controller'
+        })
+        .state("setting_client_details",{
+            url:"/setting_client_details",
+            templateUrl: "js/view/system_settings/setting_client/setting_client_details.html",
+            controller:'setting_client_details_controller'
+        })
+        .state("setting_dealer",{
+            url:"/setting_dealer",
+            templateUrl: "js/view/system_settings/setting_dealer/setting_dealer.html",
+            controller:'setting_dealer_controller'
+        })
+        .state("setting_dealer_details",{
+            url:"/setting_dealer_details",
+            templateUrl: "js/view/system_settings/setting_dealer/setting_dealer_details.html",
+            controller:'setting_dealer_details_controller'
+        })
+        .state("add_setting_dealer",{
+            url:"/add_setting_dealer",
+            templateUrl: "js/view/system_settings/setting_dealer/add_setting_dealer_details.html",
+            controller:'add_setting_dealer_controller'
         })
         .state("storage_index", {  //路由状态
             url: "/storage_index",  //路由路径

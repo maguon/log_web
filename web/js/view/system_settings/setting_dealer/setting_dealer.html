@@ -1,0 +1,102 @@
+<div class="setting_dealer">
+    <div class="row">
+        <div class="row valign-wrapper">
+            <h5 class="col s12 cyan-text lighten-1  center-align">
+                经销商
+            </h5>
+            <!--<div class="col s8 right-align">-->
+            <!---->
+            <!--</div>-->
+        </div>
+        <div class="row">
+            <div class="divider  cyan lighten-2"></div>
+        </div>
+        <div style="width: 75%;margin: 0 auto">
+            <div class="row addDealer">
+                <a href="" class="right btn-floating btn-large  btn waves-effect cyan lighten-1 waves-light vc-center "
+                   ui-sref="add_setting_dealer">+</a>
+            </div>
+            <div class="row dealerWrap">
+                <div class="col s12 dealerBox grey lighten-3 p0">
+                    <div class="col s5 valign-wrapper">
+                        <div class="col s1 blue-grey-text text-lighten-2 fz40" style="margin-right: 10px">
+                            <i class="mdi mdi-domain"></i>
+                        </div>
+                        <div class="col s11">
+                            <h6 class="blue-grey-text lighten-1 fz18" >顺通物流</h6>
+                            <h6 class="fz13"><span>公司名称:</span><span>大连三顺</span></h6>
+                        </div>
+                    </div>
+                    <div class="col s5 valign-wrapper" style="height: 61px">
+                        <div class="col s12">
+                            <h6 class="blue-grey-text lighten-1 fz13" ><span>所属城市:</span><span>大连</span></h6>
+                            <h6 class="fz13"><span>公司名称:</span><span>大连三顺</span></h6>
+                        </div>
+                    </div>
+                    <div class=" col s2 p0">
+                        <div ng-click="view_contacts($event)"  class="col s6 blue-grey lighten-4 blue-grey-text text-lighten-1 fz40 center-align pointer" style="border-right: 1px solid white">
+                                <i class="mdi mdi-account"></i>
+                        </div>
+                        <div class="col s6 blue-grey lighten-4 blue-grey-text text-lighten-1 fz40 center-align pointer" ui-sref="setting_dealer_details">
+                            <i class="mdi mdi-pencil"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 contactsBox white  lighten-3 p0" ng-show="contacts.show">
+                    <div class="col s12 valign-wrapper fz12" style="padding: 15px 0;border-bottom: 1px solid #eeeeee">
+                        <div class="col s1">
+                            详细信息:
+                        </div>
+                        <div class="col s3 offset-s8 " ng-hide="add_contacts.show">
+                            <a href="" class="right   btn waves-effect cyan lighten-1 waves-light vc-center open_car_brand "
+                               ng-click="open_add_contacts()">增加联系人</a>
+
+                        </div>
+                        <div class="col s11 add_contacts"  ng-show="add_contacts.show">
+                            <form name="addContactsFrom" ng-submit="add_contacts(addContactsFrom.$valid)" novalidate>
+                                <div class="col s12 z-depth-2 white contacts_box valign-wrapper "
+                                     style="padding: 0.75rem 0;"  ng-class="{'has-error':addCityFrom.cityText.$invalid&&submitted}">
+                                    <div class="col s3 vc-center input-field" style="margin-top: 0">
+                                        <input class=" city_text" style="height: 2.4rem" name="contacts_name" id="contacts_name"  type="text" autocomplete="off" ng-model="cityText" required>
+                                        <label class="fz12 grey-text" for="contacts_name">姓名</label>
+                                    </div>
+                                    <div class="col s3 vc-center input-field" style="margin-top: 0">
+                                        <input class=" duty" name="duty" style="height: 2.4rem"   id="duty"  type="text" autocomplete="off"
+                                               ng-model="cityText" required>
+                                        <label class="fz12 grey-text" for="duty">职务</label>
+                                    </div>
+                                    <div class="col s3 vc-center input-field" style="margin-top: 0">
+                                        <input class=" duty" name="phone" style="height: 2.4rem"  id="phone"  type="text" autocomplete="off"
+                                               ng-model="cityText" required>
+                                        <label class="fz12 grey-text" for="phone">电话</label>
+                                    </div>
+
+                                    <div class="col s2  add_dealer_Icon flex flex-round">
+                                        <a class=" btn-floating waves-effect waves-light red lighten-2  btn" ng-click="close_contacts()">
+                                            <i class="mdi mdi-close close_dealer"></i>
+                                        </a>
+                                        <button class="btn-floating waves-effect waves-light cyan  lighten-1 btn" type="submit"
+                                                name="action">
+                                            <i class="mdi mdi-check add_dealer"></i>
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col s12 valign-wrapper" style="padding: 15px 0">
+                        <div class="col s1 fz12">
+                            联系人:
+                        </div>
+                        <div class="col s11 contacts_details fz14">
+                            <p class="col s5" style="position:relative;border-bottom: 1px solid #eeeeee "><span class="col s3 ">王保全</span><span class="col s3 offset-s1">物流部经理</span><span class="col s3 offset-s1">2164586789156</span><i style="position: absolute;right: 0" class="mdi mdi-window-close"></i></p>
+                            <p class="col s5 offset-s1" style="position:relative;border-bottom: 1px solid #eeeeee "><span class="col s3 ">王保全</span><span class="col s3 offset-s1">物流部经理</span><span class="col s3 offset-s1">2164586789156</span><i style="position: absolute;right: 0" class="mdi mdi-window-close"></i></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

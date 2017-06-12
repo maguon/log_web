@@ -1,0 +1,80 @@
+<div class="setting_car_brand">
+    <div class="row">
+        <div class="row valign-wrapper">
+            <h5 class="col s12 cyan-text lighten-1  center-align">
+                城市设置
+            </h5>
+        </div>
+        <div class="row">
+            <div class="divider cyan lighten-2"></div>
+
+        </div>
+        <div style="width: 75%;margin: 0 auto">
+            <div class="row">
+                <a href="" class=" right  btn btn-large btn-floating waves-effect cyan lighten-1 waves-light vc-center open_city "
+                   ng-click="city_box($event)">+</a>
+                <form name="addCityFrom" ng-submit="add_city(addCityFrom.$valid)" novalidate>
+                    <div class="col s12 z-depth-2 white city_box "
+                         style="padding: 0.75rem 0;display: none"  ng-class="{'has-error':addCityFrom.cityText.$invalid&&submitted}">
+                        <div class="col s1 vc-center" style="height: 45px">
+                            <h6 class=" bold cyan-text text-lighten-1" style="min-width: 88px;margin-left: 10px">城市名称:</h6>
+                        </div>
+                        <input class="col s3 city_text" name="cityText" id="cityText" type="text" autocomplete="off"
+                               ng-model="cityText" required>
+                        <div class="col s2  add_Brand_Icon">
+                            <a class="  btn-floating waves-effect waves-light red lighten-2  btn" ng-click="closeCity()">
+                                <i class="mdi mdi-close add_brand"></i>
+                            </a>
+                            <button class="btn-floating waves-effect waves-light cyan  lighten-1 btn" type="submit"
+                                    name="action">
+                                <i class="mdi mdi-check add_city"></i>
+                            </button>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col s12">
+                <div class="divider"></div>
+                <div style="padding: 1rem;overflow: hidden">
+                    <div class="col s12 p0">
+                        <div ng-repeat="el in city_model" class="col s4 " style=" padding:1rem;">
+                            <div class="col s12  city_model_panel valign-wrapper"
+                                 ng-class="{'no_amend_model':el.model_status==0}">
+                                <input type="text" class="city_model_name cyan-text text-lighten-1  city_model_name{{$index}} col s5"
+                                       ng-model="el.city_name" readonly="readonly" >
+                                <div class="amend_city_model_box{{$index}} col s3"
+                                     style="display: none;cursor: pointer">
+                                    <i class="mdi red-text text-darken-2 mdi-close col s6 "
+                                       ng-click="close_city_model($index)"></i>
+                                    <i class="mdi cyan-text text-lighten-1 mdi-check col s6 "
+                                       ng-click="amend_city_model_submit(el.id,el.model_name,$index)"></i>
+                                </div>
+                                <i class="mdi grey-text mdi-pencil mdi-pencil{{$index}} col s1"
+                                   ng-if="el.model_status==1" style="cursor: pointer"
+                                   ng-click="amend_city_model($index,$event)"></i>
+                                <div class="col s3">
+                                    <div class="switch">
+                                        <label>
+                                            <input type="checkbox" ng-checked="el.model_status==1"
+                                                   ng-click="amend_city_model_status(el.id,el.model_status,el.make_id)">
+                                            <span class="lever"></span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </li>
+            </ul>
+        </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div></div>
+</div>

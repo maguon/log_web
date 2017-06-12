@@ -1,4 +1,4 @@
-/**
+ /**
  * Created by ASUS on 2017/5/5.
  */
 // var storageCar_detailsController = angular.module("storageCar_detailsController", []);

@@ -94,20 +94,15 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/system_settings/user_manager.html", //路由填充的模板
             controller:'setting_user_controller'
         })
-        .state("setting_pw", {
-            url:"/setting_pw",
-            templateUrl: "js/view/system_settings/setting_password.html",
-            controller:'setting_pw_controller'
-        })
-        .state("setting_wh", {
-            url:"/setting_wh",
-            templateUrl: "js/view/system_settings/system_warehouse.html",
-            controller:'settingWH_controller'
+        .state("setting_storage", {
+            url:"/setting_storage",
+            templateUrl: "js/view/system_settings/system_storage.html",
+            controller:'setting_storage_controller'
         })
         .state("setting_car_brand", {
             url:"/setting_car_brand",
             templateUrl: "js/view/system_settings/setting_car_brand.html",
-            controller:'settingT_controller'
+            controller:'storage_car_brand_controller'
         })
         .state("setting_amend_vin",{
             url:"/setting_amend_vin",
@@ -180,7 +175,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:"storage_car_details_controller"
         })
         .state("storage_car_details_", {
-            url:"/storageCar_details/{id}/vin/{vin}/mark/{mark}?from",
+            url:"/storageCar_details/{id}/vin/{vin}/mark/{mark}/status/{status}?from",
             templateUrl: "js/view/storage/storage_details.html",
             controller:"storage_car_details_controller"
         })
@@ -201,7 +196,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
         .state("demand_car_details",{
             url:"/demand_car_details/{id}/vin/{vin}?from",
-            templateUrl: "js/view/car_demand/demand_car_details.html",
+            templateUrl: "js/view/car/car_demand/demand_car_details.html",
             controller:'demand_car_details_controller'
         });
 }]);

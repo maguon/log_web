@@ -1,7 +1,7 @@
 /**
  * Created by lingxue on 2017/6/5.
  */
-baseService.factory('_socket',['$http','$location','$q',"$cookies","$host",function($http,$location,$q,$cookies,$host){
+baseService.factory('_socket',['$http','$location','$q',"$cookies","$host","_basic",function($http,$location,$q,$cookies,$host,_basic){
     var _this = {};
     var ws = null ;
     _this.msgToJson = function (message) {
@@ -11,16 +11,17 @@ baseService.factory('_socket',['$http','$location','$q',"$cookies","$host",funct
             console.log('method:msgToJson,error:' + error);
             return null;
         }
-    }
+    };
     _this.parseMsgContent = function (msg) {
-        var msgObj = _this.msgToJson(msg)
+        var msgObj = _this.msgToJson(msg);
         if(msgObj==null || msgObj.mcontent == null){
             return null;
         }else {
             return msgObj.mcontent;
         }
-    }
+    };
     _this.processSystem = function(msgContentObj) {
+        // var type=_basic.getSession(_basic.USER_TYPE);
         if(msgContentObj.status ==0){
             swal({
                 title: "错误",
@@ -36,7 +37,7 @@ baseService.factory('_socket',['$http','$location','$q',"$cookies","$host",funct
             //
         }
 
-    }
+    };
     _this.dispatchMsg = function (message){
         var msgObj = _this.msgToJson(message.data);
         console.log(msgObj);

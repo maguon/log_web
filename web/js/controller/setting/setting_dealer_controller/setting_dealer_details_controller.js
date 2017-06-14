@@ -12,6 +12,21 @@ app.controller("setting_dealer_details_controller",["$scope","_basic","_config",
     var marker = new BMap.Marker(point);
     map.addOverlay(marker);
     marker.enableDragging();
+    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放;
+    map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
+    marker.addEventListener("dragend", function () {
+        $scope.$apply(function(){
+            var p = marker.getPosition();//获取marker的位置
+            $scope.lng=p.lng;
+            $scope.lat=p.lat;
+        });
+    });
+    marker.addEventListener("click",function () {
+        var sContent ="大连顺通物流有限公司...";
+        var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
+        map.openInfoWindow(infoWindow,point); //开启信息窗口
+    });
+
     $scope.lng=121.62;
     $scope.lat=38.92;
 
@@ -35,7 +50,12 @@ app.controller("setting_dealer_details_controller",["$scope","_basic","_config",
                         $scope.lng=point.lng;
                         $scope.lat=point.lat;
                     });
-                    marker.addEventListener("dragend", get_location)
+                    marker.addEventListener("dragend", get_location);
+                    marker.addEventListener("click",function () {
+                        var sContent ="大连顺通物流有限公司...";
+                        var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
+                        map.openInfoWindow(infoWindow,point); //开启信息窗口
+                    });
                     map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放;
                     map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
                 }else{

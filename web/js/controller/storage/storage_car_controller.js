@@ -2,7 +2,7 @@
  * Created by ASUS on 2017/5/4.
  */
 // var Storage_carController = angular.module("Storage_carController", []);
-app.controller("storage_car_controller", ["$scope", "$rootScope", "$host", "_basic", "_config", "baseService", function ($scope, $rootScope,  $host, _basic,  _config, baseService) {
+app.controller("storage_car_controller", ["$scope", "$rootScope","$stateParams","$host", "_basic", "_config", "baseService", function ($scope, $rootScope,$stateParams,$host, _basic,  _config, baseService) {
     $scope.curruntId = 0;
     $scope.start = 0;
     $scope.size = 11;
@@ -10,7 +10,7 @@ app.controller("storage_car_controller", ["$scope", "$rootScope", "$host", "_bas
     // $pass_parameter.setter("jiangsen");
 
     var searchAll = function () {
-        var reqUrl = $host.api_url + "/user/" + userId + "/car?active=" + 1 + "&start=" + $scope.start + "&size=" + $scope.size
+        var reqUrl = $host.api_url + "/car?active=" + 1 + "&start=" + $scope.start + "&size=" + $scope.size
         if ($scope.search_relStatus != null) {
             reqUrl = reqUrl + "&relStatus=" + $scope.search_relStatus
         }

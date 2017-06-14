@@ -3,13 +3,35 @@
  */
 app.controller("add_setting_dealer_controller",["$scope","_basic","_config","$host",function ($scope,_basic,_config,$host){
 
-    // var marker;
+    // 百度地图控件
     var map=new BMap.Map("dealer_map");
     var point=new BMap.Point(121.62,38.92);
     map.centerAndZoom(point,15);
-    var marker = new BMap.Marker(point);
+
+    var icon = new BMap.Icon('/assets/images/point.png', new BMap.Size(20, 32), {
+        anchor: new BMap.Size(10, 30)
+    });
+    var marker = new BMap.Marker(point,{
+        icon: icon,
+        rotation: 90
+    });
     map.addOverlay(marker);
     marker.enableDragging();
+    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放;
+    map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
+    marker.addEventListener("dragend", function () {
+        $scope.$apply(function(){
+            var p = marker.getPosition();//获取marker的位置
+            $scope.lng=p.lng;
+            $scope.lat=p.lat;
+        });
+    });
+    marker.addEventListener("click",function () {
+        var sContent ="大连顺通物流有限公司...";
+        var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
+        map.openInfoWindow(infoWindow,point); //开启信息窗口
+    });
+
     $scope.lng=121.62;
     $scope.lat=38.92;
 
@@ -33,7 +55,12 @@ app.controller("add_setting_dealer_controller",["$scope","_basic","_config","$ho
                     map.addOverlay(marker);
                     marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
                     marker.enableDragging();
-                    marker.addEventListener("dragend", get_location)
+                    marker.addEventListener("dragend", get_location);
+                    marker.addEventListener("click",function () {
+                        var sContent ="大连顺通物流有限公司...";
+                        var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
+                        map.openInfoWindow(infoWindow,point); //开启信息窗口
+                    });
                     map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放;
                     map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
                 }else{

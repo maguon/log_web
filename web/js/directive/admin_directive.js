@@ -5,9 +5,10 @@ adminDirective.directive('header', function () {
         replace: true,
         transclude: false,
         restrict: 'E',
-        controller: function ($scope, $element, $rootScope, _basic,_config,$host) {
+        controller: function ($scope, $element, $rootScope, _basic,_config,$host,_socket) {
             // var str_type=$element.attr("type");
             if (_basic.getSession(_basic.USER_TYPE)=="99") {
+                var userId=_basic.getSession(_basic.USER_ID);
                 $("#brand-logo").attr("src",$element.attr("url"));
                 // var userid=$basic.getSession($basic.USER_ID);
 
@@ -20,28 +21,28 @@ adminDirective.directive('header', function () {
                 });
                 $('.collapsible').collapsible();
 
-                // //修改个人密码
-                // $scope.amend_user=function () {
-                //     $(".modal").modal();
-                //     $("#user_modal").modal("open");
-                // };
-                // $scope.amend_user_submit=function (valid) {
-                //     $scope.submitted=true;
-                //     if(valid&&$scope.user_new_password==$scope.user_confirm_password){
-                //         var obj={
-                //             "originPassword":$scope.user_old_password,
-                //             "newPassword": $scope.user_new_password
-                //         };
-                //         $basic.put($host.api_url + "/user/" + userid + "/password", obj).then(function (data) {
-                //             if (data.success == true) {
-                //                 swal("密码重置成功", "", "success");
-                //                 $("#user_modal").modal("close");
-                //             } else {
-                //                 swal(data.msg, "", "error");
-                //             }
-                //         })
-                //     }
-                // };
+                //修改个人密码
+                $scope.amend_user=function () {
+                    $(".modal").modal();
+                    $("#user_modal").modal("open");
+                };
+                $scope.amend_user_submit=function (valid) {
+                    $scope.submitted=true;
+                    if(valid&&$scope.user_new_password==$scope.user_confirm_password){
+                        var obj={
+                            "originPassword":$scope.user_old_password,
+                            "newPassword": $scope.user_new_password
+                        };
+                        _basic.put($host.api_url + "/user/" + userId + "/password", obj).then(function (data) {
+                            if (data.success == true) {
+                                swal("密码重置成功", "", "success");
+                                $("#user_modal").modal("close");
+                            } else {
+                                swal(data.msg, "", "error");
+                            }
+                        })
+                    }
+                };
 
                 //退出登录
                 $scope.logOut = function () {
@@ -61,24 +62,20 @@ adminDirective.directive('header', function () {
                         _basic.removeSession(_basic.USER_NAME);
                         window.location.href = '/admin_login.html';
                     });
-
-                }
+                };
 
                 //存储信息到sessionStorage
                 _basic.setHeader(_basic.USER_TYPE, _basic.getSession(_basic.USER_TYPE));
                 _basic.setHeader(_basic.COMMON_AUTH_NAME,  _basic.getSession(_basic.COMMON_AUTH_NAME) );
                 _basic.get($host.api_url + "/admin/" + _basic.getSession(_basic.USER_ID)).then(function (data) {
                     // $(".shadeDowWrap").hide();
-                    if (data.success == true&&data.result.length>0) {
-                        $scope.userName = data.result[0].user_name;
+                    if (data.success == true) {
+                        $scope.userName = data.result[0].real_name;
                         _basic.setSession(_basic.USER_NAME, $scope.userName);
-                        _basic.setHeader(_basic.USER_NAME, $scope.userName);
                     } else {
-                        swal(data.msg, "", "error");
+                        swal(data.msg,"","error");
                     }
                 });
-
-
             }
             else {
                 window.location="./admin_login.html"

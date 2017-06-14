@@ -99,7 +99,7 @@ app.controller("demand_car_details_controller", [ "$state", "$stateParams", "_co
                 swal(data.msg, "", "error")
             }
         });
-        _basic.get($host.api_url + "/user/" + userId + "/car?carId=" + val + '&active=1').then(function (data) {
+        _basic.get($host.api_url +  "/car?carId=" + val + '&active=1').then(function (data) {
             if (data.success == true) {
                 $scope.modelId = data.result[0].model_id;
                 $scope.self_car = data.result[0];

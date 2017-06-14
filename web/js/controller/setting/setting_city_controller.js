@@ -18,9 +18,10 @@ app.controller("setting_city_controller", ["$scope", "$host", "_basic", function
                 $(".open_city").show();
                 $(".city_box").hide();
                 $scope.cityText = "";
+                $scope.submitted=false;
             };
             $scope.getCity=function () {
-                _basic.get($host.api_url + "/user/" + userId + "/city").then(function (data) {
+                _basic.get($host.api_url +"/city").then(function (data) {
                     _basic.callBackDate(data,function () {
                         $scope.city_model=data.result;
                     })

@@ -10,9 +10,9 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/car_demand/car_demand.html",
             controller:'car_demand_controller'
         })
-        .state("demand_Car_details",{
+        .state("demand_car_details",{
             url:"/demand_Car_details/{id}/vin/{vin}?from",
-            templateUrl: "js/view/car_demand/demand_Car_details.html",
+            templateUrl: "js/view/car_demand/demand_car_details.html",
             controller:'demand_Car_details_controller'
         })
         .state("user_info",{

@@ -39,7 +39,7 @@ baseService.factory("baseService", function () {
                         vin: pk[i].vin,
                         carId: pk[i].car_id,
                         id: pk[i].id,
-                        status: pk[i].parking_statu,
+                        status: pk[i].parking_status,
                         plan_time: expiredFlag,
                         storage_name: pk[i].storage_name,
                         storage_id: pk[i].storage_id

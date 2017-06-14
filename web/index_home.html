@@ -91,9 +91,8 @@
                     <div class="collapsible-body blue-grey darken-3" style="padding: 0;">
                         <ul>
                             <li><a href="#!" ui-sref="setting_users"><i class="mdi mdi-chevron-right white-text"></i>用户管理</a></li>
-                            <li><a href="#!" ui-sref="setting_wh"><i class="mdi mdi-chevron-right white-text "></i>仓库设置</a></li>
+                            <li><a href="#!" ui-sref="setting_storage"><i class="mdi mdi-chevron-right white-text "></i>仓库设置</a></li>
                             <li><a href="#!" ui-sref="setting_car_brand"><i class="mdi mdi-chevron-right white-text "></i>车辆设置</a></li>
-                            <li><a href="#!" ui-sref="setting_pw"><i class="mdi mdi-chevron-right white-text "></i>管理员设置</a></li>
                             <li><a href="#!" ui-sref="setting_amend_vin" ><i class="white-text mdi mdi-chevron-right"></i>修改VIN码</a></li>
                             <li><a href="#!" ui-sref="setting_city" ><i class="white-text mdi mdi-chevron-right"></i>城市设置</a></li>
                             <li><a href="#!" ui-sref="setting_client"><i class="white-text mdi mdi-chevron-right"></i>委托方</a></li>
@@ -151,13 +150,16 @@
 <script src="/lib/angular/angular-messages.min.js"></script>
 <script src="/js/module/app_admin_module.js"></script>
 <!--<script src="/js/controller/data_controller.js"></script>-->
+
 <script src="/js/controller/index_controller.js"></script>
 <script src="/js/controller/common_login_controller.js"></script>
-<!--<script src="/js/controller/setting_controller.js"></script>-->
+<!--<script src="/js/controller/setting_storage_controller.js"></script>-->
 <script src="/js/controller/dispatch/truck_controller.js"></script>
 <script src="/js/controller/car/car_supervise/car_sv_driver_controller.js"></script>
 <script src="/js/controller/company/company_controller.js"></script>
-<script src="/js/controller/setting/setting_controller.js"></script>
+<script src="/js/controller/setting/setting_storage_controller.js"></script>
+<script src="/js/controller/setting/setting_user_controller.js"></script>
+<script src="/js/controller/setting/setting_car_brand_controller.js"></script>
 <script src="/js/controller/setting/setting_amend_vin_controller.js"></script>
 <script src="/js/controller/setting/setting_city_controller.js"></script>
 <script src="/js/controller/setting/setting_dealer_controller/setting_dealer_controller.js"></script>
@@ -181,6 +183,7 @@
 <script src="/js/service/base_service.js"></script>
 <script src="/js/service/config_service.js"></script>
 <script src="/js/service/http_service.js"></script>
+<script src="/js/service/socket_service.js"></script>
 <script src="/js/host/host_config.js"></script>
 <script src="/js/directive/admin_directive.js"></script>
 <script src="/js/directive/public_directive.js"></script>

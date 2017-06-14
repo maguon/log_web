@@ -286,7 +286,7 @@
                     <td ng-bind="el.plan_out_time|date:'yyyy-MM-dd '"></td>
                     <td ng-bind="el.real_out_time|date:'yyyy-MM-dd '"></td>
                     <td class="operation">
-                        <a href="#" ui-sref="storage_car_details_({id:el.id,vin:el.vin,from:'storage_car',mark:1})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1  " ></i></a>
+                        <a href="#" ui-sref="storage_car_details_({id:el.id,vin:el.vin,from:'storage_car',mark:1,status:el.rel_status})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1  " ></i></a>
                         <span >
                             <i ng-if="el.rel_status==1" class="mdi mdi-logout cyan-text lighten-1" ng-click="outStorageCar(el.r_id,2,el.p_id,el.storage_id,el.id)" ></i>
                             <i ng-if="el.rel_status==2" class="mdi mdi-login cyan-text lighten-1" ng-click="loginStorageCar(el.vin,el.id)"></i>

@@ -16,7 +16,7 @@ app.controller("company_controller", ['$rootScope', '$scope', '_basic', '$host',
             cityId: $scope.s_city
         };
 
-        _basic.get($host.api_url + "/user/" + userId + "/company" + _basic.objToUrl(obj)).then(function (data) {
+        _basic.get($host.api_url + "/company" + _basic.objToUrl(obj)).then(function (data) {
             // $(".shadeDowWrap").hide();
             if (data.success == true) {
                 $scope.Company = data.result;
@@ -28,7 +28,7 @@ app.controller("company_controller", ['$rootScope', '$scope', '_basic', '$host',
     };
     // 整体查询读取
     var searchAll = function () {
-        _basic.get($host.api_url + "/user/" + userId + "/company", {}).then(function (data) {
+        _basic.get($host.api_url + "/company", {}).then(function (data) {
             // $(".shadeDowWrap").hide();
             if (data.success == true) {
                 $scope.Company = data.result;
@@ -39,7 +39,7 @@ app.controller("company_controller", ['$rootScope', '$scope', '_basic', '$host',
         });
 
         // 获取城市信息
-        _basic.get($host.api_url + "/user/" + userId + "/city", {}).then(function (data) {
+        _basic.get($host.api_url + "/city", {}).then(function (data) {
             // $(".shadeDowWrap").hide();
             if (data.success == true) {
                 // console.log(data);
@@ -73,7 +73,7 @@ app.controller("company_controller", ['$rootScope', '$scope', '_basic', '$host',
         $scope.submitted = true;
         if (isValid) {
 
-            console.log($scope.addCooperationTime);
+            // console.log($scope.addCooperationTime);
             // var time=$scope.addCooperationTime;
             // var t=time.pattern("yyyy-MM-dd hh:mm:ss");
 
@@ -104,20 +104,20 @@ app.controller("company_controller", ['$rootScope', '$scope', '_basic', '$host',
         $('.modal').modal();
         $('#LookCompany').modal('open');
 
-        _basic.get($host.api_url + "/user/" + userId + "/company?companyId=" + id, {}).then(function (data) {
+        _basic.get($host.api_url + "/company?companyId=" + id, {}).then(function (data) {
             // $(".shadeDowWrap").hide();
             if (data.success == true) {
                 $scope.company = data.result[0];
                 // console.log($scope.company.cooperation_time)
                 companyMsg = $scope.company;
-                console.log($scope.company, $scope.company.cooperation_time);
+                // console.log($scope.company, $scope.company.cooperation_time);
                 $scope.look_cooperation_time = moment($scope.company.cooperation_time).format("YYYY-DD-MM")
             } else {
                 swal(data.msg, "", "error");
             }
         });
         // 头车数量
-        _basic.get($host.api_url + "/user/" + userId + "/company/" + id + "/firstCount", {}).then(function (data) {
+        _basic.get($host.api_url  + "/company/" + id + "/firstCount", {}).then(function (data) {
             // $(".shadeDowWrap").hide();
             if (data.success == true) {
                 $scope.firstCount = data.result[0].firstCount;
@@ -127,7 +127,7 @@ app.controller("company_controller", ['$rootScope', '$scope', '_basic', '$host',
         });
 
         // 挂车数量
-        _basic.get($host.api_url + "/user/" + userId + "/company/" + id + "/trailerCount", {}).then(function (data) {
+        _basic.get($host.api_url +  "/company/" + id + "/trailerCount", {}).then(function (data) {
             // $(".shadeDowWrap").hide();
             if (data.success == true) {
                 $scope.trailerCount = data.result[0].firstCount;
@@ -138,7 +138,7 @@ app.controller("company_controller", ['$rootScope', '$scope', '_basic', '$host',
         });
 
         // 司机数量
-        _basic.get($host.api_url + "/user/" + userId + "/company/" + id + "/driveCount", {}).then(function (data) {
+        _basic.get($host.api_url +  "/company/" + id + "/driveCount", {}).then(function (data) {
             // $(".shadeDowWrap").hide();
             if (data.success == true) {
                 $scope.driveCount = data.result[0].driveCount;

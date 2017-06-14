@@ -14,7 +14,7 @@ app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$hos
                 active:1
             };
 
-            _basic.get($host.api_url+"/admin/"+admin+"/car?"+_basic.objToUrl(obj)).then(function (data) {
+            _basic.get($host.api_url+"/car?"+_basic.objToUrl(obj)).then(function (data) {
                 if(data.success=true){
                     if(data.result.length==0){
                         $(".no_car_detail").show();
@@ -45,6 +45,7 @@ app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$hos
     // 关闭修改vin码
     $scope.close_vin_amend=function () {
         $scope.flag=true;
+        $scope.vin=$scope.car_details.vin;
     };
     // 修改vin码
     $scope.amend_vin=function (id) {
@@ -52,8 +53,9 @@ app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$hos
         var obj={
             "vin":$scope.vin
         };
+        console.log(obj);
         if($scope.vin.length==17){
-            _basic.put($host.api_url+"/admin/"+admin+"/car/"+id+"/vin",obj).then(function (data) {
+            _basic.put($host.api_url+"/user/"+admin+"/car/"+id+"/vin",obj).then(function (data) {
                 if(data.success==true){
                     swal("修改成功","","success");
                     $scope.demand_vin="";
@@ -62,6 +64,9 @@ app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$hos
                     swal(data.msg,"","error");
                 }
             })
+        }else {
+            swal("请输入17位数字","","error");
+            $scope.vin=$scope.car_details.vin;
         }
     }
 }]);

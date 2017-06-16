@@ -37,6 +37,8 @@ app.controller("setting_city_controller", ["$scope", "$host", "_basic", function
                     _basic.post($host.api_url + "/user/" + userId + "/city",obj).then(function (data) {
                        if(data.success==true){
                            $scope.getCity();
+                           $scope.cityText = "";
+                           $scope.submitted=false;
                        }
                     });
                 }

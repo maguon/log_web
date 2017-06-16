@@ -8,7 +8,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
     //     templateUrl: '/view/index_home.html',
     //     controller:'indexController'
     // }).when('/data', {
-    //     templateUrl: '/view/data.html',
+    //     templateUrl: '/view/car_to_data.html',
     //     controller:'dataController'
     // }).when('/setting', {
     //     templateUrl: '/view/setting.html',

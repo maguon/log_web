@@ -125,7 +125,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'setting_add_client_controller'
         })
         .state("setting_client_details",{
-            url:"/setting_client_details",
+            url:"/setting_client_details/{id}/{short_name}/{entrust_name}?from",
             templateUrl: "js/view/system_settings/setting_client/setting_client_details.html",
             controller:'setting_client_details_controller'
         })

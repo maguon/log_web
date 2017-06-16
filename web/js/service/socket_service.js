@@ -61,7 +61,7 @@ baseService.factory('_socket',['$http','$location','$q',"$cookies","$host","_bas
             mid : user.id+"_"+ new Date().getTime(),
             mtype : 2,
             mcontent : user
-        }
+        };
         return msg;
     };
     _this.sendMsg = function(msgObj){
@@ -69,7 +69,7 @@ baseService.factory('_socket',['$http','$location','$q',"$cookies","$host","_bas
         if(msgString && msgString.length>0){
             ws.send(msgString);
         }
-    }
+    };
     _this.connectSocket = function(user) {
         if(ws){
             return;
@@ -79,12 +79,12 @@ baseService.factory('_socket',['$http','$location','$q',"$cookies","$host","_bas
             ws.onmessage = function(message){
                 _this.dispatchMsg(message);
 
-            }
+            };
             ws.onopen = function(event) {
                 var msgObj = _this.getConnectMsg(user);
                 _this.sendMsg(msgObj);
                 return;
-            }
+            };
             return;
 
         }

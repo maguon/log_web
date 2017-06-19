@@ -24,14 +24,14 @@ app.controller("setting_dealer_controller",["$scope","_basic","_config","$host",
     });
     $scope.get_contact=function (id,index) {
         _basic.get($host.api_url+"/receive/"+id+"/contacts").then(function (data) {
-            if(data.success==true&&data.result.length>0){
+            if(data.success==true){
                 $scope.setting_contacts=data.result;
                 $scope.contacts_name="";
                 $scope.duty="";
                 $scope.phone="";
-                // $scope.addContacts[index]={
-                //     show:false
-                // };
+                $scope.addContacts[index]={
+                    show:false
+                };
             }
         });
     };
@@ -83,7 +83,7 @@ app.controller("setting_dealer_controller",["$scope","_basic","_config","$host",
     };
     // 删除联系人
     $scope.delete_contact=function (id,con_id) {
-        _basic.put($host.api_url+"/user/"+$scope.userId+"/contacts/"+id+"/receiveContactsStatus/"+0,{}).then(function (data) {
+        _basic.delete($host.api_url+"/user/"+$scope.userId+"/receiveContacts/"+id).then(function (data) {
             if(data.success==true){
                 $scope.get_contact(con_id);
             }

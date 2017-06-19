@@ -8,9 +8,8 @@ app.controller("setting_client_details_controller", ["$scope", "_basic", "$state
     $scope.full_name = $stateParams.entrust_name;
     $scope.remark = "";
     var val = $stateParams.id;
-    (function () {
-        console.log(val)
-    })();
+
+    // 修改委托方信息
     $scope.entrust_modify = function () {
         if ($scope.short_name != "" && $scope.full_name != "") {
             _basic.put($host.api_url + "/user/" + $scope.userId + "/entrust/" + val, {

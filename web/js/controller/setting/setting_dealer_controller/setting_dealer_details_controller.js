@@ -4,31 +4,20 @@
 /**
  * Created by ASUS on 2017/6/7.
  */
-app.controller("setting_dealer_details_controller",["$scope","_basic","_config","$host",function ($scope,_basic,_config,$host){
-    $scope.now_loacl="";
-    var map=new BMap.Map("dealer_map");
-    var point=new BMap.Point(121.62,38.92);
-    map.centerAndZoom(point,15);
-    var marker = new BMap.Marker(point);
-    map.addOverlay(marker);
-    marker.enableDragging();
-    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放;
-    map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
-    marker.addEventListener("dragend", function () {
-        $scope.$apply(function(){
-            var p = marker.getPosition();//获取marker的位置
-            $scope.lng=p.lng;
-            $scope.lat=p.lat;
+app.controller("setting_dealer_details_controller",["$scope","_basic","_config","$host","$stateParams",function ($scope,_basic,_config,$host,$stateParams){
+    var userId=_basic.getSession(_basic.USER_ID);
+    var marker;
+    // 获取城市
+    (function () {
+        _basic.get($host.api_url+"/city").then(function (data) {
+            if(data.success==true){
+                $scope.setting_city=data.result
+            }
         });
-    });
-    marker.addEventListener("click",function () {
-        var sContent ="大连顺通物流有限公司...";
-        var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
-        map.openInfoWindow(infoWindow,point); //开启信息窗口
-    });
+    })();
 
-    $scope.lng=121.62;
-    $scope.lat=38.92;
+
+
 
 //    搜索新地址
     $scope.search_location=function (myKeys) {
@@ -74,5 +63,85 @@ app.controller("setting_dealer_details_controller",["$scope","_basic","_config",
             $scope.lng=p.lng;
             $scope.lat=p.lat;
         });
-    }
+    };
+
+    // 查看详情
+    _basic.get($host.api_url+"/receive?receiveId="+$stateParams.dealer_id).then(function (data) {
+        if(data.success==true){
+          $scope.dealer_details=data.result[0];
+          $scope.lng=data.result[0].lng;
+          $scope.lat=data.result[0].lat;
+          // $scope.search_location(data.result[0].address);
+
+          // 地图重新渲染
+            var map=new BMap.Map("dealer_map");
+            var point=new BMap.Point($scope.lng,$scope.lat);
+            map.centerAndZoom(point,15);
+            marker = new BMap.Marker(point);
+            map.addOverlay(marker);
+            marker.enableDragging();
+            map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放;
+            map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
+            marker.addEventListener("dragend", function () {
+                $scope.$apply(function(){
+                    var p = marker.getPosition();//获取marker的位置
+                    $scope.lng=p.lng;
+                    $scope.lat=p.lat;
+                });
+            });
+            marker.addEventListener("click",function () {
+                var sContent ="大连顺通物流有限公司...";
+                var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
+                map.openInfoWindow(infoWindow,point); //开启信息窗口
+            });
+
+            // 深度复制
+            // var obj={
+            //     "shortName":$scope.dealer_details.short_name,
+            //     "receiveName":$scope.dealer_details.receive_name,
+            //     "address":$scope.dealer_details.address,
+            //     "lng": $scope.lng,
+            //     "lat": $scope.lat,
+            //     "cityId": $scope.dealer_details.city_id,
+            //     "remark": $scope.dealer_details.remark
+            // };
+            // var deepCopy= function(source) {
+            //     var result={};
+            //     for (var key in source) {
+            //         result[key] = typeof source[key]==='object'? deepCoyp(source[key]): source[key];
+            //     }
+            //     return result;
+            // };
+            // $scope._obj=deepCopy(obj);
+        }
+    });
+
+
+    // 修改经销商
+    $scope.change_setting_dealer=function (isValid) {
+        $scope.submitted=true;
+        if(isValid){
+                var obj={
+                    "shortName":$scope.dealer_details.short_name,
+                    "receiveName":$scope.dealer_details.receive_name,
+                    "address":$scope.dealer_details.address,
+                    "lng": $scope.lng,
+                    "lat": $scope.lat,
+                    "cityId": $scope.dealer_details.city_id,
+                    "remark": $scope.dealer_details.remark
+                };
+                // 比较对象是否发生变化
+                // if(JSON.stringify($scope._obj) === JSON.stringify(obj)){
+                //
+                // }else {
+                //     console.log(obj,$scope._obj);
+                // }
+                _basic.put($host.api_url+"/user/"+userId+"/receive/"+$stateParams.dealer_id,obj).then(function (data) {
+                    if(data.success==true){
+                        swal("修改成功","","success");
+                        $scope.submitted=false;
+                    }
+                });
+        }
+    };
 }]);

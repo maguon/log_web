@@ -23,7 +23,7 @@
                             <i class="mdi mdi-domain"></i>
                         </div>
                         <div class="col s11">
-                            <h6 class="blue-grey-text lighten-1 fz18" ng-bind="el.remark"></h6>
+                            <h6 class="blue-grey-text lighten-1 fz18" ng-bind="el.short_name"></h6>
                             <h6 class="fz13"><span>公司名称:</span><span>{{el.receive_name}}</span></h6>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                         <div ng-click="view_contacts($index,el.id)"  class="col s6 blue-grey lighten-4 blue-grey-text text-lighten-1 fz40 center-align pointer" style="border-right: 1px solid white">
                                 <i class="mdi mdi-account"></i>
                         </div>
-                        <div class="col s6 blue-grey lighten-4 blue-grey-text text-lighten-1 fz40 center-align pointer" ui-sref="setting_dealer_details">
+                        <div class="col s6 blue-grey lighten-4 blue-grey-text text-lighten-1 fz40 center-align pointer" ui-sref="setting_dealer_details({dealer_id:el.id})">
                             <i class="mdi mdi-pencil"></i>
                         </div>
                     </div>

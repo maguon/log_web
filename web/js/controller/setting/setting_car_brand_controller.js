@@ -173,7 +173,7 @@ app.controller("storage_car_brand_controller", ["$scope", "$host", "_basic", fun
     };
     // 关闭修改型号界面
     $scope.close_car_model = function (index) {
-        $(".car_model_name" + index).attr("readonly");
+        $(".car_model_name" + index).attr("readonly",'readonly');
         $(".amend_car_model_box" + index).hide();
         $(".mdi-pencil" + index).show();
     };
@@ -184,7 +184,7 @@ app.controller("storage_car_brand_controller", ["$scope", "$host", "_basic", fun
         }).then(function (data) {
             if (data.success == true) {
                 // console.log(data.result);
-                $(".car_model_name" + index).attr("readonly");
+                $(".car_model_name" + index).attr("readonly",'readonly');
                 $(".amend_car_model_box" + index).hide();
                 $(".mdi-pencil" + index).show();
             } else {

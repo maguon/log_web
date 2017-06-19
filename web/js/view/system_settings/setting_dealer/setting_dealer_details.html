@@ -17,50 +17,48 @@
         <div class="row" style="position: relative">
             <p class="location_gps white z-depth-2">经度:<span class="materialize-red-text">{{lng}}</span>,纬度:<span class="materialize-red-text">{{lat}}</span></p>
             <div class="col s6 dealer_details grey-text">
-                <div class="row">
-                    <div class="col s6 input-field">
-                        <input type="text" id="short_name"  name="deal_name">
-                        <label class="grey-text bold" for="short_name">公司简称</label>
+                <form name="setting_dealer_details_form" ng-submit="change_setting_dealer(setting_dealer_details_form.$valid)" novalidate>
+                    <div class="row">
+                        <div class="col s6 input-field" ng-class="{'has-error':setting_dealer_details_form.short_name.$invalid&&submitted}">
+                            <input type="text" id="short_name" name="short_name"  autocomplete="off" ng-model="dealer_details.short_name" required>
+                            <label class="grey-text bold" for="short_name">公司简称</label>
+                        </div>
+                        <div class="col s6 input-field"  ng-class="{'has-error':setting_dealer_details_form.deal_name.$invalid&&submitted}">
+                            <input type="text" id="deal_name"  name="deal_name" autocomplete="off"  ng-model="dealer_details.receive_name" required>
+                            <label class="grey-text bold" for="deal_name">公司全称</label>
+                        </div>
                     </div>
-                    <div class="col s6 input-field">
-                        <input type="text" id="deal_name"   name="deal_name">
-                        <label class="grey-text bold" for="deal_name">公司全称</label>
+                    <div class="row">
+                        <div class="col s6 input-field">
+                            <select material-select watch ng-model="dealer_details.city_id" required>
+                                <option value="" >选择城市</option>
+                                <option ng-repeat="el in setting_city" ng-show="el.city_status==1" ng-value="el.id" >{{el.city_name}}</option>
+                            </select>
+                            <label class="grey-text bold">所属城市</label>
+                        </div>
+                        <div class="col s6 input-field"  ng-class="{'has-error':setting_dealer_details_form.address.$invalid&&submitted}">
+                            <input type="text" id="address" autocomplete="off" ng-model="dealer_details.address"  name="address" required>
+                            <label class="grey-text bold" for="address">详细地址</label>
+                            <i class="address_icon mdi mdi-near-me vc-center white-text" ng-click="search_location(input_address)" style="cursor: pointer"></i>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col s6 input-field">
-                        <select material-select watch>
-                            <option value="" >选择城市</option>
-                            <option value="1">选项 1</option>
-                            <option value="2">选项 2</option>
-                            <option value="3">选项 3</option>
-                        </select>
-                        <label class="grey-text bold">所属城市</label>
-                    </div>
-                    <div class="col s6 input-field">
-                        <input type="text" id="address" ng-model="input_address"  name="address">
-                        <label class="grey-text bold" for="address">详细地址</label>
-                        <i class="address_icon mdi mdi-near-me vc-center white-text" ng-click="search_location(input_address)" style="cursor: pointer"></i>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s1 bold">备注:</div>
-                    <div class="col s11">
-                        <textarea name="" id="" style="height: 150px" >
+                    <div class="row">
+                        <div class="col s1 bold">备注:</div>
+                        <div class="col s11">
+                        <textarea ng-model="dealer_details.remark" name="remark" id="" style="height: 150px" >
 
                         </textarea>
+                        </div>
+                        <span class="right fz12">最多可以输入240个字符  </span>
                     </div>
-                    <span class="right fz12">最多可以输入240个字符  </span>
-                    <p>{{now_local}}</p>
-                </div>
-                <div class="row">
-                    <div class="col s2 offset-s6">
-                        <a href="" ng-click="get_location()" class="btn btn-floating cyan btn-large">
-                            <i class="mdi mdi-check"></i>
-                        </a>
+                    <div class="row">
+                        <div class="col s2 offset-s6">
+                            <button href="" name="action" type="submit" class="btn btn-floating cyan btn-large">
+                                <i class="mdi mdi-check"></i>
+                            </button>
+                        </div>
                     </div>
-
-                </div>
+                </form>
             </div>
             <div class="col s6 dealer_map" id="dealer_map">
 

@@ -116,6 +116,7 @@ app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$ho
                 title: "确定删除吗？",
                 type: "warning",
                 showCancelButton: true,
+                cancelButtonText:"取消",
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确定",
                 closeOnConfirm: false

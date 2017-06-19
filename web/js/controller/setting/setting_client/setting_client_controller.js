@@ -122,7 +122,7 @@ app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$ho
                 closeOnConfirm: false
             },
             function () {
-                _basic.put($host.api_url + "/user/" + $scope.userId + "/contacts/" + contactId + "/entrustContactsStatus/" + 0, {}).then(
+                _basic.delete($host.api_url + "/user/" + $scope.userId + "/entrustContacts/" + contactId , {}).then(
                     function (data) {
                         if (data.success === true) {
                             console.log("data", data);

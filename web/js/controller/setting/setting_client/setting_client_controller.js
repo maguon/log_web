@@ -17,9 +17,6 @@ app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$ho
 
     $scope.userId = _basic.getSession(_basic.USER_ID);
     $scope.currentIndex = 0;
-    // $scope.userNames = [];
-    // $scope.dutys = [];
-    // $scope.phones = [];
     $scope.add_contacts = false;
 
     // 获取联系人信息
@@ -68,6 +65,10 @@ app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$ho
     // 增加联系人
     $scope.open_add_contacts = function () {
         $scope.add_contacts = true;
+        // 初始化输入框
+        $scope.userNames = undefined;
+        $scope.dutys = undefined;
+        $scope.phones = undefined;
     };
 
     $scope.close_contacts = function () {
@@ -92,9 +93,9 @@ app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$ho
                     swal("新增成功", "", "success");
                     $scope.add_contacts = false;
                     // 初始化输入框
-                    $scope.userNames = undefined;
-                    $scope.dutys = undefined;
-                    $scope.phones = undefined;
+                    // $scope.userNames = undefined;
+                    // $scope.dutys = undefined;
+                    // $scope.phones = undefined;
                     $scope.getContactsInfo(entrustId);
                 }
                 else {

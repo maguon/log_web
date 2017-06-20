@@ -54,6 +54,7 @@ baseService.factory('_basic',['$http','$location','$q',"$cookies",function($http
                     deferred.resolve(success.data);
 
                 }).catch(function(data){
+                    $(".shadeDowWrap").hide();
                     // checkAuthorizedStatus(data);
                     deferred.reject(data);
                 });

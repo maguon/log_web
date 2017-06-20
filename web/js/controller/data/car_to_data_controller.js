@@ -15,12 +15,12 @@ app.controller("car_to_data_controller", ['$rootScope','$scope','$location','$q'
             ['vin1233',12,32,33,33,34,],
             ['vin1234',12,32,33,33,34,],
             ['vin1235',12,32,33,33,34,]
-        ]
+        ];
 
         $scope.testUpload = function(){
             if($scope.uploadRecordArray && $scope.uploadRecordArray.length>0){
-                var carItem = $scope.uploadRecordArray[$scope.uploadRecordArray.length-1]
-                _socket.uploadCarInfo('abcadaf',carItem,1,function(msg){
+                var carItem = $scope.uploadRecordArray[$scope.uploadRecordArray.length-1];
+                _socket.uploadCarInfo('abcadaf',carItem,$scope.uploadRecordArray.length-1,function(msg){
                     var msgContent =msg.mcontent;
                     if(msgContent.success){
                         $scope.uploadRecordArray.splice($scope.uploadRecordArray.length-1,1);
@@ -33,7 +33,7 @@ app.controller("car_to_data_controller", ['$rootScope','$scope','$location','$q'
             }else{
                 return;
             }
-        }
+        };
 
 
         // $scope.$apply(function () {
@@ -63,7 +63,7 @@ app.controller("car_to_data_controller", ['$rootScope','$scope','$location','$q'
         $scope.tableContentFilter=[];
         // 过滤条件数据
         // $scope.filterArray=[1,2,3,4,5,6,7,8,9];
-        var colObjs =[{name:'VIN',type:'string',length:17,require:true},{name:'制造商ID',type:'number',length:2,require:true},{name:'起始地ID',type:'number',length:2,require:true},{name:'目的地ID',type:'number',length:2},{name:'经销商ID',type:'number',length:3},{name:'委托方(结算公司ID)',type:'number',length:2},{name:'指令时间',type:'string'}];
+        var colObjs =[{name:'VIN',type:'string',length:16,require:true},{name:'制造商ID',type:'number',length:2,require:true},{name:'起始地ID',type:'number',length:2,require:true},{name:'目的地ID',type:'number',length:2},{name:'经销商ID',type:'number',length:3},{name:'委托方(结算公司ID)',type:'number',length:2},{name:'指令时间',type:'string'}];
         // 头部条件判断
         $scope.titleFilter=function (headerArray){
             if(colObjs.length!=headerArray.length){
@@ -133,19 +133,35 @@ app.controller("car_to_data_controller", ['$rootScope','$scope','$location','$q'
             _basic.formPost($event.target.parentElement.parentElement, $host.file_url + '/user/'+ userId + '/file?fileType=1&&userType='+userType, function (data) {
                 if(data.success==true){
                     $scope.file_id=data.result.id;
-                    var length=$scope.tableContentFilter.length;
-                    for(var i=0;i<length;i++){
-                        console.log($scope.tableContentFilter[i]);
-                            $scope.x = $scope.x + 100 /length;
-                            $scope.$apply(function () {
-                                $scope.obj = {
-                                    "width": $scope.x + "%"
-                                };
-                            });
-                                if( $scope.x==101){
-                                    swal("上传成功","","success")
+                    var originArrayLength = $scope.tableContentFilter.length;
+                    var soket_data=function () {
+                        if( $scope.tableContentFilter &&  $scope.tableContentFilter.length>0){
+                            var carItem =  $scope.tableContentFilter[ $scope.tableContentFilter.length-1];
+                            _socket.uploadCarInfo($scope.file_id,carItem,$scope.tableContentFilter.length-1,function(msg){
+                                var msgContent =msg.mcontent;
+                                if(msgContent.success){
+                                    $scope.tableContentFilter.splice($scope.tableContentFilter.length-1,1);
+                                    // console.log(originArrayLength)
+                                    $scope.x = $scope.x + 100/originArrayLength;
+                                    $scope.$apply(function () {
+                                        $scope.obj = {
+                                            "width": $scope.x + "%"
+                                        };
+                                    });
+                                    soket_data();
+
+                                }else{
+                                    swal(msgContent.msg);
+                                    return;
                                 }
-                            }
+                            })
+                        }else{
+                            swal("上传成功","","success");
+                            return;
+                        }
+                    };
+                    soket_data();
+
                 }
             });
         };

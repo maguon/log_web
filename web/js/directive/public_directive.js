@@ -86,7 +86,6 @@ publicDirective.directive('header', function () {
                             type:userType,
                             name:data.result[0].real_name
                         }
-                        console.log(user);
                         _socket.connectSocket(user);
                     } else {
                         swal(data.msg, "", "error");

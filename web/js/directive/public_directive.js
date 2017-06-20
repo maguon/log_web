@@ -10,6 +10,7 @@ publicDirective.directive('header', function () {
         transclude: false,
         restrict: 'E',
         controller: function ($scope, $element, $rootScope, _basic,_config,$host,_socket) {
+            $scope.pwdReg=_config.pwdRegx;
             var str_type=$element.attr("type");
             $("#brand-logo").attr("src",$element.attr("url"));
             //修改个人密码

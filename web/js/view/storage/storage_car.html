@@ -112,7 +112,7 @@
                             <div class="row" style="margin-top: 40px">
                                 <div class="row "  >
                                     <div class="input-field col s4" ng-class="{ 'has-error':newStorage_carForm.vin.$invalid&&submitted }" >
-                                        <input  id="vin" name="vin" autocomplete="off" ng-model="vin" type="text"   required >
+                                        <input  id="vin" name="vin" autocomplete="off" ng-model="vin" type="text" ng-pattern="/^[0-9]{17}$/"   required >
                                         <label for="vin"><span style="color: red;margin-right: 5px">*</span>VIN码</label>
                                     </div>
                                     <!--<div class="col s4 valign-wrapper" ng-class="{ 'has-error':newStorage_carForm.win.$invalid&&submitted }">-->

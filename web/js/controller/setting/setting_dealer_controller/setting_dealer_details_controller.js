@@ -55,7 +55,6 @@ app.controller("setting_dealer_details_controller",["$scope","_basic","_config",
 
     };
 
-
 //    获取移动后的坐标
     var get_location=function (){
         $scope.$apply(function(){

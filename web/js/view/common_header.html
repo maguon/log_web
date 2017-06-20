@@ -48,21 +48,21 @@
                     <div class="row">
                         <div class="input-field col s12" ng-class="{'has-error':amend_userFrom.user_old_password.$invalid&&submitted}">
                             <i class="mdi mdi-lock-open-outline prefix"></i>
-                            <input id="user_old_password" name="user_old_password" ng-model="user_old_password" autocomplete="off" type="text" required >
+                            <input id="user_old_password" name="user_old_password" ng-model="user_old_password" autocomplete="off"  type="text" required >
                             <label class="grey-text" for="user_old_password">原始密码</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12" ng-class="{'has-error':amend_userFrom.user_new_password.$invalid&&submitted}">
                             <i class="mdi mdi-lock-outline prefix"></i>
-                            <input id="user_new_password" name="user_new_password" ng-model="user_new_password" autocomplete="off" type="text"  required>
+                            <input ng-pattern="pwdReg" id="user_new_password" name="user_new_password" ng-model="user_new_password" autocomplete="off" type="text"  required>
                             <label class="grey-text" for="user_new_password">新密码</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12" ng-class="{'has-error':amend_userFrom.user_confirm_password.$invalid&&submitted}">
                             <i class="mdi mdi-lock-outline prefix"></i>
-                            <input id="user_confirm_password" name="user_confirm_password" autocomplete="off" ng-model="user_confirm_password" type="text" required>
+                            <input  id="user_confirm_password" name="user_confirm_password" autocomplete="off" ng-model="user_confirm_password" type="text" required>
                             <label class="grey-text" for="user_confirm_password">确认密码</label>
                         </div>
                     </div>

@@ -6,6 +6,7 @@ adminDirective.directive('header', function () {
         transclude: false,
         restrict: 'E',
         controller: function ($scope, $element, $rootScope, _basic,_config,$host,_socket) {
+            $scope.pwdReg=_config.pwdRegx;
             // var str_type=$element.attr("type");
             if (_basic.getSession(_basic.USER_TYPE)=="99") {
                 var userId=_basic.getSession(_basic.USER_ID);

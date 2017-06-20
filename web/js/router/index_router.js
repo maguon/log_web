@@ -84,10 +84,10 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             // abstract:true,
             // controller:
         })
-        .state("data", {
-            url: "/data",  //路由路径
-            templateUrl: "js/view/data.html",  //路由填充的模板
-            controller:'data_controller'
+        .state("car_to_data", {
+            url: "/car_to_data",  //路由路径
+            templateUrl: "js/view/data/car_to_data.html",  //路由填充的模板
+            controller:'car_to_data_controller'
         })
         .state("setting_users", {
             url: "/setting_users",  //路由路径

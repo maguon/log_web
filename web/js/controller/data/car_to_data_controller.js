@@ -2,14 +2,38 @@
  * Created by ASUS on 2017/6/9.
  */
 
-app.controller("car_to_data_controller", ['$rootScope','$scope','$location','$q',"$host",'_basic',
+app.controller("car_to_data_controller", ['$rootScope','$scope','$location','$q',"$host",'_basic','_socket',
 
-    function($rootScope,$scope,$location,$q,$host,_basic ) {
+    function($rootScope,$scope,$location,$q,$host,_basic ,_socket ) {
         var userId = _basic.getSession(_basic.USER_ID);
         var userType = _basic.getSession(_basic.USER_TYPE);
         $scope.x=1;
 
+        $scope.uploadRecordArray =[
+            ['vin1231',12,32,33,33,34,],
+            ['vin1232',12,32,33,33,34,],
+            ['vin1233',12,32,33,33,34,],
+            ['vin1234',12,32,33,33,34,],
+            ['vin1235',12,32,33,33,34,]
+        ]
 
+        $scope.testUpload = function(){
+            if($scope.uploadRecordArray && $scope.uploadRecordArray.length>0){
+                var carItem = $scope.uploadRecordArray[$scope.uploadRecordArray.length-1]
+                _socket.uploadCarInfo('abcadaf',carItem,1,function(msg){
+                    var msgContent =msg.mcontent;
+                    if(msgContent.success){
+                        $scope.uploadRecordArray.splice($scope.uploadRecordArray.length-1,1);
+                        $scope.testUpload();
+                    }else{
+                        swal(msgContent.msg);
+                        return;
+                    }
+                })
+            }else{
+                return;
+            }
+        }
 
 
         // $scope.$apply(function () {
@@ -150,16 +174,17 @@ app.controller("car_to_data_controller", ['$rootScope','$scope','$location','$q'
                                  if($scope.titleFilter($scope.tableHeadeArray)!=false){
                                      // 主体内容校验
                                      var content_filter_array=result.data.slice(1, result.data.length);
-                                     var con_len=[];
-                                     console.log(content_filter_array);
-                                     for(var i=0;i<content_filter_array.length;i++) {
+                                     var con_line=[];
+                                     // console.log(content_filter_array);
+                                     // excel换行过滤
+                                     for(var i=0;i<content_filter_array.length;i++){
                                          if (content_filter_array[i].length == 1 && content_filter_array[i][0] == "") {
                                            break;
                                          }else{
-                                             con_len.push(content_filter_array[i]);
+                                             con_line.push(content_filter_array[i]);
                                          }
                                      }
-                                     $scope.ContentFilter(con_len);
+                                     $scope.ContentFilter(con_line);
                                      $scope.tableHeader = result.data[0];
                                      }
                                 else {

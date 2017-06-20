@@ -4,8 +4,7 @@
 baseService.factory('_socket',['$http','$location','$q',"$cookies","$host","_basic",function($http,$location,$q,$cookies,$host,_basic){
     var _this = {};
     var ws = null ;
-    var carArray = [];
-    var carFileId = "";
+    var uploadResHandler ;
     _this.msgToJson = function (message) {
         try {
             return JSON.parse(message);
@@ -41,17 +40,7 @@ baseService.factory('_socket',['$http','$location','$q',"$cookies","$host","_bas
 
     };
     _this.acknowledgeUpload = function(msgObj){
-        var carLength = carArray.length;
-
-
-        uploadCarList();
-        /*if(carArray.length>0 ){
-            if(msgObj.mcontent.success){
-                uploadCarList();
-            }else{
-                swal(msgObj.mcontent.msg);
-            }
-        }*/
+        uploadResHandler(msgObj);
     }
     _this.dispatchMsg = function (message){
         var msgObj = _this.msgToJson(message.data);
@@ -68,7 +57,8 @@ baseService.factory('_socket',['$http','$location','$q',"$cookies","$host","_bas
         }
     };
     _this.getConnectMsg = function(user) {
-        /*user = {
+        /*user object example
+        user = {
             id : 10001,
             name: "user2",
             type :2
@@ -81,55 +71,30 @@ baseService.factory('_socket',['$http','$location','$q',"$cookies","$host","_bas
         return msg;
     };
 
-    _this.getUploadMsg = function(uploadObj,index) {
+    _this.getUploadMsg = function(fileId,uploadObj,index) {
         var msg ={
-            mid : carFileId+"_"+ index,
+            mid : fileId+"_"+ index,
             mtype : 4,
             mcontent : uploadObj
         };
         return msg;
     }
-    _this.initCarArray = function (carList,fileId){
-        carArray = carList;
-        carFileId = fileId;
-        _this.uploadCarList({init:true});
-    }
-    _this.uploadCarList = function(msgRes){
-        var carLength = carArray.length;
-
-        if(msgRes.success){
-            if(!msgRes.init&&carArray.length>0){
-                carArray.splice(carArray.length-1,1);
-            }
-            if(ws && ws.readyState ==1){
-                console.log(carLength)
-                if(carLength>0){
-
-                    var carParams ={
-                        uploadId:carFileId,
-                        vin : carArray[carLength-1][0],
-                        makeId : carArray[carLength-1][1],
-                        routeStartId : carArray[carLength-1][2],
-                        routeEndId : carArray[carLength-1][3],
-                        receiveId : carArray[carLength-1][4],
-                        entrustId : carArray[carLength-1][5],
-                        orderDate : carArray[carLength-1][6]
-                    };
-
-                    ws.send(JSON.stringify(getUploadMsg(carParams,carLength-1)));
-                }else{
-                    return {complete:true}
-                }
-            }else{
-                swal("与服务器断开连接");
-                return {complete:true};
-            }
-        }else{
-            swal(msgRes.msg);
-            return {complete:false}
-        }
 
 
+    _this.uploadCarInfo = function (fileId,carParamArray,index,callback) {
+        uploadResHandler = callback;
+        var carParams ={
+            uploadId:fileId,
+            vin : carParamArray[0],
+            makeId : carParamArray[1],
+            routeStartId : carParamArray[2],
+            routeEndId : carParamArray[3],
+            receiveId : carParamArray[4],
+            entrustId : carParamArray[5],
+            orderDate : carParamArray[6]
+        };
+
+        ws.send(JSON.stringify(this.getUploadMsg(fileId,carParams,index)));
     }
 
     _this.sendMsg = function(msgObj){

@@ -5,13 +5,14 @@ app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$ho
 
     $scope.userId = _basic.getSession(_basic.USER_ID);
     $scope.add_contacts = false;
+    $scope.mobileReg=_config.mobileRegx;
 
     // 获取联系人信息
     $scope.getContactsInfo = function (currentId) {
         _basic.get($host.api_url + "/entrust/" + currentId + "/contacts").then(function (data) {
             if (data.success === true) {
                 console.log("data", data);
-                $scope.contact = data.result;
+                $scope.contactList = data.result;
             }
             else {
                 swal(data.msg, "", "error");
@@ -21,7 +22,7 @@ app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$ho
 
     // 控制列表项开合
     $scope.view_contacts = function (currentId, $index) {
-        for (var i = 0; i < $scope.entrust.length; i++) {
+        for (var i = 0; i < $scope.entrustList.length; i++) {
             var currentClick = $(".show_flag" + i);
             // 判断总数据数组下标与当前点击下标哪个相匹配
             if (i === $index) {
@@ -62,13 +63,14 @@ app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$ho
     };
 
     // 保存新增信息
-    $scope.save_contacts = function (entrustId) {
+    $scope.addContacts = function (isValid, entrustId) {
+        console.log("isValid:", isValid);
         console.log("entrustId:", entrustId);
         console.log("userName:", $scope.userNames);
         console.log("dutys:", $scope.dutys);
         console.log("phones", $scope.phones);
-
-        if ($scope.userNames != undefined) {
+        $scope.submitted = true;
+        if (isValid) {
             _basic.post($host.api_url + "/user/" + $scope.userId + "/entrust/" + entrustId + "/contacts", {
                 contactsName: $scope.userNames,
                 position: $scope.dutys,
@@ -82,14 +84,12 @@ app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$ho
                     // $scope.dutys = undefined;
                     // $scope.phones = undefined;
                     $scope.getContactsInfo(entrustId);
+                    $scope.submitted = false;
                 }
                 else {
                     swal(data.msg, "", "error");
                 }
             })
-        }
-        else {
-            swal("请填写姓名", "", "error");
         }
 
     };
@@ -129,7 +129,7 @@ app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$ho
         _basic.get($host.api_url + "/entrust").then(function (data) {
             if (data.success === true) {
                 console.log("data", data);
-                $scope.entrust = data.result;
+                $scope.entrustList = data.result;
             }
             else {
                 swal(data.msg, "", "error");

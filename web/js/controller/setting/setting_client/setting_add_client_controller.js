@@ -8,7 +8,7 @@ app.controller("setting_add_client_controller", ["$scope", "_basic", "_config", 
     $scope.full_name = "";
     $scope.remark = "";
 
-    $scope.create_entrust = function () {
+    $scope.createEntrust = function () {
         if ($scope.short_name != "" && $scope.full_name != "") {
             _basic.post($host.api_url + "/user/" + $scope.userId + "/entrust", {
                 shortName: $scope.short_name,

@@ -3,24 +3,20 @@
  */
 app.controller("setting_client_details_controller", ["$scope", "_basic", "$stateParams", "_config", "$host", function ($scope, _basic, $stateParams, _config, $host) {
     $scope.userId = _basic.getSession(_basic.USER_ID);
-    // 设置文本框默认值
-    $scope.short_name = $stateParams.short_name;
-    $scope.full_name = $stateParams.entrust_name;
-    $scope.remark = "";
-    var val = $stateParams.id;
+    var entrustId = $stateParams.id;
 
     // 修改委托方信息
-    $scope.entrust_modify = function () {
-        if ($scope.short_name != "" && $scope.full_name != "") {
-            _basic.put($host.api_url + "/user/" + $scope.userId + "/entrust/" + val, {
-                shortName: $scope.short_name,
-                entrustName: $scope.full_name,
+    $scope.updateEntrust = function () {
+        if ($scope.shortName != "" && $scope.fullName != "") {
+            _basic.put($host.api_url + "/user/" + $scope.userId + "/entrust/" + entrustId, {
+                shortName: $scope.shortName,
+                entrustName: $scope.fullName,
                 remark: $scope.remark
             }).then(function (data) {
                 if (data.success == true) {
                     swal("修改成功", "", "success");
-                    $scope.short_name = "";
-                    $scope.full_name = "";
+                    $scope.shortName = "";
+                    $scope.fullName = "";
                     $scope.remark = "";
                 }
                 else {
@@ -32,6 +28,22 @@ app.controller("setting_client_details_controller", ["$scope", "_basic", "$state
             swal("请填写完整信息", "", "error");
         }
 
-    }
+    };
+
+    // 获取指定委托方信息
+    $scope.getEntrustInfo = function () {
+        _basic.get($host.api_url + "/entrust?entrustId=" + entrustId).then(function (data) {
+            if (data.success === true) {
+                console.log("data:", data);
+                $scope.shortName = data.result[0].short_name;
+                $scope.fullName = data.result[0].entrust_name;
+                $scope.remark = data.result[0].remark;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        })
+    };
+    $scope.getEntrustInfo();
 
 }]);

@@ -150,16 +150,17 @@ app.controller("car_to_data_controller", ['$rootScope','$scope','$location','$q'
                                  if($scope.titleFilter($scope.tableHeadeArray)!=false){
                                      // 主体内容校验
                                      var content_filter_array=result.data.slice(1, result.data.length);
-                                     var con_len=[];
-                                     console.log(content_filter_array);
-                                     for(var i=0;i<content_filter_array.length;i++) {
+                                     var con_line=[];
+                                     // console.log(content_filter_array);
+                                     // excel换行过滤
+                                     for(var i=0;i<content_filter_array.length;i++){
                                          if (content_filter_array[i].length == 1 && content_filter_array[i][0] == "") {
                                            break;
                                          }else{
-                                             con_len.push(content_filter_array[i]);
+                                             con_line.push(content_filter_array[i]);
                                          }
                                      }
-                                     $scope.ContentFilter(con_len);
+                                     $scope.ContentFilter(con_line);
                                      $scope.tableHeader = result.data[0];
                                      }
                                 else {

@@ -4,6 +4,8 @@
 app.controller("setting_dealer_controller",["$scope","_basic","_config","$host",function ($scope,_basic,_config,$host){
     $scope.contacts=[];
     $scope.addContacts=[];
+    // 电话号正则
+    $scope.mobileReg=_config.mobileRegx;
     $scope.userId=_basic.getSession(_basic.USER_ID);
     $scope.contacts_name=[];
     // 初始数据
@@ -65,7 +67,7 @@ app.controller("setting_dealer_controller",["$scope","_basic","_config","$host",
     };
     // 新增联系人
     $scope.add_contacts=function (iValid,id,index) {
-        $scope.submitted=false;
+        $scope.submitted=true;
         if(iValid){
             _basic.post($host.api_url+"/user/"+$scope.userId+"/receive/"+id+"/contacts",{
                 "contactsName":$scope.contacts_name,
@@ -74,12 +76,10 @@ app.controller("setting_dealer_controller",["$scope","_basic","_config","$host",
             }).then(function (data) {
                 if(data.success==true){
                     $scope.get_contact(id);
-
+                    $scope.submitted=false;
                 }
             });
         }
-
-
     };
     // 删除联系人
     $scope.delete_contact=function (id,con_id) {

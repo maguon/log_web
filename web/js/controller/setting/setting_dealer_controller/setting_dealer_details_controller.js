@@ -113,6 +113,7 @@ app.controller("setting_dealer_details_controller",["$scope","_basic","_config",
             //     return result;
             // };
             // $scope._obj=deepCopy(obj);
+
         }
     });
 

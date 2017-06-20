@@ -68,5 +68,10 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             url:"/user_info",
             templateUrl: "/js/view/user/user_info.html",
             controller:'user_info_controller'
-        });
+        })
+        .state("car_to_data", {
+        url: "/car_to_data",  //路由路径
+        templateUrl: "js/view/data/car_to_data.html",  //路由填充的模板
+        controller:'car_to_data_controller'
+    })
 }]);

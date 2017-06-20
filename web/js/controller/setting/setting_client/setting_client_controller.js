@@ -2,21 +2,8 @@
  * Created by zcy on 2017/6/7.
  */
 app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$host", function ($scope, _basic, _config, $host) {
-    // 获取所有委托方信息
-    (function () {
-        _basic.get($host.api_url + "/entrust").then(function (data) {
-            if (data.success === true) {
-                console.log("data", data);
-                $scope.entrust = data.result;
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        })
-    })();
 
     $scope.userId = _basic.getSession(_basic.USER_ID);
-    $scope.currentIndex = 0;
     $scope.add_contacts = false;
 
     // 获取联系人信息
@@ -44,8 +31,7 @@ app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$ho
                     currentClick.show();
                     $scope.getContactsInfo(currentId);
                     currentClick.attr("flag", "false");
-                    console.log("currentId", currentId);
-                    console.log("index", $index);
+                    $scope.add_contacts = false;
                 }
                 else {
                     // 展开状态收起自身
@@ -59,7 +45,7 @@ app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$ho
                 currentClick.attr("flag", "true");
             }
         }
-        $scope.currentIndex = $index;
+        // $scope.currentIndex = $index;
     };
 
     // 增加联系人
@@ -77,7 +63,6 @@ app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$ho
 
     // 保存新增信息
     $scope.save_contacts = function (entrustId) {
-        console.log("currentIndex:", $scope.currentIndex);
         console.log("entrustId:", entrustId);
         console.log("userName:", $scope.userNames);
         console.log("dutys:", $scope.dutys);
@@ -117,13 +102,13 @@ app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$ho
                 title: "确定删除吗？",
                 type: "warning",
                 showCancelButton: true,
-                cancelButtonText:"取消",
+                cancelButtonText: "取消",
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确定",
                 closeOnConfirm: false
             },
             function () {
-                _basic.delete($host.api_url + "/user/" + $scope.userId + "/entrustContacts/" + contactId , {}).then(
+                _basic.delete($host.api_url + "/user/" + $scope.userId + "/entrustContacts/" + contactId, {}).then(
                     function (data) {
                         if (data.success === true) {
                             console.log("data", data);
@@ -138,5 +123,19 @@ app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$ho
                 console.log("contactId:", contactId)
             });
     };
+
+    // 获取所有委托方信息
+    $scope.getEntrust = function () {
+        _basic.get($host.api_url + "/entrust").then(function (data) {
+            if (data.success === true) {
+                console.log("data", data);
+                $scope.entrust = data.result;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        })
+    };
+    $scope.getEntrust();
 
 }]);

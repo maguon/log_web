@@ -14,7 +14,7 @@
   },
   "author": "MingYuan",
   "license": "",
-  "devDependencies": {
+  "dependencies": {
     "restify": "^4.0.3"
   }
 }

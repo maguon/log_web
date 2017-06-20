@@ -4,6 +4,8 @@
 baseService.factory('_socket',['$http','$location','$q',"$cookies","$host","_basic",function($http,$location,$q,$cookies,$host,_basic){
     var _this = {};
     var ws = null ;
+    var carArray = [];
+    var carFileId = "";
     _this.msgToJson = function (message) {
         try {
             return JSON.parse(message);
@@ -38,6 +40,19 @@ baseService.factory('_socket',['$http','$location','$q',"$cookies","$host","_bas
         }
 
     };
+    _this.acknowledgeUpload = function(msgObj){
+        var carLength = carArray.length;
+
+
+        uploadCarList();
+        /*if(carArray.length>0 ){
+            if(msgObj.mcontent.success){
+                uploadCarList();
+            }else{
+                swal(msgObj.mcontent.msg);
+            }
+        }*/
+    }
     _this.dispatchMsg = function (message){
         var msgObj = _this.msgToJson(message.data);
         console.log(msgObj);
@@ -45,7 +60,8 @@ baseService.factory('_socket',['$http','$location','$q',"$cookies","$host","_bas
             case 0 ://system leve message
                 _this.processSystem(msgObj.mcontent);
                 break;
-            case 4 : //clients list
+            case 4 : //upload repeat list
+                _this.acknowledgeUpload(msgObj);
                 break;
             default :
                 break;
@@ -64,6 +80,58 @@ baseService.factory('_socket',['$http','$location','$q',"$cookies","$host","_bas
         };
         return msg;
     };
+
+    _this.getUploadMsg = function(uploadObj,index) {
+        var msg ={
+            mid : carFileId+"_"+ index,
+            mtype : 4,
+            mcontent : uploadObj
+        };
+        return msg;
+    }
+    _this.initCarArray = function (carList,fileId){
+        carArray = carList;
+        carFileId = fileId;
+        _this.uploadCarList({init:true});
+    }
+    _this.uploadCarList = function(msgRes){
+        var carLength = carArray.length;
+
+        if(msgRes.success){
+            if(!msgRes.init&&carArray.length>0){
+                carArray.splice(carArray.length-1,1);
+            }
+            if(ws && ws.readyState ==1){
+                console.log(carLength)
+                if(carLength>0){
+
+                    var carParams ={
+                        uploadId:carFileId,
+                        vin : carArray[carLength-1][0],
+                        makeId : carArray[carLength-1][1],
+                        routeStartId : carArray[carLength-1][2],
+                        routeEndId : carArray[carLength-1][3],
+                        receiveId : carArray[carLength-1][4],
+                        entrustId : carArray[carLength-1][5],
+                        orderDate : carArray[carLength-1][6]
+                    };
+
+                    ws.send(JSON.stringify(getUploadMsg(carParams,carLength-1)));
+                }else{
+                    return {complete:true}
+                }
+            }else{
+                swal("与服务器断开连接");
+                return {complete:true};
+            }
+        }else{
+            swal(msgRes.msg);
+            return {complete:false}
+        }
+
+
+    }
+
     _this.sendMsg = function(msgObj){
         var msgString = JSON.stringify(msgObj);
         if(msgString && msgString.length>0){

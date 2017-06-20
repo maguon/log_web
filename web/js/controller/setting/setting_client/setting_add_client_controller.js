@@ -1,32 +1,36 @@
 /**
- * Created by ASUS on 2017/6/8.
+ * Created by zcy on 2017/6/8.
  */
 app.controller("setting_add_client_controller", ["$scope", "_basic", "_config", "$host", function ($scope, _basic, _config, $host) {
 
     $scope.userId = _basic.getSession(_basic.USER_ID);
-    $scope.short_name = "";
-    $scope.full_name = "";
+    $scope.shortName = "";
+    $scope.entrustName = "";
     $scope.remark = "";
 
     $scope.createEntrust = function () {
-        if ($scope.short_name != "" && $scope.full_name != "") {
+        if ($scope.shortName != "" && $scope.entrustName != "") {
             _basic.post($host.api_url + "/user/" + $scope.userId + "/entrust", {
-                shortName: $scope.short_name,
-                entrustName: $scope.full_name,
+                shortName: $scope.shortName,
+                entrustName: $scope.entrustName,
                 remark: $scope.remark
             }).then(function (data) {
                 if (data.success == true) {
                     swal("新增成功", "", "success");
-                    $scope.short_name = "";
-                    $scope.full_name = "";
+                    $scope.shortName = "";
+                    $scope.entrustName = "";
                     $scope.remark = "";
                 }
                 else {
                     swal(data.msg, "", "error");
                 }
             })
+                // .catch(function (e) {
+                //     swal("服务器内部错误", "", "error");
+                //     console.log(e);
+                // });
         }
-        else{
+        else {
             swal("请填写完整信息", "", "error");
         }
 

@@ -54,7 +54,7 @@
                         <div class="col s11 add_contacts"  ng-show="addContacts[{{$index}}].show">
                             <form name="addContactsFrom" ng-submit="add_contacts(addContactsFrom.$valid,el.id,$index)" novalidate>
                                 <div class="col s12 z-depth-2 white contacts_box valign-wrapper "
-                                     style="padding: 0.75rem 0;"  >
+                                     style="padding: 0.75rem 0;">
                                     <div class="col s3 vc-center input-field" style="margin-top: 0" ng-class="{'has-error':addContactsFrom.contacts_name.$invalid&&submitted}">
                                         <input class=" city_text" style="height: 2.4rem" name="contacts_name" id="contacts_name"  type="text" autocomplete="off" ng-model="$parent.contacts_name" required>
                                         <label class="fz12 grey-text" for="contacts_name">姓名</label>

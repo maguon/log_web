@@ -7,33 +7,10 @@ app.controller("car_to_data_controller", ['$rootScope','$scope','$location','$q'
     function($rootScope,$scope,$location,$q,$host,_basic ,_socket ) {
         var userId = _basic.getSession(_basic.USER_ID);
         var userType = _basic.getSession(_basic.USER_TYPE);
-        $scope.x=1;
-
-        $scope.uploadRecordArray =[
-            ['vin1231',12,32,33,33,34,],
-            ['vin1232',12,32,33,33,34,],
-            ['vin1233',12,32,33,33,34,],
-            ['vin1234',12,32,33,33,34,],
-            ['vin1235',12,32,33,33,34,]
-        ];
-
-        $scope.testUpload = function(){
-            if($scope.uploadRecordArray && $scope.uploadRecordArray.length>0){
-                var carItem = $scope.uploadRecordArray[$scope.uploadRecordArray.length-1];
-                _socket.uploadCarInfo('abcadaf',carItem,$scope.uploadRecordArray.length-1,function(msg){
-                    var msgContent =msg.mcontent;
-                    if(msgContent.success){
-                        $scope.uploadRecordArray.splice($scope.uploadRecordArray.length-1,1);
-                        $scope.testUpload();
-                    }else{
-                        swal(msgContent.msg);
-                        return;
-                    }
-                })
-            }else{
-                return;
-            }
-        };
+        $scope.x=0;
+        $scope.templateBox=true;
+        $scope.success_data_box=false;
+        $scope.dataBox=false;
 
 
         // $scope.$apply(function () {
@@ -71,7 +48,6 @@ app.controller("car_to_data_controller", ['$rootScope','$scope','$location','$q'
             }else {
                 for(var i in headerArray){
                     if(colObjs[i].name!=headerArray[i]){
-
                         return false
                     }
                 }
@@ -125,12 +101,12 @@ app.controller("car_to_data_controller", ['$rootScope','$scope','$location','$q'
 
 
             // }
-            swal("错误条数"+ $scope.tableContentErrorFilter.length);
+            // swal("错误条数"+ $scope.tableContentErrorFilter.length);
 
         };
 
-        $scope.fileUpload=function ($event) {
-            _basic.formPost($event.target.parentElement.parentElement, $host.file_url + '/user/'+ userId + '/file?fileType=1&&userType='+userType, function (data) {
+        $scope.fileUpload=function () {
+            _basic.formPost($("#file_upload_form"), $host.file_url + '/user/'+ userId + '/file?fileType=1&&userType='+userType, function (data) {
                 if(data.success==true){
                     $scope.file_id=data.result.id;
                     var originArrayLength = $scope.tableContentFilter.length;
@@ -178,14 +154,16 @@ app.controller("car_to_data_controller", ['$rootScope','$scope','$location','$q'
                 config: {
                     complete: function(result){
                         $scope.$apply(function (){
+
                             if($scope.fileType!="application/vnd.ms-excel"){
                                 swal("文件类型错误");
                             }else {
                                 $scope.tableHeadeArray=result.data[0];
-                                console.log($scope.tableHeadeArray);
+                                // console.log($scope.tableHeadeArray);
                                 // console.log(result.data.slice(1,result.data.length));
                                 // console.log(result.data[0]);
 
+                                $scope.templateBox=false;
                                 // 表头校验
                                  if($scope.titleFilter($scope.tableHeadeArray)!=false){
                                      // 主体内容校验
@@ -201,6 +179,15 @@ app.controller("car_to_data_controller", ['$rootScope','$scope','$location','$q'
                                          }
                                      }
                                      $scope.ContentFilter(con_line);
+                                     if($scope.tableContentErrorFilter.length==0){
+                                         $scope.success_data_box=true;
+                                         $scope.dataBox=false;
+                                         swal("正确条数"+ $scope.tableContentFilter.length);
+                                     }else {
+                                         $scope.success_data_box=false;
+                                         $scope.dataBox=true;
+                                         swal("错误条数"+ $scope.tableContentErrorFilter.length);
+                                     }
                                      $scope.tableHeader = result.data[0];
                                      }
                                 else {
@@ -229,6 +216,96 @@ app.controller("car_to_data_controller", ['$rootScope','$scope','$location','$q'
                 }
             })
         };
+        // 单条数据录入
+        $scope.new_data_list=function () {
+            $scope.submitted = false;
+            $('.tabWrap .tab').removeClass("active");
+            $(".tab_box ").removeClass("active");
+            $(".tab_box ").hide();
+            $('.tabWrap .test1').addClass("active");
+            $("#test1").addClass("active");
+            $("#test1").show();
+            // $scope.vin = "";
+            // $scope.make_name = "";
+            // $scope.model_name = "";
+            // $scope.create_time = "";
+            // $scope.car_color = "";
+            // $scope.engineNum = "";
+            // $scope.remark = "";
+            // $scope.storage_name = "";
+            // // 照片清空
+            // $scope.imgArr = [];
+            // // 车辆型号清空
+            // $scope.carModelName = "";
+            // // 存放位置清空
+            // $scope.parkingArray = "";
+            // $scope.colArr = "";
+            // // "enterTime":$scope.enter_time,
+            // $scope.parking_id = "";
+            // $scope.plan_out_time = "";
+            $(".modal").modal({
+                height: 500
+            });
+            $("#newStorage_car").modal("open");
+        };
+        
+        // 信息获取
+        $scope.get_Msg=function () {
+            // 城市
+            _basic.get($host.api_url+"/city").then(function (data) {
+                if(data.success==true){
+                    $scope.get_city=data.result;
+                }
+            });
+            // 车辆品牌
+            _basic.get($host.api_url+"/carMake").then(function (data) {
+                if(data.success==true){
+                    $scope.get_carMake=data.result;
+                }
+            });
+            // 经销商
+            _basic.get($host.api_url+"/receive").then(function (data) {
+                if(data.success==true){
+                    $scope.get_receive=data.result;
+                }
+            });
+            // 委托方
+            _basic.get($host.api_url+"/entrust").then(function (data) {
+                if(data.success==true){
+                    $scope.get_entrust=data.result;
+                }
+            })
+        };
+        $scope.get_Msg();
+        
+        // 新增车辆信息
+        $scope.new_submitForm=function (invalid) {
+            var obj={
+                "vin": $scope.vin,
+                "makeId": $scope.car_brand.id,
+                "makeName": $scope.car_brand.make_name,
+                // "modelId": 0,
+                // "modelName": "string",
+                "routeStartId": $scope.start_city.id,
+                "routeStart": $scope.start_city.short_name,
+                "routeEndId": $scope.arrive_city.id,
+                "routeEnd": $scope.arrive_city.short_name,
+                "receiveId": $scope.client,
+                "entrustId": $scope.dealer,
+                "orderDate": $scope.arrival_time,
+                // "colour": "string",
+                // "engineNum": "string",
+                "remark": "string"
+            };
+            console.log(obj);
+            $scope.submitted=true;
+            if(invalid){
 
-        console.log('Data Controller Init !')
+                _basic.post($host.api_url+"/entrust",obj).then(function (data) {
+                    if(data.success==true){
+
+                    }
+                })
+            }
+        }
     }]);

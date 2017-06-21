@@ -934,3 +934,28 @@ input[type=text]{
 .search_info input{
      text-indent: 8px;
  }
+
+/*圆角按钮*/
+.circle_button{
+    border-radius: 20px;
+    overflow: hidden;
+
+}
+/*数据导入*/
+.templateBox{
+    position: relative;
+    border: 1px solid #bdbdbd;
+    border-radius: 20px;
+}
+.warnBox{
+    margin: 50px 0;
+}
+.template_title{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,0);
+    top: -10px;
+    z-index: 100;
+    background: #f1f5f5;
+    padding: 0 20px;
+}

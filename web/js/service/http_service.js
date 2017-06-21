@@ -54,6 +54,8 @@ baseService.factory('_basic',['$http','$location','$q',"$cookies",function($http
                     deferred.resolve(success.data);
 
                 }).catch(function(data){
+                    $(".shadeDowWrap").hide();
+                    swal("服务器内部异常","","error");
                     // checkAuthorizedStatus(data);
                     deferred.reject(data);
                 });

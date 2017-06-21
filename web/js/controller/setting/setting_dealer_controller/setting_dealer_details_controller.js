@@ -95,7 +95,7 @@ app.controller("setting_dealer_details_controller",["$scope","_basic","_config",
             });
 
             // 深度复制
-            // var obj={
+            // $scope.obj1={
             //     "shortName":$scope.dealer_details.short_name,
             //     "receiveName":$scope.dealer_details.receive_name,
             //     "address":$scope.dealer_details.address,
@@ -104,6 +104,14 @@ app.controller("setting_dealer_details_controller",["$scope","_basic","_config",
             //     "cityId": $scope.dealer_details.city_id,
             //     "remark": $scope.dealer_details.remark
             // };
+            // $scope.$watch('obj1',function(newValue,oldValue, scope){
+            //
+            //     console.log(newValue);
+            //
+            //     console.log(oldValue);
+            //
+            // },true);
+
             // var deepCopy= function(source) {
             //     var result={};
             //     for (var key in source) {
@@ -121,27 +129,28 @@ app.controller("setting_dealer_details_controller",["$scope","_basic","_config",
     $scope.change_setting_dealer=function (isValid) {
         $scope.submitted=true;
         if(isValid){
-                var obj={
-                    "shortName":$scope.dealer_details.short_name,
-                    "receiveName":$scope.dealer_details.receive_name,
-                    "address":$scope.dealer_details.address,
-                    "lng": $scope.lng,
-                    "lat": $scope.lat,
-                    "cityId": $scope.dealer_details.city_id,
-                    "remark": $scope.dealer_details.remark
-                };
-                // 比较对象是否发生变化
-                // if(JSON.stringify($scope._obj) === JSON.stringify(obj)){
-                //
-                // }else {
-                //     console.log(obj,$scope._obj);
-                // }
-                _basic.put($host.api_url+"/user/"+userId+"/receive/"+$stateParams.dealer_id,obj).then(function (data) {
-                    if(data.success==true){
-                        swal("修改成功","","success");
-                        $scope.submitted=false;
-                    }
-                });
+
+                // var obj={
+                //     "shortName":$scope.dealer_details.short_name,
+                //     "receiveName":$scope.dealer_details.receive_name,
+                //     "address":$scope.dealer_details.address,
+                //     "lng": $scope.lng,
+                //     "lat": $scope.lat,
+                //     "cityId": $scope.dealer_details.city_id,
+                //     "remark": $scope.dealer_details.remark
+                // };
+                // // 比较对象是否发生变化
+                // // if(JSON.stringify($scope._obj) === JSON.stringify(obj)){
+                // //
+                // // }else {
+                // //     console.log(obj,$scope._obj);
+                // // }
+                // _basic.put($host.api_url+"/user/"+userId+"/receive/"+$stateParams.dealer_id,obj).then(function (data) {
+                //     if(data.success==true){
+                //         swal("修改成功","","success");
+                //         $scope.submitted=false;
+                //     }
+                // });
         }
     };
 }]);

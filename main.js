@@ -33,7 +33,7 @@ var restify = require('restify');
     server.use(restify.queryParser());
     server.use(restify.gzipResponse());
 
-    var STATIS_FILE_RE = /\.(css|js|jpe?g|png|gif|less|eot|svg|bmp|tiff|ttf|otf|woff|pdf|ico|json|wav|ogg|mp3?|xml|woff2|map)$/i;
+    var STATIS_FILE_RE = /\.(css|js|jpe?g|png|gif|less|eot|svg|bmp|tiff|ttf|otf|woff|pdf|ico|json|wav|ogg|mp3?|xml|woff2|map|csv)$/i;
     server.get(STATIS_FILE_RE, restify.serveStatic({ directory: './web', default: 'index.html', maxAge: 0 }));
 
 

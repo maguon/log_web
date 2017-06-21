@@ -1,0 +1,110 @@
+/**
+ * Created by zcy on 2017/6/21.
+ */
+app.controller("data_dictionary_controller", ["$scope", "_basic", "_config", "$host", function ($scope, _basic, _config, $host) {
+    $('ul.tabs').tabs();
+    $scope.flag = false;
+
+    // 获取所有数据
+    $scope.queryData = function () {
+        _basic.get($host.api_url + "/city").then(function (cityData) {
+            if (cityData.success === true) {
+                $scope.cityList = cityData.result;
+                console.log("city", cityData);
+                // 默认显示城市信息
+                $scope.getCity();
+            }
+            else {
+                swal(cityData.msg, "", "error");
+            }
+        });
+
+        _basic.get($host.api_url + "/entrust").then(function (entrustData) {
+            if (entrustData.success === true) {
+                $scope.entrustList = entrustData.result;
+            }
+            else {
+                swal(entrustData.msg, "", "error");
+            }
+        });
+
+        _basic.get($host.api_url + "/receive").then(function (receiveData) {
+            if (receiveData.success === true) {
+                $scope.receiveList = receiveData.result;
+            }
+            else {
+                swal(receiveData.msg, "", "error");
+            }
+        })
+    };
+
+    $scope.queryData();
+
+    // 点击后加上标识，并让循环的列表等于指定类下的信息
+    $scope.getCity = function () {
+        $scope.clickStatus = "city";
+        $scope.flag = false;
+        $scope.listInfo = $scope.cityList;
+    };
+
+    $scope.getEntrust = function () {
+        $scope.clickStatus = "entrust";
+        $scope.flag = true;
+        $scope.listInfo = $scope.entrustList;
+    };
+
+    $scope.getReceive = function () {
+        $scope.clickStatus = "receive";
+        $scope.flag = true;
+        $scope.listInfo = $scope.receiveList;
+    };
+
+    // $scope.listInfo = [];
+
+    // 判断当前在哪个类下进行的操作，然后根据输入的关键字筛选指定分类下的信息
+    $scope.updateList = function () {
+        $scope.listInfo = [];
+        console.log("clickStatus:",$scope.clickStatus);
+        console.log("keyword",$scope.keyWord);
+        if ($scope.clickStatus === "city") {
+            if ($scope.keyWord != "") {
+                for (var i = 0; i < $scope.cityList.length; i++) {
+                    if (($scope.cityList[i].city_name).indexOf($scope.keyWord) !== -1) {
+                        $scope.listInfo.push($scope.cityList[i]);
+                    }
+                }
+            }
+            else {
+                $scope.listInfo = $scope.cityList;
+            }
+            console.log("listInfo", $scope.listInfo);
+        }
+
+        if ($scope.clickStatus === "entrust") {
+            if ($scope.keyWord != "") {
+                for (var a = 0; a < $scope.entrustList.length; a++) {
+                    if (($scope.entrustList[a].entrust_name).indexOf($scope.keyWord) !== -1 || ($scope.entrustList[a].short_name).indexOf($scope.keyWord) !== -1) {
+                        $scope.listInfo.push($scope.entrustList[a]);
+                    }
+                }
+            }
+            else {
+                $scope.listInfo = $scope.entrustList;
+            }
+        }
+
+        if ($scope.clickStatus === "receive") {
+            if ($scope.keyWord != "") {
+                for (var c = 0; c < $scope.receiveList.length; c++) {
+                    if (($scope.receiveList[c].receive_name).indexOf($scope.keyWord) !== -1 || ($scope.receiveList[c].short_name).indexOf($scope.keyWord) !== -1) {
+                        $scope.listInfo.push($scope.receiveList[c]);
+                    }
+                }
+            }
+            else {
+                $scope.listInfo = $scope.receiveList;
+            }
+        }
+
+    }
+}]);

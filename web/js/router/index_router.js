@@ -139,6 +139,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/system_settings/setting_dealer/setting_dealer_details.html",
             controller:'setting_dealer_details_controller'
         })
+        .state("data_dictionary",{
+            url:"/data_dictionary",
+            templateUrl: "js/view/system_settings/data_dictionary.html",
+            controller:'data_dictionary_controller'
+        })
         .state("add_setting_dealer",{
             url:"/add_setting_dealer",
             templateUrl: "js/view/system_settings/setting_dealer/add_setting_dealer_details.html",

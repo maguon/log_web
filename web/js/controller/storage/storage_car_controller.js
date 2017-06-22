@@ -169,7 +169,6 @@ app.controller("storage_car_controller", ["$scope", "$rootScope","$stateParams",
             if (data.success) {
                 console.log(data, $scope.Picture_carId);
                 var imageId = data.imageId;
-
                 _basic.post($host.record_url + "/car/" + $scope.Picture_carId + "/vin/" + $scope.vin + "/storageImage", {
                     "username": _basic.getSession(_basic.USER_NAME),
                     "userId": userId,

@@ -163,7 +163,7 @@ app.controller("storage_car_map_controller", ["$state", "$rootScope", "$statePar
                     $("#test2").show();
                     // searchAll();
                     $scope.LookGarage($scope.private_storageId);
-                    $scope.Picture_carId = data.id;
+                    $scope.Picture_carId = data.result.carId;
                     // $scope.carPicture_vin=data.win;
                     // console.log($scope.win);
                 } else {
@@ -180,6 +180,7 @@ app.controller("storage_car_map_controller", ["$state", "$rootScope", "$statePar
 
     // 图片上传
     $scope.imgArr = [];
+    $scope.car_image_i=[];
     $scope.uploadBrandImage = function (dom) {
         var filename = $(dom).val();
         console.log($(dom).val());
@@ -215,16 +216,46 @@ app.controller("storage_car_map_controller", ["$state", "$rootScope", "$statePar
                     "url": imageId
                 }).then(function (data) {
                     if (data.success == true) {
-                        $scope.imgArr.push({src: $host.file_url + '/image/' + imageId});
-                        console.log($scope.imgArr);
+                        $scope._id=data.result._id;
+                        var nowDate=moment(new Date()).format("YYYY-DD-MM h:mm");
+                        $scope.car_image_i.push($host.file_url + '/image/' + imageId);
+                        $scope.imgArr.push({src: $host.file_url + '/image/' + imageId,time:nowDate,record_id:$scope._id,user:_basic.getSession(_basic.USER_NAME)});
                     }
                 });
-                // .appendChild(div)
             } else {
                 swal('上传图片失败', "", "error");
             }
         }, function (error) {
             swal('服务器内部错误', "", "error");
         })
+    };
+    // 删除照片
+    $scope.delete_img=function (record_id,src) {
+        swal({
+                title: "确认删除该照片？",
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                closeOnConfirm: false
+            },
+            function () {
+                // console.log(src);
+                var url_array=src.split("/");
+                var url=url_array[url_array.length-1];
+                _basic.delete($host.record_url+"/user/"+userId+"/record/"+record_id+"/image/"+url).then(function (data) {
+                    if(data.success==true){
+                        var i=$scope.car_image_i.indexOf(src);
+                        $scope.imgArr.splice(i,1);
+                        $scope.car_image_i.splice(i,1);
+                        swal("删除成功!", "", "success");
+                        // $scope.lookStorageCar(data.result.id,data.result.vin)
+                    }
+                })
+            }
+        )
+
     };
 }]);

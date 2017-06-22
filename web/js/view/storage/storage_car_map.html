@@ -102,7 +102,7 @@
                                 <div class="row" style="margin-top: 40px">
                                     <div class="row "  >
                                         <div class="input-field col s4" ng-class="{ 'has-error':newStorage_carForm.vin.$invalid&&submitted }" >
-                                            <input  id="vin" name="vin" autocomplete="off" ng-model="vin" type="text"   required >
+                                            <input  id="vin" name="vin" autocomplete="off" ng-model="vin" type="text" ng-pattern="/^[0-9a-zA-Z]{17}$/"   required >
                                             <label for="vin"><span style="color: red;margin-right: 5px">*</span>VIN码</label>
                                         </div>
                                         <!--<div class="col s4 valign-wrapper" ng-class="{ 'has-error':newStorage_carForm.win.$invalid&&submitted }">-->
@@ -208,11 +208,12 @@
                                                 <i class="mdi mdi-instagram"></i>
                                             </div>
                                             <ul id="add_img_one">
-                                                <li ng-repeat="el in imgArr"   class="storage_car_picture col s3 vc-center  p0 grey white-text">
+                                                <li ng-repeat="el in imgArr" ng-mouseenter="show=true" ng-mouseleave="show=false"     class="storage_car_picture col s3 vc-center  p0 grey white-text">
                                                     <img ng-src="{{el.src}}" class="responsive-img">
+                                                    <b class="delete_img vc-center black fz18" ng-click="delete_img(el.record_id,el.src)"><i class="mdi mdi-close"></i></b>
+                                                    <p class="img_date white-text center-align" ng-show="show" ng-cloak>{{el.user}}上传于{{el.time|date:'yyyy-MM-dd hh:mm:ss'}}</p>
                                                 </li>
                                             </ul>
-
                                         </form>
                                     </div>
                                 </div>

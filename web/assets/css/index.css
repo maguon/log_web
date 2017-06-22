@@ -959,3 +959,10 @@ input[type=text]{
     background: #f1f5f5;
     padding: 0 20px;
 }
+/*删除照片*/
+.delete_img{
+    position: absolute;
+    right: 0;
+    top: 0;
+
+}

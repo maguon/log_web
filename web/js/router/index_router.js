@@ -139,6 +139,21 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/system_settings/setting_dealer/setting_dealer_details.html",
             controller:'setting_dealer_details_controller'
         })
+        .state("setting_shipments",{
+            url:"/setting_shipments",
+            templateUrl: "js/view/system_settings/setting_shipments/setting_shipments.html",
+            controller:'setting_shipments_controller'
+        })
+        .state("add_setting_shipments",{
+            url:"/add_setting_shipments",
+            templateUrl: "js/view/system_settings/setting_shipments/add_setting_shipments.html",
+            controller:'add_setting_shipments_controller'
+        })
+        .state("setting_shipments_details",{
+            url:"/setting_shipments_details",
+            templateUrl: "js/view/system_settings/setting_shipments/setting_shipments_details.html",
+            controller:'setting_shipments_details_controller'
+        })
         .state("data_dictionary",{
             url:"/data_dictionary",
             templateUrl: "js/view/system_settings/data_dictionary.html",

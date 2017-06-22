@@ -29,6 +29,7 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
     });
 
     //controller里对应的处理函数
+    // 图片放大处理
     var viewer;
     // var add_viewer;
     $scope.renderFinish = function () {
@@ -41,6 +42,7 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
     $scope.imgArr = [];
     // 预览详情照片
     $scope.storage_imageBox = [];
+    $scope.storage_image_i=[];
 
     $scope.uploadBrandImage = function (dom) {
         var filename = $(dom).val();
@@ -77,14 +79,13 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
                     "url": imageId
                 }).then(function (data) {
                     if (data.success == true) {
+                        $scope._id=data.result._id;
                         if($scope.storage_imageBox.length!=0){
                             viewer.destroy();
                         }
-                        var nowDate=moment(new Date()).format("YYYY-DD-MM hh:ss");
+                        var nowDate=moment(new Date()).format("YYYY-DD-MM HH:mm");
                         // $scope.storage_imageBox.push({src: $host.file_url + '/image/' + imageId});
-                        $scope.storage_imageBox.push({src: $host.file_url + '/image/' + imageId,time:nowDate,user:_basic.getSession(_basic.USER_NAME)});
-
-
+                        $scope.storage_imageBox.push({src: $host.file_url + '/image/' + imageId,record_id:$scope._id,time:nowDate,user:_basic.getSession(_basic.USER_NAME)});
                         // console.log($scope.storage_imageBox);
                     }
                 });
@@ -262,7 +263,7 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
                 $scope.comment = $scope.operating_record.comment;
                 $scope.storage_image = $scope.operating_record.storage_image;
                 for (var i in $scope.storage_image) {
-                    $scope.storage_imageBox.push({src: $host.file_url + '/image/' + $scope.storage_image[i].url,time:$scope.storage_image[i].timez,user:$scope.storage_image[i].name});
+                    $scope.storage_imageBox.push({src: $host.file_url + '/image/' + $scope.storage_image[i].url,record_id:$scope.operating_record._id,time:$scope.storage_image[i].timez,user:$scope.storage_image[i].name});
                 }
 
                 // $scope.imgArr.push({src:$host.file_url+'/image/'+imageId});
@@ -288,6 +289,36 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
                 swal(data.msg, "", "error")
             }
         })
+
+    };
+    // 删除照片
+    $scope.delete_img=function (record_id,src) {
+        swal({
+                title: "确认删除该照片？",
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                closeOnConfirm: false
+            },
+            function () {
+                // console.log(src);
+                var url_array=src.split("/");
+                var url=url_array[url_array.length-1];
+                _basic.delete($host.record_url+"/user/"+userId+"/record/"+record_id+"/image/"+url).then(function (data) {
+                    if(data.success==true){
+                        var i=$scope.storage_image_i.indexOf(src);
+                        // console.log(i);
+                        $scope.storage_imageBox.splice(i,1);
+                        $scope.storage_image_i.splice(i,1);
+                        swal("删除成功!", "", "success");
+                        // $scope.lookStorageCar(data.result.id,data.result.vin)
+                    }
+                })
+            }
+        )
 
     };
     $scope.lookStorageCar(val, vin);

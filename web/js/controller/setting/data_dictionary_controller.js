@@ -4,6 +4,7 @@
 app.controller("data_dictionary_controller", ["$scope", "_basic", "_config", "$host", function ($scope, _basic, _config, $host) {
     $('ul.tabs').tabs();
     $scope.flag = false;
+    $scope.city_details = false;
 
     // 获取所有数据
     $scope.queryData = function () {
@@ -44,18 +45,21 @@ app.controller("data_dictionary_controller", ["$scope", "_basic", "_config", "$h
     $scope.getCity = function () {
         $scope.clickStatus = "city";
         $scope.flag = false;
+        $scope.city_details = false;
         $scope.listInfo = $scope.cityList;
     };
 
     $scope.getEntrust = function () {
         $scope.clickStatus = "entrust";
         $scope.flag = true;
+        $scope.city_details = false;
         $scope.listInfo = $scope.entrustList;
     };
 
     $scope.getReceive = function () {
         $scope.clickStatus = "receive";
         $scope.flag = true;
+        $scope.city_details = true;
         $scope.listInfo = $scope.receiveList;
     };
 

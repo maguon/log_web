@@ -12,16 +12,20 @@
         <thead>
         <tr style="background-color: #c8c8c8;color: white;font-size: 16px">
             <th width="100px" data-field="id">编号</th>
-            <th data-field="name">名称</th>
-            <th ng-if="flag" width="300px" data-field="id">公司简称</th>
+            <th ng-if="flag" width="200px" data-field="id">{{clickStatus === "city" ? "城市简称" : clickStatus === "entrust" ? "委托方简称" : "经销商简称"}}</th>
+            <th data-field="name">{{clickStatus === "city" ? "城市名称" : clickStatus === "entrust" ? "委托方名称" : "经销商名称"}}</th>
+            <th ng-if="city_details">城市id</th>
+            <th ng-if="city_details">所在城市</th>
         </tr>
         </thead>
 
         <tbody>
         <tr ng-repeat="dataInfo in listInfo" style="color: #9a9a9a">
             <td>{{dataInfo.id}}</td>
-            <td>{{clickStatus === "city" ? dataInfo.city_name : clickStatus === "entrust" ? dataInfo.entrust_name : dataInfo.receive_name}}</td>
             <td ng-if="flag">{{dataInfo.short_name}}</td>
+            <td>{{clickStatus === "city" ? dataInfo.city_name : clickStatus === "entrust" ? dataInfo.entrust_name : dataInfo.receive_name}}</td>
+            <td ng-if="city_details">{{dataInfo.city_id}}</td>
+            <td ng-if="city_details">{{dataInfo.city_name}}</td>
         </tr>
         </tbody>
     </table>

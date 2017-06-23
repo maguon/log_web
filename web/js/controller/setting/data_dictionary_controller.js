@@ -128,7 +128,7 @@ app.controller("data_dictionary_controller", ["$scope", "_basic", "_config", "$h
 
         if ($scope.clickStatus === "car") {
             if ($scope.keyWord != "") {
-                for (var b = 0; b < $scope.cityList.length; b++) {
+                for (var b = 0; b < $scope.carbrandList.length; b++) {
                     if (($scope.carbrandList[b].make_name).indexOf($scope.keyWord) !== -1) {
                         $scope.listInfo.push($scope.carbrandList[b]);
                     }

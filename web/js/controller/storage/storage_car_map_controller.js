@@ -148,7 +148,7 @@ app.controller("storage_car_map_controller", ["$state", "$rootScope", "$statePar
                 "storageName": $scope.private_storageName,
                 // "enterTime":$scope.enter_time,
                 "parkingId": $scope.parking_id,
-                "planOutTime": $scope.plan_out_time
+                // "planOutTime": $scope.plan_out_time
             };
             _basic.post($host.api_url + "/user/" + userId + "/carStorageRel", _basic.removeNullProps(obj_car)).then(function (data) {
                 if (data.success == true) {

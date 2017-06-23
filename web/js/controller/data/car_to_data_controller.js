@@ -39,7 +39,7 @@ app.controller("car_to_data_controller", ['$rootScope','$scope','$location','$q'
         $scope.tableContentFilter=[];
         // 过滤条件数据
         // $scope.filterArray=[1,2,3,4,5,6,7,8,9];
-        var colObjs =[{name:'VIN',type:'string',length:16,require:true},{name:'制造商ID',type:'number',length:2,require:true},{name:'起始地ID',type:'number',length:2,require:true},{name:'目的地ID',type:'number',length:2},{name:'经销商ID',type:'number',length:3},{name:'委托方(结算公司ID)',type:'number',length:2},{name:'指令时间',type:'string'}];
+        var colObjs =[{name:'VIN',type:'string',length:16,require:true},{name:'制造商ID',type:'number',length:2,require:true},{name:'起始地ID',type:'number',length:2,require:true},{name:'起始地地址名称ID',type:'number',length:2,require:true},{name:'目的地ID',type:'number',length:2},{name:'经销商ID',type:'number',length:3},{name:'委托方(结算公司ID)',type:'number',length:2},{name:'指令时间',type:'string'}];
         // 头部条件判断
         $scope.titleFilter=function (headerArray){
             if(colObjs.length!=headerArray.length){

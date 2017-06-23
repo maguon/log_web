@@ -2,7 +2,7 @@
     <div class="row main_storage_car">
         <div class="row  grey-text text-darken-1">
             <div class="col s12">
-                <div class="input-field col s3">
+                <div class="input-field col s4">
                     <select material-select watch ng-model="search_relStatus">
                         <option value=""  >车辆状态</option>
                         <option ng-repeat="el in rel_status" ng-value="el.s_num">{{el.status_text}}</option>
@@ -10,27 +10,27 @@
                     <!--<label ></label>-->
                 </div>
 
-                <div class="input-field col s3">
+                <div class="input-field col s4">
                     <select material-select watch ng-model="search_storage" ng-change="changeStorageId(search_storage)">
                         <option value=""  selected>所在仓库</option>
                         <option ng-if="el.storage_status==1" ng-repeat="el in storageName" ng-value="el.id">{{el.storage_name}}</option>
                     </select>
                     <!--<label ></label>-->
                 </div>
-                <div class="input-field col s3">
+                <div class="input-field col s4">
                     <select material-select watch ng-model="search_makeId" ng-change="changeMakeId(search_makeId)">
                         <option value=""  selected>车辆品牌</option>
                         <option ng-repeat="el in makecarName" ng-value="el.id">{{el.make_name}}</option>
                     </select>
                     <!--<label ></label>-->
                 </div>
-                <div class="input-field col s3">
-                    <select material-select watch ng-model="search_modelId" >
-                        <option ng-value=""  selected>车辆型号</option>
-                        <option ng-repeat="el in carModelName" ng-value="el.id">{{el.model_name}}</option>
-                    </select>
-                    <!--<label ></label>-->
-                </div>
+                <!--<div class="input-field col s3">-->
+                    <!--<select material-select watch ng-model="search_modelId" >-->
+                        <!--<option ng-value=""  selected>车辆型号</option>-->
+                        <!--<option ng-repeat="el in carModelName" ng-value="el.id">{{el.model_name}}</option>-->
+                    <!--</select>-->
+                    <!--&lt;!&ndash;<label ></label>&ndash;&gt;-->
+                <!--</div>-->
             </div>
             <div class="col s12 vc-center">
                 <div class="col s10">
@@ -54,29 +54,32 @@
                         </div>
                     </div>
                     <div class="col s12 p0" style="margin-top: 1rem">
-                        <div class=" col s6  p0 valign-wrapper">
-                            <div class="col s2 p0 cyan-text text-lighten-1 bold" style="min-width: 100px;font-size: 13px"  >计划出库时间:</div>
-                            <div class="col s10 vc-center">
-                                <div class="col input-field s5 no-mp p0">
-                                    <input type="text" ng-model="search_planTime_start" class="datepicker" autocomplete="off"  required   date><i class="mdi dataIcon mdi-table-large"></i>
+                        <!--<div class=" col s6  p0 valign-wrapper">-->
+                            <!--<div class="col s2 p0 cyan-text text-lighten-1 bold" style="min-width: 100px;font-size: 13px"  >计划出库时间:</div>-->
+                            <!--<div class="col s10 vc-center">-->
+                                <!--<div class="col input-field s5 no-mp p0">-->
+                                    <!--<input type="text" ng-model="search_planTime_start" class="datepicker" autocomplete="off"  required   date><i class="mdi dataIcon mdi-table-large"></i>-->
 
+                                <!--</div>-->
+                                <!--<div class="col s1 center-align">——</div>-->
+                                <!--<div class="col input-field s6 no-mp">-->
+                                    <!--<input type="text" ng-model="search_planTime_end"  class="datepicker" autocomplete="off"  required   date><i class="mdi dataIcon mdi-table-large"></i>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--&lt;!&ndash;<label >车辆状态</label>&ndash;&gt;-->
+                        <!--</div>-->
+                        <div class=" col  s6 p0 vc-center">
+                            <div class="col s2 p0 cyan-text text-lighten-1 bold " style="min-width:100px;font-size: 13px">实际出库时间:</div>
+                            <div class="input-field col s10 no-mp">
+                                <div class="col input-field s5 p0 no-mp ">
+                                    <input type="text" ng-model="search_outTime_start"  class="datepicker" autocomplete="off"  required   date><i class="mdi dataIcon mdi-table-large"></i>
                                 </div>
-                                <div class="col s1 center-align">——</div>
-                                <div class="col input-field s6 no-mp">
-                                    <input type="text" ng-model="search_planTime_end"  class="datepicker" autocomplete="off"  required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                <div class="col s2 center-align p0 ">——</div>
+                                <div class="col input-field s5 p0 no-mp">
+                                    <input type="text" ng-model="search_outTime_end" class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
                                 </div>
                             </div>
-                            <!--<label >车辆状态</label>-->
-                        </div>
-                        <div class=" col s6 vc-center">
-                            <div class="col s1 p0 cyan-text text-lighten-1 bold " style="min-width:100px;font-size: 13px">实际出库时间:</div>
-                            <div class="col input-field s5 no-mp">
-                                <input type="text" ng-model="search_outTime_start"  class="datepicker" autocomplete="off"  required   date><i class="mdi dataIcon mdi-table-large"></i>
-                            </div>
-                            <div class="col s1 center-align ">——</div>
-                            <div class="col input-field s5 no-mp">
-                                <input type="text" ng-model="search_outTime_end" class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                            </div>
+
                             <!--<label >车辆状态</label>-->
                         </div>
                     </div>
@@ -125,7 +128,7 @@
                                                 <option value="" disabled selected>请选择</option>
                                                 <!--<option ng-repeat="el in makecarName" ng-value="el.id" >{{el.make_name}}</option>-->
                                             </select>
-                                            <label for="makecarName">制造商</label>
+                                            <label for="makecarName">品牌</label>
                                         </div>
                                         <!--<div class="col s4 valign-wrapper" ng-class="{ 'has-error':newStorage_carForm.makecarName.$invalid&&submitted }" >-->
                                         <!--<h6 class="col s4-0 min-width ">-->
@@ -133,27 +136,39 @@
 
                                         <!--</div>-->
                                         <div class="input-field col s4">
-                                            <select material-select watch id="model_name" name="model_name"  ng-options="o.model_name for o in carModelName" ng-model="model_name" >
-                                                <option value="" disabled selected>请选择</option>
-                                            </select>
-                                            <label for="model_name">型号</label>
+                                            <input type="text" id="arrive_time" name="arrive_time" class="datepicker" autocomplete="off" ng-model="arrive_time"    date><i class="mdi grey-text text-lighten-1 dataIcon mdi-table-large"></i>
+                                            <label for="arrive_time">到达时间</label>
                                         </div>
                                     </div>
                                     <div class="row" >
-                                        <div class="input-field col s4">
-                                            <input type="text" id="create_time" name="create_time" class="datepicker" autocomplete="off" ng-model="create_time"    date><i class="mdi grey-text text-lighten-1 dataIcon mdi-table-large"></i>
-                                            <label for="create_time">生产日期</label>
+                                        <div class=" col s4 p0">
+                                            <div class=" input-field col s6">
+                                                <select material-select watch id="start_city" name="start_city" ng-options="start_city.city_name for start_city in get_city"  ng-model="start_city" >
+                                                    <option value="" disabled selected>请选择</option>
+                                                    <!--<option ng-if="start_city.city_status==1" ng-repeat="start_city in get_city" ng-value="start_city.id" >{{start_city.city_name}}</option>-->
+                                                </select>
+                                                <label for="start_city">起始城市</label>
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <select material-select watch id="arrive_city" name="arrive_city" ng-options="arrive_city.city_name for arrive_city in get_city"  ng-model="arrive_city" >
+                                                    <option value="" disabled selected>请选择</option>
+                                                </select>
+                                                <label for="arrive_city">到港城市</label>
+                                            </div>
                                         </div>
                                         <div class="input-field col s4">
-                                            <select material-select watch id="car_color" name="car_color"  ng-model="car_color" >
+                                            <select material-select watch id="client" name="client"  ng-model="client" >
                                                 <option value="" disabled selected>请选择</option>
-                                                <option ng-repeat="el in color" ng-value="el.colorId" >{{el.colorName}}</option>
+                                                <option ng-repeat="el in get_entrust" ng-value="el.id" >{{el.short_name}}</option>
                                             </select>
-                                            <label for="car_color">颜色</label>
+                                            <label for="client">委托方</label>
                                         </div>
                                         <div class="input-field col s4">
-                                            <input  id="engineNum" id="engineNum" name="engineNum" autocomplete="off" ng-model="engineNum" type="text"    >
-                                            <label for="engineNum">发动机号</label>
+                                            <select material-select watch id="dealer" name="dealer"  ng-model="dealer">
+                                                <option value="" disabled selected>请选择</option>
+                                                <option ng-repeat="el in get_receive" ng-value="el.id" >{{el.short_name}}</option>
+                                            </select>
+                                            <label for="dealer">经销商</label>
                                         </div>
                                     </div>
                                     <div class="row  p0 storage_position"  style="padding-bottom: 5px" >
@@ -190,12 +205,12 @@
 
 
                                     </div>
-                                    <div class="row">
-                                        <div class="input-field col s4" ng-class="{ 'has-error':newStorage_carForm.plan_out_time.$invalid&&submitted }">
-                                            <input  id="plan_out_time" id="plan_out_time" name="plan_out_time" autocomplete="off" ng-model="plan_out_time" type="text"   required class="datepicker " date><i class="mdi dataIcon grey-text text-lighten-1 mdi-table-large"></i>
-                                            <label for="plan_out_time"><span style="color: red;margin-right: 5px">*</span>计划出库时间</label>
-                                        </div>
-                                    </div>
+                                    <!--<div class="row">-->
+                                        <!--<div class="input-field col s4" ng-class="{ 'has-error':newStorage_carForm.plan_out_time.$invalid&&submitted }">-->
+                                            <!--<input  id="plan_out_time" id="plan_out_time" name="plan_out_time" autocomplete="off" ng-model="plan_out_time" type="text"   required class="datepicker " date><i class="mdi dataIcon grey-text text-lighten-1 mdi-table-large"></i>-->
+                                            <!--<label for="plan_out_time"><span style="color: red;margin-right: 5px">*</span>计划出库时间</label>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
                                     <div class="row">
                                         <p class="col 12 min-width-2 left-align  grey-text darken-2">
                                             备注:</p>
@@ -263,11 +278,9 @@
                 <tr class="grey-text text-darken-2">
                     <th data-field="">VIN码</th>
                     <th data-field="">品牌</th>
-                    <th data-field="">型号</th>
                     <th data-field="">入库时间</th>
                     <th  data-field="">存放车库</th>
                     <th data-field="">存放位置</th>
-                    <th data-field="">计划出库时间</th>
                     <th data-field="">实际出库时间</th>
                     <th>操作</th>
                 </tr>
@@ -276,13 +289,11 @@
                 <tr ng-repeat="el in storage_car" class="grey-text text-darken-1">
                     <td  ng-bind="el.vin"></td>
                     <td ng-bind="el.make_name"></td>
-                    <td ng-bind="el.model_name"></td>
                     <td ng-bind="el.enter_time|date:'yyyy-MM-dd HH:mm:ss'"></td>
                     <td ng-if="el.storage_id!=null" ng-bind="el.storage_name"></td>
                     <td ng-if="el.storage_id==null" >无</td>
                     <td ng-if="el.col!=null">{{el.row}}排{{el.col}}列</td>
                     <td ng-if="el.col==null">无</td>
-                    <td ng-bind="el.plan_out_time|date:'yyyy-MM-dd '"></td>
                     <td ng-bind="el.real_out_time|date:'yyyy-MM-dd '"></td>
                     <td class="operation">
                         <a href="#" ui-sref="storage_car_details_({id:el.id,vin:el.vin,from:'storage_car',mark:1,status:el.rel_status})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1  " ></i></a>

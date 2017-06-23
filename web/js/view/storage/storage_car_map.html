@@ -45,10 +45,10 @@
                             停放车辆
                             <i class="mdi mdi-car cyan-text lighten-1" style="font-size: 25px"></i>
                         </div>
-                        <div class="col s4">
-                            临近出库车辆
-                            <i class=" mdi mdi-car red-text text-lighten-2" style="font-size: 25px"></i>
-                        </div>
+                        <!--<div class="col s4">-->
+                            <!--临近出库车辆-->
+                            <!--<i class=" mdi mdi-car red-text text-lighten-2" style="font-size: 25px"></i>-->
+                        <!--</div>-->
                         <div class="col s4">
                             未停放车辆
                             <i class=" mdi mdi-car grey-text text-lighten-2" style="font-size: 25px" ></i>
@@ -73,8 +73,8 @@
                                 </div>
                             </div>
                             <div class="garage_row vc-center left" ng-repeat="els in el.col track by $index ">
-                                <a href="#" ui-sref="storage_car_details({id:els.carId,vin:els.vin,_form:_form,from:'storage_car_map'})"><i ng-show="els.carId!=0&&els.plan_time==true" class=" mdi mdi-car red-text text-lighten-2" ></i></a>
-                                <a href="#" ui-sref="storage_car_details({id:els.carId,vin:els.vin,_form:_form,from:'storage_car_map'})"><i ng-show="els.carId!=0&&els.plan_time==false" class=" mdi mdi-car cyan-text lighten-1" ></i></a>
+                                <!--<a href="#" ui-sref="storage_car_details({id:els.carId,vin:els.vin,_form:_form,from:'storage_car_map'})"><i ng-show="els.carId!=0&&els.plan_time==true" class=" mdi mdi-car red-text text-lighten-2" ></i></a>-->
+                                <a href="#" ui-sref="storage_car_details({id:els.carId,vin:els.vin,_form:_form,from:'storage_car_map'})"><i ng-show="els.carId!=0" class=" mdi mdi-car cyan-text lighten-1" ></i></a>
                                 <i ng-show="els.carId==0" class=" mdi mdi-car grey-text text-lighten-2" ng-click="new_garage_parking(els.storage_name,els.storage_id,el.row,els.col,els.id)"></i>
                             </div>
                         </div>
@@ -164,12 +164,12 @@
                                         </div>
 
                                     </div>
-                                    <div class="row">
-                                        <div class="input-field col s4" ng-class="{ 'has-error':newStorage_carForm.plan_out_time.$invalid&&submitted }">
-                                            <input  id="plan_out_time" id="plan_out_time" name="plan_out_time" autocomplete="off" ng-model="plan_out_time" type="text"   required class="datepicker " date><i class="mdi dataIcon grey-text text-lighten-1 mdi-table-large"></i>
-                                            <label for="plan_out_time"><span style="color: red;margin-right: 5px">*</span>计划出库时间</label>
-                                        </div>
-                                    </div>
+                                    <!--<div class="row">-->
+                                        <!--<div class="input-field col s4" ng-class="{ 'has-error':newStorage_carForm.plan_out_time.$invalid&&submitted }">-->
+                                            <!--<input  id="plan_out_time" id="plan_out_time" name="plan_out_time" autocomplete="off" ng-model="plan_out_time" type="text"   required class="datepicker " date><i class="mdi dataIcon grey-text text-lighten-1 mdi-table-large"></i>-->
+                                            <!--<label for="plan_out_time"><span style="color: red;margin-right: 5px">*</span>计划出库时间</label>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
                                     <div class="row">
                                         <p class="col 12 min-width-2 left-align  grey-text darken-2">
                                             备注:</p>

@@ -11,7 +11,7 @@
     <table class="dic_table striped z-depth-1" border="1">
         <thead>
         <tr style="background-color: #c8c8c8;color: white;font-size: 16px">
-            <th width="100px" data-field="id">编号</th>
+            <th width="100px" data-field="id">{{clickStatus === "city" ? "城市编号" : clickStatus === "entrust" ? "委托方编号" : "经销商编号"}}</th>
             <th ng-if="flag" width="200px" data-field="id">{{clickStatus === "city" ? "城市简称" : clickStatus === "entrust" ? "委托方简称" : "经销商简称"}}</th>
             <th data-field="name">{{clickStatus === "city" ? "城市名称" : clickStatus === "entrust" ? "委托方名称" : "经销商名称"}}</th>
             <th ng-if="city_details">城市id</th>

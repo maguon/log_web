@@ -1,8 +1,9 @@
 <div class="container">
     <ul class="tabs tabs-fixed-width tab-demo z-depth-1" style="font-size: 25px;font-weight: bold">
-        <li class="tab col s4"><a ng-click="getCity()" style="color: #26c6da" href="javascript:void(0)">城市</a></li>
-        <li class="tab col s4"><a ng-click="getEntrust()" style="color: #26c6da" href="javascript:void(0)">委托方</a></li>
-        <li class="tab col s4"><a ng-click="getReceive()" style="color: #26c6da" href="javascript:void(0)">经销商</a></li>
+        <li class="tab col s3"><a ng-click="getCity()" style="color: #26c6da" href="javascript:void(0)">城市</a></li>
+        <li class="tab col s3"><a ng-click="getEntrust()" style="color: #26c6da" href="javascript:void(0)">委托方</a></li>
+        <li class="tab col s3"><a ng-click="getReceive()" style="color: #26c6da" href="javascript:void(0)">经销商</a></li>
+        <li class="tab col s3"><a ng-click="getBrand()" style="color: #26c6da" href="javascript:void(0)">品牌</a></li>
     </ul>
     <div class="search_info z-depth-2">
         <input style="border-bottom: 0" type="text" ng-change="updateList()" ng-model="keyWord" placeholder="请输入关键字">
@@ -11,10 +12,10 @@
     <table class="dic_table striped z-depth-1" border="1">
         <thead>
         <tr style="background-color: #c8c8c8;color: white;font-size: 16px">
-            <th width="100px" data-field="id">{{clickStatus === "city" ? "城市编号" : clickStatus === "entrust" ? "委托方编号" : "经销商编号"}}</th>
-            <th ng-if="flag" width="200px" data-field="id">{{clickStatus === "city" ? "城市简称" : clickStatus === "entrust" ? "委托方简称" : "经销商简称"}}</th>
-            <th data-field="name">{{clickStatus === "city" ? "城市名称" : clickStatus === "entrust" ? "委托方名称" : "经销商名称"}}</th>
-            <th ng-if="city_details">城市id</th>
+            <th width="150px" data-field="id">{{clickStatus === "city" ? "城市编号" : clickStatus === "entrust" ? "委托方编号" : clickStatus === "receive" ? "经销商编号" : "车辆编号"}}</th>
+            <th ng-if="flag" width="250px" data-field="id">{{clickStatus === "city" ? "城市简称" : clickStatus === "entrust" ? "委托方简称" : "经销商简称"}}</th>
+            <th data-field="name">{{clickStatus === "city" ? "城市名称" : clickStatus === "entrust" ? "委托方名称" : clickStatus === "receive" ? "经销商名称" : "车辆品牌"}}</th>
+            <th ng-if="city_details">城市编号</th>
             <th ng-if="city_details">所在城市</th>
         </tr>
         </thead>
@@ -23,7 +24,7 @@
         <tr ng-repeat="dataInfo in listInfo" style="color: #9a9a9a">
             <td>{{dataInfo.id}}</td>
             <td ng-if="flag">{{dataInfo.short_name}}</td>
-            <td>{{clickStatus === "city" ? dataInfo.city_name : clickStatus === "entrust" ? dataInfo.entrust_name : dataInfo.receive_name}}</td>
+            <td>{{clickStatus === "city" ? dataInfo.city_name : clickStatus === "entrust" ? dataInfo.entrust_name :clickStatus === "receive" ?  dataInfo.receive_name :dataInfo.make_name}}</td>
             <td ng-if="city_details">{{dataInfo.city_id}}</td>
             <td ng-if="city_details">{{dataInfo.city_name}}</td>
         </tr>

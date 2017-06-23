@@ -34,6 +34,13 @@ app.controller("setting_shipments_details_controller",["$scope","_basic","_confi
                     var map = new BMap.Map("dealer_map");// 创建Map实例
                     // $scope.now_local="当前位置经度：" + point.lng + ",纬度：" + point.lat;
                     marker=new BMap.Marker(point);
+                    // var icon = new BMap.Icon('/assets/images/point.png', new BMap.Size(35, 24), {
+                    //     anchor: new BMap.Size(35, 24)
+                    // });
+                    // var marker = new BMap.Marker(point,{
+                    //     icon: icon,
+                    //     // rotation: 60
+                    // });
                     map.centerAndZoom(point, 18);
                     map.addOverlay(marker);
                     marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
@@ -68,9 +75,10 @@ app.controller("setting_shipments_details_controller",["$scope","_basic","_confi
     };
 
     // 查看详情
-    _basic.get($host.api_url+"/receive?receiveId="+$stateParams.dealer_id).then(function (data) {
+    _basic.get($host.api_url+"/baseAddr?baseAddrId="+$stateParams.shipments_id).then(function (data) {
         if(data.success==true){
-            $scope.dealer_details=data.result[0];
+            $scope.shipments_details=data.result[0];
+            $scope.input_address=$scope.shipments_details.address;
             $scope.lng=data.result[0].lng;
             $scope.lat=data.result[0].lat;
             // $scope.search_location(data.result[0].address);
@@ -79,6 +87,13 @@ app.controller("setting_shipments_details_controller",["$scope","_basic","_confi
             var map=new BMap.Map("dealer_map");
             var point=new BMap.Point($scope.lng,$scope.lat);
             map.centerAndZoom(point,15);
+            // var icon = new BMap.Icon('/assets/images/point.png', new BMap.Size(35, 24), {
+            //     anchor: new BMap.Size(35, 24)
+            // });
+            // var marker = new BMap.Marker(point,{
+            //     icon: icon,
+            //     // rotation: 60
+            // });
             marker = new BMap.Marker(point);
             map.addOverlay(marker);
             marker.enableDragging();
@@ -133,27 +148,27 @@ app.controller("setting_shipments_details_controller",["$scope","_basic","_confi
         $scope.submitted=true;
         if(isValid){
 
-            // var obj={
-            //     "shortName":$scope.dealer_details.short_name,
-            //     "receiveName":$scope.dealer_details.receive_name,
-            //     "address":$scope.dealer_details.address,
-            //     "lng": $scope.lng,
-            //     "lat": $scope.lat,
-            //     "cityId": $scope.dealer_details.city_id,
-            //     "remark": $scope.dealer_details.remark
-            // };
+            var obj={
+                "addrName": $scope.shipments_details.addr_name,
+                "address": $scope.input_address,
+                "cityId":$scope.shipments_details.city_id,
+                "lng": $scope.lng,
+                "lat": $scope.lat,
+                "remark":$scope.shipments_details.remark
+            };
+            console.log(obj);
             // // 比较对象是否发生变化
             // // if(JSON.stringify($scope._obj) === JSON.stringify(obj)){
             // //
             // // }else {
             // //     console.log(obj,$scope._obj);
             // // }
-            // _basic.put($host.api_url+"/user/"+userId+"/receive/"+$stateParams.dealer_id,obj).then(function (data) {
-            //     if(data.success==true){
-            //         swal("修改成功","","success");
-            //         $scope.submitted=false;
-            //     }
-            // });
+            _basic.put($host.api_url+"/user/"+userId+"/baseAddr/"+$stateParams.shipments_id,obj).then(function (data) {
+                if(data.success==true){
+                    swal("修改成功","","success");
+                    $scope.submitted=false;
+                }
+            });
         }
     };
 }]);

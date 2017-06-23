@@ -130,27 +130,27 @@ app.controller("setting_dealer_details_controller",["$scope","_basic","_config",
         $scope.submitted=true;
         if(isValid){
 
-                // var obj={
-                //     "shortName":$scope.dealer_details.short_name,
-                //     "receiveName":$scope.dealer_details.receive_name,
-                //     "address":$scope.dealer_details.address,
-                //     "lng": $scope.lng,
-                //     "lat": $scope.lat,
-                //     "cityId": $scope.dealer_details.city_id,
-                //     "remark": $scope.dealer_details.remark
-                // };
+                var obj={
+                    "shortName":$scope.dealer_details.short_name,
+                    "receiveName":$scope.dealer_details.receive_name,
+                    "address":$scope.dealer_details.address,
+                    "lng": $scope.lng,
+                    "lat": $scope.lat,
+                    "cityId": $scope.dealer_details.city_id,
+                    "remark": $scope.dealer_details.remark
+                };
                 // // 比较对象是否发生变化
                 // // if(JSON.stringify($scope._obj) === JSON.stringify(obj)){
                 // //
                 // // }else {
                 // //     console.log(obj,$scope._obj);
                 // // }
-                // _basic.put($host.api_url+"/user/"+userId+"/receive/"+$stateParams.dealer_id,obj).then(function (data) {
-                //     if(data.success==true){
-                //         swal("修改成功","","success");
-                //         $scope.submitted=false;
-                //     }
-                // });
+                _basic.put($host.api_url+"/user/"+userId+"/receive/"+$stateParams.dealer_id,obj).then(function (data) {
+                    if(data.success==true){
+                        swal("修改成功","","success");
+                        $scope.submitted=false;
+                    }
+                });
         }
     };
 }]);

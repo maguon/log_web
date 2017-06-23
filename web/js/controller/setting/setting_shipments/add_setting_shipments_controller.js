@@ -22,14 +22,14 @@ app.controller("add_setting_shipments_controller",["$scope","_basic","_config","
     var map=new BMap.Map("dealer_map");
     var point=new BMap.Point(121.62,38.92);
     map.centerAndZoom(point,15);
-
-    // var icon = new BMap.Icon('/assets/images/point.png', new BMap.Size(20, 32), {
-    //     anchor: new BMap.Size(10, 30)
+    marker=new BMap.Marker(point);
+    // var icon = new BMap.Icon('/assets/images/point.png', new BMap.Size(35, 24), {
+    //     anchor: new BMap.Size(35, 24)
     // });
-    var marker = new BMap.Marker(point,{
-        // icon: icon,
-        // rotation: 90
-    });
+    // var marker = new BMap.Marker(point,{
+    //     icon: icon,
+    //     // rotation: 90
+    // });
     map.addOverlay(marker);
     marker.enableDragging();
     map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放;
@@ -59,7 +59,15 @@ app.controller("add_setting_shipments_controller",["$scope","_basic","_config","
             myGeo.getPoint(myKeys, function(point){
                 if (point) {
                     var map = new BMap.Map("dealer_map");// 创建Map实例
+
                     marker=new BMap.Marker(point);
+                    // var icon = new BMap.Icon('/assets/images/point.png', new BMap.Size(35, 24), {
+                    //     anchor: new BMap.Size(35, 24)
+                    // });
+                    // var marker = new BMap.Marker(point,{
+                    //     icon: icon,
+                    //     // rotation: 60
+                    // });
                     $scope.$apply(function(){
                         $scope.lng=point.lng;
                         $scope.lat=point.lat;
@@ -93,25 +101,23 @@ app.controller("add_setting_shipments_controller",["$scope","_basic","_config","
             $scope.lat=p.lat;
         });
     };
-    // 新增经销商
+    // 新增发货商
     $scope.add_setting_dealer=function (isValid) {
         $scope.submitted=true;
         if(isValid){
             if($scope.lng!=121.62&&$scope.lat!=38.92){
                 var obj={
-                    "shortName":$scope.short_name,
-                    "receiveName":$scope.deal_name,
-                    "address": $scope.input_address,
-                    "lng": $scope.lng,
+                    "addrName":$scope.shipments_name,
+                    "address":$scope.input_address,
+                    "lng":$scope.lng,
                     "lat": $scope.lat,
                     "cityId": $scope.setting_city_id,
                     "remark":$scope.remark
                 };
-                _basic.post($host.api_url+"/user/"+userId+"/receive",obj).then(function (data) {
+                _basic.post($host.api_url+"/user/"+userId+"/baseAddr",obj).then(function (data) {
                     if(data.success==true){
                         swal("新增成功","","success");
-                        $scope.short_name="";
-                        $scope.deal_name="";
+                        $scope.shipments_name="";
                         $scope.input_address="";
                         $scope.setting_city_id="";
                         $scope.remark="";

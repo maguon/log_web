@@ -1,11 +1,11 @@
 <div class="setting_dealer_details">
     <div class="row">
         <div class="row valign-wrapper " style="position: relative">
-            <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ui-sref="setting_dealer">
+            <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ui-sref="setting_shipments">
                 <i class="mdi mdi-arrow-left-bold"></i>
             </a>
             <h5 class="col s12 cyan-text lighten-1  center-align">
-                经销商信息
+                发货商信息
             </h5>
             <!--<div class="col s8 right-align">-->
             <!---->
@@ -19,13 +19,10 @@
             <div class="col s6 dealer_details grey-text">
                 <form name="add_setting_dealerFrom" ng-submit="add_setting_dealer(add_setting_dealerFrom.$valid)" novalidate>
                     <div class="row">
-                        <div class="col s6 input-field" ng-class="{'has-error':add_setting_dealerFrom.short_name.$invalid&&submitted}">
-                            <input type="text" id="short_name" name="short_name" ng-model="short_name" required>
-                            <label class="grey-text bold" for="short_name">公司简称</label>
-                        </div>
-                        <div class="col s6 input-field"  ng-class="{'has-error':add_setting_dealerFrom.deal_name.$invalid&&submitted }">
-                            <input type="text" id="deal_name" name="deal_name" ng-model="deal_name" required>
-                            <label class="grey-text bold" for="deal_name">公司全称</label>
+
+                        <div class="col s12 input-field"  ng-class="{'has-error':add_setting_dealerFrom.shipments_name.$invalid&&submitted }">
+                            <input type="text" id="shipments_name" name="shipments_name" ng-model="shipments_name" required>
+                            <label class="grey-text bold" for="shipments_name">公司全称</label>
                         </div>
                     </div>
                     <div class="row">

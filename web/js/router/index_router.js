@@ -150,7 +150,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'add_setting_shipments_controller'
         })
         .state("setting_shipments_details",{
-            url:"/setting_shipments_details",
+            url:"/setting_shipments_details/{shipments_id}",
             templateUrl: "js/view/system_settings/setting_shipments/setting_shipments_details.html",
             controller:'setting_shipments_details_controller'
         })

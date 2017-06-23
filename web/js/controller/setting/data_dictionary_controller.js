@@ -4,6 +4,7 @@
 app.controller("data_dictionary_controller", ["$scope", "_basic", "_config", "$host", function ($scope, _basic, _config, $host) {
     $('ul.tabs').tabs();
     $scope.flag = false;
+    $scope.city_details = false;
 
     // 获取所有数据
     $scope.queryData = function () {
@@ -35,6 +36,15 @@ app.controller("data_dictionary_controller", ["$scope", "_basic", "_config", "$h
             else {
                 swal(receiveData.msg, "", "error");
             }
+        });
+
+        _basic.get($host.api_url + "/carMake").then(function (carData) {
+            if (carData.success === true) {
+                $scope.carbrandList = carData.result;
+            }
+            else {
+                swal(carData.msg, "", "error");
+            }
         })
     };
 
@@ -44,19 +54,29 @@ app.controller("data_dictionary_controller", ["$scope", "_basic", "_config", "$h
     $scope.getCity = function () {
         $scope.clickStatus = "city";
         $scope.flag = false;
+        $scope.city_details = false;
         $scope.listInfo = $scope.cityList;
     };
 
     $scope.getEntrust = function () {
         $scope.clickStatus = "entrust";
         $scope.flag = true;
+        $scope.city_details = false;
         $scope.listInfo = $scope.entrustList;
     };
 
     $scope.getReceive = function () {
         $scope.clickStatus = "receive";
         $scope.flag = true;
+        $scope.city_details = true;
         $scope.listInfo = $scope.receiveList;
+    };
+
+    $scope.getBrand = function () {
+        $scope.clickStatus = "car";
+        $scope.flag = false;
+        $scope.city_details = false;
+        $scope.listInfo = $scope.carbrandList;
     };
 
     // $scope.listInfo = [];
@@ -103,6 +123,19 @@ app.controller("data_dictionary_controller", ["$scope", "_basic", "_config", "$h
             }
             else {
                 $scope.listInfo = $scope.receiveList;
+            }
+        }
+
+        if ($scope.clickStatus === "car") {
+            if ($scope.keyWord != "") {
+                for (var b = 0; b < $scope.carbrandList.length; b++) {
+                    if (($scope.carbrandList[b].make_name).indexOf($scope.keyWord) !== -1) {
+                        $scope.listInfo.push($scope.carbrandList[b]);
+                    }
+                }
+            }
+            else {
+                $scope.listInfo = $scope.carbrandList;
             }
         }
 

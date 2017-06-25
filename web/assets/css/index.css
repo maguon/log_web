@@ -966,3 +966,20 @@ input[type=text]{
     top: 0;
 
 }
+
+/*商品车统计*/
+.car_nav{
+    width: 98.5%;
+    height: 40px;
+    margin: 15px auto;
+    background-color: #26c6da
+}
+.card-content{
+    color: #26c6da;
+    font-weight: bolder;
+}
+
+.card .card-title {
+    font-size: 16px;
+    font-weight: bold;
+}

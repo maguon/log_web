@@ -47,6 +47,7 @@ app.controller("car_statistics_controller", ["$scope", "_basic", "_config", "$ho
     $scope.getCity = function () {
         $scope.flag = true;
         $scope.listInfo = [];
+        // $scope.listInfo = $scope.cityList;
     };
 
     $scope.getDestination = function () {

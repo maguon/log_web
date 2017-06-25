@@ -14,13 +14,13 @@
                 </ul>
             </div>
         </nav>
-        <div class="col s4" style="margin-top: 10px" ng-repeat="el in dataList">
+        <div class="col s4" style="margin-top: 10px" ng-repeat="car in dataList">
             <div class="card" style="border: 2px solid #26c6da;border-radius: 5px">
                 <div class="card-content" >
-                    <span style="text-align: center" class="card-title">{{el.route_start + "——>"}}</span>
+                    <span style="text-align: center" class="card-title">{{car.route_start + "——>" + car.route_end}}</span>
                 </div>
                 <div style="text-align: center" class="card-action">
-                    <a style="margin: 0 auto;font-size: 1.4rem;color: #e57474" href="#">666<span style="color: #ccc;font-size: 1rem">辆</span></a>
+                    <a style="margin: 0 auto;font-size: 1.4rem;color: #e57474" href="#">{{car.route_end_count}}<span style="color: #ccc;font-size: 1rem"> 辆</span></a>
                 </div>
             </div>
         </div >

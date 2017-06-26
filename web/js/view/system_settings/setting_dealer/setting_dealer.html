@@ -13,8 +13,26 @@
         </div>
         <div style="width: 75%;margin: 0 auto">
             <div class="row addDealer">
-                <a href="" class="right btn-floating btn-large  btn waves-effect cyan lighten-1 waves-light vc-center "
-                   ui-sref="add_setting_dealer"><i class="mdi mdi-plus"></i></a>
+                <div class=" input-field col s4">
+                    <select material-select watch id="city" name="city" class="grey-text" ng-options="city.city_name for city in get_city"  ng-model="city" >
+                        <option value="" disabled selected>请选择</option>
+                        <!--<option ng-if="start_city.city_status==1" ng-repeat="start_city in get_city" ng-value="start_city.id" >{{start_city.city_name}}</option>-->
+                    </select>
+                    <label for="city">所属城市</label>
+                </div>
+                <div class="input-field col s4">
+                    <select material-select watch id="dealer" class="grey-text" name="dealer"  ng-model="dealer">
+                        <option value="" disabled selected>请选择</option>
+                        <option ng-repeat="el in get_receive" ng-value="el.id" >{{el.short_name}}</option>
+                    </select>
+                    <label for="dealer">经销商</label>
+                </div>
+                <div class="col s4">
+                    <a href="" class="right btn-floating btn-large  btn waves-effect cyan lighten-1 waves-light vc-center "
+                       ui-sref="add_setting_dealer"><i class="mdi mdi-plus"></i></a>
+                    <a href="" ng-click="search_dealer()" style="margin-right: 20px" class="right btn-floating btn-large  btn waves-effect materialize-red lighten-2 waves-light vc-center "
+                       ui-sref="add_setting_dealer"><i class="mdi mdi-magnify"></i></a>
+                </div>
             </div>
             <div ng-repeat="el in setting_dealer" class="row dealerWrap">
                 <div class="col s12 dealerBox grey lighten-3 p0">
@@ -89,7 +107,7 @@
                             <!--联系人:-->
                         <!--</div>-->
                         <div class="col s12 contacts_details fz14">
-                            <p ng-repeat="el in setting_contacts" class="col s5" style="position:relative;border-bottom: 1px solid #eeeeee;margin-right: 10px"><span class="col s3 ">{{el.contacts_name}}</span><span class="col s3 offset-s1">{{el.position}}</span><span class="col s3 offset-s1">{{el.tel}}</span><i ng-click="delete_contact(el.id,el.receive_id)" style="position: absolute;right: 0;cursor: pointer" class="mdi mdi-delete"></i></p>
+                            <p ng-repeat="el in setting_contacts" class="col s5" style="position:relative;border-bottom: 1px solid #eeeeee;margin-right: 10px"><span class="col s3 ">{{el.contacts_name}}</span><span class="col s3 offset-s1">{{el.position}}</span><span class="col s3 offset-s1">{{el.tel}}</span><i ng-click="delete_contact(el.id,el.receive_id)" style="position: absolute;right: 0;cursor: pointer" class="mdi mdi-close-circle"></i></p>
                         </div>
                     </div>
                 </div>

@@ -115,7 +115,7 @@
                                 <div class="row" style="margin-top: 40px">
                                     <div class="row "  >
                                         <div class="input-field col s4" ng-class="{ 'has-error':newStorage_carForm.vin.$invalid&&submitted }" >
-                                            <input  id="vin" name="vin" autocomplete="off" ng-model="vin" type="text" ng-pattern="/^[0-9]{17}$/"   required >
+                                            <input  id="vin" name="vin" autocomplete="off" ng-model="vin" type="text" ng-pattern="/^[a-zA-Z0-9]{17}$/"   required >
                                             <label for="vin"><span style="color: red;margin-right: 5px">*</span>VIN码</label>
                                         </div>
                                         <!--<div class="col s4 valign-wrapper" ng-class="{ 'has-error':newStorage_carForm.win.$invalid&&submitted }">-->
@@ -136,8 +136,8 @@
 
                                         <!--</div>-->
                                         <div class="input-field col s4">
-                                            <input type="text" id="arrive_time" name="arrive_time" class="datepicker" autocomplete="off" ng-model="arrive_time"    date><i class="mdi grey-text text-lighten-1 dataIcon mdi-table-large"></i>
-                                            <label for="arrive_time">到达时间</label>
+                                            <input type="text" id="order_time" name="order_time" class="datepicker" autocomplete="off" ng-model="order_time"    date><i class="mdi grey-text text-lighten-1 dataIcon mdi-table-large"></i>
+                                            <label for="order_time">指令时间</label>
                                         </div>
                                     </div>
                                     <div class="row" >
@@ -147,13 +147,13 @@
                                                     <option value="" disabled selected>请选择</option>
                                                     <!--<option ng-if="start_city.city_status==1" ng-repeat="start_city in get_city" ng-value="start_city.id" >{{start_city.city_name}}</option>-->
                                                 </select>
-                                                <label for="start_city">起始城市</label>
+                                                <label for="start_city">发运地城市</label>
                                             </div>
                                             <div class="input-field col s6">
                                                 <select material-select watch id="arrive_city" name="arrive_city" ng-options="arrive_city.city_name for arrive_city in get_city"  ng-model="arrive_city" >
                                                     <option value="" disabled selected>请选择</option>
                                                 </select>
-                                                <label for="arrive_city">到港城市</label>
+                                                <label for="arrive_city">目的地城市</label>
                                             </div>
                                         </div>
                                         <div class="input-field col s4">

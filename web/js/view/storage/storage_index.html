@@ -70,15 +70,15 @@
         <div class="col s3 storage_detailsList " ng-repeat="el in storage_index_list">
             <div ng-if="el.storage_status==1" class="storage_details white z-depth-2">
                 <div class="s_d_data light-blue-text text-accent-3 valign-wrapper">
-                    <div class="col s5 vc-center">
+                    <div class="col s6 vc-center">
                         <percent value={{el.balance}} total={{el.col*el.row}}>
                             <div style="width: 150px;height: 150px;"></div>
                         </percent>
                     </div>
-                    <div class="col s7 center-align">
-                        <h5 class="cyan-text text-lighten-2" ng-bind="el.storage_name"></h5>
-                        <p ><span class="grey-text"><i class="mdi mdi-checkbox-blank-circle-outline cyan-text text-lighten-2 "></i>总车位:</span><span class="cyan-text text-lighten-2" ng-bind="el.col*el.row"></span></p>
-                        <p><span class="grey-text"><i class="mdi mdi-checkbox-blank-circle cyan-text text-lighten-2 "></i>已用车位:</span><span class="cyan-text text-lighten-2" ng-bind="el.balance"></span></p>
+                    <div class="col s6 center-align">
+                        <h5 class="cyan-text text-lighten-2 left-align" ng-bind="el.storage_name"></h5>
+                        <p class="left-align"><span class="grey-text"><i class="mdi mdi-checkbox-blank-circle-outline cyan-text text-lighten-2 "></i>总车位:</span><span class="cyan-text text-lighten-2" ng-bind="el.col*el.row"></span></p>
+                        <p class="left-align"><span class="grey-text"><i class="mdi mdi-checkbox-blank-circle cyan-text text-lighten-2 "></i>已用车位:</span><span class="cyan-text text-lighten-2" ng-bind="el.balance"></span></p>
                     </div>
                 </div>
                 <div class="s_d_data_today valign-wrapper">

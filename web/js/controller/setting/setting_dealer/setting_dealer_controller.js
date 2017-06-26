@@ -4,6 +4,27 @@
 app.controller("setting_dealer_controller",["$scope","_basic","_config","$host",function ($scope,_basic,_config,$host){
     $scope.contacts=[];
     $scope.addContacts=[];
+    // 信息获取
+    $scope.get_Msg=function () {
+        // 城市
+        _basic.get($host.api_url+"/city").then(function (data) {
+            if(data.success==true){
+                $scope.get_city=data.result;
+            }
+        });
+        // 经销商
+        _basic.get($host.api_url+"/receive").then(function (data) {
+            if(data.success==true){
+                $scope.get_receive=data.result;
+            }
+        });
+    };
+
+    $scope.get_Msg();
+    // 搜索经销商
+    // $scope.search_dealer=function () {
+    //     _basic.get()
+    // };
     // 电话号正则
     $scope.mobileReg=_config.mobileRegx;
     $scope.userId=_basic.getSession(_basic.USER_ID);

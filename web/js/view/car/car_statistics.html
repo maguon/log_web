@@ -1,29 +1,44 @@
-<div class="container">
+<div>
     <ul class="tabs tabs-fixed-width tab-demo z-depth-1" style="font-size: 25px;font-weight: bold">
         <li class="tab col s4"><a ng-click="getCity()" style="color: #26c6da" href="javascript:void(0)">城市</a></li>
         <li class="tab col s4"><a ng-click="getDestination()" style="color: #26c6da" href="javascript:void(0)">目的地城市+指令时间</a></li>
         <li class="tab col s4"><a ng-click="getReceive()" style="color: #26c6da" href="javascript:void(0)">经销商</a></li>
     </ul>
-
-    <div class="row" ng-repeat="(cityName, dataList) in cityList">
+    <!--城市和目的地城市-->
+    <div class="row" ng-repeat="(cityName, dateList) in listInfo" ng-if="flag">
         <nav class="car_nav" ng-if="flag">
             <div class="nav-wrapper" style="line-height: 40px">
-                <a href="#" class="brand-logo" style="font-size: 1.3rem;text-indent: 10px">{{"始发站: " + cityName}}</a>
+                <a href="javascript:void(0)" class="brand-logo" style="font-size: 1.3rem;text-indent: 10px">{{clickStatus === "city" ? "始发站: " + cityName:"指令时间: " + listInfo[cityName][0].order_date}}</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="javascript:void(0)">共1200辆</a></li>
+                    <!--<input type="hidden" ng-model="total">-->
+                    <li><a href="javascript:void(0)">{{"共 " + listInfo[cityName].total + " 辆"}}</a></li>
                 </ul>
             </div>
         </nav>
-        <div class="col s4" style="margin-top: 10px" ng-repeat="car in dataList">
+        <div class="col s6 m4 l3" style="margin-top: 10px" ng-repeat="car in dateList">
             <div class="card" style="border: 2px solid #26c6da;border-radius: 5px">
                 <div class="card-content" >
-                    <span style="text-align: center" class="card-title">{{car.route_start + "——>" + car.route_end}}</span>
+                    <span style="text-align: center" class="card-title">{{car.route_start}}&nbsp;&nbsp;<span><img style="width: 23px" src="/assets/images/icon_arrow.png" alt="#"></span>&nbsp;&nbsp;{{car.route_end}}</span>
                 </div>
                 <div style="text-align: center" class="card-action">
-                    <a style="margin: 0 auto;font-size: 1.4rem;color: #e57474" href="#">{{car.route_end_count}}<span style="color: #ccc;font-size: 1rem"> 辆</span></a>
+                    <a style="margin: 0 auto;font-size: 1.4rem;color: #e57474" href="javascript:void(0)">{{car.route_end_count}}<span style="color: #ccc;font-size: 1rem"> 辆</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--经销商-->
+    <div class="row" ng-if="showBlue">
+        <div class="col s6 m4 l3" style="margin-top: 10px" ng-repeat="receive in listInfo">
+            <div class="card" style="border: 2px solid #26c6da;border-radius: 5px">
+                <div class="card-content" >
+                    <span style="text-align: center" class="card-title">{{receive.route_start}}&nbsp;&nbsp;<span><img style="width: 23px" src="/assets/images/icon_arrow.png" alt="#"></span>&nbsp;&nbsp;{{receive.short_name}}</span>
+                </div>
+                <div style="text-align: center" class="card-action">
+                    <a style="margin: 0 auto;font-size: 1.4rem;color: #e57474" href="javascript:void(0)">{{receive.receive_count}}<span style="color: #ccc;font-size: 1rem"> 辆</span></a>
                 </div>
             </div>
         </div >
-
     </div>
+
 </div>

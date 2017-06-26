@@ -7,13 +7,13 @@ app.controller("storage_working_calendar_controller", ["$scope", "$host", "_basi
     $scope.today_month = date.getFullYear() + "年" + month + "月";
     $scope.today_d = date.getDate();
     var weekday = new Array(7);
-    weekday[0] = "Sunday";
-    weekday[1] = "Monday";
-    weekday[2] = "Tuesday";
-    weekday[3] = "Wednesday";
-    weekday[4] = "Thursday";
-    weekday[5] = "Friday";
-    weekday[6] = "Saturday";
+    weekday[0] = "星期日";
+    weekday[1] = "星期一";
+    weekday[2] = "星期二";
+    weekday[3] = "星期三";
+    weekday[4] = "星期四";
+    weekday[5] = "星期五";
+    weekday[6] = "星期六";
     $scope.today_week = weekday[date.getDay()];
     _basic.get($host.api_url + "/storageDate" + "?dateStart=" + now_date + "&dateEnd=" + now_date).then(function (data) {
         if (data.success == true) {
@@ -77,6 +77,7 @@ app.controller("storage_working_calendar_controller", ["$scope", "$host", "_basi
                 element.html(event.title);
             }
         });
+        $('#calendar').fullCalendar('option', 'locale', 'zh-cn');
         // 当天仓库信息
 
         _basic.get($host.api_url + "/storageDate?storageId=" + storage_id + "&dateStart=" + now_date + "&dateEnd=" + now_date).then(function (data) {

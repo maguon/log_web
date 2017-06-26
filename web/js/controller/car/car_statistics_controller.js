@@ -4,10 +4,8 @@
 app.controller("car_statistics_controller", ["$scope", "_basic", "_config", "$host", function ($scope, _basic, _config, $host) {
     $('ul.tabs').tabs();
     $scope.flag = true;
-    $scope.showBlue = false;
+    $scope.otherFlag = false;
     $scope.listInfo = [];
-    $scope.allCity = [];
-    $scope.total = 0;
 
     // 获取所有数据
     $scope.queryData = function () {
@@ -123,21 +121,21 @@ app.controller("car_statistics_controller", ["$scope", "_basic", "_config", "$ho
     $scope.getCity = function () {
         $scope.clickStatus = "city";
         $scope.flag = true;
-        $scope.showBlue = false;
+        $scope.otherFlag = false;
         $scope.listInfo = $scope.cityList;
     };
 
     $scope.getDestination = function () {
         $scope.clickStatus = "destination";
         $scope.flag = true;
-        $scope.showBlue = false;
+        $scope.otherFlag = false;
         $scope.listInfo = $scope.dateList;
     };
 
     $scope.getReceive = function () {
         $scope.clickStatus = "receive";
         $scope.flag = false;
-        $scope.showBlue = true;
+        $scope.otherFlag = true;
         $scope.listInfo = $scope.carreceiveList;
     };
 

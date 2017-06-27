@@ -61,8 +61,9 @@ app.controller("storage_working_calendar_controller", ["$scope", "$host", "_basi
                             var date = {
                                 title: titleHtml,
                                 start: $scope.data[i].date_id + '',
-                                color: 'white',     // an option!
-                                textColor: 'grey', // an option!
+                                color: 'transparent',     // an option!
+                                textColor: 'transparent', // an option!
+
                                 allDay: true // will make the time show
                             };
                             eventArray.push(date);

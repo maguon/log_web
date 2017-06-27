@@ -176,10 +176,10 @@
                             <div class="modal-footer  right-align">
                                 <div  style="margin-top: 20px;" ng-show="self_car.rel_status==1">
                                     <!--<p>{{self_car}} {{self_car.rel_status==1}}  {{self_car.rel_status=='1'}}</p>-->
-                                    <button class="btn-floating btn-large mr-10 btn waves-light waves-effect cyan lighten-1"  type="submit" name="action" >
+                                    <button class="btn-floating save btn-large mr-10 btn waves-light waves-effect cyan lighten-1"  type="submit" name="action" data-position="top" data-delay="50" data-tooltip="保存">
                                         <i class="mdi mdi-check"></i>
                                     </button>
-                                    <a class="btn btn-large btn-floating mr-10 waves-light waves-effect yellow darken-3" ng-click="changeStorageCar(self_car.storage_id,self_car.id,self_car.row,self_car.col)">
+                                    <a class="btn displacement btn-large btn-floating mr-10 waves-light waves-effect yellow darken-3" ng-click="changeStorageCar(self_car.storage_id,self_car.id,self_car.row,self_car.col)" data-position="top" data-delay="50" data-tooltip="移位">
                                         <i class="mdi mdi-rotate-left"></i>
                                     </a>
                                     <div id="change_storageCar" class="modal ">
@@ -237,7 +237,7 @@
                                         </form>
 
                                     </div>
-                                    <a class="btn btn-floating  btn-large waves-light waves-effect red lighten-2" ng-click="out_storage(self_car.r_id,self_car.p_id,self_car.storage_id,self_car.id)">
+                                    <a class="btn logout btn-floating  btn-large waves-light waves-effect red lighten-2" ng-click="out_storage(self_car.r_id,self_car.p_id,self_car.storage_id,self_car.id)" data-position="top" data-delay="50" data-tooltip="出库">
                                         <i class="mdi mdi-logout "></i>
                                     </a>
                                 </div>

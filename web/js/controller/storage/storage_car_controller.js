@@ -127,7 +127,7 @@ app.controller("storage_car_controller", ["$scope", "$rootScope","$stateParams",
             swal(data.msg, "", "error");
         }
     });
-    $scope.newStorage_car = function () {
+    $scope.newStorage_car = function (){
         $scope.submitted = false;
         $('.tabWrap .tab').removeClass("active");
         $(".tab_box ").removeClass("active");

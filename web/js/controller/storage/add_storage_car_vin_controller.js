@@ -2,11 +2,11 @@
  * Created by ASUS on 2017/5/4.
  */
 // var Storage_carController = angular.module("Storage_carController", []);
-app.controller("new_storage_car_controller", ["$scope", "$rootScope","$stateParams","$host", "_basic", "_config", "baseService", function ($scope, $rootScope,$stateParams,$host, _basic,  _config, baseService) {
-    $scope.data={};
-    var acObj ={}
+app.controller("new_storage_car_vin_controller", ["$scope", "$rootScope","$state","$stateParams","$host", "_basic", "_config", "baseService", function ($scope, $rootScope,$state,$stateParams,$host, _basic,  _config, baseService) {
+    // $scope.data={};
+    var vinObjs ={}
     $('#autocomplete-input').autocomplete({
-        data: acObj,
+        data: vinObjs,
         limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
         onAutocomplete: function(val) {
             console.log(val)
@@ -16,39 +16,42 @@ app.controller("new_storage_car_controller", ["$scope", "$rootScope","$statePara
     });
 
     $scope.short_search=function () {
-        // console.log($scope.demand_vin);
-       if($scope.demand_vin.length>=6){
-           _basic.get($host.api_url+"/carList?vinCode="+$scope.demand_vin).then(function (data) {
-               if(data.success==true&&data.result.length>0){
-                    $scope.vin_msg=data.result
-                   var vinObjs ={}
-                   for(var i in $scope.vin_msg){
-                       vinObjs[$scope.vin_msg[i].vin]=null;
-                   }
+        console.log($scope.demand_vin);
+        if($scope.demand_vin!=undefined){
+            if($scope.demand_vin.length>=6){
+                _basic.get($host.api_url+"/carList?vinCode="+$scope.demand_vin).then(function (data) {
+                    if(data.success==true&&data.result.length>0){
+                        $scope.vin_msg=data.result
+                        vinObjs ={};
+                        for(var i in $scope.vin_msg){
+                            vinObjs[$scope.vin_msg[i].vin]=null;
+                        }
 
-                   return vinObjs;
+                        return vinObjs;
 
-               }else{
-                   return {};
-               }
-           }).then(function(vinObjs){
-                console.log(vinObjs);
-              $('#autocomplete-input').autocomplete({
-                   data: vinObjs,
-                   minLength: 6
-               });
+                    }else{
+                        return {};
+                    }
+                }).then(function(vinObjs){
+                    $('#autocomplete-input').autocomplete({
+                        data: vinObjs,
+                        minLength: 6
+                    });
+                    $('#autocomplete-input').focus();
 
-           })
-       }else {
-           var vinObjs ={}
-           $('#autocomplete-input').autocomplete({minLength:6});
-           $scope.vin_msg={}
-       }
+                })
+            }else {
+                $('#autocomplete-input').autocomplete({minLength:6});
+                $scope.vin_msg={}
+            }
+        }
+
     };
     // 查询vin码
     $scope.demand_car=function ($iValid) {
         $scope.submitted=true;
         if($iValid&&$scope.demand_vin.length==17){
+            $scope.submitted=false;
             console.log($scope.demand_vin);
             // var obj={
             //     vin:$scope.demand_vin,
@@ -75,6 +78,9 @@ app.controller("new_storage_car_controller", ["$scope", "$rootScope","$statePara
             //
             //     }
             // })
+        }else if($iValid){
+            $scope.submitted=false;
+            $state.go("new_storage_car", {}, {reload: true})
         }
     };
 }]);

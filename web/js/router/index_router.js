@@ -179,9 +179,14 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/storage/storage_car.html",
             controller:'storage_car_controller'
         })
+        .state("new_storage_car_vin", {
+            url:"/new_storage_car_vin",
+            templateUrl: "js/view/storage/add_storage_car_vin.html",
+            controller:'new_storage_car_vin_controller'
+        })
         .state("new_storage_car", {
             url:"/new_storage_car",
-            templateUrl: "js/view/storage/new_storage_car.html",
+            templateUrl: "js/view/storage/add_storage_car.html",
             controller:'new_storage_car_controller'
         })
         .state("storage_store", {

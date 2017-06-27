@@ -275,13 +275,14 @@ app.controller("storage_car_controller", ["$scope", "$rootScope","$stateParams",
     $scope.change_model_id = "";
     // 新增信息
     $scope.newsubmitForm = function (isValid) {
+        console.log($scope.order_time);
         $scope.submitted = true;
         if (isValid) {
             var obj_car = {
                 "vin": $scope.vin,
                 "makeId": $scope.make_name.id,
                 "makeName": $scope.make_name.make_name,
-                "orderDate": $scope.arrival_time,
+                "orderDate": $scope.order_time,
                 "routeStartId": $scope.start_city.id,
                 "routeStart": $scope.start_city.city_name,
                 "routeEndId": $scope.arrive_city.id,

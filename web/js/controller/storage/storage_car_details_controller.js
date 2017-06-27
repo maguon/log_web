@@ -9,15 +9,36 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
 
     // var name= $stateParams.name;
 
-    // console.log($stateParams.from);
-    // 车辆品牌查询
-    _basic.get($host.api_url + "/carMake").then(function (data) {
-        if (data.success == true) {
-            $scope.makecarName = data.result;
-        } else {
-            swal(data.msg, "", "error");
-        }
-    });
+    // 信息获取
+    $scope.get_Msg=function () {
+        // 城市
+        _basic.get($host.api_url+"/city").then(function (data) {
+            if(data.success==true){
+                $scope.get_city=data.result;
+            }
+        });
+        // 车辆品牌查询
+        _basic.get($host.api_url + "/carMake").then(function (data) {
+            if (data.success == true) {
+                $scope.makecarName = data.result;
+            } else {
+                swal(data.msg, "", "error");
+            }
+        });
+        // 经销商
+        _basic.get($host.api_url+"/receive").then(function (data) {
+            if(data.success==true){
+                $scope.get_receive=data.result;
+            }
+        });
+        // 委托方
+        _basic.get($host.api_url+"/entrust").then(function (data) {
+            if(data.success==true){
+                $scope.get_entrust=data.result;
+            }
+        })
+    };
+    $scope.get_Msg();
     // 车库查询
     _basic.get($host.api_url + "/storage").then(function (data) {
         if (data.success == true) {
@@ -274,6 +295,7 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
         _basic.get($host.api_url+ "/car?carId=" + val + '&active=1').then(function (data) {
             if (data.success == true) {
                 $scope.modelId = data.result[0].model_id;
+                data.result[0].real_out_time = data.result[0].real_out_time==null?'':data.result[0].real_out_time
                 $scope.self_car = data.result[0];
                 // modelID赋值
                 $scope.look_make_id = $scope.self_car.make_id,
@@ -281,10 +303,24 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
                     $scope.changeMakeId($scope.look_make_id);
                 $scope.look_model_id = $scope.self_car.model_id,
                 $scope.look_create_time = moment($scope.self_car.pro_date).format('YYYY-MM-DD');
+                if($scope.self_car.order_date==null){
+                    $scope.order_date="1970-01-01";
+                }else {
+                    $scope.order_date=$scope.self_car.order_date;
+                }
                 $scope.look_storageName = $scope.self_car.storage_name + "  " + $scope.self_car.row + "排" + $scope.self_car.col + "列";
-
                 // 车辆id
                 $scope.look_car_id = $scope.self_car.id;
+                // 城市
+                for(var i=0;i<$scope.get_city.length;i++){
+                    if($scope.get_city[i].id==$scope.self_car.route_start_id){
+                        $scope.select_city_start=$scope.get_city[i];
+                    }else if($scope.get_city[i].id==$scope.self_car.route_end_id){
+                        $scope.select_city_end=$scope.get_city[i];
+                    }
+                }
+                $scope.start_city= $scope.select_city_start;
+                $scope.arrive_city= $scope.select_city_end;
             } else {
                 swal(data.msg, "", "error")
             }
@@ -329,12 +365,14 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
             "vin": $scope.self_car.vin,
             "makeId": $scope.self_car.make_id,
             "makeName": $("#look_makecarName").find("option:selected").text(),
-            "modelId": $scope.self_car.model_id,
-            "modelName": $("#look_model_name").find("option:selected").text(),
-            "proDate": $scope.self_car.pro_date,
-            "colour": $scope.self_car.colour,
-            "engineNum": $scope.self_car.engine_num,
-            "remark": $scope.self_car.remark
+            "orderDate": $scope.order_date,
+            "remark": $scope.self_car.remark,
+            "routeStartId": $scope.start_city.id,
+            "routeStart": $scope.start_city.city_name,
+            "routeEndId": $scope.arrive_city.id,
+            "routeEnd": $scope.arrive_city.city_name,
+            "receiveId": $scope.self_car.receive_id,
+            "entrustId": $scope.self_car.entrust_id,
         };
         if (isValid) {
             // 修改计划出库时间
@@ -353,12 +391,7 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
                     swal(data.msg, "", "error")
                 }
             });
-
         }
-
-        // $basic.put($host.api_url+"/user/"+userId+"/car/"+id,obj).then(function (data) {
-        //
-        // })
     };
     // 仓库移位
     $scope.move_box = function (val) {

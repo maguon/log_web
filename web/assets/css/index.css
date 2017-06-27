@@ -87,6 +87,7 @@ body{
 .bold{
     font-weight:bold;
 }
+
 /*操作栏*/
 .table_operation{
     width: 150px;
@@ -982,4 +983,16 @@ input[type=text]{
 .card .card-title {
     font-size: 16px;
     font-weight: bold;
+}
+/*车辆新增*/
+/*模糊查询*/
+.vin_result_box{
+
+}
+.vin_list{
+    cursor: pointer;
+}
+.vin_list:hover{
+    background:#4dd0e1 ;
+    color: white;
 }

@@ -179,6 +179,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/storage/storage_car.html",
             controller:'storage_car_controller'
         })
+        .state("new_storage_car", {
+            url:"/new_storage_car",
+            templateUrl: "js/view/storage/new_storage_car.html",
+            controller:'new_storage_car_controller'
+        })
         .state("storage_store", {
             url:"/storage_store",
             templateUrl: "js/view/storage/storage_store.html",

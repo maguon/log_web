@@ -1,0 +1,86 @@
+<div id="setting_amend_vin" >
+    <div class="grey-text text-darken-2" >
+        <!--<div class="modal-content ">-->
+        <!--<div class="" style="width: 95%;margin: 0 auto">-->
+        <div class=" vc-center ">
+            <h4 class="center-align cyan-text  text-lighten-1">输入vin码</h4>
+        </div>
+        <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+        <div class="row no-marBottom">
+            <div class="row " style="width: 900px;margin: 0 auto">
+                <form name="demand_car_form" ng-submit="demand_car(demand_car_form.$valid)" novalidate>
+                    <div class="mp-30 valign-wrapper" style="overflow: hidden;">
+                        <!--<div class="col s1 cyan-text text-lighten-1" style="font-size: 25px;min-width: 90px">vin码:</div>-->
+                        <div class="input-field col s12">
+                            <input type="text" id="autocomplete-input" ng-change="short_search()" ng-model="demand_vin" style="margin: 0 0 20px 0" class="autocomplete">
+                            <label for="autocomplete-input">搜索</label>
+                        </div>
+                        <div  class="col s1 vc-center">
+                            <button class=" btn btn-floating btn-large waves-effect cyan lighten-1" ><i style="font-size: 40px" class="mdi white-text mdi-magnify"></i></button>
+                        </div>
+                    </div>
+                </form>
+                <!--<div class="row">-->
+                    <!--<ul class="white grey-text vin_result_box col s10 p0" style="margin-top: 0">-->
+                        <!--<li ng-repeat="el in vin_msg" class="col s12 vin_list p0"><span class="col s4 p0">{{el.vin}}</span><span class="col s4 offset-s2">{{el.make_name}}</span></li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+
+            </div>
+
+            <div class="row  mp-50" >
+                <div class="divider"></div>
+                <div style="width: 80%;height: 30ex;margin: 0 auto">
+                    <p style="display: none" class="no_car_detail center-align cyan-text text-lighten-1 mp-50">无该VIN码车辆信息</p>
+                    <div style="display: none" class="car_detail mp-50">
+                        <div class="row" style="margin-bottom: 10px">
+                            <div class="input-field col s12 mp-30" >
+                                <h5 class="col s1 cyan-text text-lighten-1">Vin码:</h5>
+                                <span class="col s9 grey-text" ng-show="flag==true" style="font-size: 30px">{{vin}}</span>
+                                <input class="col s9 grey-text" ng-show="flag==false"  style="font-size: 30px" type="text" id="amend_vin" ng-model="vin" name="search_vin">
+                                <div class="col s2">
+                                    <a class="btn  btn-large btn-floating waves-effect cyan" ng-show="flag==true"  ng-click="open_vin_amend()"> <i class="mdi mdi-pencil "></i></a>
+                                    <a class="btn  btn-large btn-floating waves-effect cyan" ng-show="flag==false" ng-click="close_vin_amend()" style="margin-right: 10px"> <i class="mdi mdi-close " ></i></a>
+                                    <a class="btn  btn-large btn-floating waves-effect cyan" ng-show="flag==false" ng-click="amend_vin(car_details.id,flag)"> <i class="mdi mdi-check "></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="divider" style="margin: 0 0 30px 0"></div>
+                        <div class="row">
+                            <div class="col s4">
+                                <span class="cyan-text text-lighten-1 ">发动机号:</span>
+                                <span ng-cloak class="grey-text">{{car_details.engine_num}}</span>
+                            </div>
+                            <div class="col s4">
+                                <span class="cyan-text text-lighten-1 ">品牌:</span>
+                                <span ng-cloak class="grey-text">{{car_details.make_name}}</span>
+                            </div>
+                            <div class="col s4">
+                                <span class="cyan-text text-lighten-1 ">型号:</span>
+                                <span ng-cloak class="grey-text">{{car_details.model_name}}</span>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 50px">
+                            <div class="col s4">
+                                <span class="cyan-text text-lighten-1 ">生产日期:</span>
+                                <span ng-cloak class="grey-text">{{car_details.pro_date|date:"yyyy-MM-dd"}}</span>
+                            </div>
+                            <div class="col s4">
+                                <span class="cyan-text text-lighten-1 ">颜色:</span>
+                                <span ng-cloak class="grey-text">{{color}}</span>
+                            </div>
+                            <!--<div class="col s4">-->
+                            <!--<span class="cyan-text text-lighten-1 bold">型号:</span>-->
+                            <!--<span>4652346523</span>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--</div>-->
+
+
+    </div>
+</div>

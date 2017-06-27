@@ -6,6 +6,12 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
     var userId = _basic.getSession(_basic.USER_ID);
     var val = $stateParams.id;
     var vin = $stateParams.vin;
+    $(document).ready(function(){
+        $('.save').tooltip({delay: 50});
+        $('.displacement').tooltip({delay: 50});
+        $('.logout').tooltip({delay: 50});
+    });
+
 
     // var name= $stateParams.name;
 

@@ -22,9 +22,26 @@ app.controller("setting_dealer_controller",["$scope","_basic","_config","$host",
 
     $scope.get_Msg();
     // 搜索经销商
-    // $scope.search_dealer=function () {
-    //     _basic.get()
-    // };
+    $scope.search_dealer=function () {
+        var obj={
+            receiveId:$scope.dealer,
+            cityId:$scope.city.id
+        };
+        _basic.get($host.api_url+"/receive?"+_basic.objToUrl(obj)).then(function (data) {
+            if(data.success==true){
+                $scope.setting_dealer=data.result;
+                $scope.len=data.result.length;
+                for(var i=0;i<data.result.length;i++){
+                    $scope.contacts.push({
+                        show:false
+                    });
+                    $scope.addContacts.push({
+                        show:false
+                    })
+                }
+            }
+        })
+    };
     // 电话号正则
     $scope.mobileReg=_config.mobileRegx;
     $scope.userId=_basic.getSession(_basic.USER_ID);

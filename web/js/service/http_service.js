@@ -114,7 +114,7 @@ baseService.factory('_basic',['$http','$location','$q',"$cookies",function($http
             swal(data.msg,"","error")
         }
     };
-    _this. getParameter = function(name) {
+    _this.getParameter = function(name) {
         var url = document.location.href;
         var start = url.indexOf("?")+1;
         if (start==0) {
@@ -158,7 +158,10 @@ baseService.factory('_basic',['$http','$location','$q',"$cookies",function($http
     _this.objToUrl=function(obj){
         var str="";
         for(var i in obj){
-            str=str+i+"="+obj[i]+"&";
+            if(obj[i]!=null){
+                str=str+i+"="+obj[i]+"&";
+            }
+
         }
         return str.substr(0,str.length-1);
     };

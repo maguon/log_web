@@ -1,11 +1,7 @@
 /**
- * Created by ASUS on 2017/6/27.
+ * Created by ASUS on 2017/6/28.
  */
-/**
- * Created by ASUS on 2017/5/4.
- */
-// var Storage_carController = angular.module("Storage_carController", []);
-app.controller("new_storage_car_controller", ["$scope", "$rootScope","$state","$stateParams","$host", "_basic", "_config", "baseService", function ($scope, $rootScope,$state,$stateParams,$host, _basic,  _config, baseService) {
+app.controller("add_storage_car_relStatus_controller", ["$scope", "$rootScope","$state","$stateParams","$host", "_basic", "_config", "baseService", function ($scope, $rootScope,$state,$stateParams,$host, _basic,  _config, baseService) {
     var userId=_basic.getSession(_basic.USER_ID);
     $scope.vin=$stateParams.vin;
     // $scope.vin = "";
@@ -65,6 +61,33 @@ app.controller("new_storage_car_controller", ["$scope", "$rootScope","$state","$
         $('.tabWrap .test1').addClass("active");
         $("#test1").addClass("active");
         $("#test1").show();
+
+        // vin码查询
+        var obj={
+            vin:$scope.vin,
+        };
+        _basic.get($host.api_url+"/car?"+_basic.objToUrl(obj)).then(function (data) {
+                if(data.success==true){
+                    $scope.srorage_car_details=data.result[0];
+                    // 品牌默认选中
+                    for(var i in $scope.makecarName){
+                        if($scope.makecarName[i].id==data.result[0].make_id){
+                            $scope.make_name=$scope.makecarName[i]
+                        }
+                    }
+                    // 城市默认选中
+                    for(var i in $scope.get_city){
+                        if($scope.get_city[i].id==data.result[0].route_start_id){
+                            $scope.start_city=$scope.get_city[i]
+                        }
+                        if($scope.get_city[i].id==data.result[0].route_end_id){
+                            $scope.arrive_city=$scope.get_city[i]
+                        }
+                    }
+                    $scope.client=$scope.srorage_car_details.entrust_id;
+                    $scope.dealer=$scope.srorage_car_details.receive_id;
+                }
+        })
     };
     $scope.get_Msg();
 
@@ -85,17 +108,17 @@ app.controller("new_storage_car_controller", ["$scope", "$rootScope","$state","$
         }
 
     },
-    // 存放位置联动查询--列
-    $scope.changeStorageRow = function (val, array) {
+        // 存放位置联动查询--列
+        $scope.changeStorageRow = function (val, array) {
 
-        if (val) {
-            // console.log(val);
-            $scope.colArr = array[val - 1].col;
-            // console.log($scope.colArr)
-        }
+            if (val) {
+                // console.log(val);
+                $scope.colArr = array[val - 1].col;
+                // console.log($scope.colArr)
+            }
 
 
-    };
+        };
 
 
     // 新增信息
@@ -140,7 +163,7 @@ app.controller("new_storage_car_controller", ["$scope", "$rootScope","$state","$
     // 返回
     $scope.return = function () {
         // console.log($stateParams.mark);
-            $state.go($stateParams.from, {reload: true})
+        $state.go("new_storage_car_vin", {reload: true})
 
     };
 }]);

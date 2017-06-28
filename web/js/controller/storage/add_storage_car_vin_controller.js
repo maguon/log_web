@@ -53,34 +53,29 @@ app.controller("new_storage_car_vin_controller", ["$scope", "$rootScope","$state
         if($iValid&&$scope.demand_vin.length==17){
             $scope.submitted=false;
             console.log($scope.demand_vin);
-            // var obj={
-            //     vin:$scope.demand_vin,
-            //     active:1
-            // };
-            // _basic.get($host.api_url+"/car?"+_basic.objToUrl(obj)).then(function (data) {
-            //     if(data.success=true){
-            //         if(data.result.length==0){
-            //             $(".no_car_detail").show();
-            //             $(".car_detail").hide();
-            //         }else {
-            //             $(".no_car_detail").hide();
-            //             $(".car_detail").show();
-            //             $scope.car_details=data.result[0];
-            //             $scope.vin= $scope.car_details.vin;
-            //
-            //             for(var i in _config.config_color){
-            //                 if(_config.config_color[i].colorId==$scope.car_details.colour){
-            //                     $scope.color=_config.config_color[i].colorName;
-            //                 }
-            //             }
-            //         }
-            //
-            //
-            //     }
-            // })
+
+            var obj={
+                vin:$scope.demand_vin,
+            };
+            _basic.get($host.api_url+"/car?"+_basic.objToUrl(obj)).then(function (data) {
+                if(data.success=true){
+                    if(data.result.length>0){
+                        if(data.result[data.result.length-1].rel_status==1){
+                            $scope.submitted=false;
+                            $state.go("storage_car_details_", {id:data.result[data.result.length-1].id,vin:$scope.demand_vin,mark:1,status:1,from:"new_storage_car_vin"}, {reload: true})
+                        }else {
+                            $scope.submitted=false;
+                            $state.go("add_storage_car_relStatus", {vin:$scope.demand_vin,from:"new_storage_car_vin"}, {reload: true})
+                        }
+                    }else {
+                        $scope.submitted=false;
+                        $state.go("new_storage_car", {vin:$scope.demand_vin,from:"new_storage_car_vin"}, {reload: true})
+                    }
+                }
+            })
         }else if($iValid){
             $scope.submitted=false;
-            $state.go("new_storage_car", {}, {reload: true})
+            $state.go("new_storage_car", {vin:$scope.demand_vin,from:"new_storage_car_vin"}, {reload: true})
         }
     };
 }]);

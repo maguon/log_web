@@ -26,56 +26,6 @@
                     <!--</ul>-->
                 <!--</div>-->
             </div>
-            <div class="row  mp-50" >
-                <div class="divider"></div>
-                <div style="width: 80%;height: 30ex;margin: 0 auto">
-                    <p style="display: none" class="no_car_detail center-align cyan-text text-lighten-1 mp-50">无该VIN码车辆信息</p>
-                    <div style="display: none" class="car_detail mp-50">
-                        <div class="row" style="margin-bottom: 10px">
-                            <div class="input-field col s12 mp-30" >
-                                <h5 class="col s1 cyan-text text-lighten-1">Vin码:</h5>
-                                <span class="col s9 grey-text" ng-show="flag==true" style="font-size: 30px">{{vin}}</span>
-                                <input class="col s9 grey-text" ng-show="flag==false"  style="font-size: 30px" type="text" id="amend_vin" ng-model="vin" name="search_vin">
-                                <div class="col s2">
-                                    <a class="btn  btn-large btn-floating waves-effect cyan" ng-show="flag==true"  ng-click="open_vin_amend()"> <i class="mdi mdi-pencil "></i></a>
-                                    <a class="btn  btn-large btn-floating waves-effect cyan" ng-show="flag==false" ng-click="close_vin_amend()" style="margin-right: 10px"> <i class="mdi mdi-close " ></i></a>
-                                    <a class="btn  btn-large btn-floating waves-effect cyan" ng-show="flag==false" ng-click="amend_vin(car_details.id,flag)"> <i class="mdi mdi-check "></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="divider" style="margin: 0 0 30px 0"></div>
-                        <div class="row">
-                            <div class="col s4">
-                                <span class="cyan-text text-lighten-1 ">发动机号:</span>
-                                <span ng-cloak class="grey-text">{{car_details.engine_num}}</span>
-                            </div>
-                            <div class="col s4">
-                                <span class="cyan-text text-lighten-1 ">品牌:</span>
-                                <span ng-cloak class="grey-text">{{car_details.make_name}}</span>
-                            </div>
-                            <div class="col s4">
-                                <span class="cyan-text text-lighten-1 ">型号:</span>
-                                <span ng-cloak class="grey-text">{{car_details.model_name}}</span>
-                            </div>
-                        </div>
-                        <div class="row" style="margin-top: 50px">
-                            <div class="col s4">
-                                <span class="cyan-text text-lighten-1 ">生产日期:</span>
-                                <span ng-cloak class="grey-text">{{car_details.pro_date|date:"yyyy-MM-dd"}}</span>
-                            </div>
-                            <div class="col s4">
-                                <span class="cyan-text text-lighten-1 ">颜色:</span>
-                                <span ng-cloak class="grey-text">{{color}}</span>
-                            </div>
-                            <!--<div class="col s4">-->
-                            <!--<span class="cyan-text text-lighten-1 bold">型号:</span>-->
-                            <!--<span>4652346523</span>-->
-                            <!--</div>-->
-                        </div>
-                    </div>
-                </div>
-
-            </div>
         </div>
         <!--</div>-->
 

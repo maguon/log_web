@@ -1,9 +1,9 @@
 
-<p class="vc-center cyan-text text-lighten-1 bold" style="position: relative;height: 40px">
+<p class="vc-center cyan-text text-lighten-1 " style="position: relative;height: 40px">
     <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
         <i class="mdi mdi-arrow-left-bold"></i>
     </a>
-    <span >搜索无结果，请新增入库车辆信息</span>
+    <span class="fz30">车辆入库</span>
 </p>
 <div class="row no-marBottom" ul-tabs>
     <div class="col s12 p0">
@@ -17,7 +17,7 @@
             <div class="row" style="margin-top: 40px">
                 <div class="row " >
                     <div class="input-field col s4" ng-class="{ 'has-error':newStorage_carForm.vin.$invalid&&submitted }" >
-                        <input  id="vin" name="vin" autocomplete="off" ng-model="vin" type="text" ng-pattern="/^[a-zA-Z0-9]{17}$/"   required >
+                        <input  id="vin" name="vin" autocomplete="off" ng-model="vin" type="text" ng-pattern="/^[a-zA-Z0-9]{17}$/"   required disabled>
                         <label for="vin"><span style="color: red;margin-right: 5px">*</span>VIN码</label>
                     </div>
                     <!--<div class="col s4 valign-wrapper" ng-class="{ 'has-error':newStorage_carForm.win.$invalid&&submitted }">-->
@@ -26,7 +26,7 @@
                     <!--:</h6>-->
                     <!--</div>-->
                     <div class="input-field col s4" ng-class="{'has-error':newStorage_carForm.makecarName.$invalid&&submitted }"  >
-                        <select material-select watch id="makecarName" name="makecarName" ng-options="o.make_name for o in makecarName" ng-change="changeMakeId(make_name.id)" ng-model="make_name" required>
+                        <select material-select watch id="makecarName" name="makecarName" disabled ng-options="o.make_name for o in makecarName" ng-change="changeMakeId(make_name.id)" ng-model="make_name" required>
                             <option value="" disabled selected>请选择</option>
                             <!--<option ng-repeat="el in makecarName" ng-value="el.id" >{{el.make_name}}</option>-->
                         </select>
@@ -38,35 +38,35 @@
 
                     <!--</div>-->
                     <div class="input-field col s4">
-                        <input type="text" id="order_time" name="order_time" class="datepicker" autocomplete="off" ng-model="order_time"    date><i class="mdi grey-text text-lighten-1 dataIcon mdi-table-large"></i>
+                        <input type="text" id="order_time" disabled name="order_time" class="datepicker" autocomplete="off" ng-model="srorage_car_details.order_date"    date><i class="mdi grey-text text-lighten-1 dataIcon mdi-table-large"></i>
                         <label for="order_time">指令时间</label>
                     </div>
                 </div>
                 <div class="row" >
                     <div class=" col s4 p0">
                         <div class=" input-field col s6" ng-class="{'has-error':newStorage_carForm.start_city.$invalid&&submitted }" >
-                            <select material-select watch id="start_city" name="start_city" ng-options="start_city.city_name for start_city in get_city"  ng-model="start_city" required>
+                            <select disabled material-select watch id="start_city" name="start_city" ng-options="start_city.city_name for start_city in get_city"  ng-model="start_city" required>
                                 <option value="" disabled selected>请选择</option>
                                 <!--<option ng-if="start_city.city_status==1" ng-repeat="start_city in get_city" ng-value="start_city.id" >{{start_city.city_name}}</option>-->
                             </select>
                             <label for="start_city">发运地城市</label>
                         </div>
                         <div class="input-field col s6">
-                            <select material-select watch id="arrive_city" name="arrive_city" ng-options="arrive_city.city_name for arrive_city in get_city"  ng-model="arrive_city" >
+                            <select disabled material-select watch id="arrive_city" name="arrive_city" ng-options="arrive_city.city_name for arrive_city in get_city"  ng-model="arrive_city" >
                                 <option value="" disabled selected>请选择</option>
                             </select>
                             <label for="arrive_city">目的地城市</label>
                         </div>
                     </div>
                     <div class="input-field col s4" ng-class="{'has-error':newStorage_carForm.client.$invalid&&submitted }">
-                        <select material-select watch id="client" name="client"  ng-model="client" required >
+                        <select disabled  material-select watch id="client" name="client"  ng-model="client" required >
                             <option value="" disabled selected>请选择</option>
                             <option ng-repeat="el in get_entrust" ng-value="el.id" >{{el.short_name}}</option>
                         </select>
                         <label for="client">委托方</label>
                     </div>
                     <div class="input-field col s4">
-                        <select material-select watch id="dealer" name="dealer"  ng-model="dealer">
+                        <select disabled material-select watch id="dealer" name="dealer"  ng-model="dealer">
                             <option value="" disabled selected>请选择</option>
                             <option ng-repeat="el in get_receive" ng-value="el.id" >{{el.short_name}}</option>
                         </select>

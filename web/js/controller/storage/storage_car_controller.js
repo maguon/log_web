@@ -154,9 +154,10 @@ app.controller("storage_car_controller", ["$scope", "$rootScope","$stateParams",
         $scope.carModelName = "";
         // 存放位置清空
         $scope.parkingArray = "";
+        $scope.parking_id = "";
         $scope.colArr = "";
         // "enterTime":$scope.enter_time,
-        $scope.parking_id = "";
+
         $scope.plan_out_time = "";
         $(".modal").modal({
             height: 500

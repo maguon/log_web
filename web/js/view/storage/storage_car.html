@@ -366,10 +366,10 @@
                                                 停放车辆
                                                 <i class="mdi mdi-car cyan-text lighten-1"></i>
                                             </div>
-                                            <div class="col s4">
-                                                临近出库车辆
-                                                <i class=" mdi mdi-car red-text accent-1"></i>
-                                            </div>
+                                            <!--<div class="col s4">-->
+                                                <!--临近出库车辆-->
+                                                <!--<i class=" mdi mdi-car red-text accent-1"></i>-->
+                                            <!--</div>-->
                                             <div class="col s4">
                                                 未停放车辆
                                                 <i class=" mdi mdi-car  grey-text lighten-1 "></i>
@@ -397,8 +397,8 @@
                                                 <div class="col s12  garage_list p0"  ng-repeat="el in garageParkingArray" >
                                                     <div class="garage_row vc-center left">{{$index+1}}</div>
                                                     <div class="garage_row vc-center left" ng-repeat="els in el.col track by $index" ng-class="{'present_place':el.row==now_row&&els.col==now_col}">
-                                                        <i ng-show="els.carId!=0&&els.plan_time==true" class=" mdi mdi-car red-text accent-1 "></i>
-                                                        <i ng-show="els.carId!=0&&els.plan_time==false" class=" mdi mdi-car cyan-text lighten-1"></i>
+                                                        <!--<i ng-show="els.carId!=0&&els.plan_time==true" class=" mdi mdi-car red-text accent-1 "></i>-->
+                                                        <i ng-show="els.carId!=0" class=" mdi mdi-car cyan-text lighten-1"></i>
                                                         <i ng-show="els.carId==0" class=" mdi mdi-car grey-text lighten-2 " ng-click="move_parking(els.id,el.row,els.col)"></i>
                                                     </div>
 

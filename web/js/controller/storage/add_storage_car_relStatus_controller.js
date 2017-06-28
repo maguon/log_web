@@ -86,6 +86,7 @@ app.controller("add_storage_car_relStatus_controller", ["$scope", "$rootScope","
                     }
                     $scope.client=$scope.srorage_car_details.entrust_id;
                     $scope.dealer=$scope.srorage_car_details.receive_id;
+                    $scope.remark=$scope.srorage_car_details.remark
                 }
         })
     };
@@ -125,26 +126,14 @@ app.controller("add_storage_car_relStatus_controller", ["$scope", "$rootScope","
     $scope.newsubmitForm = function (isValid) {
         $scope.submitted = true;
         if (isValid) {
-
             var obj_car = {
-                "vin": $scope.vin,
-                "makeId": $scope.make_name.id,
-                "makeName": $scope.make_name.make_name,
-                "orderDate": $scope.order_time,
-                "routeStartId": $scope.start_city.id,
-                "routeStart": $scope.start_city.city_name,
-                "routeEndId": $scope.arrive_city.id,
-                "routeEnd": $scope.arrive_city.city_name,
-                "receiveId": $scope.client,
-                "entrustId": $scope.dealer,
-                "remark": $scope.remark,
-                "storageId": $scope.storage_name.id,
-                "storageName": $scope.storage_name.storage_name,
+                "storageId":$scope.storage_name.id,
+                "storageName":$scope.storage_name.storage_name,
                 // "enterTime":$scope.enter_time,
                 "parkingId": $scope.parking_id,
                 // "planOutTime": $scope.plan_out_time
             };
-            _basic.post($host.api_url + "/user/" + userId + "/carStorageRel", _basic.removeNullProps(obj_car)).then(function (data) {
+            _basic.put($host.api_url + "/user/" + userId + "/car/"+ $scope.srorage_car_details.id+"/carStorageRel?vin="+$scope.srorage_car_details.vin, _basic.removeNullProps(obj_car)).then(function (data) {
                 if (data.success == true) {
                     $('.tabWrap .tab').removeClass("active");
                     $(".tab_box ").removeClass("active");

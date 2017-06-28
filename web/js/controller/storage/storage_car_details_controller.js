@@ -84,7 +84,6 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
                     if (re.test(max_size_str)) {
                         max_size = parseInt(max_size_str.substring(0, max_size_str.length - 1)) * 1024 * 1024;
                     }
-
                     if ($(dom)[0].files[0].size > max_size) {
                         swal('图片文件最大: ' + max_size_str, "", "error");
                         return false;

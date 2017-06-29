@@ -179,6 +179,21 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/storage/storage_car.html",
             controller:'storage_car_controller'
         })
+        .state("new_storage_car_vin", {
+            url:"/new_storage_car_vin",
+            templateUrl: "js/view/storage/add_storage_car_vin.html",
+            controller:'new_storage_car_vin_controller'
+        })
+        .state("new_storage_car", {
+            url:"/new_storage_car/vin/{vin}?from",
+            templateUrl: "js/view/storage/add_storage_car.html",
+            controller:'new_storage_car_controller'
+        })
+        .state("add_storage_car_relStatus", {
+            url:"/add_storage_car_relStatus/vin/{vin}?from",
+            templateUrl: "js/view/storage/add_storage_car_relStatus.html",
+            controller:'add_storage_car_relStatus_controller'
+        })
         .state("storage_store", {
             url:"/storage_store",
             templateUrl: "js/view/storage/storage_store.html",
@@ -189,6 +204,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/storage/storage_statistics.html",
             controller:"storage_statistics_controller"
         })
+        // 从首页跳详情图
         .state("storage_car_details", {
             url:"/storage_car_details/{id}/vin/{vin}/_form/{_form}?from",
             templateUrl: "js/view/storage/storage_details.html",
@@ -199,6 +215,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/storage/storage_details.html",
             controller:"storage_car_details_controller"
         })
+        // .state("storage_car_details_1", {
+        //     url:"/storageCar_details/{id}/vin/{vin}",
+        //     templateUrl: "js/view/storage/storage_details.html",
+        //     controller:"storage_car_details_controller"
+        // })
         .state("storage_car_map", {
             url:"/storage_car_map/{id}?form",
             templateUrl: "js/view/storage/storage_car_map.html",

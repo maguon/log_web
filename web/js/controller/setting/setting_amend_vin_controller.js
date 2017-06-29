@@ -13,7 +13,6 @@ app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$hos
                 vin:$scope.demand_vin,
                 active:1
             };
-
             _basic.get($host.api_url+"/car?"+_basic.objToUrl(obj)).then(function (data) {
                 if(data.success=true){
                     if(data.result.length==0){

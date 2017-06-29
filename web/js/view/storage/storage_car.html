@@ -45,7 +45,6 @@
                             <div class="col s1 p0 cyan-text text-lighten-1 bold" style="min-width: 100px;font-size: 13px"  >入库时间:</div>
                             <div class="col input-field s5 no-mp">
                                 <input type="text" ng-model="search_enterTime_start"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-
                             </div>
                             <div class="col s1 center-align">——</div>
                             <div class="col input-field s5 no-mp">
@@ -79,7 +78,6 @@
                                     <input type="text" ng-model="search_outTime_end" class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
                                 </div>
                             </div>
-
                             <!--<label >车辆状态</label>-->
                         </div>
                     </div>
@@ -89,9 +87,9 @@
                     <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="searchStorage_car()">
                         <i class="mdi mdi-magnify"></i>
                     </a>
-                    <a class=" btn-floating btn-large waves-light waves-effect cyan lighten-1 btn vc-center"  ng-click="newStorage_car()">
-                        <i class="mdi mdi-plus"></i>
-                    </a>
+                    <!--<a class=" btn-floating btn-large waves-light waves-effect cyan lighten-1 btn vc-center"  ng-click="newStorage_car()">-->
+                        <!--<i class="mdi mdi-plus"></i>-->
+                    <!--</a>-->
                 </div>
             </div>
 
@@ -368,10 +366,10 @@
                                                 停放车辆
                                                 <i class="mdi mdi-car cyan-text lighten-1"></i>
                                             </div>
-                                            <div class="col s4">
-                                                临近出库车辆
-                                                <i class=" mdi mdi-car red-text accent-1"></i>
-                                            </div>
+                                            <!--<div class="col s4">-->
+                                                <!--临近出库车辆-->
+                                                <!--<i class=" mdi mdi-car red-text accent-1"></i>-->
+                                            <!--</div>-->
                                             <div class="col s4">
                                                 未停放车辆
                                                 <i class=" mdi mdi-car  grey-text lighten-1 "></i>
@@ -399,8 +397,8 @@
                                                 <div class="col s12  garage_list p0"  ng-repeat="el in garageParkingArray" >
                                                     <div class="garage_row vc-center left">{{$index+1}}</div>
                                                     <div class="garage_row vc-center left" ng-repeat="els in el.col track by $index" ng-class="{'present_place':el.row==now_row&&els.col==now_col}">
-                                                        <i ng-show="els.carId!=0&&els.plan_time==true" class=" mdi mdi-car red-text accent-1 "></i>
-                                                        <i ng-show="els.carId!=0&&els.plan_time==false" class=" mdi mdi-car cyan-text lighten-1"></i>
+                                                        <!--<i ng-show="els.carId!=0&&els.plan_time==true" class=" mdi mdi-car red-text accent-1 "></i>-->
+                                                        <i ng-show="els.carId!=0" class=" mdi mdi-car cyan-text lighten-1"></i>
                                                         <i ng-show="els.carId==0" class=" mdi mdi-car grey-text lighten-2 " ng-click="move_parking(els.id,el.row,els.col)"></i>
                                                     </div>
 

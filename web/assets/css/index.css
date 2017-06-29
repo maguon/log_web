@@ -722,7 +722,7 @@ input[type=text]{
     height: 50px;
 }
 .fc-toolbar.fc-header-toolbar{
-    background:#eeeeee  ;
+    background:white  ;
     margin-bottom: 0;
 }
 .fc-day-header.fc-widget-header{

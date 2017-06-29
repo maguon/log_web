@@ -76,8 +76,8 @@ app.controller("car_query_controller", ["$scope", "$rootScope", "$host", "_basic
                 orderStart: $scope.instructionsStart,
                 orderEnd: $scope.instructionsEnd,
                 entrustId: $scope.entrustId,
-                receiveId: $scope.receiveId
-
+                receiveId: $scope.receiveId,
+                routeEndId:$scope.destinationId
             })).then(function (data) {
             if (data.success === true) {
                 $scope.responseData = data.result;

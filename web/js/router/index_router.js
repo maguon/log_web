@@ -214,6 +214,16 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/car/car_demand/car_demand.html",
             controller:'car_demand_controller'
         })
+        .state("car_query",{
+            url:"/car_query",
+            templateUrl: "js/view/car/car_query/car_query.html",
+            controller:'car_query_controller'
+        })
+        .state("car_query_details",{
+            url:"/car_query_details/vin/{vin}/id/{id}",
+            templateUrl: "js/view/car/car_query/car_query_details.html",
+            controller:'car_query_details_controller'
+        })
         .state("car_statistics",{
             url:"/car_statistics",
             templateUrl: "js/view/car/car_statistics.html",

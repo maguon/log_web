@@ -983,3 +983,12 @@ input[type=text]{
     font-size: 16px;
     font-weight: bold;
 }
+
+/*表格文字居中*/
+.text_mid thead tr th{
+    text-align: center;
+}
+
+.text_mid tbody tr td{
+    text-align: center;
+}

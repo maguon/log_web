@@ -97,8 +97,8 @@ app.controller("setting_dealer_details_controller",["$scope","_basic","_config",
 
             // 地图自动化提示
             var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
-                {"input" : "address"
-                    ,"location" : map
+                {"input" : "address",
+                 "location" : map
                 });
 
             ac.addEventListener("onhighlight", function(e) {  //鼠标放在下拉列表上的事件
@@ -124,10 +124,9 @@ app.controller("setting_dealer_details_controller",["$scope","_basic","_config",
                 var _value = e.item.value;
                 myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
                 G("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
-
+                $scope.dealer_details.address=myValue;
                 setPlace();
             });
-
             function setPlace(){
                 map.clearOverlays();    //清除地图上所有覆盖物
                 function myFun(){

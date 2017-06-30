@@ -1,22 +1,48 @@
 /**
  * Created by ASUS on 2017/6/14.
  */
-app.controller("setting_user_controller", ["_basic","_config", "$host", "$scope", function (_basic,_config,$host, $scope) {
+app.controller("setting_user_controller", ["_basic", "_config", "$host", "$scope", function (_basic, _config, $host, $scope) {
 
     var adminId = _basic.getSession(_basic.USER_ID);
+    var adminType = _basic.getSession(_basic.USER_TYPE);
 
-    var user_info_obj=_config.userTypes;
-    var user_info_fun=function () {
-        $scope.user_info_section=[];
-        for(var i in user_info_obj){
-            $scope.user_info_section.push(user_info_obj[i])
+    // 判断用户类型，从不同接口获取相应用户数据
+    if (adminType == 99) {
+        $scope.request = "/user";
+    }
+    else {
+        $scope.request = "/user?type=" + adminType;
+    }
+    // console.log("request", $scope.request);
+
+    var user_info_obj = _config.userTypes;
+    // console.log("user_info_obj", user_info_obj);
+    var user_info_fun = function () {
+        $scope.user_info_section = [];
+        // 管理员拥有最高权限，可操作所有用户
+        var administrator = [];
+        for (var a = 0; a < user_info_obj.length; a++) {
+            administrator[a] = {
+                name: user_info_obj[a].name,
+                type: user_info_obj[a].type
+            }
         }
+        // 判断用户类型，给予用户不同权限
+        for (var i = 0; i < user_info_obj.length; i++) {
+            if (user_info_obj[i].type == adminType) {
+                $scope.user_info_section = user_info_obj[i].subType;
+            }
+            if (adminType == 99) {
+                $scope.user_info_section = administrator;
+            }
+        }
+        // console.log("user_info_section", $scope.user_info_section);
         return $scope.user_info_section
     };
     user_info_fun();
     // 搜索所有查询
     var searchAll = function () {
-        _basic.get($host.api_url + "/user").then(function (data) {
+        _basic.get($host.api_url + $scope.request).then(function (data) {
             if (data.success == true) {
                 // console.log(data)
                 $scope.operator = data.result;

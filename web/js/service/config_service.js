@@ -7,17 +7,58 @@
 baseService.factory("_config", function () {
     var _this = {};
     // userType
-    _this.userTypes = {
-        // admin : {type:99,name:"admin"},
-        storageUser : {type:2,name:"仓储部"},
-        dispatch : {type:3,name:"调度部"},
-        international_trade : {type:4,name:"国贸部"}
-    };
+    _this.userTypes = [
+        // {
+        //     type: 11,
+        //     name: "车管操作员",
+        //     subType: []
+        // },
+        // {
+        //     type: 12,
+        //     name: "车管维修员",
+        //     subType: []
+        // },
+        // {
+        //     type: 19,
+        //     name: "车管部管理员",
+        //     subType: [{type: 11, name: "车管操作员"}, {type: 12, name: "车管维修员"}]
+        // },
+
+
+        {
+            type: 21,
+            name: "仓储部操作人员",
+            subType: []
+        },
+
+        {
+            type: 29,
+            name: "仓储部管理员",
+            subType: [{type: 21, name: "仓储部操作人员"}]
+        }
+
+    ];
+
+
+    // admin : {type:99,name:"admin"},
+    //     storageUser: {type: 21, name: "仓储部现场人员",subType:[]},
+    //     storageManager: {
+    //         type: 29,
+    //         name: "仓储部管理员",
+    //         subType: [{type: 21, name: "仓储部现场人员"}, {type: 22, name: "仓储部操作人员"}]
+    //     },
+    //     truckOp : {type:11}
+    // };
+
+    // _this.userTypes = {
+    //     // admin : {type:99,name:"admin"},
+    //     storageUser : {type:2,name:"仓储部"}
+    // };
 
     _this.rel_status = 1;
 
     // 车辆状态
-    _this.car_rel_status=[
+    _this.car_rel_status = [
         {
             s_num: 1,
             status_text: "在库"

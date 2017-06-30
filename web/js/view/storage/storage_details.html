@@ -253,8 +253,7 @@
                                             <input name="image" type="file" onchange="angular.element(this).scope().uploadBrandImage(this)" max_size="4M">
                                             <i class="mdi mdi-instagram"></i>
                                         </div>
-                                        <ul id="look_img" >
-
+                                        <ul id="look_img">
                                             <li ng-repeat="el in storage_imageBox" ng-mouseenter="show=true" ng-mouseleave="show=false"  repeat-finish="renderFinish()" class="storage_car_picture col s2 vc-center  p0 grey white-text">
                                                 <img ng-src="{{el.src}}"  class="responsive-img">
                                                 <b class="delete_img vc-center black fz18" ng-click="delete_img(el.record_id,el.src)"><i class="mdi mdi-close"></i></b>

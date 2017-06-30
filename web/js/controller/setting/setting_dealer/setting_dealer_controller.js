@@ -4,6 +4,7 @@
 app.controller("setting_dealer_controller",["$scope","_basic","_config","$host",function ($scope,_basic,_config,$host){
     $scope.contacts=[];
     $scope.addContacts=[];
+    // $scope.city="";
     // 信息获取
     $scope.get_Msg=function () {
         // 城市
@@ -23,11 +24,26 @@ app.controller("setting_dealer_controller",["$scope","_basic","_config","$host",
     $scope.get_Msg();
     // 搜索经销商
     $scope.search_dealer=function () {
-        var obj={
-            receiveId:$scope.dealer,
-            cityId:$scope.city.id
-        };
-        _basic.get($host.api_url+"/receive?"+_basic.objToUrl(obj)).then(function (data) {
+        console.log($scope.s_dealer,$scope.city);
+        // var obj;
+        // if($scope.city){
+             var obj={
+                receiveId:$scope.s_dealer,
+                cityId:$scope.city
+            };
+        // }else if($scope.s_dealer){
+        //      obj={
+        //         receiveId:$scope.s_dealer,
+        //         cityId:null
+        //     };
+        // }else {
+        //     obj={
+        //         receiveId:null,
+        //         cityId:null
+        //     };
+        // }
+
+        _basic.get($host.api_url+"/receive"+_basic.objToUrl(obj)).then(function (data) {
             if(data.success==true){
                 $scope.setting_dealer=data.result;
                 $scope.len=data.result.length;

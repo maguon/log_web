@@ -161,7 +161,6 @@ baseService.factory('_basic',['$http','$location','$q',"$cookies",function($http
             if(obj[i]!=null){
                 str=str+i+"="+obj[i]+"&";
             }
-
         }
         return str.substr(0,str.length-1);
     };

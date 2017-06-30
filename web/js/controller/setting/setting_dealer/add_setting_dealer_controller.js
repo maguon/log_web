@@ -66,11 +66,11 @@ app.controller("add_setting_dealer_controller",["$scope","_basic","_config","$ho
                         marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
                         marker.enableDragging();
                         marker.addEventListener("dragend", get_location);
-                        marker.addEventListener("click",function () {
-                            var sContent ="大连顺通物流有限公司...";
-                            var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
-                            map.openInfoWindow(infoWindow,point); //开启信息窗口
-                        });
+                        // marker.addEventListener("click",function () {
+                        //     var sContent ="大连顺通物流有限公司...";
+                        //     var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
+                        //     map.openInfoWindow(infoWindow,point); //开启信息窗口
+                        // });
                         map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放;
                         map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
                     }else{

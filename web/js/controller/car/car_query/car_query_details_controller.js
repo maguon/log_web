@@ -13,7 +13,7 @@ app.controller("car_query_details_controller", ["$scope", "$stateParams", "$host
         _basic.get($host.api_url + "/carList?" + "vin=" + vin).then(function (carData) {
             if (carData.success === true) {
                 $scope.vincodeList = carData.result;
-                // console.log("vin:", carData.result);
+                console.log("vin:", carData.result);
             }
             else {
                 swal(carData.msg, "", "error");

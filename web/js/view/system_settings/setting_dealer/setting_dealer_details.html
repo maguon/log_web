@@ -16,36 +16,36 @@
         </div>
         <div class="row" style="position: relative">
             <p class="location_gps white z-depth-2">经度:<span class="materialize-red-text">{{lng}}</span>,纬度:<span class="materialize-red-text">{{lat}}</span></p>
-            <div class="col s6 dealer_details grey-text">
+            <div class="col s5 dealer_details grey-text">
                 <form name="setting_dealer_details_form" ng-submit="change_setting_dealer(setting_dealer_details_form.$valid)" novalidate>
                     <div class="row">
-                        <div class="col s6 input-field" ng-class="{'has-error':setting_dealer_details_form.short_name.$invalid&&submitted}">
+                        <div class="col s12 input-field" ng-class="{'has-error':setting_dealer_details_form.short_name.$invalid&&submitted}">
                             <input type="text" id="short_name" name="short_name"  autocomplete="off" ng-model="dealer_details.short_name" required>
                             <label class="grey-text bold" for="short_name">公司简称</label>
                         </div>
-                        <div class="col s6 input-field"  ng-class="{'has-error':setting_dealer_details_form.deal_name.$invalid&&submitted}">
+                        <div class="col s12 input-field mp-40"  ng-class="{'has-error':setting_dealer_details_form.deal_name.$invalid&&submitted}">
                             <input type="text" id="deal_name"  name="deal_name" autocomplete="off"  ng-model="dealer_details.receive_name" required>
                             <label class="grey-text bold" for="deal_name">公司全称</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col s6 input-field">
+                        <div class="col s12 input-field mp-40">
                             <select material-select watch ng-model="dealer_details.city_id" required>
                                 <option value="" >选择城市</option>
                                 <option ng-repeat="el in setting_city" ng-show="el.city_status==1" ng-value="el.id" >{{el.city_name}}</option>
                             </select>
                             <label class="grey-text bold">所属城市</label>
                         </div>
-                        <div class="col s6 input-field"  ng-class="{'has-error':setting_dealer_details_form.address.$invalid&&submitted}">
+                        <div class="col s12 input-field mp-40"  ng-class="{'has-error':setting_dealer_details_form.address.$invalid&&submitted}">
                             <input type="text" id="address" autocomplete="off" ng-model="dealer_details.address"  name="address" required>
                             <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
                             <label class="grey-text bold" for="address">详细地址</label>
-                            <i class="address_icon mdi mdi-near-me vc-center white-text" ng-click="search_location(dealer_details.address)" style="cursor: pointer"></i>
+                            <i class="address_icon mdi mdi-near-me vc-center cyan lighten-2 white-text" ng-click="search_location(dealer_details.address)" style="cursor: pointer"></i>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col s1 bold">备注:</div>
-                        <div class="col s11">
+                        <div class="col s1 bold mp-40">备注:</div>
+                        <div class="col s12 mp-10">
                         <textarea ng-model="dealer_details.remark" name="remark" id="" style="height: 150px" >
 
                         </textarea>
@@ -61,7 +61,7 @@
                     </div>
                 </form>
             </div>
-            <div class="col s6 dealer_map" id="dealer_map">
+            <div class="col s7 dealer_map" id="dealer_map">
 
             </div>
         </div>

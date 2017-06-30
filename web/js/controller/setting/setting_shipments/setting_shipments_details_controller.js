@@ -10,6 +10,7 @@
 app.controller("setting_shipments_details_controller",["$scope","_basic","_config","$host","$stateParams",function ($scope,_basic,_config,$host,$stateParams){
     var userId=_basic.getSession(_basic.USER_ID);
     var marker;
+    var map
     // 获取城市
     (function () {
         _basic.get($host.api_url+"/city").then(function (data) {
@@ -31,7 +32,7 @@ app.controller("setting_shipments_details_controller",["$scope","_basic","_confi
         if(myKeys!=""){
             myGeo.getPoint(myKeys, function(point){
                 if (point) {
-                    var map = new BMap.Map("dealer_map");// 创建Map实例
+                     map = new BMap.Map("dealer_map");// 创建Map实例
                     // $scope.now_local="当前位置经度：" + point.lng + ",纬度：" + point.lat;
                     marker=new BMap.Marker(point);
                     // var icon = new BMap.Icon('/assets/images/point.png', new BMap.Size(35, 24), {
@@ -85,6 +86,77 @@ app.controller("setting_shipments_details_controller",["$scope","_basic","_confi
 
             // 地图重新渲染
             var map=new BMap.Map("dealer_map");
+
+            // 地图下拉
+            function G(id) {
+                return document.getElementById(id);
+            }
+
+            // 地图自动化提示
+            var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
+                {"input" : "address",
+                    "location" : map
+                });
+
+            ac.addEventListener("onhighlight", function(e) {  //鼠标放在下拉列表上的事件
+                var str = "";
+                var _value = e.fromitem.value;
+                var value = "";
+                if (e.fromitem.index > -1) {
+                    value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+                }
+                str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+
+                value = "";
+                if (e.toitem.index > -1) {
+                    _value = e.toitem.value;
+                    value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+                }
+                str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+                G("searchResultPanel").innerHTML = str;
+            });
+
+            var myValue;
+            ac.addEventListener("onconfirm", function(e) {    //鼠标点击下拉列表后的事件
+                var _value = e.item.value;
+                myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+                G("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+                $scope.input_address=myValue;
+                setPlace();
+            });
+            function setPlace(){
+                map.clearOverlays();    //清除地图上所有覆盖物
+                function myFun(){
+                    var map=new BMap.Map("dealer_map");
+                    var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+                    map.centerAndZoom(pp, 18);
+                    marker=new BMap.Marker(pp);
+                    map.addOverlay(marker);    //添加标注
+                    marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                    marker.enableDragging();
+                    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放;
+                    $scope.$apply(function(){
+                        $scope.lng=pp.lng;
+                        $scope.lat=pp.lat;
+                    });
+                    marker.addEventListener("dragend", function () {
+                        $scope.$apply(function(){
+                            var p = marker.getPosition();//获取marker的位置
+                            $scope.lng=p.lng;
+                            $scope.lat=p.lat;
+                        });
+                    });
+
+                }
+                var local = new BMap.LocalSearch(map, { //智能搜索
+                    onSearchComplete: myFun
+                });
+                local.search(myValue);
+            }
+
+
+
+
             var point=new BMap.Point($scope.lng,$scope.lat);
             map.centerAndZoom(point,15);
             // var icon = new BMap.Icon('/assets/images/point.png', new BMap.Size(35, 24), {
@@ -98,6 +170,7 @@ app.controller("setting_shipments_details_controller",["$scope","_basic","_confi
             map.addOverlay(marker);
             marker.enableDragging();
             map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放;
+            marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
             map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
             marker.addEventListener("dragend", function () {
                 $scope.$apply(function(){
@@ -111,6 +184,8 @@ app.controller("setting_shipments_details_controller",["$scope","_basic","_confi
                 var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
                 map.openInfoWindow(infoWindow,point); //开启信息窗口
             });
+
+
 
             // 深度复制
             // $scope.obj1={

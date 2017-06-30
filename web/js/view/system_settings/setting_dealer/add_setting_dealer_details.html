@@ -19,39 +19,38 @@
             <div class="col s6 dealer_details grey-text">
                 <form name="add_setting_dealerFrom" ng-submit="add_setting_dealer(add_setting_dealerFrom.$valid)" novalidate>
                     <div class="row">
-                        <div class="col s6 input-field" ng-class="{'has-error':add_setting_dealerFrom.short_name.$invalid&&submitted}">
+                        <div class="col s12 input-field" ng-class="{'has-error':add_setting_dealerFrom.short_name.$invalid&&submitted}">
                             <input type="text" id="short_name" name="short_name" ng-model="short_name" required>
                             <label class="grey-text bold" for="short_name">公司简称</label>
                         </div>
-                        <div class="col s6 input-field"  ng-class="{'has-error':add_setting_dealerFrom.deal_name.$invalid&&submitted }">
+                        <div class="col s12 input-field mp-40"  ng-class="{'has-error':add_setting_dealerFrom.deal_name.$invalid&&submitted }">
                             <input type="text" id="deal_name" name="deal_name" ng-model="deal_name" required>
                             <label class="grey-text bold" for="deal_name">公司全称</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col s6 input-field">
+                        <div class="col s12 input-field mp-40">
                             <select material-select watch ng-model="setting_city_id">
                                 <option value="" >选择城市</option>
                                 <option ng-repeat="el in setting_city" ng-show="el.city_status==1" ng-value="el.id" >{{el.city_name}}</option>
                             </select>
                             <label class="grey-text bold">所属城市</label>
                         </div>
-                        <div class="col s6 input-field" ng-class="{'has-error':add_setting_dealerFrom.address.$invalid&&submitted }" >
+                        <div class="col s12 input-field mp-40" ng-class="{'has-error':add_setting_dealerFrom.address.$invalid&&submitted }" >
                             <input type="text" id="address" ng-model="input_address" autocomplete="off"  name="address" required>
                             <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
                             <label class="grey-text bold" for="address">详细地址</label>
-                            <i class="address_icon mdi mdi-near-me vc-center white-text" ng-click="search_location(input_address)" style="cursor: pointer"></i>
+                            <i class="address_icon mdi mdi-near-me vc-center cyan  lighten-2 white-text" ng-click="search_location(input_address)" style="cursor: pointer"></i>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col s1 bold">备注:</div>
-                        <div class="col s11">
+                        <div class="col s1 bold mp-40">备注:</div>
+                        <div class="col s12 mp-10">
                         <textarea name="" id="" ng-model="remark" style="height: 150px" >
 
                         </textarea>
                         </div>
                         <span class="right fz12">最多可以输入240个字符</span>
-
                     </div>
                     <div class="row">
                         <div class="col s2 offset-s6">

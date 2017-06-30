@@ -5,7 +5,7 @@
                 <i class="mdi mdi-arrow-left-bold"></i>
             </a>
             <h5 class="col s12 cyan-text lighten-1  center-align">
-                发货商信息
+                发运地
             </h5>
             <!--<div class="col s8 right-align">-->
             <!---->
@@ -25,22 +25,25 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col s6 input-field">
+                        <div class="col s12 input-field mp-40">
                             <select material-select watch ng-model="shipments_details.city_id" required>
                                 <option value="" >选择城市</option>
                                 <option ng-repeat="el in setting_city" ng-show="el.city_status==1" ng-value="el.id" >{{el.city_name}}</option>
                             </select>
                             <label class="grey-text bold">所属城市</label>
                         </div>
-                        <div class="col s6 input-field"  ng-class="{'has-error':setting_dealer_details_form.address.$invalid&&submitted}">
-                            <input type="text" id="address" autocomplete="off" ng-model="input_address"  name="address" required>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 input-field mp-40"  ng-class="{'has-error':setting_dealer_details_form.address.$invalid&&submitted}">
+                            <input type="text" id="address" autocomplete="off"  ng-model="input_address"  name="address" required>
+                            <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
                             <label class="grey-text bold" for="address">详细地址</label>
-                            <i class="address_icon mdi mdi-near-me vc-center white-text" ng-click="search_location(input_address)" style="cursor: pointer"></i>
+                            <i class="address_icon mdi mdi-near-me vc-center cyan lighten-2 white-text" ng-click="search_location(input_address)" style="cursor: pointer"></i>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col s1 bold">备注:</div>
-                        <div class="col s11">
+                        <div class="col s1 bold mp-40">备注:</div>
+                        <div class="col s12 mp-10">
                         <textarea ng-model="shipments_details.remark" name="remark" id="" style="height: 150px" >
 
                         </textarea>
@@ -49,7 +52,7 @@
                     </div>
                     <div class="row">
                         <div class="col s2 offset-s6">
-                            <button href="" name="action" type="submit" class="btn btn-floating cyan btn-large">
+                            <button href="" name="action" type="submit" class="btn btn-floating cyan lighten-2 btn-large">
                                 <i class="mdi mdi-check"></i>
                             </button>
                         </div>

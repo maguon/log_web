@@ -1002,3 +1002,11 @@ input[type=text]{
 .text_mid tbody tr td{
     text-align: center;
 }
+.setting_shipments_title{
+    position:relative;
+}
+.setting_shipments_btn{
+    position: absolute;
+    top: 80%;
+    right: 20px;
+}

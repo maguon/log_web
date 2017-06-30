@@ -5,7 +5,7 @@
                 <i class="mdi mdi-arrow-left-bold"></i>
             </a>
             <h5 class="col s12 cyan-text lighten-1  center-align">
-                发货商信息
+                新增发运地
             </h5>
             <!--<div class="col s8 right-align">-->
             <!---->
@@ -16,7 +16,7 @@
         </div>
         <div class="row" style="position: relative">
             <p class="location_gps white z-depth-2">经度:<span class="materialize-red-text">{{lng}}</span>,纬度:<span class="materialize-red-text">{{lat}}</span></p>
-            <div class="col s6 dealer_details grey-text">
+            <div class="col s5 dealer_details grey-text">
                 <form name="add_setting_dealerFrom" ng-submit="add_setting_dealer(add_setting_dealerFrom.$valid)" novalidate>
                     <div class="row">
 
@@ -26,22 +26,23 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col s6 input-field">
+                        <div class="col s12 mp-40 input-field">
                             <select material-select watch ng-model="setting_city_id">
                                 <option value="" >选择城市</option>
                                 <option ng-repeat="el in setting_city" ng-show="el.city_status==1" ng-value="el.id" >{{el.city_name}}</option>
                             </select>
                             <label class="grey-text bold">所属城市</label>
                         </div>
-                        <div class="col s6 input-field" ng-class="{'has-error':add_setting_dealerFrom.address.$invalid&&submitted }" >
+                        <div class="col s12 mp-40 input-field" ng-class="{'has-error':add_setting_dealerFrom.address.$invalid&&submitted }" >
                             <input type="text" id="address" ng-model="input_address" autocomplete="off"  name="address" required>
+                            <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
                             <label class="grey-text bold" for="address">详细地址</label>
-                            <i class="address_icon mdi mdi-near-me vc-center white-text" ng-click="search_location(input_address)" style="cursor: pointer"></i>
+                            <i class="address_icon mdi mdi-near-me vc-center cyan lighten-2 white-text" ng-click="search_location(input_address)" style="cursor: pointer"></i>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col s1 bold">备注:</div>
-                        <div class="col s11">
+                        <div class="col s1 bold mp-40">备注:</div>
+                        <div class="col s12 mp-10">
                         <textarea name="" id="" ng-model="remark" style="height: 150px" >
 
                         </textarea>
@@ -51,7 +52,7 @@
                     </div>
                     <div class="row">
                         <div class="col s2 offset-s6">
-                            <button href="" type="submit" name="action" class="btn btn-floating cyan btn-large">
+                            <button href="" type="submit" name="action" class="btn btn-floating cyan lighten-2 btn-large">
                                 <i class="mdi mdi-check"></i>
                             </button>
                         </div>
@@ -60,7 +61,7 @@
                 </form>
 
             </div>
-            <div class="col s6 dealer_map" id="dealer_map">
+            <div class="col s7 dealer_map" id="dealer_map">
 
             </div>
         </div>

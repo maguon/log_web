@@ -68,8 +68,8 @@ app.controller("add_storage_car_put_in_controller", ["$scope", "$rootScope","$st
         };
         _basic.get($host.api_url+"/car?"+_basic.objToUrl(obj)).then(function (data) {
                 if(data.success==true){
-                    $scope.srorage_car_details=data.result[0];
                     // 品牌默认选中
+                    // console.log($scope.makecarName)
                     for(var i in $scope.makecarName){
                         if($scope.makecarName[i].id==data.result[0].make_id){
                             $scope.make_name=$scope.makecarName[i]
@@ -84,6 +84,7 @@ app.controller("add_storage_car_put_in_controller", ["$scope", "$rootScope","$st
                             $scope.arrive_city=$scope.get_city[i]
                         }
                     }
+                    $scope.srorage_car_details=data.result[0];
                     $scope.client=$scope.srorage_car_details.entrust_id;
                     $scope.dealer=$scope.srorage_car_details.receive_id;
                     $scope.remark=$scope.srorage_car_details.remark

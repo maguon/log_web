@@ -10,7 +10,8 @@
 app.controller("setting_shipments_details_controller",["$scope","_basic","_config","$host","$stateParams",function ($scope,_basic,_config,$host,$stateParams){
     var userId=_basic.getSession(_basic.USER_ID);
     var marker;
-    var map
+    var map;
+
     // 获取城市
     (function () {
         _basic.get($host.api_url+"/city").then(function (data) {
@@ -95,9 +96,9 @@ app.controller("setting_shipments_details_controller",["$scope","_basic","_confi
             // 地图自动化提示
             var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
                 {"input" : "address",
-                    "location" : map
+                 "location" : map
                 });
-
+            ac.setInputValue($scope.input_address);
             ac.addEventListener("onhighlight", function(e) {  //鼠标放在下拉列表上的事件
                 var str = "";
                 var _value = e.fromitem.value;
@@ -116,13 +117,13 @@ app.controller("setting_shipments_details_controller",["$scope","_basic","_confi
                 G("searchResultPanel").innerHTML = str;
             });
 
-            var myValue;
+            var value;
             ac.addEventListener("onconfirm", function(e) {    //鼠标点击下拉列表后的事件
                 var _value = e.item.value;
                 myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
                 G("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
-                $scope.input_address=myValue;
                 setPlace();
+                $scope.input_address=myValue;
             });
             function setPlace(){
                 map.clearOverlays();    //清除地图上所有覆盖物
@@ -214,6 +215,8 @@ app.controller("setting_shipments_details_controller",["$scope","_basic","_confi
             // };
             // $scope._obj=deepCopy(obj);
 
+        }else {
+            swal(data.msg,"","error");
         }
     });
 

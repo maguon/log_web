@@ -13,15 +13,19 @@ app.controller("setting_dealer_controller",["$scope","_basic","_config","$host",
                 $scope.get_city=data.result;
             }
         });
-        // 经销商
-        _basic.get($host.api_url+"/receive").then(function (data) {
+
+    };
+
+    $scope.get_Msg();
+    // 城市-经销商联动
+    $scope.get_dealer=function () {
+        // 经销商下拉列表
+        _basic.get($host.api_url+"/receive?cityId="+$scope.city).then(function (data) {
             if(data.success==true){
                 $scope.get_receive=data.result;
             }
         });
-    };
-
-    $scope.get_Msg();
+    }
     // 搜索经销商
     $scope.search_dealer=function () {
         console.log($scope.s_dealer,$scope.city);
@@ -43,7 +47,7 @@ app.controller("setting_dealer_controller",["$scope","_basic","_config","$host",
         //     };
         // }
 
-        _basic.get($host.api_url+"/receive"+_basic.objToUrl(obj)).then(function (data) {
+        _basic.get($host.api_url+"/receive?"+_basic.objToUrl(obj)).then(function (data) {
             if(data.success==true){
                 $scope.setting_dealer=data.result;
                 $scope.len=data.result.length;

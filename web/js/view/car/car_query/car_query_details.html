@@ -21,18 +21,20 @@
             <div class="row"></div>
             <div class="row">
                 <div class="col s12">
-                    <div class="input-field col s4">
-                        <input id="vin_code" type="text" ng-model="vincodeList[0].vin">
+                    <div class="input-field col s3">
+                        <input id="vin_code" type="text" ng-model="vincodeList[0].vin" disabled>
                         <label for="vin_code">VIN码</label>
                     </div>
-                    <div class="col s1"></div>
                     <div class="input-field col s3">
-                        <input id="brand" type="text" ng-model="vincodeList[0].make_name">
+                        <input id="brand" type="text" ng-model="vincodeList[0].make_name" disabled>
                         <label for="brand">品牌</label>
                     </div>
-                    <div class="col s1"></div>
                     <div class="input-field col s3">
-                        <input id="order_time" type="text" ng-model="vincodeList[0].updated_on" form-date>
+                        <input id="create_time" type="text" ng-model="vincodeList[0].created_on" form-date disabled>
+                        <label for="create_time">录入时间</label>
+                    </div>
+                    <div class="input-field col s3">
+                        <input id="order_time" type="text" ng-model="vincodeList[0].updated_on" form-date disabled>
                         <label for="order_time">指令时间</label>
                     </div>
                 </div>
@@ -41,19 +43,19 @@
             <div class="row">
                 <div class="col s12">
                     <div class="input-field col s3">
-                        <input id="receive" type="text" ng-model="vincodeList[0].receive_name">
+                        <input id="receive" type="text" ng-model="vincodeList[0].receive_name" disabled>
                         <label for="receive">经销商</label>
                     </div>
                     <div class="input-field col s3">
-                        <input id="entrust" type="text" ng-model="vincodeList[0].entrust_name">
+                        <input id="entrust" type="text" ng-model="vincodeList[0].entrust_name" disabled>
                         <label for="entrust">委托方</label>
                     </div>
                     <div class="input-field col s3">
-                        <input id="order_start" type="text" ng-model="vincodeList[0].route_start">
+                        <input id="order_start" type="text" ng-model="vincodeList[0].route_start" disabled>
                         <label for="order_start">发运地名称</label>
                     </div>
                     <div class="input-field col s3">
-                        <input id="order_end" type="text" ng-model="vincodeList[0].route_end">
+                        <input id="order_end" type="text" ng-model="vincodeList[0].route_end" disabled>
                         <label for="order_end">目的地城市</label>
                     </div>
                 </div>

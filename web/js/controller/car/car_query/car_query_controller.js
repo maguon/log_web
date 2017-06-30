@@ -72,12 +72,15 @@ app.controller("car_query_controller", ["$scope", "$rootScope", "$host", "_basic
         _basic.get($host.api_url + "/carList?" + _basic.objToUrl({
                 vinCode: $scope.vin_code,
                 makeId: $scope.brandId,
+                routeStartId:$scope.addrCity,
                 addrId: $scope.addrId,
                 orderStart: $scope.instructionsStart,
                 orderEnd: $scope.instructionsEnd,
                 entrustId: $scope.entrustId,
                 receiveId: $scope.receiveId,
-                routeEndId:$scope.destinationId
+                routeEndId:$scope.destinationId,
+                createdStart:$scope.createdStart,
+                createdEnd:$scope.createdEnd
             })).then(function (data) {
             if (data.success === true) {
                 $scope.responseData = data.result;

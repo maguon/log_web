@@ -11,7 +11,6 @@
                 <form name="demand_car_form" ng-submit="demand_car(demand_car_form.$valid)" novalidate>
                     <div class="col s1 vc-center cyan-text mp-50 text-lighten-1" style="font-size: 25px;min-width: 90px"><span>vin码:</span></div>
                     <div class="col s9 vc-center mp-30 valign-wrapper" style="overflow: hidden;">
-
                         <div class="input-field col s12" ng-class="{'has-error':demand_car_form.vin.$invalid&&submitted}">
                             <input type="text" id="autocomplete-input" name="vin" placeholder="模糊查询至少需要6位vin码" ng-change="short_search()" ng-model="demand_vin" style="margin: 0 0 20px 0" autocomplete="off" class="autocomplete" required minlength="6">
                             <!--<label for="autocomplete-input">搜索</label>-->

@@ -100,12 +100,12 @@ app.controller("setting_dealer_details_controller",["$scope","_basic","_config",
                 {"input" : "address",
                  "location" : map
                 });
-
+            ac.setInputValue($scope.dealer_details.address);
             ac.addEventListener("onhighlight", function(e) {  //鼠标放在下拉列表上的事件
                 var str = "";
                 var _value = e.fromitem.value;
                 var value = "";
-                if (e.fromitem.index > -1) {
+                if (e.fromitem.index > -1){
                     value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
                 }
                 str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;

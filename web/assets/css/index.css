@@ -1010,3 +1010,6 @@ input[type=text]{
     top: 80%;
     right: 20px;
 }
+.anchorBL{
+     display: none;
+ }

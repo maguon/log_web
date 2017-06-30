@@ -13,7 +13,7 @@ app.controller("car_query_details_controller", ["$scope", "$stateParams", "$host
         _basic.get($host.api_url + "/carList?" + "vin=" + vin).then(function (carData) {
             if (carData.success === true) {
                 $scope.vincodeList = carData.result;
-                console.log("vin:", carData);
+                // console.log("vin:", carData);
             }
             else {
                 swal(carData.msg, "", "error");
@@ -33,8 +33,8 @@ app.controller("car_query_details_controller", ["$scope", "$stateParams", "$host
                     recordData.result[0].storage_image[i].user = $scope.recordList[0].name;
                 }
                 $scope.imageList = recordData.result[0].storage_image;
-                console.log("recordList666:", $scope.recordList);
-                console.log("imageList", $scope.imageList);
+                // console.log("recordList666:", $scope.recordList);
+                // console.log("imageList", $scope.imageList);
             }
             else {
                 swal(recordData.msg, "", "error");
@@ -85,10 +85,10 @@ app.controller("car_query_details_controller", ["$scope", "$stateParams", "$host
 
             _basic.formPost($(dom).parent().parent(), $host.file_url + '/user/' + userId + '/image?imageType=4', function (data) {
                 if (data.success) {
-                    console.log(data);
+                    // console.log(data);
                     var imageId = data.imageId;
                     $scope.imagesId = imageId;
-                    console.log("imageId:", $scope.imagesId);
+                    // console.log("imageId:", $scope.imagesId);
                     _basic.post($host.record_url + "/car/" + carId + "/vin/" + vin + "/storageImage", {
                         "username": _basic.getSession(_basic.USER_NAME),
                         "userId": userId,
@@ -96,7 +96,7 @@ app.controller("car_query_details_controller", ["$scope", "$stateParams", "$host
                         "url": imageId
                     }).then(function (data) {
                         if (data.success === true) {
-                            console.log("success", data);
+                            // console.log("success", data);
                             $scope._id = data.result._id;
                             if ($scope.imageList.length != 0) {
                                 viewer.destroy();
@@ -116,20 +116,6 @@ app.controller("car_query_details_controller", ["$scope", "$stateParams", "$host
             }, function (error) {
                 swal('服务器内部错误', "", "error");
             })
-        }
-    };
-
-    // 返回
-    $scope.return = function () {
-        // console.log($stateParams.mark);
-        if ($stateParams.mark == 1) {
-            $state.go($stateParams.from, {reload: true})
-        } else {
-            $state.go($stateParams.from, {
-                id: $scope.vincodeList.make_id,
-                form: $stateParams._form,
-                status: $stateParams.status
-            }, {reload: true})
         }
     };
 

@@ -63,11 +63,11 @@
         <table class=" bordered striped text_mid">
             <thead class="blue-grey lighten-5">
             <tr class="grey-text text-darken-2">
-                <th width="350" data-field="">VIN码</th>
-                <th width="160" data-field="">品牌</th>
+                <th width="320" data-field="">VIN码</th>
+                <th width="150" data-field="">品牌</th>
                 <th width="180" data-field="">发运地</th>
                 <th width="160" data-field="">目的地城市</th>
-                <th width="300" data-field="">委托方</th>
+                <th width="180" data-field="">委托方</th>
                 <th data-field="">经销商</th>
                 <th data-field="">指令时间</th>
                 <th>操作</th>
@@ -75,19 +75,18 @@
             </thead>
             <tbody>
             <tr ng-repeat="response in responseData" class="grey-text text-darken-1">
-                <td width="350">{{response.vin}}</td>
-                <td width="160">{{response.make_name}}</td>
+                <td width="320">{{response.vin}}</td>
+                <td width="150">{{response.make_name}}</td>
                 <td width="180">{{response.route_start}}</td>
                 <td width="160">{{response.route_end}}</td>
-                <td width="300">{{response.entrust_name}}</td>
-                <td>{{response.receive_name}}</td>
-                <td>{{response.order_date}}</td>
+                <td width="180">{{response.en_short_name}}</td>
+                <td>{{response.re_short_name}}</td>
+                <td>{{response.order_date | date:'yyyy-MM-dd'}}</td>
                 <td width="100" class="operation">
                     <a ui-sref="car_query_details({vin:response.vin,id:response.id})" class=""><i
                             class="mdi mdi-file-outline look_icon cyan-text lighten-1  "></i></a>
                 </td>
             </tr>
-
             </tbody>
         </table>
     </div>
@@ -100,7 +99,6 @@
                 <!--下一页-->
             <!--</a>-->
         <!--</div>-->
-
     <!--</div>-->
 </div>
 

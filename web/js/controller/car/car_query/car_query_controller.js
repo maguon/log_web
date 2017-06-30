@@ -7,7 +7,7 @@ app.controller("car_query_controller", ["$scope", "$rootScope", "$host", "_basic
         _basic.get($host.api_url + "/carMake").then(function (carMakeData) {
             if (carMakeData.success === true) {
                 $scope.carMakeList = carMakeData.result;
-                console.log("品牌:", carMakeData);
+                // console.log("品牌:", carMakeData);
             }
             else {
                 swal(carMakeData.msg, "", "error");
@@ -20,7 +20,7 @@ app.controller("car_query_controller", ["$scope", "$rootScope", "$host", "_basic
         _basic.get($host.api_url + "/baseAddr").then(function (addrData) {
             if (addrData.success === true) {
                 $scope.addrList = addrData.result;
-                console.log("发运地:", addrData);
+                // console.log("发运地:", addrData);
             }
             else {
                 swal(addrData.msg, "", "error");
@@ -33,7 +33,7 @@ app.controller("car_query_controller", ["$scope", "$rootScope", "$host", "_basic
         _basic.get($host.api_url + "/city").then(function (cityData) {
             if (cityData.success === true) {
                 $scope.cityList = cityData.result;
-                console.log("目的地城市:", cityData);
+                // console.log("目的地城市:", cityData);
             }
             else {
                 swal(cityData.msg, "", "error");
@@ -46,7 +46,7 @@ app.controller("car_query_controller", ["$scope", "$rootScope", "$host", "_basic
         _basic.get($host.api_url + "/entrust").then(function (entrustData) {
             if (entrustData.success === true) {
                 $scope.entrustList = entrustData.result;
-                console.log("委托方:", entrustData);
+                // console.log("委托方:", entrustData);
             }
             else {
                 swal(entrustData.msg, "", "error");
@@ -59,7 +59,7 @@ app.controller("car_query_controller", ["$scope", "$rootScope", "$host", "_basic
         _basic.get($host.api_url + "/receive").then(function (receiveData) {
             if (receiveData.success === true) {
                 $scope.receiveList = receiveData.result;
-                console.log("经销商:", receiveData);
+                // console.log("经销商:", receiveData);
             }
             else {
                 swal(receiveData.msg, "", "error");
@@ -81,7 +81,7 @@ app.controller("car_query_controller", ["$scope", "$rootScope", "$host", "_basic
             })).then(function (data) {
             if (data.success === true) {
                 $scope.responseData = data.result;
-                console.log("responseData:", $scope.responseData);
+                // console.log("responseData:", $scope.responseData);
             }
             else {
                 swal(data.msg, "", "error");

@@ -148,20 +148,22 @@
                             <i class="mdi mdi-instagram"></i>
                         </div>
                         <ul id="look_img">
-                            <li ng-repeat="el in storage_imageBox"    class="storage_car_picture col s3 vc-center  p0 grey white-text">
+                            <li ng-repeat="el in storage_imageBox" ng-mouseenter="show=true" ng-mouseleave="show=false"    class="storage_car_picture col s3 vc-center  p0 grey white-text">
                                 <img ng-src="{{el.src}}" class="responsive-img">
+                                <b class="delete_img vc-center black fz18" ng-click="delete_img(el.record_id,el.src)"><i class="mdi mdi-close"></i></b>
+                                <p class="img_date white-text center-align" ng-show="show" ng-cloak>{{el.user}}上传于{{el.time|date:'yyyy-MM-dd HH:mm:ss'}}</p>
                             </li>
                         </ul>
                     </form>
                 </div>
             </div>
             <div class="col s12 divider" style="background: #00bcd4;height: 2px;margin: 10px 0"></div>
-            <div class="col s12  ">
-                <a  class="right modal-action modal-close waves-effect waves-light grey lighten-1 btn" style="margin-left: 10px" >
-                    <!--<i class="mdi mdi-close"></i>-->
-                    关闭
-                </a>
-            </div>
+            <!--<div class="col s12  ">-->
+                <!--<a  class="right modal-action modal-close waves-effect waves-light grey lighten-1 btn" style="margin-left: 10px" >-->
+                    <!--&lt;!&ndash;<i class="mdi mdi-close"></i>&ndash;&gt;-->
+                    <!--关闭-->
+                <!--</a>-->
+            <!--</div>-->
         </div>
     </div>
 </div>

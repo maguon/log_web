@@ -32,8 +32,8 @@ app.controller("storage_car_map_controller", ["$state", "$rootScope", "$statePar
     };
     $scope.LookGarage(val);
 
-    // 车辆品牌查询
-    _basic.get($host.api_url + "/carMake").then(function (data) {
+    // // 车辆品牌查询
+/*    _basic.get($host.api_url + "/carMake").then(function (data) {
         if (data.success == true) {
             $scope.makecarName = data.result;
         } else {
@@ -62,7 +62,7 @@ app.controller("storage_car_map_controller", ["$state", "$rootScope", "$statePar
 
     };
     // 颜色
-    $scope.color = _config.config_color;
+    $scope.color = _config.config_color;*/
 
     // 存放位置联动查询--行
     $scope.changeStorageId = function (val) {
@@ -87,8 +87,9 @@ app.controller("storage_car_map_controller", ["$state", "$rootScope", "$statePar
 
     // 新增车辆
     $scope.new_garage_parking = function (storage_name, storage_id, row, col, p_id) {
-        // 车辆品牌查询
-        _basic.get($host.api_url + "/carMake").then(function (data) {
+        swal("该车位暂时无车辆","","error");
+        // // 车辆品牌查询
+      /*  _basic.get($host.api_url + "/carMake").then(function (data) {
             if (data.success == true) {
                 $scope.makecarName = data.result;
                 // console.log($scope.makecarName)
@@ -126,12 +127,12 @@ app.controller("storage_car_map_controller", ["$state", "$rootScope", "$statePar
         $scope.col_id = "";
         $scope.plan_out_time = "";
         $(".modal").modal({});
-        $("#newStorage_car").modal("open");
+        $("#newStorage_car").modal("open");*/
 
     };
 
-    // 新增信息
-    $scope.submitForm = function (isValid) {
+    // // 新增信息
+    /*$scope.submitForm = function (isValid) {
         $scope.submitted = true;
         if (isValid) {
             var obj_car = {
@@ -171,15 +172,15 @@ app.controller("storage_car_map_controller", ["$state", "$rootScope", "$statePar
                 }
             });
         }
-    };
+    };*/
 
     // 返回
     $scope.return = function () {
         $state.go($stateParams.form, {}, {reload: true})
     };
 
-    // 图片上传
-    $scope.imgArr = [];
+    // // 图片上传
+/*    $scope.imgArr = [];
     $scope.car_image_i=[];
     $scope.uploadBrandImage = function (dom) {
         var filename = $(dom).val();
@@ -257,5 +258,5 @@ app.controller("storage_car_map_controller", ["$state", "$rootScope", "$statePar
             }
         )
 
-    };
+    };*/
 }]);

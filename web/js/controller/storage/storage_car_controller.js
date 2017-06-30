@@ -10,42 +10,61 @@ app.controller("storage_car_controller", ["$scope", "$rootScope","$stateParams",
     // $pass_parameter.setter("jiangsen");
 
     var searchAll = function () {
-        var reqUrl = $host.api_url + "/car?active=" + 1 + "&start=" + $scope.start + "&size=" + $scope.size
-        if ($scope.search_relStatus != null) {
-            reqUrl = reqUrl + "&relStatus=" + $scope.search_relStatus
-        }
-        if ($scope.search_storage != null) {
-            reqUrl = reqUrl + "&storageId=" + $scope.search_storage
-        }
-        if ($scope.search_makeId != null) {
-            reqUrl = reqUrl + "&makeId=" + $scope.search_makeId
-        }
-        // if ($scope.search_modelId != null) {
-        //     reqUrl = reqUrl + "&modelId=" + $scope.search_modelId
+        // var reqUrl = $host.api_url + "/car?active=" + 1 + "&start=" + $scope.start + "&size=" + $scope.size
+        // if ($scope.search_relStatus != null) {
+        //     reqUrl = reqUrl + "&relStatus=" + $scope.search_relStatus
         // }
-        if ($scope.search_vin != null) {
-            reqUrl = reqUrl + "&vinCode=" + $scope.search_vin
-        }
-        if ($scope.search_enterTime_start != null) {
-            reqUrl = reqUrl + "&enterStart=" + $scope.search_enterTime_start
-        }
-        if ($scope.search_enterTime_end != null) {
-            reqUrl = reqUrl + "&enterEnd=" + $scope.search_enterTime_end
-        }
-        // if ($scope.search_planTime_start != null) {
-        //     reqUrl = reqUrl + "&planStart=" + $scope.search_planTime_start
+        // if ($scope.search_storage != null) {
+        //     reqUrl = reqUrl + "&storageId=" + $scope.search_storage
         // }
-        // if ($scope.search_planTime_end != null) {
-        //     reqUrl = reqUrl + "&planEnd=" + $scope.search_planTime_end
+        // if ($scope.search_makeId != null) {
+        //     reqUrl = reqUrl + "&makeId=" + $scope.search_makeId
         // }
-        if ($scope.search_outTime_start != null) {
-            reqUrl = reqUrl + "&realStart=" + $scope.search_outTime_start
-        }
-        if ($scope.search_outTime_end != null) {
-            reqUrl = reqUrl + "&realEnd=" + $scope.search_outTime_end
-        }
+        // // if ($scope.search_modelId != null) {
+        // //     reqUrl = reqUrl + "&modelId=" + $scope.search_modelId
+        // // }
+        // if ($scope.search_vin != null) {
+        //     reqUrl = reqUrl + "&vinCode=" + $scope.search_vin
+        // }
+        // if ($scope.search_enterTime_start != null) {
+        //     reqUrl = reqUrl + "&enterStart=" + $scope.search_enterTime_start
+        // }
+        // if ($scope.search_enterTime_end != null) {
+        //     reqUrl = reqUrl + "&enterEnd=" + $scope.search_enterTime_end
+        // }
+        // // if ($scope.search_planTime_start != null) {
+        // //     reqUrl = reqUrl + "&planStart=" + $scope.search_planTime_start
+        // // }
+        // // if ($scope.search_planTime_end != null) {
+        // //     reqUrl = reqUrl + "&planEnd=" + $scope.search_planTime_end
+        // // }
+        // if ($scope.search_outTime_start != null) {
+        //     reqUrl = reqUrl + "&realStart=" + $scope.search_outTime_start
+        // }
+        // if ($scope.search_outTime_end != null) {
+        //     reqUrl = reqUrl + "&realEnd=" + $scope.search_outTime_end
+        // }
         // console.log(reqUrl);
-        _basic.get(reqUrl).then(function (data) {
+        var obj={
+            active:1,
+            start:$scope.start,
+            size:$scope.size,
+            vinCode:$scope.search_vin,
+            makeId:$scope.search_makeId,
+            relStatus:$scope.search_relStatus,
+            storageId:$scope.search_storage,
+            receiveId:$scope.search_dealer,
+            entrustId:$scope.client,
+            addrId:$scope.source_city,
+            routeEndId:$scope.arrive_city,
+            enterStart:$scope.put_in_time_start,
+            enterEnd:$scope.put_in_time_end,
+            realStart:$scope.out_time_start,
+            realEnd:$scope.out_time_end,
+            orderStart:$scope.order_time_start,
+            orderEnd:$scope.order_time_end
+        };
+        _basic.get($host.api_url + "/car?"+_basic.objToUrl(obj)).then(function (data) {
             if (data.success == true) {
                 $scope.storage_car_box = data.result;
                 $scope.storage_car = $scope.storage_car_box.slice(0, 10);
@@ -100,6 +119,14 @@ app.controller("storage_car_controller", ["$scope", "$rootScope","$stateParams",
         _basic.get($host.api_url + "/carMake").then(function (data) {
             if (data.success == true) {
                 $scope.makecarName = data.result;
+            } else {
+                swal(data.msg, "", "error");
+            }
+        });
+        // 仓库查询
+        _basic.get($host.api_url + "/storage").then(function (data) {
+            if (data.success == true) {
+                $scope.storage = data.result;
             } else {
                 swal(data.msg, "", "error");
             }
@@ -376,9 +403,9 @@ app.controller("storage_car_controller", ["$scope", "$rootScope","$stateParams",
                 "parkingId": p_id,
                 "storageId": id,
                 "storageName": name,
-                "planOutTime": p_time
+                // "planOutTime": p_time
             };
-            _basic.post($host.api_url + "/user/" + userId + "/againCarStorageRel?carId=" + $scope.self_car_id + "&vin=" + $scope.self_vin, obj).then(function (data) {
+            _basic.put($host.api_url + "/user/" + userId + "/againCarStorageRel?carId=" + $scope.self_car_id + "&vin=" + $scope.self_vin, obj).then(function (data) {
                 if (data.success == true) {
                     swal('成功', "", "success");
                     $("#loginStorageCar").modal("close");

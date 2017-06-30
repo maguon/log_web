@@ -3,17 +3,17 @@
         <!--<div class="modal-content ">-->
         <!--<div class="" style="width: 95%;margin: 0 auto">-->
         <div class=" vc-center ">
-            <h4 class="center-align cyan-text  text-lighten-1">输入vin码</h4>
+            <h4 class="center-align cyan-text  text-lighten-1">请输入需要入库的车辆vin码</h4>
         </div>
         <div class="divider" style="background: #00bcd4;height: 2px;"></div>
         <div class="row no-marBottom">
             <div class="row " style="width: 900px;margin: 0 auto">
                 <form name="demand_car_form" ng-submit="demand_car(demand_car_form.$valid)" novalidate>
                     <div class="col s11 vc-center mp-30 valign-wrapper" style="overflow: hidden;">
-                        <!--<div class="col s1 cyan-text text-lighten-1" style="font-size: 25px;min-width: 90px">vin码:</div>-->
+                        <div class="col s1 cyan-text text-lighten-1" style="font-size: 25px;min-width: 90px">vin码:</div>
                         <div class="input-field col s11" ng-class="{'has-error':demand_car_form.vin.$invalid&&submitted}">
-                            <input type="text" id="autocomplete-input" name="vin" ng-change="short_search()" ng-model="demand_vin" style="margin: 0 0 20px 0" autocomplete="off" class="autocomplete" required minlength="6">
-                            <label for="autocomplete-input">搜索</label>
+                            <input type="text" id="autocomplete-input" name="vin" placeholder="模糊查询至少需要6位vin码" ng-change="short_search()" ng-model="demand_vin" style="margin: 0 0 20px 0" autocomplete="off" class="autocomplete" required minlength="6">
+                            <!--<label for="autocomplete-input">搜索</label>-->
                         </div>
                     </div>
                     <div  class="col s1 mp-30 valign-wrapper">

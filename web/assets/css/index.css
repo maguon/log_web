@@ -386,6 +386,16 @@ body{
     margin-bottom: 20px;
 
 }
+
+.searchBtn-box{
+    position: relative;
+    height: 46px;
+}
+.searchBtn{
+    position: absolute;
+    left: 50%;
+    top: 100%;
+}
 input[type=text]{
     margin: 0;
 }

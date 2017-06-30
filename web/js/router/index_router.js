@@ -179,20 +179,20 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/storage/storage_car.html",
             controller:'storage_car_controller'
         })
-        .state("new_storage_car_vin", {
-            url:"/new_storage_car_vin",
+        .state("add_storage_car_vin", {
+            url:"/add_storage_car_vin",
             templateUrl: "js/view/storage/add_storage_car_vin.html",
-            controller:'new_storage_car_vin_controller'
+            controller:'add_storage_car_vin_controller'
         })
-        .state("new_storage_car", {
-            url:"/new_storage_car/vin/{vin}?from",
+        .state("add_storage_car", {
+            url:"/add_storage_car/vin/{vin}?from",
             templateUrl: "js/view/storage/add_storage_car.html",
-            controller:'new_storage_car_controller'
+            controller:'add_storage_car_controller'
         })
-        .state("add_storage_car_relStatus", {
-            url:"/add_storage_car_relStatus/vin/{vin}?from",
-            templateUrl: "js/view/storage/add_storage_car_relStatus.html",
-            controller:'add_storage_car_relStatus_controller'
+        .state("add_storage_car_put_in", {
+            url:"/add_storage_car_put_in/vin/{vin}?from",
+            templateUrl: "js/view/storage/add_storage_car_put_in.html",
+            controller:'add_storage_car_put_in_controller'
         })
         .state("storage_store", {
             url:"/storage_store",

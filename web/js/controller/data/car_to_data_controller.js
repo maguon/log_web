@@ -162,7 +162,6 @@ app.controller("car_to_data_controller", ['$rootScope','$scope','$location','$q'
                 var carItem =  uploadDataArray[ uploadDataArray.length-1];
                 _socket.uploadCarInfo($scope.file_id,carItem,uploadDataArray.length-1,function(msg){
                     acknowledgeUpload(msg);
-
                 })
             }else{
                 swal("上传成功","","success");
@@ -178,6 +177,7 @@ app.controller("car_to_data_controller", ['$rootScope','$scope','$location','$q'
 
             }else{
                 //错误记录处理
+
             }
             uploadDataArray.splice(uploadDataArray.length-1,1);
             /*$scope.x = $scope.x + 100/orginDataLength;

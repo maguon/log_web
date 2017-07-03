@@ -86,16 +86,15 @@ app.controller("storage_car_controller", ["$scope", "$rootScope","$stateParams",
 
     // 条件查询
     $scope.searchStorage_car = function () {
+        $scope.start = 0;
         searchAll();
     };
-
 
     // 分页
     // 上一页
     $scope.pre_btn = function () {
         $scope.start = $scope.start - ($scope.size - 1);
         searchAll();
-
     };
     // 下一页
     $scope.next_btn = function () {
@@ -303,7 +302,7 @@ app.controller("storage_car_controller", ["$scope", "$rootScope","$stateParams",
     $scope.change_model_id = "";
     // 新增信息
     $scope.newsubmitForm = function (isValid) {
-        console.log($scope.order_time);
+        // console.log($scope.order_time);
         $scope.submitted = true;
         if (isValid) {
             var obj_car = {
@@ -370,7 +369,7 @@ app.controller("storage_car_controller", ["$scope", "$rootScope","$stateParams",
     };
     // 车位转移
     $scope.changeStorageCar = function (val, id, row, col) {
-        console.log(val, id, row, col);
+        // console.log(val, id, row, col);
         $(".modal").modal();
         $("#change_storageCar").modal("open");
         $scope.now_row = row;
@@ -496,6 +495,6 @@ app.controller("storage_car_controller", ["$scope", "$rootScope","$stateParams",
                 });
             }
         );
-    }
+    };
     searchAll();
 }]);

@@ -5,6 +5,7 @@ baseService.factory('_socket',['$http','$location','$q',"$cookies","$host","_bas
     var _this = {};
     var ws = null ;
     var uploadResHandler ;
+    _this.carInfoArray = []
     _this.msgToJson = function (message) {
         try {
             return JSON.parse(message);
@@ -80,6 +81,10 @@ baseService.factory('_socket',['$http','$location','$q',"$cookies","$host","_bas
         return msg;
     }
 
+    _this.uploadCarInfoArray = function(fileId,carInfoArray){
+        _this.carInfoArray = carInfoArray;
+    }
+
 
     _this.uploadCarInfo = function (fileId,carParamArray,index,callback) {
         uploadResHandler = callback;
@@ -87,11 +92,13 @@ baseService.factory('_socket',['$http','$location','$q',"$cookies","$host","_bas
             uploadId:fileId,
             vin : carParamArray[0],
             makeId : carParamArray[1],
-            routeStartId : carParamArray[2],
-            routeEndId : carParamArray[3],
-            receiveId : carParamArray[4],
-            entrustId : carParamArray[5],
-            orderDate : carParamArray[6]
+            entrustId : carParamArray[2],
+            routeStartId : carParamArray[3],
+            baseAddrId : carParamArray[4],
+            routeEndId : carParamArray[5],
+            receiveId : carParamArray[6],
+            orderDate : carParamArray[7],
+            userId : _basic.getSession(_basic.USER_ID)
         };
 
         ws.send(JSON.stringify(this.getUploadMsg(fileId,carParams,index)));

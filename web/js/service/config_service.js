@@ -28,7 +28,8 @@ baseService.factory("_config", function () {
         {
             type: 21,
             name: "仓储部操作人员",
-            subType: []
+            subType: [],
+            index: 'storage_home.html'
         },
 
         {

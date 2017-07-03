@@ -26,7 +26,7 @@ common_login_controller.controller("common_login_controller", ['$rootScope','$sc
                         _basic.setHeader(_basic.USER_TYPE, data.result.type);
                         _basic.setHeader(_basic.COMMON_AUTH_NAME, data.result.accessToken);
                         // 判断user_type控制页面调到某个模块
-                        if(data.result.type==_config.userTypes.storageUser.type){
+                        /*if(data.result.type==_config.userTypes.storageUser.type){
                             window.location.href="storage_home.html";
                         }
                         if(data.result.type==_config.userTypes.dispatch.type){
@@ -34,6 +34,11 @@ common_login_controller.controller("common_login_controller", ['$rootScope','$sc
                         }
                         if(data.result.type==_config.userTypes.international_trade.type){
                             window.location.href="trade_home.html";
+                        }*/
+                        for(var i = 0; i<_config.userTypes.length;i++){
+                            if(_config.userTypes[i].type == data.result.type){
+                                window.location.href = _config.userTypes[i].index;
+                            }
                         }
                     }else {
                         swal(data.msg,"","error");

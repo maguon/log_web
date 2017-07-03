@@ -20,6 +20,16 @@ app.controller("data_dictionary_controller", ["$scope", "_basic", "_config", "$h
             }
         });
 
+
+        _basic.get($host.api_url + "/baseAddr").then(function (dispatchData) {
+            if (dispatchData.success === true) {
+                $scope.dispatchList = dispatchData.result;
+            }
+            else {
+                swal(dispatchData.msg, "", "error");
+            }
+        });
+
         _basic.get($host.api_url + "/entrust").then(function (entrustData) {
             if (entrustData.success === true) {
                 $scope.entrustList = entrustData.result;
@@ -79,6 +89,13 @@ app.controller("data_dictionary_controller", ["$scope", "_basic", "_config", "$h
         $scope.listInfo = $scope.carbrandList;
     };
 
+    $scope.getDispatchName = function () {
+        $scope.clickStatus = "dispatch";
+        $scope.city_details = false;
+        $scope.flag = false;
+        $scope.listInfo = $scope.dispatchList;
+    };
+
     // $scope.listInfo = [];
 
     // 判断当前在哪个类下进行的操作，然后根据输入的关键字筛选指定分类下的信息
@@ -96,6 +113,20 @@ app.controller("data_dictionary_controller", ["$scope", "_basic", "_config", "$h
             }
             else {
                 $scope.listInfo = $scope.cityList;
+            }
+            // console.log("listInfo", $scope.listInfo);
+        }
+
+        if ($scope.clickStatus === "dispatch") {
+            if ($scope.keyWord != "") {
+                for (var d = 0; d < $scope.dispatchList.length; d++) {
+                    if (($scope.dispatchList[d].addr_name).indexOf($scope.keyWord) !== -1) {
+                        $scope.listInfo.push($scope.dispatchList[d]);
+                    }
+                }
+            }
+            else {
+                $scope.listInfo = $scope.dispatchList;
             }
             // console.log("listInfo", $scope.listInfo);
         }

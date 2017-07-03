@@ -73,7 +73,7 @@
             </div>
             <div class="col s1  flex flex-round">
                 <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
-                   style="margin-right: 10px" ng-click="search_car()">
+                   style="margin-right: 10px" ng-click="searchMatchCar()">
                     <i class="mdi mdi-magnify"></i>
                 </a>
             </div>
@@ -111,16 +111,16 @@
             </tbody>
         </table>
     </div>
-    <!--<div class="paging_box col s12">-->
-    <!--<div class="right">-->
-    <!--<a class="waves-light waves-effect cyan lighten-1 btn  " id="pre" ng-click="pre_btn()">-->
-    <!--上一页-->
-    <!--</a>-->
-    <!--<a class="waves-light waves-effect cyan lighten-1 btn " id="next" ng-click="next_btn()">-->
-    <!--下一页-->
-    <!--</a>-->
-    <!--</div>-->
-    <!--</div>-->
-</div>
+
+    <div class="paging_box col s12" style="height: 45px">
+        <div class="right">
+            <a class="waves-light waves-effect cyan lighten-1 btn"  id="pre"   ng-click="previous_page()">
+                上一页
+            </a>
+            <a class="waves-light waves-effect cyan lighten-1 btn" id="next"  ng-click="next_page()">
+                下一页
+            </a>
+        </div>
+    </div>
 
 </div>

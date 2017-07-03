@@ -11,7 +11,7 @@ app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$ho
     $scope.getContactsInfo = function (currentId) {
         _basic.get($host.api_url + "/entrust/" + currentId + "/contacts").then(function (data) {
             if (data.success === true) {
-                console.log("data", data);
+                // console.log("data", data);
                 $scope.contactList = data.result;
             }
             else {
@@ -64,11 +64,11 @@ app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$ho
 
     // 保存新增信息
     $scope.addContacts = function (isValid, entrustId) {
-        console.log("isValid:", isValid);
-        console.log("entrustId:", entrustId);
-        console.log("userName:", $scope.userNames);
-        console.log("dutys:", $scope.dutys);
-        console.log("phones", $scope.phones);
+        // console.log("isValid:", isValid);
+        // console.log("entrustId:", entrustId);
+        // console.log("userName:", $scope.userNames);
+        // console.log("dutys:", $scope.dutys);
+        // console.log("phones", $scope.phones);
         $scope.submitted = true;
         if (isValid) {
             _basic.post($host.api_url + "/user/" + $scope.userId + "/entrust/" + entrustId + "/contacts", {
@@ -96,8 +96,8 @@ app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$ho
 
     // 删除联系人信息
     $scope.delete_contact = function (contactId, entrustId) {
-        console.log("contactId:", contactId);
-        console.log("listId:", entrustId);
+        // console.log("contactId:", contactId);
+        // console.log("listId:", entrustId);
         swal({
                 title: "确定删除吗？",
                 type: "warning",
@@ -111,7 +111,7 @@ app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$ho
                 _basic.delete($host.api_url + "/user/" + $scope.userId + "/entrustContacts/" + contactId, {}).then(
                     function (data) {
                         if (data.success === true) {
-                            console.log("data", data);
+                            // console.log("data", data);
                             swal("删除成功", "", "success");
                             $scope.getContactsInfo(entrustId);
                         }
@@ -119,8 +119,8 @@ app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$ho
                             swal(data.msg, "", "error");
                         }
                     });
-                console.log("$scope.userId:", $scope.userId);
-                console.log("contactId:", contactId)
+                // console.log("$scope.userId:", $scope.userId);
+                // console.log("contactId:", contactId)
             });
     };
 
@@ -128,7 +128,7 @@ app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$ho
     $scope.getEntrust = function () {
         _basic.get($host.api_url + "/entrust").then(function (data) {
             if (data.success === true) {
-                console.log("data", data);
+                // console.log("data", data);
                 $scope.entrustList = data.result;
             }
             else {

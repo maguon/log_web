@@ -11,7 +11,7 @@ app.controller("data_dictionary_controller", ["$scope", "_basic", "_config", "$h
         _basic.get($host.api_url + "/city").then(function (cityData) {
             if (cityData.success === true) {
                 $scope.cityList = cityData.result;
-                console.log("city", cityData);
+                // console.log("city", cityData);
                 // 默认显示城市信息
                 $scope.getCity();
             }
@@ -84,8 +84,8 @@ app.controller("data_dictionary_controller", ["$scope", "_basic", "_config", "$h
     // 判断当前在哪个类下进行的操作，然后根据输入的关键字筛选指定分类下的信息
     $scope.updateList = function () {
         $scope.listInfo = [];
-        console.log("clickStatus:",$scope.clickStatus);
-        console.log("keyword",$scope.keyWord);
+        // console.log("clickStatus:",$scope.clickStatus);
+        // console.log("keyword",$scope.keyWord);
         if ($scope.clickStatus === "city") {
             if ($scope.keyWord != "") {
                 for (var i = 0; i < $scope.cityList.length; i++) {
@@ -97,7 +97,7 @@ app.controller("data_dictionary_controller", ["$scope", "_basic", "_config", "$h
             else {
                 $scope.listInfo = $scope.cityList;
             }
-            console.log("listInfo", $scope.listInfo);
+            // console.log("listInfo", $scope.listInfo);
         }
 
         if ($scope.clickStatus === "entrust") {

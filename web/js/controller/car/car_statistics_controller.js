@@ -12,7 +12,6 @@ app.controller("car_statistics_controller", ["$scope", "_basic", "_config", "$ho
         // 获取城市数据
         _basic.get($host.api_url + "/carRouteEndCount").then(function (cityData) {
             if (cityData.success === true) {
-                console.log("cityData:", cityData);
 
                 // 检测出发城市为null时改为未知
                 for (var c = 0; c < cityData.result.length; c++) {
@@ -35,7 +34,6 @@ app.controller("car_statistics_controller", ["$scope", "_basic", "_config", "$ho
                         $scope.cityList[cityData.result[i].route_start].push(cityData.result[i]);
                     }
                 }
-                // console.log("newcityList:", $scope.cityList);
 
                 // 计算车辆总数
                 for (var dateTime in $scope.cityList) {
@@ -45,7 +43,7 @@ app.controller("car_statistics_controller", ["$scope", "_basic", "_config", "$ho
                     }
                     $scope.cityList[dateTime].total = num;
                 }
-                console.log("newCityList:", $scope.cityList);
+
                 $scope.getCity();
             }
             else {
@@ -92,7 +90,7 @@ app.controller("car_statistics_controller", ["$scope", "_basic", "_config", "$ho
                     }
                     $scope.dateList[dateTime].total = num;
                 }
-                console.log("newDateList:", $scope.dateList);
+
             }
             else {
                 swal(dateData.msg, "", "error");
@@ -102,10 +100,13 @@ app.controller("car_statistics_controller", ["$scope", "_basic", "_config", "$ho
         // 获取经销商数据
         _basic.get($host.api_url + "/carReceiveCount").then(function (carData) {
             if (carData.success === true) {
-                console.log("carData:", carData);
-                for(var b = 0;b < carData.result.length;b++){
-                    if(carData.result[b].short_name == null){
+                // console.log("carData:", carData);
+                for (var b = 0; b < carData.result.length; b++) {
+                    if (carData.result[b].short_name == null) {
                         carData.result[b].short_name = "未知";
+                    }
+                    if (carData.result[b].route_start == null) {
+                        carData.result[b].route_start = "未知";
                     }
                 }
                 $scope.carreceiveList = carData.result;

@@ -18,7 +18,18 @@
         <div class="col s6 m4 l3" style="margin-top: 10px" ng-repeat="car in dateList">
             <div class="card" style="border: 2px solid #26c6da;border-radius: 5px">
                 <div class="card-content" >
-                    <span style="text-align: center" class="card-title">{{car.route_start}}&nbsp;&nbsp;<span><img style="width: 23px" src="/assets/images/icon_arrow.png" alt="#"></span>&nbsp;&nbsp;{{car.route_end}}</span>
+                    <div class="row" style="margin-bottom: 0">
+                        <div class="col s5">
+                            <span  style="text-align: right" class="card-title">{{car.route_start}}</span>
+                        </div>
+                        <div class="col s2">
+                            <span style="text-align: center" class="card-title"><img style="width: 23px" src="/assets/images/icon_arrow.png" alt="#"></span>
+                        </div>
+                        <div class="col s5">
+                            <span style="text-align: left" class="card-title">{{car.route_end}}</span>
+                        </div>
+                    </div>
+                    <!--<span style="text-align: center" class="card-title">{{car.route_start}}&nbsp;&nbsp;<span><img style="width: 23px" src="/assets/images/icon_arrow.png" alt="#"></span>&nbsp;&nbsp;{{car.route_end}}</span>-->
                 </div>
                 <div style="text-align: center" class="card-action">
                     <a style="margin: 0 auto;font-size: 1.4rem;color: #e57474" href="javascript:void(0)">{{car.route_end_count}}<span style="color: #ccc;font-size: 1rem"> 辆</span></a>
@@ -32,7 +43,18 @@
         <div class="col s6 m4 l3" style="margin-top: 10px" ng-repeat="receive in listInfo">
             <div class="card" style="border: 2px solid #26c6da;border-radius: 5px">
                 <div class="card-content" >
-                    <span style="text-align: center" class="card-title">{{receive.route_start}}&nbsp;&nbsp;<span><img style="width: 23px" src="/assets/images/icon_arrow.png" alt="#"></span>&nbsp;&nbsp;{{receive.short_name}}</span>
+                    <div class="row" style="margin-bottom: 0">
+                        <div class="col s5">
+                            <span  style="text-align: right" class="card-title">{{receive.route_start}}</span>
+                        </div>
+                        <div class="col s2">
+                            <span style="text-align: center" class="card-title"><img style="width: 23px" src="/assets/images/icon_arrow.png" alt="#"></span>
+                        </div>
+                        <div class="col s5">
+                            <span style="text-align: left" class="card-title">{{receive.short_name}}</span>
+                        </div>
+                    </div>
+                    <!--<span style="text-align: center" class="card-title">{{receive.route_start}}&nbsp;&nbsp;<span><img style="width: 23px" src="/assets/images/icon_arrow.png" alt="#"></span>&nbsp;&nbsp;{{receive.short_name}}</span>-->
                 </div>
                 <div style="text-align: center" class="card-action">
                     <a style="margin: 0 auto;font-size: 1.4rem;color: #e57474" href="javascript:void(0)">{{receive.receive_count}}<span style="color: #ccc;font-size: 1rem"> 辆</span></a>

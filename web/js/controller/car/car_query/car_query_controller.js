@@ -2,6 +2,8 @@
  * Created by zcy on 2017/6/27.
  */
 app.controller("car_query_controller", ["$scope", "$rootScope", "$host", "_basic", "_config", "baseService", function ($scope, $rootScope, $host, _basic, _config, baseService) {
+    $scope.start = 0;
+    $scope.size = 20;
     // 车辆品牌
     $scope.getCarMakeData = function () {
         _basic.get($host.api_url + "/carMake").then(function (carMakeData) {
@@ -80,16 +82,48 @@ app.controller("car_query_controller", ["$scope", "$rootScope", "$host", "_basic
                 receiveId: $scope.receiveId,
                 routeEndId:$scope.destinationId,
                 createdStart:$scope.createdStart,
-                createdEnd:$scope.createdEnd
+                createdEnd:$scope.createdEnd,
+                start:$scope.start,
+                size:$scope.size
             })).then(function (data) {
             if (data.success === true) {
+
+                if ($scope.start > 0) {
+                    $("#pre").removeClass("disabled");
+                } else {
+                    $("#pre").addClass("disabled");
+                }
+                if (data.result.length < $scope.size) {
+                    $("#next").addClass("disabled");
+                } else {
+                    $("#next").removeClass("disabled");
+                }
+
                 $scope.responseData = data.result;
-                // console.log("responseData:", $scope.responseData);
+                console.log("responseData:", $scope.responseData);
             }
             else {
                 swal(data.msg, "", "error");
             }
         });
+    };
+
+    // 分页
+    $scope.previous_page = function () {
+        $scope.start = $scope.start - $scope.size;
+        $scope.search_car();
+    };
+
+    $scope.next_page = function () {
+        $scope.start = $scope.start + $scope.size;
+        $scope.search_car();
+    };
+
+    // 点击车辆查询
+    $scope.searchMatchCar = function () {
+        // 点击查询的时候让分页起始条数初始化
+        $scope.start = 0;
+        $scope.search_car();
     };
 
     // 获取所有数据

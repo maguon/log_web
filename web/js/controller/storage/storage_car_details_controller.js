@@ -323,16 +323,15 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
                 $scope.look_storageName = $scope.self_car.storage_name + "  " + $scope.self_car.row + "排" + $scope.self_car.col + "列";
                 // 车辆id
                 $scope.look_car_id = $scope.self_car.id;
+
                 // 城市
-                for(var i=0;i<$scope.get_city.length;i++){
+                for(var i  in  $scope.get_city){
                     if($scope.get_city[i].id==$scope.self_car.route_start_id){
-                        $scope.select_city_start=$scope.get_city[i];
+                        $scope.start_city=$scope.get_city[i];
                     }else if($scope.get_city[i].id==$scope.self_car.route_end_id){
-                        $scope.select_city_end=$scope.get_city[i];
+                        $scope.arrive_city=$scope.get_city[i];
                     }
                 }
-                $scope.start_city= $scope.select_city_start;
-                $scope.arrive_city= $scope.select_city_end;
             } else {
                 swal(data.msg, "", "error")
             }
@@ -373,6 +372,7 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
     $scope.lookStorageCar(val, vin);
     // 修改仓库详情
     $scope.submitForm = function (isValid, id, r_id) {
+        console.log($scope.start_city);
         $scope.submitted = true;
         var obj = {
             "vin": $scope.self_car.vin,

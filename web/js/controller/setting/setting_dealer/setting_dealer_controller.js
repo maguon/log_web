@@ -141,10 +141,28 @@ app.controller("setting_dealer_controller",["$scope","_basic","_config","$host",
     };
     // 删除联系人
     $scope.delete_contact=function (id,con_id) {
-        _basic.delete($host.api_url+"/user/"+$scope.userId+"/receiveContacts/"+id).then(function (data) {
-            if(data.success==true){
-                $scope.get_contact(con_id);
-            }
-        });
+        swal({
+                title: "确认删除?",
+                text: "确认删除该联系人?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确认",
+                cancelButtonText: "取消",
+                closeOnConfirm: false
+            },
+            function(isConfirm){
+                if (isConfirm) {
+                    _basic.delete($host.api_url+"/user/"+$scope.userId+"/receiveContacts/"+id).then(function (data) {
+                        if(data.success==true){
+                            swal("删除成功!", "", "success");
+                            $scope.get_contact(con_id);
+                        }
+                    });
+                } else {
+
+                }
+            });
+
     }
 }]);

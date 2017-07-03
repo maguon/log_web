@@ -1013,3 +1013,12 @@ input[type=text]{
 .anchorBL{
      display: none;
  }
+
+/*单行文本溢出省略*/
+.clamp{
+    /*width:255px;*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+}

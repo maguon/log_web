@@ -55,7 +55,7 @@ publicDirective.directive('header', function () {
                     window.location.href = '/common_login.html';
                 });
 
-            }
+            };
             if (_basic.getSession(_basic.USER_TYPE)==str_type) {
                 var userid=_basic.getSession(_basic.USER_ID);
 

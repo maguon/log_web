@@ -94,7 +94,6 @@ app.controller("setting_car_brand_controller", ["$scope", "$host", "_basic", fun
     $scope.add_car_model_submit = function (iValid, id) {
         $scope.submitted = true;
         // var xt="add_car_model_text"+index;
-        console.log($scope.add_car_model_text);
         if (iValid) {
             _basic.post($host.api_url + "/user/" + userId + "/carMake/" + id + "/carModel", {
                 modelName: $scope.add_car_model_text
@@ -129,7 +128,6 @@ app.controller("setting_car_brand_controller", ["$scope", "$host", "_basic", fun
     // 修改汽车型号状态
     // 打开修改面板
     $scope.amend_car_model = function ($index, $event) {
-        console.log($index);
         $($event.target).hide();
         $(".car_model_name" + $index).removeAttr("readonly");
         $(".amend_car_model_box" + $index).show();

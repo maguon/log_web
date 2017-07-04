@@ -9,7 +9,6 @@ app.controller("add_storage_car_vin_controller", ["$scope", "$rootScope","$state
         data: vinObjs,
         limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
         onAutocomplete: function(val) {
-            console.log(val)
             // Callback function when value is autcompleted.
         },
         minLength: 6, // The minimum length of the input for the autocomplete to start. Default: 1.
@@ -52,7 +51,6 @@ app.controller("add_storage_car_vin_controller", ["$scope", "$rootScope","$state
         $scope.submitted=true;
         if($iValid&&$scope.demand_vin.length==17){
             $scope.submitted=false;
-            console.log($scope.demand_vin);
 
             var obj={
                 vin:$scope.demand_vin,

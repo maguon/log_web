@@ -52,7 +52,6 @@ app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$hos
         var obj={
             "vin":$scope.vin
         };
-        console.log(obj);
         if($scope.vin.length==17){
             _basic.put($host.api_url+"/user/"+admin+"/car/"+id+"/vin",obj).then(function (data) {
                 if(data.success==true){

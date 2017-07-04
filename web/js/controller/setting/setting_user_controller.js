@@ -32,7 +32,6 @@ app.controller("setting_user_controller", ["_basic", "_config", "$host", "$scope
                 $scope.userType = $scope.user_info_section[0].type;
             }
         }
-        console.log("user_info_section", $scope.user_info_section);
         return $scope.user_info_section
     };
     user_info_fun();
@@ -61,13 +60,11 @@ app.controller("setting_user_controller", ["_basic", "_config", "$host", "$scope
                 } else {
                     $("#next").removeClass("disabled");
                 }
-                console.log("data",data);
                 // 根据用户可操作权限分配显示的用户列表，过滤掉没有操作权限的用户
                 var machList = [];
                 for (var i = 0; i < data.result.length; i++) {
                     for (var a = 0; a < $scope.user_info_section.length; a++) {
                         if (data.result[i].type == $scope.user_info_section[a].type) {
-                            console.log(data.result[i].type);
                             machList.push(data.result[i]);
                         }
                     }

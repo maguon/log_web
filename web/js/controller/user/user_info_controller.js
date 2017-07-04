@@ -10,8 +10,6 @@ app.controller("user_info_controller", ["$scope", "_basic", "_config", "$host", 
         _basic.get($host.api_url + "/user").then(function (data) {
             if (data.success == true) {
                 $scope.user_info_list = data.result;
-                console.log("user_info_section",data);
-                console.log("user_info_obj_before",user_info_obj);
                 for (var i in user_info_obj) {
                     $scope.user_info_section.push({
                         user_type: user_info_obj[i].type,
@@ -19,8 +17,6 @@ app.controller("user_info_controller", ["$scope", "_basic", "_config", "$host", 
                         user_info_list_array: []
                     });
                 }
-                console.log("user_info_obj_after",user_info_obj);
-                console.log("user_info_section_after",$scope.user_info_section)
                 for (var k in $scope.user_info_section) {
                     for (var j in $scope.user_info_list) {
                         if ($scope.user_info_list[j].type == $scope.user_info_section[k].user_type && $scope.user_info_list[j].status == 1) {

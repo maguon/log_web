@@ -45,7 +45,7 @@ baseService.factory('_socket',['$http','$location','$q',"$cookies","$host","_bas
     }
     _this.dispatchMsg = function (message){
         var msgObj = _this.msgToJson(message.data);
-        console.log(msgObj);
+        // console.log(msgObj);
         switch (msgObj.mtype){
             case 0 ://system leve message
                 _this.processSystem(msgObj.mcontent);

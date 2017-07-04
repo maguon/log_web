@@ -101,7 +101,6 @@ app.controller("add_storage_car_put_in_controller", ["$scope", "$rootScope","$st
                     $scope.storageParking = data.result;
 
                     $scope.parkingArray = baseService.storageParking($scope.storageParking);
-                    console.log($scope.parkingArray)
 
                 } else {
                     swal(data.msg, "", "error");
@@ -208,7 +207,6 @@ app.controller("add_storage_car_put_in_controller", ["$scope", "$rootScope","$st
 
     // 删除照片
     $scope.delete_img=function (record_id,src) {
-        console.log($scope.storage_image_i);
         swal({
                 title: "确认删除该照片？",
                 text: "",

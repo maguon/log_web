@@ -234,7 +234,6 @@ app.controller("setting_shipments_details_controller",["$scope","_basic","_confi
                 "lat": $scope.lat,
                 "remark":$scope.shipments_details.remark
             };
-            console.log(obj);
             // // 比较对象是否发生变化
             // // if(JSON.stringify($scope._obj) === JSON.stringify(obj)){
             // //

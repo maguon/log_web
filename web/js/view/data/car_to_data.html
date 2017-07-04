@@ -1,7 +1,5 @@
 <div>
-    <div class="progress">
-        <div class="determinate" ng-style="obj"></div>
-    </div>
+
     <div class="row">
         <form name="file_upload_form " id="file_upload_form" >
             <div class="col s4">
@@ -104,19 +102,48 @@
     <div class="row success_data_box " style="overflow: auto; "  ng-show="success_data_box">
         <div class="divider" style="height: 2px;"></div>
         <div class="col s12 " style="padding: 100px 0">
+            <div class="progress" >
+                <div class="determinate" ng-style="obj"></div>
+            </div>
+            <p><span>{{num}}</span>/<span>{{orginData_Length}}</span></p>
             <div class="col s2 offset-s5 ">
-                <p class="vc-center "><i class="mdi mdi-check cyan-text text-lighten-2 fz40"></i><span class="blue-grey-text fz18">校验成功</span></p>
+                <p class="vc-center " ng-show="local_isSuccesss">
+                    <i class="mdi mdi-check cyan-text text-lighten-2 fz40"></i><span class="blue-grey-text fz18">本地校验成功</span>
+                </p>
+                <p class="vc-center " ng-show="upload_isSuccesss">
+                    <i class="mdi mdi-check cyan-text text-lighten-2 fz40" ></i><span class="blue-grey-text fz18">上传完成</span>
+                </p>
+                <p class="vc-center" ng-show="upload_isSuccesss">
+                   <span>错误条数:<span>{{upload_error_array_num}}</span></span>
+                   <span>正确条数:<span>{{orginData_Length-upload_error_array_num}}</span></span>
+                   <span>总条数:<span>{{orginData_Length}}</span></span>
+                </p>
                 <!--<a href="" class="btn btn-large waves-effect cyan lighten-2"></a>-->
                 <p class="center-align">
 
                     <button class="btn btn-large circle_button cyan lighten-2" ng-click="fileUpload()" >
                         导入数据库
                     </button>
+                    <a href="" style="margin-top: 10px" class="btn btn-large circle_button cyan lighten-2" ng-show="show_error" ng-click="show_error_msg()">错误数据显示</a>
                 </p>
 
             </div>
 
         </div>
+        <table class=" bordered striped" ng-show="error_msg">
+            <thead class="blue-grey lighten-5">
+            <tr class="grey-text text-darken-2">
+                <th data-field="">错误位置</th>
+                <th data-field="">原因</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="el in upload_error_array" class="grey-text text-darken-1">
+                <td  ng-bind="el.index"></td>
+                <td ng-bind="el.msg"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
     <div id="new_car" class="modal ">
 
@@ -224,7 +251,7 @@
                             <div class="storage_car_picture_wrap col s9-0 p0" >
                                 <form name="uploadImageForm" class="uploadImageForm">
                                     <div class="storage_car_picture col s3 vc-center  p0 cyan lighten-1 white-text">
-                                        <input name="image" type="file" onchange="angular.element(this).scope().uploadBrandImage(this)" max_size="4M">
+                                        <input name="image" type="file"  onchange="angular.element(this).scope().uploadBrandImage(this)" max_size="4M">
                                         <i class="mdi mdi-instagram"></i>
                                     </div>
                                     <ul id="look_img">
@@ -234,7 +261,6 @@
                                             <p class="img_date white-text center-align" ng-show="show" ng-cloak>{{el.user}}上传于{{el.time|date:'yyyy-MM-dd HH:mm:ss'}}</p>
                                         </li>
                                     </ul>
-
                                 </form>
                             </div>
                         </div>

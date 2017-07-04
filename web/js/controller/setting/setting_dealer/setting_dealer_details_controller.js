@@ -22,7 +22,7 @@ app.controller("setting_dealer_details_controller",["$scope","_basic","_config",
 //    搜索新地址
     $scope.search_location=function (myKeys) {
 
-        console.log(myKeys);
+
         var myGeo = new BMap.Geocoder();
         // 将地址解析结果显示在地图上,并调整地图视野
         if(myKeys!=""){

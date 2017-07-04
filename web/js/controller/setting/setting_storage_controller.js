@@ -64,13 +64,11 @@ app.controller("setting_storage_controller", ["$scope", "$host", "_basic", funct
     // 修改
     $scope.lookStorageForm = function (isValid, id) {
         $scope.submitted = true;
-        console.log(id);
         if (isValid) {
             var obj = {
                 storageName: $scope.selfStorage.storage_name,
                 remark: $scope.selfStorage.remark
             };
-            console.log(obj)
             _basic.put($host.api_url + "/user/" + adminId + "/storage/" + id, obj).then(function (data) {
                 if (data.success == true) {
                     swal("修改成功", "", "success");

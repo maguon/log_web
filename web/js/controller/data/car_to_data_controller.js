@@ -7,14 +7,22 @@ app.controller("car_to_data_controller", ['$rootScope','$scope','$location','$q'
     function($rootScope,$scope,$location,$q,$host,_basic ,_socket ) {
         var userId = _basic.getSession(_basic.USER_ID);
         var userType = _basic.getSession(_basic.USER_TYPE);
-        $scope.x=0;
+        $scope.upload_percent=0;
+        $scope.num=0;
         $scope.templateBox=true;
         $scope.success_data_box=false;
         $scope.dataBox=false;
         $scope.Picture_carId="";
         var orginDataLength = 0;
+        // 上传数据数组
         var uploadDataArray = [];
 
+        // 上传错误数组
+        var upload_error_array=[];
+        $scope.local_isSuccesss=false;
+        $scope.upload_isSuccesss=false;
+        $scope.show_error=false;
+        $scope.error_msg=false;
         // $scope.$apply(function () {
         //     $scope.obj={
         //         "width":$scope.x+"%"
@@ -120,54 +128,37 @@ app.controller("car_to_data_controller", ['$rootScope','$scope','$location','$q'
             _basic.formPost($("#file_upload_form"), $host.file_url + '/user/'+ userId + '/file?fileType=1&&userType='+userType, function (data) {
                 if(data.success==true){
                     $scope.file_id=data.result.id;
-                    orginDataLength = $scope.tableContentFilter.length;
                     uploadDataArray = $scope.tableContentFilter;
+                    if(uploadDataArray.length>0){
+                        socketUpload($scope.file_id);
+
+                        orginDataLength = $scope.tableContentFilter.length;
+
+
+                    }
                     // _socket.uploadCarInfoArray(data.result.id,uploadDataArray);
-                    socketUpload($scope.file_id);
-                    /*var originArrayLength = $scope.tableContentFilter.length;
-                    var soket_data=function () {
-                        if( $scope.tableContentFilter &&  $scope.tableContentFilter.length>0){
-                            var carItem =  $scope.tableContentFilter[ $scope.tableContentFilter.length-1];
-                            _socket.uploadCarInfo($scope.file_id,carItem,$scope.tableContentFilter.length-1,function(msg){
-                                var msgContent =msg.mcontent;
-                                if(msgContent.success){
-                                    $scope.tableContentFilter.splice($scope.tableContentFilter.length-1,1);
-                                    console.log(originArrayLength)
-                                    $scope.x = $scope.x + 100/originArrayLength;
-                                    $scope.$apply(function () {
-                                        $scope.obj = {
-                                            "width": $scope.x + "%"
-                                        };
-                                    });
-                                    soket_data();
-
-                                }else{
-                                    swal(msgContent.msg);
-                                    return;
-                                }
-                            })
-                        }else{
-                            swal("上传成功","","success");
-                            return;
-                        }
-                    };
-                    soket_data();*/
-
                 }
             });
         };
         //发送数组中最后一条车辆信息
         function  socketUpload(fileId) {
             if( uploadDataArray &&  uploadDataArray.length>0){
-                var carItem =  uploadDataArray[ uploadDataArray.length-1];
+                // $scope.progress=true;
+                $scope.num=$scope.num+1;
+                var carItem =  uploadDataArray[uploadDataArray.length-1];
                 _socket.uploadCarInfo($scope.file_id,carItem,uploadDataArray.length-1,function(msg){
                     acknowledgeUpload(msg);
                 })
             }else{
-                swal("上传成功","","success");
-                return;
-            }
+                // $scope.progress=false;
+                // $scope.templateBox=true;
+                // $scope.success_data_box=false;
+                swal("上传完成","","success");
+                $scope.$apply(function () {
+                    $scope.show_error=true;
+                });
 
+            }
         }
         //处理socket上传结果，递归
         function acknowledgeUpload  (msg) {
@@ -177,18 +168,39 @@ app.controller("car_to_data_controller", ['$rootScope','$scope','$location','$q'
 
             }else{
                 //错误记录处理
+                console.log(msg);
+                var list_index=msg.mid.slice(msg.mid.length-1,msg.mid.length);
+                // console.log(list_index);
+
+                upload_error_array.push({
+                    index:"第"+list_index+"条",
+                    msg:msg.mcontent.msg
+                });
+
+                $scope.upload_error_array=upload_error_array.slice().reverse();
+                // console.log($scope.upload_error_array.slice());
 
             }
+            if(upload_error_array.length>0){
+                $scope.upload_error_array_num=upload_error_array.length;
+                $scope.local_isSuccesss=false;
+                $scope.upload_isSuccesss=true;
+            }
             uploadDataArray.splice(uploadDataArray.length-1,1);
-            /*$scope.x = $scope.x + 100/orginDataLength;
+
+            $scope.upload_percent = $scope.upload_percent + 100/orginDataLength;
             $scope.$apply(function () {
                 $scope.obj = {
-                    "width": $scope.x + "%"
+                    "width": $scope.upload_percent + "%"
                 };
-            });*/
-            return socketUpload($scope.file_id)
-        }
+            });
 
+            return socketUpload($scope.file_id);
+        }
+        // 展示上传的错误数据
+        $scope.show_error_msg=function () {
+            $scope.error_msg=!$scope.error_msg;
+        };
         $scope.fileChange = function(file){
             // 表头原始数据
             $scope.tableHeadeArray=[];
@@ -231,6 +243,9 @@ app.controller("car_to_data_controller", ['$rootScope','$scope','$location','$q'
                                          $scope.success_data_box=true;
                                          $scope.dataBox=false;
                                          swal("正确条数"+ $scope.tableContentFilter.length);
+                                         // 总条数
+                                         $scope.orginData_Length=$scope.tableContentFilter.length;
+                                         $scope.local_isSuccesss=true;
                                      }else {
                                          $scope.success_data_box=false;
                                          $scope.dataBox=true;
@@ -239,7 +254,8 @@ app.controller("car_to_data_controller", ['$rootScope','$scope','$location','$q'
                                      $scope.tableHeader = result.data[0];
                                      }
                                 else {
-                                    swal("表头格式错误","","error")
+                                    swal("表头格式错误","","error");
+                                     $scope.templateBox=true;
                                 }
 
                             }

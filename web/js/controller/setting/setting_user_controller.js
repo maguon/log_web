@@ -5,21 +5,14 @@ app.controller("setting_user_controller", ["_basic", "_config", "$host", "$scope
 
     var adminId = _basic.getSession(_basic.USER_ID);
     var adminType = _basic.getSession(_basic.USER_TYPE);
-
-    // 判断用户类型，从不同接口获取相应用户数据
-    if (adminType == 99) {
-        $scope.request = "/user";
-    }
-    else {
-        $scope.request = "/user?type=" + adminType;
-    }
-    // console.log("request", $scope.request);
+    $scope.start = 0;
+    $scope.size = 20;
 
     var user_info_obj = _config.userTypes;
     // console.log("user_info_obj", user_info_obj);
     var user_info_fun = function () {
         $scope.user_info_section = [];
-        // 管理员拥有最高权限，可操作所有用户
+        // 超级管理员拥有最高权限，可操作所有用户
         var administrator = [];
         for (var a = 0; a < user_info_obj.length; a++) {
             administrator[a] = {
@@ -31,35 +24,62 @@ app.controller("setting_user_controller", ["_basic", "_config", "$host", "$scope
         for (var i = 0; i < user_info_obj.length; i++) {
             if (user_info_obj[i].type == adminType) {
                 $scope.user_info_section = user_info_obj[i].subType;
+                // 给下拉列表选定初始值
+                $scope.userType = $scope.user_info_section[0].type;
             }
             if (adminType == 99) {
                 $scope.user_info_section = administrator;
+                $scope.userType = $scope.user_info_section[0].type;
             }
         }
-        // console.log("user_info_section", $scope.user_info_section);
+        console.log("user_info_section", $scope.user_info_section);
         return $scope.user_info_section
     };
     user_info_fun();
     // 搜索所有查询
     var searchAll = function () {
+        // 获取所有用户
+        $scope.request = "/user?start=" + $scope.start + "&size=" + $scope.size;
+
+
+        // 判断用户类型，从不同接口参数获取相应用户数据
+        // if (adminType == 99) {
+        //     $scope.request = "/user?start=" + $scope.start + "&size=" + $scope.size;
+        // }
+        // else {
+        //     $scope.request = "/user?type=" + adminType + "&start=" + $scope.start + "&size=" + $scope.size;
+        // }
         _basic.get($host.api_url + $scope.request).then(function (data) {
             if (data.success == true) {
-                // console.log(data)
-                $scope.operator = data.result;
-
+                if ($scope.start > 0) {
+                    $("#pre").removeClass("disabled");
+                } else {
+                    $("#pre").addClass("disabled");
+                }
+                if (data.result.length < $scope.size) {
+                    $("#next").addClass("disabled");
+                } else {
+                    $("#next").removeClass("disabled");
+                }
+                console.log("data",data);
+                // 根据用户可操作权限分配显示的用户列表，过滤掉没有操作权限的用户
+                var machList = [];
+                for (var i = 0; i < data.result.length; i++) {
+                    for (var a = 0; a < $scope.user_info_section.length; a++) {
+                        if (data.result[i].type == $scope.user_info_section[a].type) {
+                            console.log(data.result[i].type);
+                            machList.push(data.result[i]);
+                        }
+                    }
+                }
+                $scope.operator = machList;
+                // $scope.operator = data.result;
+                console.log("operator", $scope.operator);
+                $scope.searchUser();
             } else {
                 swal(data.msg, "", "error");
             }
         });
-
-        // $basic.get($host.api_url+"/admin/"+adminId+"/department").then(function (data) {
-        //     if(data.success==true){
-        //         $scope.department=data.result;
-        //         // console.log($scope.Company);
-        //     }else {
-        //         swal(data.msg,"","error");
-        //     }
-        // })
     };
 
     searchAll();
@@ -182,5 +202,39 @@ app.controller("setting_user_controller", ["_basic", "_config", "$host", "$scope
             })
         }
 
-    }
+    };
+
+    // 点击按钮查询用户
+    $scope.clickSearch = function () {
+        $scope.start = 0;
+        // $scope.searchUser();
+        searchAll();
+    };
+
+    $scope.searchUser = function () {
+        $scope.new_operator = [];
+        // console.log("userType", $scope.userType);
+        if ($scope.userType != undefined && $scope.userType != "") {
+            for (var i = 0; i < $scope.operator.length; i++) {
+                if ($scope.operator[i].type == $scope.userType) {
+                    $scope.new_operator.push($scope.operator[i]);
+                }
+            }
+        }
+        else {
+            $scope.new_operator = $scope.operator;
+        }
+    };
+
+    // 分页
+    $scope.previous_page = function () {
+        $scope.start = $scope.start - $scope.size;
+        searchAll();
+    };
+
+    $scope.next_page = function () {
+        $scope.start = $scope.start + $scope.size;
+        searchAll();
+    };
+
 }]);

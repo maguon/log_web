@@ -1,11 +1,29 @@
-<div class="usersWrap"  >
+<div>
 
     <div class="row">
         <div class="row">
-            <a class="waves-light btn-floating waves-effect btn right  cyan lighten-1"  ng-click="newOperator()">
-                <!--增加操作员-->
-                <i class="mdi mdi-plus"></i>
-            </a>
+            <div class="input-field col s3 offset-s7">
+                <select material-select ng-model="userType">
+                    <!--<option value="">部门</option>-->
+                    <option ng-repeat="user in user_info_section" ng-value={{user.type}}>{{user.name}}</option>
+                </select>
+            </div>
+            <!--<div class="input-field col s1">-->
+                <!--<a ng-click="clickSearch()" class="waves-effect waves-light btn"><i class="mdi mdi-magnify"></i>查询</a>-->
+            <!--</div>-->
+            <div class="col s1 flex flex-round">
+                <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
+                   style="margin-right: 10px" ng-click="clickSearch()">
+                    <i class="mdi mdi-magnify"></i>
+                </a>
+            </div>
+            <div class="col s1 flex flex-round">
+                <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2  btn vc-center"  ng-click="newOperator()">
+                    <!--增加操作员-->
+                    <i class="mdi mdi-plus"></i>
+                </a>
+            </div>
+
             <div id="newOperator" class="modal">
                 <form name="operatorForm" ng-submit="submitForm(operatorForm.$valid)" novalidate>
                     <div class="modal-content">
@@ -84,15 +102,17 @@
                 </thead>
 
                 <tbody>
-                <tr ng-repeat="el in operator" class="grey-text text-darken-1">
+                <tr ng-repeat="el in new_operator" class="grey-text text-darken-1">
                     <td ng-bind="el.real_name"></td>
                     <td  ng-if="el.gender==0">女</td>
                     <td  ng-if="el.gender==1">男</td>
                     <!--<td ng-if="el.type==1">车管部</td>-->
-                    <td ng-if="el.type==99">管理员</td>
-                    <td ng-if="el.type==2">仓储部</td>
-                    <td ng-if="el.type==3">调度部</td>
-                    <td ng-if="el.type==4">国贸部</td>
+                    <!--<td ng-if="el.type==99">管理员</td>-->
+                    <td>{{el.type | department}}</td>
+                    <!--<td ng-if="el.type==29">仓储部管理员</td>-->
+                    <!--<td ng-if="el.type==21">仓储部操作员</td>-->
+                    <!--<td ng-if="el.type==3">调度部</td>-->
+                    <!--<td ng-if="el.type==4">国贸部</td>-->
                     <td ng-bind="el.mobile"></td>
                     <td ng-if="el.status==1">可用</td>
                     <td ng-if="el.status==0">停用</td>
@@ -176,6 +196,16 @@
                 </tbody>
             </table>
 
+        </div>
+        <div class="paging_box col s12">
+            <div class="right">
+                <a class="waves-light waves-effect cyan lighten-1 btn"  id="pre"   ng-click="previous_page()">
+                    上一页
+                </a>
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="next"  ng-click="next_page()">
+                    下一页
+                </a>
+            </div>
         </div>
     </div>
 

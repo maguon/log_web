@@ -33,3 +33,24 @@ CommonFilter.filter("formdate",function () {
         return new_date
     }
 });
+
+// 用户部门过滤器
+CommonFilter.filter("department", function () {
+    return function (input) {
+        var user;
+        switch (input) {
+            case 99:
+                user = "超级管理员";
+                break;
+            case 29:
+                user = "仓储部管理员";
+                break;
+            case 21:
+                user = "仓储部操作员";
+                break;
+            default:
+                user = "未知";
+        }
+        return user;
+    }
+});

@@ -35,7 +35,8 @@ baseService.factory("_config", function () {
         {
             type: 29,
             name: "仓储部管理员",
-            subType: [{type: 21, name: "仓储部操作人员"}]
+            subType: [{type: 21, name: "仓储部操作人员"}],
+            index: 'storage_manager.html'
         }
 
     ];

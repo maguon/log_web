@@ -79,13 +79,6 @@ publicDirective.directive('header', function () {
                 _basic.get($host.api_url + "/user/" + userId).then(function (data) {
                 // $(".shadeDowWrap").hide();
                     if (data.success == true) {
-                        for (var i = 0; i < user_info_obj.length; i++) {
-                            for (var a = 0; a < data.result.length; a++) {
-                                if (user_info_obj[i].type == data.result[a].type) {
-                                    $scope.userName = user_info_obj[i].name;
-                                }
-                            }
-                        }
                         // $scope.userName = data.result[0].name;
                         _basic.setSession(_basic.USER_NAME, $scope.userName);
                         _basic.setHeader(_basic.USER_NAME, $scope.userName);
@@ -93,8 +86,13 @@ publicDirective.directive('header', function () {
                             id:userId,
                             type:userType,
                             name:data.result[0].real_name
-                        }
+                        };
                         _socket.connectSocket(user);
+                        for (var i = 0; i < user_info_obj.length; i++) {
+                            if (user_info_obj[i].type == data.result[0].type) {
+                                $scope.userName = user_info_obj[i].name;
+                            }
+                        }
                     } else {
                         swal(data.msg, "", "error");
                     }

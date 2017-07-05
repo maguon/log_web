@@ -73,12 +73,20 @@ publicDirective.directive('header', function () {
 
                 var userId = _basic.getSession(_basic.USER_ID);
                 var userType = _basic.getSession(_basic.USER_TYPE);
+                var user_info_obj = _config.userTypes;
                 _basic.setHeader(_basic.USER_TYPE, userType);
                 _basic.setHeader(_basic.COMMON_AUTH_NAME,  _basic.getSession(_basic.COMMON_AUTH_NAME) );
                 _basic.get($host.api_url + "/user/" + userId).then(function (data) {
                 // $(".shadeDowWrap").hide();
                     if (data.success == true) {
-                        $scope.userName = data.result[0].mobile;
+                        for (var i = 0; i < user_info_obj.length; i++) {
+                            for (var a = 0; a < data.result.length; a++) {
+                                if (user_info_obj[i].type == data.result[a].type) {
+                                    $scope.userName = user_info_obj[i].name;
+                                }
+                            }
+                        }
+                        // $scope.userName = data.result[0].name;
                         _basic.setSession(_basic.USER_NAME, $scope.userName);
                         _basic.setHeader(_basic.USER_NAME, $scope.userName);
                         var user = {

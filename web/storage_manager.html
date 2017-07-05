@@ -34,21 +34,23 @@
         </div>
     </li>
     <li class="bold side_navigator" >
-        <a class="waves-effect waves-light first-N" ui-sref="storage_index" ><i class="white-text mdi mdi-crop-free "></i>首页</a>
+        <a class="waves-effect waves-light first-N" ui-sref="storage_index" ><i class="white-text mdi mdi-speedometer"></i>主控面板</a>
     </li>
 
     <li class="bold side_navigator" >
         <a  ui-sref="user_info" class=" waves-effect waves-light first-N" ><i class="white-text mdi mdi-account-card-details"></i>用户信息</a>
     </li>
+    <li class="bold side_navigator">
+        <a href="#!" ui-sref="data_dictionary" class=" waves-effect waves-light first-N" ><i class="white-text mdi mdi-book-multiple"></i>数据字典</a>
+    </li>
 
     <li class="bold side_navigator">
         <ul class="collapsible collapsible-accordion">
             <li class="bold">
-                <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-download "></i>数据导入</a>
+                <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-cloud-upload"></i>数据导入</a>
                 <div class="collapsible-body slider_nav_box blue-grey darken-3" style="padding: 0;">
                     <ul>
                         <li><a href="#!" ui-sref="car_to_data"><i class="mdi mdi-chevron-right white-text "></i>仓储车辆信息导入</a></li>
-
                     </ul>
                 </div>
             </li>
@@ -99,7 +101,7 @@
     <li class="bold side_navigator">
         <ul class="collapsible collapsible-accordion">
             <li class="bold">
-                <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-account-settings-variant "></i>管理员设置</a>
+                <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-account-settings-variant "></i>系统设置</a>
                 <div class="collapsible-body blue-grey darken-3" style="padding: 0;">
                     <ul>
                         <li><a href="#!" ui-sref="setting_users"><i class="mdi mdi-chevron-right white-text"></i>用户管理</a></li>
@@ -109,14 +111,11 @@
                         <li><a href="#!" ui-sref="setting_city" ><i class="white-text mdi mdi-chevron-right"></i>城市设置</a></li>
                         <li><a href="#!" ui-sref="setting_client"><i class="white-text mdi mdi-chevron-right"></i>委托方</a></li>
                         <li><a href="#!" ui-sref="setting_dealer" ><i class="white-text mdi mdi-chevron-right"></i>经销商</a></li>
-                        <li><a href="#!" ui-sref="setting_shipments" ><i class="white-text mdi mdi-chevron-right"></i>发货商</a></li>
+                        <li><a href="#!" ui-sref="setting_shipments" ><i class="white-text mdi mdi-chevron-right"></i>发运地</a></li>
                     </ul>
                 </div>
             </li>
         </ul>
-    </li>
-    <li class="bold side_navigator">
-        <a href="#!" ui-sref="data_dictionary" class=" waves-effect waves-light first-N" ><i class="white-text mdi mdi-book-multiple"></i>数据字典</a>
     </li>
 
 </ul>

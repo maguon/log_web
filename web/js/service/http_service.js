@@ -42,10 +42,23 @@ baseService.factory('_basic',['$http','$location','$q',"$cookies",function($http
     };
 
     var fnArray = ['get','delete','jsonp','head','post','put'];
+    // _this.option={
+    //     shade:true
+    // };
     for(var i in fnArray) {
         (function(fn) {
-            _this[fn] = function(url,param) {
-                $(".shadeDowWrap").show();
+            var defaultOptions ={
+                hidenShadow : false
+            };
+            _this[fn] = function(url,param,option) {
+                if(option && option.hidenShadow){
+                    defaultOptions.hidenShadow = option.hidenShadow
+                }
+                if(defaultOptions.hidenShadow==true){
+                    $(".shadeDowWrap").hide();
+                }else {
+                    $(".shadeDowWrap").show();
+                }
                 // url = '/api' + (url[0]==='/'?'':'/') + url;
                 var deferred = $q.defer();
                 //only 'post,put' need 2nd parameter

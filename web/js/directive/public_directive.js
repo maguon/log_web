@@ -91,6 +91,7 @@ publicDirective.directive('header', function () {
                         for (var i = 0; i < user_info_obj.length; i++) {
                             if (user_info_obj[i].type == data.result[0].type) {
                                 $scope.userName = user_info_obj[i].name;
+                                break;
                             }
                         }
                     } else {

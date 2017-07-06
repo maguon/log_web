@@ -51,14 +51,18 @@ app.controller("setting_user_controller", ["_basic", "_config", "$host", "$scope
         _basic.get($host.api_url + $scope.request).then(function (data) {
             if (data.success == true) {
                 if ($scope.start > 0) {
-                    $("#pre").removeClass("disabled");
+                    // $("#pre").removeClass("disabled");
+                    $("#pre").show();
                 } else {
-                    $("#pre").addClass("disabled");
+                    // $("#pre").addClass("disabled");
+                    $("#pre").hide();
                 }
                 if (data.result.length < $scope.size) {
-                    $("#next").addClass("disabled");
+                    // $("#next").addClass("disabled");
+                    $("#next").hide();
                 } else {
-                    $("#next").removeClass("disabled");
+                    // $("#next").removeClass("disabled");
+                    $("#next").show();
                 }
                 // 根据用户可操作权限分配显示的用户列表，过滤掉没有操作权限的用户
                 var machList = [];

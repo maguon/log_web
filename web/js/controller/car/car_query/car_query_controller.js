@@ -89,14 +89,18 @@ app.controller("car_query_controller", ["$scope", "$rootScope", "$host", "_basic
             if (data.success === true) {
 
                 if ($scope.start > 0) {
-                    $("#pre").removeClass("disabled");
+                    // $("#pre").removeClass("disabled");
+                    $("#pre").show();
                 } else {
-                    $("#pre").addClass("disabled");
+                    // $("#pre").addClass("disabled");
+                    $("#pre").hide();
                 }
                 if (data.result.length < $scope.size) {
-                    $("#next").addClass("disabled");
+                    // $("#next").addClass("disabled");
+                    $("#next").hide();
                 } else {
-                    $("#next").removeClass("disabled");
+                    // $("#next").removeClass("disabled");
+                    $("#next").show();
                 }
 
                 $scope.responseData = data.result;

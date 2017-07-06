@@ -45,18 +45,19 @@
                 <div class="row" >
                     <div class=" col s4 p0">
                         <div class=" input-field col s6" ng-class="{'has-error':newStorage_carForm.start_city.$invalid&&submitted }" >
-                            <select material-select watch id="start_city" name="start_city" ng-options="start_city.city_name for start_city in get_city"  ng-model="start_city" required>
+                            <select material-select watch id="start_city" name="start_city" ng-change="start_city_change(start_city.id)" ng-options="start_city.city_name for start_city in get_city"  ng-model="start_city" required>
                                 <option value="" disabled selected>请选择</option>
                                 <!--<option ng-if="start_city.city_status==1" ng-repeat="start_city in get_city" ng-value="start_city.id" >{{start_city.city_name}}</option>-->
                             </select>
                             <label for="start_city">发运地城市</label>
                         </div>
                         <div class="input-field col s6">
-                            <select material-select watch id="arrive_city" name="arrive_city" ng-options="arrive_city.city_name for arrive_city in get_city"  ng-model="arrive_city" >
-                                <option value="" disabled selected>请选择</option>
-                            </select>
-                            <label for="arrive_city">目的地城市</label>
+                        <select material-select watch id="base_addr" name="base_addr" ng-options="base_addr.addr_name for base_addr in baseAddr"  ng-model="base_addr" >
+                        <option value="" disabled selected>请选择</option>
+                        </select>
+                        <label for="base_addr">发运地地址</label>
                         </div>
+
                     </div>
                     <div class="input-field col s4" ng-class="{'has-error':newStorage_carForm.client.$invalid&&submitted }">
                         <select material-select watch id="client" name="client"  ng-model="client" required >
@@ -65,12 +66,21 @@
                         </select>
                         <label for="client">委托方</label>
                     </div>
-                    <div class="input-field col s4">
-                        <select material-select watch id="dealer" name="dealer"  ng-model="dealer">
-                            <option value="" disabled selected>请选择</option>
-                            <option ng-repeat="el in get_receive" ng-value="el.id" >{{el.short_name}}</option>
+                    <div class=" col s4 p0">
+                        <div class="input-field col s6">
+                        <select material-select watch id="arrive_city" name="arrive_city" ng-options="arrive_city.city_name for arrive_city in get_city"  ng-model="arrive_city" >
+                        <option value="" disabled selected>请选择</option>
                         </select>
-                        <label for="dealer">经销商</label>
+                        <label for="arrive_city">目的地城市</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <select material-select watch id="dealer" name="dealer"  ng-model="dealer">
+                                <option value="" disabled selected>请选择</option>
+                                <option ng-repeat="el in get_receive" ng-value="el.id" >{{el.short_name}}</option>
+                            </select>
+                            <label for="dealer">经销商</label>
+                        </div>
+
                     </div>
                 </div>
                 <div class="row  p0 storage_position"  style="padding-bottom: 5px" >

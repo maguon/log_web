@@ -25,7 +25,7 @@ app.controller("setting_dealer_controller",["$scope","_basic","_config","$host",
                 $scope.get_receive=data.result;
             }
         });
-    }
+    };
     // 搜索经销商
     $scope.search_dealer=function () {
              var obj={

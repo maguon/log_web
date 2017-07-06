@@ -7,15 +7,14 @@
         </div>
         <div class="row">
             <div class="divider cyan lighten-2"></div>
-
         </div>
         <div style="width: 75%;margin: 0 auto">
             <div class="row">
                 <a href="" class=" right  btn btn-large btn-floating waves-effect cyan lighten-1 waves-light vc-center open_city "
-                   ng-click="city_box($event)"><i class="mdi mdi-plus"></i></a>
+                   ng-click="city_box()" ng-show="city_btn"><i class="mdi mdi-plus"></i></a>
                 <form name="addCityFrom" ng-submit="add_city(addCityFrom.$valid)" novalidate>
-                    <div class="col s12 z-depth-2 white city_box "
-                         style="padding: 0.75rem 0;display: none"  ng-class="{'has-error':addCityFrom.cityText.$invalid&&submitted}">
+                    <div ng-show="city_box_show" class="col s12 z-depth-2 white city_box "
+                         style="padding: 0.75rem 0;"  ng-class="{'has-error':addCityFrom.cityText.$invalid&&submitted}">
                         <div class="col s1 vc-center" style="height: 45px">
                             <h6 class=" bold cyan-text text-lighten-1" style="min-width: 88px;margin-left: 10px">城市名称:</h6>
                         </div>
@@ -38,8 +37,8 @@
                 <div class="divider"></div>
                 <div style="padding: 1rem;overflow: hidden">
                     <div class="col s12 p0">
-                        <div ng-repeat="el in city_model" class="col s4 " style=" padding:1rem;">
-                            <div class="col s12  city_model_panel valign-wrapper"
+                        <div ng-repeat="el in city_model" class="col s4  " style=" padding:1rem;">
+                            <div class="col s12  city_model_panel z-depth-1 valign-wrapper"
                                  ng-class="{'no_amend_model':el.model_status==0}">
                                 <input type="text" class="city_model_name cyan-text text-lighten-1  city_model_name{{$index}} col s5"
                                        ng-model="el.city_name" readonly="readonly" >

@@ -4,19 +4,21 @@
 app.controller("setting_city_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
         var userId = _basic.getSession(_basic.USER_ID);
             $scope.submitted=false;
+            $scope.city_box_show=false;
+            $scope.city_btn=true;
             // var obj = {
             //     originPassword: $scope.primaryCode,
             //     newPassword: $scope.newCode
             // };
             // 打开汽车品牌
-            $scope.city_box = function ($event) {
-                $($event.target).hide();
-                $(".city_box").show();
+            $scope.city_box = function () {
+                $scope.city_btn=false;
+                $scope.city_box_show=true;
             };
             // 关闭汽车品牌
             $scope.closeCity = function () {
-                $(".open_city").show();
-                $(".city_box").hide();
+                $scope.city_box_show=false;
+                $scope.city_btn=true;
                 $scope.cityText = "";
                 $scope.submitted=false;
             };

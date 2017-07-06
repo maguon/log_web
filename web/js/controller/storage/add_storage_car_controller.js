@@ -68,7 +68,15 @@ app.controller("add_storage_car_controller", ["$scope", "$rootScope","$state","$
         $("#test1").show();
     };
     $scope.get_Msg();
-
+    
+    $scope.start_city_change=function (val) {
+        _basic.get($host.api_url + "/baseAddr?cityId=" + val).then(function (data) {
+            if(data.success==true){
+                // console.log(data.result)
+                $scope.baseAddr=data.result;
+            }
+        })
+    };
     // 存放位置联动查询--行
     $scope.changeStorageId = function (val) {
         if (val) {
@@ -112,8 +120,9 @@ app.controller("add_storage_car_controller", ["$scope", "$rootScope","$state","$
                 "routeStart": $scope.start_city.city_name,
                 "routeEndId": $scope.arrive_city.id,
                 "routeEnd": $scope.arrive_city.city_name,
-                "receiveId": $scope.client,
-                "entrustId": $scope.dealer,
+                "receiveId":$scope.dealer,
+                "entrustId": $scope.client,
+                "baseAddrId":$scope.base_addr.id,
                 "remark": $scope.remark,
                 "storageId": $scope.storage_name.id,
                 "storageName": $scope.storage_name.storage_name,

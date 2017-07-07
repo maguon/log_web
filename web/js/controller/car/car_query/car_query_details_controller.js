@@ -13,7 +13,7 @@ app.controller("car_query_details_controller", ["$scope", "$stateParams", "$host
         _basic.get($host.api_url + "/carList?" + "vin=" + vin).then(function (carData) {
             if (carData.success === true) {
                 $scope.vincodeList = carData.result;
-                console.log("vin:", carData.result);
+                // console.log("vin:", carData.result);
             }
             else {
                 swal(carData.msg, "", "error");
@@ -27,12 +27,14 @@ app.controller("car_query_details_controller", ["$scope", "$stateParams", "$host
         _basic.get($host.record_url + "/user/" + userId + "/car/" + carId + "/record").then(function (recordData) {
             if (recordData.success === true) {
                 $scope.recordList = recordData.result[0].comment;
+                console.log("recordList",$scope.recordList);
                 // 将数组里的图片有效路径转为正确路径,并添加用户名
                 for (var i = 0; i < recordData.result[0].storage_image.length; i++) {
                     recordData.result[0].storage_image[i].url = $host.file_url + '/image/' + recordData.result[0].storage_image[i].url
                     recordData.result[0].storage_image[i].user = $scope.recordList[0].name;
                 }
                 $scope.imageList = recordData.result[0].storage_image;
+                console.log("imageList_url",$scope.imageList)
                 // console.log("recordList666:", $scope.recordList);
                 // console.log("imageList", $scope.imageList);
             }
@@ -105,9 +107,10 @@ app.controller("car_query_details_controller", ["$scope", "$stateParams", "$host
                             $scope.imageList.push({
                                 url: $host.file_url + '/image/' + imageId,
                                 record_id: $scope._id,
-                                time: nowDate,
-                                user: _basic.getSession(_basic.USER_NAME)
+                                timez: nowDate,
+                                name: _basic.getSession(_basic.USER_NAME)
                             });
+                            console.log("imageList_push",$scope.imageList)
                         }
                     });
                 } else {

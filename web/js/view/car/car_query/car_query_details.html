@@ -6,7 +6,7 @@
                 <i class="valign mdi mdi-arrow-left-bold"></i>
             </a>
             <h4 class="center-align cyan-text text-lighten-1">车辆信息</h4>
-        </div>
+        </div> 
         <div class="col s12 p0">
             <ul class="tabWrap grey lighten-4">
                 <li class="tab col s6  basicInfo vc-center active" ng-click="basicInfo()">基本信息</li>
@@ -46,19 +46,23 @@
             <div class="row">
                 <div class="col s12">
                     <div class="input-field col s4">
-                        <input id="receive" type="text" ng-model="vincodeList[0].re_short_name" disabled>
-                        <label for="receive">经销商</label>
+                        <input id="entrust" type="text" ng-model="vincodeList[0].en_short_name" disabled>
+                        <label for="entrust">委托方</label>
                     </div>
                     <div class="row col s8">
-                        <div class="input-field col s4">
-                            <input id="entrust" type="text" ng-model="vincodeList[0].en_short_name" disabled>
-                            <label for="entrust">委托方</label>
+                        <div class="input-field col s3">
+                            <input id="order_add" type="text" ng-model="vincodeList[0].addr_name" disabled>
+                            <label for="order_add">发运地地址</label>
                         </div>
-                        <div class="input-field col s4">
+                        <div class="input-field col s3">
                             <input id="order_start" type="text" ng-model="vincodeList[0].route_start" disabled>
                             <label for="order_start">发运地名称</label>
                         </div>
-                        <div class="input-field col s4">
+                        <div class="input-field col s3">
+                            <input id="receive" type="text" ng-model="vincodeList[0].re_short_name" disabled>
+                            <label for="receive">经销商</label>
+                        </div>
+                        <div class="input-field col s3">
                             <input id="order_end" type="text" ng-model="vincodeList[0].route_end" disabled>
                             <label for="order_end">目的地城市</label>
                         </div>
@@ -68,11 +72,10 @@
             <div class="row">
                 <p class="col s12" style="color: #26c6da">操作记录:</p>
                 <div class="col s12 valign-wrapper" ng-repeat="record in recordList">
-                    <p>{{record.timez | date:'yyyy-MM-dd HH:mm:ss' + "&emsp;" + record.content}}&emsp;&emsp;<span>操作员：{{record.type | department}}</span>
+                    <p>{{record.timez | date:'yyyy-MM-dd HH:mm:ss' + "&emsp;" + record.content}}&emsp;&emsp;<span>操作员：{{record.name}}</span>
                     </p>
                 </div>
             </div>
-
 
             <div class="row">
                 <p class="col s12" style="color: #26c6da;display: block;width: 100px">备注:</p>

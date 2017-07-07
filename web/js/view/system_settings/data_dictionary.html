@@ -13,7 +13,7 @@
     <table class="dic_table striped z-depth-1" border="1">
         <thead>
         <tr style="background-color: #c8c8c8;color: white;font-size: 16px">
-            <th width="150px" data-field="id">{{clickStatus === "city" ? "城市编号" : clickStatus === "entrust" ? "委托方编号" : clickStatus === "receive" ? "经销商编号" :clickStatus === "dispatch" ? "发运地编号": "车辆编号"}}</th>
+            <th width="150px" data-field="id">{{clickStatus === "city" ? "城市编号" : clickStatus === "entrust" ? "委托方编号" : clickStatus === "receive" ? "经销商编号" :clickStatus === "dispatch" ? "发运地编号": "品牌编号"}}</th>
             <th ng-if="flag" width="250px" data-field="id">{{clickStatus === "city" ? "城市简称" : clickStatus === "entrust" ? "委托方简称" : "经销商简称"}}</th>
             <th data-field="name">{{clickStatus === "city" ? "城市名称" : clickStatus === "entrust" ? "委托方名称" : clickStatus === "receive" ? "经销商名称" :clickStatus === "dispatch" ? "发运地名称": "车辆品牌"}}</th>
             <th ng-if="city_details">城市编号</th>

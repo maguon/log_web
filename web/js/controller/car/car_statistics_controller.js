@@ -21,7 +21,6 @@ app.controller("car_statistics_controller", ["$scope", "_basic", "_config", "$ho
                     if (cityData.result[c].route_end == null) {
                         cityData.result[c].route_end = "未知";
                     }
-
                 }
 
                 // 城市数据转换
@@ -35,7 +34,7 @@ app.controller("car_statistics_controller", ["$scope", "_basic", "_config", "$ho
                     }
                 }
 
-                // 计算车辆总数
+                // 计算始发站车辆总数
                 for (var dateTime in $scope.cityList) {
                     var num = 0;
                     for (var f = 0; f < $scope.cityList[dateTime].length; f++) {
@@ -43,7 +42,7 @@ app.controller("car_statistics_controller", ["$scope", "_basic", "_config", "$ho
                     }
                     $scope.cityList[dateTime].total = num;
                 }
-
+                // 初始显示城市信息
                 $scope.getCity();
             }
             else {
@@ -54,6 +53,7 @@ app.controller("car_statistics_controller", ["$scope", "_basic", "_config", "$ho
         // 获取指令时间数据
         _basic.get($host.api_url + "/carOrderDateCount").then(function (dateData) {
             if (dateData.success === true) {
+                // console.log("dateData",dateData.result);
                 // 转换日期格式,并且为日期为null时改为未知
                 for (var c = 0; c < dateData.result.length; c++) {
                     // var date = new Date(dateData.result[c].order_date);
@@ -71,7 +71,7 @@ app.controller("car_statistics_controller", ["$scope", "_basic", "_config", "$ho
 
                 }
 
-                // 转换数据格式
+                // 指令时间数据转换
                 $scope.dateList = {};
                 for (var a = 0; a < dateData.result.length; a++) {
                     if ($scope.dateList[dateData.result[a].order_date] == null) {
@@ -81,8 +81,9 @@ app.controller("car_statistics_controller", ["$scope", "_basic", "_config", "$ho
                         $scope.dateList[dateData.result[a].order_date].push(dateData.result[a]);
                     }
                 }
+                // console.log("dateList",$scope.dateList);
 
-                // 计算车辆总数
+                // 计算指令时间车辆总数
                 for (var dateTime in $scope.dateList) {
                     var num = 0;
                     for (var f = 0; f < $scope.dateList[dateTime].length; f++) {
@@ -124,6 +125,7 @@ app.controller("car_statistics_controller", ["$scope", "_basic", "_config", "$ho
         $scope.flag = true;
         $scope.otherFlag = false;
         $scope.listInfo = $scope.cityList;
+        // console.log("cityList",$scope.cityList);
     };
 
     $scope.getDestination = function () {
@@ -131,6 +133,7 @@ app.controller("car_statistics_controller", ["$scope", "_basic", "_config", "$ho
         $scope.flag = true;
         $scope.otherFlag = false;
         $scope.listInfo = $scope.dateList;
+        // console.log("dateList",$scope.dateList);
     };
 
     $scope.getReceive = function () {

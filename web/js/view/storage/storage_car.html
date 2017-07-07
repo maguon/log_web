@@ -67,14 +67,14 @@
                         <option value="" class="cyan-text text-lighten-2"  selected>请选择</option>
                         <option ng-repeat="el in get_city" ng-value="el.id">{{el.city_name}}</option>
                     </select>
-                    <label for="source_city">发运地</label>
+                    <label for="source_city">发运地城市</label>
                 </div>
                 <div class="input-field col s2">
                     <select material-select watch id="arrive_city" ng-model="arrive_city" >
                         <option value="" class="cyan-text text-lighten-2"  selected>请选择</option>
                         <option ng-repeat="el in get_city" ng-value="el.id">{{el.city_name}}</option>
                     </select>
-                    <label for="arrive_city">目的地</label>
+                    <label for="arrive_city">目的地城市</label>
                 </div>
                 <div class="input-field col s2">
                     <select material-select watch id="client" ng-model="client" >
@@ -321,63 +321,6 @@
                     <td ng-bind="el.real_out_time|date:'yyyy-MM-dd '"></td>
                     <td class="operation">
                         <a href="#" ui-sref="storage_car_details_({id:el.id,vin:el.vin,from:'storage_car',mark:1,status:el.rel_status})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1  " ></i></a>
-                        <span >
-                            <i ng-if="el.rel_status==1" class="mdi mdi-logout cyan-text lighten-1" ng-click="outStorageCar(el.r_id,2,el.p_id,el.storage_id,el.id)" ></i>
-                            <i ng-if="el.rel_status==2" class="mdi mdi-login cyan-text lighten-1" ng-click="loginStorageCar(el.vin,el.id)"></i>
-                                <div id="loginStorageCar" class="modal modal-fixed-footer ">
-                            <form name="login_garageForm" ng-submit="login_submit(login_garageForm.$valid,login_storage_name.id,login_storage_name.storage_name,login_parkingId,login_planOutTime)" novalidate>
-                                <div class="modal-content">
-                                    <h4 class="center-align">车辆入库</h4>
-                                    <div class="row">
-                                        <div class="input-field col s4">
-                                            <select material-select watch name="login_storage_name" ng-change="changeStorageId(login_storage_name.id)" ng-options="o.storage_name for o in storageName|filter:{storage_status:'1'}" ng-model="login_storage_name" required>
-                                                <option value=""  selected>请选择</option>
-                                                <!--<option ng-repeat="el in storageName" ng-value="el.id">{{el.storage_name}}</option>-->
-                                            </select>
-                                            <label >车库</label>
-                                        </div>
-                                        <div class="input-field col s4">
-                                            <select material-select watch name="login_storageRow" ng-model="login_storageRow" ng-change="changeStorageRow(login_storageRow,parkingArray)" required>
-                                                <option value=""  selected>请选择</option>
-                                                <option ng-repeat="el in parkingArray" ng-value="el.row">{{el.row}}</option>
-                                            </select>
-                                            <label >排</label>
-                                        </div>
-                                        <div class="input-field col s4">
-                                            <select material-select watch ng-model="login_parkingId"  name="login_parkingId" required>
-                                                <option value=""  selected>请选择</option>
-                                                <!--<option ng-repeat="el in colArr" ng-value="el.id">{{el.col}}</option>-->
-                                                <option ng-repeat="el in colArr" ng-if="el.carId==0"  ng-value="el.id" >{{el.col}}</option>
-                                                <option ng-repeat="el in colArr" ng-if="el.carId!=0" disabled  >{{el.col}}</option>
-                                            </select>
-                                            <label >道位</label>
-                                        </div>
-                                        <!--<div class="col s4 vc-center">-->
-                                             <!--<div class="col s4 p0 cyan-text text-lighten-1 bold" style="min-width: 100px;font-size: 13px"  >计划出库时间:</div>-->
-                                            <!--<div class="col input-field s8 no-mp" ng-class="{'has-error':login_garageForm.login_planOutTime.$invalid&&submitted }">-->
-                                                <!--<input type="text" name="login_planOutTime" ng-model="login_planOutTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>-->
-
-                                            <!--</div>-->
-                                        <!--</div>-->
-
-                                    </div>
-
-                                 <div class="divider" style="background: #00bcd4;height: 2px;"></div>
-                                </div>
-                                 <div class="modal-footer vc-center">
-                                    <a  class=" modal-action modal-close waves-effect  grey lighten-1waves-light   btn" style="margin-right: 10px" >
-                                        <!--<i class="mdi mdi-close"></i>-->
-                                        取消
-                                    </a>
-                                    <button class="btn waves-light waves-effect  cyan lighten-1" type="submit" name="action" >
-                                        <!--<i class="mdi mdi-trending-neutral"></i>-->
-                                        确定
-                                    </button>
-                                </div>
-                            </form>
-
-                        </div>
-                        </span>
                         <span>
                             <i ng-if="el.rel_status==1" class="mdi mdi-rotate-left cyan-text lighten-1" ng-click="changeStorageCar(el.storage_id,el.id,el.row,el.col)"></i>
                         </span>
@@ -436,7 +379,63 @@
                             </form>
 
                         </div>
+                        <span >
+                            <i ng-if="el.rel_status==1" class="mdi mdi-logout cyan-text lighten-1" ng-click="outStorageCar(el.r_id,2,el.p_id,el.storage_id,el.id)" ></i>
+                            <i ng-if="el.rel_status==2" class="mdi mdi-login cyan-text lighten-1" ng-click="loginStorageCar(el.vin,el.id)"></i>
+                                <div id="loginStorageCar" class="modal modal-fixed-footer ">
+                            <form name="login_garageForm" ng-submit="login_submit(login_garageForm.$valid,login_storage_name.id,login_storage_name.storage_name,login_parkingId,login_planOutTime)" novalidate>
+                                <div class="modal-content">
+                                    <h4 class="center-align">车辆入库</h4>
+                                    <div class="row">
+                                        <div class="input-field col s4">
+                                            <select material-select watch name="login_storage_name" ng-change="changeStorageId(login_storage_name.id)" ng-options="o.storage_name for o in storageName|filter:{storage_status:'1'}" ng-model="login_storage_name" required>
+                                                <option value=""  selected>请选择</option>
+                                                <!--<option ng-repeat="el in storageName" ng-value="el.id">{{el.storage_name}}</option>-->
+                                            </select>
+                                            <label >车库</label>
+                                        </div>
+                                        <div class="input-field col s4">
+                                            <select material-select watch name="login_storageRow" ng-model="login_storageRow" ng-change="changeStorageRow(login_storageRow,parkingArray)" required>
+                                                <option value=""  selected>请选择</option>
+                                                <option ng-repeat="el in parkingArray" ng-value="el.row">{{el.row}}</option>
+                                            </select>
+                                            <label >排</label>
+                                        </div>
+                                        <div class="input-field col s4">
+                                            <select material-select watch ng-model="login_parkingId"  name="login_parkingId" required>
+                                                <option value=""  selected>请选择</option>
+                                                <!--<option ng-repeat="el in colArr" ng-value="el.id">{{el.col}}</option>-->
+                                                <option ng-repeat="el in colArr" ng-if="el.carId==0"  ng-value="el.id" >{{el.col}}</option>
+                                                <option ng-repeat="el in colArr" ng-if="el.carId!=0" disabled  >{{el.col}}</option>
+                                            </select>
+                                            <label >道位</label>
+                                        </div>
+                                        <!--<div class="col s4 vc-center">-->
+                                        <!--<div class="col s4 p0 cyan-text text-lighten-1 bold" style="min-width: 100px;font-size: 13px"  >计划出库时间:</div>-->
+                                        <!--<div class="col input-field s8 no-mp" ng-class="{'has-error':login_garageForm.login_planOutTime.$invalid&&submitted }">-->
+                                        <!--<input type="text" name="login_planOutTime" ng-model="login_planOutTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>-->
 
+                                        <!--</div>-->
+                                        <!--</div>-->
+
+                                    </div>
+
+                                 <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+                                </div>
+                                 <div class="modal-footer vc-center">
+                                    <a  class=" modal-action modal-close waves-effect  grey lighten-1waves-light   btn" style="margin-right: 10px" >
+                                        <!--<i class="mdi mdi-close"></i>-->
+                                        取消
+                                    </a>
+                                    <button class="btn waves-light waves-effect  cyan lighten-1" type="submit" name="action" >
+                                        <!--<i class="mdi mdi-trending-neutral"></i>-->
+                                        确定
+                                    </button>
+                                </div>
+                            </form>
+
+                        </div>
+                        </span>
                     </td>
                 </tr>
 

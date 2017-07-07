@@ -230,12 +230,25 @@ app.controller("add_storage_car_controller", ["$scope", "$rootScope","$state","$
                         $scope.storage_image_i.splice(i,1);
                         swal("删除成功!", "", "success");
                         // $scope.lookStorageCar(data.result.id,data.result.vin)
+                    }else {
+                        swal(data.msg,"","error")
                     }
                 })
             }
         )
 
     };
+    // 目的地城市-经销商联动
+    $scope.get_received=function (id){
+        _basic.get($host.api_url+"/receive?cityId="+id).then(function (data) {
+            if(data.success==true){
+                $scope.get_receive=data.result;
+            }else {
+                swal(data.msg,"","error")
+            }
+        })
+
+    }
     // 返回
     $scope.return = function () {
         // console.log($stateParams.mark);

@@ -477,9 +477,11 @@ input[type=text]{
 .has-error textarea{
     border: 1px solid red;
 }
+.has-error .select-wrapper input{
+    border-bottom: 1px solid red;
+}
 .has-inputError{
     border: 1px solid red;
-
 }
 .form_box{
     position: relative;

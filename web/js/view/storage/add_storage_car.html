@@ -51,13 +51,13 @@
                             </select>
                             <label for="start_city">发运地城市</label>
                         </div>
-                        <div class="input-field col s6">
-                        <select material-select watch id="base_addr" name="base_addr" ng-options="base_addr.addr_name for base_addr in baseAddr"  ng-model="base_addr" >
+                        <div class="input-field col s6" ng-class="{'has-error':newStorage_carForm.base_addr.$invalid&&submitted}">
+                        <select material-select watch id="base_addr" name="base_addr" ng-options="base_addr.addr_name for base_addr in baseAddr" required  ng-model="base_addr" >
                         <option value="" disabled selected>请选择</option>
                         </select>
                         <label for="base_addr">发运地地址</label>
                         </div>
-
+                        
                     </div>
                     <div class="input-field col s4" ng-class="{'has-error':newStorage_carForm.client.$invalid&&submitted }">
                         <select material-select watch id="client" name="client"  ng-model="client" required >
@@ -68,7 +68,7 @@
                     </div>
                     <div class=" col s4 p0">
                         <div class="input-field col s6">
-                        <select material-select watch id="arrive_city" name="arrive_city" ng-options="arrive_city.city_name for arrive_city in get_city"  ng-model="arrive_city" >
+                        <select material-select watch id="arrive_city" name="arrive_city" ng-change="get_received(arrive_city.id)" ng-options="arrive_city.city_name for arrive_city in get_city"  ng-model="arrive_city" >
                         <option value="" disabled selected>请选择</option>
                         </select>
                         <label for="arrive_city">目的地城市</label>
@@ -80,7 +80,6 @@
                             </select>
                             <label for="dealer">经销商</label>
                         </div>
-
                     </div>
                 </div>
                 <div class="row  p0 storage_position"  style="padding-bottom: 5px" >

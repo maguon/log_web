@@ -82,6 +82,7 @@ publicDirective.directive('header', function () {
                         // $scope.userName = data.result[0].name;
                         _basic.setSession(_basic.USER_NAME, $scope.userName);
                         _basic.setHeader(_basic.USER_NAME, $scope.userName);
+                        _basic.setSession(_basic.USER_NAME, data.result[0].real_name);
                         var user = {
                             id:userId,
                             type:userType,

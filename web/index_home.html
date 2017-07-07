@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/assets/css/col.css">
     <link rel="stylesheet" href="/assets/css/font.css">
     <link rel="icon" href="/assets/images/ico/storage_32.ico">
+
 </head>
 <body>
 <header type="99" url="../assets/images/my_logo.png"></header>
@@ -149,10 +150,11 @@
     </div>
     </h1>
 </div>
-    <div class="footer blue-grey darken-1">
+<div class="footer blue-grey darken-1">
         <h5 class="footer-msg right">洺源信息技术</h5>
         <h5 class="footer-msg right">物流系统1.0</h5>
     </div>
+</body>
 <div class="shadeDowWrap">
     <div class="shadeDow vc-center">
         <div class="preloader-wrapper big active ">
@@ -168,10 +170,10 @@
         </div>
     </div>
 </div>
-</body>
-<!--<script src="/assets/plugins/lodash.core.min.js"></script>-->
-<!--<script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>-->
-
+<script>
+//  动态求出主体内容高度，防止遮罩层溢出
+    document.getElementsByClassName("ConWrap")[0].style.height=document.body.scrollHeight-50-70+"px";
+</script>
 <script src="/lib/jquery.min.js"></script>
 <script src="/lib/jquery.form.min.js"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=8iGBbYV3ghkvGehg79nG5LaGX2vVawjG"></script>
@@ -240,6 +242,5 @@
 <script src="/js/host/host_config.js"></script>
 <script src="/js/directive/admin_directive.js"></script>
 <script src="/js/router/index_router.js"></script>
-
 <!--<script src="/config.js"></script>-->
 </html>

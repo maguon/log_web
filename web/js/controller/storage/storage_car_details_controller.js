@@ -12,7 +12,6 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
         $('.logout').tooltip({delay: 50});
     });
 
-
     // var name= $stateParams.name;
 
     // 信息获取
@@ -75,7 +74,7 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
             var filename = $(dom).val();
             if(filename){
                 console.log($(dom).val());
-                if ((/\.(jpe?g|png|gif|svg|bmp|tiff?)$/i).test(filename)) {
+                if ((/\.(jpe?g|png|gif|svg|bmp|tiff?)$/i).test(filename)){
                     //check size
                     //$file_input[0].files[0].size
                     var max_size_str = $(dom).attr('max_size');
@@ -84,18 +83,15 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
                     if (re.test(max_size_str)) {
                         max_size = parseInt(max_size_str.substring(0, max_size_str.length - 1)) * 1024 * 1024;
                     }
-
                     if ($(dom)[0].files[0].size > max_size) {
                         swal('图片文件最大: ' + max_size_str, "", "error");
                         return false;
                     }
-
                 }
                 else if (filename && filename.length > 0) {
                     $(dom).val('');
                     swal('支持的图片类型为. (jpeg,jpg,png,gif,svg,bmp,tiff)', "", "error");
                 }
-
                 _basic.formPost($(dom).parent().parent(), $host.file_url + '/user/' + userId + '/image?imageType=4', function (data) {
                     if (data.success) {
                         console.log(data, $scope.Picture_carId);
@@ -325,16 +321,22 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
                 // 车辆id
                 $scope.look_car_id = $scope.self_car.id;
                 // 城市
-                for(var i=0;i<$scope.get_city.length;i++){
-                    if($scope.get_city[i].id==$scope.self_car.route_start_id){
-                        $scope.select_city_start=$scope.get_city[i];
-                    }
-                    if($scope.get_city[i].id==$scope.self_car.route_end_id){
-                        $scope.select_city_end=$scope.get_city[i];
-                    }
-                }
-                $scope.start_city= $scope.select_city_start;
-                $scope.arrive_city= $scope.select_city_end;
+                setTimeout(function () {
+                    $scope.get_city.forEach(function (val) {
+                        if(val.id==$scope.self_car.route_start_id){
+                            $scope.select_city_start=val;
+                        }
+                        if(val.id==$scope.self_car.route_end_id){
+                            $scope.select_city_end=val;
+                        }
+                    });
+                    $scope.start_city= $scope.select_city_start;
+                    $scope.get_addr($scope.start_city.id);
+                    $scope.start_addr= $scope.self_car.base_addr_id;
+                    $scope.arrive_city= $scope.select_city_end;
+                },100);
+
+
             } else {
                 swal(data.msg, "", "error")
             }
@@ -376,6 +378,13 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
     // 修改仓库详情
     $scope.submitForm = function (isValid, id, r_id) {
         $scope.submitted = true;
+        if($scope.arrive_city==""){
+            $scope.arrive_city.id="";
+            $scope.arrive_city.city_name="";
+        }
+        if($scope.receiveId==""){
+
+        }
         var obj = {
             "vin": $scope.self_car.vin,
             "makeId": $scope.self_car.make_id,
@@ -384,18 +393,19 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
             "remark": $scope.self_car.remark,
             "routeStartId": $scope.start_city.id,
             "routeStart": $scope.start_city.city_name,
+            "baseAddrId":$scope.start_addr,
             "routeEndId": $scope.arrive_city.id,
             "routeEnd": $scope.arrive_city.city_name,
             "receiveId": $scope.self_car.receive_id,
             "entrustId": $scope.self_car.entrust_id,
         };
         if (isValid) {
-            // 修改计划出库时间
-            _basic.put($host.api_url + "/user/" + userId + "/carStorageRel/" + r_id + "/planOutTime", {
-                "planOutTime": $scope.self_car.plan_out_time
-            }).then(function (data) {
-                console.log(data)
-            });
+            // // 修改计划出库时间
+            // _basic.put($host.api_url + "/user/" + userId + "/carStorageRel/" + r_id + "/planOutTime", {
+            //     "planOutTime": $scope.self_car.plan_out_time
+            // }).then(function (data) {
+            //     console.log(data)
+            // });
             // 修改仓库信息
             _basic.put($host.api_url + "/user/" + userId + "/car/" + id, _basic.removeNullProps(obj)).then(function (data) {
                 if (data.success == true) {
@@ -407,6 +417,18 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
                 }
             });
         }
+    };
+
+    // 目的地城市-经销商联动
+    $scope.get_received=function (id){
+        _basic.get($host.api_url+"/receive?cityId="+id).then(function (data) {
+            if(data.success==true){
+                $scope.get_receive=data.result;
+            }else {
+                swal(data.msg,"","error")
+            }
+        })
+
     };
     // 仓库移位
     $scope.move_box = function (val) {
@@ -461,6 +483,16 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
 
 
     };
+    // 发运地城市地质联动
+    $scope.get_addr=function (id) {
+        _basic.get($host.api_url + "/baseAddr?cityId=" + id).then(function (data) {
+            if (data.success == true) {
+                $scope.start_address=data.result;
+            } else {
+                swal(data.msg, "", "error")
+            }
+        })
+    }
     // 车辆出库
     $scope.out_storage = function (rel_id, p_id, s_id, car_id) {
         swal({

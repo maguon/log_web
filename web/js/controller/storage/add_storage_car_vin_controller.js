@@ -18,7 +18,7 @@ app.controller("add_storage_car_vin_controller", ["$scope", "$rootScope","$state
         // console.log($scope.demand_vin);
         if($scope.demand_vin!=undefined){
             if($scope.demand_vin.length>=6){
-                _basic.get($host.api_url+"/carList?vinCode="+$scope.demand_vin).then(function (data) {
+                _basic.get($host.api_url+"/carList?vinCode="+$scope.demand_vin,{},{hidenShadow:true}).then(function (data) {
                     if(data.success==true&&data.result.length>0){
                         $scope.vin_msg=data.result
                         vinObjs ={};

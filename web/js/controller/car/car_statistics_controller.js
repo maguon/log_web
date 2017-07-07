@@ -56,9 +56,9 @@ app.controller("car_statistics_controller", ["$scope", "_basic", "_config", "$ho
                 // console.log("dateData",dateData.result);
                 // 转换日期格式,并且为日期为null时改为未知
                 for (var c = 0; c < dateData.result.length; c++) {
-                    // var date = new Date(dateData.result[c].order_date);
-                    if (dateData.result[c].order_date == null) {
-                        dateData.result[c].order_date = "未知";
+                    // var date = new Date(dateData.result[c].group_day);
+                    if (dateData.result[c].group_day == null) {
+                        dateData.result[c].group_day = "未知";
                     }
 
                     if (dateData.result[c].route_start == null) {
@@ -74,11 +74,11 @@ app.controller("car_statistics_controller", ["$scope", "_basic", "_config", "$ho
                 // 指令时间数据转换
                 $scope.dateList = {};
                 for (var a = 0; a < dateData.result.length; a++) {
-                    if ($scope.dateList[dateData.result[a].order_date] == null) {
-                        $scope.dateList[dateData.result[a].order_date] = [dateData.result[a]];
+                    if ($scope.dateList[dateData.result[a].group_day] == null) {
+                        $scope.dateList[dateData.result[a].group_day] = [dateData.result[a]];
                     }
                     else {
-                        $scope.dateList[dateData.result[a].order_date].push(dateData.result[a]);
+                        $scope.dateList[dateData.result[a].group_day].push(dateData.result[a]);
                     }
                 }
                 // console.log("dateList",$scope.dateList);

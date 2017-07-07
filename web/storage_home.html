@@ -81,7 +81,6 @@
     <li class="bold side_navigator" >
         <a  ui-sref="user_info" class=" waves-effect waves-light first-N" ><i class="white-text mdi mdi-account-card-details"></i>用户信息</a>
 
-
     </li>
 
 </ul>
@@ -92,6 +91,7 @@
     </h1>
 </div>
 
+</body>
 <div class="shadeDowWrap" >
     <div class="shadeDow vc-center">
         <div class="preloader-wrapper big active ">
@@ -107,7 +107,9 @@
         </div>
     </div>
 </div>
-</body>
+<script>
+    document.getElementsByClassName("ConWrap")[0].style.height=document.body.scrollHeight-50-70+"px";
+</script>
 <script src="/assets/plugins/fullcalendar-3.3.0/lib/moment.min.js"></script>
 <script src="/lib/jquery.min.js"></script>
 <script src="/lib/jquery.form.min.js"></script>

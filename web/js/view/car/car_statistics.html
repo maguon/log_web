@@ -8,7 +8,7 @@
     <div class="row" ng-repeat="(cityName, dateList) in listInfo" ng-if="flag">
         <nav class="car_nav" ng-if="flag">
             <div class="nav-wrapper" style="line-height: 40px">
-                <a href="javascript:void(0)" class="brand-logo" style="font-size: 1.3rem;text-indent: 10px">{{clickStatus === "city" ? "始发站: " + cityName:"指令时间: " + listInfo[cityName][0].order_date}}</a>
+                <a href="javascript:void(0)" class="brand-logo" style="font-size: 1.3rem;text-indent: 10px">{{clickStatus === "city" ? "始发站: " + cityName:"指令时间: " + listInfo[cityName][0].group_day}}</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <!--<input type="hidden" ng-model="total">-->
                     <li><a href="javascript:void(0)">{{"共 " + listInfo[cityName].total + " 辆"}}</a></li>

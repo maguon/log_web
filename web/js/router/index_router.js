@@ -47,19 +47,19 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'truck_hand_controller'
         })
         // 车管
-        .state("car_sv_driver", {
-            url: "/car_sv_driver",  //路由路径
-            templateUrl: "js/view/car/car_supervise/driver.html", //路由填充的模板
-            controller:"car_sv_driver_controller"
-        })
+        // .state("car_sv_driver", {
+        //     url: "/car_sv_driver",  //路由路径
+        //     templateUrl: "js/view/car/car_supervise/driver.html", //路由填充的模板
+        //     controller:"car_sv_driver_controller"
+        // })
 
         // 公司
-        .state("company", {
-            url: "/company",  //路由路径
-            templateUrl: "js/view/company/company.html", //路由填充的模板
-            // abstract:true,
-            controller:"company_controller"
-        })
+        // .state("company", {
+        //     url: "/company",  //路由路径
+        //     templateUrl: "js/view/company/company.html", //路由填充的模板
+        //     // abstract:true,
+        //     controller:"company_controller"
+        // })
         .state("malfunction", {
             url: "/malfunction",  //路由路径
             templateUrl: "js/view/car/malfunction.html", //路由填充的模板
@@ -254,5 +254,26 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             url:"/demand_car_details/{id}/vin/{vin}?from",
             templateUrl: "js/view/car/car_demand/demand_car_details.html",
             controller:'demand_car_details_controller'
-        });
+        })
+    // 车管
+        .state("truck_details",{
+            url:"/truck_details",
+            templateUrl: "js/view/truck/truck_details.html",
+            // controller:'truck_details_controller'
+        })
+        .state("truck_company",{
+            url:"/truck_company",
+            templateUrl: "js/view/truck/truck_company.html",
+            controller:'truck_company_controller'
+        })
+        .state("truck_driver",{
+            url:"/truck_driver",
+            templateUrl: "js/view/truck/truck_driver.html",
+            // controller:'truck_driver_controller'
+        })
+        .state("truck_insurance",{
+            url:"/truck_insurance",
+            templateUrl: "js/view/truck/truck_insurance.html",
+            // controller:'truck_insurance_controller'
+        })
 }]);

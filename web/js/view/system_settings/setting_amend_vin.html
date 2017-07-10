@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="row  mp-50" >
-                    <div class="divider"></div>
+                    <!--<div class="divider"></div>-->
                     <div style="width: 80%;height: 30ex;margin: 0 auto">
                         <p style="display: none" class="no_car_detail center-align cyan-text text-lighten-1 mp-50">无该VIN码车辆信息</p>
                         <div style="display: none" class="car_detail mp-50">
@@ -44,26 +44,26 @@
                             <div class="divider" style="margin: 0 0 30px 0"></div>
                             <div class="row">
                                 <div class="col s4">
-                                    <span class="cyan-text text-lighten-1 ">发动机号:</span>
-                                    <span ng-cloak class="grey-text">{{car_details.engine_num}}</span>
+                                    <span class="cyan-text text-lighten-1 ">发运地城市:</span>
+                                    <span ng-cloak class="grey-text">{{car_details.route_start}}</span>
+                                </div>
+                                <div class="col s4">
+                                    <span class="cyan-text text-lighten-1 ">委托方:</span>
+                                    <span ng-cloak class="grey-text">{{car_details.en_short_name}}</span>
                                 </div>
                                 <div class="col s4">
                                     <span class="cyan-text text-lighten-1 ">品牌:</span>
                                     <span ng-cloak class="grey-text">{{car_details.make_name}}</span>
                                 </div>
-                                <div class="col s4">
-                                    <span class="cyan-text text-lighten-1 ">型号:</span>
-                                    <span ng-cloak class="grey-text">{{car_details.model_name}}</span>
-                                </div>
                             </div>
                             <div class="row" style="margin-top: 50px">
                                 <div class="col s4">
-                                    <span class="cyan-text text-lighten-1 ">生产日期:</span>
-                                    <span ng-cloak class="grey-text">{{car_details.pro_date|date:"yyyy-MM-dd"}}</span>
+                                    <span class="cyan-text text-lighten-1 ">目的地城市:</span>
+                                    <span ng-cloak class="grey-text">{{car_details.route_end}}</span>
                                 </div>
                                 <div class="col s4">
-                                    <span class="cyan-text text-lighten-1 ">颜色:</span>
-                                    <span ng-cloak class="grey-text">{{color}}</span>
+                                    <span class="cyan-text text-lighten-1 ">经销商:</span>
+                                    <span ng-cloak class="grey-text">{{car_details.re_short_name}}</span>
                                 </div>
                                 <!--<div class="col s4">-->
                                 <!--<span class="cyan-text text-lighten-1 bold">型号:</span>-->

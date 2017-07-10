@@ -79,7 +79,6 @@ publicDirective.directive('header', function () {
                 _basic.get($host.api_url + "/user/" + userId).then(function (data) {
                 // $(".shadeDowWrap").hide();
                     if (data.success == true) {
-                        console.log(data)
                         // $scope.userName = data.result[0].name;
                         _basic.setSession(_basic.USER_NAME, $scope.userName);
                         _basic.setHeader(_basic.USER_NAME, $scope.userName);

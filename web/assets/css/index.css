@@ -400,6 +400,12 @@ body{
     left: 50%;
     top: 100%;
 }
+.addBtn{
+    position: absolute;
+    left: 20%;
+    top: 100%;
+}
+
 input[type=text]{
     margin: 0;
 }

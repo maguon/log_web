@@ -1,0 +1,144 @@
+<div class="setting_truckWrap ">
+    <div class="row">
+        <div class="row valign-wrapper">
+            <h5 class="col s12 cyan-text lighten-1  center-align">
+                车辆品牌设置
+            </h5>
+        </div>
+        <div class="row">
+            <div class="divider"></div>
+        </div>
+        <div style="width: 75%;margin: 0 auto">
+            <div class="row addBrand">
+                <a href="" class=" col s2 offset-s10  btn waves-effect cyan lighten-1 waves-light vc-center open_car_brand "
+                   ng-click="car_Brand_box($event)">+增加品牌</a>
+
+                <form name="addBrandFrom" ng-submit="add_brand(addBrandFrom.$valid)" novalidate>
+                    <div class="col s12 z-depth-2 blue-grey lighten-5 car_Brand_box "
+                         style="padding: 0.75rem 0;display: none">
+                        <div class="col s1 vc-center" style="height: 45px">
+                            <h6 class=" bold cyan-text text-lighten-1" style="min-width: 88px;margin-left: 10px">品牌名称:</h6>
+                        </div>
+
+                        <input class="col s3 Brand_text" name="brandText" id="brandText" type="text" autocomplete="off"
+                               ng-model="b_txt" required>
+                        <div class="col s2  add_Brand_Icon">
+                            <a class="  btn-floating waves-effect waves-light red lighten-2  btn" ng-click="closeBrand()">
+                                <i class="mdi mdi-close add_brand"></i>
+                            </a>
+                            <button class="btn-floating waves-effect waves-light cyan  lighten-1 btn" type="submit"
+                                    name="action">
+                                <i class="mdi mdi-check add_brand"></i>
+                            </button>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="row">
+                <ul class="collapsible setting_car Brand_box" data-collapsible="accordion" collapsible>
+                    <!--<brand-list></brand-list>-->
+                    <li ng-repeat="el in brand" >
+                        <div class="collapsible-header grey-text text-darken-1 row no-mp">
+                            <div class="amend_brand_box amend_brand_box{{$index}} col s12 p0"
+                                 ng-click="amend_brand_box($event)">
+                                <form name="amend_brandForm"
+                                      ng-submit="amend_brand_submit(amend_brandForm.$valid,el.id,el.make_name,$index)">
+                                    <div class="col s6 valign-wrapper p0">
+                                        <i class="mdi mdi-car cyan-text text-lighten-1 "></i>
+                                        <input type="text" class="cyan-text lighten-1" style="height: 30px"
+                                               ng-model="el.make_name">
+                                        <a class="  btn-floating btn-small waves-effect waves-light red lighten-2  btn"
+                                           style="width: 35px;height: 30px;line-height: 30px;margin-right: 10px"
+                                           ng-click="close_amend_brand($index)">
+                                            <i class="mdi mdi-close add_brand" style="width: 100%;line-height: 30px"></i>
+                                        </a>
+                                        <button class="btn-floating waves-effect waves-light cyan  lighten-1 btn"
+                                                style="width: 35px;height: 30px;line-height: 30px" type="submit"
+                                                name="action">
+                                            <i class="mdi mdi-check add_brand" style="width: 100%;line-height: 30px"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="brand_box brand_box{{$index}}" flag="true" ng-click="open_car_model($event,el.id)">
+                                <i class="mdi mdi-car cyan-text text-lighten-2"></i>{{el.make_name}}
+                            </div>
+                            <i ng-click="amend_brand_make($event,$index)" class="amend_brand_make mdi mdi-pencil"></i>
+                        </div>
+                        <div class="collapsible-body" style="padding: 0">
+                            <div class="" style="padding: 1rem;overflow: hidden">
+                                <div class="add_model_box  add_model_box{{$index}} col s12 p0"
+                                     ng-click="amend_model_box($event)">
+                                    <a href="" class=" col s2 offset-s10  btn waves-effect cyan lighten-2 waves-light vc-center open_car_brand "
+                                       ng-click="add_car_model_box($event,$index)" >+增加类型</a>
+                                    <div class="add_model_wrap add_model_wrap{{$index}} col white s12"
+                                         style="display: none">
+                                        <form name="add_modelForm"
+                                              ng-submit="add_car_model_submit(add_modelForm.$valid,el.id,$index)"
+                                              novalidate>
+                                            <div class="col s6 valign-wrapper p0 vc-center add_model_box"
+                                                 ng-class="{'has-error':add_modelForm.add_car_model.$invalid&&submitted}">
+                                                <h6 class="col s3 bold cyan-text lighten-2" style="min-width: 90px">
+                                                    型号名称:</h6>
+                                                <input type="text" class="cyan-text lighten-2" ng-model="$parent.add_car_model_text"
+                                                       id="add_car_model" autocomplete="off" name="add_car_model" required>
+                                                <a class="  btn-floating btn-small waves-effect waves-light red lighten-2  btn"
+                                                   style="width: 35px;height: 28px;line-height: 28px;margin-right: 10px"
+                                                   ng-click="close_add_car_model($index)">
+                                                    <i class="mdi mdi-close " style="width: 100%;line-height: 28px"></i>
+                                                </a>
+                                                <button class="btn-floating waves-effect waves-light cyan  lighten-1 btn"
+                                                        style="width: 35px;height: 28px;line-height: 28px;" type="submit"
+                                                        name="action">
+                                                    <i class="mdi mdi-check add_brand"
+                                                       style="width: 100%;line-height: 28px"></i>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="divider"></div>
+                            <div style="padding: 1rem;overflow: hidden">
+                                <div class="col s12 p0">
+                                    <div ng-repeat="el in brand_model" class="col s4 " style=" padding:1rem;">
+                                        <div class="col s12  car_model_panel valign-wrapper"
+                                             ng-class="{'no_amend_model':el.model_status==0}">
+                                            <!--<div class="col s8 cyan-text text-lighten-2">{{el.model_name}}</div>-->
+                                            <input type="text" class="car_model_name  car_model_name{{$index}} col s5"
+                                                   ng-model="el.model_name" readonly>
+                                            <div class="amend_car_model_box{{$index}} col s3"
+                                                 style="display: none;cursor: pointer">
+                                                <i class="mdi red-text text-darken-2 mdi-close col s6 "
+                                                   ng-click="close_car_model($index)"></i>
+                                                <i class="mdi cyan-text text-lighten-2 mdi-check col s6 "
+                                                   ng-click="amend_car_model_submit(el.id,el.model_name,$index)"></i>
+                                            </div>
+                                            <i class="mdi grey-text mdi-pencil mdi-pencil{{$index}} col s1"
+                                               ng-if="el.model_status==1" style="cursor: pointer"
+                                               ng-click="amend_car_model($index,$event)"></i>
+                                            <div class="col s3">
+                                                <div class="switch">
+                                                    <label>
+                                                        <input type="checkbox" ng-checked="el.model_status==1"
+                                                               ng-click="amend_car_model_status(el.id,el.model_status,el.make_id)">
+                                                        <span class="lever"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <div></div>
+</div>

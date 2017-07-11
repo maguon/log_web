@@ -1,0 +1,116 @@
+<div class="car_query_details">
+    <div class="row no-marBottom" ul-tabs>
+        <div class="storage_storeTitle vc-center">
+            <a class="storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light "
+               ui-sref="car_query" style="margin-top: 6px">
+                <i class="valign mdi mdi-arrow-left-bold"></i>
+            </a>
+            <h4 class="center-align cyan-text text-lighten-1">车辆信息</h4>
+        </div> 
+        <div class="col s12 p0">
+            <ul class="tabWrap grey lighten-4">
+                <li class="tab col s6  basicInfo vc-center active" ng-click="basicInfo()">基本信息</li>
+                <li class="tab  col s6 carImages vc-center" ng-click="carImages()">相册</li>
+            </ul>
+        </div>
+    </div>
+
+    <div style="width: 82%;margin: 0 auto">
+        <!--基本信息-->
+        <div class="tab_1" ng-if="tabSwitchLeft">
+            <div class="row"></div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="input-field col s4">
+                        <input id="vin_code" type="text" ng-model="vincodeList[0].vin" disabled>
+                        <label for="vin_code">VIN码</label>
+                    </div>
+                    <div class="row col s8">
+                        <div class="input-field col s4">
+                            <input id="brand" type="text" ng-model="vincodeList[0].make_name" disabled>
+                            <label for="brand">品牌</label>
+                        </div>
+                        <div class="input-field col s4">
+                            <input id="create_time" type="text" ng-model="vincodeList[0].created_on" form-date disabled>
+                            <label for="create_time">录入时间</label>
+                        </div>
+                        <div class="input-field col s4">
+                            <input id="order_time" type="text" ng-model="vincodeList[0].updated_on" form-date disabled>
+                            <label for="order_time">指令时间</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row" style="height: 30px"></div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="input-field col s4">
+                        <input id="entrust" type="text" ng-model="vincodeList[0].en_short_name" disabled>
+                        <label for="entrust">委托方</label>
+                    </div>
+                    <div class="row col s8">
+                        <div class="input-field col s3">
+                            <input id="order_add" type="text" ng-model="vincodeList[0].addr_name" disabled>
+                            <label for="order_add">发运地地址</label>
+                        </div>
+                        <div class="input-field col s3">
+                            <input id="order_start" type="text" ng-model="vincodeList[0].route_start" disabled>
+                            <label for="order_start">发运地名称</label>
+                        </div>
+                        <div class="input-field col s3">
+                            <input id="receive" type="text" ng-model="vincodeList[0].re_short_name" disabled>
+                            <label for="receive">经销商</label>
+                        </div>
+                        <div class="input-field col s3">
+                            <input id="order_end" type="text" ng-model="vincodeList[0].route_end" disabled>
+                            <label for="order_end">目的地城市</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <p class="col s12" style="color: #26c6da">操作记录:</p>
+                <div class="col s12 valign-wrapper" ng-repeat="record in recordList">
+                    <p>{{record.timez | date:'yyyy-MM-dd HH:mm:ss' + "&emsp;" + record.content}}&emsp;&emsp;<span>操作员：{{record.name}}</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="row">
+                <p class="col s12" style="color: #26c6da;display: block;width: 100px">备注:</p>
+                <div class="col s12 valign-wrapper">
+                    <p>{{vincodeList[0].remark}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--相册-->
+    <div class="tab_2" ng-if="tabSwitchRight">
+        <div class="row no-marBottom">
+            <div class="col s12 valign-wrapper ">
+                <div class="storage_car_picture_wrap col s12 p0">
+                    <form name="uploadImageForm" class="uploadImageForm">
+                        <div class="storage_car_picture col s2 vc-center  p0  white-text cyan lighten-1"
+                             style="margin:1.5% 3.2% 0 0">
+                            <input name="image" type="file"
+                                   onchange="angular.element(this).scope().uploadBrandImage(this)" max_size="4M">
+                            <i class="mdi mdi-instagram"></i>
+                        </div>
+                        <ul id="look_img">
+                            <li ng-repeat="image in imageList" ng-mouseenter="show=true" ng-mouseleave="show=false"
+                                repeat-finish="renderFinish()"
+                                class="storage_car_picture col s2 vc-center p0 grey white-text"
+                                style="margin:1.5% 3.2% 0 0">
+                                <img ng-src="{{image.url}}" class="responsive-img">
+                                <p class="img_date white-text center-align" ng-show="show" ng-cloak>{{image.name}} 上传于
+                                    {{image.timez|date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

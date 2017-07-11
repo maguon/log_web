@@ -1,0 +1,184 @@
+<div class="row">
+    <div class="row">
+        <a class="waves-light waves-effect btn-large right"  ng-click="newOperator()">
+            增加操作员
+        </a>
+        <div id="newOperator" class="modal">
+            <form name="operatorForm" ng-submit="submitForm(operatorForm.$valid)" novalidate>
+                <div class="modal-content">
+                    <h4 class="center-align">增加操作员</h4>
+                    <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+                    <div class="container">
+                        <div class="row" style="margin-top: 40px">
+                            <div class="row" ng-class="{ 'has-error' : operatorForm.new_userName.$invalid&&submitted }">
+                                <h5 class="col s2-0">
+                                    <span style="color: red">*</span>
+                                    姓名:</h5>
+                                <input  id="new_userName" name="new_userName" type="text" ng-model="newRealName" required class="validate col s6-0">
+                                <div class="col s2-0 sexBox" sex-change >
+                                    <i class="mdi mdi-human-male sex" sex="1" ></i>
+                                    <i class="mdi mdi-human-female " sex="0"  ng-class="{ 'sex' : new_companyForm.Tel.$invalid&&submitted }"></i>
+                                </div>
+                            </div>
+                            <div class="row" ng-class="{ 'has-error':operatorForm.password.$invalid&&submitted }">
+                                <h5 class="col s2-0">
+                                    <span style="color: red">*</span>
+                                    密码:
+                                </h5>
+                                <input  id="password" name="password" ng-model="newUserPassword" type="text" required class="validate col s6-0">
+                            </div>
+                            <div class="row">
+                                <div class="col s6">
+                                    <div class="row" ng-class="{ 'has-error' : operatorForm.dep.$invalid&&submitted }">
+                                        <h5 class="col s4-0">
+                                            <span style="color: red">*</span>
+                                            部门:
+                                        </h5>
+                                        <select car-select name="dep" class="browser-default col s6-0" ng-model="newDepId" required>
+                                            <option value="" disabled selected>请选择</option>
+                                            <option ng-value="{{op.dept_id}}" ng-repeat="op in department">{{op.dept_name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col s6"  ng-class="{ 'has-error':operatorForm.phone.$invalid&&submitted }">
+                                    <h5 class="col s4-0">
+                                        <span style="color: red">*</span>
+                                        电话:
+                                    </h5>
+                                    <input  id="phone" name="phone" ng-model="newUserName" type="text" required class="validate col s6-0">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+                <div class="modal-footer vc-center">
+                    <button class="btn waves-light waves-effect" type="submit" name="action" >
+                        <i class="mdi mdi-check"></i>
+                    </button>
+                    <a  class=" modal-action modal-close waves-effect waves-light materialize-red lighten-1 btn" style="margin-left: 10px" >
+                        <i class="mdi mdi-close"></i>
+                    </a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+    <div class="col s12" >
+        <table class="highlight bordered">
+            <thead>
+            <tr>
+                <th data-field="">姓名</th>
+                <th data-field="">性别</th>
+                <th data-field="">部门</th>
+                <th data-field="">手机号</th>
+                <th data-field="">工作状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr ng-repeat="el in operator">
+                <td ng-bind="el.real_name"></td>
+                <td  ng-if="el.gender==0">女</td>
+                <td  ng-if="el.gender==1">男</td>
+                <td ng-bind="el.dept_name"></td>
+                <td ng-bind="el.mobile"></td>
+                <td ng-if="el.status==1">可用</td>
+                <td ng-if="el.status==0">停用</td>
+                <td class="operation">
+                    <span><i class="mdi mdi-eye" ng-click="lookOperation(el.uid)"></i></span>
+                    <span><i class="mdi mdi-lock-open"></i></span>
+                    <div id="look_Operator" class="modal">
+                        <form name="operatorForm" ng-submit="submitForm(operatorForm.$valid)" novalidate>
+                            <div class="modal-content">
+                                <h4 class="center-align">操作员信息</h4>
+                                <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+                                <div class="container">
+                                    <div class="row" style="margin-top: 40px">
+                                        <div class="row" ng-class="{ 'has-error' : operatorForm.new_userName.$invalid&&submitted }">
+                                            <h5 class="col s2-0">
+                                                <span style="color: red">*</span>
+                                                姓名:</h5>
+                                            <input  id="look_userName" name="new_userName" type="text" ng-model="look_operation.real_name" required class="validate col s6-0">
+                                            <div class="col s2-0 sexBox" sex-change >
+                                                <i class="mdi mdi-human-male sex" sex="1" ></i>
+                                                <i class="mdi mdi-human-female " sex="0"  ng-class="{ 'sex' : new_companyForm.Tel.$invalid&&submitted }"></i>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col s6">
+                                                <div class="row" ng-class="{ 'has-error' : operatorForm.dep.$invalid&&submitted }">
+                                                    <h5 class="col s4-0">
+                                                        <span style="color: red">*</span>
+                                                        部门:
+                                                    </h5>
+                                                    <select car-select name="dep" class="browser-default col s6-0" ng-model="look_operation.dept_id" required>
+                                                        <option value="" disabled selected>请选择</option>
+                                                        <option ng-value="{{op.dept_id}}" ng-repeat="op in department">{{op.dept_name}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col s6"  ng-class="{ 'has-error':operatorForm.phone.$invalid&&submitted }">
+                                                <h5 class="col s4-0">
+                                                    <span style="color: red">*</span>
+                                                    电话:
+                                                </h5>
+                                                <input  id="look_phone" name="phone" ng-model="look_operation.mobile" type="text" required class="validate col s6-0">
+                                            </div>
+                                        </div>
+                                        <div class="row" ng-class="{ 'has-error':operatorForm.password.$invalid&&submitted }">
+                                                <h5 class="col s2-0">
+                                                    <span style="color: red">*</span>
+                                                    权限:
+                                                </h5>
+                                                <select car-select name="dep" class="browser-default col s4-0" ng-model="look_operation.dept_id" required>
+                                                    <option value="" disabled selected>请选择</option>
+                                                    <option ng-value="{{op.dept_id}}" ng-repeat="op in department">{{op.dept_name}}</option>
+                                                </select>
+                                        </div>
+                                        <div class="row" ng-class="{ 'has-error':operatorForm.password.$invalid&&submitted }">
+                                            <div class="col s6">
+                                                目前状态:
+                                                <span>登录</span>
+                                            </div>
+                                            <div class="col s6">
+                                                工作状态:
+                                                <span>登录</span>
+                                            </div>
+                                        </div>
+                                        <div class="row" ng-class="{ 'has-error':operatorForm.password.$invalid&&submitted }">
+                                            <!--<div class="col s6">-->
+                                                <!--<a  class=" modal-action    white-text waves-effect waves-white btn" style="margin-left: 10px" >重置密码</a>-->
+
+                                            <!--</div>-->
+                                            <!--<div class="col s6">-->
+                                                <!--<a  class=" modal-action   white-text waves-effect waves-white btn" style="margin-left: 10px" >停用</a>-->
+
+                                            <!--</div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+                            <div class="modal-footer vc-center">
+                                <button class="btn waves-light waves-effect" type="submit" name="action" >
+                                    <i class="mdi mdi-check"></i>
+                                </button>
+                                <a  class=" modal-action modal-close waves-effect waves-light materialize-red lighten-1 btn" style="margin-left: 10px" >
+                                    <i class="mdi mdi-close"></i>
+                                </a>
+                            </div>
+                        </form>
+
+                    </div>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+</div>

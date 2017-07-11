@@ -75,7 +75,7 @@ app.controller("setting_user_controller", ["_basic", "_config", "$host", "$scope
                 }
                 $scope.operator = machList;
                 // $scope.operator = data.result;
-                console.log("operator", $scope.operator);
+                // console.log("operator", $scope.operator);
                 $scope.searchUser();
             } else {
                 swal(data.msg, "", "error");

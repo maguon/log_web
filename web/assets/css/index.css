@@ -1037,3 +1037,8 @@ input[type=text]{
     white-space: nowrap;
     display: block;
 }
+/*小标签*/
+.small-tips{
+    padding: 5px;
+    border-radius: 100%;
+}

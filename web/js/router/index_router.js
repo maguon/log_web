@@ -275,7 +275,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         .state("truck_driver",{
             url:"/truck_driver",
             templateUrl: "js/view/truck/truck_driver.html",
-            // controller:'truck_driver_controller'
+            controller:'truck_driver_controller'
+        })
+        .state("add_truck_driver",{
+            url:"/add_truck_driver",
+            templateUrl: "js/view/truck/add_truck_driver.html",
+            controller:'add_truck_driver_controller'
         })
         .state("truck_insurance",{
             url:"/truck_insurance",

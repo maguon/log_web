@@ -64,3 +64,63 @@ CommonFilter.filter("department", function () {
         return user;
     }
 });
+
+// 性别过滤器
+CommonFilter.filter("gender", function () {
+    return function (input) {
+        var sex;
+        switch (input) {
+            case "0":
+                sex = "女";
+                break;
+            case "1":
+                sex = "男";
+                break;
+            default:
+                sex = "未知";
+        }
+        return sex;
+    }
+});
+
+// 司机工作状态过滤器
+CommonFilter.filter("workStatus", function () {
+    return function (input) {
+        var driver;
+        switch (input) {
+            case 0:
+                driver = "停用";
+                break;
+            case 1:
+                driver = "可用";
+                break;
+            default:
+                driver = "未知";
+        }
+        return driver;
+    }
+});
+
+// 车辆所属类型过滤器
+CommonFilter.filter("carType", function () {
+    return function (input) {
+        var car;
+        switch (input) {
+            case 1:
+                car = "自营车";
+                break;
+            case 2:
+                car = "外协车";
+                break;
+            case 3:
+                car = "供方车";
+                break;
+            case 4:
+                car = "承包车";
+                break;
+            default:
+                car = "未知";
+        }
+        return car;
+    }
+});

@@ -1,1 +1,116 @@
-2
+<div class="truck_driver">
+    <div class="row main_storage_car">
+        <div class="row col s10">
+            <div class="input-field col s3">
+                <input id="drive_name" type="text" ng-model="driveName">
+                <label for="drive_name">姓名</label>
+            </div>
+            <div class="input-field col s3">
+                <select material-select watch ng-model="driverType">
+                    <option value="" selected>所属类型</option>
+                    <option value="1" >自营车</option>
+                    <option value="2" >外协车</option>
+                    <option value="3" >供方车</option>
+                    <option value="4" >承包车</option>
+                </select>
+            </div>
+
+            <div class="input-field col s3">
+                <select material-select watch ng-model="driverCompany">
+                    <option value="" selected>所属公司</option>
+                    <option ng-repeat="company in companyList" ng-value="company.id">{{company.company_name}}</option>
+                </select>
+            </div>
+            <div class="input-field col s3">
+                <select material-select watch ng-model="workStatus">
+                    <option value="" selected>司机状态</option>
+                    <option value="1" >可用</option>
+                    <option value="0" >停用</option>
+                </select>
+            </div>
+        </div>
+        <div class="row col s10">
+            <div class="input-field col s3">
+                <input id="drive_tel" type="text" ng-model="driveTel">
+                <label for="drive_tel">电话</label>
+            </div>
+            <div class="input-field col s3">
+                <select material-select watch ng-model="truckNumber">
+                    <option value="" selected>关联货车</option>
+                    <option ng-repeat="truck in truckList" ng-value="truck.id">{{truck.truck_num}}</option>
+                </select>
+            </div>
+            <div class="input-field col s2">
+                <select material-select watch ng-model="drivingLicense">
+                    <option value="" selected>驾驶类型</option>
+                    <option value="1" selected>A1</option>
+                    <option value="2" >A2</option>
+                    <option value="3" >A3</option>
+                    <option value="4" >B1</option>
+                    <option value="5" >B2</option>
+                    <option value="6" >C1</option>
+                    <option value="7" >C2</option>
+                    <option value="8" >C3</option>
+                </select>
+            </div>
+            <div class="row col s4">
+                <div class="col input-field s6">
+                    <input id="verification_time" type="text" class="datepicker" date ng-model="verificationStart"><i
+                        class="mdi dataIcon mdi-table-large"></i>
+                    <label for="verification_time">验证时间</label>
+                </div>
+                <div class="col input-field s6">
+                    <input type="text" class="datepicker" date ng-model="verificationEnd"><i
+                        class="mdi dataIcon mdi-table-large"></i>
+                    <label for="verification_time">至</label>
+                </div>
+            </div>
+
+        </div>
+        <div class="col s1 flex flex-round">
+            <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
+               style="margin-right: 10px" ng-click="searchDriver()">
+                <i class="mdi mdi-magnify"></i>
+            </a>
+        </div>
+        <div class="col s1 flex flex-round">
+            <a ui-sref="add_truck_driver" class="btn-floating btn-large waves-light waves-effect cyan lighten-2  btn vc-center"
+               style="margin-right: 10px">
+                <i class="mdi mdi-plus"></i>
+            </a>
+        </div>
+
+        <div class="col s12">
+            <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+            <table class=" bordered striped text_mid">
+                <thead class="blue-grey lighten-5">
+                <tr class="grey-text text-darken-2">
+                    <th width="180" data-field="">姓名</th>
+                    <th width="180" data-field="">性别</th>
+                    <th width="200" data-field="">所属类型</th>
+                    <th width="400" data-field="">所属单位</th>
+                    <th width="200" data-field="">关联货车</th>
+                    <th width="300" data-field="">电话</th>
+                    <th width="120" data-field="">工作状态</th>
+                    <th width="150">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="driver in driveList" class="grey-text text-darken-1">
+                    <td width="180">{{driver.drive_name}}</td>
+                    <td width="180">{{driver.gender | gender}}</td>
+                    <td width="200">{{driver.operate_type | carType}}</td>
+                    <td width="400">{{driver.company_name}}</td>
+                    <td>{{driver.truck_num}}</td>
+                    <td width="300">{{driver.tel}}</td>
+                    <td width="120">{{driver.drive_status | workStatus}}</td>
+                    <td width="150" class="details">
+                        <a ui-sref="" class=""><i
+                                class="mdi mdi-eye look_icon cyan-text lighten-1"></i></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

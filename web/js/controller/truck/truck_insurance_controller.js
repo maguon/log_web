@@ -42,12 +42,8 @@ app.controller("truck_insurance_controller", ["$scope", "_basic", "_config", "$h
                 insureName: $scope.companyText
             }).then(function (data) {
                 if (data.success === true) {
-                    // console.log("data", data);
                     $scope.getInsuranceCompany();
-                    $scope.companyText = "";
-                    $scope.submitted = false;
-                    $scope.company_box_show = false;
-                    $scope.company_btn = true;
+                    $scope.closeCompany();
                     swal("新增成功", "", "success");
                 }
             });

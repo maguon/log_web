@@ -285,6 +285,6 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         .state("truck_insurance",{
             url:"/truck_insurance",
             templateUrl: "js/view/truck/truck_insurance.html",
-            // controller:'truck_insurance_controller'
+            controller:'truck_insurance_controller'
         })
 }]);

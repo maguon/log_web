@@ -1,1 +1,60 @@
-55
+<div class="truck_insurance">
+    <div class="row">
+        <div class="row valign-wrapper">
+            <h5 class="col s12 cyan-text lighten-1  center-align">
+                保险公司
+            </h5>
+        </div>
+        <div class="row">
+            <div class="divider cyan lighten-2"></div>
+        </div>
+        <div style="width: 80%;margin: 0 auto">
+            <div class="row">
+                <a href=""
+                   class=" right  btn btn-large btn-floating waves-effect cyan lighten-1 waves-light vc-center open_city "
+                   ng-click="company_box()" ng-show="company_btn"><i class="mdi mdi-plus"></i></a>
+                <form name="addInsuranceCompany" ng-submit="add_insurance_company(addInsuranceCompany.$valid)"
+                      novalidate>
+                    <div ng-show="company_box_show" class="col s12 z-depth-2 white city_box "
+                         style="padding: 0.75rem 0;"
+                         ng-class="{'has-error':addInsuranceCompany.companyText.$invalid&&submitted}">
+                        <div class="col s2 vc-center" style="height: 45px">
+                            <h6 class="bold cyan-text text-lighten-1" style="min-width: 88px;margin-left: 10px">
+                                保险公司名称:</h6>
+                        </div>
+                        <input class="col s3 city_text" name="companyText" id="companyText" type="text"
+                               autocomplete="off"
+                               ng-model="companyText" required>
+                        <div class="col s2  add_Brand_Icon">
+                            <a class="  btn-floating waves-effect waves-light red lighten-2  btn"
+                               ng-click="closeCompany()">
+                                <i class="mdi mdi-close add_brand"></i>
+                            </a>
+                            <button class="btn-floating waves-effect waves-light cyan  lighten-1 btn" type="submit"
+                                    name="action">
+                                <i class="mdi mdi-check add_city"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col s12">
+                <div class="divider"></div>
+                <div style="padding: 1rem;overflow: hidden">
+                    <div class="col s12 p0">
+                        <div ng-repeat="insurance in insurance_company" class="col s4" style=" padding:1rem;">
+                            <div class="col s12 city_model_panel z-depth-1 valign-wrapper">
+                                <div class="col s4 center cyan-text text-lighten-1" style="margin-left: 0">
+                                    编号：{{insurance.id}}
+                                </div>
+                                <input type="text" class="cyan-text center text-lighten-1 col s8" style="margin-left: 0"
+                                       value="{{insurance.insure_name}}" readonly="readonly">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

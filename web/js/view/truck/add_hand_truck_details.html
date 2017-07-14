@@ -1,0 +1,155 @@
+<div id="look_StorageCar" >
+    <div class="" >
+        <div class="modal-content grey-text text-darken-2">
+            <!--<div class="" style="width: 95%;margin: 0 auto">-->
+            <div class="storage_storeTitle vc-center ">
+                <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
+                    <i class="mdi mdi-arrow-left-bold"></i>
+                </a>
+                <h4 class="center-align cyan-text text-lighten-1">增加挂车</h4>
+            </div>
+            <!--<div class="divider" style="background: #00bcd4;height: 2px;"></div>-->
+            <div class="row" >
+                <div class="col s12" >
+                    <ul class="ui-tabs tabs" ul-tabs>
+                        <li class="tab col s3 test1"><a class="active" href="#test1">基本信息</a></li>
+                        <li class="tab col s3 test2 disabled"><a   href="#test2">上传照片</a></li>
+                        <li class="tab col s3 test3 disabled"><a href="#test3">车险</a></li>
+                        <li class="tab col s3 test4 disabled"><a href="#test4">车保</a></li>
+                    </ul>
+                </div>
+                <div id="test1" class="test col s12">
+                    <form name="add_truck_form"  ng-submit="submit_Form(add_truck_form.$valid)" novalidate>
+                        <div class="row "  style="margin-top: 20px">
+                            <!--<div class="col s1" >-->
+                            <!--<h5><i class="mdi mdi-car fz30 right-align" ></i></h5>-->
+                            <!--</div>-->
+                            <div class="input-field col s4"  >
+                                <select id="truck_status" material-select name="truck_status" watch ng-model="truck_status">
+                                    <option value="1">头车</option>
+                                    <option value="2">挂车</option>
+                                </select>
+                                <label class="fz20" for="truck_num"><span style="color: red;margin-right: 5px">*</span>车辆类型</label>
+                            </div>
+                        </div>
+                            <div class="row">
+                                <div class="input-field col s4 " ng-class="{'has-error':add_truck_form.truck_hand_num.$invalid&&submitted }">
+                                    <input name="truck_hand_num" id="truck_hand_num" type="text" ng-model="truck_hand_num"  required>
+                                    <label for="truck_hand_num"><span style="color: red;margin-right: 5px">*</span>车牌牌号</label>
+                                </div>
+                                <div class="input-field col s4 " ng-class="{'has-error':add_truck_form.truck_hand_type.$invalid&&submitted }">
+                                    <select id="truck_hand_type" name="truck_hand_type" material-select watch ng-model="truck_hand_type" required>
+                                        <option ng-value="">请选择</option>
+                                        <option ng-value="1">自营车</option>
+                                        <option ng-value="2">外协车</option>
+                                        <option ng-value="3">供方车</option>
+                                        <option ng-value="4">承包车</option>
+                                    </select>
+                                    <label for="truck_hand_type"><span style="color: red;margin-right: 5px">*</span>所属类型</label>
+                                </div>
+                                <!--<div class="input-field col s4 "  ng-class="{'has-error':add_truck_form.truck_company.$invalid&&submitted }">-->
+                                <!--<select id="truck_company" name="truck_company" material-select watch ng-model="truck_company" required>-->
+                                <!--<option value="" >请选择</option>-->
+                                <!--<option ng-repeat="el in truck_company" ng-value="el.id">{{el.company_name}}</option>-->
+                                <!--</select>-->
+                                <!--<label for="truck_company"><span style="color: red;margin-right: 5px">*</span>所属公司</label>-->
+                                <!--</div>-->
+                                <div class="input-field col s4 "  ng-class="{'has-error':add_truck_form.truck_hand_company.$invalid&&submitted }">
+                                    <select id="truck_hand_company" name="truck_hand_company" material-select watch ng-model="truck_hand_company" required>
+                                        <option value="">请选择</option>
+                                        <option ng-repeat="el in company" ng-value="el.id">{{el.company_name}}</option>
+                                    </select>
+                                    <label for="truck_hand_company"><span style="color: red;margin-right: 5px">*</span>所属公司</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s4 " ng-class="{'has-error':add_truck_form.hand_to_head.$invalid&&submitted }">
+                                    <select id="hand_to_head" name="hand_to_head" material-select watch ng-model="hand_to_head" required>
+                                        <option value="">请选择</option>
+                                        <option ng-repeat="el in head_car_msg" ng-value="el.id">{{el.truck_num}}</option>
+                                    </select>
+                                    <label for="hand_to_head"><span style="color: red;margin-right: 5px">*</span>关联车头</label>
+                                </div>
+                                <!--<div class="input-field col s4 ">-->
+                                <!--<select id="passenger" material-select watch ng-model="passenger">-->
+                                <!--<option ng-value="1">头车</option>-->
+                                <!--<option ng-value="2">挂车</option>-->
+                                <!--</select>-->
+                                <!--<label for="passenger">副驾司机</label>-->
+                                <!--</div>-->
+                                <div class="input-field col s4 " ng-class="{'has-error':add_truck_form.hand_have_num.$invalid&&submitted }">
+                                    <input name="hand_have_num" id="hand_have_num" type="number" ng-model="hand_have_num" required>
+                                    <label for="hand_have_num"><span style="color: red;margin-right: 5px">*</span>挂车货位</label>
+                                </div>
+                                <div class="input-field col s4 " ng-class="{'has-error':add_truck_form.hand_vin.$invalid&&submitted }">
+                                    <input name="hand_vin" id="hand_vin" type="text" ng-model="hand_vin" required>
+                                    <label for="hand_vin"><span style="color: red;margin-right: 5px">*</span>识别代码</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <textarea id="hand_textarea" ng-model="hand_textarea" class="materialize-textarea"></textarea>
+                                    <label for="hand_textarea">备注:</label>
+                                </div>
+                            </div>
+                        <div class="row vc-center" >
+                            <button class="btn" type="submit" name="action">下一步</button>
+                        </div>
+                    </form>
+
+
+
+                </div>
+                <div id="test2" class="test col s12">
+                    <div class="row" style="margin-top: 50px">
+                        <div class="col s6 vc-center">
+                            <div class="col s2">行驶证:</div>
+                            <div class="col s10">
+                                <form name="uploadImageForm" class="uploadImageForm">
+                                    <div class="storage_car_picture col s4 vc-center  p0 cyan lighten-1 white-text">
+                                        <input name="image" type="file" onchange="angular.element(this).scope().uploadBrandImage_drive(this)" max_size="4M">
+                                        <i class="mdi mdi-instagram"></i>
+                                    </div>
+                                    <div class="drive_img_box">
+                                        <img ng-src="{{el.src}}" class="responsive-img">
+                                        <!--<b class="delete_img vc-center black fz18" ng-click="delete_img(el.record_id,el.src)"><i class="mdi mdi-close"></i></b>-->
+                                        <!--<p class="img_date white-text center-align" ng-show="show" ng-cloak>{{el.user}}上传于{{el.time|date:'yyyy-MM-dd HH:mm:ss'}}</p>-->
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col s6 vc-center">
+                            <div class="col s2">营运证:</div>
+                            <div class="col s10">
+                                <form name="uploadImageForm" class="uploadImageForm">
+                                    <div class="storage_car_picture col s4 vc-center  p0 cyan lighten-1 white-text">
+                                        <input name="image" type="file" onchange="angular.element(this).scope().uploadBrandImage_service(this)" max_size="4M">
+                                        <i class="mdi mdi-instagram"></i>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col s12 " style="margin-top: 50px">
+                            <div class="col s12">车辆照片:</div>
+                            <div class="col s12">
+                                <form name="uploadImageForm" class="uploadImageForm">
+                                    <div class="storage_car_picture col s2 vc-center  p0 cyan lighten-1 white-text">
+                                        <input name="image" type="file" onchange="angular.element(this).scope().uploadBrandImage_truck(this)" max_size="4M">
+                                        <i class="mdi mdi-instagram"></i>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row vc-center" >
+                        <button class="btn" type="submit" name="action">下一步</button>
+                    </div>
+                </div>
+                <div id="test3" class="test col s12">测试 3</div>
+                <div id="test4" class="test col s12">测试 4</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>

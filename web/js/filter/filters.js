@@ -44,6 +44,19 @@ CommonFilter.filter("formdate",function () {
     }
 });
 
+
+
+CommonFilter.filter("null_filter",function () {
+    return function(input){
+        if(input==null){
+            return "空"
+        }else {
+            return input
+        }
+
+    }
+});
+
 // 用户部门过滤器
 CommonFilter.filter("department", function () {
     return function (input) {

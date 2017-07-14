@@ -8,15 +8,14 @@ app.controller("truck_company_controller", ['$rootScope', '$scope', '_basic', '$
     var companyMsg;
 
     // 搜索查询
-    $scope.search = function () {
+    $scope.search_truck = function () {
 
         var obj = {
-            companyName: $scope.s_computer,
-            operateType: $scope.s_type,
-            cityId: $scope.s_city
+            companyName: $scope.truck_computer,
+            operateType: $scope.truck_type,
         };
 
-        _basic.get($host.api_url + "/company" + _basic.objToUrl(obj)).then(function (data) {
+        _basic.get($host.api_url + "/company?" + _basic.objToUrl(obj)).then(function (data) {
             // $(".shadeDowWrap").hide();
             if (data.success == true) {
                 $scope.Company = data.result;
@@ -84,7 +83,7 @@ app.controller("truck_company_controller", ['$rootScope', '$scope', '_basic', '$
                 "cooperationTime": $scope.addCooperationTime,
                 "contacts": $scope.addContacts,
                 "tel": $scope.addTel,
-                "cityId": $scope.addCityId,
+                // "cityId": $scope.addCityId,
                 "remark": $scope.addMark
             }).then(function (data) {
                 // $(".shadeDowWrap").hide();
@@ -120,7 +119,7 @@ app.controller("truck_company_controller", ['$rootScope', '$scope', '_basic', '$
         _basic.get($host.api_url  + "/company/" + id + "/firstCount", {}).then(function (data) {
             // $(".shadeDowWrap").hide();
             if (data.success == true) {
-                $scope.firstCount = data.result[0].firstCount;
+                $scope.firstCount = data.result[0].first_count;
             } else {
                 swal(data.msg, "", "error");
             }
@@ -130,7 +129,7 @@ app.controller("truck_company_controller", ['$rootScope', '$scope', '_basic', '$
         _basic.get($host.api_url +  "/company/" + id + "/trailerCount", {}).then(function (data) {
             // $(".shadeDowWrap").hide();
             if (data.success == true) {
-                $scope.trailerCount = data.result[0].firstCount;
+                $scope.trailerCount = data.result[0].trailer_count;
 
             } else {
                 swal(data.msg, "", "error");
@@ -160,7 +159,7 @@ app.controller("truck_company_controller", ['$rootScope', '$scope', '_basic', '$
                 "cooperationTime": $scope.look_cooperation_time,
                 "contacts": companyMsg.contacts,
                 "tel": companyMsg.tel,
-                "cityId": companyMsg.city_id,
+                // "cityId": companyMsg.city_id,
                 "remark": companyMsg.remark
             }
 

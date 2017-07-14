@@ -3,13 +3,14 @@
  */
 app.controller("truck_details_controller", ["$scope","$state","$stateParams","_basic", "_config", "$host", function ($scope,$state,$stateParams,_basic, _config, $host) {
 
-    _basic.get($host.api_url+"/truck?truckType=1").then(function (data) {
+    _basic.get($host.api_url+"/truckFirst?truckType=1").then(function (data) {
         if(data.success==true){
             $scope.head_car=data.result;
         }else {
             swal(data.msg,"","error")
         }
     });
+
     // 获取公司
     _basic.get($host.api_url+"/company").then(function (data) {
         if(data.success==true){
@@ -19,7 +20,7 @@ app.controller("truck_details_controller", ["$scope","$state","$stateParams","_b
         }
     });
 
-    _basic.get($host.api_url+"/truck?truckType=2").then(function (data) {
+    _basic.get($host.api_url+"/truckTrailer?truckType=2").then(function (data) {
         if(data.success==true){
             $scope.hand_truck_msg=data.result;
         }else {

@@ -262,10 +262,15 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'truck_details_controller'
         })
         // 新增
-        .state("add_truck_details",{
-            url:"/add_truck_details?from",
-            templateUrl: "js/view/truck/add_truck_details.html",
-            controller:'add_truck_details_controller'
+        .state("add_head_truck_details",{
+            url:"/add_head_truck_details?from",
+            templateUrl: "js/view/truck/add_head_truck_details.html",
+            controller:'add_head_truck_details_controller'
+        })
+        .state("add_hand_truck_details",{
+            url:"/add_hand_truck_details?from",
+            templateUrl: "js/view/truck/add_hand_truck_details.html",
+            controller:'add_hand_truck_details_controller'
         })
         .state("truck_company",{
             url:"/truck_company",

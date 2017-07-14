@@ -1,19 +1,21 @@
 html{
     position: relative;
     height: 100%;
-    overflow: hidden;
+    overflow-y: hidden;
 }
 body{
     position: relative;
     height: 100%;
     min-width: 1280px;
     background: #f1f5f5;
-
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 .ConWrap{
     margin:0 0 70px 0;
     background: #f1f5f5;
     overflow-y: auto;
+
 }
 .containerBox{
     padding: 0 5px;
@@ -591,8 +593,16 @@ input[type=text]{
     overflow: hidden;
     margin:10px 10px 0 0;
     font-size: 100px;
+    min-width: 220px;
 }
-
+.drive_img_box{
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+    margin:10px 10px 0 0;
+    font-size: 100px;
+    min-width: 220px;
+}
 .img_date{
     width: 100%;
     height: 20px;
@@ -1041,4 +1051,9 @@ input[type=text]{
 .small-tips{
     padding: 5px;
     border-radius: 100%;
+}
+/*图片上传按钮*/
+.file_btn {
+    display: none;
+
 }

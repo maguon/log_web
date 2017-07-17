@@ -21,7 +21,10 @@
 <ul id="slide-out" side-nav class="side-nav blue-grey darken-4">
     <li class="nav-logo valign-wrapper " style="border-bottom: 1px solid #182024">
         <div class="userBox ">
-            <img src="../assets/images/office.jpg" alt="" class="logo_img responsive-img left" style="height: 50px"> <!-- notice the "circle" class -->
+            <!--<img src="../assets/images/office.jpg" alt="" class="logo_img responsive-img left" style="height: 50px"> &lt;!&ndash; notice the "circle" class &ndash;&gt;-->
+            <div class="nav-avatar logo_img responsive-img left" style="height:50px">
+                {{userName.substring(0,1)}}
+            </div>
             <div class=" userBoxMsg left">
               <span class="white-text">
                 操作员:
@@ -184,6 +187,7 @@
 <script src="/assets/plugins/fullcalendar-3.3.0/locale/zh-cn.js"></script>
 <script src="/assets/plugins/jQueryViewer/js/viewer.min.js"></script>
 <script src="/assets/plugins/materialize/js/materialize.js"></script>
+<script src="/assets/plugins/avatar/avatar.min.js"></script>
 <script src="/assets/plugins/alert/sweetalert.min.js"></script>
 <script src="/lib/angular/angular.min.js"></script>
 <script src="/assets/plugins/angular/angular-materialize.js"></script>

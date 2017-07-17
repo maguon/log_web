@@ -74,6 +74,11 @@ adminDirective.directive('header', function () {
                     if (data.success == true) {
                         $scope.userName = data.result[0].real_name;
                         _basic.setSession(_basic.USER_NAME, $scope.userName);
+                        MaterialAvatar(document.getElementsByClassName('nav-avatar'), {
+                            shape: 'circle',
+                            backgroundColor: '#4dd0e1',
+                            textColor: '#fff'
+                        });
                     } else {
                         swal(data.msg,"","error");
                     }

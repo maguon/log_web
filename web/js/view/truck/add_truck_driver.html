@@ -3,130 +3,166 @@
     <i class="mdi mdi-arrow-left-bold"></i>
 </a>
 <div class="add_truck_driver" style="width: 80%;margin: 0 auto">
-    <form name="add_driver_form" ng-submit="submitForm(add_driver_form.$valid)" novalidate>
-        <div class="row main_storage_car">
-            <div class="row col s12">
-                <h4 class="center-align">增加司机</h4>
-                <div class="divider" style="background-color: #ccc"></div>
-            </div>
-            <div class="row col s12">
-                <div class="input-field col s5"
-                     ng-class="{ 'has-error':add_driver_form.drive_name.$invalid&&submitted }">
-                    <input id="drive_name" name="drive_name" type="text" ng-model="driveName" required>
-                    <label for="drive_name"><span style="color: red">* </span>司机姓名</label>
+    <div class="row col s12">
+        <h4 class="center-align">增加司机</h4>
+        <div class="divider" style="background-color: #ccc"></div>
+    </div>
+    <div class="add_driver_step_1" ng-show="step_first">
+        <form name="add_driver_form" ng-submit="submitForm(add_driver_form.$valid)" novalidate>
+            <div class="row main_storage_car">
+                <!--<div class="row col s12">-->
+                <!--<h4 class="center-align">增加司机</h4>-->
+                <!--<div class="divider" style="background-color: #ccc"></div>-->
+                <!--</div>-->
+                <div class="row col s12">
+                    <div class="input-field col s5"
+                         ng-class="{ 'has-error':add_driver_form.drive_name.$invalid&&submitted }">
+                        <input id="drive_name" name="drive_name" type="text" ng-model="driveName" required>
+                        <label for="drive_name"><span style="color: red">* </span>司机姓名</label>
+                    </div>
+                    <div class="col s1"></div>
+                    <div class="input-field col s2" ng-class="{ 'has-error':add_driver_form.sex.$invalid&&submitted }">
+                        <select id="sex" name="sex" material-select watch ng-model="driverType" required>
+                            <option value="" selected>请选择</option>
+                            <option value="0">女</option>
+                            <option value="1">男</option>
+                        </select>
+                        <label><span style="color: red">* </span>性别</label>
+                    </div>
+                    <div class="col s1"></div>
+                    <div class="input-field col s3"
+                         ng-class="{ 'has-error':add_driver_form.truck.$invalid&&submitted }">
+                        <select id="truck" name="truck" material-select watch ng-model="relatedTruck" required>
+                            <option value="" selected>请选择</option>
+                            <option ng-repeat="truck in truckList" ng-value="truck.id">{{truck.truck_num}}</option>
+                        </select>
+                        <label><span style="color: red">* </span>关联货车</label>
+                    </div>
                 </div>
-                <div class="col s1"></div>
-                <div class="input-field col s2" ng-class="{ 'has-error':add_driver_form.sex.$invalid&&submitted }">
-                    <select id="sex" name="sex" material-select watch ng-model="driverType" required>
-                        <option value="" selected>请选择</option>
-                        <option value="0">女</option>
-                        <option value="1">男</option>
-                    </select>
-                    <label><span style="color: red">* </span>性别</label>
+                <div class="row col s12">
+                    <div class="input-field col s4"
+                         ng-class="{ 'has-error':add_driver_form.id_card.$invalid&&submitted }">
+                        <input id="id_card" name="id_card" type="text" ng-model="identityNum" required>
+                        <label for="id_card"><span style="color: red">* </span>身份证</label>
+                    </div>
+                    <div class="input-field col s4"
+                         ng-class="{ 'has-error':add_driver_form.phone.$invalid&&submitted }">
+                        <input id="phone" name="phone" type="text" ng-model="driverPhone" required>
+                        <label for="phone"><span style="color: red">* </span>电话</label>
+                    </div>
+                    <div class="input-field col s4"
+                         ng-class="{ 'has-error':add_driver_form.verification_time.$invalid&&submitted }">
+                        <input id="verification_time" name="verification_time" type="text" class="datepicker" date
+                               ng-model="verificationStartTime" required>
+                        <i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="verification_time"><span style="color: red">* </span>入职时间</label>
+                    </div>
                 </div>
-                <div class="col s1"></div>
-                <div class="input-field col s3" ng-class="{ 'has-error':add_driver_form.truck.$invalid&&submitted }">
-                    <select id="truck" name="truck" material-select watch ng-model="relatedTruck" required>
-                        <option value="" selected>请选择</option>
-                        <option ng-repeat="truck in truckList" ng-value="truck.id">{{truck.truck_num}}</option>
-                    </select>
-                    <label><span style="color: red">* </span>关联货车</label>
+                <div class="row col s12">
+                    <div class="input-field col s4"
+                         ng-class="{ 'has-error':add_driver_form.company.$invalid&&submitted }">
+                        <select id="company" name="company" material-select watch ng-model="driverCompany" required>
+                            <option value="" selected>请选择</option>
+                            <option ng-repeat="company in companyList" ng-value="company.id" selected>{{company.company_name}}</option>
+                        </select>
+                        <label><span style="color: red">* </span>所属公司</label>
+                    </div>
+                    <div class="input-field col s4"
+                         ng-class="{ 'has-error':add_driver_form.license.$invalid&&submitted }">
+                        <select id="license" name="license" material-select watch ng-model="drivingLicense" required>
+                            <option value="" selected>请选择</option>
+                            <option value="1">A1</option>
+                            <option value="2">A2</option>
+                            <option value="3">A3</option>
+                            <option value="4">B1</option>
+                            <option value="5">B2</option>
+                            <option value="6">C1</option>
+                            <option value="7">C2</option>
+                            <option value="8">C3</option>
+                        </select>
+                        <label><span style="color: red">* </span>驾驶类型</label>
+                    </div>
+                    <div class="input-field col s4"
+                         ng-class="{ 'has-error':add_driver_form.endTime.$invalid&&submitted }">
+                        <input id="endTime" name="endTime" type="text" class="datepicker" date ng-model="licenseEndTime"
+                               required>
+                        <i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="verification_time"><span style="color: red">* </span>到期时间</label>
+                    </div>
                 </div>
-            </div>
-            <div class="row col s12">
-                <div class="input-field col s4" ng-class="{ 'has-error':add_driver_form.id_card.$invalid&&submitted }">
-                    <input id="id_card" name="id_card" type="text" ng-model="identityNum" required>
-                    <label for="id_card"><span style="color: red">* </span>身份证</label>
+                <div class="row col s12">
+                    <div class="input-field col s6">
+                        <input id="driver_address" type="text" ng-model="driverAddress">
+                        <label for="driver_address">家庭住址</label>
+                    </div>
+                    <div class="input-field col s1"></div>
+                    <div class="input-field col s5">
+                        <input id="driver_parent" type="text" ng-model="driverParent">
+                        <label for="driver_parent">家属电话</label>
+                    </div>
                 </div>
-                <div class="input-field col s4" ng-class="{ 'has-error':add_driver_form.phone.$invalid&&submitted }">
-                    <input id="phone" name="phone" type="text" ng-model="driverPhone" required>
-                    <label for="phone"><span style="color: red">* </span>电话</label>
-                </div>
-                <div class="input-field col s4"
-                     ng-class="{ 'has-error':add_driver_form.verification_time.$invalid&&submitted }">
-                    <input id="verification_time" name="verification_time" type="text" class="datepicker" date
-                           ng-model="verificationStartTime" required>
-                    <i class="mdi dataIcon mdi-table-large"></i>
-                    <label for="verification_time"><span style="color: red">* </span>入职时间</label>
-                </div>
-            </div>
-            <div class="row col s12">
-                <div class="input-field col s4" ng-class="{ 'has-error':add_driver_form.company.$invalid&&submitted }">
-                    <select id="company" name="company" material-select watch ng-model="driverCompany" required>
-                        <option value="" selected>请选择</option>
-                        <option ng-repeat="company in companyList" ng-value="company.id" selected>{{company.company_name}}</option>
-                    </select>
-                    <label><span style="color: red">* </span>所属公司</label>
-                </div>
-                <div class="input-field col s4" ng-class="{ 'has-error':add_driver_form.license.$invalid&&submitted }">
-                    <select id="license" name="license" material-select watch ng-model="drivingLicense" required>
-                        <option value="" selected>请选择</option>
-                        <option value="1">A1</option>
-                        <option value="2">A2</option>
-                        <option value="3">A3</option>
-                        <option value="4">B1</option>
-                        <option value="5">B2</option>
-                        <option value="6">C1</option>
-                        <option value="7">C2</option>
-                        <option value="8">C3</option>
-                    </select>
-                    <label><span style="color: red">* </span>驾驶类型</label>
-                </div>
-                <div class="input-field col s4" ng-class="{ 'has-error':add_driver_form.endTime.$invalid&&submitted }">
-                    <input id="endTime" name="endTime" type="text" class="datepicker" date ng-model="licenseEndTime"
-                           required>
-                    <i class="mdi dataIcon mdi-table-large"></i>
-                    <label for="verification_time"><span style="color: red">* </span>到期时间</label>
-                </div>
-            </div>
-            <div class="row col s12">
-                <div class="input-field col s6">
-                    <input id="driver_address" type="text" ng-model="driverAddress">
-                    <label for="driver_address">家庭住址</label>
-                </div>
-                <div class="input-field col s1"></div>
-                <div class="input-field col s5">
-                    <input id="driver_parent" type="text" ng-model="driverParent">
-                    <label for="driver_parent">家属电话</label>
-                </div>
-            </div>
-            <div class="row col s12">
-                <div class="col s6">
-                    <!--<form name="uploadImageForm" class="uploadImageForm">-->
-                    <!--<div class="storage_car_picture col s2 vc-center  p0  white-text cyan lighten-1"-->
-                    <!--style="margin:1.5% 3.2% 0 0">-->
-                    <!--<input name="image" type="file"-->
-                    <!--onchange="angular.element(this).scope().uploadBrandImage(this)" max_size="4M">-->
-                    <!--<i class="mdi mdi-instagram"></i>-->
-                    <!--</div>-->
-                    <!--<ul id="look_img">-->
-                    <!--<li ng-repeat="image in imageList" ng-mouseenter="show=true" ng-mouseleave="show=false"-->
-                    <!--repeat-finish="renderFinish()"-->
-                    <!--class="storage_car_picture col s2 vc-center p0 grey white-text"-->
-                    <!--style="margin:1.5% 3.2% 0 0">-->
-                    <!--<img ng-src="{{image.url}}" class="responsive-img">-->
-                    <!--</li>-->
-                    <!--</ul>-->
-                    <!--</form>-->
-                </div>
-            </div>
-            <div class="row col s12">
-                <div class="col s1">
-                    备注：
-                </div>
-                <div class="col s11">
+
+                <div class="row col s12">
+                    <div class="col s1">
+                        备注：
+                    </div>
+                    <div class="col s11">
                     <textarea style="height: 150px" name="remark" id="remark" cols="30" rows="10"
                               ng-model="remark"></textarea>
+                    </div>
+                </div>
+                <div class="row col s12" style="margin-top: 8%">
+                    <div class="subBtn" style="width: 300px ;margin: 0 auto">
+                        <button style="width: 300px;font-size: 1.3rem" class="btn btn-large waves-effect waves-light"
+                                type="submit" name="action">下一步
+                        </button>
+                    </div>
                 </div>
             </div>
-            <div class="row col s12">
-                <div class="subBtn" style="width: 300px ;margin: 0 auto">
-                    <button style="width: 300px;font-size: 1.3rem" class="btn btn-large waves-effect waves-light"
-                            type="submit" name="action">提交
-                    </button>
+        </form>
+    </div>
+
+    <div class="add_driver_step_2" ng-show="step_second">
+        <div class="row col s12">
+            <div class="col s6 vc-center">
+                <div class="col s2">身份证:</div>
+                <div class="col s10">
+                    <form name="uploadImageForm" class="uploadImageForm">
+                        <div class="storage_car_picture col s4 vc-center  p0 cyan lighten-1 white-text">
+                            <input name="image" type="file"
+                                   onchange="angular.element(this).scope().uploadIdCardImage(this)" max_size="4M">
+                            <i class="mdi mdi-instagram"></i>
+                        </div>
+                        <div ng-repeat="el in drive_img" class="drive_img_box col s4 vc-center p0 grey white-text">
+                            <img ng-src="{{el.img}}" class="responsive-img">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col s6 vc-center">
+                <div class="col s2">驾驶证:</div>
+                <div class="col s10">
+                    <form name="uploadImageForm" class="uploadImageForm">
+                        <div class="storage_car_picture col s4 vc-center  p0 cyan lighten-1 white-text">
+                            <input name="image" type="file" onchange="angular.element(this).scope().uploadLicenseImage(this)" max_size="4M">
+                            <i class="mdi mdi-instagram"></i>
+                        </div>
+                        <div ng-repeat="el in license_img" class="drive_img_box col s4 vc-center p0 grey white-text">
+                            <img ng-src="{{el.img}}" class="responsive-img">
+                            <!--<b class="delete_img vc-center black fz18" ng-click="delete_img(el.img)"><i class="mdi mdi-close"></i></b>-->
+                            <!--<p class="img_date white-text center-align" ng-show="show" ng-cloak>{{el.user}}上传于{{el.time|date:'yyyy-MM-dd HH:mm:ss'}}</p>-->
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </form>
+        <div class="row col s12" style="margin-top: 25%">
+            <div class="subBtn" style="width: 300px ;margin: 0 auto">
+                <button style="width: 300px;font-size: 1.3rem" class="btn btn-large waves-effect waves-light" ng-click="uploadImage()">提交
+                </button>
+            </div>
+        </div>
+    </div>
 
 </div>

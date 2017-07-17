@@ -37,7 +37,7 @@
             <div class="input-field col s3">
                 <select material-select watch ng-model="truckNumber">
                     <option value="" selected>关联货车</option>
-                    <option ng-repeat="truck in truckList" ng-value="truck.id">{{truck.truck_num}}</option>
+                    <option ng-repeat="truck in truckList" ng-value="truck.truckId">{{truck.truck_num}}</option>
                 </select>
             </div>
             <div class="input-field col s2">
@@ -105,7 +105,7 @@
                     <td width="300">{{driver.tel}}</td>
                     <td width="120">{{driver.drive_status | workStatus}}</td>
                     <td width="150" class="details">
-                        <a ui-sref="" class=""><i
+                        <a ui-sref="truck_driver_details({id:driver.id})" class=""><i
                                 class="mdi mdi-eye look_icon cyan-text lighten-1"></i></a>
                     </td>
                 </tr>

@@ -18,7 +18,7 @@ app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host
             })).then(function (driveData) {
             if (driveData.success === true) {
                 $scope.driveList = driveData.result;
-                console.log("driveData", driveData);
+                // console.log("driveData", driveData);
             }
             else {
                 swal(driveData.msg, "", "error");
@@ -41,7 +41,7 @@ app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host
         _basic.get($host.api_url + "/truckFirst?truckType=1").then(function (truckData) {
             if (truckData.success === true) {
                 $scope.truckList = truckData.result;
-                console.log("truckData",$scope.truckList);
+                // console.log("truckData",$scope.truckList);
             }
             else {
                 swal(truckData.msg, "", "error");

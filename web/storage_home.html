@@ -21,7 +21,9 @@
     <li class="nav-logo valign-wrapper " style="border-bottom: 1px solid #182024">
         <div class="  userBox">
             <!--<div class="col s3 valign-wrapper">-->
-            <img src="../../assets/images/office.jpg" alt="" class=" responsive-img left logo_img" style="height: 50px"> <!-- notice the "circle" class -->
+            <div class="nav-avatar" style="height:50px; width:50px;padding: 25px 0 0 15px;">
+                {{realName.substring(0,1)}}
+            </div>
             <!--</div>-->
             <div class=" userBoxMsg left">
               <span class="white-text">
@@ -155,6 +157,7 @@
 <script src="/assets/plugins/fullcalendar-3.3.0/fullcalendar.js"></script>
 <script src="/assets/plugins/fullcalendar-3.3.0/locale/zh-cn.js"></script>
 <script src="/assets/plugins/materialize/js/materialize.js"></script>
+<script src="/assets/plugins/avatar/avatar.min.js"></script>
 <script src="/assets/plugins/jQueryViewer/js/viewer.min.js"></script>
 <script src="/assets/plugins/alert/sweetalert.min.js"></script>
 <script src="/lib/angular/angular.min.js"></script>
@@ -205,5 +208,4 @@
 <script src="/js/controller/storage/add_storage_car_vin_controller.js"></script>
 <script src="/js/controller/storage/add_storage_car_controller.js"></script>
 <script src="/js/controller/storage/add_storage_car_put_in_controller.js"></script>
-
 </html>

@@ -95,6 +95,11 @@ publicDirective.directive('header', function () {
                             }
                         }
                         $scope.realName = data.result[0].real_name;
+                        MaterialAvatar(document.getElementsByClassName('nav-avatar'), {
+                            shape: 'circle',
+                            backgroundColor: '#4dd0e1',
+                            textColor: '#fff'
+                        });
                     } else {
                         swal(data.msg, "", "error");
                     }

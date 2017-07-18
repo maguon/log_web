@@ -19,7 +19,6 @@ publicDirective.directive('header', function () {
                 $("#user_modal").modal("open");
             };
             $scope.download_app = function () {
-                console.log("666");
                 $(".modal").modal();
                 $("#download").modal("open");
             };

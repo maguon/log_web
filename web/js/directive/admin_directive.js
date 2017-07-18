@@ -12,6 +12,13 @@ adminDirective.directive('header', function () {
                 $(".modal").modal();
                 $("#user_modal").modal("open");
             };
+            $scope.download_app = function () {
+                $(".modal").modal();
+                $("#download").modal("open");
+            };
+            $scope.closeModel = function () {
+                $("#user_modal").modal("close");
+            };
             $scope.amend_user_submit=function (valid) {
                 $scope.submitted=true;
                 if(valid&&$scope.user_new_password==$scope.user_confirm_password){
@@ -316,4 +323,13 @@ adminDirective.directive('percent', function () {
 
         }
     }
+});
+
+adminDirective.directive('footer', function () {
+    return {
+        templateUrl: '/js/view/common_footer.html',
+        replace: true,
+        transclude: false,
+        restrict: 'E'
+    };
 });

@@ -13,14 +13,17 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
     };
     // 车辆存照片ID;
     var Picture_truckid;
-    // 获取公司
-    _basic.get($host.api_url+"/company").then(function (data) {
-        if(data.success==true){
-            $scope.company=data.result;
-        }else {
-            swal(data.msg,"","error")
-        }
-    });
+    // 所属类型--公司联动
+    $scope.getCompany=function () {
+        _basic.get($host.api_url+"/company?operateType="+$scope.truck_type).then(function (data) {
+            if(data.success==true){
+                $scope.company=data.result;
+            }else {
+                swal(data.msg,"","error")
+            }
+        });
+    };
+
     // 获取品牌
     _basic.get($host.api_url+"/brand").then(function (data) {
         if(data.success==true){
@@ -71,9 +74,8 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
                 "driveId": $scope.main_driver,
                 // "copilot": "string",
                 "companyId":$scope.truck_company,
-                "truckType":$scope.truck_type,
+                "truckType":1,
                 // "relId":$scope.check_hand_truck,
-                "truckStatus":1,
                 // "number": 0,
                 "drivingDate":$scope.drive_time,
                 "licenseDate": $scope.service_time,
@@ -285,16 +287,18 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
 
     // 挂车过滤
     $scope.Binding_trailer_check=function () {
-
-        console.log($scope.Binding_trailer,hand_truck_msg);
-        if($scope.Binding_trailer.length==0){
+        var Binding_trailer=$scope.Binding_trailer.split("");
+        if(Binding_trailer.length==0){
             $scope.hand_truck_msg=hand_truck_msg;
         }else {
             $scope.hand_truck_msg=[];
             hand_truck_msg.forEach(function (i) {
-                for(var j=0;j<$scope.Binding_trailer.length;j++){
-                    if(i.truck_num.indexOf($scope.Binding_trailer[j])!=-1){
-                        $scope.hand_truck_msg.push(i)
+                for(var j=0;j<Binding_trailer.length;j++){
+                    if(i.truck_num.indexOf(Binding_trailer[j])!=-1){
+                        if($scope.hand_truck_msg.indexOf(i)==-1){
+                            $scope.hand_truck_msg.push(i)
+                        }
+
                     }
                 }
             })
@@ -353,7 +357,6 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
     // 司机过滤
     $scope.Binding_driver_check=function () {
 
-        console.log($scope.Binding_driver,hand_driver_msg);
         if($scope.Binding_driver.length==0){
             $scope.drive=hand_driver_msg;
         }else {
@@ -361,7 +364,9 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
             hand_driver_msg.forEach(function (i) {
                 for(var j=0;j<$scope.Binding_driver.length;j++){
                     if(i.drive_name.indexOf($scope.Binding_driver[j])!=-1){
-                        $scope.drive.push(i)
+                        if($scope.drive.indexOf(i)==-1){
+                            $scope.drive.push(i);
+                        }
                     }
                 }
             })

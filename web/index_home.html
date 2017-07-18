@@ -179,6 +179,9 @@
 <script>
 //  动态求出主体内容高度，防止遮罩层溢出
     document.getElementsByClassName("ConWrap")[0].style.height=document.body.scrollHeight-70-70+"px";
+    window.onresize=function () {
+        document.getElementsByClassName("ConWrap")[0].style.height=document.body.scrollHeight-70-70+"px";
+    }
 </script>
 <script src="/lib/jquery.min.js"></script>
 <script src="/lib/jquery.form.min.js"></script>

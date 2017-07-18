@@ -85,6 +85,7 @@ app.controller("add_storage_car_put_in_controller", ["$scope", "$rootScope","$st
                         }
                     }
                     $scope.srorage_car_details=data.result[0];
+                    $scope.id=data.result[0].id;
                     $scope.client=$scope.srorage_car_details.entrust_id;
                     $scope.dealer=$scope.srorage_car_details.receive_id;
                     $scope.remark=$scope.srorage_car_details.remark
@@ -121,7 +122,28 @@ app.controller("add_storage_car_put_in_controller", ["$scope", "$rootScope","$st
 
         };
 
-
+    // 直接送达
+    $scope.delivery=function () {
+        swal({
+                title: "确认直接送达该车辆？",
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                closeOnConfirm: false
+            },
+            function () {
+                _basic.put($host.api_url+"/user/"+userId+"/car/"+$scope.id+"/carStatus/"+9,{}).then(function (data) {
+                    if(data.success==true){
+                        $state.go("car_query", {reload: true});
+                        swal("送达成功!", "", "success");
+                    }
+                })
+            }
+        )
+    }
     // 新增信息
     $scope.newsubmitForm = function (isValid) {
         $scope.submitted = true;

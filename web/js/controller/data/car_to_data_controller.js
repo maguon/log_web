@@ -328,11 +328,11 @@ app.controller("car_to_data_controller", ['$rootScope','$scope','$location','$q'
                 }
             });
             // 经销商
-            _basic.get($host.api_url+"/receive").then(function (data) {
-                if(data.success==true){
-                    $scope.get_receive=data.result;
-                }
-            });
+            // _basic.get($host.api_url+"/receive").then(function (data) {
+            //     if(data.success==true){
+            //         $scope.get_receive=data.result;
+            //     }
+            // });
             // 委托方
             _basic.get($host.api_url+"/entrust").then(function (data) {
                 if(data.success==true){
@@ -341,7 +341,28 @@ app.controller("car_to_data_controller", ['$rootScope','$scope','$location','$q'
             })
         };
         $scope.get_Msg();
-        
+
+        // 发运地城市--地址联动
+        $scope.start_city_change=function (val) {
+            _basic.get($host.api_url + "/baseAddr?cityId=" + val).then(function (data) {
+                if(data.success==true){
+                    // console.log(data.result)
+                    $scope.baseAddr=data.result;
+                }
+            })
+        };
+
+        // 目的地城市-经销商联动
+        $scope.get_received=function (id){
+            _basic.get($host.api_url+"/receive?cityId="+id).then(function (data) {
+                if(data.success==true){
+                    $scope.get_receive=data.result;
+                }else {
+                    swal(data.msg,"","error")
+                }
+            })
+        };
+
         // 新增车辆信息
         $scope.newSubmitForm=function (invalid) {
 
@@ -352,6 +373,7 @@ app.controller("car_to_data_controller", ['$rootScope','$scope','$location','$q'
                     "makeId": $scope.car_brand.id,
                     "makeName": $scope.car_brand.make_name,
                     "routeStartId": $scope.start_city.id,
+                    "baseAddrId":$scope.base_addr.id,
                     "routeStart": $scope.start_city.city_name,
                     "routeEndId": $scope.arrive_city.id,
                     "routeEnd": $scope.arrive_city.city_name,

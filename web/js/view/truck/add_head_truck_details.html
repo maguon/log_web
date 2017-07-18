@@ -12,10 +12,11 @@
             <div class="row" >
                 <div class="col s12" >
                     <ul class="ui-tabs tabs" ul-tabs>
-                        <li class="tab col s3 test1"><a class="active" href="#test1">基本信息</a></li>
-                        <li class="tab col s3 test2 disabled"><a    href="#test2">上传照片</a></li>
-                        <li class="tab col s3 test3 disabled"><a href="#test3">车险</a></li>
-                        <li class="tab col s3 test4 disabled"><a href="#test4">车保</a></li>
+                        <li class="tab col s2-0 test1"><a   href="#test1">基本信息</a></li>
+                        <li class="tab col s2-0 test2 disabled"><a    href="#test2">上传照片</a></li>
+                        <li class="tab col s2-0 test3 disabled"><a class="active"  href="#test3">绑定挂车</a></li>
+                        <li class="tab col s2-0 test4 disabled"><a  href="#test4">绑定司机</a></li>
+                        <li class="tab col s2-0 test5 disabled"><a  href="#test5">车保</a></li>
                     </ul>
                 </div>
                 <div id="test1" class="test col s12" style="margin-top: 50px">
@@ -56,7 +57,7 @@
                                         <option value="">请选择</option>
                                         <option ng-repeat="el in brand" ng-value="el.id">{{el.brand_name}}</option>
                                     </select>
-                                    <label for="truck_make"><span style="color: red;margin-right: 5px">*</span>车辆制造商</label>
+                                    <label for="truck_make"><span style="color: red;margin-right: 5px">*</span>车辆品牌</label>
                                 </div>
                                 <div class="input-field col s4 " ng-class="{'has-error':add_truck_form.vin.$invalid&&submitted }">
                                     <input name="vin" id="vin" type="text" ng-model="vin" autocomplete="off" required>
@@ -170,29 +171,159 @@
                     </div>
                 </div>
                 <div id="test3" class="test col s12">
-                    <form name="time_form"  ng-submit="submit_time_Form(time_form.$valid)" novalidate>
-                        <!--<div class="row">-->
-                            <!--<div class="col s6 input-field" ng-class="{'has-error':time_form.drive_time.$invalid&&submitted }">-->
-                                <!--<input type="text" name="drive_time" id="drive_time" class="datepicker" autocomplete="off" ng-model="drive_time" required   date><i class="mdi dataIcon mdi-table-large"></i>-->
-                                <!--<label for="drive_time">行驶证建政日期</label>-->
-                            <!--</div>-->
-                            <!--<div class="col s6 input-field" ng-class="{'has-error':time_form.service_time.$invalid&&submitted }">-->
-                                <!--<input type="text" name="service_time" id="service_time" class="datepicker" autocomplete="off" ng-model="service_time" required   date><i class="mdi dataIcon mdi-table-large"></i>-->
-                                <!--<label for="service_time">营运证检证日期</label>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="row ">-->
-                            <!--<div class="col s6 input-field" ng-class="{'has-error':time_form.second_time.$invalid&&submitted }">-->
-                                <!--<input type="text" name="second_time" id="second_time" class="datepicker" autocomplete="off" ng-model="second_time" required   date><i class="mdi dataIcon mdi-table-large"></i>-->
-                                <!--<label for="second_time">二保卡检测日期</label>-->
-                            <!--</div>-->
-                        <!--</div>-->
+                    <form name="Binding_trailer_form"  ng-submit="Binding_trailer_submit()" novalidate>
+                        <div class="row">
+                            <div class="input-field col s4">
+                                <input id="Binding_trailer" name="Binding_trailer" ng-keyup="Binding_trailer_check()" class="Binding_trailer" ng-model="Binding_trailer" type="text"  autocomplete="off">
+                                <label for="Binding_trailer">关联挂车</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div  class="col s4 " style="padding: 10px;height: 40px;margin-top: 20px">
+                                <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':el.trail_num}">
+                                    <div class="col s6 "  ng-click="clear_trailer()">
+                                        <input type="radio" name="filled-in" class="filled-in"  id="filled-in-box" />
+                                        <label for="filled-in-box" class="black-text" style="font-size: 18px" >暂不关联</label>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div ng-repeat="el in hand_truck_msg track by $index" class="col s4 " style="padding: 10px;height: 40px;margin-top: 20px">
+                                <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':el.trail_num}">
+                                    <div class="col s6 " ng-if="!el.trail_num" ng-click="check_trailer(el.id)">
+                                        <input type="radio" name="filled-in" class="filled-in"  id="filled-in-box{{$index}}" />
+                                        <label for="filled-in-box{{$index}}" class="black-text" style="font-size: 18px" >{{el.truck_num}}</label>
+                                    </div>
+                                    <div class="col s6 black-text" ng-if="el.trail_num"  style="font-size: 18px">
+                                        {{el.truck_num}}
+                                    </div>
+                                    <div class=" col s6">
+                                        <span ng-hide="el.trail_num" style="margin-left: 10px">未关联车头</span>
+                                        <span ng-show="el.trail_num" style="margin-left: 10px">关联车头: <span>{{el.trail_num}}</span></span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
                         <div class="row vc-center" >
                             <button class="btn waves-effect" type="submit" name="action" >下一步</button>
                         </div>
                     </form>
                 </div>
-                <div id="test4" class="test col s12">测试 4</div>
+                <div id="test4" class="test col s12">
+                        <div class="row">
+                            <div class="input-field col s4">
+                                <input id="Binding_driver" name="Binding_driver" ng-keyup="Binding_driver_check()" class="Binding_driver" ng-model="Binding_driver" type="text"  autocomplete="off">
+                                <label for="Binding_trailer">关联主驾</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div  class="col s4 " style="padding: 10px;height: 40px;margin-top: 20px">
+                                <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':el.trail_num}">
+                                    <div class="col s6 "  ng-click="clear_driver()">
+                                        <input type="radio" name="filled-in" class="filled-in"  id="filled-in_driver-box" />
+                                        <label for="filled-in_driver-box" class="black-text" style="font-size: 18px" >暂不关联</label>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div ng-repeat="el in drive track by $index" class="col s4 " style="padding: 10px;height: 40px;margin-top: 20px">
+                                <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':el.truck_num}">
+                                    <div class="col s6 " ng-if="!el.truck_num" ng-click="check_driver(el.id)">
+                                        <input type="radio" name="filled-in" class="filled-in"  id="filled-in_driver-box{{$index}}" />
+                                        <label for="filled-in_driver-box{{$index}}" class="black-text" style="font-size: 18px" >{{el.drive_name}}</label>
+                                    </div>
+                                    <div class="col s6 black-text" ng-if="el.truck_num"  style="font-size: 18px">
+                                        {{el.drive_name}}
+                                    </div>
+                                    <div class=" col s6">
+                                        <span ng-hide="el.truck_num" style="margin-left: 10px">未关联车头</span>
+                                        <span ng-show="el.truck_num" style="margin-left: 10px">关联车头: <span>{{el.truck_num}}</span></span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row vc-center" >
+                            <a  class="btn waves-effect" ng-click="binding_driver_submit()"  >下一步</a>
+                        </div>
+                </div>
+                <div id="test5" class="test col s12">
+                    <div class="row">
+                        <a class="btn waves-effect" ng-click="add_guarantee()" style="margin-top: 20px" >增加保单</a>
+                        <div id="add_guarantee" class="modal">
+                            <form name="new_companyForm" ng-submit="submitForm(new_companyForm.$valid)" novalidate>
+                                <div class="modal-content">
+                                    <h5 class="center-align">增加保单</h5>
+                                    <div class="divider"></div>
+                                    <div class="row">
+                                        <div class="container" style="padding: 20px 0">
+                                            <div class="input-field row">
+                                                <select material-select watch name="guarantee_company" id="guarantee_company" ng-model="guarantee_company" >
+                                                    <option value="" disabled selected>请选择</option>
+                                                    <option value="1">自营</option>
+                                                    <option value="2">供方</option>
+                                                    <option value="3">外协</option>
+                                                    <option value="4">承包</option>
+                                                </select>
+                                                <label for="guarantee_company">投保公司</label>
+                                            </div>
+                                            <div class="input-field row">
+                                                <select material-select watch name="insurance_type" id="insurance_type" ng-model="insurance_type" >
+                                                    <option value="" disabled selected>请选择</option>
+                                                    <option value="1">自营</option>
+                                                    <option value="2">供方</option>
+                                                    <option value="3">外协</option>
+                                                    <option value="4">承包</option>
+                                                </select>
+                                                <label for="insurance_type">保险种类</label>
+                                            </div>
+                                            <div class="input-field row">
+                                                <input type="text" id="guarantee_num" name="guarantee_num"   ng-model="guarantee_num" style="margin: 0 0 20px 0" autocomplete="off" class="autocomplete" required >
+                                                <label for="guarantee_num">保单编号</label>
+                                            </div>
+                                            <div class="input-field row">
+                                                <input type="text" id="guarantee_money" name="guarantee_money"   ng-model="guarantee_money" style="margin: 0 0 20px 0" autocomplete="off" class="autocomplete" required >
+                                                <label for="guarantee_money">保险金额（元）</label>
+                                            </div>
+                                            <div class="input-field row">
+                                                <input type="text" name="guarantee_time" id="guarantee_time" class="datepicker" autocomplete="off" ng-model="guarantee_time" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                                <label for="guarantee_time">保险日期</label>
+                                            </div>
+                                            <div class="row p0">
+                                                <div class="input-field col s5 p0">
+                                                    <input type="text" name="effective_date_start" id="effective_date_start" class="datepicker" autocomplete="off" ng-model="effective_date_start" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                                    <label for="effective_date_start">生效期（始）</label>
+                                                </div>
+                                                <div class="input-field col s5 p0 offset-s2">
+                                                    <input type="text" name="effective_date_end" id="effective_date_end" class="datepicker " autocomplete="off" ng-model="effective_date_end" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                                    <label for="effective_date_end">生效期（终）</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="divider"></div>
+                                <div class="modal-footer vc-center">
+                                    <button class="btn waves-light waves-effect" type="submit" name="action" >
+                                        <i class="mdi mdi-check"></i>
+                                    </button>
+                                    <a  class=" modal-action modal-close waves-effect waves-light materialize-red lighten-1 btn" style="margin-left: 10px" >
+                                        <i class="mdi mdi-close"></i>
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row vc-center ">
+                        <button class="btn waves-effect">完成</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

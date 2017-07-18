@@ -54,10 +54,10 @@ app.controller("truck_details_controller", ["$scope","$state","$stateParams","_b
         $scope.search_truck_status=2;
     };
     
-    // 搜索
+    // 搜索头车
     $scope.search_truck=function () {
         var obj={
-            truckType: $scope.search_truck_status,
+            truckType: 1,
             truckNum:$scope.search_num,
             operateType:$scope.search_truck_type,
             companyId:$scope.search_company,
@@ -65,9 +65,29 @@ app.controller("truck_details_controller", ["$scope","$state","$stateParams","_b
             drivingDateStart:$scope.search_checkCar_startTime,
             drivingDateEnd:$scope.search_checkCar_endTime
         };
-        _basic.get($host.api_url+"/truck?"+_basic.objToUrl(obj)).then(function (data) {
+        _basic.get($host.api_url+"/truckFirst?"+_basic.objToUrl(obj)).then(function (data) {
             if(data.success==true){
                 $scope.head_car=data.result;
+            }else {
+                swal(data.msg,"","error")
+            }
+        });
+    };
+    // 搜索挂车
+    $scope.search_hand_truck=function () {
+        var obj={
+            truckType:2,
+            truckNum:$scope.search_hand_num,
+            numberStart:$scope.search_hand_num_start,
+            numberEnd:$scope.search_hand_num_end,
+            operateType:$scope.search_truck_hand_type,
+            companyId:$scope.search_hand_company,
+            drivingDateStart:$scope.search_checkCar_hand_startTime,
+            drivingDateEnd:$scope.search_checkCar_hand_endTime
+        };
+        _basic.get($host.api_url+"/truckTrailer?"+_basic.objToUrl(obj)).then(function (data) {
+            if(data.success==true){
+                $scope.hand_truck_msg=data.result;
             }else {
                 swal(data.msg,"","error")
             }

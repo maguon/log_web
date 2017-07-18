@@ -279,6 +279,10 @@ body{
     border: 1px solid #eceff1;
     background: white;
 }
+.trailer_panel{
+    border: 1px solid #eceff1;
+    background: white;
+}
 .car_model_name{
     color:#4dd0e1 ;
 }
@@ -999,6 +1003,10 @@ input[type=text]{
 
 }
 
+/*下拉列表长度控制*/
+.dropdown-content.select-dropdown.active{
+    max-height: 200px;
+}
 /*商品车统计*/
 .car_nav{
     width: 98.5%;

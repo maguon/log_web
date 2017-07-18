@@ -7,14 +7,17 @@ app.controller("add_hand_truck_details_controller", ["$scope","$state","$statePa
         $state.go($stateParams.from,{reload:true})
     };
 
-    // 获取公司
-    _basic.get($host.api_url+"/company").then(function (data) {
-        if(data.success==true){
-            $scope.company=data.result;
-        }else {
-            swal(data.msg,"","error")
-        }
-    });
+    // 所属类型--公司联动
+    $scope.getCompany=function () {
+        _basic.get($host.api_url+"/company?operateType="+$scope.truck_hand_type).then(function (data) {
+            if(data.success==true){
+                $scope.company=data.result;
+            }else {
+                swal(data.msg,"","error")
+            }
+        });
+    };
+
     // 获取品牌
     _basic.get($host.api_url+"/brand").then(function (data) {
         if(data.success==true){
@@ -55,30 +58,28 @@ app.controller("add_hand_truck_details_controller", ["$scope","$state","$statePa
 
     // 新增
     $scope.submit_Form=function (inValid) {
-        if($scope.truck_status=='1'){
             $scope.submitted=true;
             var obj={
-                "truckNum":$scope.truck_num,
-                "brandId":$scope.truck_make,
-                "truckTel": $scope.phone_num,
-                "theCode": $scope.vin,
+                "truckNum":$scope.truck_hand_num,
+                // "brandId":$scope.truck_make,
+                // "truckTel": $scope.phone_num,
+                "theCode": $scope.hand_vin,
                 "driveId": $scope.main_driver,
                 // "copilot": "string",
-                "companyId":$scope.truck_company,
-                "truckType":$scope.truck_type,
+                "companyId":$scope.truck_hand_company,
+                "truckType":2,
                 "relId":$scope.check_hand_truck,
-                "truckStatus": $scope.truck_status,
-                // "number": 0,
-                // "drivingDate": "string",
-                // "licenseDate": "string",
+                "number":$scope.hand_have_num,
+                "drivingDate":$scope.drive_hand_time,
+                "licenseDate": $scope.service_hand_time,
                 // "twoDate": "string",
                 // "drivingImage": "string",
                 // "licenseImage": "string",
-                "remark":$scope.textarea
+                "remark":$scope.hand_textarea
             };
             console.log(obj);
             if(inValid){
-                _basic.post($host.api_url+"/user/"+userId+"/truckFirst",obj).then(function (data) {
+                _basic.post($host.api_url+"/user/"+userId+"/truckTrailer",obj).then(function (data) {
                     if(data.success==true){
                         $(".ui-tabs li").addClass("disabled");
                         $(".test2").removeClass("disabled");
@@ -98,7 +99,6 @@ app.controller("add_hand_truck_details_controller", ["$scope","$state","$statePa
                     }
                 });
             }
-        }
 
     };
     // 照片上传函数

@@ -124,14 +124,17 @@
             </div>
             <div class="divider" style="background: #00bcd4;height: 2px;"></div>
             <div class="modal-footer right-align" style="padding-top: 20px">
+                <a  ng-hide="srorage_car_details.car_status==9" class="btn btn-floating red lighten-2" ng-click="delivery()">
+                    <i class="mdi mdi-flag-checkered"></i>
+                </a>
                 <button class="btn btn-floating waves-light waves-effect  cyan lighten-1" type="submit" name="action" >
                     <i class="mdi mdi-trending-neutral"></i>
                     <!--下一步-->
                 </button>
-                <a  class=" modal-action btn-floating modal-close waves-effect  grey lighten-1waves-light   btn" style="margin-right: 10px" >
-                    <i class="mdi mdi-close"></i>
-                    <!--取消-->
-                </a>
+                <!--<a  class=" modal-action btn-floating modal-close waves-effect  grey lighten-1waves-light   btn" style="margin-right: 10px" >-->
+                    <!--<i class="mdi mdi-close"></i>-->
+                    <!--&lt;!&ndash;取消&ndash;&gt;-->
+                <!--</a>-->
             </div>
         </form>
     </div>

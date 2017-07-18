@@ -68,7 +68,8 @@ app.controller("add_storage_car_controller", ["$scope", "$rootScope","$state","$
         $("#test1").show();
     };
     $scope.get_Msg();
-    
+
+    // 发运地城市--地址联动
     $scope.start_city_change=function (val) {
         _basic.get($host.api_url + "/baseAddr?cityId=" + val).then(function (data) {
             if(data.success==true){
@@ -247,8 +248,7 @@ app.controller("add_storage_car_controller", ["$scope", "$rootScope","$state","$
                 swal(data.msg,"","error")
             }
         })
-
-    }
+    };
     // 返回
     $scope.return = function () {
         // console.log($stateParams.mark);

@@ -56,7 +56,7 @@
                     <thead class="blue-grey lighten-4 grey-text text-darken-1">
                     <tr class="center-align">
                         <th class="center-align">VIN码</th>
-                        <th class="center-align">制造商</th>
+                        <th class="center-align">品牌</th>
                         <th class="center-align">到港时间</th>
                         <th class="center-align">经销商</th>
                         <th class="center-align">委托方</th>
@@ -67,7 +67,7 @@
                 </table>
                 <div class="col s12 warnBox">
                     <div class="col s4 fz12  red-text text-lighten-3">
-                        *必填字段为：17位VIN码、制造商、委托方
+                        *必填字段为：17位VIN码、品牌、委托方
                     </div>
                     <div class="col s4 fz12  red-text text-lighten-3">
                         *其余为可填字段
@@ -174,7 +174,7 @@
                                         <option value="" disabled selected>请选择</option>
                                         <!--<option ng-repeat="el in get_carMake" ng-value="el.id" >{{el.make_name}}</option>-->
                                     </select>
-                                    <label for="car_brand">制造商</label>
+                                    <label for="car_brand">品牌</label>
                                 </div>
                                 <!--<div class="col s4 valign-wrapper" ng-class="{ 'has-error':new_carForm.makecarName.$invalid&&submitted }" >-->
                                 <!--<h6 class="col s4-0 min-width ">-->
@@ -188,33 +188,42 @@
                             </div>
                             <div class="row" >
                                 <div class=" col s4 p0">
-                                    <div class=" input-field col s6">
-                                        <select material-select watch id="start_city" name="start_city" ng-options="start_city.city_name for start_city in get_city"  ng-model="start_city" >
+                                    <div class=" input-field col s6" ng-class="{'has-error':new_carForm.start_city.$invalid&&submitted}">
+                                        <select material-select watch id="start_city" name="start_city" ng-change="start_city_change(start_city.id)" ng-options="start_city.city_name for start_city in get_city" required  ng-model="start_city" >
                                             <option value="" disabled selected>请选择</option>
                                             <!--<option ng-if="start_city.city_status==1" ng-repeat="start_city in get_city" ng-value="start_city.id" >{{start_city.city_name}}</option>-->
                                         </select>
-                                        <label for="start_city">起始城市</label>
+                                        <label for="start_city">发运地城市</label>
                                     </div>
-                                    <div class="input-field col s6">
-                                        <select material-select watch id="arrive_city" name="arrive_city" ng-options="arrive_city.city_name for arrive_city in get_city"  ng-model="arrive_city" >
+                                    <div class="input-field col s6" ng-class="{'has-error':new_carForm.base_addr.$invalid&&submitted}">
+                                        <select material-select watch id="base_addr" name="base_addr" ng-options="base_addr.addr_name for base_addr in baseAddr" required  ng-model="base_addr" >
                                             <option value="" disabled selected>请选择</option>
                                         </select>
-                                        <label for="arrive_city">到港城市</label>
+                                        <label for="base_addr">发运地地址</label>
                                     </div>
+
                                 </div>
-                                <div class="input-field col s4">
-                                    <select material-select watch id="client" name="client"  ng-model="client" >
+                                <div class="input-field col s4"  ng-class="{'has-error':new_carForm.client.$invalid&&submitted}">
+                                    <select material-select watch id="client" name="client"  ng-model="client"  required>
                                         <option value="" disabled selected>请选择</option>
                                         <option ng-repeat="el in get_entrust" ng-value="el.id" >{{el.short_name}}</option>
                                     </select>
                                     <label for="client">委托方</label>
                                 </div>
-                                <div class="input-field col s4">
-                                    <select material-select watch id="dealer" name="dealer"  ng-model="dealer" >
+                                <div class=" col s4 p0">
+                                    <div class="input-field col s6"  ng-class="{'has-error':new_carForm.arrive_city.$invalid&&submitted}">
+                                        <select material-select watch id="arrive_city" name="arrive_city"  required ng-change="get_received(arrive_city.id)" ng-options="arrive_city.city_name for arrive_city in get_city"  ng-model="arrive_city" >
+                                            <option value="" disabled selected>请选择</option>
+                                        </select>
+                                        <label for="arrive_city">目的地城市</label>
+                                    </div>
+                                    <div class="input-field col s6"  ng-class="{'has-error':new_carForm.dealer.$invalid&&submitted}">
+                                    <select material-select watch id="dealer" name="dealer" required  ng-model="dealer" >
                                         <option value="" disabled selected>请选择</option>
                                         <option ng-repeat="el in get_receive" ng-value="el.id" >{{el.short_name}}</option>
                                     </select>
                                     <label for="dealer">经销商</label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">

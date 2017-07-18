@@ -3,6 +3,8 @@
  */
 app.controller("setting_dealer_controller",["$scope","_basic","_config","$host",function ($scope,_basic,_config,$host){
     $scope.contacts=[];
+    $scope.start = 0;
+    $scope.size = 11;
     $scope.addContacts=[];
     // $scope.city="";
     // 信息获取
@@ -14,6 +16,19 @@ app.controller("setting_dealer_controller",["$scope","_basic","_config","$host",
             }
         });
 
+    };
+
+
+    // 分页
+    // 上一页
+    $scope.pre_btn = function () {
+        $scope.start = $scope.start - ($scope.size - 1);
+        searchAll();
+    };
+    // 下一页
+    $scope.next_btn = function () {
+        $scope.start = $scope.start + ($scope.size - 1);
+        searchAll();
     };
 
     $scope.get_Msg();
@@ -28,14 +43,18 @@ app.controller("setting_dealer_controller",["$scope","_basic","_config","$host",
     };
     // 搜索经销商
     $scope.search_dealer=function () {
+        $scope.search_all_dealer();
+    };
+    $scope.search_all_dealer=function () {
              var obj={
                 receiveId:$scope.s_dealer,
-                cityId:$scope.city
+                cityId:$scope.city,
+                start:$scope.start,
+                size:$scope.size,
             };
-
         _basic.get($host.api_url+"/receive?"+_basic.objToUrl(obj)).then(function (data) {
             if(data.success==true){
-                $scope.setting_dealer=data.result;
+                // $scope.setting_dealer=data.result;
                 $scope.len=data.result.length;
                 for(var i=0;i<data.result.length;i++){
                     $scope.contacts.push({
@@ -45,6 +64,22 @@ app.controller("setting_dealer_controller",["$scope","_basic","_config","$host",
                         show:false
                     })
                 }
+                $scope.setting_dealer_box = data.result;
+                $scope.setting_dealer = $scope.setting_dealer_box.slice(0, 10);
+                if ($scope.start > 0) {
+                    $scope.pre=true;
+                    // $("#pre").removeClass("disabled");
+                } else {
+                    $scope.pre=false;
+                    // $("#pre").addClass("disabled");
+                }
+                if ($scope.setting_dealer_box.length < $scope.size) {
+                    // $("#next").addClass("disabled");
+                    $scope.next=false;
+                } else {
+                    // $("#next").removeClass("disabled");
+                    $scope.next=true;
+                }
             }
         })
     };
@@ -53,21 +88,34 @@ app.controller("setting_dealer_controller",["$scope","_basic","_config","$host",
     $scope.userId=_basic.getSession(_basic.USER_ID);
     $scope.contacts_name=[];
     // 初始数据
-    _basic.get($host.api_url+"/receive").then(function (data) {
-        if(data.success==true&&data.result.length>0){
-                $scope.setting_dealer=data.result;
-                $scope.len=data.result.length;
-            for(var i=0;i<data.result.length;i++){
-                $scope.contacts.push({
-                    show:false
-                });
-                $scope.addContacts.push({
-                    show:false
-                })
-            }
+    $scope.search_all_dealer();
+    // 分页
+    // 上一页
+    $scope.pre_btn = function () {
+        $scope.start = $scope.start - ($scope.size - 1);
+        $scope.search_all_dealer();
+    };
+    // 下一页
+    $scope.next_btn = function () {
+        $scope.start = $scope.start + ($scope.size - 1);
+        $scope.search_all_dealer();
+    };
 
-        }
-    });
+    // _basic.get($host.api_url+"/receive").then(function (data) {
+    //     if(data.success==true&&data.result.length>0){
+    //             $scope.setting_dealer=data.result;
+    //             $scope.len=data.result.length;
+    //         for(var i=0;i<data.result.length;i++){
+    //             $scope.contacts.push({
+    //                 show:false
+    //             });
+    //             $scope.addContacts.push({
+    //                 show:false
+    //             })
+    //         }
+    //
+    //     }
+    // });
     $scope.get_contact=function (id,index) {
         _basic.get($host.api_url+"/receive/"+id+"/contacts").then(function (data) {
             if(data.success==true){

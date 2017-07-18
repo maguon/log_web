@@ -120,16 +120,16 @@ CommonFilter.filter("carType", function () {
         var car;
         switch (input) {
             case 1:
-                car = "自营车";
+                car = "自营";
                 break;
             case 2:
-                car = "外协车";
+                car = "外协";
                 break;
             case 3:
-                car = "供方车";
+                car = "供方";
                 break;
             case 4:
-                car = "承包车";
+                car = "承包";
                 break;
             default:
                 car = "未知";

@@ -2,6 +2,7 @@
  * Created by zcy on 2017/7/12.
  */
 app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host", function ($scope, _basic, _config, $host) {
+    var userId = _basic.getSession(_basic.USER_ID);
 
     // 点击搜索指定司机信息
     $scope.searchDriver = function () {
@@ -24,6 +25,26 @@ app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host
                 swal(driveData.msg, "", "error");
             }
         });
+    };
+
+    // 停用或启用司机
+    $scope.disableDriver = function (driverStatus,driverId) {
+        if(driverStatus == "1"){
+            _basic.put($host.api_url + "/user/" + userId + "/drive/" + driverId + "/driveStatus/0",{}).then(function (disableData) {
+                if (disableData.success === true) {
+                    $scope.searchDriver();
+                    swal("已停用该司机", "", "success");
+                }
+            });
+        }
+        else{
+            _basic.put($host.api_url + "/user/" + userId + "/drive/" + driverId + "/driveStatus/1",{}).then(function (activeData) {
+                if (activeData.success === true) {
+                    $scope.searchDriver();
+                    swal("已启用该司机", "", "success");
+                }
+            });
+        }
     };
 
     // 获取司机及公司信息

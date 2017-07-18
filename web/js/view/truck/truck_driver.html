@@ -37,13 +37,13 @@
             <div class="input-field col s3">
                 <select material-select watch ng-model="truckNumber">
                     <option value="" selected>关联货车</option>
-                    <option ng-repeat="truck in truckList" ng-value="truck.truckId">{{truck.truck_num}}</option>
+                    <option ng-repeat="truck in truckList" ng-value="truck.id">{{truck.truck_num}}</option>
                 </select>
             </div>
             <div class="input-field col s2">
                 <select material-select watch ng-model="drivingLicense">
                     <option value="" selected>驾驶类型</option>
-                    <option value="1" selected>A1</option>
+                    <option value="1" >A1</option>
                     <option value="2" >A2</option>
                     <option value="3" >A3</option>
                     <option value="4" >B1</option>
@@ -107,6 +107,15 @@
                     <td width="150" class="details">
                         <a ui-sref="truck_driver_details({id:driver.id})" class=""><i
                                 class="mdi mdi-eye look_icon cyan-text lighten-1"></i></a>
+                        <!--&emsp;<a ng-click="disableDriver(driver.drive_status,driver.id)" class=""><i-->
+                                <!--class="mdi mdi-autorenew cyan-text lighten-1"></i></a>-->
+                        <span class="switch" ng-click="disableDriver(driver.drive_status,driver.id)"
+                              style="height: 30px;">
+                                <label>
+                                  <input type="checkbox" ng-checked="driver.drive_status==1">
+                                  <span class="lever"></span>
+                                </label>
+                        </span>
                     </td>
                 </tr>
                 </tbody>

@@ -8,10 +8,10 @@
             <div class="input-field col s3">
                 <select material-select watch ng-model="driverType">
                     <option value="" selected>所属类型</option>
-                    <option value="1" >自营车</option>
-                    <option value="2" >外协车</option>
-                    <option value="3" >供方车</option>
-                    <option value="4" >承包车</option>
+                    <option value="1" >自营</option>
+                    <option value="2" >外协</option>
+                    <option value="3" >供方</option>
+                    <option value="4" >承包</option>
                 </select>
             </div>
 
@@ -107,8 +107,6 @@
                     <td width="150" class="details">
                         <a ui-sref="truck_driver_details({id:driver.id})" class=""><i
                                 class="mdi mdi-eye look_icon cyan-text lighten-1"></i></a>
-                        <!--&emsp;<a ng-click="disableDriver(driver.drive_status,driver.id)" class=""><i-->
-                                <!--class="mdi mdi-autorenew cyan-text lighten-1"></i></a>-->
                         <span class="switch" ng-click="disableDriver(driver.drive_status,driver.id)"
                               style="height: 30px;">
                                 <label>

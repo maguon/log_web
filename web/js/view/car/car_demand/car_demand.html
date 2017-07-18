@@ -19,7 +19,7 @@
                 </div>
                 <div class="input-field col s3">
                     <select material-select watch ng-model="search_makeId" ng-change="changeMakeId(search_makeId)">
-                        <option value=""  selected>车辆品牌</option>
+                        <option value=""  selected>车辆制造商</option>
                         <option ng-repeat="el in makecarName" ng-value="el.id">{{el.make_name}}</option>
                     </select>
                     <!--<label ></label>-->
@@ -95,7 +95,7 @@
                 <thead class="blue-grey lighten-5">
                 <tr class="grey-text text-darken-2">
                     <th data-field="">VIN码</th>
-                    <th data-field="">品牌</th>
+                    <th data-field="">制造商</th>
                     <th data-field="">型号</th>
                     <th data-field="">入库时间</th>
                     <th  data-field="">存放车库</th>

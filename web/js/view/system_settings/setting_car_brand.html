@@ -2,7 +2,7 @@
     <div class="row">
         <div class="row valign-wrapper">
             <h5 class="col s12 cyan-text lighten-1  center-align">
-                车辆品牌设置
+                商品车制造商设置
             </h5>
             <!--<div class="col s8 right-align">-->
             <!---->
@@ -15,13 +15,13 @@
         <div style="width: 75%;margin: 0 auto">
             <div class="row addBrand">
                 <a href="" class=" col s2 offset-s10  btn waves-effect cyan lighten-1 waves-light vc-center open_car_brand "
-                   ng-click="car_Brand_box($event)">+增加品牌</a>
+                   ng-click="car_Brand_box($event)">+增加制造商</a>
 
                 <form name="addBrandFrom" ng-submit="add_brand(addBrandFrom.$valid)" novalidate>
                     <div class="col s12 z-depth-2 white car_Brand_box "
                          style="padding: 0.75rem 0;display: none">
                         <div class="col s1 vc-center" style="height: 45px">
-                            <h6 class=" bold cyan-text text-lighten-1" style="min-width: 88px;margin-left: 10px">品牌名称:</h6>
+                            <h6 class=" bold cyan-text text-lighten-1" style="min-width: 88px;margin-left: 10px">制造商名称:</h6>
                         </div>
                         <input class="col s3 Brand_text" name="brandText" id="brandText" type="text" autocomplete="off"
                                ng-model="b_txt" required>

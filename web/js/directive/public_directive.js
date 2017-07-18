@@ -22,9 +22,9 @@ publicDirective.directive('header', function () {
                 $(".modal").modal();
                 $("#download").modal("open");
             };
-            $scope.closeModel = function () {
-                $("#user_modal").modal("close");
-            };
+            // $scope.closeModel = function () {
+            //     $("#user_modal").modal("close");
+            // };
             $scope.amend_user_submit=function (valid) {
                 $scope.submitted=true;
                 if(valid&&$scope.user_new_password==$scope.user_confirm_password){

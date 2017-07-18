@@ -36,7 +36,7 @@
             <div class="col s11">
                 <div class="input-field col s2">
                     <select material-select watch ng-model="brandId">
-                        <option value="" selected>品牌</option>
+                        <option value="" selected>制造商</option>
                         <option ng-repeat="carBrand in carMakeList" value={{carBrand.id}}>{{carBrand.make_name}}</option>
                     </select>
                 </div>
@@ -85,7 +85,7 @@
             <thead class="blue-grey lighten-5">
             <tr class="grey-text text-darken-2">
                 <th width="320" data-field="">VIN码</th>
-                <th width="150" data-field="">品牌</th>
+                <th width="150" data-field="">制造商</th>
                 <th width="180" data-field="">发运地名称</th>
                 <th width="160" data-field="">目的地城市</th>
                 <th width="180" data-field="">委托方</th>

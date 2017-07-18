@@ -20,7 +20,7 @@
                             <option value="" class="cyan-text text-lighten-2"  selected>请选择</option>
                             <option ng-repeat="el in makecarName" ng-value="el.id">{{el.make_name}}</option>
                         </select>
-                        <label for="search_makeId">品牌</label>
+                        <label for="search_makeId">制造商</label>
                     </div>
                     <div class="input-field col s2">
                         <select material-select id="search_relStatus" watch ng-model="search_relStatus">
@@ -301,7 +301,7 @@
                 <thead class="blue-grey lighten-5">
                 <tr class="grey-text text-darken-2">
                     <th data-field="">VIN码</th>
-                    <th data-field="">品牌</th>
+                    <th data-field="">制造商</th>
                     <th data-field="">入库时间</th>
                     <th  data-field="">存放车库</th>
                     <th data-field="">存放位置</th>

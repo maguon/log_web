@@ -35,6 +35,9 @@ app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host
                     $scope.searchDriver();
                     swal("已停用该司机", "", "success");
                 }
+                else{
+                    swal("司机已被关联，请先解绑", "", "error");
+                }
             });
         }
         else{
@@ -42,6 +45,9 @@ app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host
                 if (activeData.success === true) {
                     $scope.searchDriver();
                     swal("已启用该司机", "", "success");
+                }
+                else{
+                    swal("司机已被关联，请先解绑", "", "error");
                 }
             });
         }

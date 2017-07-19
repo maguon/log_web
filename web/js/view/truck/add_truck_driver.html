@@ -5,60 +5,33 @@
 <div class="add_truck_driver" style="width: 80%;margin: 0 auto">
     <div class="row col s12">
         <h4 class="center-align">增加司机</h4>
-        <div class="divider" style="background-color: #ccc"></div>
     </div>
+    <ul class="tabs ui-tabs tabs-fixed-width tab-demo z-depth-1" style="font-size: 25px;font-weight: bold;overflow-x: hidden;margin-bottom: 25px" ul-tabs>
+        <li class="tab tab1 disabled"><a class="active" style="color: #26c6da" href="#tab1">基本信息</a></li>
+        <li class="tab tab2 disabled"><a style="color: #26c6da" href="#tab2">照片</a></li>
+        <li class="tab tab3 disabled"><a style="color: #26c6da" href="#tab3">绑定货车</a></li>
+    </ul>
     <div class="add_driver_step_1" ng-show="step_first">
         <form name="add_driver_form" ng-submit="submitForm(add_driver_form.$valid)" novalidate>
             <div class="row main_storage_car">
-                <!--<div class="row col s12">-->
-                <!--<h4 class="center-align">增加司机</h4>-->
-                <!--<div class="divider" style="background-color: #ccc"></div>-->
-                <!--</div>-->
                 <div class="row col s12">
                     <div class="input-field col s5"
                          ng-class="{ 'has-error':add_driver_form.drive_name.$invalid&&submitted }">
                         <input id="drive_name" name="drive_name" type="text" ng-model="driveName" required>
                         <label for="drive_name"><span style="color: red">* </span>司机姓名</label>
                     </div>
-                    <div class="col s1"></div>
-                    <div class="input-field col s2" ng-class="{ 'has-error':add_driver_form.sex.$invalid&&submitted }">
-                        <select id="sex" name="sex" material-select watch ng-model="driverType" required>
-                            <option value="" selected>请选择</option>
-                            <option value="0">女</option>
-                            <option value="1">男</option>
-                        </select>
-                        <label><span style="color: red">* </span>性别</label>
-                    </div>
-                    <div class="col s1"></div>
+
                     <div class="input-field col s3"
                          ng-class="{ 'has-error':add_driver_form.truck.$invalid&&submitted }">
-                        <select id="truck" name="truck" material-select watch ng-model="relatedTruck" required>
+                        <select id="truck" name="truck" material-select watch ng-change="chooseOperateType()" ng-model="operateType" required>
                             <option value="" selected>请选择</option>
-                            <option ng-repeat="truck in truckList" ng-value="truck.id">{{truck.truck_num}}</option>
+                            <option value="1" >自营</option>
+                            <option value="2" >外协</option>
+                            <option value="3" >供方</option>
+                            <option value="4" >承包</option>
                         </select>
-                        <label><span style="color: red">* </span>关联货车</label>
+                        <label><span style="color: red">* </span>所属类型</label>
                     </div>
-                </div>
-                <div class="row col s12">
-                    <div class="input-field col s4"
-                         ng-class="{ 'has-error':add_driver_form.id_card.$invalid&&submitted }">
-                        <input id="id_card" name="id_card" type="text" ng-model="identityNum" required>
-                        <label for="id_card"><span style="color: red">* </span>身份证</label>
-                    </div>
-                    <div class="input-field col s4"
-                         ng-class="{ 'has-error':add_driver_form.phone.$invalid&&submitted }">
-                        <input id="phone" name="phone" type="text" ng-model="driverPhone" required>
-                        <label for="phone"><span style="color: red">* </span>电话</label>
-                    </div>
-                    <div class="input-field col s4"
-                         ng-class="{ 'has-error':add_driver_form.verification_time.$invalid&&submitted }">
-                        <input id="verification_time" name="verification_time" type="text" class="datepicker" date
-                               ng-model="verificationStartTime" required>
-                        <i class="mdi dataIcon mdi-table-large"></i>
-                        <label for="verification_time"><span style="color: red">* </span>入职时间</label>
-                    </div>
-                </div>
-                <div class="row col s12">
                     <div class="input-field col s4"
                          ng-class="{ 'has-error':add_driver_form.company.$invalid&&submitted }">
                         <select id="company" name="company" material-select watch ng-model="driverCompany" required>
@@ -67,6 +40,29 @@
                         </select>
                         <label><span style="color: red">* </span>所属公司</label>
                     </div>
+                </div>
+                <div class="row col s12">
+                    <div class="input-field col s3" ng-class="{ 'has-error':add_driver_form.sex.$invalid&&submitted }">
+                        <select id="sex" name="sex" material-select watch ng-model="driverType" required>
+                            <option value="" selected>请选择</option>
+                            <option value="0">女</option>
+                            <option value="1">男</option>
+                        </select>
+                        <label><span style="color: red">* </span>性别</label>
+                    </div>
+                    <div class="input-field col s5"
+                         ng-class="{ 'has-error':add_driver_form.phone.$invalid&&submitted }">
+                        <input id="phone" name="phone" type="text" ng-model="driverPhone" required>
+                        <label for="phone"><span style="color: red">* </span>联系电话</label>
+                    </div>
+                    <div class="input-field col s4"
+                         ng-class="{ 'has-error':add_driver_form.id_card.$invalid&&submitted }">
+                        <input id="id_card" name="id_card" type="text" ng-model="identityNum" required>
+                        <label for="id_card"><span style="color: red">* </span>身份证</label>
+                    </div>
+
+                </div>
+                <div class="row col s12">
                     <div class="input-field col s4"
                          ng-class="{ 'has-error':add_driver_form.license.$invalid&&submitted }">
                         <select id="license" name="license" material-select watch ng-model="drivingLicense" required>
@@ -89,6 +85,13 @@
                         <i class="mdi dataIcon mdi-table-large"></i>
                         <label for="verification_time"><span style="color: red">* </span>到期时间</label>
                     </div>
+                    <div class="input-field col s4"
+                         ng-class="{ 'has-error':add_driver_form.verification_time.$invalid&&submitted }">
+                        <input id="verification_time" name="verification_time" type="text" class="datepicker" date
+                               ng-model="verificationStartTime" required>
+                        <i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="verification_time"><span style="color: red">* </span>检证日期</label>
+                    </div>
                 </div>
                 <div class="row col s12">
                     <div class="input-field col s6">
@@ -98,7 +101,7 @@
                     <div class="input-field col s1"></div>
                     <div class="input-field col s5">
                         <input id="driver_parent" type="text" ng-model="driverParent">
-                        <label for="driver_parent">家属电话</label>
+                        <label for="driver_parent">紧急联系人电话</label>
                     </div>
                 </div>
 
@@ -111,7 +114,7 @@
                               ng-model="remark"></textarea>
                     </div>
                 </div>
-                <div class="row col s12" style="margin-top: 8%">
+                <div class="row col s12" style="margin-top: 5%">
                     <div class="subBtn" style="width: 300px ;margin: 0 auto">
                         <button style="width: 300px;font-size: 1.3rem" class="btn btn-large waves-effect waves-light"
                                 type="submit" name="action">下一步
@@ -162,6 +165,46 @@
                 <button style="width: 300px;font-size: 1.3rem" class="btn btn-large waves-effect waves-light" ng-click="uploadImage()">提交
                 </button>
             </div>
+        </div>
+    </div>
+    <div class="add_driver_step_3" ng-show="step_third">
+        <div class="row">
+            <div class="input-field col s4">
+                <input id="Binding_trailer" name="Binding_trailer" ng-change="updateTruckList()" class="Binding_trailer" ng-model="keyWord" type="text"  autocomplete="off">
+                <label for="Binding_trailer">绑定货车</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div  class="col s4 " style="padding: 10px;height: 40px;margin-top: 20px">
+                <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':el.trail_num}">
+                    <div class="col s6 "  ng-click="clear_trailer()">
+                        <input type="radio" name="filled-in" class="filled-in"  id="filled-in-box" />
+                        <label for="filled-in-box" class="black-text" style="font-size: 18px" >暂不关联</label>
+                    </div>
+
+                </div>
+
+            </div>
+            <div ng-repeat="truck in newTruckList" class="col s4 " style="padding: 10px;height: 40px;margin-top: 20px">
+                <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':truck.drive_name}">
+                    <div class="col s6" ng-click="check_trailer(truck.id)">
+                        <input ng-if="!truck.drive_name" type="radio" name="filled-in" class="filled-in"  id="filled-in-box{{$index}}" />
+                        <label for="filled-in-box{{$index}}" class="black-text" style="font-size: 18px" >{{truck.truck_num}}</label>
+                    </div>
+                    <div class="col s6 black-text" ng-if="el.trail_num"  style="font-size: 18px">
+                        {{truck.truck_num}}
+                    </div>
+                    <div class="col s6">
+                        <span ng-hide="truck.drive_name" style="margin-left: 10px">未关联司机</span>
+                        <span ng-show="truck.drive_name" style="margin-left: 10px">关联司机：&nbsp;<span>{{truck.drive_name}}</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row col s12 center" style="margin-top: 10%">
+            <button style="width: 300px;font-size: 1.3rem" class="btn btn-large waves-effect waves-light" ng-click="uploadBrandTruck()">提交
+            </button>
         </div>
     </div>
 

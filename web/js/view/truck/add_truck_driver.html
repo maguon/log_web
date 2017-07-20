@@ -182,18 +182,14 @@
                         <input type="radio" name="filled-in" class="filled-in"  id="filled-in-box" />
                         <label for="filled-in-box" class="black-text" style="font-size: 18px" >暂不关联</label>
                     </div>
-
                 </div>
-
             </div>
+
             <div ng-repeat="truck in newTruckList" class="col s4 " style="padding: 10px;height: 40px;margin-top: 20px">
                 <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':truck.drive_name}">
                     <div class="col s6" ng-click="check_trailer(truck.id)">
                         <input ng-if="!truck.drive_name" type="radio" name="filled-in" class="filled-in"  id="filled-in-box{{$index}}" />
                         <label for="filled-in-box{{$index}}" class="black-text" style="font-size: 18px" >{{truck.truck_num}}</label>
-                    </div>
-                    <div class="col s6 black-text" ng-if="el.trail_num"  style="font-size: 18px">
-                        {{truck.truck_num}}
                     </div>
                     <div class="col s6">
                         <span ng-hide="truck.drive_name" style="margin-left: 10px">未关联司机</span>

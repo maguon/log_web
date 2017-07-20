@@ -38,16 +38,14 @@ app.controller("add_truck_driver_controller", ["$scope", "$state", "_basic", "_c
                     $scope.step_second = true;
                     Picture_driverid = data.id;
                     $(".tabs .indicator").css({
-                        right:515+"px",
-                        left:514+"px"
+                        right: 515 + "px",
+                        left: 514 + "px"
                     });
                     $(".tab2>a").addClass("active");
                     $(".tab1>a").removeClass("active");
                     $(".tab3>a").removeClass("active");
-                    // $('ul.tabs').tabs('tab2', '#tab2');
                 }
                 else {
-                    // console.log("noData", data);
                     swal(data.msg, "", "error");
                 }
             });
@@ -139,6 +137,7 @@ app.controller("add_truck_driver_controller", ["$scope", "$state", "_basic", "_c
             _basic.put($host.api_url + "/user/" + userId + "/drive/" + Picture_driverid + "/image", obj).then(function (data) {
                 if (data.success == true) {
                     console.log("上传成功");
+                    swal("身份证上传成功", "", "success");
                 } else {
                     swal(data.msg, "", "error");
                     console.log("上传失败:",data.msg);
@@ -170,6 +169,7 @@ app.controller("add_truck_driver_controller", ["$scope", "$state", "_basic", "_c
             _basic.put($host.api_url + "/user/" + userId + "/drive/" + Picture_driverid + "/image", obj).then(function (data) {
                 if (data.success == true) {
                     console.log("上传成功");
+                    swal("驾驶证上传成功", "", "success");
                 } else {
                     swal(data.msg, "", "error");
                     console.log("上传失败:",data.msg);

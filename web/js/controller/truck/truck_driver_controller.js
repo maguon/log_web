@@ -37,6 +37,7 @@ app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host
                 }
                 else{
                     swal("司机已被关联，请先解绑", "", "error");
+                    $scope.searchDriver();
                 }
             });
         }
@@ -48,6 +49,7 @@ app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host
                 }
                 else{
                     swal("司机已被关联，请先解绑", "", "error");
+                    $scope.searchDriver();
                 }
             });
         }

@@ -23,7 +23,7 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
         _basic.get($host.api_url + "/truckFirst?truckType=1").then(function (truckData) {
             if (truckData.success === true) {
                 $scope.truckList = truckData.result;
-                console.log("truckData",$scope.truckList);
+                // console.log("truckData",$scope.truckList);
             }
             else {
                 swal(truckData.msg, "", "error");
@@ -50,12 +50,12 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
     $scope.getDriverDetails = function () {
         _basic.get($host.api_url + "/drive?driveId=" + driverId).then(function (data) {
             if (data.success === true) {
-                console.log("data666",data);
+                // console.log("driveData",data);
                 // 修改某些数据显示格式
                     data.result[0].confirm_date = moment(data.result[0].confirm_date).format("YYYY-MM-DD");
                     data.result[0].license_date = moment(data.result[0].license_date).format("YYYY-MM-DD");
                     data.result[0].operate_type = data.result[0].operate_type.toString();
-                console.log("modifyData",data.result[0]);
+                // console.log("modifyData",data.result[0]);
                 $scope.driverInfo = data.result[0];
 
                 // $scope.driveName = driverInfo.drive_name;
@@ -83,7 +83,7 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
     $scope.getTruckUserInfo = function () {
         _basic.get($host.record_url + "/user/" + userId + "/tuser/" + driverId + "/record").then(function (truckInfoData) {
             if(truckInfoData.success === true){
-                console.log("truckInfoData",truckInfoData);
+                // console.log("truckInfoData",truckInfoData);
                 $scope.truckInfoList = truckInfoData.result[0].comments;
             }
         });
@@ -114,12 +114,12 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
     // 司机解绑与重新绑定
     $scope.check_trailer = function (truckId) {
         $scope.truck_id = truckId;
-        console.log("truckId",truckId);
+        // console.log("truckId",truckId);
     };
 
     $scope.unBundling = function () {
         // 判断绑定是否为空，为空则进行绑定操作，否则进行解绑操作
-        if ($scope.brandTruckNum == null) {
+        if ($scope.driverInfo.truck_num == null) {
             if ($scope.truck_id) {
                 _basic.put($host.api_url + "/user/" + userId + "/truck/" + $scope.truck_id + "/drive/" + driverId + "/bind", {}).then(function (bindData) {
                     if (bindData.success === true) {
@@ -138,7 +138,7 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
         }
         // 解绑
         else {
-            _basic.put($host.api_url + "/user/" + userId + "/truck/" + $scope.relatedTruck + "/drive/0/unbind", {}).then(function (unbindData) {
+            _basic.put($host.api_url + "/user/" + userId + "/truck/" + $scope.driverInfo.truck_id + "/drive/0/unbind", {}).then(function (unbindData) {
                 if (unbindData.success === true) {
                     $scope.getDriverDetails();
                     $scope.getCompanyAndTruckInfo();
@@ -241,8 +241,8 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
         console.log(newDriverInfo);
         _basic.put($host.api_url + "/user/" + userId + "/drive/" + driverId, newDriverInfo).then(function (data) {
             if (data.success === true) {
-                console.log("successData", data);
-                console.log("info", newDriverInfo);
+                // console.log("successData", data);
+                // console.log("info", newDriverInfo);
                 swal("修改成功", "", "success");
             }
             else {

@@ -5,7 +5,7 @@
 <div class="truck_driver_details" style="width:80%;margin: 0 auto">
     <div class="row">
         <div class="row valign-wrapper">
-            <h5 class="col s12 cyan-text lighten-1  center-align">
+            <h5 class="col s12 cyan-text lighten-1 center-align">
                 司机信息
             </h5>
         </div>
@@ -19,7 +19,7 @@
             <!--<form name="truck_driver_details" ng-submit="submitForm(truck_driver_details.$valid)" novalidate>-->
             <div class="row">
                 <div class="input-field col s4"
-                     ng-class="{ 'has-error':truck_driver_details.drive_name.$invalid&&submitted }">
+                     ng-class="{'has-error':truck_driver_details.drive_name.$invalid&&submitted }">
                     <input id="drive_name" name="drive_name" type="text" ng-model="driverInfo.drive_name" required>
                     <label for="drive_name"><span style="color: red">* </span>司机姓名</label>
                 </div>
@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col s3" ng-class="{ 'has-error':truck_driver_details.sex.$invalid&&submitted }">
+                <div class="input-field col s3" ng-class="{'has-error':truck_driver_details.sex.$invalid&&submitted }">
                     <select id="sex" name="sex" material-select watch ng-model="driverInfo.gender" required>
                         <option value="" selected>请选择</option>
                         <option value="0">女</option>
@@ -59,7 +59,7 @@
                     <label for="phone"><span style="color: red">* </span>电话</label>
                 </div>
                 <div class="input-field col s4"
-                     ng-class="{ 'has-error':truck_driver_details.id_card.$invalid&&submitted }">
+                     ng-class="{'has-error':truck_driver_details.id_card.$invalid&&submitted }">
                     <input id="id_card" name="id_card" type="text" ng-model="driverInfo.id_number" required>
                     <label for="id_card"><span style="color: red">* </span>身份证</label>
                 </div>
@@ -81,7 +81,7 @@
                     <label><span style="color: red">* </span>驾驶类型</label>
                 </div>
                 <div class="input-field col s4"
-                     ng-class="{ 'has-error':truck_driver_details.endTime.$invalid&&submitted }">
+                     ng-class="{'has-error':truck_driver_details.endTime.$invalid&&submitted }">
                     <input id="endTime" name="endTime" type="text" class="datepicker" date ng-model="driverInfo.license_date"
                            required>
                     <i class="mdi dataIcon mdi-table-large"></i>
@@ -115,46 +115,6 @@
                               ng-model="driverInfo.remark"></textarea>
                 </div>
             </div>
-
-            <!--<div class="row col s12">-->
-                <!--<div class="col s6 vc-center">-->
-                    <!--<div class="col s2">身份证:</div>-->
-                    <!--<div class="col s10">-->
-                        <!--<form name="uploadImageForm" class="uploadImageForm">-->
-                            <!--<div class="storage_car_picture col s4 vc-center  p0 cyan lighten-1 white-text">-->
-                                <!--<input name="image" type="file"-->
-                                       <!--onchange="angular.element(this).scope().uploadIdCardImage(this)"-->
-                                       <!--max_size="4M">-->
-                                <!--<i class="mdi mdi-instagram"></i>-->
-                            <!--</div>-->
-                            <!--<div ng-repeat="el in drive_img"-->
-                                 <!--class="drive_img_box col s4 vc-center p0 grey white-text">-->
-                                <!--<img ng-src="{{el.img}}" class="responsive-img">-->
-                            <!--</div>-->
-                        <!--</form>-->
-                    <!--</div>-->
-                <!--</div>-->
-
-            <!--<div class="col s6 vc-center">-->
-            <!--<div class="col s2">驾驶证:</div>-->
-            <!--<div class="col s10">-->
-            <!--<form name="uploadImageForm" class="uploadImageForm">-->
-            <!--<div class="storage_car_picture col s4 vc-center  p0 cyan lighten-1 white-text">-->
-            <!--<input name="image" type="file"-->
-            <!--onchange="angular.element(this).scope().uploadLicenseImage(this)"-->
-            <!--max_size="4M">-->
-            <!--<i class="mdi mdi-instagram"></i>-->
-            <!--</div>-->
-            <!--<div ng-repeat="el in license_img"-->
-            <!--class="drive_img_box col s4 vc-center p0 grey white-text">-->
-            <!--<img ng-src="{{el.img}}" class="responsive-img">-->
-            <!--&lt;!&ndash;<b class="delete_img vc-center black fz18" ng-click="delete_img(el.img)"><i class="mdi mdi-close"></i></b>&ndash;&gt;-->
-            <!--&lt;!&ndash;<p class="img_date white-text center-align" ng-show="show" ng-cloak>{{el.user}}上传于{{el.time|date:'yyyy-MM-dd HH:mm:ss'}}</p>&ndash;&gt;-->
-            <!--</div>-->
-            <!--</form>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
 
             <div class="col s12" style="margin-top: 20px">
                 <div class="divider" style="background: #00bcd4;height: 2px;"></div>
@@ -259,7 +219,7 @@
                     <!--</div>-->
                 <!--</div>-->
 
-                <div ng-repeat="truck in truckList" class="col s4" style="padding: 10px;height: 40px;margin-top: 20px">
+                <div ng-hide="driverInfo.truck_num" ng-repeat="truck in truckList" class="col s4" style="padding: 10px;height: 40px;margin-top: 20px">
                     <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':truck.drive_name}">
                         <div class="col s6" ng-click="check_trailer(truck.id)">
                             <input ng-if="!truck.drive_name" type="radio" name="filled-in" class="filled-in"  id="filled-in-box{{$index}}" />

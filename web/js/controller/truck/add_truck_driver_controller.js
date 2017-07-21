@@ -70,7 +70,7 @@ app.controller("add_truck_driver_controller", ["$scope", "$state", "_basic", "_c
         _basic.get($host.api_url + "/truckFirst?truckType=1").then(function (truckData) {
             if (truckData.success === true) {
                 $scope.truckList = truckData.result;
-                console.log("truckList",$scope.truckList);
+                // console.log("truckList",$scope.truckList);
             }
             else {
                 swal(truckData.msg, "", "error");
@@ -132,8 +132,10 @@ app.controller("add_truck_driver_controller", ["$scope", "$state", "_basic", "_c
             });
             var obj = {
                 "driveImage": imageId,
+                "licenseImage": $scope.lienceImageId,
                 "imageType": 1
             };
+            $scope.driveImageId = imageId;
             _basic.put($host.api_url + "/user/" + userId + "/drive/" + Picture_driverid + "/image", obj).then(function (data) {
                 if (data.success == true) {
                     console.log("上传成功");
@@ -163,9 +165,11 @@ app.controller("add_truck_driver_controller", ["$scope", "$state", "_basic", "_c
                 }];
             });
             var obj = {
+                "driveImage": $scope.driveImageId,
                 "licenseImage": imageId,
                 "imageType": 2
             };
+            $scope.lienceImageId = imageId;
             _basic.put($host.api_url + "/user/" + userId + "/drive/" + Picture_driverid + "/image", obj).then(function (data) {
                 if (data.success == true) {
                     console.log("上传成功");
@@ -178,17 +182,8 @@ app.controller("add_truck_driver_controller", ["$scope", "$state", "_basic", "_c
         });
     };
 
-    // 点击按钮图片上传
+    // 点击按钮切换下一页
     $scope.uploadImage = function () {
-        // var driveImageObj = {
-        //     "driveImage": $scope.identyCardImageId,
-        //     "imageType": 1
-        // };
-        // var licenseImageObj = {
-        //     "licenseImage": $scope.licenseImageId,
-        //     "imageType": 2
-        // };
-
         $scope.newTruckList = $scope.truckList;
         $scope.step_first = false;
         $scope.step_second = false;
@@ -200,27 +195,6 @@ app.controller("add_truck_driver_controller", ["$scope", "$state", "_basic", "_c
         $(".tab3>a").addClass("active");
         $(".tab1>a").removeClass("active");
         $(".tab2>a").removeClass("active");
-
-        // _basic.put($host.api_url + "/user/" + userId + "/drive/" + Picture_driverid + "/image", driveImageObj).then(function (data) {
-        //     if (data.success == true) {
-        //         console.log("身份证上传成功");
-        //     } else {
-        //         swal(data.msg, "", "error");
-        //         console.log("上传失败:",data.msg);
-        //     }
-        // });
-        // _basic.put($host.api_url + "/user/" + userId + "/drive/" + Picture_driverid + "/image", licenseImageObj).then(function (data) {
-        //     if (data.success == true) {
-        //         console.log("驾照上传成功");
-        //         swal("图片上传成功", "", "success");
-        //         $scope.step_first = false;
-        //         $scope.step_second = false;
-        //         $scope.step_third = true;
-        //     } else {
-        //         swal(data.msg, "", "error");
-        //         console.log("上传失败:",data.msg);
-        //     }
-        // });
 
     };
 
@@ -249,6 +223,7 @@ app.controller("add_truck_driver_controller", ["$scope", "$state", "_basic", "_c
         $scope.truck_id = truckId;
     };
 
+    // 绑定货车
     $scope.uploadBrandTruck = function () {
         if($scope.truck_id){
             _basic.put($host.api_url + "/user/" + userId + "/truck/" + $scope.truck_id + "/drive/" + Picture_driverid + "/bind",{}).then(function (bindData) {

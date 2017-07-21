@@ -57,22 +57,13 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
                     data.result[0].operate_type = data.result[0].operate_type.toString();
                 // console.log("modifyData",data.result[0]);
                 $scope.driverInfo = data.result[0];
+                $scope.drive_img = [{
+                    img: $host.file_url + '/image/' + data.result[0].drive_image,
+                }];
+                $scope.license_img = [{
+                    img: $host.file_url + '/image/' + data.result[0].license_image,
+                }];
 
-                // $scope.driveName = driverInfo.drive_name;
-                // $scope.driverGender = driverInfo.gender;
-                // $scope.relatedTruck = driverInfo.truck_id;
-                // $scope.identityNum = driverInfo.id_number;
-                // $scope.driverPhone = driverInfo.tel;
-                // $scope.verificationStartTime = moment(driverInfo.confirm_date).format("YYYY-MM-DD");
-                // $scope.driverCompany = driverInfo.company_id;
-                // $scope.drivingLicense = driverInfo.license_type;
-                // $scope.operateType = driverInfo.operate_type.toString();
-                // $scope.licenseEndTime = moment(driverInfo.license_date).format("YYYY-MM-DD");
-                // $scope.driveStatus = driverInfo.drive_status;
-                // $scope.driverAddress = driverInfo.address;
-                // $scope.driverParent = driverInfo.sib_tel;
-                // $scope.remark = driverInfo.remark;
-                // $scope.brandTruckNum = driverInfo.truck_num;
             }
             else {
                 swal(data.msg, "", "error");
@@ -106,10 +97,6 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
         $scope.stepThird = true;
     };
 
-
-    // $scope.clear_trailer = function () {
-    //     $scope.truck_id = "";
-    // };
 
     // 司机解绑与重新绑定
     $scope.check_trailer = function (truckId) {
@@ -146,7 +133,7 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
                 }
                 else {
                     swal("解绑失败", "", "error");
-                    console.log("userId", userId, "truck_id", $scope.truck_id, "driverId", driverId);
+                    // console.log("userId", userId, "truck_id", $scope.truck_id, "driverId", driverId);
                 }
             });
         }
@@ -194,14 +181,28 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
         var filename = $(dom).val();
         uploadBrandImage(filename, dom_obj, function (imageId) {
             // console.log("imageId:",imageId);
-            $scope.identyCardImageId = imageId;
             var nowDate = moment(new Date()).format("YYYY-DD-MM HH:mm");
             $scope.$apply(function () {
                 $scope.drive_img = [{
                     img: $host.file_url + '/image/' + imageId,
                 }];
+                // console.log("imageId",$scope.drive_img[0].img);
             });
-
+            var driveImageObj = {
+                "driveImage": imageId,
+                "licenseImage": $scope.driverInfo.license_image,
+                "imageType": 1
+            };
+            _basic.put($host.api_url + "/user/" + userId + "/drive/" + driverId + "/image", driveImageObj).then(function (data) {
+                if (data.success == true) {
+                    console.log("上传成功");
+                    swal("身份证上传成功", "", "success");
+                    $scope.getDriverDetails();
+                } else {
+                    swal(data.msg, "", "error");
+                    console.log("上传失败:",data.msg);
+                }
+            })
         });
     };
 
@@ -211,14 +212,27 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
         var dom_obj = $(dom);
         var filename = $(dom).val();
         uploadBrandImage(filename, dom_obj, function (imageId) {
-            $scope.licenseImageId = imageId;
             var nowDate = moment(new Date()).format("YYYY-DD-MM HH:mm");
             $scope.$apply(function () {
                 $scope.license_img = [{
                     img: $host.file_url + '/image/' + imageId,
                 }];
             });
-
+            var licenseImageObj = {
+                "driveImage": $scope.driverInfo.drive_image,
+                "licenseImage": imageId,
+                "imageType": 2
+            };
+            _basic.put($host.api_url + "/user/" + userId + "/drive/" + driverId + "/image", licenseImageObj).then(function (data) {
+                if (data.success == true) {
+                    console.log("上传成功");
+                    swal("驾驶证上传成功", "", "success");
+                    $scope.getDriverDetails();
+                } else {
+                    swal(data.msg, "", "error");
+                    console.log("上传失败:",data.msg);
+                }
+            })
         });
     };
 
@@ -238,7 +252,7 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
             licenseDate: $scope.driverInfo.license_date,
             remark: $scope.driverInfo.remark
         };
-        console.log(newDriverInfo);
+        // console.log(newDriverInfo);
         _basic.put($host.api_url + "/user/" + userId + "/drive/" + driverId, newDriverInfo).then(function (data) {
             if (data.success === true) {
                 // console.log("successData", data);
@@ -250,35 +264,6 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
                 swal(data.msg, "", "error");
             }
         });
-    };
-
-    // 司机照片
-    $scope.submitImage = function () {
-        var driveImageObj = {
-            "driveImage": $scope.identyCardImageId,
-            "imageType": 1
-        };
-        var licenseImageObj = {
-            "licenseImage": $scope.licenseImageId,
-            "imageType": 2
-        };
-        _basic.put($host.api_url + "/user/" + userId + "/drive/" + driverId + "/image", driveImageObj).then(function (data) {
-            if (data.success == true) {
-                console.log("身份证上传成功");
-            } else {
-                swal(data.msg, "", "error");
-                console.log("上传失败:",data.msg);
-            }
-        });
-        _basic.put($host.api_url + "/user/" + userId + "/drive/" + driverId + "/image", licenseImageObj).then(function (data) {
-            if (data.success == true) {
-                console.log("驾照上传成功");
-                swal("图片上传成功", "", "success");
-            } else {
-                swal(data.msg, "", "error");
-                console.log("上传失败:",data.msg);
-            }
-        })
     };
 
     // 获取所有相关数据

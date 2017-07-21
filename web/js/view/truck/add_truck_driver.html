@@ -18,13 +18,13 @@
             <div class="row main_storage_car">
                 <div class="row col s12">
                     <div class="input-field col s5"
-                         ng-class="{ 'has-error':add_driver_form.drive_name.$invalid&&submitted }">
+                         ng-class="{'has-error':add_driver_form.drive_name.$invalid&&submitted }">
                         <input id="drive_name" name="drive_name" type="text" ng-model="driveName" required>
                         <label for="drive_name"><span style="color: red">* </span>司机姓名</label>
                     </div>
 
                     <div class="input-field col s3"
-                         ng-class="{ 'has-error':add_driver_form.truck.$invalid&&submitted }">
+                         ng-class="{'has-error':add_driver_form.truck.$invalid&&submitted }">
                         <select id="truck" name="truck" material-select watch ng-change="chooseOperateType()" ng-model="operateType" required>
                             <option value="" selected>请选择</option>
                             <option value="1" >自营</option>
@@ -35,7 +35,7 @@
                         <label><span style="color: red">* </span>所属类型</label>
                     </div>
                     <div class="input-field col s4"
-                         ng-class="{ 'has-error':add_driver_form.company.$invalid&&submitted }">
+                         ng-class="{'has-error':add_driver_form.company.$invalid&&submitted }">
                         <select id="company" name="company" material-select watch ng-model="driverCompany" required>
                             <option value="" selected>请选择</option>
                             <option ng-repeat="company in companyList" ng-value="company.id" selected>{{company.company_name}}</option>
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="row col s12">
-                    <div class="input-field col s3" ng-class="{ 'has-error':add_driver_form.sex.$invalid&&submitted }">
+                    <div class="input-field col s3" ng-class="{'has-error':add_driver_form.sex.$invalid&&submitted }">
                         <select id="sex" name="sex" material-select watch ng-model="driverType" required>
                             <option value="" selected>请选择</option>
                             <option value="0">女</option>
@@ -53,12 +53,12 @@
                         <label><span style="color: red">* </span>性别</label>
                     </div>
                     <div class="input-field col s5"
-                         ng-class="{ 'has-error':add_driver_form.phone.$invalid&&submitted }">
+                         ng-class="{'has-error':add_driver_form.phone.$invalid&&submitted }">
                         <input id="phone" name="phone" type="text" ng-model="driverPhone" required>
                         <label for="phone"><span style="color: red">* </span>联系电话</label>
                     </div>
                     <div class="input-field col s4"
-                         ng-class="{ 'has-error':add_driver_form.id_card.$invalid&&submitted }">
+                         ng-class="{'has-error':add_driver_form.id_card.$invalid&&submitted }">
                         <input id="id_card" name="id_card" type="text" ng-model="identityNum" required>
                         <label for="id_card"><span style="color: red">* </span>身份证</label>
                     </div>
@@ -66,7 +66,7 @@
                 </div>
                 <div class="row col s12">
                     <div class="input-field col s4"
-                         ng-class="{ 'has-error':add_driver_form.license.$invalid&&submitted }">
+                         ng-class="{'has-error':add_driver_form.license.$invalid&&submitted }">
                         <select id="license" name="license" material-select watch ng-model="drivingLicense" required>
                             <option value="" selected>请选择</option>
                             <option value="1">A1</option>
@@ -81,14 +81,14 @@
                         <label><span style="color: red">* </span>驾驶类型</label>
                     </div>
                     <div class="input-field col s4"
-                         ng-class="{ 'has-error':add_driver_form.endTime.$invalid&&submitted }">
+                         ng-class="{'has-error':add_driver_form.endTime.$invalid&&submitted }">
                         <input id="endTime" name="endTime" type="text" class="datepicker" date ng-model="licenseEndTime"
                                required>
                         <i class="mdi dataIcon mdi-table-large"></i>
                         <label for="verification_time"><span style="color: red">* </span>到期时间</label>
                     </div>
                     <div class="input-field col s4"
-                         ng-class="{ 'has-error':add_driver_form.verification_time.$invalid&&submitted }">
+                         ng-class="{'has-error':add_driver_form.verification_time.$invalid&&submitted }">
                         <input id="verification_time" name="verification_time" type="text" class="datepicker" date
                                ng-model="verificationStartTime" required>
                         <i class="mdi dataIcon mdi-table-large"></i>

@@ -184,12 +184,12 @@
                     </div>
                 </div>
             </div>
-            <div class="row col s12" style="margin-top: 25%">
-                <div class="subBtn" style="width: 300px ;margin: 0 auto">
-                    <button style="width: 300px;font-size: 1.3rem" class="btn btn-large waves-effect waves-light" ng-click="submitImage()">提交
-                    </button>
-                </div>
-            </div>
+            <!--<div class="row col s12" style="margin-top: 25%">-->
+                <!--<div class="subBtn" style="width: 300px ;margin: 0 auto">-->
+                    <!--<button style="width: 300px;font-size: 1.3rem" class="btn btn-large waves-effect waves-light" ng-click="submitImage()">提交-->
+                    <!--</button>-->
+                <!--</div>-->
+            <!--</div>-->
         </div>
 
         <div class="driver_details_step_3" ng-if="stepThird">
@@ -210,15 +210,6 @@
             </div>
 
             <div class="row">
-                <!--<div  class="col s4 " style="padding: 10px;height: 40px;margin-top: 20px">-->
-                    <!--<div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':el.trail_num}">-->
-                        <!--<div class="col s6 "  ng-click="clear_trailer()">-->
-                            <!--<input type="radio" name="filled-in" class="filled-in"  id="filled-in-box" />-->
-                            <!--<label for="filled-in-box" class="black-text" style="font-size: 18px" >暂不关联</label>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-
                 <div ng-hide="driverInfo.truck_num" ng-repeat="truck in truckList" class="col s4" style="padding: 10px;height: 40px;margin-top: 20px">
                     <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':truck.drive_name}">
                         <div class="col s6" ng-click="check_trailer(truck.id)">

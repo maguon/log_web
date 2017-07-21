@@ -197,6 +197,9 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
                 if (data.success == true) {
                     console.log("上传成功");
                     swal("身份证上传成功", "", "success");
+                    if ($scope.drive_img.length != 0) {
+                        viewer.destroy();
+                    }
                     $scope.getDriverDetails();
                 } else {
                     swal(data.msg, "", "error");
@@ -227,12 +230,28 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
                 if (data.success == true) {
                     console.log("上传成功");
                     swal("驾驶证上传成功", "", "success");
+                    if ($scope.license_img.length != 0) {
+                        viewer.destroy();
+                    }
                     $scope.getDriverDetails();
                 } else {
                     swal(data.msg, "", "error");
                     console.log("上传失败:",data.msg);
                 }
             })
+        });
+    };
+
+    // 点击查看图片大图
+    var viewer;
+    $scope.licenseFinish = function () {
+        viewer = new Viewer(document.getElementById('look_licenseImg'), {
+            url: 'data-original'
+        });
+    };
+    $scope.driverFinish = function () {
+        viewer = new Viewer(document.getElementById('look_driverIdentity'), {
+            url: 'data-original'
         });
     };
 

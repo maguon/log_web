@@ -6,6 +6,7 @@ app.controller("add_truck_driver_controller", ["$scope", "$state", "_basic", "_c
     var Picture_driverid;
     $scope.step_first = true;
     $scope.step_second = false;
+    $scope.step_second = false;
     $scope.step_third = false;
 
     // $scope.step_second = true;
@@ -140,6 +141,9 @@ app.controller("add_truck_driver_controller", ["$scope", "$state", "_basic", "_c
                 if (data.success == true) {
                     console.log("上传成功");
                     swal("身份证上传成功", "", "success");
+                    // if ($scope.drive_img.length != 0) {
+                    //     viewer.destroy();
+                    // }
                 } else {
                     swal(data.msg, "", "error");
                     console.log("上传失败:",data.msg);
@@ -174,11 +178,27 @@ app.controller("add_truck_driver_controller", ["$scope", "$state", "_basic", "_c
                 if (data.success == true) {
                     console.log("上传成功");
                     swal("驾驶证上传成功", "", "success");
+                    // if ($scope.license_img.length != 0) {
+                    //     viewer.destroy();
+                    // }
                 } else {
                     swal(data.msg, "", "error");
                     console.log("上传失败:",data.msg);
                 }
             })
+        });
+    };
+
+    // 点击查看图片大图
+    var viewer;
+    $scope.licenseFinish = function () {
+        viewer = new Viewer(document.getElementById('look_licenseImg'), {
+            url: 'data-original'
+        });
+    };
+    $scope.driverFinish = function () {
+        viewer = new Viewer(document.getElementById('look_driverIdentity'), {
+            url: 'data-original'
         });
     };
 

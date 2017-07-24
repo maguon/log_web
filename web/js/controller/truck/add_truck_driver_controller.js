@@ -8,6 +8,8 @@ app.controller("add_truck_driver_controller", ["$scope", "$state", "_basic", "_c
     $scope.step_second = false;
     $scope.step_second = false;
     $scope.step_third = false;
+    // 电话号正则
+    $scope.mobileReg = _config.mobileRegx;
 
     // $scope.step_second = true;
     // // 提交司机信息

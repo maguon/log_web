@@ -7,6 +7,8 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
     $scope.stepFirst = true;
     $scope.stepSecond = false;
     $scope.stepThird = false;
+    // 电话号正则
+    $scope.mobileReg = _config.mobileRegx;
 
     // 获取关联货车及公司信息
     $scope.getCompanyAndTruckInfo = function () {
@@ -31,19 +33,19 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
         });
     };
 
-    // // 根据select选择的所属类型获取所属公司信息
-    // $scope.chooseOperateType = function () {
-    //     // console.log("operateType",$scope.operateType);
-    //     _basic.get($host.api_url + "/company?operateType=" + $scope.operateType).then(function (companyData) {
-    //         if (companyData.success === true) {
-    //             $scope.companyList = companyData.result;
-    //             // $scope.driverCompany = "";
-    //         }
-    //         else {
-    //             swal(companyData.msg, "", "error");
-    //         }
-    //     });
-    // };
+    // 根据select选择的所属类型获取所属公司信息
+    $scope.chooseOperateType = function () {
+        // console.log("operateType",$scope.driverInfo.operate_type);
+        _basic.get($host.api_url + "/company?operateType=" + $scope.driverInfo.operate_type).then(function (companyData) {
+            if (companyData.success === true) {
+                $scope.companyList = companyData.result;
+                // $scope.driverCompany = "";
+            }
+            else {
+                swal(companyData.msg, "", "error");
+            }
+        });
+    };
 
     // 根据司机id查询司机详细信息
     console.log("driveId",driverId);
@@ -52,9 +54,9 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
             if (data.success === true) {
                 // console.log("driveData",data);
                 // 修改某些数据显示格式
-                    data.result[0].confirm_date = moment(data.result[0].confirm_date).format("YYYY-MM-DD");
-                    data.result[0].license_date = moment(data.result[0].license_date).format("YYYY-MM-DD");
-                    data.result[0].operate_type = data.result[0].operate_type.toString();
+                data.result[0].confirm_date = moment(data.result[0].confirm_date).format("YYYY-MM-DD");
+                data.result[0].license_date = moment(data.result[0].license_date).format("YYYY-MM-DD");
+                data.result[0].operate_type = data.result[0].operate_type.toString();
                 // console.log("modifyData",data.result[0]);
                 $scope.driverInfo = data.result[0];
                 $scope.drive_img = [{
@@ -71,6 +73,7 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
         });
     };
 
+    // 获取操作记录
     $scope.getTruckUserInfo = function () {
         _basic.get($host.record_url + "/user/" + userId + "/tuser/" + driverId + "/record").then(function (truckInfoData) {
             if(truckInfoData.success === true){

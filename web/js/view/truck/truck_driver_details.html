@@ -55,8 +55,8 @@
                 </div>
                 <div class="input-field col s5"
                      ng-class="{'has-error':truck_driver_details.phone.$invalid&&submitted }">
-                    <input id="phone" name="phone" type="text" ng-model="driverInfo.tel" required>
-                    <label for="phone"><span style="color: red">* </span>电话</label>
+                    <input id="phone" name="phone" type="text" ng-model="driverInfo.tel" ng-pattern="mobileReg" required>
+                    <label for="phone"><span style="color: red">* </span>联系电话</label>
                 </div>
                 <div class="input-field col s4"
                      ng-class="{'has-error':truck_driver_details.id_card.$invalid&&submitted }">

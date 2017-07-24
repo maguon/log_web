@@ -135,7 +135,6 @@ app.controller("add_truck_driver_controller", ["$scope", "$state", "_basic", "_c
             });
             var obj = {
                 "driveImage": imageId,
-                "licenseImage": $scope.lienceImageId,
                 "imageType": 1
             };
             $scope.driveImageId = imageId;
@@ -171,8 +170,7 @@ app.controller("add_truck_driver_controller", ["$scope", "$state", "_basic", "_c
                 }];
             });
             var obj = {
-                "driveImage": $scope.driveImageId,
-                "licenseImage": imageId,
+                "driveImage": imageId,
                 "imageType": 2
             };
             $scope.lienceImageId = imageId;

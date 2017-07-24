@@ -193,7 +193,6 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
             });
             var driveImageObj = {
                 "driveImage": imageId,
-                "licenseImage": $scope.driverInfo.license_image,
                 "imageType": 1
             };
             _basic.put($host.api_url + "/user/" + userId + "/drive/" + driverId + "/image", driveImageObj).then(function (data) {
@@ -225,8 +224,7 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
                 }];
             });
             var licenseImageObj = {
-                "driveImage": $scope.driverInfo.drive_image,
-                "licenseImage": imageId,
+                "driveImage": imageId,
                 "imageType": 2
             };
             _basic.put($host.api_url + "/user/" + userId + "/drive/" + driverId + "/image", licenseImageObj).then(function (data) {

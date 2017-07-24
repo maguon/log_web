@@ -293,14 +293,12 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
         }else {
             $scope.hand_truck_msg=[];
             hand_truck_msg.forEach(function (i) {
-                for(var j=0;j<Binding_trailer.length;j++){
                     if(i.truck_num.indexOf(Binding_trailer[j])!=-1){
                         if($scope.hand_truck_msg.indexOf(i)==-1){
                             $scope.hand_truck_msg.push(i)
                         }
 
                     }
-                }
             })
         }
     };
@@ -362,13 +360,11 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
         }else {
             $scope.drive=[];
             hand_driver_msg.forEach(function (i) {
-                for(var j=0;j<$scope.Binding_driver.length;j++){
                     if(i.drive_name.indexOf($scope.Binding_driver[j])!=-1){
                         if($scope.drive.indexOf(i)==-1){
                             $scope.drive.push(i);
                         }
                     }
-                }
             })
         }
     };

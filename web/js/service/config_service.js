@@ -137,6 +137,7 @@ baseService.factory("_config", function () {
     _this.emailRegx = "^[a-z]([a-z0-9]*[-_]?[a-z0-9]+)*@([a-z0-9]*[-_]?[a-z0-9]+)+[\.][a-z]{2,3}([\.][a-z]{2})?$";
     // 密码
     _this.pwdRegx = "[a-zA-Z0-9]*";
-
+    // 身份证
+    _this.CarNoRegx="/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/";
     return _this
 });

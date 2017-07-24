@@ -133,7 +133,6 @@
                 <tr>
                     <th data-field="">公司名称</th>
                     <th data-field="">合作性质</th>
-                    <th data-field="">可用车辆(辆)</th>
                     <th data-field="">联系人</th>
                     <th data-field="">公司电话</th>
                     <th>操作</th>
@@ -146,13 +145,12 @@
                     <td ng-if="el.operate_type=='2'">供方</td>
                     <td ng-if="el.operate_type=='3'">外协</td>
                     <td ng-if="el.operate_type=='4'">承包</td>
-                    <td>汉</td>
                     <td ng-bind="el.contacts"></td>
                     <td ng-bind="el.tel"></td>
                     <!--<td ng-bind="el.city_name"></td>-->
                     <td class="operation">
-                        <span><i class="mdi mdi-eye"  ng-click="LookCompany(el.id)"></i></span>
-                        <span><i class="mdi mdi-truck-delivery"></i></span>
+                        <span><i class="mdi cyan-text text-lighten-2 mdi-eye"  ng-click="LookCompany(el.id)"></i></span>
+                        <!--<span><i class="mdi cyan-text text-lighten-2 mdi-truck-delivery"></i></span>-->
                     </td>
                 </tr>
                 </tbody>

@@ -261,7 +261,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/truck/truck_details.html",
             controller:'truck_details_controller'
         })
-        // 新增
+        // 新增（头车.挂车）
         .state("add_head_truck_details",{
             url:"/add_head_truck_details?from",
             templateUrl: "js/view/truck/add_head_truck_details.html",
@@ -271,6 +271,17 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             url:"/add_hand_truck_details?from",
             templateUrl: "js/view/truck/add_hand_truck_details.html",
             controller:'add_hand_truck_details_controller'
+        })
+        // 详情(头车，挂车)
+        .state("look_head_truck_details",{
+            url:"/look_head_truck_details/id/{id}?from",
+            templateUrl: "js/view/truck/look_head_truck_details.html",
+            controller:'look_head_truck_details_controller'
+        })
+        .state("look_hand_truck_details",{
+            url:"/look_hand_truck_details?from",
+            templateUrl: "js/view/truck/look_hand_truck_details.html",
+            controller:'look_head_truck_details_controller'
         })
         .state("truck_company",{
             url:"/truck_company",

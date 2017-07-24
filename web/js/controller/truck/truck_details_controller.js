@@ -2,7 +2,7 @@
  * Created by ASUS on 2017/7/10.
  */
 app.controller("truck_details_controller", ["$scope","$state","$stateParams","_basic", "_config", "$host", function ($scope,$state,$stateParams,_basic, _config, $host) {
-
+    var userId=_basic.getSession(_basic.USER_ID);
     _basic.get($host.api_url+"/truckFirst?truckType=1").then(function (data) {
         if(data.success==true){
             $scope.head_car=data.result;
@@ -73,6 +73,25 @@ app.controller("truck_details_controller", ["$scope","$state","$stateParams","_b
             }
         });
     };
+    // 修改头车状态
+    $scope.changeTruck_status=function (id,status) {
+            if(status==1){
+                status=0
+            }else {
+                status=1
+            }
+        _basic.put($host.api_url+"/user/"+userId+"/truck/"+id+"/truckStatus/"+status+"/first",{}).then(function (data) {
+            if(data.success==true){
+                swal("修改成功","","success");
+                $scope.search_truck();
+
+            }else {
+                swal(data.msg,"","error");
+                $scope.search_truck();
+            }
+        })
+
+    };
     // 搜索挂车
     $scope.search_hand_truck=function () {
         var obj={
@@ -93,5 +112,7 @@ app.controller("truck_details_controller", ["$scope","$state","$stateParams","_b
             }
         });
     }
+
+
 
 }]);

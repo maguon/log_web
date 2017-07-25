@@ -212,7 +212,7 @@
             </div>
 
             <div class="row">
-                <div ng-hide="driverInfo.truck_num" ng-repeat="truck in truckList" class="col s4" style="padding: 10px;height: 40px;margin-top: 20px">
+                <div ng-show="driverInfo.truck_num == null" ng-repeat="truck in truckList" class="col s4" style="padding: 10px;height: 40px;margin-top: 20px">
                     <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':truck.drive_name}">
                         <div class="col s6" ng-click="check_trailer(truck.id)">
                             <input ng-if="!truck.drive_name" type="radio" name="filled-in" class="filled-in"  id="filled-in-box{{$index}}" />

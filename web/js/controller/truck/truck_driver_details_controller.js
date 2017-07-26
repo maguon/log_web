@@ -128,7 +128,7 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
         }
         // 解绑
         else {
-            _basic.put($host.api_url + "/user/" + userId + "/truck/" + $scope.driverInfo.truck_id + "/drive/0/unbind", {}).then(function (unbindData) {
+            _basic.put($host.api_url + "/user/" + userId + "/truck/" + $scope.driverInfo.truck_id + "/drive/" + driverId + "/unbind", {}).then(function (unbindData) {
                 if (unbindData.success === true) {
                     $scope.getDriverDetails();
                     $scope.getCompanyAndTruckInfo();

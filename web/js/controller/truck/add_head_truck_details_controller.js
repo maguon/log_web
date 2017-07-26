@@ -287,20 +287,19 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
 
     // 挂车过滤
     $scope.Binding_trailer_check=function () {
-        var Binding_trailer=$scope.Binding_trailer.split("");
-        if(Binding_trailer.length==0){
-            $scope.hand_truck_msg=hand_truck_msg;
-        }else {
+        if($scope.Binding_trailer!=null&&$scope.Binding_trailer!=""){
             $scope.hand_truck_msg=[];
             hand_truck_msg.forEach(function (i) {
-                    if(i.truck_num.indexOf(Binding_trailer[j])!=-1){
-                        if($scope.hand_truck_msg.indexOf(i)==-1){
-                            $scope.hand_truck_msg.push(i)
-                        }
-
+                if(i.truck_num.indexOf($scope.Binding_trailer)!=-1){
+                    if($scope.hand_truck_msg.indexOf(i)==-1){
+                        $scope.hand_truck_msg.push(i)
                     }
+                }
             })
+        }else {
+            $scope.hand_truck_msg=hand_truck_msg;
         }
+
     };
     $scope.clear_trailer=function () {
         $scope.check_trailer_id="";
@@ -355,18 +354,19 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
     // 司机过滤
     $scope.Binding_driver_check=function () {
 
-        if($scope.Binding_driver.length==0){
-            $scope.drive=hand_driver_msg;
-        }else {
+        if($scope.Binding_driver!=null&&$scope.Binding_driver!=""){
             $scope.drive=[];
             hand_driver_msg.forEach(function (i) {
-                    if(i.drive_name.indexOf($scope.Binding_driver[j])!=-1){
-                        if($scope.drive.indexOf(i)==-1){
-                            $scope.drive.push(i);
-                        }
+                if(i.drive_name.indexOf($scope.Binding_driver)!=-1){
+                    if($scope.drive.indexOf(i)==-1){
+                        $scope.drive.push(i);
                     }
+                }
             })
+        }else {
+            $scope.drive=hand_driver_msg;
         }
+
     };
     // 绑定司机——车保
     $scope.binding_driver_submit=function () {

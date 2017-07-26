@@ -111,8 +111,26 @@ app.controller("truck_details_controller", ["$scope","$state","$stateParams","_b
                 swal(data.msg,"","error")
             }
         });
-    }
+    };
+    // 修改挂车状态
+    $scope.changeTruckTrailer_status=function (id,status) {
+        if(status==1){
+            status=0
+        }else {
+            status=1
+        }
+        _basic.put($host.api_url+"/user/"+userId+"/truck/"+id+"/truckStatus/"+status+"/trailer",{}).then(function (data) {
+            if(data.success==true){
+                swal("修改成功","","success");
+                $scope.search_hand_truck();
 
+            }else {
+                swal(data.msg,"","error");
+                $scope.search_hand_truck();
+            }
+        })
+
+    };
 
 
 }]);

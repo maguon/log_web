@@ -14,7 +14,7 @@
                     <ul class="ui-tabs tabs" ul-tabs>
                         <li class="tab col s3 test1"><a  href="#test1">基本信息</a></li>
                         <li class="tab col s3 test2 disabled"><a   href="#test2">上传照片</a></li>
-                        <li class="tab col s3 test3 disabled"><a class="active" href="#test3">绑定头车</a></li>
+                        <li class="tab col s3 test3 disabled"><a  href="#test3">绑定头车</a></li>
                         <li class="tab col s3 test4 disabled"><a href="#test4">车保</a></li>
                     </ul>
                 </div>
@@ -63,7 +63,7 @@
                             <div class="row">
                             <div class="col s6 input-field" ng-class="{'has-error':add_truck_form.drive_time.$invalid&&submitted }">
                                 <input type="text" name="drive_time" id="drive_time" class="datepicker" autocomplete="off" ng-model="drive_hand_time" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                <label for="drive_time"><span style="color: red;margin-right: 5px">*</span>行驶证建政日期</label>
+                                <label for="drive_time"><span style="color: red;margin-right: 5px">*</span>行驶证检证日期</label>
                             </div>
                             <div class="col s6 input-field" ng-class="{'has-error':add_truck_form.service_time.$invalid&&submitted }">
                                 <input type="text" name="service_time" id="service_time" class="datepicker" autocomplete="off" ng-model="service_hand_time" required   date><i class="mdi dataIcon mdi-table-large"></i>

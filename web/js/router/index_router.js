@@ -279,9 +279,9 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'look_head_truck_details_controller'
         })
         .state("look_hand_truck_details",{
-            url:"/look_hand_truck_details?from",
+            url:"/look_hand_truck_details/id/{id}?from",
             templateUrl: "js/view/truck/look_hand_truck_details.html",
-            controller:'look_head_truck_details_controller'
+            controller:'look_hand_truck_details_controller'
         })
         .state("truck_company",{
             url:"/truck_company",

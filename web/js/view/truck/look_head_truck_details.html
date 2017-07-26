@@ -75,7 +75,7 @@
                         <div class="row">
                             <div class="col s4 input-field" ng-class="{'has-error':look_truck_form.drive_time.$invalid&&submitted }">
                                 <input type="text" name="drive_time" id="drive_time" class="datepicker" autocomplete="off" form-date ng-model="truckFirst.driving_date" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                <label for="drive_time">行驶证建政日期</label>
+                                <label for="drive_time">行驶证检证日期</label>
                             </div>
                             <div class="col s4 input-field" ng-class="{'has-error':look_truck_form.service_time.$invalid&&submitted }">
                                 <input type="text" name="service_time" id="service_time" class="datepicker" form-date autocomplete="off" ng-model="truckFirst.license_date" required   date><i class="mdi dataIcon mdi-table-large"></i>
@@ -121,7 +121,7 @@
                         <div class="row">
 
                         </div>
-                        <div class="row vc-center" >
+                        <div class="row vc-center">
                             <button class="btn waves-effect" type="submit" name="action" >确定</button>
                         </div>
                     </form>
@@ -137,7 +137,7 @@
                                         <i class="mdi mdi-instagram"></i>
                                     </div>
                                     <ul id="look_dirve_img">
-                                        <li ng-repeat="el in drive_img" repeat-finish-d="renderFinish_d()" class="drive_img_box col s4 vc-center p0 grey white-text">
+                                        <li ng-repeat="el in drive_img" repeat-finish="renderFinish_d()" class="drive_img_box col s4 vc-center p0 grey white-text">
                                             <img ng-src="{{el.img}}" class="responsive-img">
                                         </li>
                                     </ul>
@@ -153,7 +153,7 @@
                                         <i class="mdi mdi-instagram"></i>
                                     </div>
                                     <ul id="look_truck_img">
-                                        <li ng-repeat="el in service_img" repeat-finish-s="renderFinish_s()" class="drive_img_box col s4 vc-center p0 grey white-text">
+                                        <li ng-repeat="el in service_img" repeat-finish="renderFinish_s()" class="drive_img_box col s4 vc-center p0 grey white-text">
                                             <img ng-src="{{el.img}}" class="responsive-img">
                                         </li>
                                     </ul>
@@ -194,17 +194,7 @@
                         </div>
 
                         <div class="row">
-                            <div  class="col s4 " style="padding: 10px;height: 40px;margin-top: 20px">
-                                <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':el.trail_num}">
-                                    <div class="col s6 "  ng-click="clear_trailer()">
-                                        <input type="radio" name="filled-in" class="filled-in"  id="filled-in-box" />
-                                        <label for="filled-in-box" class="black-text" style="font-size: 18px" >暂不关联</label>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                            <div ng-repeat="el in hand_truck_msg track by $index" class="col s4 " style="padding: 10px;height: 40px;margin-top: 20px">
+                            <div ng-hide="show_unbind_trailer_btn" ng-repeat="el in hand_truck_msg track by $index" class="col s4 " style="padding: 10px;height: 40px;margin-top: 20px">
                                 <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':el.first_num}">
                                     <div class="col s6 " ng-if="!el.first_num" ng-click="check_trailer(el.id)">
                                         <input type="radio" name="filled-in" class="filled-in"  id="filled-in-box{{$index}}" />
@@ -213,7 +203,7 @@
                                     <div class="col s6 black-text" ng-if="el.first_num"  style="font-size: 18px">
                                         {{el.truck_num}}
                                     </div>
-                                    <div class=" col s6">
+                                    <div class="col s6">
                                         <span ng-hide="el.first_num" style="margin-left: 10px">未关联车头</span>
                                         <span ng-show="el.first_num" style="margin-left: 10px">关联车头: <span>{{el.first_num}}</span></span>
                                     </div>
@@ -222,7 +212,7 @@
                             </div>
                         </div>
                         <div class="row vc-center" >
-                            <button class="btn waves-effect" type="submit" name="action" >确定</button>
+                            <button class="btn waves-effect" ng-hide="show_unbind_trailer_btn" type="submit" name="action" >确定</button>
                         </div>
                     </form>
                 </div>
@@ -237,17 +227,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div  class="col s4 " style="padding: 10px;height: 40px;margin-top: 20px">
-                            <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':el.trail_num}">
-                                <div class="col s6 "  ng-click="clear_driver()">
-                                    <input type="radio" name="filled-in" class="filled-in"  id="filled-in_driver-box" />
-                                    <label for="filled-in_driver-box" class="black-text" style="font-size: 18px" >暂不关联</label>
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <div ng-repeat="el in drive track by $index" class="col s4 " style="padding: 10px;height: 40px;margin-top: 20px">
+                        <div ng-hide="show_unbind_drive_btn" ng-repeat="el in drive track by $index" class="col s4 " style="padding: 10px;height: 40px;margin-top: 20px">
                             <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':el.truck_num}">
                                 <div class="col s6 " ng-if="!el.truck_num" ng-click="check_driver(el.id)">
                                     <input type="radio" name="filled-in" class="filled-in"  id="filled-in_driver-box{{$index}}" />
@@ -266,7 +246,7 @@
                         </div>
                     </div>
                     <div class="row vc-center" >
-                        <a  class="btn waves-effect" ng-click="binding_driver_submit()" >确定</a>
+                        <a  class="btn waves-effect" ng-hide="show_unbind_drive_btn" ng-click="binding_driver_submit()" >确定</a>
                     </div>
                 </div>
                 <div id="test5" class="test col s12">

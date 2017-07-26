@@ -190,19 +190,19 @@ app.controller("add_hand_truck_details_controller", ["$scope","$state","$statePa
 
     // 头车过滤
     $scope.Binding_trailer_check=function () {
-        var Binding_trailer=$scope.Binding_trailer;
-        if(Binding_trailer.length==0){
-            $scope.head_car_msg=head_car_msg;
-        }else {
+        if($scope.Binding_trailer!=null&&$scope.Binding_trailer!=""){
             $scope.head_car_msg=[];
             head_car_msg.forEach(function (i) {
-                    if(i.truck_num.indexOf(Binding_trailer)!=-1){
-                        if($scope.head_car_msg.indexOf(i)==-1){
-                            $scope.head_car_msg.push(i)
-                        }
+                if(i.truck_num.indexOf($scope.Binding_trailer)!=-1){
+                    if($scope.head_car_msg.indexOf(i)==-1){
+                        $scope.head_car_msg.push(i)
                     }
+                }
             })
+        }else {
+            $scope.head_car_msg=head_car_msg;
         }
+
     };
     // 营运证
     $scope.uploadBrandImage_service=function (dom) {

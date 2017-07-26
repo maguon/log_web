@@ -116,12 +116,19 @@ app.controller("look_head_truck_details_controller", ["$scope","$state","$stateP
             if (data.success == true) {
                 // console.log(data);
                 $scope.operating_record = data.result[0];
-                $scope.comment = $scope.operating_record.comment;
+                // $scope.comment = $scope.operating_record.comment;
                 $scope.truck_image = $scope.operating_record.images;
                 if($scope.truck_image.length>0){
                     for (var i in $scope.truck_image) {
-                        $scope.truck_image_i.push($host.file_url + '/image/' + $scope.truck_image[i].url);
-                        $scope.truck_imageBox.push({src: $host.file_url + '/image/' + $scope.truck_image[i].url,record_id:$scope.operating_record._id,time:$scope.truck_image[i].timez,user:$scope.truck_image[i].name});
+                        if ($scope.truck_image_i.indexOf($host.file_url + '/image/' + $scope.truck_image[i].url) == -1) {
+                            $scope.truck_image_i.push($host.file_url + '/image/' + $scope.truck_image[i].url);
+                            $scope.truck_imageBox.push({
+                                src: $host.file_url + '/image/' + $scope.truck_image[i].url,
+                                record_id: $scope.operating_record._id,
+                                time: $scope.truck_image[i].timez,
+                                user: $scope.truck_image[i].name
+                            });
+                        }
                     }
                 }
 
@@ -136,7 +143,7 @@ app.controller("look_head_truck_details_controller", ["$scope","$state","$stateP
     
     // 解绑关联挂车
     $scope.unbind_trailer=function () {
-        _basic.put($host.api_url+"/user/"+userId+"/truck/"+id+"/truckRel/"+0+"/unbind",{}).then(function (data) {
+        _basic.put($host.api_url+"/user/"+userId+"/truck/"+id+"/trail/"+$scope.truckFirst.rel_id+"/unbind",{}).then(function (data) {
             if(data.success==true){
                 swal("解绑成功","","success");
                 $scope.show_unbind_trailer_btn=false;
@@ -149,7 +156,7 @@ app.controller("look_head_truck_details_controller", ["$scope","$state","$stateP
     };
     // 解绑关联司机
     $scope.unbind_drive=function () {
-        _basic.put($host.api_url+"/user/"+userId+"/truck/"+id+"/drive/"+0+"/unbind",{}).then(function (data) {
+        _basic.put($host.api_url+"/user/"+userId+"/truck/"+id+"/drive/"+$scope.truckFirst.drive_id+"/unbind",{}).then(function (data) {
             if(data.success==true){
                 swal("解绑成功","","success");
                 $scope.show_unbind_drive_btn=false;
@@ -201,7 +208,7 @@ app.controller("look_head_truck_details_controller", ["$scope","$state","$stateP
                     _basic.formPost(dom_obj.parent().parent(), $host.file_url + '/user/' + userId + '/image?imageType=2', function (data) {
 
                         if (data.success) {
-
+                            viewer.destroy();
                             // // console.log(data,Picture_truckid);
                             var imageId = data.imageId;
                             callback(imageId);
@@ -326,6 +333,9 @@ app.controller("look_head_truck_details_controller", ["$scope","$state","$stateP
             }).then(function (data) {
                 if (data.success == true) {
                     $scope._id = data.result._id;
+                    if($scope.truck_imageBox.length!=0){
+                        viewer.destroy();
+                    }
                     var nowDate=moment(new Date()).format("YYYY-DD-MM HH:mm");
                     $scope.truck_image_i.push( $host.file_url + '/image/' +imageId );
                     $scope.truck_imageBox.push({src: $host.file_url + '/image/' + imageId,record_id:$scope._id,time:nowDate,user:_basic.getSession(_basic.USER_NAME)});
@@ -407,7 +417,7 @@ app.controller("look_head_truck_details_controller", ["$scope","$state","$stateP
     // 绑定挂车——绑定司机
     $scope.Binding_trailer_submit=function () {
         if($scope.check_trailer_id){
-            _basic.put($host.api_url+"/user/"+userId+"/truck/"+id+"/truckRel/"+$scope.check_trailer_id+"/bind",{}).then(function (data) {
+            _basic.put($host.api_url+"/user/"+userId+"/truck/"+id+"/trail/"+$scope.check_trailer_id+"/bind",{}).then(function (data) {
                 if(data.success==true){
                     swal("绑定成功","","success");
                     $scope.truck_msg();

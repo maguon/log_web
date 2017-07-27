@@ -1,0 +1,68 @@
+<div  >
+    <div class="" >
+        <div class="modal-content grey-text text-darken-2">
+            <!--<div class="" style="width: 95%;margin: 0 auto">-->
+            <div class="storage_storeTitle vc-center ">
+                <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
+                    <i class="mdi mdi-arrow-left-bold"></i>
+                </a>
+                <h4 class="center-align cyan-text text-lighten-1">增加保单</h4>
+            </div>
+            <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+            <form name="insurance_Form" ng-submit="insuranceForm(insurance_Form.$valid)" novalidate>
+            <div class="row" style="width: 60%;margin-top: 40px">
+                    <div class="row">
+                        <div class="input-field col s12" ng-class="{'has-error':insurance_Form.insurance_company.$invalid&&submitted}">
+                            <select name="insurance_company" id="insurance_company" ng-model="insurance_company" material-select watch required >
+                                <option value="">请选择</option>
+                                <option ng-repeat="el in truckInsure_company" ng-value="el.id">{{el.insure_name}}</option>
+                            </select>
+                            <label class="grey-text" for="insurance_company"><span class="red-text text-lighten-2">*</span>投保公司</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12" ng-class="{'has-error':insurance_Form.insurance_list.$invalid&&submitted}">
+                            <select name="insurance_list" id="insurance_list" ng-model="insurance_list" material-select watch required>
+                                <option ng-value="">请选择</option>
+                                <option ng-value="1">商业险</option>
+                                <option ng-value="2">交强险</option>
+                            </select>
+                            <label class="grey-text" for="insurance_list"><span class="red-text text-lighten-2">*</span>保险种类</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12" ng-class="{'has-error':insurance_Form.insurance_num.$invalid&&submitted}">
+                            <input ng-pattern="pwdReg" id="insurance_num" name="insurance_num" ng-model="insurance_num" autocomplete="off" type="text"  required>
+                            <label class="grey-text" for="insurance_num"><span class="red-text text-lighten-2">*</span>保单编号</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12" ng-class="{'has-error':insurance_Form.insurance_money.$invalid&&submitted}">
+                            <input ng-pattern="pwdReg" id="insurance_money" name="insurance_money" ng-model="insurance_money" autocomplete="off" type="text"  required>
+                            <label class="grey-text" for="insurance_money"><span class="red-text text-lighten-2">*</span>保险金额(元)</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h6 class="col s6">保险日期:<span style="margin-left: 20px">{{nowDate}}</span></h6>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6" ng-class="{'has-error':insurance_Form.insurance_money.$invalid&&submitted}">
+                            <input type="text" id="effective_date_start" name="effective_date_start" class="datepicker" autocomplete="off" ng-model="effective_date_start" required   date><i class="mdi grey-text text-lighten-1 dataIcon mdi-table-large"></i>
+                            <label class="grey-text" for="effective_date_start"><span class="red-text text-lighten-2">*</span>生效期(始)</label>
+                        </div>
+                        <div class="input-field col s6" ng-class="{'has-error':insurance_Form.insurance_money.$invalid&&submitted}">
+                            <input type="text" id="effective_date_end" name="effective_date_end" class="datepicker" autocomplete="off" ng-model="effective_date_end" required   date><i class="mdi grey-text text-lighten-1 dataIcon mdi-table-large"></i>
+                            <label class="grey-text" for="effective_date_end"><span class="red-text text-lighten-2">*</span>生效期(终)</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+                <div class="row input-field vc-center">
+                    <button class="btn" type="submit" name="action">确定</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>

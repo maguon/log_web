@@ -1,0 +1,46 @@
+<div  >
+    <div class="" >
+        <div class="modal-content grey-text text-darken-2">
+            <!--<div class="" style="width: 95%;margin: 0 auto">-->
+            <div class="storage_storeTitle vc-center ">
+                <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
+                    <i class="mdi mdi-arrow-left-bold"></i>
+                </a>
+                <h4 class="center-align cyan-text text-lighten-1">保单信息</h4>
+            </div>
+            <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+            <div class="row" style="width: 95%">
+                <div class="row">
+                    <div class="input-field right">
+                        <a href="#" class="btn waves-effect" ui-sref="add_truck_guarantee({id:truck_guarantee_id,_from:'truck_details',from:'truck_guarantee_details'})">增加保单</a>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s4 " ng-repeat="el in truck_guarantee"  style="padding:0 5px">
+                        <div class="card white z-depth-2 ">
+                            <div class="card-content grey-text">
+                                <span class="col s12 card-title">
+                                    <span ng-if="el.insure_type==2">交强险</span>
+                                    <span ng-if="el.insure_type==1">商业险</span>
+                                    <span  style="margin-left: 25px;font-weight: normal">{{el.insure_num}}</span>
+                                </span>
+                                <div class="divider col s12" style="height: 1px; color: black;margin-bottom: 20px"></div>
+                                <div class="row" style="font-weight: normal" >
+                                        <div class="col s6">担保公司:<span>{{el.insure_name}}</span></div>
+                                        <div class="col s6">担保日期:<span>{{el.insure_date|date:'yyyy-MM-dd'}}</span></div>
+                                        <div class="col s12 p0" style="margin-top: 10px">
+                                            <div class="col s6">生效期:<span>{{el.start_date|date:'yyyy-MM-dd'}}</span>到<span>{{el.end_date|date:'yyyy-MM-dd'}}</span></div>
+                                            <div class="col s6">￥<span class="red-text text-lighten-2">{{el.insure_money}}</span>元</div>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>

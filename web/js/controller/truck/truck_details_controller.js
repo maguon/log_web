@@ -20,6 +20,7 @@ app.controller("truck_details_controller", ["$scope","$state","$stateParams","_b
         }
     });
 
+
     _basic.get($host.api_url+"/truckTrailer?truckType=2").then(function (data) {
         if(data.success==true){
             $scope.hand_truck_msg=data.result;
@@ -129,7 +130,6 @@ app.controller("truck_details_controller", ["$scope","$state","$stateParams","_b
                 $scope.search_hand_truck();
             }
         })
-
     };
 
 

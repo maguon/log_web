@@ -283,6 +283,18 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/truck/look_hand_truck_details.html",
             controller:'look_hand_truck_details_controller'
         })
+        // 新增保单
+        .state("add_truck_guarantee",{
+            url:"/add_truck_guarantee/id/{id}/_from/{_from}?from",
+            templateUrl: "js/view/truck/add_truck_guarantee.html",
+            controller:'add_truck_guarantee_controller'
+        })
+        // 保单详情
+        .state("truck_guarantee_details",{
+            url:"/truck_guarantee_details/id/{id}?from",
+            templateUrl: "js/view/truck/truck_guarantee_details.html",
+            controller:'truck_guarantee_details_controller'
+        })
         .state("truck_company",{
             url:"/truck_company",
             templateUrl: "js/view/truck/truck_company.html",

@@ -23,7 +23,21 @@
                     <input id="drive_name" name="drive_name" type="text" ng-model="driverInfo.drive_name" required>
                     <label for="drive_name"><span style="color: red">* </span>司机姓名</label>
                 </div>
-
+                <div class="input-field col s3" ng-class="{'has-error':truck_driver_details.sex.$invalid&&submitted }">
+                    <select id="sex" name="sex" material-select watch ng-model="driverInfo.gender" required>
+                        <option value="" selected>请选择</option>
+                        <option value="0">女</option>
+                        <option value="1">男</option>
+                    </select>
+                    <label><span style="color: red">* </span>性别</label>
+                </div>
+                <div class="input-field col s5"
+                     ng-class="{'has-error':truck_driver_details.phone.$invalid&&submitted }">
+                    <input id="phone" name="phone" type="text" ng-model="driverInfo.tel" ng-pattern="mobileReg" required>
+                    <label for="phone"><span style="color: red">* </span>联系电话</label>
+                </div>
+            </div>
+            <div class="row">
                 <div class="input-field col s4"
                      ng-class="{'has-error':truck_driver_details.operate_type.$invalid&&submitted }">
                     <select id="operate_type" name="operate_type" material-select watch ng-change="chooseOperateType()" ng-model="driverInfo.operate_type">
@@ -42,21 +56,6 @@
                         <option ng-repeat="company in companyList" ng-value="company.id" selected>{{company.company_name}}</option>
                     </select>
                     <label><span style="color: red">* </span>所属公司</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s3" ng-class="{'has-error':truck_driver_details.sex.$invalid&&submitted }">
-                    <select id="sex" name="sex" material-select watch ng-model="driverInfo.gender" required>
-                        <option value="" selected>请选择</option>
-                        <option value="0">女</option>
-                        <option value="1">男</option>
-                    </select>
-                    <label><span style="color: red">* </span>性别</label>
-                </div>
-                <div class="input-field col s5"
-                     ng-class="{'has-error':truck_driver_details.phone.$invalid&&submitted }">
-                    <input id="phone" name="phone" type="text" ng-model="driverInfo.tel" ng-pattern="mobileReg" required>
-                    <label for="phone"><span style="color: red">* </span>联系电话</label>
                 </div>
                 <div class="input-field col s4"
                      ng-class="{'has-error':truck_driver_details.id_card.$invalid&&submitted }">
@@ -87,23 +86,22 @@
                     <i class="mdi dataIcon mdi-table-large"></i>
                     <label for="endTime"><span style="color: red">* </span>驾驶证到期时间</label>
                 </div>
-                <div class="input-field col s4"
-                     ng-class="{'has-error':truck_driver_details.verification_time.$invalid&&submitted }">
-                    <input id="verification_time" name="verification_time" type="text" class="datepicker" date
-                           ng-model="driverInfo.confirm_date" required>
-                    <i class="mdi dataIcon mdi-table-large"></i>
-                    <label for="verification_time"><span style="color: red">* </span>检证日期</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s7">
-                    <input id="driver_address" type="text" ng-model="driverInfo.address">
-                    <label for="driver_address">家庭住址</label>
-                </div>
-                <div class="col s1"></div>
+                <!--<div class="input-field col s4"-->
+                     <!--ng-class="{'has-error':truck_driver_details.verification_time.$invalid&&submitted }">-->
+                    <!--<input id="verification_time" name="verification_time" type="text" class="datepicker" date-->
+                           <!--ng-model="driverInfo.confirm_date" required>-->
+                    <!--<i class="mdi dataIcon mdi-table-large"></i>-->
+                    <!--<label for="verification_time"><span style="color: red">* </span>检证日期</label>-->
+                <!--</div>-->
                 <div class="input-field col s4">
                     <input id="driver_parent" type="text" ng-model="driverInfo.sib_tel">
                     <label for="driver_parent">紧急联系人电话</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="driver_address" type="text" ng-model="driverInfo.address">
+                    <label for="driver_address">家庭住址</label>
                 </div>
             </div>
             <div class="row col s12">
@@ -160,7 +158,7 @@
                                        onchange="angular.element(this).scope().uploadIdCardImage(this)" max_size="4M">
                                 <i class="mdi mdi-instagram"></i>
                             </div>
-                            <div id="look_driverIdentity" style="cursor: pointer">
+                            <div id="look_driverIdentity" class="col s4" style="cursor: pointer">
                                 <div ng-repeat="el in drive_img" repeat-finish="driverFinish()" class="drive_img_box col s4 vc-center p0 grey white-text">
                                     <img ng-src="{{el.img}}" class="responsive-img">
                                 </div>
@@ -172,12 +170,12 @@
                 <div class="col s6 vc-center">
                     <div class="col s2">驾驶证:</div>
                     <div class="col s10">
-                        <form name="uploadImageForm" class="uploadImageForm">
+                        <form name="uploadImageForm" class="">
                             <div class="storage_car_picture col s4 vc-center  p0 cyan lighten-1 white-text">
                                 <input name="image" type="file" onchange="angular.element(this).scope().uploadLicenseImage(this)" max_size="4M">
                                 <i class="mdi mdi-instagram"></i>
                             </div>
-                            <div id="look_licenseImg" style="cursor: pointer">
+                            <div id="look_licenseImg" class="col s4" style="cursor: pointer">
                                 <div ng-repeat="el in license_img" repeat-finish="licenseFinish()" class="drive_img_box col s4 vc-center p0 grey white-text">
                                     <img ng-src="{{el.img}}" class="responsive-img">
                                 </div>
@@ -203,16 +201,21 @@
                     <label for="Binding_trailer">绑定货车</label>
                 </div>
                 <div class="col s2">
-                    <button style="width: 180px;height: 38px;line-height: 3px;font-size: 1.3rem;margin-top: 11px"
+                    <button ng-if="bindBtn" style="width: 180px;height: 38px;line-height: 3px;font-size: 1.3rem;margin-top: 11px"
+                            class="right btn btn-large waves-effect waves-light"
+                            ng-click="bundling()">
+                        绑定货车
+                    </button>
+                    <button ng-if="unbindBtn" style="width: 180px;height: 38px;line-height: 3px;font-size: 1.3rem;margin-top: 11px"
                             class="right btn btn-large waves-effect waves-light"
                             ng-click="unBundling()">
-                        {{driverInfo.truck_num == null ? "绑定货车" : "解绑"}}
+                        解绑
                     </button>
                 </div>
             </div>
 
             <div class="row">
-                <div ng-show="driverInfo.truck_num == null" ng-repeat="truck in truckList" class="col s4" style="padding: 10px;height: 40px;margin-top: 20px">
+                <div ng-show="showTruckList" ng-repeat="truck in newTruckList" class="col s4" style="padding: 10px;height: 40px;margin-top: 20px">
                     <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':truck.drive_name}">
                         <div class="col s6" ng-click="check_trailer(truck.id)">
                             <input ng-if="!truck.drive_name" type="radio" name="filled-in" class="filled-in"  id="filled-in-box{{$index}}" />

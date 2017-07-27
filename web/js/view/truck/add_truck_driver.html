@@ -82,28 +82,27 @@
                     </div>
                     <div class="input-field col s4"
                          ng-class="{'has-error':add_driver_form.endTime.$invalid&&submitted }">
-                        <input id="endTime" name="endTime" type="text" class="datepicker" date ng-model="licenseEndTime"
+                        <input id="verification_time" name="endTime" type="text" class="datepicker" date ng-model="licenseEndTime"
                                required>
                         <i class="mdi dataIcon mdi-table-large"></i>
-                        <label for="verification_time"><span style="color: red">* </span>到期时间</label>
+                        <label for="verification_time"><span style="color: red">* </span>驾驶证到期时间</label>
                     </div>
-                    <div class="input-field col s4"
-                         ng-class="{'has-error':add_driver_form.verification_time.$invalid&&submitted }">
-                        <input id="verification_time" name="verification_time" type="text" class="datepicker" date
-                               ng-model="verificationStartTime" required>
-                        <i class="mdi dataIcon mdi-table-large"></i>
-                        <label for="verification_time"><span style="color: red">* </span>检证日期</label>
+                    <!--<div class="input-field col s4"-->
+                         <!--ng-class="{'has-error':add_driver_form.verification_time.$invalid&&submitted }">-->
+                        <!--<input id="verification_time" name="verification_time" type="text" class="datepicker" date-->
+                               <!--ng-model="verificationStartTime" required>-->
+                        <!--<i class="mdi dataIcon mdi-table-large"></i>-->
+                        <!--<label for="verification_time"><span style="color: red">* </span>检证日期</label>-->
+                    <!--</div>-->
+                    <div class="input-field col s4">
+                        <input id="driver_parent" type="text" ng-model="driverParent">
+                        <label for="driver_parent">紧急联系人电话</label>
                     </div>
                 </div>
                 <div class="row col s12">
-                    <div class="input-field col s6">
+                    <div class="input-field col s12">
                         <input id="driver_address" type="text" ng-model="driverAddress">
                         <label for="driver_address">家庭住址</label>
-                    </div>
-                    <div class="input-field col s1"></div>
-                    <div class="input-field col s5">
-                        <input id="driver_parent" type="text" ng-model="driverParent">
-                        <label for="driver_parent">紧急联系人电话</label>
                     </div>
                 </div>
 

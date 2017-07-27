@@ -25,6 +25,7 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
         _basic.get($host.api_url + "/truckFirst?truckType=1").then(function (truckData) {
             if (truckData.success === true) {
                 $scope.truckList = truckData.result;
+                $scope.newTruckList = $scope.truckList;
                 // console.log("truckData",$scope.truckList);
             }
             else {
@@ -59,12 +60,29 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
                 data.result[0].operate_type = data.result[0].operate_type.toString();
                 // console.log("modifyData",data.result[0]);
                 $scope.driverInfo = data.result[0];
-                $scope.drive_img = [{
-                    img: $host.file_url + '/image/' + data.result[0].drive_image,
-                }];
-                $scope.license_img = [{
-                    img: $host.file_url + '/image/' + data.result[0].license_image,
-                }];
+                if($scope.driverInfo.drive_image != null){
+                    $scope.drive_img = [{
+                        img: $host.file_url + '/image/' + data.result[0].drive_image,
+                    }];
+                }
+                if($scope.driverInfo.license_image != null){
+                    $scope.license_img = [{
+                        img: $host.file_url + '/image/' + data.result[0].license_image,
+                    }];
+                }
+
+
+                // 判断绑定货车和解绑按钮隐藏显示
+                if(data.result[0].truck_num == null){
+                    $scope.bindBtn = true;
+                    $scope.unbindBtn = false;
+                    $scope.showTruckList = true;
+                }
+                else{
+                    $scope.bindBtn = false;
+                    $scope.unbindBtn = true;
+                    $scope.showTruckList = false;
+                }
 
             }
             else {
@@ -107,40 +125,38 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
         // console.log("truckId",truckId);
     };
 
-    $scope.unBundling = function () {
-        // 判断绑定是否为空，为空则进行绑定操作，否则进行解绑操作
-        if ($scope.driverInfo.truck_num == null) {
-            if ($scope.truck_id) {
-                _basic.put($host.api_url + "/user/" + userId + "/truck/" + $scope.truck_id + "/drive/" + driverId + "/bind", {}).then(function (bindData) {
-                    if (bindData.success === true) {
-                        $scope.getDriverDetails();
-                        $scope.getCompanyAndTruckInfo();
-                        swal("绑定成功", "", "success");
-                    }
-                    else {
-                        swal(bindData.msg, "", "error");
-                    }
-                });
-            }
-            else {
-                swal("请选择货车", "", "error");
-            }
-        }
-        // 解绑
-        else {
-            _basic.put($host.api_url + "/user/" + userId + "/truck/" + $scope.driverInfo.truck_id + "/drive/" + driverId + "/unbind", {}).then(function (unbindData) {
-                if (unbindData.success === true) {
+    // 绑定货车
+    $scope.bundling = function () {
+        if ($scope.truck_id) {
+            _basic.put($host.api_url + "/user/" + userId + "/truck/" + $scope.truck_id + "/drive/" + driverId + "/bind", {}).then(function (bindData) {
+                if (bindData.success === true) {
                     $scope.getDriverDetails();
                     $scope.getCompanyAndTruckInfo();
-                    swal("解绑成功", "", "success");
+                    swal("绑定成功", "", "success");
                 }
                 else {
-                    swal("解绑失败", "", "error");
-                    // console.log("userId", userId, "truck_id", $scope.truck_id, "driverId", driverId);
+                    swal(bindData.msg, "", "error");
                 }
             });
         }
-        // console.log($scope.relatedTruck);
+        else {
+            swal("请选择货车", "", "error");
+        }
+    };
+
+    // 解绑货车
+    $scope.unBundling = function () {
+        _basic.put($host.api_url + "/user/" + userId + "/truck/" + $scope.driverInfo.truck_id + "/drive/" + driverId + "/unbind", {}).then(function (unbindData) {
+            if (unbindData.success === true) {
+                $scope.getDriverDetails();
+                $scope.getCompanyAndTruckInfo();
+                swal("解绑成功", "", "success");
+            }
+            else {
+                swal("解绑失败", "", "error");
+                // console.log("userId", userId, "truck_id", $scope.truck_id, "driverId", driverId);
+            }
+        });
     };
 
     // 照片上传函数
@@ -266,7 +282,7 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
             tel: $scope.driverInfo.tel,
             companyId: $scope.driverInfo.company_id,
             licenseType: $scope.driverInfo.license_type,
-            entryDate: $scope.driverInfo.confirm_date,
+            // entryDate: $scope.driverInfo.confirm_date,
             address: $scope.driverInfo.address,
             sibTel: $scope.driverInfo.sib_tel,
             licenseDate: $scope.driverInfo.license_date,
@@ -284,6 +300,22 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
                 swal(data.msg, "", "error");
             }
         });
+    };
+
+    // 根据输入关键字过滤货车
+    $scope.updateTruckList = function () {
+        $scope.newTruckList = [];
+        if ($scope.driverInfo.truck_num != "") {
+            for (var i = 0; i < $scope.truckList.length; i++) {
+                if (($scope.truckList[i].truck_num).indexOf($scope.driverInfo.truck_num) !== -1) {
+                    $scope.newTruckList.push($scope.truckList[i]);
+                }
+            }
+        }
+        else {
+            $scope.newTruckList = $scope.truckList;
+        }
+
     };
 
     // 获取所有相关数据

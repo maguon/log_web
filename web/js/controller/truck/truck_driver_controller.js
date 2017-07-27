@@ -12,7 +12,7 @@ app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host
                 companyId: $scope.driverCompany,
                 driveStatus: $scope.workStatus,
                 tel:$scope.driveTel,
-                truckId: $scope.truckNumber,
+                truckNum: $scope.truckNumber,
                 licenseType:$scope.drivingLicense,
                 licenseDateStart:$scope.verificationStart,
                 licenseDateEnd:$scope.verificationEnd

@@ -11,11 +11,16 @@ app.controller("look_head_truck_details_controller", ["$scope","$state","$stateP
     $scope.return=function () {
         $state.go($stateParams.from,{reload:true})
     };
+    $scope.no_drive_img=false;
+    $scope.no_service_img=false;
+    // 电话号正则
+    $scope.mobileRegx=_config.mobileRegx;
+
     // 车辆存照片ID;
     var Picture_truckid;
     // 所属类型--公司联动
         $scope.getCompany=function () {
-            _basic.get($host.api_url+"/company?operateType="+$scope.truckFirst.truck_type).then(function (data) {
+            _basic.get($host.api_url+"/company?operateType="+$scope.truckFirst.operate_type).then(function (data) {
                 if(data.success==true){
                     $scope.company=data.result;
                 }else {
@@ -72,7 +77,6 @@ app.controller("look_head_truck_details_controller", ["$scope","$state","$stateP
                 $scope.truckFirst=data.result[0];
                 $scope.getCompany();
                 $scope.Binding_trailer=$scope.truckFirst.trail_num;
-
                 if($scope.Binding_trailer!=null&&$scope.Binding_trailer!=""){
                     $scope.show_unbind_trailer_btn=true;
                 }
@@ -93,6 +97,8 @@ app.controller("look_head_truck_details_controller", ["$scope","$state","$stateP
                     $scope.drive_img=[{
                         img:$host.file_url + '/image/'+data.result[0].driving_image,
                     }];
+                }else {
+                    $scope.no_drive_img=true;
                 }
 
             }else {
@@ -106,6 +112,8 @@ app.controller("look_head_truck_details_controller", ["$scope","$state","$stateP
                     $scope.service_img=[{
                         img:$host.file_url + '/image/'+data.result[0].license_image,
                     }];
+                }else {
+                    $scope.no_service_img=true;
                 }
             }else {
                 swal("异常", "", "error")
@@ -208,7 +216,7 @@ app.controller("look_head_truck_details_controller", ["$scope","$state","$stateP
                     _basic.formPost(dom_obj.parent().parent(), $host.file_url + '/user/' + userId + '/image?imageType=2', function (data) {
 
                         if (data.success) {
-                            viewer.destroy();
+
                             // // console.log(data,Picture_truckid);
                             var imageId = data.imageId;
                             callback(imageId);
@@ -251,7 +259,7 @@ app.controller("look_head_truck_details_controller", ["$scope","$state","$stateP
     $scope.uploadBrandImage_drive = function (dom) {
         var dom_obj=$(dom);
         var filename = $(dom).val();
-        // console.log($(dom).val());
+        console.log($(dom).val());
         uploadBrandImage(filename,dom_obj,function (imageId) {
             var nowDate=moment(new Date()).format("YYYY-DD-MM HH:mm");
             $scope.$apply(function () {
@@ -261,12 +269,12 @@ app.controller("look_head_truck_details_controller", ["$scope","$state","$stateP
             });
             var obj={
                 "truckImage": imageId,
-                // "licenseImage": "string",
                 "imageType": 1
             };
             _basic.put($host.api_url+"/user/"+userId+"/truck/"+id+"/image",obj).then(function (data) {
                 if(data.success==true){
                     viewer.destroy();
+                    $scope.no_drive_img=false;
                 }else {
                     swal("异常","","error")
                 }
@@ -286,7 +294,6 @@ app.controller("look_head_truck_details_controller", ["$scope","$state","$stateP
                     img:$host.file_url + '/image/'+imageId,
                 }];
             });
-
             var obj={
                 "truckImage": imageId,
                 "imageType": 2
@@ -294,6 +301,7 @@ app.controller("look_head_truck_details_controller", ["$scope","$state","$stateP
             _basic.put($host.api_url+"/user/"+userId+"/truck/"+id+"/image",obj).then(function (data) {
                 if(data.success==true){
                     viewer.destroy();
+                    $scope.no_service_img=false;
                 }else {
                     swal("上传失败","","error")
                 }

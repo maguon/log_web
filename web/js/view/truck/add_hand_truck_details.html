@@ -1,21 +1,18 @@
 <div >
     <div class="" >
         <div class="modal-content grey-text text-darken-2">
-            <!--<div class="" style="width: 95%;margin: 0 auto">-->
             <div class="storage_storeTitle vc-center ">
                 <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
                     <i class="mdi mdi-arrow-left-bold"></i>
                 </a>
                 <h4 class="center-align cyan-text text-lighten-1">增加挂车</h4>
             </div>
-            <!--<div class="divider" style="background: #00bcd4;height: 2px;"></div>-->
             <div class="row" >
                 <div class="col s12" >
                     <ul class="ui-tabs tabs" ul-tabs>
-                        <li class="tab col s3 test1"><a  href="#test1">基本信息</a></li>
-                        <li class="tab col s3 test2 disabled"><a   href="#test2">上传照片</a></li>
-                        <li class="tab col s3 test3 disabled"><a  href="#test3">绑定头车</a></li>
-                        <li class="tab col s3 test4 disabled"><a href="#test4">车保</a></li>
+                        <li class="tab col s4 test1"><a  href="#test1">基本信息</a></li>
+                        <li class="tab col s4 test2 disabled"><a   href="#test2">上传照片</a></li>
+                        <li class="tab col s4 test3 disabled"><a  href="#test3">绑定头车</a></li>
                     </ul>
                 </div>
                 <div id="test1" class="test col s12">
@@ -84,12 +81,18 @@
                 <div id="test2" class="test col s12">
                     <div class="row" style="margin-top: 50px">
                         <div class="col s6 vc-center">
-                            <div class="col s2">行驶证:</div>
-                            <div class="col s10">
+                            <div class="col s12">
                                 <form name="uploadImageForm" class="uploadImageForm">
-                                    <div class="storage_car_picture col s4 vc-center  p0 cyan lighten-1 white-text">
-                                        <input name="image" type="file" onchange="angular.element(this).scope().uploadBrandImage_drive(this)" max_size="4M">
-                                        <i class="mdi mdi-instagram"></i>
+                                    <!--<div class="storage_car_picture col s4 vc-center  p0 cyan lighten-1 white-text">-->
+                                        <!--<input name="image" type="file" onchange="angular.element(this).scope().uploadBrandImage_drive(this)" max_size="4M">-->
+                                        <!--<i class="mdi mdi-instagram"></i>-->
+                                    <!--</div>-->
+                                    <div class="upload_btn left  ">
+                                        <div class="storage_car_picture  vc-center  p0 cyan lighten-1 white-text">
+                                            <input name="image" type="file" onchange="angular.element(this).scope().uploadBrandImage_drive(this)" max_size="4M">
+                                            <i class="mdi mdi-instagram"></i>
+                                        </div>
+                                        <p class="center-align" style="margin-top: 10px">行驶证照片</p>
                                     </div>
                                     <div ng-repeat="el in drive_img" class="drive_img_box col s4 vc-center p0 grey white-text">
                                         <img ng-src="{{el.img}}" class="responsive-img">
@@ -100,12 +103,14 @@
                             </div>
                         </div>
                         <div class="col s6 vc-center">
-                            <div class="col s2">营运证:</div>
-                            <div class="col s10">
+                            <div class="col s12">
                                 <form name="uploadImageForm" class="uploadImageForm">
-                                    <div class="storage_car_picture col s4 vc-center  p0 cyan lighten-1 white-text">
-                                        <input name="image" type="file" onchange="angular.element(this).scope().uploadBrandImage_service(this)" max_size="4M">
-                                        <i class="mdi mdi-instagram"></i>
+                                    <div class="upload_btn left  ">
+                                        <div class="storage_car_picture  vc-center  p0 cyan lighten-1 white-text">
+                                            <input name="image" type="file" onchange="angular.element(this).scope().uploadBrandImage_service(this)" max_size="4M">
+                                            <i class="mdi mdi-instagram"></i>
+                                        </div>
+                                        <p class="center-align" style="margin-top: 10px">营运证照片</p>
                                     </div>
                                     <div ng-repeat="el in service_img" class="drive_img_box col s4 vc-center p0 grey white-text">
                                         <img ng-src="{{el.img}}" class="responsive-img">
@@ -116,15 +121,17 @@
                             </div>
                         </div>
                         <div class="col s12 " style="margin-top: 50px">
-                            <div class="col s12">车辆照片:</div>
                             <div class="col s12">
                                 <form name="uploadImageForm" class="uploadImageForm">
-                                    <div class="storage_car_picture col s2 vc-center  p0 cyan lighten-1 white-text">
-                                        <input name="image" type="file" onchange="angular.element(this).scope().uploadBrandImage_truck(this)" max_size="4M">
-                                        <i class="mdi mdi-instagram"></i>
+                                    <div class="upload_btn left  ">
+                                        <div class="storage_car_picture  vc-center  p0 cyan lighten-1 white-text">
+                                            <input name="image" type="file" onchange="angular.element(this).scope().uploadBrandImage_truck(this)" max_size="4M">
+                                            <i class="mdi mdi-instagram"></i>
+                                        </div>
+                                        <p class="center-align" style="margin-top: 10px">车辆照片</p>
                                     </div>
                                     <ul id="look_img">
-                                        <li ng-repeat="el in truck_imageBox" ng-mouseenter="show=true" ng-mouseleave="show=false"    class="storage_car_picture col s3 vc-center  p0 grey white-text">
+                                        <li ng-repeat="el in truck_imageBox" ng-mouseenter="show=true" ng-mouseleave="show=false"    class="truck_car_picture col s3 vc-center  p0 grey white-text">
                                             <img ng-src="{{el.src}}" class="responsive-img">
                                             <b class="delete_img vc-center black fz18" ng-click="delete_(el.record_id,el.src)"><i class="mdi mdi-close"></i></b>
                                             <p class="img_date white-text center-align" ng-show="show" ng-cloak>{{el.user}}上传于{{el.time|date:'yyyy-MM-dd HH:mm:ss'}}</p>
@@ -173,11 +180,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row vc-center" >
-                        <a  class="btn waves-effect" ng-click="binding_driver_submit()"  >下一步</a>
+                    <div class="row vc-center" style="margin-top: 50px" >
+                        <a  class="btn waves-effect" style="margin-right: 20px" ng-click="binding_first()">完成</a>
+                        <a  class="btn waves-effect" ng-click="binding_add_insure()"  >完成并增加保单</a>
                     </div>
                 </div>
-                <div id="test4" class="test col s12">测试 4</div>
             </div>
         </div>
     </div>

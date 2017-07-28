@@ -591,13 +591,27 @@ input[type=text]{
 }
 /*车辆照片*/
 .storage_car_picture{
+    height: 80px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    margin:70px 10px 0 0;
+    font-size: 35px;
+    width: 80px;
+    border-radius: 50%;
+}
+.truck_car_picture{
     height: 200px;
     cursor: pointer;
     position: relative;
     overflow: hidden;
     margin:10px 10px 0 0;
     font-size: 100px;
-    min-width: 220px;
+    min-width: 200px;
+}
+.upload_btn{
+    height: 200px;
+    margin-right: 80px;
 }
 .drive_img_box{
     height: 200px;
@@ -605,7 +619,7 @@ input[type=text]{
     overflow: hidden;
     margin:10px 10px 0 0;
     font-size: 100px;
-    min-width: 220px;
+    min-width: 340px;
 }
 .img_date{
     width: 100%;
@@ -617,6 +631,17 @@ input[type=text]{
     font-size: 15px;
 }
 .storage_car_picture input{
+    font-size: 200px;
+    position: absolute;
+    opacity: 0;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    z-index: 10;
+}
+.truck_car_picture input{
     font-size: 200px;
     position: absolute;
     opacity: 0;

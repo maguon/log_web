@@ -7,8 +7,10 @@ app.controller("add_hand_truck_details_controller", ["$scope","$state","$statePa
     $scope.return=function () {
         $state.go($stateParams.from,{reload:true})
     };
+
+
     // 车辆存照片ID;
-    var Picture_truckid;
+    var truck_id;
     // 所属类型--公司联动
     $scope.getCompany=function () {
         _basic.get($host.api_url+"/company?operateType="+$scope.truck_hand_type).then(function (data) {
@@ -89,14 +91,15 @@ app.controller("add_hand_truck_details_controller", ["$scope","$state","$statePa
                         $(".ui-tabs li>a").removeClass("active");
                         $(".test2>a").addClass("active");
                         $(".tabs .indicator").css({
-                            right:848+"px",
-                            left:423+"px"
+                            right:624+"px",
+                            left:622+"px"
                         });
                         $(".test").hide();
                         $(".test").removeClass("active");
                         $("#test2").show();
                         $("#test2").addClass("active");
-                        Picture_truckid = data.id;
+                        truck_id = data.id;
+                        $scope.truck_id=data.id;
                     }else {
                         swal(data.msg,"","error")
                     }
@@ -122,10 +125,10 @@ app.controller("add_hand_truck_details_controller", ["$scope","$state","$statePa
 
                         if (data.success) {
 
-                            // // console.log(data,Picture_truckid);
+                            // // console.log(data,truck_id);
                             var imageId = data.imageId;
                             callback(imageId);
-                            // _basic.post($host.record_url + "/car/" + $scope.Picture_truckid + "/vin/" + $scope.vin + "/storageImage", {
+                            // _basic.post($host.record_url + "/car/" + $scope.truck_id + "/vin/" + $scope.vin + "/storageImage", {
                             //     "username": _basic.getSession(_basic.USER_NAME),
                             //     "userId": userId,
                             //     "userType": _basic.getSession(_basic.USER_TYPE),
@@ -173,11 +176,11 @@ app.controller("add_hand_truck_details_controller", ["$scope","$state","$statePa
                 }];
             });
             var obj={
-                "drivingImage": imageId,
+                "truckImage": imageId,
                 // "licenseImage": "string",
                 "imageType": 1
             };
-            _basic.put($host.api_url+"/user/"+userId+"/truck/"+Picture_truckid+"/image",obj).then(function (data) {
+            _basic.put($host.api_url+"/user/"+userId+"/truck/"+truck_id+"/image",obj).then(function (data) {
                 if(data.success==true){
 
                 }else {
@@ -218,10 +221,10 @@ app.controller("add_hand_truck_details_controller", ["$scope","$state","$statePa
             });
             var obj={
                 // "drivingImage": imageId,
-                "licenseImage": imageId,
+                "truckImage": imageId,
                 "imageType": 2
             };
-            _basic.put($host.api_url+"/user/"+userId+"/truck/"+Picture_truckid+"/image",obj).then(function (data) {
+            _basic.put($host.api_url+"/user/"+userId+"/truck/"+truck_id+"/image",obj).then(function (data) {
                 if(data.success==true){
 
                 }else {
@@ -238,7 +241,7 @@ app.controller("add_hand_truck_details_controller", ["$scope","$state","$statePa
         var filename = $(dom).val();
         // console.log($(dom).val());
         uploadBrandImage(filename,dom_obj,function (imageId) {
-            _basic.post($host.record_url + "/user/" +userId + "/truck/" +Picture_truckid + "/image", {
+            _basic.post($host.record_url + "/user/" +userId + "/truck/" +truck_id + "/image", {
                 "username": _basic.getSession(_basic.USER_NAME),
                 "userId": userId,
                 "userType": _basic.getSession(_basic.USER_TYPE),
@@ -269,7 +272,7 @@ app.controller("add_hand_truck_details_controller", ["$scope","$state","$statePa
                 // console.log(src);
                 var url_array=src.split("/");
                 var url=url_array[url_array.length-1];
-                _basic.delete($host.record_url+"/user/"+userId+"/record/"+record_id+"/truck/"+Picture_truckid+"/image/"+url).then(function (data) {
+                _basic.delete($host.record_url+"/user/"+userId+"/record/"+record_id+"/truck/"+truck_id+"/image/"+url).then(function (data) {
                     if(data.success==true){
                         var i=$scope.truck_image_i.indexOf(src);
                         $scope.truck_imageBox.splice(i,1);
@@ -285,15 +288,15 @@ app.controller("add_hand_truck_details_controller", ["$scope","$state","$statePa
 
     };
 
-    // 图片--绑定挂车
+    // 图片--绑定头车
     $scope.next=function () {
         $(".ui-tabs li").addClass("disabled");
         $(".test3").removeClass("disabled");
         $(".ui-tabs li>a").removeClass("active");
         $(".test3>a").addClass("active");
         $(".tabs .indicator").css({
-            right:456+"px",
-            left:942+"px"
+            right:0+"px",
+            left:1256+"px"
         });
         $(".test").hide();
         $(".test").removeClass("active");
@@ -301,43 +304,39 @@ app.controller("add_hand_truck_details_controller", ["$scope","$state","$statePa
         $("#test3").addClass("active");
     };
 
-    // 绑定头车——车保
-    $scope.binding_driver_submit=function () {
-        if($scope.check_driver_id){
-            _basic.put($host.api_url+"/user/"+userId+"/truck/"+Picture_truckid+"/drive/"+$scope.check_driver_id+"/bind",{}).then(function (data) {
+    $scope.clear_trailer=function () {
+        $scope.check_trailer_id="";
+    };
+    $scope.check_trailer=function (id) {
+        $scope.check_trailer_id=id;
+    };
+    // 绑定头车--完成
+    $scope.binding_first=function () {
+        if($scope.check_trailer_id){
+            _basic.put($host.api_url+"/user/"+userId+"/truck/"+$scope.check_trailer_id+"/trail/"+truck_id+"/bind",{}).then(function (data) {
                 if(data.success==true){
-                    $(".ui-tabs li").addClass("disabled");
-                    $(".test5").removeClass("disabled");
-                    $(".ui-tabs li>a").removeClass("active");
-                    $(".test5>a").addClass("active");
-                    $(".tabs .indicator").css({
-                        right:0+"px",
-                        left:1508+"px"
-                    });
-                    $(".test").hide();
-                    $(".test").removeClass("active");
-                    $("#test5").show();
-                    $("#test5").addClass("active");
+                    $state.go($stateParams.from,{reload:true})
                 }else {
                     swal("异常","","error")
                 }
             })
         }else {
-            $(".ui-tabs li").addClass("disabled");
-            $(".test5").removeClass("disabled");
-            $(".ui-tabs li>a").removeClass("active");
-            $(".test5>a").addClass("active");
-            $(".tabs .indicator").css({
-                right:0+"px",
-                left:1508+"px"
-            });
-            $(".test").hide();
-            $(".test").removeClass("active");
-            $("#test5").show();
-            $("#test5").addClass("active");
+            $state.go($stateParams.from,{reload:true})
         }
-
-
+    };
+    // 绑定头车--增加保单
+    $scope.binding_add_insure=function () {
+        if($scope.check_trailer_id){
+            _basic.put($host.api_url+"/user/"+userId+"/truck/"+$scope.check_trailer_id+"/trail/"+truck_id+"/bind",{}).then(function (data) {
+                if(data.success==true){
+                    $state.go("truck_guarantee_details",{id:$scope.truck_id,from:"truck_details"})
+                }else {
+                    swal("异常","","error")
+                }
+            })
+        }else {
+            $state.go("truck_guarantee_details",{id:$scope.truck_id,from:"truck_details"})
+        }
     };
     $scope.add_guarantee=function () {
         $('.modal').modal();

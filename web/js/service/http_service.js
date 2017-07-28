@@ -171,7 +171,7 @@ baseService.factory('_basic',['$http','$location','$q',"$cookies",function($http
     _this.objToUrl=function(obj){
         var str="";
         for(var i in obj){
-            if(obj[i]==0){
+            if(obj[i]!=""&&obj[i]==0){
                 str=str+i+"="+0+"&";
             }
             if(obj[i]!=null&&obj[i]!=""){

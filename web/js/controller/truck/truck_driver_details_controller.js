@@ -65,9 +65,19 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
                         img: $host.file_url + '/image/' + data.result[0].drive_image,
                     }];
                 }
+                else{
+                    $scope.drive_img = [{
+                        img: "../assets/images/id_image_b.png",
+                    }];
+                }
                 if($scope.driverInfo.license_image != null){
                     $scope.license_img = [{
                         img: $host.file_url + '/image/' + data.result[0].license_image,
+                    }];
+                }
+                else{
+                    $scope.license_img = [{
+                        img: "../assets/images/drive_image_b.png",
                     }];
                 }
 

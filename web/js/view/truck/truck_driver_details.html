@@ -23,7 +23,7 @@
                     <input id="drive_name" name="drive_name" type="text" ng-model="driverInfo.drive_name" required>
                     <label for="drive_name"><span style="color: red">* </span>司机姓名</label>
                 </div>
-                <div class="input-field col s3" ng-class="{'has-error':truck_driver_details.sex.$invalid&&submitted }">
+                <div class="input-field col s4" ng-class="{'has-error':truck_driver_details.sex.$invalid&&submitted }">
                     <select id="sex" name="sex" material-select watch ng-model="driverInfo.gender" required>
                         <option value="" selected>请选择</option>
                         <option value="0">女</option>
@@ -31,7 +31,7 @@
                     </select>
                     <label><span style="color: red">* </span>性别</label>
                 </div>
-                <div class="input-field col s5"
+                <div class="input-field col s4"
                      ng-class="{'has-error':truck_driver_details.phone.$invalid&&submitted }">
                     <input id="phone" name="phone" type="text" ng-model="driverInfo.tel" ng-pattern="mobileReg" required>
                     <label for="phone"><span style="color: red">* </span>联系电话</label>
@@ -150,13 +150,16 @@
         <div class="driver_details_step_2" ng-if="stepSecond">
             <div class="row col s12">
                 <div class="col s6 vc-center">
-                    <div class="col s2">身份证:</div>
-                    <div class="col s10">
+                    <!--<div class="col s2">身份证:</div>-->
+                    <div class="col s11">
                         <form name="uploadImageForm" class="uploadImageForm">
-                            <div class="storage_car_picture col s4 vc-center  p0 cyan lighten-1 white-text">
-                                <input name="image" type="file"
-                                       onchange="angular.element(this).scope().uploadIdCardImage(this)" max_size="4M">
-                                <i class="mdi mdi-instagram"></i>
+                            <div class="upload_btn left">
+                                <div class="storage_car_picture col s4 vc-center  p0 cyan lighten-1 white-text" style="width: 84px;margin-bottom: 15px">
+                                    <input name="image" type="file"
+                                           onchange="angular.element(this).scope().uploadIdCardImage(this)" max_size="4M">
+                                    <i class="mdi mdi-instagram"></i>
+                                </div>
+                                <p style="margin-top: 10px">身份证照片</p>
                             </div>
                             <div id="look_driverIdentity" class="col s4" style="cursor: pointer">
                                 <div ng-repeat="el in drive_img" repeat-finish="driverFinish()" class="drive_img_box col s4 vc-center p0 grey white-text">
@@ -168,12 +171,15 @@
                 </div>
 
                 <div class="col s6 vc-center">
-                    <div class="col s2">驾驶证:</div>
-                    <div class="col s10">
+                    <!--<div class="col s2">驾驶证:</div>-->
+                    <div class="col s11">
                         <form name="uploadImageForm" class="">
-                            <div class="storage_car_picture col s4 vc-center  p0 cyan lighten-1 white-text">
-                                <input name="image" type="file" onchange="angular.element(this).scope().uploadLicenseImage(this)" max_size="4M">
-                                <i class="mdi mdi-instagram"></i>
+                            <div class="upload_btn left">
+                                <div class="storage_car_picture col s4 vc-center  p0 cyan lighten-1 white-text" style="width: 84px;margin-bottom: 15px">
+                                    <input name="image" type="file" onchange="angular.element(this).scope().uploadLicenseImage(this)" max_size="4M">
+                                    <i class="mdi mdi-instagram"></i>
+                                </div>
+                                <p style="margin-top: 10px">驾驶证照片</p>
                             </div>
                             <div id="look_licenseImg" class="col s4" style="cursor: pointer">
                                 <div ng-repeat="el in license_img" repeat-finish="licenseFinish()" class="drive_img_box col s4 vc-center p0 grey white-text">

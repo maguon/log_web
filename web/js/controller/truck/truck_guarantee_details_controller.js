@@ -19,6 +19,12 @@ app.controller("truck_guarantee_details_controller", ["$scope","$state","$stateP
         $scope.effective_date_start="";
         $scope.effective_date_end="";
     };
+    // 关闭增加保单
+    $scope.close_insure=function () {
+        $("#add_insure").modal("close");
+        $scope.submitted = false;
+    };
+
     var get_guarantee=function () {
         _basic.get($host.api_url+"/truckInsureRel?truckId="+$scope.truck_guarantee_id).then(function (data) {
             if(data.success==true){

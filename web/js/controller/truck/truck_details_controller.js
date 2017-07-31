@@ -30,7 +30,6 @@ app.controller("truck_details_controller", ["$scope","$state","$stateParams","_b
             drivingDateStart:$scope.search_checkCar_startTime,
             drivingDateEnd:$scope.search_checkCar_endTime
         };
-        console.log(obj)
         _basic.get($host.api_url+"/truckFirst?"+_basic.objToUrl(obj)).then(function (data) {
             if(data.success==true){
                 $scope.head_car_box=data.result;
@@ -128,11 +127,11 @@ app.controller("truck_details_controller", ["$scope","$state","$stateParams","_b
         _basic.put($host.api_url+"/user/"+userId+"/truck/"+id+"/truckStatus/"+status+"/first",{}).then(function (data) {
             if(data.success==true){
                 swal("修改成功","","success");
-                $scope.search_truck();
+                $scope.search_head_truck();
 
             }else {
                 swal(data.msg,"","error");
-                $scope.search_truck();
+                $scope.search_head_truck();
             }
         })
 

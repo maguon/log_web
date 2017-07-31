@@ -213,6 +213,7 @@
                             </div>
                             <div class="col s2 input-field">
                                 <a class="btn waves-effect " ng-show="show_unbind_head_btn" ng-click="unbind_head_truck()">解绑</a>
+                                <button class="btn waves-effect" ng-hide="show_unbind_head_btn" type="submit" name="action" >绑定头车</button>
                             </div>
                         </div>
                         <div class="row" ng-hide="show_unbind_head_btn">
@@ -233,9 +234,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row vc-center" >
-                            <button class="btn waves-effect" ng-hide="show_unbind_head_btn" type="submit" name="action" >确定</button>
-                        </div>
+
                     </form>
                 </div>
             </div>

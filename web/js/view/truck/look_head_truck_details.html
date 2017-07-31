@@ -203,6 +203,7 @@
                             </div>
                             <div class="col s2 input-field">
                                 <a class="btn waves-effect " ng-show="show_unbind_trailer_btn" ng-click="unbind_trailer()">解绑</a>
+                                <button class="btn waves-effect" ng-hide="show_unbind_trailer_btn" type="submit" name="action" >绑定挂车</button>
                             </div>
 
                         </div>
@@ -225,9 +226,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row vc-center" >
-                            <button class="btn waves-effect" ng-hide="show_unbind_trailer_btn" type="submit" name="action" >确定</button>
-                        </div>
                     </form>
                 </div>
                 <div id="test4" class="test col s12">
@@ -238,6 +236,7 @@
                         </div>
                         <div class="col s2 input-field">
                             <a class="btn waves-effect " ng-show="show_unbind_drive_btn" ng-click="unbind_drive()">解绑</a>
+                            <a  class="btn waves-effect" ng-hide="show_unbind_drive_btn" ng-click="binding_driver_submit()" >绑定司机</a>
                         </div>
                     </div>
                     <div class="row">
@@ -258,9 +257,6 @@
                             </div>
 
                         </div>
-                    </div>
-                    <div class="row vc-center" >
-                        <a  class="btn waves-effect" ng-hide="show_unbind_drive_btn" ng-click="binding_driver_submit()" >确定</a>
                     </div>
                 </div>
             </div>

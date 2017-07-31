@@ -26,7 +26,7 @@
                         </div>
                         <div class="divider" style="background: #00bcd4;height: 2px;"></div>
                         <form name="insurance_Form" ng-submit="insuranceForm(insurance_Form.$valid)" novalidate>
-                            <div class="row" style="width: 90%;margin-top: 30px">
+                            <div class="row" style="width: 90%;margin-top: 20px">
                                 <div class="row">
                                     <div class="input-field col s12" ng-class="{'has-error':insurance_Form.insurance_company.$invalid&&submitted}">
                                         <select name="insurance_company" id="insurance_company" ng-model="insurance_company" material-select watch required >
@@ -73,8 +73,9 @@
                                 </div>
                             </div>
                             <div class="divider" style="background: #00bcd4;height: 2px;"></div>
-                            <div class="row input-field vc-center">
-                                <button class="btn" type="submit" name="action">确定</button>
+                            <div class="row input-field ">
+                                <a class="btn waves-effect btn-floating grey right" ng-click="close_insure()"><i class="mdi mdi-close"></i></a>
+                                <button class="btn right btn-floating" type="submit" name="action" style="margin-right: 10px"><i class="mdi mdi-check"></i></button>
                             </div>
                         </form>
                     </div>

@@ -112,8 +112,8 @@ app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config"
 
     // 获取总和饼图数据
     $scope.searchTotalInsurance = function () {
-        var monthStart = $("#chooseCommercialStart").val();
-        var monthEnd = $("#chooseCommercialEnd").val();
+        var monthStart = $("#chooseTotalStart").val();
+        var monthEnd = $("#chooseTotalEnd").val();
 
         _basic.get($host.api_url + "/truckInsureTypeTotal?monthStart=" + monthStart + "&monthEnd=" + monthEnd).then(function (insuranceData) {
             if (insuranceData.success === true) {

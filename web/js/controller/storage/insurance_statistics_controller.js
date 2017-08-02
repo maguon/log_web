@@ -4,7 +4,10 @@
 app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config", "$host", function ($scope, _basic, _config, $host) {
 
     // monthPicker日历控件
-    $('#chooseCompulsoryStart,#chooseCompulsoryEnd,#chooseCommercialStart,#chooseCommercialEnd,#chooseTotalStart,#chooseTotalEnd').MonthPicker({ Button: false });
+    $('#chooseCompulsoryStart,#chooseCompulsoryEnd,#chooseCommercialStart,#chooseCommercialEnd,#chooseTotalStart,#chooseTotalEnd').MonthPicker({
+        Button: false,
+        MonthFormat: 'yymm'
+    });
 
     // 保险金额统计
     var insuranceAmountStatistics = [
@@ -31,25 +34,24 @@ app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config"
 
     // 获取交强险饼图数据
     $scope.searchCompulsoryInsurance = function () {
-        // 转化日期格式
-        var monthStart;
-        var monthEnd;
-        if($("#chooseCompulsoryStart").val() == ""){
-            monthStart = ""
-        }
-        else{
-            monthStart = moment($("#chooseCompulsoryStart").val(),'MM/YYYY').format("YYYYMM");
-        }
+        var monthStart = $("#chooseCompulsoryStart").val();
+        var monthEnd = $("#chooseCompulsoryEnd").val();
+        // if($("#chooseCompulsoryStart").val() == ""){
+        //     monthStart = ""
+        // }
+        // else{
+        //     monthStart = moment($("#chooseCompulsoryStart").val(),'MM/YYYY').format("YYYYMM");
+        // }
+        //
+        // if($("#chooseCompulsoryEnd").val() == ""){
+        //     monthEnd = ""
+        // }
+        // else{
+        //     monthEnd = moment($("#chooseCompulsoryEnd").val(),'MM/YYYY').format("YYYYMM");
+        // }
 
-        if($("#chooseCompulsoryEnd").val() == ""){
-            monthEnd = ""
-        }
-        else{
-            monthEnd = moment($("#chooseCompulsoryEnd").val(),'MM/YYYY').format("YYYYMM");
-        }
 
-
-        _basic.get($host.api_url + "/truckInsureTotalYear?monthStart=" + monthStart + "&monthEnd=" + monthEnd).then(function (insuranceData) {
+        _basic.get($host.api_url + "/truckInsureTypeTotal?monthStart=" + monthStart + "&monthEnd=" + monthEnd).then(function (insuranceData) {
             if (insuranceData.success === true) {
                 // console.log("insuranceData",insuranceData);
                 // 交强险
@@ -78,25 +80,10 @@ app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config"
 
     // 获取商业险饼图数据
     $scope.searchCommercialInsurance = function () {
-        // 转化日期格式
-        var monthStart;
-        var monthEnd;
-        if($("#chooseCommercialStart").val() == ""){
-            monthStart = ""
-        }
-        else{
-            monthStart = moment($("#chooseCommercialStart").val(),'MM/YYYY').format("YYYYMM");
-        }
+        var monthStart = $("#chooseCommercialStart").val();
+        var monthEnd = $("#chooseCommercialEnd").val();
 
-        if($("#chooseCommercialEnd").val() == ""){
-            monthEnd = ""
-        }
-        else{
-            monthEnd = moment($("#chooseCommercialEnd").val(),'MM/YYYY').format("YYYYMM");
-        }
-
-
-        _basic.get($host.api_url + "/truckInsureTotalYear?monthStart=" + monthStart + "&monthEnd=" + monthEnd).then(function (insuranceData) {
+        _basic.get($host.api_url + "/truckInsureTypeTotal?monthStart=" + monthStart + "&monthEnd=" + monthEnd).then(function (insuranceData) {
             if (insuranceData.success === true) {
                 // console.log("insuranceData",insuranceData);
                 // 商业险
@@ -125,25 +112,10 @@ app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config"
 
     // 获取总和饼图数据
     $scope.searchTotalInsurance = function () {
-        // 转化日期格式
-        var monthStart;
-        var monthEnd;
-        if($("#chooseCommercialStart").val() == ""){
-            monthStart = ""
-        }
-        else{
-            monthStart = moment($("#chooseCommercialStart").val(),'MM/YYYY').format("YYYYMM");
-        }
+        var monthStart = $("#chooseCommercialStart").val();
+        var monthEnd = $("#chooseCommercialEnd").val();
 
-        if($("#chooseCommercialEnd").val() == ""){
-            monthEnd = ""
-        }
-        else{
-            monthEnd = moment($("#chooseCommercialEnd").val(),'MM/YYYY').format("YYYYMM");
-        }
-
-
-        _basic.get($host.api_url + "/truckInsureTotalYear?monthStart=" + monthStart + "&monthEnd=" + monthEnd).then(function (insuranceData) {
+        _basic.get($host.api_url + "/truckInsureTypeTotal?monthStart=" + monthStart + "&monthEnd=" + monthEnd).then(function (insuranceData) {
             if (insuranceData.success === true) {
                 // console.log("insuranceData",insuranceData);
                 // 总和
@@ -388,7 +360,7 @@ app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config"
     $scope.changeInsurance = function () {
         console.log("insuranceId",$scope.insuranceId);
         // 保险金额统计
-        _basic.get($host.api_url + "/truckInsureTotalMonth?insureId=" + $scope.insuranceId).then(function (currentInsuranceData) {
+        _basic.get($host.api_url + "/truckInsureMoneyTotal?insureId=" + $scope.insuranceId).then(function (currentInsuranceData) {
             if (currentInsuranceData.success === true) {
                 // console.log("currentInsuranceData",currentInsuranceData);
                 // X轴月份
@@ -419,7 +391,7 @@ app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config"
         });
 
         // 保险车次统计
-        _basic.get($host.api_url + "/truckInsureCountTotalMonth?insureId=" + $scope.insuranceId).then(function (totalMonthData) {
+        _basic.get($host.api_url + "/truckInsureCountTotal?insureId=" + $scope.insuranceId).then(function (totalMonthData) {
             if (totalMonthData.success === true){
                 // console.log("totalMonthData",totalMonthData);
                 // X轴月份

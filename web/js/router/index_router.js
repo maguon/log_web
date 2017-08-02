@@ -204,6 +204,13 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/storage/storage_statistics.html",
             controller:"storage_statistics_controller"
         })
+
+        .state("insurance_statistics", {
+            url:"/insurance_statistics",
+            templateUrl: "js/view/storage/insurance_statistics.html",
+            controller:"insurance_statistics_controller"
+        })
+
         // 从首页跳详情图
         .state("storage_car_details", {
             url:"/storage_car_details/{id}/vin/{vin}/_form/{_form}?from",

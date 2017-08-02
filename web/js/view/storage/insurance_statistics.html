@@ -1,0 +1,96 @@
+<div class="insurance_statistics" style="width: 85%;margin: 0 auto">
+    <div class="row valign-wrapper">
+        <h5 class="col s12 cyan-text lighten-1 center-align">
+            货车保险统计
+        </h5>
+    </div>
+    <!--饼图-->
+    <div class="row valign-wrapper">
+        <div class="col s4" style="margin-bottom: 50px">
+            <div class="col input-field s5" style="margin-bottom: 15px">
+                <input id="chooseCompulsoryStart" type="text">
+                <label for="chooseCompulsoryStart">起始时间</label>
+            </div>
+            <div class="col input-field s5" style="margin-bottom: 15px">
+                <input id="chooseCompulsoryEnd" type="text">
+                <label for="chooseCompulsoryEnd">至</label>
+            </div>
+            <div class="col s2 flex flex-round">
+                <i class="mdi mdi-magnify" ng-click="searchCompulsoryInsurance()" style="margin:20px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+            </div>
+            <div class="col s12" style="margin: 0;padding: 0">
+                <p class="col s12 cyan-text lighten-1 center-align" style="font-size: 1.3rem;margin: 0;padding: 0;padding-top:15px;background-color: white;border-top: 3px solid rgb(38,198,218)" >
+                    交强险
+                </p>
+            </div>
+            <div id="compulsoryInsurance" style="min-width:100px;height:300px"></div>
+        </div>
+        <div class="col s4" style="margin-bottom: 50px">
+            <div class="col input-field s5" style="margin-bottom: 15px">
+                <input id="chooseCommercialStart" type="text">
+                <label for="chooseCommercialStart">起始时间</label>
+            </div>
+            <div class="col input-field s5" style="margin-bottom: 15px">
+                <input id="chooseCommercialEnd" type="text">
+                <label for="chooseCommercialEnd">至</label>
+            </div>
+            <div class="col s2 flex flex-round">
+                <i class="mdi mdi-magnify" ng-click="searchCommercialInsurance()" style="margin:20px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+            </div>
+            <div class="col s12" style="margin: 0;padding: 0;">
+                <p class="col s12 cyan-text lighten-1 center-align" style="font-size: 1.3rem;margin: 0;padding: 0;padding-top:15px;background-color: white;border-top: 3px solid rgb(38,198,218)" >
+                    商业险
+                </p>
+            </div>
+            <div id="commercialInsurance" style="min-width:100px;height:300px"></div>
+        </div>
+        <div class="col s4" style="margin-bottom: 50px">
+            <div class="col input-field s5" style="margin-bottom: 15px">
+                <input id="chooseTotalStart" type="text" ng-model="compulsoryStart">
+                <label for="chooseTotalStart">起始时间</label>
+            </div>
+            <div class="col input-field s5" style="margin-bottom: 15px">
+                <input id="chooseTotalEnd" type="text" ng-model="compulsoryEnd">
+                <label for="chooseTotalEnd">至</label>
+            </div>
+            <div class="col s2 flex flex-round">
+                <i class="mdi mdi-magnify" ng-click="searchTotalInsurance()" style="margin:20px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+            </div>
+            <div class="col s12" style="margin: 0;padding: 0;">
+                <p class="col s12 cyan-text lighten-1 center-align" style="font-size: 1.3rem;margin: 0;padding: 0;padding-top:15px;background-color: white;border-top: 3px solid rgb(38,198,218)" >
+                    总数
+                </p>
+            </div>
+            <div id="insuranceTotal" style="min-width:100px;height:300px"></div>
+        </div>
+    </div>
+
+    <!--折线图-->
+    <div style="width: 98.6%;margin: 100px auto">
+        <div class="row z-depth-2">
+            <div class="col s12 blue-grey input-field lighten-4  bold grey-text text-darken-1   statisticsTitle no-mp">
+                <div class="col s3 left">
+                    <p>选择保险公司</p>
+                </div>
+                <select class="col s2 grey-text text-darken-1 right" material-select watch name="login_storage_name"
+                        ng-change="changeInsurance()"
+                        ng-model="insuranceId">
+                    <option value="" selected>全部</option>
+                    <option ng-repeat="insurance in insuranceList" ng-value="insurance.id">{{insurance.insure_name}}</option>
+                </select>
+            </div>
+
+            <!--保险金额-->
+            <div class="col s12">
+                <div class="col s12" id="insureMoney" style="min-width:400px;height:300px;margin-top: 40px"></div>
+            </div>
+
+            <!--保险车次-->
+            <div class="col s12">
+                <div class="col s12" id="insureTruck" style="min-width:400px;height:300px;margin: 40px 0 40px 0"></div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

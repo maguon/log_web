@@ -1,0 +1,23 @@
+<div class="truck_position">
+    <div class="row">
+        <div class="row valign-wrapper " style="position: relative">
+            <h5 class="col s12 cyan-text lighten-1  center-align">
+                车辆定位
+            </h5>
+            <!--<div class="col s8 right-align">-->
+            <!---->
+            <!--</div>-->
+        </div>
+        <div class="divider  cyan lighten-2"></div>
+        <div class="row" style="position: relative">
+            <p class="location_gps white z-depth-2">经度:<span class="materialize-red-text">{{lng}}</span>,纬度:<span class="materialize-red-text">{{lat}}</span></p>
+            <div class="col s2 truck_gpsBox grey-text">
+                <p ng-repeat="el in truckGps" ng-bind="el.vhe_no" ng-click="search_map(el.lon,el.lat,el.angle)"></p>
+            </div>
+            <div class="col s10 dealer_map" id="dealer_map">
+
+            </div>
+        </div>
+
+    </div>
+</div>

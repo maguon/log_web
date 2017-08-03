@@ -105,15 +105,17 @@
                                 <td ng-if="el.truck_status==0">停用</td>
                                 <td class="white-text">
                                     <span ng-show="el.driving_date|ptime" class="small-tips red lighten-2">临</span>
-                                    <span ng-hide="el.driving_date|ptime" class="small-tips "></span>
+                                    <span ng-hide="el.driving_date|ptime" class="small-tips ">1</span>
                                 </td>
                                 <td class="operation">
-                                    <a href="#" ui-sref="truck_guarantee_details({id:el.id,from:'truck_details'})" class="small-tips cyan lighten-2 white-text" style="margin-right: 10px;cursor: pointer">保</a>
+                                    <a href="#" ui-sref="truck_guarantee_details({id:el.id,type:1,from:'truck_details'})" class="small-tips cyan lighten-2 white-text" style="margin-right: 10px;cursor: pointer">保</a>
+                                    <a href="#" ui-sref="truck_repair({id:el.id,type:1,status:1,from:'truck_details'})" ng-if="el.repair_status==1"  class="normal-tips cyan lighten-2 white-text fz12 " style="margin-right: 10px;cursor: pointer">正常</a>
+                                    <a href="#" ui-sref="truck_repair({id:el.id,type:1,status:0,from:'truck_details'})" ng-if="el.repair_status==0" class="normal-tips red lighten-2 white-text fz12 " style="margin-right: 10px;cursor: pointer">维修</a>
                                     <a href="#" ui-sref="look_head_truck_details({id:el.id,from:'truck_details'})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ></i></a>
                                     <span class="switch" ng-click="changeTruck_status(el.id,el.truck_status)" style="height: 30px">
                                         <label>
-                                          <input type="checkbox" ng-checked="el.truck_status==1">
-                                          <span class="lever"></span>
+                                              <input type="checkbox" ng-checked="el.truck_status==1">
+                                              <span class="lever"></span>
                                         </label>
                                     </span>
                                 </td>
@@ -234,7 +236,10 @@
                                     <span ng-hide="el.driving_date|ptime" class="small-tips "></span>
                                 </td>
                                 <td class="operation">
-                                    <a href="#" ui-sref="truck_guarantee_details({id:el.id,from:'truck_details'})" class="small-tips cyan lighten-2 white-text" style="margin-right: 10px;cursor: pointer">保</a>
+                                    <a href="#" ui-sref="truck_guarantee_details({id:el.id,type:2,from:'truck_details'})" class="small-tips cyan lighten-2 white-text" style="margin-right: 10px;cursor: pointer">保</a>
+                                    <a href="#" ui-sref="truck_maintain({id:el.id,type:2,status:1,from:'truck_details'})" ng-if="el.repair_status==1" class="small-tips cyan lighten-2 white-text fz12" style="margin-right: 10px;cursor: pointer">正常</a>
+                                    <a href="#" ui-sref="truck_maintain({id:el.id,type:2,status:0,from:'truck_details'})" ng-if="el.repair_status==0" class="small-tips red lighten-2 white-text fz12" style="margin-right: 10px;cursor: pointer">维修</a>
+
                                     <a href="#" ui-sref="look_hand_truck_details({id:el.id,from:'truck_details'})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1  " ></i></a>
                                     <span class="switch" ng-click="changeTruckTrailer_status(el.id,el.truck_status)" style="height: 30px">
                                     <label>

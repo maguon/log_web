@@ -15,6 +15,21 @@
                         <a  class="btn waves-effect" ng-click="add_insure()">增加保单</a>
                     </div>
                 </div>
+                <div class="row border" style="padding: 20px">
+                    <h5 class="col s12" style="margin-bottom: 20px">车牌号码:<span class="cyan-text text-lighten-2">{{truck_msg.truck_num}}</span></h5>
+                    <p>
+                        <span class="col s2">车辆类型：<span class="black-text">挂车</span></span>
+                        <span class="col s2" ng-if="truck_msg.operate_type==1">所属类型：<span class="black-text" >自营</span></span>
+                        <span class="col s2" ng-if="truck_msg.operate_type==2">所属类型：<span class="black-text">外协</span></span>
+                        <span class="col s2" ng-if="truck_msg.operate_type==3">所属类型：<span class="black-text" >供方</span></span>
+                        <span class="col s2" ng-if="truck_msg.operate_type==4">所属类型：<span class="black-text">承包</span></span>
+                        <span class="col s2">所属公司：<span class="black-text">{{truck_msg.company_name}}</span></span>
+                        <span class="col s2" ng-if="truck_type==2">关联头车：<span class="black-text">{{truck_msg.first_num}}</span></span>
+                        <span class="col s2" ng-if="truck_type==1">关联挂车：<span class="black-text">{{truck_msg.trail_number}}</span></span>
+                        <span class="col s2" ng-if="truck_type==1">主驾司机：<span class="black-text">{{truck_msg.drive_name}}</span></span>
+                        <span class="col s2">联系电话：<span class="black-text">{{truck_msg.truck_tel}}</span></span>
+                    </p>
+                </div>
                 <div id="add_insure" class="modal">
                     <div class="modal-content grey-text text-darken-2">
                         <!--<div class="" style="width: 95%;margin: 0 auto">-->
@@ -28,16 +43,14 @@
                         <form name="insurance_Form" ng-submit="insuranceForm(insurance_Form.$valid)" novalidate>
                             <div class="row" style="width: 90%;margin-top: 20px">
                                 <div class="row">
-                                    <div class="input-field col s12" ng-class="{'has-error':insurance_Form.insurance_company.$invalid&&submitted}">
+                                    <div class="input-field col s6" ng-class="{'has-error':insurance_Form.insurance_company.$invalid&&submitted}">
                                         <select name="insurance_company" id="insurance_company" ng-model="insurance_company" material-select watch required >
                                             <option value="">请选择</option>
                                             <option ng-repeat="el in truckInsure_company" ng-value="el.id">{{el.insure_name}}</option>
                                         </select>
                                         <label class="grey-text" for="insurance_company"><span class="red-text text-lighten-2">*</span>投保公司</label>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s12" ng-class="{'has-error':insurance_Form.insurance_list.$invalid&&submitted}">
+                                    <div class="input-field col s6" ng-class="{'has-error':insurance_Form.insurance_list.$invalid&&submitted}">
                                         <select name="insurance_list" id="insurance_list" ng-model="insurance_list" material-select watch required>
                                             <option value="">请选择</option>
                                             <option ng-value="1">商业险</option>
@@ -47,19 +60,14 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="input-field col s12" ng-class="{'has-error':insurance_Form.insurance_num.$invalid&&submitted}">
-                                        <input ng-pattern="pwdReg" id="insurance_num" name="insurance_num" ng-model="insurance_num" autocomplete="off" type="text"  required>
+                                    <div class="input-field col s6" ng-class="{'has-error':insurance_Form.insurance_num.$invalid&&submitted}">
+                                        <input  id="insurance_num" name="insurance_num" ng-model="insurance_num" autocomplete="off" type="text"  required>
                                         <label class="grey-text" for="insurance_num"><span class="red-text text-lighten-2">*</span>保单编号</label>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s12" ng-class="{'has-error':insurance_Form.insurance_money.$invalid&&submitted}">
+                                    <div class="input-field col s6" ng-class="{'has-error':insurance_Form.insurance_money.$invalid&&submitted}">
                                         <input ng-pattern="pwdReg" id="insurance_money" name="insurance_money" ng-model="insurance_money" autocomplete="off" type="text"  required>
                                         <label class="grey-text" for="insurance_money"><span class="red-text text-lighten-2">*</span>保险金额(元)</label>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <h6 class="col s6">保险日期:<span style="margin-left: 20px">{{nowDate}}</span></h6>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s6" ng-class="{'has-error':insurance_Form.insurance_money.$invalid&&submitted}">
@@ -70,6 +78,9 @@
                                         <input type="text" id="effective_date_end" name="effective_date_end" class="datepicker" autocomplete="off" ng-model="effective_date_end" required   date><i class="mdi grey-text text-lighten-1 dataIcon mdi-table-large"></i>
                                         <label class="grey-text" for="effective_date_end"><span class="red-text text-lighten-2">*</span>生效期(终)</label>
                                     </div>
+                                </div>
+                                <div class="row">
+                                    <h6 class="col s6">保险日期:<span style="margin-left: 20px">{{nowDate}}</span></h6>
                                 </div>
                             </div>
                             <div class="divider" style="background: #00bcd4;height: 2px;"></div>

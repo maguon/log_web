@@ -298,9 +298,27 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
         // 保单详情
         .state("truck_guarantee_details",{
-            url:"/truck_guarantee_details/id/{id}?from",
+            url:"/truck_guarantee_details/id/{id}/type/{type}?from",
             templateUrl: "js/view/truck/truck_guarantee_details.html",
             controller:'truck_guarantee_details_controller'
+        })
+        // 维修
+        .state("truck_repair",{
+            url:"/truck_maintain/id/{id}/type/{type}/status/{status}?from",
+            templateUrl: "js/view/truck/truck_repair.html",
+            controller:'truck_repair_controller'
+        })
+        // 车辆维修管理
+        .state("truck_repair_list",{
+            url:"/truck_repair_list",
+            templateUrl: "js/view/truck/truck_repair_list.html",
+            controller:'truck_repair_list_controller'
+        })
+        // 车辆定位
+        .state("truck_position",{
+            url:"/truck_position",
+            templateUrl:"js/view/truck/truck_position.html",
+            controller:"truck_position_controller"
         })
         .state("truck_company",{
             url:"/truck_company",

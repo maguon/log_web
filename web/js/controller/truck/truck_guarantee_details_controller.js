@@ -5,10 +5,12 @@ app.controller("truck_guarantee_details_controller", ["$scope","$state","$stateP
     var userId=_basic.getSession(_basic.USER_ID);
     $scope.nowDate=moment(new Date()).format("YYYY-MM-DD");
     $scope.truck_guarantee_id=$stateParams.id;
-    $scope.return=function () {
-        $state.go($stateParams.from,{reload:true})
+    $scope.truck_type=$stateParams.type;
+    console.log($scope.truck_type);
+    $scope.return=function() {
+        $state.go($stateParams.from,{reload:true});
     };
-    $scope.add_insure=function () {
+    $scope.add_insure=function (){
         $(".modal").modal();
         $("#add_insure").modal("open");
         $stateParams.id="";
@@ -24,6 +26,24 @@ app.controller("truck_guarantee_details_controller", ["$scope","$state","$stateP
         $("#add_insure").modal("close");
         $scope.submitted = false;
     };
+
+    if($scope.truck_type==1){
+        _basic.get($host.api_url+"/truckFirst?truckId="+$scope.truck_guarantee_id).then(function (data) {
+            if(data.success==true){
+                $scope.truck_msg=data.result[0];
+            }else {
+                swal(data.msg,"","error")
+            }
+        });
+    }else if($scope.truck_type==2){
+        _basic.get($host.api_url+"/truckTrailer?truckId="+$scope.truck_guarantee_id).then(function (data) {
+            if(data.success==true){
+                $scope.truck_msg=data.result[0];
+            }else {
+                swal(data.msg,"","error")
+            }
+        });
+    }
 
     var get_guarantee=function () {
         _basic.get($host.api_url+"/truckInsureRel?truckId="+$scope.truck_guarantee_id).then(function (data) {

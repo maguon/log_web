@@ -614,7 +614,7 @@ input[type=text]{
     margin-right: 80px;
 }
 .drive_img_box{
-    height: 200px;
+    height: 220px;
     position: relative;
     overflow: hidden;
     margin:10px 10px 0 0;
@@ -968,6 +968,19 @@ input[type=text]{
     z-index: 1100000000000;
 }
 
+/*加边框*/
+.border{
+    border: 1px solid #4dd0e1;
+}
+.border-black{
+    border: 1px solid black;
+
+}
+.maintain_card{
+    padding: 10px;
+    border-radius: 10px;
+    height: 410px;
+}
 /*数据字典*/
 .tabs .indicator{
     background-color: #26c6da;
@@ -1086,8 +1099,24 @@ input[type=text]{
     padding: 5px;
     border-radius: 100%;
 }
+.normal-tips{
+    display: inline-block;
+    width: 35px;
+    height:35px;
+    border-radius: 100%;
+    line-height: 35px;
+    text-align: center;
+
+}
 /*图片上传按钮*/
 .file_btn {
     display: none;
-
+}
+.truck_gpsBox{
+    height: 600px;
+    overflow-y: auto;
+    cursor: pointer;
+}
+.truck_gpsBox  p:hover{
+    background: grey;
 }

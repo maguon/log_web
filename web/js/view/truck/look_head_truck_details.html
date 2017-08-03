@@ -117,8 +117,23 @@
                                 <label for="textarea">备注:</label>
                             </div>
                         </div>
-                        <div class="row">
-
+                        <div class="row" style="height: 250px;overflow-y: auto">
+                            <table class=" bordered striped">
+                                <thead class="blue-grey lighten-5">
+                                <tr class="grey-text text-darken-2">
+                                    <th data-field="">时间</th>
+                                    <th data-field="">事件</th>
+                                    <th data-field="">操作员</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="el in comment" class="grey-text text-darken-1">
+                                        <td  ng-bind="el.timez|date:'yyyy-MM-dd'">1</td>
+                                        <td ng-bind="el.content">2</td>
+                                        <td ng-bind="el.name">2</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                         <div class="row vc-center">
                             <button class="btn waves-effect" type="submit" name="action" >确定</button>
@@ -138,15 +153,13 @@
                                         <p style="margin-top: 10px">行驶证照片</p>
                                     </div>
                                     <ul id="look_dirve_img" >
-                                        <li ng-show="no_drive_img"   class="drive_img_box col s4 vc-center p0 grey white-text">
-                                            <img src="../../../assets/images/service_image.png" class="responsive-img">
+                                        <li ng-show="no_drive_img"  class="drive_img_box col s4 vc-center p0 grey white-text">
+                                            <img src="../../../assets/images/drive_image.png" class="responsive-img">
                                         </li>
                                         <li ng-repeat="el in drive_img" repeat-finish="renderFinish_d()" class="drive_img_box col s4 vc-center p0 grey white-text">
                                             <img ng-src="{{el.img}}" class="responsive-img">
                                         </li>
                                     </ul>
-
-
                                 </form>
                             </div>
                         </div>

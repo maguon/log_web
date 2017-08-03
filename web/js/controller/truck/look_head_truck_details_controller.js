@@ -80,6 +80,8 @@ app.controller("look_head_truck_details_controller", ["$scope","$state","$stateP
                 if($scope.Binding_trailer!=null&&$scope.Binding_trailer!=""){
                     $scope.show_unbind_trailer_btn=true;
                 }
+                $scope.truck_id=$scope.truckFirst.truck_num;
+                $scope.truck_img($scope.truck_id);
                 $scope.Binding_trailer_check();
                 $scope.Binding_driver=$scope.truckFirst.drive_name;
                 if($scope.Binding_driver!=null&&$scope.Binding_driver!=""){
@@ -119,32 +121,37 @@ app.controller("look_head_truck_details_controller", ["$scope","$state","$stateP
                 swal("异常", "", "error")
             }
         });
-        // 照片详情
-        _basic.get($host.record_url + "/user/" + userId + "/truck/" + id + "/record").then(function (data) {
-            if (data.success == true) {
-                // console.log(data);
-                $scope.operating_record = data.result[0];
-                // $scope.comment = $scope.operating_record.comment;
-                $scope.truck_image = $scope.operating_record.images;
-                if($scope.truck_image.length>0){
-                    for (var i in $scope.truck_image) {
-                        if ($scope.truck_image_i.indexOf($host.file_url + '/image/' + $scope.truck_image[i].url) == -1) {
-                            $scope.truck_image_i.push($host.file_url + '/image/' + $scope.truck_image[i].url);
-                            $scope.truck_imageBox.push({
-                                src: $host.file_url + '/image/' + $scope.truck_image[i].url,
-                                record_id: $scope.operating_record._id,
-                                time: $scope.truck_image[i].timez,
-                                user: $scope.truck_image[i].name
-                            });
+
+        $scope.truck_img=function (truck_id) {
+
+            // 照片详情
+            _basic.get($host.record_url + "/user/" + userId + "/truck/" + truck_id + "/record").then(function (data) {
+                if (data.success == true) {
+                    // console.log(data);
+                    $scope.operating_record = data.result[0];
+                    $scope.comment = $scope.operating_record.comments;
+                    $scope.truck_image = $scope.operating_record.images;
+                    if($scope.truck_image.length>0){
+                        for (var i in $scope.truck_image) {
+                            if ($scope.truck_image_i.indexOf($host.file_url + '/image/' + $scope.truck_image[i].url) == -1) {
+                                $scope.truck_image_i.push($host.file_url + '/image/' + $scope.truck_image[i].url);
+                                $scope.truck_imageBox.push({
+                                    src: $host.file_url + '/image/' + $scope.truck_image[i].url,
+                                    record_id: $scope.operating_record._id,
+                                    time: $scope.truck_image[i].timez,
+                                    user: $scope.truck_image[i].name
+                                });
+                            }
                         }
                     }
-                }
 
-                // $scope.imgArr.push({src:$host.file_url+'/image/'+imageId});
-            } else {
-                swal(data.msg, "", "error")
-            }
-        });
+                    // $scope.imgArr.push({src:$host.file_url+'/image/'+imageId});
+                } else {
+                    swal(data.msg, "", "error")
+                }
+            });
+        };
+
     };
     $scope.truck_msg();
 
@@ -282,6 +289,8 @@ app.controller("look_head_truck_details_controller", ["$scope","$state","$stateP
 
         });
     };
+
+
     // 营运证
     $scope.uploadBrandImage_service=function (dom) {
         var dom_obj=$(dom);

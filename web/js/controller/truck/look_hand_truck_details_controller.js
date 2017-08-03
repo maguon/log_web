@@ -6,6 +6,8 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
     var id=$stateParams.id;
     var head_car_msg;
     $scope.show_unbind_head_btn=false;
+    $scope.no_service_img=false;
+    $scope.no_drive_img=false;
     $scope.return=function () {
         $state.go($stateParams.from,{reload:true})
     };
@@ -71,6 +73,8 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
         _basic.get($host.api_url+"/truckTrailer?truckId="+id).then(function (data) {
             if(data.success==true){
                 $scope.truckTrailer=data.result[0];
+                $scope.truck_id=$scope.truckTrailer.truck_num;
+                $scope.hand_truck_img($scope.truck_id);
                 $scope.getCompany();
                 $scope.Binding_head_truck=$scope.truckTrailer.first_num;
                 if($scope.Binding_head_truck!=null&&$scope.Binding_head_truck!=""){
@@ -88,11 +92,14 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
                     $scope.drive_img=[{
                         img:$host.file_url + '/image/'+data.result[0].driving_image,
                     }];
+                }else {
+                    $scope.no_drive_img=true;
                 }
             }else {
                 swal("异常", "", "error")
             }
         });
+
         // 营运证详情
         _basic.get($host.api_url + "/truckTrailer?truckId="+id).then(function (data) {
             if(data.success==true){
@@ -100,33 +107,38 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
                     $scope.service_img=[{
                         img:$host.file_url + '/image/'+data.result[0].license_image,
                     }];
+                }else {
+                    $scope.no_service_img=true;
                 }
             }else {
                 swal("异常", "", "error")
             }
         });
-        // 照片详情
-        _basic.get($host.record_url + "/user/" + userId + "/truck/" + id + "/record").then(function (data) {
-            if (data.success == true) {
-                // console.log(data);
-                $scope.operating_record = data.result[0];
-                // $scope.comment = $scope.operating_record.comment;
-                $scope.truck_image = $scope.operating_record.images;
-                if($scope.truck_image.length>0){
-                    for (var i in $scope.truck_image) {
-                        if($scope.truck_image_i.indexOf($host.file_url + '/image/' + $scope.truck_image[i].url)==-1){
-                            $scope.truck_image_i.push($host.file_url + '/image/' + $scope.truck_image[i].url);
-                            $scope.truck_imageBox.push({src: $host.file_url + '/image/' + $scope.truck_image[i].url,record_id:$scope.operating_record._id,time:$scope.truck_image[i].timez,user:$scope.truck_image[i].name});
+        $scope.hand_truck_img=function (truck_id) {
+            // 照片详情
+            _basic.get($host.record_url + "/user/" + userId + "/truck/" + truck_id + "/record").then(function (data) {
+                if (data.success == true) {
+                    // console.log(data);
+                    $scope.operating_record = data.result[0];
+                    $scope.comment = $scope.operating_record.comments;
+                    $scope.truck_image = $scope.operating_record.images;
+                    if($scope.truck_image.length>0){
+                        for (var i in $scope.truck_image) {
+                            if($scope.truck_image_i.indexOf($host.file_url + '/image/' + $scope.truck_image[i].url)==-1){
+                                $scope.truck_image_i.push($host.file_url + '/image/' + $scope.truck_image[i].url);
+                                $scope.truck_imageBox.push({src: $host.file_url + '/image/' + $scope.truck_image[i].url,record_id:$scope.operating_record._id,time:$scope.truck_image[i].timez,user:$scope.truck_image[i].name});
+                            }
+
                         }
-
                     }
-                }
 
-                // $scope.imgArr.push({src:$host.file_url+'/image/'+imageId});
-            } else {
-                swal(data.msg, "", "error")
-            }
-        });
+                    // $scope.imgArr.push({src:$host.file_url+'/image/'+imageId});
+                } else {
+                    swal(data.msg, "", "error")
+                }
+            });
+        }
+
     };
     $scope.truck_msg();
 
@@ -174,7 +186,7 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
                     _basic.formPost(dom_obj.parent().parent(), $host.file_url + '/user/' + userId + '/image?imageType=2', function (data) {
 
                         if (data.success==true) {
-                            viewer.destroy();
+
                             // // console.log(data,Picture_truckid);
                             var imageId = data.imageId;
                             callback(imageId);
@@ -233,6 +245,7 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
             _basic.put($host.api_url+"/user/"+userId+"/truck/"+id+"/image",obj).then(function (data) {
                 if(data.success==true){
                     viewer.destroy();
+                    $scope.no_drive_img=false;
                 }else {
                     swal("异常","","error")
                 }
@@ -260,6 +273,7 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
             _basic.put($host.api_url+"/user/"+userId+"/truck/"+id+"/image",obj).then(function (data) {
                 if(data.success==true){
                     viewer.destroy();
+                    $scope.no_service_img=false;
                 }else {
                     swal("上传失败","","error")
                 }

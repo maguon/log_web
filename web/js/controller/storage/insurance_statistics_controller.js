@@ -138,7 +138,6 @@ app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config"
 
     // 显示交强险饼图
     $scope.showCompulsoryPie = function () {
-        // 显示交强险饼图
         $('#compulsoryInsurance').highcharts({
             chart: {
                 plotBackgroundColor: null,
@@ -177,7 +176,6 @@ app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config"
 
     // 显示商业险饼图
     $scope.showCommercialPie = function () {
-        // 显示商业险饼图
         $('#commercialInsurance').highcharts({
             chart: {
                 plotBackgroundColor: null,
@@ -214,9 +212,8 @@ app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config"
         });
     };
 
-    // 显示总和
+    // 显示总和饼图
     $scope.showTotalPie = function () {
-        // 显示总数饼图
         $('#insuranceTotal').highcharts({
             chart: {
                 plotBackgroundColor: null,

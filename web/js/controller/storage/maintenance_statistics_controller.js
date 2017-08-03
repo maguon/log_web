@@ -108,7 +108,7 @@ app.controller("maintenance_statistics_controller", ["$scope", "_basic", "_confi
                 href: ''
             },
             tooltip: {
-                headerFormat: '{series.name}<br>',
+                headerFormat: '',
                 pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
             },
             plotOptions: {
@@ -146,7 +146,7 @@ app.controller("maintenance_statistics_controller", ["$scope", "_basic", "_confi
                 href: ''
             },
             tooltip: {
-                headerFormat: '{series.name}<br>',
+                headerFormat: '',
                 pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
             },
             plotOptions: {
@@ -161,7 +161,7 @@ app.controller("maintenance_statistics_controller", ["$scope", "_basic", "_confi
             },
             series: [{
                 type: 'pie',
-                name: '车头数量',
+                name: '公司车辆数量',
                 data: $scope.companyCountInfo
             }]
         });

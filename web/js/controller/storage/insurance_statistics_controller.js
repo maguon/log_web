@@ -153,7 +153,7 @@ app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config"
                 href: ''
             },
             tooltip: {
-                headerFormat: '{series.name}<br>',
+                headerFormat: '',
                 pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
             },
             plotOptions: {
@@ -191,7 +191,7 @@ app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config"
                 href: ''
             },
             tooltip: {
-                headerFormat: '{series.name}<br>',
+                headerFormat: '',
                 pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
             },
             plotOptions: {
@@ -229,7 +229,7 @@ app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config"
                 href: ''
             },
             tooltip: {
-                headerFormat: '{series.name}<br>',
+                headerFormat: '',
                 pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
             },
             plotOptions: {

@@ -65,15 +65,15 @@
                         </form>
                     </div>
                 </div>
-                <div class="row " ng-show="now_maintain_show"  style="word-wrap: break-word;margin-top: 80px">
+                <div class="row " ng-repeat="el in main_now_reason" ng-show="now_maintain_show"  style="word-wrap: break-word;margin-top: 80px">
                     <span class="col s6 black-text" >正在维修</span>
-                    <span class="col s6 right-align" >维修时间：<span>{{main_now_reason.created_on|date:'yyyy-MM-dd'}}</span></span>
+                    <span class="col s6 right-align" >维修时间：<span>{{el.created_on|date:'yyyy-MM-dd'}}</span></span>
                     <div class="divider col s12 grey" style="height: 1px;margin-bottom: 20px"></div>
                     <p >
                         <h6 class="col s12 black-text">维修原因:</h6>
-                        <span class="col s10">{{main_now_reason.repair_reason}}</span>
+                        <span class="col s10">{{el.repair_reason}}</span>
                         <div class="col s2">
-                            <a class=" btn btn-large waves-effect btn-floating cyan right" ng-click="over_repair(main_now_reason.repair_reason,main_now_reason.id)">结束</a>
+                            <a class=" btn btn-large waves-effect btn-floating cyan right" ng-click="over_repair(el.repair_reason,el.id)">结束</a>
                         </div>
 
                     </p>

@@ -312,7 +312,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         .state("truck_repair_list",{
             url:"/truck_repair_list",
             templateUrl: "js/view/truck/truck_repair_list.html",
-            // controller:'truck_repair_list_controller'
+            controller:'truck_repair_list_controller'
         })
         // 车辆定位
         .state("truck_position",{

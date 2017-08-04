@@ -1108,6 +1108,12 @@ input[type=text]{
     text-align: center;
 
 }
+/*单行超出省略号*/
+.unnecessary{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 /*图片上传按钮*/
 .file_btn {
     display: none;

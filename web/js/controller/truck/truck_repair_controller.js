@@ -8,6 +8,7 @@ app.controller("truck_repair_controller", ["$scope","$state","$stateParams","_ba
     $scope.truck_status=$stateParams.status;
     $scope.repair_btn=true;
 
+
     $scope.return=function() {
         $state.go($stateParams.from,{reload:true});
     };
@@ -31,17 +32,23 @@ app.controller("truck_repair_controller", ["$scope","$state","$stateParams","_ba
     };
 
     $scope.search_maintain=function () {
+        $scope.main_now_reason=[];
+        $scope.main_reason=[];
         _basic.get($host.api_url+"/truckRepairRel?truckId="+$scope.truck_guarantee_id).then(function (data) {
             if(data.success==true&&data.result.length>0){
-                $scope.main_now_reason=data.result[0];
-                if($scope.main_now_reason.repair_status==0){
+                for(var i=0;i<data.result.length;i++){
+                    if(data.result[i].repair_status==0){
+                        $scope.main_now_reason.push(data.result[i])
+                    }else {
+                        $scope.main_reason.push(data.result[i])
+                    }
+                }
+                if($scope.main_now_reason.length>0){
                     $scope.now_maintain_show=true;
-                    $scope.repaire_btn=false;
-                    $scope.main_reason=data.result.slice(1,data.result.length);
+                    $scope.repair_btn=false;
                 }else {
-                    $scope.main_reason=data.result;
                     $scope.now_maintain_show=false;
-                    $scope.repaire_btn=true;
+                    $scope.repair_btn=true;
                 }
                 // if(data.result[0].repair_type==0){
                 //     $scope.repaire_btn=false;
@@ -49,7 +56,7 @@ app.controller("truck_repair_controller", ["$scope","$state","$stateParams","_ba
                 //     $scope.repaire_btn=true;
                 // }
             }else {
-                $scope.repaire_btn=true;
+                $scope.repair_btn=true;
             }
         });
     };

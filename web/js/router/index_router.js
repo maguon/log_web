@@ -114,6 +114,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/system_settings/setting_city.html",
             controller:'setting_city_controller'
         })
+        .state("truck_brand",{
+            url:"/truck_brand",
+            templateUrl: "js/view/system_settings/truck_brand.html",
+            controller:'truck_brand_controller'
+        })
         .state("setting_client",{
             url:"/setting_client",
             templateUrl: "js/view/system_settings/setting_client/setting_client.html",

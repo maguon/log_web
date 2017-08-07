@@ -1,0 +1,61 @@
+<div class="truck_brand">
+    <div class="row">
+        <div class="row valign-wrapper">
+            <h5 class="col s12 cyan-text lighten-1 center-align">
+                货车品牌
+            </h5>
+        </div>
+        <div class="row">
+            <div class="divider cyan lighten-2"></div>
+        </div>
+        <div style="width: 80%;margin: 0 auto">
+            <div class="row">
+                <a href=""
+                   class=" right  btn btn-large btn-floating waves-effect cyan lighten-1 waves-light vc-center open_city "
+                   ng-click="truck_box()" ng-show="truck_btn"><i class="mdi mdi-plus"></i></a>
+                <form name="addTruckBrand" ng-submit="add_truck_brand(addTruckBrand.$valid)"
+                      novalidate>
+                    <div ng-show="truck_box_show" class="col s12 z-depth-2 white city_box "
+                         style="padding: 0.75rem 0;"
+                         ng-class="{'has-error':addTruckBrand.brandText.$invalid&&submitted}">
+                        <div class="col s2 vc-center" style="height: 45px">
+                            <h6 class="bold cyan-text text-lighten-1" style="min-width: 88px;margin-left: 10px">
+                                货车品牌名称:</h6>
+                        </div>
+                        <input class="col s3 city_text" name="brandText" id="brandText" type="text"
+                               autocomplete="off"
+                               ng-model="brandText" required>
+                        <div class="col s2  add_Brand_Icon">
+                            <a class="  btn-floating waves-effect waves-light red lighten-2  btn"
+                               ng-click="closeBrand()">
+                                <i class="mdi mdi-close add_brand"></i>
+                            </a>
+                            <button class="btn-floating waves-effect waves-light cyan  lighten-1 btn" type="submit"
+                                    name="action">
+                                <i class="mdi mdi-check add_city"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col s12">
+                <div class="divider"></div>
+                <div style="padding: 1rem;overflow: hidden">
+                    <div class="col s12 p0">
+                        <div ng-repeat="brand in truck_brand_list" class="col s4" style=" padding:1rem;">
+                            <div class="col s12 city_model_panel z-depth-1 valign-wrapper">
+                                <div class="col s4 center cyan-text text-lighten-1" style="margin-left: 0">
+                                    编号：{{brand.id}}
+
+                                </div>
+                                <input type="text" class="cyan-text center text-lighten-1 col s8" style="margin-left: 0"
+                                       value="{{brand.brand_name}}" readonly="readonly">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

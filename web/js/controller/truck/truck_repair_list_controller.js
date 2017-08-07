@@ -11,14 +11,18 @@ app.controller("truck_repair_list_controller", ['$rootScope', '$scope', '_basic'
     $scope.search_truck = function () {
 
         var obj = {
-            companyName: $scope.truck_computer,
-            operateType: $scope.truck_type,
+            truckType: $scope.truck_type,
+            repairDateStart: $scope.repair_startTime_start,
+            repairDateEnd: $scope.repair_startTime_end,
+            endDateStart: $scope.repair_endTime_start,
+            endDateEnd: $scope.repair_endTime_end,
+            repairStatus: $scope.repair_status,
         };
-
-        _basic.get($host.api_url + "/company?" + _basic.objToUrl(obj)).then(function (data) {
+        console.log(_basic.objToUrl(obj));
+        _basic.get($host.api_url + "/truckRepairRel?" + _basic.objToUrl(obj)).then(function (data) {
             // $(".shadeDowWrap").hide();
             if (data.success == true) {
-                $scope.Company = data.result;
+                $scope.truckRepairRel = data.result;
                 // console.log($scope.Company);
             } else {
                 swal(data.msg, "", "error");
@@ -44,44 +48,9 @@ app.controller("truck_repair_list_controller", ['$rootScope', '$scope', '_basic'
         $('.modal').modal();
         $('#look_now_repair').modal('open');
 
-        _basic.get($host.api_url + "/company?companyId=" + id, {}).then(function (data) {
-            // $(".shadeDowWrap").hide();
+        _basic.get($host.api_url + "/truckRepairRel?relId=" + id).then(function (data) {
             if (data.success == true) {
-                $scope.company = data.result[0];
-                // console.log($scope.company.cooperation_time)
-                companyMsg = $scope.company;
-                // console.log($scope.company, $scope.company.cooperation_time);
-                $scope.look_cooperation_time = moment($scope.company.cooperation_time).format("YYYY-DD-MM")
-            } else {
-                swal(data.msg, "", "error");
-            }
-        });
-        // 头车数量
-        _basic.get($host.api_url  + "/company/" + id + "/firstCount", {}).then(function (data) {
-            // $(".shadeDowWrap").hide();
-            if (data.success == true) {
-                $scope.firstCount = data.result[0].first_count;
-            } else {
-                swal(data.msg, "", "error");
-            }
-        });
-
-        // 挂车数量
-        _basic.get($host.api_url +  "/company/" + id + "/trailerCount", {}).then(function (data) {
-            // $(".shadeDowWrap").hide();
-            if (data.success == true) {
-                $scope.trailerCount = data.result[0].trailer_count;
-
-            } else {
-                swal(data.msg, "", "error");
-            }
-        });
-
-        // 司机数量
-        _basic.get($host.api_url +  "/company/" + id + "/driveCount", {}).then(function (data) {
-            // $(".shadeDowWrap").hide();
-            if (data.success == true) {
-                $scope.driveCount = data.result[0].driveCount;
+                $scope.now_truckRepair = data.result;
             } else {
                 swal(data.msg, "", "error");
             }

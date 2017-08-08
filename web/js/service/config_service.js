@@ -8,21 +8,26 @@ baseService.factory("_config", function () {
     var _this = {};
     // userType
     _this.userTypes = [
-        // {
-        //     type: 11,
-        //     name: "车管操作员",
-        //     subType: []
-        // },
+        {
+            type: 11,
+            name: "车管操作员",
+            subType: [],
+            index: 'vehicle_home.html'
+        },
         // {
         //     type: 12,
         //     name: "车管维修员",
         //     subType: []
         // },
-        // {
-        //     type: 19,
-        //     name: "车管部管理员",
-        //     subType: [{type: 11, name: "车管操作员"}, {type: 12, name: "车管维修员"}]
-        // },
+        {
+            type: 19,
+            name: "车管部管理员",
+            subType: [
+                {type: 11, name: "车管操作员"},
+                // {type: 12, name: "车管维修员"}
+                ],
+            index: 'vehicle_manager.html'
+        },
 
 
         {

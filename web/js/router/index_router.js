@@ -174,6 +174,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/storage/storage_index.html",  //路由填充的模板
             controller:'storage_index_controller'
         })
+
+        .state("storage_index_vehicle", {
+            url: "/storage_index_vehicle",
+            templateUrl: "js/view/storage/storage_index_vehicle.html",
+            controller:'storage_index_vehicle_controller'
+        })
         .state("calendar", {
             url:"/calendar",
             templateUrl: "js/view/storage/working_calendar.html",

@@ -38,11 +38,34 @@
         </div>
     </li>
     <!--<li class="divider grey lighten-2"></li>-->
-    <li class="bold side_navigator" >
-        <!--<a class="waves-effect waves-purple" href="#!/"  onclick="Materialize.toast('收到即时消息', 4000,'rounded');"><i class="mdi mdi-view-dashboard "></i>主页</a>-->
-        <!--<a class="waves-effect waves-light first-N" ui-sref="index" onclick="Materialize.toast('收到即时消息', 4000,'rounded');"><i class="white-text mdi mdi-crop-free "></i>主页</a>-->
-        <a class="waves-effect waves-light first-N" ui-sref="storage_index" ><i class="white-text mdi mdi-crop-free "></i>首页</a>
+    <!--<li class="bold side_navigator" >-->
+        <!--&lt;!&ndash;<a class="waves-effect waves-purple" href="#!/"  onclick="Materialize.toast('收到即时消息', 4000,'rounded');"><i class="mdi mdi-view-dashboard "></i>主页</a>&ndash;&gt;-->
+        <!--&lt;!&ndash;<a class="waves-effect waves-light first-N" ui-sref="index" onclick="Materialize.toast('收到即时消息', 4000,'rounded');"><i class="white-text mdi mdi-crop-free "></i>主页</a>&ndash;&gt;-->
+        <!--<a class="waves-effect waves-light first-N" ui-sref="storage_index" ><i class="white-text mdi mdi-crop-free "></i>首页</a>-->
+    <!--</li>-->
+
+    <!--==========================================================================-->
+    <li class="bold side_navigator">
+        <ul class="collapsible collapsible-accordion">
+            <li class="bold">
+                <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-speedometer"></i>主控面板</a>
+                <div class="collapsible-body slider_nav_box blue-grey darken-3" style="padding: 0;">
+                    <ul>
+                        <li><a href="#!" ui-sref="storage_index"><i class="mdi mdi-chevron-right white-text "></i>管理员主控</a></li>
+                        <li><a href="#!" ui-sref="storage_index"><i class="mdi mdi-chevron-right white-text "></i>仓储主控</a></li>
+                        <li><a href="#!" ui-sref="storage_index_vehicle"><i class="mdi mdi-chevron-right white-text "></i>车管主控</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
     </li>
+    <!--=============================================================================-->
+
+    <!--<li class="bold side_navigator" >-->
+        <!--<a class="waves-effect waves-light first-N" ui-sref="storage_index_vehicle" ><i class="white-text mdi mdi-speedometer"></i>主控面板</a>-->
+    <!--</li>-->
+
+
     <li class="bold side_navigator">
         <ul class="collapsible collapsible-accordion">
             <li class="bold">
@@ -255,6 +278,11 @@
 
 <script src="/js/controller/storage/storage_car_controller.js"></script>
 <script src="/js/controller/storage/storage_index_controller.js"></script>
+<script src="/js/controller/storage/storage_index_vehicle_controller.js"></script>
+
+
+
+
 <script src="/js/controller/storage/storage_controller.js"></script>
 <!--<script src="/js/controller/data/car_to_data_controller.js"></script>-->
 <script src="/js/controller/storage/storage_calendar_controller.js"></script>

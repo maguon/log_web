@@ -114,6 +114,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/system_settings/setting_city.html",
             controller:'setting_city_controller'
         })
+        .state("truck_brand",{
+            url:"/truck_brand",
+            templateUrl: "js/view/system_settings/truck_brand.html",
+            controller:'truck_brand_controller'
+        })
         .state("setting_client",{
             url:"/setting_client",
             templateUrl: "js/view/system_settings/setting_client/setting_client.html",
@@ -169,6 +174,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/storage/storage_index.html",  //路由填充的模板
             controller:'storage_index_controller'
         })
+
+        .state("vehicle_index", {
+            url: "/vehicle_index",
+            templateUrl: "js/view/storage/vehicle_index.html",
+            controller:'vehicle_index_controller'
+        })
         .state("calendar", {
             url:"/calendar",
             templateUrl: "js/view/storage/working_calendar.html",
@@ -204,6 +215,19 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/storage/storage_statistics.html",
             controller:"storage_statistics_controller"
         })
+
+        .state("insurance_statistics", {
+            url:"/insurance_statistics",
+            templateUrl: "js/view/storage/insurance_statistics.html",
+            controller:"insurance_statistics_controller"
+        })
+
+        .state("maintenance_statistics", {
+            url:"/maintenance_statistics",
+            templateUrl: "js/view/storage/maintenance_statistics.html",
+            controller:"maintenance_statistics_controller"
+        })
+
         // 从首页跳详情图
         .state("storage_car_details", {
             url:"/storage_car_details/{id}/vin/{vin}/_form/{_form}?from",
@@ -261,7 +285,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/truck/truck_details.html",
             controller:'truck_details_controller'
         })
-        // 新增
+        // 新增（头车.挂车）
         .state("add_head_truck_details",{
             url:"/add_head_truck_details?from",
             templateUrl: "js/view/truck/add_head_truck_details.html",
@@ -271,6 +295,41 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             url:"/add_hand_truck_details?from",
             templateUrl: "js/view/truck/add_hand_truck_details.html",
             controller:'add_hand_truck_details_controller'
+        })
+        // 详情(头车，挂车)
+        .state("look_head_truck_details",{
+            url:"/look_head_truck_details/id/{id}?from",
+            templateUrl: "js/view/truck/look_head_truck_details.html",
+            controller:'look_head_truck_details_controller'
+        })
+        .state("look_hand_truck_details",{
+            url:"/look_hand_truck_details/id/{id}?from",
+            templateUrl: "js/view/truck/look_hand_truck_details.html",
+            controller:'look_hand_truck_details_controller'
+        })
+        // 保单详情
+        .state("truck_guarantee_details",{
+            url:"/truck_guarantee_details/id/{id}/type/{type}?from",
+            templateUrl: "js/view/truck/truck_guarantee_details.html",
+            controller:'truck_guarantee_details_controller'
+        })
+        // 维修
+        .state("truck_repair",{
+            url:"/truck_maintain/id/{id}/type/{type}/status/{status}?from",
+            templateUrl: "js/view/truck/truck_repair.html",
+            controller:'truck_repair_controller'
+        })
+        // 车辆维修管理
+        .state("truck_repair_list",{
+            url:"/truck_repair_list",
+            templateUrl: "js/view/truck/truck_repair_list.html",
+            controller:'truck_repair_list_controller'
+        })
+        // 车辆定位
+        .state("truck_position",{
+            url:"/truck_position",
+            templateUrl:"js/view/truck/truck_position.html",
+            controller:"truck_position_controller"
         })
         .state("truck_company",{
             url:"/truck_company",

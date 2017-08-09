@@ -1,0 +1,113 @@
+<div class="maintenance_statistics" style="width: 85%;margin: 0 auto">
+    <div class="row valign-wrapper">
+        <h5 class="col s12 cyan-text lighten-1 center-align">
+            车管维修统计
+        </h5>
+    </div>
+
+
+    <!--饼图-->
+    <div class="row">
+        <!--车头统计-->
+        <div class="col s6">
+            <div class="col s12" style="margin: 0;padding: 0">
+                <p class="col s12 cyan-text lighten-1 center-align" style="font-size: 1.3rem;margin: 0;padding: 0;padding-top:15px;background-color: white;border-top: 3px solid rgb(38,198,218)" >
+                    车头统计
+                </p>
+            </div>
+            <div id="truckOperateCount" style="min-width:100px;height:300px"></div>
+        </div>
+
+        <!--公司车辆统计-->
+        <div class="col s6">
+            <div class="col s12" style="margin: 0;padding: 0">
+                <p class="col s12 cyan-text lighten-1 center-align" style="font-size: 1.3rem;margin: 0;padding: 0;padding-top:15px;background-color: white;border-top: 3px solid rgb(38,198,218)" >
+                    公司车辆统计
+                </p>
+            </div>
+            <div id="companyTruckCount" style="min-width:100px;height:300px"></div>
+        </div>
+    </div>
+
+
+    <!--折线图-->
+    <div style="width: 98.6%;margin: 100px auto">
+        <!--车辆维修数量-->
+        <div class="row z-depth-2">
+            <div class="col s12 blue-grey input-field lighten-4  bold grey-text text-darken-1   statisticsTitle no-mp">
+                <div class="col s5 left">
+                    <select class="col s5 grey-text text-darken-1" material-select watch name="truck_type"
+                            ng-change="changeRepairTruckType()"
+                            ng-model="repairTruckType">
+                        <option value="" selected>全部车型</option>
+                        <option value="1">头车</option>
+                        <option value="2">挂车</option>
+                    </select>
+                </div>
+                <div class="col s6 right">
+                    <div class="col s3 left">
+                        <p class="right">选择日期区间:</p>
+                    </div>
+                    <div class="col s3">
+                        <input id="chooseRepairStart" type="text" ng-value="startInitial">
+                        <!--<label for="chooseCompulsoryStart">起始时间</label>-->
+                    </div>
+                    <div class="col s1 center">
+                        <p>至</p>
+                    </div>
+                    <div class="col s3">
+                        <input id="chooseRepairEnd" type="text" ng-value="endInitial">
+                        <!--<label for="chooseCompulsoryEnd">至</label>-->
+                    </div>
+                    <div class="col s2 center">
+                        <i class="mdi mdi-magnify" ng-click="searchRepairCount()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                    </div>
+                </div>
+            </div>
+            <!--车辆维修数量统计-->
+            <div class="col s12">
+                <div class="col s12" id="repairStatistics" style="min-width:400px;height:300px;margin: 40px 0 40px 0"></div>
+            </div>
+        </div>
+
+        <!--车辆维修金额-->
+        <div class="row z-depth-2">
+            <div class="col s12 blue-grey input-field lighten-4  bold grey-text text-darken-1   statisticsTitle no-mp">
+                <div class="col s5 left">
+                    <select class="col s5 grey-text text-darken-1" material-select watch name="truck_type"
+                            ng-change="changeMoneyTruckType()"
+                            ng-model="moneyTruckType">
+                        <option value="" selected>全部车型</option>
+                        <option value="1">头车</option>
+                        <option value="2">挂车</option>
+                    </select>
+                </div>
+                <div class="col s6 right">
+                    <div class="col s3 left">
+                        <p class="right">选择日期区间</p>
+                    </div>
+                    <div class="col s3">
+                        <input id="chooseMoneyStart" type="text" ng-value="startInitial">
+                        <!--<label for="chooseCompulsoryStart">起始时间</label>-->
+                    </div>
+                    <div class="col s1 center">
+                        <p>至</p>
+                    </div>
+                    <div class="col s3">
+                        <input id="chooseMoneyEnd" type="text" ng-value="endInitial">
+                        <!--<label for="chooseCompulsoryEnd">至</label>-->
+                    </div>
+                    <div class="col s2 center">
+                        <i class="mdi mdi-magnify" ng-click="searchMoneyCount()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!--车辆维修金额统计-->
+            <div class="col s12">
+                <div class="col s12" id="moneyStatistics"
+                     style="min-width:400px;height:300px;margin: 40px 0 40px 0"></div>
+            </div>
+        </div>
+    </div>
+</div>

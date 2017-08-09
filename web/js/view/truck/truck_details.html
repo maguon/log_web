@@ -17,11 +17,11 @@
                             <div class="col s10">
                                 <div class="col s12">
                                     <div class="input-field col s6">
-                                        <input name="search_num" id="search_num" type="text" ng-model="search_num"  minlength="6" >
+                                        <input name="search_num" id="search_num" type="text" ng-model="search_num"   >
                                         <label for="search_num">牌号</label>
                                     </div>
                                     <div class="input-field col s6">
-                                        <input name="search_driver" id="search_driver" type="text" ng-model="search_driver"  minlength="6" >
+                                        <input name="search_driver" id="search_driver" type="text" ng-model="search_driver" >
                                         <label for="search_driver">关联司机</label>
                                     </div>
                                 </div>
@@ -56,7 +56,7 @@
                                 </div>
                             </div>
                             <div class="col s2" style="margin-top: 40px">
-                                <a class=" btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="search_truck()">
+                                <a class=" btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="searchHead_car()">
                                     <i class="mdi mdi-magnify"></i>
                                 </a>
                                 <a class=" btn-floating btn-large waves-light waves-effect cyan lighten-1 btn vc-center" style="margin-right: 10px"   ui-sref="add_head_truck_details({from:'truck_details'})">
@@ -102,25 +102,38 @@
                                 </td>
                                 <td ng-bind="el.company_name">无</td>
                                 <td ng-if="el.truck_status==1">正常</td>
-                                <td ng-if="el.truck_status==0">维修</td>
+                                <td ng-if="el.truck_status==0">停用</td>
                                 <td class="white-text">
                                     <span ng-show="el.driving_date|ptime" class="small-tips red lighten-2">临</span>
-                                    <span ng-hide="el.driving_date|ptime" class="small-tips grey">无</span>
+                                    <span ng-hide="el.driving_date|ptime" class="small-tips ">1</span>
                                 </td>
                                 <td class="operation">
-                                    <a href="#" ui-sref="storage_car_details_({id:el.id,vin:el.vin,from:'storage_car',mark:1,status:el.rel_status})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1  " ></i></a>
-                                    <span>
-                            <i ng-if="el.rel_status==1" class="mdi mdi-rotate-left cyan-text lighten-1" ng-click="changeStorageCar(el.storage_id,el.id,el.row,el.col)"></i>
-                        </span>
-                                    <span >
-                            <i ng-if="el.rel_status==1" class="mdi mdi-logout cyan-text lighten-1" ng-click="outStorageCar(el.r_id,2,el.p_id,el.storage_id,el.id)" ></i>
-                            <i ng-if="el.rel_status==2" class="mdi mdi-login cyan-text lighten-1" ng-click="loginStorageCar(el.vin,el.id)"></i>
-                        </span>
+                                    <a href="#" ui-sref="truck_guarantee_details({id:el.id,type:1,from:'truck_details'})" class="small-tips cyan lighten-2 white-text" style="margin-right: 10px;cursor: pointer">保</a>
+                                    <a href="#" ui-sref="truck_repair({id:el.id,type:1,status:1,from:'truck_details'})" ng-if="el.repair_status==1"  class="normal-tips cyan lighten-2 white-text fz12 " style="margin-right: 10px;cursor: pointer">正常</a>
+                                    <a href="#" ui-sref="truck_repair({id:el.id,type:1,status:0,from:'truck_details'})" ng-if="el.repair_status==0" class="normal-tips red lighten-2 white-text fz12 " style="margin-right: 10px;cursor: pointer">维修</a>
+                                    <a href="#" ui-sref="look_head_truck_details({id:el.id,from:'truck_details'})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ></i></a>
+                                    <span class="switch" ng-click="changeTruck_status(el.id,el.truck_status)" style="height: 30px">
+                                        <label>
+                                              <input type="checkbox" ng-checked="el.truck_status==1">
+                                              <span class="lever"></span>
+                                        </label>
+                                    </span>
                                 </td>
                             </tr>
 
                             </tbody>
                         </table>
+
+                    </div>
+                    <div class="paging_box col s12">
+                        <div class="right">
+                            <a class="waves-light waves-effect cyan lighten-1 btn  " ng-show="head_pre"  id="head_pre"   ng-click="head_pre_btn()">
+                                上一页
+                            </a>
+                            <a class="waves-light waves-effect cyan lighten-1 btn " ng-show="head_next" id="head_next"  ng-click="head_next_btn()">
+                                下一页
+                            </a>
+                        </div>
 
                     </div>
                 </div>
@@ -175,7 +188,7 @@
                                 </div>
                             </div>
                             <div class="col s2" style="margin-top: 40px">
-                                <a class=" btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="search_hand_truck()">
+                                <a class=" btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="searchHand_car()">
                                     <i class="mdi mdi-magnify"></i>
                                 </a>
                                 <a class=" btn-floating btn-large waves-light waves-effect cyan lighten-1 btn vc-center" style="margin-right: 10px"   ui-sref="add_hand_truck_details({from:'truck_details'})">
@@ -199,10 +212,10 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="el in hand_truck_msg" class="grey-text text-darken-1">
+                            <tr ng-repeat="el in hand_car_msg" class="grey-text text-darken-1">
                                 <td  ng-bind="el.truck_num">1</td>
                                 <td ng-bind="el.number">2</td>
-                                <td ng-bind="el.trail_num">2</td>
+                                <td ng-bind="el.first_num">2</td>
                                 <td ng-if="el.operate_type==1">
                                     自营
                                 </td>
@@ -220,130 +233,34 @@
                                 <td ng-if="el.truck_status==0">维修</td>
                                 <td class="white-text">
                                     <span ng-show="el.driving_date|ptime" class="small-tips red lighten-2">临</span>
-                                    <span ng-hide="el.driving_date|ptime" class="small-tips grey">无</span>
+                                    <span ng-hide="el.driving_date|ptime" class="small-tips "></span>
                                 </td>
                                 <td class="operation">
-                                    <a href="#" ui-sref="storage_car_details_({id:el.id,vin:el.vin,from:'storage_car',mark:1,status:el.rel_status})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1  " ></i></a>
-                                    <span>
-                            <i ng-if="el.rel_status==1" class="mdi mdi-rotate-left cyan-text lighten-1" ng-click="changeStorageCar(el.storage_id,el.id,el.row,el.col)"></i>
-                        </span>
-                                    <div id="change_storageCar" class="modal ">
-                                        <form name="look_garageForm" >
-                                            <div class="modal-content">
-                                                <h4 class="center-align">车辆移位</h4>
-                                                <div class="divider"></div>
-                                                <div class=" col s12 garageWrapTitle vc-center">
-                                                    <div class="col s8">
-                                                        <div class="col s4">
-                                                            停放车辆
-                                                            <i class="mdi mdi-car cyan-text lighten-1"></i>
-                                                        </div>
-                                                        <!--<div class="col s4">-->
-                                                        <!--临近出库车辆-->
-                                                        <!--<i class=" mdi mdi-car red-text accent-1"></i>-->
-                                                        <!--</div>-->
-                                                        <div class="col s4">
-                                                            未停放车辆
-                                                            <i class=" mdi mdi-car  grey-text lighten-1 "></i>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col s4">
-                                                        <div class="col s6">
-                                                            当前位置
-                                                            <span class="red-text" ng-bind="now_row"></span>
-                                                            <span>排</span>
-                                                            <span class="red-text" ng-bind="now_col"></span>
-                                                            <span>列</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="garageWrap">
-                                                        <div class="garageBox ">
-                                                            <div class=" col s12 garage_list p0" >
-                                                                <div class="garage_row vc-center left"></div>
-                                                                <div class="garage_row vc-center left" ng-repeat="el in ageParkingCol">
-                                                                    {{el.col}}
-                                                                </div>
-                                                            </div>
-                                                            <div class="col s12  garage_list p0"  ng-repeat="el in garageParkingArray" >
-                                                                <div class="garage_row vc-center left">{{$index+1}}</div>
-                                                                <div class="garage_row vc-center left" ng-repeat="els in el.col track by $index" ng-class="{'present_place':el.row==now_row&&els.col==now_col}">
-                                                                    <!--<i ng-show="els.carId!=0&&els.plan_time==true" class=" mdi mdi-car red-text accent-1 "></i>-->
-                                                                    <i ng-show="els.carId!=0" class=" mdi mdi-car cyan-text lighten-1"></i>
-                                                                    <i ng-show="els.carId==0" class=" mdi mdi-car grey-text lighten-2 " ng-click="move_parking(els.id,el.row,els.col)"></i>
-                                                                </div>
+                                    <a href="#" ui-sref="truck_guarantee_details({id:el.id,type:2,from:'truck_details'})" class="small-tips cyan lighten-2 white-text" style="margin-right: 10px;cursor: pointer">保</a>
+                                    <a href="#" ui-sref="truck_maintain({id:el.id,type:2,status:1,from:'truck_details'})" ng-if="el.repair_status==1" class="small-tips cyan lighten-2 white-text fz12" style="margin-right: 10px;cursor: pointer">正常</a>
+                                    <a href="#" ui-sref="truck_maintain({id:el.id,type:2,status:0,from:'truck_details'})" ng-if="el.repair_status==0" class="small-tips red lighten-2 white-text fz12" style="margin-right: 10px;cursor: pointer">维修</a>
 
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-
-                                    </div>
-                                    <span >
-                            <i ng-if="el.rel_status==1" class="mdi mdi-logout cyan-text lighten-1" ng-click="outStorageCar(el.r_id,2,el.p_id,el.storage_id,el.id)" ></i>
-                            <i ng-if="el.rel_status==2" class="mdi mdi-login cyan-text lighten-1" ng-click="loginStorageCar(el.vin,el.id)"></i>
-                                <div id="loginStorageCar" class="modal modal-fixed-footer ">
-                            <form name="login_garageForm" ng-submit="login_submit(login_garageForm.$valid,login_storage_name.id,login_storage_name.storage_name,login_parkingId,login_planOutTime)" novalidate>
-                                <div class="modal-content">
-                                    <h4 class="center-align">车辆入库</h4>
-                                    <div class="row">
-                                        <div class="input-field col s4">
-                                            <select material-select watch name="login_storage_name" ng-change="changeStorageId(login_storage_name.id)" ng-options="o.storage_name for o in storageName|filter:{storage_status:'1'}" ng-model="login_storage_name" required>
-                                                <option value=""  selected>请选择</option>
-                                                <!--<option ng-repeat="el in storageName" ng-value="el.id">{{el.storage_name}}</option>-->
-                                            </select>
-                                            <label >车库</label>
-                                        </div>
-                                        <div class="input-field col s4">
-                                            <select material-select watch name="login_storageRow" ng-model="login_storageRow" ng-change="changeStorageRow(login_storageRow,parkingArray)" required>
-                                                <option value=""  selected>请选择</option>
-                                                <option ng-repeat="el in parkingArray" ng-value="el.row">{{el.row}}</option>
-                                            </select>
-                                            <label >排</label>
-                                        </div>
-                                        <div class="input-field col s4">
-                                            <select material-select watch ng-model="login_parkingId"  name="login_parkingId" required>
-                                                <option value=""  selected>请选择</option>
-                                                <!--<option ng-repeat="el in colArr" ng-value="el.id">{{el.col}}</option>-->
-                                                <option ng-repeat="el in colArr" ng-if="el.carId==0"  ng-value="el.id" >{{el.col}}</option>
-                                                <option ng-repeat="el in colArr" ng-if="el.carId!=0" disabled  >{{el.col}}</option>
-                                            </select>
-                                            <label >道位</label>
-                                        </div>
-                                        <!--<div class="col s4 vc-center">-->
-                                        <!--<div class="col s4 p0 cyan-text text-lighten-1 bold" style="min-width: 100px;font-size: 13px"  >计划出库时间:</div>-->
-                                        <!--<div class="col input-field s8 no-mp" ng-class="{'has-error':login_garageForm.login_planOutTime.$invalid&&submitted }">-->
-                                        <!--<input type="text" name="login_planOutTime" ng-model="login_planOutTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>-->
-
-                                        <!--</div>-->
-                                        <!--</div>-->
-
-                                    </div>
-
-                                 <div class="divider" style="background: #00bcd4;height: 2px;"></div>
-                                </div>
-                                 <div class="modal-footer vc-center">
-                                    <a  class=" modal-action modal-close waves-effect  grey lighten-1waves-light   btn" style="margin-right: 10px" >
-                                        <!--<i class="mdi mdi-close"></i>-->
-                                        取消
-                                    </a>
-                                    <button class="btn waves-light waves-effect  cyan lighten-1" type="submit" name="action" >
-                                        <!--<i class="mdi mdi-trending-neutral"></i>-->
-                                        确定
-                                    </button>
-                                </div>
-                            </form>
-
-                        </div>
-                        </span>
+                                    <a href="#" ui-sref="look_hand_truck_details({id:el.id,from:'truck_details'})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1  " ></i></a>
+                                    <span class="switch" ng-click="changeTruckTrailer_status(el.id,el.truck_status)" style="height: 30px">
+                                    <label>
+                                      <input type="checkbox" ng-checked="el.truck_status==1">
+                                      <span class="lever"></span>
+                                    </label>
+                                    </span>
                                 </td>
                             </tr>
-
                             </tbody>
                         </table>
+                    </div>
+                    <div class="paging_box col s12">
+                        <div class="right">
+                            <a class="waves-light waves-effect cyan lighten-1 btn  " ng-show="hand_pre"  id="hand_pre"   ng-click="hand_pre_btn()">
+                                上一页
+                            </a>
+                            <a class="waves-light waves-effect cyan lighten-1 btn " ng-show="hand_next" id="hand_next"  ng-click="hand_next_btn()">
+                                下一页
+                            </a>
+                        </div>
 
                     </div>
                 </div>

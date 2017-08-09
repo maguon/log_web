@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-cn" ng-app="log_dev">
+<head>
+    <meta charset="UTF-8">
+    <title>车管助手</title>
+    <link rel="stylesheet" href="/assets/plugins/materialize/css/materialize.css">
+    <link rel="stylesheet" href="/assets/plugins/alert/sweetalert.css">
+    <link rel="stylesheet" href="/assets/plugins/material_icon/css/materialdesignicons.css">
+    <link rel="stylesheet" href="/assets/plugins/fullcalendar-3.3.0/fullcalendar.css">
+    <link rel="stylesheet" href="/assets/plugins/jQueryViewer/css/viewer.min.css">
+    <link rel="stylesheet" href="/assets/plugins/month_picker/jquery-ui.min.css">
+    <link rel="stylesheet" href="/assets/plugins/month_picker/month_picker.min.css">
+    <link rel="stylesheet" href="/assets/css/index.css">
+    <link rel="stylesheet" href="/assets/css/flex.css">
+    <link rel="stylesheet" href="/assets/css/col.css">
+    <link rel="stylesheet" href="/assets/css/font.css">
+    <link rel="icon" href="/assets/images/ico/truck_icon.ico">
+
+</head>
+<body>
+<header type="11" url="../assets/images/vehicle_logo.png"></header>
+<ul id="slide-out"   class="side-nav blue-grey darken-4">
+    <li class="nav-logo valign-wrapper " style="border-bottom: 1px solid #182024">
+        <div class="  userBox">
+            <!--<div class="col s3 valign-wrapper">-->
+            <!--<img src="../../assets/images/office.jpg" alt="" class=" responsive-img left logo_img" style="height: 50px"> &lt;!&ndash; notice the "circle" class &ndash;&gt;-->
+            <!--</div>-->
+            <div class="nav-avatar logo_img responsive-img left" style="height:50px">
+                {{realName.substring(0,1)}}
+            </div>
+            <div class=" userBoxMsg left">
+              <span class="white-text">
+                {{userName + ":"}}
+              </span>
+                <span class="white-text">
+                    {{realName}}
+              </span>
+            </div>
+        </div>
+    </li>
+    <li class="bold side_navigator" >
+        <a class="waves-effect waves-light first-N" ui-sref="vehicle_index" ><i class="white-text mdi mdi-speedometer"></i>主控面板</a>
+    </li>
+    <li class="bold side_navigator">
+        <ul class="collapsible collapsible-accordion">
+            <li class="bold">
+                <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-account-settings-variant "></i>车辆管理</a>
+                <div class="collapsible-body blue-grey darken-3" style="padding: 0;">
+                    <ul >
+                        <!--<li><a href="#!" ui-sref="car_sv_driver"><i class="mdi mdi-chevron-right white-text "></i>综合信息</a></li>-->
+                        <li><a href="#!" ui-sref="truck_details"><i class="mdi mdi-chevron-right white-text "></i>车辆信息</a></li>
+                        <li><a href="#!" ui-sref="truck_position"><i class="mdi mdi-chevron-right white-text "></i>车辆定位</a></li>
+                        <li><a href="#!" ui-sref="truck_repair_list"><i class="mdi mdi-chevron-right white-text"></i>车辆维修管理</a></li>
+                        <!--<li><a href="#!" ui-sref="car_sv_driver"><i class="mdi mdi-chevron-right white-text "></i>事故故障管理</a></li>-->
+                        <!--<li><a href="#!" ui-sref="car_sv_driver"><i class="mdi mdi-chevron-right white-text"></i>车辆加油管理</a></li>-->
+                        <!--<li><a href="#!" ui-sref="car_sv_driver"  ><i class="white-text mdi mdi-chevron-right"></i>车辆配件管理</a></li>-->
+                        <li><a href="#!" ui-sref="truck_driver"  ><i class="white-text mdi mdi-chevron-right"></i>司机管理</a></li>
+                        <li><a href="#!" ui-sref="truck_company"  ><i class="white-text mdi mdi-chevron-right"></i>所属公司管理</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+
+    <li class="bold side_navigator" >
+        <a  ui-sref="user_info" class=" waves-effect waves-light first-N" ><i class="white-text mdi mdi-account-card-details"></i>用户信息</a>
+    </li>
+    <li class="bold side_navigator">
+        <ul class="collapsible collapsible-accordion">
+            <li class="bold">
+                <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-chart-line "></i>数据统计</a>
+                <div class="collapsible-body slider_nav_box blue-grey darken-3" style="padding: 0;">
+                    <ul>
+                        <li><a href="#!" ui-sref="insurance_statistics"><i class="mdi mdi-chevron-right white-text "></i>货车保险统计</a></li>
+                        <li><a href="#!" ui-sref="maintenance_statistics"><i class="mdi mdi-chevron-right white-text "></i>车管维修统计</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+
+    <li class="bold side_navigator">
+        <a href="#!" ui-sref="data_dictionary" class=" waves-effect waves-light first-N" ><i class="white-text mdi mdi-book-multiple"></i>数据字典</a>
+    </li>
+
+</ul>
+<div class="ConWrap">
+    <div class="containerBox" >
+        <div ui-view></div>
+    </div>
+</div>
+<footer></footer>
+
+</body>
+<div class="shadeDowWrap" >
+    <div class="shadeDow vc-center">
+        <div class="preloader-wrapper big active ">
+            <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div><div class="gap-patch">
+                <div class="circle"></div>
+            </div><div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementsByClassName("ConWrap")[0].style.height=document.body.scrollHeight-50-70+"px";
+</script>
+<script src="/lib/jquery.min.js"></script>
+<script src="/lib/jquery.form.min.js"></script>
+<script src="/assets/plugins/fullcalendar-3.3.0/lib/jquery-ui.min.js"></script>
+<script src="/assets/plugins/month_picker/month_picker.min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=8iGBbYV3ghkvGehg79nG5LaGX2vVawjG"></script>
+<script src="/assets/plugins/fullcalendar-3.3.0/lib/moment.min.js"></script>
+<script src="/assets/plugins/fullcalendar-3.3.0/fullcalendar.js"></script>
+<script src="/assets/plugins/fullcalendar-3.3.0/locale/zh-cn.js"></script>
+<script src="/assets/plugins/materialize/js/materialize.js"></script>
+<script src="/assets/plugins/jQueryViewer/js/viewer.min.js"></script>
+<script src="/assets/plugins/avatar/avatar.min.js"></script>
+<script src="/assets/plugins/alert/sweetalert.min.js"></script>
+<script src="/lib/angular/angular.min.js"></script>
+<script src="/assets/plugins/angular/angular-materialize.js"></script>
+<script src="/lib/highcharts.js"></script>
+<script src="/lib/parse.min.js"></script>
+<script src="/assets/custom.js"></script>
+<script src="/lib/angular/angular-ui-router.min.js"></script>
+<script src="/lib/angular/angular-cookies.min.js"></script>
+<script src="/lib/angular/angular-messages.min.js"></script>
+<script src="/js/module/app_module.js"></script>
+<script src="/js/directive/public_directive.js"></script>
+<script src="/js/router/vehicle_operater_router.js"></script>
+<script src="/js/host/host_config.js"></script>
+<script src="/js/filter/filters.js"></script>
+<script src="/js/service/base_service.js"></script>
+<script src="/js/service/config_service.js"></script>
+<script src="/js/service/http_service.js"></script>
+<script src="/js/service/socket_service.js"></script>
+<!--车管-->
+<script src="/js/controller/truck/truck_company_controller.js"></script>
+<script src="/js/controller/truck/truck_details_controller.js"></script>
+<script src="/js/controller/truck/add_hand_truck_details_controller.js"></script>
+<script src="/js/controller/truck/add_head_truck_details_controller.js"></script>
+<script src="/js/controller/truck/look_head_truck_details_controller.js"></script>
+<script src="/js/controller/truck/look_hand_truck_details_controller.js"></script>
+<script src="/js/controller/truck/truck_guarantee_details_controller.js"></script>
+<script src="/js/controller/truck/truck_driver_controller.js"></script>
+<script src="/js/controller/truck/add_truck_driver_controller.js"></script>
+<script src="/js/controller/truck/truck_driver_details_controller.js"></script>
+<script src="/js/controller/truck/truck_repair_controller.js"></script>
+<script src="/js/controller/truck/truck_position_controller.js"></script>
+<script src="/js/controller/truck/truck_repair_list_controller.js"></script>
+<script src="/js/controller/storage/insurance_statistics_controller.js"></script>
+<script src="/js/controller/storage/maintenance_statistics_controller.js"></script>
+<script src="/js/controller/storage/storage_controller.js"></script>
+<script src="/js/controller/storage/vehicle_index_controller.js"></script>
+<script src="/js/controller/storage/storage_calendar_controller.js"></script>
+<script src="/js/controller/storage/storage_car_map_controller.js"></script>
+<script src="/js/controller/storage/storage_car_details_controller.js"></script>
+<script src="/js/controller/car/setting_car_brand_controller.js"></script>
+<script src="/js/controller/user/user_info_controller.js"></script>
+<script src="/js/controller/setting/data_dictionary_controller.js"></script>
+<script src="/js/controller/setting/setting_car_brand_controller.js"></script>
+<script src="/js/controller/setting/setting_dealer/add_setting_dealer_controller.js"></script>
+<script src="/js/controller/setting/setting_dealer/setting_dealer_details_controller.js"></script>
+<script src="/js/controller/setting/setting_shipments/add_setting_shipments_controller.js"></script>
+<script src="/js/controller/setting/setting_shipments/setting_shipments_details_controller.js"></script>
+<script src="/js/controller/setting/setting_client/setting_add_client_controller.js"></script>
+<script src="/js/controller/setting/setting_client/setting_client_details_controller.js"></script>
+<script src="/js/controller/storage/add_storage_car_controller.js"></script>
+<script src="/js/controller/storage/add_storage_car_put_in_controller.js"></script>
+
+</html>

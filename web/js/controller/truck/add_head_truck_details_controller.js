@@ -11,8 +11,11 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
     $scope.return=function () {
         $state.go($stateParams.from,{reload:true})
     };
+
+    // 电话号正则
+    $scope.mobileRegx=_config.mobileRegx;
     // 车辆存照片ID;
-    var Picture_truckid;
+    var truck_id;
     // 所属类型--公司联动
     $scope.getCompany=function () {
         _basic.get($host.api_url+"/company?operateType="+$scope.truck_type).then(function (data) {
@@ -92,14 +95,15 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
                         $(".ui-tabs li>a").removeClass("active");
                         $(".test2>a").addClass("active");
                         $(".tabs .indicator").css({
-                            right:1132+"px",
-                            left:377+"px"
+                            right:935+"px",
+                            left:467+"px"
                         });
                         $(".test").hide();
                         $(".test").removeClass("active");
                         $("#test2").show();
                         $("#test2").addClass("active");
-                        Picture_truckid = data.id;
+                        truck_id = data.id;
+                        $scope.truck_id= data.id;
                     }else {
                         swal(data.msg,"","error")
                     }
@@ -124,10 +128,10 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
 
                         if (data.success) {
 
-                            // // console.log(data,Picture_truckid);
+                            // // console.log(data,truck_id);
                             var imageId = data.imageId;
                             callback(imageId);
-                            // _basic.post($host.record_url + "/car/" + $scope.Picture_truckid + "/vin/" + $scope.vin + "/storageImage", {
+                            // _basic.post($host.record_url + "/car/" + $scope.truck_id + "/vin/" + $scope.vin + "/storageImage", {
                             //     "username": _basic.getSession(_basic.USER_NAME),
                             //     "userId": userId,
                             //     "userType": _basic.getSession(_basic.USER_TYPE),
@@ -175,11 +179,11 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
                 }];
             });
             var obj={
-                "drivingImage": imageId,
+                "truckImage": imageId,
                 // "licenseImage": "string",
                 "imageType": 1
             };
-            _basic.put($host.api_url+"/user/"+userId+"/truck/"+Picture_truckid+"/image",obj).then(function (data) {
+            _basic.put($host.api_url+"/user/"+userId+"/truck/"+truck_id+"/image",obj).then(function (data) {
                 if(data.success==true){
 
                 }else {
@@ -203,10 +207,10 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
             });
             var obj={
                 // "drivingImage": imageId,
-                "licenseImage": imageId,
+                "truckImage": imageId,
                 "imageType": 2
             };
-            _basic.put($host.api_url+"/user/"+userId+"/truck/"+Picture_truckid+"/image",obj).then(function (data) {
+            _basic.put($host.api_url+"/user/"+userId+"/truck/"+truck_id+"/image",obj).then(function (data) {
                 if(data.success==true){
 
                 }else {
@@ -223,7 +227,7 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
         var filename = $(dom).val();
         // console.log($(dom).val());
         uploadBrandImage(filename,dom_obj,function (imageId) {
-            _basic.post($host.record_url + "/user/" +userId + "/truck/" +Picture_truckid + "/image", {
+            _basic.post($host.record_url + "/user/" +userId + "/truck/" +truck_id + "/image", {
                 "username": _basic.getSession(_basic.USER_NAME),
                 "userId": userId,
                 "userType": _basic.getSession(_basic.USER_TYPE),
@@ -254,7 +258,7 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
                 // console.log(src);
                 var url_array=src.split("/");
                 var url=url_array[url_array.length-1];
-                _basic.delete($host.record_url+"/user/"+userId+"/record/"+record_id+"/truck/"+Picture_truckid+"/image/"+url).then(function (data) {
+                _basic.delete($host.record_url+"/user/"+userId+"/record/"+record_id+"/truck/"+truck_id+"/image/"+url).then(function (data) {
                     if(data.success==true){
                         var i=$scope.truck_image_i.indexOf(src);
                         $scope.truck_imageBox.splice(i,1);
@@ -276,8 +280,8 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
         $(".ui-tabs li>a").removeClass("active");
         $(".test3>a").addClass("active");
         $(".tabs .indicator").css({
-            right:755+"px",
-            left:754+"px"
+            right:473+"px",
+            left:942+"px"
         });
         $(".test").hide();
         $(".test").removeClass("active");
@@ -287,22 +291,19 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
 
     // 挂车过滤
     $scope.Binding_trailer_check=function () {
-        var Binding_trailer=$scope.Binding_trailer.split("");
-        if(Binding_trailer.length==0){
-            $scope.hand_truck_msg=hand_truck_msg;
-        }else {
+        if($scope.Binding_trailer!=null&&$scope.Binding_trailer!=""){
             $scope.hand_truck_msg=[];
             hand_truck_msg.forEach(function (i) {
-                for(var j=0;j<Binding_trailer.length;j++){
-                    if(i.truck_num.indexOf(Binding_trailer[j])!=-1){
-                        if($scope.hand_truck_msg.indexOf(i)==-1){
-                            $scope.hand_truck_msg.push(i)
-                        }
-
+                if(i.truck_num.indexOf($scope.Binding_trailer)!=-1){
+                    if($scope.hand_truck_msg.indexOf(i)==-1){
+                        $scope.hand_truck_msg.push(i)
                     }
                 }
             })
+        }else {
+            $scope.hand_truck_msg=hand_truck_msg;
         }
+
     };
     $scope.clear_trailer=function () {
         $scope.check_trailer_id="";
@@ -313,15 +314,15 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
     // 绑定挂车——绑定司机
     $scope.Binding_trailer_submit=function () {
         if($scope.check_trailer_id){
-            _basic.put($host.api_url+"/user/"+userId+"/truck/"+Picture_truckid+"/truckRel/"+$scope.check_trailer_id+"/bind",{}).then(function (data) {
+            _basic.put($host.api_url+"/user/"+userId+"/truck/"+truck_id+"/trail/"+$scope.check_trailer_id+"/bind",{}).then(function (data) {
                 if(data.success==true){
                     $(".ui-tabs li").addClass("disabled");
                     $(".test4").removeClass("disabled");
                     $(".ui-tabs li>a").removeClass("active");
                     $(".test4>a").addClass("active");
                     $(".tabs .indicator").css({
-                        right:378+"px",
-                        left:1131+"px"
+                        right:1+"px",
+                        left:1401+"px"
                     });
                     $(".test").hide();
                     $(".test").removeClass("active");
@@ -337,8 +338,8 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
             $(".ui-tabs li>a").removeClass("active");
             $(".test4>a").addClass("active");
             $(".tabs .indicator").css({
-                right:378+"px",
-                left:1131+"px"
+                right:1+"px",
+                left:1401+"px"
             });
             $(".test").hide();
             $(".test").removeClass("active");
@@ -357,58 +358,47 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
     // 司机过滤
     $scope.Binding_driver_check=function () {
 
-        if($scope.Binding_driver.length==0){
-            $scope.drive=hand_driver_msg;
-        }else {
+        if($scope.Binding_driver!=null&&$scope.Binding_driver!=""){
             $scope.drive=[];
             hand_driver_msg.forEach(function (i) {
-                for(var j=0;j<$scope.Binding_driver.length;j++){
-                    if(i.drive_name.indexOf($scope.Binding_driver[j])!=-1){
-                        if($scope.drive.indexOf(i)==-1){
-                            $scope.drive.push(i);
-                        }
+                if(i.drive_name.indexOf($scope.Binding_driver)!=-1){
+                    if($scope.drive.indexOf(i)==-1){
+                        $scope.drive.push(i);
                     }
                 }
             })
+        }else {
+            $scope.drive=hand_driver_msg;
         }
+
     };
-    // 绑定司机——车保
+    // 绑定司机--完成
     $scope.binding_driver_submit=function () {
         if($scope.check_driver_id){
-            _basic.put($host.api_url+"/user/"+userId+"/truck/"+Picture_truckid+"/drive/"+$scope.check_driver_id+"/bind",{}).then(function (data) {
+            _basic.put($host.api_url+"/user/"+userId+"/truck/"+truck_id+"/drive/"+$scope.check_driver_id+"/bind",{}).then(function (data) {
                 if(data.success==true){
-                    $(".ui-tabs li").addClass("disabled");
-                    $(".test5").removeClass("disabled");
-                    $(".ui-tabs li>a").removeClass("active");
-                    $(".test5>a").addClass("active");
-                    $(".tabs .indicator").css({
-                        right:0+"px",
-                        left:1508+"px"
-                    });
-                    $(".test").hide();
-                    $(".test").removeClass("active");
-                    $("#test5").show();
-                    $("#test5").addClass("active");
+                    $state.go($stateParams.from,{reload:true})
                 }else {
                     swal("异常","","error")
                 }
             })
         }else {
-            $(".ui-tabs li").addClass("disabled");
-            $(".test5").removeClass("disabled");
-            $(".ui-tabs li>a").removeClass("active");
-            $(".test5>a").addClass("active");
-            $(".tabs .indicator").css({
-                right:0+"px",
-                left:1508+"px"
-            });
-            $(".test").hide();
-            $(".test").removeClass("active");
-            $("#test5").show();
-            $("#test5").addClass("active");
+            $state.go($stateParams.from,{reload:true})
         }
-
-
+    };
+    // 绑定司机--回详情
+    $scope.binding_add_insure=function () {
+        if($scope.check_driver_id){
+            _basic.put($host.api_url+"/user/"+userId+"/truck/"+truck_id+"/drive/"+$scope.check_driver_id+"/bind",{}).then(function (data) {
+                if(data.success==true){
+                    $state.go("truck_guarantee_details",{id:$scope.truck_id,from:"truck_details"})
+                }else {
+                    swal("异常","","error")
+                }
+            })
+        }else {
+            $state.go("truck_guarantee_details",{id:$scope.truck_id,from:"truck_details"})
+        }
     };
     $scope.add_guarantee=function () {
         $('.modal').modal();

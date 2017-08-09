@@ -250,6 +250,26 @@ publicDirective.directive('repeatFinish', function () {
         }
     }
 });
+publicDirective.directive('repeatFinishS', function () {
+    return {
+        link: function (scope, element, attr) {
+            if (scope.$last == true) {
+                // console.log('ng-repeat执行完毕');
+                scope.$eval(attr.renderFinish_s)
+            }
+        }
+    }
+});
+publicDirective.directive('repeatFinishD', function () {
+    return {
+        link: function (scope, element, attr) {
+            if (scope.$last == true) {
+                // console.log('ng-repeat执行完毕');
+                scope.$eval(attr.renderFinish_d)
+            }
+        }
+    }
+});
 
 // 时间格式过滤指令
 publicDirective.directive("formDate", function () {

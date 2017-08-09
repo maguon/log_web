@@ -8,21 +8,26 @@ baseService.factory("_config", function () {
     var _this = {};
     // userType
     _this.userTypes = [
-        // {
-        //     type: 11,
-        //     name: "车管操作员",
-        //     subType: []
-        // },
+        {
+            type: 11,
+            name: "车管部操作员",
+            subType: [],
+            index: 'vehicle_home.html'
+        },
         // {
         //     type: 12,
         //     name: "车管维修员",
         //     subType: []
         // },
-        // {
-        //     type: 19,
-        //     name: "车管部管理员",
-        //     subType: [{type: 11, name: "车管操作员"}, {type: 12, name: "车管维修员"}]
-        // },
+        {
+            type: 19,
+            name: "车管部管理员",
+            subType: [
+                {type: 11, name: "车管部操作员"},
+                // {type: 12, name: "车管维修员"}
+                ],
+            index: 'vehicle_manager.html'
+        },
 
 
         {
@@ -137,6 +142,7 @@ baseService.factory("_config", function () {
     _this.emailRegx = "^[a-z]([a-z0-9]*[-_]?[a-z0-9]+)*@([a-z0-9]*[-_]?[a-z0-9]+)+[\.][a-z]{2,3}([\.][a-z]{2})?$";
     // 密码
     _this.pwdRegx = "[a-zA-Z0-9]*";
-
+    // 身份证
+    _this.CarNoRegx="/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/";
     return _this
 });

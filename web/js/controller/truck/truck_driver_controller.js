@@ -12,7 +12,7 @@ app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host
                 companyId: $scope.driverCompany,
                 driveStatus: $scope.workStatus,
                 tel:$scope.driveTel,
-                truckId: $scope.truckNumber,
+                truckNum: $scope.truckNumber,
                 licenseType:$scope.drivingLicense,
                 licenseDateStart:$scope.verificationStart,
                 licenseDateEnd:$scope.verificationEnd
@@ -35,6 +35,10 @@ app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host
                     $scope.searchDriver();
                     swal("已停用该司机", "", "success");
                 }
+                else{
+                    swal("司机已被关联，请先解绑", "", "error");
+                    $scope.searchDriver();
+                }
             });
         }
         else{
@@ -42,6 +46,10 @@ app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host
                 if (activeData.success === true) {
                     $scope.searchDriver();
                     swal("已启用该司机", "", "success");
+                }
+                else{
+                    swal("司机已被关联，请先解绑", "", "error");
+                    $scope.searchDriver();
                 }
             });
         }

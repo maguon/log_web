@@ -335,8 +335,6 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
                     $scope.start_addr= $scope.self_car.base_addr_id;
                     $scope.arrive_city= $scope.select_city_end;
                 },100);
-
-
             } else {
                 swal(data.msg, "", "error")
             }

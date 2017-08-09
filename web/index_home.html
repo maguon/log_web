@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="/assets/plugins/material_icon/css/materialdesignicons.css">
     <link rel="stylesheet" href="/assets/plugins/fullcalendar-3.3.0/fullcalendar.css">
     <link rel="stylesheet" href="/assets/plugins/jQueryViewer/css/viewer.min.css">
+    <link rel="stylesheet" href="/assets/plugins/month_picker/jquery-ui.min.css">
+    <link rel="stylesheet" href="/assets/plugins/month_picker/month_picker.min.css">
     <link rel="stylesheet" href="/assets/css/index.css">
     <link rel="stylesheet" href="/assets/css/flex.css">
     <link rel="stylesheet" href="/assets/css/col.css">
@@ -36,11 +38,34 @@
         </div>
     </li>
     <!--<li class="divider grey lighten-2"></li>-->
-    <li class="bold side_navigator" >
-        <!--<a class="waves-effect waves-purple" href="#!/"  onclick="Materialize.toast('收到即时消息', 4000,'rounded');"><i class="mdi mdi-view-dashboard "></i>主页</a>-->
-        <!--<a class="waves-effect waves-light first-N" ui-sref="index" onclick="Materialize.toast('收到即时消息', 4000,'rounded');"><i class="white-text mdi mdi-crop-free "></i>主页</a>-->
-        <a class="waves-effect waves-light first-N" ui-sref="storage_index" ><i class="white-text mdi mdi-crop-free "></i>首页</a>
+    <!--<li class="bold side_navigator" >-->
+        <!--&lt;!&ndash;<a class="waves-effect waves-purple" href="#!/"  onclick="Materialize.toast('收到即时消息', 4000,'rounded');"><i class="mdi mdi-view-dashboard "></i>主页</a>&ndash;&gt;-->
+        <!--&lt;!&ndash;<a class="waves-effect waves-light first-N" ui-sref="index" onclick="Materialize.toast('收到即时消息', 4000,'rounded');"><i class="white-text mdi mdi-crop-free "></i>主页</a>&ndash;&gt;-->
+        <!--<a class="waves-effect waves-light first-N" ui-sref="storage_index" ><i class="white-text mdi mdi-crop-free "></i>首页</a>-->
+    <!--</li>-->
+
+    <!--==========================================================================-->
+    <li class="bold side_navigator">
+        <ul class="collapsible collapsible-accordion">
+            <li class="bold">
+                <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-speedometer"></i>主控面板</a>
+                <div class="collapsible-body slider_nav_box blue-grey darken-3" style="padding: 0;">
+                    <ul>
+                        <li><a href="#!" ui-sref="storage_index"><i class="mdi mdi-chevron-right white-text "></i>管理员主控</a></li>
+                        <li><a href="#!" ui-sref="storage_index"><i class="mdi mdi-chevron-right white-text "></i>仓储主控</a></li>
+                        <li><a href="#!" ui-sref="vehicle_index"><i class="mdi mdi-chevron-right white-text "></i>车管主控</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
     </li>
+    <!--=============================================================================-->
+
+    <!--<li class="bold side_navigator" >-->
+        <!--<a class="waves-effect waves-light first-N" ui-sref="vehicle_index" ><i class="white-text mdi mdi-speedometer"></i>主控面板</a>-->
+    <!--</li>-->
+
+
     <li class="bold side_navigator">
         <ul class="collapsible collapsible-accordion">
             <li class="bold">
@@ -49,6 +74,8 @@
                     <ul >
                         <!--<li><a href="#!" ui-sref="car_sv_driver"><i class="mdi mdi-chevron-right white-text "></i>综合信息</a></li>-->
                         <li><a href="#!" ui-sref="truck_details"><i class="mdi mdi-chevron-right white-text "></i>车辆信息</a></li>
+                        <li><a href="#!" ui-sref="truck_position"><i class="mdi mdi-chevron-right white-text "></i>车辆定位</a></li>
+                        <li><a href="#!" ui-sref="truck_repair_list"><i class="mdi mdi-chevron-right white-text"></i>车辆维修管理</a></li>
                         <!--<li><a href="#!" ui-sref="car_sv_driver"><i class="mdi mdi-chevron-right white-text "></i>事故故障管理</a></li>-->
                         <!--<li><a href="#!" ui-sref="car_sv_driver"><i class="mdi mdi-chevron-right white-text"></i>车辆加油管理</a></li>-->
                         <!--<li><a href="#!" ui-sref="car_sv_driver"  ><i class="white-text mdi mdi-chevron-right"></i>车辆配件管理</a></li>-->
@@ -100,7 +127,8 @@
                 <div class="collapsible-body slider_nav_box blue-grey darken-3" style="padding: 0;">
                     <ul>
                         <li><a href="#!" ui-sref="statistics"><i class="mdi mdi-chevron-right white-text "></i>仓储车辆统计</a></li>
-
+                        <li><a href="#!" ui-sref="insurance_statistics"><i class="mdi mdi-chevron-right white-text "></i>货车保险统计</a></li>
+                        <li><a href="#!" ui-sref="maintenance_statistics"><i class="mdi mdi-chevron-right white-text "></i>车管维修统计</a></li>
                     </ul>
                 </div>
             </li>
@@ -135,6 +163,7 @@
                             <li><a href="#!" ui-sref="setting_car_brand"><i class="mdi mdi-chevron-right white-text "></i>车辆设置</a></li>
                             <li><a href="#!" ui-sref="setting_amend_vin" ><i class="white-text mdi mdi-chevron-right"></i>修改VIN码</a></li>
                             <li><a href="#!" ui-sref="setting_city" ><i class="white-text mdi mdi-chevron-right"></i>城市设置</a></li>
+                            <li><a href="#!" ui-sref="truck_brand" ><i class="white-text mdi mdi-chevron-right"></i>货车品牌</a></li>
                             <li><a href="#!" ui-sref="setting_client"><i class="white-text mdi mdi-chevron-right"></i>委托方</a></li>
                             <li><a href="#!" ui-sref="setting_dealer" ><i class="white-text mdi mdi-chevron-right"></i>经销商</a></li>
                             <li><a href="#!" ui-sref="setting_shipments" ><i class="white-text mdi mdi-chevron-right"></i>发运地</a></li>
@@ -185,6 +214,10 @@
 </script>
 <script src="/lib/jquery.min.js"></script>
 <script src="/lib/jquery.form.min.js"></script>
+
+<script src="/assets/plugins/fullcalendar-3.3.0/lib/jquery-ui.min.js"></script>
+<script src="/assets/plugins/month_picker/month_picker.min.js"></script>
+
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=8iGBbYV3ghkvGehg79nG5LaGX2vVawjG"></script>
 <script src="/assets/plugins/fullcalendar-3.3.0/lib/moment.min.js"></script>
 <script src="/assets/plugins/fullcalendar-3.3.0/fullcalendar.js"></script>
@@ -214,16 +247,23 @@
 <script src="/js/controller/truck/truck_details_controller.js"></script>
 <script src="/js/controller/truck/add_hand_truck_details_controller.js"></script>
 <script src="/js/controller/truck/add_head_truck_details_controller.js"></script>
+<script src="/js/controller/truck/look_head_truck_details_controller.js"></script>
+<script src="/js/controller/truck/look_hand_truck_details_controller.js"></script>
+<script src="/js/controller/truck/truck_guarantee_details_controller.js"></script>
 <script src="/js/controller/truck/truck_driver_controller.js"></script>
 <script src="/js/controller/truck/add_truck_driver_controller.js"></script>
 <script src="/js/controller/truck/truck_driver_details_controller.js"></script>
 <script src="/js/controller/truck/truck_insurance_controller.js"></script>
+<script src="/js/controller/truck/truck_repair_controller.js"></script>
+<script src="/js/controller/truck/truck_position_controller.js"></script>
+<script src="/js/controller/truck/truck_repair_list_controller.js"></script>
 
 <script src="/js/controller/setting/setting_storage_controller.js"></script>
 <script src="/js/controller/setting/setting_user_controller.js"></script>
 <script src="/js/controller/setting/setting_car_brand_controller.js"></script>
 <script src="/js/controller/setting/setting_amend_vin_controller.js"></script>
 <script src="/js/controller/setting/setting_city_controller.js"></script>
+<script src="/js/controller/setting/truck_brand_controller.js"></script>
 <script src="/js/controller/setting/setting_dealer/setting_dealer_controller.js"></script>
 <script src="/js/controller/setting/setting_dealer/add_setting_dealer_controller.js"></script>
 <script src="/js/controller/setting/setting_dealer/setting_dealer_details_controller.js"></script>
@@ -238,12 +278,19 @@
 
 <script src="/js/controller/storage/storage_car_controller.js"></script>
 <script src="/js/controller/storage/storage_index_controller.js"></script>
+<script src="/js/controller/storage/vehicle_index_controller.js"></script>
+
+
+
+
 <script src="/js/controller/storage/storage_controller.js"></script>
 <!--<script src="/js/controller/data/car_to_data_controller.js"></script>-->
 <script src="/js/controller/storage/storage_calendar_controller.js"></script>
 <script src="/js/controller/storage/storage_car_details_controller.js"></script>
 <script src="/js/controller/storage/storage_car_map_controller.js"></script>
 <script src="/js/controller/storage/storage_statistics_controller.js"></script>
+<script src="/js/controller/storage/insurance_statistics_controller.js"></script>
+<script src="/js/controller/storage/maintenance_statistics_controller.js"></script>
 <script src="/js/controller/storage/add_storage_car_vin_controller.js"></script>
 <script src="/js/controller/storage/add_storage_car_controller.js"></script>
 <script src="/js/controller/storage/add_storage_car_put_in_controller.js"></script>

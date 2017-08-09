@@ -1,0 +1,42 @@
+<div class="truck_position">
+    <div class="row">
+        <div class="row valign-wrapper " style="position: relative">
+            <h5 class="col s12 cyan-text lighten-1  center-align">
+                车辆定位
+            </h5>
+            <!--<div class="col s8 right-align">-->
+            <!---->
+            <!--</div>-->
+        </div>
+        <div class="divider  cyan lighten-2"></div>
+        <div class="row" style="position: relative;margin-bottom: 0">
+            <!--<p class="location_gps white z-depth-2">经度:<span class="materialize-red-text">{{lng}}</span>,纬度:<span class="materialize-red-text">{{lat}}</span></p>-->
+            <div class="col s2 truck_gpsBox grey-text"auto-map-height >
+                <div class="input-field">
+                    <input id="truck_search_map" name="truck_search_map" ng-keyup="truck_search_map(truck_search_text)" ng-model="truck_search_text" type="text">
+                    <label for="truck_search_map">车辆查询</label>
+                </div>
+                <p ng-repeat="el in truckGps" ng-bind="el.vhe_no" ng-click="search_map(el.lon,el.lat,el.angle,el.vhe_no,el.sim,el.updated_on)"></p>
+            </div>
+            <div class="col s10 dealer_map" auto-map-height  id="dealer_map">
+
+            </div>
+        </div>
+        <div class="divider  cyan lighten-2"></div>
+        <div class="row" ng-show="show_truck_msg">
+            <div class="col s2 center-align" style="margin-top: 25px">
+                <h5>车辆信息:</h5>
+            </div>
+            <div class="col s10" style="margin-top: 25px">
+                <h5>
+                    <span>车牌号:</span><span class="grey-text" style="margin-right: 10px">{{No}}</span>
+                    <span>车辆品牌:</span><span class="grey-text" style="margin-right: 10px">{{dirve_msg.brand_name}}</span>
+                    <span>司机:</span><span class="grey-text" style="margin-right: 10px">{{dirve_msg.drive_name}}</span>
+                    <span>联系电话:</span><span class="grey-text" style="margin-right: 10px">{{dirve_msg.truck_tel}}</span>
+                    <span>最后更新时间:</span><span class="grey-text" style="margin-right: 10px">{{time|date:"yyyy-MM-dd hh:mm:ss"}}</span>
+                </h5>
+            </div>
+        </div>
+
+    </div>
+</div>

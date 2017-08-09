@@ -39,7 +39,7 @@ app.controller("storage_index_vehicle_controller", ['$rootScope', '$scope', "$ho
                         $scope.type_4_count = data.result[i].truck_count
                     }
                 }
-                console.log("truckData", data);
+                // console.log("truckData", data);
             }
             else {
                 swal(data.msg, "", "error");
@@ -50,7 +50,7 @@ app.controller("storage_index_vehicle_controller", ['$rootScope', '$scope', "$ho
         _basic.get($host.api_url + "/truckCount?truckType=2&operateType=1").then(function (data) {
             if (data.success === true) {
                 $scope.trailer = data.result[0].truck_count;
-                console.log("data", data);
+                // console.log("data", data);
             }
             else {
                 swal(data.msg, "", "error");
@@ -99,7 +99,7 @@ app.controller("storage_index_vehicle_controller", ['$rootScope', '$scope', "$ho
         _basic.get($host.api_url + "/truckFirst?drivingDateEnd=" + searchEnd).then(function (data) {
             if (data.success === true) {
                 $scope.quarantineTruck = data.result.length;
-                console.log("dateData", data)
+                // console.log("dateData", data)
             }
             else {
                 swal(data.msg, "", "error");
@@ -110,7 +110,7 @@ app.controller("storage_index_vehicle_controller", ['$rootScope', '$scope', "$ho
         _basic.get($host.api_url + "/drive?licenseDateEnd=" + searchEnd).then(function (data) {
             if (data.success === true) {
                 $scope.quarantineDriver = data.result.length;
-                console.log("driver", data)
+                // console.log("driver", data)
             }
             else {
                 swal(data.msg, "", "error");

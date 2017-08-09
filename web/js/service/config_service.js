@@ -10,7 +10,7 @@ baseService.factory("_config", function () {
     _this.userTypes = [
         {
             type: 11,
-            name: "车管操作员",
+            name: "车管部操作员",
             subType: [],
             index: 'vehicle_home.html'
         },
@@ -23,7 +23,7 @@ baseService.factory("_config", function () {
             type: 19,
             name: "车管部管理员",
             subType: [
-                {type: 11, name: "车管操作员"},
+                {type: 11, name: "车管部操作员"},
                 // {type: 12, name: "车管维修员"}
                 ],
             index: 'vehicle_manager.html'

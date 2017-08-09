@@ -17,13 +17,13 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
     //     templateUrl: '/view/index_home.html',
     //     controller:'indexController'
     // });
-    $urlRouterProvider.when("","/storage_index_vehicle");
+    $urlRouterProvider.when("","/vehicle_index");
     $stateProvider
 
-        .state("storage_index_vehicle", {  //路由状态
-            url: "/storage_index_vehicle",  //路由路径
-            templateUrl: "/js/view/storage/storage_index_vehicle.html",  //路由填充的模板
-            controller:'storage_index_vehicle_controller'
+        .state("vehicle_index", {  //路由状态
+            url: "/vehicle_index",  //路由路径
+            templateUrl: "/js/view/storage/vehicle_index.html",  //路由填充的模板
+            controller:'vehicle_index_controller'
         })
 
         .state("storage_car_details_", {

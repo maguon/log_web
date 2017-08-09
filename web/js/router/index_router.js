@@ -175,10 +175,10 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'storage_index_controller'
         })
 
-        .state("storage_index_vehicle", {
-            url: "/storage_index_vehicle",
-            templateUrl: "js/view/storage/storage_index_vehicle.html",
-            controller:'storage_index_vehicle_controller'
+        .state("vehicle_index", {
+            url: "/vehicle_index",
+            templateUrl: "js/view/storage/vehicle_index.html",
+            controller:'vehicle_index_controller'
         })
         .state("calendar", {
             url:"/calendar",

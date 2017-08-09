@@ -1,7 +1,7 @@
 /**
  * Created by zcy on 2017/8/8.
  */
-app.controller("storage_index_vehicle_controller", ['$rootScope', '$scope', "$host", '$location', '$q', "_basic", function ($rootScope, $scope, $host, $location, $q, _basic) {
+app.controller("vehicle_index_controller", ['$rootScope', '$scope', "$host", '$location', '$q', "_basic", function ($rootScope, $scope, $host, $location, $q, _basic) {
     // 日期查询值
     // var searchStart = moment(new Date()).format('YYYYMMDD');
     var searchEnd = moment(new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)).format('YYYYMMDD');

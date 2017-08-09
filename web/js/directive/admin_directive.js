@@ -119,7 +119,18 @@ adminDirective.directive("date", function () {
     }
 });
 
-
+adminDirective.directive('autoMapHeight',function () {
+    return {
+        restrict : 'A',
+        scope : {},
+        link : function($scope, element, attrs) {
+            var conHeight = $(".ConWrap").height(); //获取窗口高度
+            var titleHeight = 200;
+            element.css('min-height',
+                (conHeight - titleHeight) + 'px');
+        }
+    };
+});
 
 
 adminDirective.directive("dateFilter", ["$filter", function ($filter) {

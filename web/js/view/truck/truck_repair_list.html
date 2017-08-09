@@ -2,7 +2,11 @@
     <div class="row  valign-wrapper">
         <div class="col s10">
             <div class="row ">
-                <div class="col s6 input-field">
+                <div class="col s3 input-field">
+                    <input type="text" name="truck_name" id="truck_name" ng-model="truck_name">
+                    <label for="truck_name">车牌号:</label>
+                </div>
+                <div class="col s3 input-field">
                     <select material-select watch id="truck_type" class="truck_type" ng-model="truck_type">
                         <option ng-value=""  selected>请选择</option>
                         <option ng-value="1">自营</option>

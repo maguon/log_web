@@ -18,6 +18,4 @@ login_router.config(['$stateProvider',"$urlRouterProvider",function($stateProvid
 //             controller:'loginController'
 //         });
 // }]);
-/**
- * Created by ASUS on 2017/4/11.
- */
+

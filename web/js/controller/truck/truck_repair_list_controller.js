@@ -12,6 +12,7 @@ app.controller("truck_repair_list_controller", ['$rootScope', '$scope', '_basic'
 
         var obj = {
             truckType: $scope.truck_type,
+            truckName:$scope.truck_name,
             repairDateStart: $scope.repair_startTime_start,
             repairDateEnd: $scope.repair_startTime_end,
             endDateStart: $scope.repair_endTime_start,

@@ -69,8 +69,8 @@ app.controller("setting_dealer_details_controller",["$scope","_basic","_config",
     _basic.get($host.api_url+"/receive?receiveId="+$stateParams.dealer_id).then(function (data) {
         if(data.success==true){
           $scope.dealer_details=data.result[0];
-          $scope.lng=data.result[0].lng;
-          $scope.lat=data.result[0].lat;
+          $scope.lng=data.result[0].lng?data.result[0].lng:121.62;
+          $scope.lat=data.result[0].lat?data.result[0].lat:38.92;
           // $scope.search_location(data.result[0].address);
 
           // 地图重新渲染

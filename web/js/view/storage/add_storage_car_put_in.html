@@ -146,12 +146,15 @@
                     车辆照片:</p>
                 <div class="storage_car_picture_wrap col s9-0 p0" >
                     <form name="uploadImageForm" class="uploadImageForm">
-                        <div class="storage_car_picture col s3 vc-center  p0 cyan lighten-1 white-text">
-                            <input name="image" type="file" onchange="angular.element(this).scope().uploadBrandImage(this)" max_size="4M">
-                            <i class="mdi mdi-instagram"></i>
+                        <div class="upload_btn left  ">
+                            <div class="storage_car_picture  vc-center  p0 cyan lighten-1 white-text">
+                                <input name="image" type="file" onchange="angular.element(this).scope().uploadBrandImage(this)" max_size="4M">
+                                <i class="mdi mdi-instagram"></i>
+                            </div>
+                            <p class="center-align" style="margin-top: 10px">车辆照片</p>
                         </div>
                         <ul id="look_img">
-                            <li ng-repeat="el in storage_imageBox" ng-mouseenter="show=true" ng-mouseleave="show=false"   class="storage_car_picture col s3 vc-center  p0 grey white-text">
+                            <li ng-repeat="el in storage_imageBox" ng-mouseenter="show=true" ng-mouseleave="show=false"   class="truck_car_picture col s3 vc-center  p0 grey white-text">
                                 <img ng-src="{{el.src}}" class="responsive-img">
                                 <b class="delete_img vc-center black fz18" ng-click="delete_img(el.record_id,el.src)"><i class="mdi mdi-close"></i></b>
                                 <p class="img_date white-text center-align" ng-show="show" ng-cloak>{{el.user}}上传于{{el.time|date:'yyyy-MM-dd HH:mm:ss'}}</p>
@@ -160,7 +163,6 @@
                     </form>
                 </div>
             </div>
-            <div class="col s12 divider" style="background: #00bcd4;height: 2px;margin: 10px 0"></div>
             <!--<div class="col s12  ">-->
                 <!--<a  class="right modal-action modal-close waves-effect waves-light grey lighten-1 btn" style="margin-left: 10px" >-->
                     <!--&lt;!&ndash;<i class="mdi mdi-close"></i>&ndash;&gt;-->

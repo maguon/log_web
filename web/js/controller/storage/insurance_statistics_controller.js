@@ -3,6 +3,10 @@
  */
 app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config", "$host", function ($scope, _basic, _config, $host) {
 
+    // 日期初始值
+    $scope.startInitial = moment(new Date()).format('YYYY') + "01";
+    $scope.endInitial = moment(new Date()).format('YYYY') + "12";
+
     // monthPicker日历控件
     $('#chooseCompulsoryStart,#chooseCompulsoryEnd,#chooseCommercialStart,#chooseCommercialEnd,#chooseTotalStart,#chooseTotalEnd').MonthPicker({
         Button: false,
@@ -36,20 +40,12 @@ app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config"
     $scope.searchCompulsoryInsurance = function () {
         var monthStart = $("#chooseCompulsoryStart").val();
         var monthEnd = $("#chooseCompulsoryEnd").val();
-        // if($("#chooseCompulsoryStart").val() == ""){
-        //     monthStart = ""
-        // }
-        // else{
-        //     monthStart = moment($("#chooseCompulsoryStart").val(),'MM/YYYY').format("YYYYMM");
-        // }
-        //
-        // if($("#chooseCompulsoryEnd").val() == ""){
-        //     monthEnd = ""
-        // }
-        // else{
-        //     monthEnd = moment($("#chooseCompulsoryEnd").val(),'MM/YYYY').format("YYYYMM");
-        // }
-
+        if(monthStart == ""){
+            monthStart = $scope.startInitial
+        }
+        if(monthEnd == ""){
+            monthEnd = $scope.endInitial
+        }
 
         _basic.get($host.api_url + "/truckInsureTypeTotal?monthStart=" + monthStart + "&monthEnd=" + monthEnd).then(function (insuranceData) {
             if (insuranceData.success === true) {
@@ -82,6 +78,12 @@ app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config"
     $scope.searchCommercialInsurance = function () {
         var monthStart = $("#chooseCommercialStart").val();
         var monthEnd = $("#chooseCommercialEnd").val();
+        if(monthStart == ""){
+            monthStart = $scope.startInitial
+        }
+        if(monthEnd == ""){
+            monthEnd = $scope.endInitial
+        }
 
         _basic.get($host.api_url + "/truckInsureTypeTotal?monthStart=" + monthStart + "&monthEnd=" + monthEnd).then(function (insuranceData) {
             if (insuranceData.success === true) {
@@ -114,6 +116,12 @@ app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config"
     $scope.searchTotalInsurance = function () {
         var monthStart = $("#chooseTotalStart").val();
         var monthEnd = $("#chooseTotalEnd").val();
+        if(monthStart == ""){
+            monthStart = $scope.startInitial
+        }
+        if(monthEnd == ""){
+            monthEnd = $scope.endInitial
+        }
 
         _basic.get($host.api_url + "/truckInsureTypeTotal?monthStart=" + monthStart + "&monthEnd=" + monthEnd).then(function (insuranceData) {
             if (insuranceData.success === true) {

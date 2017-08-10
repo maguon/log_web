@@ -8,12 +8,12 @@
     <div class="row valign-wrapper">
         <div class="col s4" style="margin-bottom: 50px">
             <div class="col input-field s5" style="margin-bottom: 15px">
-                <input id="chooseCompulsoryStart" type="text">
-                <label for="chooseCompulsoryStart">起始月份</label>
+                <input id="chooseCompulsoryStart" type="text" ng-value="startInitial">
+                <label class="active" for="chooseCompulsoryStart">起始月份</label>
             </div>
             <div class="col input-field s5" style="margin-bottom: 15px">
-                <input id="chooseCompulsoryEnd" type="text">
-                <label for="chooseCompulsoryEnd">结束月份</label>
+                <input id="chooseCompulsoryEnd" type="text" ng-value="endInitial">
+                <label class="active" for="chooseCompulsoryEnd">结束月份</label>
             </div>
             <div class="col s2 flex flex-round">
                 <i class="mdi mdi-magnify" ng-click="searchCompulsoryInsurance()" style="margin:20px 0 0 10px;font-size: 30px;cursor: pointer"></i>
@@ -27,12 +27,12 @@
         </div>
         <div class="col s4" style="margin-bottom: 50px">
             <div class="col input-field s5" style="margin-bottom: 15px">
-                <input id="chooseCommercialStart" type="text">
-                <label for="chooseCommercialStart">起始月份</label>
+                <input id="chooseCommercialStart" type="text" ng-value="startInitial">
+                <label class="active" for="chooseCommercialStart">起始月份</label>
             </div>
             <div class="col input-field s5" style="margin-bottom: 15px">
-                <input id="chooseCommercialEnd" type="text">
-                <label for="chooseCommercialEnd">结束月份</label>
+                <input id="chooseCommercialEnd" type="text" ng-value="endInitial">
+                <label class="active" for="chooseCommercialEnd">结束月份</label>
             </div>
             <div class="col s2 flex flex-round">
                 <i class="mdi mdi-magnify" ng-click="searchCommercialInsurance()" style="margin:20px 0 0 10px;font-size: 30px;cursor: pointer"></i>
@@ -46,12 +46,12 @@
         </div>
         <div class="col s4" style="margin-bottom: 50px">
             <div class="col input-field s5" style="margin-bottom: 15px">
-                <input id="chooseTotalStart" type="text">
-                <label for="chooseTotalStart">起始月份</label>
+                <input id="chooseTotalStart" type="text" ng-value="startInitial">
+                <label class="active" for="chooseTotalStart">起始月份</label>
             </div>
             <div class="col input-field s5" style="margin-bottom: 15px">
-                <input id="chooseTotalEnd" type="text">
-                <label for="chooseTotalEnd">结束月份</label>
+                <input id="chooseTotalEnd" type="text" ng-value="endInitial">
+                <label class="active" for="chooseTotalEnd">结束月份</label>
             </div>
             <div class="col s2 flex flex-round">
                 <i class="mdi mdi-magnify" ng-click="searchTotalInsurance()" style="margin:20px 0 0 10px;font-size: 30px;cursor: pointer"></i>

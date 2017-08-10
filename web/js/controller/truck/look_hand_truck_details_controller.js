@@ -24,6 +24,21 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
             }
         });
     };
+    
+    function truck_msg() {
+        var p =new Promise(function (resolve, reject) {
+            resolve();
+
+        })
+        return p
+    }
+    function truck_details() {
+        var p =new Promise(function (resolve, reject) {
+            resolve();
+
+        })
+        return p
+    }
     $scope.truck_msg=function () {
         // 获取品牌
         _basic.get($host.api_url+"/brand").then(function (data) {

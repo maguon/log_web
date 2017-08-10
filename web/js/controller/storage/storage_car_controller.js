@@ -452,7 +452,6 @@ app.controller("storage_car_controller", ["$scope", "$rootScope","$stateParams",
                 }
             })
         }
-
     };
     // 关闭车辆重新入库
     $scope.close_rel=function () {

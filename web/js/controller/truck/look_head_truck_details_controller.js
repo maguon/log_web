@@ -28,7 +28,21 @@ app.controller("look_head_truck_details_controller", ["$scope","$state","$stateP
                 }
             });
         };
-    $scope.truck_msg=function () {
+
+
+        function truck_msg() {
+            var p=new Promise(function (resolve,reject) {
+                resolve();
+            });
+            return p
+        }
+        function truck_details() {
+            var p=new Promise(function (resolve,reject) {
+                resolve();
+            });
+            return p
+        }
+        truck_msg().then(function () {
         // 获取品牌
         _basic.get($host.api_url+"/brand").then(function (data) {
             if(data.success==true){
@@ -63,14 +77,13 @@ app.controller("look_head_truck_details_controller", ["$scope","$state","$stateP
             if(data.success==true){
                 hand_driver_msg=data.result;
                 $scope.drive=hand_driver_msg;
-                $scope.truck_details();
+                // $scope.truck_details();
             }else {
                 swal(data.msg,"","error")
             }
         });
-    }
-
-    $scope.truck_details=function () {
+        return truck_details();
+    }).then(function () {
         // 头车详情
         _basic.get($host.api_url+"/truckFirst?truckId="+id).then(function (data) {
             if(data.success==true){
@@ -151,9 +164,7 @@ app.controller("look_head_truck_details_controller", ["$scope","$state","$stateP
                 }
             });
         };
-
-    };
-    $scope.truck_msg();
+    })
 
     
     // 解绑关联挂车

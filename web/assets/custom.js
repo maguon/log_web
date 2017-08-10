@@ -1,11 +1,13 @@
 var toggleFullScreen = function(){
+
     document.fullScreenElement&&null!==document.fullScreenElement||!document.mozFullScreen&&!document.webkitIsFullScreen?
         document.documentElement.requestFullScreen?document.documentElement.requestFullScreen():
             document.documentElement.mozRequestFullScreen?
                 document.documentElement.mozRequestFullScreen():
             document.documentElement.webkitRequestFullScreen&&document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT):
         document.cancelFullScreen?document.cancelFullScreen():document.mozCancelFullScreen?document.mozCancelFullScreen():
-        document.webkitCancelFullScreen&&document.webkitCancelFullScreen()
+        document.webkitCancelFullScreen&&document.webkitCancelFullScreen();
+        document.getElementsByClassName("ConWrap")[0].style.height=document.body.scrollHeight-70-70+"px";
 
 };
 $(document).ready(function() {

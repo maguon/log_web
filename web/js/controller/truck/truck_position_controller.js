@@ -39,8 +39,17 @@ app.controller("truck_position_controller", ["$scope", "_basic", "_config", "$ho
                 map.setViewport(pointArray);
                 //获取覆盖物位置
                 function attribute(e){
-                    var p = e.target;
-                    alert("marker的位置是" + p.getPosition().lng + "," + p.getPosition().lat);
+                    // var p = e.target;
+                    // alert("marker的位置是" + p.getPosition().lng + "," + p.getPosition().lat);
+                    _basic.get($host.api_url+"/truckFirst?truckNum="+No).then(function (data) {
+                        if(data.success==true){
+                            $scope.dirve_msg=data.result[0];
+                            $scope.No=No;
+                            $scope.truck_search_text=No;
+                            $scope.phone=phone;
+                            $scope.time=time;
+                        }
+                    })
                 }
             }
 
@@ -83,8 +92,8 @@ app.controller("truck_position_controller", ["$scope", "_basic", "_config", "$ho
             map.setViewport(pointArray);
             //获取覆盖物位置
             function attribute(e){
-                var p = e.target;
-                alert("marker的位置是" + p.getPosition().lng + "," + p.getPosition().lat);
+                // var p = e.target;
+                // alert("marker的位置是" + p.getPosition().lng + "," + p.getPosition().lat);
             }
         }
     };
@@ -96,7 +105,6 @@ app.controller("truck_position_controller", ["$scope", "_basic", "_config", "$ho
                 $scope.truck_search_text=No;
                 $scope.phone=phone;
                 $scope.time=time;
-
             }
         })
         $scope.show_truck_msg=true;

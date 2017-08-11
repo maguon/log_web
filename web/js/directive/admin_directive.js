@@ -281,7 +281,12 @@ adminDirective.directive('percent', function () {
         link: function (scope, element, attr) {
             var val = Number.parseInt(attr.value);
             var total = Number.parseInt(attr.total);
-            var percentage = Number.parseInt((val*100/total));
+            var percentage ;
+            if(total!=0){
+                percentage = Number.parseInt((val*100/total));
+            }else {
+                percentage=0;
+            }
             //Highcharts.chart('percentWrap1', {
             $(element[0].children[0]).highcharts({
                 // 表头

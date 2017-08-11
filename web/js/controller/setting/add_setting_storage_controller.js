@@ -59,7 +59,7 @@ app.controller("add_setting_storage_controller", ["$scope","$state","$stateParam
                 "row":  $scope.storage_are_row,
                 "col":  $scope.storage_are_col,
             };
-            _basic.post($host.api_url + "/user/" + userId + "/storageArea", obj).then(function (data) {
+            _basic.post($host.api_url + "/user/" + userId +"/storage/"+ id+"/storageArea", obj).then(function (data) {
                 if (data.success == true) {
                     swal("新增成功", "", "success");
                     // searchAll();

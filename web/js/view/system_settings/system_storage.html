@@ -73,7 +73,6 @@
                 <tr class="table_header grey-text text-darken-1">
                     <th class="s3" data-field="">仓库名称</th>
                     <th class="s3" data-field="">总车位</th>
-                    <th class="s2" data-field="">区域</th>
                     <th class="s2" data-field="">状态</th>
                     <th  class="s2 table_operation center-align">操作</th>
                 </tr>
@@ -82,22 +81,11 @@
                 <tbody>
                 <tr ng-repeat="el in storage" class="grey-text text-darken-1">
                     <td ng-bind="el.storage_name"></td>
-                    <td  ng-bind="el.row*el.col"></td>
-                    <td  ng-bind="el.row*el.col"></td>
+                    <td  ng-bind="el.total_seats?el.total_seats:0"></td>
                     <td ng-if="el.storage_status==1">在用</td>
                     <td ng-if="el.storage_status==0">停用</td>
                     <td class="operation table_operation vc-center">
                         <span><i class="mdi mdi-eye cyan-text text-lighten-1" ui-sref="add_setting_storage({id:el.id,from:'setting_storage'})" ></i></span>
-                        <span class="switch" ng-click="changeStorage_status(el.id,el.storage_status)" style="height: 30px">
-                              <!--<span class="switch">-->
-                                <label>
-                                  <input type="checkbox" ng-checked="el.storage_status==1">
-                                  <span class="lever"></span>
-                                </label>
-                              <!--</span>-->
-                            <!--<i ng-if="el.storage_status==0" class="mdi mdi-link cyan-text text-lighten-1" ></i>-->
-                             <!--<i ng-if="el.storage_status==1" class="mdi mdi-link-off cyan-text text-lighten-1" ></i>-->
-                        </span>
                     </td>
                 </tr>
 

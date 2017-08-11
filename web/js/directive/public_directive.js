@@ -306,10 +306,15 @@ publicDirective.directive("formDate", function () {
 publicDirective.directive('percent', function () {
     return {
         link: function (scope, element, attr) {
+            var percentage;
             var val = Number.parseInt(attr.value);
 
             var total = Number.parseInt(attr.total);
-            var percentage = Number.parseInt((val*100/total));
+            if(total!=0){
+                percentage = Number.parseInt((val*100/total));
+            }else {
+                percentage=0;
+            }
             //Highcharts.chart('percentWrap1', {
             $(element[0].children[0]).highcharts({
                 // 表头

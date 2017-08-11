@@ -25,7 +25,7 @@ app.controller("add_setting_storage_controller", ["$scope","$state","$stateParam
     // // 整体查询
     var searchAll = function () {
 
-        _basic.get($host.api_url + "/storageArea?storageId="+id).then(function (data) {
+        _basic.get($host.api_url + "/storageArea?storageId="+id+"&&areaStatus=1").then(function (data) {
             if (data.success == true) {
                 $scope.storageArea = data.result;
             }else {

@@ -250,7 +250,7 @@ app.controller("storage_car_controller", ["$scope", "$rootScope","$stateParams",
 
     // // 存放位置联动查询--区域
     $scope.changeStorageId = function (val) {
-        _basic.get($host.api_url + "/storageArea?storageId=" + val).then(function (data) {
+        _basic.get($host.api_url + "/storageArea?storageId=" + val+"&&areaStatus=1").then(function (data) {
             if (data.success == true) {
                 if(data.result.length>0){
                     $scope.storageArea = data.result;
@@ -309,7 +309,7 @@ app.controller("storage_car_controller", ["$scope", "$rootScope","$stateParams",
     $scope.changeStorageCar = function (val,storage_area_id, id, row, col) {
         $(".modal").modal();
         $("#change_storageCar").modal("open");
-        _basic.get($host.api_url + "/storageArea?storageId=" + val).then(function (data) {
+        _basic.get($host.api_url + "/storageArea?storageId=" + val+"&&areaStatus=1").then(function (data) {
             if (data.success == true) {
                 if(data.result.length>0){
                     $scope.storageArea = data.result;
@@ -386,7 +386,6 @@ app.controller("storage_car_controller", ["$scope", "$rootScope","$stateParams",
     };
 
     $scope.login_submit = function (valid, id, name,p_id) {
-
         $scope.submitted = true;
         if (valid) {
             var obj = {

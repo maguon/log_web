@@ -207,7 +207,7 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
     $scope.changeStorageCar = function (val,storage_area_id, id, row, col) {
         $(".modal").modal();
         $("#change_storageCar").modal("open");
-        _basic.get($host.api_url + "/storageArea?storageId=" + val).then(function (data) {
+        _basic.get($host.api_url + "/storageArea?storageId=" + val+"&&areaStatus=1").then(function (data) {
             if (data.success == true) {
                 if(data.result.length>0){
                     $scope.storageArea = data.result;

@@ -212,7 +212,7 @@
                         <span >
                             <i ng-if="el.rel_status==1" class="mdi mdi-logout cyan-text lighten-1" ng-click="outStorageCar(el.r_id,2,el.p_id,el.storage_id,el.id)" ></i>
                             <i ng-if="el.rel_status==2" class="mdi mdi-login cyan-text lighten-1" ng-click="loginStorageCar(el.vin,el.id)"></i>
-                                <div id="loginStorageCar" class="modal modal-fixed-footer ">
+                                <div id="loginStorageCar" class="modal modal-fixed-footer">
                             <form name="login_garageForm" ng-submit="login_submit(login_garageForm.$valid,login_storage_name.id,login_storage_name.storage_name,login_parkingId)" novalidate>
                                 <div class="modal-content">
                                     <h4 class="center-align">车辆入库</h4>

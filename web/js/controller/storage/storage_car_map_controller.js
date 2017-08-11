@@ -17,7 +17,7 @@ app.controller("storage_car_map_controller", ["$state", "$rootScope", "$statePar
             // console.log($scope.storage)
         }
     });
-    _basic.get($host.api_url + "/storageArea?storageId=" + val).then(function (data) {
+    _basic.get($host.api_url + "/storageArea?storageId=" + val+"&&areaStatus=1").then(function (data) {
         if (data.success == true) {
             if(data.result.length>0){
                 $scope.storageArea = data.result;

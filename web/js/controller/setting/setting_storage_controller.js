@@ -1,8 +1,8 @@
 
 
 // 仓库设置
-app.controller("setting_storage_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
-    var adminId = _basic.getSession(_basic.USER_ID);
+app.controller("setting_storage_controller", ["$scope","$state","$stateParams", "$host", "_basic", function ($scope,$state,$stateParams,$host, _basic) {
+    var userId = _basic.getSession(_basic.USER_ID);
 
     // 整体查询
     var searchAll = function () {
@@ -17,6 +17,7 @@ app.controller("setting_storage_controller", ["$scope", "$host", "_basic", funct
     searchAll();
 
     $scope.newStorage = function () {
+
         $scope.submitted = false;
         $scope.newStorageName = "";
         $scope.newStorageCol = "";
@@ -34,16 +35,17 @@ app.controller("setting_storage_controller", ["$scope", "$host", "_basic", funct
         if (isValid) {
             var obj = {
                 storageName: $scope.newStorageName,
-                row: Number($scope.newStorageCol),
-                col: Number($scope.newStorageRoad),
+                // row: Number($scope.newStorageCol),
+                // col: Number($scope.newStorageRoad),
                 remark: $scope.newStorageRemark
             };
-            _basic.post($host.api_url + "/user/" + adminId + "/storage", obj).then(function (data) {
+            _basic.post($host.api_url + "/user/" + userId + "/storage", obj).then(function (data) {
                 if (data.success == true) {
                     swal("新增成功", "", "success");
-                    searchAll();
+                    // searchAll();
                     $("#newStorage").modal("close");
-                } else {
+                    $state.go("add_setting_storage",{id:data.id,from:"setting_storage"}, {reload:true});
+                }else {
                     swal(data.msg, "", "error");
                 }
             })
@@ -69,7 +71,7 @@ app.controller("setting_storage_controller", ["$scope", "$host", "_basic", funct
                 storageName: $scope.selfStorage.storage_name,
                 remark: $scope.selfStorage.remark
             };
-            _basic.put($host.api_url + "/user/" + adminId + "/storage/" + id, obj).then(function (data) {
+            _basic.put($host.api_url + "/user/" + userId + "/storage/" + id, obj).then(function (data) {
                 if (data.success == true) {
                     swal("修改成功", "", "success");
                     searchAll();
@@ -104,7 +106,7 @@ app.controller("setting_storage_controller", ["$scope", "$host", "_basic", funct
         //     },
         //     function () {
 
-                _basic.put($host.api_url + "/user/" + adminId + "/storage/" + id + "/storageStatus/" + st, {}).then(function (data) {
+                _basic.put($host.api_url + "/user/" + userId + "/storage/" + id + "/storageStatus/" + st, {}).then(function (data) {
                     if (data.success == true) {
                         swal("修改成功", "", "success");
                         searchAll();

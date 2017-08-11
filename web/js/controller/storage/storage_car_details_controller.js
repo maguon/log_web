@@ -202,22 +202,79 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
             }
         );
     };
+    // 车库分区查询
     // 车位转移
-    $scope.changeStorageCar = function (val, id, row, col) {
+    $scope.changeStorageCar = function (val,storage_area_id, id, row, col) {
         $(".modal").modal();
         $("#change_storageCar").modal("open");
+        _basic.get($host.api_url + "/storageArea?storageId=" + val).then(function (data) {
+            if (data.success == true) {
+                if(data.result.length>0){
+                    $scope.storageArea = data.result;
+                    $scope.storageArea.forEach(function (i) {
+                        if(i.id==storage_area_id){
+                            $scope.area=i;
+                            $scope.get_area_count($scope.area.id);
+                        }
+                    });
+
+                    // console.log($scope.storage)
+
+                }else {
+                }
+            }
+        });
         $scope.now_row = row;
         $scope.now_col = col;
         $scope.move_carId = id;
-        _basic.get($host.api_url + "/storageParking?storageId=" + val).then(function (data) {
+        $scope.area_id=storage_area_id;
+
+    };
+
+    $scope.get_area_count=function (id) {
+        _basic.get($host.api_url + "/storageParking?areaId="+id).then(function (data) {
             if (data.success == true) {
                 $scope.self_storageParking = data.result;
                 $scope.garageParkingArray = baseService.storageParking($scope.self_storageParking);
                 $scope.ageParkingCol = $scope.garageParkingArray[0].col
-                // console.log($scope.ageParkingCol,$scope.garageParkingArray)
-
             }
+
         })
+    };
+
+
+    // 移动位置
+    $scope.move_parking = function (parkingId, row, col) {
+        console.log(parkingId, row, col);
+
+        swal({
+                title: "该车辆确定移位到" + row + "排" + col + "列？",
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                closeOnConfirm: false
+            },
+            function () {
+                if (parkingId != null) {
+                    _basic.put($host.api_url + "/user/" + userId + "/storageParking/" + parkingId, {
+                        carId: $scope.move_carId
+                    }).then(function (data) {
+                        if (data.success == true) {
+                            swal("移位成功", "", "success");
+                            $scope.lookStorageCar(val, vin);
+                            $("#change_storageCar").modal("close");
+                        } else {
+                            swal(data.msg, "", "error")
+                        }
+                    })
+                }
+            }
+        )
+
+
     };
 
 
@@ -243,13 +300,6 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
     // 仓库车辆详情
 
 
-    // 关闭模态按钮
-    // $scope.close_storageCar=function () {
-    //     searchAll();
-    // };
-
-
-
     // 返回
     $scope.return = function () {
             // console.log($stateParams.mark);
@@ -268,10 +318,6 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
         // 预览详情照片
         $scope.storage_imageBox = [];
 
-        // console.log(val);
-        // $(".modal").modal({
-        //     // dismissible: false
-        // });
         $(".main_storage_car").hide();
         $("#look_StorageCar").show();
 
@@ -317,7 +363,7 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
                 }else {
                     $scope.order_date=$scope.self_car.order_date;
                 }
-                $scope.look_storageName = $scope.self_car.storage_name + "  " + $scope.self_car.row + "排" + $scope.self_car.col + "列";
+                $scope.look_storageName = $scope.self_car.storage_name + $scope.self_car.area_name + $scope.self_car.row + "排" + $scope.self_car.col + "列";
                 // 车辆id
                 $scope.look_car_id = $scope.self_car.id;
                 // 城市
@@ -383,27 +429,22 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
         if($scope.receiveId==""){
 
         }
-        var obj = {
-            "vin": $scope.self_car.vin,
-            "makeId": $scope.self_car.make_id,
-            "makeName": $("#look_makecarName").find("option:selected").text(),
-            "orderDate": $scope.order_date,
-            "remark": $scope.self_car.remark,
-            "routeStartId": $scope.start_city.id,
-            "routeStart": $scope.start_city.city_name,
-            "baseAddrId":$scope.start_addr,
-            "routeEndId": $scope.arrive_city.id,
-            "routeEnd": $scope.arrive_city.city_name,
-            "receiveId": $scope.self_car.receive_id,
-            "entrustId": $scope.self_car.entrust_id,
-        };
+
         if (isValid) {
-            // // 修改计划出库时间
-            // _basic.put($host.api_url + "/user/" + userId + "/carStorageRel/" + r_id + "/planOutTime", {
-            //     "planOutTime": $scope.self_car.plan_out_time
-            // }).then(function (data) {
-            //     console.log(data)
-            // });
+            var obj = {
+                "vin": $scope.self_car.vin,
+                "makeId": $scope.self_car.make_id,
+                "makeName": $("#look_makecarName").find("option:selected").text(),
+                "orderDate": $scope.order_date,
+                "remark": $scope.self_car.remark,
+                "routeStartId": $scope.start_city.id,
+                "routeStart": $scope.start_city.city_name,
+                "baseAddrId":$scope.start_addr,
+                "routeEndId": $scope.arrive_city.id,
+                "routeEnd": $scope.arrive_city.city_name,
+                "receiveId": $scope.self_car.receive_id,
+                "entrustId": $scope.self_car.entrust_id,
+            };
             // 修改仓库信息
             _basic.put($host.api_url + "/user/" + userId + "/car/" + id, _basic.removeNullProps(obj)).then(function (data) {
                 if (data.success == true) {
@@ -428,59 +469,7 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
         })
 
     };
-    // 仓库移位
-    $scope.move_box = function (val) {
-        if ($(".move_box").attr("flag") == 'true') {
-            $(".move_box").show();
-            $(".move_box").attr("flag", false);
-            _basic.get($host.api_url + "/storageParking?storageId=" + val).then(function (data) {
-                if (data.success == true) {
-                    $scope.move_storageParking = data.result;
-                    $scope.move_parkingArray = baseService.storageParking($scope.move_storageParking);
-                }
-            })
-        } else {
-            $(".move_box").hide();
-            $(".move_box").attr("flag", true);
-        }
-    };
-    $scope.close_move_box = function () {
-        $(".move_box").hide();
-        $(".move_box").attr("flag", true);
-    };
-    // 移动位置
-    $scope.move_parking = function (parkingId, row, col) {
-        console.log(parkingId, row, col);
 
-        swal({
-                title: "该车辆确定移位到" + row + "排" + col + "列？",
-                text: "",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
-            },
-            function () {
-                if (parkingId != null) {
-                    _basic.put($host.api_url + "/user/" + userId + "/storageParking/" + parkingId, {
-                        carId: $scope.move_carId
-                    }).then(function (data) {
-                        if (data.success == true) {
-                            swal("移位成功", "", "success");
-                            $scope.lookStorageCar(val, vin);
-                            $("#change_storageCar").modal("close");
-                        } else {
-                            swal(data.msg, "", "error")
-                        }
-                    })
-                }
-            }
-        )
-
-
-    };
     // 发运地城市地质联动
     $scope.get_addr=function (id) {
         _basic.get($host.api_url + "/baseAddr?cityId=" + id).then(function (data) {

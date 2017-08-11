@@ -130,6 +130,7 @@
                     <th data-field="">制造商</th>
                     <th data-field="">入库时间</th>
                     <th  data-field="">存放车库</th>
+                    <th  data-field="">存放区域</th>
                     <th data-field="">存放位置</th>
                     <th data-field="">实际出库时间</th>
                     <th>操作</th>
@@ -142,36 +143,39 @@
                     <td ng-bind="el.enter_time|date:'yyyy-MM-dd HH:mm:ss'"></td>
                     <td ng-if="el.storage_id!=null" ng-bind="el.storage_name"></td>
                     <td ng-if="el.storage_id==null" >无</td>
+                    <td ng-bind="el.area_name">无</td>
                     <td ng-if="el.col!=null">{{el.row}}排{{el.col}}列</td>
                     <td ng-if="el.col==null">无</td>
                     <td ng-bind="el.real_out_time|date:'yyyy-MM-dd '"></td>
                     <td class="operation">
                         <a href="#" ui-sref="storage_car_details_({id:el.id,vin:el.vin,from:'storage_car',mark:1,status:el.rel_status})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1  " ></i></a>
                         <span>
-                            <i ng-if="el.rel_status==1" class="mdi mdi-rotate-left cyan-text lighten-1" ng-click="changeStorageCar(el.storage_id,el.id,el.row,el.col)"></i>
+                            <i ng-if="el.rel_status==1" class="mdi mdi-rotate-left cyan-text lighten-1" ng-click="changeStorageCar(el.storage_id,el.storage_area_id,el.id,el.row,el.col)"></i>
                         </span>
                         <div id="change_storageCar" class="modal ">
                             <form name="look_garageForm" >
                                 <div class="modal-content">
                                     <h4 class="center-align">车辆移位</h4>
                                     <div class="divider"></div>
-                                    <div class=" col s12 garageWrapTitle vc-center">
-                                        <div class="col s8">
+                                    <div class=" col s12 garageWrapTitle vc-center" style="margin-bottom: 10px">
+                                        <div class="col s8 valign-wrapper">
                                             <div class="col s4">
+                                                <select material-select watch id="area" ng-change="get_area_count(area.id)" ng-model="area" ng-options="area.area_name for area in storageArea" >
+                                                    <!--<option ng-repeat="el in storageArea" ng-value="el.id">{{el.area_name}}</option>-->
+                                                </select>
+                                            </div>
+                                            <div class="col s4 center-align">
                                                 停放车辆
                                                 <i class="mdi mdi-car cyan-text lighten-1"></i>
                                             </div>
-                                            <!--<div class="col s4">-->
-                                                <!--临近出库车辆-->
-                                                <!--<i class=" mdi mdi-car red-text accent-1"></i>-->
-                                            <!--</div>-->
-                                            <div class="col s4">
+
+                                            <div class="col s4 center-align">
                                                 未停放车辆
                                                 <i class=" mdi mdi-car  grey-text lighten-1 "></i>
                                             </div>
                                         </div>
-                                        <div class="col s4">
-                                            <div class="col s6">
+                                        <div class="col s4 ">
+                                            <div class="col s6 offset-s3">
                                                 当前位置
                                                 <span class="red-text" ng-bind="now_row"></span>
                                                 <span>排</span>
@@ -191,7 +195,7 @@
                                                 </div>
                                                 <div class="col s12  garage_list p0"  ng-repeat="el in garageParkingArray" >
                                                     <div class="garage_row vc-center left">{{$index+1}}</div>
-                                                    <div class="garage_row vc-center left" ng-repeat="els in el.col track by $index" ng-class="{'present_place':el.row==now_row&&els.col==now_col}">
+                                                    <div class="garage_row vc-center left" ng-repeat="els in el.col track by $index" ng-class="{'present_place':els.storage_area_id==area_id&&el.row==now_row&&els.col==now_col}">
                                                         <!--<i ng-show="els.carId!=0&&els.plan_time==true" class=" mdi mdi-car red-text accent-1 "></i>-->
                                                         <i ng-show="els.carId!=0" class=" mdi mdi-car cyan-text lighten-1"></i>
                                                         <i ng-show="els.carId==0" class=" mdi mdi-car grey-text lighten-2 " ng-click="move_parking(els.id,el.row,els.col)"></i>

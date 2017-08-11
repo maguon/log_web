@@ -26,8 +26,8 @@
                     <tbody class="grey-text text-darken-1">
                     <tr ng-repeat="el in store_storage"   ng-if="el.storage_status==1">
                         <td ng-bind="el.storage_name"></td>
-                        <td >{{el.row*el.col}}</td>
-                        <td ng-bind="el.row*el.col-el.balance"></td>
+                        <td >{{el.total_seats}}</td>
+                        <td ng-bind="el.total_seats-el.balance"></td>
                         <td ng-bind="el.balance"></td>
                         <td ng-bind="el.imports"></td>
                         <td ng-bind="el.exports"></td>

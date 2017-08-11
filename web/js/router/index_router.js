@@ -94,10 +94,16 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/system_settings/user_manager.html", //路由填充的模板
             controller:'setting_user_controller'
         })
+        // 仓库设置
         .state("setting_storage", {
             url:"/setting_storage",
             templateUrl: "js/view/system_settings/system_storage.html",
             controller:'setting_storage_controller'
+        })
+        .state("add_setting_storage", {
+            url:"/add_setting_storage/id/{id}/{from}",
+            templateUrl: "js/view/system_settings/add_system_storage.html",
+            controller:'add_setting_storage_controller'
         })
         .state("setting_car_brand", {
             url:"/setting_car_brand",

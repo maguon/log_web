@@ -12,11 +12,13 @@ app.controller("storage_index_controller", ['$rootScope', '$scope', "$host", '$l
 
             }
         });
+
+        // 总车位
         _basic.get($host.api_url + "/storageDate?dateStart=" + now_date + "&dateEnd=" + now_date).then(function (data) {
             if (data.success == true) {
                 $scope.storage_index_list = data.result;
                 for (var i in $scope.storage_index_list) {
-                    $scope.storage_allStorage = $scope.storage_allStorage + $scope.storage_index_list[i].col * $scope.storage_index_list[i].row
+                    $scope.storage_allStorage = $scope.storage_allStorage + $scope.storage_index_list[i].total_seats
                 }
                 return $scope.storage_allStorage;
             } else {

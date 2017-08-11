@@ -9,6 +9,45 @@ app.controller("storage_car_map_controller", ["$state", "$rootScope", "$statePar
     var data = new Date();
     var now_date = moment(data).format('YYYYMMDD');
     var userId = _basic.getSession(_basic.USER_NAME);
+
+    // 获取仓储分区
+    _basic.get($host.api_url + "/storageDate?storageId=" + val + "&dateStart=" + now_date + "&dateEnd=" + now_date).then(function (data) {
+        if (data.success == true) {
+            $scope.storage = data.result[0];
+            // console.log($scope.storage)
+        }
+    });
+    _basic.get($host.api_url + "/storageArea?storageId=" + val).then(function (data) {
+        if (data.success == true) {
+            if(data.result.length>0){
+                $scope.storageArea = data.result;
+                $scope.area=$scope.storageArea[0];
+                // console.log($scope.storage)
+                $scope.get_area_count($scope.area.id);
+                $scope.show_area=true;
+            }else {
+                $scope.show_area=false;
+            }
+
+        }
+    });
+    $scope.get_area_count=function (id) {
+        _basic.get($host.api_url + "/storageArea?areaId=" + id).then(function (data) {
+            if (data.success == true) {
+                $scope.self_storageArea = data.result[0];
+                // console.log($scope.storage)
+            }
+        });
+        _basic.get($host.api_url + "/storageParking?areaId=" + id).then(function (data) {
+            if (data.success == true) {
+                $scope.self_storageParking = data.result;
+                $scope.garageParkingArray = baseService.storageParking($scope.self_storageParking);
+                // console.log($scope.garageParkingArray);
+                $scope.ageParkingCol = $scope.garageParkingArray[0].col
+            }
+
+        })
+    };
     // 到仓储车辆图
     $scope.LookGarage = function (val) {
         _basic.get($host.api_url + "/storageDate?storageId=" + val + "&dateStart=" + now_date + "&dateEnd=" + now_date).then(function (data) {
@@ -16,9 +55,7 @@ app.controller("storage_car_map_controller", ["$state", "$rootScope", "$statePar
                 $scope.storage = data.result[0];
                 // console.log($scope.storage)
             }
-
         });
-
         _basic.get($host.api_url + "/storageParking?storageId=" + val).then(function (data) {
             if (data.success == true) {
                 $scope.self_storageParking = data.result;

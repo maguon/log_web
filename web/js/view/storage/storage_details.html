@@ -133,14 +133,14 @@
                                         <label for="client">委托方</label>
                                     </div>
                                     <div class=" col s4">
-                                        <div class="input-field col s6">
-                                            <select material-select watch id="arrive_city" name="arrive_city" ng-change="get_received(arrive_city.id)" ng-options="arrive_city.city_name for arrive_city in get_city"  ng-model="arrive_city" >
+                                        <div class="input-field col s6" ng-class="{ 'has-error':change_newStorage_carForm.arrive_city.$invalid&&submitted }">
+                                            <select material-select watch id="arrive_city" name="arrive_city" ng-change="get_received(arrive_city.id)" ng-options="arrive_city.city_name for arrive_city in get_city"  ng-model="arrive_city" required>
                                                 <option value="" disabled selected>请选择</option>
                                             </select>
                                             <label for="arrive_city">目的地城市</label>
                                         </div>
-                                        <div class="input-field col s6">
-                                            <select material-select watch id="dealer" name="dealer"  ng-model="self_car.receive_id">
+                                        <div class="input-field col s6" ng-class="{ 'has-error':change_newStorage_carForm.dealer.$invalid&&submitted }">
+                                            <select material-select watch id="dealer" name="dealer"  ng-model="self_car.receive_id" required>
                                                 <option value="" disabled selected>请选择</option>
                                                 <option ng-repeat="el in get_receive" ng-value="el.id" >{{el.short_name}}</option>
                                             </select>
@@ -190,7 +190,7 @@
                                     <button class="btn-floating save btn-large mr-10 btn waves-light waves-effect cyan lighten-1"  type="submit" name="action" data-position="top" data-delay="50" data-tooltip="保存">
                                         <i class="mdi mdi-check"></i>
                                     </button>
-                                    <a class="btn displacement btn-large btn-floating mr-10 waves-light waves-effect yellow darken-3" ng-click="changeStorageCar(self_car.storage_id,self_car.id,self_car.row,self_car.col)" data-position="top" data-delay="50" data-tooltip="移位">
+                                    <a class="btn displacement btn-large btn-floating mr-10 waves-light waves-effect yellow darken-3" ng-click="changeStorageCar(self_car.storage_id,self_car.storage_area_id,self_car.id,self_car.row,self_car.col)" data-position="top" data-delay="50" data-tooltip="移位">
                                         <i class="mdi mdi-rotate-left"></i>
                                     </a>
                                     <div id="change_storageCar" class="modal ">
@@ -198,23 +198,25 @@
                                             <div class="modal-content">
                                                 <h4 class="center-align">车辆移位</h4>
                                                 <div class="divider"></div>
-                                                <div class=" col s12 garageWrapTitle vc-center">
-                                                    <div class="col s8">
+                                                <div class=" col s12 garageWrapTitle vc-center" style="margin-bottom: 10px">
+                                                    <div class="col s8 valign-wrapper">
+                                                        <div class="col s4">
+                                                            <select material-select watch id="area" ng-change="get_area_count(area.id)" ng-model="area" ng-options="area.area_name for area in storageArea" >
+                                                                <!--<option ng-repeat="el in storageArea" ng-value="el.id">{{el.area_name}}</option>-->
+                                                            </select>
+                                                        </div>
                                                         <div class="col s4">
                                                             停放车辆
                                                             <i class="mdi mdi-car cyan-text lighten-1"></i>
                                                         </div>
-                                                        <!--<div class="col s4">-->
-                                                            <!--临近出库车辆-->
-                                                            <!--<i class=" mdi mdi-car red-text accent-1"></i>-->
-                                                        <!--</div>-->
-                                                        <div class="col s4">
+
+                                                        <div class="col s4 ">
                                                             未停放车辆
                                                             <i class=" mdi mdi-car  grey-text lighten-1 "></i>
                                                         </div>
                                                     </div>
-                                                    <div class="col s4">
-                                                        <div class="col s6">
+                                                    <div class="col s4 ">
+                                                        <div class="col s6 offset-s3">
                                                             当前位置
                                                             <span class="red-text" ng-bind="now_row"></span>
                                                             <span>排</span>
@@ -234,7 +236,7 @@
                                                             </div>
                                                             <div class="col s12  garage_list p0"  ng-repeat="el in garageParkingArray" >
                                                                 <div class="garage_row vc-center left">{{$index+1}}</div>
-                                                                <div class="garage_row vc-center left" ng-repeat="els in el.col track by $index" ng-class="{'present_place':el.row==now_row&&els.col==now_col}">
+                                                                <div class="garage_row vc-center left" ng-repeat="els in el.col track by $index" ng-class="{'present_place':els.storage_area_id==area_id&&el.row==now_row&&els.col==now_col}">
                                                                     <!--<i ng-show="els.carId!=0&&els.plan_time==true" class=" mdi mdi-car red-text accent-1 "></i>-->
                                                                     <i ng-show="els.carId!=0" class=" mdi mdi-car cyan-text lighten-1"></i>
                                                                     <i ng-show="els.carId==0" class=" mdi mdi-car grey-text lighten-2 " ng-click="move_parking(els.id,el.row,els.col)"></i>

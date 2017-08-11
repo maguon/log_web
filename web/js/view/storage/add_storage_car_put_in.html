@@ -74,14 +74,21 @@
                     </div>
                 </div>
                 <div class="row  p0 storage_position"  style="padding-bottom: 5px" >
-                    <div class="col s4 ">
+                    <div class="col s3 ">
                         <div class="row input-field cyan white-text">
                             <select  material-select watch id="storageName" name="storageName"  ng-change="changeStorageId(storage_name.id)" ng-options="o.storage_name for o in storageName|filter:{storage_status:'1'}" ng-model="storage_name" required>
                                 <option value=""  selected style="padding-left: 5px;">存放仓库</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col s4 ">
+                    <div class="col s3 ">
+                        <div class="row input-field cyan white-text">
+                            <select material-select watch id="area" ng-change="get_area_count(area.id)" ng-model="area" ng-options="area.area_name for area in storageArea" >
+                                <option value=""  selected style="padding-left: 5px;">存放区域</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col s3 ">
                         <div class="input-field  valign-wrapper cyan white-text" >
                             <select material-select watch id="row" name="row" class="col s12" ng-change="changeStorageRow(row,parkingArray)"  ng-model="row" required>
                                 <option value=""  selected>存放排数</option>
@@ -91,7 +98,7 @@
                             <!--<span class="col s1">排</span>-->
                         </div>
                     </div>
-                    <div class="col s4">
+                    <div class="col s3">
                         <div class="input-field  valign-wrapper cyan white-text" >
                             <select material-select watch id="col" name="col_id" class=" col s12" ng-model="parking_id" required>
                                 <option value=""  selected>存放道位</option>

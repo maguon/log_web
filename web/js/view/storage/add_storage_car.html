@@ -83,14 +83,22 @@
                     </div>
                 </div>
                 <div class="row  p0 storage_position"  style="padding-bottom: 5px" >
-                    <div class="col s4 ">
+                    <div class="col s3">
                         <div class="row input-field cyan white-text">
                             <select  material-select watch id="storageName" name="storageName"  ng-change="changeStorageId(storage_name.id)" ng-options="o.storage_name for o in storageName|filter:{storage_status:'1'}" ng-model="storage_name" required>
                                 <option value=""  selected style="padding-left: 5px;">存放仓库</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col s4 ">
+                    <div class="col s3 ">
+                        <div class="row input-field cyan white-text">
+                            <select material-select watch id="area" ng-change="get_area_count(area.id)" ng-model="area" ng-options="area.area_name for area in storageArea" >
+                                <option value=""  selected style="padding-left: 5px;">存放区域</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col s3 ">
                         <div class="input-field  valign-wrapper cyan white-text" >
                             <select material-select watch id="row" name="row" class="col s12" ng-change="changeStorageRow(row,parkingArray)"  ng-model="row" required>
                                 <option value=""  selected>存放排数</option>
@@ -100,7 +108,7 @@
                             <!--<span class="col s1">排</span>-->
                         </div>
                     </div>
-                    <div class="col s4">
+                    <div class="col s3">
                         <div class="input-field  valign-wrapper cyan white-text" >
                             <select material-select watch id="col" name="col_id" class=" col s12" ng-model="parking_id" required>
                                 <option value=""  selected>存放道位</option>
@@ -147,17 +155,17 @@
     <div id="test2" class="col s12 tab_box">
         <div class="row no-marBottom">
             <div class="col s12 valign-wrapper " style="position: relative">
-                <p class="col s1-0 min-width-2 left-align p0">
-                    <span style="color: red">*</span>
-                    车辆照片:</p>
-                <div class="storage_car_picture_wrap col s9-0 p0" >
+                <div class="storage_car_picture_wrap col s12 p0" >
                     <form name="uploadImageForm" class="uploadImageForm">
-                        <div class="storage_car_picture col s3 vc-center  p0 cyan lighten-1 white-text">
-                            <input name="image" type="file" onchange="angular.element(this).scope().uploadBrandImage(this)" max_size="4M">
-                            <i class="mdi mdi-instagram"></i>
+                        <div class="upload_btn left  ">
+                            <div class="storage_car_picture  vc-center  p0  white-text cyan lighten-1">
+                                <input name="image" type="file" onchange="angular.element(this).scope().uploadBrandImage(this)" max_size="4M">
+                                <i class="mdi mdi-instagram"></i>
+                            </div>
+                            <p class="center-align" style="margin-top: 10px">车辆照片</p>
                         </div>
                         <ul id="look_img">
-                            <li ng-repeat="el in storage_imageBox" ng-mouseenter="show=true" ng-mouseleave="show=false"    class="storage_car_picture col s3 vc-center  p0 grey white-text">
+                            <li ng-repeat="el in storage_imageBox" ng-mouseenter="show=true" ng-mouseleave="show=false"    class="truck_car_picture col s3 vc-center  p0 grey white-text">
                                 <img ng-src="{{el.src}}" class="responsive-img">
                                 <b class="delete_img vc-center black fz18" ng-click="delete_img(el.record_id,el.src)"><i class="mdi mdi-close"></i></b>
                                 <p class="img_date white-text center-align" ng-show="show" ng-cloak>{{el.user}}上传于{{el.time|date:'yyyy-MM-dd HH:mm:ss'}}</p>

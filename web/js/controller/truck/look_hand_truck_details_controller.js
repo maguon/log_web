@@ -4,7 +4,7 @@
 app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateParams","_basic", "_config", "$host", function ($scope,$state,$stateParams, _basic, _config, $host) {
     var userId=_basic.getSession(_basic.USER_ID);
     var id=$stateParams.id;
-    var head_car_msg;
+    var head_car_msg=[];
     $scope.show_unbind_head_btn=false;
     $scope.no_service_img=false;
     $scope.no_drive_img=false;
@@ -29,17 +29,17 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
         var p =new Promise(function (resolve, reject) {
             resolve();
 
-        })
+        });
         return p
     }
     function truck_details() {
         var p =new Promise(function (resolve, reject) {
             resolve();
 
-        })
+        });
         return p
     }
-    $scope.truck_msg=function () {
+    truck_msg().then(function () {
         // 获取品牌
         _basic.get($host.api_url+"/brand").then(function (data) {
             if(data.success==true){
@@ -52,38 +52,15 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
         // 获取车头
         _basic.get($host.api_url+"/truckTrailer?truckType=1").then(function (data) {
             if(data.success==true){
-
                 $scope.head_car_msg=data.result;
                 head_car_msg=data.result;
-                $scope.truck_details();
 
             }else {
                 swal(data.msg,"","error")
             }
         });
-        // // 获取挂车
-        // _basic.get($host.api_url+"/truckTrailer?truckType=2").then(function (data) {
-        //     if(data.success==true){
-        //         hand_truck_msg=data.result;
-        //         $scope.hand_truck_msg=data.result;
-        //
-        //     }else {
-        //         swal(data.msg,"","error")
-        //     }
-        // });
-        // 获取主驾司机
-        // _basic.get($host.api_url+"/drive").then(function (data) {
-        //     if(data.success==true){
-        //         hand_driver_msg=data.result;
-        //         $scope.drive=hand_driver_msg;
-        //         $scope.truck_details();
-        //     }else {
-        //         swal(data.msg,"","error")
-        //     }
-        // });
-    };
-
-    $scope.truck_details=function () {
+        return truck_details()
+    }).then(function () {
         // 挂车详情
         _basic.get($host.api_url+"/truckTrailer?truckId="+id).then(function (data) {
             if(data.success==true){
@@ -154,8 +131,7 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
             });
         }
 
-    };
-    $scope.truck_msg();
+    })
 
 
 

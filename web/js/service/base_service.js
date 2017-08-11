@@ -15,6 +15,7 @@ baseService.factory("baseService", function () {
             var date = new Date(pk[i].plan_out_time);
             var plan_time = date.getTime();
 
+
             var new_time = new Date().getTime();
             time = plan_time - new_time - 1000 * 60 * 60 * 24 * 5;
             if (time > 0) {
@@ -30,8 +31,6 @@ baseService.factory("baseService", function () {
                 }
             }
             if (j == parkingArray.length) {
-
-                // pk[i].plan_time-
                 parkingArray.push({
                     row: pk[i].row,
                     col: [{
@@ -42,7 +41,8 @@ baseService.factory("baseService", function () {
                         status: pk[i].parking_status,
                         plan_time: expiredFlag,
                         storage_name: pk[i].storage_name,
-                        storage_id: pk[i].storage_id
+                        storage_id: pk[i].storage_id,
+                        storage_area_id:pk[i].storage_area_id
                     }]
                 })
             } else {
@@ -54,7 +54,8 @@ baseService.factory("baseService", function () {
                     status: pk[i].parking_status,
                     plan_time: expiredFlag,
                     storage_name: pk[i].storage_name,
-                    storage_id: pk[i].storage_id
+                    storage_id: pk[i].storage_id,
+                    storage_area_id:pk[i].storage_area_id
                 });
             }
 

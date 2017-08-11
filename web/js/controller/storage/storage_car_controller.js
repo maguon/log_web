@@ -404,23 +404,75 @@ app.controller("storage_car_controller", ["$scope", "$rootScope","$stateParams",
             }
         );
     };
+    // 车库分区查询
     // 车位转移
-    $scope.changeStorageCar = function (val, id, row, col) {
-        // console.log(val, id, row, col);
+    $scope.changeStorageCar = function (val,storage_area_id, id, row, col) {
         $(".modal").modal();
         $("#change_storageCar").modal("open");
+        _basic.get($host.api_url + "/storageArea?storageId=" + val).then(function (data) {
+            if (data.success == true) {
+                if(data.result.length>0){
+                    $scope.storageArea = data.result;
+                    $scope.storageArea.forEach(function (i) {
+                        if(i.id==storage_area_id){
+                            $scope.area=i;
+                            $scope.get_area_count($scope.area.id);
+                        }
+                    });
+
+                    // console.log($scope.storage)
+
+                }else {
+                }
+            }
+        });
         $scope.now_row = row;
         $scope.now_col = col;
         $scope.move_carId = id;
-        _basic.get($host.api_url + "/storageParking?storageId=" + val).then(function (data) {
+        $scope.area_id=storage_area_id;
+
+    };
+    $scope.get_area_count=function (id) {
+        _basic.get($host.api_url + "/storageParking?areaId="+id).then(function (data) {
             if (data.success == true) {
                 $scope.self_storageParking = data.result;
                 $scope.garageParkingArray = baseService.storageParking($scope.self_storageParking);
                 $scope.ageParkingCol = $scope.garageParkingArray[0].col
-                // console.log($scope.ageParkingCol,$scope.garageParkingArray)
-
             }
+
         })
+    };
+    // 移动位置
+    $scope.move_parking = function (parkingId, row, col) {
+
+        swal({
+                title: "该车辆确定移位到" + row + "排" + col + "列？",
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                closeOnConfirm: false
+            },
+            function () {
+                if (parkingId != null) {
+                    _basic.put($host.api_url + "/user/" + userId + "/storageParking/" + parkingId, {
+                        carId: $scope.move_carId
+                    }).then(function (data) {
+                        if (data.success == true) {
+                            swal("移位成功", "", "success");
+                            searchAll();
+                            $("#change_storageCar").modal("close");
+                        } else {
+                            swal(data.msg, "", "error")
+                        }
+                    })
+                }
+            }
+        )
+
+
     };
 
     // 车辆重新入库
@@ -459,58 +511,7 @@ app.controller("storage_car_controller", ["$scope", "$rootScope","$stateParams",
         searchAll();
         $scope.parkingArray=[];
     };
-    // 仓库移位
-    $scope.move_box = function (val) {
-        if ($(".move_box").attr("flag") == 'true') {
-            $(".move_box").show();
-            $(".move_box").attr("flag", false);
-            _basic.get($host.api_url + "/storageParking?storageId=" + val).then(function (data) {
-                if (data.success == true) {
-                    $scope.move_storageParking = data.result;
-                    $scope.move_parkingArray = baseService.storageParking($scope.move_storageParking);
-                }
-            })
-        } else {
-            $(".move_box").hide();
-            $(".move_box").attr("flag", true);
-        }
-    };
-    $scope.close_move_box = function () {
-        $(".move_box").hide();
-        $(".move_box").attr("flag", true);
-    };
-    // 移动位置
-    $scope.move_parking = function (parkingId, row, col) {
 
-        swal({
-                title: "该车辆确定移位到" + row + "排" + col + "列？",
-                text: "",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
-            },
-            function () {
-                if (parkingId != null) {
-                    _basic.put($host.api_url + "/user/" + userId + "/storageParking/" + parkingId, {
-                        carId: $scope.move_carId
-                    }).then(function (data) {
-                        if (data.success == true) {
-                            swal("移位成功", "", "success");
-                            searchAll();
-                            $("#change_storageCar").modal("close");
-                        } else {
-                            swal(data.msg, "", "error")
-                        }
-                    })
-                }
-            }
-        )
-
-
-    };
     // 车辆出库
     $scope.out_storage = function (rel_id, relSta, p_id, s_id, car_id) {
         // swal("该车辆确定要出库吗","","warning")

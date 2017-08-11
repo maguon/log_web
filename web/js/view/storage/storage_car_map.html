@@ -2,15 +2,62 @@
 <div class="storage_car_map" >
     <div class="" style="width: 95%;margin: 0 auto">
         <div class="modal-content">
-            <div class="storage_storeTitle vc-center">
-                <a class="storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
+            <div class="storage_storeTitle left-align">
+                <a class=" btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
                     <i class="mdi mdi-arrow-left-bold"></i>
                 </a>
-                <h5><span ng-bind="storage.storage_name" class="grey-text text-darken-1"></span></h5>
             </div>
-            <div class="divider"></div>
-            <div class="row cyan lighten-1 white-text" style="padding: 0.75rem 0;margin: 0">
-                <p class="col s2">
+
+            <div class="row cyan lighten-1 white-text" style="padding: 0.75rem 0;margin: 10px 0 0 0 ">
+                <div class="row valign-wrapper">
+                    <h5 class="col s2"><span ng-bind="storage.storage_name" class="white-text text-darken-1"></span></h5>
+                    <div class="col s5">
+                        <p class="col s4">
+                            <span>总车位:</span>
+                            <span class="" style="font-size: 22px">{{storage.total_seats}}</span>
+                        </p>
+                        <p class="col s4">
+                            <span>已用车位:</span>
+                            <span class="" style="font-size: 22px">{{storage.balance}}</span>
+                        </p>
+                        <p class="col s4">
+                            <span>剩余车位:</span>
+                            <span class="" style="font-size: 22px" ng-bind="storage.total_seats-storage.balance">5</span>
+                        </p>
+                    </div>
+                    <div class="col s5">
+                        <p class="col s6" style="font-size: 18px" >
+                            <span>今日入库车辆:</span>
+                            <span class="white-text" style="font-size: 30px" ng-bind="storage.imports"></span>
+                        </p>
+                        <p class="col s6" style="font-size: 18px">
+                            <span>今日出库车辆:</span>
+                            <span class="white-text" style="font-size: 30px" ng-bind="storage.exports"></span>
+                        </p>
+                    </div>
+                </div>
+                <div class="divider col s12 white" style="height: 1px;"></div>
+                <div class="row " style="margin-bottom:0" ng-if="show_area">
+                    <div class="col s2">
+                        <select material-select watch id="area" ng-change="get_area_count(area.id)" ng-model="area" ng-options="area.area_name for area in storageArea" >
+                            <!--<option ng-repeat="el in storageArea" ng-value="el.id">{{el.area_name}}</option>-->
+                        </select>
+                    </div>
+                    <div class="col s5" style="margin-top: 10px">
+                        <p class="col s4">
+                            <span>总车位:</span>
+                            <span class="" style="font-size: 22px">{{self_storageArea.row*self_storageArea.col}}</span>
+                        </p>
+                        <p class="col s4">
+                            <span>车位:</span>
+                            <span class="" style="font-size: 22px">{{self_storageArea.row}}</span>
+                            排
+                            <span class="" style="font-size: 22px">{{self_storageArea.col}}</span>
+                            列
+                        </p>
+                    </div>
+                </div>
+                <!--       <p class="col s2">
                     <span>车位:</span>
                     <span class="" ng-bind="storage.row" style="font-size: 22px"></span>
                     <span>排</span>
@@ -35,10 +82,10 @@
                 <p class="col s2" style="font-size: 18px">
                     <span>今日出库车辆:</span>
                     <span class="white-text" style="font-size: 36px" ng-bind="storage.exports"></span>
-                </p>
+                </p>-->
             </div>
             <div class="divider" style="background: #00bcd4;height: 2px;"></div>
-            <div class="row">
+            <div class="row" ng-if="show_area">
                 <div class=" col s12 garageWrapTitle vc-center grey-text text-darken-1">
                     <div class="col s8">
                         <div class="col s4 ">

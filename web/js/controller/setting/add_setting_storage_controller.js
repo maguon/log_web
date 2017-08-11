@@ -55,7 +55,7 @@ app.controller("add_setting_storage_controller", ["$scope","$state","$stateParam
             var obj = {
                 "storageId": id,
                 "areaName":   $scope.storage_area_Name,
-                "total": $scope.storage_count,
+                // "total": $scope.storage_count,
                 "row":  $scope.storage_are_row,
                 "col":  $scope.storage_are_col,
             };

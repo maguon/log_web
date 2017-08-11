@@ -94,22 +94,6 @@ app.controller("add_storage_car_put_in_controller", ["$scope", "$rootScope","$st
     };
     $scope.get_Msg();
 
-    // // 存放位置联动查询--行
-    // $scope.changeStorageId = function (val) {
-    //     if (val) {
-    //         _basic.get($host.api_url + "/storageParking?storageId=" + val).then(function (data) {
-    //             if (data.success == true) {
-    //                 $scope.storageParking = data.result;
-    //
-    //                 $scope.parkingArray = baseService.storageParking($scope.storageParking);
-    //
-    //             } else {
-    //                 swal(data.msg, "", "error");
-    //             }
-    //         });
-    //     }
-    //
-    // },
         // 存放位置联动查询--区域
         $scope.changeStorageId = function (val) {
             _basic.get($host.api_url + "/storageArea?storageId=" + val).then(function (data) {

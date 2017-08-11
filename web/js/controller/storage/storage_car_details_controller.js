@@ -134,7 +134,7 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
                 $scope.storageParking = data.result;
 
                 $scope.parkingArray = baseService.storageParking($scope.storageParking);
-                console.log($scope.parkingArray)
+                // console.log($scope.parkingArray)
 
             } else {
                 swal(data.msg, "", "error");

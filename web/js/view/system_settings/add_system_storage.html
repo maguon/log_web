@@ -27,12 +27,12 @@
                                         <label for="storage_area_Name">区域名称<span style="color: red">*</span></label>
                                     </div>
                                 </div>
-                                <div class="row" style="margin-top:40px">
-                                    <div class="input-field" ng-class="{ 'has-error':Storage_area_Form.storage_count.$invalid&&submitted }" >
-                                        <input  id="storage_count" name="storage_count" autocomplete="off" ng-model="storage_count" type="text"   required >
-                                        <label for="storage_count">总车位<span style="color: red">*</span></label>
-                                    </div>
-                                </div>
+                                <!--<div class="row" style="margin-top:40px">-->
+                                    <!--<div class="input-field" ng-class="{ 'has-error':Storage_area_Form.storage_count.$invalid&&submitted }" >-->
+                                        <!--<input  id="storage_count" name="storage_count" autocomplete="off" ng-model="storage_count" type="text"   required >-->
+                                        <!--<label for="storage_count">总车位<span style="color: red">*</span></label>-->
+                                    <!--</div>-->
+                                <!--</div>-->
                                 <div class="row p0 cyan-text" style="margin-bottom: 0;margin-top: 40px">
                                     车道位：
                                 </div>
@@ -126,7 +126,7 @@
 
                     <p class="grey-text row" style="padding:0 10px 0 10px;margin: 0">
                         <span class="col s2" style="min-width: 90px">总车位:</span>
-                        <span class="cyan-text text-lighten-2 col s9">{{el.total}}</span>
+                        <span class="cyan-text text-lighten-2 col s9">{{el.row*el.col}}</span>
                     </p>
                     <p class="grey-text  row " style="padding: 10px 10px 20px 10px;margin:0;">
                         <span class="col s2" style="min-width: 90px">车道位:</span>

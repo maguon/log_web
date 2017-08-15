@@ -120,6 +120,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/system_settings/setting_city.html",
             controller:'setting_city_controller'
         })
+        .state("setting_line",{
+            url:"/setting_line",
+            templateUrl: "js/view/system_settings/setting_line.html",
+            controller:'setting_line_controller'
+        })
         .state("truck_brand",{
             url:"/truck_brand",
             templateUrl: "js/view/system_settings/truck_brand.html",

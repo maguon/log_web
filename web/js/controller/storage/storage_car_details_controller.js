@@ -22,6 +22,8 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
                 $scope.get_city=data.result;
             }
         });
+
+
         // 车辆品牌查询
         _basic.get($host.api_url + "/carMake").then(function (data) {
             if (data.success == true) {
@@ -367,7 +369,6 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
                 // 车辆id
                 $scope.look_car_id = $scope.self_car.id;
                 // 城市
-                setTimeout(function () {
                     $scope.get_city.forEach(function (val) {
                         if(val.id==$scope.self_car.route_start_id){
                             $scope.select_city_start=val;
@@ -380,7 +381,6 @@ app.controller("storage_car_details_controller", [ "$state", "$stateParams", "_c
                     $scope.get_addr($scope.start_city.id);
                     $scope.start_addr= $scope.self_car.base_addr_id;
                     $scope.arrive_city= $scope.select_city_end;
-                },100);
             } else {
                 swal(data.msg, "", "error")
             }

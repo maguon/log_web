@@ -16,17 +16,7 @@
                         <div class="row  grey-text text-darken-1">
                             <div class="col s10">
                                 <div class="col s12">
-                                    <div class="input-field col s6">
-                                        <input name="search_num" id="search_num" type="text" ng-model="search_num"   >
-                                        <label for="search_num">牌号</label>
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <input name="search_driver" id="search_driver" type="text" ng-model="search_driver" >
-                                        <label for="search_driver">关联司机</label>
-                                    </div>
-                                </div>
-                                <div class="col s12" style="margin-top: 10px">
-                                    <div class="input-field col s4">
+                                    <div class="input-field col s3">
                                         <select id="search_truck_type" material-select watch ng-model="search_truck_type">
                                             <option ng-value="">请选择</option>
                                             <option ng-value="1">自营车</option>
@@ -36,21 +26,41 @@
                                         </select>
                                         <label for="search_truck_type">所属类型</label>
                                     </div>
-                                    <div class="input-field col s4">
+                                    <div class="input-field col s3">
                                         <select id="search_company" material-select watch ng-model="search_company">
                                             <option value=""  >所属公司</option>
                                             <option ng-repeat="el in company" ng-value="el.id">{{el.company_name}}</option>
                                         </select>
                                         <label for="search_company">请选择</label>
                                     </div>
-                                    <div class=" col s4 p0">
+                                    <div class="input-field col s3">
+                                        <input name="search_num" id="search_num" type="text" ng-model="search_num"   >
+                                        <label for="search_num">牌号</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input name="search_driver" id="search_driver" type="text" ng-model="search_driver" >
+                                        <label for="search_driver">关联司机</label>
+                                    </div>
+                                </div>
+                                <div class="col s12" style="margin-top: 10px">
+                                    <div class=" col s6 p0">
+                                        <div class="input-field col s6">
+                                            <input type="text" ng-model="check_operation_startTime" id="check_operation_startTime" name="check_operation_startTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                            <label for="check_operation_startTime">营运证检证日期(始)</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <input type="text" ng-model="check_operation_endTime" id="check_operation_endTime" name="check_operation_endTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                            <label for="check_operation_endTime">营运证检证日期(终)</label>
+                                        </div>
+                                    </div>
+                                    <div class=" col s6 p0">
                                         <div class="input-field col s6">
                                             <input type="text" ng-model="search_checkCar_startTime" id="search_checkCar_startTime" name="search_checkCar_startTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                            <label for="search_checkCar_startTime">检车日期(始)</label>
+                                            <label for="search_checkCar_startTime">行驶证检证日期(始)</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <input type="text" ng-model="search_checkCar_endTime" id="search_checkCar_endTime" name="search_checkCar_endTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                            <label for="search_checkCar_endTime">检车日期(终)</label>
+                                            <label for="search_checkCar_endTime">行驶证检证日期(终)</label>
                                         </div>
                                     </div>
                                 </div>
@@ -142,11 +152,28 @@
                         <div class="row  grey-text text-darken-1 ">
                             <div class="col s10">
                                 <div class="col s12">
-                                    <div class="input-field col s6">
+                                    <div class="input-field col s3">
+                                        <select id="search_truck_hand_type" material-select watch ng-model="search_truck_hand_type">
+                                            <option ng-value="">请选择</option>
+                                            <option ng-value="1">自营车</option>
+                                            <option ng-value="2">外协车</option>
+                                            <option ng-value="3">供方车</option>
+                                            <option ng-value="4">承包车</option>
+                                        </select>
+                                        <label for="search_truck_hand_type">所属类型</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <select id="search_hand_company" material-select watch ng-model="search_hand_company">
+                                            <option value=""  >所属公司</option>
+                                            <option ng-repeat="el in company" ng-value="el.id">{{el.company_name}}</option>
+                                        </select>
+                                        <label for="search_hand_company">请选择</label>
+                                    </div>
+                                    <div class="input-field col s3">
                                         <input name="search_hand_num" id="search_hand_num" type="text" ng-model="search_hand_num"  minlength="6" >
                                         <label for="search_hand_num">牌号</label>
                                     </div>
-                                    <div class=" col s6">
+                                    <div class=" col s3">
                                         <div class="input-field col s6">
                                             <input name="search_hand_num_start" id="search_hand_num_start" type="number" ng-model="search_hand_num_start"  minlength="6" >
                                             <label for="search_hand_num_start">挂车货位(始)</label>
@@ -158,31 +185,24 @@
                                     </div>
                                 </div>
                                 <div class="col s12">
-                                    <div class="input-field col s4">
-                                        <select id="search_truck_hand_type" material-select watch ng-model="search_truck_hand_type">
-                                            <option ng-value="">请选择</option>
-                                            <option ng-value="1">自营车</option>
-                                            <option ng-value="2">外协车</option>
-                                            <option ng-value="3">供方车</option>
-                                            <option ng-value="4">承包车</option>
-                                        </select>
-                                        <label for="search_truck_hand_type">所属类型</label>
+                                    <div class=" col s6 p0">
+                                        <div class="input-field col s6">
+                                            <input type="text" ng-model="check_operation_hand_startTime" id="check_operation_hand_startTime" name="check_operation_hand_startTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                            <label for="check_operation_hand_startTime">营运证检证日期(始)</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <input type="text" ng-model="check_operation_hand_endTime" id="check_operation_hand_endTime" name="check_operation_hand_endTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                            <label for="check_operation_hand_endTime">营运证检证日期(终)</label>
+                                        </div>
                                     </div>
-                                    <div class="input-field col s4">
-                                        <select id="search_hand_company" material-select watch ng-model="search_hand_company">
-                                            <option value=""  >所属公司</option>
-                                            <option ng-repeat="el in company" ng-value="el.id">{{el.company_name}}</option>
-                                        </select>
-                                        <label for="search_hand_company">请选择</label>
-                                    </div>
-                                    <div class=" col s4 p0">
+                                    <div class=" col s6 p0">
                                         <div class="input-field col s6">
                                             <input type="text" ng-model="search_checkCar_hand_startTime" id="search_checkCar_hand_startTime" name="search_checkCar_hand_startTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                            <label for="search_checkCar_hand_startTime">检车日期(始)</label>
+                                            <label for="search_checkCar_hand_startTime">行驶证检证日期(始)</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <input type="text" ng-model="search_checkCar_hand_endTime" id="search_checkCar_hand_endTime" name="search_checkCar_hand_endTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                            <label for="search_checkCar_hand_endTime">检车日期(终)</label>
+                                            <label for="search_checkCar_hand_endTime">行驶证检证日期(终)</label>
                                         </div>
                                     </div>
                                 </div>

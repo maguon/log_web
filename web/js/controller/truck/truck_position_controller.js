@@ -35,7 +35,6 @@ app.controller("truck_position_controller", ["$scope", "_basic", "_config", "$ho
                     }); // 创建点
                     // 是否开始滚轮操作
                     map.enableScrollWheelZoom(true);
-                    var No_this=json_data[i][3];
                     map.addOverlay(marker);    //增加标注点
                     pointArray[i] = new BMap.Point(json_data[i][0], json_data[i][1]);
                     marker.addEventListener("click",attribute);
@@ -44,16 +43,17 @@ app.controller("truck_position_controller", ["$scope", "_basic", "_config", "$ho
                 map.setViewport(pointArray);
                 //获取覆盖物位置
                 function attribute(e){
-                    // var p = e.target;
-                    // alert("marker的位置是" + p.getPosition().lng + "," + p.getPosition().lat);
-                    _basic.get($host.api_url+"/truckFirst?truckNum="+No_this).then(function (data) {
-                        if(data.success==true){
-                            $scope.dirve_msg=data.result[0];
-                            $scope.truck_search_text=No_this;
-                            // $scope.phone=phone;
-                            // $scope.time=time;
-                        }
-                    })
+                    var p = e.target;
+                    alert("marker的位置是" + p.getPosition().lng + "," + p.getPosition().lat);
+
+                    // _basic.get($host.api_url+"/truckFirst?truckNum="+No_this).then(function (data) {
+                    //     if(data.success==true){
+                    //         $scope.dirve_msg=data.result[0];
+                    //         $scope.truck_search_text=No_this;
+                    //         // $scope.phone=phone;
+                    //         // $scope.time=time;
+                    //     }
+                    // })
                 }
             }
 

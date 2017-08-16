@@ -27,6 +27,8 @@ app.controller("truck_details_controller", ["$scope","$state","$stateParams","_b
             operateType:$scope.search_truck_type,
             companyId:$scope.search_company,
             driveName:$scope.search_driver,
+            licenseDateStart:$scope.check_operation_startTime,
+            licenseDateEnd:$scope.check_operation_endTime,
             drivingDateStart:$scope.search_checkCar_startTime,
             drivingDateEnd:$scope.search_checkCar_endTime
         };
@@ -148,6 +150,8 @@ app.controller("truck_details_controller", ["$scope","$state","$stateParams","_b
             numberEnd:$scope.search_hand_num_end,
             operateType:$scope.search_truck_hand_type,
             companyId:$scope.search_hand_company,
+            licenseDateStart:$scope.check_operation_hand_startTime,
+            licenseDateEnd:$scope.check_operation_hand_endTime,
             drivingDateStart:$scope.search_checkCar_hand_startTime,
             drivingDateEnd:$scope.search_checkCar_hand_endTime
         };

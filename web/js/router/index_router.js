@@ -61,10 +61,15 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         //     controller:"company_controller"
         // })
         .state("malfunction", {
-            url: "/malfunction",  //路由路径
-            templateUrl: "js/view/car/malfunction.html", //路由填充的模板
+            url: "/malfunction",
+            templateUrl: "js/view/car/malfunction.html",
             // abstract:true,
             controller:"truck_malfunction_controller"
+        })
+        .state("instruction_plan", {
+            url: "/instruction_plan",
+            templateUrl: "js/view/dispatch/instruction_plan.html",
+            controller:"instruction_plan_controller"
         })
         .state("refuel", {
             url: "/refuel",  //路由路径

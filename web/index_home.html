@@ -94,6 +94,7 @@
                 <div class="collapsible-body slider_nav_box blue-grey darken-3" style="padding: 0;">
                     <ul>
                         <li><a href="#!" ui-sref="instruction_plan"><i class="mdi mdi-chevron-right white-text "></i>指令计划</a></li>
+                        <li><a href="#!" ui-sref="instruction_list"><i class="mdi mdi-chevron-right white-text "></i>指令列表</a></li>
                     </ul>
                 </div>
             </li>
@@ -124,7 +125,6 @@
                 <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-database "></i>公共数据</a>
                 <div class="collapsible-body slider_nav_box blue-grey darken-3" style="padding: 0;">
                     <ul>
-                        <!--<li><a href="#!" ui-sref="car_demand"><i class="mdi mdi-chevron-right white-text "></i>商品车信息</a></li>-->
                         <li><a href="#!" ui-sref="car_query"><i class="mdi mdi-chevron-right white-text "></i>商品车信息</a></li>
                         <li><a href="#!" ui-sref="car_statistics"><i class="mdi mdi-chevron-right white-text "></i>商品车统计</a></li>
                     </ul>
@@ -249,13 +249,8 @@
 <script src="/lib/angular/angular-messages.min.js"></script>
 <script src="/js/module/app_admin_module.js"></script>
 <script src="/js/controller/data/car_to_data_controller.js"></script>
-
 <script src="/js/controller/index_controller.js"></script>
 <script src="/js/controller/common_login_controller.js"></script>
-<!--<script src="/js/controller/setting_storage_controller.js"></script>-->
-<script src="/js/controller/dispatch/truck_controller.js"></script>
-<script src="/js/controller/dispatch/instruction_plan_controller.js"></script>
-<!--<script src="/js/controller/car/car_supervise/car_sv_driver_controller.js"></script>-->
 <!--车管-->
 <script src="/js/controller/truck/truck_company_controller.js"></script>
 <script src="/js/controller/truck/truck_details_controller.js"></script>
@@ -272,6 +267,7 @@
 <script src="/js/controller/truck/truck_position_controller.js"></script>
 <script src="/js/controller/truck/truck_repair_list_controller.js"></script>
 
+<!--管理员设置-->
 <script src="/js/controller/setting/setting_storage_controller.js"></script>
 <script src="/js/controller/setting/add_setting_storage_controller.js"></script>
 <script src="/js/controller/setting/setting_user_controller.js"></script>
@@ -289,18 +285,15 @@
 <script src="/js/controller/setting/setting_client/setting_client_controller.js"></script>
 <script src="/js/controller/setting/setting_client/setting_add_client_controller.js"></script>
 <script src="/js/controller/setting/setting_client/setting_client_details_controller.js"></script>
-
 <script src="/js/controller/setting/data_dictionary_controller.js"></script>
-
 <script src="/js/controller/storage/storage_car_controller.js"></script>
 <script src="/js/controller/storage/storage_index_controller.js"></script>
 <script src="/js/controller/storage/vehicle_index_controller.js"></script>
 
 
 
-
+<!--仓储-->
 <script src="/js/controller/storage/storage_controller.js"></script>
-<!--<script src="/js/controller/data/car_to_data_controller.js"></script>-->
 <script src="/js/controller/storage/storage_calendar_controller.js"></script>
 <script src="/js/controller/storage/storage_car_details_controller.js"></script>
 <script src="/js/controller/storage/storage_car_map_controller.js"></script>
@@ -310,12 +303,15 @@
 <script src="/js/controller/storage/add_storage_car_vin_controller.js"></script>
 <script src="/js/controller/storage/add_storage_car_controller.js"></script>
 <script src="/js/controller/storage/add_storage_car_put_in_controller.js"></script>
+<!--用户信息-->
 <script src="/js/controller/user/user_info_controller.js"></script>
-<!--<script src="/js/controller/car/car_demand/car_demand_controller.js"></script>-->
+<!--商品车-->
 <script src="/js/controller/car/car_query/car_query_controller.js"></script>
-<script src="/js/controller/car/car_query/car_query_details_controller.js"></script>
-<script src="/js/controller/car/car_demand/demand_car_details_controller.js"></script>
 <script src="/js/controller/car/car_statistics_controller.js"></script>
+
+<!--指令调度-->
+<script src="/js/controller/dispatch/instruction_list_controller.js"></script>
+
 <script src="/js/filter/filters.js"></script>
 <script src="/js/service/base_service.js"></script>
 <script src="/js/service/config_service.js"></script>
@@ -324,5 +320,4 @@
 <script src="/js/host/host_config.js"></script>
 <script src="/js/directive/admin_directive.js"></script>
 <script src="/js/router/index_router.js"></script>
-<!--<script src="/config.js"></script>-->
 </html>

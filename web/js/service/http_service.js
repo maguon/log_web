@@ -59,17 +59,14 @@ baseService.factory('_basic',['$http','$location','$q',"$cookies",function($http
                 }else {
                     $(".shadeDowWrap").show();
                 }
-                // url = '/api' + (url[0]==='/'?'':'/') + url;
+
                 var deferred = $q.defer();
-                //only 'post,put' need 2nd parameter
                 $http[fn](url,param).then(function(success){
                     $(".shadeDowWrap").hide();
                     deferred.resolve(success.data);
-
                 }).catch(function(data){
                     $(".shadeDowWrap").hide();
                     swal("服务器内部异常","","error");
-                    // checkAuthorizedStatus(data);
                     deferred.reject(data);
                 });
                 return deferred.promise;

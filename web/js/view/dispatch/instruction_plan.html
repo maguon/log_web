@@ -1,1 +1,337 @@
-666
+<div class="instruction_plan">
+    <div class="row">
+        <!--点击路线模态框-->
+        <div id="carInfoModel" class="modal modal-fixed-footer" style="width: 72%">
+            <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+                <div class="row col s12 vc-center" style="font-weight: bold;height: 80px;background-color:rgb(63,185,193)">
+                    <div class="col s3 fz22 white-text" style="font-weight: 600">
+                        <p>{{currentModelInfo.date_id}}</p>
+                    </div>
+                    <div class="col s6 vc-center">
+                        <h6 class="white-text fz22" style="font-weight:600">{{currentModelInfo.route_start}}&emsp;<span style="font-size: 2.3rem" class="mdi mdi-swap-horizontal"></span><span>&emsp;{{currentModelInfo.route_end}}</span></h6>
+                    </div>
+                    <div class="col s3 fz22 white-text" style="font-weight: 600">
+                        <p>{{currentDistance == "notSet" ? "里程未设置" : currentDistance + " 公里"}}</p>
+                    </div>
+                </div>
+                <div class="row col s12 vc-center">
+                    <div class="col s6">
+                        <p>发运车商品总数：<span style="color: rgb(63,185,193);font-size: 1.8rem">{{currentModelInfo.pre_count}}</span> 辆</p>
+                    </div>
+                    <div class="col s6">
+                        <p>未派发商品车数：<span style="color: rgb(229,115,115);font-size: 1.8rem">{{currentModelInfo.pre_count - currentModelInfo.plan_count}}</span> 辆</p>
+                    </div>
+                </div>
+                <!--模态框内信息卡片-->
+                <div class="row col s12">
+                    <div class="col s4" ng-repeat="transport in transportationList">
+                        <div class="card-panel white " style="padding: 0">
+                            <div class="row cyan lighten-2 white-text setting_shipments_title vc-center"
+                                 style="padding: 8px;height: 50px;margin-bottom: 12px">
+                                <div class="col s12 center fz17">
+                                    <p><span >{{transport.addr_name}}</span>&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;<span>{{transport.short_name}}</span></p>
+                                </div>
+                            </div>
+                            <div class="row fz15">
+                                <div class="col s7" style="margin-bottom: 12px">
+                                    <p>共发运商品车：<span style="color: rgb(229,115,115)">{{transport.pre_count}}</span>&nbsp;辆</p>
+                                </div>
+                                <div class="col s5" style="margin-bottom: 12px">
+                                    <p>未派发：<span style="color: rgb(229,115,115)">{{transport.pre_count - transport.plan_count}}</span>&nbsp;辆</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer vc-center">
+                <button ng-click="closeModel()" class="btn waves-light waves-effect cyan lighten-1" type="button" style="margin-left: 56px" >
+                    确定
+                </button>
+            </div>
+        </div>
+
+        <!--左栏发运商品车信息卡片-->
+        <div class="row col s2">
+            <div class="col s12" ng-repeat="car in disPatchCarList">
+                <div class="card-panel white " style="padding: 0">
+                    <div class="row cyan lighten-2 white-text setting_shipments_title vc-center"
+                         style="padding: 10px;height: 42px">
+                        <div class="col s12 center" style="padding: 0;">
+                            <h6 class="white-text fz16" style="font-weight:bold;margin: 0">{{car.route_start}}&emsp;
+                                <span style="font-size: 1.6rem" class="mdi mdi-swap-horizontal"></span>
+                                <span>&emsp;{{car.route_end}}</span>
+                            </h6>
+                        </div>
+
+                        <a style="top: 65%;width: 37px;height: 37px;right: 9px"
+                           class="right btn-floating setting_shipments_btn  btn waves-effect materialize-red  lighten-2 waves-light vc-center ">
+                            <i ng-click="showCarInfoModel(car)"
+                               class="mdi mdi-content-copy"></i>
+                        </a>
+                    </div>
+                    <div class="row fz14">
+                        <div class="col s12 center grey-text">
+                            <p style="margin: -5px 0;">{{car.date_id}}</p>
+                        </div>
+                        <div class="col s6" style="padding-right: 0">
+                            <p class="grey-text row center" style="padding: 6px 0 8px 0;margin:0">
+                                待发运
+                                <span style="font-size: 1.2rem;color:rgb(229,115,115);font-weight: bold">{{car.pre_count}}&nbsp;</span>
+                            </p>
+                        </div>
+                        <div class="col s6" style="padding-left: 0">
+                            <p class="grey-text row center" style="padding: 6px 0 8px 0;margin:0">
+                                已安排
+                                <span style="font-size: 1.2rem;color:rgb(229,115,115);font-weight: bold">{{car.plan_count}}&nbsp;</span>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!--中间调度指令-->
+        <div class="col s8">
+            <div class="col s12" style="margin-bottom: 11px">
+                <h5 class="col s12 cyan-text lighten-1 center-align">
+                    调度指令
+                </h5>
+            </div>
+            <div class="row col s12">
+                <div class="divider cyan lighten-2"></div>
+            </div>
+            <!--中间部分信息-->
+            <div class="col s12" ng-show="showMiddleCard">
+                <!--中间信息卡片-->
+                <div class="col s12" style="margin-top: -5px">
+                    <div class="card-panel white " style="padding: 0">
+                        <div class="row cyan lighten-2 white-text setting_shipments_title vc-center"
+                             style="padding: 10px;height: 60px;margin-bottom: 6px">
+                            <div class="col s1">
+                                <span style="font-size: 2.2rem" class="mdi mdi-truck"></span>
+                            </div>
+                            <div class="col s3">
+                                <p style="font-size: 1.2rem;font-weight: bold;margin: 10px 0">{{dispatchInfo.truck_num}}</p>
+                            </div>
+                            <div class="col s2">
+                                <p style="font-size: 1rem;font-weight: bold;margin: 10px 0">待运中</p>
+                            </div>
+                            <div class="col s1 right-align">
+                                <span style="font-size: 1.6rem;color: white" class="mdi mdi-map-marker"></span>
+                            </div>
+                            <div class="col s2 left-align">
+                                <p style="font-size: 1.1rem;color: white;margin: 5px 0;line-height: 26px">{{dispatchInfo.city_name}}</p>
+                            </div>
+                            <div class="col s1 right-align">
+                                <span style="font-size: 1.6rem;color: white" class="mdi mdi-account"></span>
+                            </div>
+                            <div class="col s2 left-align">
+                                <p style="font-size: 1.1rem;color: white;margin: 5px 0;line-height: 26px">{{dispatchInfo.drive_name}}</p>
+                            </div>
+                        </div>
+                        <div class="row fz15">
+                            <div class="col s4">
+                                <p>所属公司：{{dispatchInfo.company_name}}</p>
+                            </div>
+                            <div class="col s2">
+                                <p>车位：{{dispatchInfo.trail_number}}</p>
+                            </div>
+                            <div class="col s3">
+                                <p>已使用车位：{{dispatchInfo.car_count}}</p>
+                            </div>
+                            <div class="col s3">
+                                <p>电话：{{dispatchInfo.truck_tel}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--往期任务-->
+                <div class="col s12 black-text left-align fz18">
+                    <p style="margin: 10px 0">往期任务</p>
+                    <div class="divider black lighten-2"></div>
+                </div>
+                <div class="col s12 black-text fz14" ng-repeat="mission in pastMissionList">
+                    <div class="col s4 center-align">
+                        <p>{{mission.task_start_date | date:'yyyy-MM-dd'}}&nbsp;&nbsp;<span class="mdi mdi-arrow-right"></span>&nbsp;&nbsp;{{mission.task_plan_date | date:'yyyy-MM-dd'}}</p>
+                    </div>
+                    <div class="col s4 center-align">
+                        <p>{{mission.city_route_start}}&nbsp;&nbsp;<span class="mdi mdi-arrow-right"></span>&nbsp;&nbsp;{{mission.city_route_end}}&emsp;{{mission.distance}} 公里</p>
+                    </div>
+                    <div class="col s4 center-align">
+                        <p>派发商品车：{{mission.car_count}} 辆&emsp;已完成</p>
+                    </div>
+                </div>
+
+                <!--当前任务-->
+                <div class="col s12" style="margin-top: 20px">
+                    <div class="col s8 black-text left-align fz18" style="padding: 0;">
+                        <p style="margin: 10px 0">当前任务</p>
+                    </div>
+                    <div class="col s4 right-align">
+                        <button style="padding: 0 35px;height: 30px;line-height: 33px;margin-top: 10px" class="btn waves-light waves-effect cyan lighten-1 fz12" type="button">
+                            生成线路
+                        </button>
+                    </div>
+                    <div class="col s12 black-text left-align fz18" style="padding: 0;">
+                        <div class="divider black lighten-2"></div>
+                    </div>
+
+                </div>
+                <!--生成线路-->
+                <div class="col s12 black-text fz14 center-align">
+                    <div class="col s5 center-align">
+                        <div class="col s4 center-align" style="padding: 0">
+                            <p>大连&emsp;&emsp;<span class="mdi mdi-arrow-right"></span></p>
+                        </div>
+                        <div class="col s8">
+                            <select id="truck_company" name="truck_company" material-select>
+                                <option value="">选择城市</option>
+                                <option>666</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col s4">
+                        <div class="col s6">
+                            <p>任务开始时间</p>
+                        </div>
+                        <div class="col s6">
+                            <select id="truck_company2" name="truck_company" material-select>
+                                <option value="">选择城市</option>
+                                <option>666</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col s3">
+                        <div class="col s6" style="padding: 10px 5px">
+                            <button style="padding:0;width:100%;height: 30px;line-height: 33px" class="btn waves-light waves-effect red lighten-1 fz12" type="button">
+                                删除线路
+                            </button>
+                        </div>
+                        <div class="col s6 right-align" style="padding: 10px 5px">
+                            <button style="padding:0;width:100%;height: 30px;line-height: 33px" class="btn waves-light waves-effect cyan lighten-1 fz12" type="button">
+                                确认
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!--增加任务-->
+                <div class="col s12 black-text fz14 center-align valign-wrapper" style="margin-top: 15px">
+                    <div class="col s4 valign-wrapper">
+                        <div class="col s5">
+                            <select id="truck_company3" name="truck_company" material-select>
+                                <option value="">装车地点</option>
+                                <option>666</option>
+                            </select>
+                        </div>
+                        <div class="col s2">
+                            <span class="mdi mdi-arrow-right"></span>
+                        </div>
+                        <div class="col s5">
+                            <select id="truck_company4" name="truck_company" material-select>
+                                <option value="">选择城市</option>
+                                <option>666</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col s4 valign-wrapper">
+                        <div class="col s6">
+                            <select id="truck_company5" name="truck_company" material-select>
+                                <option value="">送达经销商</option>
+                                <option>666</option>
+                            </select>
+                        </div>
+                        <div class="col s6 input-field" style="margin-top: 0">
+                            <input id="verification_time" type="text" class="datepicker" date><i
+                                class="mdi dataIcon mdi-table-large"></i>
+                            <label for="verification_time">指令时间</label>
+                        </div>
+                    </div>
+
+                    <div class="col s1 right-align">
+                        <p>派发数量：</p>
+                    </div>
+                    <div class="col s1" style="margin-top: 10px">
+                        <input type="number">
+                    </div>
+                    <div class="col s2">
+                        <div class="col s6 right-align">
+                            <a class="modal-action modal-close waves-light waves-effect red lighten-1 btn btn-floating">
+                                <i class="mdi mdi-close"></i>
+                            </a>
+                        </div>
+                        <div class="col s6 left-align">
+                            <a class="modal-action modal-close waves-light waves-effect cyan lighten-1 btn btn-floating">
+                                <i class="mdi mdi-check"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--右边任务指令信息卡片-->
+        <div class="col s2">
+            <div class="col input-field s10" style="margin-bottom: 15px">
+                <input id="chooseCompulsoryStart" type="text" ng-value="startInitial">
+                <label for="chooseCompulsoryStart">车牌号码</label>
+            </div>
+            <div class="col s2 flex flex-round">
+                <i class="mdi mdi-magnify" ng-click="searchCompulsoryInsurance()" style="margin:20px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+            </div>
+            <div class="col s12" ng-repeat="details in carDetailsList">
+                <div class="card-panel white " style="padding: 0;cursor: pointer" ng-click="showDispatchInfo(details)">
+                    <div class="row cyan lighten-2 white-text setting_shipments_title vc-center"
+                         style="padding: 8px 0;height: 48px;margin-bottom: 0">
+                        <div class="col s2 center">
+                            <span style="font-size: 1.6rem" class="mdi mdi-truck"></span>
+                        </div>
+                        <div class="col s6" style="padding: 0">
+                            <p style="font-size: 1rem;font-weight: bold;margin: 10px 0">{{details.truck_num}}</p>
+                        </div>
+                        <div class="col s4" style="padding: 0;">
+                            <p style="font-size: 1rem;font-weight: bold;margin: 10px 0">待运中</p>
+                        </div>
+                    </div>
+                    <div class="row valign-wrapper">
+                        <div class="col s7" style="padding: 0">
+                            <div class="col s12" style="padding: 0">
+                                <div class="col s3">
+                                    <span style="font-size: 1.6rem;color: darkgray" class="mdi mdi-map-marker"></span>
+                                </div>
+                                <div class="col s9 left">
+                                    <p style="font-size: 1.0rem;color: black;margin: 5px 0;line-height: 26px">{{details.city_name}}</p>
+                                </div>
+                            </div>
+                            <div class="col s12" style="margin-bottom: 0;padding: 0">
+                                <div class="col s3">
+                                    <span style="font-size: 1.6rem;color: darkgray" class="mdi mdi-account"></span>
+                                </div>
+                                <div class="col s9 left">
+                                    <p style="font-size: 1.0rem;color: black;margin: 5px 0;line-height: 26px">{{details.drive_name}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s5" style="padding: 0">
+                            <div class="col s12">
+                                <p class="grey-text row center" style="font-size: 1rem;margin:0">
+                                    装车数
+                                </p>
+                            </div>
+                            <div class="col s12">
+                                <p class="center fz20" style="color: rgb(229,115,115);font-weight: bold;margin: 0">{{details.car_count}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

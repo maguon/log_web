@@ -9,19 +9,15 @@
                         <div class="row  grey-text text-darken-1">
                             <div class="col s10">
                                 <div class="col s12">
-                                    <div class=" col s3">
+                                    <div class=" col s6">
                                         <div class="input-field col s6">
                                             <input type="text" ng-model="instruct_need_startTime" id="instruct_need_startTime" name="instruct_need_startTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                            <label for="instruct_need_startTime">需求创建时间(始)</label>
+                                            <label for="instruct_need_startTime">创建时间(始)</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <input type="text" ng-model="instruct_need_endTime" id="instruct_need_endTime" name="instruct_need_endTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                            <label for="instruct_need_endTime">需求创建时间(终)</label>
+                                            <label for="instruct_need_endTime">创建时间(终)</label>
                                         </div>
-                                    </div>
-                                    <div class="input-field col s3">
-                                        <input name="instruct_need_man" id="instruct_need_man" type="text" ng-model="instruct_need_man"   >
-                                        <label for="instruct_need_man">需求提出人</label>
                                     </div>
                                     <div class="input-field col s3">
                                         <select id="start_city" material-select watch ng-change="getAddres(start_city)"  ng-options="city.id as city.city_name for city in cityList" ng-model="start_city">
@@ -37,7 +33,7 @@
                                     </div>
                                 </div>
                                 <div class="col s12">
-                                    <div class=" col s3">
+                                    <div class=" col s6">
                                         <div class="input-field col s6">
                                             <input type="text" ng-model="instruct_start_time" id="instruct_start_time" name="instruct_start_time"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
                                             <label for="instruct_start_time">指令时间(始)</label>
@@ -46,17 +42,6 @@
                                             <input type="text" ng-model="instruct_endTime" id="instruct_endTime" name="instruct_endTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
                                             <label for="instruct_endTime">指令时间(终)</label>
                                         </div>
-                                    </div>
-                                    <div class="col s3">
-                                        <div class="input-field col s6" style="padding-left: 0">
-                                            <input name="car_num_start" id="car_num_start" type="text" ng-model="car_num_start"   >
-                                            <label for="car_num_start">运送车数量(始)</label>
-                                        </div>
-                                        <div class="input-field col s6" style="padding-right: 0">
-                                            <input name="car_num_end" id="car_num_end" type="text" ng-model="car_num_end"   >
-                                            <label for="car_num_end">运送车数量(终)</label>
-                                        </div>
-
                                     </div>
                                     <div class="input-field col s3">
                                         <select id="arrive_city" material-select watch ng-change="getRecive(arrive_city)"  ng-model="arrive_city" ng-options="city.id as city.city_name for city in cityList">
@@ -152,7 +137,7 @@
                             <thead class="blue-grey lighten-5">
                             <tr class="grey-text text-darken-2">
 
-                                <th data-field="">需求编号</th>
+                                <th data-field="">编号</th>
                                 <th data-field="">需求提出人</th>
                                 <th data-field="">指令时间</th>
                                 <th  data-field="">起始地城市</th>

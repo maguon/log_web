@@ -57,32 +57,46 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col s12 grey lighten-1 white-text" ng-repeat="el in this_LoadTask" style="padding: 10px  50px;margin-top: 2px">
-                        <div class="col s4">
-                            <span><span>{{el.addr_name}}</span>--------<span>{{el.short_name}}</span></span>
+                    <div class="col s12 p0" ng-repeat="el in this_LoadTask" >
+                        <div class="col s12 grey lighten-1 white-text " style="padding: 10px  50px;margin-top: 2px">
+                            <div class="col s4">
+                                <span><span>{{el.addr_name}}</span>--------<span>{{el.short_name}}</span></span>
+                            </div>
+                            <div class="col s8">
+                                <div class="col s2">
+                                    运送车辆:<span>513215</span>
+                                </div>
+                                <div class="col s2">
+                                    派发调度:<span>513215</span>
+                                </div>
+                                <div class="col s2">
+                                    <span>已装车</span>
+                                </div>
+                                <div class="col s2">
+                                    现场调度:<span>某某欧</span>
+                                </div>
+                                <div class="col s2">
+                                    异常:<span>12</span>
+                                </div>
+                                <div class="col s2" style="cursor: pointer" ng-click="open_LoadTaskList(el.id,$index)">
+                                    商品车详情
+                                    <i class="mdi  mdi-menu-down"></i>
+                                </div>
+
+                            </div>
                         </div>
-                        <div class="col s8">
-                            <div class="col s2">
-                                运送车辆:<span>513215</span>
-                            </div>
-                            <div class="col s2">
-                                派发调度:<span>513215</span>
-                            </div>
-                            <div class="col s2">
-                                <span>已装车</span>
-                            </div>
-                            <div class="col s2">
-                                现场调度:<span>某某欧</span>
-                            </div>
-                            <div class="col s2">
-                                异常:<span>12</span>
-                            </div>
-                            <div class="col s2">
-                                商品车详情
-                                <i class="mdi  mdi-menu-down"></i>
+                        <div class="col s12 grey lighten-2 this_LoadTaskList this_LoadTaskList{{$index}}" flag="false"    style="padding: 10px  50px;display: none">
+                            <div class="col s4" ng-repeat="el in this_LoadTaskList">
+                                <div class="col s6">
+                                    VIN码: <span>56123</span>
+                                </div>
+                                <div class="col s6">
+                                    制造商: <span>一起大众</span>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
             <div style="margin:0 2.5% 0 2.5%">

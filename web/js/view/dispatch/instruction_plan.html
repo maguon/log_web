@@ -108,7 +108,7 @@
             <div class="col s12" ng-show="showMiddleCard">
                 <!--中间信息卡片-->
                 <div class="col s12" style="margin-top: -5px">
-                    <div class="card-panel white " style="padding: 0">
+                    <div class="card-panel white" style="padding: 0">
                         <div class="row cyan lighten-2 white-text setting_shipments_title vc-center"
                              style="padding: 10px;height: 60px;margin-bottom: 6px">
                             <div class="col s1">
@@ -173,7 +173,7 @@
                         <p style="margin: 10px 0">当前任务</p>
                     </div>
                     <div class="col s4 right-align">
-                        <button style="padding: 0 35px;height: 30px;line-height: 33px;margin-top: 10px" class="btn waves-light waves-effect cyan lighten-1 fz12" type="button">
+                        <button ng-click="showCreateLine(dispatchInfo.current_city)" style="padding: 0 35px;height: 30px;line-height: 33px;margin-top: 10px" class="btn waves-light waves-effect cyan lighten-1 fz12" type="button">
                             生成线路
                         </button>
                     </div>
@@ -182,28 +182,36 @@
                     </div>
 
                 </div>
+
                 <!--生成线路-->
-                <div class="col s12 black-text fz14 center-align">
+                <div class="col s12 black-text fz14 center-align" style="margin-top: 15px" ng-show="lineInfo">
                     <div class="col s5 center-align">
                         <div class="col s4 center-align" style="padding: 0">
-                            <p>大连&emsp;&emsp;<span class="mdi mdi-arrow-right"></span></p>
+                            <p>{{dispatchInfo.city_name}}&emsp;&emsp;<span class="mdi mdi-arrow-right"></span></p>
                         </div>
-                        <div class="col s8">
-                            <select id="truck_company" name="truck_company" material-select>
+                        <div class="col s8" ng-show="lineEndCitySel">
+                            <select id="city" name="city" watch material-select
+                                    ng-options="city.city_name + ' ' + city.distance + ' 公里' for city in cityList"
+                                    ng-model="lineEndCityInfo">
                                 <option value="">选择城市</option>
-                                <option>666</option>
+                                <!--<option ng-repeat="city in cityList" ng-value="city.end_id">{{city.city_name + " " + city.distance + " 公里"}}</option>-->
                             </select>
+                        </div>
+                        <div class="col s8 left-align" ng-show="lineEndCityTxt">
+                            <p>{{cityTxt}}</p>
                         </div>
                     </div>
                     <div class="col s4">
                         <div class="col s6">
-                            <p>任务开始时间</p>
+                            <p>计划执行时间：</p>
                         </div>
-                        <div class="col s6">
-                            <select id="truck_company2" name="truck_company" material-select>
-                                <option value="">选择城市</option>
-                                <option>666</option>
-                            </select>
+                        <div class="col s6 input-field" style="margin: 0" ng-show="lineStartTimeSel">
+                            <input id="verification_time2" type="text" class="datepicker" ng-model="lineStartTime" date>
+                            <i class="mdi dataIcon mdi-table-large"></i>
+                            <label for="verification_time2">指令时间</label>
+                        </div>
+                        <div class="col s6 left-align" ng-show="lineStartTimeTxt">
+                            <p>{{lineStartTime}}</p>
                         </div>
                     </div>
                     <div class="col s3">
@@ -212,16 +220,21 @@
                                 删除线路
                             </button>
                         </div>
-                        <div class="col s6 right-align" style="padding: 10px 5px">
-                            <button style="padding:0;width:100%;height: 30px;line-height: 33px" class="btn waves-light waves-effect cyan lighten-1 fz12" type="button">
+                        <div class="col s6 right-align" style="padding: 10px 5px" ng-show="confirmBtn">
+                            <button ng-click="confirmChange()" style="padding:0;width:100%;height: 30px;line-height: 33px" class="btn waves-light waves-effect cyan lighten-1 fz12" type="button">
                                 确认
+                            </button>
+                        </div>
+                        <div class="col s6 right-align" style="padding: 10px 5px" ng-show="addMissionBtn">
+                            <button ng-click="addMission()" style="padding:0;width:100%;height: 30px;line-height: 33px" class="btn waves-light waves-effect cyan lighten-1 fz12" type="button">
+                                增加任务
                             </button>
                         </div>
                     </div>
                 </div>
 
                 <!--增加任务-->
-                <div class="col s12 black-text fz14 center-align valign-wrapper" style="margin-top: 15px">
+                <div class="col s12 black-text fz14 center-align valign-wrapper" style="margin-top: 15px" ng-show="missionInfo">
                     <div class="col s4 valign-wrapper">
                         <div class="col s5">
                             <select id="truck_company3" name="truck_company" material-select>

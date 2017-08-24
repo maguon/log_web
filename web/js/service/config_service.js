@@ -63,7 +63,33 @@ baseService.factory("_config", function () {
     // };
 
     _this.rel_status = 1;
-
+    // 调度任务状态
+    _this.taskStatus=[
+        {
+            id:1,
+            taskStatusName:"待接受"
+        },
+        {
+            id:2,
+            taskStatusName:"接受"
+        },
+        {
+            id:3,
+            taskStatusName:"执行"
+        },
+        {
+            id:4,
+            taskStatusName:"在途"
+        },
+        {
+            id:8,
+            taskStatusName:"取消安排"
+        },
+        {
+            id:9,
+            taskStatusName:"已完成"
+        }
+    ];
     // 车辆状态
     _this.car_rel_status = [
         {

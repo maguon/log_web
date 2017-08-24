@@ -1,0 +1,200 @@
+<div id="instruction_list" >
+    <div class="" >
+        <div class="modal-content grey-text text-darken-2">
+            <!--<div class="" style="width: 95%;margin: 0 auto">-->
+            <!--<div class="divider" style="background: #00bcd4;height: 2px;"></div>-->
+            <div class="row no-marBottom" ul-tabs style="overflow: hidden">
+                <div id="header_car" class="row tab_box" >
+                    <div class="storage_storeTitle">
+                        <div class="row  grey-text text-darken-1">
+                            <div class="col s10">
+                                <div class="col s12">
+                                    <div class=" col s3">
+                                        <div class="input-field col s6">
+                                            <input type="text" ng-model="instruct_startTime" id="instruct_startTime" name="instruct_startTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                            <label for="instruct_startTime">需求创建时间(始)</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <input type="text" ng-model="instruct_endTime" id="instruct_endTime" name="instruct_endTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                            <label for="instruct_endTime">需求创建时间(终)</label>
+                                        </div>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input name="vin" id="vin" type="text" ng-model="vin"   >
+                                        <label for="vin">需求提出人</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <select id="start_city" material-select watch ng-change="getAddres(start_city)"  ng-options="city.id as city.city_name for city in cityList" ng-model="start_city">
+                                            <option value="">请选择</option>
+                                        </select>
+                                        <label for="start_city">起始城市</label>
+                                    </div>
+                                    <div class=" input-field col s3">
+                                        <select id="dispatch_car_position" ng-options="baseAddr.id as baseAddr.addr_name for baseAddr in baseAddrList" material-select watch ng-model="dispatch_car_position">
+                                            <option value="">请选择</option>
+                                        </select>
+                                        <label for="dispatch_car_position">装车地点</label>
+                                    </div>
+                                </div>
+                                <div class="col s12">
+                                    <div class=" col s3">
+                                        <div class="input-field col s6">
+                                            <input type="text" ng-model="instruct_startTime" id="instruct_startTime" name="instruct_startTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                            <label for="instruct_startTime">指令时间(始)</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <input type="text" ng-model="instruct_endTime" id="instruct_endTime" name="instruct_endTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                            <label for="instruct_endTime">指令时间(终)</label>
+                                        </div>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input name="vin" id="vin" type="text" ng-model="vin"   >
+                                        <label for="vin">运送车数量</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <select id="end_city" material-select watch ng-change="getRecive(end_city)"  ng-model="end_city" ng-options="city.id as city.city_name for city in cityList">
+                                            <option value="">请选择</option>
+                                        </select>
+                                        <label for="end_city">目的城市</label>
+                                    </div>
+                                    <div class=" input-field col s3">
+                                        <select id="dealer" material-select watch ng-model="dealer" ng-options="receive.id as receive.receive_name for receive in receiveList">
+                                            <option value="">请选择</option>
+                                        </select>
+                                        <label for="dealer">送达地点</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s1 vc-center" style="margin-top: 40px">
+                                <a class=" btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="search_all()">
+                                    <i class="mdi mdi-magnify"></i>
+                                </a>
+                            </div>
+                            <div class="col s1 flex flex-round" style="margin-top: 40px">
+                                <a ng-click="add_need()" class="btn-floating btn-large waves-light waves-effect cyan lighten-2  btn vc-center"
+                                   style="margin-right: 10px">
+                                    <i class="mdi mdi-plus"></i>
+                                </a>
+                            </div>
+                            <div id="newNeed" class="modal">
+                                <form name="StorageForm" ng-submit="newStorageForm(StorageForm.$valid)" novalidate>
+                                    <div class="col s12  cyan white-text" style="height: 50px">
+                                        <h5 class="center-align" >增加需求</h5>
+                                    </div>
+                                    <div class="divider a1_divider" ></div>
+                                    <div class="modal-content">
+                                        <div class="container">
+                                            <div class="row" style="margin-top:80px">
+                                                <div class="col s6">
+                                                    需求生成时间:<span>12315</span>
+                                                </div>
+                                                <div class="col s6">
+                                                    需求人: <span>456123</span>
+                                                </div>
+                                                <div class="input-field col s6">
+                                                    <select id="end_city" material-select watch ng-change="getRecive(end_city)"  ng-model="end_city" ng-options="city.id as city.city_name for city in cityList">
+                                                        <option value="">请选择</option>
+                                                    </select>
+                                                    <label for="end_city">起始城市</label>
+                                                </div>
+                                                <div class="input-field col s6">
+                                                    <select id="end_city" material-select watch ng-change="getRecive(end_city)"  ng-model="end_city" ng-options="city.id as city.city_name for city in cityList">
+                                                        <option value="">请选择</option>
+                                                    </select>
+                                                    <label for="end_city">装车地点</label>
+                                                </div>
+                                                <div class="input-field col s6">
+                                                    <select id="end_city" material-select watch ng-change="getRecive(end_city)"  ng-model="end_city" ng-options="city.id as city.city_name for city in cityList">
+                                                        <option value="">请选择</option>
+                                                    </select>
+                                                    <label for="end_city">目的城市</label>
+                                                </div>
+                                                <div class="input-field col s6">
+                                                    <select id="end_city" material-select watch ng-change="getRecive(end_city)"  ng-model="end_city" ng-options="city.id as city.city_name for city in cityList">
+                                                        <option value="">请选择</option>
+                                                    </select>
+                                                    <label for="end_city">送达地点</label>
+                                                </div>
+                                                <div class="input-field col s6">
+                                                    <input name="vin" id="vin" type="text" ng-model="vin"   >
+                                                    <label for="vin">装载车辆:</label>
+                                                </div>
+                                                <div class="input-field col s6">
+                                                    <input type="text" ng-model="instruct_startTime" id="instruct_startTime" name="instruct_startTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                                    <label for="instruct_startTime">指令时间</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+                                    <div class="modal-footer right-align">
+                                        <a  class=" btn-floating modal-action modal-close waves-effect waves-light grey lighten-1 btn"  >
+                                            <i class="mdi mdi-close"></i>
+                                        </a>
+                                        <button class="btn btn-floating waves-light waves-effect cyan lighten-1" type="submit" name="action" style="margin-right: 10px" >
+                                            <i class="mdi mdi-check"></i>
+                                        </button>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12" >
+                        <table class=" bordered striped">
+                            <thead class="blue-grey lighten-5">
+                            <tr class="grey-text text-darken-2">
+
+                                <th data-field="">需求编号</th>
+                                <th data-field="">需求提出人</th>
+                                <th data-field="">指令时间</th>
+                                <th  data-field="">起始地城市</th>
+                                <th data-field="">装车地点</th>
+                                <th data-field="">目的城市</th>
+                                <th data-field="">经销商</th>
+                                <th data-field="">派送商品车</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="el in instruction_list" class="grey-text text-darken-1">
+                                <td  ng-bind="el.id">1</td>
+                                <td ng-bind="el.task_plan_date">2</td>
+                                <td ng-bind="el.truck_num"></td>
+                                <td ng-bind="el.drive_name"></td>
+                                <td ng-bind="el.city_route_start">无</td>
+                                <td ng-bind="el.city_route_end">
+                                </td>
+                                <td ng-bind="el.car_count">无</td>
+                                <td ng-if="el.task_status==1">待接受</td>
+                                <td ng-if="el.task_status==2">接受</td>
+                                <td ng-if="el.task_status==3">执行</td>
+                                <td ng-if="el.task_status==4">在途</td>
+                                <td ng-if="el.task_status==8">取消安排</td>
+                                <td ng-if="el.task_status==9">已完成</td>
+                                <td class="operation">
+                                    <a href="#" ui-sref="look_instruction_list_details({id:el.id,from:'instruction_list'})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ></i></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="paging_box col s12">
+                        <div class="right">
+                            <a class="waves-light waves-effect cyan lighten-1 btn  " ng-show="head_pre"  id="head_pre"   ng-click="head_pre_btn()">
+                                上一页
+                            </a>
+                            <a class="waves-light waves-effect cyan lighten-1 btn " ng-show="head_next" id="head_next"  ng-click="head_next_btn()">
+                                下一页
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>

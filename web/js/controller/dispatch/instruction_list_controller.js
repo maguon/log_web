@@ -28,7 +28,7 @@ app.controller("instruction_list_controller", ["$scope", "$host","_config","_bas
     $scope.search_all=function () {
 
         var obj={
-            dpRouteTaskId:"",
+            dpRouteTaskId:$scope.dispatch_num,
             vin:$scope.vin,
             taskPlanDateStart:$scope.instruct_startTime,
             taskPlanDateEnd:$scope.instruct_endTime,

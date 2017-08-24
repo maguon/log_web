@@ -125,7 +125,7 @@
                             <tbody>
                             <tr ng-repeat="el in instruction_list" class="grey-text text-darken-1">
                                 <td  ng-bind="el.id">1</td>
-                                <td ng-bind="el.task_plan_date">2</td>
+                                <td ng-bind="el.task_plan_date|date:'yyyy-mm-dd hh:mm:ss'">2</td>
                                 <td ng-bind="el.truck_num"></td>
                                 <td ng-bind="el.drive_name"></td>
                                 <td ng-bind="el.city_route_start">无</td>

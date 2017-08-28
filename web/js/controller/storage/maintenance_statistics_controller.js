@@ -256,11 +256,6 @@ app.controller("maintenance_statistics_controller", ["$scope", "_basic", "_confi
 
     // 根据选择的车辆类型获取维修相关数据
     $scope.changeRepairTruckType = function (start,end) {
-        // console.log("type",$scope.repairTruckType);
-        // console.log(start === undefined);
-        // console.log("startInitial",$scope.startInitial);
-        // console.log("endInitial",$scope.endInitial);
-        // console.log("start",start,"end",end);
         // 问题在于数据正常但是点击select以后view的日期没有初始化
         if(start === undefined){
             start = $scope.startInitial
@@ -292,13 +287,6 @@ app.controller("maintenance_statistics_controller", ["$scope", "_basic", "_confi
 
     // 根据选择的车辆类型获取金额相关数据
     $scope.changeMoneyTruckType = function (start,end) {
-        // console.log("type",$scope.moneyTruckType);
-        // console.log(start === undefined);
-        // console.log("startInitial",$scope.startInitial);
-        // console.log("endInitial",$scope.endInitial);
-        // console.log("start",start,"end",end);
-
-        // 问题在于数据是正常的但是点击select以后输入框的日期没有初始化
         if(start === undefined){
             start = $scope.startInitial
         }
@@ -331,8 +319,6 @@ app.controller("maintenance_statistics_controller", ["$scope", "_basic", "_confi
     $scope.searchRepairCount = function () {
         var monthStart = $("#chooseRepairStart").val();
         var monthEnd = $("#chooseRepairEnd").val();
-        // console.log("monthStart",monthStart);
-        // console.log("monthEnd",monthEnd);
         $scope.changeRepairTruckType(monthStart,monthEnd);
     };
 
@@ -340,8 +326,6 @@ app.controller("maintenance_statistics_controller", ["$scope", "_basic", "_confi
     $scope.searchMoneyCount = function () {
         var monthStart = $("#chooseMoneyStart").val();
         var monthEnd = $("#chooseMoneyEnd").val();
-        // console.log("monthStart",monthStart);
-        // console.log("monthEnd",monthEnd);
         $scope.changeMoneyTruckType(monthStart,monthEnd);
     };
 

@@ -31,6 +31,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/dispatch/look_instruction_list_details.html",
             controller:"look_instruction_list_details_controller"
         })
+        .state("instruction_driver_mileage", {
+            url: "/instruction_driver_mileage",
+            templateUrl: "js/view/dispatch/instruction_driver_mileage.html",
+            controller:"instruction_driver_mileage_controller"
+        })
 
 
         /*        数据导入

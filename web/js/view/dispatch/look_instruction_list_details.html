@@ -16,16 +16,13 @@
                             <h5><span>{{this_instruction.city_route_start}}</span>----<span>{{this_instruction.city_route_end}}</span></h5>
                         </div>
                         <div class="col s8 " >
-                            <div class="col s3">
-                                任务编号:<span>{{this_instruction.id}}</span>
-                            </div>
                             <div class="col s6">
-                                调度指定执行时间:<span>{{this_instruction.task_start_date|date:"yyyy-mm-dd hh:mm:ss"}}</span>
+                                任务编号:<span>{{this_instruction.id}}</span>
                             </div>
                             <!--<div class="col s3">-->
                                 <!--指令调度时间:<span>513215</span>-->
                             <!--</div>-->
-                            <div class="col s3">
+                            <div class="col s6">
                                 指令状态:
                                 <span ng-if="this_instruction.task_status==1" class="fz20 cyan-text">待接受</span>
                                 <span ng-if="this_instruction.task_status==2" class="fz20 cyan-text">接受</span>
@@ -36,6 +33,18 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row" style="padding:0 20px">
+                        <div class="col s4">
+                            调度计划执行时间:<span>{{this_instruction.task_plan_date|date:"yyyy-MM-dd hh:mm:ss"}}</span>
+                        </div>
+                        <div class="col s4">
+                            调度实际执行时间:<span>{{this_instruction.task_start_date|date:"yyyy-MM-dd hh:mm:ss"}}</span>
+                        </div>
+                        <div class="col s4">
+                            调度完成时间:<span>{{this_instruction.task_end_date|date:"yyyy-MM-dd hh:mm:ss"}}</span>
+                        </div>
+                    </div>
+
                     <div class="row grey white-text" style="padding: 20px;margin-bottom:0">
                         <div class="col s12 fz18">
                             <div class="col s4">

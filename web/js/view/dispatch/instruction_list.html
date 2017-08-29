@@ -16,11 +16,11 @@
                                     <div class=" col s3">
                                         <div class="input-field col s6">
                                             <input type="text" ng-model="instruct_startTime" id="instruct_startTime" name="instruct_startTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                            <label for="instruct_startTime">指令生成时间(始)</label>
+                                            <label for="instruct_startTime">指令创建时间(始)</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <input type="text" ng-model="instruct_endTime" id="instruct_endTime" name="instruct_endTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                            <label for="instruct_endTime">指令生成时间(终)</label>
+                                            <label for="instruct_endTime">指令创建时间(终)</label>
                                         </div>
                                     </div>
                                     <div class="input-field col s3">
@@ -42,11 +42,11 @@
                                     <div class=" col s3">
                                         <div class="input-field col s6">
                                             <input type="text" ng-model="dispatch_instruct_startTime" id="dispatch_instruct_startTime" name="dispatch_instruct_startTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                            <label for="dispatch_instruct_startTime">调度指定执行时间(始)</label>
+                                            <label for="dispatch_instruct_startTime">调度指定时间(始)</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <input type="text" ng-model="dispatch_instruct_endTime" id="dispatch_instruct_endTime" name="dispatch_instruct_endTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                            <label for="dispatch_instruct_endTime">调度指定执行时间(终)</label>
+                                            <label for="dispatch_instruct_endTime">调度指定时间(终)</label>
                                         </div>
                                     </div>
                                     <div class="input-field col s3">
@@ -112,7 +112,7 @@
                             <thead class="blue-grey lighten-5">
                             <tr class="grey-text text-darken-2">
                                 <th data-field="">调度编号</th>
-                                <th data-field="">指令生成时间</th>
+                                <th data-field="">指令创建时间</th>
                                 <th data-field="">运输货车</th>
                                 <th  data-field="">司机</th>
                                 <th data-field="">起始地城市</th>
@@ -125,7 +125,7 @@
                             <tbody>
                             <tr ng-repeat="el in instruction_list" class="grey-text text-darken-1">
                                 <td  ng-bind="el.id">1</td>
-                                <td ng-bind="el.task_plan_date|date:'yyyy-mm-dd hh:mm:ss'">2</td>
+                                <td ng-bind="el.created_on|date:'yyyy-MM-dd hh:mm:ss'">2</td>
                                 <td ng-bind="el.truck_num"></td>
                                 <td ng-bind="el.drive_name"></td>
                                 <td ng-bind="el.city_route_start">无</td>

@@ -2,6 +2,7 @@
  * Created by ASUS on 2017/8/22.
  */
 app.controller("instruction_list_controller", ["$scope", "$host","_config","_basic", function ($scope, $host,_config, _basic) {
+
     // 指令任务状态
     $scope.taskStatusList=_config.taskStatus;
             _basic.get($host.api_url+"/city").then(function (data) {

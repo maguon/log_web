@@ -75,8 +75,8 @@
 
                         <a style="top: 65%;width: 37px;height: 37px;right: 9px"
                            class="right btn-floating setting_shipments_btn  btn waves-effect materialize-red  lighten-2 waves-light vc-center ">
-                            <i ng-click="showCarInfoModel(car)"
-                               class="mdi mdi-content-copy"></i>
+                            <i style="font-size: 1.4rem;line-height: 38px" ng-click="showCarInfoModel(car)"
+                               class="mdi mdi-file-document"></i>
                         </a>
                     </div>
                     <div class="row fz14">
@@ -239,7 +239,7 @@
                 <div class="col s12 black-text fz14 center-align" style="margin-top: 15px">
                     <ul class="collapsible" data-collapsible="accordion" style="overflow: hidden">
                         <li ng-repeat="currentLine in currentLineList">
-                            <!--线路列表栏-->
+                            <!--线路列表-->
                             <div class="collapsible-header col s12 valign-wrapper collapsible_height">
                                 <div class="col s9" ng-click="showMissionInfo(currentLine.id)">
                                     <div class="col s6 center-align">
@@ -326,7 +326,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--增加任务隐藏文本-->
+                                <!--任务列表-->
                                 <div class="col s12 valign-wrapper" ng-repeat="nowMission in missionList" style="border-top: 1px solid #ccc">
                                     <div class="col s4">
                                         <div class="col s7 center-align">

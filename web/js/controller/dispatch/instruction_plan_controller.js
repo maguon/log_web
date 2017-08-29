@@ -11,6 +11,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     $scope.rightKeyWord = "";
     $scope.lineEndCityInfo = "";
     $scope.lineStartDate = "";
+    $scope.lineStartTime = "";
 
     // 获取发运商品车信息（左侧信息卡片）
     $scope.getDeliveryCarInfo = function () {
@@ -22,7 +23,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 }
                 $scope.disPatchCarList = dispatchCarData.result;
                 $scope.newDispatchCarList = $scope.disPatchCarList;
-                console.log("$scope.newDispatchCarList", $scope.newDispatchCarList)
+                // console.log("$scope.newDispatchCarList", $scope.newDispatchCarList)
             }
             else {
                 swal(dispatchCarData.msg, "", "error");
@@ -45,7 +46,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 }
                 $scope.carDetailsList = carDetailsData.result;
                 $scope.newCarDetailsList = $scope.carDetailsList;
-                console.log("carDetailsData", $scope.newCarDetailsList);
+                // console.log("carDetailsData", $scope.newCarDetailsList);
             }
             else {
                 swal(carDetailsData.msg, "", "error");
@@ -55,7 +56,6 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     // 根据输入的关键字筛选左侧卡片信息
     $scope.updateLeftCardList = function () {
-        console.log("leftKeyWord",$scope.leftKeyWord);
         $scope.newDispatchCarList = [];
         if($scope.leftKeyWord != ""){
             for(var i = 0;i < $scope.disPatchCarList.length;i++){
@@ -72,7 +72,6 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     // 根据输入的关键字筛选右侧卡片信息
     $scope.updateRightCardList = function () {
-        console.log("rightKeyWord",$scope.rightKeyWord);
         $scope.newCarDetailsList = [];
         if($scope.rightKeyWord != ""){
             for(var i = 0;i < $scope.carDetailsList.length;i++){
@@ -88,12 +87,12 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     // 点击左侧卡片详情显示模态框
     $scope.showCarInfoModel = function (currentModelInfo) {
-        console.log("currentModelInfo", currentModelInfo);
+        // console.log("currentModelInfo", currentModelInfo);
         $scope.currentModelInfo = currentModelInfo;
         // 根据当前卡片信息查询距离
         _basic.get($host.api_url + "/cityRoute?routeStartId=" + currentModelInfo.route_start_id + "&routeEndId=" + currentModelInfo.route_end_id).then(function (distanceData) {
             if (distanceData.success === true) {
-                console.log("distanceData", distanceData);
+                // console.log("distanceData", distanceData);
                 if (distanceData.result.length === 0) {
                     $scope.currentDistance = "notSet"
                 }
@@ -114,7 +113,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             })).then(function (data) {
             if (data.success === true) {
                 $scope.transportationList = data.result;
-                console.log("data", data);
+                // console.log("data", data);
             }
             else {
                 swal(data.msg, "", "error");
@@ -133,7 +132,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         _basic.get($host.api_url + "/dpRouteTask?truckId=" + dispatchInfo.truck_id + "&taskStatus=9").then(function (pastMissionData) {
             if (pastMissionData.success === true) {
                 $scope.pastMissionList = pastMissionData.result;
-                console.log("pastMissionData", pastMissionData);
+                // console.log("pastMissionData", pastMissionData);
             }
             else {
                 swal(pastMissionData.msg, "", "error");
@@ -144,22 +143,22 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         _basic.get($host.api_url + "/dpRouteTask?truckId=" + dispatchInfo.truck_id + "&taskStatus=1,3").then(function (currentLineData) {
             if (currentLineData.success === true) {
                 $scope.currentLineList = currentLineData.result;
-                console.log("currentLineData", currentLineData);
+                // console.log("currentLineData", currentLineData);
             }
             else {
                 swal(currentLineData.msg, "", "error");
             }
         });
         $scope.showMiddleCard = true;
-        console.log("dispatchInfo", $scope.dispatchInfo);
+        // console.log("dispatchInfo", $scope.dispatchInfo);
     };
 
     // 生成线路按钮,点击显示路线信息并获取城市信息
     $scope.showCreateLine = function (cityId) {
-        console.log("cityId", cityId);
-        console.log("$scope.currentLineList", $scope.currentLineList.length);
+        // console.log("$scope.currentLineList", $scope.currentLineList.length);
         $scope.lineEndCityInfo = "";
         $scope.lineStartDate = "";
+        $scope.lineStartTime = "";
         // 线路的起始城市根据当前线路的最后一条的结束城市为准
         if($scope.currentLineList.length === 0){
             $scope.startCityName = $scope.dispatchInfo.city_name
@@ -170,7 +169,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         _basic.get($host.api_url + "/cityRouteDispatch?routeStartId=" + cityId).then(function (cityData) {
             if (cityData.success === true) {
                 $scope.cityList = cityData.result;
-                console.log("cityData", $scope.cityList)
+                // console.log("cityData", $scope.cityList)
             }
             else {
                 swal(cityData.msg, "", "error");
@@ -181,16 +180,16 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     // 线路填写完毕后确认按钮
     $scope.confirmChange = function () {
-        if ($scope.lineEndCityInfo != "" && $scope.lineStartDate != "") {
+        if ($scope.lineEndCityInfo != "" && $scope.lineStartDate != "" && $scope.lineStartTime != "") {
             var routeStartId = $scope.currentLineList.length === 0 ? $scope.dispatchInfo.current_city :  $scope.currentLineList[$scope.currentLineList.length - 1].route_end_id;
-            console.log("routeStartId",routeStartId);
+            // console.log("routeStartId",routeStartId);
             _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask", {
                 truckId: $scope.dispatchInfo.truck_id,
                 driveId: $scope.dispatchInfo.drive_id,
                 routeStartId: routeStartId,
                 routeEndId: $scope.lineEndCityInfo.end_id,
                 distance: $scope.lineEndCityInfo.distance,
-                taskPlanDate: $scope.lineStartDate
+                taskPlanDate: $scope.lineStartDate + " " + $scope.lineStartTime
             }).then(function (data) {
                 if (data.success === true) {
                     $scope.lineInfo = false;
@@ -215,7 +214,6 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     // 删除线路
     $scope.deleteLine = function (deleteLineId,event) {
         event.stopPropagation();
-        console.log("deleteLineId",deleteLineId);
         swal({
                 title: "确定删除当前线路吗？",
                 type: "warning",
@@ -240,12 +238,12 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     // 点击线路获取当前路线下的任务
     $scope.showMissionInfo = function (showLineId) {
-        console.log("showLineId",showLineId);
+        // console.log("showLineId",showLineId);
         $scope.missionInfo = false;
         $scope.addMissionBtn = true;
         _basic.get($host.api_url + "/dpRouteLoadTask?dpRouteTaskId=" + showLineId).then(function (missionData) {
             if (missionData.success === true) {
-                console.log("getMissionData", missionData);
+                // console.log("getMissionData", missionData);
                 $scope.missionList = missionData.result;
             }
             else {
@@ -278,7 +276,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         _basic.get($host.api_url + "/city").then(function (cityData) {
             if (cityData.success === true) {
                 $scope.sendCityList = cityData.result;
-                console.log("city",cityData)
+                // console.log("city",cityData)
             }
             else {
                 swal(cityData.msg, "", "error");
@@ -294,8 +292,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     // 根据选择的城市获取送达经销商和指令时间及派发数量信息
     $scope.getReceiveDistributor = function (lineId) {
-        console.log("sendCityId",$scope.sendCityId);
-        console.log("lineId",lineId);
+        // console.log("sendCityId",$scope.sendCityId);
         if($scope.locateId != ""){
             _basic.get($host.api_url + "/dpDemandBase?" + _basic.objToUrl({
                     dpRouteTaskId:lineId,
@@ -305,7 +302,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 })).then(function (addrData) {
                 if (addrData.success === true) {
                     $scope.addrList = addrData.result;
-                    console.log("addrData",addrData);
+                    // console.log("addrData",addrData);
                 }
                 else {
                     swal(addrData.msg, "", "error");
@@ -320,8 +317,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     // 提交线路下的任务信息
     $scope.submitMissionInfo = function (lineId) {
-        console.log("lineId",lineId);
-        console.log("$scope.receiveInfo.id",$scope.receiveInfo.id);
+        // console.log("$scope.receiveInfo.id",$scope.receiveInfo.id);
         if($scope.locateId != "" && $scope.sendCityId != "" && $scope.receiveInfo != "" && $scope.distributeNum != ""){
             _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask/" + lineId + "/dpRouteLoadTask",{
                 dpDemandId:$scope.receiveInfo.id,
@@ -334,7 +330,6 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             }).then(function (data) {
                 if(data.success === true){
                     swal("新增成功", "", "success");
-                    console.log("data",data);
                     $scope.missionInfo = false;
                     $scope.addMissionBtn = true;
                     $scope.showMissionInfo(lineId)
@@ -351,7 +346,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     
     // 删除任务信息
     $scope.deleteMission = function (missionId, lineId) {
-        console.log("missionId", missionId, "lineId", lineId);
+        // console.log("missionId", missionId, "lineId", lineId);
         swal({
                 title: "确定删除当前任务吗？",
                 type: "warning",

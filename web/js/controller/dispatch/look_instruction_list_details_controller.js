@@ -20,7 +20,7 @@ app.controller("look_instruction_list_details_controller", ["$scope", "$host", "
     }
 
     p().then(function () {
-        _basic.get($host.api_url+"/dpRouteTask/"+$stateParams.id+"/dpRouteLoadTask").then(function (data) {
+        _basic.get($host.api_url+"/dpRouteLoadTask?dpRouteTaskId="+$stateParams.id).then(function (data) {
             if(data.success==true){
                 $scope.this_LoadTask=data.result;
             }
@@ -33,7 +33,6 @@ app.controller("look_instruction_list_details_controller", ["$scope", "$host", "
                 $(".this_LoadTaskList").attr("flag","false");
                 if(data.success==true&&data.result.length>0){
                     $scope.this_LoadTaskList=data.result;
-
                     $(".this_LoadTaskList"+index).show();
                     $(".this_LoadTaskList"+index).attr("flag",'true');
                 }else {
@@ -44,8 +43,7 @@ app.controller("look_instruction_list_details_controller", ["$scope", "$host", "
         }else {
             $(".this_LoadTaskList"+index).attr("flag",'false');
             $(".this_LoadTaskList"+index).hide();
-        }
 
-       ;
+        };
     }
 }]);

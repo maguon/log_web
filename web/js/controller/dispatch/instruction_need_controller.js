@@ -3,6 +3,7 @@
  */
 app.controller("instruction_need_controller", ["$scope", "$host","_config","_basic", function ($scope, $host,_config, _basic) {
     // 指令任务状态
+
     $scope.taskStatusList=_config.taskStatus;
     _basic.get($host.api_url+"/city").then(function (data) {
         if(data.success==true){
@@ -44,8 +45,8 @@ app.controller("instruction_need_controller", ["$scope", "$host","_config","_bas
     $scope.search_all=function () {
 
         var obj={
-            demandDateStart:$scope.instruct_need_startTime,
-            demandDateEnd:$scope.instruct_need_endTime,
+            createOnStart:$scope.instruct_need_startTime,
+            createOnEnd:$scope.instruct_need_endTime,
             dateIdStart:$scope.instruct_start_time,
             dateIdEnd:$scope.instruct_endTime,
             realName:$scope.instruct_need_man,
@@ -57,7 +58,7 @@ app.controller("instruction_need_controller", ["$scope", "$host","_config","_bas
             receiveId:$scope.dealer,
             // demandStatus:$scope.task_status
         };
-        _basic.get($host.api_url+"/dpDemand?"+_basic.objToUrl(obj)).then(function (data) {
+        _basic.get($host.api_url+"/dpDemand?"+_basic.objToUrl(obj)).then(function (data){
             if(data.success==true&&data.result.length>0){
                 $scope.instruction_neee_list=data.result;
             }else {

@@ -191,9 +191,9 @@
 
                 <!--生成线路-->
                 <div class="col s12 black-text fz14 center-align" style="margin-top: 15px" ng-show="lineInfo">
-                    <div class="col s5 center-align">
+                    <div class="col s4 center-align">
                         <div class="col s4 center-align" style="padding: 0">
-                            <p>{{dispatchInfo.city_name}}&emsp;&emsp;<span class="mdi mdi-arrow-right"></span></p>
+                            <p>{{startCityName}}&emsp;&emsp;<span class="mdi mdi-arrow-right"></span></p>
                         </div>
                         <div class="col s8">
                             <select id="city" name="city" watch material-select
@@ -204,20 +204,28 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col s4">
-                        <div class="col s7">
+                    <div class="col s5">
+                        <div class="col s5 right-align">
                             <p>计划执行时间：</p>
                         </div>
-                        <div class="col s5 input-field" style="margin: 0">
-                            <input id="verification_time2" type="text" class="datepicker" ng-model="lineStartTime" date>
-                            <i class="mdi dataIcon mdi-table-large"></i>
-                            <label for="verification_time2">指令时间</label>
+                        <div class="col s7">
+                            <div class="col s6 input-field" style="margin: 0">
+                                <input id="verification_time2" type="text" class="datepicker" ng-model="lineStartDate" date>
+                                <i class="mdi dataIcon mdi-table-large"></i>
+                                <label for="verification_time2">指令时间</label>
+                            </div>
+                            <div class="col s6 input-field" style="margin: 0">
+                                <input id="verification_time3" type="text" class="timepicker" ng-model="lineStartTime" time>
+                                <i class="mdi dataIcon mdi-clock"></i>
+                                <label for="verification_time3">时/分</label>
+                            </div>
                         </div>
+
                     </div>
                     <div class="col s3">
                         <div class="col s6" style="padding: 10px 5px">
-                            <button style="padding:0;width:100%;height: 30px;line-height: 33px" class="btn waves-light waves-effect red lighten-1 fz12" type="button">
-                                删除线路
+                            <button style="padding:0;width:100%;height: 30px;line-height: 33px" class="btn waves-light waves-effect red lighten-1 fz12" ng-click="hideLineInfo()" type="button">
+                                取消
                             </button>
                         </div>
                         <div class="col s6 right-align" style="padding: 10px 5px">
@@ -227,103 +235,124 @@
                         </div>
                     </div>
                 </div>
-                <!--生成线路隐藏文本-->
-                <div class="col s12 black-text fz14 center-align" style="margin-top: 15px" ng-repeat="currentMission in currentMissionList">
-                    <div class="col s5 center-align">
-                        <div class="col s4 center-align" style="padding: 0">
-                            <p>{{currentMission.city_route_start}}&emsp;&emsp;<span class="mdi mdi-arrow-right"></span></p>
-                        </div>
-                        <div class="col s8 left-align">
-                            <p>{{currentMission.city_route_end}}</p>
-                        </div>
-                    </div>
-                    <div class="col s4">
-                        <div class="col s7">
-                            <p>计划执行时间：</p>
-                        </div>
-                        <div class="col s5 left-align">
-                            <p>{{currentMission.created_on | date:'yyyy-MM-dd HH:mm'}}</p>
-                        </div>
-                    </div>
-                    <div class="col s3">
-                        <div class="col s6" style="padding: 10px 5px">
-                            <button style="padding:0;width:100%;height: 30px;line-height: 33px" class="btn waves-light waves-effect red lighten-1 fz12" type="button">
-                                删除线路
-                            </button>
-                        </div>
-                        <div class="col s6 right-align" style="padding: 10px 5px">
-                            <button ng-click="addMission()" style="padding:0;width:100%;height: 30px;line-height: 33px"
-                                    class="btn waves-light waves-effect cyan lighten-1 fz12" type="button">
-                                增加任务
-                            </button>
-                        </div>
-                    </div>
+
+                <div class="col s12 black-text fz14 center-align" style="margin-top: 15px">
+                    <ul class="collapsible" data-collapsible="accordion" style="overflow: hidden">
+                        <li ng-repeat="currentLine in currentLineList">
+                            <!--线路列表栏-->
+                            <div class="collapsible-header col s12 valign-wrapper collapsible_height">
+                                <div class="col s9" ng-click="showMissionInfo(currentLine.id)">
+                                    <div class="col s6 center-align">
+                                        <div class="col s4 center-align" style="padding: 0">
+                                            <p>{{currentLine.city_route_start}}&emsp;&emsp;<span class="mdi mdi-arrow-right"></span></p>
+                                        </div>
+                                        <div class="col s8 left-align">
+                                            <p>{{currentLine.city_route_end}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col s6">
+                                        <div class="col s7">
+                                            <p>计划执行时间：</p>
+                                        </div>
+                                        <div class="col s5 left-align">
+                                            <p>{{currentLine.task_plan_date | date:'yyyy-MM-dd - HH:mm'}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col s3">
+                                    <div class="col s6 right" style="padding: 0 5px">
+                                        <button style="padding:0;width:100%;height: 30px;line-height: 33px" class="btn waves-light waves-effect red lighten-1 fz12" ng-click="deleteLine(currentLine.id,$event)" type="button">
+                                            删除线路
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--拉开的任务列表栏,显示任务-->
+                            <div class="collapsible-body" style="padding: 0">
+                                <!--增加任务-->
+                                <div class="row col s12" ng-show="addMissionBtn">
+                                    <div class="col s3 right-align right" style="padding:15px 0">
+                                        <button ng-click="addMission()" style="width:100%;height: 30px;line-height: 33px"
+                                                class="btn waves-light waves-effect cyan lighten-1 fz12" type="button">
+                                            增加任务
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col s12 black-text fz14 center-align valign-wrapper" style="margin-top: 15px" ng-show="missionInfo">
+                                    <div class="col s4 valign-wrapper">
+                                        <div class="col s5">
+                                            <select id="chooseLocate" name="chooseLocate" ng-model="$parent.locateId" watch material-select>
+                                                <option value="" selected>装车地点</option>
+                                                <option ng-repeat="locateCity in locateList" ng-value="locateCity.id">{{locateCity.addr_name}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col s2">
+                                            <span class="mdi mdi-arrow-right"></span>
+                                        </div>
+                                        <div class="col s5">
+                                            <select id="chooseCity" name="chooseCity" ng-change="getReceiveDistributor(currentLine.id)" ng-model="$parent.sendCityId" watch material-select>
+                                                <option value="">选择城市</option>
+                                                <option ng-repeat="sendCity in sendCityList" ng-value="sendCity.id">{{sendCity.city_name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col s4 valign-wrapper">
+                                        <div class="col s12">
+                                            <select id="chooseDistributor" name="chooseDistributor" ng-options="addr.date_id + ' ' + addr.short_name + ' ' + addr.pre_count + '台 ' for addr in addrList" ng-model="$parent.receiveInfo" watch material-select>
+                                                <option value="">送达经销商</option>
+                                                <!--<option ng-repeat="addr in addrList" ng-value="addr.id">{{addr.short_name}}</option>-->
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col s1 right-align">
+                                        <p>派发数量：</p>
+                                    </div>
+                                    <div class="col s1" style="margin-top: 10px">
+                                        <input type="number" ng-model="$parent.distributeNum">
+                                    </div>
+                                    <div class="col s2">
+                                        <div class="col s6 right-align">
+                                            <a class="modal-action modal-close waves-light waves-effect red lighten-1 btn btn-floating" ng-click="closeMissionInfo()">
+                                                <i class="mdi mdi-close"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col s6 left-align">
+                                            <a class="modal-action modal-close waves-light waves-effect cyan lighten-1 btn btn-floating" ng-click="submitMissionInfo(currentLine.id)">
+                                                <i class="mdi mdi-check"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--增加任务隐藏文本-->
+                                <div class="col s12 valign-wrapper" ng-repeat="nowMission in missionList" style="border-top: 1px solid #ccc">
+                                    <div class="col s4">
+                                        <div class="col s7 center-align">
+                                            <p>{{nowMission.addr_name}}&emsp;<span class="mdi mdi-arrow-right"></span></p>
+                                        </div>
+                                        <div class="col s5 left-align">
+                                            <p>{{nowMission.city_name}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col s4">
+                                        <p>{{nowMission.created_on | date:'yyyy-MM-dd'}}</p>
+                                    </div>
+                                    <div class="col s3">
+                                        <p>派发数量：{{nowMission.plan_count}}</p>
+                                    </div>
+                                    <div class="col s1">
+                                        <a ng-click="deleteMission(nowMission.id,currentLine.id)" style="width: 30px;height: 30px" class="modal-action modal-close waves-light waves-effect red lighten-1 btn btn-floating">
+                                            <i style="line-height: 30px" class="mdi mdi-close"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
 
-                <!--增加任务-->
-                <div class="col s12 black-text fz14 center-align valign-wrapper" style="margin-top: 15px" ng-show="missionInfo">
-                    <div class="col s4 valign-wrapper">
-                        <div class="col s5">
-                            <select id="chooseLocate" name="chooseLocate" ng-model="locateId" watch material-select>
-                                <option value="" selected>装车地点</option>
-                                <option ng-repeat="locateCity in locateList" ng-value="locateCity.id">{{locateCity.addr_name}}</option>
-                            </select>
-                        </div>
-                        <div class="col s2">
-                            <span class="mdi mdi-arrow-right"></span>
-                        </div>
-                        <div class="col s5">
-                            <select id="chooseCity" name="chooseCity" ng-change="getReceiveDistributor()" ng-model="sendCityId" watch material-select>
-                                <option value="">选择城市</option>
-                                <option ng-repeat="sendCity in sendCityList" ng-value="sendCity.id">{{sendCity.city_name}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col s4 valign-wrapper">
-                        <div class="col s12">
-                            <select id="chooseDistributor" name="chooseDistributor" ng-options="addr.date_id + ' ' + addr.short_name + ' ' + addr.plan_count + ' / ' + addr.pre_count for addr in addrList" ng-change="getInstructionsTime()" ng-model="receiveInfo" watch material-select>
-                                <option value="">送达经销商</option>
-                                <!--<option ng-repeat="addr in addrList" ng-value="addr.id">{{addr.short_name}}</option>-->
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col s1 right-align">
-                        <p>派发数量：</p>
-                    </div>
-                    <div class="col s1" style="margin-top: 10px">
-                        <input type="number" ng-model="distributeNum">
-                    </div>
-                    <div class="col s2">
-                        <div class="col s6 right-align">
-                            <a class="modal-action modal-close waves-light waves-effect red lighten-1 btn btn-floating">
-                                <i class="mdi mdi-close"></i>
-                            </a>
-                        </div>
-                        <div class="col s6 left-align">
-                            <a class="modal-action modal-close waves-light waves-effect cyan lighten-1 btn btn-floating" ng-click="submitMissionInfo()">
-                                <i class="mdi mdi-check"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <!--增加任务隐藏文本-->
-                <div class="col s12" ng-show="missionTxt">
-                    <div class="col s4">
-                        <div class="col s7 center-align">
-                            <p>{{loadingAddrTxt}}&emsp;<span class="mdi mdi-arrow-right"></span></p>
-                        </div>
-                        <div class="col s5 left-align">
-                            <p>{{sendCityTxt}}</p>
-                        </div>
-                    </div>
-                    <div class="col s4">
-                        <p>{{sendAddrTxt}}</p>
-                    </div>
-                    <div class="col s4">
-                        <p>派发数量：{{distributeNum}}</p>
-                    </div>
-                </div>
             </div>
 
         </div>

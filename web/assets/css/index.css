@@ -1125,3 +1125,8 @@ input[type=text]{
 .truck_gpsBox  p:hover{
     background: grey;
 }
+
+/*列表头高度*/
+.collapsible_height p{
+    margin: 3px 0;
+}

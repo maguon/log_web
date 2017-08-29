@@ -5,11 +5,12 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.showMiddleCard = false;
     $scope.lineInfo = false;
-    // $scope.lineInfoTxt = false;
     $scope.missionInfo = false;
-    $scope.missionTxt = false;
+    $scope.addMissionBtn = true;
     $scope.leftKeyWord = "";
     $scope.rightKeyWord = "";
+    $scope.lineEndCityInfo = "";
+    $scope.lineStartDate = "";
 
     // 获取发运商品车信息（左侧信息卡片）
     $scope.getDeliveryCarInfo = function () {
@@ -127,6 +128,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     // 点击右侧卡片显示调度指令信息,并获取往期任务及当前任务
     $scope.showDispatchInfo = function (dispatchInfo) {
         $scope.dispatchInfo = dispatchInfo;
+        $scope.lineInfo = false;
         // 往期任务
         _basic.get($host.api_url + "/dpRouteTask?truckId=" + dispatchInfo.truck_id + "&taskStatus=9").then(function (pastMissionData) {
             if (pastMissionData.success === true) {
@@ -139,13 +141,13 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         });
 
         // 当前线路
-        _basic.get($host.api_url + "/dpRouteTaskBase?truckId=" + dispatchInfo.truck_id).then(function (currentMissionData) {
-            if (currentMissionData.success === true) {
-                $scope.currentMissionList = currentMissionData.result;
-                console.log("currentMissionData", currentMissionData);
+        _basic.get($host.api_url + "/dpRouteTask?truckId=" + dispatchInfo.truck_id + "&taskStatus=1,3").then(function (currentLineData) {
+            if (currentLineData.success === true) {
+                $scope.currentLineList = currentLineData.result;
+                console.log("currentLineData", currentLineData);
             }
             else {
-                swal(currentMissionData.msg, "", "error");
+                swal(currentLineData.msg, "", "error");
             }
         });
         $scope.showMiddleCard = true;
@@ -155,6 +157,16 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     // 生成线路按钮,点击显示路线信息并获取城市信息
     $scope.showCreateLine = function (cityId) {
         console.log("cityId", cityId);
+        console.log("$scope.currentLineList", $scope.currentLineList.length);
+        $scope.lineEndCityInfo = "";
+        $scope.lineStartDate = "";
+        // 线路的起始城市根据当前线路的最后一条的结束城市为准
+        if($scope.currentLineList.length === 0){
+            $scope.startCityName = $scope.dispatchInfo.city_name
+        }
+        else{
+            $scope.startCityName = $scope.currentLineList[$scope.currentLineList.length - 1].city_route_end;
+        }
         _basic.get($host.api_url + "/cityRouteDispatch?routeStartId=" + cityId).then(function (cityData) {
             if (cityData.success === true) {
                 $scope.cityList = cityData.result;
@@ -169,21 +181,21 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     // 线路填写完毕后确认按钮
     $scope.confirmChange = function () {
-        $scope.cityTxt = document.getElementById("city").options[document.getElementById("city").selectedIndex].text;
-        if ($scope.lineEndCityInfo != undefined && $scope.lineStartTime != undefined) {
+        if ($scope.lineEndCityInfo != "" && $scope.lineStartDate != "") {
+            var routeStartId = $scope.currentLineList.length === 0 ? $scope.dispatchInfo.current_city :  $scope.currentLineList[$scope.currentLineList.length - 1].route_end_id;
+            console.log("routeStartId",routeStartId);
             _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask", {
                 truckId: $scope.dispatchInfo.truck_id,
                 driveId: $scope.dispatchInfo.drive_id,
-                routeStartId: $scope.dispatchInfo.current_city,
+                routeStartId: routeStartId,
                 routeEndId: $scope.lineEndCityInfo.end_id,
                 distance: $scope.lineEndCityInfo.distance,
-                taskPlanDate: $scope.lineStartTime
+                taskPlanDate: $scope.lineStartDate
             }).then(function (data) {
                 if (data.success === true) {
-                    // $scope.lineInfoTxt = true;
                     $scope.lineInfo = false;
-                    $scope.lineId = data.id;
-                    console.log("lineId",$scope.lineId);
+                    $scope.showDispatchInfo($scope.dispatchInfo);
+                    swal("新增成功", "", "success");
                 }
                 else {
                     swal(data.msg, "", "error");
@@ -195,8 +207,61 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         }
     };
 
+    // 新增路线取消按钮
+    $scope.hideLineInfo = function () {
+        $scope.lineInfo = false;
+    };
+
+    // 删除线路
+    $scope.deleteLine = function (deleteLineId,event) {
+        event.stopPropagation();
+        console.log("deleteLineId",deleteLineId);
+        swal({
+                title: "确定删除当前线路吗？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确认",
+                cancelButtonText: "取消",
+                closeOnConfirm: false
+            },
+            function(){
+                _basic.delete($host.api_url + "/user/" + userId + "/dpRouteTask/" + deleteLineId).then(function (data) {
+                    if (data.success === true) {
+                        $scope.showDispatchInfo($scope.dispatchInfo);
+                        swal("删除成功", "", "success");
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
+            });
+    };
+
+    // 点击线路获取当前路线下的任务
+    $scope.showMissionInfo = function (showLineId) {
+        console.log("showLineId",showLineId);
+        $scope.missionInfo = false;
+        $scope.addMissionBtn = true;
+        _basic.get($host.api_url + "/dpRouteLoadTask?dpRouteTaskId=" + showLineId).then(function (missionData) {
+            if (missionData.success === true) {
+                console.log("getMissionData", missionData);
+                $scope.missionList = missionData.result;
+            }
+            else {
+                swal(missionData.msg, "", "error");
+            }
+        });
+    };
+
     // 增加任务
     $scope.addMission = function () {
+        $scope.addMissionBtn = false;
+        $scope.locateId = "";
+        $scope.sendCityId = "";
+        $scope.receiveInfo = "";
+        $scope.distributeNum = "";
+
         // 获取装车地点信息
         _basic.get($host.api_url + "/baseAddr?cityId=" + $scope.dispatchInfo.current_city).then(function (locateData) {
             if (locateData.success === true) {
@@ -221,18 +286,26 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         });
     };
 
+    // 关闭任务
+    $scope.closeMissionInfo = function () {
+        $scope.missionInfo = false;
+        $scope.addMissionBtn = true;
+    };
+
     // 根据选择的城市获取送达经销商和指令时间及派发数量信息
-    $scope.getReceiveDistributor = function () {
+    $scope.getReceiveDistributor = function (lineId) {
         console.log("sendCityId",$scope.sendCityId);
-        if($scope.locateId != undefined){
-            _basic.get($host.api_url + "/dpTaskStatBase?" + _basic.objToUrl({
+        console.log("lineId",lineId);
+        if($scope.locateId != ""){
+            _basic.get($host.api_url + "/dpDemandBase?" + _basic.objToUrl({
+                    dpRouteTaskId:lineId,
                     routeStartId:$scope.dispatchInfo.current_city,
                     baseAddrId:$scope.locateId,
                     routeEndId:$scope.sendCityId
                 })).then(function (addrData) {
                 if (addrData.success === true) {
                     $scope.addrList = addrData.result;
-                    console.log("addrData",addrData)
+                    console.log("addrData",addrData);
                 }
                 else {
                     swal(addrData.msg, "", "error");
@@ -245,19 +318,13 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     };
 
-    // 根据条件获取指令时间
-    $scope.getInstructionsTime = function () {
-        console.log("receiveInfo",$scope.receiveInfo);
-    };
-
-    // 提交线路信息
-    $scope.submitMissionInfo = function () {
-        $scope.loadingAddrTxt = document.getElementById("chooseLocate").options[document.getElementById("chooseLocate").selectedIndex].text;
-        $scope.sendCityTxt = document.getElementById("chooseCity").options[document.getElementById("chooseCity").selectedIndex].text;
-        $scope.sendAddrTxt = document.getElementById("chooseDistributor").options[document.getElementById("chooseDistributor").selectedIndex].text;
-
-        if($scope.locateId != undefined && $scope.sendCityId != undefined && $scope.receiveInfo != null && $scope.distributeNum != undefined){
-            _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask/" + $scope.lineId + "/dpRouteLoadTask",{
+    // 提交线路下的任务信息
+    $scope.submitMissionInfo = function (lineId) {
+        console.log("lineId",lineId);
+        console.log("$scope.receiveInfo.id",$scope.receiveInfo.id);
+        if($scope.locateId != "" && $scope.sendCityId != "" && $scope.receiveInfo != "" && $scope.distributeNum != ""){
+            _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask/" + lineId + "/dpRouteLoadTask",{
+                dpDemandId:$scope.receiveInfo.id,
                 routeStartId:$scope.dispatchInfo.current_city,
                 baseAddrId:$scope.locateId,
                 routeEndId:$scope.sendCityId,
@@ -269,7 +336,8 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                     swal("新增成功", "", "success");
                     console.log("data",data);
                     $scope.missionInfo = false;
-                    $scope.missionTxt = true;
+                    $scope.addMissionBtn = true;
+                    $scope.showMissionInfo(lineId)
                 }
                 else{
                     swal(data.msg, "", "error");
@@ -279,6 +347,31 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         else{
             swal("请填写完整信息", "", "error");
         }
+    };
+    
+    // 删除任务信息
+    $scope.deleteMission = function (missionId, lineId) {
+        console.log("missionId", missionId, "lineId", lineId);
+        swal({
+                title: "确定删除当前任务吗？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确认",
+                cancelButtonText: "取消",
+                closeOnConfirm: false
+            },
+            function () {
+                _basic.delete($host.api_url + "/user/" + userId + "/dpRouteLoadTask/" + missionId).then(function (data) {
+                    if (data.success === true) {
+                        $scope.showMissionInfo(lineId);
+                        swal("删除成功", "", "success");
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
+            });
     };
 
     $scope.closeModel = function () {

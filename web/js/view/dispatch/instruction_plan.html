@@ -75,7 +75,7 @@
 
                         <a style="top: 65%;width: 37px;height: 37px;right: 9px"
                            class="right btn-floating setting_shipments_btn  btn waves-effect materialize-red  lighten-2 waves-light vc-center ">
-                            <i style="font-size: 1.4rem;line-height: 38px" ng-click="showCarInfoModel(car)"
+                            <i style="font-size: 1.3rem;line-height: 38px" ng-click="showCarInfoModel(car)"
                                class="mdi mdi-file-document"></i>
                         </a>
                     </div>
@@ -164,7 +164,7 @@
                 </div>
                 <div class="col s12 black-text fz14" ng-repeat="mission in pastMissionList">
                     <div class="col s4 center-align">
-                        <p>{{mission.task_start_date | date:'yyyy-MM-dd'}}&nbsp;&nbsp;<span class="mdi mdi-arrow-right"></span>&nbsp;&nbsp;{{mission.task_plan_date | date:'yyyy-MM-dd'}}</p>
+                        <p>{{mission.task_start_date | date:'yyyy-MM-dd'}}&nbsp;&nbsp;<span class="mdi mdi-arrow-right"></span>&nbsp;&nbsp;{{mission.task_end_date | date:'yyyy-MM-dd'}}</p>
                     </div>
                     <div class="col s4 center-align">
                         <p>{{mission.city_route_start}}&nbsp;&nbsp;<span class="mdi mdi-arrow-right"></span>&nbsp;&nbsp;{{mission.city_route_end}}&emsp;{{mission.distance}} 公里</p>
@@ -369,7 +369,7 @@
             <div class="col s12" ng-repeat="details in newCarDetailsList">
                 <div class="card-panel white " style="padding: 0;cursor: pointer" ng-click="showDispatchInfo(details)">
                     <div class="row cyan lighten-2 white-text setting_shipments_title vc-center"
-                         style="padding: 8px 5px;height: 48px;margin-bottom: 0">
+                         style="padding: 8px 5px;height: 43px;margin-bottom: 0">
                         <!--<div class="col s2 center">-->
                             <!--<span style="font-size: 1.6rem" class="mdi mdi-truck"></span>-->
                         <!--</div>-->
@@ -382,17 +382,17 @@
                     </div>
                     <div class="row valign-wrapper">
                         <div class="col s9" style="padding: 0">
-                            <div class="col s12" style="padding: 0">
-                                <div class="col s3">
-                                    <span style="font-size: 1.5rem;color: darkgray" class="mdi mdi-map-marker"></span>
+                            <div class="col s12 valign-wrapper" style="padding: 0">
+                                <div class="col s3 vc-center">
+                                    <span style="font-size: 1.3rem;color: darkgray" class="mdi mdi-map-marker"></span>
                                 </div>
-                                <div class="col s9 left">
+                                <div class="col s9 left" style="padding: 0;">
                                     <p style="font-size: 1.0rem;color: black;margin: 5px 0;line-height: 26px">{{details.city_name}}</p>
                                 </div>
                             </div>
-                            <div class="col s12" style="margin-bottom: 0;padding: 0">
-                                <div class="col s3">
-                                    <span style="font-size: 1.5rem;color: darkgray" class="mdi mdi-account"></span>
+                            <div class="col s12 valign-wrapper" style="margin-bottom: 0;padding: 0">
+                                <div class="col s3 vc-center">
+                                    <span style="font-size: 1.3rem;color: darkgray" class="mdi mdi-account"></span>
                                 </div>
                                 <div class="col s9 left fz12" style="padding: 0;">
                                     <p style="color: black;margin: 5px 0;line-height: 26px">{{details.drive_name}} {{details.truck_tel}}</p>

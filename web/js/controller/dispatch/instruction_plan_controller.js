@@ -131,6 +131,10 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         // 往期任务
         _basic.get($host.api_url + "/dpRouteTask?truckId=" + dispatchInfo.truck_id + "&taskStatus=9").then(function (pastMissionData) {
             if (pastMissionData.success === true) {
+                // 转换日期格式
+                for (var i = 0; i < pastMissionData.result.length; i++) {
+                    pastMissionData.result[i].date_id = moment(pastMissionData.result[i].date_id.toString()).format("YYYY-MM-DD")
+                }
                 $scope.pastMissionList = pastMissionData.result;
                 // console.log("pastMissionData", pastMissionData);
             }

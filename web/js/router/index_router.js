@@ -16,6 +16,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/dispatch/instruction_plan.html",
             controller:"instruction_plan_controller"
         })
+        .state("instruction_operation", {
+            url: "/instruction_operation",
+            templateUrl: "js/view/dispatch/instruction_operation.html",
+            controller:"instruction_operation_controller"
+        })
         .state("instruction_list", {
             url: "/instruction_list",
             templateUrl: "js/view/dispatch/instruction_list.html",

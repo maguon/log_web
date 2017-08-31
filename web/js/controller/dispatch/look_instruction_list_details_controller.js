@@ -22,7 +22,11 @@ app.controller("look_instruction_list_details_controller", ["$scope", "$host", "
             _basic.get($host.api_url+"/dpRouteTask?dpRouteTaskId="+$scope._id).then(function (data) {
                 if(data.success==true&&data.result.length>0){
                     $scope.this_instruction=data.result[0];
-                    $scope.data_id=moment($scope.this_instruction.date_id.toString()).format("YYYY-MM-DD");
+                    if($scope.this_instruction.date_id){
+                        $scope.data_id=moment($scope.this_instruction.date_id.toString()).format("YYYY-MM-DD");
+                    }else {
+                        $scope.data_id="";
+                    }
                     resolve();
                 }
             })

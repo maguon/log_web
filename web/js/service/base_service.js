@@ -96,7 +96,20 @@ baseService.factory("baseService", function () {
             getter: _getter
         };
     };
-
+    // 获取当前月第一天
+    _this.dateFirst=function () {
+        var date=new Date();
+        return date.setDate(1);
+    };
+    // 获取当前月最后一天
+    _this.dateLast=function () {
+        var date=new Date();
+        var currentMonth=date.getMonth();
+        var nextMonth=++currentMonth;
+        var nextMonthFirstDay=new Date(date.getFullYear(),nextMonth,1);
+        var oneDay=1000*60*60*24;
+        return new Date(nextMonthFirstDay-oneDay);
+    };
     return _this
 });
 

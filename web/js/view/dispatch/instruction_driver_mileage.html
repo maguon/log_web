@@ -10,21 +10,21 @@
                             <div class="col s11">
                                 <div class="col s12">
                                     <div class="input-field col s4">
-                                        <input name="vin" id="vin" type="text" ng-model="vin"   >
-                                        <label for="vin">司机</label>
+                                        <input name="drive_name" id="drive_name" type="text" ng-model="drive_name"   >
+                                        <label for="drive_name">司机</label>
                                     </div>
                                     <div class="input-field col s4">
-                                        <input name="dispatch" id="dispatch" type="text" ng-model="dispatch"   >
-                                        <label for="dispatch">货车牌号</label>
+                                        <input name="truckNum" id="truckNum" type="text" ng-model="truckNum"   >
+                                        <label for="truckNum">货车牌号</label>
                                     </div>
                                     <div class=" col s4">
                                         <div class="input-field col s6">
-                                            <input type="text" ng-model="instruct_startTime" id="instruct_startTime" name="instruct_startTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                            <label for="instruct_startTime">统计时间(始)</label>
+                                            <input type="text" ng-model="driver_mileage_startTime" id="driver_mileage_startTime" name="driver_mileage_startTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                            <label for="driver_mileage_startTime">统计时间(始)</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <input type="text" ng-model="instruct_endTime" id="instruct_endTime" name="instruct_endTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                            <label for="instruct_endTime">统计时间(终)</label>
+                                            <input type="text" ng-model="driver_mileage_endTime" id="driver_mileage_endTime" name="driver_mileage_endTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                            <label for="driver_mileage_endTime">统计时间(终)</label>
                                         </div>
                                     </div>
                                 </div>
@@ -50,15 +50,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="el in instruction_list" class="grey-text text-darken-1">
-                                    <td  ng-bind="el.id">1</td>
-                                    <td ng-bind="el.created_on|date:'yyyy-MM-dd hh:mm:ss'">2</td>
+                                <tr ng-repeat="el in driveDistanceCount" class="grey-text text-darken-1">
+                                    <td  ng-bind="el.drive_name">1</td>
+                                    <td ng-bind="el.complete_count">2</td>
                                     <td ng-bind="el.truck_num"></td>
-                                    <td ng-bind="el.drive_name"></td>
-                                    <td ng-bind="el.city_route_start">无</td>
-                                    <td ng-bind="el.city_route_end"></td>
+                                    <td ng-bind="el.load_distance+el.no_load_distance|nullTo"></td>
+                                    <td ng-bind="el.load_distance|nullTo">无</td>
+                                    <td ng-bind="el.no_load_distance|nullTo"></td>
                                     <td class="operation">
-                                        <a href="#" ui-sref="look_instruction_list_details({id:el.id,from:'instruction_list'})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ></i></a>
+                                        <a href="#" ui-sref="instruction_drive_details({id:el.drive_id,timeStart:driver_mileage_startTime,timeEnd:driver_mileage_endTime,refer:'instruction_driver_mileage',})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ></i></a>
                                     </td>
                                 </tr>
                             </tbody>

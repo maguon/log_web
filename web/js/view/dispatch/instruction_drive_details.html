@@ -1,0 +1,112 @@
+<div id="look_instruction_list_details">
+    <div class="">
+        <div class="modal-content grey-text text-darken-2">
+            <!--<div class="" style="width: 95%;margin: 0 auto">-->
+            <div class="storage_storeTitle vc-center ">
+                <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
+                    <i class="mdi mdi-arrow-left-bold"></i>
+                </a>
+                <h4 class="center-align cyan-text text-lighten-1">司机工作详细</h4>
+            </div>
+            <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+            <div class="row no-marBottom" ul-tabs>
+                <div id="look_msg" class="col s12 tab_box" style="width: 90%; margin:0 5% ">
+                    <div class="row vc-center" style="padding: 20px">
+                        <div class="col s4">
+                            <h5><span>{{driveDetail.drive_name}}</span></h5>
+                        </div>
+                        <div class="col s8 " >
+                            <div class="col s4">
+                                联系电话:<span>{{driveDetail.tel}}</span>
+                            </div>
+                            <div class="col s4">
+                                货车:
+                                <span>{{driveDetail.truck_num}}</span>
+                            </div>
+                            <div class="col s4">
+                                状态:
+                                <span ng-if="driveDetail.current_city>0&&driveDetail.task_end==0&&driveDetail.task_start==0">待运</span>
+                                <span ng-if="driveDetail.current_city==0&&driveDetail.task_end>0&&driveDetail.task_start>0">在途</span>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+                    <div class="row grey lighten-2 valign-wrapper" style="padding:0 20px">
+                        <div class="col s8 ">
+                            <div class="col s6 input-field">
+                                <input type="text" ng-model="driver_mileage_startTime" id="driver_mileage_startTime" name="driver_mileage_startTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                <label for="driver_mileage_startTime">指令时间(始)</label>
+                            </div>
+                            <div class="col s6 input-field">
+                                <input type="text" ng-model="driver_mileage_endTime" id="driver_mileage_endTime" name="driver_mileage_endTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                <label for="driver_mileage_endTime">指令时间(始)</label>
+                            </div>
+                        </div>
+                        <div class=" col s3">
+                            <div class="input-field col s12">
+                                <select id="car_status" name="car_status" material-select watch    ng-model="car_status">
+                                    <option ng-value="">所有</option>
+                                    <option ng-value="0">重载</option>
+                                    <option ng-value="1">空载</option>
+                                </select>
+                                <label for="car_status">载重类型</label>
+                            </div>
+
+                        </div>
+                        <div class="col s1 fz30 red-text text-lighten-2">
+                                <i class="mdi mdi-magnify" style="cursor: pointer" ng-click="drive_instruction_list()"></i>
+                        </div>
+                    </div>
+                    <div class="row" style="padding:0 20px">
+                        <div class="col s4">
+                            总里程:<span>{{driveDetail.load_distance+driveDetail.no_load_distance}}</span>公里
+                        </div>
+                        <div class="col s4">
+                            重载:<span>{{driveDetail.load_distance}}</span>公里
+                        </div>
+                        <div class="col s4">
+                            空载:<span>{{driveDetail.no_load_distance}}</span>公里
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="row" style="margin:0 5% ">
+                <div class="col s12">
+                    <table class=" bordered striped">
+                        <thead class="blue-grey lighten-5">
+                        <tr class="grey-text text-darken-2">
+                            <th data-field="">指令编号</th>
+                            <th data-field="">指令执行时间</th>
+                            <th data-field="">起始城市</th>
+                            <th  data-field="">目的城市</th>
+                            <th data-field="">装载车辆</th>
+                            <th data-field="">公里数</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="el in instruction_list" class="grey-text text-darken-1">
+                            <td  ng-bind="el.id">1</td>
+                            <td ng-bind="el.created_on|date:'yyyy-MM-dd hh:mm:ss'">2</td>
+                            <td ng-bind="el.city_route_start">无</td>
+                            <td ng-bind="el.city_route_end">
+                            <td ng-bind="el.car_count"></td>
+                            <td ng-bind="el.distance"></td>
+                            </td>
+                            <td class="operation">
+                                <a href="#" ui-sref="_look_instruction_list_details({instruction_id:el.id,id:driveId,timeStart:driver_mileage_startTime,timeEnd:driver_mileage_endTime,refer:'instruction_driver_mileage',from:'instruction_drive_details'})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ></i></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>

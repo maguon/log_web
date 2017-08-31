@@ -24,6 +24,17 @@ CommonFilter.filter("ptime",function () {
 
     }
 });
+CommonFilter.filter("nullTo",function () {
+    return function(input){
+        // var time;
+        if(input==null||input==undefined){
+            return 0
+        }else {
+            return input
+        }
+
+    }
+});
 
 
 /*

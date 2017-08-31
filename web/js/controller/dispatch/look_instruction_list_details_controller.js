@@ -11,10 +11,15 @@ app.controller("look_instruction_list_details_controller", ["$scope", "$host", "
         }
 
     };
+    if($stateParams.from=="instruction_drive_details"){
+        $scope._id=$stateParams.instruction_id
+    }else {
+        $scope._id=$stateParams.id
+    }
     $scope.LoadTaskList=false;
     function p() {
         var p=new Promise(function (resolve,reject) {
-            _basic.get($host.api_url+"/dpRouteTask?dpRouteTaskId="+$stateParams.instruction_id).then(function (data) {
+            _basic.get($host.api_url+"/dpRouteTask?dpRouteTaskId="+$scope._id).then(function (data) {
                 if(data.success==true&&data.result.length>0){
                     $scope.this_instruction=data.result[0];
                     $scope.data_id=moment($scope.this_instruction.date_id.toString()).format("YYYY-MM-DD");
@@ -25,8 +30,8 @@ app.controller("look_instruction_list_details_controller", ["$scope", "$host", "
         return p;
     }
 
-    p().then(function () {
-        _basic.get($host.api_url+"/dpRouteLoadTask?dpRouteTaskId="+$stateParams.instruction_id).then(function (data) {
+    p().then(function (){
+        _basic.get($host.api_url+"/dpRouteLoadTask?dpRouteTaskId="+$scope._id).then(function (data) {
             if(data.success==true){
                 $scope.this_LoadTask=data.result;
             }

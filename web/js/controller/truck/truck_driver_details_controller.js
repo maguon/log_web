@@ -49,7 +49,7 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
     };
 
     // 根据司机id查询司机详细信息
-    console.log("driveId",driverId);
+    // console.log("driveId",driverId);
     $scope.getDriverDetails = function () {
         _basic.get($host.api_url + "/drive?driveId=" + driverId).then(function (data) {
             if (data.success === true) {
@@ -223,7 +223,7 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
             };
             _basic.put($host.api_url + "/user/" + userId + "/drive/" + driverId + "/image", driveImageObj).then(function (data) {
                 if (data.success == true) {
-                    console.log("上传成功");
+                    // console.log("上传成功");
                     swal("身份证上传成功", "", "success");
                     if ($scope.drive_img.length != 0) {
                         viewer.destroy();
@@ -231,7 +231,7 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
                     $scope.getDriverDetails();
                 } else {
                     swal(data.msg, "", "error");
-                    console.log("上传失败:",data.msg);
+                    // console.log("上传失败:",data.msg);
                 }
             })
         });
@@ -255,7 +255,7 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
             };
             _basic.put($host.api_url + "/user/" + userId + "/drive/" + driverId + "/image", licenseImageObj).then(function (data) {
                 if (data.success == true) {
-                    console.log("上传成功");
+                    // console.log("上传成功");
                     swal("驾驶证上传成功", "", "success");
                     if ($scope.license_img.length != 0) {
                         viewer.destroy();
@@ -263,7 +263,7 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
                     $scope.getDriverDetails();
                 } else {
                     swal(data.msg, "", "error");
-                    console.log("上传失败:",data.msg);
+                    // console.log("上传失败:",data.msg);
                 }
             })
         });

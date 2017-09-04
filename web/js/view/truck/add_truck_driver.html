@@ -132,13 +132,13 @@
                 <div class="col s2">身份证:</div>
                 <div class="col s10">
                     <form name="uploadImageForm" class="uploadImageForm">
-                        <div class="storage_car_picture col s4 vc-center  p0 cyan lighten-1 white-text">
+                        <div class="storage_car_picture col s2 vc-center  p0 cyan lighten-1 white-text">
                             <input name="image" type="file"
                                    onchange="angular.element(this).scope().uploadIdCardImage(this)" max_size="4M">
                             <i class="mdi mdi-instagram"></i>
                         </div>
                         <div id="look_driverIdentity" style="cursor: pointer">
-                            <div ng-repeat="el in drive_img" repeat-finish="driverFinish()" class="drive_img_box col s4 vc-center p0 grey white-text">
+                            <div ng-repeat="el in drive_img" repeat-finish="driverFinish()" class="drive_img_box col s6 vc-center p0 grey white-text">
                                 <img ng-src="{{el.img}}" class="responsive-img">
                             </div>
                         </div>
@@ -150,12 +150,12 @@
                 <div class="col s2">驾驶证:</div>
                 <div class="col s10">
                     <form name="uploadImageForm" class="uploadImageForm">
-                        <div class="storage_car_picture col s4 vc-center  p0 cyan lighten-1 white-text">
+                        <div class="storage_car_picture col s2 vc-center  p0 cyan lighten-1 white-text">
                             <input name="image" type="file" onchange="angular.element(this).scope().uploadLicenseImage(this)" max_size="4M">
                             <i class="mdi mdi-instagram"></i>
                         </div>
                         <div id="look_licenseImg" style="cursor: pointer">
-                            <div ng-repeat="el in license_img" repeat-finish="licenseFinish()" class="drive_img_box col s4 vc-center p0 grey white-text">
+                            <div ng-repeat="el in license_img" repeat-finish="licenseFinish()" class="drive_img_box col s6 vc-center p0 grey white-text">
                                 <img ng-src="{{el.img}}" class="responsive-img">
                             </div>
                         </div>

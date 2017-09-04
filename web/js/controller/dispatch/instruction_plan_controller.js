@@ -36,17 +36,23 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         _basic.get($host.api_url + "/truckDispatch?dispatchFlag=1").then(function (carDetailsData) {
             if (carDetailsData.success === true) {
                 // 防止过滤出错，将信息为null的转为空字符串
-                for(var i = 0;i<carDetailsData.result.length;i++){
-                    if(carDetailsData.result[i].drive_name === null){
+                for (var i = 0; i < carDetailsData.result.length; i++) {
+                    if (carDetailsData.result[i].drive_name === null) {
                         carDetailsData.result[i].drive_name = "";
                     }
-                    if(carDetailsData.result[i].city_name === null){
+                    if (carDetailsData.result[i].city_name === null) {
                         carDetailsData.result[i].city_name = "";
+                    }
+                    if(carDetailsData.result[i].current_city === 0){
+                        carDetailsData.result[i].operate_status = "在途"
+                    }
+                    else{
+                        carDetailsData.result[i].operate_status = "待运中"
                     }
                 }
                 $scope.carDetailsList = carDetailsData.result;
                 $scope.newCarDetailsList = $scope.carDetailsList;
-                // console.log("carDetailsData", $scope.newCarDetailsList);
+                console.log("carDetailsData", $scope.newCarDetailsList);
             }
             else {
                 swal(carDetailsData.msg, "", "error");

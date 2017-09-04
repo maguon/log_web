@@ -7,10 +7,11 @@ app.controller("add_hand_truck_details_controller", ["$scope","$state","$statePa
     $scope.return=function () {
         $state.go($stateParams.from,{reload:true})
     };
-
+    $scope.numReg="(^[1-9]?\d$)";
 
     // 车辆存照片ID;
     var truck_id;
+
     // 所属类型--公司联动
     $scope.getCompany=function () {
         _basic.get($host.api_url+"/company?operateType="+$scope.truck_hand_type).then(function (data) {
@@ -82,7 +83,6 @@ app.controller("add_hand_truck_details_controller", ["$scope","$state","$statePa
                 // "licenseImage": "string",
                 "remark":$scope.hand_textarea
             };
-            console.log(obj);
             if(inValid){
                 _basic.post($host.api_url+"/user/"+userId+"/truckTrailer",obj).then(function (data) {
                     if(data.success==true){
@@ -104,6 +104,8 @@ app.controller("add_hand_truck_details_controller", ["$scope","$state","$statePa
                         swal(data.msg,"","error")
                     }
                 });
+            }else {
+
             }
 
     };
@@ -241,7 +243,7 @@ app.controller("add_hand_truck_details_controller", ["$scope","$state","$statePa
         var filename = $(dom).val();
         // console.log($(dom).val());
         uploadBrandImage(filename,dom_obj,function (imageId) {
-            _basic.post($host.record_url + "/user/" +userId + "/truck/" +truck_id + "/image", {
+            _basic.post($host.record_url + "/user/" +userId + "/truck/" +$scope.truck_hand_num + "/image", {
                 "username": _basic.getSession(_basic.USER_NAME),
                 "userId": userId,
                 "userType": _basic.getSession(_basic.USER_TYPE),
@@ -272,7 +274,7 @@ app.controller("add_hand_truck_details_controller", ["$scope","$state","$statePa
                 // console.log(src);
                 var url_array=src.split("/");
                 var url=url_array[url_array.length-1];
-                _basic.delete($host.record_url+"/user/"+userId+"/record/"+record_id+"/truck/"+truck_id+"/image/"+url).then(function (data) {
+                _basic.delete($host.record_url+"/user/"+userId+"/record/"+record_id+"/truck/"+$scope.truck_hand_num+"/image/"+url).then(function (data) {
                     if(data.success==true){
                         var i=$scope.truck_image_i.indexOf(src);
                         $scope.truck_imageBox.splice(i,1);

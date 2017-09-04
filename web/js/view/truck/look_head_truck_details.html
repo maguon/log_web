@@ -9,9 +9,9 @@
                 <h4 class="center-align cyan-text text-lighten-1">头车信息</h4>
             </div>
             <!--<div class="divider" style="background: #00bcd4;height: 2px;"></div>-->
-            <div class="row" >
-                <div class="col s12" >
-                    <ul class="ui-tabs tabs" ul-tabs>
+            <div class="row"  >
+                <div class="col s12" style="overflow-x: hidden">
+                    <ul class="ui-tabs tabs" ul-tabs >
                         <li class="tab col s3 test1"><a class="active"  href="#test1">基本信息</a></li>
                         <li class="tab col s3 test2 "><a    href="#test2">上传照片</a></li>
                         <li class="tab col s3 test3 "><a   href="#test3">绑定挂车</a></li>
@@ -210,28 +210,43 @@
                 <div id="test3" class="test col s12">
                     <form name="Binding_trailer_form"  ng-submit="Binding_trailer_submit()" novalidate>
                         <div class="row">
-                            <div class="input-field col s4">
+                            <div class="input-field col s3">
                                 <input id="Binding_trailer" ng-disabled="show_unbind_trailer_btn" name="Binding_trailer" ng-keyup="Binding_trailer_check()" class="Binding_trailer" ng-model="Binding_trailer" type="text"  autocomplete="off">
                                 <label for="Binding_trailer">关联挂车</label>
+                            </div>
+                            <div class="input-field col s1" style="margin-top: 27px">
+                                货位:
+                                <span class="cyan-text">{{Binding_trailer_number}}</span>
                             </div>
                             <div class="col s2 input-field">
                                 <a class="btn waves-effect " ng-show="show_unbind_trailer_btn" ng-click="unbind_trailer()">解绑</a>
                                 <button class="btn waves-effect" ng-hide="show_unbind_trailer_btn" type="submit" name="action" >绑定挂车</button>
                             </div>
-
                         </div>
-
                         <div class="row">
                             <div ng-hide="show_unbind_trailer_btn" ng-repeat="el in hand_truck_msg track by $index" class="col s4 " style="padding: 10px;height: 40px;margin-top: 20px">
                                 <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':el.first_num}">
-                                    <div class="col s6 " ng-if="!el.first_num" ng-click="check_trailer(el.id)">
+                                    <div class="col s4 " ng-if="!el.first_num" ng-click="check_trailer(el.id,el.truck_num,el.number)">
                                         <input type="radio" name="filled-in" class="filled-in"  id="filled-in-box{{$index}}" />
                                         <label for="filled-in-box{{$index}}" class="black-text" style="font-size: 18px" >{{el.truck_num}}</label>
                                     </div>
-                                    <div class="col s6 black-text" ng-if="el.first_num"  style="font-size: 18px">
+                                    <div class="col s4 black-text" ng-if="el.first_num"  style="font-size: 18px">
                                         {{el.truck_num}}
                                     </div>
-                                    <div class="col s6">
+                                    <div class="col s3 black-text" ng-if="el.first_num"  style="font-size: 18px">
+                                        货位:
+                                        <span>
+                                            {{el.number}}
+                                        </span>
+
+                                    </div>
+                                    <div class="col s3 black-text" ng-if="!el.first_num"  style="font-size: 18px">
+                                        货位:
+                                        <span>
+                                            {{el.number}}
+                                        </span>
+                                    </div>
+                                    <div class="col s4">
                                         <span ng-hide="el.first_num" style="margin-left: 10px">未关联车头</span>
                                         <span ng-show="el.first_num" style="margin-left: 10px">关联车头: <span>{{el.first_num}}</span></span>
                                     </div>
@@ -255,7 +270,7 @@
                     <div class="row">
                         <div ng-hide="show_unbind_drive_btn" ng-repeat="el in drive track by $index" class="col s4 " style="padding: 10px;height: 40px;margin-top: 20px">
                             <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':el.truck_num}">
-                                <div class="col s6 " ng-if="!el.truck_num" ng-click="check_driver(el.id)">
+                                <div class="col s6 " ng-if="!el.truck_num" ng-click="check_driver(el.id,el.drive_name)">
                                     <input type="radio" name="filled-in" class="filled-in"  id="filled-in_driver-box{{$index}}" />
                                     <label for="filled-in_driver-box{{$index}}" class="black-text" style="font-size: 18px" >{{el.drive_name}}</label>
                                 </div>

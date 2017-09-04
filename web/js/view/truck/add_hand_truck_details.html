@@ -49,7 +49,7 @@
                             </div>
                             <div class="row">
                                 <div class="input-field col s6 " ng-class="{'has-error':add_truck_form.hand_have_num.$invalid&&submitted }">
-                                    <input name="hand_have_num" id="hand_have_num" type="number" ng-model="hand_have_num"  required maxlength="2">
+                                    <input name="hand_have_num" id="hand_have_num" type="number" ng-model="hand_have_num" ng-pattern="numReg"   required maxlength="2">
                                     <label for="hand_have_num"><span style="color: red;margin-right: 5px">*</span>挂车货位（最多两位数）</label>
                                 </div>
                                 <div class="input-field col s6 " >

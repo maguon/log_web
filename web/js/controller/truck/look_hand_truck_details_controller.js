@@ -50,7 +50,7 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
         });
 
         // 获取车头
-        _basic.get($host.api_url+"/truckTrailer?truckType=1").then(function (data) {
+        _basic.get($host.api_url+"/truckFirst?truckType=1").then(function (data) {
             if(data.success==true){
                 $scope.head_car_msg=data.result;
                 head_car_msg=data.result;
@@ -296,7 +296,7 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
         if(filename){
             // console.log($(dom).val());
             uploadBrandImage(filename,dom_obj,function (imageId) {
-                _basic.post($host.record_url + "/user/" +userId + "/truck/" +id + "/image", {
+                _basic.post($host.record_url + "/user/" +userId + "/truck/" +$scope.truck_id + "/image", {
                     "username": _basic.getSession(_basic.USER_NAME),
                     "userId": userId,
                     "userType": _basic.getSession(_basic.USER_TYPE),
@@ -304,7 +304,7 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
                 }).then(function (data) {
                     if (data.success == true) {
                         $scope._id = data.result._id;
-                        viewer.destroy();
+                        // viewer.destroy();
                         var nowDate=moment(new Date()).format("YYYY-DD-MM HH:mm");
                         $scope.truck_image_i.push($host.file_url + '/image/' +imageId);
                         $scope.truck_imageBox.push({src: $host.file_url + '/image/' + imageId,record_id:$scope._id,time:nowDate,user:_basic.getSession(_basic.USER_NAME)});
@@ -330,7 +330,7 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
                 // console.log(src);
                 var url_array=src.split("/");
                 var url=url_array[url_array.length-1];
-                _basic.delete($host.record_url+"/user/"+userId+"/record/"+record_id+"/truck/"+id+"/image/"+url).then(function (data) {
+                _basic.delete($host.record_url+"/user/"+userId+"/record/"+record_id+"/truck/"+$scope.truck_id+"/image/"+url).then(function (data) {
                     if(data.success==true){
                         var i=$scope.truck_image_i.indexOf(src);
                         $scope.truck_imageBox.splice(i,1);
@@ -365,8 +365,9 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
     $scope.clear_head_truck=function () {
         $scope.check_head_car_id="";
     };
-    $scope.check_head_truck=function (id) {
+    $scope.check_head_truck=function (id,num) {
         $scope.check_head_car_id=id;
+        $scope.Binding_head_truck=num;
     };
     // 绑定头车
     $scope.Binding_head_car_submit=function () {
@@ -374,7 +375,36 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
             _basic.put($host.api_url+"/user/"+userId+"/truck/"+$scope.check_head_car_id+"/trail/"+id+"/bind",{}).then(function (data) {
                 if(data.success==true){
                     swal("绑定成功","","success");
-                    $scope.truck_msg();
+                    truck_msg().then(function () {
+                        // 获取车头
+                        _basic.get($host.api_url+"/truckFirst?truckType=1").then(function (data) {
+                            if(data.success==true){
+                                $scope.head_car_msg=data.result;
+                                head_car_msg=data.result;
+
+                            }else {
+                                swal(data.msg,"","error")
+                            }
+                        });
+                        return truck_details()
+                    }).then(function () {
+                        // 挂车详情
+                        _basic.get($host.api_url+"/truckTrailer?truckId="+id).then(function (data) {
+                            if(data.success==true){
+                                $scope.truckTrailer=data.result[0];
+                                $scope.truck_id=$scope.truckTrailer.truck_num;
+                                $scope.hand_truck_img($scope.truck_id);
+                                $scope.getCompany();
+                                $scope.Binding_head_truck=$scope.truckTrailer.first_num;
+                                if($scope.Binding_head_truck!=null&&$scope.Binding_head_truck!=""){
+                                    $scope.show_unbind_head_btn=true;
+                                }
+                                $scope.Binding_head_truck_check();
+                            }else {
+                                swal("请求异常","","error");
+                            }
+                        });
+                    });
                 }else {
                     swal("异常","","error")
                 }
@@ -389,19 +419,21 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
             if(data.success==true){
                 swal("解绑成功","","success");
                 $scope.show_unbind_head_btn=false;
-                $scope.truck_msg();
+                // 获取车头
+                _basic.get($host.api_url+"/truckTrailer?truckType=1").then(function (data) {
+                    if(data.success==true){
+                        $scope.head_car_msg=data.result;
+                        head_car_msg=data.result;
+
+                    }else {
+                        swal(data.msg,"","error")
+                    }
+                });
 
             }else {
                 swal("异常","","error")
             }
         });
-    };
-
-    $scope.clear_driver=function () {
-        $scope.check_driver_id="";
-    };
-    $scope.check_driver=function (id) {
-        $scope.check_driver_id=id;
     };
 
 

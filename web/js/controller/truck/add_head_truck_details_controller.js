@@ -1,9 +1,7 @@
 /**
  * Created by ASUS on 2017/7/13.
  */
-/**
- * Created by ASUS on 2017/7/11.
- */
+
 app.controller("add_head_truck_details_controller", ["$scope","$state","$stateParams","_basic", "_config", "$host", function ($scope,$state,$stateParams, _basic, _config, $host) {
     var userId=_basic.getSession(_basic.USER_ID);
     var hand_truck_msg;
@@ -227,7 +225,7 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
         var filename = $(dom).val();
         // console.log($(dom).val());
         uploadBrandImage(filename,dom_obj,function (imageId) {
-            _basic.post($host.record_url + "/user/" +userId + "/truck/" +truck_id + "/image", {
+            _basic.post($host.record_url + "/user/" +userId + "/truck/" +$scope.truck_num + "/image", {
                 "username": _basic.getSession(_basic.USER_NAME),
                 "userId": userId,
                 "userType": _basic.getSession(_basic.USER_TYPE),
@@ -258,7 +256,7 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
                 // console.log(src);
                 var url_array=src.split("/");
                 var url=url_array[url_array.length-1];
-                _basic.delete($host.record_url+"/user/"+userId+"/record/"+record_id+"/truck/"+truck_id+"/image/"+url).then(function (data) {
+                _basic.delete($host.record_url+"/user/"+userId+"/record/"+record_id+"/truck/"+$scope.truck_num+"/image/"+url).then(function (data) {
                     if(data.success==true){
                         var i=$scope.truck_image_i.indexOf(src);
                         $scope.truck_imageBox.splice(i,1);
@@ -308,8 +306,10 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
     $scope.clear_trailer=function () {
         $scope.check_trailer_id="";
     };
-    $scope.check_trailer=function (id) {
+    $scope.check_trailer=function (id,num,number) {
         $scope.check_trailer_id=id;
+        $scope.Binding_trailer=num;
+        $scope.Binding_trailer_number=number;
     };
     // 绑定挂车——绑定司机
     $scope.Binding_trailer_submit=function () {
@@ -352,8 +352,9 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
     $scope.clear_driver=function () {
         $scope.check_driver_id="";
     };
-    $scope.check_driver=function (id) {
+    $scope.check_driver=function (id,drive) {
         $scope.check_driver_id=id;
+        $scope.Binding_driver=drive;
     };
     // 司机过滤
     $scope.Binding_driver_check=function () {

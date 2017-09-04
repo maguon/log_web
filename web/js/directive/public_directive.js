@@ -162,7 +162,18 @@ publicDirective.directive("dateFilter", ["$filter", function ($filter) {
     }
 }]);
 
-
+publicDirective.directive('autoMapHeight',function () {
+    return {
+        restrict : 'A',
+        scope : {},
+        link : function($scope, element, attrs) {
+            var conHeight = $(".ConWrap").height(); //获取窗口高度
+            var titleHeight = 200;
+            element.css('min-height',
+                (conHeight - titleHeight) + 'px');
+        }
+    };
+});
 
 
 

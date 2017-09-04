@@ -125,13 +125,19 @@
                                 <p style="font-size: 1.2rem;font-weight: bold;margin: 10px 0">{{dispatchInfo.truck_num}}</p>
                             </div>
                             <div class="col s2">
-                                <p style="font-size: 1rem;font-weight: bold;margin: 10px 0">待运中</p>
+                                <p style="font-size: 1rem;font-weight: bold;margin: 10px 0">{{dispatchInfo.operate_status}}</p>
                             </div>
                             <div class="col s1 right-align">
                                 <span style="font-size: 1.6rem;color: white" class="mdi mdi-map-marker"></span>
                             </div>
-                            <div class="col s2 left-align">
+                            <div ng-if="!dispatchInfo.city_name == 0" class="col s2 left-align">
                                 <p style="font-size: 1.1rem;color: white;margin: 5px 0;line-height: 26px">{{dispatchInfo.city_name}}</p>
+                            </div>
+                            <div ng-if="dispatchInfo.city_name == 0" class="col s2 left-align">
+                                <p>{{dispatchInfo.task_start_name}}
+                                    <span class="mdi mdi-arrow-right"></span>
+                                    {{dispatchInfo.task_end_name}}
+                                </p>
                             </div>
                             <div class="col s1 right-align">
                                 <span style="font-size: 1.6rem;color: white" class="mdi mdi-account"></span>
@@ -377,7 +383,7 @@
                             <p style="font-size: 1rem;font-weight: bold;margin: 10px 0">{{details.truck_num}}</p>
                         </div>
                         <div class="col s5" style="padding: 0;">
-                            <p style="font-size: 1rem;font-weight: bold;margin: 10px 0">待运中</p>
+                            <p style="font-size: 1rem;font-weight: bold;margin: 10px 0">{{details.operate_status}}</p>
                         </div>
                     </div>
                     <div class="row valign-wrapper">
@@ -386,8 +392,14 @@
                                 <div class="col s3 vc-center">
                                     <span style="font-size: 1.3rem;color: darkgray" class="mdi mdi-map-marker"></span>
                                 </div>
-                                <div class="col s9 left" style="padding: 0;">
+                                <div ng-if="!details.current_city == 0" class="col s9 left" style="padding: 0;">
                                     <p style="font-size: 1.0rem;color: black;margin: 5px 0;line-height: 26px">{{details.city_name}}</p>
+                                </div>
+                                <div ng-if="details.current_city == 0" class="col s9 left" style="padding: 0;">
+                                    <p>{{details.task_start_name}}
+                                       <span class="mdi mdi-arrow-right"></span>
+                                        {{details.task_end_name}}
+                                    </p>
                                 </div>
                             </div>
                             <div class="col s12 valign-wrapper" style="margin-bottom: 0;padding: 0">
@@ -401,7 +413,7 @@
                         </div>
                         <div class="col s3" style="padding: 0">
                             <div class="col s12">
-                                <p class="center fz19" style="color: rgb(229,115,115);font-weight: bold;margin: 0">123</p>
+                                <p class="center fz19" style="color: rgb(229,115,115);font-weight: bold;margin: 0">{{details.car_count}}</p>
                             </div>
                         </div>
                     </div>

@@ -9,7 +9,9 @@ app.controller("truck_repair_list_controller", ['$rootScope', '$scope', '_basic'
 
     // 搜索查询
     $scope.search_truck = function () {
-
+        if($scope.repair_status==0){
+            $scope.repair_status_tx=""+0;
+        }
         var obj = {
             truckType: $scope.truck_type,
             truckNum:$scope.truck_name,
@@ -17,9 +19,9 @@ app.controller("truck_repair_list_controller", ['$rootScope', '$scope', '_basic'
             repairDateEnd: $scope.repair_startTime_end,
             endDateStart: $scope.repair_endTime_start,
             endDateEnd: $scope.repair_endTime_end,
-            repairStatus: $scope.repair_status,
+            repairStatus: $scope.repair_status_tx,
         };
-        console.log(_basic.objToUrl(obj));
+        console.log($scope.repair_status);
         _basic.get($host.api_url + "/truckRepairRel?" + _basic.objToUrl(obj)).then(function (data) {
             // $(".shadeDowWrap").hide();
             if (data.success == true) {

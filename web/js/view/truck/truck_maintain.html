@@ -82,8 +82,8 @@
                     <!--<td ng-bind="el.city_name"></td>-->
                     <td class="operation">
                         <!--<a href="#" ui-sref="truck_repair({id:el.truck_id,type:el.truck_type,status:1,from:'truck_repair_list'})" ng-if="el.repair_status==1"  class="normal-tips cyan lighten-2 white-text fz12 " style="margin-right: 10px;cursor: pointer">正常</a>-->
-                        <a href="#" ui-sref="truck_repair({id:el.truck_id,type:el.truck_type,status:'',from:'truck_repair_list'})"  class=" cyan-text   fz12 " style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-pencil" style="margin: 0"></i></a>
-                        <a  ng-click="open_now_repair(el.id)" class=" cyan-text   fz12 " style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-eye" style="margin: 0"></i></a>
+                        <a href="#" ui-sref="truck_repair({id:el.truck_id,type:el.truck_type,status:'',from:'truck_repair_list'})"  class="normal-tips cyan lighten-2 white-text fz12 " style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-check" style="margin: 0"></i></a>
+                        <a  ng-click="open_now_repair(el.id)" class="normal-tips cyan lighten-2 white-text fz12 " style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-car" style="margin: 0"></i></a>
                     </td>
                 </tr>
                 </tbody>

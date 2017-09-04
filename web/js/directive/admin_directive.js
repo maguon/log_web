@@ -60,6 +60,7 @@ adminDirective.directive('header', function () {
             if (_basic.getSession(_basic.USER_TYPE)=="99") {
                 var userId=_basic.getSession(_basic.USER_ID);
                 $("#brand-logo").attr("src",$element.attr("url"));
+                $("#qrCode").attr("src",$element.attr("qr"));
                 // var userid=$basic.getSession($basic.USER_ID);
 
                 //触发侧边栏导航

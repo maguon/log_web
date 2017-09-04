@@ -295,7 +295,7 @@ app.controller("maintenance_statistics_controller", ["$scope", "_basic", "_confi
         }
 
         // 维修金额
-        _basic.get($host.api_url + "/truckRepairMoneyTotal?monthStart=" + start + "&monthEnd=" + end + "&truckType=" + $scope.repairTruckType).then(function (moneyData) {
+        _basic.get($host.api_url + "/truckRepairMoneyTotal?monthStart=" + start + "&monthEnd=" + end + "&truckType=" + $scope.moneyTruckType).then(function (moneyData) {
             if (moneyData.success === true){
                 // X轴月份
                 $scope.moneyMonth = [];

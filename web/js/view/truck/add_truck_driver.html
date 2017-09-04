@@ -132,7 +132,7 @@
                 <div class="col s2">身份证:</div>
                 <div class="col s10">
                     <form name="uploadImageForm" class="uploadImageForm">
-                        <div class="storage_car_picture col s2 vc-center  p0 cyan lighten-1 white-text">
+                        <div class="storage_car_picture col s2 vc-center  p0 cyan lighten-1 white-text" style="width: 84px">
                             <input name="image" type="file"
                                    onchange="angular.element(this).scope().uploadIdCardImage(this)" max_size="4M">
                             <i class="mdi mdi-instagram"></i>
@@ -150,8 +150,9 @@
                 <div class="col s2">驾驶证:</div>
                 <div class="col s10">
                     <form name="uploadImageForm" class="uploadImageForm">
-                        <div class="storage_car_picture col s2 vc-center  p0 cyan lighten-1 white-text">
-                            <input name="image" type="file" onchange="angular.element(this).scope().uploadLicenseImage(this)" max_size="4M">
+                        <div class="storage_car_picture col s2 vc-center  p0 cyan lighten-1 white-text" style="width: 84px">
+                            <input name="image" type="file"
+                                   onchange="angular.element(this).scope().uploadLicenseImage(this)" max_size="4M">
                             <i class="mdi mdi-instagram"></i>
                         </div>
                         <div id="look_licenseImg" style="cursor: pointer">

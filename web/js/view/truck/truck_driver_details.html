@@ -133,8 +133,8 @@
                 <!--</tbody>-->
                 <!--</table>-->
                 <p ng-repeat="truckInfo in truckInfoList">
-                    <span>时间：{{truckInfo.timez | date:'yyyy-MM-dd HH:mm'}}</span>
-                    &emsp;&emsp;<span>事件： {{truckInfo.content}}</span>
+                    <span> {{truckInfo.timez | date:'yyyy-MM-dd HH:mm'}}</span>
+                    &emsp;&emsp;<span> {{truckInfo.content}}</span>
                     &emsp;&emsp;<span>操作员： {{truckInfo.name}}</span>
                 </p>
             </div>

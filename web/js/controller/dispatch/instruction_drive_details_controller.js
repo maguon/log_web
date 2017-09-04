@@ -42,7 +42,7 @@ app.controller("instruction_drive_details_controller", ["$scope", "$host","_conf
                     dateIdEnd:dateIdEnd
                 };
                 _basic.get($host.api_url+"/driveDistanceCount?"+_basic.objToUrl(obj)).then(function (data){
-                    if(data.success==true){
+                    if(data.success==true&&data.result.length>0){
                         $scope.driveDetail=data.result[0];
                         if($scope.driveDetail.no_load_distance==null){
                             $scope.driveDetail.no_load_distance=0
@@ -75,8 +75,8 @@ app.controller("instruction_drive_details_controller", ["$scope", "$host","_conf
         var obj={
             loadDistance:loadDistance,
             noLoadDistance:noLoadDistance,
-            dateIdStart:dateIdStart,
-            dateIdEnd:dateIdEnd
+            dateIdStart:$scope.driver_mileage_startTime,
+            dateIdEnd: $scope.driver_mileage_endTime
         };
         _basic.get($host.api_url+"/dpRouteTask?"+_basic.objToUrl(obj)).then(function (data){
             if(data.success==true){

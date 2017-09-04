@@ -1,4 +1,4 @@
-<div id="look_instruction_list_details">
+<div id="look_instruction_need_details">
     <div class="">
         <div class="modal-content grey-text text-darken-2">
             <!--<div class="" style="width: 95%;margin: 0 auto">-->
@@ -6,42 +6,51 @@
                 <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
                     <i class="mdi mdi-arrow-left-bold"></i>
                 </a>
-                <h4 class="center-align cyan-text text-lighten-1">指令详情</h4>
+                <h4 class="center-align cyan-text text-lighten-1">需求详情</h4>
             </div>
             <div class="divider" style="background: #00bcd4;height: 2px;"></div>
             <div class="row no-marBottom" ul-tabs>
                 <div id="look_msg" class="col s12 tab_box" style="width: 90%; margin:0 5% ">
                     <div class="row vc-center" style="padding: 20px">
                         <div class="col s4">
-                            <h5><span>{{this_instruction.city_route_start}}</span>----<span>{{this_instruction.city_route_end}}</span></h5>
+                            <h5>指令时间:<span class="cyan-text">{{this_instruction.date_id}}</span></h5>
                         </div>
-                        <div class="col s8 " >
+                        <div class="col s8 vc-center" >
                             <div class="col s6">
-                                任务编号:<span>{{this_instruction.id}}</span>
+                                需求生成时间:<span>{{this_instruction.created_on|date:"yyyy-mm-dd hh:mm:ss"}}</span>
                             </div>
                             <!--<div class="col s3">-->
-                                <!--指令调度时间:<span>513215</span>-->
+                            <!--指令调度时间:<span>513215</span>-->
                             <!--</div>-->
                             <div class="col s6">
-                                指令状态:
-                                <span ng-if="this_instruction.task_status==1" class="fz20 cyan-text">待接受</span>
-                                <span ng-if="this_instruction.task_status==2" class="fz20 cyan-text">接受</span>
-                                <span ng-if="this_instruction.task_status==3" class="fz20 cyan-text">执行</span>
-                                <span ng-if="this_instruction.task_status==4" class="fz20 cyan-text">在途</span>
-                                <span ng-if="this_instruction.task_status==8" class="fz20 cyan-text">取消安排</span>
-                                <span ng-if="this_instruction.task_status==9" class="fz20 cyan-text">已完成</span>
+                                需求人:
+                                <span ng-bind="this_instruction.demand_op_name" class="fz20 cyan-text">待接受</span>
                             </div>
                         </div>
                     </div>
                     <div class="row" style="padding:0 20px">
+                        <div class="col s3">
+                            起始城市:<span>{{this_instruction.route_start}}</span>
+                        </div>
+                        <div class="col s3">
+                            装车地点:<span>{{this_instruction.addr_name}}</span>
+                        </div>
+                        <div class="col s3">
+                            目的城市:<span>{{this_instruction.route_end}}</span>
+                        </div>
+                        <div class="col s3">
+                            送达地点:<span>{{this_instruction.short_name}}</span>
+                        </div>
+                    </div>
+                    <div class="row" style="padding:0 20px">
                         <div class="col s4">
-                            调度计划执行时间:<span>{{this_instruction.task_plan_date|date:"yyyy-MM-dd hh:mm:ss"}}</span>
+                            派送车辆:<span>{{this_instruction.pre_count}}</span>
                         </div>
                         <div class="col s4">
-                            调度实际执行时间:<span>{{this_instruction.task_start_date|date:"yyyy-MM-dd hh:mm:ss"}}</span>
+                            已派送车辆:<span>{{this_instruction.task_start_date|date:"yyyy-MM-dd hh:mm:ss"}}</span>
                         </div>
                         <div class="col s4">
-                            调度完成时间:<span>{{data_id}}</span>
+                            异常车辆:<span>{{data_id}}</span>
                         </div>
                     </div>
 
@@ -106,18 +115,6 @@
                         </div>
                     </div>
 
-                </div>
-            </div>
-            <div style="margin:0 2.5% 0 2.5%">
-                <h5 style="margin-top: 30px">任务执行记录</h5>
-                <div class="divider" style="width: 95%;background: #00bcd4;height: 2px;margin-top:15px"></div>
-                <div class="row">
-                    <!--<p class="col s12">-->
-                        <!--<span>2017-08-13 11:30</span>-->
-                        <!--<span>指令生成</span>-->
-                        <!--<span>调度:<span>某某某</span></span>-->
-                        <!--<span>接受司机:<span>张宝全</span></span>-->
-                    <!--</p>-->
                 </div>
             </div>
         </div>

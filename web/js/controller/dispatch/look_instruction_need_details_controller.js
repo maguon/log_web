@@ -1,25 +1,16 @@
 /**
- * Created by ASUS on 2017/8/22.
+ * Created by ASUS on 2017/9/4.
  */
 
-app.controller("look_instruction_list_details_controller", ["$scope", "$host", "_basic","$state","$stateParams", function ($scope, $host, _basic,$state,$stateParams) {
-    $scope.return=function () {
-        if($stateParams.from=="instruction_drive_details"){
-            $state.go($stateParams.from,{reload:true,id:$stateParams.id,timeStart:$stateParams.timeStart,timeEnd:$stateParams.timeEnd,refer:$stateParams.refer})
-        }else {
-            $state.go($stateParams.from,{reload:true})
-        }
 
+app.controller("look_instruction_need_details_controller", ["$scope", "$host", "_basic","$state","$stateParams", function ($scope, $host, _basic,$state,$stateParams) {
+    $scope.return=function () {
+            $state.go($stateParams.from,{reload:true})
     };
-    if($stateParams.from=="instruction_drive_details"){
-        $scope._id=$stateParams.instruction_id
-    }else {
-        $scope._id=$stateParams.id
-    }
     $scope.LoadTaskList=false;
-    function p() {
+    function p(){
         var p=new Promise(function (resolve,reject) {
-            _basic.get($host.api_url+"/dpRouteTask?dpRouteTaskId="+$scope._id).then(function (data) {
+            _basic.get($host.api_url+"/dpDemand?dpDemandId="+$stateParams.id).then(function (data) {
                 if(data.success==true&&data.result.length>0){
                     $scope.this_instruction=data.result[0];
                     if($scope.this_instruction.date_id){

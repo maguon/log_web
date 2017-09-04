@@ -93,47 +93,21 @@
                                 <span>停用</span>
                             </div>
                         </div>
-
-                        <!--<div class="row">-->
-                        <!--<div class="input-field col s4 " ng-class="{'has-error':add_truck_form.main_driver.$invalid&&submitted }">-->
-                        <!--<select id="main_driver" name="main_driver" material-select watch ng-model="main_driver" required>-->
-                        <!--<option value="">请选择</option>-->
-                        <!--<option ng-repeat="el in drive" ng-value="el.id">{{el.drive_name}}</option>-->
-                        <!--</select>-->
-                        <!--<label for="main_driver"><span style="color: red;margin-right: 5px">*</span>主驾司机</label>-->
-                        <!--</div>-->
-                        <!--<div class="input-field col s4 ">-->
-                        <!--<select id="passenger" material-select watch ng-model="passenger">-->
-                        <!--<option ng-value="1">头车</option>-->
-                        <!--<option ng-value="2">挂车</option>-->
-                        <!--</select>-->
-                        <!--<label for="passenger">副驾司机</label>-->
-                        <!--</div>-->
-
-                        <!--</div>-->
                         <div class="row">
                             <div class="input-field col s12">
                                 <textarea id="textarea" ng-model="truckFirst.remark" class="materialize-textarea"></textarea>
                                 <label for="textarea">备注:</label>
                             </div>
                         </div>
-                        <div class="row" style="height: 250px;overflow-y: auto">
-                            <table class=" bordered striped">
-                                <thead class="blue-grey lighten-5">
-                                <tr class="grey-text text-darken-2">
-                                    <th data-field="">时间</th>
-                                    <th data-field="">事件</th>
-                                    <th data-field="">操作员</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="el in comment" class="grey-text text-darken-1">
-                                        <td  ng-bind="el.timez|date:'yyyy-MM-dd'">1</td>
-                                        <td ng-bind="el.content">2</td>
-                                        <td ng-bind="el.name">2</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="row" >
+                            <div style="height: 200px;overflow-y: auto">
+                                <div class="row" ng-repeat="el in comment">
+                                    <div class="col s4" >时间:{{el.timez|date:'yyyy-MM-dd'}}</div>
+                                    <div class="col s4"  >事件{{el.content}}</div>
+                                    <div class="col s4" >操作员{{el.name}}</div>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="row vc-center">
                             <button class="btn waves-effect" type="submit" name="action" >确定</button>

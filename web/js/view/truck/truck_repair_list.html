@@ -47,7 +47,7 @@
             </div>
         </div>
         <div class="col s2" >
-            <a class=" btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="search_truck()">
+            <a class=" btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="search_truck_msg()">
                 <i class="mdi mdi-magnify"></i>
             </a>
         </div>
@@ -88,6 +88,16 @@
                 </tr>
                 </tbody>
             </table>
+        </div>
+        <div class="paging_box col s12">
+            <div class="right">
+                <a class="waves-light waves-effect cyan lighten-1 btn  " ng-show="pre"  id="hand_pre"   ng-click="pre_btn()">
+                    上一页
+                </a>
+                <a class="waves-light waves-effect cyan lighten-1 btn " ng-show="next" id="hand_next"  ng-click="next_btn()">
+                    下一页
+                </a>
+            </div>
         </div>
     </div>
     <div id="look_now_repair" class="modal">

@@ -4,6 +4,8 @@
 
 app.controller("truck_repair_list_controller", ['$rootScope', '$scope', '_basic', '$host', function ($rootScope, $scope, _basic, $host) {
     var userId = _basic.getSession(_basic.USER_ID);
+    $scope.repair_start = 0;
+    $scope.repair_size = 11;
     // 单条公司信息
     var companyMsg;
 
@@ -13,6 +15,8 @@ app.controller("truck_repair_list_controller", ['$rootScope', '$scope', '_basic'
             $scope.repair_status_tx=""+0;
         }
         var obj = {
+            start: $scope.repair_start,
+            size:  $scope.repair_size,
             truckType: $scope.truck_type,
             truckNum:$scope.truck_name,
             repairDateStart: $scope.repair_startTime_start,
@@ -21,17 +25,39 @@ app.controller("truck_repair_list_controller", ['$rootScope', '$scope', '_basic'
             endDateEnd: $scope.repair_endTime_end,
             repairStatus: $scope.repair_status_tx,
         };
-        console.log($scope.repair_status);
+        // console.log($scope.repair_status);
         _basic.get($host.api_url + "/truckRepairRel?" + _basic.objToUrl(obj)).then(function (data) {
             // $(".shadeDowWrap").hide();
             if (data.success == true) {
-                $scope.truckRepairRel = data.result;
+                $scope.truckRepair = data.result;
+                $scope.truckRepairRel= $scope.truckRepair.slice(0, 10);
+                if ($scope.repair_start > 0) {
+                    $scope.pre=true;
+                    // $("#pre").removeClass("disabled");
+                } else {
+                    $scope.pre=false;
+                    // $("#pre").addClass("disabled");
+                }
+                if ($scope.truckRepair.length < $scope.repair_size) {
+                    // $("#next").addClass("disabled");
+                    $scope.next=false;
+                } else {
+                    // $("#next").removeClass("disabled");
+                    $scope.next=true;
+                }
                 // console.log($scope.Company);
             } else {
                 swal(data.msg, "", "error");
             }
         });
     };
+
+    $scope.search_truck();
+    $scope.search_truck_msg=function () {
+        $scope.repair_start=0;
+        $scope.search_truck();
+    };
+
     // 整体查询读取
     var searchAll = function () {
         _basic.get($host.api_url + "/truckRepairRel").then(function (data) {
@@ -44,6 +70,19 @@ app.controller("truck_repair_list_controller", ['$rootScope', '$scope', '_basic'
 
     };
     searchAll();
+
+
+    // 分页
+    // 头车上一页
+    $scope.pre_btn = function () {
+        $scope.repair_start  = $scope.repair_start  - ($scope.repair_size - 1);
+        $scope.search_truck();
+    };
+    // 头车下一页
+    $scope.next_btn = function () {
+        $scope.repair_start  = $scope.repair_start  + ($scope.repair_size - 1);
+        $scope.search_truck();
+    };
 
 
     // 查看本次维修记录

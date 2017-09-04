@@ -88,23 +88,13 @@
                                 <label for="textarea">备注:</label>
                             </div>
                         </div>
-                        <div class="row">
-                            <table class=" bordered striped">
-                                <thead class="blue-grey lighten-5">
-                                <tr class="grey-text text-darken-2">
-                                    <th data-field="">时间</th>
-                                    <th data-field="">事件</th>
-                                    <th data-field="">操作员</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr ng-repeat="el in comment" class="grey-text text-darken-1">
-                                    <td  ng-bind="el.timez|date:'yyyy-MM-dd'">1</td>
-                                    <td ng-bind="el.content">2</td>
-                                    <td ng-bind="el.name">2</td>
-                                </tr>
-                                </tbody>
-                            </table>                        </div>
+                        <div style="height: 200px;overflow-y: auto">
+                            <div class="row" ng-repeat="el in comment">
+                                <div class="col s4" >时间:{{el.timez|date:'yyyy-MM-dd'}}</div>
+                                <div class="col s4"  >事件{{el.content}}</div>
+                                <div class="col s4" >操作员{{el.name}}</div>
+                            </div>
+                        </div>
                         <div class="row vc-center">
                             <button class="btn" type="submit" name="action">确定</button>
                         </div>

@@ -126,15 +126,26 @@ app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config"
         _basic.get($host.api_url + "/truckInsureTypeTotal?monthStart=" + monthStart + "&monthEnd=" + monthEnd).then(function (insuranceData) {
             if (insuranceData.success === true) {
                 // console.log("insuranceData",insuranceData);
-                // 总和
-                $scope.insuranceAllInfo = [];
                 // 转化数据格式（总和）
+                var temp = {};
                 for (var i = 0; i < insuranceData.result.length; i++) {
-                    $scope.insuranceAllInfo[i] = [
-                        insuranceData.result[i].insure_name + " : ￥" + Math.ceil(insuranceData.result[i].insure_money),
-                        insuranceData.result[i].insure_money
-                    ]
+                    var obj = insuranceData.result[i];
+                    var key = obj["insure_name"];
+                    if (temp[key] != 0 && !temp[key]) {
+                        temp[key] = obj["insure_money"];
+                    }
+                    else {
+                        temp[key] = temp[key] + obj["insure_money"];
+                    }
                 }
+
+                var arr = [];
+                for (key in temp) {
+                    arr.push([key+ " : ￥" + Math.ceil( temp[key]), temp[key]]);
+                }
+                $scope.insuranceAllInfo = arr;
+
+                // console.log("insuranceAllInfo",$scope.insuranceAllInfo);
                 $scope.showTotalPie();
             }
             else {
@@ -363,7 +374,7 @@ app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config"
 
     // 根据选择的保险公司获取相应信息
     $scope.changeInsurance = function () {
-        console.log("insuranceId",$scope.insuranceId);
+        // console.log("insuranceId",$scope.insuranceId);
         // 保险金额统计
         _basic.get($host.api_url + "/truckInsureMoneyTotal?insureId=" + $scope.insuranceId).then(function (currentInsuranceData) {
             if (currentInsuranceData.success === true) {

@@ -13,6 +13,7 @@ publicDirective.directive('header', function () {
             $scope.pwdReg=_config.pwdRegx;
             var str_type=$element.attr("type");
             $("#brand-logo").attr("src",$element.attr("url"));
+            $("#qrCode").attr("src",$element.attr("qr"));
             //修改个人密码
             $scope.amend_user=function () {
                 $(".modal").modal();

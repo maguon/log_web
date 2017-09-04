@@ -81,15 +81,12 @@
                 </div>
                 <div class="row">
                     <div class="col s6 " style="padding: 20px;" ng-repeat="el in main_reason">
-                        <div class="border-black z-depth-2 maintain_card" >
-                            <p class="col s6">维修结束</p>
-                            <p class="col s6">维修时间: <span ng-bind="el.repair_date|date:'yyyy-MM-dd hh:mm:ss'"></span>至<span ng-bind="el.end_date|date:'yyyy-MM-dd hh:mm:ss'"></span></p>
+                        <div class=" z-depth-3 maintain_card" >
+                            <p class="col s12">维修时间: <span ng-bind="el.repair_date|date:'yyyy-MM-dd hh:mm:ss'"></span>至<span ng-bind="el.end_date|date:'yyyy-MM-dd hh:mm:ss'"></span></p>
                             <div class="divider col s12" style="margin: 20px 0"></div>
-                            <div class="col s12" style="margin-bottom: 20px">维修原因:</div>
-                            <div class="col s12" style="word-wrap: break-word;min-height: 90px">{{el.repair_reason}}</div>
-                            <div class="col s12" style="margin: 20px 0">维修描述:</div>
-                            <div class="col s12" style="min-height: 90px;word-wrap: break-word">{{el.remark}}</div>
-                            <div class="col s12" style="margin: 20px 0">维修金额: ￥<span class="red-text text-lighten-2">{{el.repair_money}}</span>元</div>
+                            <div class="col s12" style="word-wrap: break-word;min-height: 130px">维修原因:{{el.repair_reason}}</div>
+                            <div class="col s12" style="min-height: 130px;word-wrap: break-word">维修描述:{{el.remark}}</div>
+                            <div class="col s12" style="margin: 20px 0 0 0">维修金额: ￥<span class="red-text text-lighten-2">{{el.repair_money}}</span>元</div>
                         </div>
                     </div>
 

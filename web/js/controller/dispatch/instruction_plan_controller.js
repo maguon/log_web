@@ -150,7 +150,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         });
 
         // 当前线路
-        _basic.get($host.api_url + "/dpRouteTask?truckId=" + dispatchInfo.truck_id + "&taskStatus=1,3").then(function (currentLineData) {
+        _basic.get($host.api_url + "/dpRouteTask?truckId=" + dispatchInfo.truck_id + "&taskStatus=1,2,3,4").then(function (currentLineData) {
             if (currentLineData.success === true) {
                 $scope.currentLineList = currentLineData.result;
                 // console.log("currentLineData", currentLineData);

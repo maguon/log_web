@@ -74,7 +74,7 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
                 }
                 $scope.Binding_head_truck_check();
             }else {
-                swal("请求异常","","error");
+                swal(data.msg,"","error");
             }
         });
         // 行驶证详情
@@ -88,7 +88,7 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
                     $scope.no_drive_img=true;
                 }
             }else {
-                swal("异常", "", "error")
+                swal(data.msg, "", "error")
             }
         });
 
@@ -103,7 +103,7 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
                     $scope.no_service_img=true;
                 }
             }else {
-                swal("异常", "", "error")
+                swal(data.msg, "", "error")
             }
         });
         $scope.hand_truck_img=function (truck_id) {
@@ -155,7 +155,7 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
                 if(data.success==true){
                     swal("修改成功","","success")
                 }else {
-                    swal("异常","","error")
+                    swal(data.msg,"","error")
                 }
             });
         }
@@ -238,7 +238,7 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
                     viewer.destroy();
                     $scope.no_drive_img=false;
                 }else {
-                    swal("异常","","error")
+                    swal(data.msg,"","error")
                 }
             })
 
@@ -406,7 +406,7 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
                         });
                     });
                 }else {
-                    swal("异常","","error")
+                    swal(data.msg,"","error")
                 }
             })
         }else {
@@ -431,7 +431,7 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
                 });
 
             }else {
-                swal("异常","","error")
+                swal(data.msg,"","error")
             }
         });
     };

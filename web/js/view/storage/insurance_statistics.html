@@ -1,4 +1,4 @@
-<div class="insurance_statistics" style="width: 85%;margin: 0 auto">
+<div class="insurance_statistics" style="width: 90%;margin: 0 auto">
     <div class="row valign-wrapper">
         <h5 class="col s12 cyan-text lighten-1 center-align">
             货车保险统计
@@ -6,7 +6,7 @@
     </div>
     <!--饼图-->
     <div class="row valign-wrapper">
-        <div class="col s4" style="margin-bottom: 50px">
+        <div class="col s3" style="margin-bottom: 50px">
             <div class="col input-field s5" style="margin-bottom: 15px">
                 <input id="chooseCompulsoryStart" type="text" ng-value="startInitial">
                 <label class="active" for="chooseCompulsoryStart">起始月份</label>
@@ -23,9 +23,9 @@
                     交强险
                 </p>
             </div>
-            <div id="compulsoryInsurance" style="min-width:100px;height:300px"></div>
+            <div id="compulsoryInsurance" style="min-width:100px;height:340px"></div>
         </div>
-        <div class="col s4" style="margin-bottom: 50px">
+        <div class="col s3" style="margin-bottom: 50px">
             <div class="col input-field s5" style="margin-bottom: 15px">
                 <input id="chooseCommercialStart" type="text" ng-value="startInitial">
                 <label class="active" for="chooseCommercialStart">起始月份</label>
@@ -42,9 +42,28 @@
                     商业险
                 </p>
             </div>
-            <div id="commercialInsurance" style="min-width:100px;height:300px"></div>
+            <div id="commercialInsurance" style="min-width:100px;height:340px"></div>
         </div>
-        <div class="col s4" style="margin-bottom: 50px">
+        <div class="col s3" style="margin-bottom: 50px">
+            <div class="col input-field s5" style="margin-bottom: 15px">
+                <input id="chooseCargoStart" type="text" ng-value="startInitial">
+                <label class="active" for="chooseCargoStart">起始月份</label>
+            </div>
+            <div class="col input-field s5" style="margin-bottom: 15px">
+                <input id="chooseCargoEnd" type="text" ng-value="endInitial">
+                <label class="active" for="chooseCargoEnd">结束月份</label>
+            </div>
+            <div class="col s2 flex flex-round">
+                <i class="mdi mdi-magnify" ng-click="searchCargoInsurance()" style="margin:20px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+            </div>
+            <div class="col s12" style="margin: 0;padding: 0;">
+                <p class="col s12 cyan-text lighten-1 center-align" style="font-size: 1.3rem;margin: 0;padding: 0;padding-top:15px;background-color: white;border-top: 3px solid rgb(38,198,218)" >
+                    货运险
+                </p>
+            </div>
+            <div id="cargoInsurance" style="min-width:100px;height:340px"></div>
+        </div>
+        <div class="col s3" style="margin-bottom: 50px">
             <div class="col input-field s5" style="margin-bottom: 15px">
                 <input id="chooseTotalStart" type="text" ng-value="startInitial">
                 <label class="active" for="chooseTotalStart">起始月份</label>
@@ -61,12 +80,12 @@
                     总数
                 </p>
             </div>
-            <div id="insuranceTotal" style="min-width:100px;height:300px"></div>
+            <div id="insuranceTotal" style="min-width:100px;height:340px"></div>
         </div>
     </div>
 
     <!--折线图-->
-    <div style="width: 98.6%;margin: 100px auto">
+    <div style="width: 98.6%;margin-top: 140px">
         <div class="row z-depth-2">
             <div class="col s12 blue-grey input-field lighten-4  bold grey-text text-darken-1   statisticsTitle no-mp">
                 <div class="col s3 left">

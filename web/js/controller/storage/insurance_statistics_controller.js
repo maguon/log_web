@@ -8,7 +8,7 @@ app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config"
     $scope.endInitial = moment(new Date()).format('YYYY') + "12";
 
     // monthPicker日历控件
-    $('#chooseCompulsoryStart,#chooseCompulsoryEnd,#chooseCommercialStart,#chooseCommercialEnd,#chooseTotalStart,#chooseTotalEnd').MonthPicker({
+    $('#chooseCompulsoryStart,#chooseCompulsoryEnd,#chooseCommercialStart,#chooseCommercialEnd,#chooseTotalStart,#chooseTotalEnd,#chooseCargoStart,#chooseCargoEnd').MonthPicker({
         Button: false,
         MonthFormat: 'yymm'
     });
@@ -108,6 +108,39 @@ app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config"
             }
             else {
                 swal(insuranceData.msg, "", "error");
+            }
+        });
+    };
+
+    // 获取货运险饼图数据
+    $scope.searchCargoInsurance = function () {
+        var monthStart = $("#chooseCargoStart").val();
+        var monthEnd = $("#chooseCargoEnd").val();
+        if(monthStart == ""){
+            monthStart = $scope.startInitial
+        }
+        if(monthEnd == ""){
+            monthEnd = $scope.endInitial
+        }
+        _basic.get($host.api_url + "/truckInsureTypeTotal?monthStart=" + monthStart + "&monthEnd=" + monthEnd).then(function (insuranceData){
+            if (insuranceData.success === true) {
+                // 货运险
+                var cargo = [];
+                for (var i = 0; i < insuranceData.result.length; i++) {
+                    if(insuranceData.result[i].insure_type == "3"){
+                        cargo.push(insuranceData.result[i]);
+                    }
+                }
+                // 货运险
+                $scope.cargoInfo = [];
+                // 转化数据格式（货运险）
+                for (var e = 0; e < cargo.length; e++) {
+                    $scope.commercialInfo[e] = [
+                        cargo[e].insure_name + " : ￥" + Math.ceil(cargo[e].insure_money),
+                        cargo[e].insure_money
+                    ]
+                }
+                $scope.showCargoPie();
             }
         });
     };
@@ -227,6 +260,44 @@ app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config"
                 type: 'pie',
                 name: '保险公司金额占比',
                 data: $scope.commercialInfo
+            }]
+        });
+    };
+    
+    // 显示货运险饼图
+    $scope.showCargoPie = function () {
+        $('#cargoInsurance').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: ''
+            },
+            credits: {
+                enabled: "false",
+                text: '',
+                href: ''
+            },
+            tooltip: {
+                headerFormat: '',
+                pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: '保险公司金额占比',
+                // data: $scope.commercialInfo
             }]
         });
     };
@@ -439,6 +510,7 @@ app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config"
         $scope.changeInsurance();
         $scope.searchCompulsoryInsurance();
         $scope.searchCommercialInsurance();
+        $scope.searchCargoInsurance();
         $scope.searchTotalInsurance();
     };
     $scope.queryData();

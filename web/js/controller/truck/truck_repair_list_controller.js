@@ -9,24 +9,14 @@ app.controller("truck_repair_list_controller", ['$rootScope', '$scope', '_basic'
     // 单条公司信息
     var companyMsg;
 
-    // 搜索查询
-    $scope.search_truck = function () {
-        if($scope.repair_status==0){
-            $scope.repair_status_tx=""+0;
-        }
-        var obj = {
-            start: $scope.repair_start,
-            size:  $scope.repair_size,
-            truckType: $scope.truck_type,
-            truckNum:$scope.truck_name,
-            repairDateStart: $scope.repair_startTime_start,
-            repairDateEnd: $scope.repair_startTime_end,
-            endDateStart: $scope.repair_endTime_start,
-            endDateEnd: $scope.repair_endTime_end,
-            repairStatus: $scope.repair_status_tx,
-        };
-        // console.log($scope.repair_status);
-        _basic.get($host.api_url + "/truckRepairRel?" + _basic.objToUrl(obj)).then(function (data) {
+    // 基础条件
+    $scope.query_params={
+        start: $scope.repair_start,
+        size:  $scope.repair_size,
+    };
+    // 查询接口事件
+    $scope.query=function (params) {
+        _basic.get($host.api_url + "/truckRepairRel?" + _basic.objToUrl(params)).then(function (data) {
             // $(".shadeDowWrap").hide();
             if (data.success == true) {
                 $scope.truckRepair = data.result;
@@ -51,25 +41,72 @@ app.controller("truck_repair_list_controller", ['$rootScope', '$scope', '_basic'
             }
         });
     };
+    // 普通查询
+    $scope.search_truck=function () {
 
+        $scope.query_params.start = $scope.repair_start;
+        $scope.query($scope.query_params);
+    };
     $scope.search_truck();
+
+
+    // 赋值
+    $scope.setParams = function(){
+
+        // 挂车控制查询参数逻辑
+        if($scope.truck_type){
+            $scope.query_params.truckType = $scope.truck_type;
+        }else{
+            $scope.query_params.truckType = null;
+        }
+
+        if($scope.truck_name){
+            $scope.query_params.truckNum = $scope.truck_name;
+        }else {
+            $scope.query_params.truckNum=null;
+        }
+
+        if($scope.repair_startTime_start){
+            $scope.query_params.repairDateStart = $scope.repair_startTime_start;
+        }else {
+            $scope.query_params.repairDateStart=null;
+        }
+
+        if($scope.repair_startTime_end){
+            $scope.query_params.repairDateEnd = $scope.repair_startTime_end;
+        }else {
+            $scope.query_params.repairDateEnd=null;
+        }
+
+        if($scope.repair_endTime_start){
+            $scope.query_params.endDateStart = $scope.repair_endTime_start;
+        }else {
+            $scope.query_params.endDateStart=null;
+        }
+
+        if($scope.repair_endTime_end){
+            $scope.query_params.endDateEnd = $scope.repair_endTime_end;
+        }else {
+            $scope.query_params.endDateEnd=null;
+        }
+
+        if($scope.repair_status_tx){
+            $scope.query_params.repairStatus = $scope.repair_status_tx;
+        }else {
+            $scope.query_params.repairStatus=null;
+        }
+
+    };
+    // 条件查询
     $scope.search_truck_msg=function () {
         $scope.repair_start=0;
-        $scope.search_truck();
+        if($scope.repair_status==0){
+            $scope.repair_status_tx=""+0;
+        };
+        $scope.setParams();
+        $scope.query($scope.query_params)
     };
 
-    // 整体查询读取
-    var searchAll = function () {
-        _basic.get($host.api_url + "/truckRepairRel").then(function (data) {
-            if (data.success == true) {
-                $scope.truckRepairRel = data.result;
-            } else {
-                swal(data.msg, "", "error");
-            }
-        });
-
-    };
-    searchAll();
 
 
     // 分页

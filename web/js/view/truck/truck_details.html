@@ -17,7 +17,7 @@
                             <div class="col s10">
                                 <div class="col s12">
                                     <div class="input-field col s3">
-                                        <select id="search_truck_type" material-select watch ng-model="search_truck_type">
+                                        <select id="search_truck_type" material-select ng-change="get_company(search_truck_type)" watch ng-model="search_truck_type">
                                             <option ng-value="">请选择</option>
                                             <option ng-value="1">自营车</option>
                                             <option ng-value="2">外协车</option>

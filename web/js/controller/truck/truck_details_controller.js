@@ -7,32 +7,25 @@ app.controller("truck_details_controller", ["$scope","$state","$stateParams","_b
     $scope.head_size = 11;
     $scope.hand_start = 0;
     $scope.hand_size = 11;
-    // var search_headAll=function () {
-    //     _basic.get($host.api_url+"/truckFirst?truckType=1").then(function (data) {
-    //         if(data.success==true){
-    //             $scope.head_car=data.result;
-    //         }else {
-    //             swal(data.msg,"","error")
-    //         }
-    //     });
-    //
-    // };
-    // 搜索头车
-    $scope.search_head_truck=function () {
-        var obj={
-            truckType: 1,
-            start:$scope.head_start,
-            size:$scope.head_size,
-            truckNum:$scope.search_num,
-            operateType:$scope.search_truck_type,
-            companyId:$scope.search_company,
-            driveName:$scope.search_driver,
-            licenseDateStart:$scope.check_operation_startTime,
-            licenseDateEnd:$scope.check_operation_endTime,
-            drivingDateStart:$scope.search_checkCar_startTime,
-            drivingDateEnd:$scope.search_checkCar_endTime
-        };
-        _basic.get($host.api_url+"/truckFirst?"+_basic.objToUrl(obj)).then(function (data) {
+
+
+    // 类型--公司联动
+    $scope.get_company=function (type) {
+        // 获取公司
+        _basic.get($host.api_url+"/company?operateType="+type).then(function (data) {
+            if(data.success==true){
+                $scope.company=data.result;
+            }else {
+                swal(data.msg,"","error")
+            }
+        });
+
+    };
+
+
+    // 头车搜索请求
+    $scope.head_query = function(params){
+        _basic.get($host.api_url+"/truckFirst?"+_basic.objToUrl(params)).then(function (data) {
             if(data.success==true){
                 $scope.head_car_box=data.result;
                 $scope.head_car = $scope.head_car_box.slice(0, 10);
@@ -55,13 +48,79 @@ app.controller("truck_details_controller", ["$scope","$state","$stateParams","_b
             }
         });
     };
-    // 头车数据
-    $scope.search_head_truck();
-    // 头车条件查询
-    $scope.searchHead_car = function () {
-        $scope.head_start = 0;
-        $scope.search_head_truck();
+
+    // 基本条件
+    $scope.queryParams = {
+        truckType: 1,
+        start:$scope.head_start,
+        size:$scope.head_size,
     };
+    // 普通查询
+    $scope.search_head_truck= function(){
+
+         // 控制分页查询参数
+        $scope.queryParams.start = $scope.head_start;
+        $scope.head_query($scope.queryParams)
+    };
+    $scope.search_head_truck();
+
+
+    // 条件赋值
+    $scope.setParams = function(){
+        // 控制查询参数逻辑
+        if($scope.search_num){
+            $scope.queryParams.truckNum = $scope.search_num;
+        }else{
+            $scope.queryParams.truckNum = null;
+        }
+        if($scope.search_truck_type){
+            $scope.queryParams.operateType = $scope.search_truck_type;
+        }else {
+            $scope.queryParams.operateType=null;
+        }
+
+        if($scope.search_company){
+            $scope.queryParams.companyId = $scope.search_company;
+        }else {
+            $scope.queryParams.companyId=null;
+        }
+        if($scope.search_driver){
+            $scope.queryParams.driveName = $scope.search_driver;
+        }else {
+            $scope.queryParams.driveName=null;
+        }
+
+        if($scope.check_operation_startTime){
+            $scope.queryParams.licenseDateStart = $scope.check_operation_startTime;
+        }else {
+            $scope.queryParams.licenseDateStart=null;
+        }
+
+        if($scope.check_operation_endTime){
+            $scope.queryParams.licenseDateEnd = $scope.check_operation_endTime;
+        }else {
+            $scope.queryParams.licenseDateEnd=null;
+        }
+
+        if($scope.search_checkCar_startTime){
+            $scope.queryParams.drivingDateStart = $scope.search_checkCar_startTime;
+        }else {
+            $scope.queryParams.drivingDateStart=null;
+        }
+        if($scope.search_checkCar_endTime){
+            $scope.queryParams.drivingDateEnd = $scope.search_checkCar_endTime;
+        }else {
+            $scope.queryParams.drivingDateEnd=null;
+        }
+
+    };
+    // 头车搜索事件-条件查询
+    $scope.searchHead_car =function(){
+        $scope.head_start = 0;
+        $scope.setParams();
+        $scope.head_query($scope.queryParams)
+    };
+
     // 分页
     // 头车上一页
     $scope.head_pre_btn = function () {
@@ -73,15 +132,6 @@ app.controller("truck_details_controller", ["$scope","$state","$stateParams","_b
         $scope.head_start = $scope.head_start + ($scope.head_size - 1);
         $scope.search_head_truck();
     };
-
-    // 获取公司
-    _basic.get($host.api_url+"/company").then(function (data) {
-        if(data.success==true){
-            $scope.company=data.result;
-        }else {
-            swal(data.msg,"","error")
-        }
-    });
 
 
     _basic.get($host.api_url+"/truckTrailer?truckType=2").then(function (data) {
@@ -139,23 +189,12 @@ app.controller("truck_details_controller", ["$scope","$state","$stateParams","_b
 
     };
 
-    // 搜索挂车
-    $scope.search_hand_truck=function () {
-        var obj={
-            truckType:2,
-            start:$scope.hand_start,
-            size:$scope.hand_size,
-            truckNum:$scope.search_hand_num,
-            numberStart:$scope.search_hand_num_start,
-            numberEnd:$scope.search_hand_num_end,
-            operateType:$scope.search_truck_hand_type,
-            companyId:$scope.search_hand_company,
-            licenseDateStart:$scope.check_operation_hand_startTime,
-            licenseDateEnd:$scope.check_operation_hand_endTime,
-            drivingDateStart:$scope.search_checkCar_hand_startTime,
-            drivingDateEnd:$scope.search_checkCar_hand_endTime
-        };
-        _basic.get($host.api_url+"/truckTrailer?"+_basic.objToUrl(obj)).then(function (data) {
+
+
+    // 挂车接口查询
+    $scope.hand_query=function (params) {
+
+        _basic.get($host.api_url+"/truckTrailer?"+_basic.objToUrl(params)).then(function (data) {
             if(data.success==true){
                 $scope.hand_car_box=data.result;
                 $scope.hand_car_msg = $scope.hand_car_box.slice(0, 10);
@@ -178,12 +217,83 @@ app.controller("truck_details_controller", ["$scope","$state","$stateParams","_b
             }
         });
     };
-    // 挂车数据
+
+
+
+    // 挂车基本条件
+    $scope.hand_queryParams = {
+        truckType: 2,
+        start:$scope.hand_start,
+        size:$scope.hand_size,
+    };
+    // 挂车普通查询
+    $scope.search_hand_truck=function () {
+        // 控制分页查询参数
+        $scope.hand_queryParams.start = $scope.hand_start;
+        $scope.hand_query($scope.hand_queryParams)
+    };
     $scope.search_hand_truck();
-    // 挂车条件查询
-    $scope.searchHand_car = function () {
+
+    // 挂车条件赋值
+    $scope.hand_setParams = function(){
+        // 挂车控制查询参数逻辑
+        if($scope.search_hand_num){
+            $scope.hand_queryParams.truckNum = $scope.search_hand_num;
+        }else{
+            $scope.hand_queryParams.truckNum = null;
+        }
+        if($scope.search_hand_num_start){
+            $scope.hand_queryParams.numberStart = $scope.search_hand_num_start;
+        }else {
+            $scope.hand_queryParams.numberStart=null;
+        }
+
+        if($scope.search_hand_num_end){
+            $scope.hand_queryParams.numberEnd = $scope.search_hand_num_end;
+        }else {
+            $scope.hand_queryParams.numberEnd=null;
+        }
+
+        if($scope.search_truck_hand_type){
+            $scope.hand_queryParams.operateType = $scope.search_truck_hand_type;
+        }else {
+            $scope.hand_queryParams.operateType=null;
+        }
+
+        if($scope.search_hand_company){
+            $scope.hand_queryParams.companyId = $scope.search_hand_company;
+        }else {
+            $scope.hand_queryParams.companyId=null;
+        }
+
+        if($scope.check_operation_hand_startTime){
+            $scope.hand_queryParams.licenseDateStart = $scope.check_operation_hand_startTime;
+        }else {
+            $scope.hand_queryParams.licenseDateStart=null;
+        }
+
+        if($scope.check_operation_hand_endTime){
+            $scope.hand_queryParams.licenseDateEnd = $scope.check_operation_hand_endTime;
+        }else {
+            $scope.hand_queryParams.licenseDateEnd=null;
+        }
+        if($scope.search_checkCar_hand_startTime){
+            $scope.hand_queryParams.drivingDateStart = $scope.search_checkCar_hand_startTime;
+        }else {
+            $scope.hand_queryParams.drivingDateStart=null;
+        }
+        if($scope.search_checkCar_hand_endTime){
+            $scope.hand_queryParams.drivingDateEnd = $scope.search_checkCar_hand_endTime;
+        }else {
+            $scope.hand_queryParams.drivingDateEnd=null;
+        }
+
+    };
+    // 挂车搜索事件-条件查询
+    $scope.searchHand_car =function(){
         $scope.hand_start = 0;
-        $scope.search_hand_truck();
+        $scope.hand_setParams();
+        $scope.hand_query($scope.hand_queryParams)
     };
     // 分页
     // 挂车上一页

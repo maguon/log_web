@@ -154,3 +154,60 @@ CommonFilter.filter("carType", function () {
         return car;
     }
 });
+
+// 指令状态类型过滤器
+CommonFilter.filter("instructionsStatus", function () {
+    return function (input) {
+        var status;
+        switch (input) {
+            case 1:
+                status = "待接受";
+                break;
+            case 2:
+                status = "已接受";
+                break;
+            case 3:
+                status = "执行";
+                break;
+            case 4:
+                status = "在途";
+                break;
+            case 8:
+                status = "取消安排";
+                break;
+            case 9:
+                status = "已完成";
+                break;
+            default:
+                status = "未知";
+        }
+        return status;
+    }
+});
+
+// 任务状态类型过滤器
+CommonFilter.filter("missionStatus", function () {
+    return function (input) {
+        var missionStatus;
+        switch (input) {
+            case 1:
+                missionStatus = "未装车";
+                break;
+            case 3:
+                missionStatus = "已装车";
+                break;
+            case 7:
+                missionStatus = "已到达";
+                break;
+            case 8:
+                missionStatus = "取消任务";
+                break;
+            case 9:
+                missionStatus = "已完成";
+                break;
+            default:
+                missionStatus = "未知";
+        }
+        return missionStatus;
+    }
+});

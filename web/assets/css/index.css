@@ -1129,3 +1129,7 @@ input[type=text]{
 .collapsible_height p{
     margin: 3px 0;
 }
+
+.p-no-pad p{
+    margin: 0;
+}

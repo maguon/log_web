@@ -6,7 +6,7 @@
                 <label for="drive_name">姓名</label>
             </div>
             <div class="input-field col s3">
-                <select material-select watch ng-model="driverType">
+                <select material-select watch ng-change="searchOperateType()" ng-model="driverType">
                     <option value="" selected>所属类型</option>
                     <option value="1" >自营</option>
                     <option value="2" >外协</option>

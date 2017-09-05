@@ -84,9 +84,9 @@ app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host
         $scope.searchDriver();
     };
 
-    // 获取司机及公司信息
-    $scope.queryData = function () {
-        _basic.get($host.api_url + "/company").then(function (companyData) {
+    // 根据选择的所属类型获取公司信息
+    $scope.searchOperateType = function () {
+        _basic.get($host.api_url + "/company?operateType=" + $scope.driverType).then(function (companyData) {
             if (companyData.success === true) {
                 $scope.companyList = companyData.result;
                 // console.log("companyList",$scope.companyList);
@@ -95,7 +95,10 @@ app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host
                 swal(companyData.msg, "", "error");
             }
         });
+    };
 
+    // 获取司机信息
+    $scope.queryData = function () {
         _basic.get($host.api_url + "/truckFirst?truckType=1").then(function (truckData) {
             if (truckData.success === true) {
                 $scope.truckList = truckData.result;

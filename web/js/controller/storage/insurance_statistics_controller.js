@@ -135,7 +135,7 @@ app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config"
                 $scope.cargoInfo = [];
                 // 转化数据格式（货运险）
                 for (var e = 0; e < cargo.length; e++) {
-                    $scope.commercialInfo[e] = [
+                    $scope.cargoInfo[e] = [
                         cargo[e].insure_name + " : ￥" + Math.ceil(cargo[e].insure_money),
                         cargo[e].insure_money
                     ]
@@ -297,7 +297,7 @@ app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config"
             series: [{
                 type: 'pie',
                 name: '保险公司金额占比',
-                // data: $scope.commercialInfo
+                data: $scope.cargoInfo
             }]
         });
     };

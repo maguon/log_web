@@ -319,7 +319,7 @@ app.controller("add_hand_truck_details_controller", ["$scope","$state","$statePa
                 if(data.success==true){
                     $state.go($stateParams.from,{reload:true})
                 }else {
-                    swal("异常","","error")
+                    swal(data.msg,"","error")
                 }
             })
         }else {
@@ -333,7 +333,7 @@ app.controller("add_hand_truck_details_controller", ["$scope","$state","$statePa
                 if(data.success==true){
                     $state.go("truck_guarantee_details",{id:$scope.truck_id,from:"truck_details"})
                 }else {
-                    swal("异常","","error")
+                    swal(data.msg,"","error")
                 }
             })
         }else {

@@ -8,7 +8,9 @@ app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host
 
     // 点击搜索指定司机信息
     $scope.searchDriver = function () {
-        _basic.get($host.api_url + "/drive?start=" + $scope.start + "&size=" + $scope.size + _basic.objToUrl({
+        _basic.get($host.api_url + "/drive?" + _basic.objToUrl({
+                start:$scope.start,
+                size:$scope.size,
                 driveName: $scope.driveName,
                 operateType: $scope.driverType,
                 companyId: $scope.driverCompany,

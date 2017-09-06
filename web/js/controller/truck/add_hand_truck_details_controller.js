@@ -331,13 +331,13 @@ app.controller("add_hand_truck_details_controller", ["$scope","$state","$statePa
         if($scope.check_trailer_id){
             _basic.put($host.api_url+"/user/"+userId+"/truck/"+$scope.check_trailer_id+"/trail/"+truck_id+"/bind",{}).then(function (data) {
                 if(data.success==true){
-                    $state.go("truck_guarantee_details",{id:$scope.truck_id,from:"truck_details"})
+                    $state.go("truck_guarantee_details",{id:$scope.truck_id,type:2,from:"truck_details"})
                 }else {
                     swal(data.msg,"","error")
                 }
             })
         }else {
-            $state.go("truck_guarantee_details",{id:$scope.truck_id,from:"truck_details"})
+            $state.go("truck_guarantee_details",{id:$scope.truck_id,type:2,from:"truck_details"})
         }
     };
     $scope.add_guarantee=function () {

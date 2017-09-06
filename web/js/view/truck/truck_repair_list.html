@@ -48,6 +48,9 @@
             <a class=" btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="search_truck_msg()">
                 <i class="mdi mdi-magnify"></i>
             </a>
+            <a class=" btn-floating btn-large waves-light waves-effect cyan lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="export()">
+                <i class="mdi mdi-arrow-right-bold"></i>
+            </a>
         </div>
     </div>
     <div class="row">
@@ -110,11 +113,19 @@
                     <div class="row fz12 grey-text">
                        {{el.repair_reason}}
                     </div>
-                    <div class="row">维修描述:</div>
-                    <div class="row fz12 grey-text">
+                    <div class="row" ng-show="el.repair_status==1">维修描述:</div>
+                    <div class="row fz12 grey-text" ng-show="el.repair_status==1">
                         {{el.remark}}
                     </div>
-                    <div class="row">维修金额:￥<span class="red-text text-lighten-2" ng-bind="el.repair_money"></span>元</div>
+                    <div class="row" ng-show="el.repair_status==1">
+                        <div class="col s6" style="padding-left: 0">
+                            维修金额:￥<span class="red-text text-lighten-2" ng-bind="el.repair_money"></span>元
+                        </div>
+                        <div class="col s6" style="padding-right: 0">
+                            维修人:<span class="red-text text-lighten-2" ng-bind="el.repair_user"></span>
+                        </div>
+
+                    </div>
                 </div>
             </div>
             <div class="divider"></div>

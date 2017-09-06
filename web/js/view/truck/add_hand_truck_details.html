@@ -7,8 +7,8 @@
                 </a>
                 <h4 class="center-align cyan-text text-lighten-1">增加挂车</h4>
             </div>
-            <div class="row" >
-                <div class="col s12" >
+            <div class="row"  >
+                <div class="col s12" style="overflow-x: hidden">
                     <ul class="ui-tabs tabs" ul-tabs>
                         <li class="tab col s4 test1"><a  href="#test1">基本信息</a></li>
                         <li class="tab col s4 test2 disabled"><a   href="#test2">上传照片</a></li>
@@ -32,13 +32,6 @@
                                     </select>
                                     <label for="truck_hand_type"><span style="color: red;margin-right: 5px">*</span>所属类型</label>
                                 </div>
-                                <!--<div class="input-field col s4 "  ng-class="{'has-error':add_truck_form.truck_company.$invalid&&submitted }">-->
-                                <!--<select id="truck_company" name="truck_company" material-select watch ng-model="truck_company" required>-->
-                                <!--<option value="" >请选择</option>-->
-                                <!--<option ng-repeat="el in truck_company" ng-value="el.id">{{el.company_name}}</option>-->
-                                <!--</select>-->
-                                <!--<label for="truck_company"><span style="color: red;margin-right: 5px">*</span>所属公司</label>-->
-                                <!--</div>-->
                                 <div class="input-field col s4 "  ng-class="{'has-error':add_truck_form.truck_hand_company.$invalid&&submitted }">
                                     <select id="truck_hand_company" name="truck_hand_company" material-select watch ng-model="truck_hand_company" required>
                                         <option value="">请选择</option>
@@ -49,7 +42,7 @@
                             </div>
                             <div class="row">
                                 <div class="input-field col s6 " ng-class="{'has-error':add_truck_form.hand_have_num.$invalid&&submitted }">
-                                    <input name="hand_have_num" id="hand_have_num" type="number" ng-model="hand_have_num" ng-pattern="numReg"   required maxlength="2">
+                                    <input name="hand_have_num" id="hand_have_num" type="number" ng-model="hand_have_num" ng-pattern="/^[1-9]?\d$/"  required >
                                     <label for="hand_have_num"><span style="color: red;margin-right: 5px">*</span>挂车货位（最多两位数）</label>
                                 </div>
                                 <div class="input-field col s6 " >

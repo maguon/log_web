@@ -8,6 +8,10 @@ app.controller("look_head_truck_details_controller", ["$scope","$state","$stateP
     var hand_driver_msg;
     $scope.show_unbind_trailer_btn=false;
     $scope.show_unbind_drive_btn=false;
+    $scope.show_unbind_copilot_btn=false;
+    $scope.Binding_copilot_flag=true;
+    $scope.Binding_drive_flag=true;
+
     $scope.return=function () {
         $state.go($stateParams.from,{reload:true})
     };
@@ -72,11 +76,14 @@ app.controller("look_head_truck_details_controller", ["$scope","$state","$stateP
                 swal(data.msg,"","error")
             }
         });
-        // 获取主驾司机
+        // 获取司机
         _basic.get($host.api_url+"/drive").then(function (data) {
             if(data.success==true){
                 hand_driver_msg=data.result;
+                // 主驾
                 $scope.drive=hand_driver_msg;
+                // 副驾
+                $scope.copilot=hand_driver_msg;
                 // $scope.truck_details();
             }else {
                 swal(data.msg,"","error")
@@ -99,11 +106,24 @@ app.controller("look_head_truck_details_controller", ["$scope","$state","$stateP
                 $scope.truck_id=$scope.truckFirst.truck_num;
                 $scope.truck_img($scope.truck_id);
                 $scope.Binding_trailer_check();
+
                 $scope.Binding_driver=$scope.truckFirst.drive_name;
                 if($scope.Binding_driver!=null&&$scope.Binding_driver!=""){
                     $scope.show_unbind_drive_btn=true;
                 }
-                $scope.Binding_driver_check();
+                if($scope.truckFirst.drive_name!=null&&$scope.truckFirst.drive_name!=""){
+                    $scope.Binding_drive_flag=false;
+                }
+
+
+                $scope.Binding_copilot=$scope.truckFirst.vice_drive_name;
+                if($scope.Binding_copilot!=null&&$scope.Binding_copilot!=""){
+                    $scope.show_unbind_copilot_btn=true;
+                }
+                if($scope.truckFirst.vice_drive_name!=null&&$scope.truckFirst.vice_drive_name!=""){
+                    $scope.Binding_copilot_flag=false;
+                }
+
             }else {
                 swal(data.msg,"","error")
             }
@@ -169,7 +189,7 @@ app.controller("look_head_truck_details_controller", ["$scope","$state","$stateP
         };
     })
 
-    
+
     // 解绑关联挂车
     $scope.unbind_trailer=function () {
         _basic.put($host.api_url+"/user/"+userId+"/truck/"+id+"/trail/"+$scope.truckFirst.rel_id+"/unbind",{}).then(function (data) {
@@ -192,28 +212,7 @@ app.controller("look_head_truck_details_controller", ["$scope","$state","$stateP
             }
         });
     };
-    // 解绑关联司机
-    $scope.unbind_drive=function () {
-        _basic.put($host.api_url+"/user/"+userId+"/truck/"+id+"/drive/"+$scope.truckFirst.drive_id+"/unbind",{}).then(function (data) {
-            if(data.success==true){
-                swal("解绑成功","","success");
-                $scope.show_unbind_drive_btn=false;
-                // 获取主驾司机
-                _basic.get($host.api_url+"/drive").then(function (data) {
-                    if(data.success==true){
-                        hand_driver_msg=data.result;
-                        $scope.drive=hand_driver_msg;
-                        // $scope.truck_details();
-                    }else {
-                        swal(data.msg,"","error")
-                    }
-                });
 
-            }else {
-                swal(data.msg,"","error")
-            }
-        });
-    };
     // 修改头车
     $scope.submit_Form=function (inValid) {
         $scope.submitted=true;
@@ -499,7 +498,7 @@ app.controller("look_head_truck_details_controller", ["$scope","$state","$stateP
         $scope.check_driver_id=id;
         $scope.Binding_driver=drive;
     };
-    // 司机过滤
+    // 主司机过滤
     $scope.Binding_driver_check=function () {
 
         if($scope.Binding_driver!=null&&$scope.Binding_driver!=""){
@@ -516,24 +515,42 @@ app.controller("look_head_truck_details_controller", ["$scope","$state","$stateP
             $scope.drive=hand_driver_msg;
         }
     };
+
+
     // 绑定司机——车保
-    $scope.binding_driver_submit=function () {
+    $scope.binding_driver_submit=function (Binding_driver_name) {
         if($scope.check_driver_id){
             _basic.put($host.api_url+"/user/"+userId+"/truck/"+id+"/drive/"+$scope.check_driver_id+"/bind",{}).then(function (data) {
                 if(data.success==true){
                     swal("绑定成功","","success");
+                    $scope.Binding_drive_flag=false;
                    truck_msg().then(function () {
-                       // 获取主驾司机
-                       _basic.get($host.api_url+"/drive").then(function (data) {
-                           if(data.success==true){
-                               hand_driver_msg=data.result;
-                               $scope.drive=hand_driver_msg;
-                               // $scope.truck_details();
-                           }else {
-                               swal(data.msg,"","error")
-                           }
+                       $scope.$apply(function () {
+                           hand_driver_msg.forEach(function (i) {
+                               if(i.id==$scope.check_driver_id){
+                                   i.truck_id=id;
+                                   i.truck_num=Binding_driver_name;
+                               }
+
+                           });
+                           $scope.drive=hand_driver_msg;
+                                   // 副驾
+                           $scope.copilot=hand_driver_msg;
+
                        });
-                       return truck_details()
+                       // // 获取主驾司机
+                       // _basic.get($host.api_url+"/drive").then(function (data) {
+                       //     if(data.success==true){
+                       //         hand_driver_msg=data.result;
+                       //         $scope.drive=hand_driver_msg;
+                       //         // 副驾
+                       //         $scope.copilot=hand_driver_msg;
+                       //         // $scope.truck_details();
+                       //     }else {
+                       //         swal(data.msg,"","error")
+                       //     }
+                       // });
+                       return truck_details();
                    }).then(function () {
                        // 头车详情
                        _basic.get($host.api_url+"/truckFirst?truckId="+id).then(function (data) {
@@ -554,20 +571,168 @@ app.controller("look_head_truck_details_controller", ["$scope","$state","$stateP
                                if ($scope.Binding_driver != null && $scope.Binding_driver != "") {
                                    $scope.show_unbind_drive_btn = true;
                                }
-                               $scope.Binding_driver_check();
+                               // if($scope.truckFirst.drive_name!=null&&$scope.truckFirst.drive_name!=""){
+                               //     $scope.Binding_drive_flag=false;
+                               // }
                            } else {
                                swal(data.msg, "", "error")
                            }
                        })
                    });
                 }else {
-                    swal("异常","","error")
+                    swal(data.msg,"","error")
                 }
             })
         }else {
         }
+    };
 
 
+    $scope.clear_copilot=function () {
+        $scope.check_copilot_id="";
+        $scope.Binding_copilot="";
+    };
+
+    $scope.check_copilot=function (id,drive) {
+        $scope.check_copilot_id=id;
+        $scope.Binding_copilot=drive;
+    };
+
+    // 副司机过滤
+    $scope.Binding_copilot_check=function () {
+        if($scope.Binding_copilot!=null&&$scope.Binding_copilot!=""){
+            $scope.copilot=[];
+            hand_driver_msg.forEach(function (i) {
+                if(i.drive_name.indexOf($scope.Binding_copilot)!=-1){
+                    if($scope.copilot.indexOf(i)==-1){
+                        $scope.copilot.push(i);
+                    }
+                }
+            })
+
+        }else {
+            $scope.copilot=hand_driver_msg;
+        }
+    };
+    // 绑定副驾
+    $scope.binding_copilot_submit=function (Binding_driver_name) {
+        if($scope.check_copilot_id){
+            _basic.put($host.api_url+"/user/"+userId+"/truck/"+id+"/viceDrive/"+$scope.check_copilot_id+"/bind",{}).then(function (data) {
+                if(data.success==true){
+                    swal("绑定成功","","success");
+                    $scope.Binding_copilot_flag=false;
+                    truck_msg().then(function () {
+                        $scope.$apply(function () {
+                            hand_driver_msg.forEach(function (i) {
+                                if(i.id==$scope.check_copilot_id){
+                                    i.truck_id=id;
+                                    i.truck_num=Binding_driver_name;
+                                }
+
+                            });
+                            $scope.drive=hand_driver_msg;
+                            // 副驾
+                            $scope.copilot=hand_driver_msg;
+
+                        });
+                        // // 获取主驾司机
+                        // _basic.get($host.api_url+"/drive").then(function (data) {
+                        //     if(data.success==true){
+                        //         hand_driver_msg=data.result;
+                        //         $scope.drive=hand_driver_msg;
+                        //         // 副驾
+                        //         $scope.copilot=hand_driver_msg;
+                        //         // $scope.truck_details();
+                        //     }else {
+                        //         swal(data.msg,"","error")
+                        //     }
+                        // });
+                        return truck_details();
+                    }).then(function () {
+                        // 头车详情
+                        _basic.get($host.api_url+"/truckFirst?truckId="+id).then(function (data) {
+                            if (data.success == true) {
+                                $scope.truckFirst = data.result[0];
+                                // 获取车牌号
+                                $scope.truck_num = $scope.truckFirst;
+
+                                $scope.getCompany();
+                                $scope.Binding_trailer = $scope.truckFirst.trail_num;
+                                if ($scope.Binding_trailer != null && $scope.Binding_trailer != "") {
+                                    $scope.show_unbind_trailer_btn = true;
+                                }
+                                $scope.truck_id = $scope.truckFirst.truck_num;
+                                $scope.truck_img($scope.truck_id);
+                                $scope.Binding_trailer_check();
+                                $scope.Binding_copilot = $scope.truckFirst.vice_drive_name;
+                                if ($scope.Binding_copilot != null && $scope.Binding_copilot != "") {
+                                    $scope.show_unbind_copilot_btn = true;
+                                }
+                                // if($scope.truckFirst.vice_drive_name!=null&&$scope.truckFirst.vice_drive_name!=""){
+                                //
+                                // }
+                                // $scope.Binding_copilot_check();
+                            } else {
+                                swal(data.msg, "", "error")
+                            }
+                        })
+                    });
+                }else {
+                    swal(data.msg,"","error")
+                }
+            })
+        }else {
+        }
+    };
+    // 解绑副驾司机
+    $scope.unbind_copilot=function () {
+        _basic.put($host.api_url+"/user/"+userId+"/truck/"+id+"/viceDrive/"+$scope.truckFirst.vice_drive_id+"/unbind",{}).then(function (data) {
+            if(data.success==true){
+                swal("解绑成功","","success");
+                $scope.show_unbind_copilot_btn=false;
+                $scope.Binding_copilot="";
+                // 获取主驾司机
+                _basic.get($host.api_url+"/drive").then(function (data) {
+                    if(data.success==true){
+                        $scope.Binding_copilot_flag=true;
+                        hand_driver_msg=data.result;
+                        $scope.drive=hand_driver_msg;
+                        // 副驾
+                        $scope.copilot=hand_driver_msg;
+                    }else {
+                        swal(data.msg,"","error");
+                    }
+                });
+
+            }else {
+                swal(data.msg,"","error")
+            }
+        });
+    };
+    // 解绑主驾司机
+    $scope.unbind_drive=function () {
+        _basic.put($host.api_url+"/user/"+userId+"/truck/"+id+"/drive/"+$scope.truckFirst.drive_id+"/unbind",{}).then(function (data) {
+            if(data.success==true){
+                swal("解绑成功","","success");
+                $scope.show_unbind_drive_btn=false;
+                // 获取主驾司机
+                _basic.get($host.api_url+"/drive").then(function (data) {
+                    if(data.success==true){
+                        $scope.Binding_drive_flag=true;
+                        hand_driver_msg=data.result;
+                        $scope.drive=hand_driver_msg;
+                        // 副驾
+                        $scope.copilot=hand_driver_msg;
+                        // $scope.truck_details();
+                    }else {
+                        swal(data.msg,"","error");
+                    }
+                });
+
+            }else {
+                swal(data.msg,"","error")
+            }
+        });
     };
     $scope.add_guarantee=function () {
         $('.modal').modal();

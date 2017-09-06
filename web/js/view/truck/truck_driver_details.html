@@ -11,9 +11,9 @@
         </div>
         <ul class="tabs ui-tabs tabs-fixed-width tab-demo z-depth-1"
             style="font-size: 25px;font-weight: bold;overflow-x: hidden;margin-bottom: 25px" ul-tabs>
-            <li class="tab"><a ng-click="showDriverDetails()" style="color: #26c6da" href="javascript:void(0)">基本信息</a></li>
-            <li class="tab"><a ng-click="showDriverImages()" style="color: #26c6da" href="javascript:void(0)">照片</a></li>
-            <li class="tab"><a ng-click="showDriverBand()" style="color: #26c6da" href="javascript:void(0)">绑定货车</a></li>
+            <li class="tab"><a ng-click="showDriverDetails()" style="color: #26c6da;line-height: 40px" href="javascript:void(0)">基本信息</a></li>
+            <li class="tab"><a ng-click="showDriverImages()" style="color: #26c6da;line-height: 40px" href="javascript:void(0)">照片</a></li>
+            <li class="tab"><a ng-click="showDriverBand()" style="color: #26c6da;line-height: 40px" href="javascript:void(0)">绑定货车</a></li>
         </ul>
         <div class="driver_details_step_1" ng-if="stepFirst">
             <!--<form name="truck_driver_details" ng-submit="submitForm(truck_driver_details.$valid)" novalidate>-->
@@ -249,22 +249,22 @@
                     <label class="active" for="Binding_trailer">绑定副驾</label>
                 </div>
                 <div class="col s4">
-                    <button ng-if="bindBtn" style="width: 180px;height: 38px;line-height: 3px;font-size: 1.3rem;margin-top: 11px;margin-left: 10px"
+                    <button ng-if="bindBtn" style="width: 150px;height: 38px;line-height: 3px;font-size: 1rem;margin-top: 11px;margin-left: 10px"
                             class="right btn btn-large waves-effect waves-light"
                             ng-click="bundling()">
                         绑定主驾
                     </button>
-                    <button ng-if="unbindBtn" style="width: 180px;height: 38px;line-height: 3px;font-size: 1.3rem;margin-top: 11px"
+                    <button ng-if="unbindBtn" style="width: 150px;height: 38px;line-height: 3px;font-size: 1rem;margin-top: 11px"
                             class="right btn btn-large waves-effect waves-light"
                             ng-click="unBundling()">
                         解绑主驾
                     </button>
-                    <button ng-if="bindBtnCopilot" style="width: 180px;height: 38px;line-height: 3px;font-size: 1.3rem;margin-top: 11px;margin-left: 10px"
+                    <button ng-if="bindBtnCopilot" style="width: 150px;height: 38px;line-height: 3px;font-size: 1rem;margin-top: 11px;margin-left: 10px"
                             class="right btn btn-large waves-effect waves-light"
                             ng-click="bundlingCopilot()">
                         绑定副驾
                     </button>
-                    <button ng-if="unbindBtnCopilot" style="width: 180px;height: 38px;line-height: 3px;font-size: 1.3rem;margin-top: 11px"
+                    <button ng-if="unbindBtnCopilot" style="width: 150px;height: 38px;line-height: 3px;font-size: 1rem;margin-top: 11px"
                             class="right btn btn-large waves-effect waves-light"
                             ng-click="unBundlingCopilot()">
                         解绑副驾
@@ -275,11 +275,11 @@
             <div class="row">
                 <div ng-show="showTruckList" ng-repeat="truck in newTruckList" class="col s4" style="padding: 10px;height: 40px;margin-top: 20px">
                     <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':truck.drive_name && truck.vice_drive_name}">
-                        <div class="col s6" ng-click="check_trailer(truck.id)">
+                        <div class="col s4" ng-click="check_trailer(truck.id)" style="padding: 0;">
                             <input ng-if="!truck.drive_name || !truck.vice_drive_name" type="radio" name="filled-in" class="filled-in"  id="filled-in-box{{$index}}" />
-                            <label for="filled-in-box{{$index}}" class="black-text" style="font-size: 18px" >{{truck.truck_num}}</label>
+                            <label for="filled-in-box{{$index}}" class="black-text" style="font-size: 15px" >{{truck.truck_num}}</label>
                         </div>
-                        <div class="col s6">
+                        <div class="col s8" style="padding: 0;">
                             <span style="margin-left: 10px">主：{{truck.drive_name == null ? "未关联" : truck.drive_name}}&emsp;副：{{truck.vice_drive_name == null ? "未关联" : truck.vice_drive_name}}</span>
                         </div>
                     </div>

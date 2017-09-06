@@ -56,14 +56,14 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
     $scope.getDriverDetails = function () {
         _basic.get($host.api_url + "/drive?driveId=" + driverId).then(function (data) {
             if (data.success === true) {
-                console.log("driveData",data);
+                // console.log("driveData",data);
                 // 修改某些数据显示格式
                 data.result[0].confirm_date = moment(data.result[0].confirm_date).format("YYYY-MM-DD");
                 data.result[0].license_date = moment(data.result[0].license_date).format("YYYY-MM-DD");
                 data.result[0].operate_type = data.result[0].operate_type.toString();
                 // console.log("modifyData",data.result[0]);
                 $scope.driverInfo = data.result[0];
-                console.log("driverInfo",$scope.driverInfo);
+                // console.log("driverInfo",$scope.driverInfo);
                 if($scope.driverInfo.drive_image != null){
                     $scope.drive_img_front = [{
                         img: $host.file_url + '/image/' + data.result[0].drive_image,
@@ -186,7 +186,7 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
     // 司机解绑与重新绑定
     $scope.check_trailer = function (truckId) {
         $scope.truck_id = truckId;
-        console.log("truckId",truckId);
+        // console.log("truckId",truckId);
     };
 
     // 绑定主驾
@@ -369,7 +369,7 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
                     img: $host.file_url + '/image/' + imageId,
                 }];
             });
-            console.log("$scope.license_img",$scope.license_img);
+            // console.log("$scope.license_img",$scope.license_img);
             var obj = {
                 "driveImage": imageId,
                 "imageType": 3
@@ -471,7 +471,6 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
         viewer = new Viewer(document.getElementById('look_permitImg'), {
             url: 'data-original'
         });
-        console.log("viewer",viewer);
     };
     $scope.driverFinish = function () {
         viewer = new Viewer(document.getElementById('look_driver'), {
@@ -522,7 +521,7 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
         else {
             $scope.newTruckList = $scope.truckList;
         }
-        console.log("newTruckList",$scope.newTruckList);
+        // console.log("newTruckList",$scope.newTruckList);
     };
 
     // 获取所有相关数据

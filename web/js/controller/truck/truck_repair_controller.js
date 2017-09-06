@@ -88,6 +88,7 @@ app.controller("truck_repair_controller", ["$scope","$state","$stateParams","_ba
         $scope.put_repair_submitted=true;
         if(iValid){
             _basic.put($host.api_url+"/user/"+userId+"/truckRepairRel/"+ $scope.relId,{
+                "repairUser":$scope.repair_user,
                 "remark": $scope.repair_remark,
                 "repairMoney":$scope.repair_money
             }).then(function (data) {

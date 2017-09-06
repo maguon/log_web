@@ -387,18 +387,18 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
             $state.go($stateParams.from,{reload:true})
         }
     };
-    // 绑定司机--回详情
+    // 绑定司机--增加保单
     $scope.binding_add_insure=function () {
         if($scope.check_driver_id){
             _basic.put($host.api_url+"/user/"+userId+"/truck/"+truck_id+"/drive/"+$scope.check_driver_id+"/bind",{}).then(function (data) {
                 if(data.success==true){
-                    $state.go("truck_guarantee_details",{id:$scope.truck_id,from:"truck_details"})
+                    $state.go("truck_guarantee_details",{id:$scope.truck_id,type:1,from:"truck_details"})
                 }else {
                     swal(data.msg,"","error")
                 }
             })
         }else {
-            $state.go("truck_guarantee_details",{id:$scope.truck_id,from:"truck_details"})
+            $state.go("truck_guarantee_details",{id:$scope.truck_id,type:1,from:"truck_details"})
         }
     };
     $scope.add_guarantee=function () {

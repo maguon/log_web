@@ -7,6 +7,7 @@
 baseService.factory("_config", function () {
     var _this = {};
     // userType
+
     _this.userTypes = [
         {
             type: 11,

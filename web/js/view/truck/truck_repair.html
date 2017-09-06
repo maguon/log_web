@@ -86,7 +86,8 @@
                             <div class="divider col s12" style="margin: 20px 0"></div>
                             <div class="col s12" style="word-wrap: break-word;min-height: 130px">维修原因:{{el.repair_reason}}</div>
                             <div class="col s12" style="min-height: 130px;word-wrap: break-word">维修描述:{{el.remark}}</div>
-                            <div class="col s12" style="margin: 20px 0 0 0">维修金额: ￥<span class="red-text text-lighten-2">{{el.repair_money}}</span>元</div>
+                            <div class="col s6" style="margin: 20px 0 0 0">维修人: <span class="red-text text-lighten-2">{{el.repair_user}}</span></div>
+                            <div class="col s6" style="margin: 20px 0 0 0">维修金额: ￥<span class="red-text text-lighten-2">{{el.repair_money}}</span>元</div>
                         </div>
                     </div>
 
@@ -112,11 +113,10 @@
                                         <input type="text" id="repair_money" ng-model="repair_money" name="repair_money" maxlength="8" autocomplete="off"  required>
                                         <label class="grey-text" for="repair_money"><span class="red-text text-lighten-2">*</span>维修金额（元）</label>
                                     </div>
-
-                                    <!--<div class="input-field col s12" ng-class="{'has-error':maintain_Form.maintain_money.$invalid&&submitted}">-->
-                                    <!--<input  id="maintain_money" name="maintain_money" ng-model="maintain_money" autocomplete="off" type="text"  required>-->
-                                    <!--<label class="grey-text" for="maintain_money"><span class="red-text text-lighten-2">*</span>维修金额(元)</label>-->
-                                    <!--</div>-->
+                                    <div class="input-field col s6" ng-class="{'has-error':repair_remark_form.repair_user.$invalid&&put_repair_submitted}">
+                                        <input type="text" id="repair_user" ng-model="repair_user" name="repair_user"  autocomplete="off"  required>
+                                        <label class="grey-text" for="repair_user"><span class="red-text text-lighten-2">*</span>维修人</label>
+                                    </div>
                                 </div>
                                 <div class="col s12" style="word-wrap: break-word">
                                     <span>维修原因:</span>

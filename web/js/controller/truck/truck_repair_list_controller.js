@@ -6,6 +6,25 @@ app.controller("truck_repair_list_controller", ['$rootScope', '$scope', '_basic'
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.repair_start = 0;
     $scope.repair_size = 11;
+    
+    // 数据导出
+    $scope.export=function () {
+        if($scope.repair_status==0){
+            $scope.repair_status_tx=""+0;
+        }else {
+            $scope.repair_status_tx=$scope.repair_status;
+        }
+        var obj={
+            truckType:$scope.truck_type,
+            truckNum:$scope.truck_name,
+            repairStatus:  $scope.repair_status_tx,
+            repairDateStart:$scope.repair_startTime_start,
+            repairDateEnd:$scope.repair_startTime_end,
+            endDateStart:$scope.repair_endTime_start,
+            endDateEnd:$scope.repair_endTime_end,
+        };
+        window.open($host.api_url + "/truckRepair.csv?" + _basic.objToUrl(obj));
+    };
     // 单条公司信息
     var companyMsg;
 
@@ -102,7 +121,9 @@ app.controller("truck_repair_list_controller", ['$rootScope', '$scope', '_basic'
         $scope.repair_start=0;
         if($scope.repair_status==0){
             $scope.repair_status_tx=""+0;
-        };
+        }else {
+            $scope.repair_status_tx=$scope.repair_status;
+        }
         $scope.setParams();
         $scope.query($scope.query_params)
     };

@@ -6,6 +6,10 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
     var userId=_basic.getSession(_basic.USER_ID);
     var hand_truck_msg;
     var hand_driver_msg;
+    $scope.show_unbind_drive_btn=false;
+    $scope.show_unbind_copilot_btn=false;
+    $scope.Binding_driver_flag=true;
+    $scope.Binding_copilot_flag=true;
     $scope.return=function () {
         $state.go($stateParams.from,{reload:true})
     };
@@ -15,7 +19,7 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
     // 车辆存照片ID;
     var truck_id;
     // 所属类型--公司联动
-    $scope.getCompany=function () {
+    $scope.getCompany=function (){
         _basic.get($host.api_url+"/company?operateType="+$scope.truck_type).then(function (data) {
             if(data.success==true){
                 $scope.company=data.result;
@@ -57,7 +61,11 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
     _basic.get($host.api_url+"/drive").then(function (data) {
         if(data.success==true){
             hand_driver_msg=data.result;
+
+            // 主驾
             $scope.drive=hand_driver_msg;
+            // 副驾
+            $scope.copilot=hand_driver_msg;
         }else {
             swal(data.msg,"","error")
         }
@@ -311,6 +319,32 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
         $scope.Binding_trailer=num;
         $scope.Binding_trailer_number=number;
     };
+
+    $scope.clear_copilot=function () {
+        $scope.check_copilot_id="";
+        $scope.Binding_copilot="";
+    };
+
+    $scope.check_copilot=function (id,drive) {
+        $scope.check_copilot_id=id;
+        $scope.Binding_copilot=drive;
+    };
+
+    // 副司机过滤
+    $scope.Binding_copilot_check=function () {
+        if($scope.Binding_copilot!=null&&$scope.Binding_copilot!=""){
+            $scope.copilot=[];
+            hand_driver_msg.forEach(function (i) {
+                if(i.drive_name.indexOf($scope.Binding_copilot)!=-1){
+                    if($scope.copilot.indexOf(i)==-1){
+                        $scope.copilot.push(i);
+                    }
+                }
+            })
+        }else {
+            $scope.copilot=hand_driver_msg;
+        }
+    };
     // 绑定挂车——绑定司机
     $scope.Binding_trailer_submit=function () {
         if($scope.check_trailer_id){
@@ -373,33 +407,69 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
         }
 
     };
-    // 绑定司机--完成
+    // 绑定主驾司机-
     $scope.binding_driver_submit=function () {
         if($scope.check_driver_id){
             _basic.put($host.api_url+"/user/"+userId+"/truck/"+truck_id+"/drive/"+$scope.check_driver_id+"/bind",{}).then(function (data) {
                 if(data.success==true){
-                    $state.go($stateParams.from,{reload:true})
+                    swal("绑定成功","","success");
+                    $scope.Binding_driver_flag=false;
+                    $scope.show_unbind_drive_btn=true;
+                    // 获取司机
+                    _basic.get($host.api_url+"/drive").then(function (data) {
+                        if(data.success==true){
+                            $scope.Binding_copilot_flag=true;
+                            hand_driver_msg=data.result;
+                            $scope.drive=hand_driver_msg;
+                            // 副驾
+                            $scope.copilot=hand_driver_msg;
+                        }else {
+                            swal(data.msg,"","error");
+                        }
+                    });
                 }else {
                     swal(data.msg,"","error")
                 }
             })
         }else {
-            $state.go($stateParams.from,{reload:true})
+            swal("未选择","","error")
         }
     };
-    // 绑定司机--增加保单
-    $scope.binding_add_insure=function () {
-        if($scope.check_driver_id){
-            _basic.put($host.api_url+"/user/"+userId+"/truck/"+truck_id+"/drive/"+$scope.check_driver_id+"/bind",{}).then(function (data) {
+    // 绑定副驾
+    $scope.binding_copilot_submit=function (Binding_copilot) {
+        if($scope.check_copilot_id){
+            _basic.put($host.api_url+"/user/"+userId+"/truck/"+truck_id+"/viceDrive/"+$scope.check_copilot_id+"/bind",{}).then(function (data) {
                 if(data.success==true){
-                    $state.go("truck_guarantee_details",{id:$scope.truck_id,type:1,from:"truck_details"})
+                    swal("绑定成功","","success");
+                    $scope.Binding_copilot_flag=false;
+                    $scope.show_unbind_copilot_btn=true;
+                    // 获取主驾司机
+                    _basic.get($host.api_url+"/drive").then(function (data) {
+                        if(data.success==true){
+                            hand_driver_msg=data.result;
+                            $scope.drive=hand_driver_msg;
+                            // 副驾
+                            $scope.copilot=hand_driver_msg;
+                        }else {
+                            swal(data.msg,"","error");
+                        }
+                    });
                 }else {
                     swal(data.msg,"","error")
                 }
             })
         }else {
-            $state.go("truck_guarantee_details",{id:$scope.truck_id,type:1,from:"truck_details"})
+            swal("未选择","","error")
         }
+    };
+    // 完成
+    $scope.binding_over=function () {
+        $state.go($stateParams.from,{reload:true})
+    };
+
+    // 增加保单
+    $scope.binding_add_insure=function () {
+        $state.go("truck_guarantee_details",{id:$scope.truck_id,type:1,from:"truck_details"})
     };
     $scope.add_guarantee=function () {
         $('.modal').modal();

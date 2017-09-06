@@ -204,44 +204,71 @@
                     </form>
                 </div>
                 <div id="test4" class="test col s12">
-                        <div class="row">
-                            <div class="input-field col s4">
-                                <input id="Binding_driver" name="Binding_driver" ng-keyup="Binding_driver_check()" class="Binding_driver" ng-model="Binding_driver" type="text"  autocomplete="off">
-                                <label for="Binding_trailer">关联主驾</label>
+                    <div class="row">
+                        <div class="col s6"  style="border-right: 1px solid #eeeeee ">
+                            <div class="row">
+                                <div class="input-field col s4">
+                                    <input id="Binding_driver" name="Binding_driver" ng-disabled="show_unbind_drive_btn"  ng-keyup="Binding_driver_check()" class="Binding_driver" ng-model="Binding_driver" type="text"  autocomplete="off">
+                                    <label for="Binding_driver">关联主驾</label>
+                                </div>
+                                <div class="col s2 input-field">
+                                    <a  class="btn waves-effect" ng-hide="show_unbind_drive_btn" ng-click="binding_driver_submit(Binding_driver)" >绑定主驾</a>
+                                </div>
                             </div>
-                        </div>
+                            <div class="row" ng-if="Binding_driver_flag">
+                                <div ng-repeat="el in drive track by $index" class="col s4 " style="padding: 10px;height: 40px;margin-top: 20px">
+                                    <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':el.truck_num||el.vice}">
+                                        <div class="col s6 " ng-if="!el.truck_num&&!el.vice" ng-click="check_driver(el.id,el.drive_name)">
+                                            <input type="radio" name="filled-in" class="filled-in"  id="filled-in_driver-box{{$index}}" />
+                                            <label for="filled-in_driver-box{{$index}}" class="black-text" style="font-size: 18px" >{{el.drive_name}}</label>
+                                        </div>
+                                        <div class="col s6 black-text" ng-if="el.truck_num||el.vice"  style="font-size: 18px">
+                                            {{el.drive_name}}
+                                        </div>
+                                        <div class=" col s6">
+                                            <span ng-show="!el.truck_num&&!el.vice" style="margin-left: 10px">未关联</span>
+                                            <span ng-show="el.truck_num||el.vice" style="margin-left: 10px"><span>{{el.truck_num}}</span></span>
+                                        </div>
 
-                        <div class="row">
-                            <div  class="col s4 " style="padding: 10px;height: 40px;margin-top: 20px">
-                                <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':el.trail_num}">
-                                    <div class="col s6 "  ng-click="clear_driver()">
-                                        <input type="radio" name="filled-in" class="filled-in"  id="filled-in_driver-box" />
-                                        <label for="filled-in_driver-box" class="black-text" style="font-size: 18px" >暂不关联</label>
                                     </div>
 
                                 </div>
-
                             </div>
-                            <div ng-repeat="el in drive track by $index" class="col s4 " style="padding: 10px;height: 40px;margin-top: 20px">
-                                <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':el.truck_num}">
-                                    <div class="col s6 " ng-if="!el.truck_num" ng-click="check_driver(el.id,el.drive_name)">
-                                        <input type="radio" name="filled-in" class="filled-in"  id="filled-in_driver-box{{$index}}" />
-                                        <label for="filled-in_driver-box{{$index}}" class="black-text" style="font-size: 18px" >{{el.drive_name}}</label>
-                                    </div>
-                                    <div class="col s6 black-text" ng-if="el.truck_num"  style="font-size: 18px">
-                                        {{el.drive_name}}
-                                    </div>
-                                    <div class=" col s6">
-                                        <span ng-hide="el.truck_num" style="margin-left: 10px">未关联车头</span>
-                                        <span ng-show="el.truck_num" style="margin-left: 10px">关联车头: <span>{{el.truck_num}}</span></span>
+                        </div>
+                        <div class="col s6">
+                            <div class="row">
+                                <div class="input-field col s4">
+                                    <input id="Binding_copilot" name="Binding_copilot" ng-disabled="show_unbind_copilot_btn" ng-keyup="Binding_copilot_check()" class="Binding_copilot" ng-model="Binding_copilot" type="text"  autocomplete="off">
+                                    <label for="Binding_copilot">关联副驾</label>
+                                </div>
+                                <div class="col s2 input-field">
+                                    <a  class="btn waves-effect" ng-hide="show_unbind_copilot_btn" ng-click="binding_copilot_submit(Binding_copilot)" >绑定副驾</a>
+                                </div>
+                            </div>
+                            <div class="row" ng-if="Binding_copilot_flag">
+                                <div ng-repeat="el in copilot track by $index" class="col s4 " style="padding: 10px;height: 40px;margin-top: 20px">
+                                    <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':el.truck_num||el.vice}">
+                                        <div class="col s6 " ng-if="!el.truck_num&&!el.vice" ng-click="check_copilot(el.id,el.drive_name)">
+                                            <input type="radio" name="filled-in" class="filled-in"  id="filled-in_copilot-box{{$index}}" />
+                                            <label for="filled-in_copilot-box{{$index}}" class="black-text" style="font-size: 18px" >{{el.drive_name}}</label>
+                                        </div>
+                                        <div class="col s6 black-text" ng-if="el.truck_num||el.vice"  style="font-size: 18px">
+                                            {{el.drive_name}}
+                                        </div>
+                                        <div class=" col s6">
+                                            <span ng-show="!el.truck_num&&!el.vice" style="margin-left: 10px">未关联</span>
+                                            <span ng-show="el.truck_num||el.vice" style="margin-left: 10px"><span>{{el.truck_num}}</span></span>
+                                        </div>
+
                                     </div>
 
                                 </div>
-
                             </div>
                         </div>
+                    </div>
+
                         <div class="row vc-center" style="margin-top: 50px" >
-                            <a  class="btn waves-effect" style="margin-right: 20px" ng-click="binding_driver_submit()">完成</a>
+                            <a  class="btn waves-effect" style="margin-right: 20px" ng-click="binding_over()">完成</a>
                             <a  class="btn waves-effect" ng-click="binding_add_insure()"  >完成并增加保单</a>
                         </div>
                 </div>

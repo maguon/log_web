@@ -169,30 +169,30 @@
 
                             </div>
                             <div ng-repeat="el in hand_truck_msg track by $index" class="col s4 " style="padding: 10px;height: 40px;margin-top: 20px">
-                                <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':el.trail_num}">
+                                <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':el.first_num}">
                                     <div class="col s4 " ng-if="!el.first_num" ng-click="check_trailer(el.id,el.truck_num,el.number)">
                                         <input type="radio" name="filled-in" class="filled-in"  id="filled-in-box{{$index}}" />
                                         <label for="filled-in-box{{$index}}" class="black-text" style="font-size: 18px" >{{el.truck_num}}</label>
                                     </div>
-                                    <div class="col s4 black-text" ng-if="el.first_num"  style="font-size: 18px">
+                                    <div class="col s4 black-text fz14" ng-if="el.first_num" >
                                         {{el.truck_num}}
                                     </div>
-                                    <div class="col s2 black-text" ng-if="el.first_num"  style="font-size: 18px">
+                                    <div class="col s2 black-text fz14" ng-if="el.first_num" >
                                         货位:
                                         <span>
                                             {{el.number}}
                                         </span>
 
                                     </div>
-                                    <div class="col s2 black-text" ng-if="!el.first_num"  style="font-size: 18px">
+                                    <div class="col s2 black-text fz14" ng-if="!el.first_num" >
                                         货位:
                                         <span>
                                             {{el.number}}
                                         </span>
                                     </div>
                                     <div class=" col s4">
-                                        <span ng-hide="el.trail_num" style="margin-left: 10px">未关联车头</span>
-                                        <span ng-show="el.trail_num" style="margin-left: 10px">关联车头: <span>{{el.trail_num}}</span></span>
+                                        <span ng-hide="el.first_num" style="margin-left: 10px">未关联</span>
+                                        <span ng-show="el.first_num" style="margin-left: 10px"><span>{{el.first_num}}</span></span>
                                     </div>
 
                                 </div>
@@ -252,7 +252,7 @@
                                             <input type="radio" name="filled-in" class="filled-in"  id="filled-in_copilot-box{{$index}}" />
                                             <label for="filled-in_copilot-box{{$index}}" class="black-text" style="font-size: 18px" >{{el.drive_name}}</label>
                                         </div>
-                                        <div class="col s6 black-text" ng-if="el.truck_num||el.vice"  style="font-size: 18px">
+                                        <div class="col s6 black-text fz14" ng-if="el.truck_num||el.vice"  >
                                             {{el.drive_name}}
                                         </div>
                                         <div class=" col s6">

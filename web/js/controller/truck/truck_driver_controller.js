@@ -8,6 +8,7 @@ app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host
 
     // 搜索指定司机信息
     $scope.searchDriver = function (obj) {
+        obj.start = obj.start + "";
         _basic.get($host.api_url + "/drive?" + _basic.objToUrl(obj)).then(function (driveData) {
             if (driveData.success === true) {
                 if ($scope.start > 0) {
@@ -23,6 +24,7 @@ app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host
                     $("#next").show();
                 }
                 $scope.driveList = driveData.result;
+                console.log("driveData",driveData);
             }
             else {
                 swal(driveData.msg, "", "error");
@@ -31,8 +33,7 @@ app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host
     };
 
     $scope.queryParams = {
-        truckType: 1,
-        start:$scope.start,
+        start:$scope.start ,
         size:$scope.size,
     };
 
@@ -124,24 +125,24 @@ app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host
         if(driverStatus == "1"){
             _basic.put($host.api_url + "/user/" + userId + "/drive/" + driverId + "/driveStatus/0",{}).then(function (disableData) {
                 if (disableData.success === true) {
-                    $scope.searchDriver();
+                    $scope.searchDriver($scope.queryParams);
                     swal("已停用该司机", "", "success");
                 }
                 else{
                     swal("司机已被关联，请先解绑", "", "warning");
-                    $scope.searchDriver();
+                    $scope.searchDriver($scope.queryParams);
                 }
             });
         }
         else{
             _basic.put($host.api_url + "/user/" + userId + "/drive/" + driverId + "/driveStatus/1",{}).then(function (activeData) {
                 if (activeData.success === true) {
-                    $scope.searchDriver();
+                    $scope.searchDriver($scope.queryParams);
                     swal("已启用该司机", "", "success");
                 }
                 else{
                     swal("司机已被关联，请先解绑", "", "warning");
-                    $scope.searchDriver();
+                    $scope.searchDriver($scope.queryParams);
                 }
             });
         }
@@ -185,7 +186,7 @@ app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host
             }
         });
         // 默认显示所有
-        $scope.searchDriver();
+        // $scope.searchDriver();
     };
     $scope.queryData();
 }]);

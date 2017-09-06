@@ -86,13 +86,6 @@
                     <i class="mdi dataIcon mdi-table-large"></i>
                     <label for="endTime"><span style="color: red">* </span>驾驶证到期时间</label>
                 </div>
-                <!--<div class="input-field col s4"-->
-                     <!--ng-class="{'has-error':truck_driver_details.verification_time.$invalid&&submitted }">-->
-                    <!--<input id="verification_time" name="verification_time" type="text" class="datepicker" date-->
-                           <!--ng-model="driverInfo.confirm_date" required>-->
-                    <!--<i class="mdi dataIcon mdi-table-large"></i>-->
-                    <!--<label for="verification_time"><span style="color: red">* </span>检证日期</label>-->
-                <!--</div>-->
                 <div class="input-field col s4">
                     <input id="driver_parent" type="text" ng-model="driverInfo.sib_tel">
                     <label for="driver_parent">紧急联系人电话</label>
@@ -116,22 +109,6 @@
 
             <div class="col s12" style="margin-top: 20px">
                 <div class="divider" style="background: #00bcd4;height: 2px;"></div>
-                <!--<table class=" bordered striped text_mid">-->
-                <!--<thead class="blue-grey lighten-5">-->
-                <!--<tr class="grey-text text-darken-2">-->
-                <!--<th width="350" data-field="">时间</th>-->
-                <!--<th data-field="">事件</th>-->
-                <!--<th data-field="">操作员</th>-->
-                <!--</tr>-->
-                <!--</thead>-->
-                <!--<tbody>-->
-                <!--<tr ng-repeat="truckInfo in truckInfoList" class="grey-text text-darken-1">-->
-                <!--<td>{{truckInfo.timez | date:'yyyy-MM-dd HH:mm'}}</td>-->
-                <!--<td>{{truckInfo.content}}</td>-->
-                <!--<td>{{truckInfo.name}}</td>-->
-                <!--</tr>-->
-                <!--</tbody>-->
-                <!--</table>-->
                 <p ng-repeat="truckInfo in truckInfoList">
                     <span> {{truckInfo.timez | date:'yyyy-MM-dd HH:mm'}}</span>
                     &emsp;&emsp;<span> {{truckInfo.content}}</span>
@@ -150,19 +127,18 @@
         <div class="driver_details_step_2" ng-if="stepSecond">
             <div class="row col s12">
                 <div class="col s6 vc-center">
-                    <!--<div class="col s2">身份证:</div>-->
                     <div class="col s11">
                         <form name="uploadImageForm" class="uploadImageForm">
                             <div class="upload_btn left">
                                 <div class="storage_car_picture col s4 vc-center  p0 cyan lighten-1 white-text" style="width: 84px;margin-bottom: 15px">
                                     <input name="image" type="file"
-                                           onchange="angular.element(this).scope().uploadIdCardImage(this)" max_size="4M">
+                                           onchange="angular.element(this).scope().uploadIdCardFrontImage(this)" max_size="4M">
                                     <i class="mdi mdi-instagram"></i>
                                 </div>
-                                <p style="margin-top: 10px">身份证照片</p>
+                                <p style="margin-top: 10px">身份证（正）</p>
                             </div>
-                            <div id="look_driverIdentity" class="col s4" style="cursor: pointer">
-                                <div ng-repeat="el in drive_img" repeat-finish="driverFinish()" class="drive_img_box col s4 vc-center p0 grey white-text">
+                            <div id="look_driverIdentityFront" class="col s4" style="cursor: pointer">
+                                <div ng-repeat="el in drive_img_front" repeat-finish="driverFrontFinish()" class="drive_img_box col s4 vc-center p0 grey white-text">
                                     <img ng-src="{{el.img}}" class="responsive-img">
                                 </div>
                             </div>
@@ -171,7 +147,28 @@
                 </div>
 
                 <div class="col s6 vc-center">
-                    <!--<div class="col s2">驾驶证:</div>-->
+                    <div class="col s11">
+                        <form name="uploadImageForm" class="uploadImageForm">
+                            <div class="upload_btn left">
+                                <div class="storage_car_picture col s4 vc-center  p0 cyan lighten-1 white-text" style="width: 84px;margin-bottom: 15px">
+                                    <input name="image" type="file"
+                                           onchange="angular.element(this).scope().uploadIdCardBackImage(this)" max_size="4M">
+                                    <i class="mdi mdi-instagram"></i>
+                                </div>
+                                <p style="margin-top: 10px">身份证（反）</p>
+                            </div>
+                            <div id="look_driverIdentityBack" class="col s4" style="cursor: pointer">
+                                <div ng-repeat="el in drive_img_back" repeat-finish="driverBackFinish()" class="drive_img_box col s4 vc-center p0 grey white-text">
+                                    <img ng-src="{{el.img}}" class="responsive-img">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row col s12">
+                <div class="col s6 vc-center">
                     <div class="col s11">
                         <form name="uploadImageForm" class="">
                             <div class="upload_btn left">
@@ -189,55 +186,105 @@
                         </form>
                     </div>
                 </div>
+
+                <div class="col s6 vc-center">
+                    <div class="col s11">
+                        <form name="uploadImageForm" class="">
+                            <div class="upload_btn left">
+                                <div class="storage_car_picture col s4 vc-center  p0 cyan lighten-1 white-text" style="width: 84px;margin-bottom: 15px">
+                                    <input name="image" type="file" onchange="angular.element(this).scope().uploadPermitImage(this)" max_size="4M">
+                                    <i class="mdi mdi-instagram"></i>
+                                </div>
+                                <p style="margin-top: 10px">准驾证照片</p>
+                            </div>
+                            <div id="look_permitImg" class="col s4" style="cursor: pointer">
+                                <div ng-repeat="el in permit_img" repeat-finish="permitFinish()" class="drive_img_box col s4 vc-center p0 grey white-text">
+                                    <img ng-src="{{el.img}}" class="responsive-img">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <!--<div class="row col s12" style="margin-top: 25%">-->
-                <!--<div class="subBtn" style="width: 300px ;margin: 0 auto">-->
-                    <!--<button style="width: 300px;font-size: 1.3rem" class="btn btn-large waves-effect waves-light" ng-click="submitImage()">提交-->
-                    <!--</button>-->
-                <!--</div>-->
-            <!--</div>-->
+
+            <div class="row col s12">
+                <div class="col s6 vc-center">
+                    <div class="col s11">
+                        <form name="uploadImageForm" class="">
+                            <div class="upload_btn left">
+                                <div class="storage_car_picture col s4 vc-center  p0 cyan lighten-1 white-text" style="width: 84px;margin-bottom: 15px">
+                                    <input name="image" type="file" onchange="angular.element(this).scope().uploadDriverImage(this)" max_size="4M">
+                                    <i class="mdi mdi-instagram"></i>
+                                </div>
+                                <p style="margin-top: 10px">司机照片</p>
+                            </div>
+                            <div id="look_driver" class="col s4" style="cursor: pointer">
+                                <div ng-repeat="el in driver_img" ng-if="!driver_img[0].img == ''" repeat-finish="driverFinish()" class="drive_img_box col s4 vc-center p0 grey white-text">
+                                    <img ng-src="{{el.img}}" class="responsive-img">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <div class="driver_details_step_3" ng-if="stepThird">
             <div class="row">
-                <div class="input-field col s4">
+                <div class="input-field col s4" ng-show="bindTruckInput">
                     <input id="Binding_trailer" name="Binding_trailer"
                            ng-change="updateTruckList()" class="Binding_trailer"
                            ng-model="driverInfo.truck_num" type="text"  autocomplete="off">
                     <label for="Binding_trailer">绑定货车</label>
                 </div>
-                <div class="col s2">
-                    <button ng-if="bindBtn" style="width: 180px;height: 38px;line-height: 3px;font-size: 1.3rem;margin-top: 11px"
+                <div class="input-field col s4" ng-show="bindMainTxt">
+                    <input id="Binding_trailer_txt" name="Binding_trailer" class="Binding_trailer"
+                           ng-value="driverInfo.drive_name == null ? '' : driverInfo.truck_num" type="text"  autocomplete="off" disabled>
+                    <label class="active" for="Binding_trailer">绑定主驾</label>
+                </div>
+                <div class="input-field col s4" ng-show="bindViceTxt">
+                    <input id="Binding_trailer_txt2" name="Binding_trailer" class="Binding_trailer"
+                           ng-value="driverInfo.vice == null ? '' : driverInfo.vice" type="text"  autocomplete="off" disabled>
+                    <label class="active" for="Binding_trailer">绑定副驾</label>
+                </div>
+                <div class="col s4">
+                    <button ng-if="bindBtn" style="width: 180px;height: 38px;line-height: 3px;font-size: 1.3rem;margin-top: 11px;margin-left: 10px"
                             class="right btn btn-large waves-effect waves-light"
                             ng-click="bundling()">
-                        绑定货车
+                        绑定主驾
                     </button>
                     <button ng-if="unbindBtn" style="width: 180px;height: 38px;line-height: 3px;font-size: 1.3rem;margin-top: 11px"
                             class="right btn btn-large waves-effect waves-light"
                             ng-click="unBundling()">
-                        解绑
+                        解绑主驾
+                    </button>
+                    <button ng-if="bindBtnCopilot" style="width: 180px;height: 38px;line-height: 3px;font-size: 1.3rem;margin-top: 11px;margin-left: 10px"
+                            class="right btn btn-large waves-effect waves-light"
+                            ng-click="bundlingCopilot()">
+                        绑定副驾
+                    </button>
+                    <button ng-if="unbindBtnCopilot" style="width: 180px;height: 38px;line-height: 3px;font-size: 1.3rem;margin-top: 11px"
+                            class="right btn btn-large waves-effect waves-light"
+                            ng-click="unBundlingCopilot()">
+                        解绑副驾
                     </button>
                 </div>
             </div>
 
             <div class="row">
                 <div ng-show="showTruckList" ng-repeat="truck in newTruckList" class="col s4" style="padding: 10px;height: 40px;margin-top: 20px">
-                    <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':truck.drive_name}">
+                    <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':truck.drive_name && truck.vice_drive_name}">
                         <div class="col s6" ng-click="check_trailer(truck.id)">
-                            <input ng-if="!truck.drive_name" type="radio" name="filled-in" class="filled-in"  id="filled-in-box{{$index}}" />
+                            <input ng-if="!truck.drive_name || !truck.vice_drive_name" type="radio" name="filled-in" class="filled-in"  id="filled-in-box{{$index}}" />
                             <label for="filled-in-box{{$index}}" class="black-text" style="font-size: 18px" >{{truck.truck_num}}</label>
                         </div>
                         <div class="col s6">
-                            <span ng-hide="truck.drive_name" style="margin-left: 10px">未关联司机</span>
-                            <span ng-show="truck.drive_name" style="margin-left: 10px">关联司机：&nbsp;<span>{{truck.drive_name}}</span></span>
+                            <span style="margin-left: 10px">主：{{truck.drive_name == null ? "未关联" : truck.drive_name}}&emsp;副：{{truck.vice_drive_name == null ? "未关联" : truck.vice_drive_name}}</span>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--<div class="row col s12 center" style="margin-top: 10%">-->
-                <!--<button style="width: 300px;font-size: 1.3rem" class="btn btn-large waves-effect waves-light" ng-click="uploadBrandTruck()">提交-->
-                <!--</button>-->
-            <!--</div>-->
         </div>
     </div>
 </div>

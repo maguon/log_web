@@ -87,13 +87,7 @@
                         <i class="mdi dataIcon mdi-table-large"></i>
                         <label for="verification_time"><span style="color: red">* </span>驾驶证到期时间</label>
                     </div>
-                    <!--<div class="input-field col s4"-->
-                         <!--ng-class="{'has-error':add_driver_form.verification_time.$invalid&&submitted }">-->
-                        <!--<input id="verification_time" name="verification_time" type="text" class="datepicker" date-->
-                               <!--ng-model="verificationStartTime" required>-->
-                        <!--<i class="mdi dataIcon mdi-table-large"></i>-->
-                        <!--<label for="verification_time"><span style="color: red">* </span>检证日期</label>-->
-                    <!--</div>-->
+
                     <div class="input-field col s4">
                         <input id="driver_parent" type="text" ng-model="driverParent">
                         <label for="driver_parent">紧急联系人电话</label>
@@ -129,16 +123,16 @@
     <div class="add_driver_step_2" ng-show="step_second">
         <div class="row col s12">
             <div class="col s6 vc-center">
-                <div class="col s2">身份证:</div>
+                <div class="col s2">身份证（正面）:</div>
                 <div class="col s10">
                     <form name="uploadImageForm" class="uploadImageForm">
                         <div class="storage_car_picture col s2 vc-center  p0 cyan lighten-1 white-text" style="width: 84px">
                             <input name="image" type="file"
-                                   onchange="angular.element(this).scope().uploadIdCardImage(this)" max_size="4M">
+                                   onchange="angular.element(this).scope().uploadIdCardImageFront(this)" max_size="4M">
                             <i class="mdi mdi-instagram"></i>
                         </div>
-                        <div id="look_driverIdentity" style="cursor: pointer">
-                            <div ng-repeat="el in drive_img" repeat-finish="driverFinish()" class="drive_img_box col s6 vc-center p0 grey white-text">
+                        <div id="look_driverIdentity_front" style="cursor: pointer">
+                            <div ng-repeat="el in drive_img_front" repeat-finish="driverIdCardFrontFinish()" class="drive_img_box col s6 vc-center p0 grey white-text">
                                 <img ng-src="{{el.img}}" class="responsive-img">
                             </div>
                         </div>
@@ -146,6 +140,26 @@
                 </div>
             </div>
 
+            <div class="col s6 vc-center">
+                <div class="col s2">身份证（背面）:</div>
+                <div class="col s10">
+                    <form name="uploadImageForm" class="uploadImageForm">
+                        <div class="storage_car_picture col s2 vc-center  p0 cyan lighten-1 white-text" style="width: 84px">
+                            <input name="image" type="file"
+                                   onchange="angular.element(this).scope().uploadIdCardImageBack(this)" max_size="4M">
+                            <i class="mdi mdi-instagram"></i>
+                        </div>
+                        <div id="look_driverIdentity_back" style="cursor: pointer">
+                            <div ng-repeat="el in drive_img_back" repeat-finish="driverIdCardBackFinish()" class="drive_img_box col s6 vc-center p0 grey white-text">
+                                <img ng-src="{{el.img}}" class="responsive-img">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row col s12">
             <div class="col s6 vc-center">
                 <div class="col s2">驾驶证:</div>
                 <div class="col s10">
@@ -163,8 +177,47 @@
                     </form>
                 </div>
             </div>
+
+            <div class="col s6 vc-center">
+                <div class="col s2">准驾证:</div>
+                <div class="col s10">
+                    <form name="uploadImageForm" class="uploadImageForm">
+                        <div class="storage_car_picture col s2 vc-center  p0 cyan lighten-1 white-text" style="width: 84px">
+                            <input name="image" type="file"
+                                   onchange="angular.element(this).scope().uploadPermitImage(this)" max_size="4M">
+                            <i class="mdi mdi-instagram"></i>
+                        </div>
+                        <div id="look_permitImg" style="cursor: pointer">
+                            <div ng-repeat="el in permit_img" repeat-finish="permitFinish()" class="drive_img_box col s6 vc-center p0 grey white-text">
+                                <img ng-src="{{el.img}}" class="responsive-img">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="row col s12" style="margin-top: 25%">
+
+        <div class="row col s12">
+            <div class="col s6 vc-center">
+                <div class="col s2">司机照片:</div>
+                <div class="col s10">
+                    <form name="uploadImageForm" class="uploadImageForm">
+                        <div class="storage_car_picture col s2 vc-center  p0 cyan lighten-1 white-text" style="width: 84px">
+                            <input name="image" type="file"
+                                   onchange="angular.element(this).scope().uploadDriverImage(this)" max_size="4M">
+                            <i class="mdi mdi-instagram"></i>
+                        </div>
+                        <div id="driver_img" style="cursor: pointer">
+                            <div ng-repeat="el in driver_img" repeat-finish="driverFinish()" class="drive_img_box col s6 vc-center p0 grey white-text">
+                                <img ng-src="{{el.img}}" class="responsive-img">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row col s12" style="margin-top: 10%">
             <div class="subBtn" style="width: 300px ;margin: 0 auto">
                 <button style="width: 300px;font-size: 1.3rem" class="btn btn-large waves-effect waves-light" ng-click="uploadImage()">提交
                 </button>

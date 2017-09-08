@@ -197,7 +197,7 @@ CommonFilter.filter("missionStatus", function () {
                 missionStatus = "已装车";
                 break;
             case 7:
-                missionStatus = "已到达";
+                missionStatus = "已送达";
                 break;
             case 8:
                 missionStatus = "取消任务";

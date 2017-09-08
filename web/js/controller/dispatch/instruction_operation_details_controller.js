@@ -1,6 +1,269 @@
 /**
  * Created by zcy on 2017/8/31.
  */
-app.controller("instruction_operation_details_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
-    console.log("in development")
+app.controller("instruction_operation_details_controller", ["$scope", "$host", "$stateParams", "_basic", function ($scope, $host, $stateParams, _basic) {
+    $('ul.tabs').tabs();
+    var truckId = $stateParams.truckId;
+    var userId = _basic.getSession(_basic.USER_ID);
+    $scope.showDetails = false;
+    $scope.vinNum = "";
+
+    // 根据点击的truckId查询当前司机信息
+    $scope.getDriverInfo = function () {
+        _basic.get($host.api_url + "/truckDispatch?dispatchFlag=1&truckId=" + truckId).then(function (driverData) {
+            if (driverData.success === true) {
+                if(driverData.result[0].current_city === 0){
+                    driverData.result[0].operate_status = "在途"
+                }
+                else{
+                    driverData.result[0].operate_status = "待运中"
+                }
+                console.log("driverData",driverData);
+                $scope.driverInfo = driverData.result[0];
+            }
+            else {
+                swal(driverData.msg, "", "error");
+            }
+        });
+    };
+
+    // 获取所有非取消状态的指令操作信息
+    $scope.getOperationInfo = function () {
+        _basic.get($host.api_url + "/dpRouteTask?truckId=" + truckId + "&taskStatusArr=1,2,3,4,9").then(function (operateData) {
+            if (operateData.success === true) {
+                console.log("operateData",operateData);
+                for(var i = 0;i < operateData.result.length;i++){
+                    if(operateData.result[i].task_start_date === null){
+                        operateData.result[i].task_start_date = "暂无";
+                    }
+                }
+                $scope.operationList = operateData.result;
+            }
+            else {
+                swal(operateData.msg, "", "error");
+            }
+        });
+    };
+
+    // 点击tab获取当前指令操作信息
+    $scope.getCurrentOperationInfo = function (operationId) {
+        console.log("operationId",operationId);
+        _basic.get($host.api_url + "/dpRouteTask?dpRouteTaskId=" + operationId + "&truckId=" + truckId).then(function (currentOperateData) {
+            if (currentOperateData.success === true) {
+                console.log("currentOperateData",currentOperateData);
+                $scope.currentOperateInfo = currentOperateData.result[0];
+                $scope.getOperationMission(currentOperateData.result[0].id);
+                $scope.showDetails = true;
+            }
+            else {
+                swal(currentOperateData.msg, "", "error");
+            }
+        });
+    };
+
+    // 根据当前指令信息id获取任务信息
+    $scope.getOperationMission = function (operationId) {
+        _basic.get($host.api_url + "/dpRouteLoadTask?dpRouteTaskId=" + operationId).then(function (missionData) {
+            if (missionData.success === true) {
+                console.log("missionData",missionData);
+                $scope.missionList = missionData.result;
+            }
+            else {
+                swal(missionData.msg, "", "error");
+            }
+        });
+    };
+
+    // 点击接受指令，变为开始执行
+    $scope.acceptInstruction = function () {
+        _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" + $scope.currentOperateInfo.id + "/taskStatus/2",{}).then(function (data) {
+            if (data.success === true) {
+                $scope.getCurrentOperationInfo($scope.currentOperateInfo.id)
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+    // 点击开始执行，变为在途
+    $scope.beginExecution = function () {
+        _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" + $scope.currentOperateInfo.id + "/taskStatus/3",{}).then(function (data) {
+            if (data.success === true) {
+                $scope.getCurrentOperationInfo($scope.currentOperateInfo.id)
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+    // 点击在途，变为完成
+    $scope.onTheWay = function () {
+        _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" + $scope.currentOperateInfo.id + "/taskStatus/4",{}).then(function (data) {
+            if (data.success === true) {
+                $scope.getCurrentOperationInfo($scope.currentOperateInfo.id)
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+    // 点击完成
+    $scope.completeMission = function () {
+        _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" + $scope.currentOperateInfo.id + "/taskStatus/9",{}).then(function (data) {
+            if (data.success === true) {
+                $scope.getCurrentOperationInfo($scope.currentOperateInfo.id)
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+    // 点击任务获取装车信息
+    $scope.showTruckLoadInfo = function (missionId) {
+        _basic.get($host.api_url + "/dpRouteLoadTask/" + missionId + "/dpRouteLoadTaskDetail").then(function (loadData) {
+            if (loadData.success === true) {
+                console.log("loadData",loadData);
+                $scope.loadList = loadData.result;
+            }
+            else {
+                swal(loadData.msg, "", "error");
+            }
+        });
+    };
+
+    // 查询输入的Vin码是否存在
+    $scope.checkVinNum = function (missionId) {
+        console.log("missionId",missionId);
+        if($scope.vinNum != ""){
+            _basic.get($host.api_url + "/carList?vin=" + $scope.vinNum + "&carStatus=1").then(function (checkData) {
+                if (checkData.success === true) {
+                    console.log("checkData",checkData);
+                    if(checkData.result.length === 0){
+                        console.log("checkData",checkData);
+                        swal("查无此vin码信息或商品车不是待装车状态，不能进行装车", "", "error");
+                    }
+                    else{
+                        $scope.addLoadCar(checkData.result[0].id,missionId)
+                    }
+                }
+                else {
+                    swal(checkData.msg, "", "error");
+                }
+            });
+        }
+        else{
+            swal("请输入vin码", "", "warning");
+        }
+    };
+
+    // 新增装车数
+    $scope.addLoadCar = function (carId,missionId) {
+        console.log("carId",carId);
+        console.log("missionId",missionId);
+        _basic.post($host.api_url + "/user/" + userId + "/dpRouteLoadTask/" + missionId + "/dpRouteLoadTaskDetail?truckId=" + truckId,{
+            carId:carId,
+            vin:$scope.vinNum
+        }).then(function (addLoadData) {
+            if (addLoadData.success === true) {
+                $scope.showTruckLoadInfo(missionId);
+                $scope.vinNum = "";
+                swal("新增成功", "", "success");
+            }
+            else {
+                swal(addLoadData.msg, "", "error");
+            }
+        });
+    };
+
+    // 删除装车数
+    $scope.deleteLoadCar = function (carId,detailId,missionId) {
+        swal({
+                title: "确定删除当前装车吗？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确认",
+                cancelButtonText: "取消",
+                closeOnConfirm: false
+            },
+            function(){
+                _basic.delete($host.api_url + "/user/" + userId + "/dpRouteTaskDetail/" + detailId + "?carId=" + carId).then(function (delLoadData) {
+                    if (delLoadData.success === true) {
+                        console.log("delLoadData",delLoadData);
+                        $scope.showTruckLoadInfo(missionId);
+                        swal("删除成功", "", "success");
+                    }
+                    else {
+                        swal(delLoadData.msg, "", "error");
+                    }
+                });
+            });
+
+    };
+
+    // 完成装车
+    $scope.completeLoadCar = function (missionId) {
+        _basic.put($host.api_url + "/user/" + userId + "/dpRouteLoadTask/" + missionId + "/loadTaskStatus/3",{}).then(function (completeData) {
+            if (completeData.success === true) {
+                console.log("completeData",completeData);
+                // 刷新任务状态
+                $scope.getOperationMission($scope.currentOperateInfo.id);
+                swal("完成装车", "", "success");
+            }
+            else {
+                swal(completeData.msg, "", "error");
+            }
+        });
+    };
+
+    // 点击确认车辆送达
+    $scope.vehicleDelivery = function (loadId,missionId) {
+        swal({
+                title: "确认车辆送达？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确认",
+                cancelButtonText: "取消",
+                closeOnConfirm: true
+            },
+            function(){
+                _basic.put($host.api_url + "/user/" + userId + "/dpRouteTaskDetail/" + loadId + "/carLoadStatus/2?truckId=" + truckId,{}).then(function (data) {
+                    if (data.success === true) {
+                        $scope.showTruckLoadInfo(missionId);
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
+            });
+    };
+
+    // 完成配送
+    $scope.completeSendCar = function (missionId) {
+        _basic.put($host.api_url + "/user/" + userId + "/dpRouteLoadTask/" + missionId + "/loadTaskStatus/7",{}).then(function (sendData) {
+            if (sendData.success === true) {
+                console.log("sendData",sendData);
+                // 刷新任务状态
+                $scope.getOperationMission($scope.currentOperateInfo.id);
+                swal("完成配送", "", "success");
+            }
+            else {
+                swal(sendData.msg, "", "error");
+            }
+        });
+    };
+
+
+
+    // 获取数据
+    $scope.queryData = function () {
+        $scope.getOperationInfo();
+        $scope.getDriverInfo();
+    };
+    $scope.queryData();
 }]);

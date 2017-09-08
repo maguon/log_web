@@ -223,6 +223,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     // 删除线路
     $scope.deleteLine = function (deleteLineId,event) {
+        // console.log("deleteLineId",deleteLineId);
         event.stopPropagation();
         swal({
                 title: "确定删除当前线路吗？",
@@ -251,7 +252,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         // console.log("showLineId",showLineId);
         $scope.missionInfo = false;
         $scope.addMissionBtn = true;
-        _basic.get($host.api_url + "/dpRouteLoadTask?dpRouteTaskId=" + showLineId).then(function (missionData) {
+        _basic.get($host.api_url + "/dpRouteLoadTask?dpRouteTaskId=" + showLineId + "&loadTaskStatusArr=1,3,7").then(function (missionData) {
             if (missionData.success === true) {
                 // console.log("getMissionData", missionData);
                 $scope.missionList = missionData.result;

@@ -7,6 +7,7 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.showDetails = false;
     $scope.vinNum = "";
+    $('#abnormalModel').modal('open');
 
     // 根据点击的truckId查询当前司机信息
     $scope.getDriverInfo = function () {
@@ -191,7 +192,7 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
                 closeOnConfirm: false
             },
             function(){
-                _basic.delete($host.api_url + "/user/" + userId + "/dpRouteTaskDetail/" + detailId + "?carId=" + carId).then(function (delLoadData) {
+                _basic.delete($host.api_url + "/user/" + userId + "/dpRouteTaskDetail/" + detailId + "?truckId=" + truckId + "&carId=" + carId).then(function (delLoadData) {
                     if (delLoadData.success === true) {
                         console.log("delLoadData",delLoadData);
                         $scope.showTruckLoadInfo(missionId);
@@ -242,6 +243,47 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
                 });
             });
     };
+
+    // 点击出现异常
+    $scope.AbnormalOccurrence = function (carId,missionId) {
+        swal({
+                title: "确定进入异常状态吗？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确认",
+                cancelButtonText: "取消",
+                closeOnConfirm: true
+            },
+            function(){
+                _basic.post($host.api_url + "/user/" + userId + "/carExceptionRel",{
+                    carId: carId,
+                    remark: ""
+                }).then(function (data) {
+                    if (data.success === true) {
+                        $scope.showTruckLoadInfo(missionId);
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
+            });
+    };
+
+    // // 点击出现异常，显示模态框
+    // $scope.AbnormalOccurrence = function () {
+    //     $('#abnormalModel').modal('open');
+    // };
+    //
+    // // 提交文字描述和照片
+    // $scope.submitInfo = function () {
+    //
+    // };
+    //
+    // // 关闭模态框
+    // $scope.closeModel = function () {
+    //     $('#abnormalModel').modal('close');
+    // };
 
     // 完成配送
     $scope.completeSendCar = function (missionId) {

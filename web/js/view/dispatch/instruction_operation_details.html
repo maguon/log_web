@@ -8,6 +8,34 @@
         <div class="divider cyan lighten-2"></div>
     </div>
     <div class="row" style="width: 90%;margin: 0 auto">
+        <!--点击异常模态框-->
+        <!--<div id="abnormalModel" class="modal modal-fixed-footer" style="width: 60%;height: 550px">-->
+            <!--<div class="modal-content center" style="font-weight: 500;padding: 0">-->
+                <!--<div class="row col s12 valign-wrapper fz20" style="font-weight: bold;height: 50px;background-color:rgb(63,185,193);margin-bottom: 0">-->
+                    <!--<div class="col s6 offset-s3">-->
+                        <!--<h6 class="white-text fz21" style="font-weight:600">异常描述</h6>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="row col s12 fz20" style="padding: 0;">-->
+                    <!--<ul class="tabs tabs-fixed-width tab-demo z-depth-1" style="font-size: 25px;font-weight: bold;overflow-x: hidden">-->
+                        <!--<li class="tab"><a ng-click="textDescription()" style="color: #26c6da" href="javascript:void(0)">文字描述</a></li>-->
+                        <!--<li class="tab"><a ng-click="imageUpload()" style="color: #26c6da" href="javascript:void(0)">上传照片</a></li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+                <!--<div class="abnormal" style="width: 77%;margin: 12% auto;">-->
+                    <!--<textarea style="height: 150px" name="remark" id="remark" cols="30" rows="10" ng-model="abnormalTxt" placeholder="请输入异常描述"></textarea>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="modal-footer vc-center">-->
+                <!--<button ng-click="closeModel()" class="btn waves-light waves-effect grey lighten-1" type="button" >-->
+                    <!--取消-->
+                <!--</button>-->
+                <!--<button ng-click="submitInfo()" class="btn waves-light waves-effect cyan lighten-1" type="button" style="margin-left: 35px" >-->
+                    <!--确定-->
+                <!--</button>-->
+            <!--</div>-->
+        <!--</div>-->
         <!--司机信息栏-->
         <div class="row col s12 center-align" style="border: 2px solid #ccc;font-size: 0.9rem;padding: 0;">
             <div class="col s5" style="padding: 0;">
@@ -155,22 +183,22 @@
                         <div class="col s12 fz12" style="background-color: white;">
                             <!--VIN码信息-->
                             <div class="col s4 valign-wrapper" ng-repeat="load in loadList" style="border-bottom: 1px solid #ccc">
-                                <div class="col s6" style="padding: 0;">
+                                <div class="col s6" style="padding: 0" ng-class="{'abnormal':load.exception_status != null}">
                                     <p>VIN码：{{load.vin}}</p>
                                 </div>
-                                <div class="col s4" style="padding: 0;">
+                                <div class="col s4" style="padding: 0" ng-class="{'abnormal':load.exception_status != null}">
                                     <p>制造商：{{load.make_name}}</p>
                                 </div>
                                 <div class="col s2 contactsBox fz17" ng-hide="mission.load_task_status == 3 || mission.load_task_status == 7">
                                     <i ng-click="deleteLoadCar(load.car_id,load.id,mission.id)" style="cursor:pointer;" class="mdi mdi-close-circle"></i>
                                 </div>
-                                <div class="col s1" ng-show="currentOperateInfo.task_status == 4 && load.car_load_status != 2">
+                                <div class="col s1" ng-show="currentOperateInfo.task_status == 4 && load.car_load_status == 1 && load.exception_status == null">
                                     <button ng-click="vehicleDelivery(load.id,mission.id)" style="width: 25px;height: 25px;line-height: 25px" class="btn btn-floating waves-light waves-effect cyan lighten-1" type="button">
                                         <i style="font-size: 1.1rem;line-height: 27px" class="mdi mdi-check"></i>
                                     </button>
                                 </div>
-                                <div class="col s1" ng-show="currentOperateInfo.task_status == 4 && load.car_load_status != 2">
-                                    <button style="width: 25px;height: 25px;line-height: 25px;background-color: rgb(229,115,115);" class="btn btn-floating waves-light waves-effect lighten-1" type="button">
+                                <div class="col s1" ng-show="currentOperateInfo.task_status == 4 && load.car_load_status == 1 && load.exception_status == null">
+                                    <button ng-click="AbnormalOccurrence(load.car_id,mission.id)" style="width: 25px;height: 25px;line-height: 25px;background-color: rgb(229,115,115);" class="btn btn-floating waves-light waves-effect lighten-1" type="button">
                                         <i style="font-size: 1.1rem;line-height: 27px" class="mdi mdi-exclamation"></i>
                                     </button>
                                 </div>

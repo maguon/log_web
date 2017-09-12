@@ -7,7 +7,7 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.showDetails = false;
     $scope.vinNum = "";
-    $('#abnormalModel').modal('open');
+    // $('#abnormalModel').modal('open');
 
     // 根据点击的truckId查询当前司机信息
     $scope.getDriverInfo = function () {
@@ -19,7 +19,7 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
                 else{
                     driverData.result[0].operate_status = "待运中"
                 }
-                console.log("driverData",driverData);
+                // console.log("driverData",driverData);
                 $scope.driverInfo = driverData.result[0];
             }
             else {
@@ -32,7 +32,7 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
     $scope.getOperationInfo = function () {
         _basic.get($host.api_url + "/dpRouteTask?truckId=" + truckId + "&taskStatusArr=1,2,3,4,9").then(function (operateData) {
             if (operateData.success === true) {
-                console.log("operateData",operateData);
+                // console.log("operateData",operateData);
                 for(var i = 0;i < operateData.result.length;i++){
                     if(operateData.result[i].task_start_date === null){
                         operateData.result[i].task_start_date = "暂无";
@@ -48,10 +48,10 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
 
     // 点击tab获取当前指令操作信息
     $scope.getCurrentOperationInfo = function (operationId) {
-        console.log("operationId",operationId);
+        // console.log("operationId",operationId);
         _basic.get($host.api_url + "/dpRouteTask?dpRouteTaskId=" + operationId + "&truckId=" + truckId).then(function (currentOperateData) {
             if (currentOperateData.success === true) {
-                console.log("currentOperateData",currentOperateData);
+                // console.log("currentOperateData",currentOperateData);
                 $scope.currentOperateInfo = currentOperateData.result[0];
                 $scope.getOperationMission(currentOperateData.result[0].id);
                 $scope.showDetails = true;
@@ -66,7 +66,7 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
     $scope.getOperationMission = function (operationId) {
         _basic.get($host.api_url + "/dpRouteLoadTask?dpRouteTaskId=" + operationId).then(function (missionData) {
             if (missionData.success === true) {
-                console.log("missionData",missionData);
+                // console.log("missionData",missionData);
                 $scope.missionList = missionData.result;
             }
             else {
@@ -127,7 +127,7 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
     $scope.showTruckLoadInfo = function (missionId) {
         _basic.get($host.api_url + "/dpRouteLoadTask/" + missionId + "/dpRouteLoadTaskDetail").then(function (loadData) {
             if (loadData.success === true) {
-                console.log("loadData",loadData);
+                // console.log("loadData", loadData);
                 $scope.loadList = loadData.result;
             }
             else {
@@ -136,15 +136,19 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
         });
     };
 
+    // 阻止点击冒泡
+    $scope.cancelBubble = function (ev) {
+        ev.stopPropagation();
+    };
+
     // 查询输入的Vin码是否存在
     $scope.checkVinNum = function (missionId) {
-        console.log("missionId",missionId);
+        // console.log("missionId",missionId);
         if($scope.vinNum != ""){
             _basic.get($host.api_url + "/carList?vin=" + $scope.vinNum + "&carStatus=1").then(function (checkData) {
                 if (checkData.success === true) {
-                    console.log("checkData",checkData);
+                    // console.log("checkData",checkData);
                     if(checkData.result.length === 0){
-                        console.log("checkData",checkData);
                         swal("查无此vin码信息或商品车不是待装车状态，不能进行装车", "", "error");
                     }
                     else{
@@ -163,8 +167,8 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
 
     // 新增装车数
     $scope.addLoadCar = function (carId,missionId) {
-        console.log("carId",carId);
-        console.log("missionId",missionId);
+        // console.log("carId",carId);
+        // console.log("missionId",missionId);
         _basic.post($host.api_url + "/user/" + userId + "/dpRouteLoadTask/" + missionId + "/dpRouteLoadTaskDetail?truckId=" + truckId,{
             carId:carId,
             vin:$scope.vinNum
@@ -194,7 +198,7 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
             function(){
                 _basic.delete($host.api_url + "/user/" + userId + "/dpRouteTaskDetail/" + detailId + "?truckId=" + truckId + "&carId=" + carId).then(function (delLoadData) {
                     if (delLoadData.success === true) {
-                        console.log("delLoadData",delLoadData);
+                        // console.log("delLoadData",delLoadData);
                         $scope.showTruckLoadInfo(missionId);
                         swal("删除成功", "", "success");
                     }
@@ -210,7 +214,7 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
     $scope.completeLoadCar = function (missionId) {
         _basic.put($host.api_url + "/user/" + userId + "/dpRouteLoadTask/" + missionId + "/loadTaskStatus/3",{}).then(function (completeData) {
             if (completeData.success === true) {
-                console.log("completeData",completeData);
+                // console.log("completeData",completeData);
                 // 刷新任务状态
                 $scope.getOperationMission($scope.currentOperateInfo.id);
                 swal("完成装车", "", "success");
@@ -289,7 +293,7 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
     $scope.completeSendCar = function (missionId) {
         _basic.put($host.api_url + "/user/" + userId + "/dpRouteLoadTask/" + missionId + "/loadTaskStatus/7",{}).then(function (sendData) {
             if (sendData.success === true) {
-                console.log("sendData",sendData);
+                // console.log("sendData",sendData);
                 // 刷新任务状态
                 $scope.getOperationMission($scope.currentOperateInfo.id);
                 swal("完成配送", "", "success");

@@ -27,7 +27,6 @@ app.controller("add_storage_car_vin_controller", ["$scope", "$rootScope","$state
                         }
 
                         return vinObjs;
-
                     }else{
                         return {};
                     }
@@ -44,8 +43,8 @@ app.controller("add_storage_car_vin_controller", ["$scope", "$rootScope","$state
                 $scope.vin_msg={}
             }
         }
-
     };
+
     // 查询vin码
     $scope.demand_car=function ($iValid) {
         $scope.submitted=true;

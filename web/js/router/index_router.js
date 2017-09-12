@@ -62,6 +62,16 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/dispatch/instruction_drive_details.html",
             controller:"instruction_drive_details_controller"
         })
+        .state("instruction_car_refuel", {
+            url: "/instruction_car_refuel",
+            templateUrl: "js/view/dispatch/instruction_car_refuel.html",
+            controller:"instruction_car_refuel_controller"
+        })
+        .state("instruction_car_refuel_details", {
+            url: "/instruction_car_refuel_details/id/{id}/from/{from}",
+            templateUrl: "js/view/dispatch/instruction_car_refuel_details.html",
+            controller:"instruction_car_refuel_details_controller"
+        })
 
 
         /*        数据导入

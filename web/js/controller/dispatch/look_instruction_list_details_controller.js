@@ -19,6 +19,11 @@ app.controller("look_instruction_list_details_controller", ["$scope", "$host", "
     $scope.LoadTaskList=false;
     function p() {
         var p=new Promise(function (resolve,reject) {
+            _basic.get($host.record_url+"/routeRecord?routeId="+$scope._id).then(function (data) {
+                if(data.success==true&&data.result.length>0){
+                    $scope.recordList=data.result[0].comment;
+                }
+            })
             _basic.get($host.api_url+"/dpRouteTask?dpRouteTaskId="+$scope._id).then(function (data) {
                 if(data.success==true&&data.result.length>0){
                     $scope.this_instruction=data.result[0];

@@ -149,23 +149,22 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="el in instruction_neee_list" class="grey-text text-darken-1">
-                                <td  ng-bind="el.id">1</td>
-                                <td ng-bind="el.real_name">2</td>
-                                <td ng-bind="el.date_id"></td>
-                                <td ng-bind="el.route_start">无</td>
-                                <td ng-bind="el.addr_name">
-                                </td>
-                                <td ng-bind="el.route_end">无</td>
-                                <td ng-bind="el.short_name">/td>
-                                <td ng-bind="el.pre_count"></td>
-                                <td class="operation">
-                                    <a  ui-sref="look_instruction_need_details({id:el.id,from:'instruction_need'})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ></i></a>
-                                </td>
-                            </tr>
+                                <tr ng-repeat="el in instruction_neee_list" class="grey-text text-darken-1">
+                                    <td  ng-bind="el.id">1</td>
+                                    <td ng-bind="el.real_name">2</td>
+                                    <td ng-bind="el.date_id"></td>
+                                    <td ng-bind="el.route_start">无</td>
+                                    <td ng-bind="el.addr_name">
+                                    </td>
+                                    <td ng-bind="el.route_end">无</td>
+                                    <td ng-bind="el.short_name">/td>
+                                    <td ng-bind="el.pre_count"></td>
+                                    <td class="operation">
+                                        <a  ui-sref="look_instruction_need_details({id:el.id,from:'instruction_need'})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ></i></a>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
-
                     </div>
                     <div class="paging_box col s12">
                         <div class="right">

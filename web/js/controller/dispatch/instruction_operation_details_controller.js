@@ -8,6 +8,13 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
     $scope.showDetails = false;
     $scope.vinNum = "";
     // $('#abnormalModel').modal('open');
+    var vinObjs = {};
+    $('#autocomplete-input').autocomplete({
+        data: vinObjs,
+        // limit: 5, // The max amount of results that can be shown at once. Default: Infinity.
+        minLength: 6
+    });
+
 
     // 根据点击的truckId查询当前司机信息
     $scope.getDriverInfo = function () {
@@ -139,6 +146,36 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
     // 阻止点击冒泡
     $scope.cancelBubble = function (ev) {
         ev.stopPropagation();
+    };
+
+    // 根据输入的vin码进行模糊查询
+    $scope.searchMatchVin = function () {
+        if ($scope.vinNum != undefined) {
+            if ($scope.vinNum.length >= 6) {
+                _basic.get($host.api_url + "/carList?vinCode=" + $scope.vinNum + "&carStatus=1&start=0&size=5").then(function (data) {
+                    if (data.success == true && data.result.length > 0) {
+                        $scope.vin_msg = data.result;
+                        vinObjs = {};
+                        for (var i in $scope.vin_msg) {
+                            vinObjs[$scope.vin_msg[i].vin] = null;
+                        }
+                        return vinObjs;
+                    } else {
+                        return {};
+                    }
+                }).then(function (vinObjs) {
+                    $('#autocomplete-input').autocomplete({
+                        data: vinObjs,
+                        minLength: 6
+                    });
+                    $('#autocomplete-input').focus();
+
+                })
+            } else {
+                $('#autocomplete-input').autocomplete({minLength: 6});
+                $scope.vin_msg = {}
+            }
+        }
     };
 
     // 查询输入的Vin码是否存在

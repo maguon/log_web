@@ -246,8 +246,8 @@
                     <ul class="collapsible" data-collapsible="accordion" style="overflow: hidden">
                         <li ng-repeat="currentLine in currentLineList">
                             <!--线路列表-->
-                            <div class="collapsible-header col s12 valign-wrapper collapsible_height">
-                                <div class="col s9" ng-click="showMissionInfo(currentLine.id)">
+                            <div class="collapsible-header col s12 valign-wrapper collapsible_height" ng-click="showMissionInfo(currentLine.id)">
+                                <div class="col s9">
                                     <div class="col s6 center-align">
                                         <div class="col s4 center-align" style="padding: 0">
                                             <p>{{currentLine.city_route_start}}&emsp;&emsp;<span class="mdi mdi-arrow-right"></span></p>

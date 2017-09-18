@@ -52,7 +52,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 }
                 $scope.carDetailsList = carDetailsData.result;
                 $scope.newCarDetailsList = $scope.carDetailsList;
-                console.log("carDetailsData", $scope.newCarDetailsList);
+                // console.log("carDetailsData", $scope.newCarDetailsList);
             }
             else {
                 swal(carDetailsData.msg, "", "error");

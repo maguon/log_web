@@ -9,6 +9,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
 
         // 指令调度
+        .state("dispatch_index", {  //路由状态
+            url: "/dispatch_index",  //路由路径
+            templateUrl: "/js/view/storage/dispatch_index.html",  //路由填充的模板
+            controller: 'dispatch_index_controller'
+        })
         .state("instruction_plan", {
             url: "/instruction_plan",
             templateUrl: "js/view/dispatch/instruction_plan.html",

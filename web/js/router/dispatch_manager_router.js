@@ -3,13 +3,12 @@
  */
 
 app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.when("", "/vehicle_index");
+    $urlRouterProvider.when("", "/dispatch_index");
     $stateProvider
-
-        .state("vehicle_index", {  //路由状态
-            url: "/vehicle_index",  //路由路径
-            templateUrl: "/js/view/storage/vehicle_index.html",  //路由填充的模板
-            controller: 'vehicle_index_controller'
+        .state("dispatch_index", {  //路由状态
+            url: "/dispatch_index",  //路由路径
+            templateUrl: "/js/view/storage/dispatch_index.html",  //路由填充的模板
+            controller: 'dispatch_index_controller'
         })
         .state("user_info", {
             url: "/user_info",

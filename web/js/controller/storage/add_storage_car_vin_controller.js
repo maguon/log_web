@@ -7,7 +7,7 @@ app.controller("add_storage_car_vin_controller", ["$scope", "$rootScope","$state
     var vinObjs ={}
     $('#autocomplete-input').autocomplete({
         data: vinObjs,
-        limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
+        limit: 10, // The max amount of results that can be shown at once. Default: Infinity.
         onAutocomplete: function(val) {
             // Callback function when value is autcompleted.
         },
@@ -20,12 +20,11 @@ app.controller("add_storage_car_vin_controller", ["$scope", "$rootScope","$state
             if($scope.demand_vin.length>=6){
                 _basic.get($host.api_url+"/carList?vinCode="+$scope.demand_vin,{},{hidenShadow:true}).then(function (data) {
                     if(data.success==true&&data.result.length>0){
-                        $scope.vin_msg=data.result
+                        $scope.vin_msg=data.result;
                         vinObjs ={};
                         for(var i in $scope.vin_msg){
                             vinObjs[$scope.vin_msg[i].vin]=null;
                         }
-
                         return vinObjs;
                     }else{
                         return {};

@@ -10,12 +10,29 @@ publicDirective.directive('header', function () {
         transclude: false,
         restrict: 'E',
         controller: function ($scope, $element, $rootScope, _basic,_config,$host,_socket) {
+            $(function() {
+                $('.image-editor').cropit();
+                $('form').submit(function() {
+                    // Move cropped image data to hidden input
+                    var imageData = $('.image-editor').cropit('export');
+                    $('.hidden-image-data').val(imageData);
+                    // Print HTTP request params
+                    var formValue = $(this).serialize();
+                    $('#result-data').text(formValue);
+                    // Prevent the form from actually submitting
+                    return false;
+                });
+            });
             $scope.pwdReg=_config.pwdRegx;
             var str_type=$element.attr("type");
             $("#brand-logo").attr("src",$element.attr("url"));
             $("#qrCode").attr("src",$element.attr("qr"));
             //修改个人密码
             $scope.amend_user=function () {
+                // $(".indicator").css({
+                //     left:"0",
+                //     right:"509px"
+                // });
                 $(".modal").modal();
                 $("#user_modal").modal("open");
             };
@@ -23,9 +40,12 @@ publicDirective.directive('header', function () {
                 $(".modal").modal();
                 $("#download").modal("open");
             };
-            // $scope.closeModel = function () {
-            //     $("#user_modal").modal("close");
-            // };
+            $scope.closeModel = function () {
+                $("#user_modal").modal("close");
+                $scope.submitted=false;
+                $scope.user_old_password="";
+                $scope.user_new_password="";
+            };
             $scope.amend_user_submit=function (valid) {
                 $scope.submitted=true;
                 if(valid&&$scope.user_new_password==$scope.user_confirm_password){
@@ -103,11 +123,11 @@ publicDirective.directive('header', function () {
                             }
                         }
                         $scope.realName = data.result[0].real_name;
-                        MaterialAvatar(document.getElementsByClassName('nav-avatar'), {
-                            shape: 'circle',
-                            backgroundColor: '#4dd0e1',
-                            textColor: '#fff'
-                        });
+                        // MaterialAvatar(document.getElementsByClassName('nav-avatar'), {
+                        //     shape: 'circle',
+                        //     backgroundColor: '#4dd0e1',
+                        //     textColor: '#fff'
+                        // });
                     } else {
                         swal(data.msg, "", "error");
                     }

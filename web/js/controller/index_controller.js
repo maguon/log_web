@@ -2,6 +2,9 @@
 app.controller("indexController", ['$rootScope', '$scope', '$location', '$q', "_basic","_config",
     function ($rootScope, $scope, $location, $q, _basic,_config) {
         //
+        $scope.amendImg=function () {
+            alert(1)
+        }
             Highcharts.chart('pie_chart', {
                 chart: {
                     plotBackgroundColor: null,
@@ -130,5 +133,6 @@ app.controller("indexController", ['$rootScope', '$scope', '$location', '$q', "_
                 selectMonths: false, // Creates a dropdown to control month
                 selectYears: 0 // Creates a dropdown of 15 years to control year
             });
+
 
     }])

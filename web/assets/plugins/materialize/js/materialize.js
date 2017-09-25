@@ -3283,7 +3283,7 @@ if (jQuery) {
       // Defaults
       var defaults = {
         data: {},
-        limit: Infinity,
+        limit:Infinity,
         onAutocomplete: null,
         minLength: 1
       };
@@ -3444,7 +3444,7 @@ if (jQuery) {
             removeAutocomplete();
 
             // Handle onAutocomplete callback.
-            if (typeof(options.onAutocomplete) === "function") {
+            if (typeof(options.onAutocomplete) === "function"){
               options.onAutocomplete.call(this, text);
             }
           });

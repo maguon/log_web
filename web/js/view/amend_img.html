@@ -1,0 +1,70 @@
+<div class="add_system_warehouseWrap">
+    <div class="row">
+        <div class="row valign-wrapper">
+            <div class="col s2">
+                <a class=" btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
+                    <i class="mdi mdi-arrow-left-bold"></i>
+                </a>
+            </div>
+
+            <h4 class="cyan-text text-lighten-1 col s8 center-align">上传头像</h4>
+            <div class="col s2">
+                <!--<a class="waves-light btn-floating btn-large waves-effect btn right cyan lighten-1" style="margin:0 30px 10px 0"  ng-click="add_newStorage_area()">-->
+                    <!--<i class="mdi mdi-plus"></i>-->
+                <!--</a>--<4
+                div id="add_newStorage_area" class="modal">
+                    <form name="Storage_area_Form" ng-submit="new_area_StorageForm(Storage_area_Form.$valid)" novalidate>
+                        <div class="col s12  cyan white-text" style="height: 50px">
+                            <h5 class="center-align" >新增区域</h5>
+                        </div>
+
+                        <div class="divider a1_divider" ></div>
+                        <div class="modal-content">
+                            <div class="container">
+                                <div class="row" style="margin-top:80px">
+                                    <div class="input-field" ng-class="{ 'has-error':Storage_area_Form.storage_area_Name.$invalid&&submitted }" >
+                                        <input  id="storage_area_Name" name="storage_area_Name" autocomplete="off" ng-model="storage_area_Name" type="text"   required >
+                                        <label for="storage_area_Name">区域名称<span style="color: red">*</span></label>
+                                    </div>
+                                </div>
+                                <!--<div class="row" style="margin-top:40px">-->
+                                <!--<div class="input-field" ng-class="{ 'has-error':Storage_area_Form.storage_count.$invalid&&submitted }" >-->
+                                <!--<input  id="storage_count" name="storage_count" autocomplete="off" ng-model="storage_count" type="text"   required >-->
+                                <!--<label for="storage_count">总车位<span style="color: red">*</span></label>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                                <div class="row p0 cyan-text" style="margin-bottom: 0;margin-top: 40px">
+                                    车道位：
+                                </div>
+                                <div class="row " >
+                                    <div class="row input-field col s6" style="padding-left: 0" ng-class="{ 'has-error':Storage_area_Form.storage_are_row.$invalid&&submitted }" >
+                                        <input  id="storage_are_row" name="storage_are_row" autocomplete="off" ng-model="storage_are_row" type="text"   required >
+                                        <label for="storage_are_row">行<span style="color: red">*</span></label>
+                                    </div>
+                                    <div class="row input-field col s6 right" style="padding-right: 0" ng-class="{ 'has-error':Storage_area_Form.storage_are_col.$invalid&&submitted }" >
+                                        <input  id="storage_are_col" name="storage_are_col" autocomplete="off" ng-model="storage_are_col" type="text"   required >
+                                        <label for="storage_are_col">列<span style="color: red">*</span></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+                        <div class="modal-footer right-align">
+                            <a  class=" btn-floating modal-action modal-close waves-effect waves-light grey lighten-1 btn"  >
+                                <i class="mdi mdi-close"></i>
+                            </a>
+                            <button class="btn btn-floating waves-light waves-effect cyan lighten-1" type="submit" name="action" style="margin-right: 10px" >
+                                <i class="mdi mdi-check"></i>
+                            </button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <!--<div class="divider" style="background: #00bcd4;height: 2px;"></div-->
+
+    </div>
+
+</div>

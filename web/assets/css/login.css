@@ -23,3 +23,14 @@ body{
     width: 200px;
     height: 200px;
 }
+/*找回密码*/
+.retrieve_password{
+    margin-top: 10px;
+    color: grey;
+}
+.retrieve_password:hover{
+    color: #26c6da !important;
+}
+.has-error input{
+    border-bottom: 1px solid red;
+}

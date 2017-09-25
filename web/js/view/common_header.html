@@ -43,43 +43,98 @@
 
     </nav>
     <div id="user_modal" class="modal">
-        <form name="amend_userFrom" ng-submit="amend_user_submit(amend_userFrom.$valid)" novalidate>
-            <div class="modal-content">
-                <h5 class="center-align grey-text">修改个人密码</h5>
+        <div class="row" ul-tabs>
+            <div class="col s12">
+                <ul class="tabs">
+                    <li class="tab col s6"><a class="active" href="#amendPsw">修改密码</a></li>
+                    <li class="tab col s6"><a  href="#amendImg">修改头像</a></li>
+                </ul>
+            </div>
+            <div id="amendPsw" class="col s12" >
+                <form name="amend_userFrom" ng-submit="amend_user_submit(amend_userFrom.$valid)" novalidate>
+                    <div class="modal-content">
+                        <h5 class="center-align grey-text">修改个人密码</h5>
+                        <div class="divider cyan lighten-1" style="height: 2px"></div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="input-field col s12" ng-class="{'has-error':amend_userFrom.user_old_password.$invalid&&submitted}">
+                                    <i class="mdi mdi-lock-open-outline prefix"></i>
+                                    <input id="user_old_password" name="user_old_password" ng-model="user_old_password" autocomplete="off"  type="text" required >
+                                    <label class="grey-text" for="user_old_password">原始密码</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12" ng-class="{'has-error':amend_userFrom.user_new_password.$invalid&&submitted}">
+                                    <i class="mdi mdi-lock-outline prefix"></i>
+                                    <input ng-pattern="pwdReg" id="user_new_password" name="user_new_password" ng-model="user_new_password" autocomplete="off" type="text"  required>
+                                    <label class="grey-text" for="user_new_password">新密码</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12" ng-class="{'has-error':amend_userFrom.user_confirm_password.$invalid&&submitted}">
+                                    <i class="mdi mdi-lock-outline prefix"></i>
+                                    <input  id="user_confirm_password" name="user_confirm_password" autocomplete="off" ng-model="user_confirm_password" type="text" required>
+                                    <label class="grey-text" for="user_confirm_password">确认密码</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer vc-center">
+                        <button class="btn btn-floating waves-light waves-effect  cyan lighten-1" type="submit" name="action" >
+                            <i  class="mdi mdi-check"></i>
+                        </button>
+                        <a style="margin-left: 50px" class="modal-action modal-close waves-light waves-effect red lighten-1 btn btn-floating">
+                            <i  class="mdi mdi-close"></i>
+                        </a>
+                    </div>
+                </form>
+            </div>
+            <div id="amendImg" class="col s12">
+                <h5 class="center-align grey-text">修改头像</h5>
                 <div class="divider cyan lighten-1" style="height: 2px"></div>
-                <div class="container">
-                    <div class="row">
-                        <div class="input-field col s12" ng-class="{'has-error':amend_userFrom.user_old_password.$invalid&&submitted}">
-                            <i class="mdi mdi-lock-open-outline prefix"></i>
-                            <input id="user_old_password" name="user_old_password" ng-model="user_old_password" autocomplete="off"  type="text" required >
-                            <label class="grey-text" for="user_old_password">原始密码</label>
+                <div class="row" style="margin-top: 50px;">
+                    <form action="#">
+                        <div class="image-editor">
+                            <a href="javascript:;" class="file btn">选择头像
+                                <input type="file" class="cropit-image-input">
+                            </a>
+                            <div class="cropit-preview"></div>
+                            <div style="position: relative">
+                                <div class="image-size-label">
+                                    Resize image
+                                </div>
+                                <input type="range" class="cropit-image-zoom-input">
+                            </div>
+                            <input type="hidden" name="image-data" class="hidden-image-data" />
+                            <button type="submit">Submit</button>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12" ng-class="{'has-error':amend_userFrom.user_new_password.$invalid&&submitted}">
-                            <i class="mdi mdi-lock-outline prefix"></i>
-                            <input ng-pattern="pwdReg" id="user_new_password" name="user_new_password" ng-model="user_new_password" autocomplete="off" type="text"  required>
-                            <label class="grey-text" for="user_new_password">新密码</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12" ng-class="{'has-error':amend_userFrom.user_confirm_password.$invalid&&submitted}">
-                            <i class="mdi mdi-lock-outline prefix"></i>
-                            <input  id="user_confirm_password" name="user_confirm_password" autocomplete="off" ng-model="user_confirm_password" type="text" required>
-                            <label class="grey-text" for="user_confirm_password">确认密码</label>
-                        </div>
-                    </div>
+                    </form>
+                    <!--<div class="col s4">-->
+                        <!--<form name="uploadImageForm" class="uploadImageForm">-->
+                            <!--<div class="upload_btn left">-->
+                                <!--<div class="storage_car_picture  vc-center  p0 cyan lighten-1 white-text">-->
+                                    <!--<input name="image" type="file" onchange="angular.element(this).scope().uploadBrandImage_drive(this)" max_size="4M">-->
+                                    <!--<i class="mdi mdi-instagram"></i>-->
+                                <!--</div>-->
+                                <!--<p style="margin-top: 10px">行驶证照片</p>-->
+                            <!--</div>-->
+                        <!--</form>-->
+                    <!--</div>-->
+                    <!--<div class="col s8">-->
+                        <!--<div class="col s8  push-s2" style="height: 350px;border: 1px solid grey">-->
+                            <!--<img src="../../assets/images/dispatch_logo.png" style="width: 100%;height: 100%" alt="">-->
+                        <!--</div>-->
+                        <!--<div class="col s12 vc-center" style="margin-top: 20px">-->
+                            <!--<a href="#!" class="btn btn-floating">-->
+                                <!--<i class="mdi mdi-check"></i>-->
+                            <!--</a>-->
+                        <!--</div>-->
+                    <!--</div>-->
                 </div>
             </div>
-            <div class="modal-footer vc-center">
-                <button class="btn btn-floating waves-light waves-effect  cyan lighten-1" type="submit" name="action" >
-                    <i  class="mdi mdi-check"></i>
-                </button>
-                <a style="margin-left: 50px" class="modal-action modal-close waves-light waves-effect red lighten-1 btn btn-floating">
-                    <i  class="mdi mdi-close"></i>
-                </a>
-            </div>
-        </form>
+        </div>
+
+
 
     </div>
 

@@ -2,7 +2,7 @@
  * Created by 姜森 on 2017/3/14.
  */
 
-var Login_model = angular.module("login_dev", ['ui.router',"ngCookies","common_login_controller","baseService","hostService"]);
+var Login_model = angular.module("login_dev", ['ui.router',"ngCookies","baseService","hostService"]);
 
 Login_model.config(['$httpProvider',"$cookiesProvider",function($httpProvider,$cookiesProvider) {
     $cookiesProvider.defaults = {

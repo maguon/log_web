@@ -5,12 +5,16 @@ adminDirective.directive('header', function () {
         replace: true,
         transclude: false,
         restrict: 'E',
-        controller: function ($scope, $element, $rootScope, _basic,_config,$host,_socket) {
+        controller: function ($scope,$state, $element, $rootScope, _basic,_config,$host,_socket) {
             $scope.pwdReg=_config.pwdRegx;
+            $scope.amendImg=function () {
+                $state.go("amend_img")
+            }
             //修改个人密码
             $scope.amend_user=function () {
                 $(".modal").modal();
                 $("#user_modal").modal("open");
+
             };
             $scope.download_app = function () {
                 $(".modal").modal();
@@ -18,6 +22,9 @@ adminDirective.directive('header', function () {
             };
             $scope.closeModel = function () {
                 $("#user_modal").modal("close");
+                $scope.submitted=false;
+                $scope.user_old_password="";
+                $scope.user_new_password="";
             };
             $scope.amend_user_submit=function (valid) {
                 $scope.submitted=true;

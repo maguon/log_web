@@ -10,48 +10,12 @@
     <link rel="stylesheet" href="/assets/css/login.css">
     <link rel="icon" href="/assets/images/ico/storage_32.ico">
 </head>
-<body class="cyan lighten-1" ng-controller="common_login_controller">
-<div>
+<body class="cyan lighten-1">
+<div >
     <div>
-        <div class="row">
-            <div class="col s4 push-l4 z-depth-4 card-panel" style="margin-top: 160px;">
-                <form class="col s12">
-                    <div class="row">
-                        <div class="input-field col s12 center" style="margin-top: 28px">
-                            <div class="col s4">
-                                <img style="width: 128px;height:128px;" src="/assets/images/storage_logo_128.png" alt="" class="right circle responsive-img valign profile-image-login">
-                            </div>
-                            <div class="col s4 center">
-                                <img style="width: 128px;height:128px" src="/assets/images/vehicle_logo_128.png" alt="" class="responsive-img valign profile-image-login">
-                            </div>
-                            <div class="col s4">
-                                <img style="width: 128px;height:128px;" src="/assets/images/dispatch_logo_144.png" alt="" class="left responsive-img valign profile-image-login">
-                            </div>
-                        </div>
-                        <div class="input-field col s12 center">
-                            <p style="margin-top: 10px" class="center cyan-text text-lighten-1 login-form-text">欢迎使用智慧物流ERP系统</p>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top: -15px">
-                        <div class="input-field col s12">
-                            <i class="mdi mdi-account-card-details prefix"></i>
-                            <input id="username" ng-model="username" autocomplete="off"   type="text" class="validate">
-                            <label for="username" class="active" >用户名</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <i class="mdi mdi-lock prefix"></i>
-                            <input id="password" ng-model="password"  type="password">
-                            <label for="password" class="active" >密码</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <button class="btn waves-effect waves-light col s12 cyan lighten-1" ng-click="login()">登录</button>
-                        </div>
-                    </div>
-                </form>
+        <div class="row" style="margin-top: 160px">
+            <div class="z-depth-4 card-panel" style="width:640px;margin:0 auto; overflow: hidden" ui-view>
+
             </div>
         </div>
     </div>
@@ -86,6 +50,8 @@
 <script src="/js/service/http_service.js"></script>
 <script src="/js/service/config_service.js"></script>
 <!--<script src="/lib/angular/angular-route.min.js"></script>-->
-<!--<script src="/js/router/storage_login_router.js"></script>-->
-<script src="/js/controller/common_login_controller.js"></script>
+<!--<script src="/js/controller/common_login_controller.js"></script>-->
+<script src="/js/controller/common_login_view_controller.js"></script>
+<script src="/js/controller/retrieve_password_controller.js"></script>
+<script src="/js/router/common_login_router.js"></script>
 </html>

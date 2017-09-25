@@ -15,21 +15,15 @@ baseService.factory("_config", function () {
             subType: [],
             index: 'vehicle_home.html'
         },
-        // {
-        //     type: 12,
-        //     name: "车管维修员",
-        //     subType: []
-        // },
+
         {
             type: 19,
             name: "车管部管理员",
             subType: [
-                {type: 11, name: "车管部操作员"},
-                // {type: 12, name: "车管维修员"}
+                {type: 11, name: "车管部操作员"}
                 ],
             index: 'vehicle_manager.html'
         },
-
 
         {
             type: 21,
@@ -43,25 +37,24 @@ baseService.factory("_config", function () {
             name: "仓储部管理员",
             subType: [{type: 21, name: "仓储部操作人员"}],
             index: 'storage_manager.html'
+        },
+
+        {
+            type: 31,
+            name: "调度操作员",
+            subType: [],
+            index: 'dispatch_home.html'
+        },
+
+        {
+            type: 39,
+            name: "调度管理员",
+            subType: [{type: 31, name: "调度操作员"}],
+            index: 'dispatch_manager.html'
         }
 
     ];
 
-
-    // admin : {type:99,name:"admin"},
-    //     storageUser: {type: 21, name: "仓储部现场人员",subType:[]},
-    //     storageManager: {
-    //         type: 29,
-    //         name: "仓储部管理员",
-    //         subType: [{type: 21, name: "仓储部现场人员"}, {type: 22, name: "仓储部操作人员"}]
-    //     },
-    //     truckOp : {type:11}
-    // };
-
-    // _this.userTypes = {
-    //     // admin : {type:99,name:"admin"},
-    //     storageUser : {type:2,name:"仓储部"}
-    // };
 
     _this.rel_status = 1;
     // 调度任务状态

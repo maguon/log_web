@@ -20,11 +20,9 @@
 </head>
 <body>
 <header type="99" url="../assets/images/my_logo.png" qr="../assets/images/qr_code/qr_storage_app.png"></header>
-<!--<navigator></navigator>-->
 <ul id="slide-out" side-nav class="side-nav blue-grey darken-4">
     <li class="nav-logo valign-wrapper " style="border-bottom: 1px solid #182024">
         <div class="userBox ">
-            <!--<img src="../assets/images/office.jpg" alt="" class="logo_img responsive-img left" style="height: 50px"> &lt;!&ndash; notice the "circle" class &ndash;&gt;-->
             <div class="nav-avatar logo_img responsive-img left" style="height:50px">
                 {{userName.substring(0,1)}}
             </div>
@@ -38,14 +36,7 @@
             </div>
         </div>
     </li>
-    <!--<li class="divider grey lighten-2"></li>-->
-    <!--<li class="bold side_navigator" >-->
-        <!--&lt;!&ndash;<a class="waves-effect waves-purple" href="#!/"  onclick="Materialize.toast('收到即时消息', 4000,'rounded');"><i class="mdi mdi-view-dashboard "></i>主页</a>&ndash;&gt;-->
-        <!--&lt;!&ndash;<a class="waves-effect waves-light first-N" ui-sref="index" onclick="Materialize.toast('收到即时消息', 4000,'rounded');"><i class="white-text mdi mdi-crop-free "></i>主页</a>&ndash;&gt;-->
-        <!--<a class="waves-effect waves-light first-N" ui-sref="storage_index" ><i class="white-text mdi mdi-crop-free "></i>首页</a>-->
-    <!--</li>-->
 
-    <!--==========================================================================-->
     <li class="bold side_navigator">
         <ul class="collapsible collapsible-accordion">
             <li class="bold">
@@ -60,12 +51,6 @@
             </li>
         </ul>
     </li>
-    <!--=============================================================================-->
-
-    <!--<li class="bold side_navigator" >-->
-        <!--<a class="waves-effect waves-light first-N" ui-sref="vehicle_index" ><i class="white-text mdi mdi-speedometer"></i>主控面板</a>-->
-    <!--</li>-->
-
 
     <li class="bold side_navigator">
         <ul class="collapsible collapsible-accordion">
@@ -105,12 +90,11 @@
             </li>
         </ul>
     </li>
+
     <li class="bold side_navigator">
         <a href="#!" ui-sref="user_info" class=" waves-effect waves-light first-N" ><i class="white-text mdi mdi-account-card-details"></i>用户信息</a>
     </li>
-    <!--<li class="bold side_navigator">-->
-        <!--<a href="#!" ui-sref="company" class=" waves-effect waves-light first-N" ><i class="white-text mdi mdi-home"></i>公司信息</a>-->
-    <!--</li>-->
+
     <li class="bold side_navigator">
         <ul class="collapsible collapsible-accordion">
             <li class="bold">
@@ -157,18 +141,16 @@
                 <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-home-variant "></i>仓储管理</a>
                 <div class="collapsible-body slider_nav_box blue-grey darken-3" style="padding: 0;">
                     <ul>
-                        <!--<li><a href="#!" ui-sref="index"><i class="mdi mdi-chevron-right white-text "></i>仓储首页</a></li>-->
                         <li><a href="#!" ui-sref="calendar"><i class="mdi mdi-chevron-right white-text "></i>工作日历</a></li>
                         <li><a href="#!" ui-sref="add_storage_car_vin"  ><i class="white-text mdi mdi-chevron-right"></i>入库车辆</a></li>
                         <li><a href="#!" ui-sref="storage_store"  ><i class="white-text mdi mdi-chevron-right"></i>仓储存放</a></li>
                         <li><a href="#!" ui-sref="storage_car"  ><i class="white-text mdi mdi-chevron-right"></i>仓储车辆</a></li>
-
                     </ul>
                 </div>
             </li>
         </ul>
     </li>
-    <!--<li class="divider grey lighten-2"></li>-->
+
     <li class="bold side_navigator">
         <ul class="collapsible collapsible-accordion">
             <li class="bold">
@@ -202,10 +184,7 @@
     </div>
     </h1>
 </div>
-<!--<div class="footer blue-grey darken-1">-->
-        <!--<h5 class="footer-msg right">洺源信息技术</h5>-->
-        <!--<h5 class="footer-msg right">物流系统1.0</h5>-->
-    <!--</div>-->
+
 <footer></footer>
 </body>
 <div class="shadeDowWrap">
@@ -232,7 +211,6 @@
 </script>
 <script src="/lib/jquery.min.js"></script>
 <script src="/lib/jquery.form.min.js"></script>
-
 <script src="/assets/plugins/fullcalendar-3.3.0/lib/jquery-ui.min.js"></script>
 <script src="/assets/plugins/month_picker/month_picker.min.js"></script>
 
@@ -256,6 +234,7 @@
 <script src="/js/controller/data/car_to_data_controller.js"></script>
 <script src="/js/controller/index_controller.js"></script>
 <script src="/js/controller/common_login_controller.js"></script>
+
 <!--车管-->
 <script src="/js/controller/truck/truck_company_controller.js"></script>
 <script src="/js/controller/truck/truck_details_controller.js"></script>
@@ -295,8 +274,6 @@
 <script src="/js/controller/storage/storage_index_controller.js"></script>
 <script src="/js/controller/storage/vehicle_index_controller.js"></script>
 
-
-
 <!--仓储-->
 <script src="/js/controller/storage/storage_controller.js"></script>
 <script src="/js/controller/storage/storage_calendar_controller.js"></script>
@@ -312,6 +289,7 @@
 <script src="/js/controller/user/user_info_controller.js"></script>
 <!--商品车-->
 <script src="/js/controller/car/car_query/car_query_controller.js"></script>
+<script src="/js/controller/car/car_query/car_query_details_controller.js"></script>
 <script src="/js/controller/car/car_statistics_controller.js"></script>
 
 <!--指令调度-->

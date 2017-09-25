@@ -8,9 +8,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'index_controller'
         })
 
-        /*        // 指令调度
-        *
-        * */
+        // 指令调度
         .state("instruction_plan", {
             url: "/instruction_plan",
             templateUrl: "js/view/dispatch/instruction_plan.html",
@@ -74,19 +72,14 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
 
 
-        /*        数据导入
-        *
-        * */
+        // 数据导入
         .state("car_to_data", {
             url: "/car_to_data",  //路由路径
             templateUrl: "js/view/data/car_to_data.html",  //路由填充的模板
             controller:'car_to_data_controller'
         })
 
-        /*        // 仓库设置
-         *
-         *
-         * */
+        // 仓库设置
         .state("setting_users", {
             url: "/setting_users",  //路由路径
             templateUrl: "js/view/system_settings/user_manager.html", //路由填充的模板
@@ -178,10 +171,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'add_setting_dealer_controller'
         })
 
-         /*       // 仓储
-         *
-         *
-         * */
+        // 仓储
         .state("storage_index", {  //路由状态
             url: "/storage_index",  //路由路径
             templateUrl: "js/view/storage/storage_index.html",  //路由填充的模板
@@ -257,19 +247,14 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
 
 
-        /*        // 用户信息
-        *
-        * */
+        // 用户信息
         .state("user_info",{
             url:"/user_info",
             templateUrl: "js/view/user/user_info.html",
             controller:'user_info_controller'
         })
 
-        /*    // 商品车信息
-        *
-        *
-        * */
+        // 商品车信息
         .state("car_query",{
             url:"/car_query",
             templateUrl: "js/view/car/car_query/car_query.html",
@@ -286,14 +271,13 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'car_statistics_controller'
         })
 
-          /*      车管
-          *
-          * */
+         // 车管
         .state("truck_details",{
             url:"/truck_details",
             templateUrl: "js/view/truck/truck_details.html",
             controller:'truck_details_controller'
         })
+
         // 新增（头车.挂车）
         .state("add_head_truck_details",{
             url:"/add_head_truck_details?from",

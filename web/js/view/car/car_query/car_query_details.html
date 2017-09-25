@@ -6,7 +6,7 @@
                 <i class="valign mdi mdi-arrow-left-bold"></i>
             </a>
             <h4 class="center-align cyan-text text-lighten-1">车辆信息</h4>
-        </div> 
+        </div>
         <div class="col s12 p0">
             <ul class="tabWrap grey lighten-4">
                 <li class="tab col s6  basicInfo vc-center active" ng-click="basicInfo()">基本信息</li>
@@ -88,25 +88,21 @@
     <!--相册-->
     <div class="tab_2" ng-if="tabSwitchRight">
         <div class="row no-marBottom">
-            <div class="col s12 valign-wrapper ">
+            <div class="col s12 valign-wrapper" style="margin-top: 50px">
                 <div class="storage_car_picture_wrap col s12 p0">
                     <form name="uploadImageForm" class="uploadImageForm">
-                        <div class="storage_car_picture col s2 vc-center  p0  white-text cyan lighten-1"
-                             style="margin:1.5% 3.2% 0 0">
+                        <div class="storage_car_picture col s4 vc-center  p0 cyan lighten-1 white-text" style="width: 84px;margin-bottom: 15px">
                             <input name="image" type="file"
                                    onchange="angular.element(this).scope().uploadBrandImage(this)" max_size="4M">
                             <i class="mdi mdi-instagram"></i>
                         </div>
-                        <ul id="look_img">
-                            <li ng-repeat="image in imageList" ng-mouseenter="show=true" ng-mouseleave="show=false"
-                                repeat-finish="renderFinish()"
-                                class="storage_car_picture col s2 vc-center p0 grey white-text"
-                                style="margin:1.5% 3.2% 0 0">
+                        <div id="look_img" class="col s11" style="cursor: pointer">
+                            <div ng-repeat="image in imageList" ng-mouseenter="show=true" ng-mouseleave="show=false" repeat-finish="renderFinish()" class="drive_img_box col s3 vc-center p0 grey white-text">
                                 <img ng-src="{{image.url}}" class="responsive-img">
                                 <p class="img_date white-text center-align" ng-show="show" ng-cloak>{{image.name}} 上传于
                                     {{image.timez|date:'yyyy-MM-dd HH:mm:ss'}}</p>
-                            </li>
-                        </ul>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>

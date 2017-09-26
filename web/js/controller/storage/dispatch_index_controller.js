@@ -17,7 +17,6 @@ app.controller("dispatch_index_controller", ["$scope", "$host", "_basic", functi
     $scope.status_4_count = 0;
     $scope.todayCompleteInstructions = 0;
     $scope.notCompleteCount = 0;
-    $scope.todayCancelInstructions = 0;
 
 
     $scope.getDispatchCountInfo = function () {
@@ -37,9 +36,6 @@ app.controller("dispatch_index_controller", ["$scope", "$host", "_basic", functi
                     }
                     if(countData.result[i].task_status === 4){
                         $scope.status_4_count = countData.result[i].task_status_count;
-                    }
-                    if(countData.result[i].task_status === 9){
-                        $scope.todayCancelInstructions = countData.result[i].task_status_count;
                     }
                 }
             }

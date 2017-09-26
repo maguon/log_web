@@ -19,9 +19,7 @@ baseService.factory("_config", function () {
         {
             type: 19,
             name: "车管部管理员",
-            subType: [
-                {type: 11, name: "车管部操作员"}
-                ],
+            subType: [{type: 11, name: "车管部操作员"}],
             index: 'vehicle_manager.html'
         },
 
@@ -93,7 +91,7 @@ baseService.factory("_config", function () {
         {
             s_num: 2,
             status_text: "出库"
-        },
+        }
     ];
 
     // 颜色

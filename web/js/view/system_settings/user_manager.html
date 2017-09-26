@@ -4,13 +4,9 @@
         <div class="row">
             <div class="input-field col s3 offset-s7">
                 <select material-select ng-model="userType">
-                    <!--<option value="">部门</option>-->
                     <option ng-repeat="user in user_info_section" ng-value={{user.type}}>{{user.name}}</option>
                 </select>
             </div>
-            <!--<div class="input-field col s1">-->
-                <!--<a ng-click="clickSearch()" class="waves-effect waves-light btn"><i class="mdi mdi-magnify"></i>查询</a>-->
-            <!--</div>-->
             <div class="col s1 flex flex-round">
                 <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
                    style="margin-right: 10px" ng-click="clickSearch()">
@@ -18,7 +14,7 @@
                 </a>
             </div>
             <div class="col s1 flex flex-round">
-                <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2  btn vc-center"  ng-click="newOperator()">
+                <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2  btn vc-center" ng-click="newOperator()">
                     <!--增加操作员-->
                     <i class="mdi mdi-plus"></i>
                 </a>
@@ -57,7 +53,6 @@
                                             </h5>
                                             <select car-select name="dep" class="browser-default col s6-0" ng-model="newDepId" required>
                                                 <option value="" disabled selected>请选择</option>
-                                                <!--<option ng-value="1" >车管部</option>-->
                                                 <option ng-repeat="el in user_info_section" ng-value="el.type">{{el.name}}</option>
                                             </select>
                                         </div>
@@ -102,10 +97,10 @@
                 </thead>
 
                 <tbody>
-                <tr ng-repeat="el in new_operator" class="grey-text text-darken-1">
+                <tr ng-repeat="el in matchUser" class="grey-text text-darken-1">
                     <td ng-bind="el.real_name"></td>
-                    <td  ng-if="el.gender==0">女</td>
-                    <td  ng-if="el.gender==1">男</td>
+                    <td ng-if="el.gender==0">女</td>
+                    <td ng-if="el.gender==1">男</td>
                     <!--<td ng-if="el.type==1">车管部</td>-->
                     <!--<td ng-if="el.type==99">管理员</td>-->
                     <td>{{el.type | department}}</td>
@@ -118,16 +113,11 @@
                     <td ng-if="el.status==0">停用</td>
                     <td class="operation table_operation vc-center" >
                         <span><i class="mdi mdi-eye cyan-text text-lighten-1" ng-click="lookOperation(el.uid)"></i></span>
-                        <!--<span><i class="mdi mdi-lock-open" ></i></span>-->
                         <span class="switch" ng-click="changeStatus(el.status,el.uid)" style="height: 30px;">
-                            <!--<i class="mdi mdi-paperclip cyan-text text-lighten-1" ></i>-->
-                             <!--<div class="switch">-->
                                 <label>
                                   <input type="checkbox" ng-checked="el.status==1">
                                   <span class="lever"></span>
                                 </label>
-                              <!--</div>-->
-                            <!--<i class="mdi mdi-cart-off" ></i>-->
                         </span>
                         <div id="look_Operator" class="modal">
                             <form name="change_operatorForm" ng-submit="changeOperatorForm(change_operatorForm.$valid,look_operation.uid)" novalidate>
@@ -154,7 +144,6 @@
                                                             部门:
                                                         </h5>
                                                         <select car-select name="dep" class="browser-default col s6-0" ng-model="look_operation.type" required>
-                                                            <!--<option value="" disabled selected>请选择</option>-->
                                                             <option ng-repeat="el in user_info_section" ng-value="el.type">{{el.name}}</option>
                                                         </select>
                                                     </div>

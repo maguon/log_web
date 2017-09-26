@@ -9,7 +9,6 @@ app.controller("setting_user_controller", ["_basic", "_config", "$host", "$scope
     $scope.size = 20;
 
     var user_info_obj = _config.userTypes;
-    // console.log("user_info_obj", user_info_obj);
     var user_info_fun = function () {
         $scope.user_info_section = [];
         // 超级管理员拥有最高权限，可操作所有用户
@@ -32,57 +31,32 @@ app.controller("setting_user_controller", ["_basic", "_config", "$host", "$scope
                 $scope.userType = $scope.user_info_section[0].type;
             }
         }
-        return $scope.user_info_section
     };
     user_info_fun();
     // 搜索所有查询
     var searchAll = function () {
         // 获取所有用户
-        $scope.request = "/user?start=" + $scope.start + "&size=" + $scope.size;
-
-
-        // 判断用户类型，从不同接口参数获取相应用户数据
-        // if (adminType == 99) {
-        //     $scope.request = "/user?start=" + $scope.start + "&size=" + $scope.size;
-        // }
-        // else {
-        //     $scope.request = "/user?type=" + adminType + "&start=" + $scope.start + "&size=" + $scope.size;
-        // }
-        _basic.get($host.api_url + $scope.request).then(function (data) {
-            if (data.success == true) {
+        _basic.get($host.api_url + "/user?type=" + $scope.userType + "&start=" + $scope.start + "&size=" + $scope.size).then(function (data) {
+            if (data.success === true) {
                 if ($scope.start > 0) {
-                    // $("#pre").removeClass("disabled");
                     $("#pre").show();
-                } else {
-                    // $("#pre").addClass("disabled");
+                }
+                else {
                     $("#pre").hide();
                 }
                 if (data.result.length < $scope.size) {
-                    // $("#next").addClass("disabled");
                     $("#next").hide();
-                } else {
-                    // $("#next").removeClass("disabled");
+                }
+                else {
                     $("#next").show();
                 }
-                // 根据用户可操作权限分配显示的用户列表，过滤掉没有操作权限的用户
-                var machList = [];
-                for (var i = 0; i < data.result.length; i++) {
-                    for (var a = 0; a < $scope.user_info_section.length; a++) {
-                        if (data.result[i].type == $scope.user_info_section[a].type) {
-                            machList.push(data.result[i]);
-                        }
-                    }
-                }
-                $scope.operator = machList;
-                // $scope.operator = data.result;
-                // console.log("operator", $scope.operator);
-                $scope.searchUser();
+
+                $scope.matchUser = data.result;
             } else {
                 swal(data.msg, "", "error");
             }
         });
     };
-
     searchAll();
 
     $scope.newOperator = function () {
@@ -108,7 +82,6 @@ app.controller("setting_user_controller", ["_basic", "_config", "$host", "$scope
                 realName: $scope.newRealName,
                 type: $scope.newDepId,
                 gender: $scope.newUserSex,
-                // mobile:$scope.new_userName,
                 password: $scope.newUserPassword
             };
             _basic.post($host.api_url + "/user", obj).then(function (data) {
@@ -131,7 +104,6 @@ app.controller("setting_user_controller", ["_basic", "_config", "$host", "$scope
         _basic.get($host.api_url + "/user?userId=" + id).then(function (data) {
             if (data.success == true) {
                 $scope.look_operation = data.result[0];
-                // console.log($scope.look_operation)
             } else {
                 swal(data.msg, "", "error");
             }
@@ -140,24 +112,6 @@ app.controller("setting_user_controller", ["_basic", "_config", "$host", "$scope
     };
     // 停启用
     $scope.changeStatus = function (st, id) {
-        // var st_txt;
-        // if (st == "1") {
-        //     st_txt = "停用"
-        // } else if (st == "0") {
-        //     st_txt = "启用"
-        // }
-        // swal({
-        //         title: "确定" + st_txt + "?",
-        //         // text: "You will not be able to recover this imaginary file!",
-        //         type: "warning",
-        //         showCancelButton: true,
-        //         confirmButtonColor: "#DD6B55",
-        //         confirmButtonText: st_txt,
-        //         closeOnConfirm: false,
-        //         cancelButtonText: "取消",
-        //     },
-        //     function () {
-        //         swal("成功!", "", "success");
         if (st == "1") {
             $scope.changeSt = "0"
         } else if (st == "0") {
@@ -173,7 +127,6 @@ app.controller("setting_user_controller", ["_basic", "_config", "$host", "$scope
             }
 
         })
-        // });
     };
     // 修改
     $scope.changeOperatorForm = function (isValid, id) {
@@ -185,11 +138,8 @@ app.controller("setting_user_controller", ["_basic", "_config", "$host", "$scope
                 mobile: $scope.look_operation.mobile,
                 realName: $scope.look_operation.real_name,
                 type: $scope.look_operation.type,
-                // gender:$scope.look_operation.gender,
                 status: $scope.look_operation.status,
                 gender: $scope.newUserSex
-                // mobile:$scope.new_userName,
-                // password:$scope.look_operation.newUserPassword
             };
             _basic.put($host.api_url + "/user/" + id, obj).then(function (data) {
                 if (data.success == true) {
@@ -208,23 +158,7 @@ app.controller("setting_user_controller", ["_basic", "_config", "$host", "$scope
     // 点击按钮查询用户
     $scope.clickSearch = function () {
         $scope.start = 0;
-        // $scope.searchUser();
         searchAll();
-    };
-
-    $scope.searchUser = function () {
-        $scope.new_operator = [];
-        // console.log("userType", $scope.userType);
-        if ($scope.userType != undefined && $scope.userType != "") {
-            for (var i = 0; i < $scope.operator.length; i++) {
-                if ($scope.operator[i].type == $scope.userType) {
-                    $scope.new_operator.push($scope.operator[i]);
-                }
-            }
-        }
-        else {
-            $scope.new_operator = $scope.operator;
-        }
     };
 
     // 分页

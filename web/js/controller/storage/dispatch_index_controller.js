@@ -52,7 +52,9 @@ app.controller("dispatch_index_controller", ["$scope", "$host", "_basic", functi
         _basic.get($host.api_url + "/taskStatusCount?taskEndDateStart=" + nowDate + "&taskEndDateEnd=" + nowDate).then(function (data) {
             if (data.success === true) {
                 console.log("data",data);
-                $scope.todayCompleteInstructions = data.result[0].task_status_count;
+                if(data.result.length !== 0){
+                    $scope.todayCompleteInstructions = data.result[0].task_status_count;
+                }
             }
             else {
                 swal(data.msg, "", "error");
@@ -71,13 +73,25 @@ app.controller("dispatch_index_controller", ["$scope", "$host", "_basic", functi
         });
 
         // 获取送达商品车数量
-        _basic.get($host.api_url + "//carLoadStatusCount?carLoadStatus=2&arriveDateStart=" + nowDate + "&arriveDateEnd=" + nowDate).then(function (arriveCarData) {
+        _basic.get($host.api_url + "/carLoadStatusCount?carLoadStatus=2&arriveDateStart=" + nowDate + "&arriveDateEnd=" + nowDate).then(function (arriveCarData) {
             if (arriveCarData.success === true) {
                 console.log("arriveCarData",arriveCarData);
                 $scope.todayCommodityCar = arriveCarData.result[0].arrive_count
             }
             else {
                 swal(arriveCarData.msg, "", "error");
+            }
+        });
+
+        // 获取未安排商品车数量和已安排商品车数量
+        _basic.get($host.api_url + "/dpTaskStatCount").then(function (data) {
+            if (data.success === true) {
+                console.log("未安排已安排",data);
+                $scope.scheduledVehicles = data.result[0].plan_count;
+                $scope.notScheduledVehicle = data.result[0].pre_count - data.result[0].plan_count;
+            }
+            else {
+                swal(data.msg, "", "error");
             }
         });
     };

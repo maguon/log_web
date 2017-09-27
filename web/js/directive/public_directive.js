@@ -10,19 +10,74 @@ publicDirective.directive('header', function () {
         transclude: false,
         restrict: 'E',
         controller: function ($scope, $element, $rootScope, _basic,_config,$host,_socket) {
-            $(function() {
+            // 照片上传函数
+            function uploadBrandImage(dom_obj,callback) {
+                            _basic.formPost(dom_obj, $host.file_url + '/user/' + userId + '/image?imageType=0', function (data) {
+
+                                if (data.success) {
+
+                                    // // console.log(data,truck_id);
+                                    var imageId = data.imageId;
+                                    callback(imageId);
+                                    // _basic.post($host.record_url + "/car/" + $scope.truck_id + "/vin/" + $scope.vin + "/storageImage", {
+                                    //     "username": _basic.getSession(_basic.USER_NAME),
+                                    //     "userId": userId,
+                                    //     "userType": _basic.getSession(_basic.USER_TYPE),
+                                    //     "url": imageId
+                                    // }).then(function (data) {
+                                    //     if (data.success == true) {
+                                    //         $scope._id=data.result._id;
+                                    //         var nowDate=moment(new Date()).format("YYYY-DD-MM HH:mm");
+                                    //         $scope.storage_image_i.push($host.file_url + '/image/' +imageId);
+                                    //         $scope.storage_imageBox.push({src: $host.file_url + '/image/' + imageId,record_id:$scope._id,time:nowDate,user:_basic.getSession(_basic.USER_NAME)});
+                                    //     }
+                                    // });
+                                } else {
+                                    swal('上传图片失败', "", "error");
+                                }
+                            }, function (error) {
+                                swal('服务器内部错误', "", "error");
+                            })
+            };
+
+            // 把base64码转成bolb对象
+            function convertBase64UrlToBlob(urlData){
+
+                var bytes=window.atob(urlData.split(',')[1]);        //去掉url的头，并转换为byte
+
+                //处理异常,将ascii码小于0的转换为大于0
+                var ab = new ArrayBuffer(bytes.length);
+                var ia = new Uint8Array(ab);
+                for (var i = 0; i < bytes.length; i++) {
+                    ia[i] = bytes.charCodeAt(i);
+                }
+
+                return new Blob( [ab] , {type : 'image/png'});
+            }
+
+                // 截取图片
                 $('.image-editor').cropit();
-                $('form').submit(function() {
-                    // Move cropped image data to hidden input
+                $scope.uploadAmendImg=function () {
                     var imageData = $('.image-editor').cropit('export');
-                    $('.hidden-image-data').val(imageData);
-                    // Print HTTP request params
-                    var formValue = $(this).serialize();
-                    $('#result-data').text(formValue);
-                    // Prevent the form from actually submitting
-                    return false;
-                });
-            });
+                    // window.open(imageData);
+
+                    var blob = convertBase64UrlToBlob(imageData);
+                    // 把bolb对象转成file文件
+                    var file = new File([blob],"name");
+                    $("#ImgForm").append("<input type='file' class='ImgInput'/>");
+                    $(".ImgInput").val(file);
+
+
+                    //   //这里连带form里的其他参数也一起提交了,如果不需要提交其他参数可以直接FormData无参数的构造函数
+
+                    //convertBase64UrlToBlob函数是将base64编码转换为Blob
+                    //formData.append("image",file);  //append函数的第一个参数是后台获取数据的参数名,和html标签的input的name属性功能相同
+                    uploadBrandImage($("#ImgForm"),function (imageId) {
+                        console.log(imageId);
+
+                    });
+
+                };
             $scope.pwdReg=_config.pwdRegx;
             var str_type=$element.attr("type");
             $("#brand-logo").attr("src",$element.attr("url"));

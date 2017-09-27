@@ -6,6 +6,19 @@ adminDirective.directive('header', function () {
         transclude: false,
         restrict: 'E',
         controller: function ($scope,$state, $element, $rootScope, _basic,_config,$host,_socket) {
+            $(function() {
+                $('.image-editor').cropit();
+                $('form').submit(function() {
+                    // Move cropped image data to hidden input
+                    var imageData = $('.image-editor').cropit('export');
+                    $('.hidden-image-data').val(imageData);
+                    // Print HTTP request params
+                    var formValue = $(this).serialize();
+                    $('#result-data').text(formValue);
+                    // Prevent the form from actually submitting
+                    return false;
+                });
+            });
             $scope.pwdReg=_config.pwdRegx;
             $scope.amendImg=function () {
                 $state.go("amend_img")

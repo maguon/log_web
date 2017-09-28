@@ -96,9 +96,12 @@
                     </div>
                 </div>
                 <div class="row"  ng-if="driveRefuel_details.check_status==3">
-                    <div class="col s6">
+                    <div class="col s12">
                         拒绝原因: <span>{{driveRefuel_details.check_reason}}</span>
                     </div>
+                </div>
+                <div class="col s12" ng-if="driveRefuel_details.check_status==2||driveRefuel_details.check_status==3">
+                    审批人: <span>{{driveRefuel_details.check_user_name}}</span>
                 </div>
             </div>
         </div>

@@ -119,24 +119,24 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
     };
     // 照片上传函数
     function uploadBrandImage(filename,dom_obj,callback) {
-        if(filename){
-            if ((/\.(jpe?g|png|gif|svg|bmp|tiff?)$/i).test(filename))
-            {
-                //check size
-                //$file_input[0].files[0].size
-                var max_size_str = dom_obj.attr('max_size');
-                var max_size = 4 * 1024 * 1024; //default: 4M
-                var re = /\d+m/i;
-                if (re.test(max_size_str)) {
-                    max_size = parseInt(max_size_str.substring(0, max_size_str.length - 1)) * 1024 * 1024;
-                    // $currentDom = $(dom).prev();
-                    _basic.formPost(dom_obj.parent().parent(), $host.file_url + '/user/' + userId + '/image?imageType=2', function (data) {
+                                if(filename){
+                                    if ((/\.(jpe?g|png|gif|svg|bmp|tiff?)$/i).test(filename))
+                                    {
+                                        //check size
+                                        //$file_input[0].files[0].size
+                                        var max_size_str = dom_obj.attr('max_size');
+                                        var max_size = 4 * 1024 * 1024; //default: 4M
+                                        var re = /\d+m/i;
+                                        if (re.test(max_size_str)) {
+                                            max_size = parseInt(max_size_str.substring(0, max_size_str.length - 1)) * 1024 * 1024;
+                                            // $currentDom = $(dom).prev();
+                                            _basic.formPost(dom_obj.parent().parent(), $host.file_url + '/user/' + userId + '/image?imageType=2', function (data) {
 
-                        if (data.success) {
+                                                if (data.success) {
 
-                            // // console.log(data,truck_id);
-                            var imageId = data.imageId;
-                            callback(imageId);
+                                                    // // console.log(data,truck_id);
+                                                    var imageId = data.imageId;
+                                                    callback(imageId);
                             // _basic.post($host.record_url + "/car/" + $scope.truck_id + "/vin/" + $scope.vin + "/storageImage", {
                             //     "username": _basic.getSession(_basic.USER_NAME),
                             //     "userId": userId,
@@ -174,9 +174,10 @@ app.controller("add_head_truck_details_controller", ["$scope","$state","$statePa
     };
     // 行驶证
     $scope.uploadBrandImage_drive = function (dom) {
+        console.log(dom)
         var dom_obj=$(dom);
         var filename = $(dom).val();
-        // console.log($(dom).val());
+        console.log(dom_obj);
         uploadBrandImage(filename,dom_obj,function (imageId) {
             var nowDate=moment(new Date()).format("YYYY-DD-MM HH:mm");
             $scope.$apply(function () {

@@ -5,6 +5,7 @@ baseService.factory('_basic', ['$http', '$location', '$q', "$cookies", function 
     _this.COMMON_AUTH_NAME = 'auth-token';
     _this.USER_ID = "user-id";
     _this.USER_NAME = "user-name";
+    _this.USER_IMG = "user_img";
     _this.USER_TYPE = "user-type";
     _this.USER_STATUS = "status";
     _this.ADMIN_AUTH_NAME = "admin-token";
@@ -40,6 +41,47 @@ baseService.factory('_basic', ['$http', '$location', '$q', "$cookies", function 
         };
         $(dom).ajaxSubmit(options);
     };
+
+    _this.formDataPost = function (formData, url, success, error) {
+        /*$http({
+            method: 'POST',
+            url: url,
+            data: formData,
+            headers: {'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary4XY0LKeSkVPAmtU4'}
+        }).success(function(data){
+            success(data);
+        }).error(function(err){
+            error(err);
+        })*/
+        /*$.ajax({
+            url:'url',
+            method: 'POST',
+            data:formData,
+            success:function(data){
+                console.log(data)
+            },
+            error:function(err){
+                console.log(err)
+            }
+        });*/
+        $.ajax({
+            url:url,
+            type:"POST",
+            data:formData,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(_this.COMMON_AUTH_NAME, sessionStorage.getItem(_this.COMMON_AUTH_NAME));
+            },
+            contentType:false,
+            processData:false,
+            success:function(data){
+                success(data)
+            },
+            error:function(err){
+               error(err)
+            }
+        });
+    };
+
 
     var fnArray = ['get', 'delete', 'jsonp', 'head', 'post', 'put'];
     // _this.option={

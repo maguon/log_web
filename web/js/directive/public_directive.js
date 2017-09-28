@@ -10,35 +10,6 @@ publicDirective.directive('header', function () {
         transclude: false,
         restrict: 'E',
         controller: function ($scope, $element, $rootScope, _basic,_config,$host,_socket) {
-            // 照片上传函数
-            function uploadBrandImage(dom_obj,callback) {
-                            _basic.formPost(dom_obj, $host.file_url + '/user/' + userId + '/image?imageType=0', function (data) {
-
-                                if (data.success) {
-
-                                    // // console.log(data,truck_id);
-                                    var imageId = data.imageId;
-                                    callback(imageId);
-                                    // _basic.post($host.record_url + "/car/" + $scope.truck_id + "/vin/" + $scope.vin + "/storageImage", {
-                                    //     "username": _basic.getSession(_basic.USER_NAME),
-                                    //     "userId": userId,
-                                    //     "userType": _basic.getSession(_basic.USER_TYPE),
-                                    //     "url": imageId
-                                    // }).then(function (data) {
-                                    //     if (data.success == true) {
-                                    //         $scope._id=data.result._id;
-                                    //         var nowDate=moment(new Date()).format("YYYY-DD-MM HH:mm");
-                                    //         $scope.storage_image_i.push($host.file_url + '/image/' +imageId);
-                                    //         $scope.storage_imageBox.push({src: $host.file_url + '/image/' + imageId,record_id:$scope._id,time:nowDate,user:_basic.getSession(_basic.USER_NAME)});
-                                    //     }
-                                    // });
-                                } else {
-                                    swal('上传图片失败', "", "error");
-                                }
-                            }, function (error) {
-                                swal('服务器内部错误', "", "error");
-                            })
-            };
 
             // 把base64码转成bolb对象
             function convertBase64UrlToBlob(urlData){
@@ -55,22 +26,38 @@ publicDirective.directive('header', function () {
                 return new Blob( [ab] , {type : 'image/png'});
             }
 
-                // 截取图片
-                $('.image-editor').cropit();
-                $scope.uploadAmendImg=function () {
-                    var imageData = $('.image-editor').cropit('export');
-                    // window.open(imageData);
+            // 截取图片
+            $('.image-editor').cropit();
+            $scope.uploadAmendImg=function () {
+                var imageData = $('.image-editor').cropit('export');
+                // window.open(imageData);
 
-                    var blob = convertBase64UrlToBlob(imageData);
-                    var formData = new FormData()
-                    formData.append('image',blob);
-                    _basic.formDataPost(formData,$host.file_url + '/user/' + userId + '/image?imageType=0',function(success){
-                        console.log(success);
+                var blob = convertBase64UrlToBlob(imageData);
+                var formData = new FormData();
+                formData.append('image',blob);
+                new Promise(function (resolve,reject) {
+                    _basic.formDataPost(formData,$host.file_url + '/user/' + userId + '/image?imageType=0',function(data){
+                        if(data.success==true){
+                            resolve(data.imageId);
+                        }
                     },function(err){
                         console.log(err);
                     })
+                }).then(function (imageId) {
+                    _basic.put($host.api_url+"/user/"+userId+"/avatarImage",{
+                        avatarImage:imageId
+                    }).then(function (data) {
+                        if(data.success==true){
+                            $scope.userImg=$host.file_url + '/image/'+imageId;
+                            swal("上传头像成功","","success")
+                        }
 
-                };
+
+                    })
+                })
+
+
+            };
             $scope.pwdReg=_config.pwdRegx;
             var str_type=$element.attr("type");
             $("#brand-logo").attr("src",$element.attr("url"));
@@ -111,7 +98,6 @@ publicDirective.directive('header', function () {
                     })
                 }
             };
-
             //退出登录
             $scope.logOut = function () {
                 swal({
@@ -134,7 +120,6 @@ publicDirective.directive('header', function () {
             };
             if (_basic.getSession(_basic.USER_TYPE)==str_type) {
                 var userid=_basic.getSession(_basic.USER_ID);
-
                 //触发侧边栏导航
                 $("#menu_link").sideNav({
                     menuWidth: 280, // Default is 300
@@ -156,6 +141,8 @@ publicDirective.directive('header', function () {
                 // $(".shadeDowWrap").hide();
                     if (data.success == true) {
                         // $scope.userName = data.result[0].name;
+                        $scope.userImg=$host.file_url + '/image/'+data.result[0].avatar_image;
+                        _basic.setSession(_basic.USER_IMG,data.result[0].avatar_image);
                         _basic.setSession(_basic.USER_NAME, $scope.userName);
                         _basic.setHeader(_basic.USER_NAME, $scope.userName);
                         _basic.setSession(_basic.USER_NAME, data.result[0].real_name);
@@ -170,7 +157,7 @@ publicDirective.directive('header', function () {
                                 $scope.userName = user_info_obj[i].name;
                             }
                         }
-                        $scope.realName = data.result[0].real_name;
+                        // $scope.realName = data.result[0].real_name;
                         // MaterialAvatar(document.getElementsByClassName('nav-avatar'), {
                         //     shape: 'circle',
                         //     backgroundColor: '#4dd0e1',
@@ -184,6 +171,9 @@ publicDirective.directive('header', function () {
             }else {
                 window.location="./common_login.html"
             }
+
+
+
 
         }
     };

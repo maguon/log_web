@@ -5,6 +5,7 @@ baseService.factory('_basic', ['$http', '$location', '$q', "$cookies", function 
     _this.COMMON_AUTH_NAME = 'auth-token';
     _this.USER_ID = "user-id";
     _this.USER_NAME = "user-name";
+    _this.USER_IMG = "user_img";
     _this.USER_TYPE = "user-type";
     _this.USER_STATUS = "status";
     _this.ADMIN_AUTH_NAME = "admin-token";

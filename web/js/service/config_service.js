@@ -161,6 +161,6 @@ baseService.factory("_config", function () {
     // 密码
     _this.pwdRegx = "[a-zA-Z0-9]*";
     // 身份证
-    _this.CarNoRegx="/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/";
+    _this.CarNoRegx = "/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/";
     return _this
 });

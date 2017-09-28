@@ -8,13 +8,29 @@ app.controller("add_truck_driver_controller", ["$scope", "$state", "_basic", "_c
     $scope.step_second = false;
     $scope.step_second = false;
     $scope.step_third = false;
+    $scope.checkVal = false;
     // 电话号正则
     $scope.mobileReg = _config.mobileRegx;
+    // 身份证正则
+    $scope.identityReg = _config.CarNoRegx;
 
     // $scope.step_second = true;
-    // // 提交司机信息
+
+    // 验证身份证号
+    $scope.checkId = function (value) {
+        if(/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(value)){
+            $scope.checkVal = true
+        }
+        else{
+            $scope.checkVal = false
+        }
+        console.log("submitted",$scope.submitted);
+    };
+
+    // 提交司机信息
     $scope.submitForm = function (inValid) {
         console.log("isValid", inValid);
+        $scope.checkId($scope.identityNum);
         $scope.submitted = true;
         if (inValid) {
             var driverInfo = {

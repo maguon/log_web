@@ -19,7 +19,10 @@ app.controller("add_truck_driver_controller", ["$scope", "$state", "_basic", "_c
     // 验证身份证号
     $scope.checkId = function (value) {
         if(/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(value)){
-            $scope.checkVal = true
+            $scope.checkVal = true;
+        }
+        else{
+            $scope.checkVal = false;
         }
     };
 

@@ -21,15 +21,11 @@ app.controller("add_truck_driver_controller", ["$scope", "$state", "_basic", "_c
         if(/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(value)){
             $scope.checkVal = true
         }
-        else{
-            $scope.checkVal = false
-        }
-        console.log("submitted",$scope.submitted);
     };
 
     // 提交司机信息
     $scope.submitForm = function (inValid) {
-        console.log("isValid", inValid);
+        // console.log("isValid", inValid);
         $scope.checkId($scope.identityNum);
         $scope.submitted = true;
         if (inValid) {

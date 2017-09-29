@@ -37,7 +37,6 @@ app.controller("add_truck_driver_controller", ["$scope", "$state", "_basic", "_c
                 companyId: $scope.driverCompany,
                 operateType:$scope.operateType,
                 licenseType: $scope.drivingLicense,
-                // confirmDate: $scope.verificationStartTime,
                 address: $scope.driverAddress,
                 sibTel: $scope.driverParent,
                 licenseDate: $scope.licenseEndTime,

@@ -146,12 +146,15 @@
                                 <div class="col s2">
                                     <p>{{mission.load_task_status | missionStatus}}</p>
                                 </div>
-                                <div class="col s3">
+                                <div class="col s3" ng-show="mission.load_task_status == 3">
                                     <p>实际装车数：{{mission.car_count}}</p>
                                 </div>
+                                <div class="col s3" ng-show="mission.load_task_status == 7">
+                                    <p>实际送达数：{{mission.car_count}}&emsp;异常：0</p>
+                                </div>
                             </div>
-                            <div class="col s2 center" ng-click="showTruckLoadInfo(mission.id)">
-                                <button ng-show="currentOperateInfo.task_status == 3 || currentOperateInfo.task_status == 4 || currentOperateInfo.task_status == 9" style="height: 30px;font-size: 0.9rem;line-height: 2rem"
+                            <div class="col s2 center" ng-click="cancel_bubble($event)" style="height: 48px;">
+                                <button ng-click="showTruckLoadInfo(mission.id)" ng-show="currentOperateInfo.task_status == 3 || currentOperateInfo.task_status == 4 || currentOperateInfo.task_status == 9" style="height: 30px;font-size: 0.9rem;line-height: 2rem"
                                         class="btn waves-light waves-effect cyan lighten-1" type="button">
                                     商品车信息
                                 </button>

@@ -62,6 +62,7 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
                 $scope.currentOperateInfo = currentOperateData.result[0];
                 $scope.getOperationMission(currentOperateData.result[0].id);
                 $scope.showDetails = true;
+                console.log("currentOperateInfo",$scope.currentOperateInfo);
             }
             else {
                 swal(currentOperateData.msg, "", "error");
@@ -146,6 +147,12 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
     // 阻止点击冒泡
     $scope.cancelBubble = function (ev) {
         ev.stopPropagation();
+    };
+
+    $scope.cancel_bubble = function (ev) {
+        if($scope.currentOperateInfo.task_status === 1 || $scope.currentOperateInfo.task_status === 2){
+            ev.stopPropagation();
+        }
     };
 
     // 根据输入的vin码进行模糊查询

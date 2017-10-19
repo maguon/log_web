@@ -8,7 +8,7 @@
                         <p>{{currentModelInfo.date_id}}</p>
                     </div>
                     <div class="col s6 vc-center">
-                        <h6 class="white-text fz22" style="font-weight:600">{{currentModelInfo.city_route_start}}&emsp;<span style="font-size: 2.3rem" class="mdi mdi-swap-horizontal"></span><span>&emsp;{{currentModelInfo.city_route_end}}</span></h6>
+                        <h6 class="white-text fz22" style="font-weight:600">{{currentModelInfo.city_route_start}}&emsp;<span style="font-size: 1.7rem" class="mdi mdi-arrow-right"></span><span>&emsp;{{currentModelInfo.city_route_end}}</span></h6>
                     </div>
                     <div class="col s3 fz22 white-text" style="font-weight: 600">
                         <p>{{currentDistance == "notSet" ? "里程未设置" : currentDistance + " 公里"}}</p>
@@ -68,7 +68,7 @@
                          style="padding: 10px;height: 42px">
                         <div class="col s12 center" style="padding: 0;">
                             <h6 class="white-text fz16" style="font-weight:bold;margin: 0">{{car.city_route_start}}&emsp;
-                                <span style="font-size: 1.6rem" class="mdi mdi-swap-horizontal"></span>
+                                <span style="font-size: 1.2rem" class="mdi mdi-arrow-right"></span>
                                 <span>&emsp;{{car.city_route_end}}</span>
                             </h6>
                         </div>
@@ -257,10 +257,10 @@
                                         </div>
                                     </div>
                                     <div class="col s6">
-                                        <div class="col s7">
+                                        <div class="col s6" style="padding: 0;">
                                             <p>计划执行时间：</p>
                                         </div>
-                                        <div class="col s5 left-align">
+                                        <div class="col s6 left-align" style="padding: 0">
                                             <p>{{currentLine.task_plan_date | date:'yyyy-MM-dd - HH:mm'}}</p>
                                         </div>
                                     </div>

@@ -154,7 +154,7 @@ adminDirective.directive("time", function () {
                 donetext: '确定', // text for done-button
                 cleartext: '清除', // text for clear-button
                 canceltext: '取消', // Text for cancel-button
-                autoclose: false, // automatic close timepicker
+                autoclose: true, // automatic close timepicker
                 ampmclickable: true, // make AM PM clickable
                 aftershow: function(){} //Function for after opening timepicker
             });

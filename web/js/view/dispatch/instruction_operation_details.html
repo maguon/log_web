@@ -76,8 +76,8 @@
                         {{operationInfo.city_route_start}}&emsp;
                         <span class="mdi mdi-arrow-right"></span>
                         &emsp;{{operationInfo.city_route_end}}
-                        &emsp;&emsp;调度指定执行时间：&emsp;
-                        {{operationInfo.task_start_date == "暂无" ? operationInfo.task_start_date : operationInfo.task_start_date | date:'yyyy-MM-dd HH:mm'}}
+                        &emsp;&emsp;&emsp;
+                        {{operationInfo.task_start_date == "暂无" ? operationInfo.task_start_date : operationInfo.task_start_date | date:'yyyy-MM-dd'}}
                     </a>
                 </li>
             </ul>

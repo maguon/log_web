@@ -15,13 +15,11 @@
                         <div class="col s4">
                             <h5>指令时间:<span class="cyan-text">{{this_instruction.date_id}}</span></h5>
                         </div>
-                        <div class="col s8 vc-center" >
+                        <div class="col s8 vc-center">
                             <div class="col s6">
-                                需求生成时间:<span>{{this_instruction.created_on|date:"yyyy-mm-dd hh:mm:ss"}}</span>
+                                需求生成时间:<span>{{this_instruction.created_on|date:"yyyy-MM-dd HH:mm:ss"}}</span>
                             </div>
-                            <!--<div class="col s3">-->
-                            <!--指令调度时间:<span>513215</span>-->
-                            <!--</div>-->
+
                             <div class="col s6">
                                 需求人:
                                 <span ng-bind="this_instruction.demand_op_name" class="fz20 cyan-text">待接受</span>
@@ -43,73 +41,72 @@
                         </div>
                     </div>
                     <div class="row" style="padding:0 20px">
-                        <div class="col s4">
+                        <div class="col s6">
                             派送车辆:<span>{{this_instruction.pre_count}}</span>
                         </div>
-                        <div class="col s4">
+                        <div class="col s6">
                             已派送车辆:<span>{{this_instruction.task_start_date|date:"yyyy-MM-dd hh:mm:ss"}}</span>
                         </div>
-                        <div class="col s4">
-                            异常车辆:<span></span>
-                        </div>
+                        <!--<div class="col s4">-->
+                            <!--异常车辆:<span></span>-->
+                        <!--</div>-->
                     </div>
 
-                    <div class="row grey white-text" style="padding: 20px;margin-bottom:0">
-                        <div class="col s12 fz18">
+                    <!--<div class="row grey white-text" ng-repeat="dispatchInfo in disPatchInfoList" style="padding: 20px;margin-bottom:0">-->
+                        <!--<div class="col s12 fz18">-->
+                            <!--<div class="col s4">-->
+                                <!--<span>指派货车:<span>{{dispatchInfo.truck_num}}</span></span>-->
+                            <!--</div>-->
+                            <!--<div class="col s8">-->
+                                <!--<div class="col s3">-->
+                                    <!--车位:<span>{{dispatchInfo.trail_number}}</span>-->
+                                <!--</div>-->
+                                <!--<div class="col s3">-->
+                                    <!--运送车辆:<span>{{dispatchInfo.car_count}}</span>-->
+                                <!--</div>-->
+                                <!--<div class="col s3">-->
+                                    <!--司机:<span>{{dispatchInfo.drive_name}}</span>-->
+                                <!--</div>-->
+                                <!--<div class="col s3">-->
+                                    <!--联系电话:<span>{{dispatchInfo.tel}}</span>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <div class="col s12 p0" ng-repeat="dispatchInfo in disPatchInfoList" >
+                        <div class="col s12 grey lighten-1 white-text center-align" style="padding: 10px 50px;margin-top: 5px">
+                            <div class="col s3">
+                                派发车辆:<span>513215</span>
+                            </div>
+                            <div class="col s3">
+                                派发调度:<span>513215</span>
+                            </div>
                             <div class="col s4">
-                                <span>指派货车:<span>{{this_instruction.truck_num}}</span></span>
+                                执行时间:<span>2017-16-21 13：00</span>
                             </div>
-                            <div class="col s8 " >
-                                <div class="col s3">
-                                    车位:<span>{{this_instruction.trail_number}}</span>
-                                </div>
-                                <div class="col s3">
-                                    运送车辆:<span>{{this_instruction.car_count}}</span>
-                                </div>
-                                <div class="col s3">
-                                    司机:<span>{{this_instruction.drive_name}}</span>
-                                </div>
-                                <div class="col s3">
-                                    联系电话:<span>{{this_instruction.tel}}</span>
-                                </div>
+                            <div class="col s2">
+                                货车:<span>辽B 12345</span>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col s12 p0" ng-repeat="el in this_LoadTask" >
-                        <div class="col s12 grey lighten-1 white-text " style="padding: 10px  50px;margin-top: 2px">
-                            <div class="col s4">
-                                <span><span>{{el.addr_name}}</span>--------<span>{{el.short_name}}</span></span>
-                            </div>
-                            <div class="col s8">
-                                <div class="col s2">
-                                    运送车辆:<span>513215</span>
-                                </div>
-                                <div class="col s2">
-                                    派发调度:<span>513215</span>
-                                </div>
-                                <div class="col s2">
-                                    <span>已装车</span>
-                                </div>
-                                <div class="col s2">
-                                    现场调度:<span>某某欧</span>
-                                </div>
-                                <div class="col s2">
-                                    异常:<span>12</span>
-                                </div>
-                                <div class="col s2" style="cursor: pointer" ng-click="open_LoadTaskList(el.id,$index)">
-                                    商品车详情
-                                    <i class="mdi  mdi-menu-down"></i>
-                                </div>
 
+                            <div class="col s3">
+                                现场调度:<span>某某欧</span>
+                            </div>
+                            <div class="col s3">
+                                <span>已装车</span>
+                            </div>
+                            <div class="col s6 right-align" style="cursor: pointer;padding: 0"
+                                 ng-click="open_LoadTaskList(dispatchInfo.id,$index)">
+                                商品车详情
+                                <i class="mdi mdi-menu-down"></i>
                             </div>
                         </div>
-                        <div class="col s12 grey lighten-2 this_LoadTaskList this_LoadTaskList{{$index}}" flag="false"    style="padding: 10px  50px;display: none">
-                            <div class="col s3" style=" padding: 5px 10px" ng-repeat="el in this_LoadTaskList">
-                                <div class="col s6" >
-                                    VIN码: <span>56123</span>
+                        <div class="col s12 grey lighten-2 this_LoadTaskList this_LoadTaskList{{$index}}" flag="false" style="padding: 10px  50px;display: none">
+                            <div class="col s3 fz13" style="padding: 5px 10px" ng-repeat="vinInfo in this_LoadTaskList">
+                                <div class="col s6" style="padding: 0">
+                                    VIN码: <span>{{vinInfo.vin}}</span>
                                 </div>
-                                <div class="col s6" style="border-right: 1px solid grey;" >
-                                    制造商: <span>一起大众</span>
+                                <div class="col s6" style="border-right: 1px solid grey;padding: 0" >
+                                    制造商: <span>{{vinInfo.make_name}}</span>
                                 </div>
                             </div>
                         </div>

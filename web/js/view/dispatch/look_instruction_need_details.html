@@ -45,7 +45,7 @@
                             派送车辆:<span>{{this_instruction.pre_count}}</span>
                         </div>
                         <div class="col s6">
-                            已派送车辆:<span>{{this_instruction.task_start_date|date:"yyyy-MM-dd hh:mm:ss"}}</span>
+                            已派送车辆:<span>{{this_instruction.task_start_date | date:"yyyy-MM-dd hh:mm:ss"}}</span>
                         </div>
                         <!--<div class="col s4">-->
                             <!--异常车辆:<span></span>-->
@@ -76,23 +76,23 @@
                     <div class="col s12 p0" ng-repeat="dispatchInfo in disPatchInfoList" >
                         <div class="col s12 grey lighten-1 white-text center-align" style="padding: 10px 50px;margin-top: 5px">
                             <div class="col s3">
-                                派发车辆:<span>513215</span>
+                                派发车辆:<span>{{dispatchInfo.plan_count}}</span>
                             </div>
                             <div class="col s3">
-                                派发调度:<span>513215</span>
+                                派发调度:<span>{{dispatchInfo.task_op_name}}</span>
                             </div>
                             <div class="col s4">
-                                执行时间:<span>2017-16-21 13：00</span>
+                                执行时间:<span>{{dispatchInfo.task_start_date | date:'yyyy-MM-dd HH:mm'}}</span>
                             </div>
                             <div class="col s2">
-                                货车:<span>辽B 12345</span>
+                                货车:<span>{{dispatchInfo.truck_num}}</span>
                             </div>
 
                             <div class="col s3">
-                                现场调度:<span>某某欧</span>
+                                现场调度:<span>666</span>
                             </div>
                             <div class="col s3">
-                                <span>已装车</span>
+                                <span>{{dispatchInfo.load_task_status | missionStatus}}</span>
                             </div>
                             <div class="col s6 right-align" style="cursor: pointer;padding: 0"
                                  ng-click="open_LoadTaskList(dispatchInfo.id,$index)">

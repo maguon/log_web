@@ -110,23 +110,20 @@
         </div>
 
         <!--信息卡片-->
-        <div class="row">
-            <div class="col s4" style="padding:20px 20px" ng-repeat="line in lineList">
+        <div class="row col s12" style="padding: 0;margin-top: 30px">
+            <div class="col s2" ng-repeat="line in lineList">
                 <div class="card-panel white " style="padding: 0">
-                    <div class="row cyan lighten-2 white-text setting_shipments_title vc-center" style="padding: 10px;height: 82px">
-                        <!--<div class="col s1 white-text fz40 " style="margin-right: 10px">-->
-                            <!--<i class="mdi mdi-domain"></i>-->
-                        <!--</div>-->
-                        <div class="col s12 center">
-                            <h6 class="white-text fz22" style="font-weight:600">{{line.route_start}}&emsp;<span style="font-size: 2.3rem" class="mdi mdi-swap-horizontal"></span><span>&emsp;{{line.route_end}}</span></h6>
+                    <div class="row cyan lighten-2 white-text setting_shipments_title vc-center" style="padding: 10px;height: 52px;margin-bottom: 10px">
+                        <div class="col s12 center" style="padding: 0;">
+                            <p class="white-text fz14" style="font-weight:600;margin: 8px 0">{{line.route_start}}&nbsp;<span style="font-size: 1.2rem;line-height: 2px" class="mdi mdi-swap-horizontal"></span><span>&nbsp;{{line.route_end}}</span></p>
                         </div>
 
-                        <a style="top: 75%;" class="right btn-floating setting_shipments_btn  btn waves-effect materialize-red  lighten-2 waves-light vc-center ">
-                            <i ng-click="showCardDetails(line.id,line.route_start,line.route_end,line.distance)" class="mdi mdi-pencil"></i>
+                        <a style="top: 71%;width: 33px;height: 33px" class="right btn-floating setting_shipments_btn  btn waves-effect materialize-red lighten-2 waves-light vc-center ">
+                            <i ng-click="showCardDetails(line.id,line.route_start,line.route_end,line.distance)" class="mdi mdi-pencil" style="font-size: 18px;line-height: 0"></i>
                         </a>
                     </div>
-                    <p class="grey-text row center" style="padding: 10px 10px 20px 10px;margin:0">
-                        <span style="font-size: 1.5rem;color:rgb(229,115,115);font-weight: bold">{{line.distance}}&nbsp;</span>
+                    <p class="grey-text row center" style="padding: 5px 5px 10px 5px;margin:0">
+                        <span style="font-size: 1rem;color:rgb(229,115,115);font-weight: bold">{{line.distance}}&nbsp;</span>
                         公里
                     </p>
                 </div>

@@ -62,7 +62,7 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
                 $scope.currentOperateInfo = currentOperateData.result[0];
                 $scope.getOperationMission(currentOperateData.result[0].id);
                 $scope.showDetails = true;
-                console.log("currentOperateInfo",$scope.currentOperateInfo);
+                // console.log("currentOperateInfo",$scope.currentOperateInfo);
             }
             else {
                 swal(currentOperateData.msg, "", "error");

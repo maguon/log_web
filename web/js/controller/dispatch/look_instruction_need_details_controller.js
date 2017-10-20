@@ -25,8 +25,13 @@ app.controller("look_instruction_need_details_controller", ["$scope", "$host", "
 
         _basic.get($host.api_url + "/dpRouteLoadTask?dpDemandId=" + $stateParams.id).then(function (data) {
             if (data.success === true) {
-                console.log("data",data);
+                // console.log("data",data);
+                var sendPlanCount = 0;
+                for (var i = 0; i < data.result.length; i++) {
+                    sendPlanCount += data.result[i].plan_count
+                }
                 $scope.disPatchInfoList = data.result;
+                $scope.PlanCount = sendPlanCount;
             }
             else {
                 swal(data.msg, "", "error");
@@ -34,16 +39,7 @@ app.controller("look_instruction_need_details_controller", ["$scope", "$host", "
         });
     };
 
-
-    // p().then(function () {
-    //     _basic.get($host.api_url + "/dpRouteLoadTask?dpRouteTaskId=" + $scope._id).then(function (data) {
-    //         if (data.success == true) {
-    //             $scope.this_LoadTask = data.result;
-    //         }
-    //     })
-    // });
-
-
+    // 控制商品车详情开合
     $scope.open_LoadTaskList = function (id, index) {
         $(".this_LoadTaskList").hide();
         if ($(".this_LoadTaskList" + index).attr("flag") == 'false') {

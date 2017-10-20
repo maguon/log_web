@@ -11,7 +11,7 @@
             <div class="divider" style="background: #00bcd4;height: 2px;"></div>
             <div class="row no-marBottom" ul-tabs>
                 <div id="look_msg" class="col s12 tab_box" style="width: 90%; margin:0 5% ">
-                    <div class="row vc-center" style="padding: 20px">
+                    <div class="row vc-center" style="padding: 20px 0">
                         <div class="col s4">
                             <h5>指令时间:<span class="cyan-text">{{this_instruction.date_id}}</span></h5>
                         </div>
@@ -26,7 +26,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row" style="padding:0 20px">
+                    <div class="row" style="padding:0">
                         <div class="col s3">
                             起始城市:<span>{{this_instruction.route_start}}</span>
                         </div>
@@ -40,39 +40,18 @@
                             送达地点:<span>{{this_instruction.short_name}}</span>
                         </div>
                     </div>
-                    <div class="row" style="padding:0 20px">
+                    <div class="row" style="padding:0">
                         <div class="col s6">
                             派送车辆:<span>{{this_instruction.pre_count}}</span>
                         </div>
                         <div class="col s6">
-                            已派送车辆:<span>{{this_instruction.task_start_date | date:"yyyy-MM-dd hh:mm:ss"}}</span>
+                            已派送车辆:<span>{{PlanCount}}</span>
                         </div>
                         <!--<div class="col s4">-->
                             <!--异常车辆:<span></span>-->
                         <!--</div>-->
                     </div>
 
-                    <!--<div class="row grey white-text" ng-repeat="dispatchInfo in disPatchInfoList" style="padding: 20px;margin-bottom:0">-->
-                        <!--<div class="col s12 fz18">-->
-                            <!--<div class="col s4">-->
-                                <!--<span>指派货车:<span>{{dispatchInfo.truck_num}}</span></span>-->
-                            <!--</div>-->
-                            <!--<div class="col s8">-->
-                                <!--<div class="col s3">-->
-                                    <!--车位:<span>{{dispatchInfo.trail_number}}</span>-->
-                                <!--</div>-->
-                                <!--<div class="col s3">-->
-                                    <!--运送车辆:<span>{{dispatchInfo.car_count}}</span>-->
-                                <!--</div>-->
-                                <!--<div class="col s3">-->
-                                    <!--司机:<span>{{dispatchInfo.drive_name}}</span>-->
-                                <!--</div>-->
-                                <!--<div class="col s3">-->
-                                    <!--联系电话:<span>{{dispatchInfo.tel}}</span>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
                     <div class="col s12 p0" ng-repeat="dispatchInfo in disPatchInfoList" >
                         <div class="col s12 grey lighten-1 white-text center-align" style="padding: 10px 50px;margin-top: 5px">
                             <div class="col s3">
@@ -89,7 +68,7 @@
                             </div>
 
                             <div class="col s3">
-                                现场调度:<span>666</span>
+                                现场调度:<span>{{dispatchInfo.field_op_name}}</span>
                             </div>
                             <div class="col s3">
                                 <span>{{dispatchInfo.load_task_status | missionStatus}}</span>

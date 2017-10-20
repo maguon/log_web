@@ -132,11 +132,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col s12" >
-                        <table class=" bordered striped">
+                    <div class="col s12" style="padding: 0 43px;">
+                        <table class=" bordered striped dic_table">
                             <thead class="blue-grey lighten-5">
                             <tr class="grey-text text-darken-2">
-
                                 <th data-field="">编号</th>
                                 <th data-field="">需求提出人</th>
                                 <th data-field="">指令时间</th>
@@ -150,8 +149,8 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="el in instruction_neee_list" class="grey-text text-darken-1">
-                                    <td  ng-bind="el.id">1</td>
-                                    <td ng-bind="el.real_name">2</td>
+                                    <td ng-bind="el.id">1</td>
+                                    <td ng-bind="el.demand_op_name">2</td>
                                     <td ng-bind="el.date_id"></td>
                                     <td ng-bind="el.route_start">无</td>
                                     <td ng-bind="el.addr_name">

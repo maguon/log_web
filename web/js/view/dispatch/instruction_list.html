@@ -107,8 +107,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col s12" >
-                        <table class=" bordered striped">
+                    <div class="col s12" style="padding: 10px 30px;">
+                        <table class=" bordered striped dic_table">
                             <thead class="blue-grey lighten-5">
                             <tr class="grey-text text-darken-2">
                                 <th data-field="">调度编号</th>
@@ -129,23 +129,17 @@
                                 <td ng-bind="el.truck_num"></td>
                                 <td ng-bind="el.drive_name"></td>
                                 <td ng-bind="el.city_route_start">无</td>
-                                <td ng-bind="el.city_route_end">
-                                </td>
+                                <td ng-bind="el.city_route_end"></td>
                                 <td ng-bind="el.car_count">无</td>
-                                <td ng-if="el.task_status==1">待接受</td>
-                                <td ng-if="el.task_status==2">接受</td>
-                                <td ng-if="el.task_status==3">执行</td>
-                                <td ng-if="el.task_status==4">在途</td>
-                                <td ng-if="el.task_status==8">取消安排</td>
-                                <td ng-if="el.task_status==9">已完成</td>
+                                <td>{{el.task_status | instructionsStatus}}</td>
                                 <td class="operation">
                                     <a href="#" ui-sref="look_instruction_list_details({id:el.id,from:'instruction_list'})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ></i></a>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
-
                     </div>
+
                     <div class="paging_box col s12">
                         <div class="right">
                             <a class="waves-light waves-effect cyan lighten-1 btn  " ng-show="pre"  id="pre"   ng-click="pre_btn()">

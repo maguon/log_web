@@ -215,7 +215,8 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
         // console.log("missionId",missionId);
         _basic.post($host.api_url + "/user/" + userId + "/dpRouteLoadTask/" + missionId + "/dpRouteLoadTaskDetail?truckId=" + truckId,{
             carId:carId,
-            vin:$scope.vinNum
+            vin:$scope.vinNum,
+            dpRouteTaskId: $scope.currentOperateInfo.id
         }).then(function (addLoadData) {
             if (addLoadData.success === true) {
                 $scope.showTruckLoadInfo(missionId);

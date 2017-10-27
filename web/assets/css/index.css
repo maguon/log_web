@@ -974,11 +974,16 @@ input[type=text]{
 }
 .border-black{
     border: 1px solid black;
-
 }
 .maintain_card{
     padding: 10px;
     height: 410px;
+}
+.dis_bgc{
+    background-color: #ccc !important;
+}
+.dis_txt{
+    color: #999 !important;
 }
 /*数据字典*/
 .tabs .indicator{

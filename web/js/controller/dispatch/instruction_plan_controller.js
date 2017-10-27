@@ -112,14 +112,15 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         });
 
         // 根据卡片信息查询起始目的地信息
-        _basic.get($host.api_url + "/dpTaskStatBase?" + _basic.objToUrl({
-                routeStartId: currentModelInfo.route_start_id,
-                routeEndId: currentModelInfo.route_end_id,
-                dateId: parseInt(moment(currentModelInfo.date_id).format("YYYYMMDD"))
-            })).then(function (data) {
+        _basic.get($host.api_url + "/dpDemand?" + _basic.objToUrl({
+            dateIdStart: currentModelInfo.date_id,
+            dateIdEnd:currentModelInfo.date_id,
+            routeStartId: currentModelInfo.route_start_id,
+            routeEndId: currentModelInfo.route_end_id
+        })).then(function (data) {
             if (data.success === true) {
+                // console.log("data",data);
                 $scope.transportationList = data.result;
-                // console.log("data", data);
             }
             else {
                 swal(data.msg, "", "error");
@@ -168,7 +169,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         // console.log("$scope.currentLineList", $scope.currentLineList.length);
         $scope.lineEndCityInfo = "";
         $scope.lineStartDate = "";
-        $scope.lineStartTime = "";
+        // $scope.lineStartTime = "";
         // 线路的起始城市根据当前线路的最后一条的结束城市为准
         if($scope.currentLineList.length === 0){
             $scope.startCityName = $scope.dispatchInfo.city_name
@@ -190,7 +191,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     // 线路填写完毕后确认按钮
     $scope.confirmChange = function () {
-        if ($scope.lineEndCityInfo != "" && $scope.lineStartDate != "" && $scope.lineStartTime != "") {
+        if ($scope.lineEndCityInfo != "" && $scope.lineStartDate != "") {
             var routeStartId = $scope.currentLineList.length === 0 ? $scope.dispatchInfo.current_city :  $scope.currentLineList[$scope.currentLineList.length - 1].route_end_id;
             // console.log("routeStartId",routeStartId);
             _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask", {
@@ -199,7 +200,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 routeStartId: routeStartId,
                 routeEndId: $scope.lineEndCityInfo.end_id,
                 distance: $scope.lineEndCityInfo.distance,
-                taskPlanDate: $scope.lineStartDate + " " + $scope.lineStartTime
+                taskPlanDate: $scope.lineStartDate
             }).then(function (data) {
                 if (data.success === true) {
                     $scope.lineInfo = false;
@@ -248,8 +249,10 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     };
 
     // 点击线路获取当前路线下的任务
-    $scope.showMissionInfo = function (showLineId) {
-        // console.log("showLineId",showLineId);
+    $scope.showMissionInfo = function (showLineId,showLineDate,startLineId) {
+        $scope.lineDate = moment(showLineDate).format("YYYY-MM-DD");// model双向的scope，用作任务时间默认显示和取值
+        $scope.lineDateBak = moment(showLineDate).format("YYYY-MM-DD");// 不可改变的scope，用作刷新任务方法的参数使用
+        $scope.startLineId = startLineId;
         $scope.missionInfo = false;
         $scope.addMissionBtn = true;
         _basic.get($host.api_url + "/dpRouteLoadTask?dpRouteTaskId=" + showLineId + "&loadTaskStatusArr=1,3,7").then(function (missionData) {
@@ -270,9 +273,10 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         $scope.sendCityId = "";
         $scope.receiveInfo = "";
         $scope.distributeNum = "";
+        $scope.lineStartTime = "";
 
         // 获取装车地点信息
-        _basic.get($host.api_url + "/baseAddr?cityId=" + $scope.dispatchInfo.current_city).then(function (locateData) {
+        _basic.get($host.api_url + "/baseAddr?cityId=" + $scope.startLineId).then(function (locateData) {
             if (locateData.success === true) {
                 $scope.locateList = locateData.result;
                 $scope.missionInfo = true;
@@ -328,8 +332,9 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     // 提交线路下的任务信息
     $scope.submitMissionInfo = function (lineId) {
-        // console.log("$scope.receiveInfo.id",$scope.receiveInfo.id);
-        if($scope.locateId != "" && $scope.sendCityId != "" && $scope.receiveInfo != "" && $scope.distributeNum != ""){
+        // console.log("$scope.lineStartTime",$scope.lineStartTime);
+        // console.log("lineDate",$scope.lineDate);
+        if($scope.locateId != "" && $scope.sendCityId != "" && $scope.receiveInfo != "" && $scope.distributeNum != "" && $scope.lineDate != "" && $scope.lineStartTime != ""){
             _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask/" + lineId + "/dpRouteLoadTask",{
                 dpDemandId:$scope.receiveInfo.id,
                 routeStartId:$scope.dispatchInfo.current_city,
@@ -337,13 +342,14 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 routeEndId:$scope.sendCityId,
                 receiveId:$scope.receiveInfo.receive_id,
                 dateId:$scope.receiveInfo.date_id,
+                planDate:$scope.lineDate + " " + $scope.lineStartTime,
                 planCount:$scope.distributeNum
             }).then(function (data) {
                 if(data.success === true){
                     swal("新增成功", "", "success");
                     $scope.missionInfo = false;
                     $scope.addMissionBtn = true;
-                    $scope.showMissionInfo(lineId)
+                    $scope.showMissionInfo(lineId,$scope.lineDateBak,$scope.startLineId);
                 }
                 else{
                     swal(data.msg, "", "error");
@@ -354,7 +360,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             swal("请填写完整信息", "", "error");
         }
     };
-    
+
     // 删除任务信息
     $scope.deleteMission = function (missionId, lineId) {
         // console.log("missionId", missionId, "lineId", lineId);

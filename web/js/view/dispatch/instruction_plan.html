@@ -26,18 +26,18 @@
                 <div class="row col s12">
                     <div class="col s4" ng-repeat="transport in transportationList">
                         <div class="card-panel white " style="padding: 0">
-                            <div class="row cyan lighten-2 white-text setting_shipments_title vc-center"
-                                 style="padding: 8px;height: 50px;margin-bottom: 12px">
+                            <div class="row white-text setting_shipments_title vc-center" ng-class="{'dis_bgc':transport.demand_status != 1}"
+                                 style="padding: 8px;height: 50px;margin-bottom: 12px;background-color:rgb(77,208,225);">
                                 <div class="col s12 center fz17">
                                     <p><span >{{transport.addr_name}}</span>&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;<span>{{transport.short_name}}</span></p>
                                 </div>
                             </div>
-                            <div class="row fz15">
-                                <div class="col s7" style="margin-bottom: 12px">
-                                    <p>共发运商品车：<span style="color: rgb(229,115,115)">{{transport.pre_count}}</span>&nbsp;辆</p>
+                            <div class="row fz15" ng-class="{'dis_txt':transport.demand_status != 1}">
+                                <div class="col s7" style="margin-bottom: 12px" >
+                                    <p>共发运商品车：<span style="color: rgb(229,115,115)" ng-class="{'dis_txt':transport.demand_status != 1}">{{transport.pre_count}}</span>&nbsp;辆</p>
                                 </div>
                                 <div class="col s5" style="margin-bottom: 12px">
-                                    <p>未派发：<span style="color: rgb(229,115,115)">{{transport.pre_count - transport.plan_count}}</span>&nbsp;辆</p>
+                                    <p>已派发：<span style="color: rgb(229,115,115)" ng-class="{'dis_txt':transport.demand_status != 1}">{{transport.plan_count}}</span>&nbsp;辆</p>
                                 </div>
                             </div>
 
@@ -220,11 +220,6 @@
                                 <i class="mdi dataIcon mdi-table-large"></i>
                                 <label for="verification_time2">指令时间</label>
                             </div>
-                            <div class="col s5 input-field" style="margin: 0">
-                                <input id="verification_time3" type="text" class="timepicker" ng-model="lineStartTime" time>
-                                <i class="mdi dataIcon mdi-clock"></i>
-                                <label for="verification_time3">时/分</label>
-                            </div>
                         </div>
 
                     </div>
@@ -246,7 +241,7 @@
                     <ul class="collapsible" data-collapsible="accordion" style="overflow: hidden">
                         <li ng-repeat="currentLine in currentLineList">
                             <!--线路列表-->
-                            <div class="collapsible-header col s12 valign-wrapper collapsible_height" ng-click="showMissionInfo(currentLine.id)">
+                            <div class="collapsible-header col s12 valign-wrapper collapsible_height" ng-click="showMissionInfo(currentLine.id,currentLine.task_plan_date,currentLine.route_start_id)">
                                 <div class="col s9">
                                     <div class="col s6 center-align">
                                         <div class="col s4 center-align" style="padding: 0">
@@ -257,11 +252,11 @@
                                         </div>
                                     </div>
                                     <div class="col s6">
-                                        <div class="col s6" style="padding: 0;">
+                                        <div class="col s6" style="padding: 0">
                                             <p>计划执行时间：</p>
                                         </div>
                                         <div class="col s6 left-align" style="padding: 0">
-                                            <p>{{currentLine.task_plan_date | date:'yyyy-MM-dd - HH:mm'}}</p>
+                                            <p>{{currentLine.task_plan_date | date:'yyyy-MM-dd'}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -286,7 +281,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                <div class="col s12 black-text fz14 center-align valign-wrapper" style="margin-top: 15px" ng-show="missionInfo">
+                                <div class="col s12 black-text fz14 center-align" style="margin-top: 15px;height: 205px" ng-show="missionInfo">
                                     <div class="col s4 valign-wrapper">
                                         <div class="col s5">
                                             <select id="chooseLocate" name="chooseLocate" ng-model="$parent.locateId" watch material-select>
@@ -314,9 +309,9 @@
                                     </div>
 
                                     <div class="col s1 right-align">
-                                        <p>派发数量：</p>
+                                        <p>数量：</p>
                                     </div>
-                                    <div class="col s1" style="margin-top: 10px">
+                                    <div class="col s1">
                                         <input type="number" ng-model="$parent.distributeNum">
                                     </div>
                                     <div class="col s2">
@@ -331,11 +326,30 @@
                                             </a>
                                         </div>
                                     </div>
+                                    <div class="col s12">
+                                        <div class="col s3 right-align">
+                                            <p>计划执行时间：</p>
+                                        </div>
+                                        <!--<div class="col s7" style="padding: 0">-->
+                                            <div class="col s3 input-field" style="margin: 0">
+                                                <input placeholder="" id="verification_time4" type="text" class="datepicker"
+                                                       ng-model="$parent.lineDate" date>
+                                                <i class="mdi dataIcon mdi-table-large"></i>
+                                                <label for="verification_time4" class="active">指令时间</label>
+                                            </div>
+                                            <div class="col s1"></div>
+                                            <div class="col s3 input-field" style="margin: 0">
+                                                <input id="verification_time3" type="text" class="timepicker" ng-model="$parent.lineStartTime" time>
+                                                <i class="mdi dataIcon mdi-clock"></i>
+                                                <label for="verification_time3">时/分</label>
+                                            </div>
+                                        <!--</div>-->
+                                    </div>
                                 </div>
                                 <!--任务列表-->
                                 <div class="col s12 valign-wrapper" ng-repeat="nowMission in missionList" style="border-top: 1px solid #ccc">
-                                    <div class="col s4">
-                                        <div class="col s7 center-align">
+                                    <div class="col s3" style="padding: 0">
+                                        <div class="col s7 right-align" style="padding: 0">
                                             <p>{{nowMission.addr_name}}&emsp;<span class="mdi mdi-arrow-right"></span></p>
                                         </div>
                                         <div class="col s5 left-align">
@@ -343,10 +357,13 @@
                                         </div>
                                     </div>
                                     <div class="col s4">
-                                        <p>{{nowMission.created_on | date:'yyyy-MM-dd'}}</p>
+                                        <p>{{"(" + nowMission.short_name + ")"}}</p>
                                     </div>
-                                    <div class="col s3">
-                                        <p>派发数量：{{nowMission.plan_count}}</p>
+                                    <div class="col s2">
+                                        <p>{{nowMission.plan_date | date:'yyyy-MM-dd - HH:mm'}}</p>
+                                    </div>
+                                    <div class="col s2">
+                                        <p>数量：{{nowMission.plan_count}}</p>
                                     </div>
                                     <div class="col s1">
                                         <a ng-click="deleteMission(nowMission.id,currentLine.id)" style="width: 30px;height: 30px" class="modal-action modal-close waves-light waves-effect red lighten-1 btn btn-floating">

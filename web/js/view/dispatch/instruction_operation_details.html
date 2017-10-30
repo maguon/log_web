@@ -52,12 +52,12 @@
 
             <div class="col s7" style="padding: 0;">
                 <div ng-if="!driverInfo.current_city == 0" class="col s5">
-                    <p>当前城市或路线：{{driverInfo.current_city}}</p>
+                    <p>当前城市或路线：{{driverInfo.city_name}}</p>
                 </div>
                 <div ng-if="driverInfo.current_city == 0" class="col s5">
-                    <p>当前城市或路线：&emsp;{{driverInfo.task_start}}
+                    <p>当前城市或路线：&emsp;{{driverInfo.task_start_name}}
                         &emsp;<span class="mdi mdi-arrow-right"></span>&emsp;
-                        {{driverInfo.task_end}}
+                        {{driverInfo.task_end_name}}
                     </p>
                 </div>
                 <div class="col s3">

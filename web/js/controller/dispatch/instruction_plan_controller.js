@@ -308,10 +308,11 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     // 根据选择的城市获取送达经销商和指令时间及派发数量信息
     $scope.getReceiveDistributor = function (lineId) {
         // console.log("sendCityId",$scope.sendCityId);
+        // console.log("routeStartId",$scope.startLineId);
         if($scope.locateId != ""){
             _basic.get($host.api_url + "/dpDemandBase?" + _basic.objToUrl({
                     dpRouteTaskId:lineId,
-                    routeStartId:$scope.dispatchInfo.current_city,
+                    routeStartId:$scope.startLineId,
                     baseAddrId:$scope.locateId,
                     routeEndId:$scope.sendCityId
                 })).then(function (addrData) {

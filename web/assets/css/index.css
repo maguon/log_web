@@ -609,6 +609,15 @@ input[type=text]{
     font-size: 100px;
     min-width: 200px;
 }
+.damage_car_picture{
+    height: auto;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    font-size: 100px;
+    min-width: 200px;
+    box-sizing: border-box;
+}
 .upload_btn{
     height: 200px;
     margin-right: 80px;
@@ -1193,4 +1202,11 @@ button[type="submit"] {
     right: 0;
     top: 0;
     opacity: 0;
+}
+/*质损状态颜色*/
+.damage_pending_treatment{
+    color: rgb(229,155,155);
+}
+.damage_in_process{
+    color: #00bcd4;
 }

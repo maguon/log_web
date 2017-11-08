@@ -217,3 +217,24 @@ CommonFilter.filter("missionStatus", function () {
         return missionStatus;
     }
 });
+
+// 质损状态类型过滤器
+CommonFilter.filter("damageStatus", function () {
+    return function (input) {
+        var damageStatus;
+        switch (input) {
+            case 1:
+                damageStatus = "待处理";
+                break;
+            case 2:
+                damageStatus = "处理中";
+                break;
+            case 3:
+                damageStatus = "已处理";
+                break;
+            default:
+                damageStatus = "未知";
+        }
+        return damageStatus;
+    }
+});

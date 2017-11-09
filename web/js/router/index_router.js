@@ -370,4 +370,24 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/damage/damage_declaration_details.html",
             controller:'damage_declaration_details_controller'
         })
+        .state("damage_index",{
+            url:"/damage_index",
+            templateUrl: "js/view/damage/damage_index.html",
+            controller:'damage_index_controller'
+        })
+        .state("damage_management",{
+            url:"/damage_management",
+            templateUrl: "js/view/damage/damage_management.html",
+            controller:'damage_management_controller'
+        })
+        .state("insurance_compensation",{
+            url:"/insurance_compensation",
+            templateUrl: "js/view/damage/insurance_compensation.html",
+            controller:'insurance_compensation_controller'
+        })
+        .state("car_wash_fee",{
+            url:"/car_wash_fee",
+            templateUrl: "js/view/damage/car_wash_fee.html",
+            controller:'car_wash_fee_controller'
+        })
 }]);

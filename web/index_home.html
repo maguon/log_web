@@ -144,6 +144,22 @@
     <li class="bold side_navigator">
         <ul class="collapsible collapsible-accordion">
             <li class="bold">
+                <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-alert-octagram"></i>质损管理</a>
+                <div class="collapsible-body slider_nav_box blue-grey darken-3" style="padding: 0;">
+                    <ul>
+                        <li><a href="#!" ui-sref="damage_index"><i class="mdi mdi-chevron-right white-text "></i>首页</a></li>
+                        <li><a href="#!" ui-sref="damage_management"><i class="white-text mdi mdi-chevron-right"></i>质损管理</a></li>
+                        <li><a href="#!" ui-sref="insurance_compensation"><i class="white-text mdi mdi-chevron-right"></i>保险赔偿</a></li>
+                        <li><a href="#!" ui-sref="car_wash_fee"><i class="white-text mdi mdi-chevron-right"></i>洗车费用</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+
+    <li class="bold side_navigator">
+        <ul class="collapsible collapsible-accordion">
+            <li class="bold">
                 <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-home-variant "></i>仓储管理</a>
                 <div class="collapsible-body slider_nav_box blue-grey darken-3" style="padding: 0;">
                     <ul>
@@ -167,12 +183,12 @@
                             <li><a href="#!" ui-sref="setting_storage"><i class="mdi mdi-chevron-right white-text "></i>仓库设置</a></li>
                             <li><a href="#!" ui-sref="setting_car_brand"><i class="mdi mdi-chevron-right white-text "></i>车辆设置</a></li>
                             <li><a href="#!" ui-sref="setting_amend_vin" ><i class="white-text mdi mdi-chevron-right"></i>修改VIN码</a></li>
-                            <li><a href="#!" ui-sref="setting_city" ><i class="white-text mdi mdi-chevron-right"></i>城市设置</a></li>
-                            <li><a href="#!" ui-sref="setting_line" ><i class="white-text mdi mdi-chevron-right"></i>路线设置</a></li>
-                            <li><a href="#!" ui-sref="truck_brand" ><i class="white-text mdi mdi-chevron-right"></i>货车品牌</a></li>
+                            <li><a href="#!" ui-sref="setting_city"><i class="white-text mdi mdi-chevron-right"></i>城市设置</a></li>
+                            <li><a href="#!" ui-sref="setting_line"><i class="white-text mdi mdi-chevron-right"></i>路线设置</a></li>
+                            <li><a href="#!" ui-sref="truck_brand"><i class="white-text mdi mdi-chevron-right"></i>货车品牌</a></li>
                             <li><a href="#!" ui-sref="setting_client"><i class="white-text mdi mdi-chevron-right"></i>委托方</a></li>
-                            <li><a href="#!" ui-sref="setting_dealer" ><i class="white-text mdi mdi-chevron-right"></i>经销商</a></li>
-                            <li><a href="#!" ui-sref="setting_shipments" ><i class="white-text mdi mdi-chevron-right"></i>发运地</a></li>
+                            <li><a href="#!" ui-sref="setting_dealer"><i class="white-text mdi mdi-chevron-right"></i>经销商</a></li>
+                            <li><a href="#!" ui-sref="setting_shipments"><i class="white-text mdi mdi-chevron-right"></i>发运地</a></li>
                         </ul>
                     </div>
             </li>
@@ -238,9 +254,16 @@
 <script src="/lib/angular/angular-cookies.min.js"></script>
 <script src="/lib/angular/angular-messages.min.js"></script>
 <script src="/js/module/app_admin_module.js"></script>
-<script src="/js/controller/data/car_to_data_controller.js"></script>
-<script src="/js/controller/index_controller.js"></script>
-<script src="/js/controller/common_login_controller.js"></script>
+
+<script src="/js/filter/filters.js"></script>
+<script src="/js/service/base_service.js"></script>
+<script src="/js/service/config_service.js"></script>
+<script src="/js/service/http_service.js"></script>
+<script src="/js/service/socket_service.js"></script>
+<script src="/js/host/host_config.js"></script>
+<script src="/js/directive/admin_directive.js"></script>
+<script src="/js/router/index_router.js"></script>
+
 
 <!--车管-->
 <script src="/js/controller/truck/truck_company_controller.js"></script>
@@ -292,8 +315,10 @@
 <script src="/js/controller/storage/add_storage_car_vin_controller.js"></script>
 <script src="/js/controller/storage/add_storage_car_controller.js"></script>
 <script src="/js/controller/storage/add_storage_car_put_in_controller.js"></script>
+
 <!--用户信息-->
 <script src="/js/controller/user/user_info_controller.js"></script>
+
 <!--商品车-->
 <script src="/js/controller/car/car_query/car_query_controller.js"></script>
 <script src="/js/controller/car/car_query/car_query_details_controller.js"></script>
@@ -317,14 +342,13 @@
 <script src="/js/controller/damage/damage_declaration_controller.js"></script>
 <script src="/js/controller/damage/damage_report_controller.js"></script>
 <script src="/js/controller/damage/damage_declaration_details_controller.js"></script>
+<script src="/js/controller/damage/damage_index_controller.js"></script>
+<script src="/js/controller/damage/damage_management_controller.js"></script>
+<script src="/js/controller/damage/insurance_compensation_controller.js"></script>
+<script src="/js/controller/damage/car_wash_fee_controller.js"></script>
 
+<!--其他-->
+<script src="/js/controller/data/car_to_data_controller.js"></script>
+<script src="/js/controller/index_controller.js"></script>
 
-<script src="/js/filter/filters.js"></script>
-<script src="/js/service/base_service.js"></script>
-<script src="/js/service/config_service.js"></script>
-<script src="/js/service/http_service.js"></script>
-<script src="/js/service/socket_service.js"></script>
-<script src="/js/host/host_config.js"></script>
-<script src="/js/directive/admin_directive.js"></script>
-<script src="/js/router/index_router.js"></script>
 </html>

@@ -15,7 +15,7 @@ app.controller("damage_declaration_controller", ["$scope", "$host", "_basic", fu
     $scope.getDamageInfoList = function () {
         var reportTimeStart = $("#report_time_start").val();
         var reportTimeEnd = $("#report_time_end").val();
-        _basic.get($host.api_url + "/quality?" + _basic.objToUrl({
+        _basic.get($host.api_url + "/damage?" + _basic.objToUrl({
             createdOnStart: reportTimeStart,
             createdOnEnd: reportTimeEnd,
             qualityStatus: $scope.processingStatus,

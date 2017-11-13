@@ -1210,3 +1210,7 @@ button[type="submit"] {
 .damage_in_process{
     color: #00bcd4;
 }
+/*洗车费详情样式*/
+.wash_fee_details span{
+    font-weight: bold;
+}

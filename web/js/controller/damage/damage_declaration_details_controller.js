@@ -9,7 +9,7 @@ app.controller("damage_declaration_details_controller", ["$scope", "$stateParams
 
     // 获取当前质损信息
     $scope.getCurrentDamageInfo = function () {
-        _basic.get($host.api_url + "/quality?qualityId=" + damageId).then(function (data) {
+        _basic.get($host.api_url + "/damage?damageId=" + damageId).then(function (data) {
             if (data.success === true) {
                 data.result[0].created_on = moment(data.result[0].created_on).format("YYYY-MM-DD hh:mm:ss");
                 $scope.currentDamageInfo = data.result[0];
@@ -79,12 +79,12 @@ app.controller("damage_declaration_details_controller", ["$scope", "$stateParams
 
     // 提交修改后的信息
     $scope.submitModifyInfo = function () {
-        _basic.put($host.api_url + "/user/" + userId + "/quality/" + damageId,{
+        _basic.put($host.api_url + "/user/" + userId + "/damage/" + damageId,{
             truckId:$scope.truckId,
             truckNum:$scope.truckNum,
             driveId:$scope.driverId,
             driveName:$scope.driverName,
-            qualityExplain:$scope.currentDamageInfo.quality_explain
+            damageExplain:$scope.currentDamageInfo.damage_explain
         }).then(function (data) {
             if (data.success === true) {
                 swal("修改成功", "", "success");

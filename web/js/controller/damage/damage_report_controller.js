@@ -128,13 +128,13 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
         var driveName = $scope.driverName === "" ? "" : $scope.AccurateDriverInfo.drive_name;
         if($scope.vinCode !== ""){
             if($scope.vinCode.length === 17 && $scope.vinCheck){
-                _basic.post($host.api_url + "/user/" + userId + "/quality",{
+                _basic.post($host.api_url + "/user/" + userId + "/damage",{
                     carId:$scope.vinData.id,
                     truckId:truckId,
                     truckNum:truckNum,
                     driveId:driveId,
                     driveName:driveName,
-                    qualityExplain:$scope.damageRemark
+                    damageExplain:$scope.damageRemark
                 }).then(function (data) {
                     if (data.success === true) {
                         $scope.step_1 = false;

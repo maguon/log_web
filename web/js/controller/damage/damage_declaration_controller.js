@@ -18,7 +18,7 @@ app.controller("damage_declaration_controller", ["$scope", "$host", "_basic", fu
         _basic.get($host.api_url + "/damage?" + _basic.objToUrl({
             createdOnStart: reportTimeStart,
             createdOnEnd: reportTimeEnd,
-            qualityStatus: $scope.processingStatus,
+            damageStatus: $scope.processingStatus,
             vin:$scope.vinCode
         })).then(function (damageData) {
             if (damageData.success === true) {

@@ -14,7 +14,7 @@
             <li class="tab"><a ng-click="showDamageDetails()" style="color: #26c6da;line-height: 40px" href="javascript:void(0)">基本信息</a></li>
             <li class="tab"><a ng-click="showDamageImages()" style="color: #26c6da;line-height: 40px" href="javascript:void(0)">照片</a></li>
         </ul>
-        <!--处理中-->
+        <!--待处理-->
         <div class="damage_details_step_1" ng-if="damageStatus == 1 && !photoClick" style="font-size: 1.1rem;font-weight: bold;color: darkgray;display: inline-block">
             <div class="row col s12 valign-wrapper">
                 <div class="input-field col s4">
@@ -76,7 +76,7 @@
                 </div>
             </div>
         </div>
-        <!--待处理-->
+        <!--处理中-->
         <div class="damage_details_step_2" ng-if="damageStatus == 2 && !photoClick" style="font-size: 1.1rem;font-weight: bold;color: darkgray;display: inline-block">
             <div class="row col s12 valign-wrapper">
                 <div class="col s4">
@@ -120,7 +120,7 @@
                 </div>
             </div>
         </div>
-        <!--已完成-->
+        <!--已处理-->
         <div class="damage_details_step_3" ng-if="damageStatus == 3 && !photoClick" style="font-size: 1.1rem;font-weight: bold;color: darkgray;display: inline-block">
             <div class="row col s12">
                 <div class="col s12">
@@ -238,9 +238,9 @@
                 </form>
             </div>
             <div class="col s11" id="damage_image">
-                <div ng-repeat="damage in damageImageList" repeat-finish="damageFinish()" ng-mouseenter="show=true" ng-mouseleave="show=false" class="damage_car_picture col s3" style="margin-top: 15px">
+                <div ng-repeat="damage in damageImageList" repeat-finish="damageFinish()" ng-mouseenter="show=true" ng-mouseleave="show=false" class="truck_car_picture col s3 vc-center p0 grey white-text">
                     <img ng-src="{{damage.url}}" class="responsive-img">
-                    <p class="img_date white-text center-align" ng-show="show" ng-cloak>{{damage.name}}上传于{{damage.timez | date:'yyyy-MM-dd'}}</p>
+                    <p style="margin-bottom: 0" class="img_date white-text center-align" ng-show="show" ng-cloak>{{damage.name}}上传于{{damage.timez | date:'yyyy-MM-dd'}}</p>
                 </div>
             </div>
 

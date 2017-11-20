@@ -1,0 +1,361 @@
+<a style="margin: 90px 0 0 20px" class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light "
+   ui-sref="damage_management">
+    <i class="mdi mdi-arrow-left-bold"></i>
+</a>
+
+<div class="damage_management_details" style="width: 80%;margin: 0 auto">
+    <div class="row">
+        <div class="vc-center">
+            <h5 class="center-align cyan-text text-lighten-1">质损管理详情&emsp;（{{currentDamageStatus | damageStatus}}）</h5>
+        </div>
+
+        <!--增加保险信息模态框-->
+        <div id="carInfoModel" class="modal modal-fixed-footer" style="width: 50%;height: 480px">
+            <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+                <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
+                    <p>保险赔付信息</p>
+                </div>
+                <div class="row col s12">
+                    <div class="col s12">
+                        <div class="col s6 offset-s3 input-field">
+                            <select material-select watch ng-model="insuranceCompanyId">
+                                <option value="" selected>保险公司</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col s12" style="margin-top: 10px">
+                        <div class="col s6 offset-s3 input-field">
+                            <input id="handler" type="text" ng-model="handlerName">
+                            <label style="font-weight: bold" for="handler">经办人</label>
+                        </div>
+                    </div>
+                    <div class="col s12">
+                        <div class="col s6 offset-s3 valign-wrapper">
+                            <div class="col s11 input-field" style="padding: 0">
+                                <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="insurance_compensation" type="number" ng-model="insuranceCompensation">
+                                <label style="font-weight: bold" for="insurance_compensation">保险待赔</label>
+                            </div>
+                            <div class="col s1 left-align" style="padding: 0">
+                                <p>元</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12">
+                        <div class="col s6 offset-s3 valign-wrapper">
+                            <div class="col s11 input-field" style="padding: 0">
+                                <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="insurance_pay" type="number" ng-model="insurancePay">
+                                <label style="font-weight: bold" for="insurance_pay">保险赔付</label>
+                            </div>
+                            <div class="col s1 left-align" style="padding: 0">
+                                <p>元</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer valign-wrapper">
+                <div class="col s12">
+                    <div class="col s2 offset-s5">
+                        <a ng-click="saveInsuranceInfo()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                            确定
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--tab栏-->
+        <ul class="tabs ui-tabs tabs-fixed-width tab-demo z-depth-1"
+            style="font-size: 25px;font-weight: bold;overflow-x: hidden;margin-bottom: 25px" ul-tabs>
+            <li class="tab"><a ng-click="showDamageBasicInfo()" style="color: #26c6da;line-height: 40px" href="javascript:void(0)">基本信息</a></li>
+            <li class="tab"><a ng-click="showDamageImage()" style="color: #26c6da;line-height: 40px" href="javascript:void(0)">照片</a></li>
+            <li class="tab"><a ng-click="showDamageHandleInfo()" style="color: #26c6da;line-height: 40px" href="javascript:void(0)">处理信息</a></li>
+            <li class="tab"><a ng-click="showInsuranceInfo()" style="color: #26c6da;line-height: 40px" href="javascript:void(0)">保险信息</a></li>
+        </ul>
+
+        <!--基本信息-->
+        <div class="row col s12 basic_info_step_1" style="font-size: 1.1rem;color: darkgray" ng-show="damage_basic_info">
+            <!--申报人-->
+            <div class="row col s12 valign-wrapper" style="font-weight: bold">
+                <div class="col s4">
+                    <p><span style="color: #26c6da">申报人：</span>{{userName}}&emsp;&emsp;<span>{{userDepartment | department}}</span></p>
+                </div>
+                <div class="col s4">
+                    <p><span style="color: #26c6da">申报日期：</span>{{currentDamageInfo.created_on | date:'yyyy-MM-dd HH:mm'}}</p>
+                </div>
+                <div class="col s4" ng-if="currentDamageInfo.damage_status == 1">
+                    <p style="font-size: 1.5rem;color: rgb(229,115,115);margin: 10px 0">待处理</p>
+                </div>
+                <div class="col s4" ng-if="currentDamageInfo.damage_status == 2">
+                    <p style="font-size: 1.5rem;color: #26c6da;margin: 10px 0">处理中</p>
+                </div>
+                <div class="col s4" ng-if="currentDamageInfo.damage_status == 3">
+                    <p style="font-size: 1.5rem;color: darkgray;margin: 10px 0">已处理</p>
+                </div>
+            </div>
+            <!--质损说明-->
+            <div class="row col s12 wash_fee_details">
+                <div class="col s12">
+                    <div class="col s4">
+                        <p><span>VIN码：</span>{{currentDamageInfo.vin}}</p>
+                    </div>
+                    <div class="col s4">
+                        <p><span>品牌：</span>{{currentDamageInfo.make_name}}</p>
+                    </div>
+                    <div class="col s4">
+                        <p><span>委托方：</span>{{currentDamageInfo.en_short_name}}</p>
+                    </div>
+                </div>
+                <div class="col s12">
+                    <div class="col s4">
+                        <p><span>货车牌号：</span>{{currentDamageInfo.truck_num}}</p>
+                    </div>
+                    <div class="col s4">
+                        <p><span>司机：</span>{{currentDamageInfo.drive_name}}</p>
+                    </div>
+                    <div class="col s4">
+                        <p><span>经销商：</span>{{currentDamageInfo.re_short_name}}</p>
+                    </div>
+                </div>
+                <div class="col s12">
+                    <div class="col s12">
+                        <p><span>质损说明：</span>{{currentDamageInfo.damage_explain}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--质损照片-->
+        <div class="row col s12 damage_image_step_2" style="margin-top: 20px" ng-show="damage_images">
+            <div class="col s1">
+                <form name="uploadImageForm" class="uploadImageForm vc-center" style="display: inline-block">
+                    <div class="upload_btn">
+                        <div style="margin: 0;width: 80px"
+                             class="storage_car_picture col s4 vc-center p0 cyan lighten-1 white-text">
+                            <input name="image" type="file"
+                                   onchange="angular.element(this).scope().uploadDamageImage(this)" max_size="4M">
+                            <i class="mdi mdi-instagram"></i>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col s11" id="damage_image">
+                <div ng-repeat="damage in damageImageList" repeat-finish="damageFinish()" ng-mouseenter="show=true" ng-mouseleave="show=false" class="truck_car_picture col s3 vc-center p0 grey white-text">
+                    <img ng-src="{{damage.url}}" class="responsive-img">
+                    <span class="delete_img vc-center black white-text fz19" ng-click="deleteImage(damage.url)"><i class="mdi mdi-close"></i></span>
+                    <p style="margin-bottom: 0" class="img_date white-text center-align" ng-show="show" ng-cloak>{{damage.name}} 上传于 {{damage.timez | date:'yyyy-MM-dd'}}</p>
+                </div>
+            </div>
+        </div>
+
+        <!--处理信息-->
+        <div class="row col s12 handle_info_step_3" ng-show="damage_handle_info">
+            <!--待处理状态下显示开始处理按钮-->
+            <div class="row col s12" ng-if="currentDamageStatus == 1">
+                <div class="col s4 offset-s4">
+                    <a ng-click="beginProcessing()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                        开始处理
+                    </a>
+                </div>
+            </div>
+
+            <!--非待处理状态下显示处理信息-->
+            <div class="handleInfoInput" ng-if="currentDamageStatus != 1">
+                <div class="row col s12">
+                    <div class="col s3 input-field">
+                        <input id="responsible" name="phone" type="text" ng-model="damageInfoBefore.under_user_name">
+                        <label for="responsible">责任人</label>
+                    </div>
+                    <div class="col s3 input-field">
+                        <div class="col s1 right-align" style="padding: 0;">
+                            <span style="color: red">*</span>
+                        </div>
+                        <div class="col s11 ">
+                            <select material-select watch ng-model="damageInfoBefore.damage_type">
+                                <option value="" selected>质损类型</option>
+                                <option value="1">一般质损</option>
+                                <option value="2">严重质损</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col s3 input-field">
+                        <div class="col s1 right-align" style="padding: 0;">
+                            <span style="color: red">*</span>
+                        </div>
+                        <div class="col s11 ">
+                            <select material-select watch ng-model="damageInfoBefore.damage_link_type">
+                                <option value="" selected>质损环节类别</option>
+                                <option value="1">短驳移库</option>
+                                <option value="2">公路运输</option>
+                                <option value="3">公司运输</option>
+                                <option value="4">驾驶员漏检</option>
+                                <option value="5">交通事故</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col s3 input-field">
+                        <input id="reimbursement" name="phone" type="text" ng-model="damageInfoBefore.refund_user_name">
+                        <label for="reimbursement">报销人</label>
+                    </div>
+                </div>
+
+                <div class="row col s12">
+                    <div class="col s4 valign-wrapper">
+                        <div class="col s11 input-field" style="padding: 0">
+                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="price_reduction" type="number" ng-model="damageInfoBefore.reduction_cost">
+                            <label style="font-weight: bold" for="price_reduction">降价费</label>
+                        </div>
+                        <div class="col s1 left-align" style="padding: 0">
+                            <p>元</p>
+                        </div>
+                    </div>
+                    <div class="col s4 valign-wrapper">
+                        <div class="col s11 input-field" style="padding: 0">
+                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="fine" type="number" ng-model="damageInfoBefore.penalty_cost">
+                            <label style="font-weight: bold" for="fine">罚款</label>
+                        </div>
+                        <div class="col s1 left-align" style="padding: 0">
+                            <p>元</p>
+                        </div>
+                    </div>
+                    <div class="col s4 valign-wrapper">
+                        <div class="col s11 input-field" style="padding: 0">
+                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="profit_and_loss" type="number" ng-model="damageInfoBefore.profit">
+                            <label style="font-weight: bold" for="profit_and_loss">盈亏</label>
+                        </div>
+                        <div class="col s1 left-align" style="padding: 0">
+                            <p>元</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row col s12">
+                    <div class="col s4 valign-wrapper">
+                        <div class="col s11 input-field" style="padding: 0">
+                            <input id="serving_station" type="text" ng-model="damageInfoBefore.repair_id">
+                            <label style="font-weight: bold" for="serving_station">维修站</label>
+                        </div>
+                        <div class="col s1 left-align" style="padding: 0"></div>
+                    </div>
+                    <div class="col s4 valign-wrapper">
+                        <div class="col s11 input-field" style="padding: 0">
+                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="maintenance_cost" type="number" ng-model="damageInfoBefore.repair_cost">
+                            <label style="font-weight: bold" for="maintenance_cost">维修费</label>
+                        </div>
+                        <div class="col s1 left-align" style="padding: 0">
+                            <p>元</p>
+                        </div>
+                    </div>
+                    <div class="col s4 valign-wrapper">
+                        <div class="col s11 input-field" style="padding: 0">
+                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="freight" type="number" ng-model="damageInfoBefore.transport_cost">
+                            <label style="font-weight: bold" for="freight">运费</label>
+                        </div>
+                        <div class="col s1 left-align" style="padding: 0">
+                            <p>元</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row col s12">
+                    <div class="col s6 valign-wrapper">
+                        <div class="col s11 input-field" style="padding: 0">
+                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="responsible_fee" type="number" ng-model="damageInfoBefore.under_cost">
+                            <label style="font-weight: bold" for="responsible_fee">责任人承担费用</label>
+                        </div>
+                        <div class="col s1 left-align" style="padding: 0">
+                            <p>元</p>
+                        </div>
+                    </div>
+                    <div class="col s6 valign-wrapper">
+                        <div class="col s11 input-field" style="padding: 0">
+                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="company_fee" type="number" ng-model="damageInfoBefore.company_cost">
+                            <label style="font-weight: bold" for="company_fee">公司承担费用</label>
+                        </div>
+                        <div class="col s1 left-align" style="padding: 0">
+                            <p>元</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row col s12">
+                    <div class="col s1 right-align">
+                        备注：
+                    </div>
+                    <div class="col s11">
+                    <textarea style="height: 150px" name="remark" id="remark" cols="30" rows="10"
+                              ng-model="damageInfoBefore.remark"></textarea>
+                    </div>
+                    <div class="col s4 offset-s8 right-align">
+                        <p style="font-weight: bold;color: darkgray;font-size: 1.2rem">处理人：{{damageInfoBefore.op_user_name}}</p>
+                    </div>
+                </div>
+
+                <div class="row col s12" style="margin-top: 30px" ng-hide="currentDamageStatus == 3">
+                    <div class="col s2 offset-s3">
+                        <a ng-click="saveHandleInfoModify()" style="width: 100%" class="waves-light waves-effect red lighten-2 btn">
+                            保存
+                        </a>
+                    </div>
+                    <div class="col s2 offset-s2">
+                        <a ng-click="submitHandleInfo()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                            完成
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--保险信息-->
+        <div class="row col s12 insurance_info_step_4" ng-show="insurance_info">
+            <div class="row col s12 valign-wrapper" style="margin-top: 30px">
+                <div class="col s4 offset-s4" >
+                    <a ng-click="showInsuranceModel()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                        添加理赔信息
+                    </a>
+                </div>
+            </div>
+            <!--文字提示-->
+            <div class="row col s12" style="display: none">
+                <div class="col s12 center-align" style="font-size: 1.6rem;font-weight: bold;color: rgb(230,118,118);letter-spacing: 2px">
+                    <p>此功能只能增加专属于该项质损的保险信息</p>
+                    <p>一份保险包含多项质损的信息需在“<span style="color: rgb(71,207,224)">保险赔偿</span>”栏目里增加</p>
+                </div>
+            </div >
+            <!--保险信息卡片-->
+            <div class="row col s12" style="margin-top: 15px">
+                <!--下面加repeat-->
+                <div class="col s12" style="border: 2px solid #26c6da;border-radius: 5px;background-color: white;color: darkgray;margin-top: 15px">
+                    <!--头-->
+                    <div class="col s12 card_head" style="padding: 0;border-bottom: 1px solid #ccc">
+                        <div class="col s6 left-align">
+                            <p style="font-weight: bold;color: #00bcd4">质损编号：123456789012</p>
+                        </div>
+                        <div class="col s5 right-align" style="font-weight: bold">
+                            <p>生成日期：2017-08-23</p>
+                        </div>
+                        <div class="col s1 right-align">
+                            <span style="font-size: 1.8rem;cursor: pointer" class="mdi mdi-delete-forever"></span>
+                        </div>
+                    </div>
+                    <!--内容-->
+                    <div class="col s12 card_body center-align" style="font-size: 1.07rem;padding: 0;">
+                        <div class="col s4">
+                            <p><span style="font-weight: bold">保险公司：</span>中国人保</p>
+                        </div>
+                        <div class="col s4">
+                            <p><span style="font-weight: bold">经办人：</span>吴晓明</p>
+                        </div>
+                        <div class="col s4">
+                            <p><span style="font-weight: bold">保险赔付：</span><span style="font-weight: bold;color: rgb(231,127,127);font-size: 1.2rem">3000.00</span> 元</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

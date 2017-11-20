@@ -1,1 +1,109 @@
-damage_management
+<div class="damage_management">
+    <div class="row main_storage_car">
+        <div class="col s12">
+            <div class="col input-field s2">
+                <input id="damage_number" type="text" ng-model="damageNum">
+                <label for="damage_number">质损编号</label>
+            </div>
+            <div class="col s2 input-field">
+                <select material-select watch ng-model="processingStatus">
+                    <option value="" selected>处理状态</option>
+                    <option value="1" >待处理</option>
+                    <option value="2" >处理中</option>
+                    <option value="3" >已处理</option>
+                </select>
+            </div>
+            <div class="input-field col s2">
+                <input id="VinCode" type="text" ng-model="vinCode">
+                <label for="VinCode">VIN码</label>
+            </div>
+            <div class="col s2 input-field">
+                <select material-select watch ng-model="brand">
+                    <option value="" selected>品牌</option>
+                    <option ng-repeat="brand in brandList" ng-value="brand.id">{{brand.make_name}}</option>
+                </select>
+            </div>
+            <div class="col input-field s2">
+                <input id="report_person" type="text" ng-model="reportPerson">
+                <label for="report_person">申报人</label>
+            </div>
+            <div class="col s2" style="padding: 0">
+                <div class="col s6 flex flex-round">
+                    <a class="btn-floating btn-large waves-light waves-effect red lighten-2 btn vc-center"
+                       ng-click="getDamageManagementList()">
+                        <i class="mdi mdi-magnify"></i>
+                    </a>
+                </div>
+                <div class="col s6 flex flex-round">
+                    <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2 btn vc-center"
+                       ng-click="getDamageInfoList()">
+                        <i class="mdi mdi-cloud-download"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col s4" style="padding: 0">
+                <div class="col input-field s6">
+                    <input id="report_time_start" type="text" class="datepicker" ng-model="reportTimeStart"><i
+                        class="mdi dataIcon mdi-table-large"></i>
+                    <label for="report_time_start">申报时间</label>
+                </div>
+                <div class="col input-field s6">
+                    <input id="report_time_end" type="text" class="datepicker" ng-model="reportTimeEnd"><i
+                        class="mdi dataIcon mdi-table-large"></i>
+                    <label for="report_time_end">至</label>
+                </div>
+            </div>
+            <div class="col input-field s2">
+                <input id="responsibility_person" type="text" ng-model="responsibilityPerson">
+                <label for="responsibility_person">责任人</label>
+            </div>
+            <div class="col s2 input-field">
+                <select material-select watch ng-change="getReceiveList()" ng-model="endCity">
+                    <option value="" selected>目的城市</option>
+                    <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
+                </select>
+            </div>
+            <div class="col s2 input-field">
+                <select material-select watch ng-model="distributor">
+                    <option value="" selected>经销商</option>
+                    <option ng-repeat="receive in receiveList" ng-value="receive.id">{{receive.short_name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row col s12" style="margin-top: 25px">
+            <div class="divider" style="background: #00bcd4;height: 2px"></div>
+            <table class="bordered striped text_mid">
+                <thead class="blue-grey lighten-5">
+                <tr class="grey-text text-darken-2">
+                    <th width="200" data-field="">质损编号</th>
+                    <th width="180" data-field="">申报时间</th>
+                    <th width="200" data-field="">VIN码</th>
+                    <th width="150" data-field="">品牌</th>
+                    <th width="350" data-field="">质损说明</th>
+                    <th width="100" data-field="">申报人</th>
+                    <th width="100" data-field="">责任人</th>
+                    <th width="120" data-field="">处理状态</th>
+                    <th width="150">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="damage in damageMamagementList" class="grey-text text-darken-1">
+                    <td width="200">{{damage.id}}</td>
+                    <td width="180">{{damage.created_on | date:'yyyy-MM-dd HH:mm'}}</td>
+                    <td width="200">{{damage.vin}}</td>
+                    <td width="150">{{damage.make_name}}</td>
+                    <td width="350">{{damage.damage_explain}}</td>
+                    <td width="100">{{damage.declare_user_name}}</td>
+                    <td width="100">{{damage.refund_user_name}}</td>
+                    <td width="120" ng-class="{'damage_pending_treatment':damage.damage_status == 1 , 'damage_in_process':damage.damage_status == 2}">{{damage.damage_status | damageStatus}}</td>
+                    <td width="150" class="details">
+                        <a ui-sref="damage_management_details({id:damage.id})" style="font-size: 1.5rem">
+                            <i class="mdi mdi-file-document look_icon cyan-text lighten-1"></i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

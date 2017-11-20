@@ -1,1 +1,80 @@
-car_wash_fee
+<div class="car_wash_fee">
+    <div class="row main_storage_car">
+        <div class="col s10">
+            <div class="col s3 input-field">
+                <input id="instruction_number" type="text" ng-model="instructionNum">
+                <label for="instruction_number">指令编号</label>
+            </div>
+            <div class="col s3 input-field">
+                <input id="driver" type="text" ng-model="driver">
+                <label for="driver">司机</label>
+            </div>
+            <div class="col s3 input-field">
+                <select material-select watch ng-model="destinationCity">
+                    <option value="" selected>目的城市</option>
+                </select>
+            </div>
+            <div class="col s3 input-field">
+                <select material-select watch ng-model="distributor">
+                    <option value="" selected>经销商</option>
+                </select>
+            </div>
+            <div class="col s4 input-field">
+                <select material-select watch ng-model="receive_status">
+                    <option value="" selected>领取状态</option>
+                    <option value="1" selected>未领取</option>
+                    <option value="2" selected>已领取</option>
+                </select>
+            </div>
+            <div class="col input-field s4">
+                <input id="receive_time_start" type="text" class="datepicker" ng-model="receiveTimeStart"><i
+                    class="mdi dataIcon mdi-table-large"></i>
+                <label for="receive_time_start">领取时间</label>
+            </div>
+            <div class="col input-field s4">
+                <input id="receive_time_end" type="text" class="datepicker" ng-model="receiveTimeEnd"><i
+                    class="mdi dataIcon mdi-table-large"></i>
+                <label for="receive_time_end">至</label>
+            </div>
+        </div>
+
+        <div class="col s2 vc-center" style="height: 125px;">
+            <a class="btn-floating btn-large waves-light waves-effect red lighten-2 btn vc-center"
+               ng-click="getDamageInfoList()">
+                <i class="mdi mdi-magnify"></i>
+            </a>
+        </div>
+
+        <div class="row col s12" style="margin-top: 25px">
+            <div class="divider" style="background: #00bcd4;height: 2px"></div>
+            <table class="bordered striped text_mid">
+                <thead class="blue-grey lighten-5">
+                <tr class="grey-text text-darken-2">
+                    <th width="250" data-field="">指令编号</th>
+                    <th width="180" data-field="">司机</th>
+                    <th width="200" data-field="">洗车费</th>
+                    <th width="250" data-field="">货车牌号</th>
+                    <th width="400" data-field="">送达经销商</th>
+                    <th width="300" data-field="">领取时间</th>
+                    <th width="200">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="grey-text text-darken-1">
+                    <td width="250">LSVXZ25N5H2027762</td>
+                    <td width="180">张宝全</td>
+                    <td width="200">6000</td>
+                    <td width="250">辽B 12345</td>
+                    <td width="400">中国人保</td>
+                    <td width="300">2017-08-27 11:42</td>
+                    <td width="200" class="details">
+                        <a ui-sref="car_wash_fee_details" style="font-size: 1.5rem">
+                            <i class="mdi mdi-file-document look_icon cyan-text lighten-1"></i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

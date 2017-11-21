@@ -47,6 +47,7 @@
                         <li><a href="#!" ui-sref="storage_index"><i class="mdi mdi-chevron-right white-text "></i>仓储主控</a></li>
                         <li><a href="#!" ui-sref="vehicle_index"><i class="mdi mdi-chevron-right white-text "></i>车管主控</a></li>
                         <li><a href="#!" ui-sref="dispatch_index"><i class="mdi mdi-chevron-right white-text "></i>调度主控</a></li>
+                        <li><a href="#!" ui-sref="damage_index"><i class="mdi mdi-chevron-right white-text "></i>质损主控</a></li>
                     </ul>
                 </div>
             </li>
@@ -131,6 +132,9 @@
                         <li><a href="#!" ui-sref="statistics"><i class="mdi mdi-chevron-right white-text "></i>仓储车辆统计</a></li>
                         <li><a href="#!" ui-sref="insurance_statistics"><i class="mdi mdi-chevron-right white-text "></i>货车保险统计</a></li>
                         <li><a href="#!" ui-sref="maintenance_statistics"><i class="mdi mdi-chevron-right white-text "></i>车管维修统计</a></li>
+                        <li><a href="#!" ui-sref="vehicle_damage_statistics"><i class="mdi mdi-chevron-right white-text "></i>商品车质损统计</a></li>
+                        <li><a href="#!" ui-sref="vehicle_repair_statistics"><i class="mdi mdi-chevron-right white-text "></i>商品车维修统计</a></li>
+                        <li><a href="#!" ui-sref="car_wash_fee_statistics"><i class="mdi mdi-chevron-right white-text "></i>商品车洗车费统计</a></li>
                     </ul>
                 </div>
             </li>
@@ -147,7 +151,6 @@
                 <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-alert-octagram"></i>质损管理</a>
                 <div class="collapsible-body slider_nav_box blue-grey darken-3" style="padding: 0;">
                     <ul>
-                        <li><a href="#!" ui-sref="damage_index"><i class="mdi mdi-chevron-right white-text "></i>首页</a></li>
                         <li><a href="#!" ui-sref="damage_management"><i class="white-text mdi mdi-chevron-right"></i>质损管理</a></li>
                         <li><a href="#!" ui-sref="insurance_compensation"><i class="white-text mdi mdi-chevron-right"></i>保险赔偿</a></li>
                         <li><a href="#!" ui-sref="car_wash_fee"><i class="white-text mdi mdi-chevron-right"></i>洗车费用</a></li>
@@ -309,12 +312,20 @@
 <script src="/js/controller/storage/storage_calendar_controller.js"></script>
 <script src="/js/controller/storage/storage_car_details_controller.js"></script>
 <script src="/js/controller/storage/storage_car_map_controller.js"></script>
-<script src="/js/controller/storage/storage_statistics_controller.js"></script>
-<script src="/js/controller/storage/insurance_statistics_controller.js"></script>
-<script src="/js/controller/storage/maintenance_statistics_controller.js"></script>
 <script src="/js/controller/storage/add_storage_car_vin_controller.js"></script>
 <script src="/js/controller/storage/add_storage_car_controller.js"></script>
 <script src="/js/controller/storage/add_storage_car_put_in_controller.js"></script>
+
+<!--数据统计-->
+<script src="/js/controller/storage/storage_statistics_controller.js"></script>
+<script src="/js/controller/storage/insurance_statistics_controller.js"></script>
+<script src="/js/controller/storage/maintenance_statistics_controller.js"></script>
+<script src="/js/controller/storage/vehicle_damage_statistics_controller.js"></script>
+<script src="/js/controller/storage/vehicle_repair_statistics_controller.js"></script>
+<script src="/js/controller/storage/car_wash_fee_statistics_controller.js"></script>
+
+
+
 
 <!--用户信息-->
 <script src="/js/controller/user/user_info_controller.js"></script>

@@ -234,6 +234,25 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/storage/maintenance_statistics.html",
             controller:"maintenance_statistics_controller"
         })
+
+        .state("vehicle_damage_statistics", {
+            url:"/vehicle_damage_statistics",
+            templateUrl: "js/view/storage/vehicle_damage_statistics.html",
+            controller:"vehicle_damage_statistics_controller"
+        })
+
+        .state("vehicle_repair_statistics", {
+            url:"/vehicle_repair_statistics",
+            templateUrl: "js/view/storage/vehicle_repair_statistics.html",
+            controller:"vehicle_repair_statistics_controller"
+        })
+
+        .state("car_wash_fee_statistics", {
+            url:"/car_wash_fee_statistics",
+            templateUrl: "js/view/storage/car_wash_fee_statistics.html",
+            controller:"car_wash_fee_statistics_controller"
+        })
+
         // 从首页跳详情图
         .state("storage_car_details", {
             url:"/storage_car_details/{id}/vin/{vin}/_form/{_form}?from",

@@ -9,12 +9,12 @@ publicDirective.directive('header', function () {
         replace: true,
         transclude: false,
         restrict: 'E',
-        controller: function ($scope, $element, $rootScope, _basic,_config,$host,_socket) {
+        controller: function ($scope, $element, $rootScope, _basic, _config, $host, _socket) {
 
             // 把base64码转成bolb对象
-            function convertBase64UrlToBlob(urlData){
+            function convertBase64UrlToBlob(urlData) {
 
-                var bytes=window.atob(urlData.split(',')[1]);        //去掉url的头，并转换为byte
+                var bytes = window.atob(urlData.split(',')[1]);        //去掉url的头，并转换为byte
 
                 //处理异常,将ascii码小于0的转换为大于0
                 var ab = new ArrayBuffer(bytes.length);
@@ -23,33 +23,33 @@ publicDirective.directive('header', function () {
                     ia[i] = bytes.charCodeAt(i);
                 }
 
-                return new Blob( [ab] , {type : 'image/png'});
+                return new Blob([ab], {type: 'image/png'});
             }
 
             // 截取图片
             $('.image-editor').cropit();
-            $scope.uploadAmendImg=function () {
+            $scope.uploadAmendImg = function () {
                 var imageData = $('.image-editor').cropit('export');
                 // window.open(imageData);
 
                 var blob = convertBase64UrlToBlob(imageData);
                 var formData = new FormData();
-                formData.append('image',blob);
-                new Promise(function (resolve,reject) {
-                    _basic.formDataPost(formData,$host.file_url + '/user/' + userId + '/image?imageType=0',function(data){
-                        if(data.success==true){
+                formData.append('image', blob);
+                new Promise(function (resolve, reject) {
+                    _basic.formDataPost(formData, $host.file_url + '/user/' + userId + '/image?imageType=0', function (data) {
+                        if (data.success == true) {
                             resolve(data.imageId);
                         }
-                    },function(err){
+                    }, function (err) {
                         console.log(err);
                     })
                 }).then(function (imageId) {
-                    _basic.put($host.api_url+"/user/"+userId+"/avatarImage",{
-                        avatarImage:imageId
+                    _basic.put($host.api_url + "/user/" + userId + "/avatarImage", {
+                        avatarImage: imageId
                     }).then(function (data) {
-                        if(data.success==true){
-                            $scope.userImg=$host.file_url + '/image/'+imageId;
-                            swal("上传头像成功","","success")
+                        if (data.success == true) {
+                            $scope.userImg = $host.file_url + '/image/' + imageId;
+                            swal("上传头像成功", "", "success")
                         }
 
 
@@ -58,12 +58,12 @@ publicDirective.directive('header', function () {
 
 
             };
-            $scope.pwdReg=_config.pwdRegx;
-            var str_type=$element.attr("type");
-            $("#brand-logo").attr("src",$element.attr("url"));
-            $("#qrCode").attr("src",$element.attr("qr"));
+            $scope.pwdReg = _config.pwdRegx;
+            var str_type = $element.attr("type");
+            $("#brand-logo").attr("src", $element.attr("url"));
+            $("#qrCode").attr("src", $element.attr("qr"));
             //修改个人密码
-            $scope.amend_user=function () {
+            $scope.amend_user = function () {
                 // $(".indicator").css({
                 //     left:"0",
                 //     right:"509px"
@@ -77,15 +77,15 @@ publicDirective.directive('header', function () {
             };
             $scope.closeModel = function () {
                 $("#user_modal").modal("close");
-                $scope.submitted=false;
-                $scope.user_old_password="";
-                $scope.user_new_password="";
+                $scope.submitted = false;
+                $scope.user_old_password = "";
+                $scope.user_new_password = "";
             };
-            $scope.amend_user_submit=function (valid) {
-                $scope.submitted=true;
-                if(valid&&$scope.user_new_password==$scope.user_confirm_password){
-                    var obj={
-                        "originPassword":$scope.user_old_password,
+            $scope.amend_user_submit = function (valid) {
+                $scope.submitted = true;
+                if (valid && $scope.user_new_password == $scope.user_confirm_password) {
+                    var obj = {
+                        "originPassword": $scope.user_old_password,
                         "newPassword": $scope.user_new_password
                     };
                     _basic.put($host.api_url + "/user/" + userid + "/password", obj).then(function (data) {
@@ -118,8 +118,8 @@ publicDirective.directive('header', function () {
                 });
 
             };
-            if (_basic.getSession(_basic.USER_TYPE)==str_type) {
-                var userid=_basic.getSession(_basic.USER_ID);
+            if (_basic.getSession(_basic.USER_TYPE) == str_type) {
+                var userid = _basic.getSession(_basic.USER_ID);
                 //触发侧边栏导航
                 $("#menu_link").sideNav({
                     menuWidth: 280, // Default is 300
@@ -135,21 +135,27 @@ publicDirective.directive('header', function () {
                 var userId = _basic.getSession(_basic.USER_ID);
                 var userType = _basic.getSession(_basic.USER_TYPE);
                 var user_info_obj = _config.userTypes;
+                $scope.hasUserPortrait = false;
                 _basic.setHeader(_basic.USER_TYPE, userType);
-                _basic.setHeader(_basic.COMMON_AUTH_NAME,  _basic.getSession(_basic.COMMON_AUTH_NAME) );
+                _basic.setHeader(_basic.COMMON_AUTH_NAME, _basic.getSession(_basic.COMMON_AUTH_NAME));
                 _basic.get($host.api_url + "/user/" + userId).then(function (data) {
-                // $(".shadeDowWrap").hide();
+                    // $(".shadeDowWrap").hide();
                     if (data.success == true) {
-                        // $scope.userName = data.result[0].name;
-                        $scope.userImg=$host.file_url + '/image/'+data.result[0].avatar_image;
-                        _basic.setSession(_basic.USER_IMG,data.result[0].avatar_image);
+                        if(data.result[0].avatar_image != null){
+                            $scope.hasUserPortrait = true;
+                            $scope.userImg = $host.file_url + '/image/' + data.result[0].avatar_image;
+                        }
+                        else{
+                            $scope.hasUserPortrait = false;
+                        }
+                        _basic.setSession(_basic.USER_IMG, data.result[0].avatar_image);
                         _basic.setSession(_basic.USER_NAME, $scope.userName);
                         _basic.setHeader(_basic.USER_NAME, $scope.userName);
                         _basic.setSession(_basic.USER_NAME, data.result[0].real_name);
                         var user = {
-                            id:userId,
-                            type:userType,
-                            name:data.result[0].real_name
+                            id: userId,
+                            type: userType,
+                            name: data.result[0].real_name
                         };
                         _socket.connectSocket(user);
                         for (var i = 0; i < user_info_obj.length; i++) {
@@ -157,22 +163,20 @@ publicDirective.directive('header', function () {
                                 $scope.userName = user_info_obj[i].name;
                             }
                         }
-                        // $scope.realName = data.result[0].real_name;
-                        // MaterialAvatar(document.getElementsByClassName('nav-avatar'), {
-                        //     shape: 'circle',
-                        //     backgroundColor: '#4dd0e1',
-                        //     textColor: '#fff'
-                        // });
+                        $scope.realName = data.result[0].real_name;
+                        MaterialAvatar(document.getElementsByClassName('nav-avatar'), {
+                            shape: 'circle',
+                            backgroundColor: '#4dd0e1',
+                            textColor: '#fff'
+                        });
                     } else {
                         swal(data.msg, "", "error");
                     }
                 });
 
-            }else {
-                window.location="./common_login.html"
+            } else {
+                window.location = "./common_login.html"
             }
-
-
 
 
         }
@@ -200,8 +204,6 @@ publicDirective.directive("date", function () {
 });
 
 
-
-
 publicDirective.directive("dateFilter", ["$filter", function ($filter) {
     var dateFilter = $filter("date");
     return {
@@ -211,20 +213,22 @@ publicDirective.directive("dateFilter", ["$filter", function ($filter) {
             function formatter(value) {
                 return dateFilter(value, "yyyy-MM-dd");
             }
+
             function parser() {
                 return ctrl.$modelValue;
             }
+
             ctrl.$formatters.push(formatter);
             ctrl.$parsers.unshift(parser);
         }
     }
 }]);
 
-publicDirective.directive('autoMapHeight',function () {
+publicDirective.directive('autoMapHeight', function () {
     return {
-        restrict : 'A',
-        scope : {},
-        link : function($scope, element, attrs) {
+        restrict: 'A',
+        scope: {},
+        link: function ($scope, element, attrs) {
             var conHeight = $(".ConWrap").height(); //获取窗口高度
             var titleHeight = 200;
             element.css('min-height',
@@ -232,7 +236,6 @@ publicDirective.directive('autoMapHeight',function () {
         }
     };
 });
-
 
 
 /*
@@ -251,8 +254,8 @@ publicDirective.directive("usersTabs", function () {
     }
 });
 
-publicDirective.directive("sideNav",function () {
-    return{
+publicDirective.directive("sideNav", function () {
+    return {
         restrict: "A",
         link: function () {
             $("#menu_link").sideNav({
@@ -348,7 +351,7 @@ publicDirective.directive("formDate", function () {
         require: "ngModel",
         link: function (scope, elem, attr, ngModelCtr) {
             ngModelCtr.$formatters.push(function (modelValue) {
-                if(modelValue!=null && modelValue!=""){
+                if (modelValue != null && modelValue != "") {
                     var date = new Date(modelValue);
                     var new_date;
                     var Y = date.getFullYear() + '-';
@@ -362,7 +365,7 @@ publicDirective.directive("formDate", function () {
                         //返回字符串给view,不改变模型值
                         return new_date;
                     }
-                }else {
+                } else {
                     return ""
                 }
             })
@@ -380,36 +383,36 @@ publicDirective.directive('percent', function () {
             var val = Number.parseInt(attr.value);
 
             var total = Number.parseInt(attr.total);
-            if(total!=0){
-                percentage = Number.parseInt((val*100/total));
-            }else {
-                percentage=0;
+            if (total != 0) {
+                percentage = Number.parseInt((val * 100 / total));
+            } else {
+                percentage = 0;
             }
             //Highcharts.chart('percentWrap1', {
             $(element[0].children[0]).highcharts({
                 // 表头
                 title: {
-                    text:percentage+"%",
+                    text: percentage + "%",
                     align: 'center',
                     verticalAlign: 'middle',
-                    y:8,
-                    style:{
-                        color:"#bdbdbd"
+                    y: 8,
+                    style: {
+                        color: "#bdbdbd"
                     }
 
                 },
-                colors:[
+                colors: [
                     "#4dd0e1",
                     "#cfd8dc"
                 ],
                 // 版权信息
                 credits: {
-                    enabled:"false",
+                    enabled: "false",
                     text: '',
                     href: ''
                 },
                 tooltip: {
-                    enabled : false
+                    enabled: false
                 },
                 plotOptions: {
                     pie: {
@@ -428,8 +431,8 @@ publicDirective.directive('percent', function () {
                     name: '',
                     innerSize: '80%',
                     data: [
-                        ['',   percentage],
-                        ['',   (100-percentage)]
+                        ['', percentage],
+                        ['', (100 - percentage)]
                     ]
                 }]
             });

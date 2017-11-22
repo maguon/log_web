@@ -21,14 +21,17 @@
 <header type="11" url="../assets/images/vehicle_logo.png" qr="../assets/images/qr_code/qr_tm_app.png"></header>
 <ul id="slide-out"   class="side-nav blue-grey darken-4">
     <li class="nav-logo valign-wrapper " style="border-bottom: 1px solid #182024">
-        <div class="  userBox">
-            <!--<div class="col s3 valign-wrapper">-->
-            <!--<img src="../../assets/images/office.jpg" alt="" class=" responsive-img left logo_img" style="height: 50px"> &lt;!&ndash; notice the "circle" class &ndash;&gt;-->
-            <!--</div>-->
-            <div class="nav-avatar logo_img responsive-img left" style="height:50px">
-                <img ng-src="{{userImg}}" style="width: 100%;height: 100%" alt="">
+        <div class="userBox">
+            <!--有头像照片的时候显示头像，没有则显示默认svg头像-->
+            <div ng-if="hasUserPortrait" class="logo_img responsive-img left" style="height:50px">
+                <img ng-src="{{userImg}}" style="width: 100%;height: 100%;border-radius: 100%" alt="">
             </div>
-            <div class=" userBoxMsg left">
+
+            <div ng-if="!hasUserPortrait" class="nav-avatar logo_img responsive-img left" style="height:50px">
+                {{realName.substring(0,1)}}
+            </div>
+
+            <div class="userBoxMsg left">
               <span class="white-text">
                 {{userName + ":"}}
               </span>

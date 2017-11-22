@@ -4,9 +4,6 @@
 
 
 app.controller("look_instruction_need_details_controller", ["$scope", "$host", "_basic", "$state", "$stateParams", function ($scope, $host, _basic, $state, $stateParams) {
-    $scope.return = function () {
-        $state.go($stateParams.from, {reload: true})
-    };
     $scope.LoadTaskList = false;
 
     // 获取需求详情信息

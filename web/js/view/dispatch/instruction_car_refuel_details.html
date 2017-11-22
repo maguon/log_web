@@ -1,14 +1,14 @@
+<a style="margin: 90px 0 0 20px" class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light "
+   ui-sref="instruction_car_refuel">
+    <i class="mdi mdi-arrow-left-bold"></i>
+</a>
 <div id="instruction_car_refuel_details">
     <div class="">
         <div class="modal-content grey-text text-darken-2">
-            <!--<div class="" style="width: 95%;margin: 0 auto">-->
-            <div class="storage_storeTitle vc-center ">
-                <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
-                    <i class="mdi mdi-arrow-left-bold"></i>
-                </a>
-                <h4 class="center-align cyan-text text-lighten-1">加油申报详情</h4>
+            <div class="vc-center">
+                <h5 class="center-align cyan-text text-lighten-1">加油申报详情</h5>
             </div>
-            <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+            <div class="divider" style="background: #00bcd4;height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
             <div class="row no-marBottom left-align fz18" style="width: 60%;margin: 0 auto">
                 <div class="row" style="margin-top: 40px">
                     <div class="col s6 ">
@@ -58,10 +58,10 @@
                     <div class="col s6">
                         审核结果:
                         <span ng-if="driveRefuel_details.check_status==1">
-                            <a class="btn btn-floating" ng-click="resolve(driveRefuel_details.id)" >
+                            <a style="margin-left: 10px" class="btn btn-floating" ng-click="resolve(driveRefuel_details.id)" >
                                 通过
                             </a>
-                            <a class="btn btn-floating red lighten-2" ng-click="reject(driveRefuel_details.id)" >
+                            <a style="margin-left: 10px" class="btn btn-floating red lighten-2" ng-click="reject(driveRefuel_details.id)" >
                                 拒绝
                             </a>
                         </span>
@@ -73,8 +73,12 @@
                             <div class="modal-content">
                                 <div class="container" style="width: 90%">
                                     <div class="row" style="margin-top:80px">
-                                        <div class="input-field col s12">
-                                            <textarea id="textarea1" ng-model="reject_reason_msg" class="materialize-textarea"></textarea>
+                                        <!--<div class="input-field col s12">-->
+                                            <!--<textarea style="padding: 0" id="textarea1" ng-model="reject_reason_msg" class="materialize-textarea"></textarea>-->
+                                            <!--<label for="textarea1">拒绝原因</label>-->
+                                        <!--</div>-->
+                                        <div class="col s12 input-field">
+                                            <input id="textarea1" type="text" ng-model="reject_reason_msg">
                                             <label for="textarea1">拒绝原因</label>
                                         </div>
 
@@ -83,12 +87,12 @@
                             </div>
                             <div class="divider" style="background: #00bcd4;height: 2px;"></div>
                             <div class="modal-footer right-align">
-                                <a  class=" btn-floating modal-action modal-close waves-effect waves-light grey lighten-1 btn"  >
+                                <a class="btn-floating modal-action modal-close waves-effect waves-light grey lighten-1 btn">
                                     <i class="mdi mdi-close"></i>
                                 </a>
-                                <button class="btn btn-floating waves-light waves-effect cyan lighten-1"  ng-click="reject_reason()" style="margin-right: 10px" >
+                                <a class="btn btn-floating waves-light waves-effect cyan lighten-1"  ng-click="reject_reason()" style="margin-right: 10px">
                                     <i class="mdi mdi-check"></i>
-                                </button>
+                                </a>
                             </div>
                         </div>
                         <span style="font-weight: bold;color: green" ng-if="driveRefuel_details.check_status==2">通过</span>

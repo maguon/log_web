@@ -48,8 +48,11 @@
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12" ng-class="{'has-error':maintain_Form.maintain_msg.$invalid&&main_submitted}">
-                                        <textarea id="maintain_msg" ng-model="maintain_msg" name="maintain_msg" class="materialize-textarea" maxlength="200" required></textarea>
-                                        <label class="grey-text" for="maintain_msg"><span class="red-text text-lighten-2">*</span>维修原因</label>
+                                        <!--<textarea id="maintain_msg" ng-model="maintain_msg" name="maintain_msg" class="materialize-textarea" maxlength="200" required></textarea>-->
+                                        <!--<label class="grey-text" for="maintain_msg"><span class="red-text text-lighten-2">*</span>维修原因</label>-->
+
+                                        <input id="maintain_msg" type="text" ng-model="maintain_msg" maxlength="200" required>
+                                        <label for="maintain_msg"><span class="red-text text-lighten-2">* </span>维修原因</label>
                                     </div>
                                     <!--<div class="input-field col s12" ng-class="{'has-error':maintain_Form.maintain_money.$invalid&&submitted}">-->
                                         <!--<input  id="maintain_money" name="maintain_money" ng-model="maintain_money" autocomplete="off" type="text"  required>-->
@@ -58,9 +61,9 @@
                                 </div>
                             </div>
                             <div class="divider" style="background: #00bcd4;height: 2px;"></div>
-                            <div class="row input-field ">
+                            <div class="row input-field">
                                 <a class="btn waves-effect btn-floating grey right" ng-click="close_insure()"><i class="mdi mdi-close"></i></a>
-                                <button class="btn right btn-floating" type="submit" name="action" style="margin-right: 10px"><i class="mdi mdi-check"></i></button>
+                                <button class="btn right btn-floating" type="submit" name="action" style="margin-right: 10px;margin-top: 0"><i class="mdi mdi-check"></i></button>
                             </div>
                         </form>
                     </div>

@@ -39,147 +39,23 @@
                     <div class="col s12 center-align" style="font-size: 1.2rem;font-weight: bold;color: #90A4AE">
                         <p style="margin: 10px 0">经销商洗车费 <span style="color: #26c6da">TOP10</span></p>
                     </div>
+
                     <!--top10排行榜-->
-                    <div class="col s12 valign-wrapper" style="margin: 5px 0">
+                    <div ng-repeat="feeInfo in sortCarWashFeeRanking" class="col s12 valign-wrapper" style="margin: 5px 0">
                         <div class="col s1 right-align" style="padding: 0;">
-                            <span class="white lighten-2 center" style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">1</span>
+                            <span class="white lighten-2 center" style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">{{$index + 1}}</span>
                         </div>
                         <div class="col s3 center-align">
-                            <span style="color: grey;font-weight: bold">上海浦兴</span>
+                            <span style="color: grey;font-weight: bold">{{feeInfo.receive_name}}</span>
                         </div>
                         <div class="col s5 progress" style="margin: 1rem 0">
-                            <div class="determinate" style="width: 70%"></div>
+                            <div class="determinate" style="width:{{feeInfo.percent + '%'}}"></div>
                         </div>
                         <div class="col s3">
-                            <span style="color: #ff8282;font-weight: bold">12345.00</span>
+                            <span style="color: #ff8282;font-weight: bold">{{feeInfo.money_count}}</span>
                         </div>
                     </div>
-                    <div class="col s12 valign-wrapper" style="margin: 5px 0">
-                        <div class="col s1 right-align" style="padding: 0;">
-                            <span class="white lighten-2 center" style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">1</span>
-                        </div>
-                        <div class="col s3 center-align">
-                            <span style="color: grey;font-weight: bold">上海浦兴</span>
-                        </div>
-                        <div class="col s5 progress" style="margin: 1rem 0">
-                            <div class="determinate" style="width: 70%"></div>
-                        </div>
-                        <div class="col s3">
-                            <span style="color: #ff8282;font-weight: bold">12345.00</span>
-                        </div>
-                    </div>
-                    <div class="col s12 valign-wrapper" style="margin: 5px 0">
-                        <div class="col s1 right-align" style="padding: 0;">
-                            <span class="white lighten-2 center" style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">1</span>
-                        </div>
-                        <div class="col s3 center-align">
-                            <span style="color: grey;font-weight: bold">上海浦兴</span>
-                        </div>
-                        <div class="col s5 progress" style="margin: 1rem 0">
-                            <div class="determinate" style="width: 70%"></div>
-                        </div>
-                        <div class="col s3">
-                            <span style="color: #ff8282;font-weight: bold">12345.00</span>
-                        </div>
-                    </div>
-                    <div class="col s12 valign-wrapper" style="margin: 5px 0">
-                        <div class="col s1 right-align" style="padding: 0;">
-                            <span class="white lighten-2 center" style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">1</span>
-                        </div>
-                        <div class="col s3 center-align">
-                            <span style="color: grey;font-weight: bold">上海浦兴</span>
-                        </div>
-                        <div class="col s5 progress" style="margin: 1rem 0">
-                            <div class="determinate" style="width: 70%"></div>
-                        </div>
-                        <div class="col s3">
-                            <span style="color: #ff8282;font-weight: bold">12345.00</span>
-                        </div>
-                    </div>
-                    <div class="col s12 valign-wrapper" style="margin: 5px 0">
-                        <div class="col s1 right-align" style="padding: 0;">
-                            <span class="white lighten-2 center" style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">1</span>
-                        </div>
-                        <div class="col s3 center-align">
-                            <span style="color: grey;font-weight: bold">上海浦兴</span>
-                        </div>
-                        <div class="col s5 progress" style="margin: 1rem 0">
-                            <div class="determinate" style="width: 70%"></div>
-                        </div>
-                        <div class="col s3">
-                            <span style="color: #ff8282;font-weight: bold">12345.00</span>
-                        </div>
-                    </div>
-                    <div class="col s12 valign-wrapper" style="margin: 5px 0">
-                        <div class="col s1 right-align" style="padding: 0;">
-                            <span class="white lighten-2 center" style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">1</span>
-                        </div>
-                        <div class="col s3 center-align">
-                            <span style="color: grey;font-weight: bold">上海浦兴</span>
-                        </div>
-                        <div class="col s5 progress" style="margin: 1rem 0">
-                            <div class="determinate" style="width: 70%"></div>
-                        </div>
-                        <div class="col s3">
-                            <span style="color: #ff8282;font-weight: bold">12345.00</span>
-                        </div>
-                    </div>
-                    <div class="col s12 valign-wrapper" style="margin: 5px 0">
-                        <div class="col s1 right-align" style="padding: 0;">
-                            <span class="white lighten-2 center" style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">1</span>
-                        </div>
-                        <div class="col s3 center-align">
-                            <span style="color: grey;font-weight: bold">上海浦兴</span>
-                        </div>
-                        <div class="col s5 progress" style="margin: 1rem 0">
-                            <div class="determinate" style="width: 70%"></div>
-                        </div>
-                        <div class="col s3">
-                            <span style="color: #ff8282;font-weight: bold">12345.00</span>
-                        </div>
-                    </div>
-                    <div class="col s12 valign-wrapper" style="margin: 5px 0">
-                        <div class="col s1 right-align" style="padding: 0;">
-                            <span class="white lighten-2 center" style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">1</span>
-                        </div>
-                        <div class="col s3 center-align">
-                            <span style="color: grey;font-weight: bold">上海浦兴</span>
-                        </div>
-                        <div class="col s5 progress" style="margin: 1rem 0">
-                            <div class="determinate" style="width: 70%"></div>
-                        </div>
-                        <div class="col s3">
-                            <span style="color: #ff8282;font-weight: bold">12345.00</span>
-                        </div>
-                    </div>
-                    <div class="col s12 valign-wrapper" style="margin: 5px 0">
-                        <div class="col s1 right-align" style="padding: 0;">
-                            <span class="white lighten-2 center" style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">1</span>
-                        </div>
-                        <div class="col s3 center-align">
-                            <span style="color: grey;font-weight: bold">上海浦兴</span>
-                        </div>
-                        <div class="col s5 progress" style="margin: 1rem 0">
-                            <div class="determinate" style="width: 70%"></div>
-                        </div>
-                        <div class="col s3">
-                            <span style="color: #ff8282;font-weight: bold">12345.00</span>
-                        </div>
-                    </div>
-                    <div class="col s12 valign-wrapper" style="margin: 5px 0">
-                        <div class="col s1 right-align" style="padding: 0;">
-                            <span class="white lighten-2 center" style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">1</span>
-                        </div>
-                        <div class="col s3 center-align">
-                            <span style="color: grey;font-weight: bold">上海浦兴</span>
-                        </div>
-                        <div class="col s5 progress" style="margin: 1rem 0">
-                            <div class="determinate" style="width: 70%"></div>
-                        </div>
-                        <div class="col s3">
-                            <span style="color: #ff8282;font-weight: bold">12345.00</span>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -218,144 +94,18 @@
                         <p style="margin: 10px 0">经销商洗车费 <span style="color: #ff7e7e">TOP10</span></p>
                     </div>
                     <!--top10排行榜-->
-                    <div class="col s12 valign-wrapper" style="margin: 5px 0">
+                    <div ng-repeat="feeInfo in sortCarWashFeeRanking" class="col s12 valign-wrapper" style="margin: 5px 0">
                         <div class="col s1 right-align" style="padding: 0;">
-                            <span class="white lighten-2 center" style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">1</span>
+                            <span class="white lighten-2 center" style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">{{$index + 1}}</span>
                         </div>
                         <div class="col s3 center-align">
-                            <span style="color: grey;font-weight: bold">上海浦兴</span>
+                            <span style="color: grey;font-weight: bold">{{feeInfo.receive_name}}</span>
                         </div>
                         <div class="col s5 progress" style="margin: 1rem 0;background-color: #ffbaba;">
-                            <div class="determinate" style="width: 70%;background-color: #FF7E7E;"></div>
+                            <div class="determinate" style="width: {{feeInfo.percent + '%'}};background-color: #FF7E7E;"></div>
                         </div>
                         <div class="col s3">
-                            <span style="color: #ff8282;font-weight: bold">12345.00</span>
-                        </div>
-                    </div>
-                    <div class="col s12 valign-wrapper" style="margin: 5px 0">
-                        <div class="col s1 right-align" style="padding: 0;">
-                            <span class="white lighten-2 center" style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">1</span>
-                        </div>
-                        <div class="col s3 center-align">
-                            <span style="color: grey;font-weight: bold">上海浦兴</span>
-                        </div>
-                        <div class="col s5 progress" style="margin: 1rem 0;background-color: #ffbaba;">
-                            <div class="determinate" style="width: 70%;background-color: #FF7E7E;"></div>
-                        </div>
-                        <div class="col s3">
-                            <span style="color: #ff8282;font-weight: bold">12345.00</span>
-                        </div>
-                    </div>
-                    <div class="col s12 valign-wrapper" style="margin: 5px 0">
-                        <div class="col s1 right-align" style="padding: 0;">
-                            <span class="white lighten-2 center" style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">1</span>
-                        </div>
-                        <div class="col s3 center-align">
-                            <span style="color: grey;font-weight: bold">上海浦兴</span>
-                        </div>
-                        <div class="col s5 progress" style="margin: 1rem 0;background-color: #ffbaba;">
-                            <div class="determinate" style="width: 70%;background-color: #FF7E7E;"></div>
-                        </div>
-                        <div class="col s3">
-                            <span style="color: #ff8282;font-weight: bold">12345.00</span>
-                        </div>
-                    </div>
-                    <div class="col s12 valign-wrapper" style="margin: 5px 0">
-                        <div class="col s1 right-align" style="padding: 0;">
-                            <span class="white lighten-2 center" style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">1</span>
-                        </div>
-                        <div class="col s3 center-align">
-                            <span style="color: grey;font-weight: bold">上海浦兴</span>
-                        </div>
-                        <div class="col s5 progress" style="margin: 1rem 0;background-color: #ffbaba;">
-                            <div class="determinate" style="width: 70%;background-color: #FF7E7E;"></div>
-                        </div>
-                        <div class="col s3">
-                            <span style="color: #ff8282;font-weight: bold">12345.00</span>
-                        </div>
-                    </div>
-                    <div class="col s12 valign-wrapper" style="margin: 5px 0">
-                        <div class="col s1 right-align" style="padding: 0;">
-                            <span class="white lighten-2 center" style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">1</span>
-                        </div>
-                        <div class="col s3 center-align">
-                            <span style="color: grey;font-weight: bold">上海浦兴</span>
-                        </div>
-                        <div class="col s5 progress" style="margin: 1rem 0;background-color: #ffbaba;">
-                            <div class="determinate" style="width: 70%;background-color: #FF7E7E;"></div>
-                        </div>
-                        <div class="col s3">
-                            <span style="color: #ff8282;font-weight: bold">12345.00</span>
-                        </div>
-                    </div>
-                    <div class="col s12 valign-wrapper" style="margin: 5px 0">
-                        <div class="col s1 right-align" style="padding: 0;">
-                            <span class="white lighten-2 center" style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">1</span>
-                        </div>
-                        <div class="col s3 center-align">
-                            <span style="color: grey;font-weight: bold">上海浦兴</span>
-                        </div>
-                        <div class="col s5 progress" style="margin: 1rem 0;background-color: #ffbaba;">
-                            <div class="determinate" style="width: 70%;background-color: #FF7E7E;"></div>
-                        </div>
-                        <div class="col s3">
-                            <span style="color: #ff8282;font-weight: bold">12345.00</span>
-                        </div>
-                    </div>
-                    <div class="col s12 valign-wrapper" style="margin: 5px 0">
-                        <div class="col s1 right-align" style="padding: 0;">
-                            <span class="white lighten-2 center" style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">1</span>
-                        </div>
-                        <div class="col s3 center-align">
-                            <span style="color: grey;font-weight: bold">上海浦兴</span>
-                        </div>
-                        <div class="col s5 progress" style="margin: 1rem 0;background-color: #ffbaba;">
-                            <div class="determinate" style="width: 70%;background-color: #FF7E7E;"></div>
-                        </div>
-                        <div class="col s3">
-                            <span style="color: #ff8282;font-weight: bold">12345.00</span>
-                        </div>
-                    </div>
-                    <div class="col s12 valign-wrapper" style="margin: 5px 0">
-                        <div class="col s1 right-align" style="padding: 0;">
-                            <span class="white lighten-2 center" style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">1</span>
-                        </div>
-                        <div class="col s3 center-align">
-                            <span style="color: grey;font-weight: bold">上海浦兴</span>
-                        </div>
-                        <div class="col s5 progress" style="margin: 1rem 0;background-color: #ffbaba;">
-                            <div class="determinate" style="width: 70%;background-color: #FF7E7E;"></div>
-                        </div>
-                        <div class="col s3">
-                            <span style="color: #ff8282;font-weight: bold">12345.00</span>
-                        </div>
-                    </div>
-                    <div class="col s12 valign-wrapper" style="margin: 5px 0">
-                        <div class="col s1 right-align" style="padding: 0;">
-                            <span class="white lighten-2 center" style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">1</span>
-                        </div>
-                        <div class="col s3 center-align">
-                            <span style="color: grey;font-weight: bold">上海浦兴</span>
-                        </div>
-                        <div class="col s5 progress" style="margin: 1rem 0;background-color: #ffbaba;">
-                            <div class="determinate" style="width: 70%;background-color: #FF7E7E;"></div>
-                        </div>
-                        <div class="col s3">
-                            <span style="color: #ff8282;font-weight: bold">12345.00</span>
-                        </div>
-                    </div>
-                    <div class="col s12 valign-wrapper" style="margin: 5px 0">
-                        <div class="col s1 right-align" style="padding: 0;">
-                            <span class="white lighten-2 center" style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">1</span>
-                        </div>
-                        <div class="col s3 center-align">
-                            <span style="color: grey;font-weight: bold">上海浦兴</span>
-                        </div>
-                        <div class="col s5 progress" style="margin: 1rem 0;background-color: #ffbaba;">
-                            <div class="determinate" style="width: 70%;background-color: #FF7E7E;"></div>
-                        </div>
-                        <div class="col s3">
-                            <span style="color: #ff8282;font-weight: bold">12345.00</span>
+                            <span style="color: #ff8282;font-weight: bold">{{feeInfo.money_count}}</span>
                         </div>
                     </div>
                 </div>

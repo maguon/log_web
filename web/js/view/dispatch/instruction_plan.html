@@ -349,23 +349,23 @@
                                 <!--任务列表-->
                                 <div class="col s12 valign-wrapper" ng-repeat="nowMission in missionList" style="border-top: 1px solid #ccc">
                                     <div class="col s3" style="padding: 0">
-                                        <div class="col s7 right-align" style="padding: 0">
+                                        <div class="col s6 right-align" style="padding: 0">
                                             <p>{{nowMission.addr_name}}&emsp;<span class="mdi mdi-arrow-right"></span></p>
                                         </div>
-                                        <div class="col s5 left-align">
-                                            <p>{{nowMission.city_name}}</p>
+                                        <div class="col s6 left-align">
+                                            <p>{{nowMission.city_name}}&emsp;{{ "(" + nowMission.short_name + ")"}}</p>
                                         </div>
                                     </div>
-                                    <div class="col s4">
-                                        <p>{{"(" + nowMission.short_name + ")"}}</p>
-                                    </div>
-                                    <div class="col s2">
+                                    <!--<div class="col s4">-->
+                                        <!--<p>{{"(" + nowMission.short_name + ")"}}</p>-->
+                                    <!--</div>-->
+                                    <div class="col s3">
                                         <p>{{nowMission.plan_date | date:'yyyy-MM-dd - HH:mm'}}</p>
                                     </div>
-                                    <div class="col s2">
+                                    <div class="col s3">
                                         <p>数量：{{nowMission.plan_count}}</p>
                                     </div>
-                                    <div class="col s1">
+                                    <div class="col s2">
                                         <a ng-click="deleteMission(nowMission.id,currentLine.id)" style="width: 30px;height: 30px" class="modal-action modal-close waves-light waves-effect red lighten-1 btn btn-floating">
                                             <i style="line-height: 30px" class="mdi mdi-close"></i>
                                         </a>

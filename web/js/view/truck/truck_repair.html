@@ -1,14 +1,13 @@
-<div  >
-    <div class="" >
+<div>
+    <div class="">
         <div class="modal-content grey-text text-darken-2">
-            <!--<div class="" style="width: 95%;margin: 0 auto">-->
-            <div class="storage_storeTitle vc-center ">
+            <div class="storage_storeTitle vc-center">
                 <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
                     <i class="mdi mdi-arrow-left-bold"></i>
                 </a>
                 <h4 class="center-align cyan-text text-lighten-1">维修记录</h4>
             </div>
-            <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+            <div class="divider" style="background: #00bcd4;height: 2px"></div>
             <div class="row" style="width: 95%">
                 <div class="row">
                     <div class="input-field right">
@@ -33,11 +32,7 @@
                 </div>
                 <div id="add_maintain" class="modal">
                     <div class="modal-content grey-text text-darken-2">
-                        <!--<div class="" style="width: 95%;margin: 0 auto">-->
                         <div class="storage_storeTitle vc-center ">
-                            <!--<a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">-->
-                            <!--<i class="mdi mdi-arrow-left-bold"></i>-->
-                            <!--</a>-->
                             <h4 class="center-align cyan-text text-lighten-1">维修</h4>
                         </div>
                         <div class="divider" style="background: #00bcd4;height: 2px;"></div>
@@ -48,16 +43,9 @@
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12" ng-class="{'has-error':maintain_Form.maintain_msg.$invalid&&main_submitted}">
-                                        <!--<textarea id="maintain_msg" ng-model="maintain_msg" name="maintain_msg" class="materialize-textarea" maxlength="200" required></textarea>-->
-                                        <!--<label class="grey-text" for="maintain_msg"><span class="red-text text-lighten-2">*</span>维修原因</label>-->
-
                                         <input id="maintain_msg" type="text" ng-model="maintain_msg" maxlength="200" required>
                                         <label for="maintain_msg"><span class="red-text text-lighten-2">* </span>维修原因</label>
                                     </div>
-                                    <!--<div class="input-field col s12" ng-class="{'has-error':maintain_Form.maintain_money.$invalid&&submitted}">-->
-                                        <!--<input  id="maintain_money" name="maintain_money" ng-model="maintain_money" autocomplete="off" type="text"  required>-->
-                                        <!--<label class="grey-text" for="maintain_money"><span class="red-text text-lighten-2">*</span>维修金额(元)</label>-->
-                                    <!--</div>-->
                                 </div>
                             </div>
                             <div class="divider" style="background: #00bcd4;height: 2px;"></div>
@@ -72,13 +60,12 @@
                     <span class="col s6 black-text" >正在维修</span>
                     <span class="col s6 right-align" >维修时间：<span>{{el.created_on|date:'yyyy-MM-dd'}}</span></span>
                     <div class="divider col s12 grey" style="height: 1px;margin-bottom: 20px"></div>
-                    <p >
+                    <p>
                         <h6 class="col s12 black-text">维修原因:</h6>
                         <span class="col s10">{{el.repair_reason}}</span>
                         <div class="col s2">
                             <a class=" btn btn-large waves-effect btn-floating cyan right" ng-click="over_repair(el.repair_reason,el.id)">结束</a>
                         </div>
-
                     </p>
                     <div class="divider col s12 grey" style="height: 1px;margin-top: 20px"></div>
                 </div>
@@ -97,11 +84,7 @@
                 </div>
                 <div id="put_repair_details" class="modal">
                     <div class="modal-content grey-text text-darken-2">
-                        <!--<div class="" style="width: 95%;margin: 0 auto">-->
                         <div class="storage_storeTitle vc-center ">
-                            <!--<a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">-->
-                            <!--<i class="mdi mdi-arrow-left-bold"></i>-->
-                            <!--</a>-->
                             <h4 class="center-align cyan-text text-lighten-1">维修描述</h4>
                         </div>
                         <div class="divider" style="background: #00bcd4;height: 2px;"></div>
@@ -109,16 +92,16 @@
                             <div class="row" style="width: 90%;margin-top: 20px">
                                 <div class="row">
                                     <div class="input-field col s12" ng-class="{'has-error':repair_remark_form.repair_remark.$invalid&&put_repair_submitted}">
-                                        <textarea id="repair_remark" ng-model="repair_remark" name="repair_remark" class="materialize-textarea" maxlength="200" required></textarea>
-                                        <label class="grey-text" for="repair_remark"><span class="red-text text-lighten-2">*</span>维修描述</label>
+                                        <input type="text" id="repair_remark" ng-model="repair_remark" name="repair_remark" maxlength="200" required>
+                                        <label class="grey-text" for="repair_remark"><span class="red-text text-lighten-2">* </span>维修描述</label>
                                     </div>
                                     <div class="input-field col s6" ng-class="{'has-error':repair_remark_form.repair_money.$invalid&&put_repair_submitted}">
                                         <input type="text" id="repair_money" ng-model="repair_money" name="repair_money" maxlength="8" autocomplete="off"  required>
-                                        <label class="grey-text" for="repair_money"><span class="red-text text-lighten-2">*</span>维修金额（元）</label>
+                                        <label class="grey-text" for="repair_money"><span class="red-text text-lighten-2">* </span>维修金额（元）</label>
                                     </div>
                                     <div class="input-field col s6" ng-class="{'has-error':repair_remark_form.repair_user.$invalid&&put_repair_submitted}">
                                         <input type="text" id="repair_user" ng-model="repair_user" name="repair_user"  autocomplete="off"  required>
-                                        <label class="grey-text" for="repair_user"><span class="red-text text-lighten-2">*</span>维修人</label>
+                                        <label class="grey-text" for="repair_user"><span class="red-text text-lighten-2">* </span>维修人</label>
                                     </div>
                                 </div>
                                 <div class="col s12" style="word-wrap: break-word">
@@ -129,7 +112,7 @@
                             <div class="divider" style="background: #00bcd4;height: 2px;"></div>
                             <div class="row input-field ">
                                 <a class="btn waves-effect btn-floating grey right" ng-click="close_put_repair_details()"><i class="mdi mdi-close"></i></a>
-                                <button class="btn right btn-floating" type="submit" name="action" style="margin-right: 10px"><i class="mdi mdi-check"></i></button>
+                                <button class="btn right btn-floating" type="submit" name="action" style="margin-right: 10px;margin-top: 0"><i class="mdi mdi-check"></i></button>
                             </div>
                         </form>
                     </div>

@@ -1,7 +1,7 @@
 <div class="car_wash_fee_statistics" style="width: 85%;margin: 0 auto">
     <div class="row valign-wrapper">
         <h5 class="col s12 cyan-text lighten-1 center-align">
-            商品车洗车费统计
+            责任赔偿统计
         </h5>
     </div>
 
@@ -10,7 +10,7 @@
         <div class="row z-depth-2">
             <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
                 <div class="col s5 left">
-                    <p>商品车洗车费-按月统计</p>
+                    <p>责任赔偿-按月统计</p>
                 </div>
                 <div class="col s6 right">
                     <div class="col s3 left">
@@ -31,24 +31,28 @@
                 </div>
             </div>
             <!--商品车洗车费统计-柱状图-->
+            <div class="col s12">
+                <div id="companyLiabilityStatisticsMonth" style="min-width:400px;height:400px;margin: 25px 0 25px 0"></div>
+            </div>
             <div class="col s8">
-                <div id="vehicleWashStatisticsMonth" style="min-width:400px;height:500px;margin: 20px 0 20px 0"></div>
+                <div id="personalLiabilityStatisticsMonth" style="min-width:400px;height:500px;margin: 10px 0 10px 0"></div>
             </div>
             <div class="col s4">
-                <div style="height:500px;margin-top:20px;background-color: white">
+                <div style="height:500px;margin-top:10px;background-color: white">
                     <div class="col s12 center-align" style="font-size: 1.2rem;font-weight: bold;color: #90A4AE">
-                        <p style="margin: 10px 0">经销商洗车费 <span style="color: #26c6da">TOP10</span></p>
+                        <p style="margin: 10px 0">个人承担赔偿 <span style="color: #ff7e7e">TOP10</span></p>
                     </div>
+
                     <!--top10排行榜-->
-                    <div ng-repeat="feeInfo in sortCarWashFeeRanking" class="col s12 valign-wrapper" style="margin: 5px 0">
+                    <div ng-repeat="feeInfo in sortPersonalCompensate" class="col s12 valign-wrapper" style="margin: 5px 0">
                         <div class="col s1 right-align" style="padding: 0;">
                             <span class="white lighten-2 center" style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">{{$index + 1}}</span>
                         </div>
                         <div class="col s3 center-align">
-                            <span style="color: grey;font-weight: bold">{{feeInfo.receive_name}}</span>
+                            <span style="color: grey;font-weight: bold">{{feeInfo.person_name}}</span>
                         </div>
-                        <div class="col s5 progress" style="margin: 1rem 0">
-                            <div class="determinate" style="width:{{feeInfo.percent + '%'}}"></div>
+                        <div class="col s5 progress" style="margin: 1rem 0;background-color: #ffdcdc;">
+                            <div class="determinate" style="width: {{feeInfo.percent + '%'}};background-color: #FF7E7E;"></div>
                         </div>
                         <div class="col s3">
                             <span style="color: #ff8282;font-weight: bold">{{feeInfo.money_count}}</span>
@@ -60,10 +64,10 @@
         </div>
 
         <!--商品车洗车费，按周统计-->
-        <div class="row z-depth-2" style="margin-top: 40px">
+        <div class="row z-depth-2" style="margin-top: 70px">
             <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
                 <div class="col s5 left">
-                    <p>商品车洗车费-按周统计</p>
+                    <p>责任赔偿-按周统计</p>
                 </div>
                 <div class="col s6 right">
                     <div class="col s3 left">
@@ -84,21 +88,24 @@
                 </div>
             </div>
             <!--商品车洗车费统计-柱状图-->
+            <div class="col s12">
+                <div id="companyLiabilityStatisticsWeek" style="min-width:400px;height:400px;margin: 25px 0 25px 0"></div>
+            </div>
             <div class="col s8">
-                <div id="vehicleWashStatisticsWeek" style="min-width:400px;height:500px;margin: 20px 0 20px 0"></div>
+                <div id="personalLiabilityStatisticsWeek" style="min-width:400px;height:500px;margin: 10px 0 10px 0"></div>
             </div>
             <div class="col s4">
-                <div style="height:500px;margin-top:20px;background-color: white">
+                <div style="height:500px;margin-top:10px;background-color: white">
                     <div class="col s12 center-align" style="font-size: 1.2rem;font-weight: bold;color: #90A4AE">
-                        <p style="margin: 10px 0">经销商洗车费 <span style="color: #ff7e7e">TOP10</span></p>
+                        <p style="margin: 10px 0">个人承担赔偿 <span style="color: #ff7e7e">TOP10</span></p>
                     </div>
                     <!--top10排行榜-->
-                    <div ng-repeat="feeInfo in sortCarWashFeeRanking" class="col s12 valign-wrapper" style="margin: 5px 0">
+                    <div ng-repeat="feeInfo in sortPersonalCompensate" class="col s12 valign-wrapper" style="margin: 5px 0">
                         <div class="col s1 right-align" style="padding: 0;">
                             <span class="white lighten-2 center" style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">{{$index + 1}}</span>
                         </div>
                         <div class="col s3 center-align">
-                            <span style="color: grey;font-weight: bold">{{feeInfo.receive_name}}</span>
+                            <span style="color: grey;font-weight: bold">{{feeInfo.person_name}}</span>
                         </div>
                         <div class="col s5 progress" style="margin: 1rem 0;background-color: #ffdcdc;">
                             <div class="determinate" style="width: {{feeInfo.percent + '%'}};background-color: #FF7E7E;"></div>

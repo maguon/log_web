@@ -253,6 +253,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:"car_wash_fee_statistics_controller"
         })
 
+        .state("liability_compensation_statistics", {
+            url:"/liability_compensation_statistics",
+            templateUrl: "js/view/storage/liability_compensation_statistics.html",
+            controller:"liability_compensation_statistics_controller"
+        })
+
         // 从首页跳详情图
         .state("storage_car_details", {
             url:"/storage_car_details/{id}/vin/{vin}/_form/{_form}?from",

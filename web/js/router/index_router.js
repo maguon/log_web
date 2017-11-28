@@ -259,6 +259,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:"liability_compensation_statistics_controller"
         })
 
+        .state("car_insurance_payment_statistics", {
+            url:"/car_insurance_payment_statistics",
+            templateUrl: "js/view/storage/car_insurance_payment_statistics.html",
+            controller:"car_insurance_payment_statistics_controller"
+        })
+
         // 从首页跳详情图
         .state("storage_car_details", {
             url:"/storage_car_details/{id}/vin/{vin}/_form/{_form}?from",

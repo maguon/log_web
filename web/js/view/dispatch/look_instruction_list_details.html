@@ -26,7 +26,7 @@
                     </div>
                     <div class="row" style="padding:0 20px">
                         <div class="col s4">
-                            <p><span>调度计划执行时间：</span>{{this_instruction.task_plan_date | date:"yyyy-MM-dd HH:mm:ss"}}</p>
+                            <p><span>调度计划执行时间：</span>{{this_instruction.task_plan_date | date:"yyyy-MM-dd"}}</p>
                         </div>
                         <div class="col s4">
                             <p><span>调度实际执行时间：</span>{{this_instruction.task_start_date | date:"yyyy-MM-dd HH:mm:ss"}}</p>
@@ -38,11 +38,11 @@
 
                     <div class="row grey white-text" style="padding: 20px;margin-bottom:0">
                         <div class="col s12 fz18">
-                            <div class="col s4">
+                            <div class="col s2">
                                 <p><span>指派货车：</span>{{this_instruction.truck_num}}</p>
                             </div>
-                            <div class="col s8 " >
-                                <div class="col s3">
+                            <div class="col s10">
+                                <div class="col s2">
                                     <p><span>车位：</span>{{this_instruction.trail_number}}</p>
                                 </div>
                                 <div class="col s3">
@@ -51,7 +51,7 @@
                                 <div class="col s3">
                                     <p><span>司机：</span>{{this_instruction.drive_name}}</p>
                                 </div>
-                                <div class="col s3">
+                                <div class="col s4">
                                     <p><span>联系电话：</span>{{this_instruction.tel}}</p>
                                 </div>
                             </div>
@@ -59,21 +59,21 @@
                     </div>
                     <div class="col s12 p0" ng-repeat="el in this_LoadTask" >
                         <div class="col s12 grey lighten-1 white-text valign-wrapper" style="padding: 10px 50px;margin-top: 2px">
-                            <div class="col s4">
+                            <div class="col s3">
                                 <span><span>{{el.addr_name}}</span> <span class="mdi mdi-arrow-right"></span> <span>{{el.short_name}}</span></span>
                             </div>
-                            <div class="col s8 valign-wrapper">
+                            <div class="col s9 valign-wrapper">
                                 <div class="col s2">
                                     <p><span>运送车辆：{{el.plan_count}}</span></p>
                                 </div>
                                 <div class="col s3">
-                                    <p><span>派发调度：</span>{{el.task_op_name}}</p>
+                                    <p><span>派发：</span>{{el.task_op_name}}</p>
                                 </div>
                                 <div class="col s2">
                                     <span>{{el.load_task_status | missionStatus}}</span>
                                 </div>
                                 <div class="col s3">
-                                    <p><span>现场调度：</span>{{el.field_op_id}}</p>
+                                    <p><span>现场：</span>{{el.field_op_id}}</p>
                                 </div>
                                 <div class="col s2 right-align" style="cursor: pointer" ng-click="open_LoadTaskList(el.id,$index)">
                                     <span style="font-size: 1.6rem" class="mdi mdi-chevron-double-down"></span>
@@ -81,13 +81,10 @@
 
                             </div>
                         </div>
-                        <div class="col s12 grey lighten-2 this_LoadTaskList this_LoadTaskList{{$index}}" flag="false" style="padding: 10px  50px;display: none">
-                            <div class="col s3" style=" padding: 5px 10px" ng-repeat="el in this_LoadTaskList">
-                                <div class="col s6">
-                                    VIN码: {{el.vin}}
-                                </div>
-                                <div class="col s6" style="border-right: 1px solid grey" >
-                                    制造商: {{el.make_name}}
+                        <div class="col s12 grey lighten-2 this_LoadTaskList this_LoadTaskList{{$index}}" flag="false" style="padding: 10px 0;display: none">
+                            <div class="col s3" style="padding: 5px 10px" ng-repeat="el in this_LoadTaskList">
+                                <div class="col s12 center-align" style="border-right: 1px solid grey;font-size: 0.9rem;padding: 0">
+                                    VIN码及制造商：{{el.vin}}（{{el.make_name}}）
                                 </div>
                             </div>
                         </div>

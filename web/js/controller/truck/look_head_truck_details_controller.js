@@ -167,6 +167,7 @@ app.controller("look_head_truck_details_controller", ["$scope", "$state", "$stat
                 if (data.success == true) {
                     // console.log(data);
                     $scope.operating_record = data.result[0];
+                    console.log("operating_record",data);
                     $scope.comment = $scope.operating_record.comments;
                     $scope.truck_image = $scope.operating_record.images;
                     if ($scope.truck_image.length > 0) {

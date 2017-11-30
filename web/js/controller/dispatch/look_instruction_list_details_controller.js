@@ -12,14 +12,16 @@ app.controller("look_instruction_list_details_controller", ["$scope", "$host", "
                 timeEnd: $stateParams.timeEnd,
                 refer: $stateParams.refer
             })
-        } else {
+        }
+        else {
             $state.go($stateParams.from, {reload: true})
         }
 
     };
     if ($stateParams.from == "instruction_drive_details") {
         $scope._id = $stateParams.instruction_id
-    } else {
+    }
+    else {
         $scope._id = $stateParams.id
     }
     $scope.LoadTaskList = false;
@@ -36,7 +38,8 @@ app.controller("look_instruction_list_details_controller", ["$scope", "$host", "
                     $scope.this_instruction = data.result[0];
                     if ($scope.this_instruction.date_id) {
                         $scope.data_id = moment($scope.this_instruction.date_id.toString()).format("YYYY-MM-DD");
-                    } else {
+                    }
+                    else {
                         $scope.data_id = "";
                     }
                     resolve();
@@ -49,7 +52,7 @@ app.controller("look_instruction_list_details_controller", ["$scope", "$host", "
     p().then(function () {
         _basic.get($host.api_url + "/dpRouteLoadTask?dpRouteTaskId=" + $scope._id).then(function (data) {
             if (data.success == true) {
-                console.log("data", data);
+                // console.log("data", data);
                 $scope.this_LoadTask = data.result;
             }
         })
@@ -61,18 +64,20 @@ app.controller("look_instruction_list_details_controller", ["$scope", "$host", "
                 $(".this_LoadTaskList").attr("flag", "false");
                 if (data.success == true && data.result.length > 0) {
                     $scope.this_LoadTaskList = data.result;
+                    // console.log("this_LoadTaskList",$scope.this_LoadTaskList);
                     $(".this_LoadTaskList" + index).show();
                     $(".this_LoadTaskList" + index).attr("flag", 'true');
-                } else {
+                }
+                else {
                     $(".this_LoadTaskList" + index).attr("flag", 'false');
                     $(".this_LoadTaskList" + index).hide();
                 }
             })
-        } else {
+        }
+        else {
             $(".this_LoadTaskList" + index).attr("flag", 'false');
             $(".this_LoadTaskList" + index).hide();
 
         }
-        ;
     }
 }]);

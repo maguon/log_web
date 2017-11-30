@@ -12,79 +12,78 @@
             <div class="row no-marBottom" ul-tabs>
                 <div id="look_msg" class="col s12 tab_box" style="width: 90%; margin:0 5% ">
                     <div class="row vc-center" style="padding: 20px 0">
-                        <div class="col s4">
-                            <h5>指令时间:<span class="cyan-text">{{this_instruction.date_id}}</span></h5>
+                        <div class="col s3">
+                            <h5>指令时间：<span class="cyan-text">{{this_instruction.date_id}}</span></h5>
                         </div>
-                        <div class="col s8 vc-center">
-                            <div class="col s6">
-                                需求生成时间:<span>{{this_instruction.created_on|date:"yyyy-MM-dd HH:mm:ss"}}</span>
+                        <div class="col s9 vc-center">
+                            <div class="col s7">
+                                <h5>需求生成时间：<span class="cyan-text">{{this_instruction.created_on|date:"yyyy-MM-dd HH:mm:ss"}}</span></h5>
                             </div>
 
-                            <div class="col s6">
-                                需求人:
-                                <span ng-bind="this_instruction.demand_op_name" class="fz20 cyan-text">待接受</span>
+                            <div class="col s5">
+                                <h5>需求人：<span class="cyan-text">{{this_instruction.demand_op_name}}</span></h5>
                             </div>
                         </div>
                     </div>
-                    <div class="row" style="padding:0">
+                    <div class="row bold_txt" style="padding:0">
                         <div class="col s3">
-                            起始城市:<span>{{this_instruction.route_start}}</span>
+                            <p><span>起始城市：</span>{{this_instruction.route_start}}</p>
                         </div>
                         <div class="col s3">
-                            装车地点:<span>{{this_instruction.addr_name}}</span>
+                            <p><span>装车地点：</span>{{this_instruction.addr_name}}</p>
                         </div>
                         <div class="col s3">
-                            目的城市:<span>{{this_instruction.route_end}}</span>
+                            <p><span>目的城市：</span>{{this_instruction.route_end}}</p>
                         </div>
                         <div class="col s3">
-                            送达地点:<span>{{this_instruction.short_name}}</span>
+                            <p><span>送达地点：</span>{{this_instruction.short_name}}</p>
                         </div>
                     </div>
-                    <div class="row" style="padding:0">
+                    <div class="row bold_txt" style="padding:0">
                         <div class="col s6">
-                            派送车辆:<span>{{this_instruction.pre_count}}</span>
+                            <p><span>派送车辆：</span>{{this_instruction.pre_count}}</p>
                         </div>
                         <div class="col s6">
-                            已派送车辆:<span>{{PlanCount}}</span>
+                            <p><span>已派送车辆：</span>{{PlanCount}}</p>
                         </div>
-                        <!--<div class="col s4">-->
-                            <!--异常车辆:<span></span>-->
-                        <!--</div>-->
                     </div>
 
                     <div class="col s12 p0" ng-repeat="dispatchInfo in disPatchInfoList" >
-                        <div class="col s12 grey lighten-1 white-text center-align" style="padding: 10px 50px;margin-top: 5px">
-                            <div class="col s3">
-                                派发车辆:<span>{{dispatchInfo.plan_count}}</span>
-                            </div>
-                            <div class="col s3">
-                                派发调度:<span>{{dispatchInfo.task_op_name}}</span>
-                            </div>
-                            <div class="col s4">
-                                执行时间:<span>{{dispatchInfo.task_start_date | date:'yyyy-MM-dd HH:mm'}}</span>
-                            </div>
-                            <div class="col s2">
-                                货车:<span>{{dispatchInfo.truck_num}}</span>
+                        <div class="col s12 grey lighten-1 white-text center-align bold_txt" style="padding: 10px 50px;margin-top: 5px;font-size: 1.05rem">
+                            <div class="col s11">
+                                <div class="col s2 left-align">
+                                    <p><span>派发车辆：</span>{{dispatchInfo.plan_count}}</p>
+                                </div>
+                                <div class="col s3 left-align">
+                                    <p><span>派发调度：</span>{{dispatchInfo.task_op_name}}</p>
+                                </div>
+                                <div class="col s3 left-align">
+                                    <p><span>执行时间：</span>{{dispatchInfo.task_start_date | date:'yyyy-MM-dd HH:mm'}}</p>
+                                </div>
+                                <div class="col s2 left-align">
+                                    <p><span>货车：</span>{{dispatchInfo.truck_num}}</p>
+                                </div>
+                                <div class="col s1 left-align">
+                                    <span>{{dispatchInfo.load_task_status | missionStatus}}</span>
+                                </div>
+
+                                <div class="col s3 left-align">
+                                    <p><span>现场调度：</span>{{dispatchInfo.field_op_name}}</p>
+                                </div>
                             </div>
 
-                            <div class="col s3">
-                                现场调度:<span>{{dispatchInfo.field_op_name}}</span>
-                            </div>
-                            <div class="col s3">
-                                <span>{{dispatchInfo.load_task_status | missionStatus}}</span>
-                            </div>
-                            <div class="col s6 right-align" style="cursor: pointer;padding: 0"
+                            <div class="col s1 right-align" style="cursor: pointer;padding: 0;font-size: 1.8rem"
                                  ng-click="open_LoadTaskList(dispatchInfo.id,$index)">
-                                商品车详情
-                                <i class="mdi mdi-menu-down"></i>
+                                <i class="mdi mdi-chevron-double-down"></i>
                             </div>
+
                         </div>
-                        <div class="col s12 grey lighten-2 this_LoadTaskList this_LoadTaskList{{$index}}" flag="false" style="padding: 10px  50px;display: none">
-                            <div class="col s3 fz13" style="padding: 5px 10px" ng-repeat="vinInfo in this_LoadTaskList">
-                                <div class="col s6" style="padding: 0">
+                        <div class="col s12 grey lighten-2 this_LoadTaskList this_LoadTaskList{{$index}}" flag="false" style="padding: 10px;display: none">
+                            <div class="col s3 fz13" ng-repeat="vinInfo in this_LoadTaskList">
+                                <div class="col s8" style="padding: 0">
                                     VIN码: <span>{{vinInfo.vin}}</span>
                                 </div>
-                                <div class="col s6" style="border-right: 1px solid grey;padding: 0" >
+                                <div class="col s4" style="border-right: 1px solid grey;padding: 0" >
                                     制造商: <span>{{vinInfo.make_name}}</span>
                                 </div>
                             </div>

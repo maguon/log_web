@@ -1214,3 +1214,8 @@ button[type="submit"] {
 .wash_fee_details span{
     font-weight: bold;
 }
+
+.bold_txt span{
+    font-size: 1.1rem;
+    font-weight: bold;
+}

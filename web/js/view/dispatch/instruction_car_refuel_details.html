@@ -9,42 +9,42 @@
                 <h5 class="center-align cyan-text text-lighten-1">加油申报详情</h5>
             </div>
             <div class="divider" style="background: #00bcd4;height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
-            <div class="row no-marBottom left-align fz18" style="width: 60%;margin: 0 auto">
+            <div class="row no-marBottom left-align fz18 bold_txt" style="width: 60%;margin: 0 auto">
                 <div class="row" style="margin-top: 40px">
                     <div class="col s6 ">
-                        申报时间: <span>{{driveRefuel_details.created_on|date:'yyyy-MM-dd HH:mm:ss'}}</span>
+                        <p><span>申报时间: </span>{{driveRefuel_details.created_on|date:'yyyy-MM-dd HH:mm:ss'}}</p>
                     </div>
                     <div class="col s6">
-                        加油时间: <span>{{driveRefuel_details.refuel_date|date:'yyyy-MM-dd HH:mm:ss'}}</span>
-                    </div>
-                </div>
-                <div class="row " >
-                    <div class="col s6">
-                        车牌号: <span>{{driveRefuel_details.truck_num}}</span>
-                    </div>
-                    <div class="col s6">
-                        司机: <span>{{driveRefuel_details.drive_name}}</span>
+                        <p><span>加油时间: </span>{{driveRefuel_details.refuel_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
                     </div>
                 </div>
-                <div class="row ">
+                <div class="row">
                     <div class="col s6">
-                        加油量: <span>{{driveRefuel_details.refuel_volume}}</span>
+                        <p><span>车牌号: </span>{{driveRefuel_details.truck_num}}</p>
                     </div>
                     <div class="col s6">
-                        加油金额: <span>{{driveRefuel_details.refuel_money}}元</span>
+                        <p><span>司机: </span>{{driveRefuel_details.drive_name}}</p>
                     </div>
                 </div>
-                <div class="row ">
+                <div class="row">
                     <div class="col s6">
-                        关联线路编号: <span>{{driveRefuel_details.dp_demand_id}}</span>
+                        <p><span>加油量: </span>{{driveRefuel_details.refuel_volume}}</p>
                     </div>
                     <div class="col s6">
-                        关联线路: <span>{{driveRefuel_details.route_start}}---{{driveRefuel_details.route_end}}</span>
+                        <p><span>加油金额: </span>{{driveRefuel_details.refuel_money}}元</p>
                     </div>
                 </div>
                 <div class="row ">
                     <div class="col s6">
-                        加油地: <span>{{driveRefuel_details.refuel_address}}</span>
+                        <p><span>关联线路编号: </span>{{driveRefuel_details.dp_demand_id}}</p>
+                    </div>
+                    <div class="col s6">
+                        <p><span>关联线路: </span>{{driveRefuel_details.route_start}}&nbsp;<span class="mdi mdi-arrow-right"></span>&nbsp;{{driveRefuel_details.route_end}}</p>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col s6">
+                        <p><span>加油地: </span>{{driveRefuel_details.refuel_address}}</p>
                     </div>
                 </div>
                 <div class="row" >
@@ -56,7 +56,7 @@
                 </div>
                 <div class="row ">
                     <div class="col s6">
-                        审核结果:
+                        <span>审核结果:</span>
                         <span ng-if="driveRefuel_details.check_status==1">
                             <a style="margin-left: 10px" class="btn btn-floating" ng-click="resolve(driveRefuel_details.id)" >
                                 通过
@@ -81,7 +81,6 @@
                                             <input id="textarea1" type="text" ng-model="reject_reason_msg">
                                             <label for="textarea1">拒绝原因</label>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -99,13 +98,13 @@
                         <span style="font-weight: bold;color: red" ng-if="driveRefuel_details.check_status==3">拒绝</span>
                     </div>
                 </div>
-                <div class="row"  ng-if="driveRefuel_details.check_status==3">
+                <div class="row" ng-if="driveRefuel_details.check_status==3">
                     <div class="col s12">
-                        拒绝原因: <span>{{driveRefuel_details.check_reason}}</span>
+                        <p><span>拒绝原因: </span>{{driveRefuel_details.check_reason}}</p>
                     </div>
                 </div>
                 <div class="col s12" ng-if="driveRefuel_details.check_status==2||driveRefuel_details.check_status==3">
-                    审批人: <span>{{driveRefuel_details.check_user_name}}</span>
+                    <p><span>审批人: </span>{{driveRefuel_details.check_user_name}}</p>
                 </div>
             </div>
         </div>

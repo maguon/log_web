@@ -68,11 +68,11 @@
                     <td>{{dispatchInfo.truck_num}}</td>
                     <td>{{dispatchInfo.drive_name}}</td>
                     <td>{{dispatchInfo.operate_status}}</td>
-                    <td ng-if="!dispatchInfo.current_city == 0">{{dispatchInfo.current_city}}</td>
+                    <td ng-if="!dispatchInfo.current_city == 0">{{dispatchInfo.city_name}}</td>
                     <td ng-if="dispatchInfo.current_city == 0">
-                        <p style="margin: 0">{{dispatchInfo.task_start}}
+                        <p style="margin: 0">{{dispatchInfo.task_start_name}}
                             &emsp;<span class="mdi mdi-arrow-right"></span>&emsp;
-                            {{dispatchInfo.task_end}}
+                            {{dispatchInfo.task_end_name}}
                         </p>
                     </td>
                     <td>{{dispatchInfo.car_count}}</td>

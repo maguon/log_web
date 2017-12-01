@@ -9,11 +9,22 @@ app.controller("instruction_car_refuel_details_controller", ["$scope", "$host", 
 
     // 通过
     $scope.resolve = function (id) {
-        _basic.put($host.api_url + "/user/" + userId + "/driveRefuel/" + id + "/checkStatus/" + 2, {}).then(function (data) {
-            if (data.success == true) {
-                $scope.search_All();
-            }
-        })
+        swal({
+                title: "确认审核通过？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确认",
+                cancelButtonText: "取消",
+                closeOnConfirm: true
+            },
+            function(){
+                _basic.put($host.api_url + "/user/" + userId + "/driveRefuel/" + id + "/checkStatus/" + 2, {}).then(function (data) {
+                    if (data.success == true) {
+                        $scope.search_All();
+                    }
+                })
+            });
     };
     // 拒绝
     $scope.reject = function (id) {

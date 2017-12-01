@@ -39,7 +39,6 @@ app.controller("instruction_operation_controller", ["$scope", "$host", "_basic",
                 taskStart:$scope.taskStart
             })).then(function (dispatchData) {
             if (dispatchData.success === true) {
-                console.log("dispatchData", dispatchData);
                 // 根据城市判断状态
                 for (var i = 0; i < dispatchData.result.length; i++) {
                     if (dispatchData.result[i].current_city === 0) {
@@ -62,7 +61,6 @@ app.controller("instruction_operation_controller", ["$scope", "$host", "_basic",
         _basic.get($host.api_url + "/city").then(function (cityData) {
             if (cityData.success === true) {
                 $scope.cityList = cityData.result;
-                console.log("cityData", cityData);
             }
             else {
                 swal(cityData.msg, "", "error");
@@ -75,7 +73,6 @@ app.controller("instruction_operation_controller", ["$scope", "$host", "_basic",
         _basic.get($host.api_url + "/baseAddr?cityId=" + $scope.startCityId).then(function (locateData) {
             if (locateData.success === true) {
                 $scope.locateList = locateData.result;
-                console.log("locateData",locateData);
             }
             else {
                 swal(locateData.msg, "", "error");
@@ -88,7 +85,6 @@ app.controller("instruction_operation_controller", ["$scope", "$host", "_basic",
         _basic.get($host.api_url + "/receive?cityId=" + $scope.endCityId).then(function (distributorData) {
             if (distributorData.success === true) {
                 $scope.distributorList = distributorData.result;
-                console.log("distributorData",distributorData);
             }
             else {
                 swal(distributorData.msg, "", "error");

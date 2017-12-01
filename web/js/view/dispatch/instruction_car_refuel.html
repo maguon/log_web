@@ -60,7 +60,7 @@
                     <th>加油所属</th>
                     <th>加油量（升）</th>
                     <th>加油金额</th>
-                    <th width="230">操作</th>
+                    <th width="220">操作</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -73,9 +73,9 @@
                         <td ng-if="el.refuel_address_type==2">外部加油</td>
                         <td>{{el.refuel_volume}}</td>
                         <td>{{el.refuel_money}}</td>
-                        <td class="details vc-center" width="230">
+                        <td class="details vc-center" width="220">
                             <div class="col s12">
-                                <div class="col s4">
+                                <div class="col s4 right-align" style="padding: 0;">
                                     <a style="width: 35px;height: 35px;font-size: 0.9rem;line-height: 36px" class="btn btn-floating" ng-click="resolve(el.id)" ng-if="el.check_status==1" >
                                         通过
                                     </a>

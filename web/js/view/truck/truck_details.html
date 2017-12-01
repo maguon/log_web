@@ -1,9 +1,36 @@
 <div id="truck_details" >
     <div class="" >
+
+        <!--设置车辆当前位置模态框-->
+        <div id="carPositionModel" class="modal modal-fixed-footer" style="width: 60%">
+            <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+                <div class="row col s12 vc-center fz22" style="font-weight: bold;height: 80px;background-color:rgb(63,185,193)">
+                    <div class="col s12 white-text">
+                        <p style="letter-spacing: 2px">设置车辆当前位置</p>
+                    </div>
+                </div>
+                <div class="row col s12">
+                    <div class="input-field col s4 offset-s4">
+                        <select id="chooseCarPosition" material-select watch ng-model="currentCityId">
+                            <option value="" selected>请选择</option>
+                            <option ng-repeat="city in allCityList" ng-value="city.id">{{city.city_name}}</option>
+                        </select>
+                        <label for="chooseCarPosition">车辆当前位置</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer vc-center">
+                <button ng-click="savePositionInfo()" class="btn waves-light waves-effect cyan lighten-1" type="button" style="margin-left: 56px" >
+                    确定
+                </button>
+            </div>
+        </div>
+
         <div class="modal-content grey-text text-darken-2">
             <div class="row no-marBottom" ul-tabs style="overflow: hidden">
                 <div class="col s12">
-                    <ul class="tabWrap grey lighten-4 ">
+                    <ul class="tabWrap grey lighten-4">
                         <li class="tab col s6 header_car vc-center" ng-click="header_car()">头车</li>
                         <li class="tab col s6 hand_car vc-center" ng-click="hand_car()">挂车</li>
                     </ul>
@@ -106,16 +133,19 @@
                                     <span ng-show="el.driving_date|ptime" class="small-tips red lighten-2">临</span>
                                     <span ng-hide="el.driving_date|ptime" class="small-tips "></span>
                                 </td>
-                                <td class="operation">
-                                    <a href="#" ui-sref="truck_guarantee_details({id:el.id,type:1,from:'truck_details'})" class="small-tips cyan lighten-2 white-text" style="margin-right: 10px;cursor: pointer">保</a>
-                                    <a href="#" ui-sref="truck_repair({id:el.id,type:1,status:1,from:'truck_details'})" ng-if="el.repair_status==1"  class=" cyan-text   fz12 center-align" style="margin-right: 10px;cursor: pointer">
+                                <td class="operation vc-center">
+                                    <a href="#" ui-sref="truck_guarantee_details({id:el.id,type:1,from:'truck_details'})" class="small-tips cyan lighten-2 white-text" style="width: 31px;margin-right: 10px;cursor: pointer;display: inline-block">保</a>
+                                    <a href="#" ui-sref="truck_repair({id:el.id,type:1,status:1,from:'truck_details'})" ng-if="el.repair_status==1"  class="cyan-text fz12 center-align" style="margin-right: 10px;cursor: pointer;display: inline-block">
                                         <i class="mdi mdi-wrench"></i>
                                     </a>
-                                    <a href="#" ui-sref="truck_repair({id:el.id,type:1,status:0,from:'truck_details'})" ng-if="el.repair_status==0" class=" red-text   fz12 " style="margin-right: 10px;cursor: pointer">
+                                    <a href="#" ui-sref="truck_repair({id:el.id,type:1,status:0,from:'truck_details'})" ng-if="el.repair_status==0" class="red-text fz12" style="margin-right: 10px;cursor: pointer;display: inline-block">
                                         <i class="mdi mdi-wrench"></i>
                                     </a>
                                     <a href="#" ui-sref="look_head_truck_details({id:el.id,from:'truck_details'})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ></i></a>
-                                    <span class="switch" ng-click="changeTruck_status(el.id,el.truck_status)" style="height: 30px">
+                                    <a href="" ng-click="showCarPositionModel(el.id)" class="cyan-text fz12" style="cursor: pointer;display: inline-block">
+                                        <i class="mdi mdi-map-marker"></i>
+                                    </a>
+                                    <span class="switch" ng-click="changeTruck_status(el.id,el.truck_status)" style="height: 30px;display: inline-block">
                                         <label>
                                               <input type="checkbox" ng-checked="el.truck_status==1">
                                               <span class="lever"></span>

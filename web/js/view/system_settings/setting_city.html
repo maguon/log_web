@@ -8,7 +8,7 @@
         <div class="row">
             <div class="divider cyan lighten-2"></div>
         </div>
-        <div style="width: 75%;margin: 0 auto">
+        <div style="width: 85%;margin: 0 auto">
             <div class="row">
                 <a href="" class=" right  btn btn-large btn-floating waves-effect cyan lighten-1 waves-light vc-center open_city "
                    ng-click="city_box()" ng-show="city_btn"><i class="mdi mdi-plus"></i></a>
@@ -20,11 +20,11 @@
                         </div>
                         <input class="col s3 city_text" name="cityText" id="cityText" type="text" autocomplete="off"
                                ng-model="cityText" required>
-                        <div class="col s2  add_Brand_Icon">
-                            <a class="  btn-floating waves-effect waves-light red lighten-2  btn" ng-click="closeCity()">
+                        <div class="col s2 add_Brand_Icon">
+                            <a style="margin-right: 20px" class="btn-floating waves-effect waves-light red lighten-2 btn" ng-click="closeCity()">
                                 <i class="mdi mdi-close add_brand"></i>
                             </a>
-                            <button class="btn-floating waves-effect waves-light cyan  lighten-1 btn" type="submit"
+                            <button style="margin: 0" class="btn-floating waves-effect waves-light cyan  lighten-1 btn" type="submit"
                                     name="action">
                                 <i class="mdi mdi-check add_city"></i>
                             </button>
@@ -35,13 +35,14 @@
             </div>
             <div class="col s12">
                 <div class="divider"></div>
-                <div style="padding: 1rem;overflow: hidden">
+                <div style="padding: 1rem">
                     <div class="col s12 p0">
-                        <div ng-repeat="el in city_model" class="col s4  " style=" padding:1rem;">
-                            <div class="col s12  city_model_panel z-depth-1 valign-wrapper"
+                        <div ng-repeat="el in city_model" class="col s2" style=" padding:1rem;">
+                            <div class="col s12 city_model_panel z-depth-1 center-align"
                                  ng-class="{'no_amend_model':el.model_status==0}">
-                                <input type="text" class="city_model_name cyan-text text-lighten-1  city_model_name{{$index}} col s5"
-                                       ng-model="el.city_name" readonly="readonly" >
+                                <!--<input type="text" class="city_model_name cyan-text text-lighten-1 city_model_name{{$index}}"-->
+                                       <!--ng-model="el.city_name" readonly="readonly">-->
+                                <p style="margin: 9px 0;color: #26c6da">{{el.city_name}}</p>
                                 <div class="amend_city_model_box{{$index}} col s3"
                                      style="display: none;cursor: pointer">
                                     <i class="mdi red-text text-darken-2 mdi-close col s6 "

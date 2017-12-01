@@ -341,4 +341,39 @@ app.controller("truck_details_controller", ["$scope", "$state", "$stateParams", 
     };
 
 
+    // 显示设置车辆当前位置模态框
+    $scope.showCarPositionModel = function (truckId) {
+        // 获取城市信息
+        _basic.get($host.api_url + "/city").then(function (data) {
+            if (data.success === true) {
+                $scope.allCityList = data.result;
+                $scope.truck_id = truckId;
+                $('#carPositionModel').modal('open');
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+    // 保存位置信息
+    $scope.savePositionInfo = function () {
+        if($scope.currentCityId != "" && $scope.currentCityId != undefined){
+            _basic.put($host.api_url + "/user/" + userId + "/truck/" + $scope.truck_id + "/dispatch",{
+                currentCity:$scope.currentCityId
+            }).then(function (data) {
+                if (data.success === true) {
+                    $('#carPositionModel').modal('close');
+                    swal("设置成功", "", "success");
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
+        else{
+            swal("请选择车辆位置", "", "warning");
+        }
+    }
+
 }]);

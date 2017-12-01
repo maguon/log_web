@@ -374,6 +374,10 @@ app.controller("truck_details_controller", ["$scope", "$state", "$stateParams", 
         else{
             swal("请选择车辆位置", "", "warning");
         }
+    };
+
+    $scope.closePositionModel = function () {
+        $('#carPositionModel').modal('close');
     }
 
 }]);

@@ -40,12 +40,28 @@
                         </div>
                     </div>
                     <div class="row bold_txt" style="padding:0">
-                        <div class="col s6">
+                        <div class="col s3">
                             <p><span>派送车辆：</span>{{this_instruction.pre_count}}</p>
                         </div>
-                        <div class="col s6">
+                        <div class="col s3">
                             <p><span>已派送车辆：</span>{{PlanCount}}</p>
                         </div>
+                        <div class="col s3">
+                            <p><span>需求状态：</span>{{this_instruction.demand_status == "0" ? "已取消" : this_instruction.demand_status == "1" ? "未完成" : "已完成"}}</p>
+                        </div>
+
+                        <div class="col s3" ng-if="disPatchInfoList.length == 0 && this_instruction.demand_status == 1">
+                            <button ng-click="cancelInstruction()" style="padding:0;width:40%;height: 30px;line-height: 33px" class="btn waves-light waves-effect red lighten-1 fz12" type="button">
+                                取消
+                            </button>
+                        </div>
+
+                        <div class="col s3" ng-if="(!disPatchInfoList.length == 0) && this_instruction.demand_status == 1">
+                            <button ng-click="completeInstruction()" style="padding:0;width:40%;height: 30px;line-height: 33px" class="btn waves-light waves-effect cyan lighten-1 fz12" type="button">
+                                完成
+                            </button>
+                        </div>
+
                     </div>
 
                     <div class="col s12 p0" ng-repeat="dispatchInfo in disPatchInfoList" >

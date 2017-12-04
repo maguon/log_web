@@ -5,6 +5,7 @@ app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_b
     // 指令任务状态
 
     $scope.taskStatusList = _config.taskStatus;
+    $scope.instructionStatus = "1";
     _basic.get($host.api_url + "/city").then(function (data) {
         if (data.success == true) {
             $scope.cityList = data.result;
@@ -30,8 +31,6 @@ app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_b
     };
 
     $scope.add_need = function () {
-        // console.log("cityList",$scope.cityList);
-        // console.log("add_end_city",$scope.add_end_city);
         $('.modal').modal();
         $('#newNeed').modal('open');
         var data = new Date();
@@ -52,6 +51,8 @@ app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_b
     $scope.search_all = function () {
 
         var obj = {
+            dpDemandId: $scope.instructionNum,
+            demandStatus: $scope.instructionStatus,
             createOnStart: $scope.instruct_need_startTime,
             createOnEnd: $scope.instruct_need_endTime,
             dateIdStart: $scope.instruct_start_time,
@@ -65,7 +66,7 @@ app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_b
             receiveId: $scope.dealer
         };
         _basic.get($host.api_url + "/dpDemand?" + _basic.objToUrl(obj)).then(function (data) {
-            if (data.success == true && data.result.length > 0) {
+            if (data.success == true && data.result.length >= 0) {
                 $scope.instruction_neee_list = data.result;
             } else {
                 $scope.instruction_list = [];

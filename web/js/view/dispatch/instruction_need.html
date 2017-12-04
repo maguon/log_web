@@ -7,51 +7,70 @@
                         <div class="row grey-text text-darken-1">
                             <div class="col s10">
                                 <div class="col s12">
-                                    <div class=" col s6">
-                                        <div class="input-field col s6">
+                                    <div class="col s8">
+                                        <div class="input-field col s4">
+                                            <input type="text" ng-model="instructionNum" id="instruct_need_num" name="instruct_need_endTime">
+                                            <label for="instruct_need_num">需求编号</label>
+                                        </div>
+                                        <div class="input-field col s4">
                                             <input type="text" ng-model="instruct_need_startTime" id="instruct_need_startTime" name="instruct_need_startTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
                                             <label for="instruct_need_startTime">创建时间(始)</label>
                                         </div>
-                                        <div class="input-field col s6">
+                                        <div class="input-field col s4">
                                             <input type="text" ng-model="instruct_need_endTime" id="instruct_need_endTime" name="instruct_need_endTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
                                             <label for="instruct_need_endTime">创建时间(终)</label>
                                         </div>
                                     </div>
-                                    <div class="input-field col s3">
-                                        <select id="start_city" material-select watch ng-change="getAddres(start_city)"  ng-options="city.id as city.city_name for city in cityList" ng-model="start_city">
-                                            <option value="">请选择</option>
-                                        </select>
-                                        <label for="start_city">起始城市</label>
+
+                                    <div class="col s4" style="padding: 0">
+                                        <div class="input-field col s6">
+                                            <select id="start_city" material-select watch ng-change="getAddres(start_city)"  ng-options="city.id as city.city_name for city in cityList" ng-model="start_city">
+                                                <option value="">请选择</option>
+                                            </select>
+                                            <label for="start_city">起始城市</label>
+                                        </div>
+                                        <div class=" input-field col s6">
+                                            <select id="dispatch_car_position" ng-options="baseAddr.id as baseAddr.addr_name for baseAddr in baseAddrList" material-select watch ng-model="dispatch_car_position">
+                                                <option value="">请选择</option>
+                                            </select>
+                                            <label for="dispatch_car_position">装车地点</label>
+                                        </div>
                                     </div>
-                                    <div class=" input-field col s3">
-                                        <select id="dispatch_car_position" ng-options="baseAddr.id as baseAddr.addr_name for baseAddr in baseAddrList" material-select watch ng-model="dispatch_car_position">
-                                            <option value="">请选择</option>
-                                        </select>
-                                        <label for="dispatch_car_position">装车地点</label>
-                                    </div>
+
                                 </div>
                                 <div class="col s12">
-                                    <div class=" col s6">
-                                        <div class="input-field col s6">
-                                            <input type="text" ng-model="instruct_start_time" id="instruct_start_time" name="instruct_start_time"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                    <div class="col s8">
+                                        <div class="input-field col s4">
+                                            <select id="instruction_status" material-select watch ng-model="instructionStatus">
+                                                <option value="">所有</option>
+                                                <option value="0">取消</option>
+                                                <option value="1">未完成</option>
+                                                <option value="2">已完成</option>
+                                            </select>
+                                            <label for="instruction_status">需求状态</label>
+                                        </div>
+                                        <div class="input-field col s4">
+                                            <input type="text" ng-model="instruct_start_time" id="instruct_start_time" name="instruct_start_time"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
                                             <label for="instruct_start_time">指令时间(始)</label>
                                         </div>
-                                        <div class="input-field col s6">
-                                            <input type="text" ng-model="instruct_endTime" id="instruct_endTime" name="instruct_endTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                        <div class="input-field col s4">
+                                            <input type="text" ng-model="instruct_endTime" id="instruct_endTime" name="instruct_endTime"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
                                             <label for="instruct_endTime">指令时间(终)</label>
                                         </div>
                                     </div>
-                                    <div class="input-field col s3">
-                                        <select id="arrive_city" material-select watch ng-change="getRecive(arrive_city)"  ng-model="arrive_city" ng-options="city.id as city.city_name for city in cityList">
-                                            <option value="">请选择</option>
-                                        </select>
-                                        <label for="arrive_city">目的城市</label>
-                                    </div>
-                                    <div class=" input-field col s3">
-                                        <select id="dealer" material-select watch ng-model="dealer" ng-options="receive.id as receive.short_name for receive in receiveList">
-                                            <option value="">请选择</option>
-                                        </select>
-                                        <label for="dealer">送达地点</label>
+                                    <div class="col s4" style="padding: 0">
+                                        <div class="input-field col s6">
+                                            <select id="arrive_city" material-select watch ng-change="getRecive(arrive_city)"  ng-model="arrive_city" ng-options="city.id as city.city_name for city in cityList">
+                                                <option value="">请选择</option>
+                                            </select>
+                                            <label for="arrive_city">目的城市</label>
+                                        </div>
+                                        <div class=" input-field col s6">
+                                            <select id="dealer" material-select watch ng-model="dealer" ng-options="receive.id as receive.short_name for receive in receiveList">
+                                                <option value="">请选择</option>
+                                            </select>
+                                            <label for="dealer">送达地点</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -55,12 +55,15 @@
 
         <!--左栏发运商品车信息卡片-->
         <div class="row col s2">
-            <div class="col input-field s10" style="margin-bottom: 15px">
+            <div class="col input-field s8" style="margin-bottom: 15px">
                 <input id="searchLeftCard" type="text" ng-model="leftKeyWord">
                 <label for="searchLeftCard">起始地/目的地</label>
             </div>
             <div class="col s2 flex flex-round">
                 <i class="mdi mdi-magnify" ng-click="updateLeftCardList()" style="margin:20px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+            </div>
+            <div class="col s2 flex flex-round left">
+                <i class="mdi mdi-refresh" ng-click="getDeliveryCarInfo()" style="margin:20px 0 0 10px;font-size: 30px;cursor: pointer"></i>
             </div>
             <div class="col s12" ng-repeat="car in newDispatchCarList">
                 <div class="card-panel white " style="padding: 0">
@@ -381,12 +384,16 @@
 
         <!--右边任务指令信息卡片-->
         <div class="col s2">
-            <div class="col input-field s10" style="margin-bottom: 15px">
+            <div class="col input-field s8" style="margin-bottom: 15px">
                 <input id="searchRightCard" type="text" ng-model="rightKeyWord">
                 <label for="searchRightCard">车牌/地址/司机</label>
             </div>
             <div class="col s2 flex flex-round">
                 <i class="mdi mdi-magnify" ng-click="updateRightCardList()" style="margin:20px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+            </div>
+
+            <div class="col s2 flex flex-round">
+                <i class="mdi mdi-refresh" ng-click="getCarDetails()" style="margin:20px 0 0 10px;font-size: 30px;cursor: pointer"></i>
             </div>
             <div class="col s12" ng-repeat="details in newCarDetailsList">
                 <div class="card-panel white " style="padding: 0;cursor: pointer" ng-click="showDispatchInfo(details)">

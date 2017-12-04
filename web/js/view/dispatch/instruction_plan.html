@@ -203,10 +203,9 @@
                         </div>
                         <div class="col s8">
                             <select id="city" name="city" watch material-select
-                                    ng-options="city.city_name + ' ' + city.distance + ' 公里' for city in cityList"
+                                    ng-options="city.city_name + ' ' + city.distance + ' km' for city in cityList"
                                     ng-model="lineEndCityInfo">
                                 <option value="">选择城市</option>
-                                <!--<option ng-repeat="city in cityList" ng-value="city.end_id">{{city.city_name + " " + city.distance + " 公里"}}</option>-->
                             </select>
                         </div>
                     </div>

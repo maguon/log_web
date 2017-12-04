@@ -48,7 +48,7 @@
                                         <label for="arrive_city">目的城市</label>
                                     </div>
                                     <div class=" input-field col s3">
-                                        <select id="dealer" material-select watch ng-model="dealer" ng-options="receive.id as receive.receive_name for receive in receiveList">
+                                        <select id="dealer" material-select watch ng-model="dealer" ng-options="receive.id as receive.short_name for receive in receiveList">
                                             <option value="">请选择</option>
                                         </select>
                                         <label for="dealer">送达地点</label>
@@ -61,7 +61,7 @@
                                 </a>
                             </div>
                             <div class="col s1 flex flex-round" style="margin-top: 40px">
-                                <a ng-click="add_need()" class="btn-floating btn-large waves-light waves-effect cyan lighten-2  btn vc-center"
+                                <a ng-click="add_need()" class="btn-floating btn-large waves-light waves-effect cyan lighten-2 btn vc-center"
                                    style="margin-right: 10px">
                                     <i class="mdi mdi-plus"></i>
                                 </a>
@@ -100,7 +100,7 @@
                                                     <label for="add_end_city">目的城市</label>
                                                 </div>
                                                 <div class="input-field col s6" ng-class="{'has-error':add_need_instructForm.add_dealer.$invalid&&submitted}">
-                                                    <select id="add_dealer" name="add_dealer" material-select watch  ng-model="add_dealer"  ng-options="receive.id as receive.receive_name for receive in receiveList" required>
+                                                    <select id="add_dealer" name="add_dealer" material-select watch  ng-model="add_dealer"  ng-options="receive.id as receive.short_name for receive in receiveList" required>
                                                         <option value="">请选择</option>
                                                     </select>
                                                     <label for="add_dealer">送达地点</label>

@@ -54,9 +54,12 @@ app.controller("instruction_car_refuel_details_controller", ["$scope", "$host", 
         _basic.get($host.api_url + "/driveRefuel?driveRefuelId=" + $scope.id).then(function (data) {
             if (data.success == true && data.result.length > 0) {
                 $scope.driveRefuel_details = data.result[0];
+                var lat = data.result[0].lat;
+                var lng = data.result[0].lng;
+                // console.log("driveRefuel_details",$scope.driveRefuel_details);
                 // 百度地图API功能
                 var map = new BMap.Map("refuel_address");
-                var point = new BMap.Point(121.62, 38.92);
+                var point = new BMap.Point(lng, lat);
                 map.centerAndZoom(point, 15);
                 var marker = new BMap.Marker(point);  // 创建标注
                 map.addOverlay(marker);               // 将标注添加到地图中

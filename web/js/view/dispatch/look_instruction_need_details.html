@@ -78,14 +78,14 @@
                             </div>
 
                         </div>
-                        <div class="col s12 grey lighten-2 this_LoadTaskList this_LoadTaskList{{$index}}" flag="false" style="padding: 10px;display: none">
+                        <div class="col s12 grey lighten-2 this_LoadTaskList this_LoadTaskList{{$index}}" flag="false" style="padding: 10px 30px;display: none">
                             <div class="col s3 fz13" ng-repeat="vinInfo in this_LoadTaskList">
-                                <div class="col s8" style="padding: 0">
-                                    VIN码: <span>{{vinInfo.vin}}</span>
+                                <div class="col s12 center">
+                                    <span>{{vinInfo.vin}}（{{vinInfo.make_name}}）</span>
                                 </div>
-                                <div class="col s4" style="padding: 0" >
-                                    制造商: <span>{{vinInfo.make_name}}</span>
-                                </div>
+                                <!--<div class="col s4" style="padding: 0" >-->
+                                    <!--制造商: <span>{{vinInfo.make_name}}</span>-->
+                                <!--</div>-->
                             </div>
                         </div>
                     </div>

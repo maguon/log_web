@@ -184,6 +184,9 @@ CommonFilter.filter("instructionsStatus", function () {
             case 9:
                 status = "已完成";
                 break;
+            case 10:
+                status = "全部完成";
+                break;
             default:
                 status = "未知";
         }

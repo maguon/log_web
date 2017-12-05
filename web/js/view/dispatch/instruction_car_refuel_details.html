@@ -9,93 +9,112 @@
                 <h5 class="center-align cyan-text text-lighten-1">加油申报详情</h5>
             </div>
             <div class="divider" style="background: #00bcd4;height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
-            <div class="row no-marBottom left-align fz17 bold_txt" style="width: 60%;margin: 0 auto">
-                <div class="row" style="margin-top: 40px">
-                    <div class="col s4">
-                        <p><span>申报时间: </span>{{driveRefuel_details.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+            <div class="row no-marBottom left-align fz17 bold_txt" style="width: 70%;margin: 0 auto">
+                <div class="row">
+                    <div class="input-field col s3 cyan_icon">
+                        <i class="mdi mdi-car prefix" title="车牌号"></i>
+                        <input disabled type="text" ng-value="driveRefuel_details.truck_num">
                     </div>
-                    <div class="col s4">
-                        <p><span>加油时间: </span>{{driveRefuel_details.refuel_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                    <div class="input-field col s3 cyan_icon">
+                        <i class="mdi mdi-account prefix" title="司机"></i>
+                        <input disabled type="text" ng-value="driveRefuel_details.drive_name">
                     </div>
-                    <div class="col s4">
-                        <span>审核结果:</span>
-                        <span ng-if="driveRefuel_details.check_status==1">
-                            <a style="margin-left: 10px" class="btn btn-floating" ng-click="resolve(driveRefuel_details.id)" >
-                                通过
-                            </a>
-                            <a style="margin-left: 10px" class="btn btn-floating red lighten-2" ng-click="reject(driveRefuel_details.id)" >
+                    <div class="input-field col s4 cyan_icon">
+                        <i class="mdi mdi-ray-start-end prefix" title="关联线路"></i>
+                        <input disabled type="text" ng-value="driveRefuel_details.route_start + ' --> ' + driveRefuel_details.route_end + '    ' + driveRefuel_details.dp_route_task_id">
+                    </div>
+                    <div class="input-field col s2 cyan_icon" ng-if="driveRefuel_details.check_status==2">
+                        <i class="mdi mdi-clipboard-check prefix" title="审核结果"></i>
+                        <input style="color: #59b349 !important" disabled type="text" value="通过">
+                    </div>
+                    <div class="input-field col s2 cyan_icon" ng-if="driveRefuel_details.check_status==3">
+                        <i class="mdi mdi-clipboard-alert prefix" title="审核结果"></i>
+                        <input disabled style="color: #e78181 !important" type="text" value="拒绝">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s3 cyan_icon">
+                        <i class="mdi mdi-oil prefix" title="加油量"></i>
+                        <input disabled type="text" ng-value="driveRefuel_details.refuel_volume">
+                    </div>
+                    <div class="input-field col s3 cyan_icon">
+                        <i class="mdi mdi-coin prefix" title="加油金额"></i>
+                        <input disabled type="text" ng-value="driveRefuel_details.refuel_money">
+                    </div>
+                    <div class="input-field col s4 cyan_icon">
+                        <i class="mdi mdi-timetable prefix" title="申报时间"></i>
+                        <input disabled type="text" ng-value="driveRefuel_details.created_on | date:'yyyy-MM-dd HH:mm:ss'">
+                    </div>
+                    <div class="input-field col s2 cyan_icon">
+                        <i class="mdi mdi-account-box prefix" title="审批人"></i>
+                        <input disabled type="text" ng-value="driveRefuel_details.check_user_name">
+                    </div>
+                </div>
+
+                <div class="row" ng-if="driveRefuel_details.check_status==3">
+                    <div class="input-field col s12 cyan_icon">
+                        <i class="mdi mdi-clipboard-text prefix" title="拒绝原因"></i>
+                        <input disabled type="text" ng-value="driveRefuel_details.check_reason">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s8 cyan_icon">
+                        <i class="mdi mdi-map-marker-radius prefix" title="加油地"></i>
+                        <input disabled type="text" ng-value="driveRefuel_details.refuel_address">
+                    </div>
+                    <div class="input-field col s4 cyan_icon">
+                        <i class="mdi mdi-gas-station prefix" title="加油时间"></i>
+                        <input disabled type="text" ng-value="driveRefuel_details.refuel_date | date:'yyyy-MM-dd HH:mm:ss'">
+                    </div>
+                </div>
+
+                <!--百度地图-->
+                <div class="row" style="margin-top: 50px">
+                    <div class="col s12">
+                        <div id="refuel_address" class="refuel_address"></div>
+                    </div>
+                </div>
+
+                <!--通过拒绝按钮，模态框-->
+                <div class="row" ng-if="driveRefuel_details.check_status==1">
+                    <div class="col s6 offset-s3">
+                        <div class="col s6 center">
+                            <button ng-click="reject(driveRefuel_details.id)" style="padding:0;width:40%;height: 30px;line-height: 33px" class="btn waves-light waves-effect red lighten-1 fz12" type="button">
                                 拒绝
-                            </a>
-                        </span>
-                        <div id="modal1" class="modal">
-                            <div class="col s12 cyan white-text" style="height: 50px">
-                                <h5 class="center-align" >拒绝原因</h5>
-                            </div>
-                            <div class="divider a1_divider" ></div>
-                            <div class="modal-content">
-                                <div class="container" style="width: 90%">
-                                    <div class="row" style="margin-top:80px">
-                                        <div class="col s12 input-field">
-                                            <input id="textarea1" type="text" ng-model="reject_reason_msg">
-                                            <label for="textarea1">拒绝原因</label>
-                                        </div>
+                            </button>
+                        </div>
+                        <div class="col s6 center">
+                            <button ng-click="resolve(driveRefuel_details.id)" style="padding:0;width:40%;height: 30px;line-height: 33px" class="btn waves-light waves-effect cyan lighten-1 fz12" type="button">
+                                通过
+                            </button>
+                        </div>
+                    </div>
+                    <div id="modal1" class="modal">
+                        <div class="col s12 cyan white-text" style="height: 50px">
+                            <h5 class="center-align">拒绝原因</h5>
+                        </div>
+                        <div class="divider a1_divider"></div>
+                        <div class="modal-content">
+                            <div class="container" style="width: 90%">
+                                <div class="row" style="margin-top:80px">
+                                    <div class="col s12 input-field">
+                                        <input id="textarea1" type="text" ng-model="reject_reason_msg">
+                                        <label for="textarea1">拒绝原因</label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="divider" style="background: #00bcd4;height: 2px;"></div>
-                            <div class="modal-footer right-align">
-                                <a class="btn-floating modal-action modal-close waves-effect waves-light grey lighten-1 btn">
-                                    <i class="mdi mdi-close"></i>
-                                </a>
-                                <a class="btn btn-floating waves-light waves-effect cyan lighten-1"  ng-click="reject_reason()" style="margin-right: 10px">
-                                    <i class="mdi mdi-check"></i>
-                                </a>
-                            </div>
                         </div>
-                        <span style="font-weight: bold;color: green" ng-if="driveRefuel_details.check_status==2">通过</span>
-                        <span style="font-weight: bold;color: red" ng-if="driveRefuel_details.check_status==3">拒绝</span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s4">
-                        <p><span>车牌号: </span>{{driveRefuel_details.truck_num}}</p>
-                    </div>
-                    <div class="col s4">
-                        <p><span>司机: </span>{{driveRefuel_details.drive_name}}</p>
-                    </div>
-                    <div class="col s4" ng-if="driveRefuel_details.check_status==3">
-                        <p><span>拒绝原因: </span>{{driveRefuel_details.check_reason}}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s4">
-                        <p><span>加油量: </span>{{driveRefuel_details.refuel_volume}}</p>
-                    </div>
-                    <div class="col s4">
-                        <p><span>加油金额: </span>{{driveRefuel_details.refuel_money}}元</p>
-                    </div>
-                    <div class="col s4" ng-if="driveRefuel_details.check_status==2||driveRefuel_details.check_status==3">
-                        <p><span>审批人: </span>{{driveRefuel_details.check_user_name}}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s4">
-                        <p><span>关联线路编号: </span>{{driveRefuel_details.dp_route_task_id}}</p>
-                    </div>
-                    <div class="col s4">
-                        <p><span>关联线路: </span>{{driveRefuel_details.route_start}}&nbsp;<span class="mdi mdi-arrow-right"></span>&nbsp;{{driveRefuel_details.route_end}}</p>
-                    </div>
-                </div>
-                <div class="row" style="margin-top: 40px">
-                    <div class="col s6">
-                        <p><span>加油地: </span>{{driveRefuel_details.refuel_address}}</p>
-                    </div>
-                </div>
-
-                <div class="row" >
-                    <div class="col s12">
-                        <div id="refuel_address" class="refuel_address">
-
+                        <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+                        <div class="modal-footer right-align">
+                            <a class="btn-floating modal-action modal-close waves-effect waves-light grey lighten-1 btn">
+                                <i class="mdi mdi-close"></i>
+                            </a>
+                            <a class="btn btn-floating waves-light waves-effect cyan lighten-1"
+                               ng-click="reject_reason()" style="margin-right: 10px">
+                                <i class="mdi mdi-check"></i>
+                            </a>
                         </div>
                     </div>
                 </div>

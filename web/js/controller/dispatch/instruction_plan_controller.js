@@ -136,7 +136,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         $scope.dispatchInfo = dispatchInfo;
         $scope.lineInfo = false;
         // 往期任务
-        _basic.get($host.api_url + "/dpRouteTask?truckId=" + dispatchInfo.truck_id + "&taskStatus=9").then(function (pastMissionData) {
+        _basic.get($host.api_url + "/dpRouteTask?truckId=" + dispatchInfo.truck_id + "&taskStatus=10").then(function (pastMissionData) {
             if (pastMissionData.success === true) {
                 // 转换日期格式
                 for (var i = 0; i < pastMissionData.result.length; i++) {
@@ -307,18 +307,16 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     // 根据选择的城市获取送达经销商和指令时间及派发数量信息
     $scope.getReceiveDistributor = function (lineId) {
-        // console.log("sendCityId",$scope.sendCityId);
-        // console.log("routeStartId",$scope.startLineId);
         if($scope.locateId != ""){
             _basic.get($host.api_url + "/dpDemandBase?" + _basic.objToUrl({
-                    dpRouteTaskId:lineId,
-                    routeStartId:$scope.startLineId,
-                    baseAddrId:$scope.locateId,
-                    routeEndId:$scope.sendCityId
-                })).then(function (addrData) {
+                dpRouteTaskId:lineId,
+                routeStartId:$scope.startLineId,
+                baseAddrId:$scope.locateId,
+                routeEndId:$scope.sendCityId,
+                demandStatus:"1"
+            })).then(function (addrData) {
                 if (addrData.success === true) {
                     $scope.addrList = addrData.result;
-                    // console.log("addrData",addrData);
                 }
                 else {
                     swal(addrData.msg, "", "error");
@@ -333,8 +331,6 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     // 提交线路下的任务信息
     $scope.submitMissionInfo = function (lineId) {
-        // console.log("$scope.lineStartTime",$scope.lineStartTime);
-        // console.log("lineDate",$scope.lineDate);
         if($scope.locateId != "" && $scope.sendCityId != "" && $scope.receiveInfo != "" && $scope.distributeNum != "" && $scope.lineDate != "" && $scope.lineStartTime != ""){
             _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask/" + lineId + "/dpRouteLoadTask",{
                 dpDemandId:$scope.receiveInfo.id,

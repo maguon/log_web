@@ -4,6 +4,7 @@
 app.controller("instruction_car_refuel_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
     $scope.start = 0;
     $scope.size = 11;
+    $scope.currentStatus = "1";
     var userId = _basic.getSession(_basic.USER_ID);
     // 通过
     $scope.resolve = function (id) {
@@ -50,7 +51,7 @@ app.controller("instruction_car_refuel_controller", ["$scope", "$host", "_basic"
     // 搜索请求
     $scope.search_query = function (params) {
         _basic.get($host.api_url + "/driveRefuel?" + _basic.objToUrl(params)).then(function (data) {
-            if (data.success == true && data.result.length > 0) {
+            if (data.success == true && data.result.length >= 0) {
                 $scope.car_refuel_obj = data.result;
                 $scope.car_refuel = $scope.car_refuel_obj.slice(0, 10);
                 if ($scope.start > 0) {
@@ -80,6 +81,9 @@ app.controller("instruction_car_refuel_controller", ["$scope", "$host", "_basic"
 
         // 控制分页查询参数
         $scope.queryParams.start = $scope.start == 0 ? '0' : $scope.start;
+        if($scope.currentStatus == "1"){
+            $scope.queryParams.checkStatus = "1"
+        }
         $scope.search_query($scope.queryParams)
     };
     $scope.search_All();
@@ -101,8 +105,8 @@ app.controller("instruction_car_refuel_controller", ["$scope", "$host", "_basic"
             $scope.queryParams.driveName = null;
         }
 
-        if ($scope.currentStatus) {
-            $scope.queryParams.refuelAddressType = $scope.refuelAddressType;
+        if ($scope.oilingStatus) {
+            $scope.queryParams.refuelAddressType = $scope.oilingStatus;
         } else {
             $scope.queryParams.refuelAddressType = null;
         }

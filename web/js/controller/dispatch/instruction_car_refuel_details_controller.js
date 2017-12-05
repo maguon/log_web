@@ -34,7 +34,8 @@ app.controller("instruction_car_refuel_details_controller", ["$scope", "$host", 
     };
 
     $scope.reject_reason = function () {
-        if($scope.reject_reason_msg !== ""){
+        // console.log("reject_reason_msg",$scope.reject_reason_msg);
+        if($scope.reject_reason_msg != ""){
             _basic.put($host.api_url + "/user/" + userId + "/driveRefuel/" + $scope.reject_id + "/checkStatus/" + 3, {
                 checkReason: $scope.reject_reason_msg
             }).then(function (data) {

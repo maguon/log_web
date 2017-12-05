@@ -303,7 +303,7 @@
                                     </div>
                                     <div class="col s4 valign-wrapper">
                                         <div class="col s12">
-                                            <select id="chooseDistributor" name="chooseDistributor" ng-options="addr.date_id + ' ' + addr.short_name + ' ' + addr.pre_count + '台 ' for addr in addrList" ng-model="$parent.receiveInfo" watch material-select>
+                                            <select id="chooseDistributor" name="chooseDistributor" ng-options="addr.date_id + ' ' + addr.short_name + '&emsp;' + addr.plan_count + '/' + addr.pre_count for addr in addrList" ng-model="$parent.receiveInfo" watch material-select>
                                                 <option value="">送达经销商</option>
                                                 <!--<option ng-repeat="addr in addrList" ng-value="addr.id">{{addr.short_name}}</option>-->
                                             </select>

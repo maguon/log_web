@@ -31,6 +31,10 @@
                         <i class="mdi mdi-clipboard-alert prefix" title="审核结果"></i>
                         <input disabled style="color: #e78181 !important" type="text" value="拒绝">
                     </div>
+                    <div class="input-field col s2 cyan_icon" ng-if="driveRefuel_details.check_status==1">
+                        <i class="mdi mdi-clipboard-alert prefix" title="审核结果"></i>
+                        <input disabled type="text" value="待审核">
+                    </div>
                 </div>
 
                 <div class="row">
@@ -46,9 +50,13 @@
                         <i class="mdi mdi-timetable prefix" title="申报时间"></i>
                         <input disabled type="text" ng-value="driveRefuel_details.created_on | date:'yyyy-MM-dd HH:mm:ss'">
                     </div>
-                    <div class="input-field col s2 cyan_icon">
+                    <div class="input-field col s2 cyan_icon" ng-if="!(driveRefuel_details.check_status==1)">
                         <i class="mdi mdi-account-box prefix" title="审批人"></i>
                         <input disabled type="text" ng-value="driveRefuel_details.check_user_name">
+                    </div>
+                    <div class="input-field col s2 cyan_icon" ng-if="driveRefuel_details.check_status==1">
+                        <i class="mdi mdi-account-box prefix" title="审批人"></i>
+                        <input disabled type="text" value="暂无">
                     </div>
                 </div>
 
@@ -78,7 +86,7 @@
                 </div>
 
                 <!--通过拒绝按钮，模态框-->
-                <div class="row" ng-if="driveRefuel_details.check_status==1">
+                <div class="row" ng-if="driveRefuel_details.check_status==1" style="margin-top: 60px">
                     <div class="col s6 offset-s3">
                         <div class="col s6 center">
                             <button ng-click="reject(driveRefuel_details.id)" style="padding:0;width:40%;height: 30px;line-height: 33px" class="btn waves-light waves-effect red lighten-1 fz12" type="button">
@@ -100,7 +108,7 @@
                             <div class="container" style="width: 90%">
                                 <div class="row" style="margin-top:80px">
                                     <div class="col s12 input-field">
-                                        <input id="textarea1" type="text" ng-model="reject_reason_msg">
+                                        <input id="textarea1" type="text" ng-model="$parent.reject_reason_msg">
                                         <label for="textarea1">拒绝原因</label>
                                     </div>
                                 </div>

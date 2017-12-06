@@ -18,7 +18,7 @@ app.controller("instruction_car_refuel_details_controller", ["$scope", "$host", 
                 cancelButtonText: "取消",
                 closeOnConfirm: true
             },
-            function(){
+            function () {
                 _basic.put($host.api_url + "/user/" + userId + "/driveRefuel/" + id + "/checkStatus/" + 2, {}).then(function (data) {
                     if (data.success == true) {
                         $scope.search_All();
@@ -35,7 +35,7 @@ app.controller("instruction_car_refuel_details_controller", ["$scope", "$host", 
 
     $scope.reject_reason = function () {
         // console.log("reject_reason_msg",$scope.reject_reason_msg);
-        if($scope.reject_reason_msg != ""){
+        if ($scope.reject_reason_msg != "") {
             _basic.put($host.api_url + "/user/" + userId + "/driveRefuel/" + $scope.reject_id + "/checkStatus/" + 3, {
                 checkReason: $scope.reject_reason_msg
             }).then(function (data) {
@@ -45,7 +45,7 @@ app.controller("instruction_car_refuel_details_controller", ["$scope", "$host", 
                 }
             })
         }
-        else{
+        else {
             swal("拒绝原因不能为空", "", "warning")
         }
 
@@ -59,13 +59,27 @@ app.controller("instruction_car_refuel_details_controller", ["$scope", "$host", 
                 var lng = data.result[0].lng;
                 // console.log("driveRefuel_details",$scope.driveRefuel_details);
                 // 百度地图API功能
-                var map = new BMap.Map("refuel_address");
-                var point = new BMap.Point(lng, lat);
-                map.centerAndZoom(point, 15);
-                var marker = new BMap.Marker(point);  // 创建标注
-                map.addOverlay(marker);               // 将标注添加到地图中
-                marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
-            } else {
+                // var map = new BMap.Map("refuel_address");
+                // var point = new BMap.Point(lng, lat);
+                // map.centerAndZoom(point, 15);
+                // var marker = new BMap.Marker(point);  // 创建标注
+                // map.addOverlay(marker);               // 将标注添加到地图中
+                // marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                var marker, map = new AMap.Map("refuel_address", {
+                    resizeEnable: true,
+                    center: [lng, lat],
+                    zoom: 13
+                });
+                if (marker) {
+                    return;
+                }
+                marker = new AMap.Marker({
+                    icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+                    position: [lng, lat]
+                });
+                marker.setMap(map);
+            }
+            else {
                 swal(data.msg, "", "error")
             }
         });

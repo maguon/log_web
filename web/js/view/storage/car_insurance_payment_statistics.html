@@ -1,1 +1,75 @@
-car_insurance_payment_statistics
+<div class="car_insurance_payment_statistics" style="width: 85%;margin: 0 auto">
+    <div class="row valign-wrapper">
+        <h5 class="col s12 cyan-text lighten-1 center-align">
+            保险赔付统计
+        </h5>
+    </div>
+
+    <div style="width: 98.6%">
+        <!--商品车保险赔付，按月统计-->
+        <div class="row z-depth-2">
+            <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                <div class="col s5 left">
+                    <p>保险赔付-按月统计</p>
+                </div>
+                <div class="col s6 right">
+                    <div class="col s3 left">
+                        <p class="right">选择日期区间:</p>
+                    </div>
+                    <div class="col s3">
+                        <input id="chooseCarWashFeeStart_month" type="text" ng-value="startInitial">
+                    </div>
+                    <div class="col s1 center">
+                        <p>至</p>
+                    </div>
+                    <div class="col s3">
+                        <input id="chooseCarWashFeeEnd_month" type="text" ng-value="endInitial">
+                    </div>
+                    <div class="col s2 center">
+                        <i class="mdi mdi-magnify" ng-click="searchRepairCount()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                    </div>
+                </div>
+            </div>
+            <!--商品车保险赔付-折线图-->
+            <div class="col s12">
+                <div id="insurancePaymentCountMonth" style="min-width:400px;height:350px;margin: 25px 0 10px 0"></div>
+            </div>
+            <div class="col s12">
+                <div id="insurancePaymentMoneyMonth" style="min-width:400px;height:350px;margin: 10px 0 10px 0"></div>
+            </div>
+        </div>
+
+        <!--商品车保险赔付，按周统计-->
+        <div class="row z-depth-2" style="margin-top: 70px">
+            <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                <div class="col s5 left">
+                    <p>保险赔付-按周统计</p>
+                </div>
+                <div class="col s6 right">
+                    <div class="col s3 left">
+                        <p class="right">选择日期区间:</p>
+                    </div>
+                    <div class="col s3">
+                        <input id="chooseRepairStart" type="text" ng-value="startInitial">
+                    </div>
+                    <div class="col s1 center">
+                        <p>至</p>
+                    </div>
+                    <div class="col s3">
+                        <input id="chooseRepairEnd" type="text" ng-value="endInitial">
+                    </div>
+                    <div class="col s2 center">
+                        <i class="mdi mdi-magnify" ng-click="searchRepairCount()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                    </div>
+                </div>
+            </div>
+            <!--商品车保险赔付-折线图-->
+            <div class="col s12">
+                <div id="insurancePaymentCountWeek" style="min-width:400px;height:350px;margin: 25px 0 10px 0"></div>
+            </div>
+            <div class="col s12">
+                <div id="insurancePaymentMoneyWeek" style="min-width:400px;height:350px;margin: 10px 0 10px 0"></div>
+            </div>
+        </div>
+    </div>
+</div>

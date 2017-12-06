@@ -116,7 +116,8 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             dateIdStart: currentModelInfo.date_id,
             dateIdEnd:currentModelInfo.date_id,
             routeStartId: currentModelInfo.route_start_id,
-            routeEndId: currentModelInfo.route_end_id
+            routeEndId: currentModelInfo.route_end_id,
+            demandStatus:"1"
         })).then(function (data) {
             if (data.success === true) {
                 // console.log("data",data);

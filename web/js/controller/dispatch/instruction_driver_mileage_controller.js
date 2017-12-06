@@ -8,7 +8,7 @@ app.controller("instruction_driver_mileage_controller", ["$scope", "$host", "_co
     // 司机里程
     $scope.search = function () {
         var obj = {
-            taskStatus: 9,
+            taskStatus: 10,
             loadDistance: 5,
             noLoadDistance: 5,
             driveName: $scope.drive_name,

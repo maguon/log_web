@@ -1,7 +1,6 @@
-<div  >
+<div>
     <div class="" >
         <div class="modal-content grey-text text-darken-2">
-            <!--<div class="" style="width: 95%;margin: 0 auto">-->
             <div class="storage_storeTitle vc-center ">
                 <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
                     <i class="mdi mdi-arrow-left-bold"></i>
@@ -18,7 +17,7 @@
                 <div class="row border" style="padding: 20px">
                     <h5 class="col s12" style="margin-bottom: 20px">车牌号码:<span class="cyan-text text-lighten-2">{{truck_msg.truck_num}}</span></h5>
                     <p>
-                        <span class="col s2">车辆类型：<span class="black-text">挂车</span></span>
+                        <span class="col s2">车辆类型：<span class="black-text">{{truck_msg.truck_type == 1 ? "头车" : "挂车"}}</span></span>
                         <span class="col s2" ng-if="truck_msg.operate_type==1">所属类型：<span class="black-text" >自营</span></span>
                         <span class="col s2" ng-if="truck_msg.operate_type==2">所属类型：<span class="black-text">外协</span></span>
                         <span class="col s2" ng-if="truck_msg.operate_type==3">所属类型：<span class="black-text" >供方</span></span>
@@ -32,11 +31,7 @@
                 </div>
                 <div id="add_insure" class="modal">
                     <div class="modal-content grey-text text-darken-2">
-                        <!--<div class="" style="width: 95%;margin: 0 auto">-->
                         <div class="storage_storeTitle vc-center ">
-                            <!--<a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">-->
-                                <!--<i class="mdi mdi-arrow-left-bold"></i>-->
-                            <!--</a>-->
                             <h4 class="center-align cyan-text text-lighten-1">增加保单</h4>
                         </div>
                         <div class="divider" style="background: #00bcd4;height: 2px;"></div>

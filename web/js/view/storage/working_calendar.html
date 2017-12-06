@@ -23,7 +23,7 @@
                     <div class="calendar_data_box">
                         <div class="col s6 calendar_data_box_side">
                             <p class="col s12 left-align white-text">使用率</p>
-                            <h5 class="s12 right-align white-text"><span >{{today_data.balance/today_data.total_seats*100}}%</span></h5>
+                            <h5 class="s12 right-align white-text"><span >{{(today_data.balance/today_data.total_seats*100).toFixed(2)}}%</span></h5>
 
                         </div>
                         <div class="col s6 calendar_data_box_side">

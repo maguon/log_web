@@ -15,7 +15,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     // 获取发运商品车信息（左侧信息卡片）
     $scope.getDeliveryCarInfo = function () {
-        _basic.get($host.api_url + "/dpTaskStat").then(function (dispatchCarData) {
+        _basic.get($host.api_url + "/dpTaskStat?dpTaskStatStatus=1").then(function (dispatchCarData) {
             if (dispatchCarData.success === true) {
                 // 转换日期格式
                 for (var i = 0; i < dispatchCarData.result.length; i++) {

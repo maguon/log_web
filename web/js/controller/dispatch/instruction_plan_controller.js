@@ -173,12 +173,14 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         // $scope.lineStartTime = "";
         // 线路的起始城市根据当前线路的最后一条的结束城市为准
         if($scope.currentLineList.length === 0){
-            $scope.startCityName = $scope.dispatchInfo.city_name
+            $scope.startCityName = $scope.dispatchInfo.city_name;
+            $scope.startCityId = cityId;
         }
         else{
             $scope.startCityName = $scope.currentLineList[$scope.currentLineList.length - 1].city_route_end;
+            $scope.startCityId = $scope.currentLineList[$scope.currentLineList.length - 1].route_end_id
         }
-        _basic.get($host.api_url + "/cityRouteDispatch?routeStartId=" + cityId).then(function (cityData) {
+        _basic.get($host.api_url + "/cityRouteDispatch?routeStartId=" + $scope.startCityId).then(function (cityData) {
             if (cityData.success === true) {
                 $scope.cityList = cityData.result;
                 // console.log("cityData", $scope.cityList)

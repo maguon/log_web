@@ -95,13 +95,16 @@
 
                         </div>
                         <div class="col s12 grey lighten-2 this_LoadTaskList this_LoadTaskList{{$index}}" flag="false" style="padding: 10px 30px;display: none">
-                            <div class="col s3 fz13" ng-repeat="vinInfo in this_LoadTaskList">
+                            <div class="col s3 fz13" ng-repeat="vinInfo in this_LoadTaskList" ng-if="!(this_LoadTaskList.length == 0)">
                                 <div class="col s12 center">
                                     <span>{{vinInfo.vin}}（{{vinInfo.make_name}}）</span>
                                 </div>
-                                <!--<div class="col s4" style="padding: 0" >-->
-                                    <!--制造商: <span>{{vinInfo.make_name}}</span>-->
-                                <!--</div>-->
+                            </div>
+
+                            <div class="col s12 fz13" ng-if="this_LoadTaskList.length == 0">
+                                <div class="col s12 center">
+                                    <span style="letter-spacing: 1px">暂无装车信息</span>
+                                </div>
                             </div>
                         </div>
                     </div>

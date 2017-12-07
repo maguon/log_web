@@ -45,7 +45,7 @@ app.controller("look_instruction_need_details_controller", ["$scope", "$host", "
         if ($(".this_LoadTaskList" + index).attr("flag") == 'false') {
             _basic.get($host.api_url + "/dpRouteLoadTask/" + id + "/dpRouteLoadTaskDetail").then(function (data) {
                 $(".this_LoadTaskList").attr("flag", "false");
-                if (data.success == true && data.result.length > 0) {
+                if (data.success == true && data.result.length >= 0) {
                     // console.log("vinData",data);
                     $scope.this_LoadTaskList = data.result;
                     $(".this_LoadTaskList" + index).show();

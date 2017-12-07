@@ -71,7 +71,7 @@ app.controller("car_query_controller", ["$scope", "$rootScope", "$host", "_basic
 
     // 根据条件搜索车辆
     $scope.search_car = function () {
-        _basic.get($host.api_url + "/carList?start=" + $scope.start + "&size=" + $scope.size + _basic.objToUrl({
+        _basic.get($host.api_url + "/carList?" + _basic.objToUrl({
                 vinCode: $scope.vin_code,
                 makeId: $scope.brandId,
                 routeStartId:$scope.addrCity,
@@ -83,8 +83,8 @@ app.controller("car_query_controller", ["$scope", "$rootScope", "$host", "_basic
                 routeEndId:$scope.destinationId,
                 createdStart:$scope.createdStart,
                 createdEnd:$scope.createdEnd,
-                // start:$scope.start,
-                // size:$scope.size
+                start:$scope.start.toString(),
+                size:$scope.size
             })).then(function (data) {
             if (data.success === true) {
 
@@ -104,7 +104,7 @@ app.controller("car_query_controller", ["$scope", "$rootScope", "$host", "_basic
                 }
 
                 $scope.responseData = data.result;
-                console.log("responseData:", $scope.responseData);
+                // console.log("responseData:", $scope.responseData);
             }
             else {
                 swal(data.msg, "", "error");

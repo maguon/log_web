@@ -15,15 +15,83 @@ app.controller("storage_working_calendar_controller", ["$scope", "$host", "_basi
     weekday[5] = "星期五";
     weekday[6] = "星期六";
     $scope.today_week = weekday[date.getDay()];
-    _basic.get($host.api_url + "/storageDate" + "?dateStart=" + now_date + "&dateEnd=" + now_date).then(function (data) {
-        if (data.success == true) {
-            $scope.store_storage = data.result;
-            $scope.storage_id = $scope.store_storage[0].id;
-            search($scope.storage_id);
-        }
-    });
+
+    // 获取仓储信息数据
+    $scope.getStorageDateInfo = function () {
+        _basic.get($host.api_url + "/storageDate" + "?dateStart=" + now_date + "&dateEnd=" + now_date).then(function (data) {
+            if (data.success == true) {
+                $scope.store_storage = data.result;
+                $scope.storage_id = $scope.store_storage[0].id;
+                search($scope.storage_id);
+                $scope.getVehicleBrandInfo();
+            }
+        });
+    };
+
+    // 获取车辆品牌数据
+    $scope.getVehicleBrandInfo = function () {
+        _basic.get($host.api_url + "/storage/" + $scope.storage_id + "/makeStat").then(function (data) {
+            if (data.success === true) {
+                // 转换数据格式
+                $scope.vehicleCountInfo = [];
+                for (var i = 0; i < data.result.length; i++) {
+                    if(data.result[i].make_name == null){
+                        data.result[i].make_name = "未知"
+                    }
+                    $scope.vehicleCountInfo[i] = [
+                        data.result[i].make_name + ": " + data.result[i].car_count + " 辆",
+                        data.result[i].car_count
+                    ]
+                }
+                $scope.showVehicleBrandPie();
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
     $scope.get_fullCalendar = function (storage_id) {
         search(storage_id);
+        $scope.getVehicleBrandInfo();
+    };
+
+    // 显示车辆品牌统计饼图
+    $scope.showVehicleBrandPie = function () {
+        $('#vehicleBrand').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: ''
+            },
+            credits: {
+                enabled: "false",
+                text: '',
+                href: ''
+            },
+            tooltip: {
+                headerFormat: '',
+                pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: '保险公司金额占比',
+                data: $scope.vehicleCountInfo
+            }]
+        });
     };
 
     // 日历信息
@@ -84,11 +152,14 @@ app.controller("storage_working_calendar_controller", ["$scope", "$host", "_basi
         _basic.get($host.api_url + "/storageDate?storageId=" + storage_id + "&dateStart=" + now_date + "&dateEnd=" + now_date).then(function (data) {
             if (data.success == true) {
                 $scope.today_data = data.result[0];
-
-
             }
         })
     };
+
+    $scope.queryData = function () {
+        $scope.getStorageDateInfo();
+    };
+    $scope.queryData();
 
 
 }]);

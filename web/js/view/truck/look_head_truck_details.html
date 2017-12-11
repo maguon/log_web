@@ -100,11 +100,22 @@
                             </div>
                         </div>
                         <div class="row" >
-                            <div style="height: 200px;overflow-y: auto">
-                                <div class="row" ng-repeat="el in comment">
-                                    <div class="col s4" >时间:{{el.timez|date:'yyyy-MM-dd'}}</div>
-                                    <div class="col s4"  >事件{{el.content}}</div>
-                                    <div class="col s4" >操作员{{el.name}}</div>
+                            <!--<div style="height: 200px;overflow-y: auto">-->
+                                <!--<div class="row" ng-repeat="el in comment">-->
+                                    <!--<div class="col s4" >时间:{{el.timez|date:'yyyy-MM-dd'}}</div>-->
+                                    <!--<div class="col s4"  >事件{{el.content}}</div>-->
+                                    <!--<div class="col s4" >操作员{{el.name}}</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <div style="margin:0 0 0 0.5%">
+                                <h5 style="margin-top: 30px">任务执行记录</h5>
+                                <div class="divider" style="width: 95%;background: #00bcd4;height: 2px;margin-top:15px"></div>
+                                <div class="row" style="height: 200px;overflow-y: auto">
+                                    <p ng-repeat="el in comment" style="line-height: 30px">
+                                        <span>{{el.timez | date:"yyyy-MM-dd hh:mm:ss"}}</span>
+                                        &nbsp;<span>{{el.content}}</span>
+                                        &nbsp;<span>操作人: <span>{{el.name}}</span></span>
+                                    </p>
                                 </div>
                             </div>
 
@@ -287,16 +298,13 @@
                                         <span ng-show="!el.truck_num&&!el.vice" style="margin-left: 10px">未关联</span>
                                         <span ng-show="el.truck_num||el.vice" style="margin-left: 10px"><span>{{el.truck_num}}</span></span>
                                     </div>
-
                                 </div>
-
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
-</div>
-
 </div>

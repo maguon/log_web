@@ -160,7 +160,7 @@
                                 <p>已使用车位：{{dispatchInfo.car_count}}</p>
                             </div>
                             <div class="col s3">
-                                <p>电话：{{dispatchInfo.truck_tel}}</p>
+                                <p>电话：{{dispatchInfo.tel}}</p>
                             </div>
                         </div>
                     </div>
@@ -303,7 +303,7 @@
                                     </div>
                                     <div class="col s4 valign-wrapper">
                                         <div class="col s12">
-                                            <select id="chooseDistributor" name="chooseDistributor" ng-options="addr.date_id + ' ' + addr.short_name + ' ' + addr.pre_count + '台 ' for addr in addrList" ng-model="$parent.receiveInfo" watch material-select>
+                                            <select id="chooseDistributor" name="chooseDistributor" ng-options="addr.date_id + ' ' + addr.short_name + '&emsp;' + addr.plan_count + '/' + addr.pre_count for addr in addrList" ng-model="$parent.receiveInfo" watch material-select>
                                                 <option value="">送达经销商</option>
                                                 <!--<option ng-repeat="addr in addrList" ng-value="addr.id">{{addr.short_name}}</option>-->
                                             </select>
@@ -419,7 +419,7 @@
                                     <p style="font-size: 1.0rem;color: black;margin: 5px 0;line-height: 26px">{{details.city_name}}</p>
                                 </div>
                                 <div ng-if="details.current_city == 0" class="col s9 left" style="padding: 0;">
-                                    <p>{{details.task_start_name}}
+                                    <p style="font-size: 1.0rem;color: black;margin: 5px 0;line-height: 26px">{{details.task_start_name}}
                                        <span class="mdi mdi-arrow-right"></span>
                                         {{details.task_end_name}}
                                     </p>

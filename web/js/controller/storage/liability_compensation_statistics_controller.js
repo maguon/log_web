@@ -245,18 +245,18 @@ app.controller("liability_compensation_statistics_controller", ["$scope", "$host
             },
             xAxis: {
                 categories: [
-                    '一月',
-                    '二月',
-                    '三月',
-                    '四月',
-                    '五月',
-                    '六月',
-                    '七月',
-                    '八月',
-                    '九月',
-                    '十月',
-                    '十一月',
-                    '十二月'
+                    '第1周',
+                    '第2周',
+                    '第3周',
+                    '第4周',
+                    '第5周',
+                    '第6周',
+                    '第7周',
+                    '第8周',
+                    '第9周',
+                    '第10周',
+                    '第11周',
+                    '第12周'
                 ],
                 crosshair: true
             },

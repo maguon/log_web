@@ -42,7 +42,7 @@
                                  ng-class="{'no_amend_model':el.model_status==0}">
                                 <!--<input type="text" class="city_model_name cyan-text text-lighten-1 city_model_name{{$index}}"-->
                                        <!--ng-model="el.city_name" readonly="readonly">-->
-                                <p style="margin: 9px 0;color: #26c6da">{{el.city_name}}</p>
+                                <p style="margin: 9px 0;color: #26c6da">{{el.id + " - " + el.city_name}}</p>
                                 <div class="amend_city_model_box{{$index}} col s3"
                                      style="display: none;cursor: pointer">
                                     <i class="mdi red-text text-darken-2 mdi-close col s6 "

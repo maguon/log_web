@@ -132,7 +132,7 @@
         <!--列表栏-->
         <div class="col s12 black-text fz14 center-align" style="padding: 0" ng-show="showDetails">
             <ul class="collapsible" data-collapsible="accordion" style="overflow: hidden">
-                <li ng-repeat="mission in missionList">
+                <li ng-repeat="mission in missionList" style="margin-bottom: 15px">
                     <!--列表头-->
                     <div class="collapsible-header" style="padding: 0;">
                         <div class="col s12" style="background-color: #cfd8dc;padding: 0">
@@ -183,12 +183,12 @@
                         <div class="col s12 fz12" style="background-color: white;">
                             <!--VIN码信息-->
                             <div class="col s4 valign-wrapper" ng-repeat="load in loadList" style="border-bottom: 1px solid #ccc">
-                                <div class="col s6" style="padding: 0" ng-class="{'abnormal':load.exception_status != null}">
-                                    <p>VIN码：{{load.vin}}</p>
+                                <div class="col s10" style="padding: 0" ng-class="{'abnormal':load.exception_status != null}">
+                                    <p>{{load.vin}}&emsp;（{{load.make_name}}）</p>
                                 </div>
-                                <div class="col s4" style="padding: 0" ng-class="{'abnormal':load.exception_status != null}">
-                                    <p>制造商：{{load.make_name}}</p>
-                                </div>
+                                <!--<div class="col s4" style="padding: 0" ng-class="{'abnormal':load.exception_status != null}">-->
+                                    <!--<p>制造商：</p>-->
+                                <!--</div>-->
                                 <div class="col s2 contactsBox fz17" ng-hide="mission.load_task_status == 3 || mission.load_task_status == 7">
                                     <i ng-click="deleteLoadCar(load.car_id,load.id,mission.id)" style="cursor:pointer;" class="mdi mdi-close-circle"></i>
                                 </div>

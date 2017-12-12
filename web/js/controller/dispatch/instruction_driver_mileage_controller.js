@@ -9,8 +9,8 @@ app.controller("instruction_driver_mileage_controller", ["$scope", "$host", "_co
     $scope.search = function () {
         var obj = {
             taskStatus: 10,
-            loadDistance: 5,
-            noLoadDistance: 5,
+            loadDistance: 3,
+            noLoadDistance: 3,
             driveName: $scope.drive_name,
             truckNum: $scope.truckNum,
             dateIdStart: $scope.driver_mileage_startTime,

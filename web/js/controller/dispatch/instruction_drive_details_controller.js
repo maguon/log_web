@@ -35,8 +35,8 @@ app.controller("instruction_drive_details_controller", ["$scope", "$host","_conf
             var p=new Promise(function (resolve,reject) {
                 var obj={
                     taskStatus:9,
-                    loadDistance:5,
-                    noLoadDistance:5,
+                    loadDistance:3,
+                    noLoadDistance:3,
                     driveId:$scope.driveId,
                     dateIdStart:dateIdStart,
                     dateIdEnd:dateIdEnd
@@ -63,11 +63,11 @@ app.controller("instruction_drive_details_controller", ["$scope", "$host","_conf
     });
     $scope.drive_instruction_list=function () {
         if($scope.car_status==0){
-            loadDistance=5;
+            loadDistance=3;
             noLoadDistance="";
         }else if($scope.car_status==1){
             loadDistance="";
-            noLoadDistance=5;
+            noLoadDistance=3;
         }else {
             loadDistance="";
             noLoadDistance="";

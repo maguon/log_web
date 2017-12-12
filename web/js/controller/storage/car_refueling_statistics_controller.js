@@ -91,20 +91,22 @@ app.controller("car_refueling_statistics_controller", ["$scope", "$host", "_basi
                 truckRefuelingVolCountMonth[1].data = [];
                 truckRefuelingMoneyCountMonth[0].data = [];
                 truckRefuelingMoneyCountMonth[1].data = [];
-                for (var i = 0; i < data.result.length; i++) {
-                    if(data.result[i].refuel_address_type === 1){
-                        truckRefuelingVolCountMonth[0].data.push(data.result[i].total_vol);
-                        truckRefuelingMoneyCountMonth[0].data.push(data.result[i].total_money);
-                    }
-                    else{
-                        truckRefuelingVolCountMonth[1].data.push(data.result[i].total_vol);
-                        truckRefuelingMoneyCountMonth[1].data.push(data.result[i].total_money);
-                    }
-                    if($scope.refuelingVolMonth.indexOf(data.result[i].y_month) === -1){
-                        $scope.refuelingVolMonth.push(data.result[i].y_month);
-                    }
-                    if($scope.refuelingMoneyMonth.indexOf(data.result[i].y_month) === -1){
-                        $scope.refuelingMoneyMonth.push(data.result[i].y_month);
+                if(data.result.length > 0){
+                    for (var i = 0; i < data.result.length; i++) {
+                        if(data.result[i].refuel_address_type === 1){
+                            truckRefuelingVolCountMonth[0].data.push(data.result[i].total_vol);
+                            truckRefuelingMoneyCountMonth[0].data.push(data.result[i].total_money);
+                            if($scope.refuelingVolMonth.indexOf(data.result[i].y_month) === -1){
+                                $scope.refuelingVolMonth.push(data.result[i].y_month);
+                            }
+                        }
+                        else{
+                            truckRefuelingVolCountMonth[1].data.push(data.result[i].total_vol);
+                            truckRefuelingMoneyCountMonth[1].data.push(data.result[i].total_money);
+                            if($scope.refuelingMoneyMonth.indexOf(data.result[i].y_month) === -1){
+                                $scope.refuelingMoneyMonth.push(data.result[i].y_month);
+                            }
+                        }
                     }
                 }
                 $scope.showTruckRefueling_month();
@@ -128,20 +130,22 @@ app.controller("car_refueling_statistics_controller", ["$scope", "$host", "_basi
                 truckRefuelingVolCountWeek[1].data = [];
                 truckRefuelingMoneyCountWeek[0].data = [];
                 truckRefuelingMoneyCountWeek[1].data = [];
-                for (var i = 0; i < data.result.length; i++) {
-                    if(data.result[i].refuel_address_type === 1){
-                        truckRefuelingVolCountWeek[0].data.push(data.result[i].total_vol);
-                        truckRefuelingMoneyCountWeek[0].data.push(data.result[i].total_money);
-                    }
-                    else{
-                        truckRefuelingVolCountWeek[1].data.push(data.result[i].total_vol);
-                        truckRefuelingMoneyCountWeek[1].data.push(data.result[i].total_money);
-                    }
-                    if($scope.refuelingVolWeek.indexOf(data.result[i].y_week) === -1){
-                        $scope.refuelingVolWeek.push(data.result[i].y_week);
-                    }
-                    if($scope.refuelingMoneyWeek.indexOf(data.result[i].y_week) === -1){
-                        $scope.refuelingMoneyWeek.push(data.result[i].y_week);
+                if(data.result.length > 0){
+                    for (var i = 0; i < data.result.length; i++) {
+                        if(data.result[i].refuel_address_type === 1){
+                            truckRefuelingVolCountWeek[0].data.push(data.result[i].total_vol);
+                            truckRefuelingMoneyCountWeek[0].data.push(data.result[i].total_money);
+                            if($scope.refuelingVolWeek.indexOf(data.result[i].y_week) === -1){
+                                $scope.refuelingVolWeek.push(data.result[i].y_week);
+                            }
+                        }
+                        else{
+                            truckRefuelingVolCountWeek[1].data.push(data.result[i].total_vol);
+                            truckRefuelingMoneyCountWeek[1].data.push(data.result[i].total_money);
+                            if($scope.refuelingMoneyWeek.indexOf(data.result[i].y_week) === -1){
+                                $scope.refuelingMoneyWeek.push(data.result[i].y_week);
+                            }
+                        }
                     }
                 }
                 $scope.showTruckRefueling_week();

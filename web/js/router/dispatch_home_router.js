@@ -90,6 +90,16 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/dispatch/instruction_car_refuel_details.html",
             controller: "instruction_car_refuel_details_controller"
         })
+        .state("chauffeur_mileage_statistics", {
+            url:"/chauffeur_mileage_statistics",
+            templateUrl: "js/view/storage/chauffeur_mileage_statistics.html",
+            controller:"chauffeur_mileage_statistics_controller"
+        })
+        .state("car_refueling_statistics", {
+            url:"/car_refueling_statistics",
+            templateUrl: "js/view/storage/car_refueling_statistics.html",
+            controller:"car_refueling_statistics_controller"
+        })
 
         // 公共数据
         .state("car_query",{

@@ -46,6 +46,20 @@
     <li class="bold side_navigator" >
         <a  ui-sref="user_info" class=" waves-effect waves-light first-N" ><i class="white-text mdi mdi-account-card-details"></i>用户信息</a>
     </li>
+
+    <li class="bold side_navigator">
+        <ul class="collapsible collapsible-accordion">
+            <li class="bold">
+                <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-account-convert"></i>调度管理</a>
+                <div class="collapsible-body slider_nav_box blue-grey darken-3" style="padding: 0;">
+                    <ul>
+                        <li><a href="#!" ui-sref="instruction_need"><i class="mdi mdi-chevron-right white-text "></i>调度需求</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+
     <li class="bold side_navigator">
         <a href="#!" ui-sref="data_dictionary" class=" waves-effect waves-light first-N" ><i class="white-text mdi mdi-book-multiple"></i>数据字典</a>
     </li>
@@ -127,13 +141,8 @@
     <div class="containerBox" >
         <div ui-view></div>
     </div>
-    </h1>
 </div>
 
-<!--<div class="footer blue-grey darken-1">-->
-    <!--<h5 class="footer-msg right">洺源信息技术</h5>-->
-    <!--<h5 class="footer-msg right">物流系统1.0</h5>-->
-<!--</div>-->
 <footer></footer>
 
 </body>
@@ -196,10 +205,7 @@
 <script src="/js/controller/car/car_query/car_query_controller.js"></script>
 <script src="/js/controller/car/car_query/car_query_details_controller.js"></script>
 <script src="/js/controller/car/car_statistics_controller.js"></script>
-<!--<script src="/js/controller/setting/setting_storage_controller.js"></script>-->
-<!--<script src="/js/controller/setting/setting_user_controller.js"></script>-->
 <script src="/js/controller/setting/setting_car_brand_controller.js"></script>
-<!--<script src="/js/controller/setting/setting_amend_vin_controller.js"></script>-->
 <script src="/js/controller/setting/setting_city_controller.js"></script>
 <script src="/js/controller/setting/setting_dealer/setting_dealer_controller.js"></script>
 <script src="/js/controller/setting/setting_dealer/add_setting_dealer_controller.js"></script>
@@ -213,4 +219,6 @@
 <script src="/js/controller/storage/add_storage_car_vin_controller.js"></script>
 <script src="/js/controller/storage/add_storage_car_controller.js"></script>
 <script src="/js/controller/storage/add_storage_car_put_in_controller.js"></script>
+<script src="/js/controller/dispatch/instruction_need_controller.js"></script>
+<script src="/js/controller/dispatch/look_instruction_need_details_controller.js"></script>
 </html>

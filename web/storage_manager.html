@@ -17,9 +17,9 @@
 </head>
 <body>
 <header type="29" url="../assets/images/my_logo.png" qr="../assets/images/qr_code/qr_storage_app.png"></header>
-<ul id="slide-out"   class="side-nav blue-grey darken-4">
+<ul id="slide-out" class="side-nav blue-grey darken-4">
     <li class="nav-logo valign-wrapper " style="border-bottom: 1px solid #182024">
-        <div class="  userBox">
+        <div class="userBox">
             <!--有头像照片的时候显示头像，没有则显示默认svg头像-->
             <div ng-if="hasUserPortrait" class="logo_img responsive-img left" style="height:50px">
                 <img ng-src="{{userImg}}" style="width: 100%;height: 100%;border-radius: 100%" alt="">
@@ -46,6 +46,20 @@
     <li class="bold side_navigator" >
         <a  ui-sref="user_info" class=" waves-effect waves-light first-N" ><i class="white-text mdi mdi-account-card-details"></i>用户信息</a>
     </li>
+
+    <li class="bold side_navigator">
+        <ul class="collapsible collapsible-accordion">
+            <li class="bold">
+                <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-account-convert"></i>调度管理</a>
+                <div class="collapsible-body slider_nav_box blue-grey darken-3" style="padding: 0;">
+                    <ul>
+                        <li><a href="#!" ui-sref="instruction_need"><i class="mdi mdi-chevron-right white-text "></i>调度需求</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+
     <li class="bold side_navigator">
         <a href="#!" ui-sref="data_dictionary" class=" waves-effect waves-light first-N" ><i class="white-text mdi mdi-book-multiple"></i>数据字典</a>
     </li>
@@ -130,13 +144,8 @@
     <div class="containerBox" >
         <div ui-view></div>
     </div>
-    </h1>
 </div>
 
-<!--<div class="footer blue-grey darken-1">-->
-    <!--<h5 class="footer-msg right">洺源信息技术</h5>-->
-    <!--<h5 class="footer-msg right">物流系统1.0</h5>-->
-<!--</div>-->
 <footer></footer>
 
 </body>
@@ -217,5 +226,6 @@
 <script src="/js/controller/storage/add_storage_car_vin_controller.js"></script>
 <script src="/js/controller/storage/add_storage_car_controller.js"></script>
 <script src="/js/controller/storage/add_storage_car_put_in_controller.js"></script>
-
+<script src="/js/controller/dispatch/instruction_need_controller.js"></script>
+<script src="/js/controller/dispatch/look_instruction_need_details_controller.js"></script>
 </html>

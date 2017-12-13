@@ -134,7 +134,7 @@ adminDirective.directive("date", function () {
                     }
                 },
                 selectMonths: false, // Creates a dropdown to control month
-                selectYears: 0 // Creates a dropdown of 15 years to control year
+                selectYears: 21 // Creates a dropdown of 15 years to control year
             });
         }
     }

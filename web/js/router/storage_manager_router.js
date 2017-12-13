@@ -4,19 +4,6 @@
 
 // var storage_router=angular.module("storage_router",[]);
 app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRouterProvider) {
-    // $routeProvider.when('/', {
-    //     templateUrl: '/view/index_home.html',
-    //     controller:'indexController'
-    // }).when('/data', {
-    //     templateUrl: '/view/car_to_data.html',
-    //     controller:'dataController'
-    // }).when('/setting', {
-    //     templateUrl: '/view/setting.html',
-    //     controller:'settingController'
-    // }).otherwise({
-    //     templateUrl: '/view/index_home.html',
-    //     controller:'indexController'
-    // });
     $urlRouterProvider.when("","/storage_index");
     $stateProvider
         .state("storage_index", {  //路由状态
@@ -59,11 +46,6 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "/js/view/storage/storage_car_map.html",
             controller:"storage_car_map_controller"
         })
-        // .state("setting_car_brand",{
-        //     url:"setting_car_brand",
-        //     templateUrl: "/js/view/car/storage/setting_car_brand.html",
-        //     controller:'setting_car_brand_controller'
-        // })
         .state("user_info",{
             url:"/user_info",
             templateUrl: "/js/view/user/user_info.html",
@@ -74,8 +56,17 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/data/car_to_data.html",  //路由填充的模板
             controller:'car_to_data_controller'
         })
-
-
+        // 调度需求
+        .state("instruction_need", {
+            url: "/instruction_need",
+            templateUrl: "js/view/dispatch/instruction_need.html",
+            controller:"instruction_need_controller"
+        })
+        .state("look_instruction_need_details", {
+            url: "/look_instruction_need_details/id/{id}/from/{from}",
+            templateUrl: "js/view/dispatch/look_instruction_need_details.html",
+            controller:"look_instruction_need_details_controller"
+        })
         .state("setting_users", {
             url: "/setting_users",  //路由路径
             templateUrl: "js/view/system_settings/user_manager.html", //路由填充的模板

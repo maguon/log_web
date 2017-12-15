@@ -23,6 +23,17 @@ app.controller("truck_details_controller", ["$scope", "$state", "$stateParams", 
 
     };
 
+    $scope.getBrandList = function () {
+        _basic.get($host.api_url + "/brand").then(function (data) {
+            if (data.success == true) {
+                $scope.brand = data.result;
+            } else {
+                swal(data.msg, "", "error")
+            }
+        });
+    };
+    $scope.getBrandList();
+
 
     // 头车搜索请求
     $scope.head_query = function (params) {
@@ -123,6 +134,13 @@ app.controller("truck_details_controller", ["$scope", "$state", "$stateParams", 
         }
         else {
             $scope.queryParams.drivingDateEnd = null;
+        }
+
+        if ($scope.truckBrand) {
+            $scope.queryParams.brandId = $scope.truckBrand;
+        }
+        else {
+            $scope.queryParams.brandId = null;
         }
 
     };
@@ -299,6 +317,11 @@ app.controller("truck_details_controller", ["$scope", "$state", "$stateParams", 
             $scope.hand_queryParams.drivingDateEnd = $scope.search_checkCar_hand_endTime;
         } else {
             $scope.hand_queryParams.drivingDateEnd = null;
+        }
+        if ($scope.handBrand) {
+            $scope.hand_queryParams.brandId = $scope.handBrand;
+        } else {
+            $scope.hand_queryParams.brandId = null;
         }
 
     };

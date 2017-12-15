@@ -1,7 +1,7 @@
 <div >
     <div class="" >
         <div class="modal-content grey-text text-darken-2">
-            <div class="storage_storeTitle vc-center ">
+            <div class="storage_storeTitle vc-center">
                 <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
                     <i class="mdi mdi-arrow-left-bold"></i>
                 </a>
@@ -41,11 +41,18 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="input-field col s6 " ng-class="{'has-error':add_truck_form.hand_have_num.$invalid&&submitted }">
+                                <div class="input-field col s4" ng-class="{'has-error':add_truck_form.truck_make.$invalid&&submitted }">
+                                    <select id="truck_make" name="truck_make" material-select watch ng-model="truck_make" required>
+                                        <option value="">请选择</option>
+                                        <option ng-repeat="el in brand" ng-value="el.id">{{el.brand_name}}</option>
+                                    </select>
+                                    <label for="truck_make"><span style="color: red;margin-right: 5px">*</span>车辆品牌</label>
+                                </div>
+                                <div class="input-field col s4" ng-class="{'has-error':add_truck_form.hand_have_num.$invalid&&submitted }">
                                     <input name="hand_have_num" id="hand_have_num" type="number" ng-model="hand_have_num" ng-pattern="/^[1-9]?\d$/"  required >
                                     <label for="hand_have_num"><span style="color: red;margin-right: 5px">*</span>挂车货位（最多两位数）</label>
                                 </div>
-                                <div class="input-field col s6 " >
+                                <div class="input-field col s4">
                                     <input name="hand_vin" id="hand_vin" type="text" ng-model="hand_vin" >
                                     <label for="hand_vin">识别代码</label>
                                 </div>
@@ -56,13 +63,13 @@
                                 <label for="drive_time"><span style="color: red;margin-right: 5px">*</span>行驶证检证日期</label>
                             </div>
                             <div class="col s6 input-field" ng-class="{'has-error':add_truck_form.service_time.$invalid&&submitted }">
-                                <input type="text" name="service_time" id="service_time" class="datepicker" autocomplete="off" ng-model="service_hand_time" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                <input type="text" name="service_time" id="service_time" class="datepicker" autocomplete="off" ng-model="service_hand_time" required date><i class="mdi dataIcon mdi-table-large"></i>
                                 <label for="service_time"><span style="color: red;margin-right: 5px">*</span>营运证检证日期</label>
                             </div>
                         </div>
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <textarea id="hand_textarea" ng-model="hand_textarea" class="materialize-textarea"></textarea>
+                                    <input name="hand_textarea" id="hand_textarea" type="text" ng-model="hand_textarea" >
                                     <label for="hand_textarea">备注:</label>
                                 </div>
                             </div>
@@ -76,10 +83,6 @@
                         <div class="col s6 vc-center">
                             <div class="col s12">
                                 <form name="uploadImageForm" class="uploadImageForm">
-                                    <!--<div class="storage_car_picture col s4 vc-center  p0 cyan lighten-1 white-text">-->
-                                        <!--<input name="image" type="file" onchange="angular.element(this).scope().uploadBrandImage_drive(this)" max_size="4M">-->
-                                        <!--<i class="mdi mdi-instagram"></i>-->
-                                    <!--</div>-->
                                     <div class="upload_btn left  ">
                                         <div class="storage_car_picture  vc-center  p0 cyan lighten-1 white-text">
                                             <input name="image" type="file" onchange="angular.element(this).scope().uploadBrandImage_drive(this)" max_size="4M">
@@ -89,8 +92,6 @@
                                     </div>
                                     <div ng-repeat="el in drive_img" class="drive_img_box col s4 vc-center p0 grey white-text">
                                         <img ng-src="{{el.img}}" class="responsive-img">
-                                        <!--<b class="delete_img vc-center black fz18" ng-click="delete_img(el.img)"><i class="mdi mdi-close"></i></b>-->
-                                        <!--<p class="img_date white-text center-align" ng-show="show" ng-cloak>{{el.user}}上传于{{el.time|date:'yyyy-MM-dd HH:mm:ss'}}</p>-->
                                     </div>
                                 </form>
                             </div>

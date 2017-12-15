@@ -43,28 +43,37 @@
                         <div class="row  grey-text text-darken-1">
                             <div class="col s10">
                                 <div class="col s12">
-                                    <div class="input-field col s3">
-                                        <select id="search_truck_type" material-select ng-change="get_company(search_truck_type)" watch ng-model="search_truck_type">
-                                            <option ng-value="">请选择</option>
-                                            <option ng-value="1">自营车</option>
-                                            <option ng-value="2">外协车</option>
-                                            <option ng-value="3">供方车</option>
-                                            <option ng-value="4">承包车</option>
-                                        </select>
-                                        <label for="search_truck_type">所属类型</label>
+                                    <div class="col s8" style="padding: 0;">
+                                        <div class="input-field col s4">
+                                            <select id="search_truck_type" material-select ng-change="get_company(search_truck_type)" watch ng-model="search_truck_type">
+                                                <option ng-value="">请选择</option>
+                                                <option ng-value="1">自营车</option>
+                                                <option ng-value="2">外协车</option>
+                                                <option ng-value="3">供方车</option>
+                                                <option ng-value="4">承包车</option>
+                                            </select>
+                                            <label for="search_truck_type">所属类型</label>
+                                        </div>
+                                        <div class="input-field col s4">
+                                            <select id="truck_brand" name="truck_brand" material-select watch ng-model="truckBrand">
+                                                <option value="">请选择</option>
+                                                <option ng-repeat="el in brand" ng-value="el.id">{{el.brand_name}}</option>
+                                            </select>
+                                            <label for="truck_brand">车辆品牌</label>
+                                        </div>
+                                        <div class="input-field col s4">
+                                            <select id="search_company" material-select watch ng-model="search_company">
+                                                <option value="">所属公司</option>
+                                                <option ng-repeat="el in company" ng-value="el.id">{{el.company_name}}</option>
+                                            </select>
+                                            <label for="search_company">请选择</label>
+                                        </div>
                                     </div>
-                                    <div class="input-field col s3">
-                                        <select id="search_company" material-select watch ng-model="search_company">
-                                            <option value=""  >所属公司</option>
-                                            <option ng-repeat="el in company" ng-value="el.id">{{el.company_name}}</option>
-                                        </select>
-                                        <label for="search_company">请选择</label>
-                                    </div>
-                                    <div class="input-field col s3">
+                                    <div class="input-field col s2">
                                         <input name="search_num" id="search_num" type="text" ng-model="search_num"   >
                                         <label for="search_num">牌号</label>
                                     </div>
-                                    <div class="input-field col s3">
+                                    <div class="input-field col s2">
                                         <input name="search_driver" id="search_driver" type="text" ng-model="search_driver" >
                                         <label for="search_driver">关联司机</label>
                                     </div>
@@ -177,7 +186,7 @@
                         <div class="row  grey-text text-darken-1 ">
                             <div class="col s10">
                                 <div class="col s12" style="margin-top: 15px">
-                                    <div class="input-field col s3">
+                                    <div class="input-field col s2">
                                         <select id="search_truck_hand_type" material-select watch ng-model="search_truck_hand_type">
                                             <option ng-value="">请选择</option>
                                             <option ng-value="1">自营车</option>
@@ -187,26 +196,31 @@
                                         </select>
                                         <label for="search_truck_hand_type">所属类型</label>
                                     </div>
-                                    <div class="input-field col s3">
+                                    <div class="input-field col s2">
+                                        <select id="hand_brand" name="hand_brand" material-select watch ng-model="handBrand">
+                                            <option value="">请选择</option>
+                                            <option ng-repeat="el in brand" ng-value="el.id">{{el.brand_name}}</option>
+                                        </select>
+                                        <label for="hand_brand">车辆品牌</label>
+                                    </div>
+                                    <div class="input-field col s2">
                                         <select id="search_hand_company" material-select watch ng-model="search_hand_company">
                                             <option value="">所属公司</option>
                                             <option ng-repeat="el in company" ng-value="el.id">{{el.company_name}}</option>
                                         </select>
                                         <label for="search_hand_company">请选择</label>
                                     </div>
-                                    <div class="input-field col s3">
+                                    <div class="input-field col s2">
                                         <input name="search_hand_num" id="search_hand_num" type="text" ng-model="search_hand_num"  minlength="6" >
                                         <label for="search_hand_num">牌号</label>
                                     </div>
-                                    <div class="col s3">
-                                        <div class="input-field col s6">
-                                            <input name="search_hand_num_start" id="search_hand_num_start" type="number" ng-model="search_hand_num_start"  >
-                                            <label for="search_hand_num_start">挂车货位(始)</label>
-                                        </div>
-                                        <div class="input-field col s6">
-                                            <input name="search_hand_num_end" id="search_hand_num_end" type="number" ng-model="search_hand_num_end"   >
-                                            <label for="search_hand_num_end">挂车货位(终)</label>
-                                        </div>
+                                    <div class="input-field col s2">
+                                        <input name="search_hand_num_start" id="search_hand_num_start" type="number" ng-model="search_hand_num_start"  >
+                                        <label for="search_hand_num_start">挂车货位(始)</label>
+                                    </div>
+                                    <div class="input-field col s2">
+                                        <input name="search_hand_num_end" id="search_hand_num_end" type="number" ng-model="search_hand_num_end"   >
+                                        <label for="search_hand_num_end">挂车货位(终)</label>
                                     </div>
                                 </div>
                                 <div class="col s12">

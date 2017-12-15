@@ -97,6 +97,7 @@ app.controller("look_head_truck_details_controller", ["$scope", "$state", "$stat
         _basic.get($host.api_url + "/truckFirst?truckId=" + id).then(function (data) {
             if (data.success == true) {
                 $scope.truckFirst = data.result[0];
+                $scope.truckFirst.hp = $scope.truckFirst.hp === 0 ? null : $scope.truckFirst.hp;
                 // 获取车牌号
                 $scope.truck_num = $scope.truckFirst;
 
@@ -228,7 +229,8 @@ app.controller("look_head_truck_details_controller", ["$scope", "$state", "$stat
             "truckType": 1,
             "drivingDate": $scope.truckFirst.driving_date,
             "licenseDate": $scope.truckFirst.license_date,
-            "remark": $scope.truckFirst.remark
+            "remark": $scope.truckFirst.remark,
+            "hp": parseInt($scope.truckFirst.hp)
         };
         if (inValid) {
             _basic.put($host.api_url + "/user/" + userId + "/truck/" + id, obj).then(function (data) {

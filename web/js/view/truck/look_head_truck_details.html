@@ -44,12 +44,16 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s4" ng-class="{'has-error':look_truck_form.truck_make.$invalid&&submitted }">
+                    <div class="input-field col s2" ng-class="{'has-error':look_truck_form.truck_make.$invalid&&submitted }">
                         <select id="truck_make" name="truck_make" material-select watch ng-model="truckFirst.brand_id" required>
                             <option value="">请选择</option>
                             <option ng-repeat="el in brand" ng-value="el.id">{{el.brand_name}}</option>
                         </select>
                         <label for="truck_make"><span style="color: red;margin-right: 5px">*</span>车辆品牌</label>
+                    </div>
+                    <div class="input-field col s2">
+                        <input name="horsepower" id="horsepower" type="number" ng-model="truckFirst.hp" autocomplete="off" >
+                        <label for="horsepower">马力</label>
                     </div>
                     <div class="input-field col s4">
                         <input name="vin" id="vin" type="text" ng-model="truckFirst.the_code" autocomplete="off" >
@@ -60,7 +64,7 @@
                         <label for="phone_num">联系电话</label>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row valign-wrapper">
                     <div class="col s4 input-field" ng-class="{'has-error':look_truck_form.drive_time.$invalid&&submitted }">
                         <input type="text" name="drive_time" id="drive_time" class="datepicker" autocomplete="off" form-date ng-model="truckFirst.driving_date" required   date><i class="mdi dataIcon mdi-table-large"></i>
                         <label for="drive_time">行驶证检证日期</label>
@@ -70,12 +74,16 @@
                         <label for="service_time">营运证检证日期</label>
                     </div>
                     <div class="col s4 input-field" ng-show="truckFirst.truck_status==1" ng-class="{'has-error':look_truck_form.service_time.$invalid&&submitted }">
-                        <span>车辆状态:</span>
-                        <span>在用</span>
+                        <p>
+                            <span>车辆状态:</span>
+                            <span>在用</span>
+                        </p>
                     </div>
                     <div class="col s4 input-field" ng-show="truckFirst.truck_status==0" ng-class="{'has-error':look_truck_form.service_time.$invalid&&submitted }">
-                        <span>车辆状态:</span>
-                        <span>停用</span>
+                        <p>
+                            <span>车辆状态:</span>
+                            <span>停用</span>
+                        </p>
                     </div>
                 </div>
                 <div class="row">

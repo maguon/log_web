@@ -73,7 +73,6 @@
                                 <label for="service_time">营运证检证日期</label>
                             </div>
                             <div class="col s4 input-field" ng-show="truckTrailer.truck_status==1" ng-class="{'has-error':look_truck_form.service_time.$invalid&&submitted }">
-
                                 <span>车辆状态:</span>
                                 <span>在用</span>
                             </div>
@@ -84,16 +83,11 @@
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <textarea id="textarea" ng-model="truckTrailer.remark" class="materialize-textarea"></textarea>
+                                <input name="textarea" id="textarea" type="text" ng-model="truckTrailer.remark" >
                                 <label for="textarea">备注:</label>
                             </div>
                         </div>
                         <div class="row">
-                            <!--<div class="row" ng-repeat="el in comment">-->
-                                <!--<div class="col s4" >时间:{{el.timez|date:'yyyy-MM-dd'}}</div>-->
-                                <!--<div class="col s4"  >事件{{el.content}}</div>-->
-                                <!--<div class="col s4" >操作员{{el.name}}</div>-->
-                            <!--</div>-->
                             <div style="margin:0 0 0 0.5%">
                                 <h5 style="margin-top: 30px">任务执行记录</h5>
                                 <div class="divider" style="width: 95%;background: #00bcd4;height: 2px;margin-top:15px"></div>
@@ -212,7 +206,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </form>
                 </div>
             </div>

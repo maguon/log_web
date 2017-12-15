@@ -78,6 +78,7 @@ app.controller("add_head_truck_details_controller", ["$scope", "$state", "$state
         var obj = {
             truckNum: $scope.truck_num.replace(/\s+/g,""),
             brandId: $scope.truck_make,
+            hp: parseInt($scope.horsepower),
             truckTel: $scope.phone_num,
             theCode: $scope.vin,
             driveId: $scope.main_driver,

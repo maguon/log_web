@@ -17,15 +17,15 @@ Login_model.controller("retrieve_password_controller", ["$state", "$scope", "$q"
     // 发送手机验证码
     $scope.sendVerificationCode = function () {
         if (/^1(3[0-9]|4[57]|5[0-35-9]|7[01678]|8[0-9])\d{8}$/.test($scope.phoneNum)) {
-            $scope.timeCount = 60;
+            var timeCount = 60;
             _basic.post($host.api_url + "/phone/" + $scope.phoneNum + "/passwordSms", {}).then(function (data) {
                 if (data.success === true) {
                     swal("验证码已发送", "", "success");
                     $("#sendVerification").attr("disabled", true);
                     var countDown = $interval(function () {
-                        if ($scope.timeCount > 0) {
-                            $scope.timeCount--;
-                            $scope.btnTip = "(" + $scope.timeCount + ")";
+                        if (timeCount > 0) {
+                            timeCount--;
+                            $scope.btnTip = "(" + timeCount + ")";
                         }
                         else{
                             $scope.btnTip = "";
@@ -58,6 +58,10 @@ Login_model.controller("retrieve_password_controller", ["$state", "$scope", "$q"
                 _basic.put($host.api_url + "/phone/" + $scope.phoneNum + "/password", obj).then(function (data) {
                     if (data.success == true) {
                         swal("密码重置成功", "", "success");
+                        $scope.phoneNum = "";
+                        $scope.verificationCode = "";
+                        $scope.newPsw = "";
+                        $scope.confirmNewPsw = "";
                     }
                     else {
                         swal(data.msg, "", "error");

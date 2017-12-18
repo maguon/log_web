@@ -59,7 +59,7 @@ app.controller("dispatch_index_controller", ["$scope", "$host", "_basic", functi
 
         // 获取未完成指令车辆数量
         _basic.get($host.api_url + "/notCompletedTaskStatusCount?taskStatusArr=1,2,3,4").then(function (notCompleteData) {
-            if (notCompleteData.success === true) {
+            if (notCompleteData.success === true && notCompleteData.result.length > 0) {
                 // console.log("notCompleteData",notCompleteData);
                 $scope.notCompleteCount = notCompleteData.result[0].task_status_count;
             }
@@ -70,7 +70,7 @@ app.controller("dispatch_index_controller", ["$scope", "$host", "_basic", functi
 
         // 获取送达商品车数量
         _basic.get($host.api_url + "/carLoadStatusCount?carLoadStatus=2&arriveDateStart=" + nowDate + "&arriveDateEnd=" + nowDate).then(function (arriveCarData) {
-            if (arriveCarData.success === true) {
+            if (arriveCarData.success === true && arriveCarData.result.length > 0) {
                 // console.log("arriveCarData",arriveCarData);
                 $scope.todayCommodityCar = arriveCarData.result[0].arrive_count
             }
@@ -81,7 +81,7 @@ app.controller("dispatch_index_controller", ["$scope", "$host", "_basic", functi
 
         // 获取未安排商品车数量和已安排商品车数量
         _basic.get($host.api_url + "/dpTaskStatCount").then(function (data) {
-            if (data.success === true) {
+            if (data.success === true && data.result.length > 0) {
                 $scope.scheduledVehicles = data.result[0].plan_count;
                 $scope.notScheduledVehicle = data.result[0].pre_count - data.result[0].plan_count;
             }

@@ -29,7 +29,7 @@
                         </div>
                         <div class="col s12 input-field mp-40" ng-class="{'has-error':setting_dealer_details_form.carWashingFee.$invalid&&submitted}">
                             <input type="number" id="carWashingFee" name="carWashingFee" autocomplete="off" ng-model="dealer_details.clean_fee" required>
-                            <label class="grey-text bold" for="carWashingFee">洗车费</label>
+                            <label class="grey-text bold {{dealer_details.clean_fee != null ? 'active' : 'inactive'}}" for="carWashingFee">洗车费</label>
                         </div>
                     </div>
                     <div class="row">

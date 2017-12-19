@@ -1,9 +1,6 @@
 /**
  * Created by ASUS on 2017/6/8.
  */
-/**
- * Created by ASUS on 2017/6/7.
- */
 app.controller("setting_dealer_details_controller", ["$scope", "_basic", "_config", "$host", "$stateParams", function ($scope, _basic, _config, $host, $stateParams) {
     var userId = _basic.getSession(_basic.USER_ID);
     var marker;

@@ -20,18 +20,22 @@
                 <form name="setting_dealer_details_form" ng-submit="change_setting_dealer(setting_dealer_details_form.$valid)" novalidate>
                     <div class="row">
                         <div class="col s12 input-field" ng-class="{'has-error':setting_dealer_details_form.short_name.$invalid&&submitted}">
-                            <input type="text" id="short_name" name="short_name"  autocomplete="off" ng-model="dealer_details.short_name" required>
+                            <input type="text" id="short_name" name="short_name" autocomplete="off" ng-model="dealer_details.short_name" required>
                             <label class="grey-text bold" for="short_name">公司简称</label>
                         </div>
-                        <div class="col s12 input-field mp-40"  ng-class="{'has-error':setting_dealer_details_form.deal_name.$invalid&&submitted}">
-                            <input type="text" id="deal_name"  name="deal_name" autocomplete="off"  ng-model="dealer_details.receive_name" required>
+                        <div class="col s12 input-field mp-40" ng-class="{'has-error':setting_dealer_details_form.deal_name.$invalid&&submitted}">
+                            <input type="text" id="deal_name" name="deal_name" autocomplete="off" ng-model="dealer_details.receive_name" required>
                             <label class="grey-text bold" for="deal_name">公司全称</label>
+                        </div>
+                        <div class="col s12 input-field mp-40" ng-class="{'has-error':setting_dealer_details_form.carWashingFee.$invalid&&submitted}">
+                            <input type="number" id="carWashingFee" name="carWashingFee" autocomplete="off" ng-model="dealer_details.clean_fee" required>
+                            <label class="grey-text bold" for="carWashingFee">洗车费</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col s12 input-field mp-40">
+                        <div class="col s12 input-field">
                             <select material-select watch ng-model="dealer_details.city_id" required>
-                                <option value="" >选择城市</option>
+                                <option value="">选择城市</option>
                                 <option ng-repeat="el in setting_city" ng-show="el.city_status==1" ng-value="el.id" >{{el.city_name}}</option>
                             </select>
                             <label class="grey-text bold">所属城市</label>
@@ -44,9 +48,9 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col s12 bold mp-40">备注:</div>
+                        <div class="col s12 bold" style="margin-top: 18px">备注:</div>
                         <div class="col s12 mp-10">
-                        <textarea ng-model="dealer_details.remark" name="remark" id="" style="height: 150px" >
+                        <textarea ng-model="dealer_details.remark" name="remark" id="" style="height: 100px" >
 
                         </textarea>
                         </div>

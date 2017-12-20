@@ -56,7 +56,9 @@ app.controller("damage_management_controller", ["$scope", "$host", "_basic", fun
             createdOnEnd:reportTimeEnd,
             underUserName:$scope.responsibilityPerson,
             routeEndId:$scope.endCity,
-            receiveId:$scope.distributor
+            receiveId:$scope.distributor,
+            damageLinkType:$scope.damage_link_type,
+            damageType:$scope.damage_type
         })).then(function (data) {
             if (data.success === true) {
                 $scope.damageMamagementList = data.result;

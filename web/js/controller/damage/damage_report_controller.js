@@ -130,6 +130,7 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
             if($scope.vinCode.length === 17 && $scope.vinCheck){
                 _basic.post($host.api_url + "/user/" + userId + "/damage",{
                     carId:$scope.vinData.id,
+                    vin:$scope.vinCode,
                     truckId:truckId,
                     truckNum:truckNum,
                     driveId:driveId,

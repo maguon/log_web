@@ -1,32 +1,84 @@
 <div class="damage_management">
     <div class="row main_storage_car">
-        <div class="col s12">
-            <div class="col input-field s2">
-                <input id="damage_number" type="text" ng-model="damageNum">
-                <label for="damage_number">质损编号</label>
+        <div class="col s12 valign-wrapper">
+            <div class="col s10" style="padding: 0;">
+                <div class="col input-field s2">
+                    <input id="damage_number" type="text" ng-model="damageNum">
+                    <label for="damage_number">质损编号</label>
+                </div>
+                <div class="input-field col s2">
+                    <input id="VinCode" type="text" ng-model="vinCode">
+                    <label for="VinCode">VIN码</label>
+                </div>
+                <div class="col s2 input-field">
+                    <select material-select watch ng-change="getReceiveList()" ng-model="endCity">
+                        <option value="" selected>目的城市</option>
+                        <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
+                    </select>
+                </div>
+
+                <div class="col s2 input-field">
+                    <select material-select watch ng-model="brand">
+                        <option value="" selected>品牌</option>
+                        <option ng-repeat="brand in brandList" ng-value="brand.id">{{brand.make_name}}</option>
+                    </select>
+                </div>
+                <div class="col s2 input-field">
+                    <select material-select watch ng-model="distributor">
+                        <option value="" selected>经销商</option>
+                        <option ng-repeat="receive in receiveList" ng-value="receive.id">{{receive.short_name}}</option>
+                    </select>
+                </div>
+                <div class="col s2 input-field">
+                    <select material-select watch ng-model="processingStatus">
+                        <option value="" selected>处理状态</option>
+                        <option value="1" >待处理</option>
+                        <option value="2" >处理中</option>
+                        <option value="3" >已处理</option>
+                    </select>
+                </div>
+                <div class="col s4" style="padding: 0">
+                    <div class="col input-field s6">
+                        <input id="report_time_start" type="text" class="datepicker" ng-model="reportTimeStart"><i
+                            class="mdi dataIcon mdi-table-large"></i>
+                        <label for="report_time_start">申报时间</label>
+                    </div>
+                    <div class="col input-field s6">
+                        <input id="report_time_end" type="text" class="datepicker" ng-model="reportTimeEnd"><i
+                            class="mdi dataIcon mdi-table-large"></i>
+                        <label for="report_time_end">至</label>
+                    </div>
+                </div>
+                <div class="col input-field s2">
+                    <input id="responsibility_person" type="text" ng-model="responsibilityPerson">
+                    <label for="responsibility_person">责任人</label>
+                </div>
+                <div class="col input-field s2">
+                    <input id="report_person" type="text" ng-model="reportPerson">
+                    <label for="report_person">申报人</label>
+                </div>
+                <div class="col s2 input-field">
+                    <select id="damageLinkType" material-select watch ng-model="damage_link_type">
+                        <option value="" selected>质损环节类别</option>
+                        <option value="1">委托方质损</option>
+                        <option value="2">短驳质损</option>
+                        <option value="3">仓储质损</option>
+                        <option value="4">装车质损</option>
+                        <option value="5">运输质损</option>
+                    </select>
+                </div>
+                <div class="col s2 input-field">
+                    <select material-select watch ng-model="damage_type">
+                        <option value="" selected>质损类型</option>
+                        <option value="1">A级</option>
+                        <option value="2">B级</option>
+                        <option value="3">C级</option>
+                        <option value="4">D级</option>
+                        <option value="6">F级</option>
+                    </select>
+                </div>
             </div>
-            <div class="col s2 input-field">
-                <select material-select watch ng-model="processingStatus">
-                    <option value="" selected>处理状态</option>
-                    <option value="1" >待处理</option>
-                    <option value="2" >处理中</option>
-                    <option value="3" >已处理</option>
-                </select>
-            </div>
-            <div class="input-field col s2">
-                <input id="VinCode" type="text" ng-model="vinCode">
-                <label for="VinCode">VIN码</label>
-            </div>
-            <div class="col s2 input-field">
-                <select material-select watch ng-model="brand">
-                    <option value="" selected>品牌</option>
-                    <option ng-repeat="brand in brandList" ng-value="brand.id">{{brand.make_name}}</option>
-                </select>
-            </div>
-            <div class="col input-field s2">
-                <input id="report_person" type="text" ng-model="reportPerson">
-                <label for="report_person">申报人</label>
-            </div>
+
             <div class="col s2" style="padding: 0">
                 <div class="col s6 flex flex-round">
                     <a class="btn-floating btn-large waves-light waves-effect red lighten-2 btn vc-center"
@@ -41,35 +93,8 @@
                     </a>
                 </div>
             </div>
-            <div class="col s4" style="padding: 0">
-                <div class="col input-field s6">
-                    <input id="report_time_start" type="text" class="datepicker" ng-model="reportTimeStart"><i
-                        class="mdi dataIcon mdi-table-large"></i>
-                    <label for="report_time_start">申报时间</label>
-                </div>
-                <div class="col input-field s6">
-                    <input id="report_time_end" type="text" class="datepicker" ng-model="reportTimeEnd"><i
-                        class="mdi dataIcon mdi-table-large"></i>
-                    <label for="report_time_end">至</label>
-                </div>
-            </div>
-            <div class="col input-field s2">
-                <input id="responsibility_person" type="text" ng-model="responsibilityPerson">
-                <label for="responsibility_person">责任人</label>
-            </div>
-            <div class="col s2 input-field">
-                <select material-select watch ng-change="getReceiveList()" ng-model="endCity">
-                    <option value="" selected>目的城市</option>
-                    <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
-                </select>
-            </div>
-            <div class="col s2 input-field">
-                <select material-select watch ng-model="distributor">
-                    <option value="" selected>经销商</option>
-                    <option ng-repeat="receive in receiveList" ng-value="receive.id">{{receive.short_name}}</option>
-                </select>
-            </div>
         </div>
+
         <div class="row col s12" style="margin-top: 25px">
             <div class="divider" style="background: #00bcd4;height: 2px"></div>
             <table class="bordered striped text_mid">

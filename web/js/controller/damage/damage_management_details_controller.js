@@ -47,7 +47,7 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
             if (data.success === true) {
                 $scope.currentDamageStatus = data.result[0].damage_status;
                 $scope.currentDamageInfo = data.result[0];
-                console.log("currentDamageInfo",$scope.currentDamageInfo);
+                // console.log("currentDamageInfo",$scope.currentDamageInfo);
             }
             else {
                 swal(data.msg, "", "error");
@@ -65,7 +65,7 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
                     for (var i = 0; i < $scope.damageImageList.length; i++) {
                         $scope.damageImageList[i].url = $host.file_url + '/image/' + $scope.damageImageList[i].url
                     }
-                    console.log("imageData",$scope.damageImageList);
+                    // console.log("imageData",$scope.damageImageList);
                 }
             }
             else {
@@ -164,7 +164,7 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
     $scope.getBeforeDamageInfo = function () {
         _basic.get($host.api_url + "/damageCheck?damageId=" + damageId).then(function (data) {
             if (data.success === true) {
-                console.log("beforeData",data);
+                // console.log("beforeData",data);
                 if(data.result.length !== 0){
                     if(data.result[0].damage_type === 0){
                         data.result[0].damage_type = ""
@@ -172,7 +172,7 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
                     else{
                         data.result[0].damage_type = data.result[0].damage_type.toString();
                     }
-                    if(data.result[0].damage_link_type === 0){
+                    if(data.result[0].damage_link_type === 0 || data.result[0].damage_link_type == null){
                         data.result[0].damage_link_type = ""
                     }
                     else{
@@ -208,7 +208,7 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
             remark: $scope.damageInfoBefore.remark
         }).then(function (data) {
             if (data.success === true) {
-                console.log("postData",data);
+                // console.log("postData",data);
                 swal("保存成功", "", "success");
                 $scope.getBeforeDamageInfo();
             }
@@ -238,7 +238,7 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
             remark: ""
         }).then(function (data) {
             if (data.success === true) {
-                console.log("data",data);
+                // console.log("data",data);
                 $scope.getCurrentDamageInfo();// 刷新质损状态
                 $scope.getBeforeDamageInfo();// 获取默认信息
             }
@@ -269,7 +269,7 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
                 remark: $scope.damageInfoBefore.remark
             }).then(function (data) {
                 if (data.success === true) {
-                    console.log("postData",data);
+                    // console.log("postData",data);
                     swal("提交成功", "", "success");
                     $scope.getBeforeDamageInfo();
                     $scope.getCurrentDamageInfo();

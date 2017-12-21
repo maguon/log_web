@@ -5,10 +5,10 @@ adminDirective.directive('header', function () {
         replace: true,
         transclude: false,
         restrict: 'E',
-        controller: function ($scope,$state, $element, $rootScope, _basic,_config,$host,_socket) {
-            $(function() {
+        controller: function ($scope, $state, $element, $rootScope, _basic, _config, $host, _socket) {
+            $(function () {
                 $('.image-editor').cropit();
-                $('form').submit(function() {
+                $('form').submit(function () {
                     // Move cropped image data to hidden input
                     var imageData = $('.image-editor').cropit('export');
                     $('.hidden-image-data').val(imageData);
@@ -19,12 +19,12 @@ adminDirective.directive('header', function () {
                     return false;
                 });
             });
-            $scope.pwdReg=_config.pwdRegx;
-            $scope.amendImg=function () {
+            $scope.pwdReg = _config.pwdRegx;
+            $scope.amendImg = function () {
                 $state.go("amend_img")
             }
             //修改个人密码
-            $scope.amend_user=function () {
+            $scope.amend_user = function () {
                 $(".modal").modal();
                 $("#user_modal").modal("open");
 
@@ -35,15 +35,15 @@ adminDirective.directive('header', function () {
             };
             $scope.closeModel = function () {
                 $("#user_modal").modal("close");
-                $scope.submitted=false;
-                $scope.user_old_password="";
-                $scope.user_new_password="";
+                $scope.submitted = false;
+                $scope.user_old_password = "";
+                $scope.user_new_password = "";
             };
-            $scope.amend_user_submit=function (valid) {
-                $scope.submitted=true;
-                if(valid&&$scope.user_new_password==$scope.user_confirm_password){
-                    var obj={
-                        "originPassword":$scope.user_old_password,
+            $scope.amend_user_submit = function (valid) {
+                $scope.submitted = true;
+                if (valid && $scope.user_new_password == $scope.user_confirm_password) {
+                    var obj = {
+                        "originPassword": $scope.user_old_password,
                         "newPassword": $scope.user_new_password
                     };
                     _basic.put($host.api_url + "/user/" + userId + "/password", obj).then(function (data) {
@@ -77,10 +77,11 @@ adminDirective.directive('header', function () {
                 });
             };
             // var str_type=$element.attr("type");
-            if (_basic.getSession(_basic.USER_TYPE)=="99") {
-                var userId=_basic.getSession(_basic.USER_ID);
-                $("#brand-logo").attr("src",$element.attr("url"));
-                $("#qrCode").attr("src",$element.attr("qr"));
+            if (_basic.getSession(_basic.USER_TYPE) == "99") {
+                var userId = _basic.getSession(_basic.USER_ID);
+                $scope.userType = _basic.getSession(_basic.USER_TYPE);
+                $("#brand-logo").attr("src", $element.attr("url"));
+                // $("#qrCode").attr("src",$element.attr("qr"));
                 // var userid=$basic.getSession($basic.USER_ID);
 
                 //触发侧边栏导航
@@ -93,10 +94,9 @@ adminDirective.directive('header', function () {
                 $('.collapsible').collapsible();
 
 
-
                 //存储信息到sessionStorage
                 _basic.setHeader(_basic.USER_TYPE, _basic.getSession(_basic.USER_TYPE));
-                _basic.setHeader(_basic.COMMON_AUTH_NAME,  _basic.getSession(_basic.COMMON_AUTH_NAME) );
+                _basic.setHeader(_basic.COMMON_AUTH_NAME, _basic.getSession(_basic.COMMON_AUTH_NAME));
                 _basic.get($host.api_url + "/admin/" + _basic.getSession(_basic.USER_ID)).then(function (data) {
                     // $(".shadeDowWrap").hide();
                     if (data.success == true) {
@@ -108,12 +108,12 @@ adminDirective.directive('header', function () {
                             textColor: '#fff'
                         });
                     } else {
-                        swal(data.msg,"","error");
+                        swal(data.msg, "", "error");
                     }
                 });
             }
             else {
-                window.location="./admin_login.html"
+                window.location = "./admin_login.html"
             }
         }
     };
@@ -156,18 +156,19 @@ adminDirective.directive("time", function () {
                 canceltext: '取消', // Text for cancel-button
                 autoclose: true, // automatic close timepicker
                 ampmclickable: true, // make AM PM clickable
-                aftershow: function(){} //Function for after opening timepicker
+                aftershow: function () {
+                } //Function for after opening timepicker
             });
         }
     }
 });
 
 
-adminDirective.directive('autoMapHeight',function () {
+adminDirective.directive('autoMapHeight', function () {
     return {
-        restrict : 'A',
-        scope : {},
-        link : function($scope, element, attrs) {
+        restrict: 'A',
+        scope: {},
+        link: function ($scope, element, attrs) {
             var conHeight = $(".ConWrap").height(); //获取窗口高度
             var titleHeight = 200;
             element.css('min-height',
@@ -198,9 +199,6 @@ adminDirective.directive("dateFilter", ["$filter", function ($filter) {
 }]);
 
 
-
-
-
 /*
  * meteralize css 中需要手动触发的样式
  * */
@@ -217,8 +215,8 @@ adminDirective.directive("usersTabs", function () {
     }
 });
 
-adminDirective.directive("sideNav",function () {
-    return{
+adminDirective.directive("sideNav", function () {
+    return {
         restrict: "A",
         link: function () {
             $("#menu_link").sideNav({
@@ -294,7 +292,7 @@ adminDirective.directive("formDate", function () {
         require: "ngModel",
         link: function (scope, elem, attr, ngModelCtr) {
             ngModelCtr.$formatters.push(function (modelValue) {
-                if(modelValue!=null && modelValue!=""){
+                if (modelValue != null && modelValue != "") {
                     var date = new Date(modelValue);
                     var new_date;
                     var Y = date.getFullYear() + '-';
@@ -308,7 +306,7 @@ adminDirective.directive("formDate", function () {
                         //返回字符串给view,不改变模型值
                         return new_date;
                     }
-                }else {
+                } else {
                     return ""
                 }
 
@@ -325,37 +323,37 @@ adminDirective.directive('percent', function () {
         link: function (scope, element, attr) {
             var val = Number.parseInt(attr.value);
             var total = Number.parseInt(attr.total);
-            var percentage ;
-            if(total!=0){
-                percentage = Number.parseInt((val*100/total));
-            }else {
-                percentage=0;
+            var percentage;
+            if (total != 0) {
+                percentage = Number.parseInt((val * 100 / total));
+            } else {
+                percentage = 0;
             }
             //Highcharts.chart('percentWrap1', {
             $(element[0].children[0]).highcharts({
                 // 表头
                 title: {
-                    text:percentage+"%",
+                    text: percentage + "%",
                     align: 'center',
                     verticalAlign: 'middle',
-                    y:8,
-                    style:{
-                        color:"#bdbdbd"
+                    y: 8,
+                    style: {
+                        color: "#bdbdbd"
                     }
 
                 },
-                colors:[
+                colors: [
                     "#4dd0e1",
                     "#cfd8dc"
                 ],
                 // 版权信息
                 credits: {
-                    enabled:"false",
+                    enabled: "false",
                     text: '',
                     href: ''
                 },
                 tooltip: {
-                    enabled : false
+                    enabled: false
                 },
                 plotOptions: {
                     pie: {
@@ -374,8 +372,8 @@ adminDirective.directive('percent', function () {
                     name: '',
                     innerSize: '80%',
                     data: [
-                        ['',   percentage],
-                        ['',   (100-percentage)]
+                        ['', percentage],
+                        ['', (100 - percentage)]
                     ]
                 }]
             });

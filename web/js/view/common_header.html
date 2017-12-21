@@ -19,7 +19,7 @@
 
                     </a>
                 </li>
-                <li>
+                <li ng-if="userType != 99">
                     <a class="right-align"><i class="mdi mdi-cellphone-iphone mdi-36px" ng-click="download_app()" ></i></a>
                 </li>
                 <li>
@@ -125,9 +125,6 @@
                 </div>
             </div>
         </div>
-
-
-
     </div>
 
     <div id="download" class="modal">
@@ -137,7 +134,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col s12 center" style="margin-top: 20px">
-                        <img ng-repeat="qr in qrList" style="width: 320px;height: 320px;margin-left: 20px" src="{{qr.qrSrc}}" alt="#">
+                        <img ng-repeat="qr in qrList" style="width: 320px;height: 320px;margin-left: 20px" ng-src="{{qr.qrSrc}}" alt="#">
                     </div>
                 </div>
             </div>

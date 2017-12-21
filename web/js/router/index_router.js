@@ -451,4 +451,10 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/damage/damage_management_details.html",
             controller:'damage_management_details_controller'
         })
+        // 下载app
+        .state("admin_download_app",{
+            url:"/admin_download_app",
+            templateUrl: "js/view/download/admin_download_app.html",
+            controller:'admin_download_app_controller'
+        })
 }]);

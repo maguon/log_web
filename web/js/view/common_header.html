@@ -10,17 +10,10 @@
             <a href="#" class="brand-logo " >
                 <div class="vc-center" style="height: 100% ">
                     <img class="responsive-img"  id="brand-logo" src="" alt="">
-                    <!--<img class="responsive-img"   src="../assets/images/honya_white_logo.png" alt="">-->
                 </div>
 
             </a>
             <ul class="right">
-                <!--<li>-->
-                <!--<div class="row valign-wrapper hSearch">-->
-                <!--<input class="col s9  search" style="margin: 0" type="text">-->
-                <!--<i  class="col s3 mdi mdi-magnify searchIcon" style="font-size: 45px"></i>-->
-                <!--</div>-->
-                <!--</li>-->
                 <li>
                     <a class="right-align" onclick="toggleFullScreen()"><i class="mdi mdi-fullscreen mdi-36px"></i>
 
@@ -32,9 +25,6 @@
                 <li>
                     <a class="right-align"><i class="mdi mdi-account mdi-36px" ng-click="amend_user()" ></i></a>
                 </li>
-                <!--<li>-->
-                <!--<a><i class="mdi mdi-account-circle mdi-36px"></i></a>-->
-                <!--</li>-->
                 <li ng-click="logOut()">
                     <a><i class="mdi mdi-exit-to-app mdi-36px"></i></a>
                 </li>
@@ -53,8 +43,7 @@
             <div id="amendPsw" class="col s12" >
                 <form name="amend_userFrom" ng-submit="amend_user_submit(amend_userFrom.$valid)" novalidate>
                     <div class="modal-content">
-                        <!--<h5 class="center-align grey-text">修改个人密码</h5>-->
-                        <!--<div class="divider cyan lighten-1" style="height: 2px"></div>-->
+
                         <div class="container">
                             <div class="row">
                                 <div class="input-field col s12" ng-class="{'has-error':amend_userFrom.user_old_password.$invalid&&submitted}">
@@ -90,8 +79,6 @@
                 </form>
             </div>
             <div id="amendImg" class="col s12">
-                <!--<h5 style="margin-top: 35px" class="center-align grey-text">修改头像</h5>-->
-                <!--<div class="divider cyan lighten-1" style="height: 2px"></div>-->
                 <div class="row" style="margin-top: 43px;">
                     <form name="ImgForm" id="ImgForm">
 
@@ -111,7 +98,7 @@
                                 </div>
 
                             </div>
-                           
+
                             <div class="col s8">
                                 <div class="col s12 vc-center">
                                     <div class="cropit-preview " style="margin-top: 0"></div>
@@ -135,27 +122,6 @@
 
                         </div>
                     </form>
-                    <!--<div class="col s4">-->
-                        <!--<form name="uploadImageForm" class="uploadImageForm">-->
-                            <!--<div class="upload_btn left">-->
-                                <!--<div class="storage_car_picture  vc-center  p0 cyan lighten-1 white-text">-->
-                                    <!--<input name="image" type="file" onchange="angular.element(this).scope().uploadBrandImage_drive(this)" max_size="4M">-->
-                                    <!--<i class="mdi mdi-instagram"></i>-->
-                                <!--</div>-->
-                                <!--<p style="margin-top: 10px">行驶证照片</p>-->
-                            <!--</div>-->
-                        <!--</form>-->
-                    <!--</div>-->
-                    <!--<div class="col s8">-->
-                        <!--<div class="col s8  push-s2" style="height: 350px;border: 1px solid grey">-->
-                            <!--<img src="../../assets/images/dispatch_logo.png" style="width: 100%;height: 100%" alt="">-->
-                        <!--</div>-->
-                        <!--<div class="col s12 vc-center" style="margin-top: 20px">-->
-                            <!--<a href="#!" class="btn btn-floating">-->
-                                <!--<i class="mdi mdi-check"></i>-->
-                            <!--</a>-->
-                        <!--</div>-->
-                    <!--</div>-->
                 </div>
             </div>
         </div>
@@ -171,14 +137,14 @@
             <div class="container">
                 <div class="row">
                     <div class="col s12 center" style="margin-top: 20px">
-                        <img id="qrCode" style="width: 320px;height: 320px" src="" alt="#">
+                        <img ng-repeat="qr in qrList" style="width: 320px;height: 320px;margin-left: 20px" src="{{qr.qrSrc}}" alt="#">
                     </div>
                 </div>
             </div>
         </div>
         <div class="modal-footer vc-center" style="margin-top: -40px">
             <a class="modal-action modal-close waves-light waves-effect red lighten-1 btn btn-floating">
-                <i  class="mdi mdi-close"></i>
+                <i class="mdi mdi-close"></i>
             </a>
         </div>
     </div>

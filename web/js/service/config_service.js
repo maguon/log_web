@@ -13,42 +13,48 @@ baseService.factory("_config", function () {
             type: 11,
             name: "车管部操作员",
             subType: [],
-            index: 'vehicle_home.html'
+            index: 'vehicle_home.html',
+            qr: [{qrSrc: "../assets/images/qr_code/qr_tm_app.png"}]
         },
 
         {
             type: 19,
             name: "车管部管理员",
             subType: [{type: 11, name: "车管部操作员"}],
-            index: 'vehicle_manager.html'
+            index: 'vehicle_manager.html',
+            qr: [{qrSrc: "../assets/images/qr_code/qr_tm_app.png"}]
         },
 
         {
             type: 21,
             name: "仓储部操作人员",
             subType: [],
-            index: 'storage_home.html'
+            index: 'storage_home.html',
+            qr: [{qrSrc: "../assets/images/qr_code/qr_storage_app.png"}, {qrSrc: "../assets/images/qr_code/qr_driver_app.png"}]
         },
 
         {
             type: 29,
             name: "仓储部管理员",
             subType: [{type: 21, name: "仓储部操作人员"}],
-            index: 'storage_manager.html'
+            index: 'storage_manager.html',
+            qr: [{qrSrc: "../assets/images/qr_code/qr_storage_app.png"}, {qrSrc: "../assets/images/qr_code/qr_driver_app.png"}]
         },
 
         {
             type: 31,
             name: "调度操作员",
             subType: [],
-            index: 'dispatch_home.html'
+            index: 'dispatch_home.html',
+            qr: [{qrSrc: "../assets/images/qr_code/qr_dispatch_app.png"}]
         },
 
         {
             type: 39,
             name: "调度管理员",
             subType: [{type: 31, name: "调度操作员"}],
-            index: 'dispatch_manager.html'
+            index: 'dispatch_manager.html',
+            qr: [{qrSrc: "../assets/images/qr_code/qr_dispatch_app.png"}]
         }
 
     ];
@@ -56,30 +62,30 @@ baseService.factory("_config", function () {
 
     _this.rel_status = 1;
     // 调度任务状态
-    _this.taskStatus=[
+    _this.taskStatus = [
         {
-            id:1,
-            taskStatusName:"待接受"
+            id: 1,
+            taskStatusName: "待接受"
         },
         {
-            id:2,
-            taskStatusName:"接受"
+            id: 2,
+            taskStatusName: "接受"
         },
         {
-            id:3,
-            taskStatusName:"执行"
+            id: 3,
+            taskStatusName: "执行"
         },
         {
-            id:4,
-            taskStatusName:"在途"
+            id: 4,
+            taskStatusName: "在途"
         },
         {
-            id:8,
-            taskStatusName:"取消安排"
+            id: 8,
+            taskStatusName: "取消安排"
         },
         {
-            id:9,
-            taskStatusName:"已完成"
+            id: 9,
+            taskStatusName: "已完成"
         }
     ];
     // 车辆状态

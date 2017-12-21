@@ -61,7 +61,7 @@ publicDirective.directive('header', function () {
             $scope.pwdReg = _config.pwdRegx;
             var str_type = $element.attr("type");
             $("#brand-logo").attr("src", $element.attr("url"));
-            $("#qrCode").attr("src", $element.attr("qr"));
+            // $("#qrCode").attr("src", $element.attr("qr"));
             //修改个人密码
             $scope.amend_user = function () {
                 // $(".indicator").css({
@@ -131,10 +131,17 @@ publicDirective.directive('header', function () {
 
 
                 //存储信息到sessionStorage
-
                 var userId = _basic.getSession(_basic.USER_ID);
                 var userType = _basic.getSession(_basic.USER_TYPE);
                 var user_info_obj = _config.userTypes;
+                $scope.qrList = [];
+                for (var i = 0; i < user_info_obj.length; i++) {
+                    if(userType == user_info_obj[i].type){
+                        $scope.qrList = user_info_obj[i].qr;
+                        break;
+                    }
+                }
+                // console.log("qrList",$scope.qrList);
                 $scope.hasUserPortrait = false;
                 _basic.setHeader(_basic.USER_TYPE, userType);
                 _basic.setHeader(_basic.COMMON_AUTH_NAME, _basic.getSession(_basic.COMMON_AUTH_NAME));

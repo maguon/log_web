@@ -30,7 +30,7 @@ app.controller("damage_index_controller", ["$scope", "$host", "_basic", function
     $scope.getHangDamageCount = function () {
         _basic.get($host.api_url + "/damageNotCheckCount?dateIdStart=" + currentMonth + "&dateIdEnd=" + currentMonth).then(function (data) {
             if (data.success === true) {
-                console.log("notFinishDamage",data);
+                // console.log("notFinishDamage",data);
                 for (var i = 0; i < data.result.length; i++) {
                     if(data.result[i].damage_status === 1){
                         $scope.waitingHandleDamageCount += data.result[i].damage_count

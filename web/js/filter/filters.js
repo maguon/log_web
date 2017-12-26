@@ -76,6 +76,12 @@ CommonFilter.filter("department", function () {
             case 99:
                 user = "超级管理员";
                 break;
+            case 49:
+                user = "质损管理员";
+                break;
+            case 41:
+                user = "质损操作员";
+                break;
             case 39:
                 user = "调度管理员";
                 break;

@@ -34,7 +34,7 @@ app.controller("setting_client_details_controller", ["$scope", "_basic", "$state
     $scope.getEntrustInfo = function () {
         _basic.get($host.api_url + "/entrust?entrustId=" + entrustId).then(function (data) {
             if (data.success === true) {
-                console.log("data:", data);
+                // console.log("data:", data);
                 $scope.shortName = data.result[0].short_name;
                 $scope.fullName = data.result[0].entrust_name;
                 $scope.remark = data.result[0].remark;

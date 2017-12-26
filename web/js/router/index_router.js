@@ -76,18 +76,17 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:"instruction_car_refuel_details_controller"
         })
 
-
         // 数据导入
         .state("car_to_data", {
-            url: "/car_to_data",  //路由路径
-            templateUrl: "js/view/data/car_to_data.html",  //路由填充的模板
+            url: "/car_to_data",
+            templateUrl: "js/view/data/car_to_data.html",
             controller:'car_to_data_controller'
         })
 
         // 仓库设置
         .state("setting_users", {
-            url: "/setting_users",  //路由路径
-            templateUrl: "js/view/system_settings/user_manager.html", //路由填充的模板
+            url: "/setting_users",
+            templateUrl: "js/view/system_settings/user_manager.html",
             controller:'setting_user_controller'
         })
         .state("setting_storage", {
@@ -145,6 +144,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/system_settings/setting_dealer/setting_dealer.html",
             controller:'setting_dealer_controller'
         })
+        .state("add_setting_dealer",{
+            url:"/add_setting_dealer",
+            templateUrl: "js/view/system_settings/setting_dealer/add_setting_dealer_details.html",
+            controller:'add_setting_dealer_controller'
+        })
         .state("setting_dealer_details",{
             url:"/setting_dealer_details/{dealer_id}",
             templateUrl: "js/view/system_settings/setting_dealer/setting_dealer_details.html",
@@ -169,11 +173,6 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             url:"/data_dictionary",
             templateUrl: "js/view/system_settings/data_dictionary.html",
             controller:'data_dictionary_controller'
-        })
-        .state("add_setting_dealer",{
-            url:"/add_setting_dealer",
-            templateUrl: "js/view/system_settings/setting_dealer/add_setting_dealer_details.html",
-            controller:'add_setting_dealer_controller'
         })
 
         // 仓储
@@ -421,6 +420,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/damage/damage_management.html",
             controller:'damage_management_controller'
         })
+        .state("damage_management_details",{
+            url:"/damage_management_details/id/{id}",
+            templateUrl: "js/view/damage/damage_management_details.html",
+            controller:'damage_management_details_controller'
+        })
         .state("insurance_compensation",{
             url:"/insurance_compensation",
             templateUrl: "js/view/damage/insurance_compensation.html",
@@ -430,6 +434,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             url:"/car_wash_fee",
             templateUrl: "js/view/damage/car_wash_fee.html",
             controller:'car_wash_fee_controller'
+        })
+        .state("car_wash_fee_details",{
+            url:"/car_wash_fee_details",
+            templateUrl: "js/view/damage/car_wash_fee_details.html",
+            controller:'car_wash_fee_details_controller'
         })
         .state("add_damage_insurance",{
             url:"/add_damage_insurance",
@@ -441,16 +450,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/damage/add_damage_insurance_details.html",
             controller:'add_damage_insurance_details_controller'
         })
-        .state("car_wash_fee_details",{
-            url:"/car_wash_fee_details",
-            templateUrl: "js/view/damage/car_wash_fee_details.html",
-            controller:'car_wash_fee_details_controller'
-        })
-        .state("damage_management_details",{
-            url:"/damage_management_details/id/{id}",
-            templateUrl: "js/view/damage/damage_management_details.html",
-            controller:'damage_management_details_controller'
-        })
+
         // 下载app
         .state("admin_download_app",{
             url:"/admin_download_app",

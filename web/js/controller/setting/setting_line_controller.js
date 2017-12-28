@@ -1,121 +1,140 @@
 /**
- * Created by zcy on 2017/8/14.
+ * Modify by zcy on 2017/12/26.
  */
 app.controller("setting_line_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
     var userId = _basic.getSession(_basic.USER_ID);
-    $scope.startCityId = "";
-    $scope.endCityId = "";
+    $scope.hasChosen = false;
+    $scope.selectedCityId = 0;
+    $scope.startCityList = [];
+    $scope.endCityList = [];
 
-    // 获取起始城市列表
+
+    // 获取所有起始城市和结束城市
     $scope.getCityList = function () {
-        _basic.get($host.api_url + "/city").then(function (cityData) {
-            if (cityData.success === true) {
-                $scope.cityList = cityData.result;
+        _basic.get($host.api_url + "/city").then(function (data) {
+            if (data.success === true) {
+                // console.log("data",data);
+                $scope.startCityList = data.result;
+                for (var i = 0; i < data.result.length; i++) {
+                    var endItem = {
+                        id: data.result[i].id,
+                        city_name: data.result[i].city_name,
+                        dis: "",
+                        routeId:0,
+                        flag: false
+                    };
+                    $scope.endCityList.push(endItem);
+                }
+                // console.log("endCityList",$scope.endCityList);
             }
             else {
-                swal(cityData.msg, "", "error");
+                swal(data.msg, "", "error");
             }
         });
     };
 
-    // 根据选择城市查询路线信息
-    $scope.searchLineInfo = function () {
-        // console.log("$scope.startCityId",$scope.startCityId);
-        // console.log("$scope.endCityId",$scope.endCityId);
-        _basic.get($host.api_url + "/cityRoute?routeStartId=" + $scope.startCityId + "&routeEndId=" + $scope.endCityId).then(function (lineData) {
-            if (lineData.success === true) {
-                $scope.lineList = lineData.result;
+    // 根据选择的城市获取线路，并设置线路公里数
+    $scope.searchCityLine = function (currentCityInfo,index) {
+        $scope.startCityIndex = index;
+        $scope.startCity = currentCityInfo.city_name;
+        $scope.selectedCityId = currentCityInfo.id;
+        _basic.get($host.api_url + "/cityRoute?routeStartId=" + currentCityInfo.id).then(function (data) {
+            if (data.success === true) {
+                // console.log("lineData", data);
+                $scope.hasChosen = true;
+                for (var i = 0; i < $scope.endCityList.length; i++) {
+                    for (var j = 0; j < data.result.length; j++) {
+                        if ($scope.endCityList[i].id == $scope.selectedCityId && data.result[j].route_start_id == data.result[j].route_end_id && $scope.selectedCityId == data.result[j].route_start_id) {
+                            $scope.endCityList[i].dis = data.result[j].distance;
+                            $scope.endCityList[i].routeId = data.result[j].id;
+                            $scope.endCityList[i].flag = true;
+                            break;
+                        }
+                        else if (($scope.endCityList[i].id == data.result[j].route_start_id || $scope.endCityList[i].id == data.result[j].route_end_id) && ($scope.selectedCityId != $scope.endCityList[i].id)) {
+                            $scope.endCityList[i].dis = data.result[j].distance;
+                            $scope.endCityList[i].routeId = data.result[j].id;
+                            $scope.endCityList[i].flag = true;
+                            break;
+                        }
+                        else {
+                            $scope.endCityList[i].dis = "";
+                            $scope.endCityList[i].routeId = 0;
+                            $scope.endCityList[i].flag = false;
+                        }
+                    }
+                }
             }
             else {
-                swal(lineData.msg, "", "error");
+                swal(data.msg, "", "error");
             }
         });
     };
 
-    // 开启新增线路模态框并初始化输入
-    $scope.showCreateModel = function () {
-        $('#createModel').modal('open');
-        $scope.createStartCityInfo = "";
-        $scope.createEndCityId = undefined;
-        $scope.createDistance = "";
-    };
-
-    // 新增路线
-    $scope.createNewLine = function () {
-        // 因为用ng-option取文本值的时候会影响到disable状态，所以用原生方法获取所选option的文本内容
-        var routeEnd = document.getElementById("routeEndCity").options[document.getElementById("routeEndCity").selectedIndex].text;
-        if($scope.createStartCityInfo.id != undefined && $scope.createEndCityId != undefined && $scope.createDistance != ""){
-            _basic.post($host.api_url + "/user/" + userId + "/cityRoute",{
-                routeStartId:$scope.createStartCityInfo.id,
-                routeStart:$scope.createStartCityInfo.city_name,
-                routeEndId:$scope.createEndCityId,
-                routeEnd:routeEnd,
-                distance:parseFloat($scope.createDistance)
-            }).then(function (data) {
-                if(data.success === true){
-                    swal("新增成功", "", "success");
-                    $('#createModel').modal('close');
-                    $scope.searchLineInfo();
-                }
-                else{
-                    swal(data.msg, "", "error");
-                }
-            });
+    // 修改或设置线路
+    $scope.modifyLineInfo = function (lineInfo) {
+        // console.log("currentLineInfo", lineInfo);
+        $scope.endCity = lineInfo.city_name;
+        $scope.distance = lineInfo.dis;
+        $scope.modifyFlag = lineInfo.flag;
+        $scope.routeId = lineInfo.routeId;
+        $scope.endCityId = lineInfo.id;
+        if($scope.hasChosen){
+            $('#modifyModel').modal('open');
         }
         else{
-            swal("请填写完整信息", "", "error");
+            swal("请先选择起始城市！", "", "warning");
         }
-    };
-
-    // 根据选择的起始城市获取结束城市列表
-    $scope.getEndCity = function () {
-        // $scope.createStartCityInfo为当前选择的数组元素
-        _basic.get($host.api_url + "/cityRouteBase?routeStartId=" + $scope.createStartCityInfo.id).then(function (lineData) {
-            if (lineData.success === true) {
-                $scope.createEndCityList = lineData.result;
-            }
-            else {
-                swal(lineData.msg, "", "error");
-            }
-        });
-    };
-
-    // 点击卡片查看详情
-    $scope.showCardDetails = function (roteId,startCity,endCity,distance) {
-        $scope.roteId = roteId;
-        $scope.startCity = startCity;
-        $scope.endCity = endCity;
-        $scope.distance = distance;
-        $('#modifyModel').modal('open');
     };
 
     // 修改里程数
     $scope.distanceModify = function () {
-        // console.log("$scope.distance",$scope.distance);
-        if($scope.distance != ""){
-            _basic.put($host.api_url + "/user/" + userId + "/cityRoute/" + $scope.roteId,{
-                distance:parseFloat($scope.distance)
-            }).then(function (modifyData) {
-                if (modifyData.success === true) {
-                    swal("修改成功", "", "success");
-                    $('#modifyModel').modal('close');
-                    $scope.searchLineInfo();
-                }
-                else {
-                    swal(modifyData.msg, "", "error");
-                }
-            });
+        // flag为true时执行修改操作，否则执行新增操作
+        if($scope.modifyFlag){
+            if($scope.distance !== null){
+                _basic.put($host.api_url + "/user/" + userId + "/cityRoute/" + $scope.routeId,{
+                    distance:parseFloat($scope.distance)
+                }).then(function (modifyData) {
+                    if (modifyData.success === true) {
+                        swal("修改成功", "", "success");
+                        $('#modifyModel').modal('close');
+                        $scope.searchCityLine($scope.startCityList[$scope.startCityIndex],$scope.startCityIndex)
+                    }
+                    else {
+                        swal(modifyData.msg, "", "error");
+                    }
+                });
+            }
+            else{
+                swal("里程数不能为空！", "", "error");
+            }
         }
         else{
-            swal("里程数不能为空", "", "error");
+            if($scope.distance !== null){
+                _basic.post($host.api_url + "/user/" + userId + "/cityRoute",{
+                    routeStartId: $scope.selectedCityId,
+                    routeStart: $scope.startCity,
+                    routeEndId: $scope.endCityId,
+                    routeEnd: $scope.endCity,
+                    distance: $scope.distance
+                }).then(function (data) {
+                    if (data.success === true) {
+                        swal("修改成功", "", "success");
+                        $('#modifyModel').modal('close');
+                        $scope.searchCityLine($scope.startCityList[$scope.startCityIndex],$scope.startCityIndex)
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
+            }
+            else{
+                swal("里程数不能为空！", "", "error");
+            }
         }
     };
 
-    // 获取所有数据
     $scope.queryData = function () {
         $scope.getCityList();
-        $scope.searchLineInfo();
     };
-    $scope.queryData()
-
+    $scope.queryData();
 }]);

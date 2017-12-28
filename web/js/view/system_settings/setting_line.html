@@ -1,18 +1,13 @@
-<div class="setting_line">
-    <div class="row valign-wrapper">
-        <h5 class="col s12 cyan-text lighten-1 center-align">
-            路线设置
-        </h5>
+<div class="setting_city">
+    <div class="vc-center">
+        <h5 class="center-align cyan-text text-lighten-1">路线设置</h5>
     </div>
-    <div class="row">
-        <div class="divider cyan lighten-2"></div>
-    </div>
-    <div class="row" style="width: 90%;margin: 0 auto">
-
-        <!-- 信息修改模态框 -->
+    <div class="divider" style="background: #00bcd4;height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
+    <div class="row col s12" style="width: 96%;margin: 0 auto">
+        <!-- 信息修改或新增模态框 -->
         <div id="modifyModel" class="modal modal-fixed-footer" style="height: 400px">
             <div class="modal-content center" style="font-weight: bold">
-                <h4>编辑线路</h4>
+                <h4>{{modifyFlag ? "修改线路" : "新增线路"}}</h4>
                 <div class="divider black lighten-2"></div>
                 <div class="row vc-center" style="height: 40%">
                     <h6 class="black-text fz40" style="font-weight:600">{{startCity}}&emsp;
@@ -41,91 +36,18 @@
             </div>
         </div>
 
-        <!--新增路线模态框-->
-        <div id="createModel" class="modal modal-fixed-footer" style="height: 450px">
-            <div class="modal-content center" style="font-weight: bold">
-                <h4>新增线路</h4>
-                <div class="divider black lighten-2"></div>
-                <div class="row input-field col s6 offset-s3" style="margin-top: 34px">
-                    <select id="c_city" material-select watch class="grey-text"
-                            ng-change="getEndCity()"
-                            ng-options="city.city_name for city in cityList"
-                            ng-model="createStartCityInfo">
-                        <option value="" selected>请选择</option>
-                        <!--<option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>-->
-                    </select>
-                    <label for="c_city">起始城市</label>
-                </div>
-                <div class="row input-field col s6 offset-s3">
-                    <select material-select watch id="routeEndCity" class="grey-text" ng-model="createEndCityId">
-                        <option value="" selected>请选择</option>
-                        <option ng-repeat="city in createEndCityList" ng-disabled="city.distance != null" ng-value="city.end_id">{{city.city_name}}&emsp;{{city.distance == null ? null : city.distance + "公里"}}</option>
-                    </select>
-                    <label for="routeEndCity">结束城市</label>
-                </div>
-                <div class="row col s8 vc-center offset-s2 fz18" style="height: 25%;">
-                    <p class="col s3" style="text-align: right">
-                        里程数：
-                    </p>
-                    <div class="col s6">
-                        <input style="text-align: center" type="number" ng-model="createDistance" placeholder="请输入里程数">
-                    </div>
-                    <p class="col s3" style="text-align: left">
-                        公里
-                    </p>
+        <div class="col s6">
+            <p class="center-align" style="color: grey;font-weight: bold;font-size: 1.2rem;margin: 15px 0">当前起始城市：<span>{{startCity == undefined ? "暂无" : startCity}}</span></p>
+            <div class="col s12 z-depth-2" style="background-color: white;min-height: 600px">
+                <div class="col s2" style="margin:10px 0" ng-repeat="startCity in startCityList">
+                    <a ng-click="searchCityLine(startCity,$index)" style="width: 100%;font-size: 10px;padding: 0 10px;" class="waves-effect cyan waves-light btn">{{startCity.city_name}}</a>
                 </div>
             </div>
-            <div class="modal-footer vc-center">
-                <a class=" modal-action modal-close waves-effect waves-light grey lighten-1 btn">
-                    <i class="mdi mdi-close"></i>
-                </a>
-                <button ng-click="createNewLine()" class="btn waves-light waves-effect cyan lighten-1" type="button" style="margin-left: 56px" >
-                    <i class="mdi mdi-check"></i>
-                </button>
-            </div>
         </div>
-
-        <!--搜索栏-->
-        <div class="input-field col s5">
-            <select material-select watch id="s_city" class="grey-text" ng-model="startCityId">
-                <option value="" selected>请选择</option>
-                <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
-            </select>
-            <label for="s_city">起始城市</label>
-        </div>
-        <div class="input-field col s5">
-            <select material-select watch id="e_city" class="grey-text" ng-model="endCityId">
-                <option value="" selected>请选择</option>
-                <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
-            </select>
-            <label for="e_city">结束城市</label>
-        </div>
-        <div class="col s2">
-            <a ng-click="showCreateModel()" class="right btn-floating btn-large btn waves-effect cyan lighten-1 waves-light vc-center ">
-                <i class="mdi mdi-plus"></i>
-            </a>
-            <a ng-click="searchLineInfo()" style="margin-right: 52px"
-               class="right btn-floating btn-large  btn waves-effect materialize-red lighten-2 waves-light vc-center "
-            ><i class="mdi mdi-magnify"></i></a>
-        </div>
-
-        <!--信息卡片-->
-        <div class="row col s12" style="padding: 0;margin-top: 30px">
-            <div class="col s2" ng-repeat="line in lineList">
-                <div class="card-panel white " style="padding: 0">
-                    <div class="row cyan lighten-2 white-text setting_shipments_title vc-center" style="padding: 10px;height: 52px;margin-bottom: 10px">
-                        <div class="col s12 center" style="padding: 0;">
-                            <p class="white-text fz14" style="font-weight:600;margin: 8px 0">{{line.route_start}}&nbsp;<span style="font-size: 1.2rem;line-height: 2px" class="mdi mdi-swap-horizontal"></span><span>&nbsp;{{line.route_end}}</span></p>
-                        </div>
-
-                        <a style="top: 71%;width: 33px;height: 33px" class="right btn-floating setting_shipments_btn  btn waves-effect materialize-red lighten-2 waves-light vc-center ">
-                            <i ng-click="showCardDetails(line.id,line.route_start,line.route_end,line.distance)" class="mdi mdi-pencil" style="font-size: 18px;line-height: 0"></i>
-                        </a>
-                    </div>
-                    <p class="grey-text row center" style="padding: 5px 5px 10px 5px;margin:0">
-                        <span style="font-size: 1rem;color:rgb(229,115,115);font-weight: bold">{{line.distance}}&nbsp;</span>
-                        公里
-                    </p>
+        <div class="col s6" style="margin-top: 56px">
+            <div class="col s12 z-depth-2" style="background-color: white;min-height: 600px">
+                <div class="col s2" style="margin:10px 0" ng-repeat="endCity in endCityList">
+                    <a ng-click="modifyLineInfo(endCity)" style="width: 100%;font-size: 10px;padding: 0 10px;" class="waves-effect {{endCity.flag ? 'cyan':'grey'}} waves-light btn">{{endCity.city_name}}{{endCity.dis == "" ? endCity.dis : "(" + endCity.dis + "公里)"}}</a>
                 </div>
             </div>
         </div>

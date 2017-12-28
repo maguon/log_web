@@ -7,7 +7,7 @@
         <!-- 信息修改或新增模态框 -->
         <div id="modifyModel" class="modal modal-fixed-footer" style="height: 400px">
             <div class="modal-content center" style="font-weight: bold">
-                <h4>{{modifyFlag ? "修改线路" : "新增线路"}}</h4>
+                <h4>设置线路</h4>
                 <div class="divider black lighten-2"></div>
                 <div class="row vc-center" style="height: 40%">
                     <h6 class="black-text fz40" style="font-weight:600">{{startCity}}&emsp;
@@ -36,18 +36,29 @@
             </div>
         </div>
 
+        <div class="col s12">
+            <p class="center-align" style="color: grey;font-weight: bold;font-size: 1.3rem;margin: 15px 0">当前起始城市：<span style="font-size: 1.5rem">{{startCity == undefined ? "暂无" : startCity}}</span></p>
+        </div>
         <div class="col s6">
-            <p class="center-align" style="color: grey;font-weight: bold;font-size: 1.2rem;margin: 15px 0">当前起始城市：<span>{{startCity == undefined ? "暂无" : startCity}}</span></p>
             <div class="col s12 z-depth-2" style="background-color: white;min-height: 600px">
-                <div class="col s2" style="margin:10px 0" ng-repeat="startCity in startCityList">
-                    <a ng-click="searchCityLine(startCity,$index)" style="width: 100%;font-size: 10px;padding: 0 10px;" class="waves-effect cyan waves-light btn">{{startCity.city_name}}</a>
+                <div class="col s3 m3 l2" style="margin:10px 0" ng-repeat="startCity in startCityList">
+                    <a ng-click="searchCityLine(startCity,$index)" style="width: 100%;font-size: 10px;height:54px;padding: 0 10px;display: flex !important;" class="waves-effect vc-center cyan waves-light btn">
+                        <div>
+                            <p style="margin: 0;display: block;height: 23px;line-height: 23px">{{startCity.city_name}}</p>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
-        <div class="col s6" style="margin-top: 56px">
+        <div class="col s6">
             <div class="col s12 z-depth-2" style="background-color: white;min-height: 600px">
-                <div class="col s2" style="margin:10px 0" ng-repeat="endCity in endCityList">
-                    <a ng-click="modifyLineInfo(endCity)" style="width: 100%;font-size: 10px;padding: 0 10px;" class="waves-effect {{endCity.flag ? 'cyan':'grey'}} waves-light btn">{{endCity.city_name}}{{endCity.dis == "" ? endCity.dis : "(" + endCity.dis + "公里)"}}</a>
+                <div class="col s3 m3 l2" style="margin:10px 0" ng-repeat="endCity in endCityList">
+                    <a ng-click="modifyLineInfo(endCity)" style="width: 100%;font-size: 10px;height:54px;padding: 0 10px;display: flex !important;" class="waves-effect vc-center {{endCity.flag ? 'cyan':'grey'}} waves-light btn">
+                        <div>
+                            <p style="margin: 0;display: block;height: 23px;line-height: 23px">{{endCity.city_name}}</p>
+                            <p ng-if="endCity.dis !== ''" style="margin: 0;display: block;height: 23px;line-height: 23px">{{endCity.dis == "" ? endCity.dis : "(" + endCity.dis + "km)"}}</p>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>

@@ -70,7 +70,7 @@ app.controller("setting_line_controller", ["$scope", "$host", "_basic", function
         });
     };
 
-    // 修改或设置线路
+    // 点击打开模态框
     $scope.modifyLineInfo = function (lineInfo) {
         // console.log("currentLineInfo", lineInfo);
         $scope.endCity = lineInfo.city_name;
@@ -86,7 +86,7 @@ app.controller("setting_line_controller", ["$scope", "$host", "_basic", function
         }
     };
 
-    // 修改里程数
+    // 修改或设置里程数
     $scope.distanceModify = function () {
         // flag为true时执行修改操作，否则执行新增操作
         if($scope.modifyFlag){
@@ -109,7 +109,7 @@ app.controller("setting_line_controller", ["$scope", "$host", "_basic", function
             }
         }
         else{
-            if($scope.distance !== null){
+            if($scope.distance !== ""){
                 _basic.post($host.api_url + "/user/" + userId + "/cityRoute",{
                     routeStartId: $scope.selectedCityId,
                     routeStart: $scope.startCity,

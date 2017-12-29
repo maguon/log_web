@@ -20,6 +20,9 @@ app.controller("setting_city_controller", ["$scope", "$host", "_basic", function
         $scope.cityText = "";
         $scope.submitted = false;
     };
+    $('#js-example-basic-single').select2({
+        placeholder: '请选择城市'
+    });
 
     $scope.getCity = function () {
         _basic.get($host.api_url + "/city").then(function (data) {

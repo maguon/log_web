@@ -6,6 +6,18 @@
             </h5>
         </div>
         <div class="row">
+            <div class="col s12">
+                <div class="col s4">
+                    <select id="js-example-basic-single" name="state" style="width:inherit">
+                        <option ng-repeat="el in city_model" ng-value="el.id">{{el.city_name}}</option>
+                    </select>
+                </div>
+                <div class="col s4">
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="divider cyan lighten-2"></div>
         </div>
         <div style="width: 85%;margin: 0 auto">

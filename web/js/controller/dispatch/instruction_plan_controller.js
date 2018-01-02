@@ -293,7 +293,10 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         _basic.get($host.api_url + "/city").then(function (cityData) {
             if (cityData.success === true) {
                 $scope.sendCityList = cityData.result;
-                // console.log("city",cityData)
+                $('.js-example-basic-single').select2({
+                    placeholder: '选择城市',
+                    containerCssClass : 'select2_dropdown'
+                });
             }
             else {
                 swal(cityData.msg, "", "error");
@@ -328,8 +331,9 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         else{
             swal("请先选择装车地点", "", "error");
         }
-
     };
+
+
 
     // 提交线路下的任务信息
     $scope.submitMissionInfo = function (lineId) {

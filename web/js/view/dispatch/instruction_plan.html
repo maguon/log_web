@@ -295,8 +295,8 @@
                                             <span class="mdi mdi-arrow-right"></span>
                                         </div>
                                         <div class="col s5">
-                                            <select id="chooseCity" name="chooseCity" ng-change="getReceiveDistributor(currentLine.id)" ng-model="$parent.sendCityId" watch material-select>
-                                                <option value="">选择城市</option>
+                                            <select class="js-example-basic-single" name="state" style="width:100%" ng-change="getReceiveDistributor(currentLine.id)" ng-model="$parent.sendCityId">
+                                                <option value=""></option>
                                                 <option ng-repeat="sendCity in sendCityList" ng-value="sendCity.id">{{sendCity.city_name}}</option>
                                             </select>
                                         </div>

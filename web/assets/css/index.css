@@ -1225,3 +1225,43 @@ button[type="submit"] {
 .cyan_icon input{
     color: #969696 !important;
 }
+
+/*修改select2样式问题*/
+.select2_dropdown{
+    background-color: transparent !important;
+    border: none !important;
+    border-bottom: 1px solid #9e9e9e !important;
+    outline: none !important;
+    height: 3rem !important;
+    line-height: 3rem !important;
+    width: 100% !important;
+    font-size: 1rem !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    border-radius:0 !important;
+}
+
+.select2-search__field{
+    margin: 0 !important;
+    height: inherit !important;
+}
+
+.select2-selection__rendered{
+    text-align: left !important;
+    padding: 0 !important;
+    line-height: 42px !important;
+}
+
+.select2-selection__placeholder{
+    color: black !important;
+}
+
+.select2-selection__arrow{
+    margin-top: 6px !important;
+}
+
+.select2-selection__arrow b{
+    border-color: black transparent !important;
+    border-width: 8px 4px 0 4px !important;
+}

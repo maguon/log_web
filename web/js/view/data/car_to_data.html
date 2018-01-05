@@ -176,7 +176,7 @@
                             <div class="row">
                                 <div class="col s4 p0">
                                     <div class=" input-field col s6" ng-class="{'has-error':new_carForm.start_city.$invalid&&submitted}">
-                                        <select material-select watch id="start_city" name="start_city" ng-change="start_city_change(start_city.id)" ng-options="start_city.city_name for start_city in get_city" ng-model="sssssssssssss" required>
+                                        <select material-select watch id="start_city" name="start_city" ng-change="start_city_change(start_city.id)" ng-options="start_city.city_name for start_city in get_city" ng-model="start_city" required>
                                             <option value="" disabled selected>请选择</option>
                                             <!--<option ng-if="start_city.city_status==1" ng-repeat="start_city in get_city" ng-value="start_city.id" >{{start_city.city_name}}</option>-->
                                         </select>

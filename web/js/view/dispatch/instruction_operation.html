@@ -1,6 +1,6 @@
 <div class="instruction_operation">
 
-    <div class="row col s12">
+    <div class="row col s12 valign-wrapper">
         <div class="row col s11">
             <div class="input-field col s4">
                 <input id="truck" type="text" ng-model="truckNum">
@@ -17,6 +17,44 @@
                     <option value="2">在途</option>
                 </select>
             </div>
+            <div class="input-field col s3">
+                <!--<select material-select watch ng-change="getLocateAddress()" ng-model="startCityId">-->
+                <!--<option value="" selected>始发城市</option>-->
+                <!--<option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>-->
+                <!--</select>-->
+
+                <select class="js-example-basic-single" name="state" style="width:100%" ng-change="getLocateAddress()" ng-model="startCityId">
+                    <option value=""></option>
+                    <option ng-repeat="city in startCityList" ng-value="city.id">{{city.city_name}}</option>
+                </select>
+            </div>
+            <div class="input-field col s3">
+                <select material-select watch ng-model="locateAddrId">
+                    <option value="" selected>装车地点</option>
+                    <option ng-repeat="locateAddr in locateList" ng-value="locateAddr.id">{{locateAddr.addr_name}}
+                    </option>
+                </select>
+            </div>
+            <div class="input-field col s3">
+                <!--<select material-select watch ng-change="getDistributor()" ng-model="endCityId">-->
+                <!--<option value="" selected>目的城市</option>-->
+                <!--<option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>-->
+                <!--</select>-->
+
+                <select class="js-example-basic-single2" name="state" style="width:100%" ng-change="getDistributor()"
+                        ng-model="endCityId">
+                    <option value=""></option>
+                    <option ng-repeat="city in endCityList" ng-value="city.id">{{city.city_name}}</option>
+                </select>
+            </div>
+            <div class="input-field col s3">
+                <select material-select watch ng-model="distributorId">
+                    <option value="" selected>经销商</option>
+                    <option ng-repeat="distributor in distributorList" ng-value="distributor.id">
+                        {{distributor.short_name}}
+                    </option>
+                </select>
+            </div>
         </div>
         <div class="row col s1 center">
             <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
@@ -24,33 +62,11 @@
                 <i class="mdi mdi-magnify"></i>
             </a>
         </div>
-        <div class="row col s12">
-            <div class="input-field col s3">
-                <select material-select watch ng-change="getLocateAddress()" ng-model="startCityId">
-                    <option value="" selected>始发城市</option>
-                    <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
-                </select>
-            </div>
-            <div class="input-field col s3">
-                <select material-select watch ng-model="locateAddrId">
-                    <option value="" selected>装车地点</option>
-                    <option ng-repeat="locateAddr in locateList" ng-value="locateAddr.id">{{locateAddr.addr_name}}</option>
-                </select>
-            </div>
-            <div class="input-field col s3">
-                <select material-select watch ng-change="getDistributor()" ng-model="endCityId">
-                    <option value="" selected>目的城市</option>
-                    <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
-                </select>
-            </div>
-            <div class="input-field col s3">
-                <select material-select watch ng-model="distributorId">
-                    <option value="" selected>经销商</option>
-                    <option ng-repeat="distributor in distributorList" ng-value="distributor.id">{{distributor.short_name}}</option>
-                </select>
-            </div>
-        </div>
-        <div class="col s12" style="margin-top: 15px">
+    </div>
+
+    <!--table表格-->
+    <div class="row col s12" style="margin-top: 15px">
+        <div class="col s12">
             <div class="divider" style="background: #00bcd4;height: 2px;"></div>
             <table class=" bordered striped text_mid">
                 <thead class="blue-grey lighten-5">
@@ -86,4 +102,5 @@
             </table>
         </div>
     </div>
+
 </div>

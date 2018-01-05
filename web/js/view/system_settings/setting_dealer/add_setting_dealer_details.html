@@ -7,9 +7,6 @@
             <h5 class="col s12 cyan-text lighten-1  center-align">
                 经销商信息
             </h5>
-            <!--<div class="col s8 right-align">-->
-            <!---->
-            <!--</div>-->
         </div>
         <div class="row">
             <div class="divider  cyan lighten-2"></div>
@@ -29,12 +26,17 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col s12 input-field mp-40">
-                            <select material-select watch ng-model="setting_city_id">
-                                <option value="" >选择城市</option>
-                                <option ng-repeat="el in setting_city" ng-show="el.city_status==1" ng-value="el.id" >{{el.city_name}}</option>
+                        <div class="col s12 input-field">
+                            <!--<select material-select watch ng-model="setting_city_id">-->
+                                <!--<option value="" >选择城市</option>-->
+                                <!--<option ng-repeat="el in setting_city" ng-show="el.city_status==1" ng-value="el.id" >{{el.city_name}}</option>-->
+                            <!--</select>-->
+                            <!--<label class="grey-text bold">所属城市</label>-->
+
+                            <select class="js-example-basic-single" name="state" style="width:100%" ng-model="setting_city_id">
+                                <option value=""></option>
+                                <option ng-repeat="el in setting_city" ng-value="el.id" ng-show="el.city_status==1">{{el.city_name}}</option>
                             </select>
-                            <label class="grey-text bold">所属城市</label>
                         </div>
                         <div class="col s12 input-field mp-40" ng-class="{'has-error':add_setting_dealerFrom.address.$invalid&&submitted }" >
                             <input type="text" id="address" ng-model="input_address" autocomplete="off"  name="address" required>

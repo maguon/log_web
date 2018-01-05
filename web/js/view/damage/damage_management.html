@@ -11,8 +11,13 @@
                     <label for="VinCode">VIN码</label>
                 </div>
                 <div class="col s2 input-field">
-                    <select material-select watch ng-change="getReceiveList()" ng-model="endCity">
-                        <option value="" selected>目的城市</option>
+                    <!--<select material-select watch ng-change="getReceiveList()" ng-model="endCity">-->
+                        <!--<option value="" selected>目的城市</option>-->
+                        <!--<option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>-->
+                    <!--</select>-->
+
+                    <select class="js-example-basic-single" name="state" style="width:100%" ng-change="getReceiveList()" ng-model="endCity">
+                        <option value=""></option>
                         <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
                     </select>
                 </div>

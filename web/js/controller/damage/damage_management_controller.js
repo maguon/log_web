@@ -23,6 +23,10 @@ app.controller("damage_management_controller", ["$scope", "$host", "_basic", fun
         _basic.get($host.api_url + "/city").then(function (data) {
             if (data.success === true) {
                 $scope.cityList = data.result;
+                $('.js-example-basic-single').select2({
+                    placeholder: '目的城市',
+                    containerCssClass : 'select2_dropdown'
+                });
             }
             else {
                 swal(data.msg, "", "error");

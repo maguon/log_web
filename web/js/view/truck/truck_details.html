@@ -9,13 +9,18 @@
                         <p style="letter-spacing: 2px">设置车辆当前位置</p>
                     </div>
                 </div>
-                <div class="row col s12">
+                <div class="row col s12" style="margin-top: -20px">
                     <div class="input-field col s4 offset-s4">
-                        <select id="chooseCarPosition" material-select watch ng-model="currentCityId">
-                            <option value="" selected>请选择</option>
+                        <!--<select id="chooseCarPosition" material-select watch ng-model="currentCityId">-->
+                            <!--<option value="" selected>请选择</option>-->
+                            <!--<option ng-repeat="city in allCityList" ng-value="city.id">{{city.city_name}}</option>-->
+                        <!--</select>-->
+                        <!--<label for="chooseCarPosition">车辆当前位置</label>-->
+
+                        <select class="js-example-basic-single" name="state" style="width:100%" ng-model="currentCityId">
+                            <option value=""></option>
                             <option ng-repeat="city in allCityList" ng-value="city.id">{{city.city_name}}</option>
                         </select>
-                        <label for="chooseCarPosition">车辆当前位置</label>
                     </div>
                 </div>
             </div>

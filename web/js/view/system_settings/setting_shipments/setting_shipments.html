@@ -12,18 +12,19 @@
             <div class="divider  cyan lighten-2"></div>
         </div>
         <div >
-            <!--<div class="row addDealer">-->
-                <!--<a href="" class="right btn-floating btn-large  btn waves-effect cyan lighten-1 waves-light vc-center "-->
-                   <!--ui-sref="add_setting_shipments"><i class="mdi mdi-plus"></i></a>-->
-            <!--</div>-->
             <div class="row addShipments" style="width: 80%;margin: 0 auto">
-                <div class=" input-field col s4">
-                    <select material-select watch id="s_city" ng-change="get_dealer()" class="grey-text"   ng-model="city" >
-                        <option value=""  selected>请选择</option>
-                        <option ng-repeat="el in get_city" ng-value="el.id" >{{el.city_name}}</option>
-                        <!--<option ng-if="start_city.city_status==1" ng-repeat="start_city in get_city" ng-value="start_city.id" >{{start_city.city_name}}</option>-->
+                <div class="input-field col s4">
+                    <!--<select material-select watch id="s_city" ng-change="get_dealer()" class="grey-text" ng-model="city" >-->
+                        <!--<option value="" selected>请选择</option>-->
+                        <!--<option ng-repeat="el in get_city" ng-value="el.id" >{{el.city_name}}</option>-->
+                    <!--</select>-->
+                    <!--<label for="s_city">所属城市</label>-->
+
+                    <select class="js-example-basic-single" name="state" style="width:100%" ng-change="get_dealer()" ng-model="city">
+                        <option value=""></option>
+                        <option ng-repeat="el in get_city" ng-value="el.id">{{el.city_name}}</option>
                     </select>
-                    <label for="s_city">所属城市</label>
+
                 </div>
                 <div class="input-field col s4">
                     <select material-select watch id="s_dealer" class="grey-text"   ng-model="s_dealer">

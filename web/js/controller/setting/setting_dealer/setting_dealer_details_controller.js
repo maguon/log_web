@@ -9,7 +9,11 @@ app.controller("setting_dealer_details_controller", ["$scope", "_basic", "_confi
     $scope.getCityList = function () {
         _basic.get($host.api_url + "/city").then(function (data) {
             if (data.success == true) {
-                $scope.setting_city = data.result
+                $scope.setting_city = data.result;
+                $('.js-example-basic-single').select2({
+                    placeholder: '选择城市',
+                    containerCssClass : 'select2_dropdown'
+                });
             }
         });
     };

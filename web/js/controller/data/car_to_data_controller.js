@@ -313,6 +313,10 @@ app.controller("car_to_data_controller", ['$rootScope', '$scope', '$location', '
             _basic.get($host.api_url + "/city").then(function (data) {
                 if (data.success == true) {
                     $scope.get_city = data.result;
+                    $('.js-example-basic-single').select2({
+                        placeholder: '发运地城市',
+                        containerCssClass : 'select2_dropdown'
+                    });
                 }
             });
             // 车辆品牌
@@ -338,6 +342,7 @@ app.controller("car_to_data_controller", ['$rootScope', '$scope', '$location', '
 
         // 发运地城市--地址联动
         $scope.start_city_change = function (val) {
+            console.log($scope.start_city);
             _basic.get($host.api_url + "/baseAddr?cityId=" + val).then(function (data) {
                 if (data.success == true) {
                     // console.log(data.result)

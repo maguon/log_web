@@ -4,9 +4,6 @@
             <h5 class="col s12 cyan-text lighten-1  center-align">
                 经销商
             </h5>
-            <!--<div class="col s8 right-align">-->
-            <!---->
-            <!--</div>-->
         </div>
         <div class="row">
             <div class="divider  cyan lighten-2"></div>
@@ -14,12 +11,16 @@
         <div style="width: 75%;margin: 0 auto">
             <div class="row addDealer">
                 <div class=" input-field col s4">
-                    <select material-select watch id="s_city" ng-change="get_dealer()" class="grey-text"   ng-model="city" >
-                        <option value=""  selected>请选择</option>
-                        <option ng-repeat="el in get_city" ng-value="el.id" >{{el.city_name}}</option>
-                        <!--<option ng-if="start_city.city_status==1" ng-repeat="start_city in get_city" ng-value="start_city.id" >{{start_city.city_name}}</option>-->
+                    <!--<select material-select watch id="s_city" ng-change="get_dealer()" class="grey-text" ng-model="city" >-->
+                        <!--<option value=""  selected>请选择</option>-->
+                        <!--<option ng-repeat="el in get_city" ng-value="el.id" >{{el.city_name}}</option>-->
+                    <!--</select>-->
+                    <!--<label for="s_city">所属城市</label>-->
+
+                    <select class="js-example-basic-single" name="state" style="width:100%" ng-change="get_dealer()" ng-model="city">
+                        <option value=""></option>
+                        <option ng-repeat="el in get_city" ng-value="el.id">{{el.city_name}}</option>
                     </select>
-                    <label for="s_city">所属城市</label>
                 </div>
                 <div class="input-field col s4">
                     <select material-select watch id="s_dealer" class="grey-text"   ng-model="s_dealer">

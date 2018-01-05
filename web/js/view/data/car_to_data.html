@@ -1,11 +1,9 @@
 <div>
-
     <div class="row">
         <form name="file_upload_form " id="file_upload_form" >
             <div class="col s4">
                 <div class="row">
                     <div class="file-field  input-field ">
-                        <!--<a href="../../../assets/车辆信息导入模板.csv" download="模板" class="btn waves-effect circle_button" >下载模板格式</a>-->
                         <a href="/assets/车辆信息导入模板.csv" target="_blank" class="btn waves-effect circle_button" >下载模板格式</a>
                     </div>
                 </div>
@@ -13,12 +11,10 @@
             <div class="col s2 offset-s4">
                 <div class="row">
                     <div class="file-field input-field right-align" >
-                            <div class="btn cyan lighten-2 circle_button " style="position:relative;overflow: hidden">
-                                <span>批量数据导入</span>
-                                <input type="file" style="font-size: 100px"  name="file" accept="text/csv" onchange='angular.element(this).scope().fileChange(this)' >
-                            </div>
-
-                        <!--<a href="" class="btn waves-effect circle_button right"></a>-->
+                        <div class="btn cyan lighten-2 circle_button " style="position:relative;overflow: hidden">
+                            <span>批量数据导入</span>
+                            <input type="file" style="font-size: 100px"  name="file" accept="text/csv" onchange='angular.element(this).scope().fileChange(this)' >
+                        </div>
                     </div>
                 </div>
             </div>
@@ -43,10 +39,10 @@
             <!--</div>-->
             <!--<button class="btn cyan lighten-2" ng-click="testUpload()" >上传</button>-->
         </form>
-
     </div>
-    <div class="row " >
-        <div class="col s12 ">
+
+    <div class="row">
+        <div class="col s12">
             <div class="col s12 templateBox" ng-show="templateBox">
                 <img style="width: 100%" src="/assets/images/import_instruction.png" />
                 <!--<div class="template_title red-text text-lighten-2 bold fz16">
@@ -98,8 +94,8 @@
                 </tbody>
             </table>
         </div>
-
     </div>
+
     <div class="row success_data_box " style="overflow: auto; "  ng-show="success_data_box">
         <div class="divider" style="height: 2px;"></div>
         <div class="col s12 " style="padding: 100px 0">
@@ -121,16 +117,14 @@
                 </p>
                 <!--<a href="" class="btn btn-large waves-effect cyan lighten-2"></a>-->
                 <p class="center-align">
-
                     <button class="btn btn-large circle_button cyan lighten-2" ng-click="fileUpload()" >
                         导入数据库
                     </button>
                     <a href="" style="margin-top: 10px" class="btn btn-large circle_button cyan lighten-2" ng-show="show_error" ng-click="show_error_msg()">错误数据显示</a>
                 </p>
-
             </div>
-
         </div>
+
         <table class=" bordered striped" ng-show="error_msg">
             <thead class="blue-grey lighten-5">
             <tr class="grey-text text-darken-2">
@@ -146,11 +140,10 @@
             </tbody>
         </table>
     </div>
-    <div id="new_car" class="modal ">
 
+    <div id="new_car" class="modal ">
         <div class="cyan lighten-1 white-text center-align modal_title" >新增车辆</div>
         <div class="modal-content">
-            <!--<div class="container">-->
             <div class="row no-marBottom" ul-tabs>
                 <div class="col s12 p0">
                     <ul class="tabWrap grey lighten-4 ">
@@ -158,6 +151,7 @@
                         <li  class="tab disabled col s6  vc-center test2 ">车辆照片</li>
                     </ul>
                 </div>
+
                 <div id="test1" class="col s12 tab_box">
                     <form name="new_carForm" style="color:#616161" ng-submit="newSubmitForm(new_carForm.$valid)" novalidate>
                         <div class="row" style="margin-top: 40px">
@@ -166,10 +160,6 @@
                                     <input  id="vin" name="vin" autocomplete="off" ng-model="vin" type="text" ng-pattern="/^[a-zA-Z0-9]{17}$/"   required >
                                     <label for="vin"><span style="color: red;margin-right: 5px">*</span>VIN码</label>
                                 </div>
-                                <!--<div class="col s4 valign-wrapper" ng-class="{ 'has-error':new_carForm.win.$invalid&&submitted }">-->
-                                <!--<h6 class="col s4-0 min-width-2 ">-->
-                                <!--:</h6>-->
-                                <!--</div>-->
                                 <div class="input-field col s4">
                                     <select material-select watch id="car_brand" name="car_brand" ng-options="car_brand.make_name for car_brand in get_carMake"   ng-model="car_brand" >
                                         <option value="" disabled selected>请选择</option>
@@ -177,33 +167,34 @@
                                     </select>
                                     <label for="car_brand">品牌</label>
                                 </div>
-                                <!--<div class="col s4 valign-wrapper" ng-class="{ 'has-error':new_carForm.makecarName.$invalid&&submitted }" >-->
-                                <!--<h6 class="col s4-0 min-width ">-->
-                                <!--制造商:</h6>-->
-
-                                <!--</div>-->
                                 <div class="input-field col s4">
-                                    <input type="text" id="arrival_time" name="arrival_time"  class="datepicker" autocomplete="off" ng-model="arrival_time"    date><i class="mdi grey-text text-lighten-1 dataIcon mdi-table-large"></i>
+                                    <input type="text" id="arrival_time" name="arrival_time"  class="datepicker" autocomplete="off" ng-model="arrival_time" date><i class="mdi grey-text text-lighten-1 dataIcon mdi-table-large"></i>
                                     <label for="arrival_time">指令时间</label>
                                 </div>
                             </div>
-                            <div class="row" >
-                                <div class=" col s4 p0">
+
+                            <div class="row">
+                                <div class="col s4 p0">
                                     <div class=" input-field col s6" ng-class="{'has-error':new_carForm.start_city.$invalid&&submitted}">
-                                        <select material-select watch id="start_city" name="start_city" ng-change="start_city_change(start_city.id)" ng-options="start_city.city_name for start_city in get_city" required  ng-model="start_city" >
+                                        <select material-select watch id="start_city" name="start_city" ng-change="start_city_change(start_city.id)" ng-options="start_city.city_name for start_city in get_city" ng-model="sssssssssssss" required>
                                             <option value="" disabled selected>请选择</option>
                                             <!--<option ng-if="start_city.city_status==1" ng-repeat="start_city in get_city" ng-value="start_city.id" >{{start_city.city_name}}</option>-->
                                         </select>
                                         <label for="start_city">发运地城市</label>
+
+                                        <!--<select class="js-example-basic-single" name="state" style="width:100%" ng-change="start_city_change(start_city.id)" ng-model="start_city" required>-->
+                                            <!--<option value=""></option>-->
+                                            <!--<option ng-repeat="city in get_city" ng-value="city.id">{{city.city_name}}</option>-->
+                                        <!--</select>-->
                                     </div>
                                     <div class="input-field col s6" ng-class="{'has-error':new_carForm.base_addr.$invalid&&submitted}">
-                                        <select material-select watch id="base_addr" name="base_addr" ng-options="base_addr.addr_name for base_addr in baseAddr" required  ng-model="base_addr" >
+                                        <select material-select watch id="base_addr" name="base_addr" ng-options="base_addr.addr_name for base_addr in baseAddr" required ng-model="base_addr">
                                             <option value="" disabled selected>请选择</option>
                                         </select>
                                         <label for="base_addr">发运地地址</label>
                                     </div>
-
                                 </div>
+
                                 <div class="input-field col s4"  ng-class="{'has-error':new_carForm.client.$invalid&&submitted}">
                                     <select material-select watch id="client" name="client"  ng-model="client"  required>
                                         <option value="" disabled selected>请选择</option>
@@ -228,7 +219,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <p class="col 12 min-width-2 left-align  grey-text darken-2">
+                                <p class="col 12 min-width-2 left-align grey-text darken-2">
                                     备注:</p>
                                 <div class="col s12 valign-wrapper" style="position: relative">
                                     <p class=" col s12 p0">
@@ -238,26 +229,26 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="divider" style="background: #00bcd4;height: 2px;"></div>
                         <div class="modal-footer right-align">
                             <button class="btn btn-floating waves-light waves-effect  cyan lighten-1" type="submit" name="action" >
                                 <i class="mdi mdi-trending-neutral"></i>
                                 <!--下一步-->
                             </button>
-                            <a  class=" modal-action btn-floating modal-close waves-effect  grey lighten-1waves-light   btn" style="margin-right: 10px" >
+                            <a  class="modal-action btn-floating modal-close waves-effect  grey lighten-1waves-light   btn" style="margin-right: 10px" >
                                 <i class="mdi mdi-close"></i>
                                 <!--取消-->
                             </a>
-
                         </div>
                     </form>
                 </div>
                 <div id="test2" class="col s12 tab_box">
                     <div class="row no-marBottom">
-                        <div class="col s12 valign-wrapper " style="position: relative">
+                        <div class="col s12 valign-wrapper" style="position: relative">
                             <div class="storage_car_picture_wrap col s12 p0">
                                 <form name="uploadImageForm" class="uploadImageForm">
-                                    <div class="upload_btn left  ">
+                                    <div class="upload_btn left">
                                         <div class="storage_car_picture  vc-center  p0 cyan lighten-1 white-text">
                                             <input name="image" type="file"  onchange="angular.element(this).scope().uploadBrandImage(this)" max_size="4M">
                                             <i class="mdi mdi-instagram"></i>
@@ -277,7 +268,7 @@
                         </div>
                         <div class="divider" style="background: #00bcd4;height: 2px;"></div>
                         <div class="modal-footer vc-center">
-                            <a  class=" modal-action modal-close waves-effect waves-light grey lighten-1 btn" style="margin-left: 10px" >
+                            <a class=" modal-action modal-close waves-effect waves-light grey lighten-1 btn" style="margin-left: 10px" >
                                 <!--<i class="mdi mdi-close"></i>-->
                                 关闭
                             </a>

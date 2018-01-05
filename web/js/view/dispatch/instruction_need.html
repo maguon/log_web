@@ -22,10 +22,15 @@
                                 </div>
                                 <div class="col s4" style="padding: 0">
                                     <div class="input-field col s6">
-                                        <select id="start_city" material-select watch ng-change="getAddres(start_city)"  ng-options="city.id as city.city_name for city in cityList" ng-model="start_city">
-                                            <option value="">请选择</option>
+                                        <!--<select id="start_city" material-select watch ng-change="getAddres(start_city)"  ng-options="city.id as city.city_name for city in startCityList" ng-model="start_city">-->
+                                            <!--<option value="">请选择</option>-->
+                                        <!--</select>-->
+                                        <!--<label for="start_city">起始城市</label>-->
+
+                                        <select class="js-example-basic-single" name="state" style="width:100%" ng-change="getAddres(start_city)" ng-model="start_city">
+                                            <option value=""></option>
+                                            <option ng-repeat="city in startCityList" ng-value="city.id">{{city.city_name}}</option>
                                         </select>
-                                        <label for="start_city">起始城市</label>
                                     </div>
                                     <div class=" input-field col s6">
                                         <select id="dispatch_car_position" ng-options="baseAddr.id as baseAddr.addr_name for baseAddr in baseAddrList" material-select watch ng-model="dispatch_car_position">
@@ -57,10 +62,15 @@
                                 </div>
                                 <div class="col s4" style="padding: 0">
                                     <div class="input-field col s6">
-                                        <select id="arrive_city" material-select watch ng-change="getRecive(arrive_city)"  ng-model="arrive_city" ng-options="city.id as city.city_name for city in cityList">
-                                            <option value="">请选择</option>
+                                        <!--<select id="arrive_city" material-select watch ng-change="getRecive(arrive_city)" ng-model="arrive_city" ng-options="city.id as city.city_name for city in cityList">-->
+                                            <!--<option value="">请选择</option>-->
+                                        <!--</select>-->
+                                        <!--<label for="arrive_city">目的城市</label>-->
+
+                                        <select class="js-example-basic-single2" name="state" style="width:100%" ng-change="getRecive(arrive_city)" ng-model="arrive_city">
+                                            <option value=""></option>
+                                            <option ng-repeat="city in endCityList" ng-value="city.id">{{city.city_name}}</option>
                                         </select>
-                                        <label for="arrive_city">目的城市</label>
                                     </div>
                                     <div class=" input-field col s6">
                                         <select id="dealer" material-select watch ng-model="dealer" ng-options="receive.id as receive.short_name for receive in receiveList">

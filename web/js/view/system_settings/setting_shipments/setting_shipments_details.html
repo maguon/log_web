@@ -25,12 +25,17 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col s12 input-field mp-40">
-                            <select material-select watch ng-model="shipments_details.city_id" required>
-                                <option value="" >选择城市</option>
-                                <option ng-repeat="el in setting_city" ng-show="el.city_status==1" ng-value="el.id" >{{el.city_name}}</option>
+                        <div class="col s12 input-field">
+                            <!--<select material-select watch ng-model="shipments_details.city_id" required>-->
+                                <!--<option value="" >选择城市</option>-->
+                                <!--<option ng-repeat="el in setting_city" ng-show="el.city_status==1" ng-value="el.id" >{{el.city_name}}</option>-->
+                            <!--</select>-->
+                            <!--<label class="grey-text bold">所属城市</label>-->
+
+                            <select class="js-example-basic-single" name="state" style="width:100%" ng-model="shipments_details.city_id">
+                                <option value=""></option>
+                                <option ng-repeat="el in setting_city" ng-value="el.id" ng-show="el.city_status==1">{{el.city_name}}</option>
                             </select>
-                            <label class="grey-text bold">所属城市</label>
                         </div>
                     </div>
                     <div class="row">

@@ -8,12 +8,27 @@ app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_b
     $scope.instructionStatus = "1";
     _basic.get($host.api_url + "/city").then(function (data) {
         if (data.success == true) {
-            $scope.cityList = data.result;
+            $scope.startCityList = data.result;
+            $('.js-example-basic-single').select2({
+                placeholder: '起始城市',
+                containerCssClass : 'select2_dropdown'
+            });
+        }
+    });
+
+    _basic.get($host.api_url + "/city").then(function (data) {
+        if (data.success == true) {
+            $scope.endCityList = data.result;
+            $('.js-example-basic-single2').select2({
+                placeholder: '目的城市',
+                containerCssClass : 'select2_dropdown'
+            });
         }
     });
 
     // 获取装车地点
     $scope.getAddres = function (id) {
+        console.log($scope.start_city);
         _basic.get($host.api_url + "/baseAddr?cityId=" + id).then(function (data) {
             if (data.success == true) {
                 $scope.baseAddrList = data.result;

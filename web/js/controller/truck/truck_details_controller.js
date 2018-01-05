@@ -371,6 +371,10 @@ app.controller("truck_details_controller", ["$scope", "$state", "$stateParams", 
             if (data.success === true) {
                 $scope.allCityList = data.result;
                 $scope.truck_id = truckId;
+                $('.js-example-basic-single').select2({
+                    placeholder: '车辆当前位置',
+                    containerCssClass : 'select2_dropdown'
+                });
                 $('#carPositionModel').modal('open');
             }
             else {

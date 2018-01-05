@@ -56,11 +56,31 @@ app.controller("instruction_operation_controller", ["$scope", "$host", "_basic",
         });
     };
 
-    // 获取城市信息
-    $scope.getCityInfo = function () {
+    // 获取起始城市信息
+    $scope.getStartCityInfo = function () {
         _basic.get($host.api_url + "/city").then(function (cityData) {
             if (cityData.success === true) {
-                $scope.cityList = cityData.result;
+                $scope.startCityList = cityData.result;
+                $('.js-example-basic-single').select2({
+                    placeholder: '始发城市',
+                    containerCssClass : 'select2_dropdown'
+                });
+            }
+            else {
+                swal(cityData.msg, "", "error");
+            }
+        });
+    };
+
+    // 获取目的城市信息
+    $scope.getEndCityInfo = function () {
+        _basic.get($host.api_url + "/city").then(function (cityData) {
+            if (cityData.success === true) {
+                $scope.endCityList = cityData.result;
+                $('.js-example-basic-single2').select2({
+                    placeholder: '目的城市',
+                    containerCssClass : 'select2_dropdown'
+                });
             }
             else {
                 swal(cityData.msg, "", "error");
@@ -95,7 +115,8 @@ app.controller("instruction_operation_controller", ["$scope", "$host", "_basic",
     // 获取所有数据
     $scope.queryData = function () {
         $scope.getTruckDispatch();
-        $scope.getCityInfo();
+        $scope.getStartCityInfo();
+        $scope.getEndCityInfo();
     };
     $scope.queryData();
 }]);

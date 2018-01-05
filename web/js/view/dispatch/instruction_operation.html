@@ -18,13 +18,9 @@
                 </select>
             </div>
             <div class="input-field col s3">
-                <!--<select material-select watch ng-change="getLocateAddress()" ng-model="startCityId">-->
-                <!--<option value="" selected>始发城市</option>-->
-                <!--<option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>-->
-                <!--</select>-->
-
-                <select class="js-example-basic-single" name="state" style="width:100%" ng-change="getLocateAddress()" ng-model="startCityId">
+                <select id="start_city_list" name="state" style="width:100%" ng-change="getLocateAddress()" ng-model="startCityId">
                     <option value=""></option>
+                    <option value="0" >清除选择</option>
                     <option ng-repeat="city in startCityList" ng-value="city.id">{{city.city_name}}</option>
                 </select>
             </div>
@@ -36,15 +32,10 @@
                 </select>
             </div>
             <div class="input-field col s3">
-                <!--<select material-select watch ng-change="getDistributor()" ng-model="endCityId">-->
-                <!--<option value="" selected>目的城市</option>-->
-                <!--<option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>-->
-                <!--</select>-->
-
-                <select class="js-example-basic-single2" name="state" style="width:100%" ng-change="getDistributor()"
-                        ng-model="endCityId">
+                <select id="end_city_list" name="state" style="width:100%" ng-change="getDistributor()" ng-model="endCityId">
                     <option value=""></option>
-                    <option ng-repeat="city in endCityList" ng-value="city.id">{{city.city_name}}</option>
+                    <option value="0" >清除选择</option>
+                    <option ng-repeat="city in startCityList" ng-value="city.id">{{city.city_name}}</option>
                 </select>
             </div>
             <div class="input-field col s3">

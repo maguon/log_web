@@ -61,23 +61,11 @@ app.controller("instruction_operation_controller", ["$scope", "$host", "_basic",
         _basic.get($host.api_url + "/city").then(function (cityData) {
             if (cityData.success === true) {
                 $scope.startCityList = cityData.result;
-                $('.js-example-basic-single').select2({
+                $('#start_city_list').select2({
                     placeholder: '始发城市',
                     containerCssClass : 'select2_dropdown'
                 });
-            }
-            else {
-                swal(cityData.msg, "", "error");
-            }
-        });
-    };
-
-    // 获取目的城市信息
-    $scope.getEndCityInfo = function () {
-        _basic.get($host.api_url + "/city").then(function (cityData) {
-            if (cityData.success === true) {
-                $scope.endCityList = cityData.result;
-                $('.js-example-basic-single2').select2({
+                $('#end_city_list').select2({
                     placeholder: '目的城市',
                     containerCssClass : 'select2_dropdown'
                 });
@@ -90,33 +78,44 @@ app.controller("instruction_operation_controller", ["$scope", "$host", "_basic",
 
     // 根据起始城市查询装车地点
     $scope.getLocateAddress = function () {
-        _basic.get($host.api_url + "/baseAddr?cityId=" + $scope.startCityId).then(function (locateData) {
-            if (locateData.success === true) {
-                $scope.locateList = locateData.result;
-            }
-            else {
-                swal(locateData.msg, "", "error");
-            }
-        });
+        if($scope.startCityId == "" || $scope.startCityId == null || $scope.startCityId == 0){
+            $scope.startCityId = null;
+            $scope.locateList = [];
+        }
+        else{
+            _basic.get($host.api_url + "/baseAddr?cityId=" + $scope.startCityId).then(function (locateData) {
+                if (locateData.success === true) {
+                    $scope.locateList = locateData.result;
+                }
+                else {
+                    swal(locateData.msg, "", "error");
+                }
+            });
+        }
     };
 
     // 根据目的城市获取经销商
     $scope.getDistributor = function () {
-        _basic.get($host.api_url + "/receive?cityId=" + $scope.endCityId).then(function (distributorData) {
-            if (distributorData.success === true) {
-                $scope.distributorList = distributorData.result;
-            }
-            else {
-                swal(distributorData.msg, "", "error");
-            }
-        });
+        if($scope.endCityId == 0 || $scope.endCityId == "" || $scope.endCityId == null){
+            $scope.endCityId = null;
+            $scope.distributorList = [];
+        }
+        else{
+            _basic.get($host.api_url + "/receive?cityId=" + $scope.endCityId).then(function (distributorData) {
+                if (distributorData.success === true) {
+                    $scope.distributorList = distributorData.result;
+                }
+                else {
+                    swal(distributorData.msg, "", "error");
+                }
+            });
+        }
     };
 
     // 获取所有数据
     $scope.queryData = function () {
         $scope.getTruckDispatch();
         $scope.getStartCityInfo();
-        $scope.getEndCityInfo();
     };
     $scope.queryData();
 }]);

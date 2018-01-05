@@ -8,13 +8,20 @@ app.controller("add_setting_dealer_controller", ["$scope", "_basic", "_config", 
         _basic.get($host.api_url + "/city").then(function (data) {
             if (data.success == true) {
                 $scope.setting_city = data.result;
-                $('.js-example-basic-single').select2({
+                $('#chooseCity').select2({
                     placeholder: '选择城市',
                     containerCssClass : 'select2_dropdown'
                 });
             }
         });
     })();
+
+    // 选择清除城市重置value
+    $scope.eliminateCityVal = function () {
+        if($scope.setting_city_id == 0 || $scope.setting_city_id == "" || $scope.setting_city_id == null){
+            $scope.setting_city_id = null
+        }
+    };
 
     // 百度地图控件
     var map = new BMap.Map("dealer_map");

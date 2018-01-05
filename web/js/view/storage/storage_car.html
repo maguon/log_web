@@ -7,7 +7,7 @@
                         <!--<option value=""  >车辆状态</option>-->
                         <!--<option ng-repeat="el in rel_status" ng-value="el.s_num">{{el.status_text}}</option>-->
                     <!--</select>-->
-                    <div class=" col s12 p0">
+                    <div class="col s12 p0">
                         <input name="search_vin" id="search_vin" type="text" ng-model="search_vin"  minlength="6" >
                         <label for="search_vin">车辆VIN码(最少6位)</label>
                     </div>
@@ -24,7 +24,7 @@
                     </div>
                     <div class="input-field col s2">
                         <select material-select id="search_relStatus" watch ng-model="search_relStatus">
-                        <option value=""  >请选择</option>
+                        <option value="">请选择</option>
                         <option ng-repeat="el in rel_status" ng-value="el.s_num">{{el.status_text}}</option>
                         </select>
                         <label for="search_relStatus">车辆状态</label>
@@ -63,18 +63,30 @@
                 <!--<div class="col s10">-->
                     <!--<div class="col s12 valign-wrapper p0" style="margin-top: 1rem">-->
                 <div class="input-field col s2">
-                    <select material-select watch id="source_city" ng-model="source_city" >
-                        <option value="" class="cyan-text text-lighten-2"  selected>请选择</option>
-                        <option ng-repeat="el in get_city" ng-value="el.id">{{el.city_name}}</option>
+                    <!--<select material-select watch id="source_city" ng-model="source_city" >-->
+                        <!--<option value="" class="cyan-text text-lighten-2"  selected>请选择</option>-->
+                        <!--<option ng-repeat="el in get_city" ng-value="el.id">{{el.city_name}}</option>-->
+                    <!--</select>-->
+                    <!--<label for="source_city">发运地城市</label>-->
+
+                    <select id="chooseShipmentStart" name="state" style="width:100%" ng-change="eliminateCityId()" ng-model="source_city">
+                        <option value="">全部</option>
+                        <option value="0" >清除选择</option>
+                        <option ng-repeat="city in get_city" ng-value="city.id">{{city.city_name}}</option>
                     </select>
-                    <label for="source_city">发运地城市</label>
                 </div>
                 <div class="input-field col s2">
-                    <select material-select watch id="arrive_city" ng-model="arrive_city" >
-                        <option value="" class="cyan-text text-lighten-2"  selected>请选择</option>
-                        <option ng-repeat="el in get_city" ng-value="el.id">{{el.city_name}}</option>
+                    <!--<select material-select watch id="arrive_city" ng-model="arrive_city" >-->
+                        <!--<option value="" class="cyan-text text-lighten-2"  selected>请选择</option>-->
+                        <!--<option ng-repeat="el in get_city" ng-value="el.id">{{el.city_name}}</option>-->
+                    <!--</select>-->
+                    <!--<label for="arrive_city">目的地城市</label>-->
+
+                    <select id="chooseEndCity" name="state" style="width:100%" ng-change="eliminateCityId()" ng-model="arrive_city">
+                        <option value="">全部</option>
+                        <option value="0" >清除选择</option>
+                        <option ng-repeat="city in get_city" ng-value="city.id">{{city.city_name}}</option>
                     </select>
-                    <label for="arrive_city">目的地城市</label>
                 </div>
                 <div class="input-field col s2">
                     <select material-select watch id="client" ng-model="client" >
@@ -108,15 +120,15 @@
                     <label for="put_in_time_start">入库时间(始)</label>
                 </div>
                 <div class="col input-field s2 ">
-                    <input type="text" ng-model="put_in_time_end" id="put_in_time_end" name="put_in_time_end" class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                    <input type="text" ng-model="put_in_time_end" id="put_in_time_end" name="put_in_time_end" class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
                     <label for="put_in_time_end">入库时间(终)</label>
                 </div>
                 <div class="col input-field s2 ">
-                    <input type="text" ng-model="out_time_start" id="out_time_start" name="out_time_start"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                    <input type="text" ng-model="out_time_start" id="out_time_start" name="out_time_start" class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
                     <label for="out_time_start">实际出库时间(始)</label>
                 </div>
                 <div class="col input-field s2 ">
-                    <input type="text" ng-model="out_time_end" id="out_time_end" name="out_time_end"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                    <input type="text" ng-model="out_time_end" id="out_time_end" name="out_time_end" class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
                     <label for="out_time_end">实际出库时间(终)</label>
                 </div>
             </div>
@@ -146,7 +158,7 @@
                     <td ng-bind="el.area_name">无</td>
                     <td ng-if="el.col!=null">{{el.row}}排{{el.col}}列</td>
                     <td ng-if="el.col==null">无</td>
-                    <td ng-bind="el.real_out_time|date:'yyyy-MM-dd '"></td>
+                    <td ng-bind="el.real_out_time|date:'yyyy-MM-dd'"></td>
                     <td class="operation">
                         <a href="#" ui-sref="storage_car_details_({id:el.id,vin:el.vin,from:'storage_car',mark:1,status:el.rel_status})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1  " ></i></a>
                         <span>

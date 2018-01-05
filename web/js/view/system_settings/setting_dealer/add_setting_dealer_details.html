@@ -1,9 +1,9 @@
 <div class="setting_dealer_details">
     <div class="row">
         <div class="row valign-wrapper " style="position: relative">
-                <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ui-sref="setting_dealer">
-                    <i class="mdi mdi-arrow-left-bold"></i>
-                </a>
+            <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ui-sref="setting_dealer">
+                <i class="mdi mdi-arrow-left-bold"></i>
+            </a>
             <h5 class="col s12 cyan-text lighten-1  center-align">
                 经销商信息
             </h5>
@@ -27,14 +27,9 @@
                     </div>
                     <div class="row">
                         <div class="col s12 input-field">
-                            <!--<select material-select watch ng-model="setting_city_id">-->
-                                <!--<option value="" >选择城市</option>-->
-                                <!--<option ng-repeat="el in setting_city" ng-show="el.city_status==1" ng-value="el.id" >{{el.city_name}}</option>-->
-                            <!--</select>-->
-                            <!--<label class="grey-text bold">所属城市</label>-->
-
-                            <select class="js-example-basic-single" name="state" style="width:100%" ng-model="setting_city_id">
+                            <select id="chooseCity" name="state" style="width:100%" ng-change="eliminateCityVal()" ng-model="setting_city_id">
                                 <option value=""></option>
+                                <option value="0" >清除选择</option>
                                 <option ng-repeat="el in setting_city" ng-value="el.id" ng-show="el.city_status==1">{{el.city_name}}</option>
                             </select>
                         </div>
@@ -60,10 +55,8 @@
                                 <i class="mdi mdi-check"></i>
                             </button>
                         </div>
-
                     </div>
                 </form>
-
             </div>
             <div class="col s6 dealer_map" id="dealer_map">
 

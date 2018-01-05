@@ -12,7 +12,7 @@ app.controller("setting_dealer_controller", ["$scope", "_basic", "_config", "$ho
         _basic.get($host.api_url + "/city").then(function (data) {
             if (data.success == true) {
                 $scope.get_city = data.result;
-                $('.js-example-basic-single').select2({
+                $('#start_city_list').select2({
                     placeholder: '选择城市',
                     containerCssClass : 'select2_dropdown'
                 });
@@ -23,12 +23,18 @@ app.controller("setting_dealer_controller", ["$scope", "_basic", "_config", "$ho
 
     // 城市-经销商联动
     $scope.get_dealer = function () {
-        // 经销商下拉列表
-        _basic.get($host.api_url + "/receive?cityId=" + $scope.city).then(function (data) {
-            if (data.success === true) {
-                $scope.get_receive = data.result;
-            }
-        });
+        if($scope.city == 0 || $scope.city == "" || $scope.city == null){
+            $scope.city = null;
+            $scope.get_receive = [];
+        }
+        else{
+            // 经销商下拉列表
+            _basic.get($host.api_url + "/receive?cityId=" + $scope.city).then(function (data) {
+                if (data.success === true) {
+                    $scope.get_receive = data.result;
+                }
+            });
+        }
     };
 
     // 搜索经销商

@@ -23,7 +23,7 @@ app.controller("damage_management_controller", ["$scope", "$host", "_basic", fun
         _basic.get($host.api_url + "/city").then(function (data) {
             if (data.success === true) {
                 $scope.cityList = data.result;
-                $('.js-example-basic-single').select2({
+                $('#end_city_list').select2({
                     placeholder: '目的城市',
                     containerCssClass : 'select2_dropdown'
                 });
@@ -36,14 +36,21 @@ app.controller("damage_management_controller", ["$scope", "$host", "_basic", fun
 
     // 根据城市id获取经销商信息
     $scope.getReceiveList = function () {
-        _basic.get($host.api_url + "/receive?cityId=" + $scope.endCity).then(function (data) {
-            if (data.success === true) {
-                $scope.receiveList = data.result;
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
+        if($scope.endCity == 0 || $scope.endCity == "" || $scope.endCity == null){
+            $scope.endCity = null;
+            $scope.receiveList = [];
+        }
+        else{
+            console.log($scope.endCity);
+            _basic.get($host.api_url + "/receive?cityId=" + $scope.endCity).then(function (data) {
+                if (data.success === true) {
+                    $scope.receiveList = data.result;
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
     };
 
     // 获取质损管理列表

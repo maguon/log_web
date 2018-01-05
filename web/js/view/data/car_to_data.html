@@ -176,16 +176,9 @@
                             <div class="row">
                                 <div class="col s4 p0">
                                     <div class=" input-field col s6" ng-class="{'has-error':new_carForm.start_city.$invalid&&submitted}">
-                                        <select material-select watch id="start_city" name="start_city" ng-change="start_city_change(start_city.id)" ng-options="start_city.city_name for start_city in get_city" ng-model="start_city" required>
-                                            <option value="" disabled selected>请选择</option>
-                                            <!--<option ng-if="start_city.city_status==1" ng-repeat="start_city in get_city" ng-value="start_city.id" >{{start_city.city_name}}</option>-->
+                                        <select id="start_city" name="state" style="width:100%" ng-change="start_city_change(start_city.id)" ng-options="start_city.city_name for start_city in get_city" ng-model="start_city" required>
+                                            <option value=""></option>
                                         </select>
-                                        <label for="start_city">发运地城市</label>
-
-                                        <!--<select class="js-example-basic-single" name="state" style="width:100%" ng-change="start_city_change(start_city.id)" ng-model="start_city" required>-->
-                                            <!--<option value=""></option>-->
-                                            <!--<option ng-repeat="city in get_city" ng-value="city.id">{{city.city_name}}</option>-->
-                                        <!--</select>-->
                                     </div>
                                     <div class="input-field col s6" ng-class="{'has-error':new_carForm.base_addr.$invalid&&submitted}">
                                         <select material-select watch id="base_addr" name="base_addr" ng-options="base_addr.addr_name for base_addr in baseAddr" required ng-model="base_addr">

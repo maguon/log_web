@@ -2,9 +2,8 @@
  * Created by ASUS on 2017/6/9.
  */
 
-app.controller("car_to_data_controller", ['$rootScope', '$scope', '$location', '$q', "$host", '_basic', '_socket',
+app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket',function ($scope, $host, _basic, _socket) {
 
-    function ($rootScope, $scope, $location, $q, $host, _basic, _socket) {
         var userId = _basic.getSession(_basic.USER_ID);
         var userType = _basic.getSession(_basic.USER_TYPE);
         $scope.upload_percent = 0;
@@ -313,24 +312,20 @@ app.controller("car_to_data_controller", ['$rootScope', '$scope', '$location', '
             _basic.get($host.api_url + "/city").then(function (data) {
                 if (data.success == true) {
                     $scope.get_city = data.result;
-                    $('.js-example-basic-single').select2({
+                    $('#start_city').select2({
                         placeholder: '发运地城市',
                         containerCssClass : 'select2_dropdown'
                     });
                 }
             });
+
             // 车辆品牌
             _basic.get($host.api_url + "/carMake").then(function (data) {
                 if (data.success == true) {
                     $scope.get_carMake = data.result;
                 }
             });
-            // 经销商
-            // _basic.get($host.api_url+"/receive").then(function (data) {
-            //     if(data.success==true){
-            //         $scope.get_receive=data.result;
-            //     }
-            // });
+
             // 委托方
             _basic.get($host.api_url + "/entrust").then(function (data) {
                 if (data.success == true) {
@@ -342,7 +337,7 @@ app.controller("car_to_data_controller", ['$rootScope', '$scope', '$location', '
 
         // 发运地城市--地址联动
         $scope.start_city_change = function (val) {
-            console.log($scope.start_city);
+            // console.log($scope.start_city);
             _basic.get($host.api_url + "/baseAddr?cityId=" + val).then(function (data) {
                 if (data.success == true) {
                     // console.log(data.result)

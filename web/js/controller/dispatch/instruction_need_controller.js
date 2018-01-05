@@ -6,22 +6,16 @@ app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_b
 
     $scope.taskStatusList = _config.taskStatus;
     $scope.instructionStatus = "1";
-    _basic.get($host.api_url + "/city").then(function (data) {
+    _basic.get($host.api_url+"/city").then(function (data) {
         if (data.success == true) {
             $scope.startCityList = data.result;
-            $('.js-example-basic-single').select2({
+            $('#start_city_list').select2({
                 placeholder: '起始城市',
-                containerCssClass : 'select2_dropdown'
+                containerCssClass: 'select2_dropdown'
             });
-        }
-    });
-
-    _basic.get($host.api_url + "/city").then(function (data) {
-        if (data.success == true) {
-            $scope.endCityList = data.result;
-            $('.js-example-basic-single2').select2({
+            $('#end_city_list').select2({
                 placeholder: '目的城市',
-                containerCssClass : 'select2_dropdown'
+                containerCssClass: 'select2_dropdown'
             });
         }
     });
@@ -29,20 +23,33 @@ app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_b
     // 获取装车地点
     $scope.getAddres = function (id) {
         console.log($scope.start_city);
-        _basic.get($host.api_url + "/baseAddr?cityId=" + id).then(function (data) {
-            if (data.success == true) {
-                $scope.baseAddrList = data.result;
-            }
-        });
+        if($scope.start_city == 0 || $scope.start_city == "" || $scope.start_city == null){
+            $scope.start_city = null;
+            $scope.baseAddrList = [];
+        }
+        else{
+            _basic.get($host.api_url + "/baseAddr?cityId=" + id).then(function (data) {
+                if (data.success == true) {
+                    $scope.baseAddrList = data.result;
+                }
+            });
+        }
     };
 
+
     // 获取经销商
-    $scope.getRecive = function (id) {
-        _basic.get($host.api_url + "/receive?cityId=" + id).then(function (data) {
-            if (data.success == true) {
-                $scope.receiveList = data.result;
-            }
-        });
+    $scope.getRecive = function () {
+        if ($scope.arrive_city == 0 || $scope.arrive_city == "" || $scope.arrive_city == null) {
+            $scope.arrive_city = null;
+            $scope.receiveList = [];
+        }
+        else {
+            _basic.get($host.api_url + "/receive?cityId=" + id).then(function (data) {
+                if (data.success == true) {
+                    $scope.receiveList = data.result;
+                }
+            });
+        }
     };
 
     $scope.add_need = function () {

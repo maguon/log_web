@@ -17,7 +17,7 @@ app.controller("setting_shipments_controller", ["$scope", "_basic", "_config", "
         _basic.get($host.api_url + "/city").then(function (data) {
             if (data.success == true) {
                 $scope.get_city = data.result;
-                $('.js-example-basic-single').select2({
+                $('#chooseCity').select2({
                     placeholder: '选择城市',
                     containerCssClass : 'select2_dropdown'
                 });
@@ -29,12 +29,18 @@ app.controller("setting_shipments_controller", ["$scope", "_basic", "_config", "
 
     // 城市-发运地联动
     $scope.get_dealer = function () {
-        // 发运地下拉列表
-        _basic.get($host.api_url + "/baseAddr?cityId=" + $scope.city).then(function (data) {
-            if (data.success == true) {
-                $scope.setting_shipments_city = data.result;
-            }
-        });
+        if($scope.city == 0 || $scope.city == "" || $scope.city == null){
+            $scope.city = null;
+            $scope.setting_shipments_city = [];
+        }
+        else{
+            // 发运地下拉列表
+            _basic.get($host.api_url + "/baseAddr?cityId=" + $scope.city).then(function (data) {
+                if (data.success == true) {
+                    $scope.setting_shipments_city = data.result;
+                }
+            });
+        }
     };
 
     // 搜索经销商

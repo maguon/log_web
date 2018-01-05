@@ -16,8 +16,9 @@
                         <!--<option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>-->
                     <!--</select>-->
 
-                    <select class="js-example-basic-single" name="state" style="width:100%" ng-change="getReceiveList()" ng-model="endCity">
+                    <select id="end_city_list" name="state" style="width:100%" ng-change="getReceiveList()" ng-model="endCity">
                         <option value=""></option>
+                        <option value="0" >清除选择</option>
                         <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
                     </select>
                 </div>

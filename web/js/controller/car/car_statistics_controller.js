@@ -1,5 +1,5 @@
 /**
- * Created by zcy on 2017/6/23.
+ * Created by zcy on 2017/6/23.。。。。。。。。
  */
 app.controller("car_statistics_controller", ["$scope", "_basic", "_config", "$host", function ($scope, _basic, _config, $host) {
     $('ul.tabs').tabs();

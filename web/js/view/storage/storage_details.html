@@ -57,27 +57,20 @@
                             <div class="row">
                                 <div class="col s4 p0">
                                     <div class=" input-field col s6" ng-class="{ 'has-error':change_newStorage_carForm.start_city.$invalid&&submitted }">
-                                        <select material-select watch id="start_city" name="start_city" ng-options="start_city.city_name for start_city in get_city" ng-change="get_addr(start_city.id)" ng-model="start_city" required>
-                                            <option value="" disabled selected>请选择</option>
-                                            <!--<option ng-if="start_city.city_status==1" ng-repeat="start_city in get_city" ng-value="start_city.id" >{{start_city.city_name}}</option>-->
-                                        </select>
-                                        <label for="start_city">发运地城市</label>
-
-                                <!--====================================================================================================================-->
-                                        <!--<select id="chooseStartCity" name="state" style="width:100%" ng-change="getAddres(start_city)" ng-model="start_city">-->
-                                            <!--<option value="">全部</option>-->
-                                            <!--<option value="0" >清除选择</option>-->
-                                            <!--<option ng-repeat="city in startCityList" ng-value="city.id">{{city.city_name}}</option>-->
+                                        <!--<select id="chooseStartCity" name="state" style="width:100%"  ng-options="start_city.city_name for start_city in get_city" ng-change="get_addr(start_city.id)" ng-model="start_city" required>-->
+                                            <!--&lt;!&ndash;<option value="">清除选择</option>&ndash;&gt;-->
                                         <!--</select>-->
-                                <!--=======================================================================================================================-->
 
+                                        <select id="chooseStartCity" name="state" style="width:100%" ng-change="get_addr(start_city)" ng-model="start_city">
+                                            <option ng-repeat="city in get_city" ng-value="city.id">{{city.city_name}}</option>
+                                        </select>
                                     </div>
                                     <div class=" input-field col s6" ng-class="{ 'has-error':change_newStorage_carForm.start_addr.$invalid&&submitted }" >
                                         <select material-select watch id="start_addr" name="start_addr"  required  ng-model="start_addr" >
                                             <option value="" disabled selected>请选择</option>
                                             <option ng-repeat="start_addr in start_address" ng-value="start_addr.id" >{{start_addr.addr_name}}</option>
                                         </select>
-                                        <label for="start_city">发运地地址</label>
+                                        <label for="start_addr">发运地地址</label>
                                     </div>
                                 </div>
 
@@ -89,14 +82,25 @@
                                     <label for="client">委托方</label>
                                 </div>
                                 <div class=" col s4">
-                                    <div class="input-field col s6" ng-class="{ 'has-error':change_newStorage_carForm.arrive_city.$invalid&&submitted }">
-                                        <select material-select watch id="arrive_city" name="arrive_city" ng-change="get_received(arrive_city.id)" ng-options="arrive_city.city_name for arrive_city in get_city"  ng-model="arrive_city" required>
-                                            <option value="" disabled selected>请选择</option>
+                                    <div class="input-field col s6">
+                                        <!--<select material-select watch id="arrive_city" name="arrive_city" ng-change="get_received(arrive_city.id)" ng-options="arrive_city.city_name for arrive_city in get_city" ng-model="arrive_city">-->
+                                            <!--<option value="" disabled selected>请选择</option>-->
+                                        <!--</select>-->
+                                        <!--<label for="arrive_city">目的地城市</label>-->
+
+                                        <!--<select id="chooseEndCity" name="state" style="width:100%" ng-change="get_received(arrive_city)" ng-model="arrive_city">
+                                            <option value=""></option>
+                                            <option value="0" >清除选择</option>
+                                            <option ng-repeat="city in get_city" ng-value="city.id">{{city.city_name}}</option>
+                                        </select>-->
+                                        <select id="chooseEndCity" name="state" style="width:100%" ng-change="get_received(arrive_city)" ng-model="arrive_city">
+                                            <!--<option value=""></option>-->
+                                            <option value="0">目的地城市</option>
+                                            <option ng-repeat="city in get_city" ng-value="city.id" >{{city.city_name}}</option>
                                         </select>
-                                        <label for="arrive_city">目的地城市</label>
                                     </div>
-                                    <div class="input-field col s6" ng-class="{ 'has-error':change_newStorage_carForm.dealer.$invalid&&submitted }">
-                                        <select material-select watch id="dealer" name="dealer"  ng-model="self_car.receive_id" required>
+                                    <div class="input-field col s6">
+                                        <select material-select watch id="dealer" name="dealer"  ng-model="self_car.receive_id">
                                             <option value="" disabled selected>请选择</option>
                                             <option ng-repeat="el in get_receive" ng-value="el.id" >{{el.short_name}}</option>
                                         </select>

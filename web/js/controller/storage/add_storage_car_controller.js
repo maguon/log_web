@@ -199,7 +199,7 @@ app.controller("add_storage_car_controller", ["$scope", "$rootScope","$state","$
                     }).then(function (data) {
                         if (data.success == true) {
                             $scope._id=data.result._id;
-                            var nowDate=moment(new Date()).format("YYYY-DD-MM HH:mm");
+                            var nowDate=moment(new Date()).format("YYYY-MM-DD HH:mm");
                             $scope.storage_image_i.push($host.file_url + '/image/' +imageId);
                             $scope.storage_imageBox.push({src: $host.file_url + '/image/' + imageId,record_id:$scope._id,time:nowDate,user:_basic.getSession(_basic.USER_NAME)});
                         }

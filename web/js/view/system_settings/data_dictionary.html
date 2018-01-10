@@ -29,6 +29,9 @@
             <td ng-if="city_details">{{dataInfo.city_id}}</td>
             <td ng-if="city_details">{{dataInfo.city_name}}</td>
         </tr>
+        <tr class="grey-text text-darken-1" ng-if="listInfo.length == 0">
+            <td colspan="5"><span style="letter-spacing: 2px">暂无数据</span></td>
+        </tr>
         </tbody>
     </table>
 

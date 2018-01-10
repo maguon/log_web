@@ -1,5 +1,5 @@
 <div id="instruction_list" >
-    <div class="" >
+    <div class="">
         <div class="modal-content grey-text text-darken-2">
             <div class="row no-marBottom" ul-tabs style="overflow: hidden">
                 <div id="header_car" class="row tab_box" >
@@ -15,7 +15,7 @@
                                         <input name="truckNum" id="truckNum" type="text" ng-model="truckNum"   >
                                         <label for="truckNum">货车牌号</label>
                                     </div>
-                                    <div class=" col s4">
+                                    <div class="col s4">
                                         <div class="input-field col s6">
                                             <input type="text" ng-model="driver_mileage_startTime" id="driver_mileage_startTime" name="driver_mileage_startTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
                                             <label for="driver_mileage_startTime">统计时间(始)</label>
@@ -27,7 +27,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col s1 vc-center" >
+                            <div class="col s1 vc-center">
                                 <a class=" btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="search_all()">
                                     <i class="mdi mdi-magnify"></i>
                                 </a>
@@ -35,13 +35,13 @@
                         </div>
                     </div>
                     <div class="col s12" >
-                        <table class=" bordered striped">
+                        <table class="bordered striped text_mid">
                             <thead class="blue-grey lighten-5">
                                 <tr class="grey-text text-darken-2">
                                     <th data-field="">司机</th>
                                     <th data-field="">完成任务数</th>
                                     <th data-field="">货车牌号</th>
-                                    <th  data-field="">总计里程</th>
+                                    <th data-field="">总计里程</th>
                                     <th data-field="">重载公里数</th>
                                     <th data-field="">空载公里数</th>
                                     <th>操作</th>
@@ -49,7 +49,7 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="el in driveDistanceCount" class="grey-text text-darken-1">
-                                    <td  ng-bind="el.drive_name">1</td>
+                                    <td ng-bind="el.drive_name">1</td>
                                     <td ng-bind="el.complete_count">2</td>
                                     <td ng-bind="el.truck_num"></td>
                                     <td ng-bind="el.load_distance+el.no_load_distance|nullTo"></td>
@@ -59,25 +59,25 @@
                                         <a href="#" ui-sref="instruction_drive_details({id:el.drive_id,timeStart:driver_mileage_startTime,timeEnd:driver_mileage_endTime,refer:'instruction_driver_mileage',})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ></i></a>
                                     </td>
                                 </tr>
+                                <tr class="grey-text text-darken-1" ng-if="driveDistanceCount.length == 0">
+                                    <td colspan="7"><span style="letter-spacing: 2px">暂无数据</span></td>
+                                </tr>
                             </tbody>
                         </table>
-
                     </div>
+
                     <div class="paging_box col s12">
                         <div class="right">
-                            <a class="waves-light waves-effect cyan lighten-1 btn  " ng-show="head_pre"  id="head_pre"   ng-click="head_pre_btn()">
+                            <a class="waves-light waves-effect cyan lighten-1 btn" ng-show="head_pre"  id="head_pre" ng-click="head_pre_btn()">
                                 上一页
                             </a>
-                            <a class="waves-light waves-effect cyan lighten-1 btn " ng-show="head_next" id="head_next"  ng-click="head_next_btn()">
+                            <a class="waves-light waves-effect cyan lighten-1 btn" ng-show="head_next" id="head_next" ng-click="head_next_btn()">
                                 下一页
                             </a>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
 </div>

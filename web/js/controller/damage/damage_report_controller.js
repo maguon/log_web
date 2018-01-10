@@ -206,7 +206,7 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
                     if ($scope.damage_imageBox.length != 0) {
                         viewer.destroy();
                     }
-                    var nowDate = moment(new Date()).format("YYYY-DD-MM HH:mm");
+                    var nowDate = moment(new Date()).format("YYYY-MM-DD HH:mm");
                     $scope.damage_image_i.push($host.file_url + '/image/' + imageId);
                     $scope.damage_imageBox.push({
                         src: $host.file_url + '/image/' + imageId,
@@ -225,7 +225,6 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
             url: 'data-original'
         });
     };
-
 
     // 获取数据
     $scope.queryData = function () {

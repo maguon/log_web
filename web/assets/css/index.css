@@ -15,7 +15,6 @@ body{
     margin:0 0 70px 0;
     background: #f1f5f5;
     overflow-y: auto;
-
 }
 .containerBox{
     padding: 0 5px;
@@ -42,13 +41,6 @@ body{
     margin-top: 70px;
 }
 
-/*登录页面*/
-/*.login_btn{*/
-    /*letter-spacing: 15px;*/
-    /*height: 45px;*/
-    /*font-size: 18px*/
-/*}*/
-/*logo*/
 .brand-logo{
     height: 100%;
 }
@@ -56,22 +48,13 @@ body{
     height: 70%;
     margin-right: 15px;
 }
-/*.cyan-text.text-lighten-1{*/
-    /*font-size: 36px;*/
-/*}*/
+
 /*侧边导航*/
 .side_navigator{
     border-top: 1px solid #2f3c43;
     border-bottom: 1px solid #182024;
 }
-/*.header,.ConWrap,.footer {*/
-    /*padding-left: 280px;*/
-/*}*/
-/*@media only screen and (max-width : 992px) {*/
-    /*.header, .ConWrap {*/
-        /*padding-left: 0;*/
-    /*}*/
-/*}*/
+
 .no-marBottom{
     margin-bottom: 0;
 }
@@ -84,35 +67,20 @@ body{
 .no-pd{
     padding: 0;
 }
-/*表格*/
-/*表头*/
+
+/*表格头*/
 .table_header{
     color: #616161 !important;
 }
+
 /*文字加粗*/
 .bold{
     font-weight:bold;
-}
-/*操作栏*/
-.table_operation{
-    width: 150px;
 }
 
 .input-field .prefix.active{
     color: #4dd0e1;
 }
-/*textarea.materialize-textarea:focus:not([readonly]) {*/
-    /*border-bottom: 1px solid #4dd0e1;*/
-    /*box-shadow: 0 1px 0 0 #4dd0e1;*/
-/*}*/
-/*模态*/
-/*.modal.modal-fixed-footer{*/
-    /*height: 90%;*/
-/*}*/
-/*.no-pm{*/
-    /*padding-left: 0;*/
-/*}*/
-/*侧边导航样式调整*/
 
 .side-nav{
     color: white;
@@ -126,7 +94,6 @@ body{
     margin:0 15px 0 10px
 }
 .nav-logo {
-    /*color: #fff;*/
     height: 64px;
 }
 .userBox{
@@ -140,25 +107,25 @@ body{
 .side-nav li.active{
     background:#212121 ;
 }
+
 .tabWrap{
     overflow: hidden;
     margin: 0;
     padding: 0;
-
 }
+
 .tabWrap li{
     height: 40px;
     cursor: pointer;
     color: #4dd0e1;
     background: #e0e0e0;
 }
+
 .tabWrap .active{
     background: #26c6da;
     color: white;
 }
-/*.test1{*/
-    /*background: #26c6da;*/
-/*}*/
+
 .tabWrap .active.tab.disabled a{
     color: white;
 }
@@ -171,9 +138,7 @@ body{
 .tabWrap .tab.disabled a{
     color: #26c6da;
 }
-/*.side-nav .collapsible-header{*/
-/*padding:0 32px ;*/
-/*}*/
+
 .side-nav a{
     padding: 0 16px;
 }
@@ -189,19 +154,14 @@ body{
 .side-nav .collapsible-body li{
     border-bottom: 1px solid #2c3940;
     border-top: 1px solid #3d4d56;
-
 }
-/*.side-nav>.bold:hover{*/
-    /*background: paleturquoise;*/
-/*}*/
 
 /*按钮样式*/
 .common_btn{
     border-radius: 40px;
 }
-/*分割线*/
 
-    /*加载遮罩层*/
+/*加载遮罩层*/
 .shadeDowWrap{
     display: none;
     position: absolute;
@@ -221,8 +181,6 @@ body{
     height: 200px;
 }
 
-
-
 /*固定底部样式*/
 .footer{
     width: 100%;
@@ -238,11 +196,9 @@ body{
 }
 
 
-
 /*车辆管理样式*/
 /*home*/
 .gm-1,.gm-2,.gm-3{
-    /*height:330px;*/
     margin-top: 60px;
 }
 .gm1-left .gm1-leftBoxWrap{
@@ -251,7 +207,6 @@ body{
 
 .gm1-leftBoxWrap .gm1-leftBox{
     height: 145px;
-    /*margin: 20px;*/
 }
 .gm1-right{
     height: 310px;
@@ -292,14 +247,11 @@ body{
 }
 .no_amend_model{
     background:#cfd8dc ;
-
 }
 .no_amend_model input{
     color: #eceff1;
 }
-/*.gm1-right div{*/
-/*height: 100%;*/
-/*}*/
+
 /*各种车辆类别数量*/
 .category-T{
     margin-top: 10px;
@@ -372,11 +324,6 @@ body{
     font-size: 100px;
 }
 
-/*carMsg*/
-/*.CarMsgWrap .select-dropdown{*/
-/*margin: 0;*/
-/*}*/
-
 
 /*顶部搜索样式*/
 .searchBoxWrap{
@@ -394,7 +341,6 @@ body{
 .searchBox{
     position: relative;
     margin-bottom: 20px;
-
 }
 
 .searchBtn-box{
@@ -416,9 +362,6 @@ input[type=text]{
     margin: 0;
 }
 
-.operation {
-
-}
 .operation i {
     cursor: pointer;
     margin-right: 10px;
@@ -426,7 +369,6 @@ input[type=text]{
 }
 .search{
     width: auto;
-
     margin: 0;
 }
 .hSearch{
@@ -437,8 +379,6 @@ input[type=text]{
     cursor: pointer;
     height: auto;
 }
-
-
 
 /*切换选项卡*/
 .PublicTabs{
@@ -762,12 +702,7 @@ input[type=text]{
 #test1 .input-field label{
      color: #9e9e9e;
 }
-/*#test1 .storage_position{*/
-    /*color: white;*/
-/*}*/
-/*#test1 .storage_position .input-field label{*/
-    /*color: white;*/
-/*}*/
+
 /*分页*/
 .paging_box{
     margin-top: 10px;
@@ -775,18 +710,10 @@ input[type=text]{
 .paging_box a{
     margin-right: 10px;
 }
-/*.garage_row_car{*/
-    /*flex: 1;*/
-    /*height: 50px;*/
-    /*border-bottom: 1px solid #00bcd4;*/
-    /*border-right: 1px solid #00bcd4;*/
-/*}*/
 
 /*calendar日期*/
 .calendar_today{
     width: 100%;
-    /*height: 300px;*/
-    /*border-bottom: 1px solid white;*/
 }
 .fc-row .fc-content-skeleton tbody td, .fc-row .fc-helper-skeleton tbody td{
     height: 50px;
@@ -814,20 +741,16 @@ input[type=text]{
     border-right: 1px solid white;
 }
 .fc-toolbar .fc-left{
-    /*display: flex;*/
     height: 64px;
     display: flex;
     align-items: center;
     color: #26c6da;
-    /*align-items: center;*/
 }
 .fc-toolbar .fc-right{
-    /*display: flex;*/
     height: 64px;
     display: flex;
     align-items: center;
     color: #26c6da;
-    /*align-items: center;*/
 }
 .fc-toolbar .fc-center{
     color:#26c6da;
@@ -852,10 +775,8 @@ input[type=text]{
     height:70px;
     border-radius:100%;
     font-size: 40px;
-
 }
 .storage_detailsList{
-    /*height: 300px;*/
     padding:0  10px;
 }
 .storage_details{
@@ -892,7 +813,6 @@ input[type=text]{
 .percentWrap{
     width: 150px;
     height: 150px;
-    /*border: 1px solid black;*/
 }
 /*库存统计*/
 .statisticsTitle{
@@ -1012,10 +932,8 @@ input[type=text]{
 .search_info{
     width: 100%;
     height: 50px;
-    /*background-color: #26c6da;*/
     border: 2px solid #26c6da;
     margin: 25px 0;
-    /*color: white;*/
     background-color: white;
 }
 
@@ -1052,13 +970,13 @@ input[type=text]{
     position: absolute;
     right: 0;
     top: 0;
-
 }
 
 /*下拉列表长度控制*/
 .dropdown-content.select-dropdown.active{
     max-height: 200px;
 }
+
 /*商品车统计*/
 .car_nav{
     width: 98.5%;
@@ -1101,12 +1019,12 @@ input[type=text]{
 
 /*单行文本溢出省略*/
 .clamp{
-    /*width:255px;*/
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     display: block;
 }
+
 /*小标签*/
 .small-tips{
     padding: 5px;
@@ -1120,12 +1038,14 @@ input[type=text]{
     line-height: 35px;
     text-align: center;
 }
+
 /*单行超出省略号*/
 .unnecessary{
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
 /*图片上传按钮*/
 .file_btn {
     display: none;
@@ -1203,6 +1123,7 @@ button[type="submit"] {
     top: 0;
     opacity: 0;
 }
+
 /*质损状态颜色*/
 .damage_pending_treatment{
     color: rgb(229,155,155);
@@ -1210,6 +1131,7 @@ button[type="submit"] {
 .damage_in_process{
     color: #00bcd4;
 }
+
 /*洗车费详情样式*/
 .wash_fee_details span{
     font-weight: bold;

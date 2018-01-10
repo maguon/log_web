@@ -103,7 +103,7 @@ app.controller("car_query_details_controller", ["$scope", "$stateParams", "$host
                             if ($scope.imageList.length != 0) {
                                 viewer.destroy();
                             }
-                            var nowDate = moment(new Date()).format("YYYY-DD-MM HH:mm");
+                            var nowDate = moment(new Date()).format("YYYY-MM-DD HH:mm");
                             $scope.imageList.push({
                                 url: $host.file_url + '/image/' + imageId,
                                 record_id: $scope._id,

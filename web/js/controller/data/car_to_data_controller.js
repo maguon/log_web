@@ -432,7 +432,7 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                     }).then(function (data) {
                         if (data.success == true) {
                             $scope._id = data.result._id;
-                            var nowDate = moment(new Date()).format("YYYY-DD-MM hh:mm");
+                            var nowDate = moment(new Date()).format("YYYY-MM-DD hh:mm");
                             $scope.car_image_i.push($host.file_url + '/image/' + imageId);
                             // $scope.storage_imageBox.push({src: $host.file_url + '/image/' + imageId});
                             $scope.car_imageBox.push({

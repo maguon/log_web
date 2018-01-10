@@ -3,7 +3,6 @@
  */
 app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_basic", function ($scope, $host, _config, _basic) {
     // 指令任务状态
-
     $scope.taskStatusList = _config.taskStatus;
     $scope.instructionStatus = "1";
     _basic.get($host.api_url+"/city").then(function (data) {
@@ -22,7 +21,7 @@ app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_b
 
     // 获取装车地点
     $scope.getAddres = function (id) {
-        console.log($scope.start_city);
+        // console.log($scope.start_city);
         if($scope.start_city == 0 || $scope.start_city == "" || $scope.start_city == null){
             $scope.start_city = null;
             $scope.baseAddrList = [];
@@ -38,7 +37,7 @@ app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_b
 
 
     // 获取经销商
-    $scope.getRecive = function () {
+    $scope.getRecive = function (id) {
         if ($scope.arrive_city == 0 || $scope.arrive_city == "" || $scope.arrive_city == null) {
             $scope.arrive_city = null;
             $scope.receiveList = [];
@@ -59,12 +58,8 @@ app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_b
         $scope.time = moment(data).format('YYYY-MM-DD');
         $scope.user = _basic.getSession(_basic.USER_NAME);
         $scope.submitted = false;
-        // $scope.add_start_city.id = "";
         $scope.add_start_city = {};
-        // $scope.add_start_city.city_name = '';
         $scope.add_dispatch_car_position = '';
-        // $scope.add_end_city.id = '';
-        // $scope.add_end_city.city_name = '';
         $scope.add_end_city = {};
         $scope.add_dealer = '';
         $scope.add_car_num = '';
@@ -89,6 +84,9 @@ app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_b
         };
         _basic.get($host.api_url + "/dpDemand?" + _basic.objToUrl(obj)).then(function (data) {
             if (data.success == true && data.result.length >= 0) {
+                for (var i = 0; i < data.result.length; i++) {
+                    data.result[i].date_id = moment(data.result[i].date_id.toString()).format("YYYY-MM-DD");
+                }
                 $scope.instruction_neee_list = data.result;
             } else {
                 $scope.instruction_list = [];

@@ -5,7 +5,7 @@ app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config"
 
     // 日期初始值
     $scope.startInitial = moment(new Date()).format('YYYY') + "01";
-    $scope.endInitial = moment(new Date()).format('YYYY') + "12";
+    $scope.endInitial = moment(new Date()).format('YYYYMM');
 
     // monthPicker日历控件
     $('#chooseCompulsoryStart,#chooseCompulsoryEnd,#chooseCommercialStart,#chooseCommercialEnd,#chooseTotalStart,#chooseTotalEnd,#chooseCargoStart,#chooseCargoEnd').MonthPicker({

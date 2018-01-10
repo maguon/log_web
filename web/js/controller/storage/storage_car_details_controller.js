@@ -6,7 +6,7 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
     var userId = _basic.getSession(_basic.USER_ID);
     var val = $stateParams.id;
     var vin = $stateParams.vin;
-    $scope.get_city =[];
+    $scope.get_city = [];
     $(document).ready(function () {
         $('.save').tooltip({delay: 50});
         $('.displacement').tooltip({delay: 50});
@@ -22,7 +22,7 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
                 //     $scope.get_city.push({id:data.result[i].id,city_name:data.result[i].city_name})
                 // }
                 $('#chooseStartCity').select2({
-                    containerCssClass : 'select2_dropdown'
+                    containerCssClass: 'select2_dropdown'
                 });
                 $('#chooseEndCity').select2({
                     containerCssClass: 'select2_dropdown'
@@ -120,7 +120,7 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
                             if ($scope.storage_imageBox.length != 0) {
                                 viewer.destroy();
                             }
-                            var nowDate = moment(new Date()).format("YYYY-DD-MM HH:mm");
+                            var nowDate = moment(new Date()).format("YYYY-MM-DD HH:mm");
                             $scope.storage_image_i.push($host.file_url + '/image/' + imageId);
                             // $scope.storage_imageBox.push({src: $host.file_url + '/image/' + imageId});
                             $scope.storage_imageBox.push({
@@ -351,8 +351,8 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
                 $scope.look_storageName = $scope.self_car.storage_name + $scope.self_car.area_name + $scope.self_car.row + "排" + $scope.self_car.col + "列";
                 // 车辆id
                 $scope.look_car_id = $scope.self_car.id;
-                $scope.select_city_start = {id:$scope.self_car.route_start_id,city_name:$scope.self_car.route_start};
-                $scope.select_city_end = {id:$scope.self_car.route_end_id,city_name:$scope.self_car.route_end};
+                $scope.select_city_start = {id: $scope.self_car.route_start_id, city_name: $scope.self_car.route_start};
+                $scope.select_city_end = {id: $scope.self_car.route_end_id, city_name: $scope.self_car.route_end};
                 $scope.start_city = $scope.select_city_start.id;
                 $scope.get_addr($scope.start_city);
                 $scope.start_addr = $scope.self_car.base_addr_id;
@@ -431,10 +431,10 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
     // 目的地城市-经销商联动
     $scope.get_received = function (id) {
         $scope.arrive_city_name = $("#chooseEndCity").find("option:selected").text();
-        if($scope.arrive_city == 0 || $scope.arrive_city == "" || $scope.arrive_city == null){
+        if ($scope.arrive_city == 0 || $scope.arrive_city == "" || $scope.arrive_city == null) {
             $scope.get_receive = [];
         }
-        else{
+        else {
             _basic.get($host.api_url + "/receive?cityId=" + id).then(function (data) {
                 if (data.success == true) {
                     $scope.get_receive = data.result;

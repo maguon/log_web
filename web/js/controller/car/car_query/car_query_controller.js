@@ -19,15 +19,21 @@ app.controller("car_query_controller", ["$scope", "$rootScope", "$host", "_basic
 
     // 发运地名称
     $scope.getAddrData = function () {
-        _basic.get($host.api_url + "/baseAddr").then(function (addrData) {
-            if (addrData.success === true) {
-                $scope.addrList = addrData.result;
-                // console.log("发运地:", addrData);
-            }
-            else {
-                swal(addrData.msg, "", "error");
-            }
-        });
+        if($scope.addrCity == 0 || $scope.addrCity == "" || $scope.addrCity == null){
+            $scope.addrCity = null;
+            $scope.addrList = [];
+        }
+        else{
+            _basic.get($host.api_url + "/baseAddr?cityId=" + $scope.addrCity).then(function (addrData) {
+                if (addrData.success === true) {
+                    $scope.addrList = addrData.result;
+                    // console.log("发运地:", addrData);
+                }
+                else {
+                    swal(addrData.msg, "", "error");
+                }
+            });
+        }
     };
 
     // 目的地城市
@@ -35,7 +41,14 @@ app.controller("car_query_controller", ["$scope", "$rootScope", "$host", "_basic
         _basic.get($host.api_url + "/city").then(function (cityData) {
             if (cityData.success === true) {
                 $scope.cityList = cityData.result;
-                // console.log("目的地城市:", cityData);
+                $('#start_city_list').select2({
+                    placeholder: '发运地城市',
+                    containerCssClass : 'select2_dropdown'
+                });
+                $('#end_city_list').select2({
+                    placeholder: '目的地城市',
+                    containerCssClass : 'select2_dropdown'
+                });
             }
             else {
                 swal(cityData.msg, "", "error");
@@ -58,15 +71,20 @@ app.controller("car_query_controller", ["$scope", "$rootScope", "$host", "_basic
 
     // 经销商
     $scope.getReceiveData = function () {
-        _basic.get($host.api_url + "/receive").then(function (receiveData) {
-            if (receiveData.success === true) {
-                $scope.receiveList = receiveData.result;
-                // console.log("经销商:", receiveData);
-            }
-            else {
-                swal(receiveData.msg, "", "error");
-            }
-        });
+        if($scope.destinationId == 0 || $scope.destinationId == "" || $scope.destinationId == null){
+            $scope.destinationId = null;
+            $scope.receiveList = [];
+        }
+        else{
+            _basic.get($host.api_url + "/receive?cityId=" + $scope.destinationId).then(function (receiveData) {
+                if (receiveData.success === true) {
+                    $scope.receiveList = receiveData.result;
+                }
+                else {
+                    swal(receiveData.msg, "", "error");
+                }
+            });
+        }
     };
 
     // 根据条件搜索车辆
@@ -87,19 +105,16 @@ app.controller("car_query_controller", ["$scope", "$rootScope", "$host", "_basic
                 size:$scope.size
             })).then(function (data) {
             if (data.success === true) {
-
                 if ($scope.start > 0) {
-                    // $("#pre").removeClass("disabled");
                     $("#pre").show();
-                } else {
-                    // $("#pre").addClass("disabled");
+                }
+                else {
                     $("#pre").hide();
                 }
                 if (data.result.length < $scope.size) {
-                    // $("#next").addClass("disabled");
                     $("#next").hide();
-                } else {
-                    // $("#next").removeClass("disabled");
+                }
+                else {
                     $("#next").show();
                 }
 
@@ -133,10 +148,8 @@ app.controller("car_query_controller", ["$scope", "$rootScope", "$host", "_basic
     // 获取所有数据
     $scope.queryData = function () {
         $scope.getCarMakeData();
-        $scope.getAddrData();
         $scope.getCityData();
         $scope.getEntrustData();
-        $scope.getReceiveData();
         // 默认显示所有数据
         $scope.search_car();
     };

@@ -1,15 +1,16 @@
 <div class="car_demand">
     <div class="row main_storage_car">
-        <div class="row  grey-text text-darken-1">
+        <div class="row grey-text text-darken-1 valign-wrapper">
             <div class="col s11">
                 <div class="input-field col s4">
                     <input id="last_name" type="text" ng-model="vin_code">
                     <label for="last_name">VIN码</label>
                 </div>
                 <div class="input-field col s2">
-                    <select material-select watch ng-model="addrCity">
-                        <option value="" selected>发运地城市</option>
-                        <option ng-repeat="adCity in cityList" ng-value="adCity.id">{{adCity.city_name}}</option>
+                    <select id="start_city_list" name="state" style="width:100%" ng-change="getAddrData()" ng-model="addrCity">
+                        <option value=""></option>
+                        <option value="0" >清除选择</option>
+                        <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
                     </select>
                 </div>
                 <div class="input-field col s2">
@@ -20,10 +21,10 @@
                 </div>
 
                 <div class="input-field col s2">
-                    <select material-select watch ng-model="destinationId">
-                        <option value="" selected>目的地城市</option>
-                        <option ng-repeat="destination in cityList" value={{destination.id}}>{{destination.city_name}}
-                        </option>
+                    <select id="end_city_list" name="state" style="width:100%" ng-change="getReceiveData()" ng-model="destinationId">
+                        <option value=""></option>
+                        <option value="0" >清除选择</option>
+                        <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
                     </select>
                 </div>
                 <div class="input-field col s2">
@@ -32,8 +33,6 @@
                         <option ng-repeat="receive in receiveList" value={{receive.id}}>{{receive.short_name}}</option>
                     </select>
                 </div>
-            </div>
-            <div class="col s11">
                 <div class="input-field col s2">
                     <select material-select watch ng-model="brandId">
                         <option value="" selected>制造商</option>
@@ -52,7 +51,6 @@
                         class="mdi dataIcon mdi-table-large"></i>
                     <label for="last_name">指令时间</label>
                 </div>
-                <!--<div class="col s1 center-align" style="margin-top: 30px">—</div>-->
                 <div class="input-field col s2">
                     <input type="text" class="datepicker" date ng-model="instructionsEnd"><i
                         class="mdi dataIcon mdi-table-large"></i>
@@ -64,16 +62,15 @@
                         class="mdi dataIcon mdi-table-large"></i>
                     <label for="last_name">录入时间</label>
                 </div>
-                <!--<div class="col s1 center-align" style="margin-top: 30px">—</div>-->
                 <div class="input-field col s2">
                     <input type="text" class="datepicker" date ng-model="createdEnd"><i
                         class="mdi dataIcon mdi-table-large"></i>
                     <label for="last_name">至</label>
                 </div>
             </div>
-            <div class="col s1  flex flex-round">
+            <div class="col s1 center">
                 <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
-                   style="margin-right: 10px" ng-click="searchMatchCar()">
+                   ng-click="searchMatchCar()">
                     <i class="mdi mdi-magnify"></i>
                 </a>
             </div>
@@ -81,7 +78,7 @@
     </div>
     <div class="col s12">
         <div class="divider" style="background: #00bcd4;height: 2px;"></div>
-        <table class=" bordered striped text_mid">
+        <table class="bordered striped text_mid">
             <thead class="blue-grey lighten-5">
             <tr class="grey-text text-darken-2">
                 <th width="320" data-field="">VIN码</th>
@@ -104,9 +101,13 @@
                 <td>{{response.re_short_name}}</td>
                 <td>{{response.created_on | date:'yyyy-MM-dd HH:mm'}}</td>
                 <td width="100" class="operation">
-                    <a ui-sref="car_query_details({vin:response.vin,id:response.id})" class=""><i
-                            class="mdi mdi-file-outline look_icon cyan-text lighten-1  "></i></a>
+                    <a ui-sref="car_query_details({vin:response.vin,id:response.id})" class="">
+                        <i class="mdi mdi-file-outline look_icon cyan-text lighten-1  "></i>
+                    </a>
                 </td>
+            </tr>
+            <tr class="grey-text text-darken-1" ng-if="responseData.length == 0">
+                <td colspan="8"><span style="letter-spacing: 2px">暂无数据</span></td>
             </tr>
             </tbody>
         </table>
@@ -114,13 +115,12 @@
 
     <div class="paging_box col s12" style="height: 45px">
         <div class="right">
-            <a class="waves-light waves-effect cyan lighten-1 btn"  id="pre"   ng-click="previous_page()">
+            <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="previous_page()">
                 上一页
             </a>
-            <a class="waves-light waves-effect cyan lighten-1 btn" id="next"  ng-click="next_page()">
+            <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_page()">
                 下一页
             </a>
         </div>
     </div>
-
 </div>

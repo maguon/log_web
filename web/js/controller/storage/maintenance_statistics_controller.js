@@ -4,7 +4,7 @@
 app.controller("maintenance_statistics_controller", ["$scope", "_basic", "_config", "$host", function ($scope, _basic, _config, $host) {
     // 日期初始值
     $scope.startInitial = moment(new Date()).format('YYYY') + "01";
-    $scope.endInitial = moment(new Date()).format('YYYY') + "12";
+    $scope.endInitial = moment(new Date()).format('YYYYMM');
 
     // monthPicker控件
     $('#chooseRepairStart,#chooseRepairEnd,#chooseMoneyStart,#chooseMoneyEnd').MonthPicker({

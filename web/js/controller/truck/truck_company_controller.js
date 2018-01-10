@@ -12,7 +12,7 @@ app.controller("truck_company_controller", ['$rootScope', '$scope', '_basic', '$
 
         var obj = {
             companyName: $scope.truck_computer,
-            operateType: $scope.truck_type,
+            operateType: $scope.truck_type
         };
 
         _basic.get($host.api_url + "/company?" + _basic.objToUrl(obj)).then(function (data) {
@@ -28,25 +28,22 @@ app.controller("truck_company_controller", ['$rootScope', '$scope', '_basic', '$
     // 整体查询读取
     var searchAll = function () {
         _basic.get($host.api_url + "/company", {}).then(function (data) {
-            // $(".shadeDowWrap").hide();
             if (data.success == true) {
                 $scope.Company = data.result;
-                // console.log($scope.Company);
             } else {
                 swal(data.msg, "", "error");
             }
         });
 
-        // 获取城市信息
-        _basic.get($host.api_url + "/city", {}).then(function (data) {
-            // $(".shadeDowWrap").hide();
-            if (data.success == true) {
-                // console.log(data);
-                $scope.citys = data.result;
-            } else {
-                swal(data.msg, "", "error");
-            }
-        });
+        // // 获取城市信息
+        // _basic.get($host.api_url + "/city", {}).then(function (data) {
+        //     if (data.success == true) {
+        //         // console.log(data);
+        //         $scope.citys = data.result;
+        //     } else {
+        //         swal(data.msg, "", "error");
+        //     }
+        // });
     };
     searchAll();
 
@@ -74,7 +71,7 @@ app.controller("truck_company_controller", ['$rootScope', '$scope', '_basic', '$
 
             // console.log($scope.addCooperationTime);
             // var time=$scope.addCooperationTime;
-            // var t=time.pattern("yyyy-MM-dd hh:mm:ss");
+            // var t=time.pattern("yyyy-MM-dd HH:mm:ss");
 
             // var CooperationTime=t.getFullYear()+"-"+t.getMonth()+1+"-"+t.getDate();
             _basic.post($host.api_url + "/user/" + userId + "/company", {
@@ -110,7 +107,7 @@ app.controller("truck_company_controller", ['$rootScope', '$scope', '_basic', '$
                 // console.log($scope.company.cooperation_time)
                 companyMsg = $scope.company;
                 // console.log($scope.company, $scope.company.cooperation_time);
-                $scope.look_cooperation_time = moment($scope.company.cooperation_time).format("YYYY-DD-MM")
+                $scope.look_cooperation_time = moment($scope.company.cooperation_time).format("YYYY-MM-DD")
             } else {
                 swal(data.msg, "", "error");
             }

@@ -75,7 +75,7 @@ app.controller("company_controller", ['$rootScope', '$scope', '_basic', '$host',
 
             // console.log($scope.addCooperationTime);
             // var time=$scope.addCooperationTime;
-            // var t=time.pattern("yyyy-MM-dd hh:mm:ss");
+            // var t=time.pattern("yyyy-MM-dd HH:mm:ss");
 
             // var CooperationTime=t.getFullYear()+"-"+t.getMonth()+1+"-"+t.getDate();
             _basic.post($host.api_url + "/user/" + userId + "/company", {
@@ -111,7 +111,7 @@ app.controller("company_controller", ['$rootScope', '$scope', '_basic', '$host',
                 // console.log($scope.company.cooperation_time)
                 companyMsg = $scope.company;
                 // console.log($scope.company, $scope.company.cooperation_time);
-                $scope.look_cooperation_time = moment($scope.company.cooperation_time).format("YYYY-DD-MM")
+                $scope.look_cooperation_time = moment($scope.company.cooperation_time).format("YYYY-MM-DD")
             } else {
                 swal(data.msg, "", "error");
             }

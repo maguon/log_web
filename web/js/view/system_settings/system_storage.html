@@ -2,8 +2,8 @@
     <div class="row">
         <div class="row">
             <h5 class="cyan-text text-lighten-1 center-align">仓库设置</h5>
-
         </div>
+
         <div class="divider" style="background: #00bcd4;height: 2px;"></div>
         <div>
             <a class="waves-light btn-floating btn-large waves-effect btn right cyan lighten-1" style="margin: 10px 30px 10px 0"  ng-click="newStorage()">
@@ -12,7 +12,7 @@
             <div id="newStorage" class="modal">
                 <form name="StorageForm" ng-submit="newStorageForm(StorageForm.$valid)" novalidate>
                     <div class="col s12  cyan white-text" style="height: 50px">
-                        <h5 class="center-align" >创建新仓库</h5>
+                        <h5 class="center-align">创建新仓库</h5>
                     </div>
 
                     <div class="divider a1_divider" ></div>
@@ -21,36 +21,14 @@
                             <div class="row" style="margin-top:80px">
                                 <div class="row input-field" ng-class="{ 'has-error':StorageForm.storageName.$invalid&&submitted }" >
                                     <input  id="storageName" name="storageName" autocomplete="off" ng-model="newStorageName" type="text"   required >
-                                    <label for="storageName">仓库名称<span style="color: red">*</span></label>
+                                    <label for="storageName"><span style="color: red">* </span>仓库名称</label>
                                 </div>
-                                <!--<div class="row" >-->
-                                    <!--<h5 class="col s2-0">-->
-                                        <!--<span style="color: red">*</span>-->
-                                        <!--创建车位:-->
-                                    <!--</h5>-->
-                                    <!--<div class=" col s4-0" ng-class="{ 'has-error':StorageForm.storageCol.$invalid&&submitted }">-->
-                                        <!--<div class="row">-->
-                                            <!--<input  id="storageCol" name="storageCol" autocomplete="off" ng-model="newStorageCol" type="text" required class="col s9-0">-->
-                                            <!--<h5 class="col s1-0">排</h5>-->
-                                        <!--</div>-->
-
-                                    <!--</div>-->
-                                    <!--<div class=" col s4-0" ng-class="{ 'has-error':StorageForm.storageRoad.$invalid&&submitted }">-->
-                                        <!--<div class="row">-->
-                                            <!--<input  id="storageRoad" name="storageRoad" autocomplete="off" ng-model="newStorageRoad" type="text" required class="col s9-0">-->
-                                            <!--<h5 class="col s1-0">位</h5>-->
-                                        <!--</div>-->
-
-                                    <!--</div>-->
-
-                                <!--</div>-->
                                 <div class="row cyan-text">
                                     备注:
                                 </div>
                                 <div class="row" ng-class="{ 'has-error' : StorageForm.storage_remark.$invalid&&submitted }">
                                     <textarea  id="storage_remark"  style="height: 100px" name="storage_remark" type="text" autocomplete="off"  ng-model="newStorageRemark" ></textarea>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -62,19 +40,19 @@
                         <button class="btn btn-floating waves-light waves-effect cyan lighten-1" type="submit" name="action" style="margin-right: 10px" >
                             <i class="mdi mdi-check"></i>
                         </button>
-
                     </div>
                 </form>
             </div>
         </div>
+
         <div class="col s12" >
-            <table class="highlight bordered">
+            <table class="highlight bordered striped text_mid">
                 <thead class="blue-grey lighten-5">
                 <tr class="table_header grey-text text-darken-1">
                     <th class="s3" data-field="">仓库名称</th>
                     <th class="s3" data-field="">总车位</th>
                     <th class="s2" data-field="">状态</th>
-                    <th  class="s2 table_operation center-align">操作</th>
+                    <th class="s2 table_operation center-align">操作</th>
                 </tr>
                 </thead>
 
@@ -88,7 +66,9 @@
                         <span><i class="mdi mdi-eye cyan-text text-lighten-1" ui-sref="add_setting_storage({id:el.id,from:'setting_storage'})" ></i></span>
                     </td>
                 </tr>
-
+                <tr class="grey-text text-darken-1" ng-if="storage.length == 0">
+                    <td colspan="4"><span style="letter-spacing: 2px">暂无数据</span></td>
+                </tr>
                 </tbody>
             </table>
         </div>

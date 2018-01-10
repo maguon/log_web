@@ -1,14 +1,14 @@
 <div class="CompanyWrap" >
-    <div class="row  valign-wrapper">
+    <div class="row valign-wrapper">
         <div class="col s10">
-            <div class="row ">
+            <div class="row">
                 <div class="col s3 input-field">
                     <input type="text" name="truck_name" id="truck_name" ng-model="truck_name">
                     <label for="truck_name">车牌号:</label>
                 </div>
                 <div class="col s3 input-field">
                     <select material-select watch id="truck_type" class="truck_type" ng-model="truck_type">
-                        <option ng-value=""  selected>请选择</option>
+                        <option ng-value="" selected>请选择</option>
                         <option ng-value="1">头车</option>
                         <option ng-value="2">挂车</option>
                     </select>
@@ -26,7 +26,7 @@
                 </div>
                 <div class="col s6 input-field">
                     <select material-select watch id="repair_status" name="repair_status" class="repair_status" ng-model="repair_status">
-                        <option ng-value=""  selected>请选择</option>
+                        <option ng-value="" selected>请选择</option>
                         <option ng-value="0">正在维修</option>
                         <option ng-value="1">维修结束</option>
                     </select>
@@ -44,13 +44,17 @@
                 </div>
             </div>
         </div>
-        <div class="col s2" >
-            <a class=" btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="search_truck_msg()">
-                <i class="mdi mdi-magnify"></i>
-            </a>
-            <a class=" btn-floating btn-large waves-light waves-effect cyan lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="export()">
-                <i class="mdi mdi-cloud-download"></i>
-            </a>
+        <div class="col s2">
+            <div class="col s6 center">
+                <a class="btn-floating btn-large waves-light waves-effect red lighten-2 btn vc-center" style="margin-right: 10px"  ng-click="search_truck_msg()">
+                    <i class="mdi mdi-magnify"></i>
+                </a>
+            </div>
+            <div class="col s6 center">
+                <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2 btn vc-center" style="margin-right: 10px"  ng-click="export()">
+                    <i class="mdi mdi-cloud-download"></i>
+                </a>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -72,19 +76,17 @@
                 <tbody>
                 <tr ng-repeat="el in truckRepairRel">
                     <td ng-bind="el.truck_num"></td>
-                    <td ng-bind="el.repair_date|date:'yyyy-MM-dd hh:mm:ss'"></td>
-                    <td ng-bind="el.end_date|date:'yyyy-MM-dd hh:mm:ss'"></td>
-                    <td ng-if="el.repair_status==1" class=" cyan-text text-lighten-2">维修完成</td>
+                    <td ng-bind="el.repair_date|date:'yyyy-MM-dd HH:mm:ss'"></td>
+                    <td ng-bind="el.end_date|date:'yyyy-MM-dd HH:mm:ss'"></td>
+                    <td ng-if="el.repair_status==1" class="cyan-text text-lighten-2">维修完成</td>
                     <td ng-if="el.repair_status==0" class="red-text text-lighten-2">正在维修</td>
                     <td ng-if="el.truck_type==1">头车</td>
                     <td ng-if="el.truck_type==2">挂车</td>
                     <td class="unnecessary" style="max-width: 100px;" ng-bind="el.repair_reason"></td>
                     <td ng-bind="el.repair_money"></td>
-                    <!--<td ng-bind="el.city_name"></td>-->
                     <td class="operation">
-                        <!--<a href="#" ui-sref="truck_repair({id:el.truck_id,type:el.truck_type,status:1,from:'truck_repair_list'})" ng-if="el.repair_status==1"  class="normal-tips cyan lighten-2 white-text fz12 " style="margin-right: 10px;cursor: pointer">正常</a>-->
                         <a href="#" ui-sref="truck_repair({id:el.truck_id,type:el.truck_type,status:'',from:'truck_repair_list'})"  class=" cyan-text   fz12 " style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-pencil" style="margin: 0"></i></a>
-                        <a  ng-click="open_now_repair(el.id)" class=" cyan-text   fz12 " style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-eye" style="margin: 0"></i></a>
+                        <a ng-click="open_now_repair(el.id)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-eye" style="margin: 0"></i></a>
                     </td>
                 </tr>
                 </tbody>
@@ -92,23 +94,23 @@
         </div>
         <div class="paging_box col s12">
             <div class="right">
-                <a class="waves-light waves-effect cyan lighten-1 btn  " ng-show="pre"  id="hand_pre"   ng-click="pre_btn()">
+                <a class="waves-light waves-effect cyan lighten-1 btn" ng-show="pre"  id="hand_pre" ng-click="pre_btn()">
                     上一页
                 </a>
-                <a class="waves-light waves-effect cyan lighten-1 btn " ng-show="next" id="hand_next"  ng-click="next_btn()">
+                <a class="waves-light waves-effect cyan lighten-1 btn" ng-show="next" id="hand_next" ng-click="next_btn()">
                     下一页
                 </a>
             </div>
         </div>
     </div>
     <div id="look_now_repair" class="modal">
-        <form name="look_now_repairForm"   novalidate>
+        <form name="look_now_repairForm" novalidate>
             <div class="modal-content" ng-repeat="el in now_truckRepair">
                 <h4 class="center-align">维修详情</h4>
                 <div class="divider"></div>
-                <div class="row fz16" >
+                <div class="row fz16">
                     <div class="row mp-10">维修状态:<span ng-if="el.repair_status==0" style="margin-left: 20px">维修中</span><span ng-if="el.repair_status==1" style="margin-left: 20px">维修结束</span></div>
-                    <div class="row">维修时间:<span ng-bind="el.repair_date|date:'yyyy-MM-dd hh:mm:ss'" style="margin-left: 20px">2017</span>至<span ng-bind="el.end_date|date:'yyyy-MM-dd hh:mm:ss'">2017</span></div>
+                    <div class="row">维修时间:<span ng-bind="el.repair_date|date:'yyyy-MM-dd HH:mm:ss'" style="margin-left: 20px">2017</span>至<span ng-bind="el.end_date|date:'yyyy-MM-dd HH:mm:ss'">2017</span></div>
                     <div class="row">维修原因:</div>
                     <div class="row fz12 grey-text">
                        {{el.repair_reason}}
@@ -124,18 +126,15 @@
                         <div class="col s6" style="padding-right: 0">
                             维修人:<span class="red-text text-lighten-2" ng-bind="el.repair_user"></span>
                         </div>
-
                     </div>
                 </div>
             </div>
             <div class="divider"></div>
             <div class="modal-footer vc-center">
-                <a  class=" modal-action modal-close waves-effect waves-light cyan lighten-1 btn btn-floating" style="margin-left: 50px" >
+                <a  class="modal-action modal-close waves-effect waves-light cyan lighten-1 btn btn-floating" style="margin-left: 50px" >
                     <i class="mdi mdi-close"></i>
                 </a>
-
             </div>
         </form>
-        
     </div>
 </div>

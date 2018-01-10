@@ -71,8 +71,8 @@
                 <tbody>
                 <tr ng-repeat="el in truckRepairRel">
                     <td ng-bind="el.truck_num"></td>
-                    <td ng-bind="el.repair_date|date:'yyyy-MM-dd hh:mm:ss'"></td>
-                    <td ng-bind="el.end_date|date:'yyyy-MM-dd hh:mm:ss'"></td>
+                    <td ng-bind="el.repair_date|date:'yyyy-MM-dd HH:mm:ss'"></td>
+                    <td ng-bind="el.end_date|date:'yyyy-MM-dd HH:mm:ss'"></td>
                     <td ng-if="el.repair_status==1" class=" cyan-text text-lighten-2">维修完成</td>
                     <td ng-if="el.repair_status==0" class="red-text text-lighten-2">正在维修</td>
                     <td ng-if="el.truck_type==1">头车</td>
@@ -97,7 +97,7 @@
                 <div class="divider"></div>
                 <div class="row fz16" >
                     <div class="row mp-10">维修状态:<span ng-if="el.repair_status==0" style="margin-left: 20px">维修中</span><span ng-if="el.repair_status==1" style="margin-left: 20px">维修结束</span></div>
-                    <div class="row">维修时间:<span ng-bind="el.repair_date|date:'yyyy-MM-dd hh:mm:ss'" style="margin-left: 20px">2017</span>至<span ng-bind="el.end_date|date:'yyyy-MM-dd hh:mm:ss'">2017</span></div>
+                    <div class="row">维修时间:<span ng-bind="el.repair_date|date:'yyyy-MM-dd HH:mm:ss'" style="margin-left: 20px">2017</span>至<span ng-bind="el.end_date|date:'yyyy-MM-dd HH:mm:ss'">2017</span></div>
                     <div class="row">维修原因:</div>
                     <div class="row fz12 grey-text">
                        {{el.repair_reason}}

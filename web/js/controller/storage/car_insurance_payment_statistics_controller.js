@@ -10,7 +10,7 @@ app.controller("car_insurance_payment_statistics_controller", ["$scope", "$host"
     // 保险赔付金额按周统计
     var personalCompensateCountWeek = [{
         name: '赔付金额统计',
-        data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+        data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1],
         color: '#FF7E7E'
     }];
 
@@ -21,10 +21,10 @@ app.controller("car_insurance_payment_statistics_controller", ["$scope", "$host"
         color: '#26C6DA'
     }];
 
-    // 保险赔付次数按月统计
+    // 保险赔付次数按周统计
     var companyCompensateCountWeek = [{
         name: '赔付次数统计',
-        data: [9,9,8,2,4,11,8,6,3,7,5,2],
+        data: [9,9,8,2,4,11,8,6,3,7],
         color: '#26C6DA'
     }];
 
@@ -101,9 +101,7 @@ app.controller("car_insurance_payment_statistics_controller", ["$scope", "$host"
                     '第7周',
                     '第8周',
                     '第9周',
-                    '第10周',
-                    '第11周',
-                    '第12周'
+                    '第10周'
                 ],
                 crosshair: true
             },
@@ -207,9 +205,7 @@ app.controller("car_insurance_payment_statistics_controller", ["$scope", "$host"
                     '第7周',
                     '第8周',
                     '第9周',
-                    '第10周',
-                    '第11周',
-                    '第12周'
+                    '第10周'
                 ],
                 crosshair: true
             },

@@ -189,7 +189,7 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
                             // }).then(function (data) {
                             //     if (data.success == true) {
                             //         $scope._id=data.result._id;
-                            //         var nowDate=moment(new Date()).format("YYYY-DD-MM HH:mm");
+                            //         var nowDate=moment(new Date()).format("YYYY-MM-DD HH:mm");
                             //         $scope.storage_image_i.push($host.file_url + '/image/' +imageId);
                             //         $scope.storage_imageBox.push({src: $host.file_url + '/image/' + imageId,record_id:$scope._id,time:nowDate,user:_basic.getSession(_basic.USER_NAME)});
                             //     }
@@ -222,7 +222,7 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
         var filename = $(dom).val();
         // console.log($(dom).val());
         uploadBrandImage(filename,dom_obj,function (imageId) {
-            var nowDate=moment(new Date()).format("YYYY-DD-MM HH:mm");
+            var nowDate=moment(new Date()).format("YYYY-MM-DD HH:mm");
             $scope.$apply(function () {
                 $scope.drive_img=[{
                     img:$host.file_url + '/image/'+imageId,
@@ -250,7 +250,7 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
         var filename = $(dom).val();
         // console.log($(dom).val());
         uploadBrandImage(filename,dom_obj,function (imageId) {
-            var nowDate=moment(new Date()).format("YYYY-DD-MM HH:mm");
+            var nowDate=moment(new Date()).format("YYYY-MM-DD HH:mm");
             $scope.$apply(function () {
                 $scope.service_img=[{
                     img:$host.file_url + '/image/'+imageId,
@@ -305,7 +305,7 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
                     if (data.success == true) {
                         $scope._id = data.result._id;
                         // viewer.destroy();
-                        var nowDate=moment(new Date()).format("YYYY-DD-MM HH:mm");
+                        var nowDate=moment(new Date()).format("YYYY-MM-DD HH:mm");
                         $scope.truck_image_i.push($host.file_url + '/image/' +imageId);
                         $scope.truck_imageBox.push({src: $host.file_url + '/image/' + imageId,record_id:$scope._id,time:nowDate,user:_basic.getSession(_basic.USER_NAME)});
                     }

@@ -290,7 +290,7 @@ app.controller("look_head_truck_details_controller", ["$scope", "$state", "$stat
         var filename = $(dom).val();
         // console.log($(dom).val());
         uploadBrandImage(filename, dom_obj, function (imageId) {
-            var nowDate = moment(new Date()).format("YYYY-DD-MM HH:mm");
+            var nowDate = moment(new Date()).format("YYYY-MM-DD HH:mm");
             $scope.$apply(function () {
                 $scope.drive_img = [{
                     img: $host.file_url + '/image/' + imageId,
@@ -319,7 +319,7 @@ app.controller("look_head_truck_details_controller", ["$scope", "$state", "$stat
         var filename = $(dom).val();
         // console.log($(dom).val());
         uploadBrandImage(filename, dom_obj, function (imageId) {
-            var nowDate = moment(new Date()).format("YYYY-DD-MM HH:mm");
+            var nowDate = moment(new Date()).format("YYYY-MM-DD HH:mm");
             $scope.$apply(function () {
                 $scope.service_img = [{
                     img: $host.file_url + '/image/' + imageId,
@@ -375,7 +375,7 @@ app.controller("look_head_truck_details_controller", ["$scope", "$state", "$stat
                     if ($scope.truck_imageBox.length != 0) {
                         viewer.destroy();
                     }
-                    var nowDate = moment(new Date()).format("YYYY-DD-MM HH:mm");
+                    var nowDate = moment(new Date()).format("YYYY-MM-DD HH:mm");
                     $scope.truck_image_i.push($host.file_url + '/image/' + imageId);
                     $scope.truck_imageBox.push({
                         src: $host.file_url + '/image/' + imageId,

@@ -4,7 +4,7 @@
             <div class="row no-marBottom" ul-tabs style="overflow: hidden">
                 <div id="header_car" class="row tab_box">
                     <div class="storage_storeTitle">
-                        <div class="row  grey-text text-darken-1">
+                        <div class="row grey-text text-darken-1 valign-wrapper">
                             <div class="col s11">
                                 <div class="col s12">
                                     <div class="input-field col s2">
@@ -12,8 +12,7 @@
                                         <label for="vin">VIN码</label>
                                     </div>
                                     <div class="input-field col s2">
-                                        <select id="dispatch_car_status" material-select watch
-                                                ng-model="dispatch_car_status">
+                                        <select id="dispatch_car_status" material-select watch ng-model="dispatch_car_status">
                                             <option ng-value="">请选择</option>
                                             <option ng-value="1">自营车</option>
                                             <option ng-value="2">外协车</option>
@@ -77,14 +76,18 @@
                                     </div>
                                     <div class=" col s3">
                                         <div class="input-field col s6">
-                                            <select id="start_city" material-select watch
-                                                    ng-change="getAddres(start_city)"
-                                                    ng-options="city.id as city.city_name for city in cityList"
-                                                    ng-model="start_city">
-                                                <option value="">请选择</option>
-                                            </select>
+                                            <!--<select id="start_city" material-select watch ng-change="getAddres(start_city)"-->
+                                                    <!--ng-options="city.id as city.city_name for city in cityList"-->
+                                                    <!--ng-model="start_city">-->
+                                                <!--<option value="">请选择</option>-->
+                                            <!--</select>-->
+                                            <!--<label for="start_city">起始城市</label>-->
 
-                                            <label for="start_city">起始城市</label>
+                                            <select id="start_city" name="state" style="width:100%" ng-change="getAddres(start_city)" ng-model="start_city">
+                                                <option value=""></option>
+                                                <option value="0" >清除选择</option>
+                                                <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
+                                            </select>
                                         </div>
                                         <div class=" input-field col s6">
                                             <select id="dispatch_car_position"
@@ -95,18 +98,21 @@
                                             <label for="dispatch_car_position">装车地点</label>
                                         </div>
                                     </div>
-                                    <div class=" col s3">
+                                    <div class="col s3">
                                         <div class="input-field col s6">
-                                            <select id="end_city" material-select watch ng-change="getRecive(end_city)"
-                                                    ng-model="end_city"
-                                                    ng-options="city.id as city.city_name for city in cityList">
-                                                <option value="">请选择</option>
+                                            <!--<select id="end_city" material-select watch ng-change="getRecive(end_city)" ng-model="end_city">-->
+                                                <!--<option value="">请选择</option>-->
+                                            <!--</select>-->
+                                            <!--<label for="end_city">目的城市</label>-->
+
+                                            <select id="end_city" name="state" style="width:100%" ng-change="getRecive(end_city)" ng-model="end_city">
+                                                <option value=""></option>
+                                                <option value="0" >清除选择</option>
+                                                <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
                                             </select>
-                                            <label for="end_city">目的城市</label>
                                         </div>
                                         <div class=" input-field col s6">
-                                            <select id="dealer" material-select watch ng-model="dealer"
-                                                    ng-options="receive.id as receive.short_name for receive in receiveList">
+                                            <select id="dealer" material-select watch ng-model="dealer" ng-options="receive.id as receive.short_name for receive in receiveList">
                                                 <option value="">请选择</option>
                                             </select>
                                             <label for="dealer">经销商</label>
@@ -114,7 +120,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col s1 vc-center" style="margin-top: 50px">
+                            <div class="col s1 center">
                                 <a class=" btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
                                    style="margin-right: 10px" ng-click="search_condition()">
                                     <i class="mdi mdi-magnify"></i>
@@ -140,7 +146,7 @@
                             <tbody>
                             <tr ng-repeat="el in instruction_list" class="grey-text text-darken-1">
                                 <td ng-bind="el.id">1</td>
-                                <td ng-bind="el.created_on|date:'yyyy-MM-dd hh:mm:ss'">2</td>
+                                <td ng-bind="el.created_on|date:'yyyy-MM-dd HH:mm:ss'">2</td>
                                 <td ng-bind="el.truck_num"></td>
                                 <td ng-bind="el.drive_name"></td>
                                 <td ng-bind="el.city_route_start">无</td>

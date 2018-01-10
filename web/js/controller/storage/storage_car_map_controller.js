@@ -255,7 +255,7 @@ app.controller("storage_car_map_controller", ["$state", "$rootScope", "$statePar
                 }).then(function (data) {
                     if (data.success == true) {
                         $scope._id=data.result._id;
-                        var nowDate=moment(new Date()).format("YYYY-DD-MM h:mm");
+                        var nowDate=moment(new Date()).format("YYYY-MM-DD h:mm");
                         $scope.car_image_i.push($host.file_url + '/image/' + imageId);
                         $scope.imgArr.push({src: $host.file_url + '/image/' + imageId,time:nowDate,record_id:$scope._id,user:_basic.getSession(_basic.USER_NAME)});
                     }

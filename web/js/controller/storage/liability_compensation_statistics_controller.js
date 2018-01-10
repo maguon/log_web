@@ -10,7 +10,7 @@ app.controller("liability_compensation_statistics_controller", ["$scope", "$host
     // 个人责任赔偿金额按周统计
     var personalCompensateCountWeek = [{
         name: '个人承担赔偿',
-        data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+        data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1],
         color: '#FF7E7E'
     }];
 
@@ -21,10 +21,10 @@ app.controller("liability_compensation_statistics_controller", ["$scope", "$host
         color: '#26C6DA'
     }];
 
-    // 企业赔偿金额按月统计
+    // 企业赔偿金额按周统计
     var companyCompensateCountWeek = [{
         name: '企业承担赔偿',
-        data: [95.6, 194.1, 49.9, 135.6, 148.5, 106.4, 144.0, 216.4, 71.5, 176.0, 54.4, 129.2],
+        data: [95.6, 194.1, 49.9, 135.6, 148.5, 106.4, 144.0, 216.4, 71.5, 176.0],
         color: '#26C6DA'
     }];
 
@@ -142,9 +142,7 @@ app.controller("liability_compensation_statistics_controller", ["$scope", "$host
                     '第7周',
                     '第8周',
                     '第9周',
-                    '第10周',
-                    '第11周',
-                    '第12周'
+                    '第10周'
                 ],
                 crosshair: true
             },

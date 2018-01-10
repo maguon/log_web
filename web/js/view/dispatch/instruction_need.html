@@ -68,7 +68,7 @@
                                         <!--</select>-->
                                         <!--<label for="arrive_city">目的城市</label>-->
 
-                                        <select id="end_city_list" name="state" style="width:100%" ng-change="getRecive()" ng-model="arrive_city">
+                                        <select id="end_city_list" name="state" style="width:100%" ng-change="getRecive(arrive_city)" ng-model="arrive_city">
                                             <option value=""></option>
                                             <option value="0" >清除选择</option>
                                             <option ng-repeat="city in startCityList"  ng-value="city.id">{{city.city_name}}</option>

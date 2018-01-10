@@ -1,5 +1,4 @@
 <div>
-
     <div class="row">
         <div class="row">
             <div class="input-field col s3 offset-s7">
@@ -42,7 +41,7 @@
                                         <span style="color: red">*</span>
                                         密码:
                                     </h5>
-                                    <input  id="password" name="password" autocomplete="off" ng-model="newUserPassword" type="text" required class=" col s6-0">
+                                    <input id="password" name="password" autocomplete="off" ng-model="newUserPassword" type="text" required class=" col s6-0">
                                 </div>
                                 <div class="row">
                                     <div class="col s6">
@@ -83,41 +82,35 @@
             </div>
         </div>
         <div class="divider" style="background: #00bcd4;height: 2px;"></div>
-        <div class="col s12" >
-            <table class="highlight bordered striped">
+        <div class="col s12">
+            <table class="highlight bordered striped text_mid">
                 <thead>
                 <tr class="table_header blue-grey lighten-5 grey-text text-darken-1">
-                    <th data-field="">姓名</th>
+                    <th width="260" data-field="">姓名</th>
                     <th data-field="">性别</th>
                     <th data-field="">部门</th>
                     <th data-field="">手机号</th>
                     <th data-field="">工作状态</th>
-                    <th class="table_operation" >操作</th>
+                    <th width="200" class="table_operation">操作</th>
                 </tr>
                 </thead>
 
                 <tbody>
                 <tr ng-repeat="el in matchUser" class="grey-text text-darken-1">
-                    <td ng-bind="el.real_name"></td>
+                    <td width="260" ng-bind="el.real_name"></td>
                     <td ng-if="el.gender==0">女</td>
                     <td ng-if="el.gender==1">男</td>
-                    <!--<td ng-if="el.type==1">车管部</td>-->
-                    <!--<td ng-if="el.type==99">管理员</td>-->
                     <td>{{el.type | department}}</td>
-                    <!--<td ng-if="el.type==29">仓储部管理员</td>-->
-                    <!--<td ng-if="el.type==21">仓储部操作员</td>-->
-                    <!--<td ng-if="el.type==3">调度部</td>-->
-                    <!--<td ng-if="el.type==4">国贸部</td>-->
                     <td ng-bind="el.mobile"></td>
                     <td ng-if="el.status==1">可用</td>
                     <td ng-if="el.status==0">停用</td>
-                    <td class="operation table_operation vc-center" >
+                    <td width="200" class="operation table_operation vc-center" >
                         <span><i class="mdi mdi-eye cyan-text text-lighten-1" ng-click="lookOperation(el.uid)"></i></span>
                         <span class="switch" ng-click="changeStatus(el.status,el.uid)" style="height: 30px;">
-                                <label>
-                                  <input type="checkbox" ng-checked="el.status==1">
-                                  <span class="lever"></span>
-                                </label>
+                            <label>
+                                <input type="checkbox" ng-checked="el.status==1">
+                                <span class="lever"></span>
+                            </label>
                         </span>
                         <div id="look_Operator" class="modal">
                             <form name="change_operatorForm" ng-submit="changeOperatorForm(change_operatorForm.$valid,look_operation.uid)" novalidate>
@@ -148,7 +141,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col s6"  ng-class="{ 'has-error':change_operatorForm.phone.$invalid&&submitted }">
+                                                <div class="col s6" ng-class="{ 'has-error':change_operatorForm.phone.$invalid&&submitted }">
                                                     <h5 class="col s4-0">
                                                         <span style="color: red">*</span>
                                                         电话:
@@ -163,7 +156,6 @@
                                                     <span ng-if="look_operation.status==1">可用</span>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -177,15 +169,16 @@
                                     </a>
                                 </div>
                             </form>
-
                         </div>
                     </td>
                 </tr>
-
+                <tr class="grey-text text-darken-1" ng-if="matchUser.length == 0">
+                    <td colspan="8"><span style="letter-spacing: 2px">暂无数据</span></td>
+                </tr>
                 </tbody>
             </table>
-
         </div>
+
         <div class="paging_box col s12">
             <div class="right">
                 <a class="waves-light waves-effect cyan lighten-1 btn"  id="pre"   ng-click="previous_page()">
@@ -197,5 +190,4 @@
             </div>
         </div>
     </div>
-
 </div>

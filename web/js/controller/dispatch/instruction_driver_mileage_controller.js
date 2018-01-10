@@ -1,7 +1,7 @@
 /**
  * Created by ASUS on 2017/8/29.
  */
-app.controller("instruction_driver_mileage_controller", ["$scope", "$host", "_config", "_basic", "baseService", function ($scope, $host, _config, _basic, baseService) {
+app.controller("instruction_driver_mileage_controller", ["$scope", "$host", "_basic", "baseService", function ($scope, $host, _basic, baseService) {
 
     $scope.driver_mileage_startTime = moment(baseService.dateFirst()).format("YYYY-MM-DD");
     $scope.driver_mileage_endTime = moment(baseService.dateLast()).format("YYYY-MM-DD");
@@ -26,13 +26,14 @@ app.controller("instruction_driver_mileage_controller", ["$scope", "$host", "_co
         });
     };
     $scope.search();
+
     $scope.search_all = function () {
         if ($scope.driver_mileage_startTime == undefined || $scope.driver_mileage_endTime == undefined) {
             swal("统计时间不能为空！", "", "error")
-        } else {
+        }
+        else {
             $scope.search();
         }
-
     }
 
 }]);

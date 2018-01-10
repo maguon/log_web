@@ -11,11 +11,6 @@
                     <label for="VinCode">VIN码</label>
                 </div>
                 <div class="col s2 input-field">
-                    <!--<select material-select watch ng-change="getReceiveList()" ng-model="endCity">-->
-                        <!--<option value="" selected>目的城市</option>-->
-                        <!--<option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>-->
-                    <!--</select>-->
-
                     <select id="end_city_list" name="state" style="width:100%" ng-change="getReceiveList()" ng-model="endCity">
                         <option value=""></option>
                         <option value="0" >清除选择</option>
@@ -132,6 +127,9 @@
                             <i class="mdi mdi-file-document look_icon cyan-text lighten-1"></i>
                         </a>
                     </td>
+                </tr>
+                <tr class="grey-text text-darken-1" ng-if="damageMamagementList.length == 0">
+                    <td colspan="9"><span style="letter-spacing: 2px">暂无数据</span></td>
                 </tr>
                 </tbody>
             </table>

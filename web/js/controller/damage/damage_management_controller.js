@@ -41,7 +41,7 @@ app.controller("damage_management_controller", ["$scope", "$host", "_basic", fun
             $scope.receiveList = [];
         }
         else{
-            console.log($scope.endCity);
+            // console.log($scope.endCity);
             _basic.get($host.api_url + "/receive?cityId=" + $scope.endCity).then(function (data) {
                 if (data.success === true) {
                     $scope.receiveList = data.result;

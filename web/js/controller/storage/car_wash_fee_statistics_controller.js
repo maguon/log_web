@@ -10,7 +10,7 @@ app.controller("car_wash_fee_statistics_controller", ["$scope", "$host", "_basic
     // 维修金额按周统计
     var washMoneyCountWeek = [{
         name: '按周统计',
-        data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+        data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1],
         color: '#FF7E7E'
     }];
 
@@ -128,9 +128,7 @@ app.controller("car_wash_fee_statistics_controller", ["$scope", "$host", "_basic
                     '第7周',
                     '第8周',
                     '第9周',
-                    '第10周',
-                    '第11周',
-                    '第12周'
+                    '第10周'
                 ],
                 crosshair: true
             },

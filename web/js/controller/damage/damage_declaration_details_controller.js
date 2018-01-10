@@ -11,7 +11,7 @@ app.controller("damage_declaration_details_controller", ["$scope", "$stateParams
     $scope.getCurrentDamageInfo = function () {
         _basic.get($host.api_url + "/damage?damageId=" + damageId).then(function (data) {
             if (data.success === true) {
-                data.result[0].created_on = moment(data.result[0].created_on).format("YYYY-MM-DD hh:mm:ss");
+                data.result[0].created_on = moment(data.result[0].created_on).format("YYYY-MM-DD HH:mm:ss");
                 $scope.currentDamageInfo = data.result[0];
                 $scope.driverName = data.result[0].drive_name;
                 $scope.driverId = data.result[0].drive_id;

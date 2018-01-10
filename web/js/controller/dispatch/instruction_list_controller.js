@@ -9,29 +9,51 @@ app.controller("instruction_list_controller", ["$scope", "$host", "_config", "_b
     _basic.get($host.api_url + "/city").then(function (data) {
         if (data.success == true) {
             $scope.cityList = data.result;
+            $('#start_city').select2({
+                placeholder: '起始城市',
+                containerCssClass : 'select2_dropdown'
+            });
+            $('#end_city').select2({
+                placeholder: '目的城市',
+                containerCssClass : 'select2_dropdown'
+            });
         }
     });
+
     // 获取装车地点
     $scope.getAddres = function (id) {
-        _basic.get($host.api_url + "/baseAddr?cityId=" + id).then(function (data) {
-            if (data.success == true) {
-                $scope.baseAddrList = data.result;
-            }
-        });
+        if($scope.start_city == 0 || $scope.start_city == "" || $scope.start_city == null){
+            $scope.start_city = null;
+            $scope.baseAddrList = [];
+        }
+        else{
+            _basic.get($host.api_url + "/baseAddr?cityId=" + id).then(function (data) {
+                if (data.success == true) {
+                    $scope.baseAddrList = data.result;
+                }
+            });
+        }
     };
+
     // 获取经销商
     $scope.getRecive = function (id) {
-        _basic.get($host.api_url + "/receive?cityId=" + id).then(function (data) {
-            if (data.success == true) {
-                $scope.receiveList = data.result;
-                console.log("receiveList", $scope.receiveList);
-            }
-        });
+        if($scope.end_city == 0 || $scope.end_city == "" || $scope.end_city == null){
+            $scope.end_city = null;
+            $scope.receiveList = [];
+        }
+        else{
+            _basic.get($host.api_url + "/receive?cityId=" + id).then(function (data) {
+                if (data.success == true) {
+                    $scope.receiveList = data.result;
+                    // console.log("receiveList", $scope.receiveList);
+                }
+            });
+        }
     };
 
     // 搜索请求
     $scope.search_query = function (params) {
-        console.log("params", params);
+        // console.log("params", params);
         _basic.get($host.api_url + "/dpRouteTask?" + _basic.objToUrl(params)).then(function (data) {
             if (data.success == true && data.result.length >= 0) {
                 $scope.instruction_list_obj = data.result;
@@ -72,7 +94,6 @@ app.controller("instruction_list_controller", ["$scope", "$host", "_config", "_b
 
     // 条件赋值
     $scope.setParams = function () {
-
         // 控制查询参数逻辑
         if ($scope.vin) {
             $scope.queryParams.vin = $scope.vin;
@@ -151,12 +172,14 @@ app.controller("instruction_list_controller", ["$scope", "$host", "_config", "_b
         }
 
     };
+
     // 头车搜索事件-条件查询
     $scope.search_condition = function () {
         $scope.start = 0;
+        $scope.queryParams.start = 0;
         $scope.setParams();
-        console.log("$scope.queryParams", $scope.queryParams);
         $scope.search_query($scope.queryParams);
+        // console.log("queryParams",$scope.queryParams);
     };
 
     // 分页
@@ -165,34 +188,11 @@ app.controller("instruction_list_controller", ["$scope", "$host", "_config", "_b
         $scope.start = $scope.start - ($scope.size - 1);
         $scope.search_All();
     };
+
     // 下一页
     $scope.next_btn = function () {
         $scope.start = $scope.start + ($scope.size - 1);
         $scope.search_All();
     };
-    // $scope.search_all=function () {
-    //
-    //     var obj={
-    //         dpRouteTaskId:$scope.dispatch_num,
-    //         vin:$scope.vin,
-    //         taskPlanDateStart:$scope.instruct_startTime,
-    //         taskPlanDateEnd:$scope.instruct_endTime,
-    //         truckId:"",
-    //         truckNum:$scope.truck_num,
-    //         driveName:$scope.driver,
-    //         routeStartId:$scope.start_city,
-    //         baseAddrId:$scope.dispatch_car_position,
-    //         routeEndId:$scope.end_city,
-    //         receiveId:$scope.dealer,
-    //         taskStatus:$scope.task_status
-    //     };
-    //     _basic.get($host.api_url+"/dpRouteTask?"+_basic.objToUrl(obj)).then(function (data) {
-    //         if(data.success==true&&data.result.length>0){
-    //             $scope.instruction_list=data.result;
-    //         }else {
-    //             $scope.instruction_list=[];
-    //         }
-    //     })
-    // };
-    // $scope.search_all();
+
 }]);

@@ -298,7 +298,7 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
         var filename = $(dom).val();
         uploadBrandImage(filename, dom_obj, function (imageId) {
             // console.log("imageId:",imageId);
-            var nowDate = moment(new Date()).format("YYYY-DD-MM HH:mm");
+            var nowDate = moment(new Date()).format("YYYY-MM-DD HH:mm");
             $scope.$apply(function () {
                 $scope.drive_img_front = [{
                     img: $host.file_url + '/image/' + imageId,
@@ -331,7 +331,7 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
         var filename = $(dom).val();
         uploadBrandImage(filename, dom_obj, function (imageId) {
             // console.log("imageId:",imageId);
-            var nowDate = moment(new Date()).format("YYYY-DD-MM HH:mm");
+            var nowDate = moment(new Date()).format("YYYY-MM-DD HH:mm");
             $scope.$apply(function () {
                 $scope.drive_img_back = [{
                     img: $host.file_url + '/image/' + imageId,
@@ -363,7 +363,7 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
         var dom_obj = $(dom);
         var filename = $(dom).val();
         uploadBrandImage(filename, dom_obj, function (imageId) {
-            var nowDate = moment(new Date()).format("YYYY-DD-MM HH:mm");
+            var nowDate = moment(new Date()).format("YYYY-MM-DD HH:mm");
             $scope.$apply(function () {
                 $scope.license_img = [{
                     img: $host.file_url + '/image/' + imageId,
@@ -394,7 +394,7 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
         var dom_obj = $(dom);
         var filename = $(dom).val();
         uploadBrandImage(filename, dom_obj, function (imageId) {
-            var nowDate = moment(new Date()).format("YYYY-DD-MM HH:mm");
+            var nowDate = moment(new Date()).format("YYYY-MM-DD HH:mm");
             $scope.$apply(function () {
                 $scope.permit_img = [{
                     img: $host.file_url + '/image/' + imageId,
@@ -424,7 +424,7 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
         var dom_obj = $(dom);
         var filename = $(dom).val();
         uploadBrandImage(filename, dom_obj, function (imageId) {
-            var nowDate = moment(new Date()).format("YYYY-DD-MM HH:mm");
+            var nowDate = moment(new Date()).format("YYYY-MM-DD HH:mm");
             $scope.$apply(function () {
                 $scope.driver_img = [{
                     img: $host.file_url + '/image/' + imageId,

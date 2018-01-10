@@ -56,16 +56,19 @@ app.controller("instruction_car_refuel_controller", ["$scope", "$host", "_basic"
                 $scope.car_refuel = $scope.car_refuel_obj.slice(0, 10);
                 if ($scope.start > 0) {
                     $scope.pre = true;
-                } else {
+                }
+                else {
                     $scope.pre = false;
                 }
                 if ($scope.car_refuel_obj.length < $scope.size) {
                     $scope.next = false;
-                } else {
+                }
+                else {
                     $scope.next = true;
                 }
 
-            } else {
+            }
+            else {
                 swal(data.msg, "", "error")
             }
         })
@@ -76,9 +79,9 @@ app.controller("instruction_car_refuel_controller", ["$scope", "$host", "_basic"
         start: $scope.start,
         size: $scope.size
     };
+
     // 普通查询
     $scope.search_All = function () {
-
         // 控制分页查询参数
         $scope.queryParams.start = $scope.start == 0 ? '0' : $scope.start;
         if($scope.currentStatus == "1"){
@@ -88,51 +91,57 @@ app.controller("instruction_car_refuel_controller", ["$scope", "$host", "_basic"
     };
     $scope.search_All();
 
-
     // 条件赋值
     $scope.setParams = function () {
-
         // 控制查询参数逻辑
         if ($scope.truckNum) {
             $scope.queryParams.truckNum = $scope.truckNum;
-        } else {
+        }
+        else {
             $scope.queryParams.truckNum = null;
         }
 
         if ($scope.driveName) {
             $scope.queryParams.driveName = $scope.driveName;
-        } else {
+        }
+        else {
             $scope.queryParams.driveName = null;
         }
 
         if ($scope.oilingStatus) {
             $scope.queryParams.refuelAddressType = $scope.oilingStatus;
-        } else {
+        }
+        else {
             $scope.queryParams.refuelAddressType = null;
         }
 
 
         if ($scope.refueling_startTime) {
             $scope.queryParams.refuelDateStart = $scope.refueling_startTime;
-        } else {
+        }
+        else {
             $scope.queryParams.refuelDateStart = null;
         }
 
         if ($scope.refueling_endTime) {
             $scope.queryParams.refuelDateEnd = $scope.refueling_endTime;
-        } else {
+        }
+        else {
             $scope.queryParams.refuelDateEnd = null;
         }
 
         if ($scope.currentStatus) {
             $scope.queryParams.checkStatus = $scope.currentStatus;
-        } else {
+        }
+        else {
             $scope.queryParams.checkStatus = null;
         }
     };
+
     // 头车搜索事件-条件查询
     $scope.search_condition = function () {
         $scope.start = 0;
+        $scope.queryParams.start = 0;
         $scope.setParams();
         $scope.search_query($scope.queryParams)
     };

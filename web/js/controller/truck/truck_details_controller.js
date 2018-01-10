@@ -27,7 +27,8 @@ app.controller("truck_details_controller", ["$scope", "$state", "$stateParams", 
         _basic.get($host.api_url + "/brand").then(function (data) {
             if (data.success == true) {
                 $scope.brand = data.result;
-            } else {
+            }
+            else {
                 swal(data.msg, "", "error")
             }
         });

@@ -211,7 +211,8 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                     complete: function (result) {
                         $scope.$apply(function () {
 
-                            if (!($scope.fileType == "application/vnd.ms-excel" || $scope.fileType == 'text/csv')) {
+                            //if (!($scope.fileType == "application/vnd.ms-excel" || $scope.fileType == 'text/csv')) {
+                            if(result==null ||result.data==null ||result.data.length ==0){
                                 swal("文件类型错误");
                             } else {
                                 $scope.tableHeadeArray = result.data[0];

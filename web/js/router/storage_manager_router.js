@@ -56,6 +56,17 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/data/car_to_data.html",  //路由填充的模板
             controller:'car_to_data_controller'
         })
+        .state("imported_files", {
+            url: "/imported_files",
+            templateUrl: "js/view/data/imported_files.html",
+            controller:'imported_files_controller'
+        })
+        .state("imported_files_details", {
+            url: "/imported_files_details/id/{id}",
+            templateUrl: "js/view/data/imported_files_details.html",
+            controller:'imported_files_details_controller'
+        })
+
         // 调度需求
         .state("instruction_need", {
             url: "/instruction_need",

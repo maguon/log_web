@@ -1,0 +1,53 @@
+<div>
+    <div class="row main_storage_car">
+        <div class="row  grey-text text-darken-1">
+            <div class="col s11">
+                <div class="input-field col s2" style="margin-left: 70px">
+                    <input id="createdStart" type="text" class="datepicker" date ng-model="startDate"><i
+                        class="mdi dataIcon mdi-table-large"></i>
+                    <label for="last_name">导入时间</label>
+                </div>
+                <div class="input-field col s2">
+                    <input id="createdEnd" type="text" class="datepicker" date ng-model="endDate"><i
+                        class="mdi dataIcon mdi-table-large"></i>
+                    <label for="last_name">至</label>
+                </div>
+            </div>
+            <div class="col s1  flex flex-round">
+                <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
+                   style="margin-right: 10px" ng-click="searchMatchFiles()">
+                    <i class="mdi mdi-magnify"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col s12">
+        <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+        <table class=" bordered striped text_mid">
+            <thead class="blue-grey lighten-5">
+            <tr class="grey-text text-darken-2">
+                <th width="800" data-field="">文件名</th>
+                <th width="300" data-field="">文件大小</th>
+                <th data-field="">导入时间</th>
+                <th width="300">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="file in importedFilesList" class="grey-text text-darken-1">
+                <td width="800">{{file.filename}}</td>
+                <td width="300">{{file.length}}B</td>
+                <td>{{file.uploadDate | date:'yyyy-MM-dd HH:mm'}}</td>
+                <td width="100" class="operation">
+                    <a ui-sref="imported_files_details({id:file._id})" class=""><i
+                            class="mdi mdi-file-outline look_icon cyan-text lighten-1  "></i></a>
+                    <a target="_blank" href="http://stg.myxxjs.com:9002/api/user/64/file/{{file._id}}"  download="{{file.filename}}"><i
+                            class="mdi  look_icon cyan-text lighten-1 mdi-arrow-down-bold-circle "></i></a>
+                </td>
+            </tr>
+            <tr ng-if="importedFilesList.length==0">
+                <td colspan="4">暂无数据</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,3 +1,6 @@
+/*
+  Created by star on 2018/1/10.
+ */
 app.controller("imported_files_details_controller", ["$scope", "_basic", "_config", "$host", "$stateParams", function ($scope, _basic, _config, $host, $stateParams) {
      var userId = _basic.getSession(_basic.USER_ID);
      // 获取文件名字
@@ -19,8 +22,9 @@ app.controller("imported_files_details_controller", ["$scope", "_basic", "_confi
             if(data&&data.success){
                 $scope.DataList = data.result;
                 //console.log($scope.DataList)
-            }else{
-                swal('数据查询失败')
+            }
+            else{
+                swal(data.msg, "", "error");
             }
         });
     };

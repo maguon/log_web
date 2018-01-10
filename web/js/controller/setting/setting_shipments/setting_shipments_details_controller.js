@@ -1,7 +1,4 @@
-/**
- * Created by ASUS on 2017/6/22.
- */
-
+/**/
 app.controller("setting_shipments_details_controller", ["$scope", "_basic", "_config", "$host", "$stateParams", function ($scope, _basic, _config, $host, $stateParams) {
     var userId = _basic.getSession(_basic.USER_ID);
     var marker;

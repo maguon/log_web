@@ -1,5 +1,5 @@
 /*
-  Created by star on 2018/1/10.
+  Created by star on 2018/1/10
  */
 app.controller("imported_files_controller", ["$scope", "$rootScope", "$host", "_basic", "_config", "baseService", function ($scope, $rootScope, $host, _basic) {
     var userId = _basic.getSession(_basic.USER_ID);

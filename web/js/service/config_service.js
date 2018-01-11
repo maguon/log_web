@@ -175,6 +175,26 @@ baseService.factory("_config", function () {
             colorId: "CCCCCC "
         }
     ];
+
+    // 质损环节类别
+    _this.damageLinkType = [
+        {id: 1, typeName: "委托方质损"},
+        {id: 2, typeName: "短驳质损"},
+        {id: 3, typeName: "仓储质损"},
+        {id: 4, typeName: "装车质损"},
+        {id: 5, typeName: "运输质损"}
+        ];
+
+    // 质损类型
+    _this.damageType = [
+        {id: 1, typeLevel: "A级"},
+        {id: 2, typeLevel: "B级"},
+        {id: 3, typeLevel: "C级"},
+        {id: 4, typeLevel: "D级"},
+        {id: 6, typeLevel: "F级"}
+    ];
+
+
     // 正则验证
     // 电话号
     _this.mobileRegx = "^1(3[0-9]|4[57]|5[0-35-9]|7[01678]|8[0-9])\\d{8}$";

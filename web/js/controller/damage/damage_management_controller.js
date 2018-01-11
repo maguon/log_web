@@ -1,4 +1,8 @@
-app.controller("damage_management_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
+app.controller("damage_management_controller", ["$scope", "$host", "_basic", "_config", function ($scope, $host, _basic, _config) {
+
+    // 获取config数据
+    $scope.damageLinkType = _config.damageLinkType;
+    $scope.damageType = _config.damageType;
 
     // 月份选择控件
     $('#report_time_start,#report_time_end').MonthPicker({

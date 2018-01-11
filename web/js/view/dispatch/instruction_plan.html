@@ -205,10 +205,15 @@
                             <p>{{startCityName}}&emsp;&emsp;<span class="mdi mdi-arrow-right"></span></p>
                         </div>
                         <div class="col s8">
-                            <select id="city" name="city" watch material-select
-                                    ng-options="city.city_name + ' ' + city.distance + ' km' for city in cityList"
-                                    ng-model="lineEndCityInfo">
-                                <option value="">选择城市</option>
+                            <!--<select id="city" name="city" watch material-select-->
+                                    <!--ng-options="city.city_name + ' ' + city.distance + ' km' for city in cityList"-->
+                                    <!--ng-model="lineEndCityInfo">-->
+                                <!--<option value="">选择城市</option>-->
+                            <!--</select>-->
+
+                            <select id="chooseEndCity" name="state" style="width:100%" ng-options="city.city_name + ' ' + city.distance + ' km' for city in cityList" ng-model="lineEndCityInfo">
+                                <option value=""></option>
+                                <!--<option ng-repeat="city in get_city" ng-value="city.id">{{city.city_name}}</option>-->
                             </select>
                         </div>
                     </div>

@@ -182,6 +182,10 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         _basic.get($host.api_url + "/cityRouteDispatch?routeStartId=" + startCityId).then(function (cityData) {
             if (cityData.success === true) {
                 $scope.cityList = cityData.result;
+                $('#chooseEndCity').select2({
+                    placeholder: '选择城市',
+                    containerCssClass: 'select2_dropdown'
+                });
                 // console.log("cityData", $scope.cityList)
             }
             else {

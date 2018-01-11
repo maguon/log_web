@@ -30,7 +30,7 @@ baseService.factory("_config", function () {
             name: "仓储部操作人员",
             subType: [],
             index: 'storage_home.html',
-            qr: [{qrSrc: "../assets/images/qr_code/qr_storage_app.png"}, {qrSrc: "../assets/images/qr_code/qr_driver_app.png"}]
+            qr: [{qrSrc: "../assets/images/qr_code/qr_storage_app.png"}]
         },
 
         {
@@ -38,7 +38,7 @@ baseService.factory("_config", function () {
             name: "仓储部管理员",
             subType: [{type: 21, name: "仓储部操作人员"}],
             index: 'storage_manager.html',
-            qr: [{qrSrc: "../assets/images/qr_code/qr_storage_app.png"}, {qrSrc: "../assets/images/qr_code/qr_driver_app.png"}]
+            qr: [{qrSrc: "../assets/images/qr_code/qr_storage_app.png"}]
         },
 
         {
@@ -46,7 +46,7 @@ baseService.factory("_config", function () {
             name: "调度操作员",
             subType: [],
             index: 'dispatch_home.html',
-            qr: [{qrSrc: "../assets/images/qr_code/qr_dispatch_app.png"}]
+            qr: [{qrSrc: "../assets/images/qr_code/qr_dispatch_app.png"}, {qrSrc: "../assets/images/qr_code/qr_driver_app.png"}]
         },
 
         {
@@ -54,7 +54,7 @@ baseService.factory("_config", function () {
             name: "调度管理员",
             subType: [{type: 31, name: "调度操作员"}],
             index: 'dispatch_manager.html',
-            qr: [{qrSrc: "../assets/images/qr_code/qr_dispatch_app.png"}]
+            qr: [{qrSrc: "../assets/images/qr_code/qr_dispatch_app.png"}, {qrSrc: "../assets/images/qr_code/qr_driver_app.png"}]
         },
 
         {

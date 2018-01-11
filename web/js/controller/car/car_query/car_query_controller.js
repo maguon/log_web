@@ -119,7 +119,7 @@ app.controller("car_query_controller", ["$scope", "$rootScope", "$host", "_basic
                 }
 
                 $scope.responseData = data.result;
-                // console.log("responseData:", $scope.responseData);
+                console.log("responseData:", $scope.responseData);
             }
             else {
                 swal(data.msg, "", "error");

@@ -4,9 +4,15 @@
 app.controller("imported_files_controller", ["$scope", "$rootScope", "$host", "_basic", "_config", "baseService", function ($scope, $rootScope, $host, _basic) {
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.ImportedFilesList=[];
+
+    $scope.fileDetailObj ={
+        fileName:"",
+        fileLength:0,
+        fileRecord:[]
+    };
     // 根据条件搜索文件
     $scope.searchMatchFiles = function () {
-        if($scope.startDate == null || $scope.endDate == null){
+        if($scope.startDate == null || $scope.endDate == null|| $scope.startDate == ""|| $scope.endDate == ""){
             swal('请输入完整的查询时间', "", "error")
             return;
         }
@@ -22,4 +28,19 @@ app.controller("imported_files_controller", ["$scope", "$rootScope", "$host", "_
             }
         });
     };
+    $scope.changeDetail=function(file){
+        $scope.fileDetailObj.fileName = file.filename;
+        $scope.fileDetailObj.fileLength = file.length;
+        $scope.fileDetailObj.id = file._id;
+        console.log(   $scope.fileDetailObj.id)
+        $("#file_detail_modal").modal("open");
+        _basic.get($host.api_url+'/carList?uploadId=' +  $scope.fileDetailObj.id ).then(function (data) {
+            if (data.success == true) {
+                $scope.fileDetailObj.fileRecord = data.result;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        })
+    }
 }]);

@@ -21,6 +21,59 @@
             </div>
         </div>
     </div>
+    <div class="modal " id="file_detail_modal">
+        <div>
+            <p class="center-align cyan-text text-lighten-1">
+                <i class="mdi mdi-file-document look_icon cyan-text lighten-1"></i>
+                <span style="color: #3d4d56;font-size: 18px;margin:20px">{{fileDetailObj.fileName }}</span>
+                <span style="font-size: 15px;color: #cccccc ;margin:20px">{{fileDetailObj.fileLength}}B</span>
+                <span style="float: right;margin-right:20px;color:black" >共<i style="color: #00b0ff;font-size: 18px;margin-right: 5px">{{fileDetailObj.fileRecord.length}}</i>条</span>
+            </p>
+        </div>
+        <h5 class="center-align cyan-text text-lighten-1"></h5>
+        <div class="col s12">
+            <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+            <table class=" bordered striped text_mid">
+                <thead class="blue-grey lighten-5">
+                <tr class="grey-text text-darken-2">
+                    <th data-field="">VIN码</th>
+                    <th data-field="">制造商</th>
+                    <th data-field="">委托方</th>
+                    <th data-field="">起始城市</th>
+                    <th data-field="">发运城市</th>
+                    <th data-field="">目的地</th>
+                    <th data-field="">经销商</th>
+                    <th data-field="">指令时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="car in fileDetailObj.fileRecord" class="grey-text text-darken-1">
+                    <td ng-if="car.vin!==null">{{car.vin}}</td>
+                    <td ng-if="car.vin==null">暂无数据</td>
+                    <td ng-if="car.make_name!==null">{{car.make_name}}</td>
+                    <td ng-if="car.make_name==null">暂无数据</td>
+                    <td ng-if="car.en_short_name!==null">{{car.en_short_name}}</td>
+                    <td ng-if="car.en_short_name==null">暂无数据</td>
+                    <td ng-if="car.route_start!==null">{{car.route_start}}</td>
+                    <td ng-if="car.route_start==null">暂无数据</td>
+                    <td ng-if="car.addr_name!==null">{{car.addr_name}}</td>
+                    <td ng-if="car.addr_name==null">暂无数据</td>
+                    <td ng-if="car.route_end!==null">{{car.route_end}}</td>
+                    <td ng-if="car.route_end==null">暂无数据</td>
+                    <td ng-if="car.re_short_name!==null">{{car.re_short_name}}</td>
+                    <td ng-if="car.re_short_name==null">暂无数据</td>
+                    <td ng-if="car.created_on!==null">{{car.order_date | date:'yyyy-MM-dd'}}</td>
+                    <td ng-if="car.created_on==null">暂无数据</td>
+                </tr>
+                <tr>
+                <tr ng-if="fileDetailObj.fileRecord.length==0">
+                    <td colspan="8">没有于导入文件对应的车辆信息</td>
+                </tr>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
     <div class="col s12">
         <div class="divider" style="background: #00bcd4;height: 2px;"></div>
         <table class=" bordered striped text_mid">
@@ -38,8 +91,9 @@
                 <td >{{file.length}}B</td>
                 <td>{{file.uploadDate | date:'yyyy-MM-dd HH:mm'}}</td>
                 <td  class="operation">
-                    <a ui-sref="imported_files_details({id:file._id})" class=""><i
-                            class="mdi mdi-file-outline look_icon cyan-text lighten-1  "></i></a>
+                    <span>
+                        <i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ng-click="changeDetail(file)"></i>
+                    </span>
                     <a target="_blank" href="http://stg.myxxjs.com:9002/api/user/64/file/{{file._id}}"  download="{{file.filename}}"><i
                             class="mdi  look_icon cyan-text lighten-1 mdi-arrow-down-bold-circle "></i></a>
                 </td>

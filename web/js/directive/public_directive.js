@@ -220,17 +220,14 @@ publicDirective.directive("dateFilter", ["$filter", function ($filter) {
             function formatter(value) {
                 return dateFilter(value, "yyyy-MM-dd");
             }
-
             function parser() {
                 return ctrl.$modelValue;
             }
-
             ctrl.$formatters.push(formatter);
             ctrl.$parsers.unshift(parser);
         }
     }
 }]);
-
 publicDirective.directive('autoMapHeight', function () {
     return {
         restrict: 'A',
@@ -243,12 +240,9 @@ publicDirective.directive('autoMapHeight', function () {
         }
     };
 });
-
-
 /*
 * meteralize css 中需要手动触发的样式
 * */
-
 publicDirective.directive("usersTabs", function () {
     return {
         restrict: "A",
@@ -260,7 +254,6 @@ publicDirective.directive("usersTabs", function () {
         }
     }
 });
-
 publicDirective.directive("sideNav", function () {
     return {
         restrict: "A",
@@ -287,7 +280,6 @@ publicDirective.directive("sexChange", function () {
         }
     }
 });
-
 publicDirective.directive("ulTabs", function () {
     return {
         restrict: "A",
@@ -304,7 +296,6 @@ publicDirective.directive("collapsible", function () {
         }
     }
 });
-
 publicDirective.directive("tooltipped", function () {
     return {
         restrict: "A",
@@ -317,8 +308,6 @@ publicDirective.directive("tooltipped", function () {
 *
 *
 * */
-
-
 // ng-repeat渲染后的回调
 publicDirective.directive('repeatFinish', function () {
     return {
@@ -350,7 +339,6 @@ publicDirective.directive('repeatFinishD', function () {
         }
     }
 });
-
 // 时间格式过滤指令
 publicDirective.directive("formDate", function () {
     return {
@@ -381,8 +369,6 @@ publicDirective.directive("formDate", function () {
     }
 
 });
-
-
 publicDirective.directive('percent', function () {
     return {
         link: function (scope, element, attr) {
@@ -448,8 +434,6 @@ publicDirective.directive('percent', function () {
         }
     }
 });
-
-
 publicDirective.directive('footer', function () {
     return {
         templateUrl: '/js/view/common_footer.html',

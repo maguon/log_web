@@ -4661,7 +4661,9 @@ textarea.materialize-textarea {
     margin-top: -20px;
     display: block;
     opacity: 1;
-    position: static; }
+    width: 95%;
+    position: absolute;
+}
 .autocomplete-content li .highlight {
     color: #444; }
 .autocomplete-content li img {

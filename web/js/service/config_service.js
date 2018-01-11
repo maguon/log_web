@@ -62,7 +62,7 @@ baseService.factory("_config", function () {
             name: "质损操作员",
             subType: [],
             index: 'damage_home.html',
-            qr: [{qrSrc: "../assets/images/qr_code/qr_dispatch_app.png"}]
+            qr: [{qrSrc: "../assets/images/qr_code/qr_damage_app.png"}]
         },
 
         {
@@ -70,7 +70,7 @@ baseService.factory("_config", function () {
             name: "质损管理员",
             subType: [{type: 41, name: "质损操作员"}],
             index: 'damage_manager.html',
-            qr: [{qrSrc: "../assets/images/qr_code/qr_dispatch_app.png"}]
+            qr: [{qrSrc: "../assets/images/qr_code/qr_damage_app.png"}]
         }
 
     ];

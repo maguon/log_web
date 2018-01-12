@@ -1187,3 +1187,11 @@ button[type="submit"] {
     border-color: black transparent !important;
     border-width: 8px 4px 0 4px !important;
 }
+
+input#search_shipment::-webkit-input-placeholder {
+    color:darkgray;
+}
+
+input#search_shipment_end::-webkit-input-placeholder {
+    color:darkgray;
+}

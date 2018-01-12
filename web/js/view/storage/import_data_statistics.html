@@ -1,0 +1,245 @@
+<div class="import_data_statistics" style="width: 90%;margin: 0 auto">
+    <!--tab栏-->
+    <div class="row">
+        <div class="col s12" ul-tabs>
+            <ul class="tabs tabs-fixed-width tab-demo z-depth-1" style="font-size: 25px;font-weight: bold;overflow-x: hidden">
+                <li class="tab"><a ng-click="showInsPlan()" style="color: #26c6da" href="javascript:void(0)">指令计划</a></li>
+                <li class="tab"><a ng-click="showEntrust()" style="color: #26c6da" href="javascript:void(0)">委托方</a></li>
+                <li class="tab"><a ng-click="showManufacturer()" style="color: #26c6da" href="javascript:void(0)">制造商</a></li>
+                <li class="tab"><a ng-click="showShipment()" style="color: #26c6da" href="javascript:void(0)">发运地</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!--指令计划-->
+    <div style="width: 98.8%;margin: 0 auto" ng-show="instructionPlan">
+        <!--指令计划按月统计-->
+        <div class="row z-depth-2">
+            <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                <div class="col s5 left">
+                    <p>按月统计</p>
+                </div>
+                <div class="col s6 right">
+                    <div class="col s3 left">
+                        <p class="right">选择日期区间:</p>
+                    </div>
+                    <div class="col s3">
+                        <input id="chooseInstructionPlanStart_month" type="text" ng-value="startInitial">
+                    </div>
+                    <div class="col s1 center">
+                        <p>至</p>
+                    </div>
+                    <div class="col s3">
+                        <input id="chooseInstructionPlanEnd_month" type="text" ng-value="endInitial">
+                    </div>
+                    <div class="col s2 center">
+                        <i class="mdi mdi-magnify" ng-click="searchInstructionPlanCount()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                    </div>
+                </div>
+            </div>
+            <!--指令计划按月统计柱状图-->
+            <div class="col s12">
+                <div id="instructionPlanCountMonth" style="min-width:400px;height:400px;margin: 25px 0 25px 0"></div>
+            </div>
+        </div>
+
+        <!--指令计划按天统计-->
+        <div class="row z-depth-2" style="margin-top: 50px">
+            <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                <div class="col s5 left">
+                    <p>按天统计</p>
+                </div>
+                <div class="col s6 right">
+                    <p class="right">近 30 天&emsp;</p>
+                </div>
+            </div>
+            <!--指令计划按天统计柱状图-->
+            <div class="col s12">
+                <div id="instructionPlanCountDay" style="min-width:400px;height:400px;margin: 25px 0 25px 0"></div>
+            </div>
+        </div>
+    </div >
+
+    <!--委托方-->
+    <div style="width: 98.8%;margin: 0 auto" ng-show="entrust">
+        <!--委托方按月统计-->
+        <div class="row z-depth-2">
+            <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                <div class="col s5 left">
+                    <p>按月统计</p>
+                </div>
+                <div class="col s7 right">
+                    <div class="col s3 left">
+                        <p class="right">选择日期区间:</p>
+                    </div>
+                    <div class="col s2">
+                        <input id="chooseEntrustStart_month" type="text" ng-value="startInitial">
+                    </div>
+                    <div class="col s1 center">
+                        <p>至</p>
+                    </div>
+                    <div class="col s2">
+                        <input id="chooseEntrustEnd_month" type="text" ng-value="endInitial">
+                    </div>
+                    <div class="col s3">
+                        <select id="search_entrust_month" material-select watch ng-model="searchEntrustMonth">
+                            <option value="">选择委托方</option>
+                            <option ng-repeat="entrust in entrustList" ng-value="entrust.id">{{entrust.short_name}}</option>
+                        </select>
+                    </div>
+                    <div class="col s1 center">
+                        <i class="mdi mdi-magnify" ng-click="searchEntrustCount()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                    </div>
+                </div>
+            </div>
+            <!--委托方按月统计折线图-->
+            <div class="col s12">
+                <div id="entrustCountMonth" style="min-width:400px;height:400px;margin: 25px 0 25px 0"></div>
+            </div>
+        </div>
+
+        <!--委托方按日统计-->
+        <div class="row z-depth-2" style="margin-top: 50px">
+            <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                <div class="col s9 left">
+                    <p>按天统计</p>
+                </div>
+                <div class="col s3 right">
+                    <div class="col s8">
+                        <select id="search_entrust_day" material-select watch ng-model="searchEntrustDay">
+                            <option value="">选择委托方</option>
+                            <option ng-repeat="entrust in entrustList" ng-value="entrust.id">{{entrust.short_name}}</option>
+                        </select>
+                    </div>
+                    <div class="col s4 center-align">
+                        <p>近 30 天&emsp;</p>
+                    </div>
+                </div>
+            </div>
+            <!--指令计划按天统计折线图-->
+            <div class="col s12">
+                <div id="entrustCountDay" style="min-width:400px;height:400px;margin: 25px 0 25px 0"></div>
+            </div>
+        </div>
+    </div>
+
+    <!--制造商-->
+    <div style="width: 98.8%;margin: 0 auto" ng-show="manufacturer">
+        <!--制造商按月统计-->
+        <div class="row z-depth-2">
+            <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                <div class="col s5 left">
+                    <p>按月统计</p>
+                </div>
+                <div class="col s7 right">
+                    <div class="col s3 left">
+                        <p class="right">选择日期区间:</p>
+                    </div>
+                    <div class="col s2">
+                        <input id="chooseManufacturerStart_month" type="text" ng-value="startInitial">
+                    </div>
+                    <div class="col s1 center">
+                        <p>至</p>
+                    </div>
+                    <div class="col s2">
+                        <input id="chooseManufacturerEnd_month" type="text" ng-value="endInitial">
+                    </div>
+                    <div class="col s3">
+                        <select id="search_manufacturer" material-select watch ng-model="searchEntrustMonth">
+                            <option value="">选择制造商</option>
+                            <option ng-repeat="entrust in entrustList" ng-value="entrust.id">{{entrust.short_name}}</option>
+                        </select>
+                    </div>
+                    <div class="col s1 center">
+                        <i class="mdi mdi-magnify" ng-click="searchManufacturerCount()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                    </div>
+                </div>
+            </div>
+            <!--制造商按月统计折线图-->
+            <div class="col s12">
+                <div id="manufacturerCountMonth" style="min-width:400px;height:400px;margin: 25px 0 25px 0"></div>
+            </div>
+        </div>
+
+        <!--制造商按日统计-->
+        <div class="row z-depth-2" style="margin-top: 50px">
+            <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                <div class="col s9 left">
+                    <p>按天统计</p>
+                </div>
+                <div class="col s3 right">
+                    <div class="col s8">
+                        <select id="search_entrust" material-select watch ng-model="searchManufacturerDay">
+                            <option value="">选择制造商</option>
+                            <option ng-repeat="entrust in entrustList" ng-value="entrust.id">{{entrust.short_name}}</option>
+                        </select>
+                    </div>
+                    <div class="col s4 center-align">
+                        <p>近 30 天&emsp;</p>
+                    </div>
+                </div>
+            </div>
+            <!--制造商按天统计折线图-->
+            <div class="col s12">
+                <div id="manufacturerCountDay" style="min-width:400px;height:400px;margin: 25px 0 25px 0"></div>
+            </div>
+        </div>
+    </div>
+
+    <!--发运地-->
+    <div style="width: 98.8%;margin: 0 auto" ng-show="shipment">
+        <!--发运地按月统计-->
+        <div class="row z-depth-2">
+            <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                <div class="col s5 left">
+                    <p>按月统计</p>
+                </div>
+                <div class="col s7 right">
+                    <div class="col s3 left">
+                        <p class="right">选择日期区间:</p>
+                    </div>
+                    <div class="col s2">
+                        <input id="chooseShipmentStart_month" type="text" ng-value="startInitial">
+                    </div>
+                    <div class="col s1 center">
+                        <p>至</p>
+                    </div>
+                    <div class="col s2">
+                        <input id="chooseShipmentEnd_month" type="text" ng-value="endInitial">
+                    </div>
+                    <div class="col s3">
+                        <input name="search_shipment" id="search_shipment" type="text" ng-model="searchShipmentMonth" placeholder="输入发运地">
+                    </div>
+                    <div class="col s1 center">
+                        <i class="mdi mdi-magnify" ng-click="searchShipmentCount()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                    </div>
+                </div>
+            </div>
+            <!--发运地按月统计折线图-->
+            <div class="col s12">
+                <div id="shipmentCountMonth" style="min-width:400px;height:400px;margin: 25px 0 25px 0"></div>
+            </div>
+        </div>
+
+        <!--发运地按日统计-->
+        <div class="row z-depth-2" style="margin-top: 50px">
+            <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                <div class="col s9 left">
+                    <p>按天统计</p>
+                </div>
+                <div class="col s3 right">
+                    <div class="col s8">
+                        <input name="search_shipment" id="search_shipment_end" type="text" ng-model="searchShipmentDay" placeholder="输入发运地">
+                    </div>
+                    <div class="col s4 center-align">
+                        <p>近 30 天&emsp;</p>
+                    </div>
+                </div>
+            </div>
+            <!--发运地按天统计折线图-->
+            <div class="col s12">
+                <div id="shipmentCountDay" style="min-width:400px;height:400px;margin: 25px 0 25px 0"></div>
+            </div>
+        </div>
+    </div>
+</div>

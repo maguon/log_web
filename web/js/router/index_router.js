@@ -284,6 +284,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/storage/car_refueling_statistics.html",
             controller:"car_refueling_statistics_controller"
         })
+        .state("import_data_statistics", {
+            url:"/import_data_statistics",
+            templateUrl: "js/view/storage/import_data_statistics.html",
+            controller:"import_data_statistics_controller"
+        })
 
         // 从首页跳详情图
         .state("storage_car_details", {

@@ -9,6 +9,9 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
     $scope.stepThird = false;
     // 电话号正则
     $scope.mobileReg = _config.mobileRegx;
+    // 驾驶类型
+    $scope.licenseType = _config.licenseType;
+
     $scope.bindTruckInput = true;
     $scope.bindMainTxt = false;
     $scope.bindViceTxt = false;

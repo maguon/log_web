@@ -19,20 +19,17 @@
                 <div class="col s5 left">
                     <p>按月统计</p>
                 </div>
-                <div class="col s6 right">
-                    <div class="col s3 left">
-                        <p class="right">选择日期区间:</p>
-                    </div>
-                    <div class="col s3">
+                <div class="col s4 right">
+                    <div class="col s4">
                         <input id="chooseInstructionPlanStart_month" type="text" ng-value="startInitial">
                     </div>
                     <div class="col s1 center">
                         <p>至</p>
                     </div>
-                    <div class="col s3">
+                    <div class="col s4">
                         <input id="chooseInstructionPlanEnd_month" type="text" ng-value="endInitial">
                     </div>
-                    <div class="col s2 center">
+                    <div class="col s3 center">
                         <i class="mdi mdi-magnify" ng-click="searchInstructionPlanCount()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
                     </div>
                 </div>
@@ -68,20 +65,17 @@
                 <div class="col s5 left">
                     <p>按月统计</p>
                 </div>
-                <div class="col s7 right">
-                    <div class="col s3 left">
-                        <p class="right">选择日期区间:</p>
-                    </div>
-                    <div class="col s2">
+                <div class="col s5 right">
+                    <div class="col s3">
                         <input id="chooseEntrustStart_month" type="text" ng-value="startInitial">
                     </div>
                     <div class="col s1 center">
                         <p>至</p>
                     </div>
-                    <div class="col s2">
+                    <div class="col s3">
                         <input id="chooseEntrustEnd_month" type="text" ng-value="endInitial">
                     </div>
-                    <div class="col s3">
+                    <div class="col s4">
                         <select id="search_entrust_month" material-select watch ng-model="searchEntrustMonth">
                             <option value="">选择委托方</option>
                             <option ng-repeat="entrust in entrustList" ng-value="entrust.id">{{entrust.short_name}}</option>
@@ -131,20 +125,17 @@
                 <div class="col s5 left">
                     <p>按月统计</p>
                 </div>
-                <div class="col s7 right">
-                    <div class="col s3 left">
-                        <p class="right">选择日期区间:</p>
-                    </div>
-                    <div class="col s2">
+                <div class="col s5 right">
+                    <div class="col s3">
                         <input id="chooseManufacturerStart_month" type="text" ng-value="startInitial">
                     </div>
                     <div class="col s1 center">
                         <p>至</p>
                     </div>
-                    <div class="col s2">
+                    <div class="col s3">
                         <input id="chooseManufacturerEnd_month" type="text" ng-value="endInitial">
                     </div>
-                    <div class="col s3">
+                    <div class="col s4">
                         <select id="search_manufacturer" material-select watch ng-model="searchEntrustMonth">
                             <option value="">选择制造商</option>
                             <option ng-repeat="entrust in entrustList" ng-value="entrust.id">{{entrust.short_name}}</option>
@@ -194,20 +185,17 @@
                 <div class="col s5 left">
                     <p>按月统计</p>
                 </div>
-                <div class="col s7 right">
-                    <div class="col s3 left">
-                        <p class="right">选择日期区间:</p>
-                    </div>
-                    <div class="col s2">
+                <div class="col s5 right">
+                    <div class="col s3">
                         <input id="chooseShipmentStart_month" type="text" ng-value="startInitial">
                     </div>
                     <div class="col s1 center">
                         <p>至</p>
                     </div>
-                    <div class="col s2">
+                    <div class="col s3">
                         <input id="chooseShipmentEnd_month" type="text" ng-value="endInitial">
                     </div>
-                    <div class="col s3">
+                    <div class="col s4">
                         <input name="search_shipment" id="search_shipment" type="text" ng-model="searchShipmentMonth" placeholder="输入发运地">
                     </div>
                     <div class="col s1 center">

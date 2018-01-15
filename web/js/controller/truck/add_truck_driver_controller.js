@@ -13,6 +13,8 @@ app.controller("add_truck_driver_controller", ["$scope", "$state", "_basic", "_c
     $scope.mobileReg = _config.mobileRegx;
     // 身份证正则
     $scope.identityReg = _config.CarNoRegx;
+    // 驾驶类型
+    $scope.licenseType = _config.licenseType;
 
     // $scope.step_second = true;
 

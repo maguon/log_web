@@ -2,11 +2,9 @@
  * Created by ASUS on 2017/5/25.
  */
 
-// var configService=angular.module("configService",[]);
 // 公共数据
 baseService.factory("_config", function () {
     var _this = {};
-    // userType
 
     _this.userTypes = [
         {
@@ -75,8 +73,8 @@ baseService.factory("_config", function () {
 
     ];
 
-
     _this.rel_status = 1;
+
     // 调度任务状态
     _this.taskStatus = [
         {
@@ -104,6 +102,7 @@ baseService.factory("_config", function () {
             taskStatusName: "已完成"
         }
     ];
+
     // 车辆状态
     _this.car_rel_status = [
         {
@@ -192,6 +191,18 @@ baseService.factory("_config", function () {
         {id: 3, typeLevel: "C级"},
         {id: 4, typeLevel: "D级"},
         {id: 6, typeLevel: "F级"}
+    ];
+
+    // 驾驶类型
+    _this.licenseType = [
+        {id: "1", typeName: "A1"},
+        {id: "2", typeName: "A2"},
+        {id: "3", typeName: "A3"},
+        {id: "4", typeName: "B1"},
+        {id: "5", typeName: "B2"},
+        {id: "6", typeName: "C1"},
+        {id: "7", typeName: "C2"},
+        {id: "8", typeName: "C3"}
     ];
 
 

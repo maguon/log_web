@@ -5,6 +5,8 @@ app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.start = 0;
     $scope.size = 20;
+    // 驾驶类型
+    $scope.licenseType = _config.licenseType;
 
     // 搜索指定司机信息
     $scope.searchDriver = function (obj) {
@@ -24,7 +26,7 @@ app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host
                     $("#next").show();
                 }
                 $scope.driveList = driveData.result;
-                console.log("driveData",driveData);
+                // console.log("driveData",driveData);
             }
             else {
                 swal(driveData.msg, "", "error");

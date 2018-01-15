@@ -68,14 +68,7 @@
                      ng-class="{'has-error':truck_driver_details.license.$invalid&&submitted }">
                     <select id="license" name="license" material-select watch ng-model="driverInfo.license_type" required>
                         <option value="" selected>请选择</option>
-                        <option value="1">A1</option>
-                        <option value="2">A2</option>
-                        <option value="3">A3</option>
-                        <option value="4">B1</option>
-                        <option value="5">B2</option>
-                        <option value="6">C1</option>
-                        <option value="7">C2</option>
-                        <option value="8">C3</option>
+                        <option ng-repeat="license in licenseType" ng-value="license.id">{{license.typeName}}</option>
                     </select>
                     <label><span style="color: red">* </span>驾驶类型</label>
                 </div>

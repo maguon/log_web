@@ -1,5 +1,15 @@
 app.controller("import_data_statistics_controller", ["$scope", "$host", "_basic","$timeout", function ($scope, $host, _basic,$timeout) {
 
+    // 日期初始值
+    $scope.startInitial = moment(new Date()).format('YYYY') + "01";
+    $scope.endInitial = moment(new Date()).format('YYYYMM');
+
+    // monthPicker控件
+    $('#chooseInstructionPlanStart_month,#chooseInstructionPlanEnd_month,#chooseEntrustStart_month,#chooseEntrustEnd_month,#chooseManufacturerStart_month,#chooseManufacturerEnd_month,#chooseShipmentStart_month,#chooseShipmentEnd_month').MonthPicker({
+        Button: false,
+        MonthFormat: 'yymm'
+    });
+
     // 指令计划按月统计
     var instructionPlanCountMonth = [{
         name: '指令计划按月统计',

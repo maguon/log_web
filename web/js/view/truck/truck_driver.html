@@ -39,14 +39,7 @@
                 <div class="input-field col s2">
                     <select material-select watch ng-model="drivingLicense">
                         <option value="" selected>驾驶类型</option>
-                        <option value="1" >A1</option>
-                        <option value="2" >A2</option>
-                        <option value="3" >A3</option>
-                        <option value="4" >B1</option>
-                        <option value="5" >B2</option>
-                        <option value="6" >C1</option>
-                        <option value="7" >C2</option>
-                        <option value="8" >C3</option>
+                        <option ng-repeat="license in licenseType" ng-value="license.id">{{license.typeName}}</option>
                     </select>
                 </div>
                 <div class="row col s4">
@@ -123,10 +116,10 @@
 
         <div class="paging_box col s12" style="height: 45px">
             <div class="right">
-                <a class="waves-light waves-effect cyan lighten-1 btn"  id="pre"   ng-click="previous_page()">
+                <a class="waves-light waves-effect cyan lighten-1 btn"  id="pre" ng-click="previous_page()">
                     上一页
                 </a>
-                <a class="waves-light waves-effect cyan lighten-1 btn" id="next"  ng-click="next_page()">
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_page()">
                     下一页
                 </a>
             </div>

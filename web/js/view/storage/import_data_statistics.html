@@ -3,16 +3,16 @@
     <div class="row">
         <div class="col s12" ul-tabs>
             <ul class="tabs tabs-fixed-width tab-demo z-depth-1" style="font-size: 25px;font-weight: bold;overflow-x: hidden">
-                <li class="tab"><a ng-click="showInsPlan()" style="color: #26c6da" href="javascript:void(0)">指令计划</a></li>
-                <li class="tab"><a ng-click="showEntrust()" style="color: #26c6da" href="javascript:void(0)">委托方</a></li>
-                <li class="tab"><a ng-click="showManufacturer()" style="color: #26c6da" href="javascript:void(0)">制造商</a></li>
-                <li class="tab"><a ng-click="showShipment()" style="color: #26c6da" href="javascript:void(0)">发运地</a></li>
+                <li class="tab"><a href="#instructionPlan" ng-click="showInsPlan()" style="color: #26c6da">指令计划</a></li>
+                <li class="tab"><a href="#entrust" ng-click="showEntrust()" style="color: #26c6da">委托方</a></li>
+                <li class="tab"><a href="#manufacturer" ng-click="showManufacturer()" style="color: #26c6da" >制造商</a></li>
+                <li class="tab"><a href="#shipment" ng-click="showShipment()" style="color: #26c6da">发运地</a></li>
             </ul>
         </div>
     </div>
 
     <!--指令计划-->
-    <div style="width: 98.8%;margin: 0 auto" ng-show="instructionPlan">
+    <div id="instructionPlan" style="width: 98.8%;margin: 0 auto">
         <!--指令计划按月统计-->
         <div class="row z-depth-2">
             <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
@@ -38,8 +38,8 @@
                 </div>
             </div>
             <!--指令计划按月统计柱状图-->
-            <div class="col s12">
-                <div id="instructionPlanCountMonth" style="min-width:400px;height:400px;margin: 25px 0 25px 0"></div>
+            <div class="col s12" id="pip_3_div">
+                <div id="instructionPlanCountMonth" style="margin: 25px 0 25px 0"></div>
             </div>
         </div>
 
@@ -61,7 +61,7 @@
     </div >
 
     <!--委托方-->
-    <div style="width: 98.8%;margin: 0 auto" ng-show="entrust">
+    <div id="entrust" style="width: 98.8%;margin: 0 auto">
         <!--委托方按月统计-->
         <div class="row z-depth-2">
             <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
@@ -124,7 +124,7 @@
     </div>
 
     <!--制造商-->
-    <div style="width: 98.8%;margin: 0 auto" ng-show="manufacturer">
+    <div id="manufacturer" style="width: 98.8%;margin: 0 auto">
         <!--制造商按月统计-->
         <div class="row z-depth-2">
             <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
@@ -187,7 +187,7 @@
     </div>
 
     <!--发运地-->
-    <div style="width: 98.8%;margin: 0 auto" ng-show="shipment">
+    <div id="shipment" style="width: 98.8%;margin: 0 auto">
         <!--发运地按月统计-->
         <div class="row z-depth-2">
             <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">

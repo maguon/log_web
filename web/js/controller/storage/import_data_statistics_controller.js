@@ -1,8 +1,4 @@
-app.controller("import_data_statistics_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
-    $scope.instructionPlan = false;
-    $scope.entrust = false;
-    $scope.manufacturer = false;
-    $scope.shipment = false;
+app.controller("import_data_statistics_controller", ["$scope", "$host", "_basic","$timeout", function ($scope, $host, _basic,$timeout) {
 
     // 指令计划按月统计
     var instructionPlanCountMonth = [{
@@ -65,7 +61,7 @@ app.controller("import_data_statistics_controller", ["$scope", "$host", "_basic"
         _basic.get($host.api_url + "/entrust").then(function (data) {
             if (data.success === true) {
                 $scope.entrustList = data.result;
-                console.log("entrustList",$scope.entrustList);
+                // console.log("entrustList",$scope.entrustList);
             }
             else {
                 swal(data.msg, "", "error");
@@ -75,564 +71,564 @@ app.controller("import_data_statistics_controller", ["$scope", "$host", "_basic"
 
     // 显示指令计划按月统计柱状图
     $scope.showInstructionPlanCount_month = function () {
-        $("#instructionPlanCountMonth").highcharts({
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: ''
-            },
-            subtitle: {
-                text: ''
-            },
-            xAxis: {
-                categories: [
-                    '一月',
-                    '二月',
-                    '三月',
-                    '四月',
-                    '五月',
-                    '六月',
-                    '七月',
-                    '八月',
-                    '九月',
-                    '十月',
-                    '十一月',
-                    '十二月'
-                ],
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
+        $timeout(function(){
+            $("#instructionPlanCountMonth").highcharts({
+                chart: {
+                    type: 'column'
+                },
                 title: {
-                    text: '辆'
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0"></td>' +
-                '<td style="padding:0"><b>{point.y:.1f} 辆</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            series: instructionPlanCountMonth
-        });
+                    text: ''
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: [
+                        '一月',
+                        '二月',
+                        '三月',
+                        '四月',
+                        '五月',
+                        '六月',
+                        '七月',
+                        '八月',
+                        '九月',
+                        '十月',
+                        '十一月',
+                        '十二月'
+                    ],
+                    crosshair: true
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: '辆'
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0"></td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} 辆</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                series: instructionPlanCountMonth
+            });
+        },1)
     };
 
     // 显示指令计划按天统计柱状图
     $scope.showInstructionPlanCount_day = function () {
-        $("#instructionPlanCountDay").highcharts({
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: ''
-            },
-            subtitle: {
-                text: ''
-            },
-            xAxis: {
-                categories: [
-                    "1",
-                    "2",
-                    "3",
-                    "4",
-                    "5",
-                    "6",
-                    "7",
-                    "8",
-                    "9",
-                    "10",
-                    "11",
-                    "12",
-                    "13",
-                    "14",
-                    "15",
-                    "16",
-                    "17",
-                    "18",
-                    "19",
-                    "20",
-                    "21",
-                    "22",
-                    "23",
-                    "24",
-                    "25",
-                    "26",
-                    "27",
-                    "28",
-                    "29",
-                    "30"
-                ],
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
+        $timeout(function(){
+            $("#instructionPlanCountDay").highcharts({
+                chart: {
+                    type: 'column'
+                },
                 title: {
-                    text: '辆'
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}日</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0"></td>' +
-                '<td style="padding:0"><b>{point.y:.1f} 辆</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            series: instructionPlanCountDay
-        });
+                    text: ''
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: [
+                        "1",
+                        "2",
+                        "3",
+                        "4",
+                        "5",
+                        "6",
+                        "7",
+                        "8",
+                        "9",
+                        "10",
+                        "11",
+                        "12",
+                        "13",
+                        "14",
+                        "15",
+                        "16",
+                        "17",
+                        "18",
+                        "19",
+                        "20",
+                        "21",
+                        "22",
+                        "23",
+                        "24",
+                        "25",
+                        "26",
+                        "27",
+                        "28",
+                        "29",
+                        "30"
+                    ],
+                    crosshair: true
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: '辆'
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}日</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0"></td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} 辆</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                series: instructionPlanCountDay
+            });
+        },1);
     };
 
     // 显示委托方按月统计折线图
     $scope.showEntrustCount_month = function () {
-        $("#entrustCountMonth").highcharts({
-            chart: {
-                type: 'line'
-            },
-            title: {
-                text: ''
-            },
-            subtitle: {
-                text: ''
-            },
-            xAxis: {
-                categories: [
-                    '一月',
-                    '二月',
-                    '三月',
-                    '四月',
-                    '五月',
-                    '六月',
-                    '七月',
-                    '八月',
-                    '九月',
-                    '十月',
-                    '十一月',
-                    '十二月'
-                ],
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
+        $timeout(function(){
+            $("#entrustCountMonth").highcharts({
+                chart: {
+                    type: 'line'
+                },
                 title: {
-                    text: '辆'
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0"></td>' +
-                '<td style="padding:0"><b>{point.y:.1f} 辆</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            series: entrustCountMonth
-        });
+                    text: ''
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: [
+                        '一月',
+                        '二月',
+                        '三月',
+                        '四月',
+                        '五月',
+                        '六月',
+                        '七月',
+                        '八月',
+                        '九月',
+                        '十月',
+                        '十一月',
+                        '十二月'
+                    ],
+                    crosshair: true
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: '辆'
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0"></td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} 辆</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                series: entrustCountMonth
+            });
+        },1);
     };
 
     // 显示委托方按天统计折线图
     $scope.showEntrustCount_day = function () {
-        $("#entrustCountDay").highcharts({
-            chart: {
-                type: 'line'
-            },
-            title: {
-                text: ''
-            },
-            subtitle: {
-                text: ''
-            },
-            xAxis: {
-                categories: [
-                    "1",
-                    "2",
-                    "3",
-                    "4",
-                    "5",
-                    "6",
-                    "7",
-                    "8",
-                    "9",
-                    "10",
-                    "11",
-                    "12",
-                    "13",
-                    "14",
-                    "15",
-                    "16",
-                    "17",
-                    "18",
-                    "19",
-                    "20",
-                    "21",
-                    "22",
-                    "23",
-                    "24",
-                    "25",
-                    "26",
-                    "27",
-                    "28",
-                    "29",
-                    "30"
-                ],
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
+        $timeout(function () {
+            $("#entrustCountDay").highcharts({
+                chart: {
+                    type: 'line'
+                },
                 title: {
-                    text: '辆'
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}日</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0"></td>' +
-                '<td style="padding:0"><b>{point.y:.1f} 辆</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            series: entrustCountDay
-        });
+                    text: ''
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: [
+                        "1",
+                        "2",
+                        "3",
+                        "4",
+                        "5",
+                        "6",
+                        "7",
+                        "8",
+                        "9",
+                        "10",
+                        "11",
+                        "12",
+                        "13",
+                        "14",
+                        "15",
+                        "16",
+                        "17",
+                        "18",
+                        "19",
+                        "20",
+                        "21",
+                        "22",
+                        "23",
+                        "24",
+                        "25",
+                        "26",
+                        "27",
+                        "28",
+                        "29",
+                        "30"
+                    ],
+                    crosshair: true
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: '辆'
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}日</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0"></td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} 辆</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                series: entrustCountDay
+            });
+        },1);
     };
 
     // 显示制造商按月统计折线图
     $scope.showManufacturerCount_month = function () {
-        $("#manufacturerCountMonth").highcharts({
-            chart: {
-                type: 'line'
-            },
-            title: {
-                text: ''
-            },
-            subtitle: {
-                text: ''
-            },
-            xAxis: {
-                categories: [
-                    '一月',
-                    '二月',
-                    '三月',
-                    '四月',
-                    '五月',
-                    '六月',
-                    '七月',
-                    '八月',
-                    '九月',
-                    '十月',
-                    '十一月',
-                    '十二月'
-                ],
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
+        $timeout(function () {
+            $("#manufacturerCountMonth").highcharts({
+                chart: {
+                    type: 'line'
+                },
                 title: {
-                    text: '辆'
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0"></td>' +
-                '<td style="padding:0"><b>{point.y:.1f} 辆</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            series: manufacturerCountMonth
-        });
+                    text: ''
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: [
+                        '一月',
+                        '二月',
+                        '三月',
+                        '四月',
+                        '五月',
+                        '六月',
+                        '七月',
+                        '八月',
+                        '九月',
+                        '十月',
+                        '十一月',
+                        '十二月'
+                    ],
+                    crosshair: true
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: '辆'
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0"></td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} 辆</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                series: manufacturerCountMonth
+            });
+        },1);
     };
 
     // 显示制造商按天统计折线图
     $scope.showManufacturerCount_day = function () {
-        $("#manufacturerCountDay").highcharts({
-            chart: {
-                type: 'line'
-            },
-            title: {
-                text: ''
-            },
-            subtitle: {
-                text: ''
-            },
-            xAxis: {
-                categories: [
-                    "1",
-                    "2",
-                    "3",
-                    "4",
-                    "5",
-                    "6",
-                    "7",
-                    "8",
-                    "9",
-                    "10",
-                    "11",
-                    "12",
-                    "13",
-                    "14",
-                    "15",
-                    "16",
-                    "17",
-                    "18",
-                    "19",
-                    "20",
-                    "21",
-                    "22",
-                    "23",
-                    "24",
-                    "25",
-                    "26",
-                    "27",
-                    "28",
-                    "29",
-                    "30"
-                ],
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
+        $timeout(function () {
+            $("#manufacturerCountDay").highcharts({
+                chart: {
+                    type: 'line'
+                },
                 title: {
-                    text: '辆'
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}日</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0"></td>' +
-                '<td style="padding:0"><b>{point.y:.1f} 辆</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            series: manufacturerCountDay
-        });
+                    text: ''
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: [
+                        "1",
+                        "2",
+                        "3",
+                        "4",
+                        "5",
+                        "6",
+                        "7",
+                        "8",
+                        "9",
+                        "10",
+                        "11",
+                        "12",
+                        "13",
+                        "14",
+                        "15",
+                        "16",
+                        "17",
+                        "18",
+                        "19",
+                        "20",
+                        "21",
+                        "22",
+                        "23",
+                        "24",
+                        "25",
+                        "26",
+                        "27",
+                        "28",
+                        "29",
+                        "30"
+                    ],
+                    crosshair: true
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: '辆'
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}日</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0"></td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} 辆</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                series: manufacturerCountDay
+            });
+        },1);
     };
 
     // 显示发运地按月统计折线图
     $scope.showShipmentCount_month = function () {
-        $("#shipmentCountMonth").highcharts({
-            chart: {
-                type: 'line'
-            },
-            title: {
-                text: ''
-            },
-            subtitle: {
-                text: ''
-            },
-            xAxis: {
-                categories: [
-                    '一月',
-                    '二月',
-                    '三月',
-                    '四月',
-                    '五月',
-                    '六月',
-                    '七月',
-                    '八月',
-                    '九月',
-                    '十月',
-                    '十一月',
-                    '十二月'
-                ],
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
+        $timeout(function () {
+            $("#shipmentCountMonth").highcharts({
+                chart: {
+                    type: 'line'
+                },
                 title: {
-                    text: '辆'
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0"></td>' +
-                '<td style="padding:0"><b>{point.y:.1f} 辆</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            series: shipmentCountMonth
-        });
+                    text: ''
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: [
+                        '一月',
+                        '二月',
+                        '三月',
+                        '四月',
+                        '五月',
+                        '六月',
+                        '七月',
+                        '八月',
+                        '九月',
+                        '十月',
+                        '十一月',
+                        '十二月'
+                    ],
+                    crosshair: true
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: '辆'
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0"></td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} 辆</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                series: shipmentCountMonth
+            });
+        },1);
     };
 
     // 显示发运地按天统计折线图
     $scope.showShipmentCount_day = function () {
-        $("#shipmentCountDay").highcharts({
-            chart: {
-                type: 'line'
-            },
-            title: {
-                text: ''
-            },
-            subtitle: {
-                text: ''
-            },
-            xAxis: {
-                categories: [
-                    "1",
-                    "2",
-                    "3",
-                    "4",
-                    "5",
-                    "6",
-                    "7",
-                    "8",
-                    "9",
-                    "10",
-                    "11",
-                    "12",
-                    "13",
-                    "14",
-                    "15",
-                    "16",
-                    "17",
-                    "18",
-                    "19",
-                    "20",
-                    "21",
-                    "22",
-                    "23",
-                    "24",
-                    "25",
-                    "26",
-                    "27",
-                    "28",
-                    "29",
-                    "30"
-                ],
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
+        $timeout(function () {
+            $("#shipmentCountDay").highcharts({
+                chart: {
+                    type: 'line'
+                },
                 title: {
-                    text: '辆'
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}日</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0"></td>' +
-                '<td style="padding:0"><b>{point.y:.1f} 辆</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            series: shipmentCountDay
-        });
+                    text: ''
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: [
+                        "1",
+                        "2",
+                        "3",
+                        "4",
+                        "5",
+                        "6",
+                        "7",
+                        "8",
+                        "9",
+                        "10",
+                        "11",
+                        "12",
+                        "13",
+                        "14",
+                        "15",
+                        "16",
+                        "17",
+                        "18",
+                        "19",
+                        "20",
+                        "21",
+                        "22",
+                        "23",
+                        "24",
+                        "25",
+                        "26",
+                        "27",
+                        "28",
+                        "29",
+                        "30"
+                    ],
+                    crosshair: true
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: '辆'
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}日</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0"></td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} 辆</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                series: shipmentCountDay
+            });
+        },1);
     };
 
     // 控制统计图显示隐藏
     $scope.showInsPlan = function () {
-        $scope.instructionPlan = true;
-        $scope.entrust = false;
-        $scope.manufacturer = false;
-        $scope.shipment = false;
+        $scope.showInstructionPlanCount_month();
+        $scope.showInstructionPlanCount_day();
     };
 
     $scope.showEntrust = function () {
-        $scope.instructionPlan = false;
-        $scope.entrust = true;
-        $scope.manufacturer = false;
-        $scope.shipment = false;
+        $scope.showEntrustCount_month();
+        $scope.showEntrustCount_day();
     };
 
     $scope.showManufacturer = function () {
-        $scope.instructionPlan = false;
-        $scope.entrust = false;
-        $scope.manufacturer = true;
-        $scope.shipment = false;
+        $scope.showManufacturerCount_month();
+        $scope.showManufacturerCount_day();
     };
 
     $scope.showShipment = function () {
-        $scope.instructionPlan = false;
-        $scope.entrust = false;
-        $scope.manufacturer = false;
-        $scope.shipment = true;
+        $scope.showShipmentCount_month();
+        $scope.showShipmentCount_day();
     };
 
     // 获取数据
     $scope.queryData = function () {
         $scope.getEntrustList();
-        $scope.showInstructionPlanCount_month();
-        $scope.showInstructionPlanCount_day();
-        $scope.showEntrustCount_month();
-        $scope.showEntrustCount_day();
-        $scope.showManufacturerCount_month();
-        $scope.showManufacturerCount_day();
-        $scope.showShipmentCount_month();
-        $scope.showShipmentCount_day();
         $scope.showInsPlan();
     };
     $scope.queryData();

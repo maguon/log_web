@@ -138,7 +138,7 @@
                     <div class="col s4">
                         <select id="search_manufacturer" material-select watch ng-model="searchEntrustMonth">
                             <option value="">选择制造商</option>
-                            <option ng-repeat="entrust in entrustList" ng-value="entrust.id">{{entrust.short_name}}</option>
+                            <option ng-repeat="carMake in carMakeList" ng-value="carMake.id">{{carMake.make_name}}</option>
                         </select>
                     </div>
                     <div class="col s1 center">
@@ -162,7 +162,7 @@
                     <div class="col s8">
                         <select id="search_entrust" material-select watch ng-model="searchManufacturerDay">
                             <option value="">选择制造商</option>
-                            <option ng-repeat="entrust in entrustList" ng-value="entrust.id">{{entrust.short_name}}</option>
+                            <option ng-repeat="carMake in carMakeList" ng-value="carMake.id">{{carMake.make_name}}</option>
                         </select>
                     </div>
                     <div class="col s4 center-align">
@@ -196,7 +196,9 @@
                         <input id="chooseShipmentEnd_month" type="text" ng-value="endInitial">
                     </div>
                     <div class="col s4">
-                        <input name="search_shipment" id="search_shipment" type="text" ng-model="searchShipmentMonth" placeholder="输入发运地">
+                        <select id="addrCityMonth" name="state" style="width:100%" ng-model="searchShipmentMonth">
+                            <option ng-repeat="addr in addrList" ng-value="addr.id">{{addr.addr_name}}</option>
+                        </select>
                     </div>
                     <div class="col s1 center">
                         <i class="mdi mdi-magnify" ng-click="searchShipmentCount()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
@@ -217,7 +219,9 @@
                 </div>
                 <div class="col s3 right">
                     <div class="col s8">
-                        <input name="search_shipment" id="search_shipment_end" type="text" ng-model="searchShipmentDay" placeholder="输入发运地">
+                        <select id="addrCityDay" name="state" style="width:100%" ng-model="searchShipmentDay">
+                            <option ng-repeat="addr in addrList" ng-value="addr.id">{{addr.addr_name}}</option>
+                        </select>
                     </div>
                     <div class="col s4 center-align">
                         <p>近 30 天&emsp;</p>

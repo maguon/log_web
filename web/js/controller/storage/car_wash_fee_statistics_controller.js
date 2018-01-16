@@ -1,5 +1,15 @@
 app.controller("car_wash_fee_statistics_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
 
+    // 日期初始值
+    $scope.startInitial = moment(new Date()).format('YYYY') + "01";
+    $scope.endInitial = moment(new Date()).format('YYYYMM');
+
+    // monthPicker控件
+    $('#chooseCarWashFeeStart_month,#chooseCarWashFeeEnd_month').MonthPicker({
+        Button: false,
+        MonthFormat: 'yymm'
+    });
+
     // 维修金额按月统计
     var washMoneyCountMonth = [{
         name: '按月统计',

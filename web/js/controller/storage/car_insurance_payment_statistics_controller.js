@@ -1,5 +1,15 @@
 app.controller("car_insurance_payment_statistics_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
 
+    // 日期初始值
+    $scope.startInitial = moment(new Date()).format('YYYY') + "01";
+    $scope.endInitial = moment(new Date()).format('YYYYMM');
+
+    // monthPicker控件
+    $('#carInsurancePaymentStart_month,#carInsurancePaymentEnd_month').MonthPicker({
+        Button: false,
+        MonthFormat: 'yymm'
+    });
+
     // 保险赔付金额按月统计
     var personalCompensateCountMonth = [{
         name: '赔付金额统计',

@@ -79,6 +79,42 @@ app.controller("import_data_statistics_controller", ["$scope", "$host", "_basic"
         });
     };
 
+    // 获取制造商列表
+    $scope.getCarMakeList = function () {
+        _basic.get($host.api_url + "/carMake").then(function (data) {
+            if (data.success === true) {
+                $scope.carMakeList = data.result;
+                // console.log("carMakeList",$scope.carMakeList);
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+    // 获取发运地列表
+    $scope.getAddrList = function () {
+        _basic.get($host.api_url + "/baseAddr").then(function (data) {
+            if (data.success === true) {
+                $scope.addrList = data.result;
+                // 设定下拉选款初始值
+                $scope.searchShipmentMonth = data.result[0].id;
+                $scope.searchShipmentDay = data.result[0].id;
+
+                $('#addrCityMonth').select2({
+                    containerCssClass : 'select2_dropdown'
+                });
+                $('#addrCityDay').select2({
+                    containerCssClass : 'select2_dropdown'
+                });
+                // console.log("addrList",$scope.addrList);
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
     // 显示指令计划按月统计柱状图
     $scope.showInstructionPlanCount_month = function () {
         $timeout(function(){
@@ -639,6 +675,8 @@ app.controller("import_data_statistics_controller", ["$scope", "$host", "_basic"
     // 获取数据
     $scope.queryData = function () {
         $scope.getEntrustList();
+        $scope.getCarMakeList();
+        $scope.getAddrList();
         $scope.showInsPlan();
     };
     $scope.queryData();

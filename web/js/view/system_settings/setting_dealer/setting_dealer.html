@@ -90,7 +90,7 @@
                         <div class="col s4 blue-grey lighten-4 blue-grey-text text-lighten-1 fz40 center-align pointer" ui-sref="setting_dealer_details({dealer_id:el.id})" style="border-right: 1px solid white">
                             <i class="mdi mdi-pencil"></i>
                         </div>
-                        <div class="col s4 blue-grey lighten-4 blue-grey-text text-lighten-1 fz40 center-align pointer" ng-click="showCarWashFeeModel(el.id)">
+                        <div class="col s4 blue-grey lighten-4 blue-grey-text text-lighten-1 fz40 center-align pointer" ng-click="showCarWashFeeModel(el)">
                             <i class="mdi mdi-car-wash"></i>
                         </div>
                     </div>
@@ -138,9 +138,6 @@
                         </div>
                     </div>
                     <div class="col s12 valign-wrapper" style="padding: 15px 0">
-                        <!--<div class="col s1 fz12">-->
-                            <!--联系人:-->
-                        <!--</div>-->
                         <div class="col s12 contacts_details fz14">
                             <p ng-repeat="el in setting_contacts" class="col s5" style="position:relative;border-bottom: 1px solid #eeeeee;margin-right: 10px"><span class="col s3 ">{{el.contacts_name}}</span><span class="col s3 offset-s1">{{el.position}}</span><span class="col s3 offset-s1">{{el.tel}}</span><i ng-click="delete_contact(el.id,el.receive_id)" style="position: absolute;right: 0;cursor: pointer" class="mdi mdi-close-circle"></i></p>
                         </div>
@@ -150,10 +147,10 @@
         </div>
         <div class="paging_box col s12">
             <div class="right">
-                <a class="waves-light waves-effect cyan lighten-1 btn  " ng-show="pre"  id="pre"   ng-click="pre_btn()">
+                <a class="waves-light waves-effect cyan lighten-1 btn" ng-show="pre" id="pre" ng-click="pre_btn()">
                     上一页
                 </a>
-                <a class="waves-light waves-effect cyan lighten-1 btn " ng-show="next" id="next"  ng-click="next_btn()">
+                <a class="waves-light waves-effect cyan lighten-1 btn" ng-show="next" id="next" ng-click="next_btn()">
                     下一页
                 </a>
             </div>

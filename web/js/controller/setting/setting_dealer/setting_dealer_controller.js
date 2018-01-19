@@ -187,17 +187,10 @@ app.controller("setting_dealer_controller", ["$scope", "_basic", "_config", "$ho
     };
 
     // 显示洗车费模态框
-    $scope.showCarWashFeeModel = function (id) {
-        $scope.currentReceiveId = id;
+    $scope.showCarWashFeeModel = function (item) {
+        $scope.currentReceiveId = item.id;
+        $scope.carWashFeeCount = item.clean_fee;
         $('#carWashFeeModel').modal('open');
-        _basic.get($host.api_url + "/receive?receiveId=" + id).then(function (data) {
-            if (data.success === true) {
-                $scope.carWashFeeCount = data.result[0].clean_fee;
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
     };
 
     // 修改洗车费金额

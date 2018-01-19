@@ -6,17 +6,41 @@
             </h5>
         </div>
         <div class="row">
-            <div class="divider  cyan lighten-2"></div>
+            <div class="divider cyan lighten-2"></div>
         </div>
         <div style="width: 75%;margin: 0 auto">
+            <!--洗车费模态框-->
+            <div id="carWashFeeModel" class="modal modal-fixed-footer" style="width: 52%;height: 400px">
+                <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+                    <div class="row col s12 vc-center" style="font-weight: bold;height: 80px;background-color:rgb(63,185,193)">
+                        <div class="col s12 fz22 white-text" style="font-weight: 600">
+                            <p>商品车洗车费</p>
+                        </div>
+                    </div>
+                    <div class="row col s12">
+                        <div class="col s4 offset-s4 input-field valign-wrapper">
+                            <div class="col s11 input-field">
+                                <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" ng-model="carWashFeeCount" id="car_wash_fee" name="car_wash_fee">
+                                <label class="{{carWashFeeCount != null ? 'active' : 'inactive'}}" for="car_wash_fee">洗车费金额</label>
+                            </div>
+                            <div class="col s1 left-align" style="padding: 0;">
+                                元
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer vc-center">
+                    <button class="btn modal-action modal-close waves-light waves-effect grey lighten-1" type="button">
+                        取消
+                    </button>
+                    <button ng-click="changeWashFee()" class="btn waves-light waves-effect cyan lighten-1" type="button" style="margin-left: 56px" >
+                        确定
+                    </button>
+                </div>
+            </div>
+
             <div class="row addDealer">
                 <div class=" input-field col s4">
-                    <!--<select material-select watch id="s_city" ng-change="get_dealer()" class="grey-text" ng-model="city" >-->
-                        <!--<option value=""  selected>请选择</option>-->
-                        <!--<option ng-repeat="el in get_city" ng-value="el.id" >{{el.city_name}}</option>-->
-                    <!--</select>-->
-                    <!--<label for="s_city">所属城市</label>-->
-
                     <select id="start_city_list" name="state" style="width:100%" ng-change="get_dealer()" ng-model="city">
                         <option value=""></option>
                         <option value="0" >清除选择</option>
@@ -31,39 +55,47 @@
                     <label for="s_dealer">经销商</label>
                 </div>
                 <div class="col s4">
-                    <a href="" class="right btn-floating btn-large  btn waves-effect cyan lighten-1 waves-light vc-center "
-                       ui-sref="add_setting_dealer"><i class="mdi mdi-plus"></i></a>
-                    <a href="" ng-click="search_dealer()" style="margin-right: 20px" class="right btn-floating btn-large  btn waves-effect materialize-red lighten-2 waves-light vc-center "
-                      ><i class="mdi mdi-magnify"></i></a>
+                    <a href="" class="right btn-floating btn-large btn waves-effect cyan lighten-1 waves-light vc-center"
+                       ui-sref="add_setting_dealer"><i class="mdi mdi-plus"></i>
+                    </a>
+                    <a href="" ng-click="search_dealer()" style="margin-right: 60px" class="right btn-floating btn-large btn waves-effect materialize-red lighten-2 waves-light vc-center">
+                        <i class="mdi mdi-magnify"></i>
+                    </a>
                 </div>
             </div>
             <div ng-repeat="el in setting_dealer" class="row dealerWrap">
                 <div class="col s12 dealerBox grey lighten-3 p0">
-                    <div class="col s5 valign-wrapper">
-                        <div class="col s1 blue-grey-text text-lighten-2 fz40" style="margin-right: 10px">
-                            <i class="mdi mdi-domain"></i>
+                    <div class="col s9">
+                        <div class="col s6 valign-wrapper">
+                            <div class="col s1 blue-grey-text text-lighten-2 fz40" style="margin-right: 10px">
+                                <i class="mdi mdi-domain"></i>
+                            </div>
+                            <div class="col s11">
+                                <h6 class="blue-grey-text lighten-1 fz18" ng-bind="el.short_name"></h6>
+                                <h6 class="fz13"><span>公司名称:</span><span>{{el.receive_name}}</span></h6>
+                            </div>
                         </div>
-                        <div class="col s11">
-                            <h6 class="blue-grey-text lighten-1 fz18" ng-bind="el.short_name"></h6>
-                            <h6 class="fz13"><span>公司名称:</span><span>{{el.receive_name}}</span></h6>
+                        <div class="col s6 valign-wrapper" style="height: 61px">
+                            <div class="col s12">
+                                <h6 class="blue-grey-text lighten-1 fz13" ><span>所属城市:</span><span>{{el.city_name}}</span></h6>
+                                <h6 class="fz13"><span>公司地址:</span><span>{{el.address}}</span></h6>
+                                <h6 class="fz13"><span>洗车费金额:</span><span>{{el.clean_fee}} 元</span></h6>
+                            </div>
                         </div>
                     </div>
-                    <div class="col s5 valign-wrapper" style="height: 61px">
-                        <div class="col s12">
-                            <h6 class="blue-grey-text lighten-1 fz13" ><span>所属城市:</span><span>{{el.city_name}}</span></h6>
-                            <h6 class="fz13"><span>公司地址:</span><span>{{el.address}}</span></h6>
+                    <div class="col s3 p0">
+                        <div ng-click="view_contacts($index,el.id)" class="col s4 blue-grey lighten-4 blue-grey-text text-lighten-1 fz40 center-align pointer" style="border-right: 1px solid white">
+                            <i class="mdi mdi-account"></i>
                         </div>
-                    </div>
-                    <div class=" col s2 p0">
-                        <div ng-click="view_contacts($index,el.id)"  class="col s6 blue-grey lighten-4 blue-grey-text text-lighten-1 fz40 center-align pointer" style="border-right: 1px solid white">
-                                <i class="mdi mdi-account"></i>
-                        </div>
-                        <div class="col s6 blue-grey lighten-4 blue-grey-text text-lighten-1 fz40 center-align pointer" ui-sref="setting_dealer_details({dealer_id:el.id})">
+                        <div class="col s4 blue-grey lighten-4 blue-grey-text text-lighten-1 fz40 center-align pointer" ui-sref="setting_dealer_details({dealer_id:el.id})" style="border-right: 1px solid white">
                             <i class="mdi mdi-pencil"></i>
+                        </div>
+                        <div class="col s4 blue-grey lighten-4 blue-grey-text text-lighten-1 fz40 center-align pointer" ng-click="showCarWashFeeModel(el.id)">
+                            <i class="mdi mdi-car-wash"></i>
                         </div>
                     </div>
                 </div>
-                <div class="col s12 contactsBox white  lighten-3 p0" ng-show="contacts[{{$index}}].show">
+                <div class="col s12 contactsBox white lighten-3 p0" ng-show="contacts[{{$index}}].show">
                     <div class="col s12 valign-wrapper fz12" style="padding: 15px 0;border-bottom: 1px solid #eeeeee">
                         <div class="col s1">
                             联系人:

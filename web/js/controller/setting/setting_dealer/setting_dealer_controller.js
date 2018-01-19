@@ -2,6 +2,7 @@
  * Created by ASUS on 2017/6/7.
  */
 app.controller("setting_dealer_controller", ["$scope", "_basic", "_config", "$host", function ($scope, _basic, _config, $host) {
+    var userId = _basic.getSession(_basic.USER_ID);
     $scope.contacts = [];
     $scope.start = 0;
     $scope.size = 11;
@@ -63,6 +64,7 @@ app.controller("setting_dealer_controller", ["$scope", "_basic", "_config", "$ho
                 }
                 $scope.setting_dealer_box = data.result;
                 $scope.setting_dealer = $scope.setting_dealer_box.slice(0, 10);
+                // console.log("setting_dealer",$scope.setting_dealer);
                 if ($scope.start > 0) {
                     $scope.pre = true;
                 }
@@ -182,6 +184,35 @@ app.controller("setting_dealer_controller", ["$scope", "_basic", "_config", "$ho
                     });
                 }
             });
+    };
 
+    // 显示洗车费模态框
+    $scope.showCarWashFeeModel = function (id) {
+        $scope.currentReceiveId = id;
+        $('#carWashFeeModel').modal('open');
+        _basic.get($host.api_url + "/receive?receiveId=" + id).then(function (data) {
+            if (data.success === true) {
+                $scope.carWashFeeCount = data.result[0].clean_fee;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+    // 修改洗车费金额
+    $scope.changeWashFee = function () {
+        _basic.put($host.api_url + "/user/" + userId + "/receive/" + $scope.currentReceiveId + "/cleanFee",{
+            cleanFee:($scope.carWashFeeCount).toFixed(2)
+        }).then(function (data) {
+            if (data.success === true) {
+                swal("修改成功", "", "success");
+                $('#carWashFeeModel').modal('close');
+                $scope.search_all_dealer();
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
     }
 }]);

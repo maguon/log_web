@@ -8,7 +8,7 @@
         <div class="row">
             <div class="divider cyan lighten-2"></div>
         </div>
-        <div style="width: 75%;margin: 0 auto">
+        <div style="width: 85%;margin: 0 auto">
             <!--洗车费模态框-->
             <div id="carWashFeeModel" class="modal modal-fixed-footer" style="width: 52%;height: 400px">
                 <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
@@ -65,8 +65,8 @@
             </div>
             <div ng-repeat="el in setting_dealer" class="row dealerWrap">
                 <div class="col s12 dealerBox grey lighten-3 p0">
-                    <div class="col s9">
-                        <div class="col s6 valign-wrapper">
+                    <div class="col s9 valign-wrapper">
+                        <div class="col s5 valign-wrapper">
                             <div class="col s1 blue-grey-text text-lighten-2 fz40" style="margin-right: 10px">
                                 <i class="mdi mdi-domain"></i>
                             </div>
@@ -75,12 +75,14 @@
                                 <h6 class="fz13"><span>公司名称:</span><span>{{el.receive_name}}</span></h6>
                             </div>
                         </div>
-                        <div class="col s6 valign-wrapper" style="height: 61px">
+                        <div class="col s5 valign-wrapper" style="height: 61px">
                             <div class="col s12">
                                 <h6 class="blue-grey-text lighten-1 fz13" ><span>所属城市:</span><span>{{el.city_name}}</span></h6>
                                 <h6 class="fz13"><span>公司地址:</span><span>{{el.address}}</span></h6>
-                                <h6 class="fz13"><span>洗车费金额:</span><span>{{el.clean_fee}} 元</span></h6>
                             </div>
+                        </div>
+                        <div class="col s2 valign-wrapper">
+                            <h6 class="fz13"><span>洗车费金额:</span><span>{{el.clean_fee}} 元</span></h6>
                         </div>
                     </div>
                     <div class="col s3 p0">

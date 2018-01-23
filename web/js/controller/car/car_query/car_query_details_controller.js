@@ -3,6 +3,7 @@
  */
 app.controller("car_query_details_controller", ["$scope", "$stateParams", "$host", "_basic", "_config", "baseService", "$state", function ($scope, $stateParams, $host, _basic, _config, baseService, $state) {
     var userId = _basic.getSession(_basic.USER_ID);
+    var userName = _basic.getSession(_basic.USER_NAME);
     var vin = $stateParams.vin;
     var carId = $stateParams.id;
     $scope.tabSwitchLeft = true;
@@ -26,17 +27,24 @@ app.controller("car_query_details_controller", ["$scope", "$stateParams", "$host
     $scope.getOperationRecord = function () {
         _basic.get($host.record_url + "/user/" + userId + "/car/" + carId + "/record").then(function (recordData) {
             if (recordData.success === true) {
-                $scope.recordList = recordData.result[0].comment;
-                // console.log("recordList",$scope.recordList);
-                // 将数组里的图片有效路径转为正确路径,并添加用户名
-                for (var i = 0; i < recordData.result[0].storage_image.length; i++) {
-                    recordData.result[0].storage_image[i].url = $host.file_url + '/image/' + recordData.result[0].storage_image[i].url;
-                    recordData.result[0].storage_image[i].user = $scope.recordList[0].name;
+                console.log("recordList",recordData);
+                if(recordData.result.length !== 0){
+                    $scope.recordList = recordData.result[0].comment;
+                    // console.log("recordList",$scope.recordList);
+                    if(recordData.result[0].storage_image.length !== 0){
+                        // 将数组里的图片有效路径转为正确路径,并添加用户名
+                        for (var i = 0; i < recordData.result[0].storage_image.length; i++) {
+                            recordData.result[0].storage_image[i].url = $host.file_url + '/image/' + recordData.result[0].storage_image[i].url;
+                            recordData.result[0].storage_image[i].user = userName;
+                        }
+                        $scope.imageList = recordData.result[0].storage_image;
+                        // console.log("imageList_url",$scope.imageList)
+                    }
+                    else{
+                        $scope.imageList = [];
+                    }
+
                 }
-                $scope.imageList = recordData.result[0].storage_image;
-                // console.log("imageList_url",$scope.imageList)
-                // console.log("recordList666:", $scope.recordList);
-                // console.log("imageList", $scope.imageList);
             }
             else {
                 swal(recordData.msg, "", "error");

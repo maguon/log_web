@@ -108,7 +108,7 @@
                                 <div ng-repeat="el in comment" class="col s12 valign-wrapper" style="position: relative">
                                     <p class="col s12 p0">
                                         <span class="col s12 p0">
-                                            <span ng-bind="el.timez|formdate"></span>
+                                            <span>{{el.timez | date:'yyyy-MM-dd HH:mm:ss'}}</span>
                                             <span>操作内容：</span>
                                             <span ng-bind="el.content"></span>
                                             <span>操作员：</span>

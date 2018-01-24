@@ -67,7 +67,7 @@
                     <p ng-if="recordList.length == 0" class="center-align">暂无操作记录</p>
                     <p ng-if="recordList.length != 0" ng-repeat="record in recordList">
                         <span>{{record.timez | date:'yyyy-MM-dd HH:mm'}}</span>
-                        &emsp;<span>操作内容：{{record.content}}</span>
+                        &emsp;<span>{{record.content}}</span>
                         &emsp;<span>操作员：{{record.name}}</span>
                     </p>
                 </div>

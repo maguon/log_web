@@ -37,11 +37,6 @@ app.controller("setting_dealer_details_controller", ["$scope", "_basic", "_confi
                         $scope.lat = point.lat;
                     });
                     marker.addEventListener("dragend", get_location);
-                    // marker.addEventListener("click",function () {
-                    //     var sContent ="大连顺通物流有限公司...";
-                    //     var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
-                    //     map.openInfoWindow(infoWindow,point); //开启信息窗口
-                    // });
                     map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放;
                     map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
                 }
@@ -56,7 +51,7 @@ app.controller("setting_dealer_details_controller", ["$scope", "_basic", "_confi
     //获取移动后的坐标
     var get_location = function () {
         $scope.$apply(function () {
-            var p = marker.getPosition();//获取marker的位置
+            var p = marker.getPosition(); //获取marker的位置
             $scope.lng = p.lng;
             $scope.lat = p.lat;
         });
@@ -149,7 +144,6 @@ app.controller("setting_dealer_details_controller", ["$scope", "_basic", "_confi
                                 $scope.lat = p.lat;
                             });
                         });
-
                     }
 
                     var local = new BMap.LocalSearch(map, { //智能搜索
@@ -157,40 +151,6 @@ app.controller("setting_dealer_details_controller", ["$scope", "_basic", "_confi
                     });
                     local.search(myValue);
                 }
-
-                // marker.addEventListener("click",function () {
-                //     var sContent ="大连顺通物流有限公司...";
-                //     var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
-                //     map.openInfoWindow(infoWindow,point); //开启信息窗口
-                // });
-
-                // 深度复制
-                // $scope.obj1={
-                //     "shortName":$scope.dealer_details.short_name,
-                //     "receiveName":$scope.dealer_details.receive_name,
-                //     "address":$scope.dealer_details.address,
-                //     "lng": $scope.lng,
-                //     "lat": $scope.lat,
-                //     "cityId": $scope.dealer_details.city_id,
-                //     "remark": $scope.dealer_details.remark
-                // };
-                // $scope.$watch('obj1',function(newValue,oldValue, scope){
-                //
-                //     console.log(newValue);
-                //
-                //     console.log(oldValue);
-                //
-                // },true);
-
-                // var deepCopy= function(source) {
-                //     var result={};
-                //     for (var key in source) {
-                //         result[key] = typeof source[key]==='object'? deepCoyp(source[key]): source[key];
-                //     }
-                //     return result;
-                // };
-                // $scope._obj=deepCopy(obj);
-
             }
         });
     };
@@ -218,6 +178,24 @@ app.controller("setting_dealer_details_controller", ["$scope", "_basic", "_confi
                 }
             });
         }
+    };
+
+    // 获取经销商操作记录
+    $scope.getOperateDetails = function () {
+        _basic.get($host.record_url + "/receiverRecord?receiverId=" + $stateParams.dealer_id).then(function (data) {
+            if (data.success === true) {
+                // console.log("data",data);
+                if(data.result.length === 0 || data.result[0].comment.length === 0){
+                    $scope.recordList = [];
+                }
+                else{
+                    $scope.recordList = data.result[0].comment;
+                }
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
     };
 
     $scope.queryData = function () {

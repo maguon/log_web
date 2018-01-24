@@ -27,7 +27,7 @@ app.controller("car_query_details_controller", ["$scope", "$stateParams", "$host
     $scope.getOperationRecord = function () {
         _basic.get($host.record_url + "/user/" + userId + "/car/" + carId + "/record").then(function (recordData) {
             if (recordData.success === true) {
-                console.log("recordList",recordData);
+                // console.log("recordList",recordData);
                 if(recordData.result.length !== 0){
                     $scope.recordList = recordData.result[0].comment;
                     // console.log("recordList",$scope.recordList);

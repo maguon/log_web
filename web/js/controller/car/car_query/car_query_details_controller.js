@@ -21,7 +21,6 @@ app.controller("car_query_details_controller", ["$scope", "$stateParams", "$host
             }
         });
     };
-    $scope.getVinCodeInfo();
 
     // 根据用户id和vin码获取相关操作记录
     $scope.getOperationRecord = function () {
@@ -51,21 +50,43 @@ app.controller("car_query_details_controller", ["$scope", "$stateParams", "$host
             }
         });
     };
-    $scope.getOperationRecord();
 
-    // tab跳转
-    $scope.basicInfo = function () {
-        $scope.tabSwitchLeft = true;
-        $scope.tabSwitchRight = false;
-        $('.carImages').removeClass("active");
-        $('.basicInfo').addClass("active");
+    // 获取质损信息
+    $scope.getDamageInfoList = function () {
+        _basic.get($host.api_url + "/damage?vin=" + vin).then(function (data) {
+            if (data.success === true) {
+                // console.log("data",data);
+                $scope.damageInfoList = data.result;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
     };
 
-    $scope.carImages = function () {
-        $scope.tabSwitchLeft = false;
-        $scope.tabSwitchRight = true;
-        $('.carImages').addClass("active");
-        $('.basicInfo').removeClass("active");
+    // 获取当前质损照片
+    $scope.getCurrentDamageImage = function (damageId, index) {
+        _basic.get($host.record_url + "/damageRecord?damageId=" + damageId).then(function (data) {
+            if (data.success === true) {
+                // console.log("data", data);
+                var damageList = [];
+                if (data.result.length !== 0) {
+                    // 如果有图片，则将图片数组放到damageInfoList当前元素的obj里,并转换为有效格式
+                    for (var i = 0; i < data.result[0].damage_image.length; i++) {
+                        damageList.push({
+                            url: $host.file_url + '/image/' + data.result[0].damage_image[i].url,
+                            name: data.result[0].damage_image[i].name,
+                            timez: data.result[0].damage_image[i].timez
+                        });
+                    }
+                }
+                $scope.damageInfoList[index].damageImgList = damageList;
+                // console.log("damageInfoList",$scope.damageInfoList);
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
     };
 
     // 图片上传
@@ -130,9 +151,22 @@ app.controller("car_query_details_controller", ["$scope", "$stateParams", "$host
         }
     };
 
+    $scope.queryData = function () {
+        $scope.getVinCodeInfo();
+        $scope.getOperationRecord();
+        $scope.getDamageInfoList();
+    };
+    $scope.queryData();
+
     var viewer;
-    $scope.renderFinish = function () {
-        viewer = new Viewer(document.getElementById('look_img'), {
+    $scope.carImageFinish = function () {
+        viewer = new Viewer(document.getElementById('car_image'), {
+            url: 'data-original'
+        });
+    };
+
+    $scope.damageImageFinish = function () {
+        viewer = new Viewer(document.getElementById('damage_image'), {
             url: 'data-original'
         });
     };

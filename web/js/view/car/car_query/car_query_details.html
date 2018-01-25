@@ -8,16 +8,17 @@
             <h4 class="center-align cyan-text text-lighten-1">车辆信息</h4>
         </div>
         <div class="col s12 p0">
-            <ul class="tabWrap grey lighten-4">
-                <li class="tab col s6  basicInfo vc-center active" ng-click="basicInfo()">基本信息</li>
-                <li class="tab  col s6 carImages vc-center" ng-click="carImages()">相册</li>
+            <ul class="tabs tabs-fixed-width tab-demo z-depth-1" style="font-size: 25px;font-weight: bold;overflow-x: hidden">
+                <li class="tab"><a href="#basicInfo" style="color: #26c6da">基本信息</a></li>
+                <li class="tab"><a href="#imageBox" style="color: #26c6da">相册</a></li>
+                <li class="tab"><a href="#damageInfo" style="color: #26c6da">质损信息</a></li>
             </ul>
         </div>
     </div>
 
-    <div style="width: 82%;margin: 0 auto">
+    <div style="width: 85%;margin: 0 auto">
         <!--基本信息-->
-        <div class="tab_1" ng-if="tabSwitchLeft">
+        <div id="basicInfo">
             <div class="row"></div>
             <div class="row">
                 <div class="col s12">
@@ -84,26 +85,81 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!--相册-->
-    <div class="tab_2" ng-if="tabSwitchRight">
-        <div class="row no-marBottom">
-            <div class="col s12 valign-wrapper" style="margin-top: 50px">
-                <div class="storage_car_picture_wrap col s12 p0">
-                    <form name="uploadImageForm" class="uploadImageForm">
-                        <div class="storage_car_picture col s4 vc-center  p0 cyan lighten-1 white-text" style="width: 84px;margin-bottom: 15px">
-                            <input name="image" type="file"
-                                   onchange="angular.element(this).scope().uploadBrandImage(this)" max_size="4M">
-                            <i class="mdi mdi-instagram"></i>
-                        </div>
-                        <div id="look_img" class="col s11" style="cursor: pointer">
-                            <div ng-repeat="image in imageList" ng-mouseenter="show=true" ng-mouseleave="show=false" repeat-finish="renderFinish()" class="drive_img_box col s3 vc-center p0 grey white-text">
-                                <img ng-src="{{image.url}}" class="responsive-img">
-                                <p class="img_date white-text center-align" ng-show="show" ng-cloak>{{image.name}} 上传于
-                                    {{image.timez|date:'yyyy-MM-dd HH:mm:ss'}}</p>
+
+        <!--相册-->
+        <div id="imageBox">
+            <div class="row">
+                <div class="col s12 valign-wrapper" style="margin-top: 50px">
+                    <div class="storage_car_picture_wrap col s12 p0">
+                        <form name="uploadImageForm" class="uploadImageForm">
+                            <div class="storage_car_picture col s4 vc-center  p0 cyan lighten-1 white-text" style="width: 84px;margin-bottom: 15px">
+                                <input name="image" type="file"
+                                       onchange="angular.element(this).scope().uploadBrandImage(this)" max_size="4M">
+                                <i class="mdi mdi-instagram"></i>
                             </div>
-                        </div>
-                    </form>
+                            <div id="car_image" class="col s11">
+                                <div ng-repeat="image in imageList" ng-mouseenter="show=true" ng-mouseleave="show=false" repeat-finish="carImageFinish()" class="drive_img_box col s3 vc-center p0 grey white-text">
+                                    <img ng-src="{{image.url}}" class="responsive-img" style="cursor: pointer">
+                                    <p class="img_date white-text center-align" ng-show="show" ng-cloak>{{image.name}} 上传于
+                                        {{image.timez|date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--质损信息-->
+        <div id="damageInfo">
+            <div class="row" style="margin-top: 30px">
+                <div ng-if="damageInfoList.length != 0" class="col s12">
+                    <ul class="collapsible" data-collapsible="expandable" collapsible>
+                        <li ng-repeat="damageInfo in damageInfoList">
+                            <div class="collapsible-header" ng-click="getCurrentDamageImage(damageInfo.id,$index)">
+                                <div class="col s4">
+                                    <p style="margin: 0">质损编号：{{damageInfo.id}}</p>
+                                </div>
+                                <div class="col s5 offset-s3 right-align">
+                                    <p style="margin: 0">{{damageInfo.created_on | date:"yyyy-MM-dd HH:mm:ss"}}</p>
+                                </div>
+                            </div>
+
+                            <div class="collapsible-body" style="overflow: hidden">
+                                <div class="col s12">
+                                    <div class="col s2 valign-wrapper">
+                                        <div class="col s3 center-align">
+                                            <p class="no-mp" style="color: #26c6da;font-size: 1.6rem"><span class="mdi mdi-clipboard-text"></span></p>
+                                        </div>
+                                        <div class="col s9" style="font-size: 1rem;padding: 0">
+                                            <p style="margin: 5px 0">质损描述：</p>
+                                        </div>
+                                    </div>
+                                    <div class="col s12">
+                                        <p style="text-indent: 4rem;margin: 15px 0">{{damageInfo.damage_explain}}</p>
+                                    </div>
+                                    <div class="col s12">
+                                        <hr>
+                                    </div>
+                                    <div id="damage_image" class="col s12">
+                                        <div ng-if="damageInfo.damageImgList.length != 0" ng-repeat="image in damageInfo.damageImgList" ng-mouseenter="show=true" ng-mouseleave="show=false" repeat-finish="damageImageFinish()" class="drive_img_box col s3 vc-center p0 grey white-text">
+                                            <img ng-src="{{image.url}}" class="responsive-img" style="cursor: pointer">
+                                            <p style="margin-bottom: 0" class="img_date white-text center-align" ng-show="show" ng-cloak>{{image.name}} 上传于
+                                                {{image.timez | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div ng-if="damageInfo.damageImgList.length == 0" class="col s12 center-align fz18" style="font-weight: bold;color: darkgray">
+                                    <p>暂无质损照片</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div ng-if="damageInfoList.length == 0" class="col s12 center-align fz18" style="font-weight: bold;color: darkgray">
+                    <p>暂无质损记录</p>
                 </div>
             </div>
         </div>

@@ -133,7 +133,7 @@ app.controller("import_data_statistics_controller", ["$scope", "$host", "_basic"
         // console.log(monthStart,monthEnd);
         _basic.get($host.api_url + "/carMonthStat?monthStart=" + monthStart + "&monthEnd=" + monthEnd).then(function (data) {
             if (data.success === true) {
-                // data.result.reverse();
+                data.result.reverse();
                 // console.log("data",data);
                 $scope.instructionMonthCount = [];
                 instructionPlanCountMonth[0].data = [];
@@ -151,9 +151,9 @@ app.controller("import_data_statistics_controller", ["$scope", "$host", "_basic"
 
     // 获取指令计划按天统计数据
     $scope.getInstructionDayInfo = function () {
-        _basic.get($host.api_url + "/carDayStat?start=0&size=30").then(function (data) {
+        _basic.get($host.api_url + "/carDayStat?start=0&size=20").then(function (data) {
             if (data.success === true) {
-                // data.result.reverse();
+                data.result.reverse();
                 // console.log("data",data);
                 $scope.instructionDayCount = [];
                 instructionPlanCountDay[0].data = [];
@@ -175,7 +175,7 @@ app.controller("import_data_statistics_controller", ["$scope", "$host", "_basic"
         var monthEnd = $('#chooseEntrustEnd_month').val();
         _basic.get($host.api_url + "/carMonthStat?monthStart=" + monthStart + "&monthEnd=" + monthEnd + "&entrustId=" + $scope.searchEntrustMonth).then(function (data) {
             if (data.success === true) {
-                // data.result.reverse();
+                data.result.reverse();
                 // console.log("data",data);
                 $scope.entrustMonthCount = [];
                 entrustCountMonth[0].data = [];
@@ -195,7 +195,7 @@ app.controller("import_data_statistics_controller", ["$scope", "$host", "_basic"
     $scope.getEntrustCountDayInfo = function () {
         _basic.get($host.api_url + "/carDayStat?entrustId=" + $scope.searchEntrustDay + "&start=0&size=20").then(function (data) {
             if (data.success === true) {
-                // data.result.reverse();
+                data.result.reverse();
                 // console.log("data",data);
                 $scope.entrustDayCount = [];
                 entrustCountDay[0].data = [];
@@ -217,7 +217,7 @@ app.controller("import_data_statistics_controller", ["$scope", "$host", "_basic"
         var monthEnd = $('#chooseManufacturerEnd_month').val();
         _basic.get($host.api_url + "/carMonthStat?monthStart=" + monthStart + "&monthEnd=" + monthEnd + "&makeId=" + $scope.searchManufacturerMonth).then(function (data) {
             if (data.success === true) {
-                // data.result.reverse();
+                data.result.reverse();
                 // console.log("data",data);
                 $scope.manufacturerMonthCount = [];
                 manufacturerCountMonth[0].data = [];
@@ -237,7 +237,7 @@ app.controller("import_data_statistics_controller", ["$scope", "$host", "_basic"
     $scope.getManufacturerCountDayInfo = function () {
         _basic.get($host.api_url + "/carDayStat?makeId=" + $scope.searchManufacturerDay + "&start=0&size=20").then(function (data) {
             if (data.success === true) {
-                // data.result.reverse();
+                data.result.reverse();
                 // console.log("data",data);
                 $scope.manufacturerDayCount = [];
                 manufacturerCountDay[0].data = [];
@@ -259,7 +259,7 @@ app.controller("import_data_statistics_controller", ["$scope", "$host", "_basic"
         var monthEnd = $('#chooseShipmentEnd_month').val();
         _basic.get($host.api_url + "/carMonthStat?monthStart=" + monthStart + "&monthEnd=" + monthEnd + "&baseAddrId=" + $scope.searchShipmentMonth).then(function (data) {
             if (data.success === true) {
-                // data.result.reverse();
+                data.result.reverse();
                 // console.log("data",data);
                 $scope.shipmentMonthCount = [];
                 shipmentCountMonth[0].data = [];
@@ -279,7 +279,7 @@ app.controller("import_data_statistics_controller", ["$scope", "$host", "_basic"
     $scope.getShipmentCountDayInfo = function () {
         _basic.get($host.api_url + "/carDayStat?baseAddrId=" + $scope.searchShipmentDay + "&start=0&size=20").then(function (data) {
             if (data.success === true) {
-                // data.result.reverse();
+                data.result.reverse();
                 // console.log("data",data);
                 $scope.shipmentDayCount = [];
                 shipmentCountDay[0].data = [];

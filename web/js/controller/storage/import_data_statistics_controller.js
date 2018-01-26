@@ -13,56 +13,56 @@ app.controller("import_data_statistics_controller", ["$scope", "$host", "_basic"
     // 指令计划按月统计
     var instructionPlanCountMonth = [{
         name: '指令计划按月统计',
-        data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+        data: [],
         color: '#26C6DA'
     }];
 
     // 指令计划按日统计
     var instructionPlanCountDay = [{
         name: '指令计划按天统计',
-        data: [25,33,46,24,37,48,29,11,17,24,18,44,12,14,15,25,33,46,24,37,48,29,11,17,24,18,44,12,14,15],
+        data: [],
         color: '#FF7E7E'
     }];
 
     // 委托方按月统计
     var entrustCountMonth = [{
         name: '委托方按月统计',
-        data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+        data: [],
         color: '#26C6DA'
     }];
 
     // 委托方按日统计
     var entrustCountDay = [{
         name: '委托方按日统计',
-        data: [25,33,46,24,37,48,29,11,17,24,18,44,12,14,15,25,33,46,24,37,48,29,11,17,24,18,44,12,14,15],
+        data: [],
         color: '#FF7E7E'
     }];
 
     // 制造商按月统计
     var manufacturerCountMonth = [{
         name: '制造商按月统计',
-        data: [176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4, 49.9, 71.5, 106.4, 129.2, 144.0],
+        data: [],
         color: '#26C6DA'
     }];
 
     // 制造商按日统计
     var manufacturerCountDay = [{
         name: '制造商按日统计',
-        data: [25,33,46,24,37,48,29,11,17,24,18,44,12,14,15,25,33,46,24,37,48,29,11,17,24,18,44,12,14,15],
+        data: [],
         color: '#FF7E7E'
     }];
 
     // 发运地按月统计
     var shipmentCountMonth = [{
         name: '发运地按月统计',
-        data: [71.5, 129.2, 176.0, 135.6, 49.9, 216.4, 194.1, 95.6, 144.0, 148.5, 106.4, 54.4],
+        data: [],
         color: '#26C6DA'
     }];
 
     // 发运地按日统计
     var shipmentCountDay = [{
         name: '发运地按日统计',
-        data: [25,33,46,24,37,48,29,11,17,24,18,44,12,14,15,25,33,46,24,37,48,29,11,17,24,18,44,12,14,15],
+        data: [],
         color: '#FF7E7E'
     }];
 
@@ -71,6 +71,8 @@ app.controller("import_data_statistics_controller", ["$scope", "$host", "_basic"
         _basic.get($host.api_url + "/entrust").then(function (data) {
             if (data.success === true) {
                 $scope.entrustList = data.result;
+                $scope.searchEntrustMonth = data.result[0].id;
+                $scope.searchEntrustDay = data.result[0].id;
                 // console.log("entrustList",$scope.entrustList);
             }
             else {
@@ -84,6 +86,8 @@ app.controller("import_data_statistics_controller", ["$scope", "$host", "_basic"
         _basic.get($host.api_url + "/carMake").then(function (data) {
             if (data.success === true) {
                 $scope.carMakeList = data.result;
+                $scope.searchManufacturerMonth = data.result[0].id;
+                $scope.searchManufacturerDay = data.result[0].id;
                 // console.log("carMakeList",$scope.carMakeList);
             }
             else {
@@ -115,6 +119,182 @@ app.controller("import_data_statistics_controller", ["$scope", "$host", "_basic"
         });
     };
 
+    // 获取指令计划按月统计数据
+    $scope.getInstructionMonthInfo = function () {
+        // console.log("chooseInstructionPlanStart_month",$('#chooseInstructionPlanStart_month').val());
+        var monthStart = $('#chooseInstructionPlanStart_month').val();
+        var monthEnd = $('#chooseInstructionPlanEnd_month').val();
+        if(monthStart == "" || monthStart == undefined){
+            monthStart = $scope.startInitial;
+        }
+        if(monthEnd == "" || monthEnd == undefined){
+            monthEnd = $scope.endInitial;
+        }
+        // console.log(monthStart,monthEnd);
+        _basic.get($host.api_url + "/carMonthStat?monthStart=" + monthStart + "&monthEnd=" + monthEnd).then(function (data) {
+            if (data.success === true) {
+                // data.result.reverse();
+                // console.log("data",data);
+                $scope.instructionMonthCount = [];
+                instructionPlanCountMonth[0].data = [];
+                for (var i = 0; i < data.result.length; i++) {
+                    $scope.instructionMonthCount.push(data.result[i].y_month);
+                    instructionPlanCountMonth[0].data.push(Math.ceil(data.result[i].car_count));
+                }
+                $scope.showInstructionPlanCount_month()
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+    // 获取指令计划按天统计数据
+    $scope.getInstructionDayInfo = function () {
+        _basic.get($host.api_url + "/carDayStat?start=0&size=30").then(function (data) {
+            if (data.success === true) {
+                // data.result.reverse();
+                // console.log("data",data);
+                $scope.instructionDayCount = [];
+                instructionPlanCountDay[0].data = [];
+                for (var i = 0; i < data.result.length; i++) {
+                    $scope.instructionDayCount.push(data.result[i].id);
+                    instructionPlanCountDay[0].data.push(Math.ceil(data.result[i].car_count));
+                }
+                $scope.showInstructionPlanCount_day()
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+    // 获取委托方按月统计数据
+    $scope.getEntrustCountMonthInfo = function () {
+        var monthStart = $('#chooseEntrustStart_month').val();
+        var monthEnd = $('#chooseEntrustEnd_month').val();
+        _basic.get($host.api_url + "/carMonthStat?monthStart=" + monthStart + "&monthEnd=" + monthEnd + "&entrustId=" + $scope.searchEntrustMonth).then(function (data) {
+            if (data.success === true) {
+                // data.result.reverse();
+                // console.log("data",data);
+                $scope.entrustMonthCount = [];
+                entrustCountMonth[0].data = [];
+                for (var i = 0; i < data.result.length; i++) {
+                    $scope.entrustMonthCount.push(data.result[i].y_month);
+                    entrustCountMonth[0].data.push(Math.ceil(data.result[i].car_count));
+                }
+                $scope.showEntrustCount_month()
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+    
+    // 获取委托方按天统计数据
+    $scope.getEntrustCountDayInfo = function () {
+        _basic.get($host.api_url + "/carDayStat?entrustId=" + $scope.searchEntrustDay + "&start=0&size=20").then(function (data) {
+            if (data.success === true) {
+                // data.result.reverse();
+                // console.log("data",data);
+                $scope.entrustDayCount = [];
+                entrustCountDay[0].data = [];
+                for (var i = 0; i < data.result.length; i++) {
+                    $scope.entrustDayCount.push(data.result[i].id);
+                    entrustCountDay[0].data.push(Math.ceil(data.result[i].car_count));
+                }
+                $scope.showEntrustCount_day()
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+    // 获取制造商按月统计数据
+    $scope.getManufacturerCountMonthInfo = function () {
+        var monthStart = $('#chooseManufacturerStart_month').val();
+        var monthEnd = $('#chooseManufacturerEnd_month').val();
+        _basic.get($host.api_url + "/carMonthStat?monthStart=" + monthStart + "&monthEnd=" + monthEnd + "&makeId=" + $scope.searchManufacturerMonth).then(function (data) {
+            if (data.success === true) {
+                // data.result.reverse();
+                // console.log("data",data);
+                $scope.manufacturerMonthCount = [];
+                manufacturerCountMonth[0].data = [];
+                for (var i = 0; i < data.result.length; i++) {
+                    $scope.manufacturerMonthCount.push(data.result[i].y_month);
+                    manufacturerCountMonth[0].data.push(Math.ceil(data.result[i].car_count));
+                }
+                $scope.showManufacturerCount_month()
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+    // 获取制造商按天统计数据
+    $scope.getManufacturerCountDayInfo = function () {
+        _basic.get($host.api_url + "/carDayStat?makeId=" + $scope.searchManufacturerDay + "&start=0&size=20").then(function (data) {
+            if (data.success === true) {
+                // data.result.reverse();
+                // console.log("data",data);
+                $scope.manufacturerDayCount = [];
+                manufacturerCountDay[0].data = [];
+                for (var i = 0; i < data.result.length; i++) {
+                    $scope.manufacturerDayCount.push(data.result[i].id);
+                    manufacturerCountDay[0].data.push(Math.ceil(data.result[i].car_count));
+                }
+                $scope.showManufacturerCount_day()
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+    // 获取发运地按月统计数据
+    $scope.getShipmentCountMonthInfo = function () {
+        var monthStart = $('#chooseShipmentStart_month').val();
+        var monthEnd = $('#chooseShipmentEnd_month').val();
+        _basic.get($host.api_url + "/carMonthStat?monthStart=" + monthStart + "&monthEnd=" + monthEnd + "&baseAddrId=" + $scope.searchShipmentMonth).then(function (data) {
+            if (data.success === true) {
+                // data.result.reverse();
+                // console.log("data",data);
+                $scope.shipmentMonthCount = [];
+                shipmentCountMonth[0].data = [];
+                for (var i = 0; i < data.result.length; i++) {
+                    $scope.shipmentMonthCount.push(data.result[i].y_month);
+                    shipmentCountMonth[0].data.push(Math.ceil(data.result[i].car_count));
+                }
+                $scope.showShipmentCount_month()
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+    // 获取发运地按天统计数据
+    $scope.getShipmentCountDayInfo = function () {
+        _basic.get($host.api_url + "/carDayStat?baseAddrId=" + $scope.searchShipmentDay + "&start=0&size=20").then(function (data) {
+            if (data.success === true) {
+                // data.result.reverse();
+                // console.log("data",data);
+                $scope.shipmentDayCount = [];
+                shipmentCountDay[0].data = [];
+                for (var i = 0; i < data.result.length; i++) {
+                    $scope.shipmentDayCount.push(data.result[i].id);
+                    shipmentCountDay[0].data.push(Math.ceil(data.result[i].car_count));
+                }
+                $scope.showShipmentCount_day()
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
     // 显示指令计划按月统计柱状图
     $scope.showInstructionPlanCount_month = function () {
         $timeout(function(){
@@ -129,20 +309,7 @@ app.controller("import_data_statistics_controller", ["$scope", "$host", "_basic"
                     text: ''
                 },
                 xAxis: {
-                    categories: [
-                        '一月',
-                        '二月',
-                        '三月',
-                        '四月',
-                        '五月',
-                        '六月',
-                        '七月',
-                        '八月',
-                        '九月',
-                        '十月',
-                        '十一月',
-                        '十二月'
-                    ],
+                    categories: $scope.instructionMonthCount,
                     crosshair: true
                 },
                 yAxis: {
@@ -187,38 +354,7 @@ app.controller("import_data_statistics_controller", ["$scope", "$host", "_basic"
                     text: ''
                 },
                 xAxis: {
-                    categories: [
-                        "1",
-                        "2",
-                        "3",
-                        "4",
-                        "5",
-                        "6",
-                        "7",
-                        "8",
-                        "9",
-                        "10",
-                        "11",
-                        "12",
-                        "13",
-                        "14",
-                        "15",
-                        "16",
-                        "17",
-                        "18",
-                        "19",
-                        "20",
-                        "21",
-                        "22",
-                        "23",
-                        "24",
-                        "25",
-                        "26",
-                        "27",
-                        "28",
-                        "29",
-                        "30"
-                    ],
+                    categories: $scope.instructionDayCount,
                     crosshair: true
                 },
                 yAxis: {
@@ -263,20 +399,7 @@ app.controller("import_data_statistics_controller", ["$scope", "$host", "_basic"
                     text: ''
                 },
                 xAxis: {
-                    categories: [
-                        '一月',
-                        '二月',
-                        '三月',
-                        '四月',
-                        '五月',
-                        '六月',
-                        '七月',
-                        '八月',
-                        '九月',
-                        '十月',
-                        '十一月',
-                        '十二月'
-                    ],
+                    categories: $scope.entrustMonthCount,
                     crosshair: true
                 },
                 yAxis: {
@@ -321,38 +444,7 @@ app.controller("import_data_statistics_controller", ["$scope", "$host", "_basic"
                     text: ''
                 },
                 xAxis: {
-                    categories: [
-                        "1",
-                        "2",
-                        "3",
-                        "4",
-                        "5",
-                        "6",
-                        "7",
-                        "8",
-                        "9",
-                        "10",
-                        "11",
-                        "12",
-                        "13",
-                        "14",
-                        "15",
-                        "16",
-                        "17",
-                        "18",
-                        "19",
-                        "20",
-                        "21",
-                        "22",
-                        "23",
-                        "24",
-                        "25",
-                        "26",
-                        "27",
-                        "28",
-                        "29",
-                        "30"
-                    ],
+                    categories: $scope.entrustDayCount,
                     crosshair: true
                 },
                 yAxis: {
@@ -397,20 +489,7 @@ app.controller("import_data_statistics_controller", ["$scope", "$host", "_basic"
                     text: ''
                 },
                 xAxis: {
-                    categories: [
-                        '一月',
-                        '二月',
-                        '三月',
-                        '四月',
-                        '五月',
-                        '六月',
-                        '七月',
-                        '八月',
-                        '九月',
-                        '十月',
-                        '十一月',
-                        '十二月'
-                    ],
+                    categories: $scope.manufacturerMonthCount,
                     crosshair: true
                 },
                 yAxis: {
@@ -455,38 +534,7 @@ app.controller("import_data_statistics_controller", ["$scope", "$host", "_basic"
                     text: ''
                 },
                 xAxis: {
-                    categories: [
-                        "1",
-                        "2",
-                        "3",
-                        "4",
-                        "5",
-                        "6",
-                        "7",
-                        "8",
-                        "9",
-                        "10",
-                        "11",
-                        "12",
-                        "13",
-                        "14",
-                        "15",
-                        "16",
-                        "17",
-                        "18",
-                        "19",
-                        "20",
-                        "21",
-                        "22",
-                        "23",
-                        "24",
-                        "25",
-                        "26",
-                        "27",
-                        "28",
-                        "29",
-                        "30"
-                    ],
+                    categories: $scope.manufacturerDayCount,
                     crosshair: true
                 },
                 yAxis: {
@@ -531,20 +579,7 @@ app.controller("import_data_statistics_controller", ["$scope", "$host", "_basic"
                     text: ''
                 },
                 xAxis: {
-                    categories: [
-                        '一月',
-                        '二月',
-                        '三月',
-                        '四月',
-                        '五月',
-                        '六月',
-                        '七月',
-                        '八月',
-                        '九月',
-                        '十月',
-                        '十一月',
-                        '十二月'
-                    ],
+                    categories: $scope.shipmentMonthCount,
                     crosshair: true
                 },
                 yAxis: {
@@ -589,38 +624,7 @@ app.controller("import_data_statistics_controller", ["$scope", "$host", "_basic"
                     text: ''
                 },
                 xAxis: {
-                    categories: [
-                        "1",
-                        "2",
-                        "3",
-                        "4",
-                        "5",
-                        "6",
-                        "7",
-                        "8",
-                        "9",
-                        "10",
-                        "11",
-                        "12",
-                        "13",
-                        "14",
-                        "15",
-                        "16",
-                        "17",
-                        "18",
-                        "19",
-                        "20",
-                        "21",
-                        "22",
-                        "23",
-                        "24",
-                        "25",
-                        "26",
-                        "27",
-                        "28",
-                        "29",
-                        "30"
-                    ],
+                    categories: $scope.shipmentDayCount,
                     crosshair: true
                 },
                 yAxis: {
@@ -651,25 +655,25 @@ app.controller("import_data_statistics_controller", ["$scope", "$host", "_basic"
         },1);
     };
 
-    // 控制统计图显示隐藏
+    // 点击tab获取不同统计图数据
     $scope.showInsPlan = function () {
-        $scope.showInstructionPlanCount_month();
-        $scope.showInstructionPlanCount_day();
+        $scope.getInstructionMonthInfo();
+        $scope.getInstructionDayInfo();
     };
 
     $scope.showEntrust = function () {
-        $scope.showEntrustCount_month();
-        $scope.showEntrustCount_day();
+        $scope.getEntrustCountMonthInfo();
+        $scope.getEntrustCountDayInfo();
     };
 
     $scope.showManufacturer = function () {
-        $scope.showManufacturerCount_month();
-        $scope.showManufacturerCount_day();
+        $scope.getManufacturerCountMonthInfo();
+        $scope.getManufacturerCountDayInfo();
     };
 
     $scope.showShipment = function () {
-        $scope.showShipmentCount_month();
-        $scope.showShipmentCount_day();
+        $scope.getShipmentCountMonthInfo();
+        $scope.getShipmentCountDayInfo();
     };
 
     // 获取数据

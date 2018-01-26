@@ -30,7 +30,7 @@
                         <input id="chooseInstructionPlanEnd_month" type="text" ng-value="endInitial">
                     </div>
                     <div class="col s3 center">
-                        <i class="mdi mdi-magnify" ng-click="searchInstructionPlanCount()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                        <i class="mdi mdi-magnify" ng-click="getInstructionMonthInfo()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
                     </div>
                 </div>
             </div>
@@ -47,7 +47,7 @@
                     <p>按天统计</p>
                 </div>
                 <div class="col s6 right">
-                    <p class="right">近 30 天&emsp;</p>
+                    <p class="right">近 20 天&emsp;</p>
                 </div>
             </div>
             <!--指令计划按天统计柱状图-->
@@ -77,12 +77,11 @@
                     </div>
                     <div class="col s4">
                         <select id="search_entrust_month" material-select watch ng-model="searchEntrustMonth">
-                            <option value="">选择委托方</option>
                             <option ng-repeat="entrust in entrustList" ng-value="entrust.id">{{entrust.short_name}}</option>
                         </select>
                     </div>
                     <div class="col s1 center">
-                        <i class="mdi mdi-magnify" ng-click="searchEntrustCount()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                        <i class="mdi mdi-magnify" ng-click="getEntrustCountMonthInfo()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
                     </div>
                 </div>
             </div>
@@ -100,13 +99,12 @@
                 </div>
                 <div class="col s3 right">
                     <div class="col s8">
-                        <select id="search_entrust_day" material-select watch ng-model="searchEntrustDay">
-                            <option value="">选择委托方</option>
+                        <select id="search_entrust_day" material-select watch ng-change="getEntrustCountDayInfo()" ng-model="searchEntrustDay">
                             <option ng-repeat="entrust in entrustList" ng-value="entrust.id">{{entrust.short_name}}</option>
                         </select>
                     </div>
                     <div class="col s4 center-align">
-                        <p>近 30 天&emsp;</p>
+                        <p>近 20 天&emsp;</p>
                     </div>
                 </div>
             </div>
@@ -136,13 +134,12 @@
                         <input id="chooseManufacturerEnd_month" type="text" ng-value="endInitial">
                     </div>
                     <div class="col s4">
-                        <select id="search_manufacturer" material-select watch ng-model="searchEntrustMonth">
-                            <option value="">选择制造商</option>
+                        <select id="search_manufacturer" material-select watch ng-model="searchManufacturerMonth">
                             <option ng-repeat="carMake in carMakeList" ng-value="carMake.id">{{carMake.make_name}}</option>
                         </select>
                     </div>
                     <div class="col s1 center">
-                        <i class="mdi mdi-magnify" ng-click="searchManufacturerCount()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                        <i class="mdi mdi-magnify" ng-click="getManufacturerCountMonthInfo()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
                     </div>
                 </div>
             </div>
@@ -160,13 +157,12 @@
                 </div>
                 <div class="col s3 right">
                     <div class="col s8">
-                        <select id="search_entrust" material-select watch ng-model="searchManufacturerDay">
-                            <option value="">选择制造商</option>
+                        <select id="search_entrust" material-select watch ng-change="getManufacturerCountDayInfo()" ng-model="searchManufacturerDay">
                             <option ng-repeat="carMake in carMakeList" ng-value="carMake.id">{{carMake.make_name}}</option>
                         </select>
                     </div>
                     <div class="col s4 center-align">
-                        <p>近 30 天&emsp;</p>
+                        <p>近 20 天&emsp;</p>
                     </div>
                 </div>
             </div>
@@ -201,7 +197,7 @@
                         </select>
                     </div>
                     <div class="col s1 center">
-                        <i class="mdi mdi-magnify" ng-click="searchShipmentCount()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                        <i class="mdi mdi-magnify" ng-click="getShipmentCountMonthInfo()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
                     </div>
                 </div>
             </div>
@@ -219,12 +215,12 @@
                 </div>
                 <div class="col s3 right">
                     <div class="col s8">
-                        <select id="addrCityDay" name="state" style="width:100%" ng-model="searchShipmentDay">
+                        <select id="addrCityDay" name="state" style="width:100%" ng-change="getShipmentCountDayInfo()" ng-model="searchShipmentDay">
                             <option ng-repeat="addr in addrList" ng-value="addr.id">{{addr.addr_name}}</option>
                         </select>
                     </div>
                     <div class="col s4 center-align">
-                        <p>近 30 天&emsp;</p>
+                        <p>近 20 天&emsp;</p>
                     </div>
                 </div>
             </div>

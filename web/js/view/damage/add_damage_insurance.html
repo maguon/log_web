@@ -13,7 +13,8 @@
                 <span style="color: red">*</span>&nbsp;
                 <div class="col s12 input-field" style="padding: 0;">
                     <select material-select watch ng-model="processingStatus">
-                        <option value="" selected>保险公司</option>
+                        <option value="">保险公司</option>
+                        <option ng-repeat="company in insuranceCompanyList" ng-value="company.id">{{company.insure_name}}</option>
                     </select>
                 </div>
             </div>
@@ -24,12 +25,12 @@
         </div>
         <div class="row col s12">
             <div class="col s10 input-field">
-                <input id="associated_damage" type="text" ng-model="associatedDamage">
+                <input id="associated_damage" type="text" ng-model="damageNum">
                 <label style="color: #00bcd4;font-weight: bold" for="associated_damage"><span style="color: red;">* </span>关联质损</label>
             </div>
             <div class="col s2 center flex flex-round">
                 <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2 btn vc-center"
-                   ng-click="">
+                   ng-click="searchDamageDetails()">
                     <i class="mdi mdi-playlist-plus"></i>
                 </a>
             </div>
@@ -37,61 +38,61 @@
         <!--信息卡片-->
         <div class="row col s12">
             <!--这下面加ng-repeat-->
-            <div class="row col s12" style="border: 2px solid #26c6da;border-radius: 5px;background-color: white;color: darkgray">
+            <div class="row col s12" ng-repeat="damageInfo in damageInfoDetailsList" style="border: 2px solid #26c6da;border-radius: 5px;background-color: white;color: darkgray">
                 <!--头-->
                 <div class="col s12 card_head" style="padding: 0;border-bottom: 1px solid #ccc">
                     <div class="col s11">
-                        <p style="font-weight: bold;color: #00bcd4">质损编号：123456789012</p>
+                        <p style="font-weight: bold;color: #00bcd4">质损编号：{{damageInfo.id}}</p>
                     </div>
                     <div class="col s1 right-align">
-                        <span style="font-size: 1.8rem;cursor: pointer" class="mdi mdi-delete-forever"></span>
+                        <span ng-click="deleteDamageInfo($index)" style="font-size: 1.8rem;cursor: pointer" class="mdi mdi-delete-forever"></span>
                     </div>
                 </div>
                 <!--内容-->
                 <div class="col s12 card_body" style="font-size: 1.07rem;padding: 0;">
                     <div class="col s4">
-                        <p><span style="font-weight: bold">VIN码：</span>LSVN123456789</p>
+                        <p><span style="font-weight: bold">VIN码：</span>{{damageInfo.vin}}</p>
                     </div>
                     <div class="col s2">
-                        <p style="font-weight: bold">一汽大众</p>
+                        <p style="font-weight: bold">{{damageInfo.make_name}}</p>
                     </div>
                     <div class="col s2">
-                        <p><span style="font-weight: bold">司机：</span>张宝全</p>
+                        <p><span style="font-weight: bold">司机：</span>{{damageInfo.drive_name}}</p>
                     </div>
                     <div class="col s4">
-                        <p><span style="font-weight: bold">货车牌号：</span>辽B 12345</p>
+                        <p><span style="font-weight: bold">货车牌号：</span>{{damageInfo.truck_num}}</p>
                     </div>
 
                     <div class="col s3">
-                        <p><span style="font-weight: bold">质损类型：</span>一般</p>
+                        <p ng-if="damageInfo.damage_type == 1"><span style="font-weight: bold">质损类型：</span>一般质损</p>
+                        <p ng-if="damageInfo.damage_type == 2"><span style="font-weight: bold">质损类型：</span>严重质损</p>
                     </div>
                     <div class="col s2">
-                        <p><span style="font-weight: bold">责任人：</span>张宝全</p>
+                        <p><span style="font-weight: bold">责任人：</span>{{damageInfo.under_user_name}}</p>
                     </div>
                     <div class="col s4">
-                        <p><span style="font-weight: bold">委托方：</span>安盛船务</p>
+                        <p><span style="font-weight: bold">委托方：</span>{{damageInfo.en_short_name}}</p>
                     </div>
                     <div class="col s3">
-                        <p><span style="font-weight: bold">经销商：</span>上海浦兴</p>
+                        <p><span style="font-weight: bold">经销商：</span>{{damageInfo.re_short_name}}</p>
                     </div>
                     <div class="col s12">
-                        <p><span style="font-weight: bold">质损说明：</span>右后门，右叶子变形</p>
+                        <p><span style="font-weight: bold">质损说明：</span>{{damageInfo.damage_explain}}</p>
                     </div>
                 </div>
             </div>
-
         </div>
 
         <div class="row col s12 valign-wrapper">
             <div class="col s5 input-field">
-                <input id="insurance_compensate" type="number" ng-model="insuranceCompensation">
+                <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="insurance_compensate" type="number" ng-model="insuranceCompensation">
                 <label style="font-weight: bold" for="insurance_compensate">保险待赔</label>
             </div>
             <div class="col s1 left-align" style="padding: 0;">
                 <p>元</p>
             </div>
             <div class="col s5 input-field">
-                <input id="insurance_pay" type="number" ng-model="insurancePayment">
+                <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="insurance_pay" type="number" ng-model="insurancePayment">
                 <label style="font-weight: bold" for="insurance_pay">保险赔付</label>
             </div>
             <div class="col s1 left-align" style="padding: 0;">
@@ -101,7 +102,7 @@
 
         <div class="row col s12" style="margin-top: 30px">
             <div class="col s4 offset-s4">
-                <a ui-sref="damage_report" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                <a style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
                     确定
                 </a>
             </div>

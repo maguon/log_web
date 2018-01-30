@@ -67,7 +67,7 @@
                         <p><span style="font-weight: bold">责任人：</span>{{damage.under_user_name}}</p>
                     </div>
                     <div class="col s4">
-                        <p><span style="font-weight: bold">司机 / 货车牌号：</span>{{damage.drive_name}} / {{damage.truck_num}}</p>
+                        <p><span style="font-weight: bold">司机 / 货车牌号：</span>{{damage.drive_name}}{{damage.truck_num == null ? "" : " / "}}{{damage.truck_num}}</p>
                     </div>
                     <div class="col s12">
                         <p><span style="font-weight: bold">质损说明：</span>{{damage.damage_explain}}</p>

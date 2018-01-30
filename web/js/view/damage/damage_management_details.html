@@ -6,7 +6,7 @@
 <div class="damage_management_details" style="width: 80%;margin: 0 auto">
     <div class="row">
         <div class="vc-center">
-            <h5 class="center-align cyan-text text-lighten-1">质损管理详情&emsp;（{{currentDamageStatus | damageStatus}}）</h5>
+            <h5 class="center-align cyan-text text-lighten-1">质损详情&nbsp;-{{currentDamageInfo.id}}</h5>
         </div>
 
         <!--增加保险信息模态框-->
@@ -81,16 +81,19 @@
                 <div class="col s4">
                     <p><span style="color: #26c6da">申报人：</span>{{userName}}&emsp;&emsp;<span>{{userDepartment | department}}</span></p>
                 </div>
-                <div class="col s4">
+                <div class="col s3">
                     <p><span style="color: #26c6da">申报日期：</span>{{currentDamageInfo.created_on | date:'yyyy-MM-dd HH:mm'}}</p>
                 </div>
-                <div class="col s4" ng-if="currentDamageInfo.damage_status == 1">
+                <div class="col s2">
+                    <p><span style="color: #26c6da">质损编号：</span>{{currentDamageInfo.id}}</p>
+                </div>
+                <div class="col s3" ng-if="currentDamageInfo.damage_status == 1">
                     <p style="font-size: 1.5rem;color: rgb(229,115,115);margin: 10px 0">待处理</p>
                 </div>
-                <div class="col s4" ng-if="currentDamageInfo.damage_status == 2">
+                <div class="col s3" ng-if="currentDamageInfo.damage_status == 2">
                     <p style="font-size: 1.5rem;color: #26c6da;margin: 10px 0">处理中</p>
                 </div>
-                <div class="col s4" ng-if="currentDamageInfo.damage_status == 3">
+                <div class="col s3" ng-if="currentDamageInfo.damage_status == 3">
                     <p style="font-size: 1.5rem;color: darkgray;margin: 10px 0">已处理</p>
                 </div>
             </div>

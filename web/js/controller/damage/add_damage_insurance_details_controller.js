@@ -91,30 +91,31 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$statePara
 
     // 删除选中的质损信息
     $scope.deleteDamageInfo = function (damageRelId) {
-        swal({
-                title: "确定删除当前质损信息吗？",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: true
-            },
-            function(){
-            if($scope.damageInfoCardList.length > 1){
-                _basic.delete($host.api_url + "/user/" + userId + "/damageInsureRel/" + damageRelId).then(function (data) {
-                    if (data.success === true) {
-                        $scope.getCurrentDamageInfo();
-                    }
-                    else {
-                        swal(data.msg, "", "error");
-                    }
+        if($scope.damageInfoCardList.length > 1){
+            swal({
+                    title: "确定删除当前质损信息吗？",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "确认",
+                    cancelButtonText: "取消",
+                    closeOnConfirm: true
+                },
+                function(){
+                    _basic.delete($host.api_url + "/user/" + userId + "/damageInsureRel/" + damageRelId).then(function (data) {
+                        if (data.success === true) {
+                            $scope.getCurrentDamageInfo();
+                        }
+                        else {
+                            swal(data.msg, "", "error");
+                        }
+                    });
                 });
-            }
-            else{
-                swal("至少保留一条！", "", "warning");
-            }
-            });
+        }
+        else{
+            swal("至少保留一条质损信息！", "", "warning");
+        }
+
     };
 
     // 提交修改后的质损信息列表

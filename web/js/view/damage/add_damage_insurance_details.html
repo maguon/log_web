@@ -50,12 +50,9 @@
                 <!--内容-->
                 <div class="col s12 card_body" style="font-size: 1.07rem;padding: 0;">
                     <div class="col s4">
-                        <p><span style="font-weight: bold">VIN码：</span>{{damage.vin}}</p>
+                        <p><span style="font-weight: bold">VIN码：</span>{{damage.vin + "（" + damage.make_name + "）"}}</p>
                     </div>
-                    <div class="col s2">
-                        <p style="font-weight: bold">{{damage.make_name}}</p>
-                    </div>
-                    <div class="col s2">
+                    <div class="col s4">
                         <p><span style="font-weight: bold">司机：</span>{{damage.drive_name}}</p>
                     </div>
                     <div class="col s4">
@@ -63,11 +60,10 @@
                     </div>
 
                     <div class="col s3">
-                        <p ng-if="damage.damage_type == 1"><span style="font-weight: bold">质损类型：</span>一般质损</p>
-                        <p ng-if="damage.damage_type == 2"><span style="font-weight: bold">质损类型：</span>严重质损</p>
+                        <p><span style="font-weight: bold">质损类型：</span>{{damage.damage_type == 1 ? "一般质损" : damage.damage_type == 2 ? "严重质损" : "暂无"}}</p>
                     </div>
                     <div class="col s2">
-                        <p><span style="font-weight: bold">责任人：</span>{{damage.under_user_name}}</p>
+                        <p><span style="font-weight: bold">责任人：</span>{{damage.under_user_name == null ? "暂无" : damage.under_user_name}}</p>
                     </div>
                     <div class="col s4">
                         <p><span style="font-weight: bold">委托方：</span>{{damage.e_short_name}}</p>

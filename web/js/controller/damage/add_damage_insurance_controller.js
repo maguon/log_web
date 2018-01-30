@@ -3,7 +3,6 @@ app.controller("add_damage_insurance_controller", ["$scope", "$host", "_basic", 
     $scope.handler = _basic.getSession(_basic.USER_NAME);
     $scope.damageInfoDetailsList = [];
     $scope.damageNum = "";
-    console.log($scope.processingStatus);
 
     // 获取所有保险公司
     $scope.getInsuranceCompany = function () {
@@ -35,15 +34,15 @@ app.controller("add_damage_insurance_controller", ["$scope", "$host", "_basic", 
                                 return obj.id === data.result[0].id;
                             }
                             if($scope.damageInfoDetailsList.some(checkDamageId)){
-                                swal("不能重复添加相同保单！", "", "warning");
+                                swal("不能重复添加相同质损！", "", "warning");
                             }
                             else{
                                 $scope.damageInfoDetailsList.push(data.result[0]);
                                 $scope.damageNum = "";
-                                swal("新增成功", "", "success");
+                                // swal("新增成功", "", "success");
                             }
                         }
-                        console.log("damageInfoDetailsList",$scope.damageInfoDetailsList);
+                        // console.log("damageInfoDetailsList",$scope.damageInfoDetailsList);
                     }
                     else{
                         swal("查无此编号信息", "", "warning");

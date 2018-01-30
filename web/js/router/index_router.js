@@ -462,7 +462,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'add_damage_insurance_controller'
         })
         .state("add_damage_insurance_details",{
-            url:"/add_damage_insurance_details",
+            url:"/add_damage_insurance_details/id/{id}",
             templateUrl: "js/view/damage/add_damage_insurance_details.html",
             controller:'add_damage_insurance_details_controller'
         })

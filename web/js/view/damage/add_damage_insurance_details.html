@@ -53,23 +53,21 @@
                         <p><span style="font-weight: bold">VIN码：</span>{{damage.vin + "（" + damage.make_name + "）"}}</p>
                     </div>
                     <div class="col s4">
-                        <p><span style="font-weight: bold">司机：</span>{{damage.drive_name}}</p>
-                    </div>
-                    <div class="col s4">
-                        <p><span style="font-weight: bold">货车牌号：</span>{{damage.truck_num}}</p>
-                    </div>
-
-                    <div class="col s3">
-                        <p><span style="font-weight: bold">质损类型：</span>{{damage.damage_type == 1 ? "一般质损" : damage.damage_type == 2 ? "严重质损" : "暂无"}}</p>
-                    </div>
-                    <div class="col s2">
-                        <p><span style="font-weight: bold">责任人：</span>{{damage.under_user_name == null ? "暂无" : damage.under_user_name}}</p>
-                    </div>
-                    <div class="col s4">
                         <p><span style="font-weight: bold">委托方：</span>{{damage.e_short_name}}</p>
                     </div>
-                    <div class="col s3">
+                    <div class="col s4">
                         <p><span style="font-weight: bold">经销商：</span>{{damage.r_short_name}}</p>
+                    </div>
+
+
+                    <div class="col s4">
+                        <p><span style="font-weight: bold">质损类型：</span>{{damage.damage_type == 1 ? "一般质损" : damage.damage_type == 2 ? "严重质损" : ""}}</p>
+                    </div>
+                    <div class="col s4">
+                        <p><span style="font-weight: bold">责任人：</span>{{damage.under_user_name}}</p>
+                    </div>
+                    <div class="col s4">
+                        <p><span style="font-weight: bold">司机 / 货车牌号：</span>{{damage.drive_name}} / {{damage.truck_num}}</p>
                     </div>
                     <div class="col s12">
                         <p><span style="font-weight: bold">质损说明：</span>{{damage.damage_explain}}</p>

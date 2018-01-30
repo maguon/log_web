@@ -54,24 +54,21 @@
                         <p><span style="font-weight: bold">VIN码：</span>{{damageInfo.vin + "（" + damageInfo.make_name + "）"}}</p>
                     </div>
                     <div class="col s4">
-                        <p><span style="font-weight: bold">司机：</span>{{damageInfo.drive_name}}</p>
-                    </div>
-                    <div class="col s4">
-                        <p><span style="font-weight: bold">货车牌号：</span>{{damageInfo.truck_num}}</p>
-                    </div>
-
-                    <div class="col s3">
-                        <p><span style="font-weight: bold">质损类型：</span>{{damageInfo.damage_type == 1 ? "一般质损" : damageInfo.damage_type == 2 ? "严重质损" : "暂无"}}</p>
-                    </div>
-                    <div class="col s2">
-                        <p><span style="font-weight: bold">责任人：</span>{{damageInfo.under_user_name == null ? "暂无" : damageInfo.under_user_name}}</p>
-                    </div>
-                    <div class="col s4">
                         <p><span style="font-weight: bold">委托方：</span>{{damageInfo.en_short_name}}</p>
                     </div>
-                    <div class="col s3">
+                    <div class="col s4">
                         <p><span style="font-weight: bold">经销商：</span>{{damageInfo.re_short_name}}</p>
                     </div>
+                    <div class="col s4">
+                        <p><span style="font-weight: bold">质损类型：</span>{{damageInfo.damage_type == 1 ? "一般质损" : damageInfo.damage_type == 2 ? "严重质损" : ""}}</p>
+                    </div>
+                    <div class="col s4">
+                        <p><span style="font-weight: bold">责任人：</span>{{damageInfo.under_user_name}}</p>
+                    </div>
+                    <div class="col s4">
+                        <p><span style="font-weight: bold">司机 / 货车牌号：</span>{{damageInfo.drive_name}} / {{damageInfo.truck_num}}</p>
+                    </div>
+
                     <div class="col s12">
                         <p><span style="font-weight: bold">质损说明：</span>{{damageInfo.damage_explain}}</p>
                     </div>

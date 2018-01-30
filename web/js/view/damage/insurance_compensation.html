@@ -1,6 +1,6 @@
 <div class="insurance_compensation">
     <div class="row main_storage_car">
-        <div class="col s8">
+        <div class="col s9">
             <div class="input-field col s4">
                 <input id="payment_number" type="text" ng-model="paymentNum">
                 <label for="payment_number">赔付编号</label>
@@ -36,22 +36,23 @@
                 <label for="handler">经办人</label>
             </div>
         </div>
-        <div class="col s4 valign-wrapper" style="height: 142px;">
-            <div class="col s3 flex flex-round">
+        <div class="col s3 valign-wrapper" style="height: 142px;">
+            <div class="col s4 flex flex-round">
                 <a class="btn-floating btn-large waves-light waves-effect red lighten-2 btn vc-center"
                    ng-click="getInsurancePaymentList()">
                     <i class="mdi mdi-magnify"></i>
                 </a>
             </div>
-            <div class="col s3 flex flex-round">
+            <div class="col s4 flex flex-round">
                 <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2 btn vc-center"
                    ng-click="getDamageInfoList()">
-                    <i class="mdi mdi-cloud-upload"></i>
+                    <i class="mdi mdi-cloud-download"></i>
                 </a>
             </div>
-            <div class="col s6 center">
-                <a ui-sref="add_damage_insurance" style="width: 80%" class="waves-light waves-effect cyan lighten-1 btn">
-                    增加质损保险
+            <div class="col s4 center">
+                <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2 btn vc-center"
+                   ui-sref="add_damage_insurance">
+                    <i class="mdi mdi-plus"></i>
                 </a>
             </div>
         </div>

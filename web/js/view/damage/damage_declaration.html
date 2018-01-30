@@ -1,6 +1,6 @@
 <div class="damage_declaration">
     <div class="row main_storage_car">
-        <div class="row col s9">
+        <div class="row col s10">
             <div class="col s5" style="padding: 0">
                 <div class="col input-field s6">
                     <input id="report_time_start" type="text" class="datepicker" ng-model="reportTimeStart" date><i
@@ -26,16 +26,17 @@
                 </select>
             </div>
         </div>
-        <div class="row col s3 valign-wrapper" style="margin-top: 8px">
+        <div class="row col s2 valign-wrapper" style="margin-top: 8px">
             <div class="col s6 flex flex-round">
                 <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
                    ng-click="searchDamageInfoList()">
                     <i class="mdi mdi-magnify"></i>
                 </a>
             </div>
-            <div class="col s6">
-                <a ui-sref="damage_report" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
-                    质损申报
+            <div class="col s6 flex flex-round">
+                <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2 btn vc-center"
+                   ui-sref="damage_report">
+                    <i class="mdi mdi-plus"></i>
                 </a>
             </div>
         </div>

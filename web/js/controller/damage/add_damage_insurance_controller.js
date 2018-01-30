@@ -1,8 +1,9 @@
-app.controller("add_damage_insurance_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
-
+app.controller("add_damage_insurance_controller", ["$scope", "$host", "_basic", "$state", function ($scope, $host, _basic, $state) {
+    var userId = _basic.getSession(_basic.USER_ID);
     $scope.handler = _basic.getSession(_basic.USER_NAME);
     $scope.damageInfoDetailsList = [];
     $scope.damageNum = "";
+    console.log($scope.processingStatus);
 
     // 获取所有保险公司
     $scope.getInsuranceCompany = function () {
@@ -74,6 +75,33 @@ app.controller("add_damage_insurance_controller", ["$scope", "$host", "_basic", 
                     $scope.damageInfoDetailsList.splice(index,1);
                 });
             });
+    };
+
+    // 提交质损信息列表
+    $scope.submitDamageList =  function () {
+        if($scope.insuranceCompanyId !== undefined && $scope.damageInfoDetailsList.length !== 0){
+            var damageIdArr = [];
+            for (var i = 0; i < $scope.damageInfoDetailsList.length; i++) {
+                damageIdArr.push($scope.damageInfoDetailsList[i].id);
+            }
+            _basic.post($host.api_url + "/user/" + userId + "/damageInsure",{
+                insureId: $scope.insuranceCompanyId,
+                insurePlan: $scope.insuranceCompensation,
+                insureActual: $scope.insurancePayment,
+                damageIds: damageIdArr
+            }).then(function (data) {
+                if (data.success === true) {
+                    swal("提交成功", "", "success");
+                    $state.go("insurance_compensation");
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
+        else{
+            swal("保险公司或质损信息不能为空！", "", "error");
+        }
     };
 
     // 获取数据

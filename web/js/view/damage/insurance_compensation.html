@@ -32,14 +32,14 @@
                 </div>
             </div>
             <div class="input-field col s4">
-                <input id="handler" type="text" ng-model="handler">
+                <input id="handler" type="text" ng-model="handlerName">
                 <label for="handler">经办人</label>
             </div>
         </div>
         <div class="col s4 valign-wrapper" style="height: 142px;">
             <div class="col s3 flex flex-round">
                 <a class="btn-floating btn-large waves-light waves-effect red lighten-2 btn vc-center"
-                   ng-click="getDamageInfoList()">
+                   ng-click="getInsurancePaymentList()">
                     <i class="mdi mdi-magnify"></i>
                 </a>
             </div>
@@ -70,13 +70,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="grey-text text-darken-1">
-                    <td width="200">LSVXZ25N5H2027762</td>
-                    <td width="180">2017-8-27 15:34</td>
-                    <td width="200">6000</td>
-                    <td width="150">5000</td>
-                    <td width="350">中国人保</td>
-                    <td width="120">朱晨阳</td>
+                <tr class="grey-text text-darken-1" ng-repeat="damage in damageInsurancePaymentList">
+                    <td width="200">{{damage.id}}</td>
+                    <td width="180">{{damage.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td width="200">{{damage.insure_plan}}</td>
+                    <td width="150">{{damage.insure_actual}}</td>
+                    <td width="350">{{damage.insure_name}}</td>
+                    <td width="120">{{damage.insure_user_name}}</td>
                     <td width="150" class="details">
                         <a ui-sref="add_damage_insurance_details" style="font-size: 1.5rem">
                             <i class="mdi mdi-file-document look_icon cyan-text lighten-1"></i>

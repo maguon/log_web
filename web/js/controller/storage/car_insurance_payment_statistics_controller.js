@@ -11,32 +11,94 @@ app.controller("car_insurance_payment_statistics_controller", ["$scope", "$host"
     });
 
     // 保险赔付金额按月统计
-    var personalCompensateCountMonth = [{
+    var insurancePaymentMoneyCountMonth = [{
         name: '赔付金额统计',
-        data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+        data: [],
         color: '#FF7E7E'
     }];
 
     // 保险赔付金额按周统计
-    var personalCompensateCountWeek = [{
+    var insurancePaymentMoneyCountWeek = [{
         name: '赔付金额统计',
-        data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1],
+        data: [],
         color: '#FF7E7E'
     }];
 
     // 保险赔付次数按月统计
-    var companyCompensateCountMonth = [{
+    var insurancePaymentNumCountMonth = [{
         name: '赔付次数统计',
-        data: [5,9,4,2,3,6,4,8,7,2,11,9],
+        data: [],
         color: '#26C6DA'
     }];
 
     // 保险赔付次数按周统计
-    var companyCompensateCountWeek = [{
+    var insurancePaymentNumCountWeek = [{
         name: '赔付次数统计',
-        data: [9,9,8,2,4,11,8,6,3,7],
+        data: [],
         color: '#26C6DA'
     }];
+
+    // 获取赔付次数和赔付金额月统计数据
+    $scope.getDamageInsureMonthInfo = function () {
+        var monthStart = $("#carInsurancePaymentStart_month").val();
+        var monthEnd = $("#carInsurancePaymentEnd_month").val();
+        if(monthStart == "" || monthStart == undefined){
+            monthStart = $scope.startInitial;
+        }
+        if(monthEnd == "" || monthEnd == undefined){
+            monthEnd = $scope.endInitial;
+        }
+        _basic.get($host.api_url + "/damageInsureMonthStat?" + _basic.objToUrl({
+            insureStatus: "2",
+            monthStart: monthStart,
+            monthEnd: monthEnd
+        })).then(function (data) {
+            if (data.success === true) {
+                data.result.reverse();
+                // console.log("data", data);
+                $scope.insurPaymentMonthCount = [];
+                insurancePaymentMoneyCountMonth[0].data = [];
+                insurancePaymentNumCountMonth[0].data = [];
+                for (var i = 0; i < data.result.length; i++) {
+                    $scope.insurPaymentMonthCount.push(data.result[i].y_month);
+                    insurancePaymentMoneyCountMonth[0].data.push(Math.ceil(data.result[i].damage_insure));
+                    insurancePaymentNumCountMonth[0].data.push(Math.ceil(data.result[i].damage_insure_count));
+                }
+                $scope.showInsurancePaymentMoney_month();
+                $scope.showInsurancePaymentCount_month();
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+    // 获取赔付次数和赔付金额周统计数据
+    $scope.getDamageInsureWeekInfo = function () {
+        _basic.get($host.api_url + "/damageInsureWeekStat?" + _basic.objToUrl({
+            insureStatus: "2",
+            start: "0",
+            size: 10
+        })).then(function (data) {
+            if (data.success === true) {
+                data.result.reverse();
+                // console.log("data", data);
+                $scope.insurPaymentWeekCount = [];
+                insurancePaymentMoneyCountWeek[0].data = [];
+                insurancePaymentNumCountWeek[0].data = [];
+                for (var i = 0; i < data.result.length; i++) {
+                    $scope.insurPaymentWeekCount.push(data.result[i].y_week);
+                    insurancePaymentMoneyCountWeek[0].data.push(Math.ceil(data.result[i].damage_insure));
+                    insurancePaymentNumCountWeek[0].data.push(Math.ceil(data.result[i].damage_insure_count));
+                }
+                $scope.showInsurancePaymentMoney_week();
+                $scope.showInsurancePaymentCount_week();
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
 
     // 显示保险赔付金额按月统计折线图
     $scope.showInsurancePaymentMoney_month = function () {
@@ -48,20 +110,7 @@ app.controller("car_insurance_payment_statistics_controller", ["$scope", "$host"
                 text: ''
             },
             xAxis: {
-                categories: [
-                    '一月',
-                    '二月',
-                    '三月',
-                    '四月',
-                    '五月',
-                    '六月',
-                    '七月',
-                    '八月',
-                    '九月',
-                    '十月',
-                    '十一月',
-                    '十二月'
-                ],
+                categories: $scope.insurPaymentMonthCount,
                 crosshair: true
             },
             yAxis: {
@@ -87,7 +136,7 @@ app.controller("car_insurance_payment_statistics_controller", ["$scope", "$host"
             credits: {
                 enabled: false
             },
-            series: personalCompensateCountMonth
+            series: insurancePaymentMoneyCountMonth
         });
     };
 
@@ -101,18 +150,7 @@ app.controller("car_insurance_payment_statistics_controller", ["$scope", "$host"
                 text: ''
             },
             xAxis: {
-                categories: [
-                    '第1周',
-                    '第2周',
-                    '第3周',
-                    '第4周',
-                    '第5周',
-                    '第6周',
-                    '第7周',
-                    '第8周',
-                    '第9周',
-                    '第10周'
-                ],
+                categories: $scope.insurPaymentWeekCount,
                 crosshair: true
             },
             yAxis: {
@@ -138,7 +176,7 @@ app.controller("car_insurance_payment_statistics_controller", ["$scope", "$host"
             credits: {
                 enabled: false
             },
-            series: personalCompensateCountWeek
+            series: insurancePaymentMoneyCountWeek
         });
     };
 
@@ -152,20 +190,7 @@ app.controller("car_insurance_payment_statistics_controller", ["$scope", "$host"
                 text: ''
             },
             xAxis: {
-                categories: [
-                    '一月',
-                    '二月',
-                    '三月',
-                    '四月',
-                    '五月',
-                    '六月',
-                    '七月',
-                    '八月',
-                    '九月',
-                    '十月',
-                    '十一月',
-                    '十二月'
-                ],
+                categories: $scope.insurPaymentMonthCount,
                 crosshair: true
             },
             yAxis: {
@@ -191,7 +216,7 @@ app.controller("car_insurance_payment_statistics_controller", ["$scope", "$host"
             credits: {
                 enabled: false
             },
-            series: companyCompensateCountMonth
+            series: insurancePaymentNumCountMonth
         });
     };
 
@@ -205,18 +230,7 @@ app.controller("car_insurance_payment_statistics_controller", ["$scope", "$host"
                 text: ''
             },
             xAxis: {
-                categories: [
-                    '第1周',
-                    '第2周',
-                    '第3周',
-                    '第4周',
-                    '第5周',
-                    '第6周',
-                    '第7周',
-                    '第8周',
-                    '第9周',
-                    '第10周'
-                ],
+                categories: $scope.insurPaymentWeekCount,
                 crosshair: true
             },
             yAxis: {
@@ -242,16 +256,14 @@ app.controller("car_insurance_payment_statistics_controller", ["$scope", "$host"
             credits: {
                 enabled: false
             },
-            series: companyCompensateCountWeek
+            series: insurancePaymentNumCountWeek
         });
     };
 
     // 获取数据
     $scope.queryData = function () {
-        $scope.showInsurancePaymentMoney_month();
-        $scope.showInsurancePaymentMoney_week();
-        $scope.showInsurancePaymentCount_month();
-        $scope.showInsurancePaymentCount_week();
+        $scope.getDamageInsureMonthInfo();
+        $scope.getDamageInsureWeekInfo();
     };
     $scope.queryData();
 }]);

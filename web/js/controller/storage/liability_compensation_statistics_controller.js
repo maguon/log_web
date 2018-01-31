@@ -1,68 +1,39 @@
-app.controller("liability_compensation_statistics_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
+app.controller("liability_compensation_statistics_controller", ["$scope", "$host", "_basic", "baseService", function ($scope, $host, _basic,baseService) {
+    $scope.startInitial = moment(new Date()).format('YYYY') + "01";
+    $scope.endInitial = moment(new Date()).format('YYYYMM');
+    // monthPicker控件
+    $('#chooseCarWashFeeStart_month,#chooseCarWashFeeEnd_month').MonthPicker({
+        Button: false,
+        MonthFormat: 'yymm'
+    });
+    $scope.start = 0;
+    $scope.size = 10;
 
-    // 个人责任赔偿金额按月统计
-    var personalCompensateCountMonth = [{
-        name: '个人承担赔偿',
-        data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
-        color: '#FF7E7E'
-    }];
-
-    // 个人责任赔偿金额按周统计
-    var personalCompensateCountWeek = [{
-        name: '个人承担赔偿',
-        data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1],
-        color: '#FF7E7E'
-    }];
 
     // 企业赔偿金额按月统计
     var companyCompensateCountMonth = [{
         name: '企业承担赔偿',
-        data: [194.1, 144.0, 49.9, 95.6, 106.4, 129.2, 135.6, 176.0, 148.5, 216.4, 71.5, 54.4],
+        data: [],
         color: '#26C6DA'
     }];
-
+    // 个人责任赔偿金额按月统计
+    var personalCompensateCountMonth = [{
+        name: '个人承担赔偿',
+        data: [],
+        color: '#FF7E7E'
+    }];
     // 企业赔偿金额按周统计
     var companyCompensateCountWeek = [{
         name: '企业承担赔偿',
-        data: [95.6, 194.1, 49.9, 135.6, 148.5, 106.4, 144.0, 216.4, 71.5, 176.0],
+        data: [],
         color: '#26C6DA'
     }];
-
-    // 模拟个人承担赔偿费top10假数据
-    $scope.virtualDataSimulation = function () {
-        var personalCompensate = [
-            {person_name: "张狗蛋", money_count: 8456},
-            {person_name: "吴老二", money_count: 4651},
-            {person_name: "于雷", money_count: 7764},
-            {person_name: "宋天开", money_count: 9963},
-            {person_name: "李磊", money_count: 4619},
-            {person_name: "韩梅梅", money_count: 8512},
-            {person_name: "王二狗", money_count: 1172},
-            {person_name: "李强", money_count: 6731},
-            {person_name: "王伟", money_count: 5555},
-            {person_name: "王建军", money_count: 2499}
-        ];
-
-        // 求出金额最大项
-        var moneyArr = [];
-        for (var i = 0; i < personalCompensate.length; i++) {
-            moneyArr.push(personalCompensate[i].money_count);
-        }
-        var maxCount = Math.max.apply(null, moneyArr);
-        // 根据金额最大项来计算百分比
-        for (var j = 0; j < personalCompensate.length; j++) {
-            moneyArr[j] = Math.floor((moneyArr[j] / maxCount) * 100);
-            personalCompensate[j].percent = moneyArr[j];
-        }
-        // 根据平均值进行从大到小排序
-        personalCompensate.sort(function (a, b) {
-            var val1 = a.money_count;
-            var val2 = b.money_count;
-            return val2 - val1;
-        });
-        $scope.sortPersonalCompensate = personalCompensate;
-    };
-
+    // 个人责任赔偿金额按周统计
+    var personalCompensateCountWeek = [{
+        name: '个人承担赔偿',
+        data: [],
+        color: '#FF7E7E'
+    }];
     // 显示个人责任赔偿金额按月统计柱状图
     $scope.showPersonalLiabilityCompensation_month = function () {
         $("#personalLiabilityStatisticsMonth").highcharts({
@@ -76,20 +47,7 @@ app.controller("liability_compensation_statistics_controller", ["$scope", "$host
                 text: ''
             },
             xAxis: {
-                categories: [
-                    '一月',
-                    '二月',
-                    '三月',
-                    '四月',
-                    '五月',
-                    '六月',
-                    '七月',
-                    '八月',
-                    '九月',
-                    '十月',
-                    '十一月',
-                    '十二月'
-                ],
+                categories:$scope.moneyMonth,
                 crosshair: true
             },
             yAxis: {
@@ -118,7 +76,6 @@ app.controller("liability_compensation_statistics_controller", ["$scope", "$host
             series: personalCompensateCountMonth
         });
     };
-
     // 显示个人责任赔偿金额按周统计柱状图
     $scope.showPersonalLiabilityCompensation_week = function () {
         $("#personalLiabilityStatisticsWeek").highcharts({
@@ -132,18 +89,7 @@ app.controller("liability_compensation_statistics_controller", ["$scope", "$host
                 text: ''
             },
             xAxis: {
-                categories: [
-                    '第1周',
-                    '第2周',
-                    '第3周',
-                    '第4周',
-                    '第5周',
-                    '第6周',
-                    '第7周',
-                    '第8周',
-                    '第9周',
-                    '第10周'
-                ],
+                categories:$scope.moneyWeek,
                 crosshair: true
             },
             yAxis: {
@@ -172,7 +118,6 @@ app.controller("liability_compensation_statistics_controller", ["$scope", "$host
             series: personalCompensateCountWeek
         });
     };
-
     // 显示企业责任赔偿金额按月统计柱状图
     $scope.showCompanyLiabilityCompensation_month = function () {
         $("#companyLiabilityStatisticsMonth").highcharts({
@@ -186,20 +131,7 @@ app.controller("liability_compensation_statistics_controller", ["$scope", "$host
                 text: ''
             },
             xAxis: {
-                categories: [
-                    '一月',
-                    '二月',
-                    '三月',
-                    '四月',
-                    '五月',
-                    '六月',
-                    '七月',
-                    '八月',
-                    '九月',
-                    '十月',
-                    '十一月',
-                    '十二月'
-                ],
+                categories:$scope.moneyMonth,
                 crosshair: true
             },
             yAxis: {
@@ -228,7 +160,6 @@ app.controller("liability_compensation_statistics_controller", ["$scope", "$host
             series: companyCompensateCountMonth
         });
     };
-
     // 显示企业责任赔偿金额按周统计柱状图
     $scope.showCompanyLiabilityCompensation_week = function () {
         $("#companyLiabilityStatisticsWeek").highcharts({
@@ -242,20 +173,7 @@ app.controller("liability_compensation_statistics_controller", ["$scope", "$host
                 text: ''
             },
             xAxis: {
-                categories: [
-                    '第1周',
-                    '第2周',
-                    '第3周',
-                    '第4周',
-                    '第5周',
-                    '第6周',
-                    '第7周',
-                    '第8周',
-                    '第9周',
-                    '第10周',
-                    '第11周',
-                    '第12周'
-                ],
+                categories: $scope.moneyWeek,
                 crosshair: true
             },
             yAxis: {
@@ -284,14 +202,138 @@ app.controller("liability_compensation_statistics_controller", ["$scope", "$host
             series: companyCompensateCountWeek
         });
     };
+    //通过接口获取个人承担和企业按月承担数据
+    $scope.searchColumnInfo = function (start,end) {
+        if(start === undefined){
+            start = $scope.startInitial
+        }
+        if(end === undefined){
+            end = $scope.endInitial
+        }
+        mouth_all();
+        personMonthTop();
+        // 公司赔付 和个人赔付
+        function mouth_all(){
+            _basic.get($host.api_url + "/damageCheckMonthStat?monthStart=" + start + "&monthEnd=" + end  ).then(function (Data) {
+                if (Data.success === true){
+                    // X轴月份
+                    // console.log(Data)
+                    $scope.moneyMonth = [];
+                    // 初始化金额数
+                    companyCompensateCountMonth[0].data = [];
+                    personalCompensateCountMonth[0].data = [];
 
+                    // 赋予柱状图金额数组
+                    for (var i = 0; i < Data.result.length; i++) {
+                        if($scope.moneyMonth.indexOf(Data.result[i].y_month) === -1){
+                            $scope.moneyMonth.push(Data.result[i].y_month);
+                            //console.log( $scope.moneyMonth)
+                        }
+                        companyCompensateCountMonth[0].data.push(Data.result[i].company_cost);
+                        personalCompensateCountMonth[0].data.push(Data.result[i].under_cost);
+                    }
+                    $scope.showCompanyLiabilityCompensation_month();
+                    $scope.showPersonalLiabilityCompensation_month();
+                }
+                else{
+                    swal(Data.msg, "", "error");
+                }
+            });
+        }
+         function personMonthTop () {
+            _basic.get($host.api_url + "/damageCheckUnderMonthStat?start="+ $scope.start+"&size="+ $scope.size +"&monthStart=" + start + "&monthEnd=" + end).then(function (data) {
+                if (data.success === true){
+                    // X轴月份
+                    $scope.moneyArray = [];
+                    $scope.nameArr = [];
+                    // 初始化金额数
+                    // companyCompensateCountMonth[0].data = [];
+                    // 赋予柱状图金额数组
+                    var maxCost = parseFloat(data.result[0].total_under_cost);
+                    for (var i = 0; i < data.result.length; i++) {
+                        var pecentage = parseInt(data.result[i].total_under_cost/maxCost*100);
+                        data.result[i].percentage = pecentage;
+                    }
+                    $scope.personMouthList = data.result;
+                    //console.log(data.result)
+                }
+                else{
+                    swal(Data.msg, "", "error");
+                }
+            });
+        };
+
+    };
+    // 根据日期搜索公司赔付信息
+    $scope.searchRepairCount = function () {
+        var monthStart = $("#chooseCarWashFeeStart_month").val();
+        var monthEnd = $("#chooseCarWashFeeEnd_month").val();
+        $scope.searchColumnInfo(monthStart,monthEnd);
+    };
+    //通过接口获取个人承担和企业按周承担数据
+    _basic.get($host.api_url + "/damageCheckWeekStat?start="+ $scope.start+"&size="+ $scope.size ).then(function (Data) {
+        if (Data.success === true){
+            // X轴月份
+            //console.log(Data)
+            $scope.moneyWeek = [];
+            // 初始化金额数
+            companyCompensateCountWeek[0].data = [];
+            personalCompensateCountWeek[0].data = [];
+
+            // 赋予柱状图金额数组
+            for (var i = 0; i < Data.result.length; i++) {
+                if($scope.moneyWeek.indexOf(Data.result[i].y_week) === -1){
+                    $scope.moneyWeek.push(Data.result[i].y_week);
+                    //console.log( $scope.moneyMonth)
+                }
+                companyCompensateCountWeek[0].data.push(Data.result[i].company_cost);
+                personalCompensateCountWeek[0].data.push(Data.result[i].under_cost);
+            }
+            $scope.showCompanyLiabilityCompensation_week();
+            $scope.showPersonalLiabilityCompensation_week();
+        }
+        else{
+            swal(Data.msg, "", "error");
+        }
+    });
+    // 个人承担赔偿费top10周数据
+    $scope.personWeekTop = function () {
+        _basic.get($host.api_url + "/damageCheckUnderWeekStat?start="+ $scope.start+"&size="+ $scope.size+'&yWeek='+baseService.getWeek()
+            ).then(function (data) {
+            if (data.success === true){
+                // X轴月份
+                 console.log(data)
+                if(data.result[0]==null||data.result[0]==undefined)
+                {
+                    return
+                }
+
+                $scope.moneyArray = [];
+                $scope.nameArr = [];
+                // 初始化金额数
+                // companyCompensateCountMonth[0].data = [];
+                // 赋予柱状图金额数组
+                var maxCost = parseFloat(data.result[0].total_under_cost);
+                for (var i = 0; i < data.result.length; i++) {
+                    var pecentage = parseInt(data.result[i].total_under_cost/maxCost*100);
+                    data.result[i].percentage = pecentage;
+                }
+                $scope.personWeekList = data.result;
+                //console.log(data.result)
+            }
+            else{
+                swal(Data.msg, "", "error");
+            }
+        });
+    };
     // 获取数据
     $scope.queryData = function () {
         $scope.showPersonalLiabilityCompensation_month();
         $scope.showPersonalLiabilityCompensation_week();
         $scope.showCompanyLiabilityCompensation_month();
         $scope.showCompanyLiabilityCompensation_week();
-        $scope.virtualDataSimulation();
+        $scope.personWeekTop();
+        $scope.searchColumnInfo();
     };
     $scope.queryData();
 }]);

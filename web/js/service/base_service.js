@@ -110,6 +110,25 @@ baseService.factory("baseService", function () {
         var oneDay=1000*60*60*24;
         return new Date(nextMonthFirstDay-oneDay);
     };
+
+    _this.getWeek=function (){
+        var d1 = new Date();
+        var d2 = new Date();
+        var date=new Date();
+        var currentYear=date.getFullYear();
+        d2.setMonth(0);
+        d2.setDate(1);
+        d2.setDate(7-d2.getDay());
+        var rq = d1-d2;
+        var s1 = Math.ceil(rq/(24*60*60*1000));
+        var s2 = Math.ceil(s1/7);
+        var s3 = s2+1;
+        if(s3<10) {
+             s3="0"+s3;
+            }
+         var string=  currentYear+''+s3;
+        return string;
+    }
     return _this
 });
 

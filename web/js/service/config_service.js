@@ -69,6 +69,22 @@ baseService.factory("_config", function () {
             subType: [{type: 41, name: "质损操作员"}],
             index: 'damage_manager.html',
             qr: [{qrSrc: "../assets/images/qr_code/qr_damage_app.png"}]
+        },
+
+        {
+            type: 51,
+            name: "财务操作员",
+            subType: [],
+            index: 'damage_home.html',
+            qr: [{qrSrc: "../assets/images/qr_code/qr_damage_app.png"}]
+        },
+
+        {
+            type: 59,
+            name: "财务管理员",
+            subType: [{type: 51, name: "财务操作员"}],
+            index: 'damage_manager.html',
+            qr: [{qrSrc: "../assets/images/qr_code/qr_damage_app.png"}]
         }
 
     ];

@@ -28,7 +28,7 @@
                 <label style="color: #00bcd4;font-weight: bold" for="associated_damage"><span style="color: red;">* </span>关联质损</label>
             </div>
             <div class="col s2 center flex flex-round">
-                <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2 btn vc-center"
+                <a ng-if="insureStatus != 2" class="btn-floating btn-large waves-light waves-effect cyan lighten-2 btn vc-center"
                    ng-click="searchDamageDetails()">
                     <i class="mdi mdi-playlist-plus"></i>
                 </a>
@@ -44,7 +44,7 @@
                         <p style="font-weight: bold;color: #00bcd4">质损编号：{{damage.id}}</p>
                     </div>
                     <div class="col s1 right-align">
-                        <span ng-click="deleteDamageInfo(damage.damage_insure_rel_id)" style="font-size: 1.8rem;cursor: pointer" class="mdi mdi-delete-forever"></span>
+                        <span ng-if="insureStatus != 2" ng-click="deleteDamageInfo(damage.damage_insure_rel_id)" style="font-size: 1.8rem;cursor: pointer" class="mdi mdi-delete-forever"></span>
                     </div>
                 </div>
                 <!--内容-->
@@ -94,7 +94,7 @@
             </div>
         </div>
 
-        <div class="row col s12" style="margin-top: 30px">
+        <div class="row col s12" style="margin-top: 30px" ng-if="insureStatus != 2">
             <div class="col s2 offset-s4">
                 <a ng-click="submitDamageList()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
                     确定

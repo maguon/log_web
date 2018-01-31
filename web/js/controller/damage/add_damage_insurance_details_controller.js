@@ -26,6 +26,7 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$statePara
                 $scope.handler = data.result[0].insure_user_name;
                 $scope.insuranceCompensation = data.result[0].insure_plan;
                 $scope.insurancePayment = data.result[0].insure_actual;
+                $scope.insureStatus = data.result[0].insure_status;
             }
             else {
                 swal(data.msg, "", "error");
@@ -140,6 +141,30 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$statePara
                 swal(data.msg, "", "error");
             }
         });
+    };
+
+    // 点击完成按钮
+    $scope.completeDamageList = function () {
+        swal({
+                title: "确定完成当前质损吗？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确认",
+                cancelButtonText: "取消",
+                closeOnConfirm: true
+            },
+            function(){
+                _basic.put($host.api_url + "/user/" + userId + "/damageInsure/" + damageId + "/insureStatus/2",{}).then(function (data) {
+                    if (data.success === true) {
+                        console.log("data", data);
+                        $scope.getCurrentDamageInfo();
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
+            });
     };
 
     // 获取数据

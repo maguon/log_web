@@ -16,20 +16,18 @@
                     <option value="2">已完结</option>
                 </select>
             </div>
-            <div class="col s8 valign-wrapper">
-                <div class="input-field col s5" style="padding: 0;">
+            <div class="col s4 valign-wrapper" style="padding: 0;">
+                <div class="input-field col s10">
                     <input id="insurance_payment_start" type="number" ng-model="insurancePaymentStart">
-                    <label for="insurance_payment_start">保险赔付</label>
+                    <label for="insurance_payment_start">保险赔付（元）</label>
                 </div>
-                <div class="col s1 center-align" style="padding: 0">
-                    <p style="margin: 3px 0">元&emsp;--</p>
+                <div class="col s2 center-align">
+                    <p style="margin: 3px 0">--</p>
                 </div>
-                <div class="input-field col s5">
-                    <input id="insurance_paymentEnd" type="number" ng-model="insurancePaymentEnd">
-                </div>
-                <div class="col s1 left-align" style="padding: 0">
-                    <p style="margin: 3px 0">元</p>
-                </div>
+            </div>
+            <div class="input-field col s4">
+                <input id="insurance_paymentEnd" type="number" ng-model="insurancePaymentEnd">
+                <label for="insurance_paymentEnd">保险赔付（元）</label>
             </div>
             <div class="input-field col s4">
                 <input id="handler" type="text" ng-model="handlerName">

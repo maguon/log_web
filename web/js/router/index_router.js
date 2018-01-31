@@ -452,7 +452,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'car_wash_fee_controller'
         })
         .state("car_wash_fee_details",{
-            url:"/car_wash_fee_details",
+            url:"/car_wash_fee_details/id/{id}",
             templateUrl: "js/view/damage/car_wash_fee_details.html",
             controller:'car_wash_fee_details_controller'
         })

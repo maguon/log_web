@@ -214,8 +214,9 @@ app.controller("liability_compensation_statistics_controller", ["$scope", "$host
         personMonthTop();
         // 公司赔付 和个人赔付
         function mouth_all(){
-            _basic.get($host.api_url + "/damageCheckMonthStat?monthStart=" + start + "&monthEnd=" + end  ).then(function (Data) {
-                if (Data.success === true){
+            _basic.get($host.api_url + "/damageCheckMonthStat?monthStart=" + start + "&monthEnd=" + end  ).then(function (data) {
+                if (data.success === true){
+                    data.result.reverse();
                     // X轴月份
                     // console.log(Data)
                     $scope.moneyMonth = [];
@@ -224,19 +225,19 @@ app.controller("liability_compensation_statistics_controller", ["$scope", "$host
                     personalCompensateCountMonth[0].data = [];
 
                     // 赋予柱状图金额数组
-                    for (var i = 0; i < Data.result.length; i++) {
-                        if($scope.moneyMonth.indexOf(Data.result[i].y_month) === -1){
-                            $scope.moneyMonth.push(Data.result[i].y_month);
+                    for (var i = 0; i < data.result.length; i++) {
+                        if($scope.moneyMonth.indexOf(data.result[i].y_month) === -1){
+                            $scope.moneyMonth.push(data.result[i].y_month);
                             //console.log( $scope.moneyMonth)
                         }
-                        companyCompensateCountMonth[0].data.push(Data.result[i].company_cost);
-                        personalCompensateCountMonth[0].data.push(Data.result[i].under_cost);
+                        companyCompensateCountMonth[0].data.push(data.result[i].company_cost);
+                        personalCompensateCountMonth[0].data.push(data.result[i].under_cost);
                     }
                     $scope.showCompanyLiabilityCompensation_month();
                     $scope.showPersonalLiabilityCompensation_month();
                 }
                 else{
-                    swal(Data.msg, "", "error");
+                    swal(data.msg, "", "error");
                 }
             });
         }
@@ -271,8 +272,9 @@ app.controller("liability_compensation_statistics_controller", ["$scope", "$host
         $scope.searchColumnInfo(monthStart,monthEnd);
     };
     //通过接口获取个人承担和企业按周承担数据
-    _basic.get($host.api_url + "/damageCheckWeekStat?start="+ $scope.start+"&size="+ $scope.size ).then(function (Data) {
-        if (Data.success === true){
+    _basic.get($host.api_url + "/damageCheckWeekStat?start="+ $scope.start+"&size="+ $scope.size ).then(function (data) {
+        if (data.success === true){
+            data.result.reverse();
             // X轴月份
             //console.log(Data)
             $scope.moneyWeek = [];
@@ -281,19 +283,19 @@ app.controller("liability_compensation_statistics_controller", ["$scope", "$host
             personalCompensateCountWeek[0].data = [];
 
             // 赋予柱状图金额数组
-            for (var i = 0; i < Data.result.length; i++) {
-                if($scope.moneyWeek.indexOf(Data.result[i].y_week) === -1){
-                    $scope.moneyWeek.push(Data.result[i].y_week);
+            for (var i = 0; i < data.result.length; i++) {
+                if($scope.moneyWeek.indexOf(data.result[i].y_week) === -1){
+                    $scope.moneyWeek.push(data.result[i].y_week);
                     //console.log( $scope.moneyMonth)
                 }
-                companyCompensateCountWeek[0].data.push(Data.result[i].company_cost);
-                personalCompensateCountWeek[0].data.push(Data.result[i].under_cost);
+                companyCompensateCountWeek[0].data.push(data.result[i].company_cost);
+                personalCompensateCountWeek[0].data.push(data.result[i].under_cost);
             }
             $scope.showCompanyLiabilityCompensation_week();
             $scope.showPersonalLiabilityCompensation_week();
         }
         else{
-            swal(Data.msg, "", "error");
+            swal(data.msg, "", "error");
         }
     });
     // 个人承担赔偿费top10周数据

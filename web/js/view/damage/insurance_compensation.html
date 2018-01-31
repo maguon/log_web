@@ -16,18 +16,13 @@
                     <option value="2">已完结</option>
                 </select>
             </div>
-            <div class="col s4 valign-wrapper" style="padding: 0;">
-                <div class="input-field col s10">
-                    <input id="insurance_payment_start" type="number" ng-model="insurancePaymentStart">
-                    <label for="insurance_payment_start">保险赔付（元）</label>
-                </div>
-                <div class="col s2 center-align">
-                    <p style="margin: 3px 0">--</p>
-                </div>
+            <div class="input-field col s4">
+                <input id="insurance_payment_start" type="number" ng-model="insurancePaymentStart">
+                <label for="insurance_payment_start">保险赔付（元）</label>
             </div>
             <div class="input-field col s4">
                 <input id="insurance_paymentEnd" type="number" ng-model="insurancePaymentEnd">
-                <label for="insurance_paymentEnd">保险赔付（元）</label>
+                <label for="insurance_paymentEnd">至</label>
             </div>
             <div class="input-field col s4">
                 <input id="handler" type="text" ng-model="handlerName">
@@ -37,7 +32,7 @@
         <div class="col s3 valign-wrapper" style="height: 142px;">
             <div class="col s4 flex flex-round">
                 <a class="btn-floating btn-large waves-light waves-effect red lighten-2 btn vc-center"
-                   ng-click="getInsurancePaymentList()">
+                   ng-click="searchInsurancePaymentList()">
                     <i class="mdi mdi-magnify"></i>
                 </a>
             </div>
@@ -84,6 +79,17 @@
                 </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+
+    <div class="paging_box col s12" style="height: 45px">
+        <div class="right">
+            <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="previous_page()">
+                上一页
+            </a>
+            <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_page()">
+                下一页
+            </a>
         </div>
     </div>
 </div>

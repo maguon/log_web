@@ -1,5 +1,7 @@
 app.controller("damage_management_controller", ["$scope", "$host", "_basic", "_config", function ($scope, $host, _basic, _config) {
 
+    $scope.start = 0;
+    $scope.size = 20;
     // 获取config数据
     $scope.damageLinkType = _config.damageLinkType;
     $scope.damageType = _config.damageType;
@@ -65,9 +67,23 @@ app.controller("damage_management_controller", ["$scope", "$host", "_basic", "_c
             routeEndId:$scope.endCity,
             receiveId:$scope.distributor,
             damageLinkType:$scope.damage_link_type,
-            damageType:$scope.damage_type
+            damageType:$scope.damage_type,
+            start:$scope.start.toString(),
+            size:$scope.size
         })).then(function (data) {
             if (data.success === true) {
+                if ($scope.start > 0) {
+                    $("#pre").show();
+                }
+                else {
+                    $("#pre").hide();
+                }
+                if (data.result.length < $scope.size) {
+                    $("#next").hide();
+                }
+                else {
+                    $("#next").show();
+                }
                 $scope.damageMamagementList = data.result;
             }
             else {
@@ -76,9 +92,26 @@ app.controller("damage_management_controller", ["$scope", "$host", "_basic", "_c
         });
     };
 
+    // 点击按钮进行查询
+    $scope.searchDamageManagementList = function () {
+        $scope.start = 0;
+        $scope.getDamageManagementList();
+    };
+
+    // 分页
+    $scope.previous_page = function () {
+        $scope.start = $scope.start - $scope.size;
+        $scope.getDamageManagementList();
+    };
+
+    $scope.next_page = function () {
+        $scope.start = $scope.start + $scope.size;
+        $scope.getDamageManagementList();
+    };
+
     // 获取数据
     $scope.queryData = function () {
-        $scope.getDamageManagementList();
+        $scope.searchDamageManagementList();
         $scope.getBrandList();
         $scope.getCityList();
     };

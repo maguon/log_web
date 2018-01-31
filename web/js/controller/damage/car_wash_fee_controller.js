@@ -1,5 +1,7 @@
 app.controller("car_wash_fee_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
 
+    $scope.receive_status = "1";
+
     // 获取目的城市列表
     $scope.getCityList = function () {
         _basic.get($host.api_url + "/city").then(function (data) {

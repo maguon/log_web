@@ -9,46 +9,56 @@
     <div class="divider" style="background: #00bcd4;height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
     <div class="row col s12" style="width: 60%;margin: 0 auto;color: #969696">
         <div class="row col s12" style="font-size: 1.4rem;font-weight: bold">
-            <div class="col s6">
-                <p>司机：姜超</p>
+            <div class="col s4">
+                <p>司机：{{currentFeeInfo.drive_name}}</p>
             </div>
-            <div class="col s6">
-                <p>指令编号：123456789012</p>
+            <div class="col s4">
+                <p>指令编号：{{currentFeeInfo.dp_route_task_id}}</p>
+            </div>
+            <div class="col s4">
+                <p>领取状态：{{currentStatus == 0 ? "未通过" : currentStatus == 1 ? "未审核" : "已通过"}}</p>
             </div>
         </div>
 
         <div class="row col s12 wash_fee_details" style="font-size: 1.1rem">
-            <div class="col s6">
-                <p><span>货车牌号：</span>辽B 12345</p>
+            <div class="col s4">
+                <p><span>货车牌号：</span>{{currentFeeInfo.truck_num}}</p>
             </div>
-            <div class="col s6">
-                <p><span>商品车数：</span>5</p>
+            <div class="col s4">
+                <p><span>商品车数：</span>{{currentFeeInfo.car_count}}</p>
             </div>
-            <div class="col s6">
-                <p><span>现场调度：</span>张宝全</p>
+            <div class="col s4">
+                <p><span>现场调度：</span>{{currentFeeInfo.field_op_name}}</p>
             </div>
-            <div class="col s6">
-                <p><span>装车时间：</span>2017-08-23</p>
+            <div class="col s4">
+                <p><span>装车时间：</span>{{currentFeeInfo.load_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
             </div>
-            <div class="col s6">
-                <p><span>目的城市：</span>上海</p>
+            <div class="col s4">
+                <p><span>目的城市：</span>{{currentFeeInfo.route_end_name}}</p>
             </div>
-            <div class="col s6">
-                <p><span>送达经销商：</span>上海浦兴</p>
+            <div class="col s4">
+                <p><span>送达经销商：</span>{{currentFeeInfo.short_name}}</p>
             </div>
-            <div class="col s6">
-                <p><span>洗车单价：</span>30元/辆</p>
+            <div class="col s4">
+                <p><span>洗车单价：</span>{{currentFeeInfo.single_price}}元 / 辆</p>
             </div>
-            <div class="col s6">
-                <p><span>总洗车费：</span><span style="font-weight: bold;font-size: 1.3rem;color: rgb(230,121,121)">150</span> 元</p>
+            <div class="col s4">
+                <p><span>计划洗车费：</span><span style="font-weight: bold;font-size: 1.3rem;color: rgb(230,121,121)">{{currentFeeInfo.total_price}}</span> 元</p>
             </div>
-            <div class="col s12">
-                <p><span>发放人：</span>默认当前用户</p>
+            <div class="col s4 input-field">
+                <input style="font-size: 1.8rem;text-align: right;color: rgb(230,123,123)" id="driver" type="number" ng-model="totalPrice">
+                <label class="{{totalPrice != null ? 'active' : 'inactive'}}" for="driver">总洗车费（元）</label>
             </div>
         </div>
-        <div class="row col s12" style="margin-top: 100px">
-            <div class="col s4 offset-s4">
-                <a ui-sref="" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+
+        <div class="row col s12" ng-if="currentStatus == 1" style="margin-top: 80px">
+            <div class="col s2 offset-s4">
+                <a ng-click="rejectWashFee()" style="width: 100%" class="waves-light waves-effect red lighten-1 btn">
+                    驳回
+                </a>
+            </div>
+            <div class="col s2">
+                <a ng-click="receiveWashFee()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
                     领取
                 </a>
             </div>

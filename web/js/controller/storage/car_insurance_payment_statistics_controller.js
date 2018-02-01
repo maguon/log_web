@@ -202,7 +202,7 @@ app.controller("car_insurance_payment_statistics_controller", ["$scope", "$host"
             tooltip: {
                 headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
                 pointFormat: '<tr><td style="color:{series.color};padding:0"></td>' +
-                '<td style="padding:0"><b>{point.y:.1f} 次</b></td></tr>',
+                '<td style="padding:0"><b>{point.y} 次</b></td></tr>',
                 footerFormat: '</table>',
                 shared: true,
                 useHTML: true
@@ -242,7 +242,7 @@ app.controller("car_insurance_payment_statistics_controller", ["$scope", "$host"
             tooltip: {
                 headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
                 pointFormat: '<tr><td style="color:{series.color};padding:0"></td>' +
-                '<td style="padding:0"><b>{point.y:.1f} 次</b></td></tr>',
+                '<td style="padding:0"><b>{point.y} 次</b></td></tr>',
                 footerFormat: '</table>',
                 shared: true,
                 useHTML: true

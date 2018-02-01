@@ -91,7 +91,7 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$statePara
     };
 
     // 删除选中的质损信息
-    $scope.deleteDamageInfo = function (damageRelId) {
+    $scope.deleteDamageInfo = function (damageCardId) {
         if($scope.damageInfoCardList.length > 1){
             swal({
                     title: "确定删除当前质损信息吗？",
@@ -103,8 +103,9 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$statePara
                     closeOnConfirm: true
                 },
                 function(){
-                    _basic.delete($host.api_url + "/user/" + userId + "/damageInsureRel/" + damageRelId).then(function (data) {
+                    _basic.delete($host.api_url + "/user/" + userId + "/damageInsure/" + damageId + "/damage/" + damageCardId).then(function (data) {
                         if (data.success === true) {
+                            // console.log("data",data);
                             $scope.getCurrentDamageInfo();
                         }
                         else {

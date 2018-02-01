@@ -2,6 +2,7 @@ app.controller("insurance_compensation_controller", ["$scope", "$host", "_basic"
 
     $scope.start = 0;
     $scope.size = 20;
+    $scope.processingStatus = "1";
 
     // 获取保险赔偿列表
     $scope.getInsurancePaymentList = function () {

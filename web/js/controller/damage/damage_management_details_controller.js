@@ -7,38 +7,17 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
     var recordId;
     var damageCheckId;
 
-    // 控制tab显示隐藏
-    $scope.damage_basic_info = false;
-    $scope.damage_images = false;
-    $scope.damage_handle_info = false;
-    $scope.insurance_info = false;
 
     // tab切换
-    $scope.showDamageBasicInfo = function () {
-        $scope.damage_basic_info = true;
-        $scope.damage_images = false;
-        $scope.damage_handle_info = false;
-        $scope.insurance_info = false;
-    };
     $scope.showDamageImage = function () {
-        $scope.damage_basic_info = false;
-        $scope.damage_images = true;
-        $scope.damage_handle_info = false;
-        $scope.insurance_info = false;
         $scope.getCurrentDamageImage();
     };
     $scope.showDamageHandleInfo = function () {
-        $scope.damage_basic_info = false;
-        $scope.damage_images = false;
-        $scope.damage_handle_info = true;
-        $scope.insurance_info = false;
         $scope.getBeforeDamageInfo();
     };
     $scope.showInsuranceInfo = function () {
-        $scope.damage_basic_info = false;
-        $scope.damage_images = false;
-        $scope.damage_handle_info = false;
-        $scope.insurance_info = true;
+        $scope.getInsuranceInfo();
+        $scope.getInsurePaymentCard();
     };
 
     // 根据当前damageId查询当前质损信息和质损状态
@@ -284,8 +263,6 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
         }
     };
 
-
-
     // 点击图片查看大图
     var viewer;
     $scope.damageFinish = function () {
@@ -294,14 +271,92 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
         });
     };
 
-
+    // 开启添加理赔信息model
     $scope.showInsuranceModel = function () {
+        $scope.insuranceCompanyId = "";
+        $scope.insuranceCompensation = 0;
+        $scope.insurancePay = 0;
         $('#carInfoModel').modal('open');
+    };
+
+    // 获取理赔信息卡片
+    $scope.getInsurePaymentCard = function () {
+        _basic.get($host.api_url + "/damageInsure?damageId=" + damageId).then(function (data) {
+            if (data.success === true) {
+                // console.log("data", data);
+                $scope.damageInsureCardList = data.result;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+    // 获取保险公司
+    $scope.getInsuranceInfo = function () {
+        // 获取折线图的保险公司列表
+        _basic.get($host.api_url + "/truckInsure").then(function (insuranceListData) {
+            if (insuranceListData.success === true) {
+                $scope.insuranceList = insuranceListData.result;
+                // console.log("insuranceListData",$scope.insuranceList)
+            }
+            else {
+                swal(insuranceListData.msg, "", "error");
+            }
+        });
+    };
+
+    // 点击确定新增理赔信息
+    $scope.saveInsuranceInfo = function () {
+        if($scope.insuranceCompanyId !== "" && $scope.insuranceCompensation !== 0){
+            _basic.post($host.api_url + "/user/" + userId + "/insure",{
+                insureId: $scope.insuranceCompanyId,
+                insurePlan: $scope.insuranceCompensation,
+                insureActual: $scope.insurancePay,
+                damageId: damageId
+            }).then(function (data) {
+                if (data.success === true) {
+                    swal("添加成功", "", "success");
+                    $('#carInfoModel').modal('close');
+                    $scope.getInsurePaymentCard();
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
+        else{
+            swal("保险公司和待赔金额不能为空！", "", "warning");
+        }
+
+    };
+
+    // 点击删除当前理赔信息
+    $scope.deletePaymentInfo = function (damageCardId) {
+        swal({
+                title: "确定删除当前理赔信息吗？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确认",
+                cancelButtonText: "取消",
+                closeOnConfirm: true
+            },
+            function(){
+                _basic.delete($host.api_url + "/user/" + userId + "/damageInsure/" + damageCardId + "/damage/" + damageId).then(function (data) {
+                    if (data.success === true) {
+                        // console.log("data", data);
+                        $scope.getInsurePaymentCard();
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
+            });
     };
 
     // 获取数据
     $scope.queryData = function () {
-        $scope.showDamageBasicInfo();
         $scope.getCurrentDamageInfo();
     };
     $scope.queryData();

@@ -247,8 +247,6 @@ app.controller("liability_compensation_statistics_controller", ["$scope", "$host
          }
         _basic.get($host.api_url + "/damageCheckUnderMonthStat?"+_basic.objToUrl(obj)+"&start="+ $scope.start+"&size="+ $scope.size ).then(function (data) {
             if (data.success === true){
-                //console.log(data)
-                console.log($host.api_url + "/damageCheckUnderMonthStat?"+_basic.objToUrl(obj)+"&start="+ $scope.start+"&size="+ $scope.size )
                 var maxCost = parseFloat(data.result[0].total_under_cost);
                 for (var i = 0; i < data.result.length; i++) {
                     var pecentage = parseInt(data.result[i].total_under_cost/maxCost*100);
@@ -267,10 +265,7 @@ app.controller("liability_compensation_statistics_controller", ["$scope", "$host
              data.result.reverse();
              $scope.statisticsTop10 = data.result;
              $scope.statistics =  $scope.statisticsTop10.slice(0, 10);
-             console.log($scope.statistics)
-            // $scope.statistics.reverse();
         // X轴月份
-        //console.log(Data)
         $scope.moneyWeek = [];
         // 初始化金额数
         companyCountWeek[0].data = [];

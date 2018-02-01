@@ -185,6 +185,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/system_settings/data_dictionary.html",
             controller:'data_dictionary_controller'
         })
+        .state("setting_repair",{
+            url:"/setting_repair",
+            templateUrl: "js/view/system_settings/setting_repair.html",
+            controller:'setting_repair_controller'
+        })
 
         // 仓储
         .state("storage_index", {  //路由状态

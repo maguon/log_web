@@ -1,0 +1,132 @@
+<div>
+        <div id="clickAdd" class="modal">
+            <form name="addForm" ng-submit="createRepairStation(addForm.$valid)" novalidate>
+                <div class="modal-content">
+                    <h4 class="center-align ">新增维修站</h4>
+                    <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+                    <div class="container">
+                        <div class="row" style="margin-top: 40px">
+                            <div class="row" ng-class="{ 'has-error':addForm.name.$invalid&&submitted }" >
+                                <h5 class="col s3-0">
+                                    <span style="color: red">*</span>
+                                    维修站名称:</h5>
+                                <input  id="name" name="name" autocomplete="off" ng-model="newName" type="text"   required class=" col s6-0">
+                            </div>
+                            <div class="row" ng-class="{ 'has-error':addForm.address.$invalid&&submitted }">
+                                <h5 class="col s3-0">
+                                    <span style="color: red">*</span>
+                                    维修站地址:
+                                </h5>
+                                <input id="address" name="address" autocomplete="off" ng-model="newAddress" type="text" required class=" col s6-0">
+                            </div>
+                            <div class="row" ng-class="{ 'has-error':addForm.remark.$invalid&&submitted }">
+                                <h5 class="col s2-0" style="margin-left:75px"> 备注:</h5>
+                                <input style="margin-right: 10px" id="remark" name="remark" autocomplete="off" ng-model="newRemark" type="text"  class=" col s6-0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+                <div class="modal-footer vc-center">
+                    <a  class=" modal-action modal-close waves-effect waves-light grey lighten-1 btn"  >取消 </a>
+                    <button class="btn waves-light waves-effect cyan lighten-2" type="submit" name="action" style="margin-left: 10px">确定</button>
+                </div>
+            </form>
+
+        </div>
+        <div id="clickLook" class="modal">
+        <form name="changeForm" ng-submit="changeRepairList(look_operation.id)" novalidate>
+            <div class="modal-content">
+                <h4 class="center-align ">维修站详情</h4>
+                <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+                <div class="container">
+                    <div class="row" style="margin-top: 40px">
+                        <div class="row" ng-class="{ 'has-error':changeForm.name.$invalid&&submitted }" >
+                            <h5 class="col s3-0">
+                                <span style="color: red">*</span>
+                                维修站名称:</h5>
+                            <input  id="name" name="name" autocomplete="off" ng-model="look_operation.repair_name" type="text"   required class=" col s6-0">
+                        </div>
+                        <div class="row" ng-class="{ 'has-error':changeForm.address.$invalid&&submitted }">
+                            <h5 class="col s3-0">
+                                <span style="color: red">*</span>
+                                维修站地址:
+                            </h5>
+                            <input id="address" name="address" autocomplete="off" ng-model="look_operation.address" type="text" required class=" col s6-0">
+                        </div>
+                        <div class="row" ng-class="{ 'has-error':changeForm.remark.$invalid&&submitted }">
+                            <h5 class="col s2-0" style="margin-left:75px"> 备注:</h5>
+                            <input style="margin-right: 10px" id="remark" name="remark" autocomplete="off" ng-model="look_operation.remark" type="text"  class=" col s6-0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+            <div class="modal-footer vc-center">
+                <a  class=" modal-action modal-close waves-effect waves-light grey lighten-1 btn"  >取消 </a>
+                <button class="btn waves-light waves-effect cyan lighten-2" type="submit" name="action" style="margin-left: 10px">确定</button>
+            </div>
+        </form>
+        </div>
+        <div style="width: 90%;margin: 0 auto">
+            <div class="row card" style="height: 135px">
+                <div class="col s12 m12">
+                    <div class="col s12  " style="margin-bottom: 15px;">
+                        <div class="input-field col s3 " style="margin-top: 40px;margin-left: 70px">
+                            <div class="col s12 p0" >
+                                <input name="search_id" id="search_id" type="text" ng-model="search_id" >
+                                <label for="search_id">编号</label>
+                            </div>
+                        </div>
+                        <div class="input-field col s4 " style="margin-top: 40px;margin-left: 100px;">
+                            <select  id="chooseStation"  ng-model="station" material-select watch>
+                                <option value="" selected>维修站</option>
+                                <option ng-repeat="repair in repairSectionList" ng-value="repair.repair_station_name">{{repair.repair_station_name}}</option>
+                            </select>
+                        </div>
+                        <div class="col s1 flex flex-round " style="margin-left: 230px;margin-top: 30px;">
+                            <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
+                               style="margin-right: 10px" ng-click="searchRepairStationDetail()">
+                                <i class="mdi mdi-magnify"></i>
+                            </a>
+                        </div>
+                        <div class="col s1 flex flex-round " style="margin-top: 30px;">
+                            <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2  btn vc-center" ng-click="clickAdd()">
+                                <i class="mdi mdi-plus"></i>
+                            </a>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+        <div style="width:90%;margin:50px auto;background: white">
+            <ul class="collapsible"  data-collapsible="accordion" collapsible style="border-bottom: 1px solid #4dd0e1;">
+                <li ng-repeat="el in repairStationArray" class="grey-text text-darken-1" style="border-bottom: 1px solid #ccc;height: 100px;line-height: 100px;text-align: center;position: relative">
+                    <div ng-bind="el.id" style="color: #4dd0e1;width: 160px" class="left"></div>
+                    <i class="mdi mdi-home fz20" style="color:#4dd0e1;position: absolute;left: 300px"></i><div ng-bind="el.repair_station_name" class="left" style="width: 460px"></div>
+                    <i class="mdi mdi-map-marker fz20" style="color:#4dd0e1;position: absolute;left: 850px"></i><div ng-bind="el.address" class="left" style="width: 600px"></div>
+                    <div  class="operation table_operation vc-center right" style="position: relative">
+                        <span><i class="mdi mdi-pencil cyan-text text-lighten-1" ng-click="clickLook(el.id)"style="position: absolute;right:200px;"></i></span>
+                        <span class="switch"  style="height: 30px;position:absolute;right:100px;top:5px">
+                                <label>
+                                    <input type="checkbox" ng-checked="el.repair_station_status==1"  ng-click="changeStatus($event,el.repair_station_status,el.id)" >
+                                    <span class="lever"></span>
+                                </label>
+                        </span>
+                    </div>
+                <li class="grey-text text-darken-1" ng-if="queryDetail.length == 0" style="border-bottom: 1px solid #ccc;height: 100px;line-height: 100px;text-align: center">
+                    <div colspan="4"><span style="letter-spacing: 2px">暂无数据</span></div>
+                </li>
+                </li>
+            </ul>
+        </div>
+        <div class="paging_box col s12">
+            <div class="right">
+                <a class="waves-light waves-effect cyan lighten-1 btn"  id="pre"   ng-click="previousPage()"> 上一页</a>
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="next"  ng-click="nextPage()"> 下一页 </a>
+            </div>
+        </div>
+</div>
+
+
+

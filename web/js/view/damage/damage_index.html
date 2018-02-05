@@ -2,40 +2,6 @@
     <div class="damage_content" style="width: 95%;margin: 0 auto">
         <!--上方三卡片-->
         <div class="row">
-            <!--<div class="col s4" style="font-weight: bold;color: white">-->
-                <!--<div class="center-align" style="background-color: rgb(229,115,115);height: 350px;margin-top: 10px;box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.14), 0 2px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)">-->
-                    <!--<div class="col s12" style="margin-top: 30px">-->
-                        <!--<span class="white lighten-2 center" style="width:70px;height:70px;display:inline-block;border-radius: 100%;font-size: 2.5rem;color: rgb(229,115,115);line-height: 70px">-->
-                            <!--<img style="width: 38px;margin-top: 20px" src="./assets/images/damage_icon_red.png" alt="#">-->
-                        <!--</span>-->
-                    <!--</div>-->
-                    <!--<div class="col s12" style="font-size: 1.5rem;letter-spacing: 2px">-->
-                        <!--<p style="margin: 15px 0">本月处理质损</p>-->
-                    <!--</div>-->
-                    <!--<div class="col s12" style="font-size: 3rem;letter-spacing: 2px;">-->
-                        <!--<p style="margin:0;padding-bottom: 15px;border-bottom: 1px solid white">{{generalDamageCount + seriousDamageCount}}</p>-->
-                    <!--</div>-->
-                    <!--<div class="col s12" style="font-size: 1.2rem;letter-spacing: 2px;">-->
-                        <!--<div class="col s6" style="border-right: 1px solid white">-->
-                            <!--<div class="col s12">-->
-                                <!--<p style="margin: 15px 0">一般质损</p>-->
-                            <!--</div>-->
-                            <!--<div class="col s12">-->
-                                <!--<p style="margin: 0;font-size: 1.5rem">{{generalDamageCount}}</p>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="col s6">-->
-                            <!--<div class="col s12">-->
-                                <!--<p style="margin: 15px 0">严重质损</p>-->
-                            <!--</div>-->
-                            <!--<div class="col s12">-->
-                                <!--<p style="margin: 0;font-size: 1.5rem">{{seriousDamageCount}}</p>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-
             <div class="col s6" style="font-weight: bold;color: white">
                 <div class="center-align" style="background-color: rgb(245,166,35);height: 350px;margin-top: 10px;box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.14), 0 2px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)">
                     <div class="col s12" style="margin-top: 30px">
@@ -79,7 +45,7 @@
                         <p style="margin: 15px 0">当月企业和个人承担质损总额</p>
                     </div>
                     <div class="col s12" style="font-size: 3rem;letter-spacing: 2px;">
-                        <p style="margin:0;padding-bottom: 15px;border-bottom: 1px solid white">39284.00</p>
+                        <p style="margin:0;padding-bottom: 15px;border-bottom: 1px solid white">{{getCompanyCount+getPersonCount}}</p>
                     </div>
                     <div class="col s12" style="font-size: 1.2rem;letter-spacing: 2px;">
                         <div class="col s6" style="border-right: 1px solid white">
@@ -87,7 +53,7 @@
                                 <p style="margin: 15px 0">企业承担总额</p>
                             </div>
                             <div class="col s12">
-                                <p style="margin: 0;font-size: 1.5rem">38475.00</p>
+                                <p style="margin: 0;font-size: 1.5rem">{{getCompanyCount}}</p>
                             </div>
                         </div>
                         <div class="col s6">
@@ -95,7 +61,7 @@
                                 <p style="margin: 15px 0">个人承担总额</p>
                             </div>
                             <div class="col s12">
-                                <p style="margin: 0;font-size: 1.5rem">38475.00</p>
+                                <p style="margin: 0;font-size: 1.5rem">{{getPersonCount}}</p>
                             </div>
                         </div>
                     </div>
@@ -112,7 +78,7 @@
                             <p>&emsp;<span style="color: rgb(37,198,218);font-size: 2rem" class="mdi mdi-car-wash"></span>&emsp;当月洗车数</p>
                         </div>
                         <div class="col s12 right-align">
-                            <p style="margin: 15px 0"><span style="color: rgb(37,198,218);font-size: 2.4rem">2456</span>&nbsp;辆</p>
+                            <p style="margin: 15px 0"><span style="color: rgb(37,198,218);font-size: 2.4rem">{{getCleanCount}}</span>&nbsp;辆</p>
                         </div>
                     </div>
                     <div class="col s6" style="border-right: 1px solid rgb(37,198,218)">
@@ -120,7 +86,7 @@
                             <p>&emsp;<span style="color: rgb(37,198,218);font-size: 2rem" class="mdi mdi-car-wash"></span>&emsp;当月洗车费</p>
                         </div>
                         <div class="col s12 right-align">
-                            <p style="margin: 15px 0"><span style="color: rgb(229,115,115);font-size: 2.4rem">2456.00</span>&nbsp;元</p>
+                            <p style="margin: 15px 0"><span style="color: rgb(229,115,115);font-size: 2.4rem">{{getCleanPrice}}.00</span>&nbsp;元</p>
                         </div>
                     </div>
                 </div>
@@ -133,7 +99,7 @@
                             <p>&emsp;<span style="color: rgb(37,198,218);font-size: 2rem" class="mdi mdi-wallet-travel"></span>&emsp;当月保险赔付</p>
                         </div>
                         <div class="col s12 right-align">
-                            <p style="margin: 15px 0"><span style="color: rgb(37,198,218);font-size: 2.4rem">56</span>&nbsp;起</p>
+                            <p style="margin: 15px 0"><span style="color: rgb(37,198,218);font-size: 2.4rem">{{getInsurNum}}</span>&nbsp;起</p>
                         </div>
                     </div>
                     <div class="col s6" style="border-right: 1px solid rgb(37,198,218)">
@@ -141,12 +107,11 @@
                             <p>&emsp;<span style="color: rgb(37,198,218);font-size: 2rem" class="mdi mdi-wallet-travel"></span>&emsp;当月保险赔付总额</p>
                         </div>
                         <div class="col s12 right-align">
-                            <p style="margin: 15px 0"><span style="color: rgb(229,115,115);font-size: 2.4rem">1234.00</span>&nbsp;元</p>
+                            <p style="margin: 15px 0"><span style="color: rgb(229,115,115);font-size: 2.4rem">{{getInsurCount}}.00</span>&nbsp;元</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>

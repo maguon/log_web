@@ -1,35 +1,43 @@
 app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
-
+    $scope.startInitial = moment(new Date()).format('YYYY') + "01";
+    $scope.endInitial = moment(new Date()).format('YYYYMM');
+    // monthPicker控件
+    $('#chooseRepairStart,#chooseRepairEnd').MonthPicker({
+        Button: false,
+        MonthFormat: 'yymm'
+    });
+    $scope.start = 0;
+    $scope.size = 20;
+    var month;
+    var week;
     // 商品车质损按月统计
     var carDamageCountMonth = [
         {
             name: '一般质损',
-            data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+            data: [],
             color: '#FF7E7E'
         },
         {
             name: '严重质损',
-            data: [71.5, 148.5, 129.2, 95.6, 124.0, 54.4, 216.4, 176.0, 135.6, 106.4, 49.9, 194.1],
+            data: [],
             color: '#26C6DA'
         }
     ];
-
     // 商品车质损按周统计
     var carDamageCountWeek = [
         {
             name: '一般质损',
-            data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1],
+            data: [],
             color: '#FF7E7E'
         },
         {
             name: '严重质损',
-            data: [71.5, 148.5, 129.2, 95.6, 124.0, 54.4, 216.4, 176.0, 135.6, 106.4],
+            data: [],
             color: '#26C6DA'
         }
     ];
-
     // 显示商品车质损金额按月统计折线图
-    $scope.showVehicleRepairHistogram_month = function () {
+    function showVehicleRepairHistogramMonth () {
         $("#carDamageStatisticsMonth").highcharts({
             title: {
                 text: ''
@@ -38,20 +46,7 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
                 text: ''
             },
             xAxis: {
-                categories: [
-                    '一月',
-                    '二月',
-                    '三月',
-                    '四月',
-                    '五月',
-                    '六月',
-                    '七月',
-                    '八月',
-                    '九月',
-                    '十月',
-                    '十一月',
-                    '十二月'
-                ],
+                categories:month,
                 crosshair: true
             },
             yAxis: {
@@ -80,9 +75,8 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
             series: carDamageCountMonth
         });
     };
-
     // 显示商品车质损金额按周统计折线图
-    $scope.showVehicleRepairHistogram_week = function () {
+    function showVehicleRepairHistogramWeek () {
         $("#carDamageStatisticsWeek").highcharts({
             chart: {
                 type: 'line'
@@ -94,18 +88,7 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
                 text: ''
             },
             xAxis: {
-                categories: [
-                    '第1周',
-                    '第2周',
-                    '第3周',
-                    '第4周',
-                    '第5周',
-                    '第6周',
-                    '第7周',
-                    '第8周',
-                    '第9周',
-                    '第10周'
-                ],
+                categories:week,
                 crosshair: true
             },
             yAxis: {
@@ -134,11 +117,84 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
             series: carDamageCountWeek
         });
     };
-
+    // 按月
+    function vehicleRepairMonth(start,end){
+        var obj = {
+            monthStart:start,
+            monthEnd: end
+        }
+        _basic.get($host.api_url + "/damageTypeMonthStat?damageStatus=3&"+_basic.objToUrl(obj)).then(function (data) {
+            if (data.success === true){
+                // data.result.reverse();
+                // X轴月份
+                month = [];
+                // 初始化金额数
+                carDamageCountMonth[0].data = [];
+                carDamageCountMonth[1].data = [];
+                // 赋予柱状图金额数组
+                for (var i = 0; i < data.result.length; i++) {
+                    if(month.indexOf(data.result[i].y_month) === -1){
+                        month.push(data.result[i].y_month);
+                    }
+                    if(data.result[i].id==1){
+                        carDamageCountMonth[0].data.push(data.result[i].damage_count);
+                    }
+                    else if(data.result[i].id==2){
+                        carDamageCountMonth[1].data.push(data.result[i].damage_count);
+                    }
+                }
+                showVehicleRepairHistogramMonth();
+            } else{
+                swal(data.msg, "", "error");
+            }
+        });
+    }
+    //通过接口获取时间
+    $scope.selectRepairDate = function () {
+        var monthStart = $("#chooseRepairStart").val();
+        var monthEnd = $("#chooseRepairEnd").val();
+        if(monthStart==''||monthStart == null||monthEnd==''||monthEnd == null){
+            monthStart= $scope.startInitial;
+            monthEnd=$scope.endInitial;
+            swal('请输入完整的时间信息', "", "error");
+        }
+        vehicleRepairMonth(monthStart, monthEnd);
+    };
+    //按周
+    function vehicleRepairWeek() {
+        _basic.get($host.api_url + "/damageTypeWeekStat?damageStatus=3&start=" + $scope.start + "&size=" + $scope.size).then(function (data) {
+            if (data.success == true) {
+                data.result.reverse();
+                // X轴月份
+                week = [];
+                // 初始化金额数
+                carDamageCountWeek[0].data = [];
+                carDamageCountWeek[1].data = [];
+                // 赋予柱状图金额数组
+                for (var i = 0; i < data.result.length; i++) {
+                    if(week.indexOf(data.result[i].y_week) === -1){
+                        week.push(data.result[i].y_week);
+                    }
+                    if(data.result[i].id==1){
+                        carDamageCountWeek[0].data.push(data.result[i].damage_count);
+                    }
+                    else if(data.result[i].id==2){
+                        carDamageCountWeek[1].data.push(data.result[i].damage_count);
+                    }
+                }
+                showVehicleRepairHistogramWeek();
+            } else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
     // 获取数据
     $scope.queryData = function () {
-        $scope.showVehicleRepairHistogram_month();
-        $scope.showVehicleRepairHistogram_week();
+        //showVehicleRepairHistogramMonth();
+        //showVehicleRepairHistogramWeek();
+        vehicleRepairMonth($scope.startInitial,$scope.endInitial);
+        vehicleRepairWeek();
+        //$scope.selectRepairDate();
     };
     $scope.queryData();
 }]);

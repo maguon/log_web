@@ -37,7 +37,7 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
         }
     ];
     // 显示商品车质损金额按月统计折线图
-    function showVehicleRepairHistogramMonth () {
+    function showVehicleDamageHistogramMonth () {
         $("#carDamageStatisticsMonth").highcharts({
             title: {
                 text: ''
@@ -76,7 +76,7 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
         });
     };
     // 显示商品车质损金额按周统计折线图
-    function showVehicleRepairHistogramWeek () {
+    function showVehicleDamageHistogramWeek () {
         $("#carDamageStatisticsWeek").highcharts({
             chart: {
                 type: 'line'
@@ -118,7 +118,7 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
         });
     };
     // 按月
-    function vehicleRepairMonth(start,end){
+    function vehicleDamageMonth(start,end){
         var obj = {
             monthStart:start,
             monthEnd: end
@@ -143,14 +143,14 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
                         carDamageCountMonth[1].data.push(data.result[i].damage_count);
                     }
                 }
-                showVehicleRepairHistogramMonth();
+                showVehicleDamageHistogramMonth();
             } else{
                 swal(data.msg, "", "error");
             }
         });
     }
     //通过接口获取时间
-    $scope.selectRepairDate = function () {
+    $scope.selectDamageDate = function () {
         var monthStart = $("#chooseRepairStart").val();
         var monthEnd = $("#chooseRepairEnd").val();
         if(monthStart==''||monthStart == null||monthEnd==''||monthEnd == null){
@@ -161,7 +161,7 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
         vehicleRepairMonth(monthStart, monthEnd);
     };
     //按周
-    function vehicleRepairWeek() {
+    function vehicleDamageWeek() {
         _basic.get($host.api_url + "/damageTypeWeekStat?damageStatus=3&start=" + $scope.start + "&size=" + $scope.size).then(function (data) {
             if (data.success == true) {
                 data.result.reverse();
@@ -182,7 +182,7 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
                         carDamageCountWeek[1].data.push(data.result[i].damage_count);
                     }
                 }
-                showVehicleRepairHistogramWeek();
+                showVehicleDamageHistogramWeek();
             } else {
                 swal(data.msg, "", "error");
             }
@@ -190,11 +190,8 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
     }
     // 获取数据
     $scope.queryData = function () {
-        //showVehicleRepairHistogramMonth();
-        //showVehicleRepairHistogramWeek();
-        vehicleRepairMonth($scope.startInitial,$scope.endInitial);
-        vehicleRepairWeek();
-        //$scope.selectRepairDate();
+        vehicleDamageMonth($scope.startInitial,$scope.endInitial);
+        vehicleDamageWeek();
     };
     $scope.queryData();
 }]);

@@ -106,7 +106,7 @@ app.controller("vehicle_repair_statistics_controller", ["$scope", "$host", "_bas
             series: repairMoneyCountWeek
         });
     };
-    //通过接口获取个人承担和企业按月承担数据   根据日期搜索公司赔付信息
+    //通过接口获取点击数据
     $scope.queryRepairDate = function () {
         var monthStart = $("#chooseRepairStart").val();
         var monthEnd = $("#chooseRepairEnd").val();
@@ -117,6 +117,7 @@ app.controller("vehicle_repair_statistics_controller", ["$scope", "$host", "_bas
         }
         vehicleRepairMonth(monthStart, monthEnd);
     };
+    // 获取商品车维修金额按月数据
     function vehicleRepairMonth(start,end){
         var obj = {
             monthStart:start,
@@ -141,7 +142,7 @@ app.controller("vehicle_repair_statistics_controller", ["$scope", "$host", "_bas
             }
         });
     }
-    //通过接口获取个人承担和企业按周承担数据
+    // 获取商品车维修金额按周数据
     function vehicleRepaiWeek() {
         _basic.get($host.api_url + "/damageCheckWeekStat?start=" + $scope.start + "&size=" + $scope.size).then(function (data) {
             if (data.success == true) {

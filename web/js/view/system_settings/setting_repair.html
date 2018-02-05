@@ -102,12 +102,12 @@
         </div>
         <div style="width:90%;margin:50px auto;background: white">
             <ul class="collapsible"  data-collapsible="accordion" collapsible style="border-bottom: 1px solid #4dd0e1;">
-                <li ng-repeat="el in repairStationArray" class="grey-text text-darken-1" style="border-bottom: 1px solid #ccc;height: 100px;line-height: 100px;text-align: center;position: relative">
-                    <div ng-bind="el.id" style="color: #4dd0e1;width: 250px" class="left"></div>
-                    <div style="color: #4dd0e1;width: 20px;height: 100px;margin-right: 30px;" class="left"><i class="mdi mdi-home fz20" ></i></div>
-                    <div ng-bind="el.repair_station_name" class="left" style="width: 460px;margin-right: 30px;text-align:left;"></div>
-                    <div style="color: #4dd0e1;width: 20px;height: 100px;margin-right: 30px;" class="left"><i class="mdi mdi-map-marker fz20" ></i></div>
-                    <div ng-bind="el.address" class="left" style="width: 600px;text-align:left;"></div>
+                <li ng-repeat="el in repairStationArray" class="grey-text text-darken-1 row" style="border-bottom: 1px solid #ccc;height: 100px;line-height: 100px;text-align: center;position: relative">
+                    <div ng-bind="el.id" style="color: #4dd0e1;" class="left col s2"></div>
+                    <div style="color: #4dd0e1;width: 20px;height: 100px;margin-right: 30px;" class="left col s1"><i class="mdi mdi-home fz20" ></i></div>
+                    <div ng-bind="el.repair_station_name" class="left col s3" style="margin-right: 30px;text-align:left;"></div>
+                    <div style="color: #4dd0e1;width: 20px;height: 100px;margin-right: 30px;" class="left col s1"><i class="mdi mdi-map-marker fz20" ></i></div>
+                    <div ng-bind="el.address" class="left col s5" style="text-align:left;"></div>
                     <div  class="operation table_operation vc-center right" style="position: relative">
                         <span><i class="mdi mdi-pencil cyan-text text-lighten-1" ng-click="clickLook(el.id)"style="position: absolute;right:200px;"></i></span>
                         <span class="switch"  style="height: 30px;position:absolute;right:100px;top:5px">

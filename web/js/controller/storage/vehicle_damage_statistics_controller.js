@@ -6,8 +6,6 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
         Button: false,
         MonthFormat: 'yymm'
     });
-    $scope.start = 0;
-    $scope.size = 50;
     var month;
     var week;
     // 商品车质损按月统计
@@ -162,26 +160,32 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
     };
     //按周
     function vehicleDamageWeek() {
-        _basic.get($host.api_url + "/damageTypeWeekStat?damageStatus=3&start=" + $scope.start + "&size=" + $scope.size).then(function (data) {
+        _basic.get($host.api_url + "/damageTypeWeekStat?damageStatus=3").then(function (data) {
             if (data.success == true) {
                 data.result.reverse();
                 // X轴月份
                 week = [];
+                var normalWeek=[];
+                var seriousWeek=[];
+                var weekAll = [];
                 // 初始化金额数
                 carDamageCountWeek[0].data = [];
                 carDamageCountWeek[1].data = [];
                 // 赋予柱状图金额数组
                 for (var i = 0; i < data.result.length; i++) {
-                    if(week.indexOf(data.result[i].y_week) === -1){
-                        week.push(data.result[i].y_week);
+                    if(weekAll.indexOf(data.result[i].y_week) === -1){
+                        weekAll.push(data.result[i].y_week);
                     }
                     if(data.result[i].id==1){
-                        carDamageCountWeek[0].data.push(data.result[i].damage_count);
+                        normalWeek.push(data.result[i].damage_count);
                     }
                     else if(data.result[i].id==2){
-                        carDamageCountWeek[1].data.push(data.result[i].damage_count);
+                        seriousWeek.push(data.result[i].damage_count);
                     }
                 }
+                week=weekAll.slice(-10,);
+                carDamageCountWeek[0].data=normalWeek.slice(-10,);
+                carDamageCountWeek[1].data=seriousWeek.slice(-10,);
                 showVehicleDamageHistogramWeek();
             } else {
                 swal(data.msg, "", "error");

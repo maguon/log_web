@@ -9,6 +9,8 @@ app.controller("damage_index_controller", ["$scope", "$host", "_basic", function
     $scope.getCleanCount=0;
     $scope.getInsurNum=0;
     $scope.getInsurCount=0;
+    $scope.damageInsureCount=0;
+    $scope.damageInsure=0;
     // 获取当月待完成处理质损信息
     $scope.getHangDamageCount = function () {
         _basic.get($host.api_url + "/damageNotCheckCount").then(function (data) {
@@ -43,11 +45,11 @@ app.controller("damage_index_controller", ["$scope", "$host", "_basic", function
     };
     //待完成保险赔付
     $scope.getInsuranceCount = function () {
-        _basic.get($host.api_url + "/damageTotalCost?yearMonth="+ currentMonth+'&damageStatus=3').then(function (data) {
+        _basic.get($host.api_url + "/damageInsureMonthStat?insureStatus=1").then(function (data) {
             if (data.success === true) {
                 for (var i = 0; i < data.result.length; i++) {
-                    $scope.getCompanyCount += data.result[i].company_cost;
-                    $scope.getPersonCount += data.result[i].under_cost;
+                    $scope.damageInsureCount += data.result[i].damage_insure_count;
+                    $scope.damageInsure += data.result[i].damage_insure;
                 }
             }
             else {

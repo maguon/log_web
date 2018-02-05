@@ -3,137 +3,161 @@
  */
 app.controller("truck_repair_controller", ["$scope", "$state", "$stateParams", "_basic", "_config", "$host", function ($scope, $state, $stateParams, _basic, _config, $host) {
     var userId = _basic.getSession(_basic.USER_ID);
-    $scope.truck_guarantee_id = $stateParams.id;
-    $scope.truck_type = $stateParams.type;
-    $scope.truck_status = $stateParams.status;
-    $scope.repair_btn = true;
+    var truckId = $stateParams.id;
+    $scope.truckType = $stateParams.type;
 
+
+    // 点击返回按钮返回之前页面
     $scope.return = function () {
         $state.go($stateParams.from, {reload: true});
     };
-    $scope.over_repair = function (repair_reason, id) {
-        $(".modal").modal();
-        $("#put_repair_details").modal("open");
-        $scope.repair_remark = "";
-        $scope.repair_money = "";
-        $stateParams.id = "";
 
-        $scope.repair_reason = repair_reason;
-        $scope.relId = id;
-
+    // 判断车辆类型获取头车或挂车详细信息
+    $scope.getCurrentTruckDetails = function () {
+        if($scope.truckType == 1){
+            _basic.get($host.api_url + "/truckFirst?truckId=" + truckId).then(function (data) {
+                if (data.success === true) {
+                    // console.log("头车",data);
+                    $scope.truckMessage = data.result[0];
+                }
+                else {
+                    swal(data.msg, "", "error")
+                }
+            });
+        }
+        else{
+            _basic.get($host.api_url + "/truckTrailer?truckId=" + truckId).then(function (data) {
+                if (data.success === true) {
+                    // console.log("挂车",data);
+                    $scope.truckMessage = data.result[0];
+                }
+                else {
+                    swal(data.msg, "", "error")
+                }
+            });
+        }
     };
-    $scope.add_maintain = function () {
-        $scope.nowDate = moment(new Date()).format("YYYY-MM-DD");
-        $(".modal").modal();
-        $("#add_maintain").modal("open");
-        $stateParams.id = "";
-        $scope.maintain_msg = "";
-    };
 
-    $scope.search_maintain = function () {
-        $scope.main_now_reason = [];
-        $scope.main_reason = [];
-        _basic.get($host.api_url + "/truckRepairRel?truckId=" + $scope.truck_guarantee_id).then(function (data) {
-            if (data.success == true && data.result.length > 0) {
+    // 根据车辆id查询维修详情
+    $scope.getCurrentRepairInfo = function () {
+        $scope.repairingList = [];
+        $scope.repairedList = [];
+        _basic.get($host.api_url + "/truckRepairRel?" + _basic.objToUrl({
+            truckId: truckId
+        })).then(function (data) {
+            if (data.success === true) {
+                // console.log("data", data);
                 for (var i = 0; i < data.result.length; i++) {
-                    if (data.result[i].repair_status == 0) {
-                        $scope.main_now_reason.push(data.result[i])
+                    if(data.result[i].repair_status == 0){
+                        $scope.repairingList.push(data.result[i]);
+                        data.result[i].repair_type = data.result[i].repair_type.toString();
                     }
-                    else {
-                        $scope.main_reason.push(data.result[i])
+                    else{
+                        $scope.repairedList.push(data.result[i]);
                     }
                 }
-                if ($scope.main_now_reason.length > 0) {
-                    $scope.now_maintain_show = true;
-                    $scope.repair_btn = false;
-                }
-                else {
-                    $scope.now_maintain_show = false;
-                    $scope.repair_btn = true;
-                }
+                console.log("repairingList",$scope.repairingList);
+                // console.log("repairedList",$scope.repairedList);
             }
             else {
-                $scope.repair_btn = true;
+                swal(data.msg, "", "error");
             }
         });
     };
-    $scope.search_maintain();
-    // 增加维修原因
-    $scope.maintainForm = function (iValid) {
-        $scope.main_submitted = true;
-        var obj = {
-            "driveId": $scope.drive_id,
-            "driveName": $scope.drive_name,
-            "repairReason": $scope.maintain_msg
-        };
 
-        if (iValid) {
-            _basic.post($host.api_url + "/user/" + userId + "/truck/" + $scope.truck_guarantee_id + "/truckRepairRel", _basic.removeNullProps(obj)).then(function (data) {
-                if (data.success == true) {
-                    $("#add_maintain").modal("close");
-                    $scope.main_submitted = false;
-                    $scope.search_maintain();
+    // 点击维修类型，如果是事故维修的话根据事故id获取详细信息
+    $scope.isCheckAssociatedAccident = function (repairObj) {
+        console.log(repairObj);
+        if(repairObj.repair_type == 1){
+            _basic.get($host.api_url + "/truckAccident?truckAccidentId=" + repairObj.id).then(function (data) {
+                if (data.success === true) {
+                    // console.log("data", data);
+                    if(data.result.length !== 0){
+                        $scope.accidentInfo = data.result[0];
+                    }
                 }
                 else {
-                    swal(data.msg, "", "error")
-                }
-            });
-        }
-
-    };
-    // 增加维修描述
-    $scope.repair_remarkForm = function (iValid) {
-        $scope.put_repair_submitted = true;
-        if (iValid) {
-            _basic.put($host.api_url + "/user/" + userId + "/truckRepairRel/" + $scope.relId, {
-                "repairUser": $scope.repair_user,
-                "remark": $scope.repair_remark,
-                "repairMoney": $scope.repair_money
-            }).then(function (data) {
-                if (data.success == true) {
-                    $("#put_repair_details").modal("close");
-                    $scope.put_repair_submitted = false;
-                    $scope.search_maintain();
-                }
-                else {
-                    swal(data.msg, "", "error")
+                    swal(data.msg, "", "error");
                 }
             });
         }
     };
-    // 关闭增加维修记录
-    $scope.close_insure = function () {
-        $("#add_maintain").modal("close");
-        $scope.main_submitted = false;
-    };
-    // 关闭维修描述
-    $scope.close_put_repair_details = function () {
-        $("#put_repair_details").modal("close");
-        $scope.put_repair_submitted = false;
-    };
 
-    if ($scope.truck_type == 1) {
-        _basic.get($host.api_url + "/truckFirst?truckId=" + $scope.truck_guarantee_id).then(function (data) {
-            if (data.success == true) {
-                $scope.truck_msg = data.result[0];
-                $scope.drive_name = $scope.truck_msg.drive_name;
-                $scope.drive_id = $scope.truck_msg.drive_id;
+    // 保存修改后的维修信息
+    $scope.saveRepairInfo = function(repairObj){
+        // console.log(repairObj);
+        _basic.put($host.api_url + "/user/" + userId + "/truckRepairRelBase/" + repairObj.id,{
+            repairType: repairObj.repair_type,
+            repairReason: repairObj.repair_reason
+        }).then(function (data) {
+            if (data.success === true) {
+                // console.log("data", data);
+                swal("保存成功！", "", "success");
+                $scope.getCurrentRepairInfo();
             }
             else {
-                swal(data.msg, "", "error")
+                swal(data.msg, "", "error");
             }
         });
-    }
-    else if ($scope.truck_type == 2) {
-        _basic.get($host.api_url + "/truckTrailer?truckId=" + $scope.truck_guarantee_id).then(function (data) {
-            if (data.success == true) {
-                $scope.truck_msg = data.result[0];
+    };
+
+    // 获取维修站信息并打开维修结束模态框
+    $scope.finishRepairInfo = function (relId) {
+        $scope.relId = relId;
+        // $scope.$scope.repairStation = "";
+        $scope.repairDescription = "";
+        $scope.repairMoney = 0;
+        _basic.get($host.api_url + "/repairStation").then(function (data) {
+            if (data.success === true) {
+                // console.log("data", data);
+                $scope.repairStationList = data.result;
             }
             else {
-                swal(data.msg, "", "error")
+                swal(data.msg, "", "error");
             }
         });
-    }
+        $('#repairFinishMod').modal('open');
+    };
+
+    // 模态框内确认维修结束
+    $scope.completeRepairInfo = function () {
+        if($scope.relId !== "" && $scope.repairStation != null && $scope.repairMoney !== 0){
+            swal({
+                    title: "确定结束维修吗？",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "确认",
+                    cancelButtonText: "取消",
+                    closeOnConfirm: true
+                },
+                function(){
+                    _basic.put($host.api_url + "/user/" + userId + "/truckRepairRel/" + $scope.relId,{
+                        repairStationId: $scope.repairStation,
+                        remark: $scope.repairDescription,
+                        repairMoney: $scope.repairMoney
+                    }).then(function (data) {
+                        if (data.success === true) {
+                            // console.log("data", data);
+                            $('#repairFinishMod').modal('close');
+                            $scope.getCurrentRepairInfo();
+                        }
+                        else {
+                            swal(data.msg, "", "error");
+                        }
+                    });
+                });
+        }
+        else{
+            swal("请填写完整信息！", "", "warning");
+        }
+    };
 
 
+    // 获取数据
+    $scope.queryData = function () {
+        $scope.getCurrentTruckDetails();
+        $scope.getCurrentRepairInfo();
+    };
+    $scope.queryData();
 }]);

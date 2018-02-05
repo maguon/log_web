@@ -200,7 +200,8 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
                 "username": _basic.getSession(_basic.USER_NAME),
                 "userId": userId,
                 "userType": _basic.getSession(_basic.USER_TYPE),
-                "url": imageId
+                "url": imageId,
+                "vin": $scope.vinCode
             }).then(function (data) {
                 if (data.success == true) {
                     if ($scope.damage_imageBox.length != 0) {

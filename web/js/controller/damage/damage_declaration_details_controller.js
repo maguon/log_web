@@ -157,7 +157,8 @@ app.controller("damage_declaration_details_controller", ["$scope", "$stateParams
                 "username": _basic.getSession(_basic.USER_NAME),
                 "userId": userId,
                 "userType": _basic.getSession(_basic.USER_TYPE),
-                "url": imageId
+                "url": imageId,
+                "vin": $scope.currentDamageInfo.vin
             }).then(function (data) {
                 if (data.success == true) {
                     $scope.getCurrentDamageImage();

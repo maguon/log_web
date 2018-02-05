@@ -1,147 +1,216 @@
-<div>
-    <div class="">
-        <div class="modal-content grey-text text-darken-2">
-            <div class="storage_storeTitle vc-center">
-                <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
-                    <i class="mdi mdi-arrow-left-bold"></i>
-                </a>
-                <h4 class="center-align cyan-text text-lighten-1">维修记录</h4>
-            </div>
-            <div class="divider" style="background: #00bcd4;height: 2px"></div>
-            <div class="row" style="width: 95%">
-                <div class="row">
-                    <div class="input-field right">
-                        <a ng-show="repair_btn" class="btn btn-large btn-floating red lighten-2 waves-effect" ng-click="add_maintain()">维修</a>
-                    </div>
-                </div>
-                <div class="row border" style="padding: 20px">
-                    <h5 class="col s12" style="margin-bottom: 20px">车牌号码:<span class="cyan-text text-lighten-2">{{truck_msg.truck_num}}</span></h5>
-                    <p>
-                        <span class="col s2" ng-if="truck_type==1">车辆类型：<span  class="black-text">头车</span></span>
-                        <span class="col s2" ng-if="truck_type==2">车辆类型：<span  class="black-text">挂车</span></span>
-                        <span class="col s2" ng-if="truck_msg.operate_type==1">所属类型：<span class="black-text" >自营</span></span>
-                        <span class="col s2" ng-if="truck_msg.operate_type==2">所属类型：<span class="black-text">供方</span></span>
-                        <span class="col s2" ng-if="truck_msg.operate_type==3">所属类型：<span class="black-text" >外协</span></span>
-                        <span class="col s2" ng-if="truck_msg.operatote_type==4">所属类型：<span class="black-text">承包</span></span>
-                        <span class="col s2">所属公司：<span class="black-text">{{truck_msg.company_name}}</span></span>
-                        <span class="col s2" ng-if="truck_type==2">关联头车：<span class="black-text">{{truck_msg.first_num}}</span></span>
-                        <span class="col s2" ng-if="truck_type==1">关联挂车：<span class="black-text">{{truck_msg.trail_num}}</span></span>
-                        <span class="col s2" ng-if="truck_type==1">主驾司机：<span class="black-text">{{truck_msg.drive_name}}</span></span>
-                        <span class="col s2">联系电话：<span class="black-text">{{truck_msg.truck_tel}}</span></span>
-                    </p>
-                </div>
-                <div id="add_maintain" class="modal">
-                    <div class="modal-content grey-text text-darken-2">
-                        <div class="storage_storeTitle vc-center ">
-                            <h4 class="center-align cyan-text text-lighten-1">维修</h4>
-                        </div>
-                        <div class="divider" style="background: #00bcd4;height: 2px;"></div>
-                        <form name="maintain_Form" ng-submit="maintainForm(maintain_Form.$valid)" novalidate>
-                            <div class="row" style="width: 50%;margin-top: 20px">
-                                <div class="row">
-                                    <h6 class="col s6">维修日期:<span style="margin-left: 20px">{{nowDate}}</span></h6>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s12" ng-class="{'has-error':maintain_Form.maintain_msg.$invalid&&main_submitted}">
-                                        <input id="maintain_msg" type="text" ng-model="maintain_msg" maxlength="200" required>
-                                        <label for="maintain_msg"><span class="red-text text-lighten-2">* </span>维修原因</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="divider" style="background: #00bcd4;height: 2px;"></div>
-                            <div class="row input-field">
-                                <a class="btn waves-effect btn-floating grey right" ng-click="close_insure()"><i class="mdi mdi-close"></i></a>
-                                <button class="btn right btn-floating" type="submit" name="action" style="margin-right: 10px;margin-top: 0"><i class="mdi mdi-check"></i></button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="row " ng-repeat="el in main_now_reason" ng-show="now_maintain_show"  style="word-wrap: break-word;margin-top: 80px">
-                    <span class="col s6 black-text" >正在维修</span>
-                    <span class="col s6 right-align" >维修时间：<span>{{el.created_on|date:'yyyy-MM-dd'}}</span></span>
-                    <div class="divider col s12 grey" style="height: 1px;margin-bottom: 20px"></div>
-                    <p>
-                        <h6 class="col s12 black-text">维修原因:</h6>
-                        <span class="col s10">{{el.repair_reason}}</span>
-                        <div class="col s2">
-                            <a class=" btn btn-large waves-effect btn-floating cyan right" ng-click="over_repair(el.repair_reason,el.id)">结束</a>
-                        </div>
-                    </p>
-                    <div class="divider col s12 grey" style="height: 1px;margin-top: 20px"></div>
-                </div>
-                <div class="row">
-                    <div class="col s6 " style="padding: 20px;" ng-repeat="el in main_reason">
-                        <div class=" z-depth-3 maintain_card" >
-                            <p class="col s12">维修时间: <span ng-bind="el.repair_date|date:'yyyy-MM-dd HH:mm:ss'"></span>至<span ng-bind="el.end_date|date:'yyyy-MM-dd HH:mm:ss'"></span></p>
-                            <div class="divider col s12" style="margin: 20px 0"></div>
-                            <div class="col s12" style="word-wrap: break-word;min-height: 130px">维修原因:{{el.repair_reason}}</div>
-                            <div class="col s12" style="min-height: 130px;word-wrap: break-word">维修描述:{{el.remark}}</div>
-                            <div class="col s6" style="margin: 20px 0 0 0">维修人: <span class="red-text text-lighten-2">{{el.repair_user}}</span></div>
-                            <div class="col s6" style="margin: 20px 0 0 0">维修金额: ￥<span class="red-text text-lighten-2">{{el.repair_money}}</span>元</div>
-                        </div>
-                    </div>
+<a style="margin: 90px 0 0 20px" class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light "
+   ng-click="return()">
+    <i class="mdi mdi-arrow-left-bold"></i>
+</a>
+<div class="truck_repair_details">
+    <div class="vc-center">
+        <h5 class="center-align cyan-text text-lighten-1">维修记录详情</h5>
+    </div>
+    <div class="divider" style="background: #00bcd4;height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
 
+    <!--维修结束模态框-->
+    <div class="row" style="margin: 0">
+        <div id="repairFinishMod" class="modal modal-fixed-footer" style="width: 65%;height: 480px">
+            <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+                <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
+                    <p>维修结束描述</p>
                 </div>
-                <div id="put_repair_details" class="modal">
-                    <div class="modal-content grey-text text-darken-2">
-                        <div class="storage_storeTitle vc-center ">
-                            <h4 class="center-align cyan-text text-lighten-1">维修描述</h4>
+                <div class="row col s12" style="margin-top: 15px">
+                    <div class="col s8 offset-s2">
+                        <div class="col s6 input-field">
+                            <select material-select watch id="repairStation" class="truck_type" ng-model="repairStation">
+                                <option value="" selected disabled>请选择</option>
+                                <option ng-repeat="station in repairStationList" ng-value="station.id">{{station.repair_station_name}}</option>
+                            </select>
+                            <label for="repairStation"><span style="color: red">* </span>选择维修站</label>
                         </div>
-                        <div class="divider" style="background: #00bcd4;height: 2px;"></div>
-                        <form name="repair_remark_form" ng-submit="repair_remarkForm(repair_remark_form.$valid)" novalidate>
-                            <div class="row" style="width: 90%;margin-top: 20px">
-                                <div class="row">
-                                    <div class="input-field col s12" ng-class="{'has-error':repair_remark_form.repair_remark.$invalid&&put_repair_submitted}">
-                                        <input type="text" id="repair_remark" ng-model="repair_remark" name="repair_remark" maxlength="200" required>
-                                        <label class="grey-text" for="repair_remark"><span class="red-text text-lighten-2">* </span>维修描述</label>
-                                    </div>
-                                    <div class="input-field col s6" ng-class="{'has-error':repair_remark_form.repair_money.$invalid&&put_repair_submitted}">
-                                        <input type="text" id="repair_money" ng-model="repair_money" name="repair_money" maxlength="8" autocomplete="off"  required>
-                                        <label class="grey-text" for="repair_money"><span class="red-text text-lighten-2">* </span>维修金额（元）</label>
-                                    </div>
-                                    <div class="input-field col s6" ng-class="{'has-error':repair_remark_form.repair_user.$invalid&&put_repair_submitted}">
-                                        <input type="text" id="repair_user" ng-model="repair_user" name="repair_user"  autocomplete="off"  required>
-                                        <label class="grey-text" for="repair_user"><span class="red-text text-lighten-2">* </span>维修人</label>
-                                    </div>
-                                </div>
-                                <div class="col s12" style="word-wrap: break-word">
-                                    <span>维修原因:</span>
-                                    <span>{{repair_reason}}</span>
-                                </div>
-                            </div>
-                            <div class="divider" style="background: #00bcd4;height: 2px;"></div>
-                            <div class="row input-field ">
-                                <a class="btn waves-effect btn-floating grey right" ng-click="close_put_repair_details()"><i class="mdi mdi-close"></i></a>
-                                <button class="btn right btn-floating" type="submit" name="action" style="margin-right: 10px;margin-top: 0"><i class="mdi mdi-check"></i></button>
-                            </div>
-                        </form>
+                        <div class="col s6 input-field">
+                            <input style="font-size: 1.8rem;text-align: right;color: rgb(230,123,123)" type="number" name="repairMoney" id="repairMoney" ng-model="repairMoney">
+                            <label for="repairMoney"><span style="color: red">* </span>维修金额</label>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col s4 " ng-repeat="el in truck_guarantee"  style="padding:0 5px">
-                        <div class="card white z-depth-2 ">
-                            <div class="card-content grey-text">
-                                <span class="col s12 card-title">
-                                    <span ng-if="el.insure_type==2">交强险</span>
-                                    <span ng-if="el.insure_type==1">商业险</span>
-                                    <span  style="margin-left: 25px;font-weight: normal">{{el.insure_num}}</span>
-                                </span>
-                                <div class="divider col s12" style="height: 1px; color: black;margin-bottom: 20px"></div>
-                                <div class="row" style="font-weight: normal" >
-                                    <div class="col s6">担保公司:<span>{{el.insure_name}}</span></div>
-                                    <div class="col s6">担保日期:<span>{{el.insure_date|date:'yyyy-MM-dd'}}</span></div>
-                                    <div class="col s12 p0" style="margin-top: 10px">
-                                        <div class="col s6">生效期:<span>{{el.start_date|date:'yyyy-MM-dd'}}</span>到<span>{{el.end_date|date:'yyyy-MM-dd'}}</span></div>
-                                        <div class="col s6">￥<span class="red-text text-lighten-2">{{el.insure_money}}</span>元</div>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="row col s12" style="margin-top: 10px">
+                    <div class="col s12">
+                        <div class="col s8 offset-s2 input-field">
+                            <input type="text" name="repairDescription" id="repairDescription" ng-model="repairDescription">
+                            <label for="repairDescription"><span style="color: red">* </span>维修描述</label>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer valign-wrapper">
+                <div class="col s12">
+                    <div class="col s2 offset-s4">
+                        <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                            取消
+                        </a>
+                    </div>
+                    <div class="col s2">
+                        <a ng-click="completeRepairInfo()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                            确定
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
+    <div  class="row col s12" style="width: 75%;margin: 0 auto">
+        <!--简短信息-->
+        <div class="row col s12 valign-wrapper">
+            <div class="col s3 valign-wrapper">
+                <div class="col s3 right-align">
+                    <span class="white lighten-2 center" style="width:40px;height:40px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #efb366 !important;line-height: 41px">供</span>
+                </div>
+                <div class="col s6">
+                    <p style="margin: 5px 0;font-weight: bold;font-size: 1.2rem;color: darkgray">{{truckMessage.truck_num}}</p>
+                </div>
+                <div class="col s3 center" style="padding: 0;">
+                    <p style="margin: 5px 0;font-weight: bold;font-size: 1.1rem;color: darkgray">{{truckType == 1 ? "头车" : "挂车"}}</p>
+                </div>
+            </div>
+            <div class="col s6 offset-s3">
+                <div class="col s3 valign-wrapper">
+                    <div class="col s4 right-align">
+                        <span style="color: #26c6da;font-size: 1.6rem" class="mdi mdi-account"></span>
+                    </div>
+                    <div class="col s8" style="padding: 0;">
+                        <span style="font-size: 1.2rem;font-weight: bold;color: darkgray">{{truckMessage.drive_name}}</span>
+                    </div>
+                </div>
+                <div class="col s5 valign-wrapper">
+                    <div class="col s4 right-align">
+                        <span style="color: #26c6da;font-size: 1.6rem" class="mdi mdi-cellphone-android"></span>
+                    </div>
+                    <div class="col s8" style="padding: 0;">
+                        <span style="font-size: 1.2rem;font-weight: bold;color: darkgray">{{truckMessage.truck_tel}}</span>
+                    </div>
+                </div>
+                <div class="col s4 valign-wrapper">
+                    <div class="col s4 right-align">
+                        <span style="color: #26c6da;font-size: 1.6rem" class="mdi mdi-hospital-building"></span>
+                    </div>
+                    <div class="col s8" style="padding: 0;">
+                        <span style="font-size: 1.2rem;font-weight: bold;color: darkgray">{{truckMessage.company_name}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--未完成维修卡片-->
+        <div class="row">
+            <div ng-repeat="repairingItem in repairingList" class="row col s12" style="border: 2px solid #26c6da;border-radius: 5px;background-color: white;color: darkgray">
+                <!--头-->
+                <div class="col s12 card_head valign-wrapper" style="padding: 0;border-bottom: 1px solid #ccc">
+                    <div class="col s2">
+                        <p style="font-weight: bold;color: #00bcd4">维修编号：{{repairingItem.id}}</p>
+                    </div>
+                    <div class="col s8">
+                        <p style="font-weight: bold;color: darkgray">{{repairingItem.repair_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                    </div>
+                    <div class="col s2 center-align">
+                        <p style="font-weight: bold;color: #e57474;font-size: 1.3rem;margin: 0">正在维修</p>
+                    </div>
+                </div>
+                <!--内容-->
+                <div class="col s12 card_body" style="font-size: 1.07rem;padding: 0;margin-top: 10px">
+                    <div class="row col s12 valign-wrapper">
+                        <div class="col s4 input-field">
+                            <select material-select watch id="record_truck_type" class="truck_type" ng-change="isCheckAssociatedAccident(repairingItem)" ng-model="repairingItem.repair_type">
+                                <option value="" selected disabled>请选择</option>
+                                <option value="1">事故维修</option>
+                                <option value="2">非事故维修</option>
+                            </select>
+                            <label for="record_truck_type">维修类型</label>
+                        </div>
+                        <div class="col s8">
+                            <div ng-show="repairingItem.repair_type == 1">
+                                <div class="col s3">
+                                    <p style="margin: 0;font-size: 1.2rem;font-weight: bold">关联事故：<span style="color: #26c6da">{{repairingItem.id}}</span></p>
+                                </div>
+                                <div class="col s4">
+                                    <p style="margin: 0;font-size: 1.2rem;font-weight: bold">{{accidentInfo.address}}</p>
+                                </div>
+                                <div class="col s3">
+                                    <p style="margin: 0;font-size: 1.2rem;font-weight: bold">{{accidentInfo.accident_explain}}</p>
+                                </div>
+                                <div class="col s2">
+                                    <p style="margin: 0;font-size: 1.2rem;font-weight: bold">{{accidentInfo.accident_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col s12">
+                        <div class="col s12 input-field">
+                            <input type="text" name="truck_name" id="repair_reason" ng-model="repairingItem.repair_reason">
+                            <label for="repair_reason">维修原因</label>
+                        </div>
+                    </div>
+                </div>
+                <!--尾部-->
+                <div class="row col s12 card_footer">
+                    <div class="col s3 offset-s3 center">
+                        <a ng-click="saveRepairInfo(repairingItem)" style="width: 80%" class="waves-light waves-effect cyan lighten-1 btn">
+                            保存
+                        </a>
+                    </div>
+                    <div class="col s3 center">
+                        <a ng-click="finishRepairInfo(repairingItem.id)" style="width: 80%;background-color: #f0ad4e;" class="waves-light waves-effect lighten-1 btn">
+                            维修结束
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--已完成维修列表-->
+        <div class="row">
+            <div class="col s12" style="padding: 0;">
+                <ul class="collapsible" data-collapsible="accordion" collapsible>
+                    <li ng-repeat="repaired in repairedList">
+                        <!--列表头-->
+                        <div class="collapsible-header" ng-click="getCurrentDamageImage(damageInfo.id,$index)">
+                            <div class="col s4">
+                                <p style="font-weight: bold;color: #00bcd4;margin: 0">维修编号：{{repaired.id}}</p>
+                            </div>
+                            <div class="col s8 right-align">
+                                <p style="margin: 0;font-weight: bold;color: darkgray;font-size: 1.1rem"><span>{{repaired.repair_date | date:'yyyy-MM-dd HH:mm:ss'}}</span>&emsp;至&emsp;<span>{{repaired.end_date | date:'yyyy-MM-dd HH:mm:ss'}}</span></p>
+                            </div>
+                        </div>
+                        <!--列表内容-->
+                        <div class="collapsible-body" style="overflow: hidden">
+                            <div class="row">
+                                <div class="col s2 valign-wrapper">
+                                    <div class="col s4 right-align">
+                                        <span style="color: #26c6da;font-size: 1.6rem" class="mdi mdi-file-document"></span>
+                                    </div>
+                                    <div class="col s8" style="padding: 0;">
+                                        <span style="font-size: 1.2rem;font-weight: bold;color: #e57474">{{repaired.repair_type == 1 ? "事故维修" : "非事故维修"}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    <p style="color: darkgray;font-size: 1.1rem"><span style="font-weight: bold">维修原因：</span><span>{{repaired.repair_reason}}</span></p>
+                                </div>
+                                <div class="col s12">
+                                    <p style="color: darkgray;font-size: 1.1rem;font-weight: bold"><span>维修站：</span><span>{{repaired.repair_station_name}}</span></p>
+                                </div>
+                                <div class="col s12">
+                                    <p style="color: darkgray;font-size: 1.1rem"><span style="font-weight: bold">维修描述：</span><span>{{repaired.remark}}</span></p>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-bottom: 0">
+                                <div class="col s4 offset-s8 right-align">
+                                    <p style="font-size: 1.2rem;font-weight: bold;color: darkgray;margin: 0">维修金额：<span style="color: #e57474">{{repaired.repair_money}} </span>元</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>

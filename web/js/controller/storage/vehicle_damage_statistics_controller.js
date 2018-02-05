@@ -158,7 +158,7 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
             monthEnd=$scope.endInitial;
             swal('请输入完整的时间信息', "", "error");
         }
-        vehicleRepairMonth(monthStart, monthEnd);
+        vehicleDamageMonth(monthStart, monthEnd);
     };
     //按周
     function vehicleDamageWeek() {

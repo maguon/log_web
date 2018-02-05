@@ -11,7 +11,7 @@ app.controller("damage_index_controller", ["$scope", "$host", "_basic", function
     $scope.getInsurCount=0;
     // 获取当月待完成处理质损信息
     $scope.getHangDamageCount = function () {
-        _basic.get($host.api_url + "/damageNotCheckCount?yearMonth="+ currentMonth).then(function (data) {
+        _basic.get($host.api_url + "/damageNotCheckCount").then(function (data) {
             if (data.success === true) {
                 for (var i = 0; i < data.result.length; i++) {
                     if(data.result[i].damage_status === 1){

@@ -134,7 +134,7 @@ app.controller("vehicle_repair_statistics_controller", ["$scope", "$host", "_bas
                 // 赋予柱状图金额数组
                 for (var i = 0; i < data.result.length; i++) {
                     month.push(data.result[i].y_month);
-                    repairMoneyCountMonth[0].data.push(data.result[i].repair_cost);
+                    repairMoneyCountMonth[0].data.push(data.result[i].company_cost+data.result[i].under_cost);
                 }
                 showVehicleRepairHistogramMonth();
             } else{
@@ -156,7 +156,7 @@ app.controller("vehicle_repair_statistics_controller", ["$scope", "$host", "_bas
                 // 赋予柱状图金额数组
                 for (var i = 0; i < data.result.length; i++) {
                     week.push(data.result[i].y_week);
-                    repairMoneyCountWeek[0].data.push(data.result[i].repair_cost);
+                    repairMoneyCountWeek[0].data.push(data.result[i].company_cost+data.result[i].under_cost);
                 }
                 showVehicleRepairHistogramWeek();
             } else {

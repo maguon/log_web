@@ -1,5 +1,5 @@
 /**
- * Created by ASUS on 2017/8/4.
+ * Restructure by zcy on 2018/2/5.
  */
 
 app.controller("truck_repair_list_controller", ['$rootScope', '$scope', '_basic', '$host', function ($rootScope, $scope, _basic, $host) {
@@ -80,8 +80,21 @@ app.controller("truck_repair_list_controller", ['$rootScope', '$scope', '_basic'
         $scope.getRepairRecordList();
     };
 
-    // 开启新增维修记录模态框
+    // 开启新增维修记录模态框，并查询所有货车牌号
     $scope.addRepairInfo = function () {
+        _basic.get($host.api_url + "/truckBase").then(function (data) {
+            if (data.success === true) {
+                // console.log("truck", data);
+                $scope.truckNumList = data.result;
+                $('#truck_num_mod').select2({
+                    placeholder: '车牌号',
+                    containerCssClass : 'select2_dropdown'
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
         $scope.modTruckNum = "";
         $scope.modRecordTruckType = "";
         $scope.associatedAccident = "";
@@ -89,14 +102,36 @@ app.controller("truck_repair_list_controller", ['$rootScope', '$scope', '_basic'
         $('#addRepairInfoModel').modal('open');
     };
 
+    // 根据选择的车牌号获取关联事故列表
+    $scope.searchMatchAccident = function () {
+        $scope.associatedAccident = "";
+        _basic.get($host.api_url + "/truckAccident?truckId=" + $scope.modTruckNum).then(function (data) {
+            if (data.success === true) {
+                // console.log("data", data);
+                if(data.result.length === 0){
+                    $scope.hasNotAccident = true;
+                }
+                else{
+                    $scope.hasNotAccident = false;
+                }
+                $scope.accidentNumList = data.result;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
     // 检查是否允许关联事故
     $scope.isCheckAssociatedAccident = function () {
         if($scope.modRecordTruckType === "1"){
-            $("#associated_accident").attr("disabled", false);
+            $scope.allowSelect = false;
+            // $("#associated_accident").attr("disabled", false);
         }
         else{
             $scope.associatedAccident = "";
-            $("#associated_accident").attr("disabled", true);
+            $scope.allowSelect = true;
+            // $("#associated_accident").attr("disabled", true);
         }
     };
 
@@ -111,6 +146,7 @@ app.controller("truck_repair_list_controller", ['$rootScope', '$scope', '_basic'
                 if (data.success === true) {
                     swal("新增成功", "", "success");
                     $('#addRepairInfoModel').modal('close');
+                    $scope.searchRepairRecordList();
                 }
                 else {
                     swal(data.msg, "", "error");

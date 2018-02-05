@@ -10,20 +10,25 @@
                 <div class="row col s12" style="margin-top: 35px">
                     <div class="col s8 offset-s2">
                         <div class="col s3 input-field">
-                            <input type="text" name="truck_name" id="truck_num_mod" ng-model="modTruckNum">
-                            <label for="truck_num_mod"><span style="color: red">* </span>车牌号</label>
+                            <select id="truck_num_mod" name="truck_num_mod" style="width:100%" ng-change="searchMatchAccident()" ng-model="modTruckNum">
+                                <option value=""></option>
+                                <option ng-repeat="truck in truckNumList" ng-value="truck.id">{{truck.truck_num}}</option>
+                            </select>
                         </div>
                         <div class="col s3 input-field">
                             <select material-select watch id="record_truck_type_mod" class="truck_type" ng-change="isCheckAssociatedAccident()" ng-model="modRecordTruckType">
                                 <option value="" selected disabled>请选择</option>
-                                <option value="1">事故维修</option>
+                                <option ng-disabled="hasNotAccident" value="1">事故维修</option>
                                 <option value="2">非事故维修</option>
                             </select>
                             <label for="record_truck_type_mod"><span style="color: red">* </span>维修类型</label>
                         </div>
                         <div class="col s6 input-field">
-                            <input type="text" name="truck_name" id="associated_accident" ng-model="associatedAccident">
-                            <label for="associated_accident">关联事故</label>
+                            <select material-select watch id="associated_accident" ng-disabled="allowSelect" class="truck_name" ng-model="associatedAccident">
+                                <option value="" selected disabled>事故地址</option>
+                                <option ng-repeat="accident in accidentNumList" ng-value="accident.id">{{accident.address}}</option>
+                            </select>
+                            <label for="associated_accident"><span style="color: red">* </span>关联事故</label>
                         </div>
                     </div>
                 </div>

@@ -1,10 +1,11 @@
 /**
- * Created by ASUS on 2017/8/2.
+ * Restructure by zcy on 2018/2/5.
  */
 app.controller("truck_repair_controller", ["$scope", "$state", "$stateParams", "_basic", "_config", "$host", function ($scope, $state, $stateParams, _basic, _config, $host) {
     var userId = _basic.getSession(_basic.USER_ID);
     var truckId = $stateParams.id;
     $scope.truckType = $stateParams.type;
+    $scope.showAccidentRepair = true;
 
 
     // 点击返回按钮返回之前页面
@@ -56,7 +57,7 @@ app.controller("truck_repair_controller", ["$scope", "$state", "$stateParams", "
                         $scope.repairedList.push(data.result[i]);
                     }
                 }
-                console.log("repairingList",$scope.repairingList);
+                // console.log("repairingList",$scope.repairingList);
                 // console.log("repairedList",$scope.repairedList);
             }
             else {
@@ -65,22 +66,44 @@ app.controller("truck_repair_controller", ["$scope", "$state", "$stateParams", "
         });
     };
 
-    // 点击维修类型，如果是事故维修的话根据事故id获取详细信息
+    // 获取所有事故列表
+    $scope.getAllAccidentInfo = function () {
+        $scope.associatedAccident = "";
+        _basic.get($host.api_url + "/truckAccident").then(function (data) {
+            if (data.success === true) {
+                // console.log("data", data);
+                $scope.accidentNumList = data.result;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+    // 点击维修类型决定事故详情显示或隐藏
     $scope.isCheckAssociatedAccident = function (repairObj) {
-        console.log(repairObj);
+        $scope.associatedAccident = "";
+        $scope.accidentInfo = [];
         if(repairObj.repair_type == 1){
-            _basic.get($host.api_url + "/truckAccident?truckAccidentId=" + repairObj.id).then(function (data) {
-                if (data.success === true) {
-                    // console.log("data", data);
-                    if(data.result.length !== 0){
-                        $scope.accidentInfo = data.result[0];
-                    }
-                }
-                else {
-                    swal(data.msg, "", "error");
-                }
-            });
+            $scope.showAccidentRepair = true;
         }
+        else{
+            $scope.showAccidentRepair = false;
+        }
+    };
+
+    // 根据事故id获取事故详细信息
+    $scope.getCurrentAccidentDetails = function () {
+        // console.log("associatedAccident", $scope.associatedAccident);
+        _basic.get($host.api_url + "/truckAccident?truckAccidentId=" + $scope.associatedAccident).then(function (data) {
+            if (data.success === true) {
+                // console.log("data", data);
+                $scope.accidentInfo = data.result[0];
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
     };
 
     // 保存修改后的维修信息
@@ -158,6 +181,7 @@ app.controller("truck_repair_controller", ["$scope", "$state", "$stateParams", "
     $scope.queryData = function () {
         $scope.getCurrentTruckDetails();
         $scope.getCurrentRepairInfo();
+        $scope.getAllAccidentInfo();
     };
     $scope.queryData();
 }]);

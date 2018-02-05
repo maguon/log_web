@@ -126,9 +126,13 @@
                             <label for="record_truck_type">维修类型</label>
                         </div>
                         <div class="col s8">
-                            <div ng-show="repairingItem.repair_type == 1">
-                                <div class="col s3">
-                                    <p style="margin: 0;font-size: 1.2rem;font-weight: bold">关联事故：<span style="color: #26c6da">{{repairingItem.id}}</span></p>
+                            <div class="valign-wrapper" ng-show="showAccidentRepair">
+                                <div class="col s3 input-field">
+                                    <select material-select watch id="associated_accident" class="truck_name" ng-change="getCurrentAccidentDetails()" ng-model="$parent.associatedAccident">
+                                        <option value="" selected disabled>事故地址</option>
+                                        <option ng-repeat="accident in accidentNumList" ng-value="accident.id">{{accident.address}}</option>
+                                    </select>
+                                    <label for="associated_accident"><span style="color: red">* </span>关联事故</label>
                                 </div>
                                 <div class="col s4">
                                     <p style="margin: 0;font-size: 1.2rem;font-weight: bold">{{accidentInfo.address}}</p>
@@ -137,7 +141,7 @@
                                     <p style="margin: 0;font-size: 1.2rem;font-weight: bold">{{accidentInfo.accident_explain}}</p>
                                 </div>
                                 <div class="col s2">
-                                    <p style="margin: 0;font-size: 1.2rem;font-weight: bold">{{accidentInfo.accident_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                                    <p style="margin: 0;font-size: 1.2rem;font-weight: bold">{{accidentInfo.accident_date | date:'yyyy-MM-dd'}}</p>
                                 </div>
                             </div>
                         </div>
@@ -166,7 +170,7 @@
         </div>
 
         <!--已完成维修列表-->
-        <div class="row">
+        <div class="row" ng-if="repairedList.length !== 0">
             <div class="col s12" style="padding: 0;">
                 <ul class="collapsible" data-collapsible="accordion" collapsible>
                     <li ng-repeat="repaired in repairedList">

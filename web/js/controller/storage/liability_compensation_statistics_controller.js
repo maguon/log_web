@@ -309,10 +309,10 @@ app.controller("liability_compensation_statistics_controller", ["$scope", "$host
         };
         // 获取数据
     $scope.queryData = function () {
-        createPersonMonthChart();
-        createPersonWeekChart();
-        createCompanyMonthChart();
-        createCompanyWeekChart();
+        // createPersonMonthChart();
+        // createPersonWeekChart();
+        // createCompanyMonthChart();
+        // createCompanyWeekChart();
         $scope.personWeekTop($scope.startInitial,$scope.endInitial);
         companyAndPersonWeek();
         companyAndPersonMonth($scope.startInitial,$scope.endInitial);

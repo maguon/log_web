@@ -1,21 +1,29 @@
 app.controller("vehicle_repair_statistics_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
-
+    $scope.startInitial = moment(new Date()).format('YYYY') + "01";
+    $scope.endInitial = moment(new Date()).format('YYYYMM');
+    // monthPicker控件
+    $('#chooseRepairStart,#chooseRepairEnd').MonthPicker({
+        Button: false,
+        MonthFormat: 'yymm'
+    });
+    $scope.start = 0;
+    $scope.size = 10;
+    var month;
+    var week;
     // 维修金额按月统计
     var repairMoneyCountMonth = [{
         name: '按月统计',
-        data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+        data: [],
         color:'#26C6DA'
     }];
-
     // 维修金额按周统计
     var repairMoneyCountWeek = [{
         name: '按周统计',
-        data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1],
+        data: [],
         color:'#FF7E7E'
     }];
-
     // 显示商品车维修金额按月统计柱状图
-    $scope.showVehicleRepairHistogram_month = function () {
+    function showVehicleRepairHistogramMonth () {
         $("#vehicleRepairStatisticsMonth").highcharts({
             chart: {
                 type: 'column'
@@ -27,20 +35,7 @@ app.controller("vehicle_repair_statistics_controller", ["$scope", "$host", "_bas
                 text: ''
             },
             xAxis: {
-                categories: [
-                    '一月',
-                    '二月',
-                    '三月',
-                    '四月',
-                    '五月',
-                    '六月',
-                    '七月',
-                    '八月',
-                    '九月',
-                    '十月',
-                    '十一月',
-                    '十二月'
-                ],
+                categories:month,
                 crosshair: true
             },
             yAxis: {
@@ -69,9 +64,8 @@ app.controller("vehicle_repair_statistics_controller", ["$scope", "$host", "_bas
             series: repairMoneyCountMonth
         });
     };
-
     // 显示商品车维修金额按周统计柱状图
-    $scope.showVehicleRepairHistogram_week = function () {
+    function showVehicleRepairHistogramWeek () {
         $("#vehicleRepairStatisticsWeek").highcharts({
             chart: {
                 type: 'column'
@@ -83,18 +77,7 @@ app.controller("vehicle_repair_statistics_controller", ["$scope", "$host", "_bas
                 text: ''
             },
             xAxis: {
-                categories: [
-                    '第1周',
-                    '第2周',
-                    '第3周',
-                    '第4周',
-                    '第5周',
-                    '第6周',
-                    '第7周',
-                    '第8周',
-                    '第9周',
-                    '第10周'
-                ],
+                categories:week,
                 crosshair: true
             },
             yAxis: {
@@ -123,11 +106,68 @@ app.controller("vehicle_repair_statistics_controller", ["$scope", "$host", "_bas
             series: repairMoneyCountWeek
         });
     };
-
+    //通过接口获取点击数据
+    $scope.queryRepairDate = function () {
+        var monthStart = $("#chooseRepairStart").val();
+        var monthEnd = $("#chooseRepairEnd").val();
+        if(monthStart==''||monthStart == null||monthEnd==''||monthEnd == null){
+            monthStart= $scope.startInitial;
+            monthEnd=$scope.endInitial;
+            swal('请输入完整的时间信息', "", "error");
+        }
+        vehicleRepairMonth(monthStart, monthEnd);
+    };
+    // 获取商品车维修金额按月数据
+    function vehicleRepairMonth(start,end){
+        var obj = {
+            monthStart:start,
+            monthEnd: end
+        };
+        _basic.get($host.api_url + "/damageCheckMonthStat?&"+_basic.objToUrl(obj)).then(function (data) {
+            if (data.success === true){
+                data.result.reverse();
+                // X轴月份
+                // console.log(data)
+                month = [];
+                // 初始化金额数
+                repairMoneyCountMonth[0].data = [];
+                // 赋予柱状图金额数组
+                for (var i = 0; i < data.result.length; i++) {
+                    month.push(data.result[i].y_month);
+                    repairMoneyCountMonth[0].data.push(data.result[i].company_cost+data.result[i].under_cost);
+                }
+                showVehicleRepairHistogramMonth();
+            } else{
+                swal(data.msg, "", "error");
+            }
+        });
+    }
+    // 获取商品车维修金额按周数据
+    function vehicleRepaiWeek() {
+        _basic.get($host.api_url + "/damageCheckWeekStat?start=" + $scope.start + "&size=" + $scope.size).then(function (data) {
+            if (data.success == true) {
+                data.result.reverse();
+                // $scope.statisticsTop10 = data.result;
+                // $scope.statistics =  $scope.statisticsTop10.slice(0, 10);
+                // X轴月份
+                week = [];
+                // 初始化金额数
+                repairMoneyCountWeek[0].data = [];
+                // 赋予柱状图金额数组
+                for (var i = 0; i < data.result.length; i++) {
+                    week.push(data.result[i].y_week);
+                    repairMoneyCountWeek[0].data.push(data.result[i].company_cost+data.result[i].under_cost);
+                }
+                showVehicleRepairHistogramWeek();
+            } else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
     // 获取数据
     $scope.queryData = function () {
-        $scope.showVehicleRepairHistogram_month();
-        $scope.showVehicleRepairHistogram_week();
+        vehicleRepairMonth($scope.startInitial,$scope.endInitial);
+        vehicleRepaiWeek();
     };
     $scope.queryData();
 }]);

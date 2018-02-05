@@ -8,6 +8,15 @@ app.controller("setting_repair_controller", ["_basic", "_config", "$host", "$sco
     $scope.search_id='';
     $scope.station='';
     // 搜索所有查询
+    // 分页
+    $scope.previousPage = function () {
+        $scope.start = $scope.start - $scope.size;
+        searchAll();
+    };
+    $scope.nextPage = function () {
+        $scope.start = $scope.start + $scope.size;
+        searchAll();
+    };
     var searchAll = function () {
         _basic.get($host.api_url + "/repairStation?start=" + $scope.start + "&size=" + $scope.size).then(function (data) {
             if (data.success === true) {
@@ -29,6 +38,31 @@ app.controller("setting_repair_controller", ["_basic", "_config", "$host", "$sco
             }
         });
     };
+    // 点击按钮查询
+    $scope.searchRepairStationDetail = function () {
+        var obj = {
+            repairStationId: $scope.search_id,
+            repairStationName: $scope.station
+        };
+        _basic.get($host.api_url + "/repairStation?"+ _basic.objToUrl(obj)+"&start=" + $scope.start + "&size=" + $scope.size).then(function (data) {
+            if (data.success == true) {
+                if ($scope.start > 0) {
+                    $("#pre").show();
+                }
+                else {
+                    $("#pre").hide();
+                }
+                if (data.result.length < $scope.size) {
+                    $("#next").hide();
+                }
+                else {
+                    $("#next").show();
+                }
+
+                $scope.repairStationArray = data.result;
+            }
+        })
+    }
     $scope.getList = function () {
         // 维修站
         _basic.get($host.api_url + "/repairStation").then(function (data) {
@@ -68,7 +102,7 @@ app.controller("setting_repair_controller", ["_basic", "_config", "$host", "$sco
     $scope.clickLook = function (id) {
         $(".modal").modal();
         $("#clickLook").modal("open");
-         _basic.get($host.api_url +'/repairStation?repairId='+id).then(function (data) {
+         _basic.get($host.api_url +'/repairStation?repairStationId='+id).then(function (data) {
              if (data.success == true) {
                 $scope.look_operation = data.result[0];
             } else {
@@ -95,18 +129,6 @@ app.controller("setting_repair_controller", ["_basic", "_config", "$host", "$sco
              }
         })
     };
-    // 点击按钮查询
-    $scope.searchRepairStationDetail = function () {
-        var obj = {
-            repairId: $scope.search_id,
-            repairName: $scope.station
-        };
-        _basic.get($host.api_url + "/repairStation?"+ _basic.objToUrl(obj)+"&start=" + $scope.start + "&size=" + $scope.size).then(function (data) {
-            if (data.success == true) {
-                $scope.repairStationArray = data.result;
-            }
-        })
-    }
     // 停启用
     $scope.changeStatus = function (event,status,id) {
         if (status == 1) {
@@ -126,10 +148,9 @@ app.controller("setting_repair_controller", ["_basic", "_config", "$host", "$sco
                         _basic.put($host.api_url + "/user/" + userId + '/repairStation/' + id + "/repairStationStatus/" + status
                             , {}).then(function (data) {
                             if (data.success !== true) {
-                                console.log(data)
                                 swal(data.msg, "", "error");
                             }else{
-                                searchAll();
+                                $scope.searchRepairStationDetail();
                             }
                         })
                     }else {
@@ -141,23 +162,12 @@ app.controller("setting_repair_controller", ["_basic", "_config", "$host", "$sco
             _basic.put($host.api_url + "/user/" + userId + '/repairStation/' + id + "/repairStationStatus/" + status
                 , {}).then(function (data) {
                 if (data.success !== true) {
-                    console.log(data)
                     swal(data.msg, "", "error");
                 }else{
-                    searchAll();
+                    $scope.searchRepairStationDetail();
                 }
             })
          }
     }
-    // 分页
-    $scope.previousPage = function () {
-        $scope.start = $scope.start - $scope.size;
-        searchAll();
-    };
-    $scope.nextPage = function () {
-        $scope.start = $scope.start + $scope.size;
-        searchAll();
-    };
-
     searchAll();
 }]);

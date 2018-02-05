@@ -45,7 +45,7 @@
                             <h5 class="col s3-0">
                                 <span style="color: red">*</span>
                                 维修站名称:</h5>
-                            <input  id="name" name="name" autocomplete="off" ng-model="look_operation.repair_name" type="text"   required class=" col s6-0">
+                            <input  id="name" name="name" autocomplete="off" ng-model="look_operation.repair_station_name" type="text"   required class=" col s6-0">
                         </div>
                         <div class="row" ng-class="{ 'has-error':changeForm.address.$invalid&&submitted }">
                             <h5 class="col s3-0">
@@ -84,15 +84,16 @@
                                 <option ng-repeat="repair in repairSectionList" ng-value="repair.repair_station_name">{{repair.repair_station_name}}</option>
                             </select>
                         </div>
-                        <div class="col s1 flex flex-round " style="margin-left: 230px;margin-top: 30px;">
+
+                        <div class="col s1 flex flex-round right" style="margin-top: 30px;">
+                            <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2  btn vc-center" ng-click="clickAdd()">
+                                <i class="mdi mdi-plus"></i>
+                            </a>
+                        </div>
+                        <div class="col s1 flex flex-round right" style="margin-top: 30px;">
                             <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
                                style="margin-right: 10px" ng-click="searchRepairStationDetail()">
                                 <i class="mdi mdi-magnify"></i>
-                            </a>
-                        </div>
-                        <div class="col s1 flex flex-round " style="margin-top: 30px;">
-                            <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2  btn vc-center" ng-click="clickAdd()">
-                                <i class="mdi mdi-plus"></i>
                             </a>
                         </div>
                      </div>
@@ -102,9 +103,11 @@
         <div style="width:90%;margin:50px auto;background: white">
             <ul class="collapsible"  data-collapsible="accordion" collapsible style="border-bottom: 1px solid #4dd0e1;">
                 <li ng-repeat="el in repairStationArray" class="grey-text text-darken-1" style="border-bottom: 1px solid #ccc;height: 100px;line-height: 100px;text-align: center;position: relative">
-                    <div ng-bind="el.id" style="color: #4dd0e1;width: 160px" class="left"></div>
-                    <i class="mdi mdi-home fz20" style="color:#4dd0e1;position: absolute;left: 300px"></i><div ng-bind="el.repair_station_name" class="left" style="width: 460px"></div>
-                    <i class="mdi mdi-map-marker fz20" style="color:#4dd0e1;position: absolute;left: 850px"></i><div ng-bind="el.address" class="left" style="width: 600px"></div>
+                    <div ng-bind="el.id" style="color: #4dd0e1;width: 250px" class="left"></div>
+                    <div style="color: #4dd0e1;width: 20px;height: 100px;margin-right: 30px;" class="left"><i class="mdi mdi-home fz20" ></i></div>
+                    <div ng-bind="el.repair_station_name" class="left" style="width: 460px;margin-right: 30px;text-align:left;"></div>
+                    <div style="color: #4dd0e1;width: 20px;height: 100px;margin-right: 30px;" class="left"><i class="mdi mdi-map-marker fz20" ></i></div>
+                    <div ng-bind="el.address" class="left" style="width: 600px;text-align:left;"></div>
                     <div  class="operation table_operation vc-center right" style="position: relative">
                         <span><i class="mdi mdi-pencil cyan-text text-lighten-1" ng-click="clickLook(el.id)"style="position: absolute;right:200px;"></i></span>
                         <span class="switch"  style="height: 30px;position:absolute;right:100px;top:5px">
@@ -114,7 +117,7 @@
                                 </label>
                         </span>
                     </div>
-                <li class="grey-text text-darken-1" ng-if="queryDetail.length == 0" style="border-bottom: 1px solid #ccc;height: 100px;line-height: 100px;text-align: center">
+                <li class="grey-text text-darken-1" ng-if="repairStationArray.length == 0" style="border-bottom: 1px solid #ccc;height: 100px;line-height: 100px;text-align: center">
                     <div colspan="4"><span style="letter-spacing: 2px">暂无数据</span></div>
                 </li>
                 </li>

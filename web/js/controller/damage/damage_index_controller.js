@@ -41,13 +41,27 @@ app.controller("damage_index_controller", ["$scope", "$host", "_basic", function
             }
         });
     };
+    //待完成保险赔付
+    $scope.getInsuranceCount = function () {
+        _basic.get($host.api_url + "/damageTotalCost?yearMonth="+ currentMonth+'&damageStatus=3').then(function (data) {
+            if (data.success === true) {
+                for (var i = 0; i < data.result.length; i++) {
+                    $scope.getCompanyCount += data.result[i].company_cost;
+                    $scope.getPersonCount += data.result[i].under_cost;
+                }
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
     // 当月洗车数/量
     $scope.getCleanPriceAndCount = function () {
         _basic.get($host.api_url + "/dpRouteLoadTaskCleanRelMonthStat?yearMonth="+currentMonth).then(function (data) {
             if (data.success === true) {
                 for (var i = 0; i < data.result.length; i++) {
                     $scope.getCleanPrice += data.result[i].actual_price;
-                    $scope.getCleanCount += data.result[i].clean_count;
+                    $scope.getCleanCount += data.result[i].car_count;
                     }
                 }
             else {
@@ -75,6 +89,7 @@ app.controller("damage_index_controller", ["$scope", "$host", "_basic", function
         $scope.getComAndPerCount();
         $scope.getCleanPriceAndCount();
         $scope.getInsurNumAndCount();
+        $scope.getInsuranceCount();
     };
     $scope.queryData();
 }]);

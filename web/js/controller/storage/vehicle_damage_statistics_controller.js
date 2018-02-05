@@ -7,7 +7,7 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
         MonthFormat: 'yymm'
     });
     $scope.start = 0;
-    $scope.size = 20;
+    $scope.size = 50;
     var month;
     var week;
     // 商品车质损按月统计

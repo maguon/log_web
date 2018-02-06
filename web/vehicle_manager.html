@@ -51,13 +51,9 @@
                 <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-account-settings-variant "></i>车辆管理</a>
                 <div class="collapsible-body blue-grey darken-3" style="padding: 0;">
                     <ul >
-                        <!--<li><a href="#!" ui-sref="car_sv_driver"><i class="mdi mdi-chevron-right white-text "></i>综合信息</a></li>-->
                         <li><a href="#!" ui-sref="truck_details"><i class="mdi mdi-chevron-right white-text "></i>车辆信息</a></li>
                         <li><a href="#!" ui-sref="truck_position"><i class="mdi mdi-chevron-right white-text "></i>车辆定位</a></li>
                         <li><a href="#!" ui-sref="truck_repair_list"><i class="mdi mdi-chevron-right white-text"></i>车辆维修管理</a></li>
-                        <!--<li><a href="#!" ui-sref="car_sv_driver"><i class="mdi mdi-chevron-right white-text "></i>事故故障管理</a></li>-->
-                        <!--<li><a href="#!" ui-sref="car_sv_driver"><i class="mdi mdi-chevron-right white-text"></i>车辆加油管理</a></li>-->
-                        <!--<li><a href="#!" ui-sref="car_sv_driver"  ><i class="white-text mdi mdi-chevron-right"></i>车辆配件管理</a></li>-->
                         <li><a href="#!" ui-sref="truck_driver"  ><i class="white-text mdi mdi-chevron-right"></i>司机管理</a></li>
                         <li><a href="#!" ui-sref="truck_company"  ><i class="white-text mdi mdi-chevron-right"></i>所属公司管理</a></li>
                     </ul>
@@ -69,6 +65,7 @@
     <li class="bold side_navigator" >
         <a  ui-sref="user_info" class=" waves-effect waves-light first-N" ><i class="white-text mdi mdi-account-card-details"></i>用户信息</a>
     </li>
+
     <li class="bold side_navigator">
         <ul class="collapsible collapsible-accordion">
             <li class="bold">
@@ -82,6 +79,7 @@
             </li>
         </ul>
     </li>
+
     <li class="bold side_navigator">
         <ul class="collapsible collapsible-accordion">
             <li class="bold">
@@ -96,6 +94,7 @@
             </li>
         </ul>
     </li>
+
     <li class="bold side_navigator">
         <a href="#!" ui-sref="data_dictionary" class=" waves-effect waves-light first-N" ><i class="white-text mdi mdi-book-multiple"></i>数据字典</a>
     </li>
@@ -158,6 +157,9 @@
 <script src="/js/service/config_service.js"></script>
 <script src="/js/service/http_service.js"></script>
 <script src="/js/service/socket_service.js"></script>
+
+<script src="/js/controller/storage/vehicle_index_controller.js"></script>
+
 <!--车管-->
 <script src="/js/controller/truck/truck_company_controller.js"></script>
 <script src="/js/controller/truck/truck_details_controller.js"></script>
@@ -173,13 +175,12 @@
 <script src="/js/controller/truck/truck_repair_controller.js"></script>
 <script src="/js/controller/truck/truck_position_controller.js"></script>
 <script src="/js/controller/truck/truck_repair_list_controller.js"></script>
-<script src="/js/controller/storage/insurance_statistics_controller.js"></script>
-<script src="/js/controller/storage/maintenance_statistics_controller.js"></script>
-<script src="/js/controller/storage/storage_controller.js"></script>
-<script src="/js/controller/storage/vehicle_index_controller.js"></script>
-<script src="/js/controller/storage/storage_calendar_controller.js"></script>
-<script src="/js/controller/storage/storage_car_map_controller.js"></script>
-<script src="/js/controller/storage/storage_car_details_controller.js"></script>
+
+<!--数据统计-->
+<script src="/js/controller/statistics/insurance_statistics_controller.js"></script>
+<script src="/js/controller/statistics/maintenance_statistics_controller.js"></script>
+
+<!--系统设置-->
 <script src="/js/controller/user/user_info_controller.js"></script>
 <script src="/js/controller/setting/data_dictionary_controller.js"></script>
 <script src="/js/controller/setting/truck_brand_controller.js"></script>
@@ -190,7 +191,5 @@
 <script src="/js/controller/setting/setting_shipments/setting_shipments_details_controller.js"></script>
 <script src="/js/controller/setting/setting_client/setting_add_client_controller.js"></script>
 <script src="/js/controller/setting/setting_client/setting_client_details_controller.js"></script>
-<script src="/js/controller/storage/add_storage_car_controller.js"></script>
-<script src="/js/controller/storage/add_storage_car_put_in_controller.js"></script>
 
 </html>

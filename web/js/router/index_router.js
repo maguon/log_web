@@ -232,66 +232,71 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/storage/storage_store.html",
             controller:"storage_store_controller"
         })
+
+        // 数据统计
         .state("statistics", {
             url:"/storage_statistics",
-            templateUrl: "js/view/storage/storage_statistics.html",
+            templateUrl: "js/view/statistics/storage_statistics.html",
             controller:"storage_statistics_controller"
         })
 
         .state("insurance_statistics", {
             url:"/insurance_statistics",
-            templateUrl: "js/view/storage/insurance_statistics.html",
+            templateUrl: "js/view/statistics/insurance_statistics.html",
             controller:"insurance_statistics_controller"
         })
 
         .state("maintenance_statistics", {
             url:"/maintenance_statistics",
-            templateUrl: "js/view/storage/maintenance_statistics.html",
+            templateUrl: "js/view/statistics/maintenance_statistics.html",
             controller:"maintenance_statistics_controller"
         })
 
         .state("vehicle_damage_statistics", {
             url:"/vehicle_damage_statistics",
-            templateUrl: "js/view/storage/vehicle_damage_statistics.html",
+            templateUrl: "js/view/statistics/vehicle_damage_statistics.html",
             controller:"vehicle_damage_statistics_controller"
         })
 
         .state("vehicle_repair_statistics", {
             url:"/vehicle_repair_statistics",
-            templateUrl: "js/view/storage/vehicle_repair_statistics.html",
+            templateUrl: "js/view/statistics/vehicle_repair_statistics.html",
             controller:"vehicle_repair_statistics_controller"
         })
 
         .state("car_wash_fee_statistics", {
             url:"/car_wash_fee_statistics",
-            templateUrl: "js/view/storage/car_wash_fee_statistics.html",
+            templateUrl: "js/view/statistics/car_wash_fee_statistics.html",
             controller:"car_wash_fee_statistics_controller"
         })
 
         .state("liability_compensation_statistics", {
             url:"/liability_compensation_statistics",
-            templateUrl: "js/view/storage/liability_compensation_statistics.html",
+            templateUrl: "js/view/statistics/liability_compensation_statistics.html",
             controller:"liability_compensation_statistics_controller"
         })
 
         .state("car_insurance_payment_statistics", {
             url:"/car_insurance_payment_statistics",
-            templateUrl: "js/view/storage/car_insurance_payment_statistics.html",
+            templateUrl: "js/view/statistics/car_insurance_payment_statistics.html",
             controller:"car_insurance_payment_statistics_controller"
         })
+
         .state("chauffeur_mileage_statistics", {
             url:"/chauffeur_mileage_statistics",
-            templateUrl: "js/view/storage/chauffeur_mileage_statistics.html",
+            templateUrl: "js/view/statistics/chauffeur_mileage_statistics.html",
             controller:"chauffeur_mileage_statistics_controller"
         })
+
         .state("car_refueling_statistics", {
             url:"/car_refueling_statistics",
-            templateUrl: "js/view/storage/car_refueling_statistics.html",
+            templateUrl: "js/view/statistics/car_refueling_statistics.html",
             controller:"car_refueling_statistics_controller"
         })
+
         .state("import_data_statistics", {
             url:"/import_data_statistics",
-            templateUrl: "js/view/storage/import_data_statistics.html",
+            templateUrl: "js/view/statistics/import_data_statistics.html",
             controller:"import_data_statistics_controller"
         })
 

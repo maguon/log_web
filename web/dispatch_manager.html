@@ -83,6 +83,10 @@
     </li>
 
     <li class="bold side_navigator">
+        <a href="#!" ui-sref="damage_declaration" class="waves-effect waves-light first-N" ><i class="white-text mdi mdi-sim-alert"></i>质损申报</a>
+    </li>
+
+    <li class="bold side_navigator">
         <ul class="collapsible collapsible-accordion">
             <li class="bold">
                 <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-chart-line "></i>数据统计</a>
@@ -90,6 +94,7 @@
                     <ul>
                         <li><a href="#!" ui-sref="chauffeur_mileage_statistics"><i class="mdi mdi-chevron-right white-text "></i>司机里程统计</a></li>
                         <li><a href="#!" ui-sref="car_refueling_statistics"><i class="mdi mdi-chevron-right white-text "></i>货车加油统计</a></li>
+                        <li><a href="#!" ui-sref="import_data_statistics"><i class="mdi mdi-chevron-right white-text "></i>商品车发运指令统计</a></li>
                     </ul>
                 </div>
             </li>
@@ -201,8 +206,14 @@
 <script src="/js/controller/user/user_info_controller.js"></script>
 
 <!--数据统计-->
-<script src="/js/controller/storage/chauffeur_mileage_statistics_controller.js"></script>
-<script src="/js/controller/storage/car_refueling_statistics_controller.js"></script>
+<script src="/js/controller/statistics/chauffeur_mileage_statistics_controller.js"></script>
+<script src="/js/controller/statistics/car_refueling_statistics_controller.js"></script>
+<script src="/js/controller/statistics/import_data_statistics_controller.js"></script>
+
+<!--质损申报-->
+<script src="/js/controller/damage/damage_declaration_controller.js"></script>
+<script src="/js/controller/damage/damage_report_controller.js"></script>
+<script src="/js/controller/damage/damage_declaration_details_controller.js"></script>
 
 <!--管理员设置-->
 <script src="/js/controller/setting/setting_user_controller.js"></script>

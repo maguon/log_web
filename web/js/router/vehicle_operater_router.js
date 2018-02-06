@@ -10,16 +10,6 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "/js/view/storage/vehicle_index.html",  //路由填充的模板
             controller:'vehicle_index_controller'
         })
-        .state("storage_car_details_", {
-            url:"/storageCar_details/{id}/vin/{vin}/mark/{mark}?from",
-            templateUrl: "js/view/storage/storage_details.html",
-            controller:"storage_car_details_controller"
-        })
-        .state("storage_car_details", {
-            url:"/storageCar_details/{id}/vin/{vin}/_form/{_form}?from",
-            templateUrl: "/js/view/storage/storage_details.html",
-            controller:"storage_car_details_controller"
-        })
         .state("storage_car_map", {
             url:"/storage_car_map/{id}?form",
             templateUrl: "/js/view/storage/storage_car_map.html",
@@ -149,16 +139,19 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/storage/add_storage_car_put_in.html",
             controller:'add_storage_car_put_in_controller'
         })
+
+        // 数据统计
         .state("insurance_statistics", {
             url:"/insurance_statistics",
-            templateUrl: "js/view/storage/insurance_statistics.html",
+            templateUrl: "js/view/statistics/insurance_statistics.html",
             controller:"insurance_statistics_controller"
         })
         .state("maintenance_statistics", {
             url:"/maintenance_statistics",
-            templateUrl: "js/view/storage/maintenance_statistics.html",
+            templateUrl: "js/view/statistics/maintenance_statistics.html",
             controller:"maintenance_statistics_controller"
         })
+
         .state("demand_car_details",{
             url:"/demand_car_details/{id}/vin/{vin}?from",
             templateUrl: "js/view/car/car_demand/demand_car_details.html",

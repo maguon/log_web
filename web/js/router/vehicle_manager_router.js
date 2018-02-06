@@ -4,19 +4,6 @@
 
 
 app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRouterProvider) {
-    // $routeProvider.when('/', {
-    //     templateUrl: '/view/index_home.html',
-    //     controller:'indexController'
-    // }).when('/data', {
-    //     templateUrl: '/view/car_to_data.html',
-    //     controller:'dataController'
-    // }).when('/setting', {
-    //     templateUrl: '/view/setting.html',
-    //     controller:'settingController'
-    // }).otherwise({
-    //     templateUrl: '/view/index_home.html',
-    //     controller:'indexController'
-    // });
     $urlRouterProvider.when("","/vehicle_index");
     $stateProvider
 
@@ -182,16 +169,20 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/storage/add_storage_car_put_in.html",
             controller:'add_storage_car_put_in_controller'
         })
+
+        // 数据统计
         .state("insurance_statistics", {
             url:"/insurance_statistics",
-            templateUrl: "js/view/storage/insurance_statistics.html",
+            templateUrl: "js/view/statistics/insurance_statistics.html",
             controller:"insurance_statistics_controller"
         })
         .state("maintenance_statistics", {
             url:"/maintenance_statistics",
-            templateUrl: "js/view/storage/maintenance_statistics.html",
+            templateUrl: "js/view/statistics/maintenance_statistics.html",
             controller:"maintenance_statistics_controller"
         })
+
+
         .state("demand_car_details",{
             url:"/demand_car_details/{id}/vin/{vin}?from",
             templateUrl: "js/view/car/car_demand/demand_car_details.html",

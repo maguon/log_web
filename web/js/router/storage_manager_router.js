@@ -26,11 +26,6 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "/js/view/storage/storage_store.html",
             controller:"storage_store_controller"
         })
-        .state("statistics", {
-            url:"/storage_statistics",
-            templateUrl: "/js/view/storage/storage_statistics.html",
-            controller:"storage_statistics_controller"
-        })
         .state("storage_car_details_", {
             url:"/storageCar_details/{id}/vin/{vin}/mark/{mark}?from",
             templateUrl: "js/view/storage/storage_details.html",
@@ -189,6 +184,36 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/storage/add_storage_car_put_in.html",
             controller:'add_storage_car_put_in_controller'
         })
+
+        // 数据统计
+        .state("statistics", {
+            url:"/storage_statistics",
+            templateUrl: "/js/view/statistics/storage_statistics.html",
+            controller:"storage_statistics_controller"
+        })
+        .state("import_data_statistics", {
+            url:"/import_data_statistics",
+            templateUrl: "js/view/statistics/import_data_statistics.html",
+            controller:"import_data_statistics_controller"
+        })
+
+        // 质损申报
+        .state("damage_declaration",{
+            url:"/damage_declaration",
+            templateUrl: "js/view/damage/damage_declaration.html",
+            controller:'damage_declaration_controller'
+        })
+        .state("damage_report",{
+            url:"/damage_report",
+            templateUrl: "js/view/damage/damage_report.html",
+            controller:'damage_report_controller'
+        })
+        .state("damage_declaration_details",{
+            url:"/damage_declaration_details/id/{id}/status/{status}",
+            templateUrl: "js/view/damage/damage_declaration_details.html",
+            controller:'damage_declaration_details_controller'
+        })
+
         .state("demand_car_details",{
             url:"/demand_car_details/{id}/vin/{vin}?from",
             templateUrl: "js/view/car/car_demand/demand_car_details.html",

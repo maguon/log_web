@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="/assets/plugins/material_icon/css/materialdesignicons.css">
     <link rel="stylesheet" href="/assets/plugins/fullcalendar-3.3.0/fullcalendar.min.css">
     <link rel="stylesheet" href="/assets/plugins/jQueryViewer/css/viewer.min.css">
+    <link rel="stylesheet" href="/assets/plugins/month_picker/jquery-ui.min.css">
+    <link rel="stylesheet" href="/assets/plugins/month_picker/month_picker.min.css">
     <link rel="stylesheet" href="/assets/plugins/select2/select2.min.css">
     <link rel="stylesheet" href="/assets/css/index.css">
     <link rel="stylesheet" href="/assets/css/flex.css">
@@ -92,6 +94,11 @@
             </li>
         </ul>
     </li>
+
+    <li class="bold side_navigator">
+        <a href="#!" ui-sref="damage_declaration" class="waves-effect waves-light first-N" ><i class="white-text mdi mdi-sim-alert"></i>质损申报</a>
+    </li>
+
     <li class="bold side_navigator">
         <ul class="collapsible collapsible-accordion">
             <li class="bold">
@@ -99,12 +106,13 @@
                 <div class="collapsible-body slider_nav_box blue-grey darken-3" style="padding: 0;">
                     <ul>
                         <li><a href="#!" ui-sref="statistics"><i class="mdi mdi-chevron-right white-text "></i>仓储车辆统计</a></li>
-
+                        <li><a href="#!" ui-sref="import_data_statistics"><i class="mdi mdi-chevron-right white-text "></i>商品车发运指令统计</a></li>
                     </ul>
                 </div>
             </li>
         </ul>
     </li>
+
     <li class="bold side_navigator">
         <ul class="collapsible collapsible-accordion">
             <li class="bold">
@@ -112,15 +120,15 @@
                 <div class="collapsible-body slider_nav_box blue-grey darken-3" style="padding: 0;">
                     <ul>
                         <li><a href="#!" ui-sref="calendar"><i class="mdi mdi-chevron-right white-text "></i>工作日历</a></li>
-                        <li><a href="#!" ui-sref="add_storage_car_vin"  ><i class="white-text mdi mdi-chevron-right"></i>入库车辆</a></li>
-                        <li><a href="#!" ui-sref="storage_store"  ><i class="white-text mdi mdi-chevron-right"></i>仓储存放</a></li>
-                        <li><a href="#!" ui-sref="storage_car"  ><i class="white-text mdi mdi-chevron-right"></i>仓储车辆</a></li>
-
+                        <li><a href="#!" ui-sref="add_storage_car_vin"><i class="white-text mdi mdi-chevron-right"></i>入库车辆</a></li>
+                        <li><a href="#!" ui-sref="storage_store"><i class="white-text mdi mdi-chevron-right"></i>仓储存放</a></li>
+                        <li><a href="#!" ui-sref="storage_car"><i class="white-text mdi mdi-chevron-right"></i>仓储车辆</a></li>
                     </ul>
                 </div>
             </li>
         </ul>
     </li>
+
     <li class="bold side_navigator">
         <ul class="collapsible collapsible-accordion">
             <li class="bold">
@@ -171,10 +179,12 @@
 </script>
 <script src="/lib/jquery.min.js"></script>
 <script src="/lib/jquery.form.min.js"></script>
+<script src="/assets/plugins/fullcalendar-3.3.0/lib/jquery-ui.min.js"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=8iGBbYV3ghkvGehg79nG5LaGX2vVawjG"></script>
 <script src="/assets/plugins/fullcalendar-3.3.0/lib/moment.min.js"></script>
 <script src="/assets/plugins/fullcalendar-3.3.0/fullcalendar.min.js"></script>
 <script src="/assets/plugins/fullcalendar-3.3.0/locale/zh-cn.js"></script>
+<script src="/assets/plugins/month_picker/month_picker.min.js"></script>
 <script src="/assets/plugins/select2/select2.min.js"></script>
 <script src="/assets/plugins/materialize/js/materialize.js"></script>
 <script src="/assets/plugins/jQueryViewer/js/viewer.min.js"></script>
@@ -198,21 +208,40 @@
 <script src="/js/service/config_service.js"></script>
 <script src="/js/service/http_service.js"></script>
 <script src="/js/service/socket_service.js"></script>
-<script src="/js/controller/storage/storage_controller.js"></script>
+
 <script src="/js/controller/storage/storage_index_controller.js"></script>
+
+<!--仓储管理-->
+<script src="/js/controller/storage/storage_controller.js"></script>
 <script src="/js/controller/storage/storage_calendar_controller.js"></script>
 <script src="/js/controller/storage/storage_car_controller.js"></script>
 <script src="/js/controller/storage/storage_car_map_controller.js"></script>
 <script src="/js/controller/storage/storage_car_details_controller.js"></script>
-<script src="/js/controller/storage/storage_statistics_controller.js"></script>
+
+<!--数据导入-->
 <script src="/js/controller/data/car_to_data_controller.js"></script>
 <script src="/js/controller/data/imported_files_controller.js"></script>
 <script src="/js/controller/data/imported_files_details_controller.js"></script>
-<script src="/js/controller/user/user_info_controller.js"></script>
-<script src="/js/controller/setting/data_dictionary_controller.js"></script>
+
+<!--公共数据-->
 <script src="/js/controller/car/car_query/car_query_controller.js"></script>
 <script src="/js/controller/car/car_query/car_query_details_controller.js"></script>
 <script src="/js/controller/car/car_statistics_controller.js"></script>
+
+<!--质损申报-->
+<script src="/js/controller/damage/damage_declaration_controller.js"></script>
+<script src="/js/controller/damage/damage_report_controller.js"></script>
+<script src="/js/controller/damage/damage_declaration_details_controller.js"></script>
+
+<!--用户信息-->
+<script src="/js/controller/user/user_info_controller.js"></script>
+
+<!--数据统计-->
+<script src="/js/controller/statistics/storage_statistics_controller.js"></script>
+<script src="/js/controller/statistics/import_data_statistics_controller.js"></script>
+
+<!--系统设置-->
+<script src="/js/controller/setting/data_dictionary_controller.js"></script>
 <script src="/js/controller/setting/setting_storage_controller.js"></script>
 <script src="/js/controller/setting/add_setting_storage_controller.js"></script>
 <script src="/js/controller/setting/setting_user_controller.js"></script>
@@ -231,6 +260,8 @@
 <script src="/js/controller/storage/add_storage_car_vin_controller.js"></script>
 <script src="/js/controller/storage/add_storage_car_controller.js"></script>
 <script src="/js/controller/storage/add_storage_car_put_in_controller.js"></script>
+
+<!--调度管理-->
 <script src="/js/controller/dispatch/instruction_need_controller.js"></script>
 <script src="/js/controller/dispatch/look_instruction_need_details_controller.js"></script>
 </html>

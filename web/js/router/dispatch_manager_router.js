@@ -99,16 +99,6 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/system_settings/data_dictionary.html",
             controller: 'data_dictionary_controller'
         })
-        .state("chauffeur_mileage_statistics", {
-            url:"/chauffeur_mileage_statistics",
-            templateUrl: "js/view/storage/chauffeur_mileage_statistics.html",
-            controller:"chauffeur_mileage_statistics_controller"
-        })
-        .state("car_refueling_statistics", {
-            url:"/car_refueling_statistics",
-            templateUrl: "js/view/storage/car_refueling_statistics.html",
-            controller:"car_refueling_statistics_controller"
-        })
 
         // 指令调度
         .state("instruction_plan", {
@@ -188,6 +178,40 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             url:"/car_statistics",
             templateUrl: "js/view/car/car_statistics.html",
             controller:'car_statistics_controller'
+        })
+
+        // 数据统计
+        .state("chauffeur_mileage_statistics", {
+            url:"/chauffeur_mileage_statistics",
+            templateUrl: "js/view/statistics/chauffeur_mileage_statistics.html",
+            controller:"chauffeur_mileage_statistics_controller"
+        })
+        .state("car_refueling_statistics", {
+            url:"/car_refueling_statistics",
+            templateUrl: "js/view/statistics/car_refueling_statistics.html",
+            controller:"car_refueling_statistics_controller"
+        })
+        .state("import_data_statistics", {
+            url:"/import_data_statistics",
+            templateUrl: "js/view/statistics/import_data_statistics.html",
+            controller:"import_data_statistics_controller"
+        })
+
+        // 质损申报
+        .state("damage_declaration",{
+            url:"/damage_declaration",
+            templateUrl: "js/view/damage/damage_declaration.html",
+            controller:'damage_declaration_controller'
+        })
+        .state("damage_report",{
+            url:"/damage_report",
+            templateUrl: "js/view/damage/damage_report.html",
+            controller:'damage_report_controller'
+        })
+        .state("damage_declaration_details",{
+            url:"/damage_declaration_details/id/{id}/status/{status}",
+            templateUrl: "js/view/damage/damage_declaration_details.html",
+            controller:'damage_declaration_details_controller'
         })
 
         // 维修

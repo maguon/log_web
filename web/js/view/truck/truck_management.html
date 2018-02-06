@@ -1,6 +1,5 @@
 <div id="truck_management" >
     <div class="" >
-        <!--设置车辆当前位置模态框-->
         <div id="carPositionModel" class="modal modal-fixed-footer" style="width: 60%">
             <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
                 <div class="row col s12 vc-center fz22" style="font-weight: bold;height: 80px;background-color:rgb(63,185,193)">
@@ -27,78 +26,87 @@
                 </button>
             </div>
         </div>
-
         <div class="modal-content grey-text text-darken-2">
             <div class="row no-marBottom" ul-tabs style="overflow: hidden">
                 <div id="header_car" class="row tab_box">
                     <div class="storage_storeTitle">
                         <div class="row grey-text text-darken-1 valign-wrapper">
-                            <div class="col s10">
+                            <div class="col s10" style="color: #000; !important">
                                 <div class="col s12">
                                     <div class=" col s6 p0">
-                                        <div class="input-field col s6">
-                                            <input name="search_num" id="search_num" type="text" ng-model="search_num"   >
-                                            <label for="search_num">牌号</label>
+                                        <div class="input-field col s4">
+                                            <input name="search_num" id="search_num" type="text" ng-model="truckAccidentId">
+                                            <label style="color: #000; !important" for="search_num">事故编号</label>
                                         </div>
-                                        <div class="input-field col s6">
-                                                <select id="truck_brand" name="truck_brand" material-select watch ng-model="truckBrand">
-                                                    <option value="">请选择</option>
-                                                    <option ng-repeat="el in brand" ng-value="el.id">{{el.brand_name}}</option>
-                                                </select>
-                                                <label for="truck_brand">车辆品牌</label>
-                                            </div>
+                                        <div class="input-field col s4">
+                                            <select  material-select watch ng-model="truckType">
+                                                <option value="">车辆类型</option>
+                                                <option ng-value="1">头车</option>
+                                                <option ng-value="2">挂车</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-field col s4"  >
+                                            <select id="driveName" name="truck_brand" material-select watch ng-model="driveName">
+                                                <option value=""></option>
+                                                <option ng-repeat="el in driveNameList" >{{el.drive_name}}</option>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class=" col s6 p0">
                                         <div class="input-field col s6">
-                                            <input type="text" ng-model="check_operation_startTime" id="check_operation_startTime" name="check_operation_startTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                            <label for="check_operation_startTime">营运证检证日期(始)</label>
+                                            <input type="text" ng-model="check_operation_startTime" id="check_operation_startTime" class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                            <label style="color: #000; !important" for="check_operation_startTime">事故发生时间(始)</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <input type="text" ng-model="check_operation_endTime" id="check_operation_endTime" name="check_operation_endTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                            <label for="check_operation_endTime">营运证检证日期(终)</label>
+                                            <input type="text" ng-model="check_operation_endTime" id="check_operation_endTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                            <label style="color: #000; !important"  for="check_operation_endTime">事故发生时间(终)</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col s12" style="margin-top: 10px">
                                     <div class=" col s6 p0">
-                                        <div class="input-field col s6">
-                                            <input name="search_num" id="search_num" type="text" ng-model="search_num"   >
-                                            <label for="search_num">牌号</label>
+                                        <div class="input-field col s4">
+                                            <input  type="text"  ng-model="dpRouteTaskId">
+                                            <label style="color: #000; !important" for="search_num">调度编号</label>
                                         </div>
-                                        <div class="input-field col s6">
-                                            <select id="truck_brand" name="truck_brand" material-select watch ng-model="truckBrand">
-                                                <option value="">请选择</option>
-                                                <option ng-repeat="el in brand" ng-value="el.id">{{el.brand_name}}</option>
+                                        <div class="input-field col s4">
+                                            <select id="truckNum" material-select watch ng-model="truckNum">
+                                                <option value="">车牌号</option>
+                                                <option ng-repeat="el in truckNumList" >{{el.truck_num}}</option>
                                             </select>
-                                            <label for="truck_brand">车辆品牌</label>
+                                        </div>
+                                        <div class="input-field col s4">
+                                            <select  material-select watch ng-model="truckAccidentType">
+                                                <option value="">事故类型</option>
+                                                <option ng-value="1">一般</option>
+                                                <option ng-value="2">严重</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class=" col s6 p0">
                                         <div class="input-field col s6">
-                                            <select id="truck_brand" name="truck_brand" material-select watch ng-model="truckBrand">
-                                                <option value="">请选择</option>
-                                                <option ng-repeat="el in brand" ng-value="el.id">{{el.brand_name}}</option>
-                                            </select>
-                                            <label for="truck_brand">车辆品牌</label>
+                                                <input  type="text"  ng-model="underUserName">
+                                                <label style="color: #000; !important" for="search_num">责任人</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <select id="truck_brand" name="truck_brand" material-select watch ng-model="truckBrand">
-                                                <option value="">请选择</option>
-                                                <option ng-repeat="el in brand" ng-value="el.id">{{el.brand_name}}</option>
+                                            <select  material-select watch ng-model="accidentStatus">
+                                                <option value="">事故状态</option>
+                                                <option ng-value="1">待处理</option>
+                                                <option ng-value="2">处理中</option>
+                                                <option ng-value="3">已处理</option>
                                             </select>
-                                            <label for="truck_brand">车辆品牌</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col s2">
                                 <div class="col s6 center">
-                                    <a class=" btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="searchHead_car()">
+                                    <a class=" btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="searchTruckManagement()">
                                         <i class="mdi mdi-magnify"></i>
                                     </a>
                                 </div>
                                 <div class="col s6 center">
-                                    <a class="btn-floating btn-large waves-light waves-effect cyan lighten-1 btn vc-center" style="margin-right: 10px"   ui-sref="add_head_truck_details({from:'truck_details'})">
+                                    <a class="btn-floating btn-large waves-light waves-effect cyan lighten-1 btn vc-center" style="margin-right: 10px"   ui-sref="add_truck_management({from:'truck_management'})">
                                         <i class="mdi mdi-plus"></i>
                                     </a>
                                 </div>
@@ -111,57 +119,46 @@
                             <table class="bordered striped text_mid">
                                 <thead class="blue-grey lighten-5">
                                 <tr class="grey-text text-darken-2">
+                                    <th data-field="">事故编号</th>
                                     <th data-field="">车牌号</th>
-                                    <th data-field="">品牌</th>
-                                    <th data-field="">挂车号</th>
-                                    <th data-field="">主驾</th>
-                                    <th data-field="">车辆电话</th>
-                                    <th data-field="">所属类型</th>
-                                    <th data-field="">所属单位</th>
-                                    <th data-field="">车辆状态</th>
-                                    <th data-field="">车检</th>
-                                    <th width="300">操作</th>
+                                    <th data-field="">车辆类型</th>
+                                    <th data-field="">司机</th>
+                                    <th data-field="">调度编号</th>
+                                    <th data-field="">发生时间</th>
+                                    <th data-field="">事故类型</th>
+                                    <th data-field="">事故地点</th>
+                                    <th data-field="">责任人</th>
+                                    <th data-field="">状态</th>
+                                    <th data-field="">操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="el in head_car" class="grey-text text-darken-1">
-                                    <td ng-bind="el.truck_num">1</td>
-                                    <td ng-bind="el.brand_name">2</td>
-                                    <td ng-bind="el.trail_num|null_filter"></td>
-                                    <td ng-bind="el.drive_name|null_filter"></td>
-                                    <td ng-bind="el.truck_tel">无</td>
-                                    <td>{{el.operate_type | carType}}</td>
-                                    <td ng-bind="el.company_name">无</td>
-                                    <td>{{el.truck_status | workStatus}}</td>
-                                    <td class="white-text">
-                                        <span ng-show="el.driving_date|ptime" class="small-tips red lighten-2">临</span>
-                                        <span ng-hide="el.driving_date|ptime" class="small-tips "></span>
-                                    </td>
-                                    <td class="operation vc-center">
-                                        <a href="#" ui-sref="truck_guarantee_details({id:el.id,type:1,from:'truck_details'})" class="small-tips cyan lighten-2 white-text" style="width: 31px;margin-right: 10px;cursor: pointer;display: inline-block">保</a>
-                                        <a href="#" ui-sref="truck_repair({id:el.id,type:1,status:1,from:'truck_details'})" ng-if="el.repair_status==1"  class="cyan-text fz12 center-align" style="margin-right: 10px;cursor: pointer;display: inline-block">
-                                            <i class="mdi mdi-wrench"></i>
-                                        </a>
-                                        <a href="#" ui-sref="truck_repair({id:el.id,type:1,status:0,from:'truck_details'})" ng-if="el.repair_status==0" class="red-text fz12" style="margin-right: 10px;cursor: pointer;display: inline-block">
-                                            <i class="mdi mdi-wrench"></i>
-                                        </a>
-                                        <a href="#" ui-sref="look_head_truck_details({id:el.id,from:'truck_details'})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ></i></a>
-                                        <a href="" ng-click="showCarPositionModel(el.id)" class="cyan-text fz12" style="cursor: pointer;display: inline-block">
-                                            <i class="mdi mdi-map-marker"></i>
-                                        </a>
-                                        <span class="switch" ng-click="changeTruck_status(el.id,el.truck_status)" style="height: 30px;display: inline-block">
-                                        <label>
-                                              <input type="checkbox" ng-checked="el.truck_status==1">
-                                              <span class="lever"></span>
-                                        </label>
-                                    </span>
-                                    </td>
-                                </tr>
-
+                                    <tr ng-repeat="el in truckManagementList" class="grey-text text-darken-1">
+                                        <td ng-bind="el.id"></td>
+                                        <td ng-bind="el.truck_num"></td>
+                                        <td  ng-if="el.truck_type==1">车头</td>
+                                        <td  ng-if="el.truck_type==2">挂车</td>
+                                        <td ng-bind="el.drive_name"></td>
+                                        <td ng-bind="el.dp_route_task_id"></td>
+                                        <td ng-bind="el.accident_date| date:'yyyy-MM-dd'"></td>
+                                        <td ng-if="el.truck_accident_type==null"></td>
+                                        <td ng-if="el.truck_accident_type==1">一般</td>
+                                        <td ng-if="el.truck_accident_type==2">严重</td>
+                                        <td ng-bind="el.address"></td>
+                                        <td ng-bind="el.under_user_name"></td>
+                                        <td ng-if="el.accident_status==1">待处理</td>
+                                        <td class="red-text text-lighten-2" ng-if="el.accident_status==2">处理中</td>
+                                        <td ng-if="el.accident_status==3">已处理</td>
+                                        <td class="operation vc-center">
+                                            <a ui-sref="look_truck_management({id:el.id,from:'truck_management'})"  class="cyan-text fz12" style="cursor: pointer;display: inline-block;width: 37px;height: 37px;">  <i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-file-document"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr class="grey-text text-darken-1" ng-if="truckManagementList.length == 0">
+                                        <td colspan="11"><span style="letter-spacing: 2px">暂无数据</span></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
-
                     </div>
                     <div class="paging_box col s12">
                         <div class="right">

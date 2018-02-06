@@ -1,0 +1,85 @@
+<div >
+    <div class="" >
+        <div class="modal-content grey-text text-darken-2">
+            <div class="storage_storeTitle vc-center">
+                <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
+                    <i class="mdi mdi-arrow-left-bold"></i>
+                </a>
+                <h4 class="center-align cyan-text text-lighten-1">新增事故信息</h4>
+            </div>
+            <div class="row"  >
+                <div class="col s12" style="overflow-x: hidden">
+                    <ul class="ui-tabs tabs" ul-tabs>
+                        <li class="tab col s6 test1"><a  href="#test1">事故信息</a></li>
+                        <li class="tab col s6 test2 disabled"><a   href="#test2">相册</a></li>
+                    </ul>
+                </div>
+                <div id="test1" class="test col s12" >
+                    <div class="row" style="position: relative">
+                        <p class="location_gps white z-depth-2">经度:<span class="materialize-red-text">{{lng}}</span>,纬度:<span class="materialize-red-text">{{lat}}</span></p>
+                        <div class="col s6 dealer_details grey-text">
+                            <form name="add_setting_dealerFrom" ng-submit="add_setting_dealer(add_setting_dealerFrom.$valid)" novalidate>
+                                <div class="row">
+                                    <div  class="col s12">
+                                        <div class="col s6  input-field" ng-class="{'has-error':add_setting_dealerFrom.short_name.$invalid&&submitted}">
+                                            <select id="truck_brand" name="truck_brand" material-select watch ng-model="truckBrand">
+                                                <option value="">车辆类型机(必填)</option>
+                                                <option ng-repeat="el in brand" ng-value="el.id">{{el.brand_name}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col s6 input-field" ng-class="{'has-error':add_setting_dealerFrom.short_name.$invalid&&submitted}">
+                                            <select id="truck_brand" name="truck_brand" material-select watch ng-model="truckBrand">
+                                                <option value="">货车牌号(必填)</option>
+                                                <option value=""></option>
+                                                <option ng-repeat="el in brand" ng-value="el.id">{{el.brand_name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 input-field mp-40"  ng-class="{'has-error':add_setting_dealerFrom.deal_name.$invalid&&submitted }">
+                                        <input type="text" id="deal_name" name="deal_name" ng-model="deal_name" class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                        <label check_operation_endTime class="grey-text bold" for="deal_name"><span style="color: red">*</span>发生时间</label>
+                                    </div>
+                                    <div class="col s12 input-field mp-40"  ng-class="{'has-error':add_setting_dealerFrom.deal_name.$invalid&&submitted }">
+                                        <input type="text" id="deal_name" name="deal_name" ng-model="deal_name" required>
+                                        <label class="grey-text bold" for="deal_name"><span style="color: red">&nbsp;</span>调度编号</label>
+                                        <span style="color: red;" class="right">(输入编号自动显示如:12345666 大连-长春)</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12 input-field mp-40" ng-class="{'has-error':add_setting_dealerFrom.address.$invalid&&submitted }" >
+                                        <input type="text" id="address" ng-model="input_address" autocomplete="off"  name="address" required>
+                                        <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+                                        <label class="grey-text bold" for="address"><span style="color: red">*</span>详细地址</label>
+                                        <i class="address_icon mdi mdi-near-me vc-center cyan  lighten-2 white-text" ng-click="search_location(input_address)" style="cursor: pointer"></i>
+                                        <span style="color: red;" class="right">(输入地址，点击按钮在地图定位，移动地图精确定位，返回精确地址和经纬度)</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12 bold mp-40">备注:</div>
+                                    <div class="col s12 mp-10">
+                                        <textarea name="" id="" ng-model="remark" style="height: 150px" >
+                                        </textarea>
+                                    </div>
+                                    <span class="right fz12">最多可以输入240个字符</span>
+                                </div>
+                                <div class="row">
+                                    <div class="col  offset-s6">
+                                        <button href="" type="submit" name="action" class="btn cyan waves-light waves-effect  lighten-1">下一步</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col s6 dealer_map" id="dealer_map">
+
+                        </div>
+                    </div>
+                </div>
+                <div id="test2" class="test col s12">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>

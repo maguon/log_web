@@ -880,7 +880,7 @@ input[type=text]{
     background: #b0bec5;
     position: absolute;
     right: 5px;
-    bottom: 0;
+    bottom: 21px;
 }
 .dealer_map{
     position:relative;
@@ -1178,7 +1178,9 @@ button[type="submit"] {
 .select2-selection__placeholder{
     color: black !important;
 }
-
+.select1-selection__placeholder{
+    color: #26c6da !important;
+}
 .select2-selection__arrow{
     margin-top: 6px !important;
 }

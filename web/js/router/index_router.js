@@ -426,6 +426,18 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/truck/truck_management.html",
             controller:'truck_management_controller'
         })
+        // 新增（事故车）
+        .state("add_truck_management",{
+            url:"/add_truck_management?from",
+            templateUrl: "js/view/truck/add_truck_management.html",
+            controller:'add_truck_management_controller'
+        })
+        // 事故车详情
+        .state("look_truck_management",{
+            url:"/look_truck_management/id/{id}?from",
+            templateUrl: "js/view/truck/look_truck_management.html",
+            controller:'look_truck_management_controller'
+        })
         // 质损
         .state("damage_declaration",{
             url:"/damage_declaration",

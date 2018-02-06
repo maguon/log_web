@@ -415,6 +415,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/truck/truck_insurance.html",
             controller:'truck_insurance_controller'
         })
+        //货车管理
+        .state("truck_management",{
+            url:"/truck_management",
+            templateUrl: "js/view/truck/truck_management.html",
+            controller:'truck_management_controller'
+        })
         // 质损
         .state("damage_declaration",{
             url:"/damage_declaration",

@@ -26,7 +26,7 @@
                         <input id="chooseCarWashFeeEnd_month" type="text" ng-value="endInitial">
                     </div>
                     <div class="col s2 center">
-                        <i class="mdi mdi-magnify" ng-click="searchRepairCount()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                        <i class="mdi mdi-magnify" ng-click="getCarWashFeeMonthCount();getReceiveCarWashFeeRankingMonth()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
                     </div>
                 </div>
             </div>
@@ -40,18 +40,18 @@
                         <p style="margin: 10px 0">经销商洗车费 <span style="color: #26c6da">TOP10</span></p>
                     </div>
                     <!--top10排行榜-->
-                    <div ng-repeat="feeInfo in sortCarWashFeeRanking" class="col s12 valign-wrapper" style="margin: 5px 0">
+                    <div ng-repeat="feeInfo in carWashFeeRankingMonth" class="col s12 valign-wrapper" style="margin: 5px 0">
                         <div class="col s1 right-align" style="padding: 0;">
                             <span class="white lighten-2 center" style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">{{$index + 1}}</span>
                         </div>
                         <div class="col s3 center-align">
-                            <span style="color: grey;font-weight: bold">{{feeInfo.receive_name}}</span>
+                            <span style="color: grey;font-weight: bold">{{feeInfo.short_name}}</span>
                         </div>
                         <div class="col s5 progress" style="margin: 1rem 0">
                             <div class="determinate" style="width:{{feeInfo.percent + '%'}}"></div>
                         </div>
                         <div class="col s3">
-                            <span style="color: #ff8282;font-weight: bold">{{feeInfo.money_count}}</span>
+                            <span style="color: #ff8282;font-weight: bold">{{feeInfo.actual_price}}</span>
                         </div>
                     </div>
 
@@ -79,18 +79,18 @@
                         <p style="margin: 10px 0">经销商洗车费 <span style="color: #ff7e7e">TOP10</span></p>
                     </div>
                     <!--top10排行榜-->
-                    <div ng-repeat="feeInfo in sortCarWashFeeRanking" class="col s12 valign-wrapper" style="margin: 5px 0">
+                    <div ng-repeat="feeInfo in carWashFeeRankingWeek" class="col s12 valign-wrapper" style="margin: 5px 0">
                         <div class="col s1 right-align" style="padding: 0;">
                             <span class="white lighten-2 center" style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">{{$index + 1}}</span>
                         </div>
                         <div class="col s3 center-align">
-                            <span style="color: grey;font-weight: bold">{{feeInfo.receive_name}}</span>
+                            <span style="color: grey;font-weight: bold">{{feeInfo.short_name}}</span>
                         </div>
                         <div class="col s5 progress" style="margin: 1rem 0;background-color: #ffdcdc;">
                             <div class="determinate" style="width: {{feeInfo.percent + '%'}};background-color: #FF7E7E;"></div>
                         </div>
                         <div class="col s3">
-                            <span style="color: #ff8282;font-weight: bold">{{feeInfo.money_count}}</span>
+                            <span style="color: #ff8282;font-weight: bold">{{feeInfo.actual_price}}</span>
                         </div>
                     </div>
                 </div>

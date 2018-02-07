@@ -66,12 +66,18 @@ app.controller("truck_repair_controller", ["$scope", "$state", "$stateParams", "
         });
     };
 
-    // 获取所有事故列表
+    // 获取当前id关联事故列表
     $scope.getAllAccidentInfo = function () {
         $scope.associatedAccident = "";
-        _basic.get($host.api_url + "/truckAccident").then(function (data) {
+        _basic.get($host.api_url + "/truckAccident?truckId=" + truckId).then(function (data) {
             if (data.success === true) {
                 // console.log("data", data);
+                if(data.result.length === 0){
+                    $scope.hasNotAccident = true;
+                }
+                else{
+                    $scope.hasNotAccident = false;
+                }
                 $scope.accidentNumList = data.result;
             }
             else {
@@ -95,15 +101,17 @@ app.controller("truck_repair_controller", ["$scope", "$state", "$stateParams", "
     // 根据事故id获取事故详细信息
     $scope.getCurrentAccidentDetails = function () {
         // console.log("associatedAccident", $scope.associatedAccident);
-        _basic.get($host.api_url + "/truckAccident?truckAccidentId=" + $scope.associatedAccident).then(function (data) {
-            if (data.success === true) {
-                // console.log("data", data);
-                $scope.accidentInfo = data.result[0];
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
+        if($scope.associatedAccident != null){
+            _basic.get($host.api_url + "/truckAccident?truckAccidentId=" + $scope.associatedAccident).then(function (data) {
+                if (data.success === true) {
+                    // console.log("data", data);
+                    $scope.accidentInfo = data.result[0];
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
     };
 
     // 保存修改后的维修信息
@@ -130,7 +138,7 @@ app.controller("truck_repair_controller", ["$scope", "$state", "$stateParams", "
         // $scope.$scope.repairStation = "";
         $scope.repairDescription = "";
         $scope.repairMoney = 0;
-        _basic.get($host.api_url + "/repairStation").then(function (data) {
+        _basic.get($host.api_url + "/repairStation?repairSationStatus=1").then(function (data) {
             if (data.success === true) {
                 // console.log("data", data);
                 $scope.repairStationList = data.result;

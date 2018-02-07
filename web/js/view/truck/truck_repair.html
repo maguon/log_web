@@ -120,7 +120,7 @@
                         <div class="col s4 input-field">
                             <select material-select watch id="record_truck_type" class="truck_type" ng-change="isCheckAssociatedAccident(repairingItem)" ng-model="repairingItem.repair_type">
                                 <option value="" selected disabled>请选择</option>
-                                <option value="1">事故维修</option>
+                                <option ng-disabled="hasNotAccident" value="1">事故维修</option>
                                 <option value="2">非事故维修</option>
                             </select>
                             <label for="record_truck_type">维修类型</label>

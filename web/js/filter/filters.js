@@ -251,3 +251,24 @@ CommonFilter.filter("damageStatus", function () {
         return damageStatus;
     }
 });
+
+// 保险险种过滤器
+CommonFilter.filter("insuranceType", function () {
+    return function (input) {
+        var insuranceType;
+        switch (input) {
+            case 1:
+                insuranceType = "交强险";
+                break;
+            case 2:
+                insuranceType = "商业险";
+                break;
+            case 3:
+                insuranceType = "货运险";
+                break;
+            default:
+                insuranceType = "未知";
+        }
+        return insuranceType;
+    }
+});

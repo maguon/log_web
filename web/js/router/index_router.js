@@ -438,6 +438,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/truck/look_truck_management.html",
             controller:'look_truck_management_controller'
         })
+        .state("accident_claim",{
+            url:"/accident_claim",
+            templateUrl: "js/view/truck/accident_claim.html",
+            controller:'accident_claim_controller'
+        })
+
         // 质损
         .state("damage_declaration",{
             url:"/damage_declaration",

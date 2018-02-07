@@ -1,0 +1,149 @@
+<div class="accident_claim">
+    <div class="row valign-wrapper">
+        <div class="col s10">
+            <div class="col s7" style="padding: 0;">
+                <div class="col s4 input-field">
+                    <input type="text" name="compensate_num" id="compensate_num" ng-model="compensateNum">
+                    <label for="compensate_num">理赔编号</label>
+                </div>
+                <div class="col s4 input-field">
+                    <select material-select watch id="insurance_type" ng-model="insuranceType">
+                        <option value="" selected>请选择</option>
+                        <option ng-value="1" selected>交强险</option>
+                        <option ng-value="2" selected>商业险</option>
+                        <option ng-value="3" selected>货运险</option>
+                    </select>
+                    <label for="insurance_type">险种</label>
+                </div>
+                <div class="col s4 input-field">
+                    <select material-select watch id="insurance_company" ng-model="insuranceCompany">
+                        <option value="" selected>请选择</option>
+                        <option ng-repeat="company in insureCompanyList" ng-value="company.id">{{company.insure_name}}</option>
+                    </select>
+                    <label for="insurance_company">保险公司</label>
+                </div>
+                <div class="col s4 input-field">
+                    <select material-select watch id="financial_loan" ng-model="financialLoan">
+                        <option value="" selected>所有</option>
+                        <option value="0">无</option>
+                        <option value="1">有</option>
+                    </select>
+                    <label for="financial_loan">财务借款</label>
+                </div>
+                <div class="col s4 valign-wrapper" style="padding: 0;">
+                    <div class="col s6 input-field">
+                        <input type="number" name="payment_money_start" id="payment_money_start" ng-model="paymentMoneyStart">
+                        <label for="payment_money_start">待赔金额</label>
+                    </div>
+                    <!--<div class="col s2 center-align">-->
+                        <!--<p style="margin: 0;margin-top: 20px">至</p>-->
+                    <!--</div>-->
+                    <div class="col s6 input-field">
+                        <input type="number" name="payment_money_end" id="payment_money_end" ng-model="paymentMoneyEnd">
+                        <label for="payment_money_end">至</label>
+                    </div>
+                </div>
+                <div class="col s4 input-field">
+                    <select material-select watch id="handle_status" ng-model="handleStatus">
+                        <option value="" selected>请选择</option>
+                        <option value="1">处理中</option>
+                        <option value="2">已处理</option>
+                    </select>
+                    <label for="handle_status">处理状态</label>
+                </div>
+            </div>
+            <div class="col s5" style="padding: 0;">
+                <div class="col s6 input-field">
+                    <input type="text" ng-model="claimStartTimeStart" id="claim_startTime_start" name="claim_startTime_start"  class="datepicker" autocomplete="off" date>
+                    <i class="mdi dataIcon mdi-table-large"></i>
+                    <label for="claim_startTime_start">理赔生成时间(始)</label>
+                </div>
+                <div class="col s6 input-field">
+                    <input type="text" ng-model="claimStartTimeEnd" id="claim_startTime_end" name="claim_startTime_end"  class="datepicker" autocomplete="off" date>
+                    <i class="mdi dataIcon mdi-table-large"></i>
+                    <label for="claim_startTime_end">理赔生成时间(终)</label>
+                </div>
+                <div class="col s6 input-field">
+                    <input type="text" ng-model="paymentSettlementTimeStart" id="payment_settlement_start" name="payment_settlement_start"  class="datepicker" autocomplete="off" date>
+                    <i class="mdi dataIcon mdi-table-large"></i>
+                    <label for="payment_settlement_start">赔付结算时间(始)</label>
+                </div>
+                <div class="col s6 input-field">
+                    <input type="text" ng-model="paymentSettlementTimeEnd" id="payment_settlement_end" name="payment_settlement_end"  class="datepicker" autocomplete="off" date>
+                    <i class="mdi dataIcon mdi-table-large"></i>
+                    <label for="payment_settlement_end">赔付结算时间(终)</label>
+                </div>
+            </div>
+        </div>
+        <div class="col s2">
+            <div class="col s6 center">
+                <a ng-click="searchDamageClaimList()" class="btn-floating btn-large waves-light waves-effect red lighten-2 btn vc-center" style="margin-right: 10px">
+                    <i class="mdi mdi-magnify"></i>
+                </a>
+            </div>
+            <div class="col s6 center">
+                <a ng-click="addClaimInfo()" class="btn-floating btn-large waves-light waves-effect cyan lighten-2 btn vc-center" style="margin-right: 10px">
+                    <i class="mdi mdi-plus"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12">
+            <div class="col s12">
+                <div class="divider" style="background: #00bcd4;height: 2px"></div>
+                <table class="bordered striped text_mid">
+                    <thead class="blue-grey lighten-5">
+                    <tr class="grey-text text-darken-2">
+                        <th width="200" data-field="">理赔编号</th>
+                        <th width="150" data-field="">险种</th>
+                        <th width="200" data-field="">保险公司</th>
+                        <th width="200" data-field="">保险待赔</th>
+                        <th width="200" data-field="">财务借款</th>
+                        <th width="200" data-field="">实际赔付</th>
+                        <th width="300" data-field="">生成时间</th>
+                        <th width="300" data-field="">赔付时间</th>
+                        <th width="180" data-field="">状态</th>
+                        <th width="150">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="damage in damageClaimList" class="grey-text text-darken-1">
+                        <td>{{damage.id}}</td>
+                        <td>{{damage.insure_type | insuranceType}}</td>
+                        <td>{{damage.insure_name}}</td>
+                        <td>{{damage.insure_plan}}</td>
+                        <td>{{damage.financial_loan}}</td>
+                        <td class="red-text text-lighten-2">{{damage.insure_actual}}</td>
+                        <td>{{damage.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td>{{damage.completed_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td class="red-text text-lighten-2" ng-if="damage.insure_status == 1">处理中</td>
+                        <td ng-if="damage.insure_status == 2">已处理</td>
+                        <td class="operation">
+                            <a ui-sref="" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
+                        </td>
+                    </tr>
+                    <tr class="grey-text text-darken-1" ng-if="damageClaimList.length == 0">
+                        <td colspan="10"><span style="letter-spacing: 2px">暂无数据</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!--分页-->
+    <div class="row">
+        <div class="col s12" style="height: 45px">
+            <div class="right">
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="previous_page()">
+                    上一页
+                </a>
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_page()">
+                    下一页
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

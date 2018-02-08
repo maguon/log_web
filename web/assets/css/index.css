@@ -880,7 +880,7 @@ input[type=text]{
     background: #b0bec5;
     position: absolute;
     right: 5px;
-    bottom: 21px;
+    bottom: 0px;
 }
 .dealer_map{
     position:relative;

@@ -1,8 +1,7 @@
 app.controller("truck_management_controller", ["$scope", "$state", "$stateParams", "_basic", "_config", "$host",
     function ($scope, $state, $stateParams, _basic, _config, $host) {
-        $scope.start = 0;
-        $scope.size = 1;
-         //司机
+        $scope.size = 10;
+        //司机
         function getDriveNameList () {
             _basic.get($host.api_url + "/drive?driveName=").then(function (data) {
                 if (data.success == true) {
@@ -32,18 +31,8 @@ app.controller("truck_management_controller", ["$scope", "$state", "$stateParams
                 }
             });
         }
-        //获取列表信息
-        function queryTruckManagementList() {
-            _basic.get($host.api_url + "/truckAccident").then(function (data) {
-                if (data.success == true) {
-                    $scope.truckManagementList = data.result;
-                } else {
-                    swal(data.msg, "", "error")
-                }
-            });
-        }
-         // 获取筛选列表
-        $scope.getManagementRecordList = function () {
+        // 获取筛选列表
+        function getManagementRecordList () {
             _basic.get($host.api_url + "/truckAccident?" + _basic.objToUrl({
                 truckAccidentId: $scope.truckAccidentId,
                 truckType:$scope.truckType,
@@ -54,22 +43,23 @@ app.controller("truck_management_controller", ["$scope", "$state", "$stateParams
                 dpRouteTaskId:$scope.dpRouteTaskId,
                 truckAccidentType:$scope.truckAccidentType,
                 underUserName:$scope.underUserName,
-                accidentStatus:$scope.accidentStatus
+                accidentStatus:$scope.accidentStatus,
+                start:$scope.start.toString(),
+                size:$scope.size
             })).then(function (data) {
                 if (data.success === true) {
-                     console.log("data", data);
-                    // if ($scope.start > 0) {
-                    //     $("#record_pre").show();
-                    // }
-                    // else {
-                    //     $("#record_pre").hide();
-                    // }
-                    // if (data.result.length < $scope.size) {
-                    //     $("#record_next").hide();
-                    // }
-                    // else {
-                    //     $("#record_next").show();
-                    // }
+                    if ($scope.start > 0) {
+                        $("#pre").show();
+                    }
+                    else {
+                        $("#pre").hide();
+                    }
+                    if (data.result.length < $scope.size) {
+                        $("#next").hide();
+                    }
+                    else {
+                        $("#next").show();
+                    }
                     $scope.truckManagementList = data.result;
                 }
                 else {
@@ -80,24 +70,24 @@ app.controller("truck_management_controller", ["$scope", "$state", "$stateParams
 
         // 搜索维修记录
         $scope.searchTruckManagement = function () {
-            $scope.start = 0;
-            $scope.getManagementRecordList();
+            $scope.start=0;
+            getManagementRecordList();
         };
-         //分页
-        // $scope.record_pre_btn = function () {
-        //     $scope.start = $scope.start - $scope.size;
-        //     $scope.getRepairRecordList();
-        // };
-        //
-        // $scope.record_next_btn = function () {
-        //     $scope.start = $scope.start + $scope.size;
-        //     $scope.getRepairRecordList();
-        // };
+        // 分页
+        $scope.previous_page = function () {
+            $scope.start = $scope.start - $scope.size;
+            getManagementRecordList();
+        };
+
+        $scope.next_page = function () {
+            $scope.start = $scope.start + $scope.size;
+            getManagementRecordList();
+        };
         // 获取数据
-        $scope.queryData = function () {
-            queryTruckManagementList();
+        var queryData = function () {
             getDriveNameList();
             getTruckNumList();
+            $scope.searchTruckManagement();
         };
-        $scope.queryData();
-}]);
+        queryData();
+    }]);

@@ -1195,3 +1195,8 @@ button[type="submit"] {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+/*模态框下p上下边距*/
+.modal_accident p{
+    margin: 12px 0 !important;
+}

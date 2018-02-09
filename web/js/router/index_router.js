@@ -443,6 +443,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/truck/accident_claim.html",
             controller:'accident_claim_controller'
         })
+        .state("accident_claim_details",{
+            url:"/accident_claim_details/id/{id}",
+            templateUrl: "js/view/truck/accident_claim_details.html",
+            controller:'accident_claim_details_controller'
+        })
 
         // 质损
         .state("damage_declaration",{

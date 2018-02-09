@@ -49,7 +49,7 @@ app.controller("damage_index_controller", ["$scope", "$host", "_basic", function
             if (data.success === true) {
                 for (var i = 0; i < data.result.length; i++) {
                     $scope.damageInsureCount += data.result[i].damage_insure_count;
-                    $scope.damageInsure += data.result[i].damage_insure;
+                    $scope.damageInsure += data.result[i].insure_plan;
                 }
             }
             else {

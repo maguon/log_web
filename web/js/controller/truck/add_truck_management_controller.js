@@ -145,6 +145,7 @@ app.controller("add_truck_management_controller", ["$scope", "$state", "$statePa
                         $scope.lineInfo = false;
                         swal("编号不存在，请重新填写","","error");
                     }
+                    $scope.trailNumclick();
                 })
         }
         $scope.truckNumclick=function(){
@@ -158,9 +159,9 @@ app.controller("add_truck_management_controller", ["$scope", "$state", "$statePa
             })
         }
         // 提交事故信息
-        $scope.createTruckAccident = function () {
+        $scope.createTruckAccident = function (valid) {
             $scope.submitted = true;
-            console.log($scope.Id, $scope.driveId )
+            if(valid){
                 var managementInfo = {
                     driveId:$scope.driveId,
                     truckId:$scope.Id,
@@ -169,17 +170,18 @@ app.controller("add_truck_management_controller", ["$scope", "$state", "$statePa
                     address: $scope.address,
                     lng:$scope.lng,
                     lat: $scope.lat,
-                    remark: $scope.remark
+                    accidentExplain: $scope.remark
                 };
                 _basic.post($host.api_url + "/user/" + userId + "/truckAccident", managementInfo).then(function (data) {
                     if (data.success === true) {
                         $scope.step_first = false;
                         $scope.step_second = true;
-                        $(".ui-tabs li").addClass("disabled");
-                        $(".test2").removeClass("disabled");
+                        // $(".test1").addClass("disabled");
+                        // $(".test2").removeClass("disabled");
+                        // $("#test2").addClass("display:b");
                         $(".tabs .indicator").css({
                             right: 0 + "px",
-                            left: 1000 + "px"
+                            left: 50 + '%'
                         });
                         $(".tab2>a").addClass("active");
                         $(".tab1>a").removeClass("active");
@@ -188,8 +190,9 @@ app.controller("add_truck_management_controller", ["$scope", "$state", "$statePa
                         swal(data.msg, "", "error");
                     }
                 });
+            }
             };
-        // 图片
+         // 图片
         $scope.car_imageBox = [];
         $scope.car_image_i = [];
         $scope.uploadBrandImage = function (dom) {

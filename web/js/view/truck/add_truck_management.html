@@ -9,21 +9,21 @@
             <div class="row"  >
                 <div class="col s12" style="overflow-x: hidden">
                     <ul class="ui-tabs tabs" ul-tabs>
-                        <li class="tab col s6 test1 "><a  href="#test1">事故信息</a></li>
-                        <li class="tab col s6 test2 "><a href="#test2">相册</a></li>
+                        <li class="tab col s6 test1 disabled"><a  href="javascript:;">事故信息</a></li>
+                        <li class="tab col s6 test2 disabled"><a href="javascript:;">相册</a></li>
                     </ul>
                 </div>
-                <div id="test1" class="test col s12" class="add_driver_step_1" ng-show="step_first">
+                <div id="test1" class="test col s12"  ng-show="step_first">
                     <div class="row" style="position: relative">
                         <p class="location_gps white z-depth-2">经度:<span class="materialize-red-text">{{lng}}</span>,纬度:<span class="materialize-red-text">{{lat}}</span></p>
                         <div class="col s6 dealer_details grey-text">
-                            <form name="add_truck_managementFrom" ng-submit="submitForm(add_truck_managementFrom.$valid)" novalidate>
+                            <form name="add_truck_managementFrom" novalidate>
                                 <div class="row">
                                     <div  class="col s12">
-                                        <div class="col s12 input-field mp-40" ng-class="{'has-error':add_truck_managementFrom.id.$invalid&&submitted }">
-                                            <input type="text" class="id" id="id" name="id" ng-model="dpRouteTaskId" >
+                                        <div class="col s12 input-field mp-40" ng-class="{'has-error':add_truck_managementFrom.Id.$invalid&&submitted }">
+                                            <input type="text" class="dpRouteTaskId" id="dpRouteTaskId" name="Id" ng-model="dpRouteTaskId"  required>
                                             <div id="dpRouteTaskIdData" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
-                                            <label for="id"><span style="color: red">&nbsp;</span>调度编号</label>
+                                            <label for="dpRouteTaskId"><span style="color: red">&nbsp;</span>调度编号</label>
                                             <i class="mdi-plus-circle  address_icon mdi mdi-near-me vc-center cyan  lighten-2 white-text" ng-click="search_dpRouteTaskId()" style="cursor: pointer"></i>
                                         </div>
                                         <div class="collapsible_header valign-wrapper col s12 black-text fz14 " style="margin-top: 15px;height:40px" ng-show="lineInfo" >
@@ -38,7 +38,6 @@
                                             </div>
                                         </div>
                                         <div class=" valign-wrapper collapsible_header col s12 black-text fz14 center-align" style="margin-top: 15px;height:40px" ng-show="lineInfo" >
-                                            <form action="#" name="from1" id="form1" >
                                                 <p class="col s6 left-align" ng-click="truckNumclick()">
                                                     <input name="group1" type="radio" id="truckNum" ng-velue="truckNume" ng-model="truckNume"/>
                                                     <label for="truckNum">头车&nbsp;{{truckNum}}</label>
@@ -47,13 +46,12 @@
                                                     <input name="group1" type="radio" id="trailNum" ng-velue="trailNume" ng-model="trailNume"/>
                                                     <label for="trailNum">挂车&nbsp;{{trailNum}}</label>
                                                 </p>
-                                            </form>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col s6 input-field mp-40"  ng-class="{'has-error':add_truck_managementFrom.accident_date.$invalid&&submitted }">
-                                        <input type="text" id="accident_date" name="accident_date" ng-model="accidentDate" class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                    <div class="col s6 input-field mp-40"  ng-class="{'has-error':add_truck_managementFrom.date.$invalid&&submitted }">
+                                        <input type="text" id="accident_date" name="date" ng-model="accidentDate" class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
                                         <label check_operation_endTime class="grey-text bold" for="accident_date"><span style="color: red">*</span>发生时间</label>
                                     </div>
                                     <div class="col s6 input-field mp-40"  ng-class="{'has-error':add_truck_managementFrom.accident_date.$invalid&&submitted }">
@@ -79,7 +77,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col  offset-s6">
-                                        <button ng-click="createTruckAccident()" class="btn btn-large waves-effect waves-light">下一步</button>
+                                        <button ng-click="createTruckAccident(add_truck_managementFrom.$valid)" class="btn btn-large waves-effect waves-light">下一步</button>
                                     </div>
                                 </div>
                             </form>
@@ -88,27 +86,26 @@
                         </div>
                     </div>
                 </div>
-                <div id="test2" class="test col s12 add_driver_step_2"   >
-                    <div class="row no-marBottom">
-                        <div class="col s12 valign-wrapper" style="position: relative">
-                            <div class="storage_car_picture_wrap col s12 p0">
+                <div id="test2" class="test col s12"  ng-show="step_second" >
+                    <div class="row ">
+                        <div class="col s12 valign-wrapper" >
+                            <div class="storage_car_picture_wrap col s12">
                                 <form name="uploadImageForm" class="uploadImageForm">
                                     <div class="upload_btn left">
-                                        <div class="storage_car_picture  vc-center  p0 cyan lighten-1 white-text" style="margin-left:60px ">
+                                        <div class="storage_car_picture  vc-center cyan lighten-1 white-text" style="margin-left:60px ">
                                             <input name="image" type="file"  onchange="angular.element(this).scope().uploadBrandImage(this)" max_size="4M">
                                             <i class="mdi mdi-instagram"></i>
                                         </div>
-                                        <div style="margin-top: 20px">若不执行此操作请直接点击<a  ng-click="return()" style="cursor: pointer">确定</a></div>
                                     </div>
                                     <ul id="look_img">
-                                        <li ng-repeat="el in car_imageBox" ng-mouseenter="show=true" ng-mouseleave="show=false"     class="truck_car_picture col s3 vc-center  p0 grey white-text">
+                                        <li ng-repeat="el in car_imageBox" ng-mouseenter="show=true" ng-mouseleave="show=false" class="truck_car_picture col s3 vc-center  p0 grey white-text">
                                             <img ng-src="{{el.src}}" class="responsive-img">
                                             <b class="delete_img vc-center black fz18" ng-click="delete_img(el.record_id,el.src)"><i class="mdi mdi-close"></i></b>
                                             <p class="img_date white-text center-align" ng-show="show" ng-cloak>{{el.user}}上传于{{el.time|date:'yyyy-MM-dd HH:mm:ss'}}</p>
                                         </li>
                                     </ul>
                                 </form>
-                            </div>
+                                <button class="btn btn-large waves-effect waves-light "  ng-click="return()" style="cursor: pointer;position: absolute;bottom: 100px;right:50px;">确定</button></div>
                         </div>
                     </div>
             </div>

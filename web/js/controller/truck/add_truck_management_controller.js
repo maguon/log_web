@@ -215,7 +215,7 @@ app.controller("add_truck_management_controller", ["$scope", "$state", "$statePa
             }
             _basic.formPost($(dom).parent().parent(), $host.file_url + '/user/' + userId + '/image?imageType=4', function (data) {
                 if (data.success) {
-                    console.log(data)
+                   // console.log(data)
                     var imageId = data.imageId;
                     _basic.post($host.record_url + "/user/"+userId+"/truck/"+ 1+"/image", {
                         "username": _basic.getSession(_basic.USER_NAME),

@@ -183,9 +183,9 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
                         seriousWeek.push(data.result[i].damage_count);
                     }
                 }
-                week=weekAll.slice(-10,);
-                carDamageCountWeek[0].data=normalWeek.slice(-10,);
-                carDamageCountWeek[1].data=seriousWeek.slice(-10,);
+                week=weekAll.slice(-10);
+                carDamageCountWeek[0].data=normalWeek.slice(-10);
+                carDamageCountWeek[1].data=seriousWeek.slice(-10);
                 showVehicleDamageHistogramWeek();
             } else {
                 swal(data.msg, "", "error");

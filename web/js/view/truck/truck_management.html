@@ -137,21 +137,22 @@
                                 <tr ng-repeat="el in truckManagementList" class="grey-text text-darken-1">
                                     <td ng-bind="el.id"></td>
                                     <td ng-bind="el.truck_num"></td>
-                                    <td  ng-if="el.truck_type==null"></td>
+                                    <td  ng-if="el.truck_type==null">&nbsp;</td>
                                     <td  ng-if="el.truck_type==1">车头</td>
                                     <td  ng-if="el.truck_type==2">挂车</td>
                                     <td ng-bind="el.drive_name"></td>
                                     <td ng-bind="el.dp_route_task_id"></td>
                                     <td ng-bind="el.accident_date| date:'yyyy-MM-dd'"></td>
-                                    <td ng-if="el.truck_accident_type==null"></td>
+                                    <td ng-if="el.truck_accident_type==null">&nbsp;</td>
+                                    <td ng-if="el.truck_accident_type==0">&nbsp;</td>
                                     <td ng-if="el.truck_accident_type==1">一般</td>
                                     <td ng-if="el.truck_accident_type==2">严重</td>
                                     <td ng-bind="el.address"></td>
                                     <td ng-bind="el.under_user_name"></td>
-                                    <td ng-if="el.accident_status==null"></td>
+                                    <td ng-if="el.accident_status==null">&nbsp;</td>
                                     <td ng-if="el.accident_status==1">待处理</td>
                                     <td class="red-text text-lighten-2" ng-if="el.accident_status==2">处理中</td>
-                                    <td ng-if="el.accident_status==3">已处理</td>
+                                    <td class="blue-text text-lighten-2" ng-if="el.accident_status==3">已处理</td>
                                     <td class="operation vc-center">
                                         <a ui-sref="look_truck_management({id:el.id,from:'truck_management'})"  class="cyan-text fz12" style="cursor: pointer;display: inline-block;width: 37px;height: 37px;">  <i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-file-document"></i></a>
                                     </td>

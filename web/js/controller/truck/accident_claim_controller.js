@@ -109,7 +109,7 @@ app.controller("accident_claim_controller", ["$scope", "$host", "_basic", functi
         if($scope.relationAccidentNum !== ""){
             _basic.get($host.api_url + "/truckAccident?truckAccidentId=" + $scope.relationAccidentNum).then(function (data) {
                 if (data.success === true) {
-                    console.log("data", data);
+                    // console.log("data", data);
                     if(data.result.length !== 0){
                         // 检测数组中是否有和返回结果相同的id
                         function checkAccidentId(obj) {

@@ -23,12 +23,6 @@ app.controller("accident_claim_details_controller", ["$scope", "$host", "$stateP
             if (data.success === true) {
                 // console.log("data", data);
                 $scope.accidentDetails = data.result[0];
-                if($scope.accidentDetails.financial_loan_status == 0){
-                    $scope.hasLoanType = true;
-                }
-                else{
-                    $scope.hasLoanType = false;
-                }
             }
             else {
                 swal(data.msg, "", "error");

@@ -300,6 +300,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:"import_data_statistics_controller"
         })
 
+        .state("accident_insurance_claims_statistics", {
+            url:"/accident_insurance_claims_statistics",
+            templateUrl: "js/view/statistics/accident_insurance_claims_statistics.html",
+            controller:"accident_insurance_claims_statistics_controller"
+        })
+
         // 从首页跳详情图
         .state("storage_car_details", {
             url:"/storage_car_details/{id}/vin/{vin}/_form/{_form}?from",

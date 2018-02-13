@@ -97,6 +97,7 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col s12">
                 <div class="card-panel" style="width:98.7%;margin: 0 auto;background-color: white;height: 150px;border:3px solid #21B1E3;border-radius: 12px">
@@ -136,6 +137,7 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col s12">
                 <div class="col s4" style="font-weight: bold;color: darkgray">
@@ -144,7 +146,7 @@
                             <p style="margin: 15px 0">本月事故</p>
                         </div>
                         <div class="col s12" style="font-size: 2.6rem;letter-spacing: 2px;">
-                            <p style="margin:0;padding-bottom: 15px;border-bottom: 1px solid #ccc;color: #e57474">21</p>
+                            <p style="margin:0;padding-bottom: 15px;border-bottom: 1px solid #ccc;color: #e57474">{{accidentTotal}}</p>
                         </div>
                         <div class="col s12" style="font-size: 1.2rem;letter-spacing: 2px;">
                             <div class="col s6" style="border-right: 1px solid #ccc">
@@ -152,7 +154,7 @@
                                     <p style="margin: 15px 0">待接受处理</p>
                                 </div>
                                 <div class="col s12">
-                                    <p style="margin: 0;font-size: 1.5rem;color: #26c6da">7</p>
+                                    <p style="margin: 0;font-size: 1.5rem;color: #26c6da">{{accidentTreatedCount}}</p>
                                 </div>
                             </div>
                             <div class="col s6">
@@ -160,7 +162,7 @@
                                     <p style="margin: 15px 0">处理中</p>
                                 </div>
                                 <div class="col s12">
-                                    <p style="margin: 0;font-size: 1.5rem;color: #26c6da">16</p>
+                                    <p style="margin: 0;font-size: 1.5rem;color: #26c6da">{{accidentTreatmentCount}}</p>
                                 </div>
                             </div>
                         </div>
@@ -172,7 +174,7 @@
                             <p style="margin: 15px 0">事故承担总额</p>
                         </div>
                         <div class="col s12" style="font-size: 2.6rem;letter-spacing: 2px;">
-                            <p style="margin:0;padding-bottom: 15px;border-bottom: 1px solid #ccc;color: #e57474">39284.00</p>
+                            <p style="margin:0;padding-bottom: 15px;border-bottom: 1px solid #ccc;color: #e57474">{{accidentBearTotal}}</p>
                         </div>
                         <div class="col s12" style="font-size: 1.2rem;letter-spacing: 2px;">
                             <div class="col s6" style="border-right: 1px solid #ccc">
@@ -180,7 +182,7 @@
                                     <p style="margin: 15px 0">企业承担</p>
                                 </div>
                                 <div class="col s12">
-                                    <p style="margin: 0;font-size: 1.5rem;color: #26c6da">3600.00</p>
+                                    <p style="margin: 0;font-size: 1.5rem;color: #26c6da">{{accidentBearCompany}}</p>
                                 </div>
                             </div>
                             <div class="col s6">
@@ -188,7 +190,7 @@
                                     <p style="margin: 15px 0">个人承担</p>
                                 </div>
                                 <div class="col s12">
-                                    <p style="margin: 0;font-size: 1.5rem;color: #26c6da">2800.00</p>
+                                    <p style="margin: 0;font-size: 1.5rem;color: #26c6da">{{accidentBearPersonal}}</p>
                                 </div>
                             </div>
                         </div>
@@ -207,7 +209,7 @@
                                     <p style="margin: 15px 0">待赔付笔数</p>
                                 </div>
                                 <div class="col s12">
-                                    <p style="margin: 0;font-size: 1.5rem;color: #26c6da">6</p>
+                                    <p style="margin: 0;font-size: 1.5rem;color: #26c6da">{{insurePlanCount}}</p>
                                 </div>
                             </div>
                             <div class="col s6">
@@ -215,7 +217,7 @@
                                     <p style="margin: 15px 0">待赔付金额</p>
                                 </div>
                                 <div class="col s12">
-                                    <p style="margin: 0;font-size: 1.5rem;color: #26c6da">38475.00</p>
+                                    <p style="margin: 0;font-size: 1.5rem;color: #26c6da">{{insurePlanMoney}}</p>
                                 </div>
                             </div>
                         </div>

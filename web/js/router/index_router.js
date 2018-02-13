@@ -305,6 +305,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/statistics/accident_insurance_claims_statistics.html",
             controller:"accident_insurance_claims_statistics_controller"
         })
+        .state("accident_statistics", {
+            url:"/accident_statistics",
+            templateUrl: "js/view/statistics/accident_statistics.html",
+            controller:"accident_statistics_controller"
+        })
 
         // 从首页跳详情图
         .state("storage_car_details", {

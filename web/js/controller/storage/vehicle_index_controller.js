@@ -1,9 +1,9 @@
 /**
  * Created by zcy on 2017/8/8.
  */
-app.controller("vehicle_index_controller", ['$rootScope', '$scope', "$host", '$location', '$q', "_basic", function ($rootScope, $scope, $host, $location, $q, _basic) {
+app.controller("vehicle_index_controller", ['$scope', "$host", "_basic", function ($scope, $host, _basic) {
+
     // 日期查询值
-    // var searchStart = moment(new Date()).format('YYYYMMDD');
     var searchEnd = moment(new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)).format('YYYYMMDD');
 
     // 变量初始值
@@ -19,6 +19,14 @@ app.controller("vehicle_index_controller", ['$rootScope', '$scope', "$host", '$l
     $scope.truckRepairCount = 0;
     $scope.quarantineTruck = 0;
     $scope.quarantineDriver = 0;
+    $scope.accidentTreatedCount = 0;
+    $scope.accidentTreatmentCount = 0;
+    $scope.accidentBearCompany = 0;
+    $scope.accidentBearPersonal = 0;
+    $scope.accidentBearTotal = 0;
+    $scope.insurePlanCount = 0;
+    $scope.insurePlanMoney = 0;
+
 
     // 获取车辆信息
     $scope.getTruckCountInfo = function () {
@@ -118,10 +126,57 @@ app.controller("vehicle_index_controller", ['$rootScope', '$scope', "$host", '$l
         });
     };
 
+    // 获取本月事故，事故承担总额和待完成保险赔付信息
+    $scope.getAccidentInfo = function () {
+        // 本月事故
+        _basic.get($host.api_url + "/truckAccidentNotCheckCount").then(function (data) {
+            if (data.success === true) {
+                // console.log("data", data);
+                for (var i = 0; i < data.result.length; i++) {
+                    if(data.result[i].accident_status === 1){
+                        $scope.accidentTreatedCount = data.result[i].truck_accident_count;
+                    }
+                    if(data.result[i].accident_status === 2){
+                        $scope.accidentTreatmentCount = data.result[i].truck_accident_count;
+                    }
+                }
+                $scope.accidentTotal = $scope.accidentTreatedCount + $scope.accidentTreatmentCount;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+
+        // 事故承担总额
+        _basic.get($host.api_url + "/truckAccidentTotalCost?accidentStatus=3").then(function (data) {
+            if (data.success === true) {
+                // console.log("data", data);
+                $scope.accidentBearCompany = data.result[0].company_cost.toFixed(2);
+                $scope.accidentBearPersonal = data.result[0].under_cost.toFixed(2);
+                $scope.accidentBearTotal = (data.result[0].company_cost + data.result[0].under_cost).toFixed(2);
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+
+        // 待完成保险赔付
+        _basic.get($host.api_url + "/truckAccidentInsurePlanTotal?insureStatus=1").then(function (data) {
+            if (data.success === true) {
+                // console.log("data", data);
+                $scope.insurePlanCount = data.result[0].insure_plan_count;
+                $scope.insurePlanMoney = data.result[0].insure_plan.toFixed(2)
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
     $scope.queryData = function () {
         $scope.getTruckCountInfo();
         $scope.getRepairCountInfo();
-
+        $scope.getAccidentInfo();
     };
     $scope.queryData();
 }]);

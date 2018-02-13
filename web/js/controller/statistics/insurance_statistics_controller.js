@@ -19,10 +19,16 @@ app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config"
             name: "交强险",
             data: [],
             color: "#4dd0e1"
-        }, {
+        },
+        {
             name: "商业险",
             data: [],
-            color: "#ff5252"
+            color: "#FF7E7E"
+        },
+        {
+            name: "货运险",
+            data: [],
+            color: "#BF19E1"
         }
     ];
 
@@ -445,7 +451,6 @@ app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config"
 
     // 根据选择的保险公司获取相应信息
     $scope.changeInsurance = function () {
-        // console.log("insuranceId",$scope.insuranceId);
         // 保险金额统计
         _basic.get($host.api_url + "/truckInsureMoneyTotal?insureId=" + $scope.insuranceId).then(function (currentInsuranceData) {
             if (currentInsuranceData.success === true) {
@@ -455,6 +460,7 @@ app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config"
                 // 初始化金额数
                 insuranceAmountStatistics[0].data = [];
                 insuranceAmountStatistics[1].data = [];
+                insuranceAmountStatistics[2].data = [];
 
                 for (var d = 0; d < currentInsuranceData.result.length; d++) {
                     // 滤掉相同月份
@@ -465,8 +471,11 @@ app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config"
                     if(currentInsuranceData.result[d].id === 1){
                         insuranceAmountStatistics[0].data.push(Math.ceil(currentInsuranceData.result[d].insure_money));
                     }
-                    else{
+                    if(currentInsuranceData.result[d].id === 2){
                         insuranceAmountStatistics[1].data.push(Math.ceil(currentInsuranceData.result[d].insure_money));
+                    }
+                    if(currentInsuranceData.result[d].id === 3){
+                        insuranceAmountStatistics[2].data.push(Math.ceil(currentInsuranceData.result[d].insure_money));
                     }
                 }
                 // console.log("moneyMonth",$scope.moneyMonth);

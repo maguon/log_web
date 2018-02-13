@@ -5,10 +5,14 @@ app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_b
     // 指令任务状态
     $scope.taskStatusList = _config.taskStatus;
     $scope.instructionStatus = "1";
-    _basic.get($host.api_url+"/city").then(function (data) {
+    _basic.get($host.api_url + "/city").then(function (data) {
         if (data.success == true) {
             $scope.startCityList = data.result;
             $('#start_city_list').select2({
+                placeholder: '起始城市',
+                containerCssClass: 'select2_dropdown'
+            });
+            $('#start_city_list_mod').select2({
                 placeholder: '起始城市',
                 containerCssClass: 'select2_dropdown'
             });
@@ -22,17 +26,26 @@ app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_b
     // 获取装车地点
     $scope.getAddres = function (id) {
         // console.log($scope.start_city);
-        if($scope.start_city == 0 || $scope.start_city == "" || $scope.start_city == null){
+        if ($scope.start_city == 0 || $scope.start_city == "" || $scope.start_city == null) {
             $scope.start_city = null;
             $scope.baseAddrList = [];
         }
-        else{
+        else {
             _basic.get($host.api_url + "/baseAddr?cityId=" + id).then(function (data) {
                 if (data.success == true) {
                     $scope.baseAddrList = data.result;
                 }
             });
         }
+    };
+
+    // 模态框内获取装车地点
+    $scope.getAddressMod = function (cityId) {
+        _basic.get($host.api_url + "/baseAddr?cityId=" + cityId).then(function (data) {
+            if (data.success == true) {
+                $scope.baseAddrListMod = data.result;
+            }
+        });
     };
 
 
@@ -50,6 +63,15 @@ app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_b
             });
         }
     };
+    
+    // 模态框内获取经销商
+    $scope.getReceiveMod = function (id) {
+        _basic.get($host.api_url + "/receive?cityId=" + id).then(function (data) {
+            if (data.success == true) {
+                $scope.receiveListMod = data.result;
+            }
+        });
+    };
 
     $scope.add_need = function () {
         $('.modal').modal();
@@ -66,7 +88,6 @@ app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_b
         $scope.add_instruct_Time = '';
     };
     $scope.search_all = function () {
-
         var obj = {
             dpDemandId: $scope.instructionNum,
             demandStatus: $scope.instructionStatus,

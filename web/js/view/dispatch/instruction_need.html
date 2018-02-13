@@ -3,10 +3,10 @@
         <div class="row no-marBottom" ul-tabs style="overflow: hidden">
             <div id="header_car" class="row tab_box" >
                 <div class="storage_storeTitle">
-                    <div class="row grey-text text-darken-1">
-                        <div class="col s10">
+                    <div class="row grey-text text-darken-1 valign-wrapper">
+                        <div class="col s10" style="padding: 0;">
                             <div class="col s12">
-                                <div class="col s8">
+                                <div class="col s8" style="padding: 0;">
                                     <div class="input-field col s4">
                                         <input type="text" ng-model="instructionNum" id="instruct_need_num" name="instruct_need_endTime">
                                         <label for="instruct_need_num">需求编号</label>
@@ -22,11 +22,6 @@
                                 </div>
                                 <div class="col s4" style="padding: 0">
                                     <div class="input-field col s6">
-                                        <!--<select id="start_city" material-select watch ng-change="getAddres(start_city)"  ng-options="city.id as city.city_name for city in startCityList" ng-model="start_city">-->
-                                            <!--<option value="">请选择</option>-->
-                                        <!--</select>-->
-                                        <!--<label for="start_city">起始城市</label>-->
-
                                         <select id="start_city_list" name="state" style="width:100%" ng-change="getAddres(start_city)" ng-model="start_city">
                                             <option value="">全部</option>
                                             <option value="0" >清除选择</option>
@@ -42,7 +37,7 @@
                                 </div>
                             </div>
                             <div class="col s12">
-                                <div class="col s8">
+                                <div class="col s8" style="padding: 0;">
                                     <div class="input-field col s4">
                                         <select id="instruction_status" material-select watch ng-model="instructionStatus">
                                             <option value="">所有</option>
@@ -63,11 +58,6 @@
                                 </div>
                                 <div class="col s4" style="padding: 0">
                                     <div class="input-field col s6">
-                                        <!--<select id="arrive_city" material-select watch ng-change="getRecive(arrive_city)" ng-model="arrive_city" ng-options="city.id as city.city_name for city in cityList">-->
-                                            <!--<option value="">请选择</option>-->
-                                        <!--</select>-->
-                                        <!--<label for="arrive_city">目的城市</label>-->
-
                                         <select id="end_city_list" name="state" style="width:100%" ng-change="getRecive(arrive_city)" ng-model="arrive_city">
                                             <option value=""></option>
                                             <option value="0" >清除选择</option>
@@ -83,16 +73,18 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col s1 vc-center" style="margin-top: 40px">
-                            <a class=" btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="search_all()">
-                                <i class="mdi mdi-magnify"></i>
-                            </a>
-                        </div>
-                        <div class="col s1 flex flex-round" style="margin-top: 40px">
-                            <a ng-click="add_need()" class="btn-floating btn-large waves-light waves-effect cyan lighten-2 btn vc-center"
-                               style="margin-right: 10px">
-                                <i class="mdi mdi-plus"></i>
-                            </a>
+                        <div class="col s2" style="padding: 0;">
+                            <div class="col s6 vc-center">
+                                <a class=" btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="search_all()">
+                                    <i class="mdi mdi-magnify"></i>
+                                </a>
+                            </div>
+                            <div class="col s6 flex flex-round">
+                                <a ng-click="add_need()" class="btn-floating btn-large waves-light waves-effect cyan lighten-2 btn vc-center"
+                                   style="margin-right: 10px">
+                                    <i class="mdi mdi-plus"></i>
+                                </a>
+                            </div>
                         </div>
                         <div id="newNeed" class="modal">
                             <form name="add_need_instructForm" ng-submit="add_need_instruct(add_need_instructForm.$valid)" novalidate>
@@ -110,25 +102,25 @@
                                                 需求人: <span>{{user}}</span>
                                             </div>
                                             <div class="input-field col s6" ng-class="{'has-error':add_need_instructForm.add_start_city.$invalid&&submitted}">
-                                                <select id="add_start_city" name="add_start_city" material-select watch ng-change="getAddres(add_start_city.id)"  ng-model="add_start_city" ng-options=" add_start_city.city_name for add_start_city in cityList" required>
+                                                <select id="add_start_city" name="add_start_city" material-select watch ng-change="getAddressMod(add_start_city.id)" ng-model="add_start_city" ng-options="add_start_city.city_name for add_start_city in startCityList" required>
                                                     <option value="">请选择</option>
                                                 </select>
                                                 <label for="add_start_city">起始城市</label>
                                             </div>
                                             <div class="input-field col s6" ng-class="{'has-error':add_need_instructForm.add_dispatch_car_position.$invalid&&submitted}">
-                                                <select id="add_dispatch_car_position" name="add_dispatch_car_position" material-select watch   ng-model="add_dispatch_car_position" ng-options="baseAddr.id as baseAddr.addr_name for baseAddr in baseAddrList" required>
+                                                <select id="add_dispatch_car_position" name="add_dispatch_car_position" material-select watch ng-model="add_dispatch_car_position" ng-options="baseAddr.id as baseAddr.addr_name for baseAddr in baseAddrListMod" required>
                                                     <option value="">请选择</option>
                                                 </select>
                                                 <label for="add_dispatch_car_position">装车地点</label>
                                             </div>
                                             <div class="input-field col s6" ng-class="{'has-error':add_need_instructForm.add_end_city.$invalid&&submitted}">
-                                                <select id="add_end_city" name="add_end_city" material-select watch ng-change="getRecive(add_end_city.id)"  ng-model="add_end_city" ng-options="add_end_city.city_name for add_end_city in cityList" required>
+                                                <select id="add_end_city" name="add_end_city" material-select watch ng-change="getReceiveMod(add_end_city.id)" ng-model="add_end_city" ng-options="add_end_city.city_name for add_end_city in startCityList" required>
                                                     <option value="">请选择</option>
                                                 </select>
                                                 <label for="add_end_city">目的城市</label>
                                             </div>
                                             <div class="input-field col s6" ng-class="{'has-error':add_need_instructForm.add_dealer.$invalid&&submitted}">
-                                                <select id="add_dealer" name="add_dealer" material-select watch  ng-model="add_dealer"  ng-options="receive.id as receive.short_name for receive in receiveList" required>
+                                                <select id="add_dealer" name="add_dealer" material-select watch  ng-model="add_dealer"  ng-options="receive.id as receive.short_name for receive in receiveListMod" required>
                                                     <option value="">请选择</option>
                                                 </select>
                                                 <label for="add_dealer">送达地点</label>
@@ -144,9 +136,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="divider" style="background: #00bcd4;height: 2px;"></div>
-                                <div class="modal-footer right-align">
-                                    <a  class=" btn-floating modal-action modal-close waves-effect waves-light grey lighten-1 btn"  >
+                                <!--<div class="divider" style="background: #00bcd4;height: 2px;"></div>-->
+                                <div class="modal-footer center">
+                                    <a class=" btn-floating modal-action modal-close waves-effect waves-light grey lighten-1 btn"  >
                                         <i class="mdi mdi-close"></i>
                                     </a>
                                     <button class="btn btn-floating waves-light waves-effect cyan lighten-1" type="submit" name="action" style="margin-right: 10px" >
@@ -158,9 +150,11 @@
                     </div>
                 </div>
 
-                <div class="col s12" style="padding: 0 43px;">
-                    <table class=" bordered striped dic_table">
-                        <thead class="blue-grey lighten-5">
+                <div class="col s12">
+                    <div class="col s12">
+                        <div class="divider" style="background: #00bcd4;height: 2px"></div>
+                        <table class=" bordered striped dic_table">
+                            <thead class="blue-grey lighten-5">
                             <tr class="grey-text text-darken-2">
                                 <th data-field="">编号</th>
                                 <th data-field="">需求提出人</th>
@@ -172,8 +166,8 @@
                                 <th data-field="">安排 / 计划</th>
                                 <th>操作</th>
                             </tr>
-                        </thead>
-                        <tbody>
+                            </thead>
+                            <tbody>
                             <tr ng-repeat="el in instruction_neee_list" class="grey-text text-darken-1">
                                 <td>{{el.id}}</td>
                                 <td>{{el.demand_op_name}}</td>
@@ -187,8 +181,9 @@
                                     <a  ui-sref="look_instruction_need_details({id:el.id,from:'instruction_need'})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ></i></a>
                                 </td>
                             </tr>
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
                 <div class="paging_box col s12">

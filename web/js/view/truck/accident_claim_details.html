@@ -13,7 +13,7 @@
         <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
             <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
                 <div class="col s3 left-align" style="color: #26c6da">
-                    <p style="margin: 0">编号：{{accidentId}}</p>
+                    <p style="margin: 0">理赔编号：{{accidentId}}</p>
                 </div>
                 <div class="col s8 right-align" style="color: darkgray">
                     <p style="margin: 0">{{accidentDetails.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</p>
@@ -101,10 +101,10 @@
                     <!--事故详情-->
                     <div class="col s12" ng-repeat="accident in accidentClaimList">
                         <div class="col s6 modal_accident valign-wrapper" style="padding: 0;font-size: 1.1rem;color: darkgray;font-weight: bold">
-                            <div class="col s1 right-align" style="padding: 0;margin-top: -5px">
-                                <span style="width:8px;height:8px;display:inline-block;border-radius: 100%;background-color: #26c6da"></span>
+                            <div class="col s2 right-align" style="padding: 0">
+                                <p style="color: #26c6da;font-weight: normal;font-size: 1rem">事故编号：</p>
                             </div>
-                            <div class="col s4 left-align">
+                            <div class="col s2 left-align">
                                 <p>{{accident.id}}</p>
                             </div>
                             <div class="col s3">

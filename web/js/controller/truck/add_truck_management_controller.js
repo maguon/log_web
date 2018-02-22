@@ -3,6 +3,8 @@ app.controller("add_truck_management_controller", ["$scope", "$state", "$statePa
         var userId = _basic.getSession(_basic.USER_ID);
         $scope.step_first = true;
         $scope.step_second =false;
+        $scope.car_image_i = [];
+        $scope.car_imageBox = [];
         //返回
         $scope.return = function () {
             $state.go($stateParams.from, {reload: true})
@@ -174,11 +176,9 @@ app.controller("add_truck_management_controller", ["$scope", "$state", "$statePa
                 };
                 _basic.post($host.api_url + "/user/" + userId + "/truckAccident", managementInfo).then(function (data) {
                     if (data.success === true) {
+                        $scope.createId=data.id;
                         $scope.step_first = false;
                         $scope.step_second = true;
-                        // $(".test1").addClass("disabled");
-                        // $(".test2").removeClass("disabled");
-                        // $("#test2").addClass("display:b");
                         $(".tabs .indicator").css({
                             right: 0 + "px",
                             left: 50 + '%'
@@ -192,82 +192,76 @@ app.controller("add_truck_management_controller", ["$scope", "$state", "$statePa
                 });
             }
             };
-         // 图片
-        $scope.car_imageBox = [];
-        $scope.car_image_i = [];
-        $scope.uploadBrandImage = function (dom) {
+        // 照片上传函数
+        function uploadBrandImage(filename,dom_obj,callback) {
+            if(filename){
+                if ((/\.(jpe?g|png|gif|svg|bmp|tiff?)$/i).test(filename)) {
+                    var max_size_str = dom_obj.attr('max_size');
+                    var max_size = 4 * 1024 * 1024; //default: 4M
+                    var re = /\d+m/i;
+                    if (re.test(max_size_str)) {
+                        max_size = parseInt(max_size_str.substring(0, max_size_str.length - 1)) * 1024 * 1024;
+                        _basic.formPost(dom_obj.parent().parent(), $host.file_url + '/user/' + userId + '/image?imageType=5', function (data) {
+                            if (data.success) {
+                                var imageId = data.imageId;
+                                callback(imageId);
+                            } else {
+                                swal('上传图片失败', "", "error");
+                            }
+                        }, function (error) {
+                            swal('服务器内部错误', "", "error");
+                        })
+                    }
+
+                    if (dom_obj[0].files[0].size > max_size) {
+                        swal('图片文件最大: ' + max_size_str, "", "error");
+                        return false;
+                    }
+                }
+                else if (filename && filename.length > 0) {
+                    dom_obj.val('');
+                    swal('支持的图片类型为. (jpeg,jpg,png,gif,svg,bmp,tiff)', "", "error");
+                }else {
+
+                }
+            }
+        }
+        // 照片上传
+        $scope.uploadAccientImage = function (dom) {
+            var dom_obj = $(dom);
             var filename = $(dom).val();
-            if ((/\.(jpe?g|png|gif|svg|bmp|tiff?)$/i).test(filename)) {
-                var max_size_str = $(dom).attr('max_size');
-                var max_size = 4 * 1024 * 1024; //default: 4M
-                var re = /\d+m/i;
-                if (re.test(max_size_str)) {
-                    max_size = parseInt(max_size_str.substring(0, max_size_str.length - 1)) * 1024 * 1024;
-                }
-                if ($(dom)[0].files[0].size > max_size) {
-                    swal('图片文件最大: ' + max_size_str, "", "error");
-                    return false;
-                }
-            }
-            else if (filename && filename.length > 0) {
-                $(dom).val('');
-                swal('支持的图片类型为. (jpeg,jpg,png,gif,svg,bmp,tiff)', "", "error");
-            }
-            _basic.formPost($(dom).parent().parent(), $host.file_url + '/user/' + userId + '/image?imageType=4', function (data) {
-                if (data.success) {
-                   // console.log(data)
-                    var imageId = data.imageId;
-                    _basic.post($host.record_url + "/user/"+userId+"/truck/"+ 1+"/image", {
-                        "username": _basic.getSession(_basic.USER_NAME),
-                        "userId": userId,
-                        "userType": _basic.getSession(_basic.USER_TYPE),
-                        "url": imageId
-                    }).then(function (data) {
-                        if (data.success == true) {
-                            $scope._id = data.result._id;
-                            var nowDate = moment(new Date()).format("YYYY-MM-DD hh:mm");
-                            $scope.car_image_i.push($host.file_url + '/image/' + imageId);
-                            $scope.car_imageBox.push({
-                                src: $host.file_url + '/image/' + imageId,
-                                time: nowDate,
-                                record_id: $scope._id,
-                                user: _basic.getSession(_basic.USER_NAME)
-                            });
+            uploadBrandImage(filename, dom_obj, function (imageId) {
+                _basic.post($host.record_url + "/user/" + userId + "/truckDamage/" +  $scope.createId + "/image", {
+                    "username": _basic.getSession(_basic.USER_NAME),
+                    "userId": userId,
+                    "userType": _basic.getSession(_basic.USER_TYPE),
+                    "url": imageId,
+                    "vheNo": ""
+                }).then(function (data) {
+                    if (data.success == true) {
+                        if ($scope.car_imageBox.length != 0) {
+                            viewer.destroy();
                         }
-                    });
-                } else {
-                    swal('上传图片失败', "", "error");
-                }
-            }, function (error) {
-                swal('服务器内部错误', "", "error");
-            })
+                        var nowDate = moment(new Date()).format("YYYY-MM-DD HH:mm");
+                        $scope.car_image_i.push($host.file_url + '/image/' + imageId);
+                        $scope.car_imageBox.push({
+                            src: $host.file_url + '/image/' + imageId,
+                            time: nowDate,
+                            user: _basic.getSession(_basic.USER_NAME)
+                        });
+                    }
+                });
+            });
         };
-        // 删除照片
-        $scope.delete_img = function (record_id, src) {
-            swal({
-                    title: "确认删除该照片？",
-                    text: "",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "确定",
-                    cancelButtonText: "取消",
-                    closeOnConfirm: false
-                },
-                function () {
-                    var url_array = src.split("/");
-                    var url = url_array[url_array.length - 1];
-                    _basic.delete($host.record_url + "/user/" + userId + "/record/" + record_id + "/image/" + url).then(function (data) {
-                        if (data.success == true) {
-                            var i = $scope.car_image_i.indexOf(src);
-                            $scope.car_imageBox.splice(i, 1);
-                            $scope.car_image_i.splice(i, 1);
-                            swal("删除成功!", "", "success");
-                        }
-                    })
-                }
-            )
+        // 点击图片查看大图
+        var viewer;
+        $scope.accientFinish = function () {
+            viewer = new Viewer(document.getElementById('look_img'), {
+                url: 'data-original'
+            });
         };
+
+
     }]);
 
 

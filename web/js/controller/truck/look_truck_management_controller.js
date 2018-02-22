@@ -1,8 +1,9 @@
 app.controller("look_truck_management_controller", ["$scope", "$state", "$stateParams", "_basic", "_config", "$host", function ($scope, $state, $stateParams, _basic, _config, $host) {
     var userId = _basic.getSession(_basic.USER_ID);
     var truckId = $stateParams.id;
-    var  recordId;
-    var accCheckId;
+    var truckAccidentCheckId;
+    $scope.car_imageBox=[];
+    $scope.car_image_i=[];
     // 点击返回按钮返回之前页面
     $scope.return = function () {
         $state.go($stateParams.from, {reload: true});
@@ -184,15 +185,14 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
     };
     // 获取当前车辆事故照片
     $scope.getCurrentAccientImage = function () {
-        _basic.get($host.record_url + "/user/"+userId +"/truck/"+truckId +"/record").then(function (data) {
+        _basic.get($host.record_url + "/truckDamage?truckDamageId="+truckId).then(function (data) {
             if (data.success === true) {
                 if(data.result.length !== 0){
-                    $scope.AccientImageList = data.result[0].images;
-                    recordId = data.result[0]._id;
+                    $scope.id=data.result[0]._id;
+                    $scope.AccientImageList = data.result[0].damage_image;
                     for (var i = 0; i < $scope.AccientImageList.length; i++) {
                         $scope.AccientImageList[i].url =$host.file_url + '/image/' + $scope.AccientImageList[i].url
                     }
-                  //   console.log("imageData",$scope.AccientImageList);
                 }
             }
             else {
@@ -200,58 +200,63 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
             }
         });
     };
-    // 图片
-    $scope.car_image_i = [];
-    $scope.uploadBrandImage = function (dom) {
+    // 照片上传函数
+    function uploadBrandImage(filename,dom_obj,callback) {
+        if(filename){
+            if ((/\.(jpe?g|png|gif|svg|bmp|tiff?)$/i).test(filename)) {
+                var max_size_str = dom_obj.attr('max_size');
+                var max_size = 4 * 1024 * 1024; //default: 4M
+                var re = /\d+m/i;
+                if (re.test(max_size_str)) {
+                    max_size = parseInt(max_size_str.substring(0, max_size_str.length - 1)) * 1024 * 1024;
+                    _basic.formPost(dom_obj.parent().parent(), $host.file_url + '/user/' + userId + '/image?imageType=5', function (data) {
+                        if (data.success) {
+                            var imageId = data.imageId;
+                            callback(imageId);
+                        } else {
+                            swal('上传图片失败', "", "error");
+                        }
+                    }, function (error) {
+                        swal('服务器内部错误', "", "error");
+                    })
+                }
+
+                if (dom_obj[0].files[0].size > max_size) {
+                    swal('图片文件最大: ' + max_size_str, "", "error");
+                    return false;
+                }
+            }
+            else if (filename && filename.length > 0) {
+                dom_obj.val('');
+                swal('支持的图片类型为. (jpeg,jpg,png,gif,svg,bmp,tiff)', "", "error");
+            }else {
+
+            }
+        }
+    }
+    // 照片上传
+    $scope.uploadAccientImage = function (dom) {
+        var dom_obj = $(dom);
         var filename = $(dom).val();
-        if ((/\.(jpe?g|png|gif|svg|bmp|tiff?)$/i).test(filename)) {
-            var max_size_str = $(dom).attr('max_size');
-            var max_size = 4 * 1024 * 1024; //default: 4M
-            var re = /\d+m/i;
-            if (re.test(max_size_str)) {
-                max_size = parseInt(max_size_str.substring(0, max_size_str.length - 1)) * 1024 * 1024;
-            }
-            if ($(dom)[0].files[0].size > max_size) {
-                swal('图片文件最大: ' + max_size_str, "", "error");
-                return false;
-            }
-        }
-        else if (filename && filename.length > 0) {
-            $(dom).val('');
-            swal('支持的图片类型为. (jpeg,jpg,png,gif,svg,bmp,tiff)', "", "error");
-        }
-        _basic.formPost($(dom).parent().parent(), $host.file_url + '/user/' + userId + '/image?imageType=4', function (data) {
-            if (data.success) {
-                var imageId = data.imageId;
-                _basic.post($host.record_url + "/user/"+userId+"/truck/"+truckId+"/image", {
-                    "username": _basic.getSession(_basic.USER_NAME),
-                    "userId": userId,
-                    "userType": _basic.getSession(_basic.USER_TYPE),
-                    "url": imageId
-                }).then(function (data) {
-                    if (data.success == true) {
-                        $scope.getCurrentAccientImage()
-                        $scope._id = data.result._id;
-                        var nowDate = moment(new Date()).format("YYYY-MM-DD hh:mm");
-                        $scope.car_image_i.push($host.file_url + '/image/' + imageId);
-                        $scope.AccientImageList.push({
-                            src: $host.file_url + '/image/' + imageId,
-                            time: nowDate,
-                            record_id: $scope._id,
-                            user: _basic.getSession(_basic.USER_NAME)
-                        });
+        uploadBrandImage(filename, dom_obj, function (imageId) {
+            _basic.post($host.record_url + "/user/" + userId + "/truckDamage/" +  truckId+ "/image", {
+                "username": _basic.getSession(_basic.USER_NAME),
+                "userId": userId,
+                "userType": _basic.getSession(_basic.USER_TYPE),
+                "url": imageId,
+                "vheNo": ""
+            }).then(function (data) {
+                if (data.success == true) {
+                    $scope.getCurrentAccientImage();
+                    if ($scope.AccientImageList.length != 0) {
+                        viewer.destroy();
                     }
-                });
-            } else {
-                swal('上传图片失败', "", "error");
-            }
-        }, function (error) {
-            swal('服务器内部错误', "", "error");
-        })
+                }
+            });
+        });
     };
     // 删除照片
-    $scope.delete_img = function (imageUrl) {
-        var url = imageUrl.split("/")[imageUrl.split("/").length - 1];
+    $scope.delete_img = function (src) {
         swal({
                 title: "确认删除该照片？",
                 text: "",
@@ -263,21 +268,39 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                 closeOnConfirm: false
             },
             function () {
-                _basic.delete($host.record_url + "/user/" + userId + "/record/" + recordId +'/truck/'+truckId + "/image/" + url).then(function (data) {
+                var url_array=src.split("/");
+                var url=url_array[url_array.length-1];
+                _basic.delete($host.record_url + "/user/" + userId + "/record/" +  $scope.id+"/truckDamageImage/" + url).then(function (data) {
                     if (data.success === true) {
+                        var i=$scope.car_image_i.indexOf(src);
+                        $scope.car_imageBox.splice(i,1);
+                        $scope.car_image_i.splice(i,1);
                         swal("删除成功!", "", "success");
-                        $scope.getCurrentAccientImage()
+                        $scope.getCurrentAccientImage();
+                        if ($scope.damageImageList.length != 0) {
+                            viewer.destroy();
+                        }
+                        else {
+                            swal(data.msg, "", "error");
+                        }
                     }
                 })
             }
         )
     }
+    // 点击图片查看大图
+    var viewer;
+    $scope.accientFinish = function () {
+        viewer = new Viewer(document.getElementById('accient_image'), {
+            url: 'data-original'
+        });
+    };
     $scope.getCurrentAccInfo = function () {
-        _basic.get($host.api_url + "/truckAccidentCheck?truckAccidentCheckId=" + accCheckId).then(function (data) {
+        _basic.get($host.api_url + "/truckAccidentCheck?truckAccidentId=" + truckId).then(function (data) {
             if (data.success === true) {
                 $scope.currentAccInfo = data.result[0];
-                if(data.result[0].truck_accident_type===0){
-                    $scope.currentAccInfo.truck_accident_type = 0;
+                if($scope.currentAccInfo!==null){
+                    truckAccidentCheckId= data.result[0].id;
                 }
             }
             else {
@@ -298,82 +321,71 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
             remark: ""
         }).then(function (data) {
             if (data.success === true) {
-
+                $scope.accidentStatus = 2;
+                $scope.getCurrentAccInfo();
             }
             else {
                 swal(data.msg, "", "error");
             }
         });
     };
-    //事故处理
-    $scope.getBeforeAccInfo = function () {
-        console.log({
-            truckAccidentId:truckId,
-            truckAccidentType:parseInt($scope.currentAccInfo.truck_accident_type),
-            underUserName:$scope.accInfoBefore.underUserName,
-            underCost:$scope.accInfoBefore.under_cost,
-            companyCost:$scope.accInfoBefore.company_cost,
-            profit:$scope.accInfoBefore.profit,
-            remark:$scope.accInfoBefore.remark
-        })
-        _basic.put($host.api_url + "/user/" + userId + "/truckAccidentCheck/" + accCheckId ,{
-            truckAccidentId:truckId,
-            truckAccidentType:parseInt($scope.currentAccInfo.truck_accident_type),
-            underUserName:$scope.currentAccInfo.under_user_name,
-            underCost:$scope.currentAccInfo.under_cost,
-            companyCost:$scope.currentAccInfo.company_cost,
-            profit:$scope.currentAccInfo.profit,
-            remark:$scope.currentAccInfo.remark
-        }).then(function (data) {
-            if (data.success === true) {
-                swal("保存成功", "", "success");
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
-    };
-    // // 保存当前处理信息
-    // $scope.saveHandleInfoModify = function () {
-    //     _basic.put($host.api_url + "/user/" + userId + "/truckAccidentCheck/" + accCheckId ,{
-    //         truckAccidentId:truckId,
-    //         truckAccidentType:parseInt($scope.currentAccInfo.truck_accident_type),
-    //         underUserName:$scope.accInfoBefore.underUserName,
-    //         underCost:$scope.accInfoBefore.under_cost,
-    //         companyCost:$scope.accInfoBefore.company_cost,
-    //         profit:$scope.accInfoBefore.profit,
-    //         remark:$scope.accInfoBefore.remark
-    //     }).then(function (data) {
-    //         if (data.success === true) {
-    //             swal("保存成功", "", "success");
-    //             $scope.getBeforeAccInfo();
-    //         }
-    //         else {
-    //             swal(data.msg, "", "error");
-    //         }
-    //     });
-    // };
-    // // 填完后提交处理信息，变为已处理
-    // $scope.submitHandleInfo = function () {
-    //         _basic.put($host.api_url + "/user/" + userId + "/truckAccidentCheck/" + accCheckId, {
-    //             truckAccidentId: truckId,
-    //             truckAccidentType: parseInt($scope.currentAccInfo.truck_accident_type),
-    //             underUserName: $scope.accInfoBefore.underUserName,
-    //             underCost: $scope.accInfoBefore.under_cost,
-    //             companyCost: $scope.accInfoBefore.company_cost,
-    //             profit: $scope.accInfoBefore.profit,
-    //             remark: $scope.accInfoBefore.remark
-    //         }).then(function (data) {
-    //             if (data.success === true) {
-    //                 swal("提交成功", "", "success");
-    //                 $scope.getAfterAccInfo();
-    //             }
-    //             else {
-    //                 swal(data.msg, "", "error");
-    //             }
-    //         });
-    // };
-
+    $scope.submitHandleInfo = function () {
+        swal({
+                title: "确定处理结束吗？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确认",
+                cancelButtonText: "取消",
+                closeOnConfirm: true
+            },
+            function () {
+                _basic.put($host.api_url + "/user/" + userId + "/truckAccidentCheck/" + truckAccidentCheckId, {
+                    truckAccidentId: truckId,
+                    truckAccidentType: $scope.currentAccInfo.truck_accident_type,
+                    underUserName: $scope.currentAccInfo.under_user_name,
+                    underCost: $scope.currentAccInfo.under_cost,
+                    companyCost: $scope.currentAccInfo.company_cost,
+                    profit: $scope.currentAccInfo.profit,
+                    remark: $scope.currentAccInfo.remark
+                }).then(function (data) {
+                    if (data.success === true) {
+                        _basic.put($host.api_url + "/user/" + userId + "/truckAccident/" + truckId + "/accidentStatus/3", {}).then(function (data) {
+                            if (data.success === true) {
+                                swal("处理成功", "", "success");
+                                $scope.accidentStatus = 3;
+                                $scope.getCurrentAccInfo();
+                            }
+                            else {
+                                swal(data.msg, "", "error");
+                            }
+                        });
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
+            })
+    }
+    $scope.saveHandleInfoModify= function () {
+            _basic.put($host.api_url + "/user/" + userId + "/truckAccidentCheck/" + truckAccidentCheckId, {
+                truckAccidentId:truckId,
+                truckAccidentType:$scope.currentAccInfo.truck_accident_type,
+                underUserName:$scope.currentAccInfo.under_user_name,
+                underCost:$scope.currentAccInfo.under_cost,
+                companyCost:$scope.currentAccInfo.company_cost,
+                profit:$scope.currentAccInfo.profit,
+                remark:$scope.currentAccInfo.remark
+            }).then(function (data) {
+                if (data.success === true) {
+                    swal("提交成功", "", "success");
+                    $scope.getCurrentAccInfo();
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+    }
     //维修信息
     $scope.truckRepairRel=function(){
         _basic.get($host.api_url +"/truckRepairRel?truckId="+ $scope.truckId).then(function (data) {
@@ -386,62 +398,90 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
         })
     }
     //理赔信息
-    $scope.accidentInsure=function(){
-        _basic.get($host.api_url +"/truckAccidentInsure?accidentInsureId="+ truckId).then(function (data) {
+    $scope.accidentInsure = function () {
+        _basic.get($host.api_url + "/truckAccidentInsure?accidentId=" +truckId).then(function (data) {
             if (data.success === true) {
-                console.log(data)
-                $scope.accidentInsureList=data.result;
+                $scope.accidentDetails = data.result;
+                for(var i=0;i<data.result.length;i++){
+                    $scope.getConnectedAccidentList = function () {
+                        _basic.get($host.api_url + "/truckAccident?accidentInsureId=" +data.result[i].id ).then(function (data) {
+                            if (data.success === true) {
+                                $scope.accidentClaimList = data.result;
+                            }
+                            else {
+                                swal(data.msg, "", "error");
+                            }
+                        });
+                    };
+                    $scope.getConnectedAccidentList()
+                }
             }
             else {
                 swal(data.msg, "", "error");
             }
-        })
-    }
+        });
+    };
     $scope.beginAccidentInsure=function(){
         $('#addInfoModel').modal('open');
-        // _basic.post($host.api_url + "/user/" + userId + "/truck" +truckId+'/truckRepairRel',{
-        //     repairType: 0,
-        //     accidentId: 0,
-        //     repairReason: "string",
-        //     repairStationId: 0,
-        //     repairUser: "string",
-        //     remark: "string",
-        //     repairMoney: 0
-        // }).then(function (data) {
-        //     if (data.success === true) {
-        //
-        //     }
-        //     else {
-        //         swal(data.msg, "", "error");
-        //     }
-        // });
+        _basic.get($host.api_url + '/truckInsure').then(function(data){
+            if (data.success === true) {
+                $scope.insureCompanyList=data.result;
+            }
+        })
     }
     // 提交新增的记录
     $scope.addRepairRecord = function () {
-        if($scope.modTruckNum !== "" && $scope.modRecordTruckType !== "" && $scope.repairReason !== ""){
-            _basic.post($host.api_url + "/user/" + userId + "/truck/" + $scope.modTruckNum + "/truckRepairRel",{
-                repairType: $scope.modRecordTruckType,
-                accidentId: $scope.associatedAccident,
-                repairReason: $scope.repairReason
+        if($scope.modTruckNum !== "" && $scope.insurePlan !== "" &&$scope.modRecordTruckType!== ""&&$scope.modRecordTruckType!== ""){
+            _basic.post($host.api_url + "/user/" + userId + "/truckAccidentInsureBase",{
+                insureId:$scope.modRecordTruckType,
+                insureType:$scope.modTruckNum,
+                insurePlan: $scope.insurePlan,
+                financialLoanStatus:$scope.TruckType,
+                financialLoan: $scope.financialLoan,
+                paymentExplain: $scope.finanlReason,
+                accidentId:truckId
             }).then(function (data) {
-                if (data.success === true) {
+                if (data.success === true){
                     swal("新增成功", "", "success");
                     $('#addInfoModel').modal('close');
-                    $scope.searchRepairRecordList();
+                    $scope.accidentInsure();
+                    $scope.insureId=data.result[0].id;
+
                 }
                 else {
                     swal(data.msg, "", "error");
                 }
-            });
+            })
         }
         else{
             swal("请填写完整信息！", "", "warning");
         }
+    }
+    // 删除当前信息
+    $scope.deleteAccidentInfo = function (currentAccidentId) {
+        swal({
+                title: "确定删除当前事故吗？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确认",
+                cancelButtonText: "取消",
+                closeOnConfirm: true
+            },
+            function(){
+                _basic.delete($host.api_url + "/user/" + userId + "/accidentInsure/" +currentAccidentId + "/accident/" + truckId).then(function (data) {
+                    if (data.success === true) {
+                        $scope.accidentInsure();
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
+            });
     };
     // 获取数据
     $scope.queryData = function () {
         getDetailTruckData();
-       // $scope.getCurrentAccInfo();
     };
     $scope.queryData();
 }]);

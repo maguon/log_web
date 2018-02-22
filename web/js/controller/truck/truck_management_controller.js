@@ -1,5 +1,4 @@
-app.controller("truck_management_controller", ["$scope", "$state", "$stateParams", "_basic", "_config", "$host",
-    function ($scope, $state, $stateParams, _basic, _config, $host) {
+app.controller("truck_management_controller", ["$scope", "$state", "$stateParams", "_basic", "_config", "$host",function ($scope, $state, $stateParams, _basic, _config, $host) {
         $scope.size = 10;
         //司机
         function getDriveNameList () {
@@ -67,7 +66,6 @@ app.controller("truck_management_controller", ["$scope", "$state", "$stateParams
                 }
             });
         };
-
         // 搜索维修记录
         $scope.searchTruckManagement = function () {
             $scope.start=0;
@@ -78,13 +76,12 @@ app.controller("truck_management_controller", ["$scope", "$state", "$stateParams
             $scope.start = $scope.start - $scope.size;
             getManagementRecordList();
         };
-
         $scope.next_page = function () {
             $scope.start = $scope.start + $scope.size;
             getManagementRecordList();
         };
         // 获取数据
-        var queryData = function () {
+        function queryData () {
             getDriveNameList();
             getTruckNumList();
             $scope.searchTruckManagement();

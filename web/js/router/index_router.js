@@ -517,6 +517,13 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'add_damage_insurance_details_controller'
         })
 
+        // 财务
+        .state("truck_compensate_loan",{
+            url:"/truck_compensate_loan",
+            templateUrl: "js/view/finance/truck_compensate_loan.html",
+            controller:'truck_compensate_loan_controller'
+        })
+
         // 下载app
         .state("admin_download_app",{
             url:"/admin_download_app",

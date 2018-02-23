@@ -50,13 +50,13 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
             yAxis: {
                 min: 0,
                 title: {
-                    text: '人民币(￥)'
+                    text: '次'
                 }
             },
             tooltip: {
                 headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
                 pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}：</td>' +
-                '<td style="padding:0"><b>{point.y:.1f} 元</b></td></tr>',
+                '<td style="padding:0"><b>{point.y} 次</b></td></tr>',
                 footerFormat: '</table>',
                 shared: true,
                 useHTML: true
@@ -92,13 +92,13 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
             yAxis: {
                 min: 0,
                 title: {
-                    text: '人民币(￥)'
+                    text: '次'
                 }
             },
             tooltip: {
                 headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0"></td>' +
-                '<td style="padding:0"><b>{point.y:.1f} 元</b></td></tr>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}：</td>' +
+                '<td style="padding:0"><b>{point.y} 次</b></td></tr>',
                 footerFormat: '</table>',
                 shared: true,
                 useHTML: true

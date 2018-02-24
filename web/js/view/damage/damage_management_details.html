@@ -156,8 +156,10 @@
             <div class="handleInfoInput" ng-if="currentDamageStatus != 1">
                 <div class="row col s12">
                     <div class="col s3 input-field">
-                        <input id="responsible" name="phone" type="text" ng-model="damageInfoBefore.under_user_name">
-                        <label for="responsible">责任人</label>
+                        <select id="liable_person" name="liable_person" ng-model="aaa" style="width:100%">
+                            <!--<option value=""></option>-->
+                            <!--<option ng-repeat="person in availableUserList" ng-value="person.uid">{{person.real_name + " " + (person.type | department)}}</option>-->
+                        </select>
                     </div>
                     <div class="col s3 input-field">
                         <div class="col s1 right-align" style="padding: 0;">
@@ -190,8 +192,10 @@
                         </div>
                     </div>
                     <div class="col s3 input-field">
-                        <input id="reimbursement" name="phone" type="text" ng-model="damageInfoBefore.refund_user_name">
-                        <label for="reimbursement">报销人</label>
+                        <select id="reimbursement_person" name="reimbursement_person" style="width:100%">
+                            <!--<option value=""></option>-->
+                            <!--<option ng-repeat="person in availableUserList" ng-value="person.uid">{{person.real_name + " " + (person.type | department)}}</option>-->
+                        </select>
                     </div>
                 </div>
 
@@ -228,8 +232,13 @@
                 <div class="row col s12">
                     <div class="col s4 valign-wrapper">
                         <div class="col s11 input-field" style="padding: 0">
-                            <input id="serving_station" type="text" ng-model="damageInfoBefore.repair_id">
-                            <label style="font-weight: bold" for="serving_station">维修站</label>
+                            <select id="repair_station" ng-model="damageInfoBefore.repair_id" material-select watch>
+                                <option value="" selected>请选择</option>
+                                <option ng-repeat="repair in repairStationList" ng-value="repair.id">{{repair.address}}</option>
+                            </select>
+                            <!--<label for="">险种</label>-->
+                            <!--<input id="serving_station" type="text" ng-model="damageInfoBefore.repair_id">-->
+                            <label style="font-weight: bold" for="repair_station">维修站</label>
                         </div>
                         <div class="col s1 left-align" style="padding: 0"></div>
                     </div>

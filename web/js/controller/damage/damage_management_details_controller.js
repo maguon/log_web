@@ -1,8 +1,9 @@
-app.controller("damage_management_details_controller", ["$scope", "$stateParams", "$host", "_basic", function ($scope, $stateParams, $host, _basic) {
+app.controller("damage_management_details_controller", ["$scope", "$stateParams", "$host", "_config", "_basic", function ($scope, $stateParams, $host, _config, _basic) {
     var userId = _basic.getSession(_basic.USER_ID);
     var damageId = $stateParams.id;
     $scope.userName = _basic.getSession(_basic.USER_NAME);
     $scope.userDepartment = parseInt(_basic.getSession(_basic.USER_TYPE));
+    $scope.userList = _config.userTypes;
     $scope.damageImageList = [];
     var recordId;
     var damageCheckId;
@@ -14,10 +15,59 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
     };
     $scope.showDamageHandleInfo = function () {
         $scope.getBeforeDamageInfo();
+        $scope.getRepairStationList()
     };
     $scope.showInsuranceInfo = function () {
         $scope.getInsuranceInfo();
         $scope.getInsurePaymentCard();
+    };
+
+    // 获取责任人列表
+    $scope.getLiablePersonList = function () {
+        _basic.get($host.api_url + "/user?status=1").then(function (data) {
+            if (data.success === true) {
+                console.log("data", data);
+                var responsibilityDataList = [];
+                var reimbursementDataList = [];
+                for (var i = 0; i < data.result.length; i++) {
+                    for (var j = 0; j < $scope.userList.length; j++) {
+                        if(data.result[i].type == $scope.userList[j].type){
+                            data.result[i].job = $scope.userList[j].name
+                        }
+                    }
+                    responsibilityDataList[0] = {
+                        id: 0,
+                        text: "责任人"
+                    };
+                    reimbursementDataList[0] = {
+                        id: 0,
+                        text: "报销人"
+                    };
+                    responsibilityDataList[i + 1] = {
+                        id: data.result[i].uid,
+                        text: data.result[i].real_name + " " + data.result[i].job
+                    };
+                    reimbursementDataList[i + 1] = {
+                        id: data.result[i].uid,
+                        text: data.result[i].real_name + " " + data.result[i].job
+                    }
+                }
+                console.log("responsibilityDataList",responsibilityDataList);
+                $('#liable_person').select2({
+                    placeholder: '责任人',
+                    containerCssClass : 'select2_dropdown',
+                    data: responsibilityDataList
+                });
+                $('#reimbursement_person').select2({
+                    placeholder: '报销人',
+                    containerCssClass : 'select2_dropdown',
+                    data: reimbursementDataList
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
     };
 
     // 根据当前damageId查询当前质损信息和质损状态
@@ -143,9 +193,9 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
     $scope.getBeforeDamageInfo = function () {
         _basic.get($host.api_url + "/damageCheck?damageId=" + damageId).then(function (data) {
             if (data.success === true) {
-                // console.log("beforeData",data);
+                console.log("beforeData",data);
                 if(data.result.length !== 0){
-                    if(data.result[0].damage_type === 0){
+                    if(data.result[0].damage_type === 0 || data.result[0].damage_type == null){
                         data.result[0].damage_type = ""
                     }
                     else{
@@ -157,9 +207,43 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
                     else{
                         data.result[0].damage_link_type = data.result[0].damage_link_type.toString();
                     }
+
+                    if(data.result[0].repair_id === 0 || data.result[0].repair_id == null){
+                        data.result[0].repair_id = ""
+                    }
+
+                    if(data.result[0].under_user_id == null){
+                        data.result[0].under_user_id = 0;
+                    }
+                    if(data.result[0].refund_user_id == null){
+                        data.result[0].refund_user_id = 0;
+                    }
                     damageCheckId = data.result[0].id;
                 }
+                if($scope.currentDamageStatus == 1){
+                    $('#liable_person').val(0);
+                    $('#reimbursement_person').val(0);
+                }
+                else{
+                    $('#liable_person').val(data.result[0].under_user_id);
+                    $('#reimbursement_person').val(data.result[0].refund_user_id);
+                    $("#select2-liable_person-container").html($("#liable_person").find("option:selected").text());
+                    $("#select2-reimbursement_person-container").html($("#reimbursement_person").find("option:selected").text());
+                }
                 $scope.damageInfoBefore = data.result[0];
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+    // 获取维修站列表
+    $scope.getRepairStationList = function () {
+        _basic.get($host.api_url + "/repairStation?repairSationStatus=1").then(function (data) {
+            if (data.success === true) {
+                console.log("data", data);
+                $scope.repairStationList = data.result;
             }
             else {
                 swal(data.msg, "", "error");
@@ -170,12 +254,12 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
     // 保存当前处理信息修改
     $scope.saveHandleInfoModify = function () {
         _basic.put($host.api_url + "/user/" + userId + "/damageCheck/" + damageCheckId + "?damageId=" + damageId + "&checkButton=2",{
-            underUserId: $scope.damageInfoBefore.under_user_id,
-            underUserName:$scope.damageInfoBefore.under_user_name,
+            underUserId: $('#liable_person').val(),
+            underUserName:$("#liable_person").find("option:selected").text().split(" ")[0],
             damageType: parseInt($scope.damageInfoBefore.damage_type),
             damageLinkType: parseInt($scope.damageInfoBefore.damage_link_type),
-            refundUserId: $scope.damageInfoBefore.refund_user_id,
-            refundUserName: $scope.damageInfoBefore.refund_user_name,
+            refundUserId: $('#reimbursement_person').val(),
+            refundUserName: $("#reimbursement_person").find("option:selected").text().split(" ")[0],
             reductionCost: $scope.damageInfoBefore.reduction_cost,
             penaltyCost: $scope.damageInfoBefore.penalty_cost,
             profit: $scope.damageInfoBefore.profit,
@@ -231,12 +315,12 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
     $scope.submitHandleInfo = function () {
         if($scope.damageInfoBefore.damage_type !== "" && $scope.damageInfoBefore.damage_link_type !== ""){
             _basic.put($host.api_url + "/user/" + userId + "/damageCheck/" + damageCheckId + "?damageId=" + damageId + "&checkButton=3",{
-                underUserId: $scope.damageInfoBefore.under_user_id,
-                underUserName:$scope.damageInfoBefore.under_user_name,
+                underUserId: $('#liable_person').val(),
+                underUserName:$("#liable_person").find("option:selected").text().split(" ")[0],
                 damageType: parseInt($scope.damageInfoBefore.damage_type),
                 damageLinkType: parseInt($scope.damageInfoBefore.damage_link_type),
-                refundUserId: $scope.damageInfoBefore.refund_user_id,
-                refundUserName: $scope.damageInfoBefore.refund_user_name,
+                refundUserId: $('#reimbursement_person').val(),
+                refundUserName: $("#reimbursement_person").find("option:selected").text().split(" ")[0],
                 reductionCost: $scope.damageInfoBefore.reduction_cost,
                 penaltyCost: $scope.damageInfoBefore.penalty_cost,
                 profit: $scope.damageInfoBefore.profit,
@@ -358,6 +442,7 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
     // 获取数据
     $scope.queryData = function () {
         $scope.getCurrentDamageInfo();
+        $scope.getLiablePersonList();
     };
     $scope.queryData();
 }]);

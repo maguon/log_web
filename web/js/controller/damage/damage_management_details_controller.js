@@ -26,7 +26,7 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
     $scope.getLiablePersonList = function () {
         _basic.get($host.api_url + "/user?status=1").then(function (data) {
             if (data.success === true) {
-                console.log("data", data);
+                // console.log("data", data);
                 var responsibilityDataList = [];
                 var reimbursementDataList = [];
                 for (var i = 0; i < data.result.length; i++) {
@@ -52,7 +52,7 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
                         text: data.result[i].real_name + " " + data.result[i].job
                     }
                 }
-                console.log("responsibilityDataList",responsibilityDataList);
+                // console.log("responsibilityDataList",responsibilityDataList);
                 $('#liable_person').select2({
                     placeholder: '责任人',
                     containerCssClass : 'select2_dropdown',
@@ -193,7 +193,7 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
     $scope.getBeforeDamageInfo = function () {
         _basic.get($host.api_url + "/damageCheck?damageId=" + damageId).then(function (data) {
             if (data.success === true) {
-                console.log("beforeData",data);
+                // console.log("beforeData",data);
                 if(data.result.length !== 0){
                     if(data.result[0].damage_type === 0 || data.result[0].damage_type == null){
                         data.result[0].damage_type = ""
@@ -242,7 +242,7 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
     $scope.getRepairStationList = function () {
         _basic.get($host.api_url + "/repairStation?repairSationStatus=1").then(function (data) {
             if (data.success === true) {
-                console.log("data", data);
+                // console.log("data", data);
                 $scope.repairStationList = data.result;
             }
             else {

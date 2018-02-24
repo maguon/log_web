@@ -244,9 +244,10 @@ app.controller("liability_compensation_statistics_controller", ["$scope", "$host
          var obj = {
              monthStart:start,
              monthEnd: end
-         }
+         };
         _basic.get($host.api_url + "/damageCheckUnderMonthStat?"+_basic.objToUrl(obj)+"&start="+ $scope.start+"&size="+ $scope.size ).then(function (data) {
             if (data.success === true){
+                console.log("data1",data);
                 var maxCost = parseFloat(data.result[0].total_under_cost);
                 for (var i = 0; i < data.result.length; i++) {
                     var pecentage = parseInt(data.result[i].total_under_cost/maxCost*100);
@@ -254,7 +255,7 @@ app.controller("liability_compensation_statistics_controller", ["$scope", "$host
                 }
                 $scope.personMouthList = data.result;
             } else{
-                swal(Data.msg, "", "error");
+                swal(data.msg, "", "error");
             }
         });
     };
@@ -316,6 +317,7 @@ app.controller("liability_compensation_statistics_controller", ["$scope", "$host
         $scope.personWeekTop($scope.startInitial,$scope.endInitial);
         companyAndPersonWeek();
         companyAndPersonMonth($scope.startInitial,$scope.endInitial);
+        $scope.personMonthTop($scope.startInitial,$scope.endInitial);
     };
     $scope.queryData();
 }]);

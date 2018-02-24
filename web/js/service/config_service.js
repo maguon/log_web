@@ -8,6 +8,14 @@ baseService.factory("_config", function () {
 
     _this.userTypes = [
         {
+            type: 10,
+            name: "司机",
+            subType: [],
+            index: '',
+            qr: []
+        },
+
+        {
             type: 11,
             name: "车管部操作员",
             subType: [],

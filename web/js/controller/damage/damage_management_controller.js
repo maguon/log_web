@@ -6,6 +6,26 @@ app.controller("damage_management_controller", ["$scope", "$host", "_basic", "_c
     $scope.damageLinkType = _config.damageLinkType;
     $scope.damageType = _config.damageType;
 
+
+    // 下载csv
+    $scope.downloadCsvFile = function () {
+        var obj = {
+            damageId: $scope.damageNum,
+            vin:$scope.vinCode,
+            routeEndId:$scope.endCity,
+            makeId:$scope.brand,
+            receiveId:$scope.distributor,
+            damageStatus:$scope.processingStatus,
+            createdOnStart:$scope.reportTimeStart,
+            createdOnEnd:$scope.reportTimeEnd,
+            underUserName:$scope.responsibilityPerson,
+            declareUserName:$scope.reportPerson,
+            damageLinkType:$scope.damage_link_type,
+            damageType:$scope.damage_type
+        };
+        window.open($host.api_url + "/damage.csv?" + _basic.objToUrl(obj));
+    };
+
     // 获取品牌列表
     $scope.getBrandList = function () {
         _basic.get($host.api_url + "/carMake").then(function (data) {

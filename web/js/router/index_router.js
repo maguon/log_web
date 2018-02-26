@@ -523,6 +523,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/finance/truck_compensate_loan.html",
             controller:'truck_compensate_loan_controller'
         })
+        .state("truck_compensate_loan_details",{
+            url:"/truck_compensate_loan_details/id/{id}",
+            templateUrl: "js/view/finance/truck_compensate_loan_details.html",
+            controller:'truck_compensate_loan_details_controller'
+        })
 
         // 下载app
         .state("admin_download_app",{

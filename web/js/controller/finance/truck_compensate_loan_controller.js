@@ -24,7 +24,9 @@ app.controller("truck_compensate_loan_controller", ["$scope", "$host", "_basic",
             insureId: $scope.insureCompany,
             loanDateStart: $scope.loanStartTime,
             loanDateEnd: $scope.loanEndTime,
-            loanStatus: $scope.handleStatus
+            loanStatus: $scope.handleStatus,
+            start:$scope.start.toString(),
+            size:$scope.size
         })).then(function (data) {
             if (data.success === true) {
                 // console.log("data", data);

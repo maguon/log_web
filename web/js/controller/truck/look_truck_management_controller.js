@@ -298,9 +298,12 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
     $scope.getCurrentAccInfo = function () {
         _basic.get($host.api_url + "/truckAccidentCheck?truckAccidentId=" + truckId).then(function (data) {
             if (data.success === true) {
-                $scope.currentAccInfo = data.result[0];
-                if($scope.currentAccInfo!==null){
-                    truckAccidentCheckId= data.result[0].id;
+                if(data.result==null||data.result==undefined){
+                    return;
+                }
+                else {
+                    $scope.currentAccInfo = data.result;
+                    truckAccidentCheckId= data.result.id;
                 }
             }
             else {
@@ -431,7 +434,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
     }
     // 提交新增的记录
     $scope.addRepairRecord = function () {
-        if($scope.modTruckNum !== "" && $scope.insurePlan !== "" &&$scope.modRecordTruckType!== ""&&$scope.modRecordTruckType!== ""){
+        if($scope.modTruckNum !== undefined && $scope.insurePlan !== undefined &&$scope.modRecordTruckType!== undefined &&$scope.TruckType!==undefined){
             _basic.post($host.api_url + "/user/" + userId + "/truckAccidentInsureBase",{
                 insureId:$scope.modRecordTruckType,
                 insureType:$scope.modTruckNum,

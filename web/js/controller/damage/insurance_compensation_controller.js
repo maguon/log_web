@@ -44,6 +44,19 @@ app.controller("insurance_compensation_controller", ["$scope", "$host", "_basic"
         $scope.getInsurancePaymentList();
     };
 
+    // 下载csv
+    $scope.downloadCsvFile = function () {
+        var obj = {
+            damageInsureId: $scope.paymentNum,
+            damageId: $scope.damageNum,
+            insureStatus: $scope.processingStatus,
+            insureActualStart:$scope.insurancePaymentStart,
+            insureActualEnd:$scope.insurancePaymentEnd,
+            insureUserName: $scope.handlerName
+        };
+        window.open($host.api_url + "/damageInsureRel.csv?" + _basic.objToUrl(obj));
+    };
+
     // 分页
     $scope.previous_page = function () {
         $scope.start = $scope.start - $scope.size;

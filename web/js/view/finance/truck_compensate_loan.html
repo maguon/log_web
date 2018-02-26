@@ -1,1 +1,106 @@
-truck_compensate_loan
+<div class="truck_compensate_loan">
+    <div class="row valign-wrapper">
+        <div class="col s10">
+            <div class="col s4 input-field">
+                <input type="text" id="payment_num" name="payment_num" ng-model="paymentNum">
+                <label for="payment_num">理赔编号</label>
+            </div>
+            <div class="col s4 input-field">
+                <select id="insure_status" ng-model="insureStatus" material-select watch>
+                    <option value="" selected>请选择</option>
+                    <option value="1">交强险</option>
+                    <option value="2">商业险</option>
+                    <option value="3">货运险</option>
+                </select>
+                <label for="insure_status">险种</label>
+            </div>
+            <div class="col s4 input-field">
+                <select id="insure_company" ng-model="insureCompany" material-select watch>
+                    <option value="" selected>请选择</option>
+                    <option ng-repeat="company in insuranceCompanyList" ng-value="company.id">{{company.insure_name}}</option>
+                </select>
+                <label for="insure_company">保险公司</label>
+            </div>
+            <div class="col s4 input-field">
+                <input type="text" id="loan_start_time" name="loan_start_time" ng-model="loanStartTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                <label for="loan_start_time">借款时间(始)</label>
+            </div>
+            <div class="col s4 input-field">
+                <input type="text" id="loan_end_time" name="loan_end_time" ng-model="loanEndTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                <label for="loan_end_time">借款时间(终)</label>
+            </div>
+            <div class="col s4 input-field">
+                <select id="handle_status" ng-model="handleStatus" material-select watch>
+                    <option value="" selected>请选择</option>
+                    <option value="0">拒绝</option>
+                    <option value="1">未借</option>
+                    <option value="2">已借</option>
+                    <option value="3">已还</option>
+                </select>
+                <label for="handle_status">处理状态</label>
+            </div>
+        </div>
+        <div class="col s2">
+            <div class="col s12 center">
+                <a ng-click="searchCompensateLoanList()" class="btn-floating btn-large waves-light waves-effect red lighten-2 btn vc-center" style="margin-right: 10px">
+                    <i class="mdi mdi-magnify"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!--表格-->
+    <div class="row">
+        <div class="col s12">
+            <div class="col s12">
+                <div class="divider" style="background: #00bcd4;height: 2px"></div>
+                <table class="bordered striped text_mid">
+                    <thead class="blue-grey lighten-5">
+                    <tr class="grey-text text-darken-2">
+                        <th width="200" data-field="">理赔编号</th>
+                        <th width="250" data-field="">险种</th>
+                        <th width="300" data-field="">保险公司</th>
+                        <th width="200" data-field="">待赔金额</th>
+                        <th width="250" data-field="">经办人</th>
+                        <th width="280" data-field="">借款时间</th>
+                        <th width="280" data-field="">还款时间</th>
+                        <th width="180" data-field="">状态</th>
+                        <th width="150">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="loan in compensateLoanList" class="grey-text text-darken-1">
+                        <td>{{loan.id}}</td>
+                        <td>{{loan.insure_type | insuranceType}}</td>
+                        <td>{{loan.insure_name}}</td>
+                        <td>{{loan.insure_plan}}</td>
+                        <td>{{loan.insure_user_name}}</td>
+                        <td>{{loan.loan_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td>{{loan.repayment_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td style="color: #f1b054" class="text-lighten-2" ng-if="loan.loan_status == 0">拒绝</td>
+                        <td class="red-text text-lighten-2" ng-if="loan.loan_status == 1">未借</td>
+                        <td class="cyan-text text-lighten-2" ng-if="loan.loan_status == 2">已借</td>
+                        <td style="color: darkgray" class="text-lighten-2" ng-if="loan.loan_status == 3">已还</td>
+                        <td class="operation">
+                            <a ui-sref="" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-eye" style="margin: 0"></i></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!--分页-->
+    <div class="row">
+        <div class="paging_box col s12">
+            <div class="right">
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="pre_btn()">
+                    上一页
+                </a>
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_btn()">
+                    下一页
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

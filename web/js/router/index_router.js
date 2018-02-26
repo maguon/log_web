@@ -530,4 +530,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/download/admin_download_app.html",
             controller:'admin_download_app_controller'
         })
+
+        //app系统
+        .state("app_version",{
+            url:"/app_version",
+            templateUrl: "js/view/app/app_version.html",
+            controller:'app_version_controller'
+        })
 }]);

@@ -1,7 +1,7 @@
 app.controller("look_truck_management_controller", ["$scope", "$state", "$stateParams", "_basic", "_config", "$host", function ($scope, $state, $stateParams, _basic, _config, $host) {
     var userId = _basic.getSession(_basic.USER_ID);
     var truckId = $stateParams.id;
-    var truckAccidentCheckId;
+    $scope.truckAccidentCheckId='';
     $scope.car_imageBox=[];
     $scope.car_image_i=[];
     // 点击返回按钮返回之前页面
@@ -295,21 +295,39 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
             url: 'data-original'
         });
     };
-    $scope.getCurrentAccInfo = function () {
-        _basic.get($host.api_url + "/truckAccidentCheck?truckAccidentId=" + truckId).then(function (data) {
-            if (data.success === true) {
-                if(data.result==null||data.result==undefined){
-                    return;
-                }
-                else {
-                    $scope.currentAccInfo = data.result;
-                    truckAccidentCheckId= data.result.id;
-                }
+    //责任人
+    function getUnderUserNameList () {
+        _basic.get($host.api_url + "/user").then(function (data) {
+            if (data.success == true) {
+                $scope.underUserNameList = data.result;
+                $('#fined').select2({
+                    placeholder: '责任人',
+                    containerCssClass : 'select2_dropdown'
+                });
             }
             else {
                 swal(data.msg, "", "error");
             }
-    });
+        });
+    }
+    $scope.getCurrentAccInfo = function () {
+        if( $scope.accidentStatus != 1){
+            _basic.get($host.api_url + "/truckAccidentCheck?truckAccidentId=" + truckId).then(function (data) {
+                if (data.success === true) {
+                    //console.log(data)
+                    if(data.result==null||data.result==undefined){
+                        return;
+                    }
+                    else {
+                        $scope.currentAccInfo = data.result[0];
+                        $scope.truckAccidentCheckId= data.result[0].id;
+                    }
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
     };
     // 点击开始处理，变为处理中状态并初始化处理信息
     $scope.beginProcessing = function () {
@@ -343,7 +361,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                 closeOnConfirm: true
             },
             function () {
-                _basic.put($host.api_url + "/user/" + userId + "/truckAccidentCheck/" + truckAccidentCheckId, {
+                _basic.put($host.api_url + "/user/" + userId + "/truckAccidentCheck/" +  $scope.truckAccidentCheckId, {
                     truckAccidentId: truckId,
                     truckAccidentType: $scope.currentAccInfo.truck_accident_type,
                     underUserName: $scope.currentAccInfo.under_user_name,
@@ -371,7 +389,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
             })
     }
     $scope.saveHandleInfoModify= function () {
-            _basic.put($host.api_url + "/user/" + userId + "/truckAccidentCheck/" + truckAccidentCheckId, {
+            _basic.put($host.api_url + "/user/" + userId + "/truckAccidentCheck/" +  $scope.truckAccidentCheckId, {
                 truckAccidentId:truckId,
                 truckAccidentType:$scope.currentAccInfo.truck_accident_type,
                 underUserName:$scope.currentAccInfo.under_user_name,
@@ -434,7 +452,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
     }
     // 提交新增的记录
     $scope.addRepairRecord = function () {
-        if($scope.modTruckNum !== undefined && $scope.insurePlan !== undefined &&$scope.modRecordTruckType!== undefined &&$scope.TruckType!==undefined){
+        if($scope.modTruckNum !== undefined && $scope.insurePlan !== undefined &&$scope.modRecordTruckType!== undefined ){
             _basic.post($host.api_url + "/user/" + userId + "/truckAccidentInsureBase",{
                 insureId:$scope.modRecordTruckType,
                 insureType:$scope.modTruckNum,
@@ -448,7 +466,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                     swal("新增成功", "", "success");
                     $('#addInfoModel').modal('close');
                     $scope.accidentInsure();
-                    $scope.insureId=data.result[0].id;
+                    // $scope.insureId=data.result[0].id;
 
                 }
                 else {
@@ -485,6 +503,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
     // 获取数据
     $scope.queryData = function () {
         getDetailTruckData();
+        getUnderUserNameList()
     };
     $scope.queryData();
 }]);

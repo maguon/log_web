@@ -1,0 +1,338 @@
+<div class="app_version">
+    <div class="row" style="margin: 0">
+        <div id="addAccidentClaimModal" class="modal modal-fixed-footer" style="width: 75%;height: 600px">
+            <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+                <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
+                    <p>新增保险赔付</p>
+                </div>
+                <div class="row col s12" style="margin-top: 35px">
+                    <div style="width: 90%;margin: 0 auto">
+                        <div class="col s12">
+                            <div class="col s6 input-field">
+                                <select material-select watch id="insurance_company_modal" ng-model="insuranceCompanyMod">
+                                    <option value="" selected>请选择</option>
+                                    <option ng-repeat="company in insureCompanyList" ng-value="company.id">{{company.insure_name}}</option>
+                                </select>
+                                <label for="insurance_company_modal"><span style="color: red">* </span>保险公司</label>
+                            </div>
+                            <div class="col s6 input-field">
+                                <select material-select watch id="insurance_type_modal" ng-model="insuranceTypeMod">
+                                    <option value="" selected>请选择</option>
+                                    <option ng-value="1">交强险</option>
+                                    <option ng-value="2">商业险</option>
+                                    <option ng-value="3">货运险</option>
+                                </select>
+                                <label for="insurance_type_modal"><span style="color: red">* </span>险种</label>
+                            </div>
+                            <div class="col s6 input-field">
+                                <input type="number" name="payment_money_start" id="payment_money_modal" ng-model="paymentMoneyMod">
+                                <label for="payment_money_modal"><span style="color: red">* </span>待赔金额（元）</label>
+                            </div>
+                            <div class="col s6" style="padding: 0;">
+                                <div class="col s6 input-field">
+                                    <select material-select watch id="has_loan" ng-change="checkHasLoan()" ng-model="hasLoan">
+                                        <option value="" selected>请选择</option>
+                                        <option value="0">否</option>
+                                        <option value="1">是</option>
+                                    </select>
+                                    <label for="has_loan"><span style="color: red">* </span>是否财务借款</label>
+                                </div>
+                                <div class="col s6 input-field">
+                                    <input type="number" name="payment_money_start" id="loan_money_num" ng-disabled="hasLoanType" ng-model="loanMoneyNum">
+                                    <label for="loan_money_num">财务借款（元）</label>
+                                </div>
+                            </div>
+                            <div class="col s12 valign-wrapper" style="padding: 0;">
+                                <div class="col s10 input-field">
+                                    <input type="text" name="payment_money_start" id="relation_accident" ng-model="relationAccidentNum">
+                                    <label for="relation_accident"><span style="color: red">* </span>关联事故</label>
+                                </div>
+                                <div class="col s2 center">
+                                    <a ng-click="searchAccidentInfo()" class="btn-floating waves-light waves-effect cyan lighten-2 btn vc-center" style="margin-right: 10px">
+                                        <i class="mdi mdi-plus"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--事故详情-->
+                        <div class="col s12" ng-repeat="accident in accidentClaimList">
+                            <div class="col s6 modal_accident valign-wrapper" style="padding: 0;font-size: 1.1rem;color: darkgray;font-weight: bold">
+                                <div class="col s1 right-align" style="padding: 0;margin-top: -5px">
+                                    <span style="width:8px;height:8px;display:inline-block;border-radius: 100%;background-color: #26c6da"></span>
+                                </div>
+                                <div class="col s4 left-align">
+                                    <p>{{accident.id}}</p>
+                                </div>
+                                <div class="col s3">
+                                    <p>{{accident.truck_accident_type == 1 ? "一般事故" : accident.truck_accident_type == 2 ? "严重事故" : null}}</p>
+                                </div>
+                                <div class="col s2">
+                                    <p>{{accident.truck_type == 1 ? "头车" : "挂车"}}</p>
+                                </div>
+                                <div class="col s3">
+                                    <p>{{accident.truck_num}}</p>
+                                </div>
+                            </div>
+                            <div class="col s6 modal_accident valign-wrapper" style="padding: 0;font-size: 1.1rem;color: darkgray;font-weight: bold">
+                                <div class="col s8 right-align">
+                                    <p ng-if="accident.accident_status == 3">{{accident.accident_date | date:'yyyy-MM-dd HH:mm:ss' + ' 至 ' + accident.end_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                                    <p ng-if="accident.accident_status == 1 || accident.accident_status == 2">{{accident.accident_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                                </div>
+                                <div class="col s3">
+                                    <p ng-if="accident.accident_status == 1">未处理</p>
+                                    <p ng-if="accident.accident_status == 2" style="color: #e88282">处理中</p>
+                                    <p ng-if="accident.accident_status == 3" style="color: #26c6da">已处理</p>
+                                </div>
+                                <div class="col s1">
+                                    <span ng-click="deleteAccidentInfo($index)" class="mdi mdi-close"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12">
+                            <div class="col s12 input-field">
+                                <input type="text" name="payment_description" id="payment_description" ng-model="paymentDescription">
+                                <label for="payment_description"><span style="color: red">* </span>赔付描述</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer valign-wrapper">
+                <div class="col s12">
+                    <div class="col s2 offset-s4">
+                        <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                            取消
+                        </a>
+                    </div>
+                    <div class="col s2">
+                        <a ng-click="submitClaimInfoList()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                            确定
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin: 0">
+        <div id="addAccidentClaimModal" class="modal modal-fixed-footer" style="width: 75%;height: 600px">
+            <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+                <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
+                    <p>新增保险赔付</p>
+                </div>
+                <div class="row col s12" style="margin-top: 35px">
+                    <div style="width: 90%;margin: 0 auto">
+                        <div class="col s12">
+                            <div class="col s6 input-field">
+                                <select material-select watch id="insurance_company_modal" ng-model="insuranceCompanyMod">
+                                    <option value="" selected>请选择</option>
+                                    <option ng-repeat="company in insureCompanyList" ng-value="company.id">{{company.insure_name}}</option>
+                                </select>
+                                <label for="insurance_company_modal"><span style="color: red">* </span>保险公司</label>
+                            </div>
+                            <div class="col s6 input-field">
+                                <select material-select watch id="insurance_type_modal" ng-model="insuranceTypeMod">
+                                    <option value="" selected>请选择</option>
+                                    <option ng-value="1">交强险</option>
+                                    <option ng-value="2">商业险</option>
+                                    <option ng-value="3">货运险</option>
+                                </select>
+                                <label for="insurance_type_modal"><span style="color: red">* </span>险种</label>
+                            </div>
+                            <div class="col s6 input-field">
+                                <input type="number" name="payment_money_start" id="payment_money_modal" ng-model="paymentMoneyMod">
+                                <label for="payment_money_modal"><span style="color: red">* </span>待赔金额（元）</label>
+                            </div>
+                            <div class="col s6" style="padding: 0;">
+                                <div class="col s6 input-field">
+                                    <select material-select watch id="has_loan" ng-change="checkHasLoan()" ng-model="hasLoan">
+                                        <option value="" selected>请选择</option>
+                                        <option value="0">否</option>
+                                        <option value="1">是</option>
+                                    </select>
+                                    <label for="has_loan"><span style="color: red">* </span>是否财务借款</label>
+                                </div>
+                                <div class="col s6 input-field">
+                                    <input type="number" name="payment_money_start" id="loan_money_num" ng-disabled="hasLoanType" ng-model="loanMoneyNum">
+                                    <label for="loan_money_num">财务借款（元）</label>
+                                </div>
+                            </div>
+                            <div class="col s12 valign-wrapper" style="padding: 0;">
+                                <div class="col s10 input-field">
+                                    <input type="text" name="payment_money_start" id="relation_accident" ng-model="relationAccidentNum">
+                                    <label for="relation_accident"><span style="color: red">* </span>关联事故</label>
+                                </div>
+                                <div class="col s2 center">
+                                    <a ng-click="searchAccidentInfo()" class="btn-floating waves-light waves-effect cyan lighten-2 btn vc-center" style="margin-right: 10px">
+                                        <i class="mdi mdi-plus"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--事故详情-->
+                        <div class="col s12" ng-repeat="accident in accidentClaimList">
+                            <div class="col s6 modal_accident valign-wrapper" style="padding: 0;font-size: 1.1rem;color: darkgray;font-weight: bold">
+                                <div class="col s1 right-align" style="padding: 0;margin-top: -5px">
+                                    <span style="width:8px;height:8px;display:inline-block;border-radius: 100%;background-color: #26c6da"></span>
+                                </div>
+                                <div class="col s4 left-align">
+                                    <p>{{accident.id}}</p>
+                                </div>
+                                <div class="col s3">
+                                    <p>{{accident.truck_accident_type == 1 ? "一般事故" : accident.truck_accident_type == 2 ? "严重事故" : null}}</p>
+                                </div>
+                                <div class="col s2">
+                                    <p>{{accident.truck_type == 1 ? "头车" : "挂车"}}</p>
+                                </div>
+                                <div class="col s3">
+                                    <p>{{accident.truck_num}}</p>
+                                </div>
+                            </div>
+                            <div class="col s6 modal_accident valign-wrapper" style="padding: 0;font-size: 1.1rem;color: darkgray;font-weight: bold">
+                                <div class="col s8 right-align">
+                                    <p ng-if="accident.accident_status == 3">{{accident.accident_date | date:'yyyy-MM-dd HH:mm:ss' + ' 至 ' + accident.end_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                                    <p ng-if="accident.accident_status == 1 || accident.accident_status == 2">{{accident.accident_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                                </div>
+                                <div class="col s3">
+                                    <p ng-if="accident.accident_status == 1">未处理</p>
+                                    <p ng-if="accident.accident_status == 2" style="color: #e88282">处理中</p>
+                                    <p ng-if="accident.accident_status == 3" style="color: #26c6da">已处理</p>
+                                </div>
+                                <div class="col s1">
+                                    <span ng-click="deleteAccidentInfo($index)" class="mdi mdi-close"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12">
+                            <div class="col s12 input-field">
+                                <input type="text" name="payment_description" id="payment_description" ng-model="paymentDescription">
+                                <label for="payment_description"><span style="color: red">* </span>赔付描述</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer valign-wrapper">
+                <div class="col s12">
+                    <div class="col s2 offset-s4">
+                        <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                            取消
+                        </a>
+                    </div>
+                    <div class="col s2">
+                        <a ng-click="submitClaimInfoList()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                            确定
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-content grey-text text-darken-2">
+        <div class="row no-marBottom" ul-tabs style="overflow: hidden">
+            <div id="header_car" class="row tab_box">
+                <div class="storage_storeTitle">
+                        <div class="row grey-text text-darken-1 valign-wrapper">
+                            <div class="col s10" style="color: #000; !important">
+                                    <div class=" col s4 p0">
+                                        <div class="input-field col s12">
+                                            <select  material-select watch ng-model="truckType">
+                                                <option value="">系统</option>
+                                                <option ng-value="1">所有</option>
+                                                <option ng-value="2">IOS</option>
+                                                <option ng-value="2">安卓</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class=" col s4 p0">
+                                        <div class="input-field col s12">
+                                            <select  material-select watch ng-model="truckType">
+                                                <option value="">模块</option>
+                                                <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class=" col s4 p0">
+                                        <div class="input-field col s12">
+                                            <select  material-select watch ng-model="truckType">
+                                                <option value="">是否强制更新</option>
+                                                <option ng-value="1">是</option>
+                                                <option ng-value="2">否</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="col s2">
+                                <div class="col s6 center">
+                                    <a class=" btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="searchTruckManagement()">
+                                        <i class="mdi mdi-magnify"></i>
+                                    </a>
+                                </div>
+                                <div class="col s6 center">
+                                    <a class="btn-floating btn-large waves-light waves-effect cyan lighten-1 btn vc-center" style="margin-right: 10px"   ui-sref="add_truck_management({from:'truck_management'})">
+                                        <i class="mdi mdi-plus"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <div class="col s12">
+                        <div class="col s12">
+                            <div class="divider" style="background: #00bcd4;height: 2px"></div>
+                            <table class="bordered striped text_mid">
+                                <thead class="blue-grey lighten-5">
+                                <tr class="grey-text text-darken-2">
+                                    <th data-field="">操作时间</th>
+                                    <th data-field="">系统</th>
+                                    <th data-field="">模块</th>
+                                    <th data-field="">最新版本号</th>
+                                    <th data-field="">强制更新</th>
+                                    <th data-field="">描述</th>
+                                    <th data-field="">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="el in truckManagementList" class="grey-text text-darken-1">
+                                    <td ng-bind="el.id"></td>
+                                    <td ng-bind="el.truck_num"></td>
+                                    <td  ng-if="el.truck_type==null">&nbsp;</td>
+                                    <td  ng-if="el.truck_type==1">车头</td>
+                                    <td  ng-if="el.truck_type==2">挂车</td>
+                                    <td ng-bind="el.drive_name"></td>
+                                    <td ng-bind="el.dp_route_task_id"></td>
+                                    <td ng-bind="el.accident_date| date:'yyyy-MM-dd'"></td>
+                                    <td ng-if="el.truck_accident_type==null">&nbsp;</td>
+                                    <td ng-if="el.truck_accident_type==0">&nbsp;</td>
+                                    <td ng-if="el.truck_accident_type==1">一般</td>
+                                    <td ng-if="el.truck_accident_type==2">严重</td>
+                                    <td ng-bind="el.address"></td>
+                                    <td ng-bind="el.under_user_name"></td>
+                                    <td ng-if="el.accident_status==null">&nbsp;</td>
+                                    <td ng-if="el.accident_status==1">待处理</td>
+                                    <td class="red-text text-lighten-2" ng-if="el.accident_status==2">处理中</td>
+                                    <td class="blue-text text-lighten-2" ng-if="el.accident_status==3">已处理</td>
+                                    <td class="operation vc-center">
+                                        <a ui-sref="look_truck_management({id:el.id,from:'truck_management'})"  class="cyan-text fz12" style="cursor: pointer;display: inline-block;width: 37px;height: 37px;">  <i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-file-document"></i></a>
+                                    </td>
+                                </tr>
+                                <tr class="grey-text text-darken-1" ng-if="truckManagementList.length == 0">
+                                    <td colspan="11"><span style="letter-spacing: 2px">暂无数据</span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--分页-->
+                <div class="row">
+                    <div class="paging_box col s12">
+                        <div class="right">
+                            <a class="waves-light waves-effect cyan lighten-1 btn"  id="pre" ng-click="previous_page()">上一页</a>
+                            <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_page()">下一页</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

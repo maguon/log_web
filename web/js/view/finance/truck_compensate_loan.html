@@ -82,7 +82,7 @@
                         <td class="cyan-text text-lighten-2" ng-if="loan.loan_status == 2">已借</td>
                         <td style="color: darkgray" class="text-lighten-2" ng-if="loan.loan_status == 3">已还</td>
                         <td class="operation">
-                            <a ui-sref="" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-eye" style="margin: 0"></i></a>
+                            <a ui-sref="truck_compensate_loan_details({id:loan.id})" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-eye" style="margin: 0"></i></a>
                         </td>
                     </tr>
                     </tbody>

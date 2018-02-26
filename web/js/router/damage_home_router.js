@@ -53,7 +53,7 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             controller:'car_wash_fee_controller'
         })
         .state("car_wash_fee_details",{
-            url:"/car_wash_fee_details",
+            url:"/car_wash_fee_details/id/{id}",
             templateUrl: "js/view/damage/car_wash_fee_details.html",
             controller:'car_wash_fee_details_controller'
         })
@@ -63,7 +63,7 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             controller:'add_damage_insurance_controller'
         })
         .state("add_damage_insurance_details",{
-            url:"/add_damage_insurance_details",
+            url:"/add_damage_insurance_details/id/{id}",
             templateUrl: "js/view/damage/add_damage_insurance_details.html",
             controller:'add_damage_insurance_details_controller'
         })

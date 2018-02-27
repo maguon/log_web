@@ -1,1 +1,187 @@
-truck_compensate_loan_details
+<a style="margin: 90px 0 0 20px" class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light "
+   ui-sref="truck_compensate_loan">
+    <i class="mdi mdi-arrow-left-bold"></i>
+</a>
+<div class="truck_compensate_loan_details">
+    <div class="vc-center">
+        <h5 class="center-align cyan-text text-lighten-1">借款详情</h5>
+    </div>
+    <div class="divider" style="background: #00bcd4;height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
+
+    <!--财务借款模态框-->
+    <div class="row" style="margin: 0">
+        <div id="financial_loan" class="modal modal-fixed-footer" style="width: 50%;height: 380px">
+            <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+                <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
+                    <p>财务借款</p>
+                </div>
+                <div class="row col s12" style="margin-top: 35px">
+                    <div class="col s8 offset-s2 input-field">
+                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="loan_amount_mod" name="loan_amount_mod" ng-model="loanAmountMod">
+                        <label for="loan_amount_mod"><span style="color: red">* </span>借款金额（元）</label>
+                    </div>
+                    <div class="col s8 offset-s2 input-field">
+                        <input type="text" id="loan_explain_mod" name="loan_explain_mod" ng-model="loanExplainMod">
+                        <label for="loan_explain_mod">借款说明</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer valign-wrapper">
+                <div class="col s12">
+                    <div class="col s2 offset-s4">
+                        <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                            取消
+                        </a>
+                    </div>
+                    <div class="col s2">
+                        <a ng-click="finishLoan()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                            确定
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="width: 80%;margin: 0 auto">
+        <!--借款详情-->
+        <div class="col s12">
+            <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
+                <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
+                    <div class="col s3 left-align" style="color: #26c6da">
+                        <p style="margin: 0">理赔编号：{{loanInfo.accident_insure_id}}</p>
+                    </div>
+                    <div class="col s9 right-align" style="color: darkgray">
+                        <p>经办人：{{loanInfo.insure_user_name}}</p>
+                    </div>
+                </div>
+                <div class="col s12" style="margin-bottom: 30px">
+                    <div class="col s4 offset-s8 right-align" style="color: darkgray">
+                        <p style="margin: 6px 0">生成时间：{{loanInfo.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                    </div>
+                    <div class="col s12 bold_txt" style="color: darkgray;font-size: 1.1rem">
+                        <div class="col s4">
+                            <p><span>保险公司：</span>{{loanInfo.insure_name}}</p>
+                        </div>
+                        <div class="col s4">
+                            <p><span>保险种类：</span>{{loanInfo.insure_type | insuranceType}}</p>
+                        </div>
+                        <div class="col s4">
+                            <p><span>待赔金额：</span><span style="color: #e57474">{{loanInfo.insure_plan.toFixed(2)}}</span> 元</p>
+                        </div>
+                        <div class="col s12">
+                            <p style="word-break: break-all"><span>赔付描述：</span>{{loanInfo.payment_explain}}</p>
+                        </div>
+                    </div>
+
+                    <!--关联事故详情-->
+                    <div class="col s12">
+                        <div class="col s12">
+                            <p style="font-size: 1.1rem;color: #26c6da;font-weight: bold">关联事故</p>
+                        </div>
+                    </div>
+                    <div class="col s12" ng-repeat="accident in accidentClaimList">
+                        <div class="col s6 modal_accident valign-wrapper" style="padding: 0;font-size: 1.1rem;color: darkgray;font-weight: bold">
+                            <div class="col s2 right-align" style="padding: 0">
+                                <p style="color: #26c6da;font-weight: normal;font-size: 1rem">事故编号：</p>
+                            </div>
+                            <div class="col s3 left-align">
+                                <p>{{accident.id}}</p>
+                            </div>
+                            <div class="col s2">
+                                <p>{{accident.truck_type == 1 ? "头车" : "挂车"}}</p>
+                            </div>
+                            <div class="col s5">
+                                <p>{{accident.truck_num}}</p>
+                            </div>
+                        </div>
+                        <div class="col s6 modal_accident valign-wrapper" style="padding: 0;font-size: 1.1rem;color: darkgray;font-weight: bold">
+                            <div class="col s8 right-align">
+                                <p ng-if="accident.accident_status == 3">{{accident.accident_date | date:'yyyy-MM-dd HH:mm:ss' + ' 至 ' + accident.end_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                                <p ng-if="accident.accident_status == 1 || accident.accident_status == 2">{{accident.accident_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                            </div>
+                            <div class="col s4 center-align">
+                                <p ng-if="accident.accident_status == 1">未处理</p>
+                                <p ng-if="accident.accident_status == 2" style="color: #e88282">处理中</p>
+                                <p ng-if="accident.accident_status == 3" style="color: #26c6da">已处理</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s12" style="margin-top: 20px" ng-if="loanStatus == 1">
+            <div class="col s3 offset-s3">
+                <a ng-click="refuseLoan()" style="width: 100%;background-color: #e57373;" class="waves-light waves-effect lighten-1 btn">
+                    拒绝
+                </a>
+            </div>
+            <div class="col s3">
+                <a ng-click="startLoan()" style="width: 100%;background-color: #f0ad4e;" class="waves-light waves-effect orange lighten-1 btn">
+                    借款
+                </a>
+            </div>
+        </div>
+
+        <!--已借状态下两卡片及完结按钮-->
+        <div class="hasLoanStatusCard" ng-if="loanStatus == 2 || loanStatus == 3">
+            <div class="col s6">
+                <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
+                    <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
+                        <div class="col s7 left-align" style="color: darkgray">
+                            <p style="margin: 0">借款时间：{{loanInfo.loan_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                        </div>
+                        <div class="col s5 right-align" style="color: darkgray">
+                            <p>财务人员：{{loanInfo.loan_user_name}}</p>
+                        </div>
+                    </div>
+                    <div class="col s12" style="margin-bottom: 30px">
+                        <div class="col s8 offset-s2 input-field">
+                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="loan_amount" name="loan_amount" ng-model="loanInfo.loan_money">
+                            <label for="loan_amount">借款金额（元）</label>
+                        </div>
+                        <div class="col s8 offset-s2 input-field">
+                            <input type="text" id="loan_explain" name="loan_explain" ng-model="loanInfo.loan_explain">
+                            <label for="loan_explain">借款描述</label>
+                        </div>
+                        <div class="col s4 offset-s4" style="margin-top: 20px" ng-if="loanStatus == 2">
+                            <a ng-click="saveLoanInfo()" style="width: 100%;background-color: #26c6da;" class="waves-light waves-effect lighten-1 btn">
+                                保存
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s6">
+                <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
+                    <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
+                        <div class="col s12 left-align" style="color: #26c6da">
+                            <p style="margin: 0">还款</p>
+                        </div>
+                    </div>
+                    <div class="col s12" style="margin-bottom: 30px">
+                        <div class="col s8 offset-s2 input-field">
+                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="repayment_amount" name="repayment_amount" ng-model="loanInfo.repayment_money">
+                            <label for="repayment_amount">还款金额（元）</label>
+                        </div>
+                        <div class="col s8 offset-s2 input-field">
+                            <input type="text" id="repayment_explain" name="repayment_explain" ng-model="loanInfo.repayment_explain">
+                            <label for="repayment_explain">还款描述</label>
+                        </div>
+                        <div class="col s4 offset-s4" style="margin-top: 20px" ng-if="loanStatus == 2">
+                            <a ng-click="saveRepaymentInfo()" style="width: 100%;background-color: #26c6da;" class="waves-light waves-effect lighten-1 btn">
+                                保存
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s4 offset-s4" style="margin-top: 30px" ng-if="loanStatus == 2">
+            <a ng-click="finishRepayment()" style="width: 100%;background-color: #f0ad4e;" class="waves-light waves-effect orange lighten-1 btn">
+                完结
+            </a>
+        </div>
+    </div>
+</div>

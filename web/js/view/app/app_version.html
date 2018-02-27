@@ -237,35 +237,38 @@
                             <div class="col s10" style="color: #000; !important">
                                     <div class=" col s4 p0">
                                         <div class="input-field col s12">
-                                            <select  material-select watch ng-model="truckType">
+                                            <select  material-select watch ng-model="systemType">
                                                 <option value="">系统</option>
-                                                <option ng-value="1">所有</option>
-                                                <option ng-value="2">IOS</option>
-                                                <option ng-value="2">安卓</option>
+                                                <option ng-value="0">IOS</option>
+                                                <option ng-value="1">安卓</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class=" col s4 p0">
                                         <div class="input-field col s12">
-                                            <select  material-select watch ng-model="truckType">
+                                            <select  material-select watch ng-model="appType">
                                                 <option value="">模块</option>
-                                                <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
+                                                <option ng-value="1">物联存车</option>
+                                                <option ng-value="2">车辆管理</option>
+                                                <option ng-value="3">司机</option>
+                                                <option ng-value="4">质量监管</option>
+                                                <option ng-value="5">现场调度</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class=" col s4 p0">
                                         <div class="input-field col s12">
-                                            <select  material-select watch ng-model="truckType">
+                                            <select  material-select watch ng-model="forceUpdate">
                                                 <option value="">是否强制更新</option>
                                                 <option ng-value="1">是</option>
-                                                <option ng-value="2">否</option>
+                                                <option ng-value="0">否</option>
                                             </select>
                                         </div>
                                     </div>
                             </div>
                             <div class="col s2">
                                 <div class="col s6 center">
-                                    <a class=" btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="searchTruckManagement()">
+                                    <a class=" btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="searchAppSystem()">
                                         <i class="mdi mdi-magnify"></i>
                                     </a>
                                 </div>
@@ -293,31 +296,26 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="el in truckManagementList" class="grey-text text-darken-1">
-                                    <td ng-bind="el.id"></td>
-                                    <td ng-bind="el.truck_num"></td>
-                                    <td  ng-if="el.truck_type==null">&nbsp;</td>
-                                    <td  ng-if="el.truck_type==1">车头</td>
-                                    <td  ng-if="el.truck_type==2">挂车</td>
-                                    <td ng-bind="el.drive_name"></td>
-                                    <td ng-bind="el.dp_route_task_id"></td>
-                                    <td ng-bind="el.accident_date| date:'yyyy-MM-dd'"></td>
-                                    <td ng-if="el.truck_accident_type==null">&nbsp;</td>
-                                    <td ng-if="el.truck_accident_type==0">&nbsp;</td>
-                                    <td ng-if="el.truck_accident_type==1">一般</td>
-                                    <td ng-if="el.truck_accident_type==2">严重</td>
-                                    <td ng-bind="el.address"></td>
-                                    <td ng-bind="el.under_user_name"></td>
-                                    <td ng-if="el.accident_status==null">&nbsp;</td>
-                                    <td ng-if="el.accident_status==1">待处理</td>
-                                    <td class="red-text text-lighten-2" ng-if="el.accident_status==2">处理中</td>
-                                    <td class="blue-text text-lighten-2" ng-if="el.accident_status==3">已处理</td>
+                                <tr ng-repeat="el in appSystemList" class="grey-text text-darken-1">
+                                    <td>{{el.updated_on | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                    <td  ng-if="el.type==null">所有</td>
+                                    <td  ng-if="el.type==1">安卓</td>
+                                    <td  ng-if="el.type==0">IOS</td>
+                                    <td  ng-if="el.app==1">物联存车</td>
+                                    <td  ng-if="el.app==2">车辆管理</td>
+                                    <td  ng-if="el.app==3">司机</td>
+                                    <td  ng-if="el.app==4">质量监管</td>
+                                    <td  ng-if="el.app==5">现场调度</td>
+                                    <td  ng-bind="el.version"></td>
+                                    <td  ng-if="el.force_update==1">是</td>
+                                    <td  ng-if="el.force_update==0">否</td>
+                                    <td  ng-bind="el.remark"></td>
                                     <td class="operation vc-center">
                                         <a ui-sref="look_truck_management({id:el.id,from:'truck_management'})"  class="cyan-text fz12" style="cursor: pointer;display: inline-block;width: 37px;height: 37px;">  <i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-file-document"></i></a>
                                     </td>
                                 </tr>
-                                <tr class="grey-text text-darken-1" ng-if="truckManagementList.length == 0">
-                                    <td colspan="11"><span style="letter-spacing: 2px">暂无数据</span></td>
+                                <tr class="grey-text text-darken-1" ng-if="appSystemList.length == 0">
+                                    <td colspan="7"><span style="letter-spacing: 2px">暂无数据</span></td>
                                 </tr>
                                 </tbody>
                             </table>

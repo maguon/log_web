@@ -76,36 +76,36 @@
     </div>
     <div>
         <div class="row col s12 valign-wrapper" >
-            <div class="col s4 right-align">
-                <div class="col s6 fz30 right-align" style="color:#00bcd4;margin-left: 60px">NO.{{vId}}</div>
-            </div>
-            <div class="col s8  offset-s3">
-                <div class="col s6 ">
-                    <div class="fz18" style="margin-top: 35px;color: darkgray">{{accidentDate | date:"yyyy-MM-dd HH:mm"}}</div>
+            <div class="col s12 ">
+                <div class="col s3 center-align">
+                    <div style="margin-top: 35px;color: #00bcd4;font-size: 1.6rem">事故编号：{{vId}}</div>
                 </div>
                 <div class="col s6 center-align">
+                    <div style="margin-top: 35px;color: darkgray;font-size: 1.6rem">{{accidentDate | date:"yyyy-MM-dd HH:mm"}}</div>
+                </div>
+                <div class="col s3 left-align">
                     <div class="col s12" ng-if="accidentStatus == 1">
-                        <p style="color: darkgray;padding: 0;font-size: 1.6rem">待处理</p>
+                        <p style="color: darkgray;padding: 0;font-size: 1.6rem;margin-top: 35px;">待处理</p>
                     </div>
                     <div class="col s12"  ng-if="accidentStatus == 2">
-                        <p  style="color: red;padding: 0;font-size: 1.6rem">处理中</p>
+                        <p  style="color: red;padding: 0;font-size: 1.6rem;margin-top: 35px;">处理中</p>
                     </div>
                     <div class="col s12"  ng-if="accidentStatus == 3">
-                        <p  style="color: #00bcd4;padding: 0;font-size: 1.6rem">已处理</p>
+                        <p  style="color: #00bcd4;padding: 0;font-size: 1.6rem;margin-top: 35px;">已处理</p>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row col s12 valign-wrapper" >
-            <div class="col s4 right-align">
-                <div class="col s5 right-align">
-                    <span class="white lighten-2 center" style="width:40px;height:40px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #efb366 !important;line-height: 41px">供</span>
+            <div class="col s12">
+                <div class="col s3 valign-wrapper">
+                    <div class="col s4 right-align">
+                        <span class="white lighten-2 center" style="width:40px;height:40px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #efb366 !important;line-height: 41px">供</span>
+                    </div>
+                    <div class="col s8" style="padding: 0;">
+                        <p class=" lighten-2 left-align" style="margin: 5px 0;font-weight: bold;font-size: 1.2rem;color: darkgray">{{truckNum}}</p>
+                    </div>
                 </div>
-                <div class="col s7 left-align" >
-                    <p class=" lighten-2 left-align" style="margin: 5px 0;font-weight: bold;font-size: 1.2rem;color: darkgray">{{truckNum}}</p>
-                </div>
-            </div>
-            <div class="col s8 offset-s3">
                 <div class="col s3 valign-wrapper">
                     <div class="col s3 right-align">
                         <span style="color: #26c6da;font-size: 1.6rem" class="mdi mdi-account"></span>
@@ -114,7 +114,7 @@
                         <span style="font-size: 1.2rem;font-weight: bold;color: darkgray">{{driveName}}</span>
                     </div>
                 </div>
-                <div class="col s4 valign-wrapper">
+                <div class="col s3 valign-wrapper">
                     <div class="col s4 right-align">
                         <span style="color: #26c6da;font-size: 1.6rem" class="mdi mdi-cellphone-android"></span>
                     </div>
@@ -122,7 +122,7 @@
                         <span style="font-size: 1.2rem;font-weight: bold;color: darkgray">{{truckTel}}</span>
                     </div>
                 </div>
-                <div class="col s5 valign-wrapper">
+                <div class="col s3 valign-wrapper">
                     <div class="col s4 right-align">
                         <span style="color: #26c6da;font-size: 1.6rem" class="mdi mdi-hospital-building"></span>
                     </div>
@@ -198,7 +198,7 @@
                             </div>
                             <div class="row col s12"  id="look_img">
                                 <div class="col s12" id="accient_image">
-                                    <div ng-repeat="el in AccientImageList" repeat-finish="accientFinish()" ng-mouseenter="show=true" ng-mouseleave="show=false" class="truck_car_picture col s3 vc-center  p0 grey white-text">
+                                    <div ng-repeat="el in accientImageList" repeat-finish="accientFinish()" ng-mouseenter="show=true" ng-mouseleave="show=false" class="truck_car_picture col s3 vc-center  p0 grey white-text">
                                         <img ng-src="{{el.url}}" class="responsive-img">
                                         <b class="delete_img vc-center black fz18" ng-click="delete_img(el.url)"><i class="mdi mdi-close"></i></b>
                                         <p class="img_date white-text center-align" ng-show="show" ng-cloak>{{el.user}}上传于{{el.time|date:'yyyy-MM-dd HH:mm:ss'}}</p>
@@ -221,7 +221,8 @@
             <div class="handleInfoInput" ng-if="accidentStatus == 2" style="width:60%;margin-left:auto;margin-right:auto;margin-top:20px" >
                     <div class="row col s12">
                         <div class="col s12 input-field " style="width: 100%">
-                            <select material-select  ng-model="currentAccInfo.truck_accident_type"  ng-change="AccidentType()" id="truckAccidentType"  required>
+                            <select material-select  ng-model="currentAccInfo.truck_accident_type"  ng-value="currentAccInfo.truck_accident_type" id="truckAccidentType"  required>
+                                <option value="0">请选择</option>
                                 <option value="1">一般</option>
                                 <option value="2">严重</option>
                             </select>
@@ -230,9 +231,7 @@
                     </div>
                     <div class="row col s12">
                         <div class="col s6 input-field" style="margin-top: 15px;color: #26c6da">
-                            <select id="fined" style="width: 100%;color: #26c6da" ng-model="currentAccInfo.under_user_name" >
-                                <option  style="font-weight: bold;color: #26c6da;" value="">责任人</option>
-                                <option ng-repeat="el in underUserNameList" >{{el.real_name}}</option>
+                            <select id="fined" style="width: 100%;color: #26c6da" ng-model="currentAccInfo.under_user_name" ng-value="currentAccInfo.under_user_name">
                             </select>
                         </div>
                         <div class="col s6 valign-wrapper">

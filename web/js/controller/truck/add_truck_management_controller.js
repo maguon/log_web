@@ -5,6 +5,7 @@ app.controller("add_truck_management_controller", ["$scope", "$state", "$statePa
         $scope.step_second =false;
         $scope.car_image_i = [];
         $scope.car_imageBox = [];
+        $scope.vhe_no;
         //返回
         $scope.return = function () {
             $state.go($stateParams.from, {reload: true})
@@ -153,11 +154,13 @@ app.controller("add_truck_management_controller", ["$scope", "$state", "$statePa
         $scope.truckNumclick=function(){
             _basic.get($host.api_url +"/truckBase?truckNum=" + $scope.truckNum).then(function (data) {
                         $scope.Id  =data.result[0].id;
+                        $scope.vhe_no=$scope.truckNum;
             })
         }
         $scope.trailNumclick=function(){
             _basic.get($host.api_url +"/truckBase?truckNum=" + $scope.trailNum).then(function (data) {
                 $scope.Id  =data.result[0].id;
+                $scope.vhe_no=$scope.trailNum;
             })
         }
         // 提交事故信息
@@ -236,7 +239,7 @@ app.controller("add_truck_management_controller", ["$scope", "$state", "$statePa
                     "userId": userId,
                     "userType": _basic.getSession(_basic.USER_TYPE),
                     "url": imageId,
-                    "vheNo": ""
+                    "vheNo": $scope.vhe_no
                 }).then(function (data) {
                     if (data.success == true) {
                         if ($scope.car_imageBox.length != 0) {

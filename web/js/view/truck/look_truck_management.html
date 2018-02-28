@@ -150,9 +150,9 @@
                     <form name="add_truck_managementFrom" novalidate>
                         <div class="row">
                             <div class="col s6 input-field mp-40"  ng-class="{'has-error':add_truck_managementFrom.date.$invalid&&submitted }">
-                            <input type="text" id="accident_date" name="date" ng-model="accidentDateDetail" class="datepicker" autocomplete="off"  required   date><i class="mdi dataIcon mdi-table-large"></i>
-                            <label check_operation_endTime class="grey-text bold" for="accident_date" style="color:#00bcd4 "><span style="color: red">*</span>发生时间</label>
-                        </div>
+                                <input type="text" id="accident_date" name="date" ng-model="accidentDateDetail" class="datepicker" autocomplete="off"  required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                <label check_operation_endTime class="grey-text bold" for="accident_date" style="color:#00bcd4 "><span style="color: red">*</span>发生时间</label>
+                            </div>
                             <div class="col s6 input-field mp-40"  ng-class="{'has-error':add_truck_managementFrom.accident_date.$invalid&&submitted }">
                                 <input type="text" id="verification_time3" name="accident_date" ng-model="lineStartTime" class="timepicker" autocomplete="off" required   time><i class="mdi dataIcon mdi-clock"></i>
                                 <label check_operation_endTime class="grey-text bold" for="verification_time3"><span style="color: red">*</span>发生时刻</label>
@@ -219,74 +219,74 @@
                 </div>
             </div>
             <div class="handleInfoInput" ng-if="accidentStatus == 2" style="width:60%;margin-left:auto;margin-right:auto;margin-top:20px" >
-                    <div class="row col s12">
-                        <div class="col s12 input-field " style="width: 100%">
-                            <select material-select  ng-model="currentAccInfo.truck_accident_type"  ng-value="currentAccInfo.truck_accident_type" id="truckAccidentType"  required>
-                                <option value="0">请选择</option>
-                                <option value="1">一般</option>
-                                <option value="2">严重</option>
-                            </select>
-                            <label for="truckAccidentType">事故类型</label>
-                        </div>
+                <div class="row col s12">
+                    <div class="col s12 input-field " style="width: 100%">
+                        <select material-select  ng-model="currentAccInfo.truck_accident_type"  ng-value="currentAccInfo.truck_accident_type" id="truckAccidentType"  required>
+                            <option value="0">请选择</option>
+                            <option value="1">一般</option>
+                            <option value="2">严重</option>
+                        </select>
+                        <label for="truckAccidentType">事故类型</label>
                     </div>
-                    <div class="row col s12">
-                        <div class="col s6 input-field" style="margin-top: 15px;color: #26c6da">
-                            <select id="fined" style="width: 100%;color: #26c6da" ng-model="currentAccInfo.under_user_name" ng-value="currentAccInfo.under_user_name">
-                            </select>
-                        </div>
-                        <div class="col s6 valign-wrapper">
-                            <div class="col s11 input-field" style="padding: 0">
-                                <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="under_cost" type="number"  ng-change="under_cost" ng-model="currentAccInfo.under_cost">
-                                <label style="font-weight: bold" for="under_cost">承担金额</label>
-                            </div>
-                            <div class="col s1 left-align" style="padding: 0">
-                                <p>元</p>
-                            </div>
-                        </div>
+                </div>
+                <div class="row col s12">
+                    <div class="col s6 input-field" style="margin-top: 15px;color: #26c6da">
+                        <select id="fined" style="width: 100%;color: #26c6da">
+                        </select>
                     </div>
-                    <div class="row col s12">
-                        <div class="col s6 valign-wrapper">
-                            <div class="col s11 input-field" style="padding: 0">
-                                <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="companycost" type="number" ng-change="company_cost" ng-model="currentAccInfo.company_cost">
-                                <label style="font-weight: bold" for="companycost">公司承担金额</label>
-                            </div>
-                            <div class="col s1 left-align" style="padding: 0">
-                                <p>元</p>
-                            </div>
+                    <div class="col s6 valign-wrapper">
+                        <div class="col s11 input-field" style="padding: 0">
+                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="under_cost" type="number"  ng-change="under_cost" ng-model="currentAccInfo.under_cost">
+                            <label style="font-weight: bold" for="under_cost">承担金额</label>
                         </div>
-                        <div class="col s6 valign-wrapper">
-                            <div class="col s11 input-field" style="padding: 0">
-                                <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="companyFee" type="number" ng-change="profit" ng-model="currentAccInfo.profit">
-                                <label style="font-weight: bold" for="companyFee">盈亏</label>
-                            </div>
-                            <div class="col s1 left-align" style="padding: 0">
-                                <p>元</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row col s12">
-                        <div class="col s12 input-field" style="width: 100%">
-                            <label style="font-weight: bold" for="companyRemark">处理概述：</label>
-                            <input style="text-align: right;color: rgb(230,123,123)" id="companyRemark" type="text" ng-model="currentAccInfo.remark" ng-change="remark">
-                        </div>
-                        <div class="col s4 offset-s8 right-align">
-                            <p style="font-weight: bold;color: darkgray;font-size: 1.2rem">处理人：{{currentAccInfo.op_user_name}}</p>
-                        </div>
-                    </div>
-
-                    <div class="row col s12" style="margin-top: 30px" ng-hide="accidentStatus == 3">
-                        <div class="col s2 offset-s3">
-                            <a ng-click="submitHandleInfo()" style="width: 100%" class="waves-light waves-effect red lighten-2 btn">结束
-                            </a>
-                        </div>
-                        <div class="col s2 offset-s2">
-                            <a ng-click="saveHandleInfoModify()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
-                                提交
-                            </a>
+                        <div class="col s1 left-align" style="padding: 0">
+                            <p>元</p>
                         </div>
                     </div>
                 </div>
+                <div class="row col s12">
+                    <div class="col s6 valign-wrapper">
+                        <div class="col s11 input-field" style="padding: 0">
+                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="companycost" type="number" ng-change="company_cost" ng-model="currentAccInfo.company_cost">
+                            <label style="font-weight: bold" for="companycost">公司承担金额</label>
+                        </div>
+                        <div class="col s1 left-align" style="padding: 0">
+                            <p>元</p>
+                        </div>
+                    </div>
+                    <div class="col s6 valign-wrapper">
+                        <div class="col s11 input-field" style="padding: 0">
+                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="companyFee" type="number" ng-change="profit" ng-model="currentAccInfo.profit">
+                            <label style="font-weight: bold" for="companyFee">盈亏</label>
+                        </div>
+                        <div class="col s1 left-align" style="padding: 0">
+                            <p>元</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row col s12">
+                    <div class="col s12 input-field" style="width: 100%">
+                        <label style="font-weight: bold" for="companyRemark">处理概述：</label>
+                        <input style="text-align: right;color: rgb(230,123,123)" id="companyRemark" type="text" ng-model="currentAccInfo.remark" ng-change="remark">
+                    </div>
+                    <div class="col s4 offset-s8 right-align">
+                        <p style="font-weight: bold;color: darkgray;font-size: 1.2rem">处理人：{{currentAccInfo.op_user_name}}</p>
+                    </div>
+                </div>
+
+                <div class="row col s12" style="margin-top: 30px" ng-hide="accidentStatus == 3">
+                    <div class="col s2 offset-s3">
+                        <a ng-click="submitHandleInfo()" style="width: 100%" class="waves-light waves-effect red lighten-2 btn">结束
+                        </a>
+                    </div>
+                    <div class="col s2 offset-s2">
+                        <a ng-click="saveHandleInfoModify()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                            提交
+                        </a>
+                    </div>
+                </div>
+            </div>
             <div  class="handleInfoInput" ng-if="accidentStatus == 3" style="width:70%;margin-left:auto;margin-right:auto;margin-top:20px">
                 <div style="width: 100%;margin: 0 auto">
                     <div class="row card" style="height: 270px">
@@ -321,7 +321,7 @@
 
                         <div class="row col s12">
                             <div class="col s6 valign-wrapper left-align">
-                                    <div style="font-weight: bold ;margin-left: 40px"  for="company_remark">处理概述：{{currentAccInfo.remark}}</div>
+                                <div style="font-weight: bold ;margin-left: 40px"  for="company_remark">处理概述：{{currentAccInfo.remark}}</div>
                             </div>
                             <div class="col s4 offset-s8 right-align">
                                 <p style="font-weight: bold;color: darkgray;font-size: 1.2rem">处理人：{{currentAccInfo.op_user_name}}</p>
@@ -330,27 +330,27 @@
                     </div>
                 </div>
             </div>
-            </div>
+        </div>
         <div  id="test4" class="test col s12 step_4" >
             <div class="row dealerWrap" style="width:60%;margin-left:auto;margin-right:auto;margin-top:20px">
-                    <div class="card-panel white " ng-repeat="el in accidentList" style="padding: 0" >
-                        <div class="row  lighten-2 white-text setting_shipments_title vc-center" style="padding: 10px;background: #eee;height:70px;">
-                            <div class="col s12">
-                                <div class="row col s12 valign-wrapper" >
-                                    <div class="col s3 left-align">
-                                        <div class="col s12 fz14 right-align" style="margin-top: 25px;color:#00bcd4;">维修编号.{{el.id}}</div>
+                <div class="card-panel white " ng-repeat="el in accidentList" style="padding: 0" >
+                    <div class="row  lighten-2 white-text setting_shipments_title vc-center" style="padding: 10px;background: #eee;height:70px;">
+                        <div class="col s12">
+                            <div class="row col s12 valign-wrapper" >
+                                <div class="col s3 left-align">
+                                    <div class="col s12 fz14 right-align" style="margin-top: 25px;color:#00bcd4;">维修编号.{{el.id}}</div>
+                                </div>
+                                <div class="col s9  offset-s3">
+                                    <div class="col s4 valign-wrapper">
+                                        <div class="fz10" style="margin-top: 35px;color: darkgray">{{el.created_on | date:"yyyy-MM-dd HH:mm"}}</div>
                                     </div>
-                                    <div class="col s9  offset-s3">
-                                        <div class="col s4 valign-wrapper">
-                                            <div class="fz10" style="margin-top: 35px;color: darkgray">{{el.created_on | date:"yyyy-MM-dd HH:mm"}}</div>
-                                        </div>
-                                        <div class="col s1 valign-wrapper">
-                                            <div class="fz14" style="margin-top: 35px;color: darkgray">至</div>
-                                        </div>
-                                        <div class="col s4 ">
-                                            <div class="fz10" style="margin-top: 35px;color: darkgray">{{el.end_date | date:"yyyy-MM-dd HH:mm"}}</div>
-                                        </div>
-                                        <div class="col s3 ">
+                                    <div class="col s1 valign-wrapper">
+                                        <div class="fz14" style="margin-top: 35px;color: darkgray">至</div>
+                                    </div>
+                                    <div class="col s4 ">
+                                        <div class="fz10" style="margin-top: 35px;color: darkgray">{{el.end_date | date:"yyyy-MM-dd HH:mm"}}</div>
+                                    </div>
+                                    <div class="col s3 ">
                                         <div class="s12" ng-if="accidentStatus == 1">
                                             <p class="fz6" style="color:darkgray;padding: 0;margin-top: 35px;">待处理</p>
                                         </div>
@@ -363,32 +363,32 @@
                                     </div>
                                 </div>
                             </div>
-                            </div>
                         </div>
-                        <p class="grey-text row" style="margin-left: 48px ;margin-top: 20px">
-                            <span class="col s3" style="min-width: 90px">维修站:</span>
-                            <span class="cyan-text text-lighten-2 col s9">{{el.repair_station_name}}</span>
-                        </p>
-                        <p class="grey-text  row " style="margin-left:48px;height:50px;">
-                            <span class="col s3" style="min-width: 90px">维修原因:</span>
-                            <span class="col s9 clamp fz12">
+                    </div>
+                    <p class="grey-text row" style="margin-left: 48px ;margin-top: 20px">
+                        <span class="col s3" style="min-width: 90px">维修站:</span>
+                        <span class="cyan-text text-lighten-2 col s9">{{el.repair_station_name}}</span>
+                    </p>
+                    <p class="grey-text  row " style="margin-left:48px;height:50px;">
+                        <span class="col s3" style="min-width: 90px">维修原因:</span>
+                        <span class="col s9 clamp fz12">
                                 {{el.repair_reason}}
                             </span>
-                        </p>
-                        <div style="border-bottom: 1px solid #ccc"></div>
-                        <p class="grey-text  row " style="margin-left:48px;height:50px;">
-                            <span class="col s9 right-align" style="min-width: 90px">维修金额:</span>
-                            <span class="col s3 clamp fz12" style="color: red;line-height: 25px">
+                    </p>
+                    <div style="border-bottom: 1px solid #ccc"></div>
+                    <p class="grey-text  row " style="margin-left:48px;height:50px;">
+                        <span class="col s9 right-align" style="min-width: 90px">维修金额:</span>
+                        <span class="col s3 clamp fz12" style="color: red;line-height: 25px">
                                 {{el.repair_money}}
                             </span>
-                        </p>
-                    </div>
+                    </p>
+                </div>
             </div>
         </div>
         <div  id="test5" class="test col s12 step_5" >
             <div class="row col s12" style="margin-top:20px;width: 100%">
                 <a ng-click="beginAccidentInsure()"  class="waves-light waves-effect cyan lighten-1 btn" style="margin-left:85% ">
-                增加理赔信息
+                    增加理赔信息
                 </a>
             </div>
             <div class="col s12" style="width:60%;margin-left:20%;margin-right:20%;">
@@ -405,9 +405,12 @@
                                     </div>
                                     <div class="col s4 ">
                                         <div class="col s12" ng-if="el.insure_type == 1">
+                                            <p class="fz15" style="color:darkgray;padding: 0;margin-top: 35px;">未处理</p>
+                                        </div>
+                                        <div class="col s12" ng-if="el.insure_type == 2">
                                             <p class="fz15" style="color:red;padding: 0;margin-top: 35px;">处理中</p>
                                         </div>
-                                        <div class="col s12"  ng-if="el.insure_type == 2">
+                                        <div class="col s12"  ng-if="el.insure_type == 3">
                                             <p  class="fz15" style="color: #00bcd4;padding: 0;margin-top: 35px;">已结束</p>
                                         </div>
                                     </div>
@@ -457,7 +460,7 @@
                         <div class="col {{accidentDetails.insure_status == 1 ? 's10' : 's12'}} input-field">
                             <input type="text" name="payment_money_start" id="relation_accident" ng-model="relationAccidentNum">
                             <label for="relation_accident">关联事故</label>
-                         </div>
+                        </div>
                     </div>
                     <!--事故详情-->
                     <div class="col s12 fz12" ng-repeat="accident in accidentClaimList" style="margin-bottom: 5px">
@@ -507,4 +510,3 @@
         </div>
     </div>
 </div>
-

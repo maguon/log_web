@@ -54,7 +54,7 @@ app.controller("app_version_controller", ["$scope", "$state", "$stateParams", "_
                 if (data.success == true) {
                     swal("新增成功", "", "success");
                     $('#addAppSystem').modal('close');
-                    getAppSystemList ();
+                    $scope.searchAppSystem();
                 } else {
                     swal(data.msg, "", "error");
                 }

@@ -9,24 +9,26 @@
                     <div style="width: 90%;margin: 0 auto">
                         <div class="col s12">
                             <div class=" col s6 p0">
-                                <div class=" col s12">
-                                    <select  material-select ng-model="addSystemType">
-                                        <option value=""><span style="color: red">* </span>系统</option>
+                                <div class=" col s12 input-field">
+                                    <select  material-select watch ng-model="addSystemType">
+                                        <option value="" selected>请选择</option>
                                         <option ng-value="1">安卓</option>
                                         <option ng-value="2">IOS</option>
                                     </select>
+                                    <label><span style="color: red">* </span>系统</label>
                                 </div>
                             </div>
                             <div class=" col s6 p0">
-                                <div class=" col s12">
-                                    <select  material-select ng-model="addAppType">
-                                        <option value=""><span style="color: red">* </span>模块</option>
+                                <div class=" col s12 input-field">
+                                    <select  material-select watch ng-model="addAppType">
+                                        <option value="" selected>请选择</option>
                                         <option ng-value="1">物联存车</option>
                                         <option ng-value="2">车辆管理</option>
                                         <option ng-value="3">司机</option>
                                         <option ng-value="4">质量监管</option>
                                         <option ng-value="5">现场调度</option>
                                     </select>
+                                    <label><span style="color: red">* </span>模块</label>
                                 </div>
                             </div>
                         </div>
@@ -40,10 +42,11 @@
                             <div class=" col s6 p0">
                                 <div class="input-field col s12">
                                     <select  material-select watch ng-model="addForceUpdate">
-                                        <option value=""><span style="color: red">* </span>是否强制更新</option>
+                                        <option value="" selected>请选择</option>
                                         <option ng-value="1">是</option>
                                         <option ng-value="0">否</option>
                                     </select>
+                                    <label><span style="color: red">* </span>是否强制更新</label>
                                 </div>
                             </div>
                         </div>

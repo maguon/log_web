@@ -85,6 +85,9 @@
                             <a ui-sref="truck_compensate_loan_details({id:loan.id,compensateId:loan.accident_insure_id})" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-eye" style="margin: 0"></i></a>
                         </td>
                     </tr>
+                    <tr class="grey-text text-darken-1" ng-if="compensateLoanList.length == 0">
+                        <td colspan="9"><span style="letter-spacing: 2px">暂无数据</span></td>
+                    </tr>
                     </tbody>
                 </table>
             </div>

@@ -6,20 +6,22 @@
             </div>
             <div class="row col s12" style="margin-top: 35px">
                 <div class="col s8 offset-s2">
-                    <div class="col s3 input-field" ng-class="{'has-error':add_truck_form.truck_make.$invalid&&submitted }">
+                    <div class="col s3 input-field">
                         <select required material-select watch id="record_truck_type_mod"  ng-model="modRecordTruckType" >
+                            <option value="" selected>请选择</option>
                             <option ng-repeat="company in insureCompanyList" ng-value="company.id">{{company.insure_name}}</option>
                         </select>
                         <label for="record_truck_type_mod"><span style="color: red">* </span>保险公司</label>
                     </div>
-                    <div class="col s3 input-field" ng-class="{'has-error':add_truck_form.truck_make.$invalid&&submitted }">
-                        <select material-select watch id="truck_num_mod" style="width:100%"  ng-model="modTruckNum" required>
+                    <div class="col s3 input-field">
+                        <select material-select watch style="width:100%"  ng-model="modTruckNum" required>
+                            <option value="" selected>请选择</option>
                             <option value="1">交强险</option>
                             <option value="2">商业险</option>
                             <option value="3">货运险</option>
                             <option value="4">未知</option>
                         </select>
-                        <label for="record_truck_type_mod"><span style="color: red">* </span>保险种类</label>
+                        <label><span style="color: red">* </span>保险种类</label>
                     </div>
                     <div class="col s6 input-field" ng-class="{'has-error':add_truck_form.truck_make.$invalid&&submitted }">
                         <input type="number" name="truck_name" id="insure_plan" ng-model="insurePlan" required>
@@ -27,8 +29,9 @@
                     </div>
                     <div class="col s6 input-field" ng-class="{'has-error':add_truck_form.truck_make.$invalid&&submitted }">
                         <select material-select watch id="modRecordTruckType"   ng-model="TruckType">
-                            <option value="0"  >是</option>
-                            <option value="1"  >否</option>
+                            <option value="" selected>请选择</option>
+                            <option value="0">是</option>
+                            <option value="1">否</option>
                         </select>
                         <label for="modRecordTruckType"><span style="color: red">* </span>是否财务借款</label>
                     </div>

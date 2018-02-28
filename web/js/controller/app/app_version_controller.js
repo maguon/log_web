@@ -1,13 +1,15 @@
 app.controller("app_version_controller", ["$scope", "$state", "$stateParams", "_basic", "_config", "$host", function ($scope, $state, $stateParams, _basic, _config, $host) {
     $scope.size = 10;
-    $scope.start=0;
+    $scope.start = 0;
     var userId = _basic.getSession(_basic.USER_ID);
     // 获取app筛选列表
     function getAppSystemList () {
         _basic.get($host.api_url + "/app?" + _basic.objToUrl({
             app: $scope.appType,
             type:$scope.getSystemType,
-            forceUpdate:$scope.forceUpdate
+            forceUpdate:$scope.forceUpdate,
+            start:$scope.start.toString(),
+            size:$scope.size
         })).then(function (data) {
             if (data.success === true) {
                 if ($scope.start > 0) {
@@ -32,15 +34,6 @@ app.controller("app_version_controller", ["$scope", "$state", "$stateParams", "_
     // 点击搜索
     $scope.searchAppSystem = function () {
         $scope.start=0;
-        getAppSystemList();
-    };
-    // 分页
-    $scope.previous_page = function () {
-        $scope.start = $scope.start - $scope.size;
-        getAppSystemList();
-    };
-    $scope.next_page = function () {
-        $scope.start = $scope.start + $scope.size;
         getAppSystemList();
     };
     //添加
@@ -71,22 +64,57 @@ app.controller("app_version_controller", ["$scope", "$state", "$stateParams", "_
                 swal("请填写完整信息！", "", "warning");
             }
     }
-    //修改
+    //查看详情
     $scope.showAppSystem=function (id) {
         $('.modal').modal();
         $('#showAppSystem').modal('open');
-        _basic.get($host.api_url + "/app?id=" + id).then(function (data) {
+        _basic.get($host.api_url + "/app?appId=" + id).then(function (data) {
             if (data.success == true) {
                 $scope.showAppSystemList = data.result[0];
+                $scope.showAppSystemList.app = data.result[0].app+"";
+                $scope.showAppSystemList.type = data.result[0].type+"";
+                $scope.showAppSystemList.force_update = data.result[0].force_update+"";
             } else {
                 swal(data.msg, "", "error");
             }
-
         })
     }
-    // 获取数据
-    function queryData () {
-         $scope.searchAppSystem()
+    //修改
+    $scope.submitAppSystemItem = function (id) {
+        if($scope.showAppSystemList.app !== "" &&  $scope.showAppSystemList.type!==""
+            &&$scope.showAppSystemList.force_update!== ""&& $scope.showAppSystemList.version!== "" &&$scope.showAppSystemList.url!== ""){
+            var obj = {
+                app: $scope.showAppSystemList.app,
+                appType: $scope.showAppSystemList.type,
+                forceUpdate: $scope.showAppSystemList.force_update,
+                version: $scope.showAppSystemList.version,
+                url: $scope.showAppSystemList.url,
+                remark: $scope.showAppSystemList.remark
+            };
+            _basic.put($host.api_url + "/user/" + userId+"/app/" +id, obj).then(function (data) {
+                if (data.success == true) {
+                    console.log(data)
+                    swal("修改成功", "", "success");
+                    $('#showAppSystem').modal('close');
+                    getAppSystemList ();
+                } else {
+                    swal(data.msg, "", "error");
+                }
+            })
+        }
+
+    else{
+            swal("请填写完整信息！", "", "warning");
+        }
     };
-    queryData();
+    // 分页
+    $scope.previous_page = function () {
+        $scope.start = $scope.start - $scope.size;
+        getAppSystemList();
+    };
+    $scope.next_page = function () {
+        $scope.start = $scope.start + $scope.size;
+        getAppSystemList();
+    };
+    $scope.searchAppSystem();
 }])

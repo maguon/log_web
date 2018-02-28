@@ -374,7 +374,6 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
     function getLiablePersonItem (){
         _basic.get($host.api_url + "/user?realName="+$scope.underUserName).then(function (data) {
             if (data.success === true) {
-                console.log(data)
                 $('#fined').val(data.result[0].uid);
                 $("#select2-liable_person-container").html($("#fined").find("option:selected").text());
             }
@@ -555,6 +554,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
     $scope.queryData = function () {
         getDetailTruckData();
         getLiablePersonList();
+        getLiablePersonItem()
     };
     $scope.queryData();
 }]);

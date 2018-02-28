@@ -89,53 +89,56 @@
                     <div style="width: 90%;margin: 0 auto">
                         <div class="col s12">
                             <div class=" col s6 p0">
-                                <div class=" col s12">
-                                    <select  material-select ng-model="howAppSystemList.type" ng-value="showAppSystemList.type">
-                                        <option value=""><span style="color: red">* </span>系统</option>
-                                        <option ng-value="1">安卓</option>
-                                        <option ng-value="2">IOS</option>
+                                <div class="input-field col s12">
+                                    <select id="type" required material-select   ng-model="showAppSystemList.type">
+                                        <option value="" selected>请选择</option>
+                                        <option value="1">安卓</option>
+                                        <option value="2">IOS</option>
                                     </select>
+                                    <label for="type"><span style="color: red">* </span>系统</label>
                                 </div>
                             </div>
                             <div class=" col s6 p0">
-                                <div class=" col s12">
-                                    <select  material-select ng-model="showAppSystemList.app" ng-value="showAppSystemList.app">
-                                        <option value=""><span style="color: red">* </span>模块</option>
-                                        <option ng-value="1">物联存车</option>
-                                        <option ng-value="2">车辆管理</option>
-                                        <option ng-value="3">司机</option>
-                                        <option ng-value="4">质量监管</option>
-                                        <option ng-value="5">现场调度</option>
+                                <div class="input-field col s12">
+                                    <select  material-select watch ng-model="showAppSystemList.app">
+                                        <option value="" selected>请选择</option>
+                                        <option value="1">物联存车</option>
+                                        <option value="2">车辆管理</option>
+                                        <option value="3">司机</option>
+                                        <option value="4">质量监管</option>
+                                        <option value="5">现场调度</option>
                                     </select>
+                                    <label><span style="color: red">* </span>模块</label>
                                 </div>
                             </div>
                         </div>
                         <div class="col s12">
                             <div class=" col s6 p0">
                                 <div class="col s12 input-field">
-                                    <input type="text" id="updateAppVersion" ng-model="showAppSystemList.version" ng-value="showAppSystemList.version">
+                                    <input type="text" id="updateAppVersion" ng-model="showAppSystemList.version" >
                                     <label for="addAppVersion"><span style="color: red">* </span>版本号</label>
                                 </div>
                             </div>
                             <div class=" col s6 p0">
                                 <div class="input-field col s12">
-                                    <select  material-select watch ng-model="showAppSystemList.force_update" ng-value="showAppSystemList.force_update">
-                                        <option value=""><span style="color: red">* </span>是否强制更新</option>
-                                        <option ng-value="1">是</option>
-                                        <option ng-value="0">否</option>
+                                    <select  required material-select  ng-model="showAppSystemList.force_update">
+                                        <option value="" selected>请选择</option>
+                                        <option value="1">是</option>
+                                        <option value="0">否</option>
                                     </select>
+                                    <label><span style="color: red">* </span>是否强制更新</label>
                                 </div>
                             </div>
                         </div>
                         <div class="col s12 " style="margin-bottom:  40px;">
                             <div class="col s12 input-field">
-                                <input type="text" name="uploadUrl" id="updateUploadUrl" ng-model="showAppSystemList.url" ng-value="showAppSystemList.url">
+                                <input type="text" name="uploadUrl" id="updateUploadUrl" ng-model="showAppSystemList.url" >
                                 <label for="uploadUrl"><span style="color: red">* </span>下载地址</label>
                             </div>
                         </div>
                         <div class="col s12">
                             <div class="col s12 input-field">
-                                <input type="text" id="pdateforceUpdate_description" ng-model="showAppSystemList.remark" ng-value="showAppSystemList.remark">
+                                <input type="text" id="pdateforceUpdate_description" ng-model="showAppSystemList.remark" >
                                 <label for="addforceUpdate_description">描述</label>
                             </div>
                         </div>
@@ -150,7 +153,7 @@
                         </a>
                     </div>
                     <div class="col s2">
-                        <a ng-click="submitClaimInfoList()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                        <a ng-click="submitAppSystemItem(showAppSystemList.id)" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
                             确定
                         </a>
                     </div>
@@ -168,8 +171,8 @@
                                         <div class="input-field col s12">
                                             <select  material-select watch ng-model="getSystemType">
                                                 <option value="">系统</option>
-                                                <option ng-value="1">安卓</option>
-                                                <option ng-value="2">IOS</option>
+                                                <option value="1">安卓</option>
+                                                <option value="2">IOS</option>
                                             </select>
                                         </div>
                                     </div>
@@ -177,11 +180,11 @@
                                         <div class="input-field col s12">
                                             <select  material-select watch ng-model="appType">
                                                 <option value="">模块</option>
-                                                <option ng-value="1">物联存车</option>
-                                                <option ng-value="2">车辆管理</option>
-                                                <option ng-value="3">司机</option>
-                                                <option ng-value="4">质量监管</option>
-                                                <option ng-value="5">现场调度</option>
+                                                <option value="1">物联存车</option>
+                                                <option value="2">车辆管理</option>
+                                                <option value="3">司机</option>
+                                                <option value="4">质量监管</option>
+                                                <option value="5">现场调度</option>
                                             </select>
                                         </div>
                                     </div>
@@ -189,8 +192,8 @@
                                         <div class="input-field col s12">
                                             <select  material-select watch ng-model="forceUpdate">
                                                 <option value="">是否强制更新</option>
-                                                <option ng-value="1">是</option>
-                                                <option ng-value="0">否</option>
+                                                <option value="1">是</option>
+                                                <option value="0">否</option>
                                             </select>
                                         </div>
                                     </div>

@@ -95,7 +95,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
             onSearchComplete: myFun
         });
         local.search(myValue);
-        $scope.address=myValue;
+        // $scope.address=myValue;
     }
     //搜索新地址
     $scope.search_location = function (myKeys) {
@@ -327,7 +327,9 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                         $scope.currentAccInfo = data.result[0];
                         $scope.truckAccidentCheckId= data.result[0].id;
                         $scope.underUserName= data.result[0].under_user_name;
-                        getLiablePersonItem();
+                        if( $scope.underUserName!==null){
+                            $("#select2-liable_person-container").html($("#fined").find("option:selected").text( $scope.underUserName));
+                        }
                     }
                 }
                 else {
@@ -350,10 +352,6 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                             data.result[i].job = $scope.userList[j].name
                         }
                     }
-                    responsibilityDataList[0] = {
-                        id: 0,
-                        text: "责任人"
-                    };
                     responsibilityDataList[i + 1] = {
                         id: data.result[i].uid,
                         text: data.result[i].real_name + " " + data.result[i].job
@@ -371,14 +369,6 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
             }
         });
     };
-    function getLiablePersonItem (){
-        _basic.get($host.api_url + "/user?realName="+$scope.underUserName).then(function (data) {
-            if (data.success === true) {
-                $('#fined').val(data.result[0].uid);
-                $("#select2-liable_person-container").html($("#fined").find("option:selected").text());
-            }
-        })
-    }
     $scope.saveHandleInfoModify= function () {
         _basic.put($host.api_url + "/user/" + userId + "/truckAccidentCheck/" +  $scope.truckAccidentCheckId, {
             truckAccidentId:truckDamageId,
@@ -516,8 +506,6 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                     swal("新增成功", "", "success");
                     $('#addInfoModel').modal('close');
                     $scope.accidentInsure();
-                    // $scope.insureId=data.result[0].id;
-
                 }
                 else {
                     swal(data.msg, "", "error");
@@ -554,7 +542,6 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
     $scope.queryData = function () {
         getDetailTruckData();
         getLiablePersonList();
-        getLiablePersonItem()
     };
     $scope.queryData();
 }]);

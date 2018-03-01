@@ -2,110 +2,177 @@
    ui-sref="insurance_compensation">
     <i class="mdi mdi-arrow-left-bold"></i>
 </a>
-<div class="add_damage_insurance">
+<div class="add_damage_insurance_details">
     <div class="vc-center">
         <h5 class="center-align cyan-text text-lighten-1">质损保险详情</h5>
     </div>
     <div class="divider" style="background: #00bcd4;height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
-    <div class="row col s12" style="width: 75%;margin: 0 auto">
-        <div class="row col s12">
-            <div class="col s6 valign-wrapper">
-                <span style="color: red">*</span>&nbsp;
-                <div class="col s12 input-field" style="padding: 0;">
-                    <select material-select watch ng-model="insuranceCompany" disabled>
-                        <option ng-repeat="company in insuranceCompanyList" ng-value="company.id">{{company.insure_name}}</option>
-                    </select>
+
+    <div class="row" style="width: 80%;margin: 0 auto">
+        <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
+            <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
+                <div class="col s3 left-align" style="color: #26c6da">
+                    <p style="margin: 0">理赔编号：{{currentInsurInfo.id}}</p>
+                </div>
+                <div class="col s7 right-align" style="color: darkgray">
+                    <p ng-show="insureStatus == 1">经办人：{{currentInsurInfo.insure_user_name}}</p>
+                </div>
+                <div class="col s2 center-align">
+                    <p style="color: #e57373" ng-if="insureStatus == 1">处理中</p>
+                    <p style="color: #26c6da" ng-if="insureStatus == 2">已处理</p>
                 </div>
             </div>
-            <div class="col s6 input-field">
-                <input disabled id="VinCode" type="text" ng-model="handler">
-                <label for="VinCode">经办人</label>
-            </div>
-        </div>
-        <div class="row col s12">
-            <div class="col s10 input-field">
-                <input id="associated_damage" type="text" ng-model="damageNum">
-                <label style="color: #00bcd4;font-weight: bold" for="associated_damage"><span style="color: red;">* </span>关联质损</label>
-            </div>
-            <div class="col s2 center flex flex-round">
-                <a ng-if="insureStatus != 2" class="btn-floating btn-large waves-light waves-effect cyan lighten-2 btn vc-center"
-                   ng-click="searchDamageDetails()">
-                    <i class="mdi mdi-playlist-plus"></i>
-                </a>
-            </div>
-        </div>
-        <!--信息卡片-->
-        <div class="row col s12">
-            <!--这下面加ng-repeat-->
-            <div class="row col s12" ng-repeat="damage in damageInfoCardList" style="border: 2px solid #26c6da;border-radius: 5px;background-color: white;color: darkgray">
-                <!--头-->
-                <div class="col s12 card_head" style="padding: 0;border-bottom: 1px solid #ccc">
-                    <div class="col s11">
-                        <p style="font-weight: bold;color: #00bcd4">质损编号：{{damage.id}}</p>
+            <!--处理中状态下显示的输入框-->
+            <div class="col s12" style="margin-bottom: 30px" ng-show="insureStatus == 1">
+                <div class="col s4 offset-s8 right-align" style="color: darkgray">
+                    <p style="margin: 6px 0">生成时间：{{currentInsurInfo.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                </div>
+                <div class="col s12">
+                    <div class="col s6 input-field">
+                        <select material-select watch id="insurance_company" ng-model="insuranceCompany">
+                            <option ng-repeat="company in insuranceCompanyList" ng-value="company.id">{{company.insure_name}}</option>
+                        </select>
+                        <label for="insurance_company">保险公司</label>
                     </div>
-                    <div class="col s1 right-align">
-                        <span ng-if="insureStatus != 2" ng-click="deleteDamageInfo(damage.id)" style="font-size: 1.8rem;cursor: pointer;color: #e88282" class="mdi mdi-delete-forever"></span>
+                    <div class="col s6 input-field">
+                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="insurance_compensate" type="number" ng-model="insuranceCompensation">
+                        <label style="font-weight: bold" for="insurance_compensate">待赔金额（元）</label>
+                    </div>
+                    <div class="col s6 input-field">
+                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="insurance_loan" type="number" ng-model="currentInsurInfo.financial_loan">
+                        <label style="font-weight: bold" for="insurance_loan">财务借款（元）</label>
+                    </div>
+                    <div class="col s6 input-field">
+                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="insurance_actual" type="number" ng-model="insurancePayment">
+                        <label style="font-weight: bold" for="insurance_actual">实际赔付（元）</label>
+                    </div>
+                    <div class="col s12 input-field">
+                        <input id="insurance_explain" type="text" ng-model="currentInsurInfo.payment_explain">
+                        <label style="font-weight: bold" for="insurance_explain">赔付描述</label>
                     </div>
                 </div>
-                <!--内容-->
-                <div class="col s12 card_body" style="font-size: 1.07rem;padding: 0;">
-                    <div class="col s4">
-                        <p><span style="font-weight: bold">VIN码：</span>{{damage.vin + "（" + damage.make_name + "）"}}</p>
-                    </div>
-                    <div class="col s4">
-                        <p><span style="font-weight: bold">委托方：</span>{{damage.e_short_name}}</p>
-                    </div>
-                    <div class="col s4">
-                        <p><span style="font-weight: bold">经销商：</span>{{damage.r_short_name}}</p>
-                    </div>
+            </div>
 
-
+            <!--已处理状态下显示的文本-->
+            <div class="col bold_txt_strong s12" style="margin-bottom: 30px;color: darkgray" ng-show="insureStatus == 2">
+                <div class="col s4 offset-s8 right-align" style="color: darkgray">
+                    <p style="margin: 6px 0">生成时间：{{currentInsurInfo.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                </div>
+                <div class="col s12">
                     <div class="col s4">
-                        <p><span style="font-weight: bold">质损类型：</span>{{damage.damage_type == 1 ? "一般质损" : damage.damage_type == 2 ? "严重质损" : ""}}</p>
+                        <p><span>保险公司：{{currentInsurInfo.insure_name}}</span></p>
                     </div>
                     <div class="col s4">
-                        <p><span style="font-weight: bold">责任人：</span>{{damage.under_user_name}}</p>
+                        <p><span>经办人：{{currentInsurInfo.insure_user_name}}</span></p>
                     </div>
                     <div class="col s4">
-                        <p><span style="font-weight: bold">司机 / 货车牌号：</span>{{damage.drive_name}}{{damage.truck_num == null ? "" : " / "}}{{damage.truck_num}}</p>
+                        <p><span>赔付时间：{{currentInsurInfo.completed_date | date:'yyyy-MM-dd HH:mm:ss'}}</span></p>
+                    </div>
+                    <div class="col s4">
+                        <p><span>待赔金额：<span style="color: #e57373">{{currentInsurInfo.insure_plan.toFixed(2)}}</span> 元</span></p>
+                    </div>
+                    <div class="col s4">
+                        <p><span>财务借款：<span style="color: #e57373">{{currentInsurInfo.financial_loan.toFixed(2)}}</span> 元</span></p>
+                    </div>
+                    <div class="col s4">
+                        <p><span>实际赔付：<span style="color: #e57373">{{currentInsurInfo.insure_actual.toFixed(2)}}</span> 元</span></p>
                     </div>
                     <div class="col s12">
-                        <p><span style="font-weight: bold">质损说明：</span>{{damage.damage_explain}}</p>
+                        <p style="font-size: 1.2rem"><span>赔付描述：</span>{{currentInsurInfo.payment_explain}}</p>
                     </div>
                 </div>
             </div>
 
-        </div>
+            <!--关联质损输入框-->
+            <div class="row col s12" ng-show="insureStatus == 1">
+                <div class="col s12">
+                    <div class="col s10 input-field">
+                        <input id="associated_damage" type="text" ng-model="damageNum">
+                        <label style="color: #00bcd4;font-weight: bold" for="associated_damage"><span style="color: red;">* </span>关联质损</label>
+                    </div>
+                    <div class="col s2 center flex flex-round">
+                        <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2 btn vc-center"
+                           ng-click="searchDamageDetails()">
+                            <i class="mdi mdi-playlist-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-        <div class="row col s12 valign-wrapper">
-            <div class="col s5 input-field">
-                <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="insurance_compensate" type="number" ng-model="insuranceCompensation" disabled>
-                <label style="font-weight: bold" for="insurance_compensate">保险待赔</label>
+            <div class="row col s12" ng-show="insureStatus == 2">
+                <div class="col s12">
+                    <div class="col s12 left-align">
+                        <p style="font-size: 1.2rem;color: #26c6da;font-weight: bold;margin: 0">关联质损：</p>
+                    </div>
+                </div>
             </div>
-            <div class="col s1 left-align" style="padding: 0;">
-                <p>元</p>
+
+            <!--关联质损信息卡片-->
+            <div class="row col s12" style="padding: 0 34px;margin: 0">
+                <!--这下面加ng-repeat-->
+                <div class="row col s12" ng-repeat="damage in damageInfoCardList" style="border: 2px solid #26c6da;border-radius: 5px;background-color: white;color: darkgray">
+                    <!--头-->
+                    <div class="col s12 card_head" style="padding: 0;border-bottom: 1px solid #ccc">
+                        <div class="col s11">
+                            <p style="font-weight: bold;color: #00bcd4">质损编号：{{damage.id}}</p>
+                        </div>
+                        <div class="col s1 right-align">
+                            <span ng-if="insureStatus == 1" ng-click="deleteDamageInfo(damage.id)" style="font-size: 1.8rem;cursor: pointer;color: #e88282" class="mdi mdi-delete-forever"></span>
+                        </div>
+                    </div>
+                    <!--内容-->
+                    <div class="col s12 card_body" style="font-size: 1.07rem;padding: 0;">
+                        <div class="col s4">
+                            <p><span style="font-weight: bold">VIN码：</span>{{damage.vin + "（" + damage.make_name + "）"}}</p>
+                        </div>
+                        <div class="col s4">
+                            <p><span style="font-weight: bold">委托方：</span>{{damage.e_short_name}}</p>
+                        </div>
+                        <div class="col s4">
+                            <p><span style="font-weight: bold">经销商：</span>{{damage.r_short_name}}</p>
+                        </div>
+
+                        <div class="col s4">
+                            <p><span style="font-weight: bold">质损类型：</span>{{damage.damage_type == 1 ? "一般质损" : damage.damage_type == 2 ? "严重质损" : ""}}</p>
+                        </div>
+                        <div class="col s4">
+                            <p><span style="font-weight: bold">责任人：</span>{{damage.under_user_name}}</p>
+                        </div>
+                        <div class="col s4">
+                            <p><span style="font-weight: bold">司机 / 货车牌号：</span>{{damage.drive_name}}{{damage.truck_num == null ? "" : " / "}}{{damage.truck_num}}</p>
+                        </div>
+                        <div class="col s12">
+                            <p><span style="font-weight: bold">质损说明：</span>{{damage.damage_explain}}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col s5 input-field">
-                <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="insurance_pay" type="number" ng-model="insurancePayment">
-                <label style="font-weight: bold" for="insurance_pay">保险赔付</label>
+
+            <div class="row col s12">
+                <div class="col s12">
+                    <div class="col s12 input-field" ng-show="insureStatus == 1">
+                        <input id="processing_description" type="text" ng-model="currentInsurInfo.check_explain">
+                        <label style="font-weight: bold" for="processing_description">处理描述</label>
+                    </div>
+                    <div class="col s12" style="color: darkgray;font-size: 1.2rem" ng-show="insureStatus == 2">
+                        <p><span style="font-weight: bold">处理描述：</span>{{currentInsurInfo.check_explain}}</p>
+                    </div>
+                </div>
             </div>
-            <div class="col s1 left-align" style="padding: 0;">
-                <p>元</p>
+            <div class="row col s12" ng-show="insureStatus == 1">
+                <div class="col s6 offset-s3">
+                    <div class="col s5">
+                        <a ng-click="saveDamageInfo()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                            保存
+                        </a>
+                    </div>
+                    <div class="col s5 offset-s2">
+                        <a ng-click="completeDamageList()" style="width: 100%;background-color: #f0ad4e;" class="waves-light waves-effect lighten-1 btn">
+                            处理结束
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="row col s12" style="margin-top: 30px" ng-if="insureStatus != 2">
-            <div class="col s2 offset-s4">
-                <a ng-click="submitDamageList()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
-                    确定
-                </a>
-            </div>
-            <div class="col s2">
-                <a ng-click="completeDamageList()" style="width: 100%" class="waves-light waves-effect green lighten-1 btn">
-                    完成
-                </a>
-            </div>
-        </div>
-
     </div>
 </div>

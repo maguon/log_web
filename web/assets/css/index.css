@@ -1141,6 +1141,10 @@ button[type="submit"] {
     font-size: 1.1rem;
     font-weight: bold;
 }
+.bold_txt_strong span{
+    font-size: 1.2rem;
+    font-weight: bold;
+}
 .cyan_icon i{
     color: #26c6da;
 }

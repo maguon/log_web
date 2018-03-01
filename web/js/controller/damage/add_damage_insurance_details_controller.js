@@ -21,9 +21,9 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$statePara
         // 保险公司及赔付信息
         _basic.get($host.api_url + "/damageInsure?damageInsureId=" + damageId).then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
+                console.log("data", data);
+                $scope.currentInsurInfo = data.result[0];
                 $scope.insuranceCompany = data.result[0].insure_id;
-                $scope.handler = data.result[0].insure_user_name;
                 $scope.insuranceCompensation = data.result[0].insure_plan;
                 $scope.insurancePayment = data.result[0].insure_actual;
                 $scope.insureStatus = data.result[0].insure_status;
@@ -32,8 +32,10 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$statePara
                 swal(data.msg, "", "error");
             }
         });
+    };
 
-        // 质损信息卡片
+    // 获取当前关联质损信息卡片
+    $scope.getCurrentDamageCard = function () {
         _basic.get($host.api_url + "/damageBase?damageInsureId=" + damageId).then(function (data) {
             if (data.success === true) {
                 // console.log("damageCardData", data);
@@ -66,7 +68,7 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$statePara
                             }).then(function (data) {
                                 if (data.success === true) {
                                     swal("添加成功", "", "success");
-                                    $scope.getCurrentDamageInfo();
+                                    $scope.getCurrentDamageCard();
                                 }
                                 else {
                                     swal(data.msg, "", "error");
@@ -106,7 +108,7 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$statePara
                     _basic.delete($host.api_url + "/user/" + userId + "/damageInsure/" + damageId + "/damage/" + damageCardId).then(function (data) {
                         if (data.success === true) {
                             // console.log("data",data);
-                            $scope.getCurrentDamageInfo();
+                            $scope.getCurrentDamageCard();
                         }
                         else {
                             swal(data.msg, "", "error");
@@ -120,8 +122,8 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$statePara
 
     };
 
-    // 提交修改后的质损信息列表
-    $scope.submitDamageList = function () {
+    // 保存修改后的质损信息
+    $scope.saveDamageInfo = function () {
         var damageIdArr = [];
         for (var i = 0; i < $scope.damageInfoCardList.length; i++) {
             damageIdArr.push($scope.damageInfoCardList[i].id);
@@ -130,13 +132,17 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$statePara
         _basic.put($host.api_url + "/user/" + userId + "/damageInsure/" + damageId, {
             insureId: $scope.insuranceCompany,
             insurePlan: $scope.insuranceCompensation,
+            financialLoan: $scope.currentInsurInfo.financial_loan,
             insureActual: $scope.insurancePayment,
+            paymentExplain: $scope.currentInsurInfo.payment_explain,
+            checkExplain: $scope.currentInsurInfo.check_explain,
             damageIds: damageIdArr
         }).then(function (data) {
             if (data.success === true) {
-                swal("提交成功", "", "success");
+                swal("保存成功", "", "success");
                 // $state.go("insurance_compensation");
                 $scope.getCurrentDamageInfo();
+                $scope.getCurrentDamageCard();
             }
             else {
                 swal(data.msg, "", "error");
@@ -160,6 +166,7 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$statePara
                     if (data.success === true) {
                         console.log("data", data);
                         $scope.getCurrentDamageInfo();
+                        $scope.getCurrentDamageCard();
                     }
                     else {
                         swal(data.msg, "", "error");
@@ -172,6 +179,7 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$statePara
     $scope.queryData = function () {
         $scope.getInsuranceCompany();
         $scope.getCurrentDamageInfo();
+        $scope.getCurrentDamageCard();
     };
     $scope.queryData();
 }]);

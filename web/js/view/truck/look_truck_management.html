@@ -224,12 +224,12 @@
             <div class="handleInfoInput" ng-if="accidentStatus == 2" style="width:60%;margin-left:auto;margin-right:auto;margin-top:20px" >
                 <div class="row col s12">
                     <div class="col s12 input-field " style="width: 100%">
-                        <select material-select  ng-model="currentAccInfo.truck_accident_type"  ng-value="currentAccInfo.truck_accident_type" id="truckAccidentType"  required>
-                            <option value="0">请选择</option>
+                        <select material-select  ng-model="currentAccInfo.truck_accident_type"  ng-value="currentAccInfo.truck_accident_type"  required>
+                            <option value="">请选择</option>
                             <option value="1">一般</option>
                             <option value="2">严重</option>
                         </select>
-                        <label for="truckAccidentType">事故类型</label>
+                        <label>事故类型</label>
                     </div>
                 </div>
                 <div class="row col s12">

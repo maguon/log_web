@@ -325,6 +325,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                     }
                     else {
                         $scope.currentAccInfo = data.result[0];
+                        $scope.currentAccInfo.truck_accident_type = data.result[0].truck_accident_type+'';
                         $scope.truckAccidentCheckId= data.result[0].id;
                         $scope.underUserName= data.result[0].under_user_name;
                         if( $scope.underUserName!==null){

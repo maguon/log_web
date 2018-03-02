@@ -67,12 +67,16 @@ app.controller("insurance_compensation_controller", ["$scope", "$host", "_basic"
     // 下载csv
     $scope.downloadCsvFile = function () {
         var obj = {
-            damageInsureId: $scope.paymentNum,
+            damageInsureId: $scope.compensateNum,
             damageId: $scope.damageNum,
-            insureStatus: $scope.processingStatus,
-            insureActualStart: $scope.insurancePaymentStart,
-            insureActualEnd: $scope.insurancePaymentEnd,
-            insureUserName: $scope.handlerName
+            insureId: $scope.insuranceCompany,
+            createdOnStart: $scope.claimStartTimeStart,
+            createdOnEnd: $scope.claimStartTimeEnd,
+            financialLoanStatus: $scope.loanStatus,
+            insurePlanStart: $scope.paymentMoneyStart,
+            insurePlanEnd: $scope.paymentMoneyEnd,
+            insureStatus: $scope.handleStatus,
+            insureUserName: $scope.agentName
         };
         window.open($host.api_url + "/damageInsureRel.csv?" + _basic.objToUrl(obj));
     };

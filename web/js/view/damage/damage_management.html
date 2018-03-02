@@ -112,7 +112,7 @@
                     <td width="150">{{damage.make_name}}</td>
                     <td width="350"><p style="margin: 0;width:300px" class="text_ellipsis">{{damage.damage_explain}}</p></td>
                     <td width="100">{{damage.declare_user_name}}</td>
-                    <td width="100">{{damage.refund_user_name}}</td>
+                    <td width="100">{{damage.under_user_name}}</td>
                     <td width="120" ng-class="{'damage_pending_treatment':damage.damage_status == 1 , 'damage_in_process':damage.damage_status == 2}">{{damage.damage_status | damageStatus}}</td>
                     <td width="150" class="details">
                         <a ui-sref="damage_management_details({id:damage.id})" style="font-size: 1.5rem">

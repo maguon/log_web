@@ -9,11 +9,11 @@
                 </div>
                 <div class="row" style="width: 80%;margin: 0 auto">
                     <div class="col s6 input-field">
-                        <select material-select watch id="insurance_company_mod" ng-model="insuranceCompanyId">
+                        <select material-select watch id="insurance_company_mod" ng-model="insuranceCompanyMod">
                             <option value="" disabled>请选择</option>
-                            <option ng-repeat="company in insuranceCompanyList" ng-value="company.id">{{company.insure_name}}</option>
+                            <option ng-repeat="company in insureCompanyList" ng-value="company.id">{{company.insure_name}}</option>
                         </select>
-                        <label for="insurance_company_mod">保险公司</label>
+                        <label for="insurance_company_mod"><span style="color: red">* </span>保险公司</label>
                     </div>
                     <div class="col s6 input-field">
                         <input disabled id="handler" type="text" ng-model="handler">
@@ -21,7 +21,7 @@
                     </div>
                     <div class="col s6 input-field">
                         <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="insure_plan_mod" type="number" ng-model="insurePlanMod">
-                        <label for="insure_plan_mod">待赔金额（元）</label>
+                        <label for="insure_plan_mod"><span style="color: red">* </span>待赔金额（元）</label>
                     </div>
                     <div class="col s6" style="padding: 0;">
                         <div class="col s6 input-field">
@@ -33,15 +33,15 @@
                             <label for="has_loan"><span style="color: red">* </span>是否财务借款</label>
                         </div>
                         <div class="col s6 input-field">
-                            <input type="number" name="payment_money_start" id="loan_money_num" ng-disabled="hasLoanType" ng-model="loanMoneyNum">
-                            <label for="loan_money_num">财务借款（元）</label>
+                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" name="payment_money_start" id="loan_money_num" ng-disabled="hasLoanType" ng-model="loanMoneyNum">
+                            <label class="{{loanMoneyNum != null ? 'active' : 'inactive'}}" for="loan_money_num">财务借款（元）</label>
                         </div>
                     </div>
 
                     <!--关联质损输入框-->
                     <div class="row col s12 valign-wrapper" style="padding: 0;">
                         <div class="col s10 input-field">
-                            <input id="associated_damage" type="text" ng-model="damageNum">
+                            <input id="associated_damage" type="text" ng-model="damageNumMod">
                             <label style="color: #00bcd4;font-weight: bold" for="associated_damage"><span style="color: red;">* </span>关联质损</label>
                         </div>
                         <div class="col s2 center flex flex-round">
@@ -55,7 +55,7 @@
                     <!--关联质损信息卡片-->
                     <div class="row col s12" style="margin: 0">
                         <!--这下面加ng-repeat-->
-                        <div class="row col s12" style="border: 2px solid #26c6da;border-radius: 5px;background-color: white;color: darkgray">
+                        <div class="row col s12" ng-repeat="damage in damageInfoDetailsList" style="border: 2px solid #26c6da;border-radius: 5px;background-color: white;color: darkgray">
                             <!--头-->
                             <div class="col s12 card_head valign-wrapper" style="padding: 0;border-bottom: 1px solid #ccc">
                                 <div class="col s11 left-align">
@@ -109,7 +109,7 @@
                         </a>
                     </div>
                     <div class="col s2">
-                        <a ng-click="addRepairRecord()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                        <a ng-click="addDamageRecord()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
                             确定
                         </a>
                     </div>

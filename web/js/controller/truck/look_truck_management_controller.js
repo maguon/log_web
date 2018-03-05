@@ -309,12 +309,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
         });
     };
     $scope.getCurrentAccInfo = function () {
-        if($scope.accidentStatus == 2){
             getLiablePersonList ();
-        }
-        else {
-            getBeforeAccList()
-        }
     };
     function getBeforeAccList(){
         if($scope.accidentStatus !== 1){
@@ -330,6 +325,9 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                         $scope.underUserName= data.result[0].under_user_name;
                         if( $scope.underUserName!==null){
                             $("#select2-liable_person-container").html($("#fined").find("option:selected").text( $scope.underUserName));
+                        }
+                        else{
+                            $("#select2-liable_person-container").html($("#fined").find("option:selected").text('责任人'));
                         }
                         if($scope.currentAccInfo.truck_accident_type==null||$scope.currentAccInfo.truck_accident_type==0||$scope.currentAccInfo.truck_accident_type==undefined){
                             $scope.currentAccInfo.truck_accident_type="";
@@ -374,23 +372,28 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
         });
     };
     $scope.saveHandleInfoModify= function () {
-        _basic.put($host.api_url + "/user/" + userId + "/truckAccidentCheck/" +  $scope.truckAccidentCheckId, {
-            truckAccidentId:truckDamageId,
-            truckAccidentType:$scope.currentAccInfo.truck_accident_type,
-            underUserName: $("#fined").find("option:selected").text().split(" ")[0],
-            underCost:$scope.currentAccInfo.under_cost,
-            companyCost:$scope.currentAccInfo.company_cost,
-            profit:$scope.currentAccInfo.profit,
-            remark:$scope.currentAccInfo.remark
-        }).then(function (data) {
-            if (data.success === true) {
-                swal("提交成功", "", "success");
-                $scope.getCurrentAccInfo();
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
+        if($scope.currentAccInfo.truck_accident_type!==null&&$("#fined").find("option:selected").text().split(" ")[0]!==null){
+            _basic.put($host.api_url + "/user/" + userId + "/truckAccidentCheck/" +  $scope.truckAccidentCheckId, {
+                truckAccidentId:truckDamageId,
+                truckAccidentType:$scope.currentAccInfo.truck_accident_type,
+                underUserName: $("#fined").find("option:selected").text().split(" ")[0],
+                underCost:$scope.currentAccInfo.under_cost,
+                companyCost:$scope.currentAccInfo.company_cost,
+                profit:$scope.currentAccInfo.profit,
+                remark:$scope.currentAccInfo.remark
+            }).then(function (data) {
+                if (data.success === true) {
+                    swal("提交成功", "", "success");
+                    $scope.getCurrentAccInfo();
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
+        else {
+            swal('请输入完整信息', "", "error");
+        }
     }
     // 点击开始处理，变为处理中状态并初始化处理信息
     $scope.beginProcessing = function () {
@@ -424,6 +427,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                 closeOnConfirm: true
             },
             function () {
+            if($scope.currentAccInfo.truck_accident_type!==null&&$("#fined").find("option:selected").text().split(" ")[0]!==null){
                 _basic.put($host.api_url + "/user/" + userId + "/truckAccidentCheck/" +  $scope.truckAccidentCheckId, {
                     truckAccidentId: truckDamageId,
                     truckAccidentType: $scope.currentAccInfo.truck_accident_type,
@@ -449,6 +453,10 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                         swal(data.msg, "", "error");
                     }
                 });
+            }
+            else {
+                swal('请输入完整信息', "", "error");
+            }
             })
     }
     //维修信息

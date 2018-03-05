@@ -107,7 +107,7 @@
                         <div class="col s12">
                             <div class=" col s6 p0">
                                 <div class=" col s12 input-field">
-                                    <select material-select watch  class="insure_name" ng-model="showTruckInsureList.insure_id">
+                                    <select material-select watch  class="insure_name" ng-model="showTruckInsureList.insure_id" style="border-bottom: 1px solid #000">
                                         <option value="" selected>请选择</option>
                                         <option ng-repeat="insure in insureNameList" ng-value="insure.id">{{insure.insure_name}}</option>
                                     </select>
@@ -116,7 +116,7 @@
                             </div>
                             <div class=" col s6 p0">
                                 <div class=" col s12 input-field">
-                                    <select material-select watch class="insure_type" ng-model="showTruckInsureList.insure_type">
+                                    <select material-select watch class="insure_type" ng-model="showTruckInsureList.insure_type" style="border-bottom: 1px solid #000">
                                         <option ng-value="" selected>请选择</option>
                                         <option ng-value="1">交强险</option>
                                         <option ng-value="2">商业险</option>

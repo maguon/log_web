@@ -19,6 +19,9 @@ app.controller("app_version_controller", ["$scope", "$state", "$stateParams", "_
                     $("#next").show();
                 }
                 $scope.appSystemList = data.result;
+                $scope.appType="";
+                $scope.getSystemType="";
+                $scope.forceUpdate="";
             }
             else {
                 swal(data.msg, "", "error");

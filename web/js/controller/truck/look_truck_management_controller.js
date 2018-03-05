@@ -240,7 +240,6 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
     $scope.uploadAccientImage = function (dom) {
         var dom_obj = $(dom);
         var filename = $(dom).val();
-
         uploadBrandImage(filename, dom_obj, function (imageId) {
             _basic.post($host.record_url + "/user/" + userId + "/truckDamage/" +  truckDamageId+ "/image", {
                 username: _basic.getSession(_basic.USER_NAME),
@@ -401,7 +400,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
             truckAccidentId: truckDamageId,
             truckAccidentType: 0,
             underUserId: 0,
-            underUserName: "",
+            underUserName:'责任人',
             underCost: 0,
             companyCost: 0,
             profit: 0,
@@ -410,6 +409,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
             if (data.success === true) {
                 $scope.accidentStatus = 2;
                 $scope.getCurrentAccInfo();
+                getLiablePersonList();
             }
             else {
                 swal(data.msg, "", "error");

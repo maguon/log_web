@@ -5,7 +5,7 @@
                 <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
                     <p>新增操作</p>
                 </div>
-                <div class="row col s12" style="margin-top: 35px">
+                <div class="row col s12">
                     <div style="width: 90%;margin: 0 auto">
                         <div class="col s12">
                             <div class=" col s6 input-field">
@@ -86,7 +86,7 @@
                     <div style="width: 90%;margin: 0 auto">
                         <div class="col s12">
                             <div class=" col s6 input-field">
-                                <select id="type" material-select watch  ng-model="showAppSystemList.type" style="border-bottom: 1px solid #000">
+                                <select id="type" material-select watch name="type" class="type" ng-model="showAppSystemList.type" style="border-bottom: 1px solid #000">
                                     <option value="" selected>请选择</option>
                                     <option value="1">安卓</option>
                                     <option value="2">IOS</option>
@@ -94,7 +94,7 @@
                                 <label for="type"><span style="color: red">* </span>系统</label>
                             </div>
                             <div class=" col s6 input-field">
-                                <select  material-select watch ng-model="showAppSystemList.app" style="border-bottom: 1px solid #000">
+                                <select  material-select watch name="app" class="app" ng-model="showAppSystemList.app" style="border-bottom: 1px solid #000">
                                     <option value="" selected>请选择</option>
                                     <option value="1">物联存车</option>
                                     <option value="2">车辆管理</option>
@@ -162,7 +162,7 @@
                             <div class="col s10" style="color: #000; !important">
                                     <div class=" col s4 p0">
                                         <div class="input-field col s12">
-                                            <select  material-select watch ng-model="getSystemType">
+                                            <select  material-select watch name="type" class="type" ng-model="getSystemType">
                                                 <option value="">系统</option>
                                                 <option value="1">安卓</option>
                                                 <option value="2">IOS</option>
@@ -171,7 +171,7 @@
                                     </div>
                                     <div class=" col s4 p0">
                                         <div class="input-field col s12">
-                                            <select  material-select watch ng-model="appType">
+                                            <select  material-select watch name="appType" class="appType" ng-model="appType">
                                                 <option value="">模块</option>
                                                 <option value="1">物联存车</option>
                                                 <option value="2">车辆管理</option>

@@ -546,6 +546,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
     $scope.queryData = function () {
         getDetailTruckData();
         getLiablePersonList();
+        $scope.getCurrentAccInfo();
     };
     $scope.queryData();
 }]);

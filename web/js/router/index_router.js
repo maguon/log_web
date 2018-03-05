@@ -459,7 +459,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/truck/accident_claim_details.html",
             controller:'accident_claim_details_controller'
         })
-
+        .state("truck_insure",{
+            url:"/truck_insure",
+            templateUrl: "js/view/truck/truck_insure.html",
+            controller:'truck_insure_controller'
+        })
         // 质损
         .state("damage_declaration",{
             url:"/damage_declaration",

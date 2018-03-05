@@ -2,6 +2,29 @@ app.controller("app_version_controller", ["$scope", "$state", "$stateParams", "_
     $scope.size = 10;
     $scope.start = 0;
     var userId = _basic.getSession(_basic.USER_ID);
+    //获取app列表
+    function getAppSystemAllList () {
+        _basic.get($host.api_url + "/app").then(function (data) {
+            if (data.success === true) {
+                if ($scope.start > 0) {
+                    $("#pre").show();
+                }
+                else {
+                    $("#pre").hide();
+                }
+                if (data.result.length < $scope.size) {
+                    $("#next").hide();
+                }
+                else {
+                    $("#next").show();
+                }
+                $scope.appSystemList = data.result;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
     // 获取app筛选列表
     function getAppSystemList () {
         _basic.get($host.api_url + "/app?" + _basic.objToUrl({
@@ -53,7 +76,7 @@ app.controller("app_version_controller", ["$scope", "$state", "$stateParams", "_
             }).then(function (data) {
                 if (data.success == true) {
                     $('#addAppSystem').modal('close');
-                    $scope.searchAppSystem();
+                    getAppSystemAllList();
                     swal("新增成功", "", "success");
                 } else {
                     swal(data.msg, "", "error");
@@ -93,10 +116,9 @@ app.controller("app_version_controller", ["$scope", "$state", "$stateParams", "_
             };
             _basic.put($host.api_url + "/user/" + userId+"/app/" +id, obj).then(function (data) {
                 if (data.success == true) {
-                    console.log(data)
                     swal("修改成功", "", "success");
                     $('#showAppSystem').modal('close');
-                    getAppSystemList ();
+                    getAppSystemAllList();
                 } else {
                     swal(data.msg, "", "error");
                 }

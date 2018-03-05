@@ -331,6 +331,9 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                         if( $scope.underUserName!==null){
                             $("#select2-liable_person-container").html($("#fined").find("option:selected").text( $scope.underUserName));
                         }
+                        if($scope.currentAccInfo.truck_accident_type==null||$scope.currentAccInfo.truck_accident_type==0||$scope.currentAccInfo.truck_accident_type==undefined){
+                            $scope.currentAccInfo.truck_accident_type="";
+                        }
                     }
                 }
                 else {

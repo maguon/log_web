@@ -52,9 +52,9 @@ app.controller("app_version_controller", ["$scope", "$state", "$stateParams", "_
                 remark: $scope.appDescription
             }).then(function (data) {
                 if (data.success == true) {
-                    swal("新增成功", "", "success");
                     $('#addAppSystem').modal('close');
                     $scope.searchAppSystem();
+                    swal("新增成功", "", "success");
                 } else {
                     swal(data.msg, "", "error");
                 }

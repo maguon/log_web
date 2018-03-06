@@ -310,6 +310,34 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
     $scope.getCurrentAccInfo = function () {
             getLiablePersonList ();
     };
+    // 获取责任人列表
+    function getLiablePersonList () {
+        _basic.get($host.api_url + "/user?status=1").then(function (data) {
+            if (data.success === true) {
+                var responsibilityDataList = [];
+                for (var i = 0; i < data.result.length; i++) {
+                    for (var j = 0; j < $scope.userList.length; j++) {
+                        if(data.result[i].type == $scope.userList[j].type){
+                            data.result[i].job = $scope.userList[j].name
+                        }
+                    }
+                    responsibilityDataList[i + 1] = {
+                        id: data.result[i].uid,
+                        text: data.result[i].real_name + " " + data.result[i].job
+                    };
+                }
+                $('#fined').select2({
+                    placeholder: '责任人',
+                    containerCssClass : 'select2_dropdown',
+                    data: responsibilityDataList
+                });
+                getBeforeAccList();
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
     function getBeforeAccList(){
         if($scope.accidentStatus !== 1){
             _basic.get($host.api_url + "/truckAccidentCheck?truckAccidentId=" + truckDamageId).then(function (data) {
@@ -342,36 +370,8 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
             $('#fined').val(0);
         }
     }
-    // 获取责任人列表
-    function getLiablePersonList () {
-        _basic.get($host.api_url + "/user?status=1").then(function (data) {
-            if (data.success === true) {
-                var responsibilityDataList = [];
-                for (var i = 0; i < data.result.length; i++) {
-                    for (var j = 0; j < $scope.userList.length; j++) {
-                        if(data.result[i].type == $scope.userList[j].type){
-                            data.result[i].job = $scope.userList[j].name
-                        }
-                    }
-                    responsibilityDataList[i + 1] = {
-                        id: data.result[i].uid,
-                        text: data.result[i].real_name + " " + data.result[i].job
-                    };
-                }
-                $('#fined').select2({
-                    placeholder: '责任人',
-                    containerCssClass : 'select2_dropdown',
-                    data: responsibilityDataList
-                });
-                getBeforeAccList();
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
-    };
     $scope.saveHandleInfoModify= function () {
-        if($scope.currentAccInfo.truck_accident_type!==null&&$("#fined").find("option:selected").text().split(" ")[0]!==null){
+        if($scope.currentAccInfo.truck_accident_type!==null){
             _basic.put($host.api_url + "/user/" + userId + "/truckAccidentCheck/" +  $scope.truckAccidentCheckId, {
                 truckAccidentId:truckDamageId,
                 truckAccidentType:$scope.currentAccInfo.truck_accident_type,

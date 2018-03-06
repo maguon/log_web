@@ -1,3 +1,4 @@
+//增加理赔模态框
 <div class="row" style="margin: 0">
     <div id="addInfoModel" class="modal modal-fixed-footer" style="width: 65%;height: 480px">
         <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
@@ -7,14 +8,14 @@
             <div class="row col s12" style="margin-top: 35px">
                 <div class="col s8 offset-s2">
                     <div class="col s3 input-field">
-                        <select required material-select watch id="record_truck_type_mod"  ng-model="modRecordTruckType" >
+                        <select required material-select watch id="record_truck_type_mod" name="record_truck_type_mod"  ng-model="modRecordTruckType" >
                             <option value="" selected>请选择</option>
                             <option ng-repeat="company in insureCompanyList" ng-value="company.id">{{company.insure_name}}</option>
                         </select>
                         <label for="record_truck_type_mod"><span style="color: red">* </span>保险公司</label>
                     </div>
                     <div class="col s3 input-field">
-                        <select material-select watch style="width:100%"  ng-model="modTruckNum" required>
+                        <select material-select watch style="width:100%" name="modTruckNum" id="modTruckNum" ng-model="modTruckNum" required>
                             <option value="" selected>请选择</option>
                             <option value="1">交强险</option>
                             <option value="2">商业险</option>
@@ -28,7 +29,7 @@
                         <label for="insure_plan"><span style="color: red">* </span>代赔金额 (元)</label>
                     </div>
                     <div class="col s6 input-field" ng-class="{'has-error':add_truck_form.truck_make.$invalid&&submitted }">
-                        <select material-select watch id="modRecordTruckType"   ng-model="TruckType">
+                        <select material-select watch id="modRecordTruckType"   ng-change="checkHasLoan()" ng-model="truckType">
                             <option value="" selected>请选择</option>
                             <option value="0">是</option>
                             <option value="1">否</option>
@@ -36,7 +37,7 @@
                         <label for="modRecordTruckType"><span style="color: red">* </span>是否财务借款</label>
                     </div>
                     <div class="col s6 input-field">
-                        <input type="number" name="financialLoan" id="financial_loan" ng-model="financialLoan" >
+                        <input type="number" name="financialLoan" id="financial_loan" ng-model="financialLoan" ng-disabled="hasLoanType">
                         <label for="financial_loan">财务借款 (元)</label>
                     </div>
                 </div>
@@ -67,6 +68,7 @@
         </div>
     </div>
 </div>
+
 <div class="look_truck_management">
     <div class="storage_storeTitle vc-center">
         <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">

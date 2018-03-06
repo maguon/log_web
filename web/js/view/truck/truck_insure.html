@@ -13,7 +13,7 @@
                                 <div class=" col s12 input-field">
                                     <select material-select watch  class="insure_name" ng-model="addtruckInsureName">
                                         <option value="" selected>请选择</option>
-                                        <option ng-repeat="insure in insureNameList" ng-value="insure.id">{{insure.insure_name}}</option>
+                                        <option ng-repeat="insure in insureCompanyNameList" ng-value="insure.id">{{insure.insure_name}}</option>
                                     </select>
                                     <label><span style="color: red">* </span>保险公司</label>
                                 </div>
@@ -59,13 +59,13 @@
                             </div>
                             <div class=" col s3 p0">
                                 <div class=" col s12 input-field">
-                                    <input type="text" ng-model="time_start" id="time_start" name="time_start"  class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                                    <input type="text" ng-model="startDate" id="time_start" name="time_start"  class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
                                     <label for="time_start">生效日期(终)</label>
                                 </div>
                             </div>
                             <div class=" col s3 p0">
                                 <div class=" col s12 input-field">
-                                    <input type="text" ng-model="time_end" id="time_end" name="time_end"  class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                                    <input type="text" ng-model="endDate" id="time_end" name="time_end"  class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
                                     <label for="time_end">生效日期(终)</label>
                                 </div>
                             </div>
@@ -109,7 +109,7 @@
                                 <div class=" col s12 input-field">
                                     <select material-select watch  class="insure_name" ng-model="showTruckInsureList.insure_id" style="border-bottom: 1px solid #000">
                                         <option value="" selected>请选择</option>
-                                        <option ng-repeat="insure in insureNameList" ng-value="insure.id">{{insure.insure_name}}</option>
+                                        <option ng-repeat="insure in insureCompanyNameList" ng-value="insure.id">{{insure.insure_name}}</option>
                                     </select>
                                     <label><span style="color: red">* </span>保险公司</label>
                                 </div>
@@ -201,9 +201,9 @@
                         <label for="insure_num">保单编号</label>
                     </div>
                     <div class="col s3 input-field">
-                        <select material-select watch id="insure_name" class="insure_name" ng-model="truckInsureName">
+                        <select material-select watch id="insure_name" class="insure_name" ng-model="truckInsureId">
                             <option value="" selected>请选择</option>
-                            <option ng-repeat="insure in insureNameList" ng-value="insure.id">{{insure.insure_name}}</option>
+                            <option ng-repeat="insure in insureCompanyNameList" ng-value="insure.id">{{insure.insure_name}}</option>
                         </select>
                         <label for="insure_name">保险公司</label>
                     </div>
@@ -217,7 +217,7 @@
                         <label for="insure_type">险种</label>
                     </div>
                     <div class="col s3 input-field">
-                        <select material-select watch id="insure_user_name" class="insure_user_name" ng-model="insureUserName">
+                        <select material-select watch id="insure_user_name" class="insure_user_name" ng-model="insureUserUid">
                             <option value="" selected>请选择</option>
                             <option ng-repeat="insureUserNameItem in insureUserNameList" ng-value="insureUserNameItem.uid">{{insureUserNameItem.real_name}}</option>
                         </select>
@@ -238,11 +238,11 @@
                         <label for="truck_type">车辆类型</label>
                     </div>
                     <div class="col s3 input-field">
-                        <input type="text" ng-model="startTime_start" id="startTime_start" name="startTime_start"  class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                        <input type="text" ng-model="startTimeStart" id="startTime_start" name="startTime_start"  class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
                         <label for="startTime_start">维修开始时间(始)</label>
                     </div>
                     <div class="col s3 input-field">
-                        <input type="text" ng-model="startTime_end" id="startTime_end" name="startTime_end"  class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                        <input type="text" ng-model="startTimeEnd" id="startTime_end" name="startTime_end"  class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
                         <label for="startTime_end">维修开始时间(终)</label>
                     </div>
                 </div>

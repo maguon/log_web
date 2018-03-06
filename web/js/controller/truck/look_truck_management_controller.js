@@ -495,6 +495,14 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
         });
     };
     $scope.beginAccidentInsure=function(){
+        // 初始化所有信息
+        $scope.modRecordTruckType ="";
+        $scope.modTruckNum= "";
+        $scope.insurePlan= "";
+        $scope.truckType= "";
+        $scope.financialLoan= "";
+        $scope.finanlReason= "";
+        $scope.hasLoanType = true;
         $('#addInfoModel').modal('open');
         _basic.get($host.api_url + '/truckInsure').then(function(data){
             if (data.success === true) {
@@ -502,6 +510,16 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
             }
         })
     }
+    // 判断是否允许输入财务借款
+    $scope.checkHasLoan = function () {
+        if($scope.truckType == 0){
+            $scope.hasLoanType = false;
+        }
+        else{
+            $scope.financialLoan= "";
+            $scope.hasLoanType = true;
+        }
+    };
     // 提交新增的记录
     $scope.addRepairRecord = function () {
         if($scope.modTruckNum !== undefined && $scope.insurePlan !== undefined &&$scope.modRecordTruckType!== undefined ){
@@ -509,7 +527,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                 insureId:$scope.modRecordTruckType,
                 insureType:$scope.modTruckNum,
                 insurePlan: $scope.insurePlan,
-                financialLoanStatus:$scope.TruckType,
+                financialLoanStatus:$scope.truckType,
                 financialLoan: $scope.financialLoan,
                 paymentExplain: $scope.finanlReason,
                 accidentId:truckDamageId

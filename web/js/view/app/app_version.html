@@ -1,4 +1,5 @@
 <div class="app_version">
+   <!-- 新增操作模态框-->
     <div class="row" style="margin: 0">
         <div id="addAppSystem" class="modal modal-fixed-footer" style="width: 75%;height: 600px">
             <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
@@ -9,7 +10,7 @@
                     <div style="width: 90%;margin: 0 auto">
                         <div class="col s12">
                             <div class=" col s6 input-field">
-                                <select  material-select watch ng-model="addSystemType">
+                                <select  material-select watch name="addSystemType" id="addSystemType" ng-model="addSystemType">
                                     <option value="" selected>请选择</option>
                                     <option value="1">安卓</option>
                                     <option value="2">IOS</option>
@@ -17,7 +18,7 @@
                                 <label><span style="color: red">* </span>系统</label>
                             </div>
                             <div class="col s6 input-field">
-                                <select  material-select watch ng-model="addAppType">
+                                <select  material-select watch name="addAppType" id="addAppType" ng-model="addAppType">
                                     <option value="" selected>请选择</option>
                                     <option value="1">物联存车</option>
                                     <option value="2">车辆管理</option>
@@ -76,6 +77,7 @@
             </div>
         </div>
     </div>
+   <!-- 详情操作模态框-->
     <div class="row" style="margin: 0">
         <div id="showAppSystem" class="modal modal-fixed-footer" style="width: 75%;height: 600px">
             <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
@@ -86,7 +88,7 @@
                     <div style="width: 90%;margin: 0 auto">
                         <div class="col s12">
                             <div class=" col s6 input-field">
-                                <select id="type" material-select watch name="type" class="type" ng-model="showAppSystemList.type" style="border-bottom: 1px solid #000">
+                                <select id="type" material-select watch id='type' name="showAppSystemList.type"  ng-model="showAppSystemList.type" style="border-bottom: 1px solid #000">
                                     <option value="" selected>请选择</option>
                                     <option value="1">安卓</option>
                                     <option value="2">IOS</option>
@@ -94,7 +96,7 @@
                                 <label for="type"><span style="color: red">* </span>系统</label>
                             </div>
                             <div class=" col s6 input-field">
-                                <select  material-select watch name="app" class="app" ng-model="showAppSystemList.app" style="border-bottom: 1px solid #000">
+                                <select  material-select watch id='app' name="showAppSystemList.app"  ng-model="showAppSystemList.app" style="border-bottom: 1px solid #000">
                                     <option value="" selected>请选择</option>
                                     <option value="1">物联存车</option>
                                     <option value="2">车辆管理</option>
@@ -102,7 +104,7 @@
                                     <option value="4">质量监管</option>
                                     <option value="5">现场调度</option>
                                 </select>
-                                <label><span style="color: red">* </span>模块</label>
+                                <label for="app"><span style="color: red">* </span>模块</label>
                             </div>
                         </div>
                         <div class="col s12">
@@ -154,6 +156,7 @@
             </div>
         </div>
     </div>
+    <!--列表-->
     <div class="modal-content grey-text text-darken-2">
         <div class="row no-marBottom" ul-tabs style="overflow: hidden">
             <div id="header_car" class="row tab_box">

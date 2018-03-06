@@ -69,7 +69,7 @@
                         </a>
                     </div>
                     <div class="col s2">
-                        <a ng-click="submitAppList()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                        <a ng-click="createAppList()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
                             确定
                         </a>
                     </div>
@@ -148,7 +148,7 @@
                         </a>
                     </div>
                     <div class="col s2">
-                        <a ng-click="submitAppSystemItem(showAppSystemList.id)" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                        <a ng-click="createAppSystemItem(showAppSystemList.id)" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
                             确定
                         </a>
                     </div>
@@ -224,22 +224,22 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="el in appSystemList" class="grey-text text-darken-1">
+                                <tr ng-repeat="appSystemItem in appSystemList" class="grey-text text-darken-1">
                                     <td>{{el.updated_on | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                                    <td  ng-if="el.type==null">所有</td>
-                                    <td  ng-if="el.type==1">安卓</td>
-                                    <td  ng-if="el.type==2">IOS</td>
-                                    <td  ng-if="el.app==1">物联存车</td>
-                                    <td  ng-if="el.app==2">车辆管理</td>
-                                    <td  ng-if="el.app==3">司机</td>
-                                    <td  ng-if="el.app==4">质量监管</td>
-                                    <td  ng-if="el.app==5">现场调度</td>
-                                    <td  ng-bind="el.version"></td>
-                                    <td  ng-if="el.force_update==1">是</td>
-                                    <td  ng-if="el.force_update==0">否</td>
-                                    <td  ng-bind="el.remark"></td>
+                                    <td  ng-if="appSystemItem.type==null">所有</td>
+                                    <td  ng-if="appSystemItem.type==1">安卓</td>
+                                    <td  ng-if="appSystemItem.type==2">IOS</td>
+                                    <td  ng-if="appSystemItem.app==1">物联存车</td>
+                                    <td  ng-if="appSystemItem.app==2">车辆管理</td>
+                                    <td  ng-if="appSystemItem.app==3">司机</td>
+                                    <td  ng-if="appSystemItem.app==4">质量监管</td>
+                                    <td  ng-if="appSystemItem.app==5">现场调度</td>
+                                    <td  ng-bind="appSystemItem.version"></td>
+                                    <td  ng-if="appSystemItem.force_update==1">是</td>
+                                    <td  ng-if="appSystemItem.force_update==0">否</td>
+                                    <td  ng-bind="appSystemItem.remark"></td>
                                     <td class="operation vc-center">
-                                        <a  ng-click="showAppSystem(el.id)" class="cyan-text fz12" style="cursor: pointer;display: inline-block;width: 37px;height: 37px;">  <i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-file-document"></i></a>
+                                        <a  ng-click="showAppSystem(appSystemItem.id)" class="cyan-text fz12" style="cursor: pointer;display: inline-block;width: 37px;height: 37px;">  <i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-file-document"></i></a>
                                     </td>
                                 </tr>
                                 <tr class="grey-text text-darken-1" ng-if="appSystemList.length == 0">
@@ -253,8 +253,8 @@
                 <div class="row">
                     <div class="paging_box col s12">
                         <div class="right">
-                            <a class="waves-light waves-effect cyan lighten-1 btn"  id="pre" ng-click="previous_page()">上一页</a>
-                            <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_page()">下一页</a>
+                            <a class="waves-light waves-effect cyan lighten-1 btn"  id="pre" ng-click="getPrePage()">上一页</a>
+                            <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="getNextPage()">下一页</a>
                         </div>
                     </div>
                 </div>

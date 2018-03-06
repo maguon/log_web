@@ -36,11 +36,12 @@ app.controller("app_version_controller", ["$scope", "$state", "$stateParams", "_
         $scope.start=0;
         getAppSystemList();
     };
-    //添加
+    //新增操作模态框
     $scope.addAppSystem=function () {
         $('.modal').modal();
         $('#addAppSystem').modal('open');
     }
+    //提交新增记录
     $scope.createAppList=function() {
         if ($scope.addAppType !== undefined && $scope.addSystemType !== undefined && $scope.addForceUpdate !== undefined && $scope.addAppVersion !== undefined && $scope.uploadUrl !== undefined) {
             _basic.post($host.api_url + "/user/" + userId + "/app", {
@@ -64,7 +65,7 @@ app.controller("app_version_controller", ["$scope", "$state", "$stateParams", "_
             }
     }
     //查看详情
-    $scope.showAppSystem=function (id) {
+    $scope.readAppSystem=function (id) {
         $('.modal').modal();
         $('#showAppSystem').modal('open');
         _basic.get($host.api_url + "/app?appId=" + id).then(function (data) {

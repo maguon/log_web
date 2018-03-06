@@ -88,7 +88,7 @@ app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "
         $scope.start=0;
         getTruckInsureList();
     };
-    //添加
+    //添加模态框
     $scope.addTruckInsure=function () {
         $('.modal').modal();
         $('#addTruckInsure').modal('open');

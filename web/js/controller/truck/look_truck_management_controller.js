@@ -427,7 +427,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                 closeOnConfirm: true
             },
             function () {
-            if($scope.currentAccInfo.truck_accident_type!==null&&$("#fined").find("option:selected").text().split(" ")[0]!==null){
+            if($scope.currentAccInfo.truck_accident_type!==null){
                 _basic.put($host.api_url + "/user/" + userId + "/truckAccidentCheck/" +  $scope.truckAccidentCheckId, {
                     truckAccidentId: truckDamageId,
                     truckAccidentType: $scope.currentAccInfo.truck_accident_type,

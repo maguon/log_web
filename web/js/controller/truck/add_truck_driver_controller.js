@@ -55,7 +55,7 @@ app.controller("add_truck_driver_controller", ["$scope", "$state", "_basic", "_c
                     // swal("新增成功", "", "success");
                     $scope.step_first = false;
                     $scope.step_second = true;
-                    Picture_driverid = data.id;
+                    Picture_driverid = data.result.driveId;
                     $(".tabs .indicator").css({
                         right: 515 + "px",
                         left: 514 + "px"

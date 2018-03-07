@@ -34,7 +34,7 @@
                             <div class=" col s6 p0">
                                 <div class="col s12 input-field">
                                     <input type="text" name="insure_num" ng-model="addInsureNum">
-                                    <label for="insure_num"><span style="color: red">* </span>保险编号</label>
+                                    <label for="insure_num"><span style="color: red">* </span>保单编号</label>
                                 </div>
                             </div>
                             <div class=" col s6 p0">
@@ -87,7 +87,7 @@
                         </a>
                     </div>
                     <div class="col s2">
-                        <a ng-click="submitTruckInsure()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                        <a ng-click="createTruckInsureItem()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
                             确定
                         </a>
                     </div>
@@ -130,7 +130,7 @@
                             <div class=" col s6 p0">
                                 <div class="col s12 input-field">
                                     <input type="text" name="insure_num" ng-model="showTruckInsureList.insure_num">
-                                    <label for="insure_num"><span style="color: red">* </span>保险编号</label>
+                                    <label for="insure_num"><span style="color: red">* </span>保单编号</label>
                                 </div>
                             </div>
                             <div class=" col s6 p0">
@@ -183,7 +183,7 @@
                         </a>
                     </div>
                     <div class="col s2">
-                        <a ng-click="submitShowTruckInsure(showTruckInsureList.id)" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                        <a ng-click="updateTruckInsureItem(showTruckInsureList.id)" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
                             确定
                         </a>
                     </div>
@@ -217,10 +217,7 @@
                         <label for="insure_type">险种</label>
                     </div>
                     <div class="col s3 input-field">
-                        <select material-select watch id="insure_user_name" class="insure_user_name" ng-model="insureUserUid">
-                            <option value="" selected>请选择</option>
-                            <option ng-repeat="insureUserNameItem in insureUserNameList" ng-value="insureUserNameItem.uid">{{insureUserNameItem.real_name}}</option>
-                        </select>
+                        <input type="text" name="insure_user_name" id="insure_user_name" ng-model="insureUserName">
                         <label for="insure_user_name">经办人</label>
                     </div>
                 </div>
@@ -301,7 +298,7 @@
                             <td  ng-if="truckInsureItem.expiredStatus==1">已失效</td>
                             <td  ng-if="truckInsureItem.expiredStatus==2">&nbsp;</td>
                             <td class="operation">
-                                <a  ng-click="showTruckInsure(truckInsureItem.id)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-file-document"></i></a>
+                                <a  ng-click="readTruckInsure(truckInsureItem.id)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-file-document"></i></a>
                             </td>
                         </tr>
                         <tr class="grey-text text-darken-1" ng-if="truckInsureList.length == 0">
@@ -316,8 +313,8 @@
         <div class="row">
             <div class="paging_box col s12">
                 <div class="right">
-                    <a class="waves-light waves-effect cyan lighten-1 btn"  id="pre" ng-click="previous_page()">上一页</a>
-                    <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_page()">下一页</a>
+                    <a class="waves-light waves-effect cyan lighten-1 btn"  id="pre" ng-click="getPrePage()">上一页</a>
+                    <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="getNextPage()">下一页</a>
                 </div>
             </div>
         </div>

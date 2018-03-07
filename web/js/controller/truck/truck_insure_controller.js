@@ -13,20 +13,8 @@ app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "
             }
         });
     };
-    //获取经办人
-    function getTruckUserNameList(){
-        _basic.get($host.api_url + "/admin/"+userId).then(function (data) {
-            if (data.success === true) {
-                $scope.insureUserNameList = data.result;
-                $scope.insureUserNameList.real_name = data.result[0].real_name+"";
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
-    }
     //获取所有货车牌号
-    function insureTruckNum (){
+    function getTruckNumber (){
         _basic.get($host.api_url + "/truckBase").then(function (data) {
             if (data.success === true) {
                 $scope.truckNumListAll = data.result;
@@ -53,10 +41,10 @@ app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "
     // 获取筛选列表
     function getTruckInsureList () {
         _basic.get($host.api_url + "/truckInsureRel?" + _basic.objToUrl({
-            relId:$scope.InsureNum,
+            insureNum:$scope.InsureNum,
             insureId:$scope.truckInsureId,
             insureType:$scope.truckInsureType,
-            insureUserId:$scope.insureUserUid,
+            insureUserName:$scope.insureUserName,
             truckNum:$scope.truckNum,
             truckType:$scope.truckType,
             endDateStart:$scope.startTimeStart,
@@ -79,7 +67,7 @@ app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "
                 }
                 $scope.truckInsureList = data.result;
                 for(var i = 0; i < $scope.truckInsureList.length; i++) {
-                    var endDate = new Date( $scope.truckInsureList[i].end_date).getTime();
+                    var endDate = new Date($scope.truckInsureList[i].end_date).getTime();
                     var nowDate = new Date().getTime();
                     if(endDate - nowDate < (1000 * 60 * 60 * 24*30)&&(nowDate - endDate)<0){
                         $scope.truckInsureList[i].expiredStatus =0;
@@ -100,15 +88,15 @@ app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "
         $scope.start=0;
         getTruckInsureList();
     };
-    //添加
+    //添加模态框
     $scope.addTruckInsure=function () {
         $('.modal').modal();
         $('#addTruckInsure').modal('open');
     }
-    $scope.submitTruckInsure=function() {
+    $scope.createTruckInsureItem=function() {
         if ($scope.addSystemType !== undefined && $scope.addtruckInsureName !== undefined && $scope.addtruckInsureType!== undefined &&
             $scope.addInsureNum!== undefined&&$scope.addinsureMoney!== undefined&&$scope.startDate!== undefined&& $scope.endDate!== undefined) {
-            _basic.post($host.api_url + "/user/" + userId + "/truckInsureRel/", {
+            _basic.post($host.api_url + "/user/" + userId + "/truckInsureRel", {
                 truckId: $scope.addSystemType,
                 insureId:$scope.addtruckInsureName,
                 insureType: $scope.addtruckInsureType,
@@ -132,7 +120,7 @@ app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "
         }
     }
     //查看详情
-    $scope.showTruckInsure=function (id) {
+    $scope.readTruckInsure=function (id) {
         $('.modal').modal();
         $('#showTruckInsure').modal('open');
         _basic.get($host.api_url + "/truckInsureRel?relId=" + id).then(function (data) {
@@ -144,7 +132,7 @@ app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "
         })
     }
     //修改
-    $scope.submitShowTruckInsure = function (id) {
+    $scope.updateTruckInsureItem = function (id) {
         if($scope.showTruckInsureList.truck_id!== "" &&$scope.showTruckInsureList.insure_id!==""
             &&$scope.showTruckInsureList.insure_type!== ""&& $scope.showTruckInsureList.insure_num!== ""
             &&$scope.showTruckInsureList.insure_money!== "" &&$scope.showTruckInsureList.start_date!== "" &&$scope.showTruckInsureList.end_date!== ""){
@@ -173,19 +161,18 @@ app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "
         }
     };
     // 分页
-    $scope.previous_page = function () {
+    $scope.getPrePage = function () {
         $scope.start = $scope.start - $scope.size;
         getTruckInsureList();
     };
-    $scope.next_page = function () {
+    $scope.getNextPage = function () {
         $scope.start = $scope.start + $scope.size;
         getTruckInsureList();
     };
     // 获取数据
     function queryData () {
         getInsuranceCompany();
-        insureTruckNum();
-        getTruckUserNameList();
+        getTruckNumber();
         $scope.searchTruckInsure();
     };
     queryData();

@@ -154,152 +154,341 @@
 
             <!--非待处理状态下显示处理信息-->
             <div class="handleInfoInput" ng-show="currentDamageStatus != 1">
-                <div class="row col s12">
-                    <div class="col s3 input-field">
-                        <select id="liable_person" name="liable_person" style="width:100%">
-                            <!--<option value=""></option>-->
-                            <!--<option ng-repeat="person in availableUserList" ng-value="person.uid">{{person.real_name + " " + (person.type | department)}}</option>-->
-                        </select>
-                    </div>
-                    <div class="col s3 input-field">
-                        <select id="damageInsureType" material-select watch ng-model="damageInfoBefore.damage_type">
-                            <option value="" selected>请选择</option>
-                            <option value="1">A级</option>
-                            <option value="2">B级</option>
-                            <option value="3">C级</option>
-                            <option value="4">D级</option>
-                            <option value="6">F级</option>
-                        </select>
-                        <label style="font-weight: bold" for="damageInsureType"><span style="color: red">* </span>质损类型</label>
-                    </div>
-                    <div class="col s3 input-field">
-                        <select id="damageLinkType" material-select watch ng-model="damageInfoBefore.damage_link_type">
-                            <option value="" selected>请选择</option>
-                            <option value="1">委托方质损</option>
-                            <option value="2">短驳质损</option>
-                            <option value="3">仓储质损</option>
-                            <option value="4">装车质损</option>
-                            <option value="5">运输质损</option>
-                        </select>
-                        <label style="font-weight: bold" for="damageLinkType"><span style="color: red">* </span>质损环节类别</label>
-                    </div>
-                    <div class="col s3 input-field">
-                        <select id="reimbursement_person" name="reimbursement_person" style="width:100%">
-                            <!--<option value=""></option>-->
-                            <!--<option ng-repeat="person in availableUserList" ng-value="person.uid">{{person.real_name + " " + (person.type | department)}}</option>-->
-                        </select>
-                    </div>
-                </div>
-
-                <div class="row col s12">
-                    <div class="col s4 valign-wrapper">
-                        <div class="col s11 input-field" style="padding: 0">
-                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="price_reduction" type="number" ng-model="damageInfoBefore.reduction_cost">
-                            <label style="font-weight: bold" for="price_reduction">降价费</label>
-                        </div>
-                        <div class="col s1 left-align" style="padding: 0">
-                            <p>元</p>
-                        </div>
-                    </div>
-                    <div class="col s4 valign-wrapper">
-                        <div class="col s11 input-field" style="padding: 0">
-                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="fine" type="number" ng-model="damageInfoBefore.penalty_cost">
-                            <label style="font-weight: bold" for="fine">罚款</label>
-                        </div>
-                        <div class="col s1 left-align" style="padding: 0">
-                            <p>元</p>
-                        </div>
-                    </div>
-                    <div class="col s4 valign-wrapper">
-                        <div class="col s11 input-field" style="padding: 0">
-                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="profit_and_loss" type="number" ng-model="damageInfoBefore.profit">
-                            <label style="font-weight: bold" for="profit_and_loss">盈亏</label>
-                        </div>
-                        <div class="col s1 left-align" style="padding: 0">
-                            <p>元</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row col s12">
-                    <div class="col s4 valign-wrapper" style="padding: 0;">
-                        <div class="col s11 input-field">
-                            <select id="repair_station" ng-model="damageInfoBefore.repair_id" material-select watch>
+                <!--处理中状态显示输入框-->
+                <div class="handlingInfo" ng-show="currentDamageStatus == 2">
+                    <div class="row col s12">
+                        <div class="col s6 input-field">
+                            <select id="damageInsureType" material-select watch ng-model="damageInfoBefore.damage_type">
                                 <option value="" selected>请选择</option>
-                                <option ng-repeat="repair in repairStationList" ng-value="repair.id">{{repair.address}}</option>
+                                <option value="1">A级</option>
+                                <option value="2">B级</option>
+                                <option value="3">C级</option>
+                                <option value="4">D级</option>
+                                <option value="6">F级</option>
                             </select>
-                            <label style="font-weight: bold" for="repair_station">维修站</label>
+                            <label style="font-weight: bold" for="damageInsureType"><span style="color: red">* </span>质损类型</label>
                         </div>
-                        <div class="col s1 left-align" style="padding: 0"></div>
+                        <div class="col s6 input-field">
+                            <select id="damageLinkType" material-select watch ng-model="damageInfoBefore.damage_link_type">
+                                <option value="" selected>请选择</option>
+                                <option value="1">委托方质损</option>
+                                <option value="2">短驳质损</option>
+                                <option value="3">仓储质损</option>
+                                <option value="4">装车质损</option>
+                                <option value="5">运输质损</option>
+                            </select>
+                            <label style="font-weight: bold" for="damageLinkType"><span style="color: red">* </span>质损环节类别</label>
+                        </div>
                     </div>
-                    <div class="col s4 valign-wrapper">
-                        <div class="col s11 input-field" style="padding: 0">
-                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="maintenance_cost" type="number" ng-model="damageInfoBefore.repair_cost">
-                            <label style="font-weight: bold" for="maintenance_cost">维修费</label>
-                        </div>
-                        <div class="col s1 left-align" style="padding: 0">
-                            <p>元</p>
+
+                    <!--分割线-->
+                    <div class="row col s12">
+                        <div class="col s12">
+                            <div class="divider" style="background: #00bcd4;height: 2px"></div>
                         </div>
                     </div>
-                    <div class="col s4 valign-wrapper">
-                        <div class="col s11 input-field" style="padding: 0">
-                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="freight" type="number" ng-model="damageInfoBefore.transport_cost">
-                            <label style="font-weight: bold" for="freight">运费</label>
+
+                    <div class="row col s12">
+                        <div class="col s3 valign-wrapper">
+                            <div class="col s11 input-field" style="padding: 0">
+                                <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="price_reduction" type="number" ng-model="damageInfoBefore.reduction_cost">
+                                <label style="font-weight: bold" for="price_reduction">降价费</label>
+                            </div>
+                            <div class="col s1 left-align" style="padding: 0">
+                                <p>元</p>
+                            </div>
                         </div>
-                        <div class="col s1 left-align" style="padding: 0">
-                            <p>元</p>
+                        <div class="col s3 valign-wrapper">
+                            <div class="col s11 input-field" style="padding: 0">
+                                <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="fine" type="number" ng-model="damageInfoBefore.penalty_cost">
+                                <label style="font-weight: bold" for="fine">罚款</label>
+                            </div>
+                            <div class="col s1 left-align" style="padding: 0">
+                                <p>元</p>
+                            </div>
+                        </div>
+                        <div class="col s3 valign-wrapper">
+                            <div class="col s11 input-field" style="padding: 0">
+                                <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="profit_and_loss" type="number" ng-model="damageInfoBefore.profit">
+                                <label style="font-weight: bold" for="profit_and_loss">盈亏</label>
+                            </div>
+                            <div class="col s1 left-align" style="padding: 0">
+                                <p>元</p>
+                            </div>
+                        </div>
+                        <div class="col s3 valign-wrapper">
+                            <div class="col s11 input-field" style="padding: 0">
+                                <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="freight" type="number" ng-model="damageInfoBefore.transport_cost">
+                                <label style="font-weight: bold" for="freight">运费</label>
+                            </div>
+                            <div class="col s1 left-align" style="padding: 0">
+                                <p>元</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row col s12">
+                        <div class="col s6 valign-wrapper" style="padding: 0;">
+                            <div class="col s11 input-field">
+                                <select id="repair_station" ng-model="damageInfoBefore.repair_id" material-select watch>
+                                    <option value="" selected>请选择</option>
+                                    <option ng-repeat="repair in repairStationList" ng-value="repair.id">{{repair.address}}</option>
+                                </select>
+                                <label style="font-weight: bold" for="repair_station">维修站</label>
+                            </div>
+                            <div class="col s1 left-align" style="padding: 0"></div>
+                        </div>
+                        <div class="col s3 valign-wrapper">
+                            <div class="col s11 input-field" style="padding: 0">
+                                <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="maintenance_cost" type="number" ng-model="damageInfoBefore.repair_cost">
+                                <label style="font-weight: bold" for="maintenance_cost">维修费</label>
+                            </div>
+                            <div class="col s1 left-align" style="padding: 0">
+                                <p>元</p>
+                            </div>
+                        </div>
+                        <div class="col s3 input-field">
+                            <select id="reimbursement_person" name="reimbursement_person" style="width:100%">
+                                <!--<option value=""></option>-->
+                                <!--<option ng-repeat="person in availableUserList" ng-value="person.uid">{{person.real_name + " " + (person.type | department)}}</option>-->
+                            </select>
+                            <label class="active" style="font-weight: bold" for="reimbursement_person"><span style="color: red">* </span>报销人</label>
+                        </div>
+                    </div>
+
+                    <div class="row col s12">
+                        <div class="col s4 valign-wrapper">
+                            <div class="col s11 input-field" style="padding: 0">
+                                <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="company_fee" type="number" ng-model="damageInfoBefore.company_cost">
+                                <label style="font-weight: bold" for="company_fee">公司承担费用</label>
+                            </div>
+                            <div class="col s1 left-align" style="padding: 0">
+                                <p>元</p>
+                            </div>
+                        </div>
+                        <div class="col s4 input-field">
+                            <select id="liable_person" name="liable_person" style="width:100%">
+                                <!--<option value=""></option>-->
+                                <!--<option ng-repeat="person in availableUserList" ng-value="person.uid">{{person.real_name + " " + (person.type | department)}}</option>-->
+                            </select>
+                            <label class="active" style="font-weight: bold" for="liable_person"><span style="color: red">* </span>责任人</label>
+                        </div>
+                        <div class="col s4 valign-wrapper">
+                            <div class="col s11 input-field" style="padding: 0">
+                                <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="responsible_fee" type="number" ng-model="damageInfoBefore.under_cost">
+                                <label style="font-weight: bold" for="responsible_fee">责任人承担费用</label>
+                            </div>
+                            <div class="col s1 left-align" style="padding: 0">
+                                <p>元</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--分割线-->
+                    <div class="row col s12">
+                        <div class="col s12">
+                            <div class="divider" style="background: #00bcd4;height: 2px"></div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row col s12">
-                    <div class="col s6 valign-wrapper">
-                        <div class="col s11 input-field" style="padding: 0">
-                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="responsible_fee" type="number" ng-model="damageInfoBefore.under_cost">
-                            <label style="font-weight: bold" for="responsible_fee">责任人承担费用</label>
+                <!--已处理状态下显示文本-->
+                <div class="handledInfo" ng-show="currentDamageStatus == 3">
+                    <div class="row col s12" style="color: #26c6da;font-size: 1.2rem;font-weight: bold">
+                        <div class="col s6">
+                            <p>质损类型：{{damageInfoBefore.damage_type | damageType}}</p>
                         </div>
-                        <div class="col s1 left-align" style="padding: 0">
-                            <p>元</p>
+                        <div class="col s6">
+                            <p>质损环节：{{damageInfoBefore.damage_link_type | damageLinkType}}</p>
                         </div>
                     </div>
-                    <div class="col s6 valign-wrapper">
-                        <div class="col s11 input-field" style="padding: 0">
-                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="company_fee" type="number" ng-model="damageInfoBefore.company_cost">
-                            <label style="font-weight: bold" for="company_fee">公司承担费用</label>
+                    <!--分割线-->
+                    <div class="row col s12">
+                        <div class="col s12">
+                            <div class="divider" style="background: #00bcd4;height: 2px"></div>
                         </div>
-                        <div class="col s1 left-align" style="padding: 0">
-                            <p>元</p>
+                    </div>
+                    <div class="row col s12" style="color: darkgray;font-size: 1.1rem;font-weight: bold">
+                        <div class="col s3">
+                            <p>降价费：<span style="color: #e18281">{{damageInfoBefore.reduction_cost.toFixed(2)}}</span> 元</p>
+                        </div>
+                        <div class="col s3">
+                            <p>罚款：<span style="color: #e18281">{{damageInfoBefore.penalty_cost.toFixed(2)}}</span> 元</p>
+                        </div>
+                        <div class="col s3">
+                            <p>盈亏：<span style="color: #e18281">{{damageInfoBefore.profit.toFixed(2)}}</span> 元</p>
+                        </div>
+                        <div class="col s3">
+                            <p>运费：<span style="color: #e18281">{{damageInfoBefore.transport_cost.toFixed(2)}}</span> 元</p>
+                        </div>
+                    </div>
+                    <div class="row col s12" style="color: darkgray;font-size: 1.1rem;font-weight: bold">
+                        <div class="col s6">
+                            <p>维修站：{{damageInfoBefore.repair_station_name}}</p>
+                        </div>
+                        <div class="col s3">
+                            <p>维修费：<span style="color: #e18281">{{damageInfoBefore.repair_cost.toFixed(2)}}</span> 元</p>
+                        </div>
+                        <div class="col s3">
+                            <p>报销人：{{damageInfoBefore.refund_user_name}}</p>
+                        </div>
+                    </div>
+                    <div class="row col s12" style="color: #26c6da;font-size: 1.2rem;font-weight: bold">
+                        <div class="col s4">
+                            <p>公司承担费用：<span style="color: #e18281">{{damageInfoBefore.company_cost.toFixed(2)}}</span> 元</p>
+                        </div>
+                        <div class="col s4">
+                            <p>责任人：{{damageInfoBefore.under_user_name}}</p>
+                        </div>
+                        <div class="col s4">
+                            <p>责任人承担费用：<span style="color: #e18281">{{damageInfoBefore.under_cost.toFixed(2)}}</span> 元</p>
+                        </div>
+                    </div>
+                    <!--分割线-->
+                    <div class="row col s12">
+                        <div class="col s12">
+                            <div class="divider" style="background: #00bcd4;height: 2px"></div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row col s12">
-                    <div class="col s1 right-align">
-                        备注：
+                <!--单选按钮-->
+                <div class="row col s12" ng-show="showRadioButton && currentDamageStatus != 3">
+                    <div class="col s2">
+                        <input class="with-gap" name="whetherPayment" type="radio" ng-model="paymentFlag" value="1" id="not_need_payment"/>
+                        <label for="not_need_payment">不需赔款</label>
                     </div>
-                    <div class="col s11">
-                    <textarea style="height: 150px" name="remark" id="remark" cols="30" rows="10"
-                              ng-model="damageInfoBefore.remark"></textarea>
+                    <div class="col s2">
+                        <input class="with-gap" name="whetherPayment" type="radio" ng-model="paymentFlag" value="2" id="need_payment" />
+                        <label for="need_payment">需要赔款</label>
+                    </div>
+                </div>
+
+                <!--打款信息-->
+                <div class="row col s12" ng-show="paymentFlag == 2">
+                    <div class="col s12">
+                        <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
+                            <div class="col s12 valign-wrapper" style="height: 50px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
+                                <div class="col s12 center-align" style="color: darkgray">
+                                    <p style="margin: 0;color: #26c6da">打款信息</p>
+                                </div>
+                            </div>
+                            <!--未完成状态下打款信息-->
+                            <div class="col s10 offset-s1" style="margin-bottom: 20px" ng-show="currentDamageStatus != 3 && financeIndemnityStatus == 1">
+                                <div class="col s4 input-field">
+                                    <input type="text" id="bank_account" name="bank_account" ng-model="bankAccount">
+                                    <label for="bank_account"><span style="color: red">* </span>银行账号</label>
+                                </div>
+                                <div class="col s4 input-field">
+                                    <input type="text" id="account_name" name="account_name" ng-model="accountName">
+                                    <label for="account_name"><span style="color: red">* </span>户名</label>
+                                </div>
+                                <div class="col s4 input-field">
+                                    <input type="text" id="opening_bank" name="opening_bank" ng-model="openingBank">
+                                    <label for="opening_bank"><span style="color: red">* </span>开户行</label>
+                                </div>
+                                <div class="col s4 input-field">
+                                    <select id="located_city" name="located_city" style="width:100%" ng-model="locatedCity">
+                                        <option value=""></option>
+                                        <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col s4 input-field">
+                                    <input type="text" id="distributor" name="distributor" ng-model="distributor">
+                                    <label for="distributor">经销商</label>
+                                </div>
+                                <div class="col s4 input-field">
+                                    <input type="number" id="payment_money" name="payment_money" ng-model="paymentMoney">
+                                    <label class="{{paymentMoney != null ? 'active' : 'inactive'}}" for="payment_money">赔款金额（元）</label>
+                                </div>
+                                <div class="col s12 input-field">
+                                    <input type="text" id="payment_remark" name="payment_remark" ng-model="paymentRemark">
+                                    <label for="payment_remark">申请打款备注</label>
+                                </div>
+                            </div>
+                            <!--已完成状态下打款信息-->
+                            <div class="col s10 offset-s1" style="margin-bottom: 20px;color: darkgray;font-size: 1.08rem" ng-show="currentDamageStatus == 3 || financeIndemnityStatus == 2">
+                                <!--打款基本信息-->
+                                <div class="col s4">
+                                    <p>银行账号：{{bankAccount}}</p>
+                                </div>
+                                <div class="col s4">
+                                    <p>户名：{{accountName}}</p>
+                                </div>
+                                <div class="col s4">
+                                    <p>开户行：{{openingBank}}</p>
+                                </div>
+                                <div class="col s4">
+                                    <p>所在城市：{{paymentInfo.city_name}}</p>
+                                </div>
+                                <div class="col s4">
+                                    <p>经销商：{{paymentInfo.receive_name}}</p>
+                                </div>
+                                <div class="col s4">
+                                    <p>赔款金额：<span style="color: #e77a7a;font-weight: bold">{{paymentMoney.toFixed(2)}}</span> 元</p>
+                                </div>
+                                <div class="col s12">
+                                    <p>申请打款备注：{{paymentRemark}}</p>
+                                </div>
+                                <!--财务确认后显示的已打款信息-->
+                                <div class="financeInfo" ng-show="financeIndemnityStatus == 2">
+                                    <hr>
+                                    <div class="col s12 valign-wrapper" style="padding: 0;">
+                                        <div class="col s8" style="padding: 0;">
+                                            <div class="col s12 left-align">
+                                                <p style="font-size: 1.2rem;color: #26c6da;font-weight: bold">已打款</p>
+                                            </div>
+                                            <div class="col s12 left-align">
+                                                <p>实际打款金额：<span style="color: #e77a7a;font-weight: bold">{{paymentInfo.actual_money.toFixed(2)}}</span> 元</p>
+                                            </div>
+                                            <div class="col s12 left-align">
+                                                <p>打款时间：{{indemnity_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                                            </div>
+                                        </div>
+                                        <!--打款凭证照片-->
+                                        <div class="col s4" id="payment_voucher" style="padding: 0;">
+                                            <div ng-click="showPaymentVoucherImage()" class="truck_car_picture col s3 vc-center p0 grey white-text">
+                                                <img ng-src="{{realImageSrc}}" class="responsive-img">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12">
+                                        <p>财务打款备注：{{paymentInfo.indemnity_explain}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--处理描述-->
+                <div class="row col s12">
+                    <div class="col s12 input-field" ng-show="currentDamageStatus != 3">
+                        <input id="remark" type="text" ng-model="damageInfoBefore.remark">
+                        <label for="remark">处理描述</label>
+                    </div>
+                    <div class="col s12" style="font-size: 1.1rem;color: darkgray" ng-show="currentDamageStatus == 3">
+                        <p><span style="font-weight: bold">处理描述：</span>{{damageInfoBefore.remark}}</p>
                     </div>
                     <div class="col s4 offset-s8 right-align">
                         <p style="font-weight: bold;color: darkgray;font-size: 1.2rem">处理人：{{damageInfoBefore.op_user_name}}</p>
                     </div>
                 </div>
 
+                <!--保存完成按钮-->
                 <div class="row col s12" style="margin-top: 30px" ng-hide="currentDamageStatus == 3">
                     <div class="col s2 offset-s3">
-                        <a ng-click="saveHandleInfoModify()" style="width: 100%" class="waves-light waves-effect red lighten-2 btn">
+                        <a ng-click="saveInfo()" style="width: 100%" class="waves-light waves-effect red lighten-2 btn">
                             保存
                         </a>
                     </div>
                     <div class="col s2 offset-s2">
-                        <a ng-click="submitHandleInfo()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                        <a ng-click="finishInfo()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
                             完成
                         </a>
                     </div>
                 </div>
             </div>
-
         </div>
 
         <!--保险信息-->

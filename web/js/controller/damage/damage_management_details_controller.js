@@ -1,12 +1,17 @@
 app.controller("damage_management_details_controller", ["$scope", "$stateParams", "$host", "_config", "_basic", function ($scope, $stateParams, $host, _config, _basic) {
     var userId = _basic.getSession(_basic.USER_ID);
     var damageId = $stateParams.id;
+    var recordId;
+    var damageCheckId;
+    var indemnityStatus;
+    var indemnityId = null;
     $scope.userName = _basic.getSession(_basic.USER_NAME);
     $scope.userDepartment = parseInt(_basic.getSession(_basic.USER_TYPE));
     $scope.userList = _config.userTypes;
     $scope.damageImageList = [];
-    var recordId;
-    var damageCheckId;
+    $scope.showRadioButton = true;
+    $scope.paymentFlag = "1";
+    $scope.financeIndemnityStatus = 1; // 财务打款状态
 
 
     // tab切换
@@ -15,7 +20,8 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
     };
     $scope.showDamageHandleInfo = function () {
         $scope.getBeforeDamageInfo();
-        $scope.getRepairStationList()
+        $scope.getRepairStationList();
+        $scope.getCityList()
     };
     $scope.showInsuranceInfo = function () {
         $scope.getInsuranceInfo();
@@ -193,7 +199,7 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
     $scope.getBeforeDamageInfo = function () {
         _basic.get($host.api_url + "/damageCheck?damageId=" + damageId).then(function (data) {
             if (data.success === true) {
-                // console.log("beforeData",data);
+                // console.log("damageData",data);
                 if(data.result.length !== 0){
                     if(data.result[0].damage_type === 0 || data.result[0].damage_type == null){
                         data.result[0].damage_type = ""
@@ -219,6 +225,13 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
                         data.result[0].refund_user_id = 0;
                     }
                     damageCheckId = data.result[0].id;
+                    // console.log("damageCheckId",damageCheckId);
+                    if(data.result[0].damage_indemnity_status == 2){
+                        $scope.showRadioButton = false;
+                    }
+                    // 无需赔款或需要赔款状态
+                    indemnityStatus = data.result[0].damage_indemnity_status;
+                    $scope.paymentFlag = data.result[0].damage_indemnity_status.toString();
                 }
                 if($scope.currentDamageStatus == 1){
                     $('#liable_person').val(0);
@@ -231,6 +244,7 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
                     $("#select2-reimbursement_person-container").html($("#reimbursement_person").find("option:selected").text());
                 }
                 $scope.damageInfoBefore = data.result[0];
+                $scope.getRemittanceInfo();
             }
             else {
                 swal(data.msg, "", "error");
@@ -251,29 +265,41 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
         });
     };
 
-    // 保存当前处理信息修改
-    $scope.saveHandleInfoModify = function () {
-        _basic.put($host.api_url + "/user/" + userId + "/damageCheck/" + damageCheckId + "?damageId=" + damageId + "&checkButton=2",{
-            underUserId: $('#liable_person').val(),
-            underUserName:$("#liable_person").find("option:selected").text().split(" ")[0],
-            damageType: parseInt($scope.damageInfoBefore.damage_type),
-            damageLinkType: parseInt($scope.damageInfoBefore.damage_link_type),
-            refundUserId: $('#reimbursement_person').val(),
-            refundUserName: $("#reimbursement_person").find("option:selected").text().split(" ")[0],
-            reductionCost: $scope.damageInfoBefore.reduction_cost,
-            penaltyCost: $scope.damageInfoBefore.penalty_cost,
-            profit: $scope.damageInfoBefore.profit,
-            repairId: $scope.damageInfoBefore.repair_id,
-            repairCost: $scope.damageInfoBefore.repair_cost,
-            transportCost: $scope.damageInfoBefore.transport_cost,
-            underCost: $scope.damageInfoBefore.under_cost,
-            companyCost: $scope.damageInfoBefore.company_cost,
-            remark: $scope.damageInfoBefore.remark
-        }).then(function (data) {
+    // 获取打款信息
+    $scope.getRemittanceInfo = function () {
+        // console.log("indemnityStatus",indemnityStatus);
+        if(indemnityStatus === 2){
+            _basic.get($host.api_url + "/damageCheckIndemnity?damageCheckId=" + damageCheckId).then(function (data) {
+                if (data.success === true) {
+                    // console.log("paymentData", data);
+                    $scope.paymentInfo = data.result[0];
+                    $scope.bankAccount = data.result[0].bank_number;
+                    $scope.accountName = data.result[0].bank_user_name;
+                    $scope.openingBank = data.result[0].bank_name;
+                    $scope.locatedCity = data.result[0].city_id;
+                    $scope.distributor = data.result[0].receive_name;
+                    $scope.paymentMoney = data.result[0].plan_money;
+                    $scope.paymentRemark = data.result[0].apply_explain;
+                    indemnityId = data.result[0].id;
+                    $scope.financeIndemnityStatus = data.result[0].indemnity_status;
+                    $scope.realImageSrc = $host.file_url + '/image/' + data.result[0].voucher_image;
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
+    };
+
+    // 获取城市列表
+    $scope.getCityList = function () {
+        _basic.get($host.api_url + "/city").then(function (data) {
             if (data.success === true) {
-                // console.log("postData",data);
-                swal("保存成功", "", "success");
-                $scope.getBeforeDamageInfo();
+                $scope.cityList = data.result;
+                $('#located_city').select2({
+                    placeholder: '所在城市',
+                    containerCssClass : 'select2_dropdown'
+                });
             }
             else {
                 swal(data.msg, "", "error");
@@ -310,13 +336,29 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
             }
         });
     };
+    
+    // 点击保存按钮
+    $scope.saveInfo = function () {
+        $scope.saveHandleInfoModify(false); // 保存基本信息
+    };
+    
+    // 点击完成按钮
+    $scope.finishInfo = function () {
+        $scope.saveHandleInfoModify(true); // 保存基本信息
+    };
 
-    // 填写完后提交处理信息，变为已处理
-    $scope.submitHandleInfo = function () {
-        if($scope.damageInfoBefore.damage_type !== "" && $scope.damageInfoBefore.damage_link_type !== ""){
-            _basic.put($host.api_url + "/user/" + userId + "/damageCheck/" + damageCheckId + "?damageId=" + damageId + "&checkButton=3",{
+    // 保存基本信息
+    $scope.saveHandleInfoModify = function (finishFlag) {
+        if(
+            $scope.damageInfoBefore.damage_type != ""
+            && $scope.damageInfoBefore.damage_link_type != ""
+            && $('#liable_person').val() != 0
+            && $('#reimbursement_person').val() != 0
+            && $scope.damageInfoBefore.repair_id != ""
+        ){
+            _basic.put($host.api_url + "/user/" + userId + "/damageCheck/" + damageCheckId + "?damageId=" + damageId, {
                 underUserId: $('#liable_person').val(),
-                underUserName:$("#liable_person").find("option:selected").text().split(" ")[0],
+                underUserName: $("#liable_person").find("option:selected").text().split(" ")[0],
                 damageType: parseInt($scope.damageInfoBefore.damage_type),
                 damageLinkType: parseInt($scope.damageInfoBefore.damage_link_type),
                 refundUserId: $('#reimbursement_person').val(),
@@ -332,10 +374,8 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
                 remark: $scope.damageInfoBefore.remark
             }).then(function (data) {
                 if (data.success === true) {
-                    // console.log("postData",data);
-                    swal("提交成功", "", "success");
-                    $scope.getBeforeDamageInfo();
-                    $scope.getCurrentDamageInfo();
+                    // $scope.getBeforeDamageInfo();
+                    $scope.savePaymentInfoModify(finishFlag);
                 }
                 else {
                     swal(data.msg, "", "error");
@@ -343,14 +383,133 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
             });
         }
         else{
-            swal("质损类型和环节不能为空", "", "warning");
+            swal("请填写完整基本信息！", "", "warning");
         }
+    };
+
+    // 保存打款信息
+    $scope.savePaymentInfoModify = function (finishFlag) {
+        // 根据借款状态判断是新增操作还是修改操作
+        if($scope.paymentFlag == 2 && indemnityId == null){
+            if(
+                $scope.bankAccount != ""
+                && $scope.bankAccount != undefined
+                && $scope.accountName != ""
+                && $scope.accountName != undefined
+                && $scope.openingBank != ""
+                && $scope.openingBank != undefined
+            ){
+                // 新增操作
+                _basic.post($host.api_url + "/user/" + userId + "/damageCheckIndemnity",{
+                    damageId: damageId,
+                    damageCheckId: damageCheckId,
+                    bankNumber: $scope.bankAccount,
+                    bankUserName: $scope.accountName,
+                    bankName: $scope.openingBank,
+                    cityId: $scope.locatedCity,
+                    receiveName: $scope.distributor,
+                    planMoney: $scope.paymentMoney,
+                    applyExplain: $scope.paymentRemark
+                }).then(function (data) {
+                    if (data.success === true) {
+                        // 修改借款状态
+                        _basic.put($host.api_url + "/user/" + userId + "/damageCheck/" + damageCheckId + "/damageIndemnityStatus/2", {}).then(function (data) {
+                            if (data.success === true) {
+                                swal("保存成功", "", "success");
+                                // $scope.getBeforeDamageInfo();
+                            }
+                            else {
+                                swal(data.msg, "", "error");
+                            }
+                        });
+                        // 判断是否需要更新处理状态
+                        if(finishFlag){
+                            $scope.updateDamageStatus();
+                        }
+                        else{
+                            swal("保存成功", "", "success");
+                            $scope.getBeforeDamageInfo();
+                        }
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
+            }
+            else{
+                swal("请填写完整打款信息！", "", "warning");
+            }
+        }
+        else if($scope.paymentFlag == 2 && indemnityId != null){
+            if(
+                $scope.bankAccount != ""
+                && $scope.bankAccount != undefined
+                && $scope.accountName != ""
+                && $scope.accountName != undefined
+                && $scope.openingBank != ""
+                && $scope.openingBank != undefined
+            ){
+                // 修改操作
+                _basic.put($host.api_url + "/user/" + userId + "/damageCheckIndemnity/" + indemnityId,{
+                    damageId: damageId,
+                    damageCheckId: damageCheckId,
+                    bankNumber: $scope.bankAccount,
+                    bankUserName: $scope.accountName,
+                    bankName: $scope.openingBank,
+                    cityId: $scope.locatedCity,
+                    receiveName: $scope.distributor,
+                    planMoney: $scope.paymentMoney,
+                    applyExplain: $scope.paymentRemark
+                }).then(function (data) {
+                    if (data.success === true) {
+                        // 判断是否需要更新状态
+                        if(finishFlag){
+                            $scope.updateDamageStatus();
+                        }
+                        else{
+                            swal("保存成功", "", "success");
+                        }
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
+            }
+            else{
+                swal("请填写完整打款信息！", "", "warning");
+            }
+        }
+        else{
+            $scope.updateDamageStatus();
+        }
+    };
+    
+    // 改变处理状态
+    $scope.updateDamageStatus = function () {
+        _basic.put($host.api_url + "/user/" + userId + "/damage/" + damageId + "/damageStatus/3",{
+            damageCheckId : damageCheckId
+        }).then(function (data) {
+            if (data.success === true) {
+                // console.log("data", data);
+                swal("质损信息完成", "", "success");
+                $scope.getCurrentDamageInfo();
+                $scope.getBeforeDamageInfo();
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
     };
 
     // 点击图片查看大图
     var viewer;
     $scope.damageFinish = function () {
         viewer = new Viewer(document.getElementById('damage_image'), {
+            url: 'data-original'
+        });
+    };
+    $scope.showPaymentVoucherImage = function () {
+        viewer = new Viewer(document.getElementById('payment_voucher'), {
             url: 'data-original'
         });
     };

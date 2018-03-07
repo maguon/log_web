@@ -275,3 +275,57 @@ CommonFilter.filter("insuranceType", function () {
         return insuranceType;
     }
 });
+
+// 质损类型
+CommonFilter.filter("damageType", function () {
+    return function (input) {
+        var damageType;
+        switch (input) {
+            case "1":
+                damageType = "A级";
+                break;
+            case "2":
+                damageType = "B级";
+                break;
+            case "3":
+                damageType = "C级";
+                break;
+            case "4":
+                damageType = "D级";
+                break;
+            case "6":
+                damageType = "F级";
+                break;
+            default:
+                damageType = "未知";
+        }
+        return damageType;
+    }
+});
+
+// 质损环节类别
+CommonFilter.filter("damageLinkType", function () {
+    return function (input) {
+        var damageLinkType;
+        switch (input) {
+            case "1":
+                damageLinkType = "委托方质损";
+                break;
+            case "2":
+                damageLinkType = "短驳质损";
+                break;
+            case "3":
+                damageLinkType = "仓储质损";
+                break;
+            case "4":
+                damageLinkType = "装车质损";
+                break;
+            case "5":
+                damageLinkType = "运输质损";
+                break;
+            default:
+                damageLinkType = "未知";
+        }
+        return damageLinkType;
+    }
+});

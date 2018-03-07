@@ -61,7 +61,7 @@
                     </div>
 
                     <!--已处理-->
-                    <div ng-if="accidentDetails.insure_status == 2" class="accident_handled center-align" style="overflow: hidden;font-size: 1.2rem;font-weight: bold;color: darkgray">
+                    <div ng-if="accidentDetails.insure_status == 2" class="accident_handled" style="overflow: hidden;font-size: 1.2rem;font-weight: bold;color: darkgray">
                         <div class="col s4">
                             <p>保险公司：{{accidentDetails.insure_name}}</p>
                         </div>
@@ -119,7 +119,7 @@
                         </div>
                         <div class="col s6 modal_accident valign-wrapper" style="padding: 0;font-size: 1.1rem;color: darkgray;font-weight: bold">
                             <div class="col s8 right-align">
-                                <p ng-if="accident.accident_status == 3">{{accident.accident_date | date:'yyyy-MM-dd HH:mm:ss' + ' 至 ' + accident.end_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                                <p ng-if="accident.accident_status == 3">{{(accident.accident_date | date:'yyyy-MM-dd HH:mm:ss') + ' 至 ' + (accident.end_date | date:'yyyy-MM-dd HH:mm:ss')}}</p>
                                 <p ng-if="accident.accident_status == 1 || accident.accident_status == 2">{{accident.accident_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
                             </div>
                             <div class="col s3 center-align">

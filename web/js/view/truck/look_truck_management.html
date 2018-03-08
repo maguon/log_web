@@ -167,7 +167,7 @@
                                 <input type="text" id="address" ng-model="address" autocomplete="off"  name="address" required>
                                 <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
                                 <label class="grey-text bold" for="address" style="color:#00bcd4 "><span style="color: red">*</span>详细地址</label>
-                                <i class="address_icon mdi mdi-near-me vc-center cyan  lighten-2 white-text" ng-click="search_location(input_address)" style="cursor: pointer"></i>
+                                <i class="address_icon mdi mdi-near-me vc-center cyan  lighten-2 white-text" ng-click="search_location(address)" style="cursor: pointer"></i>
                             </div>
                         </div>
                         <div class="row">
@@ -293,12 +293,17 @@
             </div>
             <div  class="handleInfoInput" ng-if="accidentStatus == 3" style="width:70%;margin-left:auto;margin-right:auto;margin-top:20px">
                 <div style="width: 100%;margin: 0 auto">
-                    <div class="row card" style="height: 370px">
+                    <div class="row card" style="height: 400px">
                         <div class="row col s12" style="margin-top: 20px;margin-right: 20px;">
-                            <div class="fz20 col s12 right-align" ng-if="currentAccInfo.truck_accident_type==1" style="color: red;padding-bottom: 7px;">一般严重</div>
-                            <div class="fz20 col s12 right-align" ng-if="currentAccInfo.truck_accident_type==2" style="color: red;padding-bottom: 7px;">特别严重</div>
-                            <div class="divider darkgray lighten-1" style="height: 1px;width:100% ;font-weight: bold;"></div>
+                            <div class="col s6 valign-wrapper">
+                                <div class="fz20 col s12 input-field left-align" ng-if="currentAccInfo.truck_accident_type==1" style="color: red;padding-bottom: 7px;">一般严重</div>
+                                <div class="fz20 col s12 input-field left-align" ng-if="currentAccInfo.truck_accident_type==2" style="color: red;padding-bottom: 7px;">特别严重</div>
+                            </div>
+                            <div class="col s6 valign-wrapper">
+                                <div class="col s12 input-field right-align" style="color: darkgray;padding-bottom: 7px;">处理结束时间：{{nowDate | date:"yyyy-MM-dd HH:mm" }}</div>
+                            </div>
                         </div>
+                        <div  class="row col s12" style="height:1px;border-bottom: 1px solid #ccc;width:96%;margin-left: 2%"></div>
                         <div class="row col s12">
                             <div class="col s6 valign-wrapper">
                                 <div class="col s12 input-field left-align" style="padding-left: 10%">
@@ -306,12 +311,12 @@
                                 </div>
                             </div>
                             <div class="col s6 valign-wrapper">
-                                <div class="col s12 input-field center-align" style="padding: 0">
+                                <div class="col s12 input-field left-align" style="padding: 0">
                                     <div style="font-weight: bold" for="responsible_fee">承担金额:{{currentAccInfo.under_cost}}元</div>
                                 </div>
                             </div>
                         </div>
-                        <div  class="row col s12" style="height:1px;border-bottom: 1px dotted #ccc;width:90%;margin-left: 5%"></div>
+                        <div  class="row col s12" style="height:1px;border-bottom: 1px dotted #ccc;width:96%;margin-left: 2%"></div>
                         <div class="row col s12">
                             <div class="col s6 valign-wrapper">
                                 <div class="col s12 input-field left-align" style="padding-left: 10%">
@@ -319,19 +324,19 @@
                                 </div>
                             </div>
                             <div class="col s6 valign-wrapper">
-                                <div class="col s12 input-field center-align" style="padding: 0">
+                                <div class="col s12 input-field left-align" style="padding: 0">
                                     <div style="font-weight: bold" for="company_fee">盈亏:{{currentAccInfo.profit}}元</div>
                                 </div>
                             </div>
                         </div>
-                        <div  class="row col s12" style="height:1px;border-bottom: 1px dotted #ccc;width:90%;margin-left: 5%"></div>
+                        <div  class="row col s12" style="height:1px;border-bottom: 1px dotted #ccc;width:96%;margin-left: 2%"></div>
                         <div class="row col s12">
                             <div class="col s6 valign-wrapper">
                                 <div class="col s12 input-field left-align" style="padding-left: 10%">
                                     <div style="font-weight: bold ;margin-bottom: 20px;"  for="company_remark">处理概述：{{currentAccInfo.remark}}</div>
                                 </div>
                             </div>
-                            <div class="divider darkgray lighten-1" style="height: 1px;width:100% ;font-weight: bold;"></div>
+                            <div  class="row col s12" style="height:1px;border-bottom: 1px solid #ccc;width:96%;margin-left: 2%"></div>
                             <div class="col s4 offset-s8 right-align">
                                 <p style="font-weight: bold;color: darkgray;font-size: 1.2rem;margin-bottom: 5px;">处理人：{{currentAccInfo.op_user_name}}</p>
                             </div>
@@ -347,7 +352,7 @@
                         <div class="col s12">
                             <div class="row col s12 valign-wrapper" >
                                 <div class="col s3 left-align">
-                                    <div class="col s12 fz14 right-align" style="margin-top: 25px;color:#00bcd4;">维修编号.{{el.id}}</div>
+                                    <div class="col s12 fz14" style="margin-top: 25px;color:#00bcd4;">维修编号.{{el.id}}</div>
                                 </div>
                                 <div class="col s9  offset-s3">
                                     <div class="col s4 valign-wrapper">
@@ -492,7 +497,7 @@
                         </div>
                         <div class="col s5 modal_accident valign-wrapper" style="padding: 0;font-size: 1.1rem;color: darkgray;font-weight: bold">
                             <div class="col s8 left-align">
-                                <p class="fz12" ng-if="accident.accident_status == 3">{{accident.accident_date | date:'yyyy-MM-dd' + ' - ' + accident.end_date | date:'yyyy-MM-dd'}}</p>
+                                <p class="fz12" ng-if="accident.accident_status == 3">{{accident.accident_date | date:'yyyy-MM-dd'}}  - {{ accident.end_date | date:'yyyy-MM-dd'}}</p>
                                 <p class="fz12" ng-if="accident.accident_status == 1 || accident.accident_status == 2">{{accident.accident_date | date:'yyyy-MM-dd'}}</p>
                             </div>
                             <div class="col s3 center-align">

@@ -86,8 +86,8 @@
                     </div>
                     <!--关联事故卡片-->
                     <div class="col s12" style="padding: 0 20px" ng-repeat="accident in accidentClaimList">
-                        <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 25px">
-                            <div class="col s12" style="height: 55px;background-color: #dcdfe0;color: darkgray;font-size: 1.1rem;font-weight: bold">
+                        <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 25px;font-size: 1.1rem;color: darkgray">
+                            <div class="col s12" style="height: 55px;background-color: #dcdfe0;font-weight: bold">
                                 <div class="col s12 valign-wrapper">
                                     <div class="col s8 left-align" style="color: #26c6da;padding: 0;">
                                         <p style="margin: 0">事故编号：{{accident.id}}</p>
@@ -99,7 +99,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col s12 wash_fee_details less_mar" style="color: darkgray;font-size: 1.1rem">
+                            <div class="col s12 wash_fee_details less_mar">
                                 <div class="col s4">
                                     <p><span>货车牌号：</span>{{accident.truck_num}}</p>
                                 </div>
@@ -110,7 +110,7 @@
                                     <p><span>司机：</span>{{accident.drive_name}}</p>
                                 </div>
                             </div>
-                            <div class="col s12 wash_fee_details less_mar" style="color: darkgray;font-size: 1.1rem">
+                            <div class="col s12 wash_fee_details less_mar">
                                 <div class="col s4">
                                     <p><span>事故类型：</span>sdaasdas</p>
                                 </div>
@@ -118,7 +118,7 @@
                                     <p><span>责任人：</span>{{accident.under_user_name}}</p>
                                 </div>
                             </div>
-                            <div class="col s12 wash_fee_details less_mar" style="color: darkgray;font-size: 1.1rem">
+                            <div class="col s12 wash_fee_details less_mar">
                                 <div class="col s4">
                                     <p><span>盈亏：</span><span style="color: #e57474">{{accident.profit}}</span> 元</p>
                                 </div>
@@ -129,7 +129,7 @@
                                     <p><span>责任人承担金额：</span><span style="color: #e57474">{{accident.under_cost}}</span> 元</p>
                                 </div>
                             </div>
-                            <div class="col s12 wash_fee_details less_mar" style="color: darkgray;font-size: 1.1rem">
+                            <div class="col s12 wash_fee_details less_mar">
                                 <div class="col s12">
                                     <p><span>事故说明：</span>{{accident.accident_explain}}</p>
                                 </div>

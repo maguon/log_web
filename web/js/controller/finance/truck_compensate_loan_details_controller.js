@@ -3,7 +3,7 @@ app.controller("truck_compensate_loan_details_controller", ["$scope", "$host", "
     var userId = _basic.getSession(_basic.USER_ID);
     var loanId = $stateParams.id;
     var compensateId = $stateParams.compensateId;
-    var hasRepayment = false;
+    $scope.hasRepayment = false;
 
     // 获取当前借款数据
     $scope.getCurrentLoanInfo = function () {
@@ -11,7 +11,7 @@ app.controller("truck_compensate_loan_details_controller", ["$scope", "$host", "
             if (data.success === true) {
                 // console.log("data", data);
                 if(data.result[0].repayment_money !== null && data.result[0].repayment_explain !== null){
-                    hasRepayment = true;
+                    $scope.hasRepayment = true;
                 }
                 $scope.loanInfo = data.result[0];
                 $scope.loanStatus = data.result[0].loan_status;
@@ -128,7 +128,7 @@ app.controller("truck_compensate_loan_details_controller", ["$scope", "$host", "
                 repaymentExplain: $scope.loanInfo.repayment_explain
             }).then(function (data) {
                 if (data.success === true) {
-                    hasRepayment = true;
+                    $scope.hasRepayment = true;
                     swal("保存成功", "", "success");
                     $scope.getCurrentLoanInfo();
                 }
@@ -141,7 +141,7 @@ app.controller("truck_compensate_loan_details_controller", ["$scope", "$host", "
 
     // 点击完结修改状态
     $scope.finishRepayment = function () {
-        if(hasRepayment){
+        if($scope.hasRepayment){
             swal({
                     title: "确定完结吗？",
                     type: "warning",

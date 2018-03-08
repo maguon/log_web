@@ -71,7 +71,7 @@
                             <p><span>待赔金额：</span><span style="color: #e57474">{{loanInfo.insure_plan.toFixed(2)}}</span> 元</p>
                         </div>
                         <div class="col s3">
-                            <p><span>借款金额：</span><span style="color: #e57474">{{loanInfo.loan_money == null ? 0 : loanInfo.loan_money.toFixed(2)}}</span> 元</p>
+                            <p><span>预借金额：</span><span style="color: #e57474">{{loanInfo.financial_loan == null ? 0 : loanInfo.financial_loan.toFixed(2)}}</span> 元</p>
                         </div>
                         <div class="col s12">
                             <p style="word-break: break-all"><span>赔付描述：</span>{{loanInfo.payment_explain}}</p>
@@ -126,7 +126,7 @@
         <div class="hasLoanStatusCard" ng-if="loanStatus == 2 || loanStatus == 3">
             <div class="col s6">
                 <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
-                    <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
+                    <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.05rem;font-weight: bold">
                         <div class="col s7 left-align" style="color: darkgray">
                             <p style="margin: 0">借款时间：{{loanInfo.loan_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
                         </div>
@@ -154,8 +154,16 @@
             <div class="col s6">
                 <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
                     <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
-                        <div class="col s12 left-align" style="color: #26c6da">
+                        <div class="col s12 left-align" style="color: #26c6da" ng-show="!hasRepayment">
                             <p style="margin: 0">还款</p>
+                        </div>
+                        <div class="col s12" style="color: darkgray;font-size: 1.05rem" ng-show="hasRepayment">
+                            <div class="col s7 left-align">
+                                <p style="margin: 0">还款时间：{{loanInfo.repayment_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                            </div>
+                            <div class="col s5 right-align">
+                                <p style="margin: 0">财务人员：{{loanInfo.repayment_user_name}}</p>
+                            </div>
                         </div>
                     </div>
                     <div class="col s12" style="margin-bottom: 30px">

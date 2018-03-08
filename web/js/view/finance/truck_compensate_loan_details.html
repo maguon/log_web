@@ -60,6 +60,7 @@
                     <div class="col s4 offset-s8 right-align" style="color: darkgray">
                         <p style="margin: 6px 0">生成时间：{{loanInfo.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</p>
                     </div>
+                    <!--理赔基本信息-->
                     <div class="col s12 bold_txt" style="color: darkgray;font-size: 1.1rem">
                         <div class="col s3">
                             <p><span>保险公司：</span>{{loanInfo.insure_name}}</p>
@@ -77,13 +78,12 @@
                             <p style="word-break: break-all"><span>赔付描述：</span>{{loanInfo.payment_explain}}</p>
                         </div>
                     </div>
-
-                    <!--关联事故详情-->
                     <div class="col s12">
                         <div class="col s12">
                             <p style="font-size: 1.1rem;color: #26c6da;font-weight: bold">关联事故</p>
                         </div>
                     </div>
+
                     <!--关联事故卡片-->
                     <div class="col s12" style="padding: 0 20px" ng-repeat="accident in accidentClaimList">
                         <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 25px;font-size: 1.1rem;color: darkgray">
@@ -112,7 +112,7 @@
                             </div>
                             <div class="col s12 wash_fee_details less_mar">
                                 <div class="col s4">
-                                    <p><span>事故类型：</span>sdaasdas</p>
+                                    <p><span>事故类型：</span>{{accident.truck_accident_type == 1 ? "一般" : accident.truck_accident_type == 2 ? "严重" : "未知"}}</p>
                                 </div>
                                 <div class="col s8">
                                     <p><span>责任人：</span>{{accident.under_user_name}}</p>

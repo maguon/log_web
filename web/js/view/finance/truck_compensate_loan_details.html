@@ -61,14 +61,17 @@
                         <p style="margin: 6px 0">生成时间：{{loanInfo.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</p>
                     </div>
                     <div class="col s12 bold_txt" style="color: darkgray;font-size: 1.1rem">
-                        <div class="col s4">
+                        <div class="col s3">
                             <p><span>保险公司：</span>{{loanInfo.insure_name}}</p>
                         </div>
-                        <div class="col s4">
+                        <div class="col s3">
                             <p><span>保险种类：</span>{{loanInfo.insure_type | insuranceType}}</p>
                         </div>
-                        <div class="col s4">
+                        <div class="col s3">
                             <p><span>待赔金额：</span><span style="color: #e57474">{{loanInfo.insure_plan.toFixed(2)}}</span> 元</p>
+                        </div>
+                        <div class="col s3">
+                            <p><span>借款金额：</span><span style="color: #e57474">{{loanInfo.loan_money == null ? 0 : loanInfo.loan_money.toFixed(2)}}</span> 元</p>
                         </div>
                         <div class="col s12">
                             <p style="word-break: break-all"><span>赔付描述：</span>{{loanInfo.payment_explain}}</p>
@@ -79,25 +82,20 @@
                     <div class="col s12">
                         <div class="col s12">
                             <p style="font-size: 1.1rem;color: #26c6da;font-weight: bold">关联事故</p>
+                            <hr>
                         </div>
                     </div>
                     <div class="col s12" ng-repeat="accident in accidentClaimList">
-                        <div class="col s6 modal_accident valign-wrapper" style="padding: 0;font-size: 1.1rem;color: darkgray;font-weight: bold">
-                            <div class="col s2 right-align" style="padding: 0">
-                                <p style="color: #26c6da;font-weight: normal;font-size: 1rem">事故编号：</p>
+                        <div class="col s4 modal_accident valign-wrapper" style="padding: 0;font-size: 1.1rem;color: darkgray;font-weight: bold">
+                            <div class="col s5 left-align">
+                                <p><span style="color: #26c6da;font-weight: bold;font-size: 1rem">事故编号：</span>{{accident.id}}</p>
                             </div>
-                            <div class="col s3 left-align">
-                                <p>{{accident.id}}</p>
-                            </div>
-                            <div class="col s2">
-                                <p>{{accident.truck_type == 1 ? "头车" : "挂车"}}</p>
-                            </div>
-                            <div class="col s5">
-                                <p>{{accident.truck_num}}</p>
+                            <div class="col s7">
+                                <p>{{accident.truck_num}}（{{accident.truck_type == 1 ? "头" : "挂"}}）</p>
                             </div>
                         </div>
-                        <div class="col s6 modal_accident valign-wrapper" style="padding: 0;font-size: 1.1rem;color: darkgray;font-weight: bold">
-                            <div class="col s8 right-align">
+                        <div class="col s8 modal_accident valign-wrapper" style="font-size: 1.1rem;color: darkgray;font-weight: bold">
+                            <div class="col s8 center-align">
                                 <p ng-if="accident.accident_status == 3">{{(accident.accident_date | date:'yyyy-MM-dd HH:mm:ss') + ' 至 ' + (accident.end_date | date:'yyyy-MM-dd HH:mm:ss')}}</p>
                                 <p ng-if="accident.accident_status == 1 || accident.accident_status == 2">{{accident.accident_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
                             </div>

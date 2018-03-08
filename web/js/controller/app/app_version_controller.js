@@ -80,7 +80,7 @@ app.controller("app_version_controller", ["$scope", "$state", "$stateParams", "_
         })
     }
     //修改
-    $scope.createAppSystemItem = function (id) {
+    $scope.updateAppSystemItem = function (id) {
         if ($scope.showAppSystemList.app !== "" && $scope.showAppSystemList.type !== ""
             && $scope.showAppSystemList.force_update !== "" && $scope.showAppSystemList.version !== "" && $scope.showAppSystemList.url !== "") {
             var obj = {

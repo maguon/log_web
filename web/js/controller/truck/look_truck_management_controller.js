@@ -1,6 +1,6 @@
 app.controller("look_truck_management_controller", ["$scope", "$state", "$stateParams", "_basic", "_config", "$host", function ($scope, $state, $stateParams, _basic, _config, $host) {
     var userId = _basic.getSession(_basic.USER_ID);
-    var truckDamageId = $stateParams.id;
+    var truckAccId = $stateParams.id;
     $scope.truckAccidentCheckId='';
     $scope.accientImageList=[];
     $scope.car_image_i=[];
@@ -46,7 +46,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
     };
     //获取信息
     function getDetailTruckData (){
-        _basic.get($host.api_url + "/truckAccident?truckAccidentId=" + truckDamageId).then(function (data) {
+        _basic.get($host.api_url + "/truckAccident?truckAccidentId=" + truckAccId).then(function (data) {
             if (data.success === true) {
                 $scope.vId=data.result[0].id;
                 $scope.truckId=data.result[0].truck_id;
@@ -60,9 +60,9 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                 $scope.accidentStatus=data.result[0].accident_status;
                 $scope.address=data.result[0].address;
                 $scope.remark=data.result[0].accident_explain;
+                $scope.truckTel=data.result[0].tel;
                 _basic.get($host.api_url + "/truckFirst?truckNum="+  $scope.truckNum).then(function (data) {
                     if (data.success === true) {
-                        $scope.truckTel=data.result[0].truck_tel;
                         $scope.companyName=data.result[0].company_name;
                     }
                 })
@@ -172,7 +172,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                 lat: $scope.lat,
                 accidentExplain: $scope.remark
             };
-            _basic.put($host.api_url + "/user/" + userId + "/truckAccident/"+truckDamageId, managementInfo).then(function (data) {
+            _basic.put($host.api_url + "/user/" + userId + "/truckAccident/"+truckAccId, managementInfo).then(function (data) {
                 if (data.success === true) {
                     $state.go($stateParams.from, {reload: true})
                 }
@@ -187,7 +187,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
     };
     // 获取当前车辆事故照片
     $scope.getCurrentAccientImage = function () {
-        _basic.get($host.record_url + "/truckDamage?truckDamageId="+truckDamageId).then(function (data) {
+        _basic.get($host.record_url + "/truckDamage?truckDamageId="+truckAccId).then(function (data) {
             if (data.success === true) {
                 if(data.result.length !== 0){
                     $scope.id=data.result[0]._id;
@@ -241,7 +241,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
         var dom_obj = $(dom);
         var filename = $(dom).val();
         uploadBrandImage(filename, dom_obj, function (imageId) {
-            _basic.post($host.record_url + "/user/" + userId + "/truckDamage/" +  truckDamageId+ "/image", {
+            _basic.post($host.record_url + "/user/" + userId + "/truckDamage/" +  truckAccId+ "/image", {
                 username: _basic.getSession(_basic.USER_NAME),
                 userId: userId,
                 userType: _basic.getSession(_basic.USER_TYPE),
@@ -340,20 +340,27 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
     };
     function getBeforeAccList(){
         if($scope.accidentStatus !== 1){
-            _basic.get($host.api_url + "/truckAccidentCheck?truckAccidentId=" + truckDamageId).then(function (data) {
+            _basic.get($host.api_url + "/truckAccidentCheck?truckAccidentId=" + truckAccId).then(function (data) {
                 if (data.success === true) {
                     if(data.result==null||data.result==undefined){
                         return;
                     }
                     else {
                         $scope.currentAccInfo = data.result[0];
-                        $scope.currentAccInfo.truck_accident_type = data.result[0].truck_accident_type+'';
+                        if(data.result[0].truck_accident_type!==undefined||data.result[0].truck_accident_type!==null){
+                            $scope.currentAccInfo.truck_accident_type = data.result[0].truck_accident_type+'';
+                        }
+                        else{
+                            $scope.currentAccInfo.truck_accident_type ='';
+                        }
                         $scope.truckAccidentCheckId= data.result[0].id;
                         $scope.underUserName= data.result[0].under_user_name;
                         if( $scope.underUserName!==null){
+                            $("#fined").val(data.result[0].under_user_id),
                             $("#select2-liable_person-container").html($("#fined").find("option:selected").text( $scope.underUserName));
                         }
                         else{
+                            $("#fined").val(0);
                             $("#select2-liable_person-container").html($("#fined").find("option:selected").text('责任人'));
                         }
                         if($scope.currentAccInfo.truck_accident_type==null||$scope.currentAccInfo.truck_accident_type==0||$scope.currentAccInfo.truck_accident_type==undefined){
@@ -373,8 +380,9 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
     $scope.saveHandleInfoModify= function () {
         if($scope.currentAccInfo.truck_accident_type!==null){
             _basic.put($host.api_url + "/user/" + userId + "/truckAccidentCheck/" +  $scope.truckAccidentCheckId, {
-                truckAccidentId:truckDamageId,
+                truckAccidentId:truckAccId,
                 truckAccidentType:$scope.currentAccInfo.truck_accident_type,
+                underUserId:$("#fined").val(),
                 underUserName: $("#fined").find("option:selected").text().split(" ")[0],
                 underCost:$scope.currentAccInfo.under_cost,
                 companyCost:$scope.currentAccInfo.company_cost,
@@ -397,10 +405,10 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
     // 点击开始处理，变为处理中状态并初始化处理信息
     $scope.beginProcessing = function () {
         _basic.post($host.api_url + "/user/" + userId + "/truckAccidentCheck" ,{
-            truckAccidentId: truckDamageId,
+            truckAccidentId: truckAccId,
             truckAccidentType: 0,
             underUserId: 0,
-            underUserName:'责任人',
+            underUserName:'',
             underCost: 0,
             companyCost: 0,
             profit: 0,
@@ -429,8 +437,9 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
             function () {
             if($scope.currentAccInfo.truck_accident_type!==null){
                 _basic.put($host.api_url + "/user/" + userId + "/truckAccidentCheck/" +  $scope.truckAccidentCheckId, {
-                    truckAccidentId: truckDamageId,
+                    truckAccidentId: truckAccId,
                     truckAccidentType: $scope.currentAccInfo.truck_accident_type,
+                    underUserId:$("#fined").val(),
                     underUserName: $("#fined").find("option:selected").text().split(" ")[0],
                     underCost: $scope.currentAccInfo.under_cost,
                     companyCost: $scope.currentAccInfo.company_cost,
@@ -438,7 +447,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                     remark: $scope.currentAccInfo.remark
                 }).then(function (data) {
                     if (data.success === true) {
-                        _basic.put($host.api_url + "/user/" + userId + "/truckAccident/" + truckDamageId + "/accidentStatus/3", {}).then(function (data) {
+                        _basic.put($host.api_url + "/user/" + userId + "/truckAccident/" + truckAccId + "/accidentStatus/3?truckAccidentCheckId="+$scope.truckAccidentCheckId, {}).then(function (data) {
                             if (data.success === true) {
                                 swal("处理成功", "", "success");
                                 $scope.accidentStatus = 3;
@@ -472,7 +481,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
     }
     //理赔信息
     $scope.accidentInsure = function () {
-        _basic.get($host.api_url + "/truckAccidentInsure?accidentId=" +truckDamageId).then(function (data) {
+        _basic.get($host.api_url + "/truckAccidentInsure?accidentId=" +truckAccId).then(function (data) {
             if (data.success === true) {
                 $scope.accidentDetails = data.result;
                 for(var i=0;i<data.result.length;i++){
@@ -530,7 +539,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                 financialLoanStatus:$scope.truckType,
                 financialLoan: $scope.financialLoan,
                 paymentExplain: $scope.finanlReason,
-                accidentId:truckDamageId
+                accidentId:truckAccId
             }).then(function (data) {
                 if (data.success === true){
                     swal("新增成功", "", "success");
@@ -558,7 +567,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                 closeOnConfirm: true
             },
             function(){
-                _basic.delete($host.api_url + "/user/" + userId + "/accidentInsure/" +currentAccidentId + "/accident/" + truckDamageId).then(function (data) {
+                _basic.delete($host.api_url + "/user/" + userId + "/accidentInsure/" +currentAccidentId + "/accident/" + truckAccId).then(function (data) {
                     if (data.success === true) {
                         $scope.accidentInsure();
                     }

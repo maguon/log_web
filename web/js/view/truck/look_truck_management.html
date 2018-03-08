@@ -272,7 +272,7 @@
                 <div class="row col s12">
                     <div class="col s12 input-field" style="width: 100%">
                         <label style="font-weight: bold" for="companyRemark">处理概述：</label>
-                        <input style="text-align: right;color: rgb(230,123,123)" id="companyRemark" type="text" ng-model="currentAccInfo.remark" ng-change="remark">
+                        <input style="text-align: left;color: rgb(230,123,123)" id="companyRemark" type="text" ng-model="currentAccInfo.remark" ng-change="remark">
                     </div>
                     <div class="col s4 offset-s8 right-align">
                         <p style="font-weight: bold;color: darkgray;font-size: 1.2rem">处理人：{{currentAccInfo.op_user_name}}</p>
@@ -293,42 +293,47 @@
             </div>
             <div  class="handleInfoInput" ng-if="accidentStatus == 3" style="width:70%;margin-left:auto;margin-right:auto;margin-top:20px">
                 <div style="width: 100%;margin: 0 auto">
-                    <div class="row card" style="height: 270px">
-                        <div class="row col s12" style="margin-top: 20px;margin-right: 20px">
-                            <div class="fz20 col s12 right-align" ng-if="currentAccInfo.truck_accident_type==1" style="color: red">一般严重</div>
-                            <div class="fz20 col s12 right-align" ng-if="currentAccInfo.truck_accident_type==2" style="color: red">特别严重</div>
+                    <div class="row card" style="height: 370px">
+                        <div class="row col s12" style="margin-top: 20px;margin-right: 20px;">
+                            <div class="fz20 col s12 right-align" ng-if="currentAccInfo.truck_accident_type==1" style="color: red;padding-bottom: 7px;">一般严重</div>
+                            <div class="fz20 col s12 right-align" ng-if="currentAccInfo.truck_accident_type==2" style="color: red;padding-bottom: 7px;">特别严重</div>
+                            <div class="divider darkgray lighten-1" style="height: 1px;width:100% ;font-weight: bold;"></div>
                         </div>
                         <div class="row col s12">
                             <div class="col s6 valign-wrapper">
-                                <div class="col s11 input-field" style="padding: 0">
+                                <div class="col s12 input-field left-align" style="padding-left: 10%">
                                     <div style="font-weight: bold" for="fine">责任人:{{currentAccInfo.under_user_name}}</div>
                                 </div>
                             </div>
                             <div class="col s6 valign-wrapper">
-                                <div class="col s11 input-field" style="padding: 0">
+                                <div class="col s12 input-field center-align" style="padding: 0">
                                     <div style="font-weight: bold" for="responsible_fee">承担金额:{{currentAccInfo.under_cost}}元</div>
                                 </div>
                             </div>
                         </div>
+                        <div  class="row col s12" style="height:1px;border-bottom: 1px dotted #ccc;width:90%;margin-left: 5%"></div>
                         <div class="row col s12">
                             <div class="col s6 valign-wrapper">
-                                <div class="col s11 input-field" style="padding: 0">
+                                <div class="col s12 input-field left-align" style="padding-left: 10%">
                                     <div style="font-weight: bold" for="company_cost">公司承担金额:{{currentAccInfo.company_cost}}元</div>
                                 </div>
                             </div>
                             <div class="col s6 valign-wrapper">
-                                <div class="col s11 input-field" style="padding: 0">
+                                <div class="col s12 input-field center-align" style="padding: 0">
                                     <div style="font-weight: bold" for="company_fee">盈亏:{{currentAccInfo.profit}}元</div>
                                 </div>
                             </div>
                         </div>
-
+                        <div  class="row col s12" style="height:1px;border-bottom: 1px dotted #ccc;width:90%;margin-left: 5%"></div>
                         <div class="row col s12">
-                            <div class="col s6 valign-wrapper left-align">
-                                <div style="font-weight: bold ;margin-left: 40px"  for="company_remark">处理概述：{{currentAccInfo.remark}}</div>
+                            <div class="col s6 valign-wrapper">
+                                <div class="col s12 input-field left-align" style="padding-left: 10%">
+                                    <div style="font-weight: bold ;margin-bottom: 20px;"  for="company_remark">处理概述：{{currentAccInfo.remark}}</div>
+                                </div>
                             </div>
+                            <div class="divider darkgray lighten-1" style="height: 1px;width:100% ;font-weight: bold;"></div>
                             <div class="col s4 offset-s8 right-align">
-                                <p style="font-weight: bold;color: darkgray;font-size: 1.2rem">处理人：{{currentAccInfo.op_user_name}}</p>
+                                <p style="font-weight: bold;color: darkgray;font-size: 1.2rem;margin-bottom: 5px;">处理人：{{currentAccInfo.op_user_name}}</p>
                             </div>
                         </div>
                     </div>

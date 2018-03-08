@@ -15,10 +15,10 @@
                 <div class="col s3 left-align" style="color: #26c6da">
                     <p style="margin: 0">理赔编号：{{accidentId}}</p>
                 </div>
-                <div class="col s6 right-align" style="color: darkgray">
+                <div class="col s5 right-align" style="color: darkgray">
                     <p style="margin: 0">{{accidentDetails.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</p>
                 </div>
-                <div class="col s2 center-align" style="color: darkgray">
+                <div class="col s3 center-align" style="color: darkgray">
                     <p>经办人：{{accidentDetails.insure_user_name}}</p>
                 </div>
                 <div class="col s1 center-align">
@@ -72,13 +72,13 @@
                             <p>赔付时间：{{accidentDetails.completed_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
                         </div>
                         <div class="col s4">
-                            <p>待赔金额：<span style="color: #e57676">{{accidentDetails.insure_plan}}</span> 元</p>
+                            <p>待赔金额：<span style="color: #e57676">{{accidentDetails.insure_plan.toFixed(2)}}</span> 元</p>
                         </div>
                         <div class="col s4">
-                            <p>财务借款：{{accidentDetails.financial_loan}} 元</p>
+                            <p>财务借款：<span style="color: #e57676">{{accidentDetails.financial_loan.toFixed(2)}}</span> 元</p>
                         </div>
                         <div class="col s4">
-                            <p>实际赔付：{{accidentDetails.insure_actual}} 元</p>
+                            <p>实际赔付：<span style="color: #e57676">{{accidentDetails.insure_actual.toFixed(2)}}</span> 元</p>
                         </div>
                     </div>
 
@@ -89,8 +89,8 @@
                     </div>
 
                     <!--关联事故-->
-                    <div class="col s12 valign-wrapper" style="padding: 0;">
-                        <div class="col {{accidentDetails.insure_status == 1 ? 's10' : 's12'}} input-field">
+                    <div class="col s12 valign-wrapper" style="padding: 0;" ng-show="accidentDetails.insure_status == 1">
+                        <div class="col s10 input-field">
                             <input type="text" name="payment_money_start" id="relation_accident" ng-model="relationAccidentNum">
                             <label for="relation_accident">关联事故</label>
                         </div>
@@ -100,25 +100,23 @@
                             </a>
                         </div>
                     </div>
+                    <div class="col s12" ng-show="accidentDetails.insure_status == 2">
+                        <p style="color: #26c6da;font-size: 1.1rem;font-weight: bold">关联事故</p>
+                        <hr>
+                    </div>
 
                     <!--事故详情-->
                     <div class="col s12" ng-repeat="accident in accidentClaimList">
-                        <div class="col s6 modal_accident valign-wrapper" style="padding: 0;font-size: 1.1rem;color: darkgray;font-weight: bold">
-                            <div class="col s2 right-align" style="padding: 0">
-                                <p style="color: #26c6da;font-weight: normal;font-size: 1rem">事故编号：</p>
+                        <div class="col s4 modal_accident valign-wrapper" style="padding: 0;font-size: 1.1rem;color: darkgray;font-weight: bold">
+                            <div class="col s4 left-align" style="padding: 0">
+                                <p><span style="color: #26c6da;font-weight: bold;font-size: 1rem">事故编号：</span>{{accident.id}}</p>
                             </div>
-                            <div class="col s3 left-align">
-                                <p>{{accident.id}}</p>
-                            </div>
-                            <div class="col s2">
-                                <p>{{accident.truck_type == 1 ? "头车" : "挂车"}}</p>
-                            </div>
-                            <div class="col s5">
-                                <p>{{accident.truck_num}}</p>
+                            <div class="col s8">
+                                <p>{{accident.truck_num}}（{{accident.truck_type == 1 ? "头" : "挂"}}）</p>
                             </div>
                         </div>
-                        <div class="col s6 modal_accident valign-wrapper" style="padding: 0;font-size: 1.1rem;color: darkgray;font-weight: bold">
-                            <div class="col s8 right-align">
+                        <div class="col s8 modal_accident valign-wrapper" style="padding: 0;font-size: 1.1rem;color: darkgray;font-weight: bold">
+                            <div class="col s8 center-align">
                                 <p ng-if="accident.accident_status == 3">{{(accident.accident_date | date:'yyyy-MM-dd HH:mm:ss') + ' 至 ' + (accident.end_date | date:'yyyy-MM-dd HH:mm:ss')}}</p>
                                 <p ng-if="accident.accident_status == 1 || accident.accident_status == 2">{{accident.accident_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
                             </div>
@@ -131,24 +129,21 @@
                                 <span style="font-size: 1.4rem;color: #e88282;cursor: pointer" ng-if="accidentDetails.insure_status == 1" ng-click="deleteAccidentInfo(accident.id)" class="mdi mdi-delete-forever"></span>
                             </div>
                         </div>
+                        <hr>
                     </div>
 
                     <!--处理描述-->
                     <div class="col s12 input-field" ng-if="accidentDetails.insure_status == 1">
-                        <div class="col s12 input-field">
-                            <input type="text" name="handle_description" id="handle_description" ng-model="accidentDetails.check_explain">
-                            <label for="handle_description">处理描述</label>
-                        </div>
+                        <input type="text" name="handle_description" id="handle_description" ng-model="accidentDetails.check_explain">
+                        <label for="handle_description">处理描述</label>
                     </div>
 
                     <div class="col s12" style="font-size: 1.2rem;font-weight: bold;color: darkgray" ng-if="accidentDetails.insure_status == 2">
-                        <div class="col s12">
-                            <p>赔付描述：{{accidentDetails.payment_explain}}</p>
-                            <p>处理描述：{{accidentDetails.check_explain}}</p>
-                        </div>
+                        <p>赔付描述：{{accidentDetails.payment_explain}}</p>
+                        <p>处理描述：{{accidentDetails.check_explain}}</p>
                     </div>
 
-                    <div class="col s12" style="margin: 40px 0 15px 0">
+                    <div class="col s12" style="margin: 40px 0 15px 0" ng-if="accidentDetails.insure_status == 1">
                         <div class="col s6 offset-s3">
                             <div class="col s5">
                                 <a ng-click="saveCurrentAccidentInfo()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">

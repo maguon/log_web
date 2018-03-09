@@ -527,7 +527,16 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/finance/truck_compensate_loan_details.html",
             controller:'truck_compensate_loan_details_controller'
         })
-
+        .state("truck_payment_loan",{
+            url:"/truck_payment_loan",
+            templateUrl: "js/view/finance/truck_payment_loan.html",
+            controller:'truck_payment_loan_controller'
+        })
+        .state("truck_payment_loan_details",{
+            url:"/truck_payment_loan_details/id/{id}/paymentId/{paymentId}",
+            templateUrl: "js/view/finance/truck_payment_loan_details.html",
+            controller:'truck_payment_loan_details_controller'
+        })
         // 下载app
         .state("admin_download_app",{
             url:"/admin_download_app",

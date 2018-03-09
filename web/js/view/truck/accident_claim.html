@@ -58,35 +58,58 @@
                         </div>
                         <!--事故详情-->
                         <div class="col s12" ng-repeat="accident in accidentClaimList">
-                            <div class="col s6 modal_accident valign-wrapper" style="padding: 0;font-size: 1.1rem;color: darkgray;font-weight: bold">
-                                <div class="col s1 right-align" style="padding: 0;margin-top: -5px">
-                                    <span style="width:8px;height:8px;display:inline-block;border-radius: 100%;background-color: #26c6da"></span>
+                            <div class="col s12 z-depth-2 left-align" style="padding: 0;margin-bottom: 25px;margin-top: 20px;font-size: 1.1rem;color: darkgray">
+                                <div class="col s12 valign-wrapper" style="height: 55px;background-color: #dcdfe0;font-weight: bold">
+                                    <div class="col s12">
+                                        <div class="col s8 left-align" style="color: #26c6da;padding: 0;">
+                                            <p style="margin: 0">事故编号：{{accident.id}}</p>
+                                        </div>
+                                        <div class="col s4 right-align valign-wrapper">
+                                            <div class="col s10" style="padding: 0;">
+                                                <p ng-if="accident.accident_status == 1" style="color: darkgray">未处理</p>
+                                                <p ng-if="accident.accident_status == 2" style="color: #e57474">处理中</p>
+                                                <p ng-if="accident.accident_status == 3" style="color: #26c6da">已处理</p>
+                                            </div>
+                                            <div class="col s2 right-align" style="padding: 0;">
+                                                <span style="font-size: 1.4rem;color: #e88282;cursor: pointer" ng-if="accidentDetails.insure_status == 1" ng-click="deleteAccidentInfo(accident.id)" class="mdi mdi-delete-forever"></span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col s4 left-align">
-                                    <p>{{accident.id}}</p>
+                                <div class="col s12 wash_fee_details less_mar">
+                                    <div class="col s4">
+                                        <p><span>货车牌号：</span>{{accident.truck_num}}</p>
+                                    </div>
+                                    <div class="col s4">
+                                        <p><span>货车类型：</span>{{accident.truck_type == 1 ? "头车" : "挂车"}}</p>
+                                    </div>
+                                    <div class="col s4">
+                                        <p><span>司机：</span>{{accident.drive_name}}</p>
+                                    </div>
                                 </div>
-                                <div class="col s3">
-                                    <p>{{accident.truck_accident_type == 1 ? "一般事故" : accident.truck_accident_type == 2 ? "严重事故" : null}}</p>
+                                <div class="col s12 wash_fee_details less_mar">
+                                    <div class="col s4">
+                                        <p><span>事故类型：</span>{{accident.truck_accident_type == 1 ? "一般" : accident.truck_accident_type == 2 ? "严重" : "未知"}}</p>
+                                    </div>
+                                    <div class="col s8">
+                                        <p><span>责任人：</span>{{accident.under_user_name}}</p>
+                                    </div>
                                 </div>
-                                <div class="col s2">
-                                    <p>{{accident.truck_type == 1 ? "头车" : "挂车"}}</p>
+                                <div class="col s12 wash_fee_details less_mar">
+                                    <div class="col s4">
+                                        <p><span>盈亏：</span><span style="color: #e57474">{{accident.profit}}</span> 元</p>
+                                    </div>
+                                    <div class="col s4">
+                                        <p><span>公司承担金额：</span><span style="color: #e57474">{{accident.company_cost}}</span> 元</p>
+                                    </div>
+                                    <div class="col s4">
+                                        <p><span>责任人承担金额：</span><span style="color: #e57474">{{accident.under_cost}}</span> 元</p>
+                                    </div>
                                 </div>
-                                <div class="col s3">
-                                    <p>{{accident.truck_num}}</p>
-                                </div>
-                            </div>
-                            <div class="col s6 modal_accident valign-wrapper" style="padding: 0;font-size: 1.1rem;color: darkgray;font-weight: bold">
-                                <div class="col s8 right-align">
-                                    <p ng-if="accident.accident_status == 3">{{(accident.accident_date | date:'yyyy-MM-dd HH:mm:ss') + ' 至 ' + (accident.end_date | date:'yyyy-MM-dd HH:mm:ss')}}</p>
-                                    <p ng-if="accident.accident_status == 1 || accident.accident_status == 2">{{accident.accident_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
-                                </div>
-                                <div class="col s3">
-                                    <p ng-if="accident.accident_status == 1">未处理</p>
-                                    <p ng-if="accident.accident_status == 2" style="color: #e88282">处理中</p>
-                                    <p ng-if="accident.accident_status == 3" style="color: #26c6da">已处理</p>
-                                </div>
-                                <div class="col s1">
-                                    <span ng-click="deleteAccidentInfo($index)" class="mdi mdi-close"></span>
+                                <div class="col s12 wash_fee_details less_mar">
+                                    <div class="col s12">
+                                        <p><span>事故说明：</span>{{accident.accident_explain}}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

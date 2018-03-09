@@ -71,11 +71,8 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                 $scope.lat=data.result[0].lat;
                 $scope.remark=data.result[0].accident_explain;
                 $scope.truckTel=data.result[0].tel;
-                _basic.get($host.api_url + "/truckFirst?truckNum="+  $scope.truckNum).then(function (data) {
-                    if (data.success === true) {
-                        $scope.companyName=data.result[0].company_name;
-                    }
-                })
+                $scope.truckType=data.result[0].truck_type;
+                $scope.companyName=data.result[0].company_name;
                 // 地图重新渲染
                 var map = new BMap.Map("dealer_map");
                 // 地图下拉

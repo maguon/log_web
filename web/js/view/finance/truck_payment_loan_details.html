@@ -1,3 +1,221 @@
+<a style="margin: 90px 0 0 20px" class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light "
+   ui-sref="truck_payment_loan">
+    <i class="mdi mdi-arrow-left-bold"></i>
+</a>
 <div class="truck_payment_loan_detail">
-    ffffff
+    <div class="vc-center">
+        <h5 class="center-align cyan-text text-lighten-1">打款详情</h5>
+    </div>
+    <div class="divider" style="background: #00bcd4;height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
+    <div class="row" style="width: 80%;margin: 0 auto">
+        <!--打款详情-->
+        <div class="col s12">
+            <div class="col s12 z-depth-2" style="padding: 0;">
+                <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
+                    <div class="col s3 left-align" style="color: #26c6da">
+                        <p style="margin: 0">申请打款信息</p>
+                    </div>
+                    <div class="col s7 right-align" style="color: darkgray">
+                        <p>申请时间：{{loanInfo.indemnity_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                    </div>
+                    <div class="col s2 right-align" style="color: red">
+                        <p ng-if="loanInfo.indemnity_status==1">未打款</p>
+                        <p ng-if="loanInfo.indemnity_status==2">已打款</p>
+                    </div>
+                </div>
+                <div class="col s12">
+                    <div class="col s12 bold_txt" style="color: darkgray;font-size: 1.1rem">
+                        <div class="col s4">
+                            <p><span>银行账号：</span>{{loanInfo.bank_number}}</p>
+                        </div>
+                        <div class="col s4">
+                            <p><span>户名：</span>{{loanInfo.bank_user_name}}</p>
+                        </div>
+                        <div class="col s4">
+                            <p><span>开户行：</span>{{loanInfo.bank_number}}</span></p>
+                        </div>
+                        <div  class="col s12" style="height:1px;border-bottom: 1px dotted #ccc;width:98%;margin-left: 1%"></div>
+                        <div class="col s4">
+                            <p><span>城市：</span>{{loanInfo.city_name}}</p>
+                        </div>
+                        <div class="col s4">
+                            <p><span>经销商：</span>{{loanInfo.receive_name}}</p>
+                        </div>
+                        <div class="col s4">
+                            <p><span>打款金额：</span><span style="color: #e57474">{{loanInfo.plan_money}}.00</span> 元</p>
+                        </div>
+                        <div  class="col s12" style="height:1px;border-bottom: 1px dotted #ccc;width:98%;margin-left: 1%"></div>
+                        <div class="col s4">
+                            <p style="word-break: break-all"><span>申请打款备注：</span>{{loanInfo.indemnity_explain}}</p>
+                        </div>
+                        <div  class="col s12" style="height:1px;border-bottom: 1px solid #ccc;width:98%;margin-left: 1%"></div>
+                        <div class="col s12 right-align">
+                            <p style="word-break: break-all"><span>申报人：</span>{{loanInfo.apply_user_name}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--质损信息-->
+        <div class="col s12">
+            <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 50px">
+                <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold" ng-click="showDamageList()">
+                    <div class="col s3 left-align" style="color: #26c6da">
+                        <p style="margin: 0">质损编号：{{damageInfoCardList.id}}</p>
+                    </div>
+                    <div class="col s7 right-align" style="color: darkgray">
+                        <p>发生时间：{{damageInfoCardList.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                    </div>
+                    <div class="col s2 right-align" style="color: red">
+                        <p ng-if="damageInfoCardList.damage_status==1">未处理</p>
+                        <p ng-if="damageInfoCardList.damage_status==2">处理中</p>
+                        <p ng-if="damageInfoCardList.damage_status==3">已处理</p>
+                    </div>
+                </div>
+
+                <div class="col s12" id="damageList">
+                    <!--质损信息-->
+                    <div class="col s12 bold_txt" style="color: darkgray;font-size: 1.1rem">
+                        <div class="col s6">
+                            <p ng-if="damageInfoCardList.damage_type==1"><span>质损类型：</span>一般质损</p>
+                            <p ng-if="damageInfoCardList.damage_type==2"><span>质损类型：</span>严重质损</p>
+                        </div>
+                        <div class="col s6">
+                            <p ng-if="damageInfoCardList.damage_link_type==1"><span>质损环节：</span>短驳质损</p>
+                            <p ng-if="damageInfoCardList.damage_link_type==2"><span>质损环节：</span>公路运输</p>
+                            <p ng-if="damageInfoCardList.damage_link_type==3"><span>质损环节：</span>公司运输</p>
+                            <p ng-if="damageInfoCardList.damage_link_type==4"><span>质损环节：</span>驾驶员漏检</p>
+                            <p ng-if="damageInfoCardList.damage_link_type==5"><span>质损环节：</span>交通事故</p>
+                        </div>
+                        <div  class="col s12" style="height:1px;border-bottom: 1px dotted #ccc;width:98%;margin-left: 1%"></div>
+                        <div class="col s3">
+                            <p><span>降价费：</span><span style="color: #e57474">{{damageInfoCardList.reduction_cost}}.00</span> 元</p>
+                        </div>
+                        <div class="col s3">
+                            <p><span>罚款：</span><span style="color: #e57474">{{damageInfoCardList.penalty_cost}}.00</span> 元</p>
+                        </div>
+                        <div class="col s3">
+                            <p><span>盈亏：</span><span style="color: #e57474">{{damageInfoCardList.profit}}.00</span> 元</p>
+                        </div>
+                        <div class="col s3">
+                            <p><span>运费：</span><span style="color: #e57474">{{damageInfoCardList.transport_cost}}.00</span> 元</p>
+                        </div>
+                        <div  class="col s12" style="height:1px;border-bottom: 1px dotted #ccc;width:98%;margin-left: 1%"></div>
+                        <div class="col s6">
+                            <p style="word-break: break-all"><span>维修站：</span>{{damageInfoCardList.repair_station_name}}</p>
+                        </div>
+                        <div class="col s3">
+                            <p style="word-break: break-all"><span>维修费：</span><span style="color: #e57474">{{damageInfoCardList.repair_cost}}.00</span> 元</p>
+                        </div>
+                        <div class="col s3">
+                            <p style="word-break: break-all"><span>报销人：</span>{{damageInfoCardList.refund_user_name}}</p>
+                        </div>
+                        <div  class="col s12" style="height:1px;border-bottom: 1px solid #ccc;width:98%;margin-left: 1%"></div>
+                        <div class="col s6">
+                            <p style="word-break: break-all"><span>责任人承担费用：</span><span style="color: #e57474">{{damageInfoCardList.under_cost}}.00</span> 元</p>
+                        </div>
+                        <div class="col s3">
+                            <p style="word-break: break-all"><span>责任人：</span>{{damageInfoCardList.under_user_name}}</p>
+                        </div>
+                        <div class="col s3">
+                            <p style="word-break: break-all"><span>公司承担费用：</span><span style="color: #e57474">{{damageInfoCardList.company_cost}}.00</span> 元</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--打款处理信息未打款-->
+        <div class="col s12" ng-if="indemnityStatus == 1">
+            <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
+                <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
+                    <div class="col s12 left-align" style="color: #26c6da">
+                        <p style="margin: 0">打款处理信息</p>
+                    </div>
+                </div>
+                <div class="col s12">
+                    <div class="col s6 bold_txt" style="color: darkgray;font-size: 1.1rem">
+                        <div class="col s12 input-field">
+                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="actualMoney" type="number" ng-value="actualMoney" ng-model="loanInfo.actual_money">
+                            <label style="font-weight: bold" for="actualMoney">打款金额(元)</label>
+                        </div>
+                        <div class="col s12 input-field" style="width: 100%">
+                            <label style="font-weight: bold" for="companyRemark">打款情况说明：</label>
+                            <input style="text-align: left;color: rgb(230,123,123)" id="companyRemark" type="text" ng-model="loanInfo.indemnity_explain" ng-value="indemnityExplain">
+                        </div>
+                    </div>
+                    <div class="col s6">
+                        <div class="col s12 right-align">
+                            <form name="uploadImageForm" class="">
+                                <div class="image-editor row valign-wrapper">
+                                    <div class="col s4">
+                                        <div class="col s12 vc-center">
+                                            <div style="width: 80px;height: 80px;border: 1px solid grey;margin-bottom: 25px;margin-top: 25px">
+                                                <img style="width: 100%;height: 100%" ng-src="{{userImg}}" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="col s12 vc-center">
+                                            <p class="file btn ">上传凭证
+                                                <input name="image" type="file" onchange="angular.element(this).scope().uploadVoucherImage(this)" max_size="4M">
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--按钮-->
+            <div class="col s2 offset-s4" style="margin-top: 20px" ng-show="!hasRepayment">
+                <a ng-click="updateLoanInfo()" style="width: 100%;background-color: #26c6da;" class="waves-light waves-effect lighten-1 btn">
+                    打款
+                </a>
+            </div>
+            <div class="col s2 offset-s4" style="margin-top: 20px" ng-show="hasRepayment">
+                <a ng-click="savePaymentInfo()" style="width: 100%;background-color: #26c6da;" class="waves-light waves-effect lighten-1 btn">保存
+                </a>
+            </div>
+            <div class="col s2 offset-s2" style="margin-top: 20px" ng-show="hasRepayment">
+                <a ng-click="finishPayment()" style="width: 100%;background-color: #f0ad4e;" class="waves-light waves-effect lighten-1 btn">处理结束
+                </a>
+            </div>
+        </div>
+        <!--打款处理信息已打款-->
+        <div class="col s12" ng-if="indemnityStatus == 2">
+            <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
+                <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
+                    <div class="col s12 left-align" style="color: #26c6da">
+                        <p style="margin: 0">打款处理信息</p>
+                    </div>
+                    <div class="col s12 right-align" style="color: #26c6da">
+                        <p style="margin: 0">打款时间：{{loanInfo.indemnity_date |date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                    </div>
+                </div>
+                <div class="col s12">
+                    <div class="col s6 bold_txt" style="color: darkgray;font-size: 1.1rem">
+                        <div class="col s12 input-field">
+                            <span style="color: #26c6da">已打款</span>
+                        </div>
+                        <div class="col s12 input-field">
+                            <div style="font-weight: bold" for="companyFee">实际打款金额<span style="color: #e57474">{{loanInfo.plan_money}}.00</span>元</div>
+                        </div>
+                        <div class="col s12 input-field" style="width: 100%">
+                            <div style="font-weight: bold" for="companyRemark">打款情况说明：{{}}</div>
+                        </div>
+                    </div>
+                    <div class="col s6">
+                        <div class="col s12 right-align">
+                            <div class="row col s12">
+                                <div class="col s12">
+                                    <div repeat-finish="accientFinish()" ng-mouseenter="show=true" ng-mouseleave="show=false" class="truck_car_picture col s3 vc-center  p0 grey white-text">
+                                        <img  ng-src="{{l}}" class="responsive-img">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
 </div>

@@ -1,55 +1,56 @@
 <div class="truck_payment_loan">
     <div class="row valign-wrapper">
         <div class="col s10">
-            <div class="col s2 input-field">
-                <input type="text" id="damage_id" name="damage_id" ng-model="damageId">
-                <label for="damage_id">质损编号</label>
+            <div class="col s7" style="padding: 0;">
+                <div class="col s4 input-field" style="margin-bottom: 20px;">
+                    <input type="text" id="damage_id" name="damage_id" ng-model="damageId">
+                    <label for="damage_id">质损编号</label>
+                </div>
+                <div class="col s4 input-field" style="margin-bottom: 20px;">
+                    <select id="indemnity_status" ng-model="indemnityStatus" material-select watch>
+                        <option value="" selected>请选择</option>
+                        <option value="1">未打款</option>
+                        <option value="2">已打款</option>
+                    </select>
+                    <label for="indemnity_status">处理状态</label>
+                </div>
+                <div class="col s4 input-field" style="margin-bottom: 20px;">
+                    <input type="text" id="apply_user_name" name="apply_user_name" ng-model="applyUserName">
+                    <label for="apply_user_name">申报人</label>
+                </div>
+                <div class="col s4 input-field">
+                    <select id="receive_name" ng-model="receiveName" material-select watch>
+                        <option value="" selected>请选择</option>
+                        <option ng-repeat="receiveNameItem in receiveNameList" ng-value="receiveNameItem.id">{{receiveNameItem.receive_name}}</option>
+                    </select>
+                    <label for="receive_name">经销商</label>
+                </div>
+                <div class="col s4 input-field">
+                    <input type="text" id="applyDateStart" name="applyDateStart" ng-model="applyDateStart" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                    <label for="applyDateStart">申报时间(始)</label>
+                </div>
+                <div class="col s4 input-field">
+                    <input type="text" id="applyDateEnd" name="applyDateEnd" ng-model="applyDateEnd" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                    <label for="applyDateEnd">申报时间(终)</label>
+                </div>
             </div>
-            <div class="col s3 input-field">
-                <select id="indemnity_status" ng-model="indemnityStatus" material-select watch>
-                    <option value="" selected>请选择</option>
-                    <option value="1">未打款</option>
-                    <option value="2">已打款</option>
-                </select>
-                <label for="indemnity_status">处理状态</label>
-            </div>
-            <div class="col s3 input-field">
-                <select id="apply_user_name" ng-model="applyUserName" material-select watch>
-                    <option value="" selected>请选择</option>
-                    <option ng-repeat="applyUserNameItem in applyUserNameList" ng-value="applyUserName.id">{{applyUserName.insure_name}}</option>
-                </select>
-                <label for="apply_user_name">申报人</label>
-            </div>
-            <div class="col s2 input-field">
-                <input type="number" name="payment_money_start" id="payment_money_start" ng-model="planMoneyStart">
-                <label for="payment_money_start">申报金额（元）</label>
-            </div>
-            <div class="col s2 input-field">
-                <input type="number" name="payment_money_end" id="payment_money_end" ng-model="planMoneyEnd">
-                <label for="payment_money_end">至</label>
-            </div>
-            <div class="col s2 input-field">
-                <select id="receive_name" ng-model="receiveName" material-select watch>
-                    <option value="" selected>请选择</option>
-                    <option ng-repeat="receiveNameItem in receiveNameList" ng-value="applyUserName.id">{{receiveName.insure_name}}</option>
-                </select>
-                <label for="receive_name">经销商</label>
-            </div>
-            <div class="col s3 input-field">
-                <input type="text" id="applyDateStart" name="applyDateStart" ng-model="applyDateStart" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
-                <label for="applyDateStart">申报时间(始)</label>
-            </div>
-            <div class="col s3 input-field">
-                <input type="text" id="applyDateEnd" name="applyDateEnd" ng-model="applyDateEnd" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
-                <label for="applyDateEnd">申报时间(终)</label>
-            </div>
-            <div class="col s2 input-field">
-                <input type="text" id="indemnityDateStart" name="indemnityDateStart" ng-model="indemnityDateStart" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
-                <label for="indemnityDateStart">打款时间(始)</label>
-            </div>
-            <div class="col s2 input-field">
-                <input type="text" id="indemnityDateEnd" name="indemnityDateEnd" ng-model="indemnityDateEnd" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
-                <label for="indemnityDateEnd">打款时间(终)</label>
+            <div class="col s5" style="padding: 0;">
+                <div class="col s6 input-field">
+                    <input type="number" name="payment_money_start" id="payment_money_start" ng-model="planMoneyStart">
+                    <label for="payment_money_start">申报金额（元）</label>
+                </div>
+                <div class="col s6 input-field">
+                    <input type="number" name="payment_money_end" id="payment_money_end" ng-model="planMoneyEnd">
+                    <label for="payment_money_end">至</label>
+                </div>
+                <div class="col s6 input-field">
+                    <input type="text" id="indemnityDateStart" name="indemnityDateStart" ng-model="indemnityDateStart" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                    <label for="indemnityDateStart">打款时间(始)</label>
+                </div>
+                <div class="col s6 input-field">
+                    <input type="text" id="indemnityDateEnd" name="indemnityDateEnd" ng-model="indemnityDateEnd" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                    <label for="indemnityDateEnd">打款时间(终)</label>
+                </div>
             </div>
         </div>
         <div class="col s2">
@@ -60,7 +61,6 @@
             </div>
         </div>
     </div>
-
     <!--表格-->
     <div class="row">
         <div class="col s12">
@@ -69,36 +69,32 @@
                 <table class="bordered striped text_mid">
                     <thead class="blue-grey lighten-5">
                     <tr class="grey-text text-darken-2">
-                        <th width="200" data-field="">理赔编号</th>
-                        <th width="250" data-field="">险种</th>
-                        <th width="300" data-field="">保险公司</th>
-                        <th width="200" data-field="">借款金额</th>
-                        <th width="250" data-field="">经办人</th>
-                        <th width="280" data-field="">借款时间</th>
-                        <th width="280" data-field="">还款时间</th>
-                        <th width="180" data-field="">状态</th>
+                        <th data-field="">质损编号</th>
+                        <th data-field="">打款账号</th>
+                        <th data-field="">开户行</th>
+                        <th data-field="">经销商</th>
+                        <th data-field="">申请金额</th>
+                        <th data-field="">打款时间</th>
+                        <th data-field="">状态</th>
                         <th width="150">操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="loan in compensateLoanList" class="grey-text text-darken-1">
-                        <td>{{loan.accident_insure_id}}</td>
-                        <td>{{loan.insure_type | insuranceType}}</td>
-                        <td>{{loan.insure_name}}</td>
-                        <td style="color: rgb(230,123,123)">{{loan.financial_loan}}</td>
-                        <td>{{loan.insure_user_name}}</td>
-                        <td>{{loan.loan_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                        <td>{{loan.repayment_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                        <td style="color: #f1b054" class="text-lighten-2" ng-if="loan.loan_status == 0">拒绝</td>
-                        <td class="red-text text-lighten-2" ng-if="loan.loan_status == 1">未借</td>
-                        <td class="cyan-text text-lighten-2" ng-if="loan.loan_status == 2">已借</td>
-                        <td style="color: darkgray" class="text-lighten-2" ng-if="loan.loan_status == 3">已还</td>
+                    <tr ng-repeat="paymentLoanItem in paymentLoanList" class="grey-text text-darken-1">
+                        <td>{{paymentLoanItem.damage_id}}</td>
+                        <td>{{paymentLoanItem.bank_number}}</td>
+                        <td>{{paymentLoanItem.bank_name}}</td>
+                        <td>{{paymentLoanItem.receive_name}}</td>
+                        <td>{{paymentLoanItem.plan_money}}</td>
+                        <td>{{paymentLoanItem.indemnity_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td class="text-lighten-2 darkgrey" ng-if="paymentLoanItem.indemnity_status == 2">已打款</td>
+                        <td class="red-text text-lighten-2" ng-if="paymentLoanItem.indemnity_status == 1">未打款</td>
                         <td class="operation">
-                            <a ui-sref="truck_compensate_loan_details({id:loan.id,compensateId:loan.accident_insure_id})" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-eye" style="margin: 0"></i></a>
+                            <a ui-sref="truck_payment_loan_details({id:paymentLoanItem.id,paymentId:paymentLoanItem.damage_id})" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-file-document"></i></a>
                         </td>
                     </tr>
-                    <tr class="grey-text text-darken-1" ng-if="compensateLoanList.length == 0">
-                        <td colspan="9"><span style="letter-spacing: 2px">暂无数据</span></td>
+                    <tr class="grey-text text-darken-1" ng-if="paymentLoanList.length == 0">
+                        <td colspan="8"><span style="letter-spacing: 2px">暂无数据</span></td>
                     </tr>
                     </tbody>
                 </table>
@@ -109,10 +105,10 @@
     <div class="row">
         <div class="paging_box col s12">
             <div class="right">
-                <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="pre_btn()">
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="preBtn()">
                     上一页
                 </a>
-                <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_btn()">
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="nextBtn()">
                     下一页
                 </a>
             </div>

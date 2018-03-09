@@ -1,13 +1,14 @@
-app.controller("truck_compensate_loan_details_controller", ["$scope", "$host", "$stateParams", "_basic", function ($scope, $host, $stateParams, _basic) {
+app.controller("commercial_vehicle_compensate_loan_details_controller", ["$scope", "$stateParams", "$host", "_basic", function ($scope, $stateParams, $host, _basic) {
 
     var userId = _basic.getSession(_basic.USER_ID);
     var loanId = $stateParams.id;
-    var compensateId = $stateParams.compensateId;
+    var damageId = $stateParams.compensateId;
     $scope.hasRepayment = false;
+
 
     // 获取当前借款数据
     $scope.getCurrentLoanInfo = function () {
-        _basic.get($host.api_url + "/truckAccidentInsureLoan?accidentInsureLoanId=" + loanId).then(function (data) {
+        _basic.get($host.api_url + "/damageInsureLoan?damageInsureLoanId=" + loanId).then(function (data) {
             if (data.success === true) {
                 // console.log("data", data);
                 if(data.result[0].repayment_date !== null){
@@ -22,12 +23,12 @@ app.controller("truck_compensate_loan_details_controller", ["$scope", "$host", "
         });
     };
 
-    // 根据事故id获取关联事故列表
+    // 根据事故id获取关联质损列表
     $scope.getConnectedAccidentList = function () {
-        _basic.get($host.api_url + "/truckAccident?accidentInsureId=" + compensateId).then(function (data) {
+        _basic.get($host.api_url + "/damageBase?damageInsureId=" + damageId).then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
-                $scope.accidentClaimList = data.result;
+                // console.log("damageData", data);
+                $scope.connectDamageList = data.result;
             }
             else {
                 swal(data.msg, "", "error");
@@ -46,13 +47,13 @@ app.controller("truck_compensate_loan_details_controller", ["$scope", "$host", "
     $scope.finishLoan = function () {
         if($scope.loanAmountMod !== ""){
             // 修改借款金额
-            _basic.put($host.api_url + "/user/" + userId + "/truckAccidentInsureLoan/" + loanId,{
+            _basic.put($host.api_url + "/user/" + userId + "/damageInsureLoan/" + loanId,{
                 loanMoney: $scope.loanAmountMod,
                 loanExplain: $scope.loanExplainMod
             }).then(function (data) {
                 if (data.success === true) {
                     // 修改借款状态
-                    _basic.put($host.api_url + "/user/" + userId + "/truckAccidentInsureLoan/" + loanId + "/loanStatus/2",{}).then(function (data) {
+                    _basic.put($host.api_url + "/user/" + userId + "/damageInsureLoan/" + loanId + "/loanStatus/2",{}).then(function (data) {
                         if (data.success === true) {
                             $scope.getCurrentLoanInfo();
                             $('#financial_loan').modal('close');
@@ -84,7 +85,7 @@ app.controller("truck_compensate_loan_details_controller", ["$scope", "$host", "
                 closeOnConfirm: true
             },
             function(){
-                _basic.put($host.api_url + "/user/" + userId + "/truckAccidentInsureLoan/" + loanId + "/loanStatus/0",{}).then(function (data) {
+                _basic.put($host.api_url + "/user/" + userId + "/damageInsureLoan/" + loanId + "/loanStatus/0",{}).then(function (data) {
                     if (data.success === true) {
                         // console.log("data", data);
                         $scope.getCurrentLoanInfo();
@@ -102,7 +103,7 @@ app.controller("truck_compensate_loan_details_controller", ["$scope", "$host", "
             swal("借款金额或借款描述不能为空！", "", "warning");
         }
         else{
-            _basic.put($host.api_url + "/user/" + userId + "/truckAccidentInsureLoan/" + loanId,{
+            _basic.put($host.api_url + "/user/" + userId + "/damageInsureLoan/" + loanId,{
                 loanMoney: $scope.loanInfo.loan_money,
                 loanExplain: $scope.loanInfo.loan_explain
             }).then(function (data) {
@@ -123,7 +124,7 @@ app.controller("truck_compensate_loan_details_controller", ["$scope", "$host", "
             swal("请填写还款金额！", "", "warning");
         }
         else{
-            _basic.put($host.api_url + "/user/" + userId + "/truckAccidentInsureRepayment/" + loanId,{
+            _basic.put($host.api_url + "/user/" + userId + "/damageInsureRepayment/" + loanId,{
                 repaymentMoney: $scope.loanInfo.repayment_money,
                 repaymentExplain: $scope.loanInfo.repayment_explain
             }).then(function (data) {
@@ -152,7 +153,7 @@ app.controller("truck_compensate_loan_details_controller", ["$scope", "$host", "
                     closeOnConfirm: true
                 },
                 function(){
-                    _basic.put($host.api_url + "/user/" + userId + "/truckAccidentInsureLoan/" + loanId + "/loanStatus/3",{}).then(function (data) {
+                    _basic.put($host.api_url + "/user/" + userId + "/damageInsureLoan/" + loanId + "/loanStatus/3",{}).then(function (data) {
                         if (data.success === true) {
                             // console.log("data", data);
                             $scope.getCurrentLoanInfo();

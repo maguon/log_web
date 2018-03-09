@@ -1,10 +1,10 @@
 <a style="margin: 90px 0 0 20px" class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light "
-   ui-sref="truck_compensate_loan">
+   ui-sref="commercial_vehicle_compensate_loan">
     <i class="mdi mdi-arrow-left-bold"></i>
 </a>
 <div class="truck_compensate_loan_details">
     <div class="vc-center">
-        <h5 class="center-align cyan-text text-lighten-1">借款详情</h5>
+        <h5 class="center-align cyan-text text-lighten-1">理赔详情</h5>
     </div>
     <div class="divider" style="background: #00bcd4;height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
 
@@ -50,7 +50,7 @@
             <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
                 <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
                     <div class="col s3 left-align" style="color: #26c6da">
-                        <p style="margin: 0">理赔编号：{{loanInfo.accident_insure_id}}</p>
+                        <p style="margin: 0">理赔编号：{{loanInfo.damage_insure_id}}</p>
                     </div>
                     <div class="col s9 right-align" style="color: darkgray">
                         <p>经办人：{{loanInfo.insure_user_name}}</p>
@@ -62,16 +62,13 @@
                     </div>
                     <!--理赔基本信息-->
                     <div class="col s12 bold_txt" style="color: darkgray;font-size: 1.1rem">
-                        <div class="col s3">
+                        <div class="col s4">
                             <p><span>保险公司：</span>{{loanInfo.insure_name}}</p>
                         </div>
-                        <div class="col s3">
-                            <p><span>保险种类：</span>{{loanInfo.insure_type | insuranceType}}</p>
-                        </div>
-                        <div class="col s3">
+                        <div class="col s4">
                             <p><span>待赔金额：</span><span style="color: #e57474">{{loanInfo.insure_plan.toFixed(2)}}</span> 元</p>
                         </div>
-                        <div class="col s3">
+                        <div class="col s4">
                             <p><span>预借金额：</span><span style="color: #e57474">{{loanInfo.financial_loan == null ? 0 : loanInfo.financial_loan.toFixed(2)}}</span> 元</p>
                         </div>
                         <div class="col s12">
@@ -80,58 +77,61 @@
                     </div>
                     <div class="col s12">
                         <div class="col s12">
-                            <p style="font-size: 1.1rem;color: #26c6da;font-weight: bold">关联事故</p>
+                            <p style="font-size: 1.1rem;color: #26c6da;font-weight: bold">关联质损</p>
                         </div>
                     </div>
 
-                    <!--关联事故卡片-->
-                    <div class="col s12" style="padding: 0 20px" ng-repeat="accident in accidentClaimList">
+                    <!--关联质损卡片-->
+                    <div class="col s12" style="padding: 0 20px" ng-repeat="damage in connectDamageList">
                         <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 25px;font-size: 1.1rem;color: darkgray">
                             <div class="col s12" style="height: 55px;background-color: #dcdfe0;font-weight: bold">
                                 <div class="col s12 valign-wrapper">
                                     <div class="col s8 left-align" style="color: #26c6da;padding: 0;">
-                                        <p style="margin: 0">事故编号：{{accident.id}}</p>
+                                        <p style="margin: 0">质损编号：{{damage.id}}</p>
                                     </div>
                                     <div class="col s4 right-align">
-                                        <p ng-if="accident.accident_status == 1" style="color: darkgray">未处理</p>
-                                        <p ng-if="accident.accident_status == 2" style="color: #e57474">处理中</p>
-                                        <p ng-if="accident.accident_status == 3" style="color: #26c6da">已处理</p>
+                                        <p ng-if="damage.damage_status == 1" style="color: darkgray">未处理</p>
+                                        <p ng-if="damage.damage_status == 2" style="color: #e57474">处理中</p>
+                                        <p ng-if="damage.damage_status == 3" style="color: #26c6da">已处理</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col s12 wash_fee_details less_mar">
                                 <div class="col s4">
-                                    <p><span>货车牌号：</span>{{accident.truck_num}}</p>
+                                    <p><span>VIN码：</span>{{damage.vin}}</p>
                                 </div>
                                 <div class="col s4">
-                                    <p><span>货车类型：</span>{{accident.truck_type == 1 ? "头车" : "挂车"}}</p>
+                                    <p><span>制造商：</span>{{damage.make_name}}</p>
                                 </div>
                                 <div class="col s4">
-                                    <p><span>司机：</span>{{accident.drive_name}}</p>
+                                    <p><span>委托方：</span>{{damage.e_short_name}}</p>
                                 </div>
                             </div>
                             <div class="col s12 wash_fee_details less_mar">
                                 <div class="col s4">
-                                    <p><span>事故类型：</span>{{accident.truck_accident_type == 1 ? "一般" : accident.truck_accident_type == 2 ? "严重" : "未知"}}</p>
+                                    <p><span>司机：</span>{{damage.drive_name}}</p>
                                 </div>
-                                <div class="col s8">
-                                    <p><span>责任人：</span>{{accident.under_user_name}}</p>
+                                <div class="col s4">
+                                    <p><span>货车牌号：</span>{{damage.truck_num}}</p>
+                                </div>
+                                <div class="col s4">
+                                    <p><span>经销商：</span>{{damage.r_short_name}}</p>
                                 </div>
                             </div>
                             <div class="col s12 wash_fee_details less_mar">
                                 <div class="col s4">
-                                    <p><span>盈亏：</span><span style="color: #e57474">{{accident.profit}}</span> 元</p>
+                                    <p><span>质损类型：</span>{{damage.damage_type}}</p>
                                 </div>
                                 <div class="col s4">
-                                    <p><span>公司承担金额：</span><span style="color: #e57474">{{accident.company_cost}}</span> 元</p>
+                                    <p><span>质损环节：</span>{{damage.damage_link_type}}</p>
                                 </div>
                                 <div class="col s4">
-                                    <p><span>责任人承担金额：</span><span style="color: #e57474">{{accident.under_cost}}</span> 元</p>
+                                    <p><span>责任人：</span>{{damage.under_user_name}}</p>
                                 </div>
                             </div>
                             <div class="col s12 wash_fee_details less_mar">
                                 <div class="col s12">
-                                    <p><span>事故说明：</span>{{accident.accident_explain}}</p>
+                                    <p><span>质损说明：</span>{{damage.damage_explain}}</p>
                                 </div>
                             </div>
                         </div>

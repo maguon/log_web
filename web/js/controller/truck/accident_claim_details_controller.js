@@ -30,6 +30,19 @@ app.controller("accident_claim_details_controller", ["$scope", "$host", "$stateP
         });
     };
 
+    // 获取财务实际借款信息
+    $scope.getActualLoanInfo = function () {
+        _basic.get($host.api_url + "/truckAccidentInsureLoan?accidentInsureId=" + $scope.accidentId).then(function (data) {
+            if (data.success === true) {
+                // console.log("loanData", data);
+                $scope.actualLoanInfo = data.result;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
     // 根据事故id获取关联事故列表
     $scope.getConnectedAccidentList = function () {
         _basic.get($host.api_url + "/truckAccident?accidentInsureId=" + $scope.accidentId).then(function (data) {
@@ -189,6 +202,7 @@ app.controller("accident_claim_details_controller", ["$scope", "$host", "$stateP
         $scope.getInsureCompanyList();
         $scope.getCurrentAccidentDetails();
         $scope.getConnectedAccidentList();
+        $scope.getActualLoanInfo();
     };
     $scope.queryData();
 }]);

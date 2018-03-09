@@ -103,8 +103,17 @@
         <div class="row col s12 valign-wrapper" >
             <div class="col s12">
                 <div class="col s3 valign-wrapper">
-                    <div class="col s4 right-align">
-                        <span class="white lighten-2 center" style="width:40px;height:40px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #efb366 !important;line-height: 41px">供</span>
+                    <div class="col s4 right-align" ng-if="truckType==1">
+                        <span class="white lighten-2 center" style="width:40px;height:40px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #21B1E3 !important;line-height: 41px">自</span>
+                    </div>
+                    <div class="col s4 right-align" ng-if="truckType==2">
+                        <span class="white lighten-2 center" style="width:40px;height:40px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #89C052 !important;line-height: 41px">协</span>
+                    </div>
+                    <div class="col s4 right-align" ng-if="truckType==3">
+                        <span class="white lighten-2 center" style="width:40px;height:40px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #EFB366 !important;line-height: 41px">供</span>
+                    </div>
+                    <div class="col s4 right-align" ng-if="truckType==4">
+                        <span class="white lighten-2 center" style="width:40px;height:40px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #C786D3 !important;line-height: 41px">包</span>
                     </div>
                     <div class="col s8" style="padding: 0;">
                         <p class=" lighten-2 left-align" style="margin: 5px 0;font-weight: bold;font-size: 1.2rem;color: darkgray">{{truckNum}}</p>

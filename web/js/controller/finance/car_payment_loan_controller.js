@@ -1,7 +1,7 @@
-app.controller("truck_payment_loan_controller", ["$scope", "$state", "$stateParams", "_basic", "_config", "$host", function ($scope, $state, $stateParams, _basic, _config, $host) {
+app.controller("car_payment_loan_controller", ["$scope", "$state", "$stateParams", "_basic", "_config", "$host", function ($scope, $state, $stateParams, _basic, _config, $host) {
     $scope.start = 0;
     $scope.size = 10;
-    // 获取所有经销商
+    // 获取所有经销商car
      function getreceiveName () {
         _basic.get($host.api_url + "/receive").then(function (receiveData) {
             if (receiveData.success === true) {

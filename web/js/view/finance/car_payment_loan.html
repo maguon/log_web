@@ -90,7 +90,7 @@
                         <td class="text-lighten-2 darkgrey" ng-if="paymentLoanItem.indemnity_status == 2">已打款</td>
                         <td class="red-text text-lighten-2" ng-if="paymentLoanItem.indemnity_status == 1">未打款</td>
                         <td class="operation">
-                            <a ui-sref="truck_payment_loan_details({id:paymentLoanItem.id,paymentId:paymentLoanItem.damage_id})" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-file-document"></i></a>
+                            <a ui-sref="car_payment_loan_details({id:paymentLoanItem.id,paymentId:paymentLoanItem.damage_id})" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-file-document"></i></a>
                         </td>
                     </tr>
                     <tr class="grey-text text-darken-1" ng-if="paymentLoanList.length == 0">

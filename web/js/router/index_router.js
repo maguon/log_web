@@ -527,15 +527,15 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/finance/truck_compensate_loan_details.html",
             controller:'truck_compensate_loan_details_controller'
         })
-        .state("truck_payment_loan",{
-            url:"/truck_payment_loan",
-            templateUrl: "js/view/finance/truck_payment_loan.html",
-            controller:'truck_payment_loan_controller'
+        .state("car_payment_loan",{
+            url:"/car_payment_loan",
+            templateUrl: "js/view/finance/car_payment_loan.html",
+            controller:'car_payment_loan_controller'
         })
-        .state("truck_payment_loan_details",{
-            url:"/truck_payment_loan_details/id/{id}/paymentId/{paymentId}",
-            templateUrl: "js/view/finance/truck_payment_loan_details.html",
-            controller:'truck_payment_loan_details_controller'
+        .state("car_payment_loan_details",{
+            url:"/car_payment_loan_details/id/{id}/paymentId/{paymentId}",
+            templateUrl: "js/view/finance/car_payment_loan_details.html",
+            controller:'car_payment_loan_details_controller'
         })
         .state("commercial_vehicle_compensate_loan",{
             url:"/commercial_vehicle_compensate_loan",

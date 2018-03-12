@@ -282,7 +282,7 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
                     $scope.paymentRemark = data.result[0].apply_explain;
                     indemnityId = data.result[0].id;
                     $scope.financeIndemnityStatus = data.result[0].indemnity_status;
-                    if(data.result[0].indemnity_status != null){
+                    if(data.result[0].voucher_image != null){
                         $scope.realImageSrc = $host.file_url + '/image/' + data.result[0].voucher_image;
                     }
                     else{

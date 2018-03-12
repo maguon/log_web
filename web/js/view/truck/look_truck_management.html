@@ -367,13 +367,13 @@
                                     <div class="col s4 valign-wrapper">
                                         <div class="fz10" style="margin-top: 35px;color: darkgray">{{el.created_on | date:"yyyy-MM-dd HH:mm"}}</div>
                                     </div>
-                                    <div class="col s1 valign-wrapper">
+                                    <div class="col s1 valign-wrapper" ng-if="accidentStatus == 3">
                                         <div class="fz14" style="margin-top: 35px;color: darkgray">至</div>
                                     </div>
-                                    <div class="col s4 ">
+                                    <div class="col s4 " ng-if="accidentStatus == 3">
                                         <div class="fz10" style="margin-top: 35px;color: darkgray">{{el.end_date | date:"yyyy-MM-dd HH:mm"}}</div>
                                     </div>
-                                    <div class="col s3 ">
+                                    <div class="col s3 right-align">
                                         <div class="s12" ng-if="accidentStatus == 1">
                                             <p class="fz6" style="color:darkgray;padding: 0;margin-top: 35px;">待处理</p>
                                         </div>

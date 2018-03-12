@@ -132,7 +132,7 @@
                         <p style="margin: 0">打款处理信息</p>
                     </div>
                 </div>
-                <div class="col s12">
+                <div class="col s12"  style="margin-bottom: 20px">
                     <div class="col s6 bold_txt" style="color: darkgray;font-size: 1.1rem">
                         <div class="col s12 input-field">
                             <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="actualMoney" type="number" ng-value="actualMoney" ng-model="loanInfo.actual_money">
@@ -144,13 +144,13 @@
                         </div>
                     </div>
                     <div class="col s6">
-                        <div class="col s12 right-align">
+                        <div class="col s12 left-align">
                             <form name="uploadImageForm" class="">
                                 <div class="image-editor row valign-wrapper">
-                                    <div class="col s4">
+                                    <div class="col s4" style="margin-right: 50px">
                                         <div class="col s12 vc-center">
-                                            <div style="width: 80px;height: 80px;border: 1px solid grey;margin-bottom: 25px;margin-top: 25px">
-                                                <img style="width: 100%;height: 100%" ng-src="{{userImg}}" alt="">
+                                            <div ng-repeat="el in voucher_img"  ng-if="!voucher_img[0].img == ''" repeat-finish="driverFinish()" class="drive_img_box col s4 vc-center p0 grey white-text">
+                                                <img ng-src="{{el.img}}"  class="responsive-img">
                                             </div>
                                         </div>
                                         <div class="col s12 vc-center">
@@ -191,16 +191,16 @@
                         <p style="margin: 0">打款时间：{{loanInfo.indemnity_date |date:'yyyy-MM-dd HH:mm:ss'}}</p>
                     </div>
                 </div>
-                <div class="col s12">
-                    <div class="col s6 bold_txt" style="color: darkgray;font-size: 1.1rem">
+                <div class="col s12" style="margin-bottom: 20px">
+                    <div class="col s6 bold_txt" style="color: darkgray;font-size: 1.1rem;">
                         <div class="col s12 input-field">
                             <span style="color: #26c6da">已打款</span>
                         </div>
                         <div class="col s12 input-field">
                             <div style="font-weight: bold" for="companyFee">实际打款金额<span style="color: #e57474">{{loanInfo.plan_money}}.00</span>元</div>
                         </div>
-                        <div class="col s12 input-field" style="width: 100%">
-                            <div style="font-weight: bold" for="companyRemark">打款情况说明：{{}}</div>
+                        <div class="col s12 input-field" style="width: 100%;">
+                            <div style="font-weight: bold" for="companyRemark">打款情况说明：{{loanInfo.indemnity_explain}}</div>
                         </div>
                     </div>
                     <div class="col s6">
@@ -208,7 +208,7 @@
                             <div class="row col s12">
                                 <div class="col s12">
                                     <div repeat-finish="accientFinish()" ng-mouseenter="show=true" ng-mouseleave="show=false" class="truck_car_picture col s3 vc-center  p0 grey white-text">
-                                        <img  ng-src="{{l}}" class="responsive-img">
+                                        <img  ng-src="{{urlImg}}" class="responsive-img">
                                     </div>
                                 </div>
                             </div>

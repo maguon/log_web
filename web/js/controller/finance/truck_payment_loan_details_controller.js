@@ -12,9 +12,7 @@ app.controller("truck_payment_loan_details_controller", ["$scope", "$state", "$s
                 }
                 $scope.loanInfo = data.result[0];
                 $scope.indemnityStatus = data.result[0].indemnity_status;
-                $scope.loanInfo.voucher_image = data.result[0].voucher_image;
-                $scope.accientImageList.url =$host.file_url + '/image/' + $scope.accientImageList.url
-
+                $scope.urlImg = $host.file_url + '/image/' + data.result[0].voucher_image;
             }
             else {
                 swal(data.msg, "", "error");
@@ -78,11 +76,18 @@ app.controller("truck_payment_loan_details_controller", ["$scope", "$state", "$s
         var dom_obj=$(dom);
         var filename = $(dom).val();
         uploadImage(filename,dom_obj,function (imageId) {
+            var nowDate = moment(new Date()).format("YYYY-MM-DD HH:mm");
+            $scope.$apply(function () {
+                $scope.voucher_img = [{
+                    img: $host.file_url + '/image/' + imageId,
+                }];
+            });
             var obj={
                 "voucherImage": imageId
             };
             _basic.put($host.api_url+"/user/"+userId+"/damageCheckIndemnity/"+indemnityId+"/image",obj).then(function (data) {
                 if(data.success==true){
+                    swal("上传成功", "", "success");
                 }else {
                     swal(data.msg,"","error")
                 }

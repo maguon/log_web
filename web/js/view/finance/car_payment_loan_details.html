@@ -1,5 +1,5 @@
 <a style="margin: 90px 0 0 20px" class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light "
-   ui-sref="truck_payment_loan">
+   ui-sref="car_payment_loan">
     <i class="mdi mdi-arrow-left-bold"></i>
 </a>
 <div class="truck_payment_loan_detail">
@@ -46,7 +46,7 @@
                         </div>
                         <div  class="col s12" style="height:1px;border-bottom: 1px dotted #ccc;width:98%;margin-left: 1%"></div>
                         <div class="col s4">
-                            <p style="word-break: break-all"><span>申请打款备注：</span>{{loanInfo.indemnity_explain}}</p>
+                            <p style="word-break: break-all"><span>申请打款备注：</span>{{loanInfo.apply_explain}}</p>
                         </div>
                         <div  class="col s12" style="height:1px;border-bottom: 1px solid #ccc;width:98%;margin-left: 1%"></div>
                         <div class="col s12 right-align">
@@ -77,8 +77,12 @@
                     <!--质损信息-->
                     <div class="col s12 bold_txt" style="color: darkgray;font-size: 1.1rem">
                         <div class="col s6">
-                            <p ng-if="damageInfoCardList.damage_type==1"><span>质损类型：</span>一般质损</p>
-                            <p ng-if="damageInfoCardList.damage_type==2"><span>质损类型：</span>严重质损</p>
+                            <p ng-if="damageInfoCardList.damage_type==1"><span>质损类型：</span>A</p>
+                            <p ng-if="damageInfoCardList.damage_type==2"><span>质损类型：</span>B</p>
+                            <p ng-if="damageInfoCardList.damage_type==3"><span>质损类型：</span>C</p>
+                            <p ng-if="damageInfoCardList.damage_type==4"><span>质损类型：</span>D</p>
+                            <p ng-if="damageInfoCardList.damage_type==5"><span>质损类型：</span>E</p>
+                            <p ng-if="damageInfoCardList.damage_type==6"><span>质损类型：</span>F</p>
                         </div>
                         <div class="col s6">
                             <p ng-if="damageInfoCardList.damage_link_type==1"><span>质损环节：</span>短驳质损</p>
@@ -148,8 +152,8 @@
                             <form name="uploadImageForm" class="">
                                 <div class="image-editor row valign-wrapper">
                                     <div class="col s4" style="margin-right: 50px">
-                                        <div class="col s12 vc-center">
-                                            <div ng-repeat="el in voucher_img"  ng-if="!voucher_img[0].img == ''" repeat-finish="driverFinish()" class="drive_img_box col s4 vc-center p0 grey white-text">
+                                        <div class="col s12 vc-center" id="look_voucherImg">
+                                            <div ng-repeat="el in voucher_img"  ng-if="!voucher_img[0].img == ''" ng-click="EnlargeImage()" ng-mouseenter="show=true" ng-mouseleave="show=false" class="drive_img_box col s4 vc-center p0 grey white-text">
                                                 <img ng-src="{{el.img}}"  class="responsive-img">
                                             </div>
                                         </div>
@@ -206,10 +210,17 @@
                     <div class="col s6">
                         <div class="col s12 right-align">
                             <div class="row col s12">
-                                <div class="col s12">
-                                    <div repeat-finish="accientFinish()" ng-mouseenter="show=true" ng-mouseleave="show=false" class="truck_car_picture col s3 vc-center  p0 grey white-text">
+                                <div class="col s12" id="showBigImg">
+                                    <div ng-if="hasEnlargeImage" ng-click="showBigImg()" ng-mouseenter="show=true"  ng-mouseleave="show=false" class="truck_car_picture col s3 vc-center  p0 grey white-text">
                                         <img  ng-src="{{urlImg}}" class="responsive-img">
                                     </div>
+                                    <div ng-if="!hasEnlargeImage" class="truck_car_picture col s3 vc-center  p0 grey white-text">
+                                        <img  src="./assets/images/not_uploaded_img.png" alt="#">
+                                    </div>
+                                </div>
+                                <div class="col s12 left-align"  ng-if="!hasEnlargeImage">
+                                    <p>您未上传凭证
+                                    </p>
                                 </div>
                             </div>
                         </div>

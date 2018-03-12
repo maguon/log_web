@@ -1,7 +1,8 @@
-app.controller("truck_payment_loan_details_controller", ["$scope", "$state", "$stateParams", "_basic", "_config", "$host", function ($scope, $state, $stateParams, _basic, _config, $host) {
+app.controller("car_payment_loan_details_controller", ["$scope", "$state", "$stateParams", "_basic", "_config", "$host", function ($scope, $state, $stateParams, _basic, _config, $host) {
     var userId = _basic.getSession(_basic.USER_ID);
     var indemnityId = $stateParams.id;
     var paymentId = $stateParams.paymentId;
+    $scope.hasEnlargeImage = false;
     $scope.hasRepayment = false;
     // 获取当前打款数据
     function getCurrentLoanInfo() {
@@ -13,6 +14,12 @@ app.controller("truck_payment_loan_details_controller", ["$scope", "$state", "$s
                 $scope.loanInfo = data.result[0];
                 $scope.indemnityStatus = data.result[0].indemnity_status;
                 $scope.urlImg = $host.file_url + '/image/' + data.result[0].voucher_image;
+                if(data.result[0].voucher_image!==null){
+                    $scope.hasEnlargeImage =true;
+
+                }else {
+                    $scope.hasEnlargeImage =false;
+                }
             }
             else {
                 swal(data.msg, "", "error");
@@ -88,11 +95,26 @@ app.controller("truck_payment_loan_details_controller", ["$scope", "$state", "$s
             _basic.put($host.api_url+"/user/"+userId+"/damageCheckIndemnity/"+indemnityId+"/image",obj).then(function (data) {
                 if(data.success==true){
                     swal("上传成功", "", "success");
+                    if ($scope.voucher_img.length!=0) {
+                        viewer.destroy();
+                    }
                 }else {
                     swal(data.msg,"","error")
                 }
             })
 
+        });
+    };
+    // 点击查看图片大图
+    var viewer;
+    $scope.EnlargeImage = function () {
+        viewer = new Viewer(document.getElementById('look_voucherImg'), {
+            url: 'data-original'
+        });
+    };
+    $scope.showBigImg = function () {
+        viewer = new Viewer(document.getElementById('showBigImg'), {
+            url: 'data-original'
         });
     };
     // 点击打款按钮

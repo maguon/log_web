@@ -127,21 +127,12 @@
                         </div>
                         <div class="col s8">
                             <div class="valign-wrapper" ng-show="showAccidentRepair">
-                                <div class="col s3 input-field">
-                                    <select material-select watch id="associated_accident" class="truck_name" ng-change="getCurrentAccidentDetails()" ng-model="$parent.associatedAccident">
+                                <div class="col s12 input-field">
+                                    <select material-select watch id="associated_accident" class="truck_name" ng-model="repairingItem.accident_id">
                                         <option value="" selected disabled>事故地址</option>
-                                        <option ng-repeat="accident in accidentNumList" ng-value="accident.id">{{accident.address}}</option>
+                                        <option ng-repeat="accident in accidentNumList" ng-value="accident.id">{{accident.id + ' - ' + accident.address}}</option>
                                     </select>
                                     <label for="associated_accident"><span style="color: red">* </span>关联事故</label>
-                                </div>
-                                <div class="col s4">
-                                    <p style="margin: 0;font-size: 1.2rem;font-weight: bold">{{accidentInfo.address}}</p>
-                                </div>
-                                <div class="col s3">
-                                    <p style="margin: 0;font-size: 1.2rem;font-weight: bold">{{accidentInfo.accident_explain}}</p>
-                                </div>
-                                <div class="col s2">
-                                    <p style="margin: 0;font-size: 1.2rem;font-weight: bold">{{accidentInfo.accident_date | date:'yyyy-MM-dd'}}</p>
                                 </div>
                             </div>
                         </div>

@@ -98,27 +98,12 @@ app.controller("truck_repair_controller", ["$scope", "$state", "$stateParams", "
         }
     };
 
-    // 根据事故id获取事故详细信息
-    $scope.getCurrentAccidentDetails = function () {
-        // console.log("associatedAccident", $scope.associatedAccident);
-        if($scope.associatedAccident != null){
-            _basic.get($host.api_url + "/truckAccident?truckAccidentId=" + $scope.associatedAccident).then(function (data) {
-                if (data.success === true) {
-                    // console.log("data", data);
-                    $scope.accidentInfo = data.result[0];
-                }
-                else {
-                    swal(data.msg, "", "error");
-                }
-            });
-        }
-    };
-
     // 保存修改后的维修信息
     $scope.saveRepairInfo = function(repairObj){
         // console.log(repairObj);
         _basic.put($host.api_url + "/user/" + userId + "/truckRepairRelBase/" + repairObj.id,{
             repairType: repairObj.repair_type,
+            accidentId: repairObj.accident_id,
             repairReason: repairObj.repair_reason
         }).then(function (data) {
             if (data.success === true) {

@@ -484,7 +484,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
     }
     //维修信息
     $scope.truckRepairRel=function(){
-        _basic.get($host.api_url +"/truckRepairRel?truckId="+ $scope.truckId).then(function (data) {
+        _basic.get($host.api_url +"/truckRepairRel?accidentId="+ $scope.vId).then(function (data) {
             if (data.success === true) {
                 $scope.accidentList=data.result;
             }
@@ -535,7 +535,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
     }
     // 判断是否允许输入财务借款
     $scope.checkHasLoan = function () {
-        if($scope.truckType == 0){
+        if($scope.truckType == 1){
             $scope.hasLoanType = false;
         }
         else{
@@ -546,6 +546,9 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
     // 提交新增的记录
     $scope.addRepairRecord = function () {
         if($scope.modTruckNum !== undefined && $scope.insurePlan !== undefined &&$scope.modRecordTruckType!== undefined ){
+            if($scope.financialLoan==""||$scope.financialLoan==null){
+                $scope.financialLoan = 0;
+            }
             _basic.post($host.api_url + "/user/" + userId + "/truckAccidentInsureBase",{
                 insureId:$scope.modRecordTruckType,
                 insureType:$scope.modTruckNum,
@@ -553,7 +556,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                 financialLoanStatus:$scope.truckType,
                 financialLoan: $scope.financialLoan,
                 paymentExplain: $scope.finanlReason,
-                accidentId:truckAccId
+                accidentId:$scope.vId
             }).then(function (data) {
                 if (data.success === true){
                     swal("新增成功", "", "success");

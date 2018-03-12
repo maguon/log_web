@@ -31,8 +31,8 @@
                     <div class="col s6 input-field" ng-class="{'has-error':add_truck_form.truck_make.$invalid&&submitted }">
                         <select material-select watch id="modRecordTruckType"   ng-change="checkHasLoan()" ng-model="truckType">
                             <option value="" selected>请选择</option>
-                            <option value="0">是</option>
-                            <option value="1">否</option>
+                            <option value="1">是</option>
+                            <option value="0">否</option>
                         </select>
                         <label for="modRecordTruckType"><span style="color: red">* </span>是否财务借款</label>
                     </div>
@@ -457,7 +457,7 @@
                         </div>
                         <div class="col s4 valign-wrapper">
                             <div class="col s11 input-field" style="padding: 0">
-                                <div style="font-weight: bold" for="company_cost">赔付时间:{{el.date_id}}</div>
+                                <div style="font-weight: bold" for="company_cost">赔付时间:{{el.created_on | date:"yyyy-MM-dd HH:mm"}}</div>
                             </div>
                         </div>
                     </div>

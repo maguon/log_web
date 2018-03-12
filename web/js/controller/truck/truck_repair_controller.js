@@ -6,6 +6,7 @@ app.controller("truck_repair_controller", ["$scope", "$state", "$stateParams", "
     var truckId = $stateParams.id;
     $scope.truckType = $stateParams.type;
     $scope.showAccidentRepair = true;
+    $scope.connectAccident = false;
 
 
     // 点击返回按钮返回之前页面
@@ -56,6 +57,10 @@ app.controller("truck_repair_controller", ["$scope", "$state", "$stateParams", "
                     else{
                         $scope.repairedList.push(data.result[i]);
                     }
+
+                    if(data.result[0].repair_type == 1){
+                        $scope.connectAccident = true;
+                    }
                 }
                 // console.log("repairingList",$scope.repairingList);
                 // console.log("repairedList",$scope.repairedList);
@@ -68,7 +73,6 @@ app.controller("truck_repair_controller", ["$scope", "$state", "$stateParams", "
 
     // 获取当前id关联事故列表
     $scope.getAllAccidentInfo = function () {
-        $scope.associatedAccident = "";
         _basic.get($host.api_url + "/truckAccident?truckId=" + truckId).then(function (data) {
             if (data.success === true) {
                 // console.log("data", data);
@@ -87,34 +91,55 @@ app.controller("truck_repair_controller", ["$scope", "$state", "$stateParams", "
     };
 
     // 点击维修类型决定事故详情显示或隐藏
-    $scope.isCheckAssociatedAccident = function (repairObj) {
-        $scope.associatedAccident = "";
-        $scope.accidentInfo = [];
-        if(repairObj.repair_type == 1){
-            $scope.showAccidentRepair = true;
+    $scope.isCheckAssociatedAccident = function (repairingItem) {
+        if(repairingItem == 1){
+            $scope.connectAccident = true;
         }
         else{
-            $scope.showAccidentRepair = false;
+            $scope.connectAccident = false;
         }
     };
 
     // 保存修改后的维修信息
     $scope.saveRepairInfo = function(repairObj){
-        // console.log(repairObj);
-        _basic.put($host.api_url + "/user/" + userId + "/truckRepairRelBase/" + repairObj.id,{
-            repairType: repairObj.repair_type,
-            accidentId: repairObj.accident_id,
-            repairReason: repairObj.repair_reason
-        }).then(function (data) {
-            if (data.success === true) {
-                // console.log("data", data);
-                swal("保存成功！", "", "success");
-                $scope.getCurrentRepairInfo();
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
+        var paramObj;
+        var condition;
+        // 根据不同的事故状态传不同的参数走不同的判断条件
+        if($scope.connectAccident){
+            paramObj = {
+                repairType: repairObj.repair_type,
+                repairReason: repairObj.repair_reason
+            };
+            condition = (repairObj.repair_type !== "" && repairObj.repair_reason !== "");
+        }
+        else{
+            paramObj = {
+                repairType: repairObj.repair_type,
+                accidentId: repairObj.accident_id,
+                repairReason: repairObj.repair_reason
+            };
+            condition = (repairObj.repair_type !== "" && repairObj.accident_id !== "" && repairObj.repair_reason !== "");
+        }
+        if(condition){
+            _basic.put($host.api_url + "/user/" + userId + "/truckRepairRelBase/" + repairObj.id,{
+                repairType: repairObj.repair_type,
+                accidentId: repairObj.accident_id,
+                repairReason: repairObj.repair_reason
+            }).then(function (data) {
+                if (data.success === true) {
+                    // console.log("data", data);
+                    swal("保存成功！", "", "success");
+                    $scope.getCurrentRepairInfo();
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
+        else{
+            swal("请填写完整信息", "", "warning");
+        }
+
     };
 
     // 获取维修站信息并打开维修结束模态框

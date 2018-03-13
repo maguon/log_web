@@ -356,12 +356,12 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
         if($scope.accidentStatus !== 1){
             _basic.get($host.api_url + "/truckAccidentCheck?truckAccidentId=" + truckAccId).then(function (data) {
                 if (data.success === true) {
-                    if(data.result==null||data.result==undefined){
+                    if(data.result.length==0){
                         return;
                     }
                     else {
                         $scope.currentAccInfo = data.result[0];
-                        if(data.result[0].truck_accident_type!==undefined||data.result[0].truck_accident_type!==null){
+                        if(data.result[0].truck_accident_type!==undefined&&data.result[0].truck_accident_type!==null){
                             $scope.currentAccInfo.truck_accident_type = data.result[0].truck_accident_type+'';
                         }
                         else{

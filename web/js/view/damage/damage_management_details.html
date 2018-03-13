@@ -409,30 +409,36 @@
                             <!--已完成状态下打款信息-->
                             <div class="col s10 offset-s1" style="margin-bottom: 20px;color: darkgray;font-size: 1.08rem" ng-show="currentDamageStatus == 3 || financeIndemnityStatus == 2">
                                 <!--打款基本信息-->
-                                <div class="col s4">
-                                    <p>银行账号：{{bankAccount}}</p>
+                                <div class="col s12" style="padding: 0;">
+                                    <div class="col s5">
+                                        <p>银行账号：{{bankAccount}}</p>
+                                    </div>
+                                    <div class="col s3">
+                                        <p>户名：{{accountName}}</p>
+                                    </div>
+                                    <div class="col s4">
+                                        <p>开户行：{{openingBank}}</p>
+                                    </div>
                                 </div>
-                                <div class="col s4">
-                                    <p>户名：{{accountName}}</p>
-                                </div>
-                                <div class="col s4">
-                                    <p>开户行：{{openingBank}}</p>
-                                </div>
-                                <div class="col s4">
-                                    <p>所在城市：{{paymentInfo.city_name}}</p>
-                                </div>
-                                <div class="col s4">
-                                    <p>经销商：{{paymentInfo.receive_name}}</p>
-                                </div>
-                                <div class="col s4">
-                                    <p>赔款金额：<span style="color: #e77a7a;font-weight: bold">{{paymentMoney.toFixed(2)}}</span> 元</p>
+                                <div class="col s12" style="padding: 0;">
+                                    <div class="col s5">
+                                        <p>所在城市：{{paymentInfo.city_name}}</p>
+                                    </div>
+                                    <div class="col s3">
+                                        <p>经销商：{{paymentInfo.receive_name}}</p>
+                                    </div>
+                                    <div class="col s4">
+                                        <p>赔款金额：<span style="color: #e77a7a;font-weight: bold">{{paymentMoney.toFixed(2)}}</span> 元</p>
+                                    </div>
                                 </div>
                                 <div class="col s12">
                                     <p>申请打款备注：{{paymentRemark}}</p>
                                 </div>
                                 <!--财务确认后显示的已打款信息-->
                                 <div class="financeInfo" ng-show="financeIndemnityStatus == 2">
-                                    <hr>
+                                    <div class="col s12" style="margin: 0">
+                                        <hr>
+                                    </div>
                                     <div class="col s12 valign-wrapper" style="padding: 0;">
                                         <div class="col s8" style="padding: 0;">
                                             <div class="col s12 left-align">

@@ -19,10 +19,7 @@
                     <label for="apply_user_name">申报人</label>
                 </div>
                 <div class="col s4 input-field">
-                    <select id="receive_name" ng-model="receiveName" material-select watch>
-                        <option value="" selected>请选择</option>
-                        <option ng-repeat="receiveNameItem in receiveNameList" ng-value="receiveNameItem.id">{{receiveNameItem.receive_name}}</option>
-                    </select>
+                    <input type="text" id="receive_name" name="receive_name" ng-model="receiveName">
                     <label for="receive_name">经销商</label>
                 </div>
                 <div class="col s4 input-field">

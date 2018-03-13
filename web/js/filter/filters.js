@@ -281,19 +281,19 @@ CommonFilter.filter("damageType", function () {
     return function (input) {
         var damageType;
         switch (input) {
-            case "1":
+            case 1:
                 damageType = "A级";
                 break;
-            case "2":
+            case 2:
                 damageType = "B级";
                 break;
-            case "3":
+            case 3:
                 damageType = "C级";
                 break;
-            case "4":
+            case 4:
                 damageType = "D级";
                 break;
-            case "6":
+            case 5:
                 damageType = "F级";
                 break;
             default:
@@ -308,19 +308,19 @@ CommonFilter.filter("damageLinkType", function () {
     return function (input) {
         var damageLinkType;
         switch (input) {
-            case "1":
+            case 1:
                 damageLinkType = "短驳质损";
                 break;
-            case "2":
+            case 2:
                 damageLinkType = "公路运输";
                 break;
-            case "3":
+            case 3:
                 damageLinkType = "公司运输";
                 break;
-            case "4":
+            case 4:
                 damageLinkType = "驾驶员漏检";
                 break;
-            case "5":
+            case 5:
                 damageLinkType = "交通事故";
                 break;
             default:

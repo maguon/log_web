@@ -35,6 +35,7 @@ app.controller("truck_repair_list_controller", ['$rootScope', '$scope', '_basic'
             relId: $scope.repairNum,
             truckType: $scope.recordTruckType,
             repairStatus: $scope.repair_status,
+            repairType: $scope.recordRepairType,
             repairDateStart: $scope.record_startTime_start,
             repairDateEnd: $scope.record_startTime_end,
             truckNum: $scope.recordTruckNum,

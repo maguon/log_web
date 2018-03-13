@@ -97,6 +97,7 @@ adminDirective.directive('header', function () {
                 //存储信息到sessionStorage
                 _basic.setHeader(_basic.USER_TYPE, _basic.getSession(_basic.USER_TYPE));
                 _basic.setHeader(_basic.COMMON_AUTH_NAME, _basic.getSession(_basic.COMMON_AUTH_NAME));
+                $scope.qrList = [];
                 _basic.get($host.api_url + "/admin/" + _basic.getSession(_basic.USER_ID)).then(function (data) {
                     // $(".shadeDowWrap").hide();
                     if (data.success == true) {

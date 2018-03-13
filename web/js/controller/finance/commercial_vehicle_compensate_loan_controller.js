@@ -31,7 +31,7 @@ app.controller("commercial_vehicle_compensate_loan_controller", ["$scope", "$hos
             size:$scope.size
         })).then(function (data) {
             if (data.success === true) {
-                console.log("data", data);
+                // console.log("data", data);
                 if ($scope.start > 0) {
                     $("#pre").show();
                 }

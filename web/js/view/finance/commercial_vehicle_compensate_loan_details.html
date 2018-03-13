@@ -120,10 +120,10 @@
                             </div>
                             <div class="col s12 wash_fee_details less_mar">
                                 <div class="col s4">
-                                    <p><span>质损类型：</span>{{damage.damage_type}}</p>
+                                    <p><span>质损类型：</span>{{damage.damage_type | damageType}}</p>
                                 </div>
                                 <div class="col s4">
-                                    <p><span>质损环节：</span>{{damage.damage_link_type}}</p>
+                                    <p><span>质损环节：</span>{{damage.damage_link_type | damageLinkType}}</p>
                                 </div>
                                 <div class="col s4">
                                     <p><span>责任人：</span>{{damage.under_user_name}}</p>

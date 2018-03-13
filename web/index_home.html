@@ -141,8 +141,8 @@
                         <li><a href="#!" ui-sref="chauffeur_mileage_statistics"><i class="mdi mdi-chevron-right white-text "></i>司机里程统计</a></li>
                         <li><a href="#!" ui-sref="car_refueling_statistics"><i class="mdi mdi-chevron-right white-text "></i>货车加油统计</a></li>
                         <li><a href="#!" ui-sref="import_data_statistics"><i class="mdi mdi-chevron-right white-text "></i>商品车发运指令统计</a></li>
-                        <li><a href="#!" ui-sref="accident_insurance_claims_statistics"><i class="mdi mdi-chevron-right white-text "></i>事故保险理赔统计</a></li>
-                        <li><a href="#!" ui-sref="accident_statistics"><i class="mdi mdi-chevron-right white-text "></i>事故统计</a></li>
+                        <li><a href="#!" ui-sref="accident_insurance_claims_statistics"><i class="mdi mdi-chevron-right white-text "></i>货车保险理赔统计</a></li>
+                        <li><a href="#!" ui-sref="accident_statistics"><i class="mdi mdi-chevron-right white-text "></i>货车事故统计</a></li>
                     </ul>
                 </div>
             </li>
@@ -321,7 +321,6 @@
 <script src="/js/controller/truck/truck_driver_controller.js"></script>
 <script src="/js/controller/truck/add_truck_driver_controller.js"></script>
 <script src="/js/controller/truck/truck_driver_details_controller.js"></script>
-<script src="/js/controller/truck/truck_insurance_controller.js"></script>
 <script src="/js/controller/truck/truck_repair_controller.js"></script>
 <script src="/js/controller/truck/truck_position_controller.js"></script>
 <script src="/js/controller/truck/truck_repair_list_controller.js"></script>
@@ -331,6 +330,7 @@
 <script src="/js/controller/truck/accident_claim_controller.js"></script>
 <script src="/js/controller/truck/accident_claim_details_controller.js"></script>
 <script src="/js/controller/truck/truck_insure_controller.js"></script>
+
 <!--管理员设置-->
 <script src="/js/controller/setting/setting_storage_controller.js"></script>
 <script src="/js/controller/setting/add_setting_storage_controller.js"></script>
@@ -340,6 +340,7 @@
 <script src="/js/controller/setting/setting_city_controller.js"></script>
 <script src="/js/controller/setting/setting_line_controller.js"></script>
 <script src="/js/controller/setting/truck_brand_controller.js"></script>
+<script src="/js/controller/truck/truck_insurance_controller.js"></script>
 <script src="/js/controller/setting/setting_dealer/setting_dealer_controller.js"></script>
 <script src="/js/controller/setting/setting_dealer/add_setting_dealer_controller.js"></script>
 <script src="/js/controller/setting/setting_dealer/setting_dealer_details_controller.js"></script>
@@ -380,7 +381,7 @@
 <!--用户信息-->
 <script src="/js/controller/user/user_info_controller.js"></script>
 
-<!--商品车-->
+<!--公共数据-->
 <script src="/js/controller/car/car_query/car_query_controller.js"></script>
 <script src="/js/controller/car/car_query/car_query_details_controller.js"></script>
 <script src="/js/controller/car/car_statistics_controller.js"></script>
@@ -422,8 +423,10 @@
 <script src="/js/controller/data/imported_files_controller.js"></script>
 <script src="/js/controller/data/imported_files_details_controller.js"></script>
 <script src="/js/controller/index_controller.js"></script>
+
 <!--app系统-->
 <script src="/js/controller/app/app_version_controller.js"></script>
+
 <!--下载app-->
 <script src="/js/controller/download/admin_download_app_controller.js"></script>
 

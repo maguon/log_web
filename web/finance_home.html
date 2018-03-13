@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-cn" ng-app="log_dev">
+<head>
+    <meta charset="UTF-8">
+    <title>水滴财通</title>
+    <link rel="stylesheet" href="/assets/plugins/materialize/css/materialize.css">
+    <link rel="stylesheet" href="/assets/plugins/alert/sweetalert.css">
+    <link rel="stylesheet" href="/assets/plugins/material_icon/css/materialdesignicons.css">
+    <link rel="stylesheet" href="/assets/plugins/fullcalendar-3.3.0/fullcalendar.min.css">
+    <link rel="stylesheet" href="/assets/plugins/jQueryViewer/css/viewer.min.css">
+    <link rel="stylesheet" href="/assets/plugins/month_picker/jquery-ui.min.css">
+    <link rel="stylesheet" href="/assets/plugins/month_picker/month_picker.min.css">
+    <link rel="stylesheet" href="/assets/plugins/select2/select2.min.css">
+    <link rel="stylesheet" href="/assets/css/index.css">
+    <link rel="stylesheet" href="/assets/css/flex.css">
+    <link rel="stylesheet" href="/assets/css/col.css">
+    <link rel="stylesheet" href="/assets/css/font.css">
+    <link rel="icon" href="/assets/images/ico/finance_icon.ico">
+
+</head>
+<body>
+<header type="51" url="../assets/images/finance_logo.png"></header>
+<ul id="slide-out" class="side-nav blue-grey darken-4">
+    <li class="nav-logo valign-wrapper" style="border-bottom: 1px solid #182024">
+        <div class="userBox">
+            <!--有头像照片的时候显示头像，没有则显示默认svg头像-->
+            <div ng-if="hasUserPortrait" class="logo_img responsive-img left" style="height:50px">
+                <img ng-src="{{userImg}}" style="width: 100%;height: 100%;border-radius: 100%" alt="">
+            </div>
+
+            <div ng-if="!hasUserPortrait" class="nav-avatar logo_img responsive-img left" style="height:50px">
+                {{realName.substring(0,1)}}
+            </div>
+
+            <div class="userBoxMsg left">
+              <span class="white-text">
+                {{userName + ":"}}
+              </span>
+                <span class="white-text">
+                    {{realName}}
+              </span>
+            </div>
+        </div>
+    </li>
+    <li class="bold side_navigator">
+        <a class="waves-effect waves-light first-N" ui-sref="finance_index"><i class="white-text mdi mdi-speedometer"></i>主控面板</a>
+    </li>
+
+    <li class="bold side_navigator">
+        <a href="#!" ui-sref="user_info" class="waves-effect waves-light first-N" ><i class="white-text mdi mdi-account-card-details"></i>用户信息</a>
+    </li>
+
+    <li class="bold side_navigator">
+        <ul class="collapsible collapsible-accordion">
+            <li class="bold">
+                <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-cash-usd"></i>财务管理</a>
+                <div class="collapsible-body slider_nav_box blue-grey darken-3" style="padding: 0;">
+                    <ul>
+                        <li><a href="#!" ui-sref="truck_compensate_loan"><i class="white-text mdi mdi-chevron-right"></i>货车理赔借款管理</a></li>
+                        <li><a href="#!" ui-sref="car_payment_loan"><i class="white-text mdi mdi-chevron-right"></i>商品车赔款打款管理</a></li>
+                        <li><a href="#!" ui-sref="commercial_vehicle_compensate_loan"><i class="white-text mdi mdi-chevron-right"></i>商品车理赔借款管理</a></li>
+                        <li><a href="#!" ui-sref="car_wash_fee"><i class="white-text mdi mdi-chevron-right"></i>洗车费用</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+
+    <li class="bold side_navigator">
+        <ul class="collapsible collapsible-accordion">
+            <li class="bold">
+                <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-database "></i>公共数据</a>
+                <div class="collapsible-body slider_nav_box blue-grey darken-3" style="padding: 0;">
+                    <ul>
+                        <li><a href="#!" ui-sref="car_query"><i class="mdi mdi-chevron-right white-text "></i>商品车信息</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+
+    <li class="bold side_navigator">
+        <ul class="collapsible collapsible-accordion">
+            <li class="bold">
+                <a class="collapsible-header waves-effect waves-light first-N"><i
+                        class="white-text mdi mdi-chart-line "></i>数据统计</a>
+                <div class="collapsible-body slider_nav_box blue-grey darken-3" style="padding: 0;">
+                    <ul>
+                        <li><a href="#!" ui-sref="insurance_statistics"><i class="mdi mdi-chevron-right white-text "></i>货车保险统计</a></li>
+                        <li><a href="#!" ui-sref="liability_compensation_statistics"><i class="mdi mdi-chevron-right white-text "></i>商品车责任赔偿统计</a></li>
+                        <li><a href="#!" ui-sref="car_wash_fee_statistics"><i class="mdi mdi-chevron-right white-text "></i>商品车洗车费统计</a></li>
+                        <li><a href="#!" ui-sref="car_insurance_payment_statistics"><i class="mdi mdi-chevron-right white-text "></i>商品车保险赔付统计</a></li>
+                        <li><a href="#!" ui-sref="accident_insurance_claims_statistics"><i class="mdi mdi-chevron-right white-text "></i>货车保险理赔统计</a></li>
+                        <li><a href="#!" ui-sref="accident_statistics"><i class="mdi mdi-chevron-right white-text "></i>货车事故统计</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+
+    <li class="bold side_navigator">
+        <a href="#!" ui-sref="data_dictionary" class=" waves-effect waves-light first-N"><i class="white-text mdi mdi-book-multiple"></i>数据字典</a>
+    </li>
+
+</ul>
+<div class="ConWrap">
+    <div class="containerBox">
+        <div ui-view></div>
+    </div>
+</div>
+<footer></footer>
+
+</body>
+<div class="shadeDowWrap">
+    <div class="shadeDow vc-center">
+        <div class="preloader-wrapper big active ">
+            <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementsByClassName("ConWrap")[0].style.height = document.body.scrollHeight - 50 - 70 + "px";
+</script>
+<script src="/lib/jquery.min.js"></script>
+<script src="/lib/jquery.form.min.js"></script>
+<script src="/assets/plugins/fullcalendar-3.3.0/lib/jquery-ui.min.js"></script>
+<script src="/assets/plugins/month_picker/month_picker.min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=8iGBbYV3ghkvGehg79nG5LaGX2vVawjG"></script>
+<script src="/assets/plugins/fullcalendar-3.3.0/lib/moment.min.js"></script>
+<script src="/assets/plugins/fullcalendar-3.3.0/fullcalendar.min.js"></script>
+<script src="/assets/plugins/fullcalendar-3.3.0/locale/zh-cn.js"></script>
+<script src="/assets/plugins/select2/select2.min.js"></script>
+<script src="/assets/plugins/jquery.cropit.js"></script>
+<script src="/assets/plugins/materialize/js/materialize.js"></script>
+<script src="/assets/plugins/jQueryViewer/js/viewer.min.js"></script>
+<script src="/assets/plugins/avatar/avatar.min.js"></script>
+<script src="/assets/plugins/alert/sweetalert.min.js"></script>
+<script src="/lib/angular/angular.min.js"></script>
+<script src="/assets/plugins/angular/angular-materialize.js"></script>
+<script src="/lib/highcharts.js"></script>
+<script src="/lib/parse.min.js"></script>
+<script src="/assets/custom.js"></script>
+<script src="/lib/angular/angular-ui-router.min.js"></script>
+<script src="/lib/angular/angular-cookies.min.js"></script>
+<script src="/lib/angular/angular-messages.min.js"></script>
+<script src="/js/module/app_module.js"></script>
+<script src="/js/directive/public_directive.js"></script>
+<script src="/js/router/finance_manager_router.js"></script>
+<script src="/js/host/host_config.js"></script>
+<script src="/js/filter/filters.js"></script>
+<script src="/js/service/base_service.js"></script>
+<script src="/js/service/config_service.js"></script>
+<script src="/js/service/http_service.js"></script>
+<script src="/js/service/socket_service.js"></script>
+
+<!--主控面板-->
+<script src="/js/controller/finance/finance_index_controller.js"></script>
+
+<!--用户信息-->
+<script src="/js/controller/user/user_info_controller.js"></script>
+
+<!--财务管理-->
+<script src="/js/controller/finance/truck_compensate_loan_controller.js"></script>
+<script src="/js/controller/finance/truck_compensate_loan_details_controller.js"></script>
+<script src="/js/controller/finance/car_payment_loan_controller.js"></script>
+<script src="/js/controller/finance/car_payment_loan_details_controller.js"></script>
+<script src="/js/controller/finance/commercial_vehicle_compensate_loan_controller.js"></script>
+<script src="/js/controller/finance/commercial_vehicle_compensate_loan_details_controller.js"></script>
+<script src="/js/controller/damage/car_wash_fee_controller.js"></script>
+<script src="/js/controller/damage/car_wash_fee_details_controller.js"></script>
+
+<!--公共数据-->
+<script src="/js/controller/car/car_query/car_query_controller.js"></script>
+<script src="/js/controller/car/car_query/car_query_details_controller.js"></script>
+
+<!--数据统计-->
+<script src="/js/controller/statistics/insurance_statistics_controller.js"></script>
+<script src="/js/controller/statistics/liability_compensation_statistics_controller.js"></script>
+<script src="/js/controller/statistics/car_wash_fee_statistics_controller.js"></script>
+<script src="/js/controller/statistics/car_insurance_payment_statistics_controller.js"></script>
+<script src="/js/controller/statistics/accident_insurance_claims_statistics_controller.js"></script>
+<script src="/js/controller/statistics/accident_statistics_controller.js"></script>
+
+<!--数据字典-->
+<script src="/js/controller/setting/data_dictionary_controller.js"></script>
+
+</html>

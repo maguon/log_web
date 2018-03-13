@@ -11,6 +11,7 @@ app.controller("setting_user_controller", ["_basic", "_config", "$host", "$scope
     var user_info_obj = _config.userTypes;
     var user_info_fun = function () {
         $scope.user_info_section = [];
+        $scope.qrList = [];
         // 超级管理员拥有最高权限，可操作所有用户
         var administrator = [];
         for (var a = 0; a < user_info_obj.length; a++) {
@@ -23,6 +24,7 @@ app.controller("setting_user_controller", ["_basic", "_config", "$host", "$scope
         for (var i = 0; i < user_info_obj.length; i++) {
             if (user_info_obj[i].type == adminType) {
                 $scope.user_info_section = user_info_obj[i].subType;
+                $scope.qrList = user_info_obj[i].qr;
                 // 给下拉列表选定初始值
                 $scope.userType = $scope.user_info_section[0].type;
             }

@@ -7,19 +7,21 @@
                 </li>
             </ul>
 
-            <a href="#" class="brand-logo " >
-                <div class="vc-center" style="height: 100% ">
-                    <img class="responsive-img"  id="brand-logo" src="" alt="">
+            <a href="#" class="brand-logo">
+                <div class="vc-center" style="height: 100%">
+                    <div style="width: 54px;height: 54px;background-color: white;border-radius: 100%">
+                        <img style="margin:8px 0 0 8px;width: 38px;height: 38px" class="responsive-img"  id="brand-logo" src="" alt="">
+                    </div>
                 </div>
-
             </a>
+
             <ul class="right">
                 <li>
                     <a class="right-align" onclick="toggleFullScreen()"><i class="mdi mdi-fullscreen mdi-36px"></i>
 
                     </a>
                 </li>
-                <li ng-if="userType != 99">
+                <li ng-if="qrList.length != 0">
                     <a class="right-align"><i class="mdi mdi-cellphone-iphone mdi-36px" ng-click="download_app()" ></i></a>
                 </li>
                 <li>

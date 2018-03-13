@@ -24,7 +24,7 @@
                             <label for="record_truck_type_mod"><span style="color: red">* </span>维修类型</label>
                         </div>
                         <div class="col s6 input-field">
-                            <select material-select watch id="associated_accident" ng-disabled="allowSelect" class="truck_name" ng-model="associatedAccident">
+                            <select material-select watch id="associated_accident" ng-disabled="forbidSelect" class="truck_name" ng-model="associatedAccident">
                                 <option value="" selected disabled>事故地址</option>
                                 <option ng-repeat="accident in accidentNumList" ng-value="accident.id">{{accident.address}}</option>
                             </select>

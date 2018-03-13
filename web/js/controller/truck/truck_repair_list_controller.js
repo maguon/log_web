@@ -6,6 +6,8 @@ app.controller("truck_repair_list_controller", ['$rootScope', '$scope', '_basic'
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.record_repair_start = 0;
     $scope.record_repair_size = 10;
+    $scope.hasNotAccident = true;
+    $scope.forbidSelect = true;
 
     // 数据导出
     $scope.export = function () {
@@ -33,6 +35,7 @@ app.controller("truck_repair_list_controller", ['$rootScope', '$scope', '_basic'
             relId: $scope.repairNum,
             truckType: $scope.recordTruckType,
             repairStatus: $scope.repair_status,
+            repairType: $scope.recordRepairType,
             repairDateStart: $scope.record_startTime_start,
             repairDateEnd: $scope.record_startTime_end,
             truckNum: $scope.recordTruckNum,
@@ -99,6 +102,8 @@ app.controller("truck_repair_list_controller", ['$rootScope', '$scope', '_basic'
         $scope.modRecordTruckType = "";
         $scope.associatedAccident = "";
         $scope.repairReason = "";
+        $scope.hasNotAccident = true;
+        $scope.forbidSelect = true;
         $('#addRepairInfoModel').modal('open');
     };
 
@@ -125,24 +130,36 @@ app.controller("truck_repair_list_controller", ['$rootScope', '$scope', '_basic'
     // 检查是否允许关联事故
     $scope.isCheckAssociatedAccident = function () {
         if($scope.modRecordTruckType === "1"){
-            $scope.allowSelect = false;
-            // $("#associated_accident").attr("disabled", false);
+            $scope.forbidSelect = false;
         }
         else{
             $scope.associatedAccident = "";
-            $scope.allowSelect = true;
-            // $("#associated_accident").attr("disabled", true);
+            $scope.forbidSelect = true;
         }
     };
 
     // 提交新增的维修记录
     $scope.addRepairRecord = function () {
-        if($scope.modTruckNum !== "" && $scope.modRecordTruckType !== "" && $scope.repairReason !== ""){
-            _basic.post($host.api_url + "/user/" + userId + "/truck/" + $scope.modTruckNum + "/truckRepairRel",{
+        var paramObj;
+        var condition;
+        // 根据不同的事故状态传不同的参数走不同的判断条件
+        if($scope.forbidSelect){
+            paramObj = {
+                repairType: $scope.modRecordTruckType,
+                repairReason: $scope.repairReason
+            };
+            condition = ($scope.modTruckNum !== "" && $scope.modRecordTruckType !== "" && $scope.repairReason !== "");
+        }
+        else{
+            paramObj = {
                 repairType: $scope.modRecordTruckType,
                 accidentId: $scope.associatedAccident,
                 repairReason: $scope.repairReason
-            }).then(function (data) {
+            };
+            condition = ($scope.modTruckNum !== "" && $scope.modRecordTruckType !== "" && $scope.repairReason !== "" && $scope.associatedAccident !== "");
+        }
+        if(condition){
+            _basic.post($host.api_url + "/user/" + userId + "/truck/" + $scope.modTruckNum + "/truckRepairRel",paramObj).then(function (data) {
                 if (data.success === true) {
                     swal("新增成功", "", "success");
                     $('#addRepairInfoModel').modal('close');

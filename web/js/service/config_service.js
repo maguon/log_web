@@ -83,16 +83,16 @@ baseService.factory("_config", function () {
             type: 51,
             name: "财务操作员",
             subType: [],
-            index: 'damage_home.html',
-            qr: [{qrSrc: "../assets/images/qr_code/qr_damage_app.png"}]
+            index: 'finance_home.html',
+            qr: []
         },
 
         {
             type: 59,
             name: "财务管理员",
             subType: [{type: 51, name: "财务操作员"}],
-            index: 'damage_manager.html',
-            qr: [{qrSrc: "../assets/images/qr_code/qr_damage_app.png"}]
+            index: 'finance_manager.html',
+            qr: []
         }
 
     ];

@@ -309,19 +309,19 @@ CommonFilter.filter("damageLinkType", function () {
         var damageLinkType;
         switch (input) {
             case "1":
-                damageLinkType = "委托方质损";
-                break;
-            case "2":
                 damageLinkType = "短驳质损";
                 break;
+            case "2":
+                damageLinkType = "公路运输";
+                break;
             case "3":
-                damageLinkType = "仓储质损";
+                damageLinkType = "公司运输";
                 break;
             case "4":
-                damageLinkType = "装车质损";
+                damageLinkType = "驾驶员漏检";
                 break;
             case "5":
-                damageLinkType = "运输质损";
+                damageLinkType = "交通事故";
                 break;
             default:
                 damageLinkType = "未知";

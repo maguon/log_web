@@ -85,7 +85,7 @@
                         <span style="color: #26c6da;font-size: 1.6rem" class="mdi mdi-cellphone-android"></span>
                     </div>
                     <div class="col s8" style="padding: 0;">
-                        <span style="font-size: 1.2rem;font-weight: bold;color: darkgray">{{truckMessage.truck_tel}}</span>
+                        <span style="font-size: 1.2rem;font-weight: bold;color: darkgray">{{truckMessage.tel}}</span>
                     </div>
                 </div>
                 <div class="col s4 valign-wrapper">
@@ -126,7 +126,7 @@
                             <label for="record_truck_type">维修类型</label>
                         </div>
                         <div class="col s8">
-                            <div class="valign-wrapper" ng-show="showAccidentRepair">
+                            <div class="valign-wrapper" ng-show="repairingItem.repair_type == 1">
                                 <div class="col s12 input-field">
                                     <select material-select watch id="associated_accident" class="truck_name" ng-model="repairingItem.accident_id">
                                         <option value="" selected disabled>事故地址</option>

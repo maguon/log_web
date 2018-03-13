@@ -517,6 +517,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
 
         // 财务
+        .state("finance_index",{
+            url:"/finance_index",
+            templateUrl: "js/view/finance/finance_index.html",
+            controller:'finance_index_controller'
+        })
         .state("truck_compensate_loan",{
             url:"/truck_compensate_loan",
             templateUrl: "js/view/finance/truck_compensate_loan.html",

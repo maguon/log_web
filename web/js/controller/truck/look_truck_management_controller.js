@@ -392,7 +392,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
         }
     }
     $scope.saveHandleInfoModify= function () {
-        if($scope.currentAccInfo.truck_accident_type!==null){
+        if($scope.currentAccInfo.truck_accident_type==1||$scope.currentAccInfo.truck_accident_type==2){
             _basic.put($host.api_url + "/user/" + userId + "/truckAccidentCheck/" +  $scope.truckAccidentCheckId, {
                 truckAccidentId:truckAccId,
                 truckAccidentType:$scope.currentAccInfo.truck_accident_type,
@@ -449,7 +449,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                 closeOnConfirm: true
             },
             function () {
-            if($scope.currentAccInfo.truck_accident_type!==null){
+            if($scope.currentAccInfo.truck_accident_type==1||$scope.currentAccInfo.truck_accident_type==2){
                 _basic.put($host.api_url + "/user/" + userId + "/truckAccidentCheck/" +  $scope.truckAccidentCheckId, {
                     truckAccidentId: truckAccId,
                     truckAccidentType: $scope.currentAccInfo.truck_accident_type,

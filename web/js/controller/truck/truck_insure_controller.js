@@ -13,17 +13,6 @@ app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "
             }
         });
     };
-    //获取所有货车牌号
-    function getTruckNumber (){
-        _basic.get($host.api_url + "/truckBase").then(function (data) {
-            if (data.success === true) {
-                $scope.truckNumListAll = data.result;
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
-    }
     // 数据导出
     $scope.export = function () {
         var obj = {
@@ -90,7 +79,27 @@ app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "
     };
     //添加模态框
     $scope.addTruckInsure=function () {
-        $('.modal').modal();
+        _basic.get($host.api_url + "/truckBase").then(function (data) {
+            if (data.success === true) {
+                $scope.truckNumListAll = data.result;
+                $('#truck_number').select2({
+                    placeholder: '车牌号',
+                    containerCssClass : 'select2_dropdown'
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+        // 初始化所有信息
+            $scope.addSystemType="";
+            $scope.addtruckInsureName="";
+            $scope.addtruckInsureType="";
+            $scope.addInsureNum="";
+            $scope.addinsureMoney="";
+            $scope.startDate="";
+           $scope.endDate="";
+           $scope.addInsureExplain="";
         $('#addTruckInsure').modal('open');
     }
     $scope.createTruckInsureItem=function() {
@@ -172,7 +181,6 @@ app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "
     // 获取数据
     function queryData () {
         getInsuranceCompany();
-        getTruckNumber();
         $scope.searchTruckInsure();
     };
     queryData();

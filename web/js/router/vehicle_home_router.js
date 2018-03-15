@@ -184,6 +184,21 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/statistics/maintenance_statistics.html",
             controller:"maintenance_statistics_controller"
         })
+        .state("car_refueling_statistics", {
+            url:"/car_refueling_statistics",
+            templateUrl: "js/view/statistics/car_refueling_statistics.html",
+            controller:"car_refueling_statistics_controller"
+        })
+        .state("accident_insurance_claims_statistics", {
+            url:"/accident_insurance_claims_statistics",
+            templateUrl: "js/view/statistics/accident_insurance_claims_statistics.html",
+            controller:"accident_insurance_claims_statistics_controller"
+        })
+        .state("accident_statistics", {
+            url:"/accident_statistics",
+            templateUrl: "js/view/statistics/accident_statistics.html",
+            controller:"accident_statistics_controller"
+        })
 
         .state("demand_car_details",{
             url:"/demand_car_details/{id}/vin/{vin}?from",

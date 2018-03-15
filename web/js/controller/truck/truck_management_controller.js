@@ -32,6 +32,9 @@ app.controller("truck_management_controller", ["$scope", "$state", "$stateParams
         }
         // 获取筛选列表
         function getManagementRecordList () {
+            if($scope.driveName==0){
+                $scope.driveName="";
+            }
             _basic.get($host.api_url + "/truckAccident?" + _basic.objToUrl({
                 truckAccidentId: $scope.truckAccidentId,
                 truckType:$scope.truckType,

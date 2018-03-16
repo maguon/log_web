@@ -452,8 +452,9 @@ app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config"
     // 根据选择的保险公司获取相应信息
     $scope.changeInsurance = function () {
         // 保险金额统计
-        _basic.get($host.api_url + "/truckInsureMoneyTotal?insureId=" + $scope.insuranceId).then(function (currentInsuranceData) {
+        _basic.get($host.api_url + "/truckInsureMoneyTotal?insureId=" + $scope.insuranceId + "&start=0&size=36").then(function (currentInsuranceData) {
             if (currentInsuranceData.success === true) {
+                currentInsuranceData.result.reverse();
                 // console.log("currentInsuranceData",currentInsuranceData);
                 // X轴月份
                 $scope.moneyMonth = [];
@@ -487,8 +488,9 @@ app.controller("insurance_statistics_controller", ["$scope", "_basic", "_config"
         });
 
         // 保险车次统计
-        _basic.get($host.api_url + "/truckInsureCountTotal?insureId=" + $scope.insuranceId).then(function (totalMonthData) {
+        _basic.get($host.api_url + "/truckInsureCountTotal?insureId=" + $scope.insuranceId + "&start=0&size=12").then(function (totalMonthData) {
             if (totalMonthData.success === true){
+                totalMonthData.result.reverse();
                 // console.log("totalMonthData",totalMonthData);
                 // X轴月份
                 $scope.truckMonth = [];

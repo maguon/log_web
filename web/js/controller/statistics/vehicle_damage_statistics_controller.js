@@ -6,8 +6,8 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
         Button: false,
         MonthFormat: 'yymm'
     });
-    var month;
-    var week;
+    var monthArr;
+    var weekArr;
 
     // 商品车质损按月统计
     var carDamageCountMonth = [
@@ -77,7 +77,7 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
                 text: ''
             },
             xAxis: {
-                categories: month,
+                categories: monthArr,
                 crosshair: true
             },
             yAxis: {
@@ -120,7 +120,7 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
                 text: ''
             },
             xAxis: {
-                categories: week,
+                categories: weekArr,
                 crosshair: true
             },
             yAxis: {
@@ -159,9 +159,9 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
         _basic.get($host.api_url + "/damageTypeMonthStat?damageStatus=3&" + _basic.objToUrl(obj)).then(function (data) {
             if (data.success === true) {
                 // console.log("data",data);
-                // data.result.reverse();
+                data.result.reverse();
                 // X轴月份
-                month = [];
+                monthArr = [];
                 // 初始化金额数
                 carDamageCountMonth[0].data = [];
                 carDamageCountMonth[1].data = [];
@@ -170,8 +170,8 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
                 carDamageCountMonth[4].data = [];
                 // 赋予柱状图金额数组
                 for (var i = 0; i < data.result.length; i++) {
-                    if (month.indexOf(data.result[i].y_month) === -1) {
-                        month.push(data.result[i].y_month);
+                    if (monthArr.indexOf(data.result[i].y_month) === -1) {
+                        monthArr.push(data.result[i].y_month);
                     }
                     if (data.result[i].id === 1) {
                         carDamageCountMonth[0].data.push(data.result[i].damage_count);
@@ -211,18 +211,12 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
 
     //按周
     function vehicleDamageWeek() {
-        _basic.get($host.api_url + "/damageTypeWeekStat?damageStatus=3").then(function (data) {
+        _basic.get($host.api_url + "/damageTypeWeekStat?damageStatus=3&start=0&size=50").then(function (data) {
             if (data.success == true) {
                 // console.log("data",data);
                 data.result.reverse();
                 // X轴月份
-                week = [];
-                var levelACount = [];
-                var levelBCount = [];
-                var levelCCount = [];
-                var levelDCount = [];
-                var levelFCount = [];
-                var weekAll = [];
+                weekArr = [];
                 // 初始化金额数
                 carDamageCountWeek[0].data = [];
                 carDamageCountWeek[1].data = [];
@@ -231,31 +225,25 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
                 carDamageCountWeek[4].data = [];
                 // 赋予柱状图金额数组
                 for (var i = 0; i < data.result.length; i++) {
-                    if (weekAll.indexOf(data.result[i].y_week) === -1) {
-                        weekAll.push(data.result[i].y_week);
+                    if (weekArr.indexOf(data.result[i].y_week) === -1) {
+                        weekArr.push(data.result[i].y_week);
                     }
                     if (data.result[i].id == 1) {
-                        levelACount.push(data.result[i].damage_count);
+                        carDamageCountWeek[0].data.push(data.result[i].damage_count);
                     }
                     if (data.result[i].id == 2) {
-                        levelBCount.push(data.result[i].damage_count);
+                        carDamageCountWeek[1].data.push(data.result[i].damage_count);
                     }
                     if (data.result[i].id == 3) {
-                        levelCCount.push(data.result[i].damage_count);
+                        carDamageCountWeek[2].data.push(data.result[i].damage_count);
                     }
                     if (data.result[i].id == 4) {
-                        levelDCount.push(data.result[i].damage_count);
+                        carDamageCountWeek[3].data.push(data.result[i].damage_count);
                     }
                     if (data.result[i].id == 6) {
-                        levelFCount.push(data.result[i].damage_count);
+                        carDamageCountWeek[4].data.push(data.result[i].damage_count);
                     }
                 }
-                week = weekAll.slice(-10);
-                carDamageCountWeek[0].data = levelACount.slice(-10);
-                carDamageCountWeek[1].data = levelBCount.slice(-10);
-                carDamageCountWeek[2].data = levelCCount.slice(-10);
-                carDamageCountWeek[3].data = levelDCount.slice(-10);
-                carDamageCountWeek[4].data = levelFCount.slice(-10);
                 showVehicleDamageHistogramWeek();
             }
             else {

@@ -266,6 +266,7 @@ app.controller("maintenance_statistics_controller", ["$scope", "_basic", "_confi
         // 维修数量
         _basic.get($host.api_url + "/truckRepairCountTotal?monthStart=" + start + "&monthEnd=" + end + "&truckType=" + $scope.repairTruckType).then(function (fixData) {
             if (fixData.success === true){
+                fixData.result.reverse();
                 // X轴月份
                 $scope.repairMonth = [];
                 // 初始化金额数
@@ -297,6 +298,7 @@ app.controller("maintenance_statistics_controller", ["$scope", "_basic", "_confi
         // 维修金额
         _basic.get($host.api_url + "/truckRepairMoneyTotal?monthStart=" + start + "&monthEnd=" + end + "&truckType=" + $scope.moneyTruckType).then(function (moneyData) {
             if (moneyData.success === true){
+                moneyData.result.reverse();
                 // X轴月份
                 $scope.moneyMonth = [];
                 // 初始化金额数

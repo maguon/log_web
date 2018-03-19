@@ -1,7 +1,5 @@
 <div id="setting_amend_vin" >
     <div class="grey-text text-darken-2" >
-        <!--<div class="modal-content ">-->
-        <!--<div class="" style="width: 95%;margin: 0 auto">-->
         <div class=" vc-center ">
             <h4 class="center-align cyan-text  text-lighten-1">请输入需要入库的车辆vin码</h4>
         </div>
@@ -10,25 +8,16 @@
             <div class="row " style="width: 900px;margin: 0 auto">
                 <form name="demand_car_form" ng-submit="demand_car(demand_car_form.$valid)" novalidate>
                     <div class="col s1 vc-center cyan-text mp-50 text-lighten-1" style="font-size: 25px;min-width: 90px"><span>vin码:</span></div>
-                    <div class="col s9 vc-center mp-30 valign-wrapper" style="overflow: hidden;">
+                    <div class="col s9 vc-center mp-30 valign-wrapper">
                         <div class="input-field col s12" ng-class="{'has-error':demand_car_form.vin.$invalid&&submitted}">
                             <input type="text" id="autocomplete-input" name="vin" placeholder="模糊查询至少需要6位vin码" ng-change="short_search()" ng-model="demand_vin" style="margin: 0 0 20px 0" autocomplete="off" class="autocomplete" required minlength="6">
-                            <!--<label for="autocomplete-input">搜索</label>-->
                         </div>
                     </div>
                     <div  class="col s1 mp-30 valign-wrapper">
                         <button class=" btn btn-floating btn-large waves-effect cyan lighten-1" ><i style="font-size: 40px" class="mdi white-text mdi-magnify"></i></button>
                     </div>
                 </form>
-                <!--<div class="row">-->
-                    <!--<ul class="white grey-text vin_result_box col s10 p0" style="margin-top: 0">-->
-                        <!--<li ng-repeat="el in vin_msg" class="col s12 vin_list p0"><span class="col s4 p0">{{el.vin}}</span><span class="col s4 offset-s2">{{el.make_name}}</span></li>-->
-                    <!--</ul>-->
-                <!--</div>-->
             </div>
         </div>
-        <!--</div>-->
-
-
     </div>
 </div>

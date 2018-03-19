@@ -175,6 +175,29 @@ app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "
             swal("请填写完整信息！", "", "warning");
         }
     };
+    $scope.deleteTruckInsure = function(id){
+        swal({
+                title: "确定删除当前货车保险信息吗？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确认",
+                cancelButtonText: "取消",
+                closeOnConfirm: false
+            },
+            function(){
+                _basic.delete($host.api_url + "/user/" + userId + "/truckInsureRel/"+id).then(function (data) {
+                    if (data.success === true) {
+                        getTruckInsureList ();
+                        swal("删除成功", "", "success");
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
+            });
+
+    }
     // 分页
     $scope.getPrePage = function () {
         $scope.start = $scope.start - $scope.size;

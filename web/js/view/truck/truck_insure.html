@@ -298,6 +298,7 @@
                             <td  ng-if="truckInsureItem.expiredStatus==2">&nbsp;</td>
                             <td class="operation">
                                 <a  ng-click="readTruckInsure(truckInsureItem.id)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-file-document"></i></a>
+                                <a  ng-click="deleteTruckInsure(truckInsureItem.id)" class="red-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-delete-forever"></i></a>
                             </td>
                         </tr>
                         <tr class="grey-text text-darken-1" ng-if="truckInsureList.length == 0">

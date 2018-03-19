@@ -146,8 +146,8 @@
                             <div class=" col s6 p0">
                                 <div class=" col s12 input-field">
                                     <select  material-select watch ng-model="showTruckInsureList.truck_id">
-                                        <option value="" selected>请选择</option>
-                                        <option ng-repeat="truckNumItem in truckNumListAll" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}({{truckNumItem.truck_type == 1 ? "头车" : "挂车"}})</option>
+                                        <option ng-value="" selected>请选择</option>
+                                        <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}({{truckNumItem.truck_type == 1 ? "头车" : "挂车"}})</option>
                                     </select>
                                     <label><span style="color: red">* </span>货车牌号</label>
                                 </div>
@@ -298,6 +298,7 @@
                             <td  ng-if="truckInsureItem.expiredStatus==2">&nbsp;</td>
                             <td class="operation">
                                 <a  ng-click="readTruckInsure(truckInsureItem.id)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-file-document"></i></a>
+                                <a  ng-click="deleteTruckInsure(truckInsureItem.id)" class="red-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-delete-forever"></i></a>
                             </td>
                         </tr>
                         <tr class="grey-text text-darken-1" ng-if="truckInsureList.length == 0">

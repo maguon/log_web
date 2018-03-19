@@ -146,8 +146,8 @@
                             <div class=" col s6 p0">
                                 <div class=" col s12 input-field">
                                     <select  material-select watch ng-model="showTruckInsureList.truck_id">
-                                        <option value="" selected>请选择</option>
-                                        <option ng-repeat="truckNumItem in truckNumListAll" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}({{truckNumItem.truck_type == 1 ? "头车" : "挂车"}})</option>
+                                        <option ng-value="" selected>请选择</option>
+                                        <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}({{truckNumItem.truck_type == 1 ? "头车" : "挂车"}})</option>
                                     </select>
                                     <label><span style="color: red">* </span>货车牌号</label>
                                 </div>

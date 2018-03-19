@@ -132,9 +132,15 @@ app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "
     $scope.readTruckInsure=function (id) {
         $('.modal').modal();
         $('#showTruckInsure').modal('open');
+        _basic.get($host.api_url + "/truckBase").then(function (data) {
+            if (data.success === true) {
+                $scope.truckNumListAllList = data.result;
+            }
+        })
         _basic.get($host.api_url + "/truckInsureRel?relId=" + id).then(function (data) {
             if (data.success == true) {
                 $scope.showTruckInsureList = data.result[0];
+                $scope.showTruckInsureList.truck_id=data.result[0].truck_id;
             } else {
                 swal(data.msg, "", "error");
             }

@@ -203,6 +203,18 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'add_storage_car_put_in_controller'
         })
 
+        // 商品车信息
+        .state("car_query",{
+            url:"/car_query",
+            templateUrl: "js/view/car/car_query/car_query.html",
+            controller:'car_query_controller'
+        })
+        .state("car_query_details",{
+            url:"/car_query_details/vin/{vin}/id/{id}",
+            templateUrl: "js/view/car/car_query/car_query_details.html",
+            controller:'car_query_details_controller'
+        })
+
         // 数据统计
         .state("insurance_statistics", {
             url:"/insurance_statistics",

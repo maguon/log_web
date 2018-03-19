@@ -63,6 +63,18 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             controller:'add_damage_insurance_details_controller'
         })
 
+        // 商品车信息
+        .state("car_query",{
+            url:"/car_query",
+            templateUrl: "js/view/car/car_query/car_query.html",
+            controller:'car_query_controller'
+        })
+        .state("car_query_details",{
+            url:"/car_query_details/vin/{vin}/id/{id}",
+            templateUrl: "js/view/car/car_query/car_query_details.html",
+            controller:'car_query_details_controller'
+        })
+
         // 数据统计
         .state("liability_compensation_statistics", {
             url:"/liability_compensation_statistics",

@@ -174,11 +174,6 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/car/car_query/car_query_details.html",
             controller:'car_query_details_controller'
         })
-        .state("car_statistics",{
-            url:"/car_statistics",
-            templateUrl: "js/view/car/car_statistics.html",
-            controller:'car_statistics_controller'
-        })
 
         // 数据统计
         .state("chauffeur_mileage_statistics", {

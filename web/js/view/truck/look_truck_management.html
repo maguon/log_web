@@ -75,10 +75,10 @@
             </div>
             <div class="row col s12" style="margin-top: 35px">
                 <div class="col s12 fz14 left-align">
-                    <p><span style="color: red">* </span>维修原因</p>
+                    <p><span style="color: red">* </span>维修原因（100字）</p>
                 </div>
                 <div class="col s12">
-                    <textarea style="height: 150px" name="reapirText" id="reapirText" cols="30" rows="10" ng-model="repairInfo"></textarea>
+                    <textarea style="height: 150px" name="reapirText" id="reapirText" cols="30" rows="10" maxlength="100" ng-model="repairInfo"></textarea>
                 </div>
             </div>
         </div>
@@ -111,7 +111,7 @@
                             <option value="" selected>请选择</option>
                             <option ng-repeat="repair in repairStationList" ng-value="repair.id">{{repair.repair_station_name}}</option>
                         </select>
-                        <label for="repair_station">维修站</label>
+                        <label for="repair_station"><span style="color: red">* </span>维修站</label>
                     </div>
                     <div class="col s6 input-field">
                         <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="repair_money_mod" name="repair_money_mod" ng-model="repairMoneyMod">

@@ -541,7 +541,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
     };
 
     // 维修模态框内点击确定
-    $scope.completeRepairInfo = function () {
+    $scope.createRepairInfo = function () {
         // console.log("truckAccId",truckAccId);
         if($scope.repairReason !== ""){
             _basic.post($host.api_url + "/user/" + userId + "/truck/" + $scope.truckId + "/truckRepairRel",{
@@ -583,32 +583,58 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
         });
     };
 
-    // 正在维修卡片点击维修结束
+    // 正在维修卡片点击维修结束获取维修站信息并开启模态框
     $scope.finishRepairInfo = function () {
-        swal({
-                title: "确定维修结束吗？",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: true
-            },
-            function(){
-                _basic.put($host.api_url + "/user/" + userId + "/truckRepairRel/" + relId,{
-                    repairType: 1,
-                    accidentId: truckAccId,
-                    repairReason: $scope.repairReason
-                }).then(function (data) {
-                    if (data.success === true) {
-                        // console.log("data", data);
-                        $scope.getRepairInfo();
-                    }
-                    else {
-                        swal(data.msg, "", "error");
-                    }
+        $scope.repairStationMod = "";
+        $scope.repairMoneyMod = "";
+        $scope.repairExplainMod = "";
+        _basic.get($host.api_url + "/repairStation?repairSationStatus=1").then(function (data) {
+            if (data.success === true) {
+                // console.log("data", data);
+                $scope.repairStationList = data.result;
+                $('#repairFinishMod').modal('open');
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+    // 模态框内点击维修完成
+    $scope.completeRepairInfo = function () {
+        if($scope.repairStationMod != "" && $scope.repairMoneyMod != "" && $scope.repairExplainMod != ""){
+            swal({
+                    title: "确定维修结束吗？",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "确认",
+                    cancelButtonText: "取消",
+                    closeOnConfirm: true
+                },
+                function(){
+                    _basic.put($host.api_url + "/user/" + userId + "/truckRepairRel/" + relId,{
+                        repairType: 1,
+                        accidentId: truckAccId,
+                        repairReason: $scope.repairReason,
+                        repairStationId: $scope.repairStationMod,
+                        repairMoney: $scope.repairMoneyMod,
+                        remark: $scope.repairExplainMod
+                    }).then(function (data) {
+                        if (data.success === true) {
+                            // console.log("data", data);
+                            $('#repairFinishMod').modal('close');
+                            $scope.getRepairInfo();
+                        }
+                        else {
+                            swal(data.msg, "", "error");
+                        }
+                    });
                 });
-            });
+        }
+        else{
+            swal("请填写完整信息！", "", "warning");
+        }
     };
 
     // 获取理赔信息

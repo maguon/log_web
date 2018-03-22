@@ -42,7 +42,8 @@
                                 <label for="driver_mileage_endTime">指令时间(终)</label>
                             </div>
                         </div>
-                        <div class=" col s3">
+
+                        <div class="col s3">
                             <div class="input-field col s12">
                                 <select id="car_status" name="car_status" material-select watch    ng-model="car_status">
                                     <option ng-value="">所有</option>
@@ -51,12 +52,13 @@
                                 </select>
                                 <label for="car_status">载重类型</label>
                             </div>
-
                         </div>
-                        <div class="col s1 fz30 red-text text-lighten-2">
-                                <i class="mdi mdi-magnify" style="cursor: pointer" ng-click="drive_instruction_list()"></i>
+
+                        <div class="col s1 fz30" style="color: darkgray">
+                            <i class="mdi mdi-magnify" style="cursor: pointer" ng-click="drive_instruction_list()"></i>
                         </div>
                     </div>
+
                     <div class="row" style="padding:0 20px">
                         <div class="col s4">
                             总里程:<span>{{driveDetail.load_distance+driveDetail.no_load_distance}}</span>公里
@@ -68,19 +70,19 @@
                             空载:<span>{{driveDetail.no_load_distance}}</span>公里
                         </div>
                     </div>
-
-
                 </div>
             </div>
-            <div class="row" style="margin:0 5% ">
+
+            <div class="row" style="margin:0 5%">
                 <div class="col s12">
-                    <table class=" bordered striped">
+                    <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+                    <table class="bordered striped text_mid">
                         <thead class="blue-grey lighten-5">
                         <tr class="grey-text text-darken-2">
                             <th data-field="">指令编号</th>
                             <th data-field="">指令执行时间</th>
                             <th data-field="">起始城市</th>
-                            <th  data-field="">目的城市</th>
+                            <th data-field="">目的城市</th>
                             <th data-field="">装载车辆</th>
                             <th data-field="">公里数</th>
                             <th>操作</th>
@@ -88,7 +90,7 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="el in instruction_list" class="grey-text text-darken-1">
-                            <td  ng-bind="el.id">1</td>
+                            <td ng-bind="el.id">1</td>
                             <td ng-bind="el.created_on|date:'yyyy-MM-dd HH:mm:ss'">2</td>
                             <td ng-bind="el.city_route_start">无</td>
                             <td ng-bind="el.city_route_end">
@@ -101,10 +103,7 @@
                         </tbody>
                     </table>
                 </div>
-
             </div>
         </div>
     </div>
-</div>
-
 </div>

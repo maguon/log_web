@@ -52,7 +52,7 @@ app.controller("look_instruction_list_details_controller", ["$scope", "$host", "
     p().then(function () {
         _basic.get($host.api_url + "/dpRouteLoadTask?dpRouteTaskId=" + $scope._id).then(function (data) {
             if (data.success == true) {
-                console.log("data", data);
+                // console.log("data", data);
                 $scope.this_LoadTask = data.result;
             }
         })

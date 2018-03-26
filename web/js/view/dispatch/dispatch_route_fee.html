@@ -46,8 +46,8 @@
                         <div class="col s2">
                             <p>{{mission.task_status | missionStatus}}</p>
                         </div>
-                        <div class="col s1">
-                            <a ui-sref="" style="margin-right: 10px;cursor: pointer;text-align: center;color: #e57373"><i class="mdi mdi-delete-forever" style="margin: 0"></i></a>
+                        <div class="col s1" style="font-size: 1.5rem">
+                            <a ng-click="deleteMatchMissionMod($index)" style="margin-right: 10px;cursor: pointer;text-align: center;color: #e57373"><i class="mdi mdi-delete-forever" style="margin: 0"></i></a>
                         </div>
                     </div>
 

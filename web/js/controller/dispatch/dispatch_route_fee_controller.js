@@ -171,6 +171,24 @@ app.controller("dispatch_route_fee_controller", ["$scope", "$host", "_basic", fu
         }
     };
 
+    // 删除关联任务
+    $scope.deleteMatchMissionMod = function (index) {
+        swal({
+                title: "确定删除当前任务吗？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确认",
+                cancelButtonText: "取消",
+                closeOnConfirm: true
+            },
+            function(){
+                $scope.$apply(function () {
+                    $scope.matchMissionList.splice(index, 1)
+                });
+            });
+    };
+
     // 新增出车款信息
     $scope.addRouteFeeInfo = function () {
         var dpRouteTaskIds = [];

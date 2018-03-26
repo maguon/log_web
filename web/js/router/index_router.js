@@ -75,6 +75,16 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/dispatch/instruction_car_refuel_details.html",
             controller:"instruction_car_refuel_details_controller"
         })
+        .state("dispatch_route_fee",{
+            url:"/dispatch_route_fee",
+            templateUrl: "js/view/dispatch/dispatch_route_fee.html",
+            controller:'dispatch_route_fee_controller'
+        })
+        .state("dispatch_route_fee_details",{
+            url:"/dispatch_route_fee_details/id/{id}",
+            templateUrl: "js/view/dispatch/dispatch_route_fee_details.html",
+            controller:'dispatch_route_fee_details_controller'
+        })
 
         // 数据导入
         .state("car_to_data", {

@@ -16,7 +16,9 @@ app.controller("dispatch_route_fee_controller", ["$scope", "$host", "_basic", fu
             applyPlanMoneyEnd: $scope.applyMoneyEnd,
             applyUserName: $scope.applyPerson,
             grantDateStart: $scope.grantStartTime,
-            grantDateEnd: $scope.grantEndTime
+            grantDateEnd: $scope.grantEndTime,
+            start:$scope.start.toString(),
+            size:$scope.size
         })).then(function (data) {
             if (data.success === true) {
                 // console.log("data", data);

@@ -40,6 +40,7 @@ app.controller("dispatch_route_fee_controller", ["$scope", "$host", "_basic", fu
         });
     };
 
+    // 清除司机数据
     $scope.clearDriverInfo = function () {
         if($scope.driverId == 0 || $scope.driverId == "" || $scope.driverId == null){
             $scope.driverId = null;
@@ -139,32 +140,35 @@ app.controller("dispatch_route_fee_controller", ["$scope", "$host", "_basic", fu
         });
     };
 
-    // 选中关联任务后再次查询并创建信息卡片
+    // 选中关联任务后创建信息卡片
     $scope.createMatchMissionCard = function () {
-        if($scope.dispatchNumMod !== ""){
-            _basic.get($host.api_url + "/dpRouteTask?dpRouteTaskId=" + $scope.dispatchNumMod).then(function (data) {
-                if (data.success === true) {
-                    // console.log("data", data);
-                    // 检测数组中是否有和返回结果相同的id
-                    function checkDispatchId(obj) {
-                        return obj.id === data.result[0].id;
-                    }
-                    if($scope.matchMissionList.some(checkDispatchId)){
-                        swal("不能重复添加相同任务！", "", "warning");
-                    }
-                    else{
-                        var distanceCount = 0;
+        if ($scope.dispatchNumMod !== "") {
+            // 检测数组中是否有和当前选中的相同的id
+            function checkDispatchId(obj) {
+                return obj.id === $scope.dispatchNumMod;
+            }
+
+            if ($scope.matchMissionList.some(checkDispatchId)) {
+                swal("不能重复添加相同任务！", "", "warning");
+            }
+            else {
+                // 根据选择的调度id查询调度详细信息
+                _basic.get($host.api_url + "/dpRouteTask?dpRouteTaskId=" + $scope.dispatchNumMod).then(function (data) {
+                    if (data.success === true) {
+                        // console.log("data", data);
                         $scope.matchMissionList.push(data.result[0]);
-                        // 根据新增的任务卡片计算过路费
-                        for (var i = 0; i < $scope.matchMissionList.length; i++) {
-                            $scope.roadTollCost = (distanceCount += $scope.matchMissionList[i].distance) * 0.8
-                        }
                     }
-                }
-                else {
-                    swal(data.msg, "", "error");
-                }
-            });
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                }).then(function () {
+                    // 根据新增的任务卡片计算过路费
+                    var distanceCount = 0;
+                    for (var i = 0; i < $scope.matchMissionList.length; i++) {
+                        $scope.roadTollCost = (distanceCount += $scope.matchMissionList[i].distance) * 0.8
+                    }
+                });
+            }
         }
         else{
             swal("请选择任务信息！", "", "warning");
@@ -184,7 +188,17 @@ app.controller("dispatch_route_fee_controller", ["$scope", "$host", "_basic", fu
             },
             function(){
                 $scope.$apply(function () {
-                    $scope.matchMissionList.splice(index, 1)
+                    $scope.matchMissionList.splice(index, 1);
+                    // 重新计算过路费
+                    if($scope.matchMissionList.length === 0){
+                        $scope.roadTollCost = 0
+                    }
+                    else{
+                        var distanceCount = 0;
+                        for (var i = 0; i < $scope.matchMissionList.length; i++) {
+                            $scope.roadTollCost = (distanceCount += $scope.matchMissionList[i].distance) * 0.8
+                        }
+                    }
                 });
             });
     };

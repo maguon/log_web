@@ -16,7 +16,7 @@
                     </div>
                     <div class="col s8 valign-wrapper" style="margin-bottom: 10px;padding: 0;">
                         <div class="col s11 input-field">
-                            <select id="dispatch_num_mod" ng-change="accumulationRoadTollCost()" ng-model="dispatchNumMod" material-select watch>
+                            <select id="dispatch_num_mod" ng-model="dispatchNumMod" material-select watch>
                                 <option value="" selected>请选择</option>
                                 <option ng-repeat="mission in missionList" ng-value="mission.id">{{mission.id + '&emsp;' + mission.city_route_start + ' - ' + mission.city_route_end + '&emsp;' + mission.distance + '公里' + '&emsp;' + (mission.created_on | date:'yyyy-MM-dd HH:mm:ss')}}</option>
                             </select>

@@ -227,6 +227,9 @@ CommonFilter.filter("missionStatus", function () {
             case 9:
                 missionStatus = "已完成";
                 break;
+            case 10:
+                missionStatus = "全部完成";
+                break;
             default:
                 missionStatus = "未知";
         }

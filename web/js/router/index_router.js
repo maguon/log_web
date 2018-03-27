@@ -562,6 +562,16 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/finance/commercial_vehicle_compensate_loan_details.html",
             controller:'commercial_vehicle_compensate_loan_details_controller'
         })
+        .state("finance_route_fee",{
+            url:"/finance_route_fee",
+            templateUrl: "js/view/finance/finance_route_fee.html",
+            controller:'finance_route_fee_controller'
+        })
+        .state("finance_route_fee_details",{
+            url:"/finance_route_fee_details/id/{id}",
+            templateUrl: "js/view/finance/finance_route_fee_details.html",
+            controller:'finance_route_fee_details_controller'
+        })
 
         // 下载app
         .state("admin_download_app",{

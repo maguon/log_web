@@ -47,7 +47,7 @@
 
             </div>
             <div class="modal-footer vc-center">
-                <button ng-click="closeModel()" class="btn waves-light waves-effect cyan lighten-1" type="button" style="margin-left: 56px" >
+                <button class="modal-action modal-close btn waves-light waves-effect cyan lighten-1" type="button" style="margin-left: 56px" >
                     确定
                 </button>
             </div>
@@ -258,13 +258,13 @@
                                     <li ng-repeat="currentLine in currentLineList">
                                         <!--线路列表头-->
                                         <div style="height: 60px;" class="collapsible-header col s12 valign-wrapper collapsible_height" ng-click="showMissionInfo(currentLine.id,currentLine.task_plan_date,currentLine.route_start_id,$index)">
-                                            <div class="col s7" style="margin-top: 7px">
-                                                <div class="col s6 center-align">
+                                            <div class="col s8" style="margin-top: 7px">
+                                                <div class="col s6 center-align" style="padding-right: 0">
                                                     <div class="col s5 center-align" style="padding: 0">
-                                                        <p style="margin: 0">{{currentLine.city_route_start}}&emsp;&emsp;<span class="mdi mdi-arrow-right"></span></p>
+                                                        <p style="margin: 0">编号：{{currentLine.id}}</p>
                                                     </div>
-                                                    <div class="col s7 left-align">
-                                                        <p style="margin: 0">{{currentLine.city_route_end}}</p>
+                                                    <div class="col s7 center-align" style="padding: 0">
+                                                        <p style="margin: 0">{{currentLine.city_route_start}}&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;{{currentLine.city_route_end}}</p>
                                                     </div>
                                                 </div>
                                                 <div class="col s6">
@@ -283,7 +283,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col s3" style="margin-top: 5px">
+                                            <div class="col s2" style="margin-top: 5px">
                                                 <div class="col s6 right" style="padding: 0 5px">
                                                     <a ng-click="deleteLine(currentLine.id,$event)" style="width: 38px;height: 38px"
                                                        class="waves-light waves-effect materialize-red lighten-2 btn btn-floating">
@@ -418,10 +418,10 @@
 
                                                 <!--出车款信息-->
                                                 <div style="width: 90%;margin: 0 auto" ng-show="allRouteFeeInfo">
-                                                    <div class="col s6 left-align" style="color: #26c6da;font-size: 1.2rem;font-weight: bold" ng-hide="routeFeeList.length == 0">
+                                                    <div class="col s6 left-align" style="color: #26c6da;font-size: 1.2rem;font-weight: bold" ng-show="hasRouteFeeInfoId">
                                                         <p>{{"申请编号：" + routeFeeInfo.id}}</p>
                                                     </div>
-                                                    <div class="col s6 right-align" style="font-size: 1.2rem;font-weight: bold" ng-hide="routeFeeList.length == 0">
+                                                    <div class="col s6 right-align" style="font-size: 1.2rem;font-weight: bold" ng-show="hasRouteFeeInfoId">
                                                         <p ng-show="routeFeeInfo.task_loan_status == 1" style="color: #e57373;">未发放</p>
                                                         <p ng-show="routeFeeInfo.task_loan_status == 2" style="color: #26c6da">已发放</p>
                                                         <p ng-show="routeFeeInfo.task_loan_status == 3" style="color: darkgray">已报销</p>
@@ -448,9 +448,9 @@
                                                     </div>
 
                                                     <!--有出车款信息下已关联调度任务信息-->
-                                                    <div class="col s12 valign-wrapper" ng-repeat="matchMission in matchDispatchMissionList" ng-show="hasRouteFeeInfo" style="height: 60px;background-color: #e0e0e0;font-size: 1.1rem">
+                                                    <div class="col s12 valign-wrapper" ng-repeat="matchMission in matchDispatchMissionList" ng-show="hasRouteFeeInfoId" style="height: 60px;background-color: #e0e0e0;font-size: 1.1rem">
                                                         <div class="col s3">
-                                                            <p>有出车款调度编号：{{matchMission.dp_route_task_id}}</p>
+                                                            <p>调度编号（有）：{{matchMission.dp_route_task_id}}</p>
                                                         </div>
                                                         <div class="col s3">
                                                             <p>{{matchMission.city_route_start + "-" + matchMission.city_route_end + "&emsp;" + matchMission.distance + "公里"}}</p>
@@ -458,15 +458,20 @@
                                                         <div class="col s3">
                                                             <p>{{matchMission.task_plan_date | date:'yyyy-MM-dd'}}</p>
                                                         </div>
-                                                        <div class="col s3">
+                                                        <div class="col s2">
                                                             <p>{{matchMission.task_status | instructionsStatus}}</p>
+                                                        </div>
+                                                        <div class="col s1">
+                                                            <a ng-hide="routeFeeInfo.task_loan_status == 3" ng-click="deleteBackEndDispatchMission(matchMission.dp_route_task_loan_id,matchMission.dp_route_task_id)" style="cursor: pointer;text-align: center;color: #e57373;font-size: 1.6rem">
+                                                                <i class="mdi mdi-delete-forever"></i>
+                                                            </a>
                                                         </div>
                                                     </div>
 
                                                     <!--无出车款信息下已关联调度任务信息-->
-                                                    <div class="col s12 valign-wrapper" ng-repeat="matchMission in addDispatchMissionList" ng-show="!hasRouteFeeInfo" style="height: 60px;background-color: #e0e0e0;font-size: 1.1rem">
+                                                    <div class="col s12 valign-wrapper" ng-repeat="matchMission in addDispatchMissionList" ng-show="!hasRouteFeeInfoId" style="height: 60px;background-color: #e0e0e0;font-size: 1.1rem">
                                                         <div class="col s3">
-                                                            <p>无出车款调度编号：{{matchMission.dp_route_task_id}}</p>
+                                                            <p>调度编号（无）：{{matchMission.dp_route_task_id}}</p>
                                                         </div>
                                                         <div class="col s3">
                                                             <p>{{matchMission.city_route_start + "-" + matchMission.city_route_end + "&emsp;" + matchMission.distance + "公里"}}</p>
@@ -474,8 +479,13 @@
                                                         <div class="col s3">
                                                             <p>{{matchMission.task_plan_date | date:'yyyy-MM-dd'}}</p>
                                                         </div>
-                                                        <div class="col s3">
+                                                        <div class="col s2">
                                                             <p>{{matchMission.task_status | instructionsStatus}}</p>
+                                                        </div>
+                                                        <div class="col s1">
+                                                            <a ng-click="deleteFrontEndDispatchMission($index)" style="cursor: pointer;text-align: center;color: #e57373;font-size: 1.6rem">
+                                                                <i class="mdi mdi-delete-forever"></i>
+                                                            </a>
                                                         </div>
                                                     </div>
 
@@ -483,27 +493,27 @@
                                                     <div class="col s12" style="margin-top: 20px" ng-show="routeFeeInfo.task_loan_status != 2 && routeFeeInfo.task_loan_status != 3">
                                                         <div class="col s4 input-field">
                                                             <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="road_toll_cost" name="road_toll_cost" ng-model="$parent.routeFeeInfo.apply_passing_cost">
-                                                            <label class="{{roadTollCost != null ? 'active' : 'inactive'}}" for="road_toll_cost">过路费（元）</label>
+                                                            <label for="road_toll_cost">过路费（元）</label>
                                                         </div>
                                                         <div class="col s4 input-field">
                                                             <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="fuel_cost" name="fuel_cost" ng-model="$parent.routeFeeInfo.apply_fuel_cost">
-                                                            <label class="{{fuelCost != null ? 'active' : 'inactive'}}" for="fuel_cost">燃料费（元）</label>
+                                                            <label for="fuel_cost">燃料费（元）</label>
                                                         </div>
                                                         <div class="col s4 input-field">
                                                             <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="road_cost" name="road_cost" ng-model="$parent.routeFeeInfo.apply_protect_cost">
-                                                            <label class="{{roadCost != null ? 'active' : 'inactive'}}" for="road_cost">保道费（元）</label>
+                                                            <label for="road_cost">保道费（元）</label>
                                                         </div>
                                                         <div class="col s4 input-field">
                                                             <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="fine_cost" name="fine_cost" ng-model="$parent.routeFeeInfo.apply_penalty_cost">
-                                                            <label class="{{fineCost != null ? 'active' : 'inactive'}}" for="fine_cost">罚款费（元）</label>
+                                                            <label for="fine_cost">罚款费（元）</label>
                                                         </div>
                                                         <div class="col s4 input-field">
                                                             <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="parking_cost" name="parking_cost" ng-model="$parent.routeFeeInfo.apply_parking_cost">
-                                                            <label class="{{parkingCost != null ? 'active' : 'inactive'}}" for="parking_cost">停车费（元）</label>
+                                                            <label for="parking_cost">停车费（元）</label>
                                                         </div>
                                                         <div class="col s4 input-field">
                                                             <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="taxi_cost" name="taxi_cost" ng-model="$parent.routeFeeInfo.apply_taxi_cost">
-                                                            <label class="{{taxiCost != null ? 'active' : 'inactive'}}" for="taxi_cost">打车费（元）</label>
+                                                            <label for="taxi_cost">打车费（元）</label>
                                                         </div>
                                                         <div class="col s12 input-field">
                                                             <input type="text" id="remark" name="remark" ng-model="$parent.routeFeeInfo.apply_explain">

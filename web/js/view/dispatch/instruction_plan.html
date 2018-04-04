@@ -225,7 +225,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col s5">
+                                <div class="col s6">
                                     <div class="col s5 right-align">
                                         <p>计划执行时间：</p>
                                     </div>
@@ -237,7 +237,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col s3" style="padding-right: 26px">
+                                <div class="col s2" style="padding-right: 27px">
                                     <div class="col s6 right-align" style="padding: 10px 5px">
                                         <a ng-click="hideLineInfo()" style="width: 38px;height: 38px"
                                            class="waves-light waves-effect red lighten-1 btn btn-floating">
@@ -357,7 +357,7 @@
                                                                 </a>
                                                             </div>
                                                             <div class="col s5 offset-s2">
-                                                                <a ng-click="submitMissionInfo(currentLine.id)" style="width: 100%;background-color: #26c6da;" class="waves-light waves-effect lighten-1 btn">
+                                                                <a ng-click="submitMissionInfo(currentLine.id,$index)" style="width: 100%;background-color: #26c6da;" class="waves-light waves-effect lighten-1 btn">
                                                                     确认
                                                                 </a>
                                                             </div>
@@ -406,7 +406,7 @@
 
                                             <!--出车款-->
                                             <div class="route_fee_info route_fee_info{{$index}}">
-                                                <!--申请出车款-->
+                                                <!--申请出车款按钮-->
                                                 <div class="row col s12" ng-show="applyRouteFeeBtn">
                                                     <div class="col s3 right-align right" style="padding:15px 0">
                                                         <button ng-click="applyRouteFee()" style="width:100%;height: 30px;line-height: 33px"
@@ -450,7 +450,7 @@
                                                     <!--有出车款信息下已关联调度任务信息-->
                                                     <div class="col s12 valign-wrapper" ng-repeat="matchMission in matchDispatchMissionList" ng-show="hasRouteFeeInfoId" style="height: 60px;background-color: #e0e0e0;font-size: 1.1rem">
                                                         <div class="col s3">
-                                                            <p>调度编号（有）：{{matchMission.dp_route_task_id}}</p>
+                                                            <p>调度编号：{{matchMission.dp_route_task_id}}</p>
                                                         </div>
                                                         <div class="col s3">
                                                             <p>{{matchMission.city_route_start + "-" + matchMission.city_route_end + "&emsp;" + matchMission.distance + "公里"}}</p>
@@ -471,7 +471,7 @@
                                                     <!--无出车款信息下已关联调度任务信息-->
                                                     <div class="col s12 valign-wrapper" ng-repeat="matchMission in addDispatchMissionList" ng-show="!hasRouteFeeInfoId" style="height: 60px;background-color: #e0e0e0;font-size: 1.1rem">
                                                         <div class="col s3">
-                                                            <p>调度编号（无）：{{matchMission.dp_route_task_id}}</p>
+                                                            <p>调度编号：{{matchMission.dp_route_task_id}}</p>
                                                         </div>
                                                         <div class="col s3">
                                                             <p>{{matchMission.city_route_start + "-" + matchMission.city_route_end + "&emsp;" + matchMission.distance + "公里"}}</p>
@@ -650,7 +650,7 @@
                                                     <!--保存按钮-->
                                                     <div class="col s12" style="margin: 20px 0" ng-show="routeFeeInfo.task_loan_status != 2 && routeFeeInfo.task_loan_status != 3">
                                                         <div class="col s4 offset-s4">
-                                                            <a ng-click="saveRouteFeeInfo()" style="width: 100%;background-color: #26c6da;" class="waves-light waves-effect lighten-1 btn">
+                                                            <a ng-click="saveRouteFeeInfo($index)" style="width: 100%;background-color: #26c6da;" class="waves-light waves-effect lighten-1 btn">
                                                                 保存
                                                             </a>
                                                         </div>

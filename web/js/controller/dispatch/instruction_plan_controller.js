@@ -288,6 +288,12 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     // 点击线路获取当前路线下的装车任务信息和出车款信息
     $scope.showMissionInfo = function (showLineId,showLineDate,startLineId,index) {
+        // console.log("点击路线",showLineId,showLineDate,startLineId,index);
+        $scope.showLineId = showLineId;
+        $scope.showLineDate = showLineDate;
+        $scope.startLineId = startLineId;
+        $scope.clickIndex = index;
+
         // 默认显示当前装车任务
         $(".load_mission" + index).show();
         $(".route_fee_info").hide();
@@ -338,7 +344,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                     // 无出车款信息时设置当前默认线路调度任务
                     $scope.addDispatchMissionList = [];
                     $scope.routeFeeInfo = {};
-                    _basic.get($host.api_url + "/dpRouteTask?dpRouteTaskId=" + showLineId + "&taskStatus=1").then(function (data) {
+                    _basic.get($host.api_url + "/dpRouteTask?dpRouteTaskId=" + showLineId).then(function (data) {
                         if (data.success === true) {
                             // console.log("无出车款信息时设置当前默认线路调度任务",data);
                             data.result[0].dp_route_task_id = data.result[0].id;
@@ -590,7 +596,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     };
 
     // 提交线路下的任务信息
-    $scope.submitMissionInfo = function (lineId) {
+    $scope.submitMissionInfo = function (lineId,index) {
         if($scope.locateId != "" && $scope.sendCityId != "" && $scope.receiveInfo != "" && $scope.distributeNum != "" && $scope.lineDate != "" && $scope.lineStartTime != ""){
             _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask/" + lineId + "/dpRouteLoadTask",{
                 dpDemandId:$scope.receiveInfo.id,
@@ -606,7 +612,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                     swal("新增成功", "", "success");
                     $scope.missionInfo = false;
                     $scope.addMissionBtn = true;
-                    $scope.showMissionInfo(lineId,$scope.lineDateBak,$scope.startLineId);
+                    $scope.showMissionInfo(lineId,$scope.lineDateBak,$scope.startLineId,index);
                 }
                 else{
                     swal(data.msg, "", "error");
@@ -618,11 +624,11 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         }
     };
 
-    // 删除任务信息
+    // 删除装车任务
     $scope.deleteMission = function (missionId, lineId) {
-        // console.log("missionId", missionId, "lineId", lineId);
+        // console.log("删除装车任务",missionId, lineId);
         swal({
-                title: "确定删除当前任务吗？",
+                title: "确定删除当前装车任务吗？",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
@@ -633,7 +639,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             function () {
                 _basic.delete($host.api_url + "/user/" + userId + "/dpRouteLoadTask/" + missionId).then(function (data) {
                     if (data.success === true) {
-                        $scope.showMissionInfo(lineId);
+                        $scope.showMissionInfo(lineId,$scope.showLineDate,$scope.startLineId,$scope.clickIndex);
                         swal("删除成功", "", "success");
                     }
                     else {
@@ -657,7 +663,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     };
 
     // 保存出车款信息
-    $scope.saveRouteFeeInfo = function () {
+    $scope.saveRouteFeeInfo = function (index) {
         var totalCost = parseFloat($("#totalCost").html()).toFixed(2);
         var saveDpRouteTaskIdArr = [];
         var addDpRouteTaskIdArr = [];
@@ -705,6 +711,16 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             }).then(function (data) {
                 if (data.success === true) {
                     swal("操作成功", "", "success");
+                    $scope.showMissionInfo($scope.showLineId,$scope.showLineDate,$scope.startLineId,$scope.clickIndex);
+                    // 默认显示当前装车任务
+                    $(".route_fee_info" + index).show();
+                    $(".load_mission").hide();
+
+                    // 默认蓝条回到最左，防止蹿位
+                    $(".tabs .indicator").css({
+                        right: 0 + "px",
+                        left: 603 + "px"
+                    });
                 }
                 else {
                     swal(data.msg, "", "error");

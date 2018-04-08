@@ -1,0 +1,66 @@
+<div class="finance_route_fee_statistics" style="width: 90%;margin: 0 auto">
+    <div class="row valign-wrapper">
+        <h5 class="col s12 cyan-text lighten-1 center-align">
+            财务出车款统计
+        </h5>
+    </div>
+
+    <div style="width: 98.6%">
+        <!--财务出车款按月统计-->
+        <div class="row z-depth-2">
+            <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                <div class="col s6 left">
+                    <p>财务出车款-按月统计</p>
+                </div>
+                <div class="col s6 right">
+                    <div class="col s3 left">
+                        <p class="right">选择日期区间:</p>
+                    </div>
+                    <div class="col s3">
+                        <input id="financeTimeStart" type="text" ng-value="startInitial">
+                    </div>
+                    <div class="col s1 center">
+                        <p>至</p>
+                    </div>
+                    <div class="col s3">
+                        <input id="financeTimeEnd" type="text" ng-value="endInitial">
+                    </div>
+                    <div class="col s2 center">
+                        <i class="mdi mdi-magnify" ng-click="getFinanceMonthInfo()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                    </div>
+                </div>
+            </div>
+            <!--笔数统计-->
+            <div class="col s12">
+                <div class="col s12" id="financeCountMonth" style="min-width:400px;height:350px;margin-top: 40px"></div>
+            </div>
+            <!--金额统计-->
+            <div class="col s12">
+                <div class="col s12" id="financeMoneyMonth" style="min-width:400px;height:350px;margin: 35px 0 35px 0"></div>
+            </div>
+        </div>
+
+        <!--财务出车款按日统计-->
+        <div class="row z-depth-2" style="margin-top: 50px">
+            <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                <div class="col s8 left">
+                    <p>财务出车款-按日统计</p>
+                </div>
+                <div class="col s4">
+                    <select class="col s6 grey-text text-darken-1 right" material-select watch ng-change="getFinanceDayInfo()" ng-model="financeInfoSize">
+                        <option value="30" selected>近30天</option>
+                        <option value="10" selected>近10天</option>
+                    </select>
+                </div>
+            </div>
+            <!--申请笔数统计-->
+            <div class="col s12">
+                <div class="col s12" id="financeCountDay" style="min-width:400px;height:350px;margin-top: 40px"></div>
+            </div>
+            <!--申请金额统计-->
+            <div class="col s12">
+                <div class="col s12" id="financeMoneyDay" style="min-width:400px;height:350px;margin: 35px 0 35px 0"></div>
+            </div>
+        </div>
+    </div>
+</div>

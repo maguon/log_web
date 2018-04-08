@@ -320,6 +320,26 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/statistics/accident_statistics.html",
             controller:"accident_statistics_controller"
         })
+        .state("finance_route_fee_statistics", {
+            url:"/finance_route_fee_statistics",
+            templateUrl: "js/view/statistics/finance_route_fee_statistics.html",
+            controller:"finance_route_fee_statistics_controller"
+        })
+        .state("car_indemnity_loan_statistics", {
+            url:"/car_indemnity_loan_statistics",
+            templateUrl: "js/view/statistics/car_indemnity_loan_statistics.html",
+            controller:"car_indemnity_loan_statistics_controller"
+        })
+        .state("car_indemnity_payment_statistics", {
+            url:"/car_indemnity_payment_statistics",
+            templateUrl: "js/view/statistics/car_indemnity_payment_statistics.html",
+            controller:"car_indemnity_payment_statistics_controller"
+        })
+        .state("truck_indemnity_loan_statistics", {
+            url:"/truck_indemnity_loan_statistics",
+            templateUrl: "js/view/statistics/truck_indemnity_loan_statistics.html",
+            controller:"truck_indemnity_loan_statistics_controller"
+        })
 
         // 从首页跳详情图
         .state("storage_car_details", {

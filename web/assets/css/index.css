@@ -1180,6 +1180,7 @@ button[type="submit"] {
 .select2-selection__rendered{
     text-align: left !important;
     padding: 0 !important;
+    padding-right: 20px !important;
     line-height: 42px !important;
 }
 

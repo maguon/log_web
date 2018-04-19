@@ -1,0 +1,133 @@
+<!--调度 -- 指令管理  -->
+<div class="dispatch_order">
+
+    <!--查询条件-->
+    <div class="row col s12">
+
+        <!--调度编号 调度状态 计划执行时间 司机 货车 起始城市 目的城市-->
+        <div class="col s10">
+
+            <!--调度编号-->
+            <div class="col s3 input-field">
+                <input  id="dispatchId" name="dispatchId" ng-model="dispatchId" type="text"   required >
+                <label for="dispatchId">调度编号</label>
+            </div>
+
+            <!--调度状态-->
+            <div class="col s3 input-field">
+                <select material-select watch id="taskStatus"  ng-options="task_status.id as task_status.taskStatusName for task_status in taskStatusList" ng-model="taskStatus" style="width: 100%">
+                    <option value="" >调度状态</option>
+                    <option ng-repeat="el in taskStatusList" ng-value="el.id">{{el.taskStatusName}}</option>
+                </select>
+            </div>
+
+            <!--计划执行时间(始)-->
+            <div class="col s3 input-field">
+                <input id="planTimeStart" type="text" ng-model="planTimeStart"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                <label for="planTimeStart">计划执行时间（始）</label>
+            </div>
+
+            <!--计划执行时间(终)-->
+            <div class="col s3 input-field">
+                <input id="planTimeEnd" type="text" ng-model="planTimeEnd"  class="datepicker" autocomplete="off"  required   date><i class="mdi dataIcon mdi-table-large"></i>
+                <label for="planTimeEnd">计划执行时间（终）</label>
+            </div>
+
+            <!--司机-->
+            <div class="col s3 input-field">
+                <input name="driver" id="driver" type="text" ng-model="driver">
+                <label for="driver">司机</label>
+            </div>
+
+            <!--货车-->
+            <div class="col s3 input-field">
+                <input name="truck_num" id="truck_num" type="text" ng-model="truckNum">
+                <label for="truck_num">货车</label>
+            </div>
+
+            <!--起始城市-->
+            <div class="col s3 input-field">
+                <select material-select watch id='startCity' ng-model="startCity" style="width: 100%">
+                    <option value=""  ></option>
+                    <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
+                </select>
+            </div>
+
+            <!--目的城市-->
+            <div class="col s3 input-field">
+                <select material-select watch id="endCity" ng-model="endCity" style="width: 100%">
+                    <option value=""  ></option>
+                    <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
+                </select>
+            </div>
+        </div>
+
+        <!--查询按钮-->
+        <div class="col s2 center" style="margin-top:45px;">
+            <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn "   ng-click="getOrderInfo()">
+                <i class="mdi mdi-magnify"></i>
+            </a>
+        </div>
+    </div>
+
+
+    <!-- 下部分：检索结果显示区域 -->
+    <div class="row col s12" >
+        <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+        <table class=" bordered striped centered">
+            <thead class="blue-grey lighten-5">
+            <tr class="grey-text text-darken-2">
+                <th data-field="">调度编号</th>
+                <th data-field="">路线</th>
+                <th data-field="">里程(km)</th>
+                <th data-field="">司机</th>
+                <th data-field="">货车</th>
+                <th data-field="">计划装车数</th>
+                <th data-field="">实际装车数</th>
+                <th data-field="">计划执行时间</th>
+                <th data-field="">完成时间</th>
+                <th data-field="">调度</th>
+                <th data-field="">状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="el in dispatchOrderArray" class="grey-text text-darken-1">
+                <td ng-bind="el.id"></td>
+                <td>{{el.city_route_start}}-{{el.city_route_end}}</td>
+                <td ng-bind="el.distance"></td>
+                <td ng-bind="el.drive_name"></td>
+                <td ng-bind="el.truck_num"></td>
+                <td ng-bind="el.plan_count"></td>
+                <td ng-bind="el.real_count"></td>
+                <td ng-bind="el.task_plan_date |date:'yyyy-MM-dd hh:mm'"></td>
+                <td ng-bind="el.task_end_date |date:'yyyy-MM-dd hh:mm'"></td>
+                <td>{{el.route_op_name }}</td>
+                <td>{{el.task_status | instructionsStatus}}</td>
+
+                <!-- 显示画面按钮 -->
+                <td class="operation">
+                    <a  ui-sref="dispatch_order_details({id:el.id,from:'dispatch_order'})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1  " ></i></a>
+                </td>
+            </tr>
+            <tr class="grey-text text-darken-1" ng-if="dispatchOrderArray.length == 0">
+                <td colspan="12" style="letter-spacing: 2px;text-align: center;">暂无数据</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- 上下页按钮 -->
+    <div class="paging_box col s12">
+        <div class="right">
+            <a class="waves-light waves-effect cyan lighten-1 btn  "  id="pre"   ng-click="preBtn()">
+                上一页
+            </a>
+            <a class="waves-light waves-effect cyan lighten-1 btn " id="next"  ng-click="nextBtn()">
+                下一页
+            </a>
+        </div>
+    </div>
+
+</div>

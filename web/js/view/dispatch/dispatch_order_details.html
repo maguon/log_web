@@ -7,7 +7,7 @@
             <i class="mdi mdi-car fz25"></i>
         </div>
         <div class="col s5">
-            VIN码:{{el.vin}}
+            VIN码{{el.vin}}
         </div>
         <div class="col s3">
             {{el.make_name}}
@@ -171,8 +171,8 @@
         </div>
 
         <!--出车款-->
-        <div id="lookOutFee" class="row col s12 tab_box card" style="width: 80%; margin:0 10% ;border-bottom: 1px solid #ccc">
-            <div class="row col s12" ng-if="outFeeInfo!==undefined">
+        <div id="lookOutFee" class="row col s12 tab_box card" style="width: 80%; margin:0 10% ;border-bottom: 1px solid #ccc;padding: 0px;">
+            <div class="row col s12" ng-if="outFeeInfo!==undefined" style="padding: 0px">
                 <!--出车款编号 报销状态-->
                 <div class="card-content bold white lighten-3" style="height:65px" >
                     <div class="row col s12">
@@ -183,39 +183,40 @@
                     </div>
                 </div>
 
+                <!--关联其他调度任务-->
+                <div class="row card-content bold grey lighten-3 " ng-if="relateTaskList.length!==0"  style="width:100%;height: 65px;margin-bottom:10px">
+                    <div class="row col s12">
+                        <div class="col s6 left-align fz18">关联其他调度任务</div>
+                        <div class="col s6 right-align grey-text"></div>
+                    </div>
+                </div>
+
+                <!--关联其他调度任务的列表-->
+                <div class="card-content bold white grey-text lighten-3" ng-if="relateTaskList.length!==0"  ng-repeat="el in relateTaskList" style="width: 96%;margin:0 2%;" >
+                    <div class="col s12" style="border-bottom: 1px solid #ccc;">
+                        <div class="col s6">
+                            <div class="col s4 left-align">调度编号:{{el.dp_route_task_id}}</div>
+                            <div class="col s5">{{el.city_route_start}}--{{el.city_route_end}}&nbsp;&nbsp;{{el.distance}}公里</div>
+                            <div class="col s3">装车数量:{{el.plan_count}}</div>
+                        </div>
+                        <div class="col s6">
+                            <div class="col s8 right-align">计划执行时间:{{el.task_plan_date |date:'yyyy-MM-dd hh:mm'}}</div>
+                            <div class="col s4 right-align">{{el.task_status | missionStatus}}</div>
+                        </div>
+
+                    </div>
+                </div>
+
                 <!--出车款申请 申请时间-->
-                <div class="card-content bold grey lighten-3" style="border: 1px solid #ccc;height: 65px;">
+                <div class="row card-content bold grey lighten-3" style="width:100%;height: 65px;margin-top: 25px">
                     <div class="row col s12">
                         <div class="col s6 left-align fz18">出车款申请</div>
                         <div class="col s6 right-align grey-text">申请时间{{outFeeInfo.apply_date |date:"yyyy-MM-dd hh:mm"}}</div>
                     </div>
                 </div>
 
-                <!--关联其他调度任务-->
-                <div class="card-content bold white lighten-3">
-                    <div class="row col s12">
-                        <div class="col s6 left-align">关联其他调度任务</div>
-                        <div class="col s6 right-align grey-text"></div>
-                    </div>
-                </div>
-
-                <!--关联其他调度任务的列表-->
-                <div class="card-content bold grey grey-text lighten-3" style="height:65px;border: 1px solid #ccc; width: 96%;margin:0 2%;" ng-repeat="el in relateTaskList">
-                    <div class="row col s12" ng-if="relateTaskList.length!==0" >
-                        <div class="col s2 left-align">调度编号:{{el.dp_route_task_id}}</div>
-                        <div class="col s2">{{el.city_route_start}}--{{el.city_route_end}}&nbsp;&nbsp; {{el.distance}}公里</div>
-                        <div class="col s2">装车数量:{{el.plan_count}}</div>
-                        <div class="col s4 right-align">计划执行时间:{{el.task_plan_date |date:'yyyy-MM-dd hh:mm'}}</div>
-                        <div class="col s2 right-align">{{el.task_status | missionStatus}}</div>
-                    </div>
-                    <div class="row col s12" ng-if="relateTaskList.length==0">
-                        <div class="col s2">暂无关联</div>
-                    </div>
-                </div>
-
-
                 <!--各种费用及备注-->
-                <div class="card-content bold white grey-text lighten-3" style="height:150px">
+                <div class="row card-content bold white grey-text lighten-3" style="height:150px">
                     <div class="row col s12">
                         <div class="col s4 left-align">过路费:<span class="red-text fz18">{{outFeeInfo.apply_passing_cost |number:2}}</span>元</div>
                         <div class="col s4">燃料费:<span class="red-text fz18">{{outFeeInfo.apply_fuel_cost |number:2}}</span>元</div>
@@ -232,7 +233,7 @@
 
 
                 <!--财务发放详情 发放时间-->
-                <div class="card-content bold grey lighten-3" style="border: 1px solid #ccc;height: 65px;" ng-if="outFeeInfo.task_loan_status == 3|| outFeeInfo.task_loan_status == 2">
+                <div class="card-content bold grey lighten-3" style="height: 65px;" ng-if="outFeeInfo.task_loan_status == 3|| outFeeInfo.task_loan_status == 2">
                     <div class="row col s12" style="margin-bottom: 5px">
                         <div class="col s6 left-align fz18">财务发放详情</div>
                         <div class="col s6 right-align grey-text">申请时间{{outFeeInfo.grant_date |date:'yyyy-MM-dd hh:mm'}}</div>
@@ -258,7 +259,7 @@
 
 
                 <!--财务报销详情 报销时间-->
-                <div class="card-content bold grey lighten-3" style="border:1px solid #ccc;height: 65px;" ng-if="outFeeInfo.task_loan_status == 3">
+                <div class="card-content bold grey lighten-3" style="height: 65px;" ng-if="outFeeInfo.task_loan_status == 3">
                     <div class="row col s12" style="margin-bottom: 5px">
                         <div class="col s6 left-align fz18">财务报销详情</div>
                         <div class="col s6 right-align grey-text">申请时间{{outFeeInfo.refund_date  |date:'yyyy-MM-dd hh:mm'}}</div>
@@ -286,38 +287,11 @@
 
             </div>
 
-            <div class="row col s12" ng-if="outFeeInfo==undefined">
-                <div class="row col s12" ng-if="relateTaskList.length!==0">
-                    <!--关联其他调度任务-->
-                    <div class="card-content bold white lighten-3">
-                        <div class="row col s12">
-                            <div class="col s6 left-align">关联其他调度任务</div>
-                            <div class="col s6 right-align grey-text"></div>
-                        </div>
-                    </div>
-
-                    <!--关联其他调度任务的列表-->
-                    <div class="card-content bold grey grey-text lighten-3" style="height:65px;border: 1px solid #ccc; width: 96%;margin:0 2%;" ng-repeat="el in relateTaskList">
-                        <div class="row col s12">
-                            <div class="col s2 left-align">调度编号:{{el.dp_route_task_id}}</div>
-                            <div class="col s2">{{el.city_route_start}}--{{el.city_route_end}}&nbsp;&nbsp; {{el.distance}}公里</div>
-                            <div class="col s2">装车数量:{{el.plan_count}}</div>
-                            <div class="col s4 right-align">计划执行时间:{{el.task_plan_date |date:'yyyy-MM-dd hh:mm'}}</div>
-                            <div class="col s2 right-align">{{el.task_status | missionStatus}}</div>
-                        </div>
-                    </div>
+            <div class="row col s12" ng-if="outFeeInfo==undefined" style="width: 90%; margin-left:5%; margin-top:10px;">
+                <div style="height:200px;line-height: 200px;text-align: center">
+                    <i class="mdi  mdi-alert-circle-outline red-text fz30"></i>
+                    <span class="bold grey-text fz22">暂无数据</span>
                 </div>
-
-
-                <div class="row col s12" ng-if="relateTaskList.length==0" style="width: 90%; margin-left:5%; margin-top:10px;">
-                    <div style="height:200px;line-height: 200px;text-align: center">
-                        <i class="mdi  mdi-alert-circle-outline red-text fz30"></i>
-                        <span class="bold grey-text fz22">暂无数据</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
             </div>
         </div>
 

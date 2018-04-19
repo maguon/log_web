@@ -44,7 +44,6 @@ app.controller("dispatch_order_details_controller", ["$scope", "$host", "_basic"
         $('.tabWrap .lookOutFee').addClass("active");
         $("#lookOutFee").addClass("active");
         $("#lookOutFee").show();
-        getRelateTask();
         getOutFeeDetail();
     };
     $scope.lookWashFee = function (){
@@ -114,7 +113,36 @@ app.controller("dispatch_order_details_controller", ["$scope", "$host", "_basic"
         _basic.get($host.api_url + "/dpRouteTaskLoan?dpRouteTaskId=" + val).then(function (data) {
             if (data.success == true) {
                 $scope.outFeeInfo = data.result[0];
+                if(data.result.length==0){
+                    $scope.outFeeInfo=undefined;
+                    $scope.relateTaskList=[];
+                }else{
+                    getRelateTask();
+                }
             } else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
+
+
+
+    /**
+     *获取关联的其他调度任务
+     * */
+    function getRelateTask(){
+        _basic.get($host.api_url + "/dpRouteTaskLoanRel?dpRouteTaskLoanId=" + $scope.outFeeInfo.id).then(function (data) {
+            if (data.success == true&&data.result.length>0) {
+                $scope.relateTaskList = data.result;
+                for(var i=0;i< data.result.length;i++){
+                    if($scope.dispatchOrderList.id==$scope.relateTaskList[i].dp_route_task_id){
+                        $scope.relateTaskList.splice(i,1);
+                    }
+                }
+            }else if(data.success == true&&data.result.length==0) {
+                $scope.relateTaskList=[];
+            }
+            else {
                 swal(data.msg, "", "error");
             }
         });
@@ -135,18 +163,6 @@ app.controller("dispatch_order_details_controller", ["$scope", "$host", "_basic"
     }
 
 
-    /**
-     *获取关联的其他调度任务
-     * */
-    function getRelateTask(){
-        _basic.get($host.api_url + "/dpRouteTaskLoanRel?dpRouteTaskId=" + val).then(function (data) {
-            if (data.success == true) {
-                $scope.relateTaskList = data.result;
-            } else {
-                swal(data.msg, "", "error");
-            }
-        });
-    }
 
     /**
      * 获取任務執行记录

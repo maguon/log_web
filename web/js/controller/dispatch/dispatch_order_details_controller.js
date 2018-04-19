@@ -1,5 +1,4 @@
 app.controller("dispatch_order_details_controller", ["$scope", "$host", "_basic", "$state", "$stateParams", function ($scope, $host, _basic, $state, $stateParams) {
-    var userId = _basic.getSession(_basic.USER_ID);
     var val = $stateParams.id;//跳转过来的id
     /**
      *返回上层

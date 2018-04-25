@@ -229,6 +229,9 @@ baseService.factory("_config", function () {
         {id: "8", typeName: "C3"}
     ];
 
+    // 重载衡量标准
+    _this.heavyLoad = 6;
+
 
     // 正则验证
     // 电话号

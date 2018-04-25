@@ -602,6 +602,16 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/finance/finance_route_fee_details.html",
             controller:'finance_route_fee_details_controller'
         })
+        .state("driver_salary",{
+            url:"/driver_salary",
+            templateUrl: "js/view/finance/driver_salary.html",
+            controller:'driver_salary_controller'
+        })
+        .state("driver_salary_details",{
+            url:"/driver_salary_details/id/{id}/driveId/{driveId}",
+            templateUrl: "js/view/finance/driver_salary_details.html",
+            controller:'driver_salary_details_controller'
+        })
 
         // 下载app
         .state("admin_download_app",{

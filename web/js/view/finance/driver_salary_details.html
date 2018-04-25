@@ -203,7 +203,9 @@
             <div class="col s12" style="background-color: #f8f9fd;color: darkgray;font-weight: bold;border: 2px solid #26c6da;font-size: 1.2rem">
                 <div class="col s12 valign-wrapper" style="padding: 0;">
                     <div class="col s1 right-align">
-                        <span class="white lighten-2 center" style="width:40px;height:40px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #EFB366 !important;line-height: 41px">供</span>
+                        <span class="white lighten-2 center" style="width:40px;height:40px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #EFB366 !important;line-height: 41px">
+                            {{salaryDetails.operate_type == 1 ? "自" : salaryDetails.operate_type == 2 ? "协" : salaryDetails.operate_type == 3 ? "供" : "包"}}
+                        </span>
                     </div>
                     <div class="col s3">
                         <p style="color: #26c6da">{{salaryDetails.drive_name}}</p>

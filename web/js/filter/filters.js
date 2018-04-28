@@ -332,3 +332,39 @@ CommonFilter.filter("damageLinkType", function () {
         return damageLinkType;
     }
 });
+
+// 驾驶证类型
+CommonFilter.filter("licenseType", function () {
+    return function (input) {
+        var licenseType;
+        switch (input) {
+            case "1":
+                licenseType = "A1";
+                break;
+            case "2":
+                licenseType = "A2";
+                break;
+            case "3":
+                licenseType = "A3";
+                break;
+            case "4":
+                licenseType = "B1";
+                break;
+            case "5":
+                licenseType = "B2";
+                break;
+            case "6":
+                licenseType = "C1";
+                break;
+            case "7":
+                licenseType = "C2";
+                break;
+            case "8":
+                licenseType = "C3";
+                break;
+            default:
+                licenseType = "未知";
+        }
+        return licenseType;
+    }
+});

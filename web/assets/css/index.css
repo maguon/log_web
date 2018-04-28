@@ -1141,6 +1141,10 @@ button[type="submit"] {
     margin: 11px 0;
 }
 
+.normal_mar p{
+    margin: 15px 0;
+}
+
 .bold_txt span{
     font-size: 1.1rem;
     font-weight: bold;

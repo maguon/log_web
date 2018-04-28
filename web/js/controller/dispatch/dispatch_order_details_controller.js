@@ -1,10 +1,17 @@
-app.controller("dispatch_order_details_controller", ["$scope", "$host", "_basic", "$state", "$stateParams", function ($scope, $host, _basic, $state, $stateParams) {
+app.controller("dispatch_order_details_controller", ["$scope", "$host", "$location", "_basic", "$state", "$stateParams", function ($scope, $host, $location, _basic, $state, $stateParams) {
     var val = $stateParams.id;//跳转过来的id
-    /**
-     *返回上层
-     * */
-    $scope.return = function () {
-        $state.go($stateParams.from, {reload: true})
+
+    // 返回上层
+    $scope.return = function (){
+        if($stateParams.from === "driver_information_details"){
+            $state.go($stateParams.from, {
+                reload: true,
+                driverId: $location.search().driverId
+            });
+        }
+        else{
+            $state.go($stateParams.from, {reload: true})
+        }
     };
 
 

@@ -107,7 +107,7 @@ baseService.factory("_config", function () {
         },
         {
             id: 2,
-            taskStatusName: "接受"
+            taskStatusName: "已接受"
         },
         {
             id: 3,
@@ -124,6 +124,10 @@ baseService.factory("_config", function () {
         {
             id: 9,
             taskStatusName: "已完成"
+        },
+        {
+            id: 10,
+            taskStatusName: "全部完成"
         }
     ];
 

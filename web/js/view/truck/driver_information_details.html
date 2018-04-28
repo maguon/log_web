@@ -1,1 +1,547 @@
-driver_information_details
+<a style="margin: 90px 0 0 20px" class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light "
+   ui-sref="driver_information">
+    <i class="mdi mdi-arrow-left-bold"></i>
+</a>
+
+<!--货车事故详情模态框-->
+<div class="row" style="margin: 0">
+    <div id="truckAccidentDetailsModal" class="modal modal-fixed-footer" style="width: 75%;height: 650px">
+        <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+            <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
+                <p>货车事故详情</p>
+            </div>
+            <div class="row" style="width: 85%;margin: 0 auto">
+                <div class="col s6 left-align" style="color: #26c6da;font-weight: bold;font-size: 1.2rem">
+                    <p>事故编号：{{truckAccidentDetail.id}}</p>
+                </div>
+                <div class="col s6 right-align" style="color: darkgray;font-weight: bold;font-size: 1.2rem">
+                    <p>{{truckAccidentDetail.truck_accident_type == 1 ? "一般" : "严重"}}事故</p>
+                </div>
+                <div class="col s12">
+                    <div class="divider" style="background: darkgray;height: 2px;margin-top: 15px"></div>
+                </div>
+                <div class="col s12 normal_mar left-align" style="font-size: 1.2rem">
+                    <div class="col s12" style="border-bottom: 1px dotted darkgray;color: darkgray;font-weight: bold">
+                        <div class="col s6">
+                            <p>调度编号：{{truckAccidentDetail.dp_route_task_id}}</p>
+                        </div>
+                        <div class="col s6">
+                            <p>线路：{{truckAccidentDetail.city_route_start}} - {{truckAccidentDetail.city_route_end}}</p>
+                        </div>
+                    </div>
+                    <div class="col s12" style="border-bottom: 1px dotted darkgray;color: darkgray;font-weight: bold">
+                        <div class="col s6">
+                            <p>司机：{{truckAccidentDetail.drive_name}}</p>
+                        </div>
+                        <div class="col s6">
+                            <p>货车：{{truckAccidentDetail.truck_num}}（{{truckAccidentDetail.brand_name}}）</p>
+                        </div>
+                    </div>
+                    <div class="col s12" style="border-bottom: 1px dotted darkgray;color: darkgray;font-weight: bold">
+                        <div class="col s6">
+                            <p>事故地点：{{truckAccidentDetail.address}}</p>
+                        </div>
+                        <div class="col s6">
+                            <p>发生时间：{{truckAccidentDetail.accident_date}}</p>
+                        </div>
+                    </div>
+                    <div class="col s12" style="border-bottom: 2px solid darkgray;color: darkgray;font-weight: bold">
+                        <div class="col s6">
+                            <p>事故描述：{{truckAccidentDetail.accident_explain}}</p>
+                        </div>
+                    </div>
+                    <div class="col s12" style="border-bottom: 1px dotted darkgray;color: darkgray;font-weight: bold">
+                        <div class="col s6">
+                            <p>责任人：{{truckAccidentDetail.under_user_name}}</p>
+                        </div>
+                        <div class="col s6">
+                            <p>承担金额：<span style="color: #e57373">{{truckAccidentDetail.under_cost == null ? "0.00" : truckAccidentDetail.under_cost.toFixed(2)}}</span> 元</p>
+                        </div>
+                    </div>
+                    <div class="col s12" style="border-bottom: 1px dotted darkgray;color: darkgray;font-weight: bold">
+                        <div class="col s6">
+                            <p>盈亏：<span style="color: #e57373">{{truckAccidentDetail.profit == null ? "0.00" : truckAccidentDetail.profit.toFixed(2)}}</span> 元</p>
+                        </div>
+                        <div class="col s6">
+                            <p>公司承担金额：<span style="color: #e57373">{{truckAccidentDetail.company_cost == null ? "0.00" : truckAccidentDetail.company_cost.toFixed(2)}}</span> 元</p>
+                        </div>
+                    </div>
+                    <div class="col s12" style="border-bottom: 2px solid darkgray;color: darkgray;font-weight: bold">
+                        <div class="col s12">
+                            <p>处理描述：{{truckAccidentDetail.remark}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer valign-wrapper">
+            <div class="col s12">
+                <div class="col s2 offset-s5">
+                    <a style="width: 100%" class="modal-action modal-close waves-light waves-effect cyan lighten-1 btn">
+                        确定
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--商品车质损详情模态框-->
+<div class="row" style="margin: 0">
+    <div id="carAccidentDetailsModal" class="modal modal-fixed-footer" style="width: 75%;height: 750px">
+        <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+            <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
+                <p>商品车质损详情</p>
+            </div>
+            <div class="row" style="width: 85%;margin: 0 auto">
+                <div class="col s6 left-align" style="color: #26c6da;font-weight: bold;font-size: 1.2rem">
+                    <p>质损编号：{{carAccidentDetail.id}}</p>
+                </div>
+                <div class="col s6 right-align" style="color: darkgray;font-weight: bold;font-size: 1.2rem">
+                    <p>{{carAccidentDetail.damage_type | damageType}}</p>
+                </div>
+                <div class="col s12">
+                    <div class="divider" style="background: darkgray;height: 2px;margin-top: 15px"></div>
+                </div>
+                <div class="col s12 normal_mar left-align" style="font-size: 1.2rem">
+                    <div class="col s12" style="border-bottom: 1px dotted darkgray;color: darkgray;font-weight: bold">
+                        <div class="col s6">
+                            <p>VIN：{{carAccidentDetail.vin}}</p>
+                        </div>
+                        <div class="col s6">
+                            <p>制造商：{{carAccidentDetail.make_name}}</p>
+                        </div>
+                    </div>
+                    <div class="col s12" style="border-bottom: 1px dotted darkgray;color: darkgray;font-weight: bold">
+                        <div class="col s6">
+                            <p>委托方：{{carAccidentDetail.en_short_name}}</p>
+                        </div>
+                        <div class="col s6">
+                            <p>经销商：{{carAccidentDetail.re_short_name}}</p>
+                        </div>
+                    </div>
+                    <div class="col s12" style="border-bottom: 1px dotted darkgray;color: darkgray;font-weight: bold">
+                        <div class="col s6">
+                            <p>质损环节：{{carAccidentDetail.damage_link_type | damageLinkType}}</p>
+                        </div>
+                        <div class="col s6">
+                            <p>发生时间：{{carAccidentDetail.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                        </div>
+                    </div>
+                    <div class="col s12" style="border-bottom: 2px solid darkgray;color: darkgray;font-weight: bold">
+                        <div class="col s6">
+                            <p>质损描述：{{carAccidentDetail.damage_explain}}</p>
+                        </div>
+                    </div>
+                    <div class="col s12" style="border-bottom: 1px dotted darkgray;color: darkgray;font-weight: bold">
+                        <div class="col s4">
+                            <p>降价费：<span style="color: #e57373">{{carAccidentDetail.reduction_cost == null ? "0.00" : carAccidentDetail.reduction_cost.toFixed(2)}}</span> 元</p>
+                        </div>
+                        <div class="col s4">
+                            <p>罚款：<span style="color: #e57373">{{carAccidentDetail.penalty_cost == null ? "0.00" : carAccidentDetail.penalty_cost.toFixed(2)}}</span> 元</p>
+                        </div>
+                        <div class="col s4">
+                            <p>维修费：<span style="color: #e57373">{{carAccidentDetail.repair_cost == null ? "0.00" : carAccidentDetail.repair_cost.toFixed(2)}}</span> 元</p>
+                        </div>
+                    </div>
+                    <div class="col s12" style="border-bottom: 1px dotted darkgray;color: darkgray;font-weight: bold">
+                        <div class="col s4">
+                            <p>运费：<span style="color: #e57373">{{carAccidentDetail.transport_cost == null ? "0.00" : carAccidentDetail.transport_cost.toFixed(2)}}</span> 元</p>
+                        </div>
+                        <div class="col s4">
+                            <p>盈亏：<span style="color: #e57373">{{carAccidentDetail.profit == null ? "0.00" : carAccidentDetail.profit.toFixed(2)}}</span> 元</p>
+                        </div>
+                        <div class="col s4">
+                            <p>公司承担金额：<span style="color: #e57373">{{carAccidentDetail.company_cost == null ? "0.00" : carAccidentDetail.company_cost.toFixed(2)}}</span> 元</p>
+                        </div>
+                    </div>
+                    <div class="col s12" style="border-bottom: 2px solid darkgray;color: darkgray;font-weight: bold">
+                        <div class="col s12">
+                            <p>处理描述：{{carAccidentDetail.remark}}</p>
+                        </div>
+                    </div>
+                    <div class="col s12" style="color: darkgray;font-weight: bold">
+                        <div class="col s6">
+                            <p>责任人：{{carAccidentDetail.under_user_name}}</p>
+                        </div>
+                        <div class="col s6">
+                            <p>责任人承担金额：<span style="color: #e57373">{{carAccidentDetail.under_cost == null ? "0.00" : carAccidentDetail.under_cost.toFixed(2)}}</span> 元</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer valign-wrapper">
+            <div class="col s12">
+                <div class="col s2 offset-s5">
+                    <a style="width: 100%" class="modal-action modal-close waves-light waves-effect cyan lighten-1 btn">
+                        确定
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="driver_information_details">
+    <div class="vc-center">
+        <h5 class="center-align cyan-text text-lighten-1">司机信息详情</h5>
+    </div>
+
+    <div class="divider" style="background: #00bcd4;height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
+    <div class="row" style="width: 90%;margin: 0 auto">
+        <!--tab栏-->
+        <div class="col s12">
+            <ul class="tabs ui-tabs tabs-fixed-width tab-demo z-depth-1" style="font-size: 25px;font-weight: bold;overflow-x: hidden;margin-bottom: 25px" ul-tabs>
+                <li class="tab"><a href="#driverBasicInfo" style="color: #26c6da;line-height: 40px">基本信息</a></li>
+                <li class="tab"><a href="#driverPic" style="color: #26c6da;line-height: 40px">照片</a></li>
+                <li class="tab"><a href="#dispatchMission" ng-click="getDispatchMissionList()" style="color: #26c6da;line-height: 40px">调度任务</a></li>
+                <li class="tab"><a href="#truckRes" ng-click="getDriverAccidentInfo()" style="color: #26c6da;line-height: 40px">货车责任</a></li>
+                <li class="tab"><a href="#carRes" ng-click="getCarResList()" style="color: #26c6da;line-height: 40px">商品车责任</a></li>
+            </ul>
+        </div>
+
+        <!--基本信息-->
+        <div id="driverBasicInfo" class="row col s12">
+            <div class="col s12 z-depth-1" style="border: 2px solid #26c6da;padding: 0;margin-top: 56px">
+                <!--个人信息-->
+                <div class="col s12 valign-wrapper" style="padding: 0;background-color: #e6e6e6;">
+                    <div class="col s1 center-align">
+                        <span class="white lighten-2 center" style="width:60px;height:60px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.5rem;color: white;background-color: #EFB366 !important;line-height: 60px">
+                            供
+                        </span>
+                    </div>
+                    <div class="col s11" style="color: darkgray;font-size: 1.3rem;font-weight: bold">
+                        <div class="col s8">
+                            <p style="color: #26c6da"><span class="mdi mdi mdi-human-male" style="font-size: 1.6rem"></span> {{driverDetails.drive_name}}</p>
+                        </div>
+                        <div class="col s4">
+                            <p><span class="mdi mdi mdi-cellphone" style="font-size: 1.6rem;color: #26c6da"></span> {{driverDetails.tel}}</p>
+                        </div>
+                        <div class="col s4">
+                            <p><span class="mdi mdi mdi-hospital-building" style="font-size: 1.6rem;color: #26c6da"></span> {{driverDetails.company_name}}</p>
+                        </div>
+                        <div class="col s4">
+                            <p><span style="color: #26c6da">车头：</span> {{driverDetails.truck_num}}</p>
+                        </div>
+                        <div class="col s4">
+                            <p><span style="color: #26c6da">挂车：</span> {{driverDetails.trail_num}} {{driverDetails.number}}位</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!--个人信息详情-->
+                <div class="col s12" style="font-size: 1.2rem;color: darkgray;font-weight: bold">
+                    <div class="col s12" style="border-bottom: 1px dotted darkgray">
+                        <div class="col s6">
+                            <p>身份证：{{driverDetails.id_number}}</p>
+                        </div>
+                        <div class="col s6">
+                            <p>紧急联系人电话：{{driverDetails.sib_tel}}</p>
+                        </div>
+                    </div>
+                    <div class="col s12" style="border-bottom: 1px dotted darkgray">
+                        <div class="col s6">
+                            <p>驾驶证类型：{{driverDetails.license_type | licenseType}}</p>
+                        </div>
+                        <div class="col s6">
+                            <p>驾驶证到期时间：{{driverDetails.license_date |  date:'yyyy-MM-dd'}}</p>
+                        </div>
+                    </div>
+                    <div class="col s12" style="border-bottom: 1px dotted darkgray">
+                        <div class="col s12">
+                            <p>家庭住址：{{driverDetails.address}}</p>
+                        </div>
+                    </div>
+                    <div class="col s12" style="border-bottom: 1px dotted darkgray">
+                        <div class="col s12">
+                            <p>备注：{{driverDetails.remark}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--照片-->
+        <div id="driverPic" class="row col s12" style="padding: 0;">
+            <div class="col s12" style="margin-top: 56px">
+                <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
+                    <div class="col s12 valign-wrapper" style="height: 50px;background-color: #dcdfe0;color: #26c6da;font-size: 1.2rem;font-weight: bold">
+                        <div class="col s12 left-align">
+                            <p style="margin: 0">照片</p>
+                        </div>
+                    </div>
+                    <div style="width: 92%;margin: 0 auto">
+                        <!--证件照片-->
+                        <div class="col s12" style="font-size: 1.2rem;color: darkgray;font-weight: bold;padding: 0;">
+                            <div class="col s12">
+                                <div class="col s12">
+                                    <p style="color: #26c6da">证件照片</p>
+                                </div>
+                            </div>
+                            <div class="col s12 valign-wrapper">
+                                <div id="look_id_card" class="col s3">
+                                    <div class="col s12 vc-center" ng-click="lookIdCard()" style="height: 180px;background-color: #eaeaea;overflow: hidden;">
+                                        <img style="cursor: pointer" ng-src="{{driverDetails.drive_image}}" class="responsive-img">
+                                    </div>
+                                    <div class="col s12 center-align">
+                                        <p>身份证（正）</p>
+                                    </div>
+                                </div>
+                                <div id="look_id_card_re" class="col s3">
+                                    <div class="col s12 vc-center" ng-click="lookIdCardRe()" style="height: 180px;background-color: #eaeaea;overflow: hidden;">
+                                        <img style="cursor: pointer" ng-src="{{driverDetails.driver_image_re}}" class="responsive-img">
+                                    </div>
+                                    <div class="col s12 center-align">
+                                        <p>身份证（反）</p>
+                                    </div>
+                                </div>
+                                <div id="look_license_img" class="col s3">
+                                    <div class="col s12 vc-center" ng-click="lookLicenseImg()" style="height: 180px;background-color: #eaeaea;overflow: hidden;">
+                                        <img style="cursor: pointer" ng-src="{{driverDetails.license_image}}" class="responsive-img">
+                                    </div>
+                                    <div class="col s12 center-align">
+                                        <p>驾驶证</p>
+                                    </div>
+                                </div>
+                                <div id="look_op_license_img" class="col s3">
+                                    <div class="col s12 vc-center" ng-click="lookOpLicenseImg()" style="height: 180px;background-color: #eaeaea;overflow: hidden;">
+                                        <img style="cursor: pointer" ng-src="{{driverDetails.op_license_image}}" class="responsive-img">
+                                    </div>
+                                    <div class="col s12 center-align">
+                                        <p>准驾证</p>
+                                    </div>
+                                </div>
+                                <div id="look_driver_img" class="col s3">
+                                    <div class="col s12 vc-center" ng-click="lookDriverImg()" style="height: 180px;background-color: #eaeaea;overflow: hidden;">
+                                        <img style="cursor: pointer" ng-src="{{driverDetails.driver_avatar_image}}" class="responsive-img">
+                                    </div>
+                                    <div class="col s12 center-align">
+                                        <p>司机照片</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--调度任务-->
+        <div id="dispatchMission" class="row col s12" style="padding: 0;">
+            <!--查询条件-->
+            <div class="col s12 valign-wrapper" style="padding: 0">
+                <div class="col s11">
+                    <div class="col s3 input-field">
+                        <input type="text" id="dispatch_num" name="dispatch_num" ng-model="dispatchNum">
+                        <label for="dispatch_num">调度编号</label>
+                    </div>
+                    <div class="col s3 input-field">
+                        <select id="implement_status" ng-model="implementStatus" material-select watch>
+                            <option value="" selected>请选择</option>
+                            <option ng-repeat="taskStatus in taskStatusArr" ng-value="taskStatus.id">{{taskStatus.taskStatusName}}</option>
+                        </select>
+                        <label for="implement_status">执行状态</label>
+                    </div>
+                    <div class="col s3 input-field">
+                        <input id="plan_start_time" type="text" ng-model="planStartTime" class="datepicker" autocomplete="off" date>
+                        <i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="plan_start_time">计划执行时间（始）</label>
+                    </div>
+                    <div class="col s3 input-field">
+                        <input id="plan_end_time" type="text" ng-model="planEndTime" class="datepicker" autocomplete="off" date>
+                        <i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="plan_end_time">计划执行时间（终）</label>
+                    </div>
+                    <div class="col s3 input-field">
+                        <select id="start_city_list" name="state" style="width:100%" ng-change="changeSelInitVal()" ng-model="startCityId">
+                            <option value=""></option>
+                            <option value="0" >清除选择</option>
+                            <option ng-repeat="city in startCityList" ng-value="city.id">{{city.city_name}}</option>
+                        </select>
+                    </div>
+                    <div class="col s3 input-field">
+                        <select id="end_city_list" name="state" style="width:100%" ng-change="changeSelInitVal()" ng-model="endCityId">
+                            <option value=""></option>
+                            <option value="0" >清除选择</option>
+                            <option ng-repeat="city in startCityList" ng-value="city.id">{{city.city_name}}</option>
+                        </select>
+                    </div>
+                    <div class="col s3 input-field">
+                        <input id="finish_start_time" type="text" ng-model="finishStartTime" class="datepicker" autocomplete="off" date>
+                        <i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="finish_start_time">完成时间（始）</label>
+                    </div>
+                    <div class="col s3 input-field">
+                        <input id="finish_end_time" type="text" ng-model="finishEndTime" class="datepicker" autocomplete="off" date>
+                        <i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="finish_end_time">完成时间（终）</label>
+                    </div>
+                </div>
+                <div class="col s1">
+                    <div class="col s12 center">
+                        <a ng-click="searchDriverInfoList()" class="btn-floating btn-large waves-light waves-effect red lighten-2 btn vc-center" style="margin-right: 10px">
+                            <i class="mdi mdi-magnify"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!--表格-->
+            <div class="col s12" style="padding: 0;margin-top: 20px">
+                <div class="divider" style="background: #00bcd4;height: 2px"></div>
+                <table class="bordered striped text_mid">
+                    <thead class="blue-grey lighten-5">
+                    <tr class="grey-text text-darken-2">
+                        <th width="190" data-field="">调度编号</th>
+                        <th width="200" data-field="">线路</th>
+                        <th width="180" data-field="">里程（km）</th>
+                        <th width="256" data-field="">计划执行日期</th>
+                        <th width="180" data-field="">实际装车数</th>
+                        <th width="180" data-field="">完成时间</th>
+                        <th width="180" data-field="">指令调度</th>
+                        <th width="180" data-field="">状态</th>
+                        <th width="120">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="dispatch in driverDispatchMissionList" class="grey-text text-darken-1">
+                        <td>{{dispatch.id}}</td>
+                        <td>{{dispatch.city_route_start + " - " + dispatch.city_route_end}}</td>
+                        <td>{{dispatch.distance}}</td>
+                        <td>{{dispatch.task_plan_date | date:'yyyy-MM-dd'}}</td>
+                        <td>{{dispatch.car_count}}</td>
+                        <td>{{dispatch.task_end_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td>{{dispatch.route_op_name}}</td>
+                        <td>{{dispatch.task_status}}</td>
+                        <td class="operation fz12">
+                            <a ng-href="#!/dispatch_order_details/id/{{dispatch.id}}/?from=driver_information_details&driverId={{driverIdd}}" class="cyan-text" style="cursor: pointer;text-align: center;color: #26c6da">
+                                <i class="mdi mdi-eye" style="margin: 0"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr class="grey-text text-darken-1" ng-show="driverDispatchMissionList.length == 0">
+                        <td colspan="9"><span style="letter-spacing: 2px">暂无数据</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--分页-->
+            <div class="row">
+                <div class="paging_box col s12">
+                    <div class="right">
+                        <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="pre_btn()">
+                            上一页
+                        </a>
+                        <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_btn()">
+                            下一页
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--货车责任-->
+        <div id="truckRes" class="row col s12" style="padding: 0;">
+            <div class="col s4" ng-repeat="accident in driverAccidentList">
+                <div class="card-panel white " style="padding: 0">
+                    <div class="row setting_shipments_title vc-center"
+                         style="padding: 10px;height: 50px;background-color: #e0e0e0;">
+                        <div class="col s12 center"
+                             style="padding: 0;font-weight: bold;color: darkgray;font-size: 1.1rem">
+                            <div class="col s6 left-align">
+                                <p style="color: #26c6da">事故编号：{{accident.id}}</p>
+                            </div>
+                            <div class="col s6 center-align">
+                                <p>{{accident.truck_accident_type == 1 ? "一般" : "严重"}}</p>
+                            </div>
+                        </div>
+
+                        <a style="top: 56%;width: 45px;height: 45px;right: 30px;background-color: #26c6da;" class="right btn-floating setting_shipments_btn btn waves-effect waves-light vc-center">
+                            <i style="font-size: 1.4rem;line-height: 44px" ng-click="showTruckAccidentModal(accident)" class="mdi mdi-file-document"></i>
+                        </a>
+                    </div>
+                    <div class="row less_mar" style="color: darkgray;font-size: 1.1rem;font-weight: bold">
+                        <div class="col s12">
+                            <p>{{accident.accident_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                        </div>
+                        <div class="col s6">
+                            <p>调度编号：{{accident.dp_route_task_id}}</p>
+                        </div>
+                        <div class="col s6">
+                            <p>货车：{{accident.truck_num}}</p>
+                        </div>
+                        <div class="col s12">
+                            <p>事故描述：{{accident.accident_explain}}</p>
+                        </div>
+                        <div class="col s12">
+                            <div class="divider" style="background: darkgray;height: 1px;margin-top: 10px;margin-bottom: 10px"></div>
+                        </div>
+                        <div class="col s12">
+                            <div class="col s6" style="padding: 0;">
+                                <p>承担金额：<span style="color: #e57373">{{accident.under_cost == null ? "0.00" : accident.under_cost.toFixed(2)}}</span> 元</p>
+                            </div>
+                            <div class="col s6 center-align" style="padding: 0;">
+                                <p>{{accident.accident_status == 1 ? "待处理" : accident.accident_status == 2 ? "处理中" : "已处理"}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--商品车责任-->
+        <div id="carRes" class="row col s12" style="padding: 0;">
+            <div class="col s4" ng-repeat="car in carResList">
+                <div class="card-panel white " style="padding: 0">
+                    <div class="row setting_shipments_title vc-center"
+                         style="padding: 10px;height: 50px;background-color: #e0e0e0;">
+                        <div class="col s12 center"
+                             style="padding: 0;font-weight: bold;color: darkgray;font-size: 1.1rem">
+                            <div class="col s6 left-align">
+                                <p style="color: #26c6da">质损编号：{{car.id}}</p>
+                            </div>
+                            <div class="col s6 center-align">
+                                <p>{{car.damage_type | damageType}}</p>
+                            </div>
+                        </div>
+
+                        <a style="top: 56%;width: 45px;height: 45px;right: 30px;background-color: #26c6da;" class="right btn-floating setting_shipments_btn btn waves-effect waves-light vc-center">
+                            <i style="font-size: 1.4rem;line-height: 44px" ng-click="showCarAccidentModal(car)" class="mdi mdi-file-document"></i>
+                        </a>
+                    </div>
+                    <div class="row less_mar" style="color: darkgray;font-size: 1.1rem;font-weight: bold">
+                        <div class="col s12">
+                            <p>{{car.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                        </div>
+                        <div class="col s6">
+                            <p>VIN：{{car.vin}}</p>
+                        </div>
+                        <div class="col s6">
+                            <p>委托方：{{car.en_short_name}}</p>
+                        </div>
+                        <div class="col s12">
+                            <p>制造商：{{car.make_name}}</p>
+                        </div>
+                        <div class="col s12">
+                            <p>质损描述：{{car.damage_explain}}</p>
+                        </div>
+                        <div class="col s12">
+                            <div class="divider" style="background: darkgray;height: 1px;margin-top: 10px;margin-bottom: 10px"></div>
+                        </div>
+                        <div class="col s12">
+                            <div class="col s6" style="padding: 0;">
+                                <p>承担金额：<span style="color: #e57373">{{car.under_cost == null ? "0.00" : car.under_cost.toFixed(2)}}</span> 元</p>
+                            </div>
+                            <div class="col s6 center-align" style="padding: 0;">
+                                <p>{{car.damage_status == 1 ? "待处理" : car.damage_status == 2 ? "处理中" : "已处理"}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

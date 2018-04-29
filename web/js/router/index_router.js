@@ -81,7 +81,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'dispatch_route_fee_controller'
         })
         .state("dispatch_route_fee_details",{
-            url:"/dispatch_route_fee_details/id/{id}/from/{from}",
+            url:"/dispatch_route_fee_details/id/{id}",
             templateUrl: "js/view/dispatch/dispatch_route_fee_details.html",
             controller:'dispatch_route_fee_details_controller'
         })

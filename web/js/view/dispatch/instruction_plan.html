@@ -53,6 +53,50 @@
             </div>
         </div>
 
+        <!--修改车辆位置模态框-->
+        <div class="row" style="margin: 0">
+            <div id="modifyCarPositionMod" class="modal modal-fixed-footer" style="width: 56%;height: 450px">
+                <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+                    <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
+                        <p>设置车辆当前位置</p>
+                    </div>
+                    <div class="row" style="width: 85%;margin: 0 auto">
+                        <div class="col s8 offset-s2">
+                            <div class="col s12 left-align" style="padding: 0;color: darkgray;font-weight: bold">
+                                <div class="col s6" style="padding: 0">
+                                    <p><span style="color: #26c6da;font-size: 1.6rem" class="mdi mdi-truck"></span> {{transportDetails.truck_num}}</p>
+                                </div>
+                                <div class="col s6" style="padding: 0">
+                                    <p><span style="color: #26c6da;font-size: 1.6rem" class="mdi mdi-account"></span> {{transportDetails.drive_name}}</p>
+                                </div>
+                            </div>
+                            <div class="col s12" style="padding: 0;margin-top: 34px">
+                                <select id="car_position" name="car_position" style="width:100%" ng-model="positionCityId">
+                                    <option value=""></option>
+                                    <option ng-repeat="city in allCityList" ng-value="city.id">{{city.city_name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer valign-wrapper">
+                    <div class="col s12">
+                        <div class="col s2 offset-s3">
+                            <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                                取消
+                            </a>
+                        </div>
+                        <div class="col s2 offset-s2">
+                            <a ng-click="modifyCarPosition()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                                重置
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!--左栏发运商品车信息卡片-->
         <div class="row col s2">
             <div class="col input-field s8" style="margin-bottom: 15px">
@@ -681,8 +725,8 @@
                 <i class="mdi mdi-refresh" ng-click="getCarDetails()" style="margin:20px 0 0 10px;font-size: 30px;cursor: pointer"></i>
             </div>
             <div class="col s12" ng-repeat="details in newCarDetailsList">
-                <div class="card-panel white " style="padding: 0;cursor: pointer" ng-click="showDispatchInfo(details)">
-                    <div class="row cyan lighten-2 white-text setting_shipments_title vc-center"
+                <div class="card-panel white " style="padding: 0;cursor: pointer">
+                    <div ng-click="showDispatchInfo(details)" class="row cyan lighten-2 white-text setting_shipments_title vc-center"
                          style="padding: 8px 5px;height: 43px;margin-bottom: 0">
                         <div class="col s7">
                             <p style="font-size: 1rem;font-weight: bold;margin: 10px 0">{{details.truck_num}}</p>
@@ -695,7 +739,7 @@
                         <div class="col s9" style="padding: 0">
                             <div class="col s12 valign-wrapper" style="padding: 0">
                                 <div class="col s3 vc-center">
-                                    <span style="font-size: 1.3rem;color: darkgray" class="mdi mdi-map-marker"></span>
+                                    <span ng-click="showModifyCarPositionMod(details)" style="font-size: 1.3rem;color: darkgray" class="mdi mdi-map-marker"></span>
                                 </div>
                                 <div ng-if="!details.current_city == 0" class="col s9 left" style="padding: 0;">
                                     <p style="font-size: 1.0rem;color: black;margin: 5px 0;line-height: 26px">{{details.city_name}}</p>

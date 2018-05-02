@@ -184,6 +184,46 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         // console.log("dispatchInfo", $scope.dispatchInfo);
     };
 
+    // 显示修改车辆位置模态框
+    $scope.showModifyCarPositionMod = function (transportDetails) {
+        // console.log("transportDetails",transportDetails);
+        $scope.transportDetails = transportDetails;
+        _basic.get($host.api_url + "/city").then(function (data) {
+            if (data.success === true) {
+                $scope.allCityList = data.result;
+                $('#car_position').select2({
+                    placeholder: '车辆当前位置',
+                    containerCssClass : 'select2_dropdown'
+                });
+                $("#modifyCarPositionMod").modal("open");
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+    // 修改车辆位置
+    $scope.modifyCarPosition = function () {
+        if($scope.positionCityId != "" && $scope.positionCityId != undefined){
+            _basic.put($host.api_url + "/user/" + userId + "/truck/" + $scope.transportDetails.truck_id + "/dispatch",{
+                currentCity: $scope.positionCityId
+            }).then(function (data) {
+                if (data.success === true) {
+                    $('#modifyCarPositionMod').modal('close');
+                    swal("设置成功", "", "success");
+                    $scope.getCarDetails();
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
+        else{
+            swal("请选择车辆位置", "", "warning");
+        }
+    };
+
     // 生成线路按钮,点击显示路线信息并获取城市信息
     $scope.showCreateLine = function (cityId) {
         var startCityId;

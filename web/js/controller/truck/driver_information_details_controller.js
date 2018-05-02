@@ -63,28 +63,8 @@ app.controller("driver_information_details_controller", ["$scope", "$host", "$st
 
     // 点击查看图片大图
     var viewer;
-    $scope.lookIdCard = function () {
-        viewer = new Viewer(document.getElementById('look_id_card'), {
-            url: 'data-original'
-        });
-    };
-    $scope.lookIdCardRe = function () {
-        viewer = new Viewer(document.getElementById('look_id_card_re'), {
-            url: 'data-original'
-        });
-    };
-    $scope.lookLicenseImg = function () {
-        viewer = new Viewer(document.getElementById('look_license_img'), {
-            url: 'data-original'
-        });
-    };
-    $scope.lookOpLicenseImg = function () {
-        viewer = new Viewer(document.getElementById('look_op_license_img'), {
-            url: 'data-original'
-        });
-    };
-    $scope.lookDriverImg = function () {
-        viewer = new Viewer(document.getElementById('look_driver_img'), {
+    $scope.lookCertificatesImg = function () {
+        viewer = new Viewer(document.getElementById('certificates_img'), {
             url: 'data-original'
         });
     };

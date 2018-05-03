@@ -4,13 +4,9 @@
             <h5 class="col s12 cyan-text lighten-1  center-align">
                 车辆定位
             </h5>
-            <!--<div class="col s8 right-align">-->
-            <!---->
-            <!--</div>-->
         </div>
         <div class="divider  cyan lighten-2"></div>
         <div class="row" style="position: relative;margin-bottom: 0">
-            <!--<p class="location_gps white z-depth-2">经度:<span class="materialize-red-text">{{lng}}</span>,纬度:<span class="materialize-red-text">{{lat}}</span></p>-->
             <div class="col s2 truck_gpsBox grey-text" auto-map-height >
                 <div class="input-field">
                     <input id="truck_search_map" name="truck_search_map" ng-keyup="truck_search_map(truck_search_text)" ng-model="truck_search_text" type="text">
@@ -18,7 +14,7 @@
                 </div>
                 <p ng-repeat="el in truckGps" ng-bind="el.vhe_no" ng-click="search_map(el.lon,el.lat,el.angle,el.vhe_no,el.sim,el.updated_on)"></p>
             </div>
-            <div class="col s10 dealer_map" auto-map-height  id="dealer_map">
+            <div class="col s10 dealer_map" auto-map-height id="dealer_map">
 
             </div>
         </div>

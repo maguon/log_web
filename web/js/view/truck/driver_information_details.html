@@ -210,7 +210,7 @@
                 <div class="col s12 valign-wrapper" style="padding: 0;background-color: #e6e6e6;">
                     <div class="col s1 center-align">
                         <span class="white lighten-2 center" style="width:60px;height:60px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.5rem;color: white;background-color: #EFB366 !important;line-height: 60px">
-                            供
+                            {{driverDetails.operate_type == 1 ? "自" : driverDetails.operate_type == 2 ? "协" : driverDetails.operate_type == 3 ? "供" : "包"}}
                         </span>
                     </div>
                     <div class="col s11" style="color: darkgray;font-size: 1.3rem;font-weight: bold">

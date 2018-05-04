@@ -9,16 +9,19 @@
         <div class="row" style="position: relative;margin-bottom: 0">
             <div class="col s2 truck_gpsBox grey-text" auto-map-height >
                 <div class="input-field">
-                    <input id="truck_search_map" name="truck_search_map" ng-keyup="truck_search_map(truck_search_text)" ng-model="truck_search_text" type="text">
+                    <input id="truck_search_map" name="truck_search_map" ng-change="truck_search_map()" ng-model="truck_search_text" type="text">
                     <label for="truck_search_map">车辆查询</label>
                 </div>
                 <p ng-repeat="el in truckGps" ng-bind="el.vhe_no" ng-click="search_map(el.lon,el.lat,el.angle,el.vhe_no,el.sim,el.updated_on)"></p>
             </div>
-            <div class="col s10 dealer_map" auto-map-height id="dealer_map">
+
+            <!--高德地图-->
+            <div id="amap_truck_position" class="col s10 amap_test" style="height: 636px">
 
             </div>
+
         </div>
-        <div class="divider  cyan lighten-2"></div>
+        <div class="divider cyan lighten-2"></div>
         <div class="row" ng-show="show_truck_msg">
             <div class="col s2 right-align" style="margin-top: 25px">
                 <span class="bold">车辆信息:</span>

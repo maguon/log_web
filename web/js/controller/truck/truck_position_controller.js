@@ -1,106 +1,64 @@
 /**
  * Created by ASUS on 2017/7/10.
+ * Restructure by zcy on 2018/5/4.
  */
-app.controller("truck_position_controller", ["$scope", "_basic", "_config", "$host", function ($scope, _basic, _config, $host) {
+app.controller("truck_position_controller", ["$scope", "_basic", "_config", "baseService", "$host", function ($scope, _basic, _config, baseService, $host) {
     var userId = _basic.getSession(_basic.USER_ID);
     var truckGps = [];
+    var truckPositionList = [];
     $scope.show_truck_msg = false;
-    _basic.get($host.record_url + "/user/" + userId + "/truckGps").then(function (data) {
-        if (data.success == true) {
-            if (data.result.length > 0) {
-                truckGps = data.result;
-                $scope.truckGps = data.result;
-                var position = [];
-                $scope.truckGps.map(function (i) {
-                    var obj = [i.lon, i.lat, i.angle, i.vhe_no];
-                    position.push(obj);
-                });
 
-                // 百度地图API功能
-                var map = new BMap.Map("dealer_map");
-                var point = new BMap.Point(position[0].lon, position[0].lat);
-                map.centerAndZoom(point, 10);
-
-                // 标注点换自定义图片
-                var icon = new BMap.Icon('/assets/images/truck_image.png', new BMap.Size(20, 48), {
-                    anchor: new BMap.Size(10, 30)
-                });
-
-                var json_data = position;
-                var pointArray = new Array();
-                for (var i = 0; i < json_data.length; i++) {
-                    var marker = new BMap.Marker(new BMap.Point(json_data[i][0], json_data[i][1]), {
-                        icon: icon,
-                        // 标注点旋转角度
-                        rotation: json_data[i][2]
-                    });
-                    // 创建点
-                    // 是否开始滚轮操作
-                    map.enableScrollWheelZoom(true);
-                    map.addOverlay(marker);    //增加标注点
-                    pointArray[i] = new BMap.Point(json_data[i][0], json_data[i][1]);
-                    marker.addEventListener("click", attribute);
-                }
-                // //让所有点在视野范围内
-                map.setViewport(pointArray);
-
-                //获取覆盖物位置
-                function attribute(e) {
-                    var p = e.target;
-                    alert("marker的位置是" + p.getPosition().lng + "," + p.getPosition().lat);
+    // 获取车辆位置信息
+    $scope.getAllTruckPositionInfo = function () {
+        _basic.get($host.record_url + "/user/" + userId + "/truckGps").then(function (data) {
+            if (data.success === true) {
+                if (data.result.length > 0) {
+                    truckGps = data.result;
+                    $scope.truckGps = data.result;
+                    for (var i = 0; i < data.result.length; i++) {
+                        truckPositionList.push([data.result[i].lon,data.result[i].lat,data.result[i].angle])
+                    }
+                    $scope.showAllTruckPosition();
                 }
             }
-        }
-    });
-
-    // 输入过滤
-    $scope.truck_search_map = function (val) {
-        $scope.truckGps = [];
-        for (var i = 0; i < truckGps.length; i++) {
-            if (truckGps[i].vhe_no.indexOf(val) != -1) {
-                $scope.truckGps.push(truckGps[i])
+            else{
+                swal(data.msg, "", "error")
             }
-        }
-        if (val == "") {
-            var position = [];
-            truckGps.map(function (i) {
-                var obj = [i.lon, i.lat, i.angle];
-                position.push(obj);
+        });
+    };
+
+    // 显示所有车辆位置
+    $scope.showAllTruckPosition = function () {
+        var mapObj = new AMap.Map('amap_truck_position', {zoom: 5});
+        for(var i = 0; i < truckPositionList.length; i ++){
+            marker = new AMap.Marker({
+                position: truckPositionList[i],
+                map: mapObj,
+                icon: "/assets/images/truck_image.png",
+                angle: truckPositionList[i][2]  // 方位角
             });
-
-            // 百度地图API功能
-            var map = new BMap.Map("dealer_map");
-            var point = new BMap.Point(position[0].lon, position[0].lat);
-            map.centerAndZoom(point, 10);
-            var icon = new BMap.Icon('/assets/images/truck_image.png', new BMap.Size(20, 48), {
-                anchor: new BMap.Size(10, 30)
-            });
-            var json_data = position;
-            var pointArray = new Array();
-            for (var i = 0; i < json_data.length; i++) {
-                var marker = new BMap.Marker(new BMap.Point(json_data[i][0], json_data[i][1]), {
-                    icon: icon,
-                    rotation: json_data[i][2]
-                });
-
-                // 创建点
-                map.enableScrollWheelZoom(true);
-                map.addOverlay(marker);    //增加点
-                pointArray[i] = new BMap.Point(json_data[i][0], json_data[i][1]);
-                marker.addEventListener("click", attribute);
-            }
-
-            //让所有点在视野范围内
-            map.setViewport(pointArray);
-
-            //获取覆盖物位置
-            function attribute(e) {
-                // var p = e.target;
-                // alert("marker的位置是" + p.getPosition().lng + "," + p.getPosition().lat);
-            }
         }
     };
+
+    // 模糊查询匹配车牌号
+    $scope.truck_search_map = function () {
+        $scope.truckGps = [];
+        if ($scope.truck_search_text != "") {
+            for (var i = 0; i < truckGps.length; i++) {
+                if (truckGps[i].vhe_no.indexOf($scope.truck_search_text) != -1) {
+                    $scope.truckGps.push(truckGps[i])
+                }
+            }
+        }
+        else{
+            $scope.truckGps = truckGps;
+            $scope.showAllTruckPosition();
+        }
+    };
+
+    // 点击搜索结果
     $scope.search_map = function (lon, lat, angle, No, phone, time) {
+        $scope.showCurrentTruckPosition(lon, lat, angle);
         _basic.get($host.api_url + "/truckFirst?truckNum=" + No).then(function (data) {
             if (data.success == true) {
                 $scope.dirve_msg = data.result[0];
@@ -111,20 +69,30 @@ app.controller("truck_position_controller", ["$scope", "_basic", "_config", "$ho
             }
         });
         $scope.show_truck_msg = true;
-        var map = new BMap.Map("dealer_map");
-        var point = new BMap.Point(lon, lat);
-        map.centerAndZoom(point, 15);
-        var icon = new BMap.Icon('/assets/images/truck_image.png', new BMap.Size(20, 48), {
-            anchor: new BMap.Size(10, 30)
-        });
-        var marker = new BMap.Marker(new BMap.Point(lon, lat), {
-            icon: icon,
-            rotation: angle
-        });
+    };
 
-        // 创建点
-        map.enableScrollWheelZoom(true);
-        map.addOverlay(marker);
-    }
+    // 显示具体某个车辆位置
+    $scope.showCurrentTruckPosition = function (lon, lat ,angle) {
+        var marker, map = new AMap.Map("amap_truck_position", {
+            resizeEnable: true,
+            center: baseService.transformMarkerPosition(lon, lat),
+            zoom: 14
+        });
+        if (marker) {
+            return;
+        }
+        marker = new AMap.Marker({
+            icon: "/assets/images/truck_image.png",
+            position: baseService.transformMarkerPosition(lon, lat),
+            angle: angle  // 方位角
+        });
+        marker.setMap(map);
+    };
+
+    // 获取数据
+    $scope.queryData = function () {
+        $scope.getAllTruckPositionInfo();
+    };
+    $scope.queryData();
 
 }]);

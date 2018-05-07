@@ -34,9 +34,9 @@
                             </select>
                         </div>
                         <div class="col s12 input-field mp-40" ng-class="{'has-error':add_setting_dealerFrom.address.$invalid&&submitted }" >
-                            <input type="text" id="address" ng-model="input_address" autocomplete="off"  name="address" required>
+                            <input type="text" id="amapAddress" ng-change="amapAutocomplete()" ng-model="input_address" autocomplete="off"  name="amapAddress" required>
                             <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
-                            <label class="grey-text bold" for="address">详细地址</label>
+                            <label class="grey-text bold" for="amapAddress">详细地址</label>
                             <i class="address_icon mdi mdi-near-me vc-center cyan  lighten-2 white-text" ng-click="search_location(input_address)" style="cursor: pointer"></i>
                         </div>
                     </div>
@@ -58,7 +58,9 @@
                     </div>
                 </form>
             </div>
-            <div class="col s6 dealer_map" id="dealer_map">
+
+            <!--高德地图-->
+            <div class="col s6" id="a_map_location" style="height: 556px;">
 
             </div>
         </div>

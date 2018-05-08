@@ -93,7 +93,7 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                     } else {
                         isNumber = "number"
                     }
-                    if (colObjs[j].type != isNumber && contentArray[i][j] != '' &&colObjs[j].require) {
+                    if (colObjs[j].type != isNumber && contentArray[i][j] != '' &&colObjs[j].require ) {
                         $scope.errorNumber = $scope.errorNumber + 1;
                         $scope.tableContentErrorFilter.push(contentArray[i]);
                         flag = false;

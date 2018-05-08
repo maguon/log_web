@@ -153,10 +153,10 @@
         <div class="management" style="background: #00bcd4;height: 2px;margin-top: 10px;"></div>
     </div>
     <div>
-        <div class="row col s12 valign-wrapper" >
-            <div class="col s12 ">
+        <div class="row col s12">
+            <div class="col s12 valign-wrapper">
                 <div class="col s3 center-align">
-                    <div style="margin-top: 35px;color: #00bcd4;font-size: 1.6rem">事故编号：{{vId}}</div>
+                    <div style="color: #00bcd4;font-size: 1.6rem">事故编号：{{vId}}</div>
                 </div>
                 <div class="col s6 center-align">
                     <div style="color: darkgray;font-size: 1.6rem">{{accidentDate | date:"yyyy-MM-dd HH:mm"}}</div>
@@ -169,7 +169,7 @@
                         <p style="color: red;padding: 0;font-size: 1.6rem;margin-top: 35px;">处理中</p>
                     </div>
                     <div class="col s12" ng-if="accidentStatus == 3">
-                        <p style="color: #00bcd4;padding: 0;font-size: 1.6rem;margin-top: 35px;">已处理</p>
+                        <p style="color: #00bcd4;padding: 0;font-size: 1.6rem">已处理</p>
                     </div>
                 </div>
             </div>
@@ -249,10 +249,9 @@
                         </div>
                         <div class="row">
                             <div class="col s12 input-field mp-40" ng-class="{'has-error':add_truck_managementFrom.address.$invalid&&submitted }" >
-                                <input type="text" id="address" ng-model="address" autocomplete="off"  name="address" required>
+                                <input type="text" id="amapAddress" ng-change="amapAutocomplete()" ng-model="address" autocomplete="off" name="amapAddress" required>
                                 <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
-                                <label class="grey-text bold" for="address" style="color:#00bcd4 "><span style="color: red">*</span>详细地址</label>
-                                <i class="address_icon mdi mdi-near-me vc-center cyan  lighten-2 white-text" ng-click="search_location(address)" style="cursor: pointer"></i>
+                                <label class="grey-text bold" for="amapAddress" style="color:#00bcd4 "><span style="color: red">* </span>详细地址</label>
                             </div>
                         </div>
                         <div class="row">
@@ -269,7 +268,11 @@
                         </div>
                     </form>
                 </div>
-                <div class="col s6 dealer_map" id="dealer_map"></div>
+
+                <!--高德地图-->
+                <div class="col s6" id="a_map_location" style="height: 537px">
+
+                </div>
             </div>
         </div>
         <!--事故照片-->
@@ -633,96 +636,6 @@
                         </div>
                     </li>
                 </ul>
-
-                <!--<div class="card-panel white " ng-repeat="el in accidentDetails" style="padding: 0;height:500px" >-->
-                    <!--<div class="row col s12">-->
-                        <!--<div class="col s4 valign-wrapper">-->
-                            <!--<div class="col s11 input-field" style="padding: 0">-->
-                                <!--<div style="font-weight: bold" for="fine">保险公司:{{el.insure_name}}</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="col s4 valign-wrapper">-->
-                            <!--<div class="col s11 input-field" style="padding: 0">-->
-                                <!--<div style="font-weight: bold" for="responsible_fee" ng-if="el.insure_type==1">保险种类:交强险</div>-->
-                                <!--<div style="font-weight: bold" for="responsible_fee" ng-if="el.insure_type==2">保险种类:商业险</div>-->
-                                <!--<div style="font-weight: bold" for="responsible_fee" ng-if="el.insure_type==3">保险种类:货运险</div>-->
-                                <!--<div style="font-weight: bold" for="responsible_fee" ng-if="el.insure_type==4">保险种类:未知</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="col s4 valign-wrapper">-->
-                            <!--<div class="col s11 input-field" style="padding: 0">-->
-                                <!--<div style="font-weight: bold" for="company_cost">赔付时间:{{el.created_on | date:"yyyy-MM-dd HH:mm"}}</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="row col s12">-->
-                        <!--<div class="col s4 valign-wrapper">-->
-                            <!--<div class="col s11 input-field" style="padding: 0">-->
-                                <!--<div style="font-weight: bold" for="fine">代赔金额:{{el.insure_plan}}元</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="col s4 valign-wrapper">-->
-                            <!--<div class="col s11 input-field" style="padding: 0">-->
-                                <!--<div style="font-weight: bold" for="responsible_fee">财务借款:{{el.financial_loan}}元</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="col s4 valign-wrapper">-->
-                            <!--<div class="col s11 input-field" style="padding: 0">-->
-                                <!--<div style="font-weight: bold" for="company_cost">实际赔付:{{el.insure_actual}}元</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--&lt;!&ndash;关联事故&ndash;&gt;-->
-                    <!--<div class="col s12 valign-wrapper" style="padding: 0;">-->
-                        <!--<div class="col {{accidentDetails.insure_status == 1 ? 's10' : 's12'}} input-field">-->
-                            <!--<input type="text" name="payment_money_start" id="relation_accident" ng-model="relationAccidentNum">-->
-                            <!--<label for="relation_accident">关联事故</label>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--&lt;!&ndash;事故详情&ndash;&gt;-->
-                    <!--<div class="col s12 fz14" ng-repeat="accident in accidentClaimList" style="margin-bottom: 5px">-->
-                        <!--<div class="col s7 modal_accident valign-wrapper" style="font-size: 1.1rem;color: darkgray;font-weight: bold;">-->
-                            <!--<div class="col s1 right-align" style="padding: 0;margin-top: -5px">-->
-                                <!--<span style="width:8px;height:8px;display:inline-block;border-radius: 100%;background-color: #26c6da"></span>-->
-                            <!--</div>-->
-                            <!--<div class="col s4 left-align ">-->
-                                <!--<p class="fz12">事故编号：{{accident.id}}</p>-->
-                            <!--</div>-->
-                            <!--<div class="col s3 fz12">-->
-                                <!--<p>{{accident.truck_accident_type == 1 ? "一般事故" : accident.truck_accident_type == 2 ? "严重事故" : null}}</p>-->
-                            <!--</div>-->
-                            <!--<div class="col s2 fz12">-->
-                                <!--<p>{{accident.truck_type == 1 ? "头车" : "挂车"}}</p>-->
-                            <!--</div>-->
-                            <!--<div class="col s3 fz12">-->
-                                <!--<p>{{accident.truck_num}}</p>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="col s5 modal_accident valign-wrapper" style="padding: 0;font-size: 1.1rem;color: darkgray;font-weight: bold">-->
-                            <!--<div class="col s8 left-align">-->
-                                <!--<p class="fz12" ng-if="accident.accident_status == 3">{{accident.accident_date | date:'yyyy-MM-dd'}}  - {{ accident.end_date | date:'yyyy-MM-dd'}}</p>-->
-                                <!--<p class="fz12" ng-if="accident.accident_status == 1 || accident.accident_status == 2">{{accident.accident_date | date:'yyyy-MM-dd'}}</p>-->
-                            <!--</div>-->
-                            <!--<div class="col s3 center-align">-->
-                                <!--<p class="fz14" ng-if="accident.accident_status == 1">未处理</p>-->
-                                <!--<p class="fz14" ng-if="accident.accident_status == 2" style="color: #e88282">处理中</p>-->
-                                <!--<p class="fz14" ng-if="accident.accident_status == 3" style="color: #26c6da">已处理</p>-->
-                            <!--</div>-->
-                            <!--<div class="col s1">-->
-                                <!--<span style="font-size: 1.4rem;color: #e88282;cursor: pointer" ng-click="deleteAccidentInfo(el.id)" class="mdi mdi-delete-forever"></span>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="col s12 valign-wrapper" style="padding: 0;height:2px">-->
-                        <!--<div  class="col s12 input-field" >-->
-                            <!--<input type="text" style="padding: 0;height:2px">-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="grey-text  row " style="margin-left:48px;height:50px;">-->
-                        <!--<div class="col s12 left-align " style="font-weight: bold;margin-bottom: 35px;margin-top: 50px">赔付描述:{{el.payment_explain}}</div>-->
-                        <!--<div class="col s12 left-align"  style="font-weight: bold">处理描述:{{el.check_explain}}</div>-->
-                    <!--</div>-->
-                <!--</div>-->
             </div>
         </div>
     </div>

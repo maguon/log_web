@@ -93,14 +93,14 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                     } else {
                         isNumber = "number"
                     }
-                    if (colObjs[j].type != isNumber) {
+                    if (colObjs[j].type != isNumber && contentArray[i][j] != '' &&colObjs[j].require ) {
                         $scope.errorNumber = $scope.errorNumber + 1;
                         $scope.tableContentErrorFilter.push(contentArray[i]);
                         flag = false;
                         break;
                     }
                     //check length
-                    if ((colObjs[j].length && colObjs[j].length != contentArray[i][j].length)) {
+                    if (colObjs[j].type=='string'&&(colObjs[j].length && colObjs[j].length != contentArray[i][j].length)) {
                         $scope.errorNumber = $scope.errorNumber + 1;
                         $scope.tableContentErrorFilter.push(contentArray[i]);
                         flag = false;

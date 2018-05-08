@@ -57,14 +57,6 @@ app.controller("instruction_car_refuel_details_controller", ["$scope", "$host", 
                 $scope.driveRefuel_details = data.result[0];
                 var lat = data.result[0].lat;
                 var lng = data.result[0].lng;
-                // console.log("driveRefuel_details",$scope.driveRefuel_details);
-                // 百度地图API功能
-                // var map = new BMap.Map("refuel_address");
-                // var point = new BMap.Point(lng, lat);
-                // map.centerAndZoom(point, 15);
-                // var marker = new BMap.Marker(point);  // 创建标注
-                // map.addOverlay(marker);               // 将标注添加到地图中
-                // marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
                 var marker, map = new AMap.Map("refuel_address", {
                     resizeEnable: true,
                     center: [lng, lat],

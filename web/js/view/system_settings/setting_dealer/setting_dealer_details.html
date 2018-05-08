@@ -33,16 +33,15 @@
                                 <label class="grey-text bold" for="deal_name">公司全称</label>
                             </div>
                             <div class="col s12 input-field" style="margin-top: 25px">
-                                <select class="js-example-basic-single" name="state" style="width:100%" ng-model="dealer_details.city_id">
+                                <select id="start_city" name="state" style="width:100%" ng-model="dealer_details.city_id">
                                     <option value=""></option>
                                     <option ng-repeat="el in setting_city" ng-value="el.id" ng-show="el.city_status==1">{{el.city_name}}</option>
                                 </select>
                             </div>
-                            <div class="col s12 input-field mp-40"  ng-class="{'has-error':setting_dealer_details_form.address.$invalid&&submitted}">
-                                <input type="text" id="address" autocomplete="off" ng-model="dealer_details.address"  name="address" required>
-                                <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
-                                <label class="grey-text bold" for="address">详细地址</label>
-                                <i class="address_icon mdi mdi-near-me vc-center cyan lighten-2 white-text" ng-click="search_location(dealer_details.address)" style="cursor: pointer"></i>
+
+                            <div class="col s12 input-field" style="margin-top: 20px">
+                                <input type="text" id="amapAddress" autocomplete="off" ng-change="amapAutocomplete()" ng-model="dealer_details.address" name="address">
+                                <label class="grey-text bold" for="amapAddress">详细地址</label>
                             </div>
                         </div>
                         <div class="row">
@@ -73,9 +72,11 @@
                 </div>
             </div>
 
-            <div class="col s7 dealer_map" id="dealer_map">
+            <!--经销商位置（高德地图）-->
+            <div class="col s7 dealer_map" id="a_map_location">
 
             </div>
+
         </div>
 
     </div>

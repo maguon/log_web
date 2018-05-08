@@ -75,6 +75,26 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/dispatch/instruction_car_refuel_details.html",
             controller:"instruction_car_refuel_details_controller"
         })
+        .state("dispatch_route_fee",{
+            url:"/dispatch_route_fee",
+            templateUrl: "js/view/dispatch/dispatch_route_fee.html",
+            controller:'dispatch_route_fee_controller'
+        })
+        .state("dispatch_route_fee_details",{
+            url:"/dispatch_route_fee_details/id/{id}",
+            templateUrl: "js/view/dispatch/dispatch_route_fee_details.html",
+            controller:'dispatch_route_fee_details_controller'
+        })
+        .state("dispatch_order",{
+            url:"/dispatch_order",
+            templateUrl: "js/view/dispatch/dispatch_order.html",
+            controller:'dispatch_order_controller'
+        })
+        .state("dispatch_order_details",{
+        url:"/dispatch_order_details/id/{id}/?from",
+        templateUrl: "js/view/dispatch/dispatch_order_details.html",
+        controller:'dispatch_order_details_controller'
+    })
 
         // 数据导入
         .state("car_to_data", {
@@ -310,6 +330,26 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/statistics/accident_statistics.html",
             controller:"accident_statistics_controller"
         })
+        .state("finance_route_fee_statistics", {
+            url:"/finance_route_fee_statistics",
+            templateUrl: "js/view/statistics/finance_route_fee_statistics.html",
+            controller:"finance_route_fee_statistics_controller"
+        })
+        .state("car_indemnity_loan_statistics", {
+            url:"/car_indemnity_loan_statistics",
+            templateUrl: "js/view/statistics/car_indemnity_loan_statistics.html",
+            controller:"car_indemnity_loan_statistics_controller"
+        })
+        .state("car_indemnity_payment_statistics", {
+            url:"/car_indemnity_payment_statistics",
+            templateUrl: "js/view/statistics/car_indemnity_payment_statistics.html",
+            controller:"car_indemnity_payment_statistics_controller"
+        })
+        .state("truck_indemnity_loan_statistics", {
+            url:"/truck_indemnity_loan_statistics",
+            templateUrl: "js/view/statistics/truck_indemnity_loan_statistics.html",
+            controller:"truck_indemnity_loan_statistics_controller"
+        })
 
         // 从首页跳详情图
         .state("storage_car_details", {
@@ -464,6 +504,17 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/truck/truck_insure.html",
             controller:'truck_insure_controller'
         })
+        .state("driver_information",{
+            url:"/driver_information",
+            templateUrl: "js/view/truck/driver_information.html",
+            controller:'driver_information_controller'
+        })
+        .state("driver_information_details",{
+            url:"/driver_information_details/driverId/{driverId}",
+            templateUrl: "js/view/truck/driver_information_details.html",
+            controller:'driver_information_details_controller'
+        })
+
         // 质损
         .state("damage_declaration",{
             url:"/damage_declaration",
@@ -551,6 +602,26 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             url:"/commercial_vehicle_compensate_loan_details/id/{id}/compensateId/{compensateId}",
             templateUrl: "js/view/finance/commercial_vehicle_compensate_loan_details.html",
             controller:'commercial_vehicle_compensate_loan_details_controller'
+        })
+        .state("finance_route_fee",{
+            url:"/finance_route_fee",
+            templateUrl: "js/view/finance/finance_route_fee.html",
+            controller:'finance_route_fee_controller'
+        })
+        .state("finance_route_fee_details",{
+            url:"/finance_route_fee_details/id/{id}",
+            templateUrl: "js/view/finance/finance_route_fee_details.html",
+            controller:'finance_route_fee_details_controller'
+        })
+        .state("driver_salary",{
+            url:"/driver_salary",
+            templateUrl: "js/view/finance/driver_salary.html",
+            controller:'driver_salary_controller'
+        })
+        .state("driver_salary_details",{
+            url:"/driver_salary_details/id/{id}/driveId/{driveId}",
+            templateUrl: "js/view/finance/driver_salary_details.html",
+            controller:'driver_salary_details_controller'
         })
 
         // 下载app

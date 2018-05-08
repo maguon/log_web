@@ -84,9 +84,11 @@
                     <ul>
                         <li><a href="#!" ui-sref="instruction_plan"><i class="mdi mdi-chevron-right white-text "></i>指令计划</a></li>
                         <li><a href="#!" ui-sref="instruction_operation"><i class="mdi mdi-chevron-right white-text "></i>指令操作</a></li>
+                        <li><a href="#!" ui-sref="dispatch_order"><i class="mdi mdi-chevron-right white-text "></i>指令管理</a></li>
                         <li><a href="#!" ui-sref="instruction_need"><i class="mdi mdi-chevron-right white-text "></i>调度需求</a></li>
                         <li><a href="#!" ui-sref="instruction_driver_mileage"><i class="mdi mdi-chevron-right white-text "></i>司机里程</a></li>
                         <li><a href="#!" ui-sref="instruction_car_refuel"><i class="mdi mdi-chevron-right white-text "></i>车辆加油管理</a></li>
+                        <li><a href="#!" ui-sref="dispatch_route_fee"><i class="white-text mdi mdi-chevron-right"></i>出车款申请</a></li>
                     </ul>
                 </div>
             </li>
@@ -119,6 +121,7 @@
                         <li><a href="#!" ui-sref="car_query"><i class="mdi mdi-chevron-right white-text "></i>商品车信息</a></li>
                         <li><a href="#!" ui-sref="car_statistics"><i class="mdi mdi-chevron-right white-text "></i>商品车统计</a></li>
                         <li><a href="#!" ui-sref="instruction_list"><i class="mdi mdi-chevron-right white-text "></i>指令列表</a></li>
+                        <li><a href="#!" ui-sref="driver_information"><i class="mdi mdi-chevron-right white-text "></i>司机信息</a></li>
                     </ul>
                 </div>
             </li>
@@ -143,6 +146,10 @@
                         <li><a href="#!" ui-sref="import_data_statistics"><i class="mdi mdi-chevron-right white-text "></i>商品车发运指令统计</a></li>
                         <li><a href="#!" ui-sref="accident_insurance_claims_statistics"><i class="mdi mdi-chevron-right white-text "></i>货车保险理赔统计</a></li>
                         <li><a href="#!" ui-sref="accident_statistics"><i class="mdi mdi-chevron-right white-text "></i>货车事故统计</a></li>
+                        <li><a href="#!" ui-sref="finance_route_fee_statistics"><i class="mdi mdi-chevron-right white-text "></i>财务出车款统计</a></li>
+                        <li><a href="#!" ui-sref="car_indemnity_loan_statistics"><i class="mdi mdi-chevron-right white-text "></i>商品车理赔借款统计</a></li>
+                        <li><a href="#!" ui-sref="car_indemnity_payment_statistics"><i class="mdi mdi-chevron-right white-text "></i>商品车赔款打款统计</a></li>
+                        <li><a href="#!" ui-sref="truck_indemnity_loan_statistics"><i class="mdi mdi-chevron-right white-text "></i>货车理赔借款管理</a></li>
                     </ul>
                 </div>
             </li>
@@ -177,6 +184,8 @@
                         <li><a href="#!" ui-sref="truck_compensate_loan"><i class="white-text mdi mdi-chevron-right"></i>货车理赔借款管理</a></li>
                         <li><a href="#!" ui-sref="car_payment_loan"><i class="white-text mdi mdi-chevron-right"></i>商品车赔款打款管理</a></li>
                         <li><a href="#!" ui-sref="commercial_vehicle_compensate_loan"><i class="white-text mdi mdi-chevron-right"></i>商品车理赔借款管理</a></li>
+                        <li><a href="#!" ui-sref="finance_route_fee"><i class="white-text mdi mdi-chevron-right"></i>出车款发放</a></li>
+                        <li><a href="#!" ui-sref="driver_salary"><i class="white-text mdi mdi-chevron-right"></i>司机工资</a></li>
                     </ul>
                 </div>
             </li>
@@ -330,6 +339,8 @@
 <script src="/js/controller/truck/accident_claim_controller.js"></script>
 <script src="/js/controller/truck/accident_claim_details_controller.js"></script>
 <script src="/js/controller/truck/truck_insure_controller.js"></script>
+<script src="/js/controller/truck/driver_information_controller.js"></script>
+<script src="/js/controller/truck/driver_information_details_controller.js"></script>
 
 <!--管理员设置-->
 <script src="/js/controller/setting/setting_storage_controller.js"></script>
@@ -377,6 +388,10 @@
 <script src="/js/controller/statistics/import_data_statistics_controller.js"></script>
 <script src="/js/controller/statistics/accident_insurance_claims_statistics_controller.js"></script>
 <script src="/js/controller/statistics/accident_statistics_controller.js"></script>
+<script src="/js/controller/statistics/finance_route_fee_statistics_controller.js"></script>
+<script src="/js/controller/statistics/car_indemnity_loan_statistics_controller.js"></script>
+<script src="/js/controller/statistics/car_indemnity_payment_statistics_controller.js"></script>
+<script src="/js/controller/statistics/truck_indemnity_loan_statistics_controller.js"></script>
 
 <!--用户信息-->
 <script src="/js/controller/user/user_info_controller.js"></script>
@@ -398,6 +413,10 @@
 <script src="/js/controller/dispatch/instruction_drive_details_controller.js"></script>
 <script src="/js/controller/dispatch/instruction_car_refuel_controller.js"></script>
 <script src="/js/controller/dispatch/instruction_car_refuel_details_controller.js"></script>
+<script src="/js/controller/dispatch/dispatch_route_fee_controller.js"></script>
+<script src="/js/controller/dispatch/dispatch_route_fee_details_controller.js"></script>
+<script src="/js/controller/dispatch/dispatch_order_controller.js"></script>
+<script src="/js/controller/dispatch/dispatch_order_details_controller.js"></script>
 
 <!--质损-->
 <script src="/js/controller/damage/damage_declaration_controller.js"></script>
@@ -417,6 +436,10 @@
 <script src="/js/controller/finance/car_payment_loan_details_controller.js"></script>
 <script src="/js/controller/finance/commercial_vehicle_compensate_loan_controller.js"></script>
 <script src="/js/controller/finance/commercial_vehicle_compensate_loan_details_controller.js"></script>
+<script src="/js/controller/finance/finance_route_fee_controller.js"></script>
+<script src="/js/controller/finance/finance_route_fee_details_controller.js"></script>
+<script src="/js/controller/finance/driver_salary_controller.js"></script>
+<script src="/js/controller/finance/driver_salary_details_controller.js"></script>
 
 <!--其他-->
 <script src="/js/controller/data/car_to_data_controller.js"></script>

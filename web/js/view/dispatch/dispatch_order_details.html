@@ -1,0 +1,372 @@
+<!--查看装车详情模态框-->
+<div id="orderTaskModal" class="modal">
+    <div class="cyan lighten-1 white-text center-align modal_title" style="margin-bottom:30px ">装车详情</div>
+
+    <div  class="row col s12 fz16" ng-if="taskDetailList.length!==0" ng-repeat="el in taskDetailList" style="width:90%;margin-left: 5%;border-bottom: 1px dotted #ccc;">
+        <div class="col s1">
+            <i class="mdi mdi-car fz25"></i>
+        </div>
+        <div class="col s5">
+            VIN码{{el.vin}}
+        </div>
+        <div class="col s3">
+            {{el.make_name}}
+        </div>
+        <div class="col s3">
+            {{el.short_name}}
+        </div>
+
+    </div>
+    <div  class="row col s12" ng-if="taskDetailList.length==0">
+        <div style="height:200px;line-height: 200px;text-align: center">
+            <i class="mdi  mdi-alert-circle-outline red-text fz30"></i>
+            <span class="bold grey-text fz22">暂无数据</span>
+        </div>
+    </div>
+    <div  class="divider" style="border:1px solid #ccc;margin-top:100px"></div>
+
+        <!--确定按钮-->
+    <div class="modal-footer right-align col s12" style="margin: 15px auto">
+        <button class="btn  btn-large  waves-effect cyan" ng-click="closeOrderTaskModal()" name="action" style="margin-right:40px">
+            确定
+        </button>
+    </div>
+</div>
+<!-- 主菜单：调度管理 -> 指令管理（调度任务详情） 画面 -->
+<div class="dispatch_order_details">
+
+
+    <!-- 返回前画面 按钮 -->
+    <div class="row valign-wrapper">
+        <a class="btn-floating btn waves-effect cyan lighten-1 waves-light" ng-click="return()">
+            <i class="mdi mdi-arrow-left-bold"></i>
+        </a>
+        <h5 class="col s12 cyan-text lighten-1  center-align">调度任务详情</h5>
+    </div>
+    <!--分割线-->
+    <div class="row">
+        <div class="divider  cyan lighten-2" style="height:2px"></div>
+    </div>
+
+
+    <!--头部card 画面区域-->
+    <div class="card" style="border: 2px solid #ccc;width: 80%; margin:0 10%;margin-bottom: 20px">
+
+
+        <!--调度编号 接受/未接受-->
+        <div class="card-content bold cyan-text grey lighten-3" style="height:65px;">
+            <div class="row col s12">
+                <div class="col s6 left-align">
+                    调度编号:{{dispatchOrderList.id}}
+                </div>
+                <div class="col s6 right-align red-text" ng-if="dispatchOrderList.task_status==1">{{dispatchOrderList.task_status | instructionsStatus}}</div>
+                <div class="col s6 right-align" ng-if="dispatchOrderList.task_status!==1">{{dispatchOrderList.task_status | instructionsStatus}}</div>
+            </div>
+        </div>
+
+
+        <!--路线 公里 计划执行时间 司机 货车 计划装车数-->
+        <div class="card-content bold  white lighten-3">
+
+            <!--路线 公里 计划执行时间-->
+            <div class="row col s12">
+                <div class="col s6 left-align">
+                    <div class="col s6 fz18">
+                        {{dispatchOrderList.city_route_start}}--{{dispatchOrderList.city_route_end}}
+                    </div>
+                    <div class="col s6 fz16">
+                        {{dispatchOrderList.distance}}<span class="grey-text fz14">公里</span>
+                    </div>
+                </div>
+                <div class="col s6 right-align grey-text">
+                    计划执行时间:{{dispatchOrderList.task_plan_date |date:'yyyy-MM-dd hh:mm'}}
+                </div>
+            </div>
+
+            <!--司机 货车 计划装车数-->
+            <div class="row col s12 cyan-text">
+                <div class="col s6 left-align">
+                    <div class="col s6">
+                        司机:{{dispatchOrderList.drive_name}}
+                    </div>
+                    <div class="col s6">
+                        货车:{{dispatchOrderList.truck_num}}
+                    </div>
+                </div>
+                <div class="col s6 right-align grey-text">
+                    计划装车数:{{dispatchOrderList.plan_count}}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!--按键切换以及详情  装车任务   出车款 洗车费-->
+    <div class="row no-marBottom" ul-tabs>
+        <div class="col s12 p0 card" style="width: 80%; margin:0 10%;border-left: 2px solid #ccc;border-right: 2px solid #ccc;border-bottom: 2px solid #26c6da;" >
+
+            <!--按键切换  装车任务   出车款 洗车费-->
+            <ul class="tabWrap grey lighten-3">
+                <li class="tab col s3 lookOrderTask  vc-center"  ng-click="lookOrderTask()">装车任务</li>
+                <li class="tab col s3 lookOutFee   vc-center"  ng-click="lookOutFee()">出车款</li>
+                <li class="tab col s3 lookWashFee vc-center"  ng-click="lookWashFee()">洗车费</li>
+                <li class="tab col s3 lookRecord  vc-center"  ng-click="lookRecord()">执行记录</li>
+            </ul>
+        </div>
+
+        <!--装车任务-->
+        <div id="lookOrderTask" class="col s12 tab_box card" style="width: 80%; margin:0 10% ;padding: 50px 0">
+            <div class="row col s12" ng-if="taskList.length!==0" ng-repeat="el in taskList" style="width: 90%; margin-left:5%; margin-top:10px;">
+
+                <div class="card-content bold cyan-text grey lighten-3" style="height:75px;border: 1px solid #ccc;" >
+                    <div class="row col s12">
+
+                        <div class="col s4 fz16 cyan-text">
+                           {{el.addr_name}}--{{el.short_name}}
+                        </div>
+                        <div class="col s3"></div>
+                        <div class="col s4 right-align">
+                            <button ng-click="showOrderTaskModal(el.id)" ng-if="el.load_task_status!==1" style="padding: 0 35px 10px 35px;height: 30px;line-height: 33px;margin-right: 10px" class="btn waves-light waves-effect cyan lighten-1 fz12" type="button">
+                                查看装车详情
+                            </button>
+                        </div>
+                        <div class="col s1 right-align grey-text">
+
+                           {{el.load_task_status | missionStatus}}
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card-content bold  white grey-text lighten-3" style="border: 1px solid #ccc;height:70px;">
+
+                    <!--计划装车数  计划执行时间 实际装车数 实际执行时间-->
+                    <div class="row col s12">
+
+                        <div class="col s2 ">
+                            计划装车数:{{el.plan_count}}
+                        </div>
+                        <div class="col s4">
+                            计划执行时间:{{el.plan_date |date:'yyyy-MM-dd hh:mm'}}
+                        </div>
+                        <div class="col s2 center">
+                            实际装车数:{{el.real_count}}
+                        </div>
+                        <div class="col s4 right-align">
+                            实际执行时间:{{el.load_date |date:'yyyy-MM-dd hh:mm'}}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row col s12" ng-if="taskList.length==0">
+                <div class="card-content">
+                    <div style="height:200px;line-height: 200px;text-align: center">
+                        <i class="mdi  mdi-alert-circle-outline red-text fz30"></i>
+                        <span class="bold grey-text fz22">暂无装车任务</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--出车款-->
+        <div id="lookOutFee" class="row col s12 tab_box card" style="width: 80%; margin:0 10% ;border-bottom: 1px solid #ccc;padding: 0px;">
+            <div class="row col s12" ng-if="outFeeInfo!==undefined" style="padding: 0px">
+                <!--出车款编号 报销状态-->
+                <div class="card-content bold white lighten-3" style="height:65px" >
+                    <div class="row col s12">
+                        <div class="col s6 left-align">出车款编号:{{outFeeInfo.id}}</div>
+                        <div class="col s6 right-align" ng-show="outFeeInfo.task_loan_status == 1" style="color: #e57373;">未发放</div>
+                        <div class="col s6 right-align" ng-show="outFeeInfo.task_loan_status == 2" style="color: #26c6da">已发放</div>
+                        <div class="col s6 right-align" ng-show="outFeeInfo.task_loan_status == 3" style="color:orange">已报销</div>
+                    </div>
+                </div>
+
+                <!--关联其他调度任务-->
+                <div class="row card-content bold grey lighten-3 " ng-if="relateTaskList.length!==0"  style="width:100%;height: 65px;margin-bottom:10px">
+                    <div class="row col s12">
+                        <div class="col s6 left-align fz18">关联其他调度任务</div>
+                        <div class="col s6 right-align grey-text"></div>
+                    </div>
+                </div>
+
+                <!--关联其他调度任务的列表-->
+                <div class="card-content bold white grey-text lighten-3" ng-if="relateTaskList.length!==0"  ng-repeat="el in relateTaskList" style="width: 96%;margin:0 2%;" >
+                    <div class="col s12" style="border-bottom: 1px solid #ccc;">
+                        <div class="col s6">
+                            <div class="col s4 left-align">调度编号:{{el.dp_route_task_id}}</div>
+                            <div class="col s5">{{el.city_route_start}}--{{el.city_route_end}}&nbsp;&nbsp;{{el.distance}}公里</div>
+                            <div class="col s3">装车数量:{{el.plan_count}}</div>
+                        </div>
+                        <div class="col s6">
+                            <div class="col s8 right-align">计划执行时间:{{el.task_plan_date |date:'yyyy-MM-dd hh:mm'}}</div>
+                            <div class="col s4 right-align">{{el.task_status | missionStatus}}</div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--出车款申请 申请时间-->
+                <div class="row card-content bold grey lighten-3" style="width:100%;height: 65px;">
+                    <div class="row col s12">
+                        <div class="col s6 left-align fz18">出车款申请</div>
+                        <div class="col s6 right-align grey-text">申请时间{{outFeeInfo.apply_date |date:"yyyy-MM-dd hh:mm"}}</div>
+                    </div>
+                </div>
+
+                <!--各种费用及备注-->
+                <div class="row card-content bold white grey-text lighten-3" style="height:150px">
+                    <div class="row col s12">
+                        <div class="col s4 left-align">过路费:<span class="red-text fz18">{{outFeeInfo.apply_passing_cost |number:2}}</span>元</div>
+                        <div class="col s4">燃料费:<span class="red-text fz18">{{outFeeInfo.apply_fuel_cost |number:2}}</span>元</div>
+                        <div class="col s4">保道费:<span class="red-text fz18">{{outFeeInfo.apply_protect_cost|number:2}}</span>元</div>
+                        <div class="col s4">罚款费:<span class="red-text fz18">{{outFeeInfo.apply_penalty_cost|number:2}}</span>元</div>
+                        <div class="col s4">停车费:<span class="red-text fz18">{{outFeeInfo.apply_parking_cost|number:2}}</span>元</div>
+                        <div class="col s4">打车费:<span class="red-text fz18">{{outFeeInfo.apply_taxi_cost|number:2}}</span>元</div>
+                        <div class="col s4">申请备注:{{outFeeInfo.apply_explain}}</div>
+                        <div class="col s12" style="border-bottom: 1px solid #ccc;margin:6px"></div>
+                        <div class="col s6">应发放总额:<span class="red-text fz18">{{outFeeInfo.apply_plan_money|number:2}}</span>元</div>
+                        <div class="col s6 right-align">申请人:{{outFeeInfo.appl_user_name}}</div>
+                    </div>
+                </div>
+
+
+                <!--财务发放详情 发放时间-->
+                <div class="card-content bold grey lighten-3" style="height: 65px;" ng-if="outFeeInfo.task_loan_status == 3|| outFeeInfo.task_loan_status == 2">
+                    <div class="row col s12" style="margin-bottom: 5px">
+                        <div class="col s6 left-align fz18">财务发放详情</div>
+                        <div class="col s6 right-align grey-text">申请时间{{outFeeInfo.grant_date |date:'yyyy-MM-dd hh:mm'}}</div>
+                    </div>
+                </div>
+
+
+                <!--各种费用及备注-->
+                <div class="card-content bold white grey-text lighten-3" style="height:150px"  ng-if="outFeeInfo.task_loan_status == 3|| outFeeInfo.task_loan_status == 2">
+                    <div class="row col s12">
+                        <div class="col s4 left-align">过路费:<span class="red-text fz18">{{outFeeInfo.grant_passing_cost|number:2}}</span>元</div>
+                        <div class="col s4">燃料费:<span class="red-text fz18">{{outFeeInfo.grant_fuel_cost|number:2}}</span>元</div>
+                        <div class="col s4">保道费:<span class="red-text fz18">{{outFeeInfo.grant_protect_cost|number:2}}</span>元</div>
+                        <div class="col s4">罚款费:<span class="red-text fz18">{{outFeeInfo.grant_penalty_cost|number:2}}</span>元</div>
+                        <div class="col s4">停车费:<span class="red-text fz18">{{outFeeInfo.grant_parking_cost|number:2}}</span>元</div>
+                        <div class="col s4">打车费:<span class="red-text fz18">{{outFeeInfo.grant_taxi_cost|number:2}}</span>元</div>
+                        <div class="col s4">发放备注:{{outFeeInfo.grant_explain}}</div>
+                        <div class="col s12" style="border-bottom: 1px solid #ccc;margin:6px"></div>
+                        <div class="col s6">实际发放总额:<span class="red-text fz18">{{outFeeInfo.grant_actual_money|number:2}}</span>元</div>
+                        <div class="col s6 right-align">财务人员:{{outFeeInfo.grant_user_name}}</div>
+                    </div>
+                </div>
+
+
+                <!--财务报销详情 报销时间-->
+                <div class="card-content bold grey lighten-3" style="height: 65px;" ng-if="outFeeInfo.task_loan_status == 3">
+                    <div class="row col s12" style="margin-bottom: 5px">
+                        <div class="col s6 left-align fz18">财务报销详情</div>
+                        <div class="col s6 right-align grey-text">申请时间{{outFeeInfo.refund_date  |date:'yyyy-MM-dd hh:mm'}}</div>
+                    </div>
+                </div>
+
+
+                <!--各种费用及备注-->
+                <div class="card-content bold white grey-text lighten-3" style="height:150px"  ng-if="outFeeInfo.task_loan_status == 3">
+                    <div class="row col s12">
+                        <div class="col s4 left-align">过路费:<span class="red-text fz18">{{outFeeInfo.refund_passing_cost|number:2}}</span>元</div>
+                        <div class="col s4">燃料费:<span class="red-text fz18">{{outFeeInfo.refund_fuel_cost|number:2}}</span>元</div>
+                        <div class="col s4">保道费:<span class="red-text fz18">{{outFeeInfo.refund_protect_cost|number:2}}</span>元</div>
+                        <div class="col s4">罚款费:<span class="red-text fz18">{{outFeeInfo.refund_penalty_cost|number:2}}</span>元</div>
+                        <div class="col s4">停车费:<span class="red-text fz18">{{outFeeInfo.refund_parking_cost|number:2}}</span>元</div>
+                        <div class="col s4">打车费:<span class="red-text fz18">{{outFeeInfo.refund_taxi_cost|number:2}}</span>元</div>
+                        <div class="col s4">发放备注:{{outFeeInfo.refund_explain}}</div>
+                        <div class="col s12" style="border-bottom: 1px solid #ccc;margin:6px"></div>
+                        <div class="col s4">实际报销:<span class="red-text fz18">{{outFeeInfo.refund_actual_money|number:2}}</span>元</div>
+                        <div class="col s4">还款金额:<span class="red-text fz18">{{outFeeInfo.repayment_money|number:2}}</span>元</div>
+                        <div class="col s4">盈亏:<span class="red-text fz18">{{outFeeInfo.profit|number:2}}</span>元</div>
+                        <div class="col s12 right-align">财务人员:{{outFeeInfo.refund_user_name}}</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row col s12" ng-if="outFeeInfo==undefined" style="width: 90%; margin-left:5%; margin-top:10px;">
+                <div style="height:200px;line-height: 200px;text-align: center">
+                    <i class="mdi  mdi-alert-circle-outline red-text fz30"></i>
+                    <span class="bold grey-text fz22">暂无数据</span>
+                </div>
+            </div>
+        </div>
+
+        <!--洗车费-->
+        <div id="lookWashFee" class="col s12 tab_box card" style="width: 80%; margin:0 10% ">
+
+            <div class="card-content bold white lighten-3" ng-if="washFeeList.length!==0" style="width: 70%; margin:0 15%">
+
+
+                <div class="row col s12"  ng-repeat="el in washFeeList" style="width: 90%; margin-left:5%; margin-top:10px;">
+                    <div class="card-content bold cyan-text grey lighten-3" style="height:75px;border: 1px solid #ccc;" >
+                        <div class="row col s12">
+
+                            <div class="col s6 fz16 cyan-text left-align">
+                                {{el.addr_name}}--{{el.short_name}}
+                            </div>
+                            <div class="col s3"></div>
+                            <div class="col s3 right-align red-text" ng-if="el.status==1">未领取</div>
+                            <div class="col s3 right-align cyan-text" ng-if="el.status==2">已领取</div>
+                        </div>
+                    </div>
+                    <div class="card-content bold  white grey-text lighten-3" style="border: 1px solid #ccc;height:90px;">
+
+                        <div class="row col s12">
+
+                            <div class="col s4 left-align">
+                                商品车数:{{el.car_count}}
+                            </div>
+                            <div class="col s4 center">
+                                洗车单价:<span class="red-text fz18">{{el.single_price}}</span>
+                            </div>
+                            <div class="col s4 right-align">
+                                洗车费:<span class="red-text fz18">{{el.total_price}}</span>
+                            </div>
+                            <div class="col s6 left-align">
+                                现场调度:{{el.field_op_name}}
+                            </div>
+                            <div class="col s6 right-align" ng-if="el.status==2">
+                                领取时间:{{el.clean_date |date:'yyyy-MM-dd hh:mm'}}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-content bold white lighten-3" style="width: 70%; margin:0 15%" ng-if="washFeeList.length==0">
+                <div class="row col s12"  style="width: 90%; margin-left:5%; margin-top:10px;">
+                    <div style="height:200px;line-height: 200px;text-align: center">
+                        <i class="mdi  mdi-alert-circle-outline red-text fz30"></i>
+                        <span class="bold grey-text fz22">暂无数据</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--执行记录-->
+        <div id="lookRecord" class="col s12 tab_box card" style="width: 80%; margin:0 10%;padding-bottom: 20px">
+            <div class="card-content bold white  grey-text lighten-3" style="width: 80%; margin:0 10%;">
+                <div class="row col s12" style="overflow-y: auto">
+                    <p ng-repeat="el in recordList" style="line-height: 30px;border-bottom: 1px dotted #ccc;padding: 10px 0;">
+                        <span>{{el.timez | date:"yyyy-MM-dd HH:mm:ss"}}</span>
+                        <span>{{el.content}}</span>
+                        <span>操作人: <span>{{el.name}}</span></span>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+

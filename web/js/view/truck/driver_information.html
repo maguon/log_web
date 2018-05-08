@@ -1,0 +1,97 @@
+<div class="driver_information">
+
+    <div class="row valign-wrapper">
+        <div class="col s11 valign-wrapper">
+            <div class="col s3 input-field">
+                <select id="car_type" ng-model="carType" material-select watch>
+                    <option value="" selected>请选择</option>
+                    <option value="1">自营</option>
+                    <option value="2">外协</option>
+                    <option value="3">供方</option>
+                    <option value="4">承包</option>
+                </select>
+                <label for="car_type">所属类型</label>
+            </div>
+            <div class="col s3 input-field">
+                <select id="insure_company" ng-model="insureCompany" material-select watch>
+                    <option value="" selected>请选择</option>
+                    <option ng-repeat="company in companyList" ng-value="company.id">{{company.company_name}}</option>
+                </select>
+                <label for="insure_company">所属公司</label>
+            </div>
+            <div class="col s3 input-field">
+                <input type="text" id="driver_name" name="driver_name" ng-model="driverName">
+                <label for="driver_name">司机</label>
+            </div>
+            <div class="col s3 input-field">
+                <input type="text" id="main_drive" name="main_drive" ng-model="mainDrive">
+                <label for="main_drive">主驾货车</label>
+            </div>
+            <div class="col s3 input-field">
+                <input type="text" id="associated_trailer" name="associated_trailer" ng-model="associatedTrailer">
+                <label for="associated_trailer">关联挂车</label>
+            </div>
+        </div>
+        <div class="col s1">
+            <div class="col s12 center">
+                <a ng-click="searchDriverInfoList()" class="btn-floating btn-large waves-light waves-effect red lighten-2 btn vc-center" style="margin-right: 10px">
+                    <i class="mdi mdi-magnify"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!--表格-->
+    <div class="row">
+        <div class="col s12">
+            <div class="col s12">
+                <div class="divider" style="background: #00bcd4;height: 2px"></div>
+                <table class="bordered striped text_mid">
+                    <thead class="blue-grey lighten-5">
+                    <tr class="grey-text text-darken-2">
+                        <th width="190" data-field="">司机</th>
+                        <th width="200" data-field="">所属类型</th>
+                        <th width="280" data-field="">所属公司</th>
+                        <th width="210" data-field="">主驾货车</th>
+                        <th width="200" data-field="">关联挂车</th>
+                        <th width="220" data-field="">电话</th>
+                        <th width="120">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="driver in driverInfoList" class="grey-text text-darken-1">
+                        <td>{{driver.drive_name}}</td>
+                        <td>{{driver.operate_type | carType}}</td>
+                        <td>{{driver.company_name}}</td>
+                        <td>{{driver.truck_num}}</td>
+                        <td>{{driver.trail_num}}</td>
+                        <td>{{driver.tel}}</td>
+                        <td class="operation fz12">
+                            <a ui-sref="driver_information_details({driverId:driver.id})" class="cyan-text" style="cursor: pointer;text-align: center;color: #26c6da">
+                                <i class="mdi mdi-eye" style="margin: 0"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr class="grey-text text-darken-1" ng-show="driverInfoList.length == 0">
+                        <td colspan="7"><span style="letter-spacing: 2px">暂无数据</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!--分页-->
+    <div class="row">
+        <div class="paging_box col s12">
+            <div class="right">
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="pre_btn()">
+                    上一页
+                </a>
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_btn()">
+                    下一页
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

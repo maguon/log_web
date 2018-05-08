@@ -1,0 +1,43 @@
+<div class="car_indemnity_loan_statistics" style="width: 90%;margin: 0 auto">
+    <div class="row valign-wrapper">
+        <h5 class="col s12 cyan-text lighten-1 center-align">
+            商品车理赔借款统计
+        </h5>
+    </div>
+
+    <div style="width: 98.6%">
+        <!--商品车赔款借款按月统计-->
+        <div class="row z-depth-2">
+            <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                <div class="col s6 left">
+                    <p>商品车理赔借款-按月统计</p>
+                </div>
+                <div class="col s6 right">
+                    <div class="col s3 left">
+                        <p class="right">选择日期区间:</p>
+                    </div>
+                    <div class="col s3">
+                        <input id="loanTimeStart" type="text" ng-value="startInitial">
+                    </div>
+                    <div class="col s1 center">
+                        <p>至</p>
+                    </div>
+                    <div class="col s3">
+                        <input id="loanTimeEnd" type="text" ng-value="endInitial">
+                    </div>
+                    <div class="col s2 center">
+                        <i class="mdi mdi-magnify" ng-click="getLoanMonthInfo()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                    </div>
+                </div>
+            </div>
+            <!--借款笔数统计-->
+            <div class="col s12">
+                <div class="col s12" id="loanCountMonth" style="min-width:400px;height:350px;margin-top: 40px"></div>
+            </div>
+            <!--借款金额统计-->
+            <div class="col s12">
+                <div class="col s12" id="loanMoneyMonth" style="min-width:400px;height:350px;margin: 35px 0 35px 0"></div>
+            </div>
+        </div>
+    </div>
+</div>

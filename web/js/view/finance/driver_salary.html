@@ -1,0 +1,220 @@
+<div class="driver_salary">
+    <!--工资结算模态框-->
+    <div class="row" style="margin: 0">
+        <div id="wageSettlementModal" class="modal modal-fixed-footer" style="width: 75%;height: 550px">
+            <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+                <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
+                    <p>工资结算</p>
+                </div>
+                <div class="row" style="width: 85%;margin: 0 auto">
+                    <div class="col s12" style="color: #26c6da;font-weight: bold;border-bottom: 1px solid darkgray;padding-bottom: 20px;margin-bottom: 20px">
+                        <div class="col s8 left-align">
+                            <p>{{driverInfo.drive_name}}&emsp;{{driverInfo.month_date_id}}</p>
+                        </div>
+                        <div class="col s4 right-align">
+                            <div class="col s6" style="padding: 0;">
+                                <p>未结任务：{{driverWageSettlementList.length}}</p>
+                            </div>
+                            <div class="col s6" style="padding: 0;">
+                                <p>已选任务：{{selectedIdsArr.length}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 left-align" style="margin-left: 4px" ng-hide="driverWageSettlementList.length == 0">
+                        <input type="checkbox" ng-click="selectAllCheckBox($event)" id="selectAll" name="selectAll" class="filled-in" />
+                        <label for="selectAll" style="color: black">全选</label>
+                    </div>
+                    <div class="col s12 center-align" style="color: darkgray;font-weight: bold;letter-spacing: 2px">
+                        <p>暂无关联任务</p>
+                    </div>
+                    <!--路线信息卡片-->
+                    <div class="col s12" style="padding: 0;">
+                        <div class="col s4" ng-repeat="lineInfo in driverWageSettlementList">
+                            <div class="card-panel white" style="padding: 0;cursor: pointer;font-size: 1rem">
+                                <div class="row cyan lighten-2 white-text setting_shipments_title valign-wrapper" style="padding: 8px 5px;height: 43px;margin-bottom: 0">
+                                    <div class="col s1" style="padding: 0;">
+                                        <input ng-click="checkIsAllSel();checkSelMission($event,lineInfo.id,$index)" type="checkbox" id="line_card{{$index}}" name="select" class="filled-in"/>
+                                        <label for="line_card{{$index}}" style="margin-top: 9px"></label>
+                                    </div>
+                                    <div class="col s7 left-align">
+                                        <p>调度编号：{{lineInfo.id}}</p>
+                                    </div>
+                                    <div class="col s4">
+                                        <p>{{lineInfo.date_id}}</p>
+                                    </div>
+                                </div>
+                                <div class="row left-align" style="color: darkgray;font-weight: bold;font-size: 1.06rem">
+                                    <div class="col s12" style="padding: 0;margin: 8px 0">
+                                        <div class="col s6 left-align">
+                                            <p>{{lineInfo.city_route_start + " - " + lineInfo.city_route_end}}</p>
+                                        </div>
+                                        <div class="col s6 right-align">
+                                            <p><span style="color: #26c6da">{{lineInfo.distance}} </span> 公里</p>
+                                        </div>
+                                    </div>
+                                    <div class="col s12" style="padding: 0;margin: 8px 0">
+                                        <div class="col s6 left-align">
+                                            <p>{{lineInfo.truck_num}}&emsp;{{lineInfo.brand_name}}</p>
+                                        </div>
+                                        <div class="col s6 right-align">
+                                            <p>运送车辆：<span style="color: #26c6da">{{lineInfo.car_count}}</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 left-align valign-wrapper" style="margin: 20px 0;font-size: 1.2rem;color: darkgray;font-weight: bold">
+                        <div class="col s4">
+                            <p>重载：<span style="color: #26c6da">{{loadDistanceCount}}</span> km</p>
+                        </div>
+                        <div class="col s4">
+                            <p>空载：<span style="color: #26c6da">{{noLoadDistanceCount}}</span> km</p>
+                        </div>
+                        <div class="col s4 input-field" style="margin-top: 0">
+                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="text" id="should_pay" name="should_pay" ng-model="shouldPay">
+                            <label for="should_pay"><span style="color: red">* </span>应发工资</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer valign-wrapper">
+                <div class="col s12">
+                    <div class="col s2 offset-s4">
+                        <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                            取消
+                        </a>
+                    </div>
+                    <div class="col s2">
+                        <a ng-click="addRouteFeeInfo()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                            确定
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row valign-wrapper">
+        <div class="col s10">
+            <div class="col s3 input-field">
+                <input id="start_month" type="text" ng-value="startMonth">
+                <label class="active" for="start_month">月份</label>
+            </div>
+            <div class="col s3 input-field">
+                <input type="text" id="driver_name" name="driver_name" ng-model="driverName">
+                <label for="driver_name">司机</label>
+            </div>
+            <div class="col s3 input-field">
+                <select id="car_type" ng-model="carType" material-select watch>
+                    <option value="" selected>请选择</option>
+                    <option value="1">自营</option>
+                    <option value="2">外协</option>
+                    <option value="3">供方</option>
+                    <option value="4">承包</option>
+                </select>
+                <label for="car_type">所属类型</label>
+            </div>
+            <div class="col s3 input-field">
+                <select id="insure_company" ng-model="insureCompany" material-select watch>
+                    <option value="" selected>请选择</option>
+                    <option ng-repeat="company in companyList" ng-value="company.id">{{company.company_name}}</option>
+                </select>
+                <label for="insure_company">所属公司</label>
+            </div>
+            <div class="col s3 input-field">
+                <input type="text" id="truck_number" name="truck_number" ng-model="truckNumber">
+                <label for="truck_number">货车牌号</label>
+            </div>
+            <div class="col s3 input-field">
+                <select id="truck_brand" ng-model="truckBrand" material-select watch>
+                    <option value="" selected>请选择</option>
+                    <option ng-repeat="brand in brandList" ng-value="brand.id">{{brand.brand_name}}</option>
+                </select>
+                <label for="truck_brand">货车品牌</label>
+            </div>
+            <div class="col s6 input-field">
+                <select id="grant_status" ng-model="grantStatus" material-select watch>
+                    <option value="" selected>请选择</option>
+                    <option value="1">未结算</option>
+                    <option value="2">未发放</option>
+                    <option value="3">已发放</option>
+                </select>
+                <label for="grant_status">发放状态</label>
+            </div>
+        </div>
+        <div class="col s2">
+            <div class="col s12 center">
+                <a ng-click="getDriverSalaryList()" class="btn-floating btn-large waves-light waves-effect red lighten-2 btn vc-center" style="margin-right: 10px">
+                    <i class="mdi mdi-magnify"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!--表格-->
+    <div class="row">
+        <div class="col s12">
+            <div class="col s12">
+                <div class="divider" style="background: #00bcd4;height: 2px"></div>
+                <table class="bordered striped text_mid">
+                    <thead class="blue-grey lighten-5">
+                    <tr class="grey-text text-darken-2">
+                        <th width="190" data-field="">月份</th>
+                        <th width="220" data-field="">姓名</th>
+                        <th width="200" data-field="">所属类型</th>
+                        <th width="260" data-field="">所属公司</th>
+                        <th width="210" data-field="">货车牌号</th>
+                        <th width="180" data-field="">品牌</th>
+                        <th width="240" data-field="">司机里程（重载/空载）</th>
+                        <th width="200" data-field="">应发工资</th>
+                        <th width="180" data-field="">实发工资</th>
+                        <th width="180" data-field="">发放状态</th>
+                        <th width="150">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="salary in driverSalaryList" class="grey-text text-darken-1">
+                        <td>{{salary.month_date_id == null ? monthVal : salary.month_date_id}}</td>
+                        <td>{{salary.drive_name}}</td>
+                        <td>{{salary.operate_type | carType}}</td>
+                        <td>{{salary.company_name}}</td>
+                        <td>{{salary.truck_num}}</td>
+                        <td>{{salary.brand_name}}</td>
+                        <td>{{(salary.no_load_distance == null ? 0 : salary.no_load_distance) + " / " + (salary.load_distance == null ? 0 : salary.load_distance)}}</td>
+                        <td>{{salary.plan_salary}}</td>
+                        <td style="color: #e57373">{{salary.actual_salary}}</td>
+                        <td style="color: #e57373" ng-if="salary.grant_status == null || salary.grant_status == 1">未结算</td>
+                        <td style="color: #f6ad33" ng-if="salary.grant_status == 2">未发放</td>
+                        <td style="color: darkgray" ng-if="salary.grant_status == 3">已发放</td>
+                        <td class="operation fz12" ng-show="salary.grant_status == null || salary.grant_status == 1">
+                            <a ng-click="showDriverWageSettlement(salary)" style="cursor: pointer;text-align: center;color: #f6ad33"><i class="mdi mdi-comment-text" style="margin: 0"></i></a>
+                        </td>
+                        <td class="operation fz12" ng-show="salary.grant_status == 2 || salary.grant_status == 3">
+                            <a ui-sref="driver_salary_details({id:salary.id,driveId:salary.drive_id})" class="cyan-text" style="cursor: pointer;text-align: center;color: #26c6da"><i class="mdi mdi-eye" style="margin: 0"></i></a>
+                        </td>
+                    </tr>
+                    <tr class="grey-text text-darken-1" ng-if="driverSalaryList.length == 0">
+                        <td colspan="11"><span style="letter-spacing: 2px">暂无数据</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!--分页-->
+    <div class="row">
+        <div class="paging_box col s12">
+            <div class="right">
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="pre_btn()">
+                    上一页
+                </a>
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_btn()">
+                    下一页
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

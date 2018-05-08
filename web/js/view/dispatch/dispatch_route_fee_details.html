@@ -1,0 +1,265 @@
+<a style="margin: 90px 0 0 20px" class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light "
+   ui-sref="dispatch_route_fee">
+    <i class="mdi mdi-arrow-left-bold"></i>
+</a>
+<div class="dispatch_route_fee_details">
+    <div class="vc-center">
+        <h5 class="center-align cyan-text text-lighten-1">出车款详情</h5>
+    </div>
+    <div class="divider" style="background: #00bcd4;height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
+
+    <div class="row" style="width: 80%;margin: 0 auto">
+        <!--基本信息-->
+        <div class="col s12">
+            <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
+                <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;color: #26c6da;font-size: 1.2rem;font-weight: bold">
+                    <div class="col s3 left-align">
+                        <p style="margin: 0">出车款编号：{{routeFeeInfo.id}}</p>
+                    </div>
+                    <div class="col s2">
+                        <p>司机：{{routeFeeInfo.drive_name}}</p>
+                    </div>
+                    <div class="col s2">
+                        <p>货车牌号：{{routeFeeInfo.truck_num}}</p>
+                    </div>
+                    <div class="col s3" style="color: darkgray">
+                        <p>申报时间：{{routeFeeInfo.apply_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                    </div>
+                    <div class="col s2" style="color: darkgray">
+                        <p>申报人：{{routeFeeInfo.appl_user_name}}</p>
+                    </div>
+                </div>
+                <div style="width: 92%;margin: 0 auto">
+                    <div class="col s12 valign-wrapper" style="margin-top: 20px;padding: 0;" ng-show="routeFeeInfo.task_loan_status != 3">
+                        <div class="col s11 input-field">
+                            <select id="dispatch_num" ng-model="dispatchNum" material-select watch>
+                                <option value="" selected>请选择</option>
+                                <option ng-repeat="mission in missionList" ng-value="mission.id">{{mission.id + '&emsp;' + mission.city_route_start + ' - ' + mission.city_route_end + '&emsp;' + mission.distance + '公里' + '&emsp;' + (mission.created_on | date:'yyyy-MM-dd HH:mm:ss')}}</option>
+                            </select>
+                            <label for="dispatch_num"><span style="color: red">* </span>调度编号</label>
+                        </div>
+                        <div class="col s1 center">
+                            <a ng-click="createMatchMissionCard()" class="btn-floating btn-large waves-light waves-effect cyan lighten-2 btn vc-center" style="margin-right: 10px">
+                                <i class="mdi mdi-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!--任务信息卡片-->
+                    <div class="col s12" style="margin-top: 30px">
+                        <div ng-repeat="mission in matchMissionList" class="col s12 valign-wrapper" style="height: 55px;margin-bottom: 20px;background-color: #dcdfe0;color: darkgray;font-weight: bold;font-size: 1rem" ng-show="matchMissionList.length != 0">
+                            <div class="col s3">
+                                <p style="color: #26c6da">调度编号：{{mission.dp_route_task_id}}</p>
+                            </div>
+                            <div class="col s3">
+                                <p style="color: #26c6da">{{mission.city_route_start}}-{{mission.city_route_end}} &nbsp;<span style="color: darkgray">{{mission.distance}}公里</span></p>
+                            </div>
+                            <div class="col s2">
+                                <p>计划装车数量：{{mission.plan_count}}</p>
+                            </div>
+                            <div class="col s5 center-align">
+                                <p>计划出车时间：{{mission.task_plan_date | date:'yyyy-MM-dd'}}</p>
+                            </div>
+                            <div class="col s2">
+                                <p>{{mission.task_status | missionStatus}}</p>
+                            </div>
+                            <div class="col s1" style="font-size: 1.5rem" ng-show="routeFeeInfo.task_loan_status == 1">
+                                <a ng-click="deleteMatchMission(mission.dp_route_task_id)" style="margin-right: 10px;cursor: pointer;text-align: center;color: #e57373"><i class="mdi mdi-delete-forever" style="margin: 0"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--未发放状态下显示的信息-->
+                    <div class="col s12" style="padding: 0;" ng-show="routeFeeInfo.task_loan_status == 1">
+                        <div class="col s4 input-field">
+                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="road_toll_cost" name="road_toll_cost" ng-model="routeFeeInfo.apply_passing_cost">
+                            <label class="{{roadTollCost != null ? 'active' : 'inactive'}}" for="road_toll_cost">过路费（元）</label>
+                        </div>
+                        <div class="col s4 input-field">
+                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="fuel_cost" name="fuel_cost" ng-model="routeFeeInfo.apply_fuel_cost">
+                            <label class="{{fuelCost != null ? 'active' : 'inactive'}}" for="fuel_cost">燃料费（元）</label>
+                        </div>
+                        <div class="col s4 input-field">
+                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="road_cost" name="road_cost" ng-model="routeFeeInfo.apply_protect_cost">
+                            <label class="{{roadCost != null ? 'active' : 'inactive'}}" for="road_cost">保道费（元）</label>
+                        </div>
+                        <div class="col s4 input-field">
+                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="fine_cost" name="fine_cost" ng-model="routeFeeInfo.apply_penalty_cost">
+                            <label class="{{fineCost != null ? 'active' : 'inactive'}}" for="fine_cost">罚款费（元）</label>
+                        </div>
+                        <div class="col s4 input-field">
+                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="parking_cost" name="parking_cost" ng-model="routeFeeInfo.apply_parking_cost">
+                            <label class="{{parkingCost != null ? 'active' : 'inactive'}}" for="parking_cost">停车费（元）</label>
+                        </div>
+                        <div class="col s4 input-field">
+                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="taxi_cost" name="taxi_cost" ng-model="routeFeeInfo.apply_taxi_cost">
+                            <label class="{{taxiCost != null ? 'active' : 'inactive'}}" for="taxi_cost">打车费（元）</label>
+                        </div>
+                        <div class="col s12 input-field">
+                            <input type="text" id="remark" name="remark" ng-model="routeFeeInfo.apply_explain">
+                            <label for="remark">申报备注：</label>
+                        </div>
+                        <div class="col s12" style="color: darkgray;font-size: 1.2rem;font-weight: bold">
+                            <p>应发放总额：<span id="totalCost" style="color: #e57373">{{routeFeeInfo.apply_passing_cost + routeFeeInfo.apply_fuel_cost + routeFeeInfo.apply_protect_cost + routeFeeInfo.apply_penalty_cost + routeFeeInfo.apply_parking_cost + routeFeeInfo.apply_taxi_cost}}</span> 元</p>
+                        </div>
+                    </div>
+
+                    <!--非未发放状态下显示的信息-->
+                    <div class="col s12" style="font-size: 1.2rem;color: darkgray;font-weight: bold;padding: 0;" ng-show="routeFeeInfo.task_loan_status != 1">
+                        <div class="col s4">
+                            <p>过路费：<span style="color: #e57373">{{routeFeeInfo.apply_passing_cost}}</span> 元</p>
+                        </div>
+                        <div class="col s4">
+                            <p>燃料费：<span style="color: #e57373">{{routeFeeInfo.apply_fuel_cost}}</span> 元</p>
+                        </div>
+                        <div class="col s4">
+                            <p>保道费：<span style="color: #e57373">{{routeFeeInfo.apply_protect_cost}}</span> 元</p>
+                        </div>
+                        <div class="col s4">
+                            <p>罚款费：<span style="color: #e57373">{{routeFeeInfo.apply_penalty_cost}}</span> 元</p>
+                        </div>
+                        <div class="col s4">
+                            <p>停车费：<span style="color: #e57373">{{routeFeeInfo.apply_parking_cost}}</span> 元</p>
+                        </div>
+                        <div class="col s4">
+                            <p>打车费：<span style="color: #e57373">{{routeFeeInfo.apply_taxi_cost}}</span> 元</p>
+                        </div>
+                        <div class="col s12" style="color: darkgray;font-size: 1.2rem">
+                            <p><span style="font-weight: bold">申请备注：</span>{{routeFeeInfo.apply_explain}}</p>
+                        </div>
+                        <div class="col s12" style="color: darkgray;font-size: 1.2rem;font-weight: bold">
+                            <p>应发放总额：<span style="color: #e57373">{{routeFeeInfo.apply_plan_money}}</span> 元</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--保存按钮-->
+        <div class="col s12" ng-show="routeFeeInfo.task_loan_status == 1" style="margin-bottom: 20px">
+            <div class="col s4 offset-s4">
+                <a ng-click="saveRouteFeeInfo()" style="width: 100%;background-color: #26c6da;" class="waves-light waves-effect lighten-1 btn">
+                    保存
+                </a>
+            </div>
+        </div>
+
+        <!--财务发放信息-->
+        <div class="col s12" style="margin-top: 12px" ng-show="routeFeeInfo.task_loan_status != 1">
+            <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
+                <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;color: darkgray;font-size: 1.2rem;font-weight: bold">
+                    <div class="col s6 left-align">
+                        <p style="margin: 0;color: #26c6da">财务发放详情</p>
+                    </div>
+                    <div class="col s6">
+                        <div class="col s6 right-align">
+                            <p>财务人员：{{routeFeeInfo.grant_user_name}}</p>
+                        </div>
+                        <div class="col s6 right-align">
+                            <p>已发放</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="width: 92%;margin: 0 auto">
+                    <div class="col s12" style="font-size: 1.2rem;color: darkgray;font-weight: bold;padding: 0;">
+                        <div class="col s4">
+                            <p>过路费：<span style="color: #e57373">{{routeFeeInfo.grant_passing_cost}}</span> 元</p>
+                        </div>
+                        <div class="col s4">
+                            <p>燃料费：<span style="color: #e57373">{{routeFeeInfo.grant_fuel_cost}}</span> 元</p>
+                        </div>
+                        <div class="col s4">
+                            <p>保道费：<span style="color: #e57373">{{routeFeeInfo.grant_protect_cost}}</span> 元</p>
+                        </div>
+                        <div class="col s4">
+                            <p>罚款费：<span style="color: #e57373">{{routeFeeInfo.grant_penalty_cost}}</span> 元</p>
+                        </div>
+                        <div class="col s4">
+                            <p>停车费：<span style="color: #e57373">{{routeFeeInfo.grant_parking_cost}}</span> 元</p>
+                        </div>
+                        <div class="col s4">
+                            <p>打车费：<span style="color: #e57373">{{routeFeeInfo.grant_taxi_cost}}</span> 元</p>
+                        </div>
+                    </div>
+                    <div class="col s12" style="color: darkgray;font-size: 1.2rem">
+                        <p><span style="font-weight: bold">发放备注：</span>{{routeFeeInfo.grant_explain}}</p>
+                    </div>
+                    <div class="col s12" style="color: darkgray;font-size: 1.2rem;font-weight: bold">
+                        <p>实际发放总额：<span style="color: #e57373">{{routeFeeInfo.grant_actual_money}}</span> 元</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--财务报销详情-未报销-->
+        <div class="col s12" style="margin-top: 12px" ng-show="routeFeeInfo.task_loan_status == 2">
+            <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
+                <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;color: darkgray;font-size: 1.2rem;font-weight: bold">
+                    <div class="col s6 left-align">
+                        <p style="margin: 0;color: #26c6da">财务报销详情</p>
+                    </div>
+                    <div class="col s6 right-align">
+                        <div class="col s12">
+                            <p style="color: #e57373">未报销</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--财务报销详情-已报销-->
+        <div class="col s12" style="margin-top: 12px" ng-show="routeFeeInfo.task_loan_status == 3">
+            <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
+                <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;color: darkgray;font-size: 1.2rem;font-weight: bold">
+                    <div class="col s6 left-align">
+                        <p style="margin: 0;color: #26c6da">财务报销详情</p>
+                    </div>
+                    <div class="col s6">
+                        <div class="col s6 right-align">
+                            <p>财务人员：{{routeFeeInfo.refund_user_name}}</p>
+                        </div>
+                        <div class="col s6 right-align">
+                            <p>已报销</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="width: 92%;margin: 0 auto">
+                    <div class="col s12" style="font-size: 1.2rem;color: darkgray;font-weight: bold;padding: 0;">
+                        <div class="col s4">
+                            <p>过路费：<span style="color: #e57373">{{routeFeeInfo.refund_passing_cost}}</span> 元</p>
+                        </div>
+                        <div class="col s4">
+                            <p>燃料费：<span style="color: #e57373">{{routeFeeInfo.refund_fuel_cost}}</span> 元</p>
+                        </div>
+                        <div class="col s4">
+                            <p>保道费：<span style="color: #e57373">{{routeFeeInfo.refund_protect_cost}}</span> 元</p>
+                        </div>
+                        <div class="col s4">
+                            <p>罚款费：<span style="color: #e57373">{{routeFeeInfo.refund_penalty_cost}}</span> 元</p>
+                        </div>
+                        <div class="col s4">
+                            <p>停车费：<span style="color: #e57373">{{routeFeeInfo.refund_parking_cost}}</span> 元</p>
+                        </div>
+                        <div class="col s4">
+                            <p>打车费：<span style="color: #e57373">{{routeFeeInfo.refund_taxi_cost}}</span> 元</p>
+                        </div>
+                    </div>
+                    <div class="col s12" style="color: darkgray;font-size: 1.2rem">
+                        <p><span style="font-weight: bold">发放备注：</span>{{routeFeeInfo.refund_explain}}</p>
+                    </div>
+                    <div class="col s12" style="color: darkgray;font-size: 1.2rem;font-weight: bold;padding: 0">
+                        <div class="col s4">
+                            <p>实际报销：<span style="color: #e57373">{{routeFeeInfo.refund_actual_money}}</span> 元</p>
+                        </div>
+                        <div class="col s4">
+                            <p>还款金额：<span style="color: #e57373">{{routeFeeInfo.repayment_money}}</span> 元</p>
+                        </div>
+                        <div class="col s4">
+                            <p>盈亏：<span style="color: #e57373">{{routeFeeInfo.profit}}</span> 元</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

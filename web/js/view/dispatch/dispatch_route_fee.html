@@ -1,0 +1,237 @@
+<div class="dispatch_route_fee">
+    <!--申请出车款模态框-->
+    <div class="row" style="margin: 0">
+        <div id="addCarFinanceModel" class="modal modal-fixed-footer" style="width: 75%;height: 550px">
+            <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+                <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
+                    <p>申请出车款</p>
+                </div>
+                <div class="row" style="width: 80%;margin: 0 auto">
+                    <div class="col s4 input-field" style="margin-bottom: 10px">
+                        <select id="driver_name_mod" style="width: 100%" ng-change="searchMatchMission()" ng-model="driverIdMod">
+                            <option value=""></option>
+                            <option ng-repeat="driver in driveList" ng-value="driver.id">{{driver.drive_name + " - " + driver.tel}}</option>
+                        </select>
+                        <label class="active" for="driver_name_mod"><span style="color: red">* </span>司机</label>
+                    </div>
+                    <div class="col s8 valign-wrapper" style="margin-bottom: 10px;padding: 0;">
+                        <div class="col s11 input-field">
+                            <select id="dispatch_num_mod" ng-model="dispatchNumMod" material-select watch>
+                                <option value="" selected>请选择</option>
+                                <option ng-repeat="mission in missionList" ng-value="mission.id">{{mission.id + '&emsp;' + mission.city_route_start + ' - ' + mission.city_route_end + '&emsp;' + mission.distance + '公里' + '&emsp;' + (mission.task_plan_date | date:'yyyy-MM-dd')}}</option>
+                            </select>
+                            <label for="dispatch_num_mod"><span style="color: red">* </span>调度编号</label>
+                        </div>
+                        <div class="col s1">
+                            <a ng-click="createMatchMissionCard()" class="btn-floating btn-large waves-light waves-effect cyan lighten-2 btn vc-center" style="margin-right: 10px;width: 40px;height: 40px">
+                                <i style="line-height: 3px" class="mdi mdi-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!--任务信息卡片-->
+                    <div ng-repeat="mission in matchMissionList" class="col s12 valign-wrapper" style="height: 55px;margin-bottom: 20px;background-color: #dcdfe0;color: darkgray;font-weight: bold;font-size: 1rem" ng-show="matchMissionList.length != 0">
+                        <div class="col s3">
+                            <p style="color: #26c6da">调度编号：{{mission.id}}</p>
+                        </div>
+                        <div class="col s3">
+                            <p style="color: #26c6da">{{mission.city_route_start}}-{{mission.city_route_end}} &nbsp;<span style="color: darkgray">{{mission.distance}}公里</span></p>
+                        </div>
+                        <div class="col s2">
+                            <p>计划装车数量：{{mission.car_count}}</p>
+                        </div>
+                        <div class="col s5">
+                            <p>计划出车时间：{{mission.task_plan_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                        </div>
+                        <div class="col s2">
+                            <p>{{mission.task_status | missionStatus}}</p>
+                        </div>
+                        <div class="col s1" style="font-size: 1.5rem">
+                            <a ng-click="deleteMatchMissionMod($index)" style="margin-right: 10px;cursor: pointer;text-align: center;color: #e57373"><i class="mdi mdi-delete-forever" style="margin: 0"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col s4 input-field">
+                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="road_toll_cost" name="road_toll_cost" ng-model="roadTollCost">
+                        <label class="{{roadTollCost != null ? 'active' : 'inactive'}}" for="road_toll_cost">过路费（元）</label>
+                    </div>
+                    <div class="col s4 input-field">
+                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="fuel_cost" name="fuel_cost" ng-model="fuelCost">
+                        <label class="{{fuelCost != null ? 'active' : 'inactive'}}" for="fuel_cost">燃料费（元）</label>
+                    </div>
+                    <div class="col s4 input-field">
+                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="road_cost" name="road_cost" ng-model="roadCost">
+                        <label class="{{roadCost != null ? 'active' : 'inactive'}}" for="road_cost">保道费（元）</label>
+                    </div>
+                    <div class="col s4 input-field">
+                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="fine_cost" name="fine_cost" ng-model="fineCost">
+                        <label class="{{fineCost != null ? 'active' : 'inactive'}}" for="fine_cost">罚款费（元）</label>
+                    </div>
+                    <div class="col s4 input-field">
+                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="parking_cost" name="parking_cost" ng-model="parkingCost">
+                        <label class="{{parkingCost != null ? 'active' : 'inactive'}}" for="parking_cost">停车费（元）</label>
+                    </div>
+                    <div class="col s4 input-field">
+                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="taxi_cost" name="taxi_cost" ng-model="taxiCost">
+                        <label class="{{taxiCost != null ? 'active' : 'inactive'}}" for="taxi_cost">打车费（元）</label>
+                    </div>
+                    <div class="col s12 input-field">
+                        <input type="text" id="remark" name="remark" ng-model="remark">
+                        <label for="remark">备注：</label>
+                    </div>
+                    <div class="col s12 left-align" style="color: darkgray;font-size: 1.1rem;font-weight: bold;margin-top: 20px">
+                        <p>出车款总额：<span id="planMoney" style="color: #e57474">{{roadTollCost + fuelCost + roadCost + fineCost + parkingCost + taxiCost}}</span> 元</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer valign-wrapper">
+                <div class="col s12">
+                    <div class="col s2 offset-s4">
+                        <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                            取消
+                        </a>
+                    </div>
+                    <div class="col s2">
+                        <a ng-click="addRouteFeeInfo()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                            确定
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row valign-wrapper">
+        <div class="col s10">
+            <div class="col s12 valign-wrapper" style="padding: 0;">
+                <div class="col s3 input-field">
+                    <input type="text" id="dispatch_num" name="dispatch_num" ng-model="dispatchNum">
+                    <label for="dispatch_num">出车款编号</label>
+                </div>
+                <div class="col s3 input-field">
+                    <select id="driver_name" style="width: 100%" ng-change="clearDriverInfo()" ng-model="driverId">
+                        <option value=""></option>
+                        <option value="0">清除选择</option>
+                        <option ng-repeat="driver in driveList" ng-value="driver.id">{{driver.drive_name + " - " + driver.tel}}</option>
+                    </select>
+                    <label class="active" for="driver_name">司机</label>
+                </div>
+                <div class="col s3 input-field">
+                    <select id="grant_status" ng-model="grantStatus" material-select watch>
+                        <option value="" selected>请选择</option>
+                        <option value="1" selected>未发放</option>
+                        <option value="2" selected>已发放</option>
+                        <option value="3" selected>已报销</option>
+                    </select>
+                    <label for="grant_status">发放状态</label>
+                </div>
+                <div class="col s3 input-field">
+                    <input type="text" id="apply_start_time" name="apply_start_time" ng-model="applyStartTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                    <label for="apply_start_time">申请时间(始)</label>
+                </div>
+                <div class="col s3 input-field">
+                    <input type="text" id="apply_end_time" name="apply_end_time" ng-model="applyEndTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                    <label for="apply_end_time">申请时间(终)</label>
+                </div>
+            </div>
+            <div class="col s12 valign-wrapper" style="padding: 0;">
+                <div class="col s3 input-field">
+                    <input type="number" style="margin-bottom: 0" id="apply_money_start" name="apply_money_start" ng-model="applyMoneyStart">
+                    <label for="apply_money_start">申请金额（元）</label>
+                </div>
+                <div class="col s3 input-field">
+                    <input type="number" style="margin-bottom: 0" id="apply_money_end" name="apply_money_end" ng-model="applyMoneyEnd">
+                    <label for="apply_money_end">至</label>
+                </div>
+                <div class="col s3 input-field">
+                    <input type="text" style="margin-bottom: 0" id="apply_person" name="apply_person" ng-model="applyPerson">
+                    <label for="apply_person">申请人</label>
+                </div>
+                <div class="col s3 input-field">
+                    <input type="text" id="grant_start_time" name="grant_start_time" ng-model="grantStartTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                    <label for="grant_start_time">发放时间(始)</label>
+                </div>
+                <div class="col s3 input-field">
+                    <input type="text" id="grant_end_time" name="grant_end_time" ng-model="grantEndTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                    <label for="grant_end_time">发放时间(终)</label>
+                </div>
+            </div>
+        </div>
+        <div class="col s2">
+            <div class="col s6 center">
+                <a ng-click="searchCarFinanceList()" class="btn-floating btn-large waves-light waves-effect red lighten-2 btn vc-center" style="margin-right: 10px">
+                    <i class="mdi mdi-magnify"></i>
+                </a>
+            </div>
+            <div class="col s6 center">
+                <a ng-click="openApplyRouteFeeMod()" class="btn-floating btn-large waves-light waves-effect cyan lighten-2 btn vc-center" style="margin-right: 10px">
+                    <i class="mdi mdi-plus"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!--表格-->
+    <div class="row">
+        <div class="col s12">
+            <div class="col s12">
+                <div class="divider" style="background: #00bcd4;height: 2px"></div>
+                <table class="bordered striped text_mid">
+                    <thead class="blue-grey lighten-5">
+                    <tr class="grey-text text-darken-2">
+                        <th width="180" data-field="">出车款编号</th>
+                        <th width="230" data-field="">司机</th>
+                        <th width="200" data-field="">货车牌号</th>
+                        <th width="200" data-field="">申请金额</th>
+                        <th width="240" data-field="">申请时间</th>
+                        <th width="200" data-field="">实际发放金额</th>
+                        <th width="240" data-field="">发放时间</th>
+                        <th width="240" data-field="">报销时间</th>
+                        <th width="180" data-field="">申请人</th>
+                        <th width="180" data-field="">状态</th>
+                        <th width="150">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="car in carFinanceList" class="grey-text text-darken-1">
+                        <td>{{car.id}}</td>
+                        <td>{{car.drive_name}}</td>
+                        <td>{{car.truck_num}}</td>
+                        <td>{{car.apply_plan_money}}</td>
+                        <td>{{car.apply_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td>{{car.grant_actual_money}}</td>
+                        <td>{{car.grant_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td>{{car.refund_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td>{{car.appl_user_name}}</td>
+                        <td style="color: #e57373" ng-if="car.task_loan_status == 1">未发放</td>
+                        <td style="color: #26c6da" ng-if="car.task_loan_status == 2">已发放</td>
+                        <td ng-if="car.task_loan_status == 3">已报销</td>
+                        <td class="operation fz12">
+                            <a ng-click="deleteCurrentFinanceInfo(car.id)" style="margin-right: 10px;cursor: pointer;text-align: center;color: #e57373"><i class="mdi mdi-delete-forever" style="margin: 0"></i></a>
+                            <a ui-sref="dispatch_route_fee_details({id:car.id})" class="cyan-text" style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-eye" style="margin: 0"></i></a>
+                        </td>
+                    </tr>
+                    <tr class="grey-text text-darken-1" ng-if="carFinanceList.length == 0">
+                        <td colspan="11"><span style="letter-spacing: 2px">暂无数据</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!--分页-->
+    <div class="row">
+        <div class="paging_box col s12">
+            <div class="right">
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="pre_btn()">
+                    上一页
+                </a>
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_btn()">
+                    下一页
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

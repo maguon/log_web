@@ -47,9 +47,53 @@
 
             </div>
             <div class="modal-footer vc-center">
-                <button ng-click="closeModel()" class="btn waves-light waves-effect cyan lighten-1" type="button" style="margin-left: 56px" >
+                <button class="modal-action modal-close btn waves-light waves-effect cyan lighten-1" type="button" style="margin-left: 56px" >
                     确定
                 </button>
+            </div>
+        </div>
+
+        <!--修改车辆位置模态框-->
+        <div class="row" style="margin: 0">
+            <div id="modifyCarPositionMod" class="modal modal-fixed-footer" style="width: 56%;height: 450px">
+                <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+                    <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
+                        <p>设置车辆当前位置</p>
+                    </div>
+                    <div class="row" style="width: 85%;margin: 0 auto">
+                        <div class="col s8 offset-s2">
+                            <div class="col s12 left-align" style="padding: 0;color: darkgray;font-weight: bold">
+                                <div class="col s6" style="padding: 0">
+                                    <p><span style="color: #26c6da;font-size: 1.6rem" class="mdi mdi-truck"></span> {{transportDetails.truck_num}}</p>
+                                </div>
+                                <div class="col s6" style="padding: 0">
+                                    <p><span style="color: #26c6da;font-size: 1.6rem" class="mdi mdi-account"></span> {{transportDetails.drive_name}}</p>
+                                </div>
+                            </div>
+                            <div class="col s12" style="padding: 0;margin-top: 34px">
+                                <select id="car_position" name="car_position" style="width:100%" ng-model="positionCityId">
+                                    <option value=""></option>
+                                    <option ng-repeat="city in allCityList" ng-value="city.id">{{city.city_name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer valign-wrapper">
+                    <div class="col s12">
+                        <div class="col s2 offset-s3">
+                            <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                                取消
+                            </a>
+                        </div>
+                        <div class="col s2 offset-s2">
+                            <a ng-click="modifyCarPosition()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                                重置
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -120,7 +164,7 @@
                 <div class="col s12" style="margin-top: -5px">
                     <div class="card-panel white" style="padding: 0">
                         <div class="row cyan lighten-2 white-text setting_shipments_title vc-center"
-                             style="padding: 10px;height: 60px;margin-bottom: 6px">
+                             style="padding: 10px;height: 60px;margin-bottom: 0px">
                             <div class="col s1">
                                 <span style="font-size: 2.2rem" class="mdi mdi-truck"></span>
                             </div>
@@ -149,8 +193,8 @@
                                 <p style="font-size: 1.1rem;color: white;margin: 5px 0;line-height: 26px">{{dispatchInfo.drive_name}}</p>
                             </div>
                         </div>
-                        <div class="row fz15">
-                            <div class="col s5">
+                        <div class="row cyan lighten-2 white-text fz15">
+                            <div class="col s4">
                                 <p>所属公司：{{dispatchInfo.company_name}}</p>
                             </div>
                             <div class="col s2">
@@ -159,7 +203,7 @@
                             <div class="col s2">
                                 <p>马力：{{dispatchInfo.hp}}</p>
                             </div>
-                            <div class="col s3">
+                            <div class="col s4">
                                 <p>电话：{{dispatchInfo.tel}}</p>
                             </div>
                         </div>
@@ -167,224 +211,504 @@
                 </div>
 
                 <!--往期任务-->
-                <div class="col s12 black-text left-align fz18">
-                    <p style="margin: 10px 0">往期任务</p>
-                    <div class="divider black lighten-2"></div>
-                </div>
-                <div class="col s12 black-text fz14" ng-repeat="mission in pastMissionList">
-                    <div class="col s4 center-align">
-                        <p>{{mission.task_start_date | date:'yyyy-MM-dd'}}&nbsp;&nbsp;<span class="mdi mdi-arrow-right"></span>&nbsp;&nbsp;{{mission.date_id}}</p>
-                    </div>
-                    <div class="col s4 center-align">
-                        <p>{{mission.city_route_start}}&nbsp;&nbsp;<span class="mdi mdi-arrow-right"></span>&nbsp;&nbsp;{{mission.city_route_end}}&emsp;{{mission.distance}} 公里</p>
-                    </div>
-                    <div class="col s4 center-align">
-                        <p>派发商品车：{{mission.car_count}} 辆&emsp;已完成</p>
+                <div class="col s12">
+                    <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 25px;font-size: 1.1rem;color: darkgray">
+                        <div class="col s12" style="height: 55px;background-color: #dcdfe0;font-weight: bold">
+                            <div class="col s12 valign-wrapper">
+                                <div class="col s12 left-align" style="color: #26c6da;padding: 0;">
+                                    <p>往期任务</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 wash_fee_details less_mar">
+                            <div class="col s12" style="border-bottom: 1px solid darkgray;color: darkgray;font-weight: bold;font-size: 1.05rem" ng-repeat="mission in pastMissionList">
+                                <div class="col s4 center-align">
+                                    <p>{{mission.task_start_date | date:'yyyy-MM-dd'}}&nbsp;&nbsp;<span style="color: #26c6da" class="mdi mdi-arrow-right"></span>&nbsp;&nbsp;{{mission.date_id}}</p>
+                                </div>
+                                <div class="col s4 center-align">
+                                    <p>{{mission.city_route_start}}&nbsp;&nbsp;<span style="color: #26c6da" class="mdi mdi-arrow-right"></span>&nbsp;&nbsp;{{mission.city_route_end}}&emsp;{{mission.distance}} 公里</p>
+                                </div>
+                                <div class="col s4 center-align">
+                                    <p>派发商品车：{{mission.car_count}} 辆&emsp;已完成</p>
+                                </div>
+                            </div>
+                            <div class="col s12" style="border-bottom: 1px solid darkgray;color: darkgray;font-weight: bold;font-size: 1.05rem" ng-show="pastMissionList.length == 0">
+                                <div class="col s12 center-align">
+                                    <p style="letter-spacing: 2px">暂无往期任务</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!--当前任务-->
-                <div class="col s12" style="margin-top: 20px">
-                    <div class="col s8 black-text left-align fz18" style="padding: 0;">
-                        <p style="margin: 10px 0">当前任务</p>
-                    </div>
-                    <div class="col s4 right-align">
-                        <button ng-click="showCreateLine(dispatchInfo.current_city)" style="padding: 0 35px;height: 30px;line-height: 33px;margin-top: 10px" class="btn waves-light waves-effect cyan lighten-1 fz12" type="button">
-                            生成线路
-                        </button>
-                    </div>
-                    <div class="col s12 black-text left-align fz18" style="padding: 0;">
-                        <div class="divider black lighten-2"></div>
-                    </div>
-                </div>
-
-                <!--生成线路-->
-                <div class="col s12 black-text fz14 center-align" style="margin-top: 15px" ng-show="lineInfo">
-                    <div class="col s4 center-align">
-                        <div class="col s4 center-align" style="padding: 0">
-                            <p>{{startCityName}}&emsp;&emsp;<span class="mdi mdi-arrow-right"></span></p>
-                        </div>
-                        <div class="col s8">
-                            <!--<select id="city" name="city" watch material-select-->
-                                    <!--ng-options="city.city_name + ' ' + city.distance + ' km' for city in cityList"-->
-                                    <!--ng-model="lineEndCityInfo">-->
-                                <!--<option value="">选择城市</option>-->
-                            <!--</select>-->
-
-                            <select id="chooseEndCity" name="state" style="width:100%" ng-options="city.city_name + ' ' + city.distance + ' km' for city in cityList" ng-model="lineEndCityInfo">
-                                <option value=""></option>
-                                <!--<option ng-repeat="city in get_city" ng-value="city.id">{{city.city_name}}</option>-->
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col s5">
-                        <div class="col s5 right-align">
-                            <p>计划执行时间：</p>
-                        </div>
-                        <div class="col s7" style="padding: 0">
-                            <div class="col s7 input-field" style="margin: 0;padding: 0">
-                                <input id="verification_time2" type="text" class="datepicker" ng-model="lineStartDate" date>
-                                <i class="mdi dataIcon mdi-table-large"></i>
-                                <label for="verification_time2">指令时间</label>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col s3">
-                        <div class="col s6" style="padding: 10px 5px">
-                            <button style="padding:0;width:100%;height: 30px;line-height: 33px" class="btn waves-light waves-effect red lighten-1 fz12" ng-click="hideLineInfo()" type="button">
-                                取消
-                            </button>
-                        </div>
-                        <div class="col s6 right-align" style="padding: 10px 5px">
-                            <button ng-click="confirmChange()" style="padding:0;width:100%;height: 30px;line-height: 33px" class="btn waves-light waves-effect cyan lighten-1 fz12" type="button">
-                                确认
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col s12 black-text fz14 center-align" style="margin-top: 15px">
-                    <ul class="collapsible" data-collapsible="accordion" style="overflow: hidden">
-                        <li ng-repeat="currentLine in currentLineList">
-                            <!--线路列表-->
-                            <div class="collapsible-header col s12 valign-wrapper collapsible_height" ng-click="showMissionInfo(currentLine.id,currentLine.task_plan_date,currentLine.route_start_id)">
-                                <div class="col s9">
-                                    <div class="col s6 center-align">
-                                        <div class="col s4 center-align" style="padding: 0">
-                                            <p>{{currentLine.city_route_start}}&emsp;&emsp;<span class="mdi mdi-arrow-right"></span></p>
-                                        </div>
-                                        <div class="col s8 left-align">
-                                            <p>{{currentLine.city_route_end}}</p>
-                                        </div>
-                                    </div>
-                                    <div class="col s6">
-                                        <div class="col s6" style="padding: 0">
-                                            <p>计划执行时间：</p>
-                                        </div>
-                                        <div class="col s6 left-align" style="padding: 0">
-                                            <p>{{currentLine.task_plan_date | date:'yyyy-MM-dd'}}</p>
-                                        </div>
-                                    </div>
+                <div class="col s12">
+                    <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 25px;font-size: 1.1rem;color: darkgray">
+                        <div class="col s12" style="height: 55px;background-color: #dcdfe0;font-weight: bold">
+                            <div class="col s12 valign-wrapper">
+                                <div class="col s6 left-align" style="color: #26c6da;padding: 0;">
+                                    <p>当前任务</p>
                                 </div>
-
-                                <div class="col s3">
-                                    <div class="col s6 right" style="padding: 0 5px">
-                                        <button style="padding:0;width:100%;height: 30px;line-height: 33px" class="btn waves-light waves-effect red lighten-1 fz12" ng-click="deleteLine(currentLine.id,$event)" type="button">
-                                            删除线路
-                                        </button>
-                                    </div>
+                                <div class="col s6 right-align">
+                                    <button ng-click="showCreateLine(dispatchInfo.current_city)" style="padding: 0 35px;height: 30px;line-height: 33px" class="btn waves-light waves-effect cyan lighten-1 fz12" type="button">
+                                        生成路线
+                                    </button>
                                 </div>
                             </div>
-
-                            <!--拉开的任务列表栏,显示任务-->
-                            <div class="collapsible-body" style="padding: 0">
-                                <!--增加任务-->
-                                <div class="row col s12" ng-show="addMissionBtn">
-                                    <div class="col s3 right-align right" style="padding:15px 0">
-                                        <button ng-click="addMission()" style="width:100%;height: 30px;line-height: 33px"
-                                                class="btn waves-light waves-effect cyan lighten-1 fz12" type="button">
-                                            增加任务
-                                        </button>
+                        </div>
+                        <div class="col s12 wash_fee_details less_mar" style="padding: 0;">
+                            <!--生成路线-->
+                            <div class="col s12 black-text fz14 center-align" style="padding: 0;" ng-show="lineInfo">
+                                <div class="col s4 center-align">
+                                    <div class="col s4 center-align" style="padding: 0">
+                                        <p>{{startCityName}}&emsp;&emsp;<span class="mdi mdi-arrow-right"></span></p>
+                                    </div>
+                                    <div class="col s8">
+                                        <select id="chooseEndCity" name="state" style="width:100%" ng-options="city.city_name + ' ' + city.distance + ' km' for city in cityList" ng-model="lineEndCityInfo">
+                                            <option value=""></option>
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="col s12 black-text fz14 center-align" style="margin-top: 15px;height: 205px" ng-show="missionInfo">
-                                    <div class="col s4 valign-wrapper">
-                                        <div class="col s5">
-                                            <select id="chooseLocate" name="chooseLocate" ng-model="$parent.locateId" watch material-select>
-                                                <option value="" selected>装车地点</option>
-                                                <option ng-repeat="locateCity in locateList" ng-value="locateCity.id">{{locateCity.addr_name}}</option>
-                                            </select>
-                                        </div>
-                                        <div class="col s2">
-                                            <span class="mdi mdi-arrow-right"></span>
-                                        </div>
-                                        <div class="col s5">
-                                            <select class="js-example-basic-single" name="state" style="width:100%" ng-change="getReceiveDistributor(currentLine.id)" ng-model="$parent.sendCityId">
-                                                <option value=""></option>
-                                                <option ng-repeat="sendCity in sendCityList" ng-value="sendCity.id">{{sendCity.city_name}}</option>
-                                            </select>
-                                        </div>
+                                <div class="col s6">
+                                    <div class="col s5 right-align">
+                                        <p>计划执行时间：</p>
                                     </div>
-                                    <div class="col s4 valign-wrapper">
-                                        <div class="col s12">
-                                            <select id="chooseDistributor" name="chooseDistributor" ng-options="addr.date_id + ' ' + addr.short_name + '&emsp;' + addr.plan_count + '/' + addr.pre_count for addr in addrList" ng-model="$parent.receiveInfo" watch material-select>
-                                                <option value="">送达经销商</option>
-                                                <!--<option ng-repeat="addr in addrList" ng-value="addr.id">{{addr.short_name}}</option>-->
-                                            </select>
+                                    <div class="col s7" style="padding: 0">
+                                        <div class="col s7 input-field" style="margin: 0;padding: 0">
+                                            <input id="verification_time2" type="text" class="datepicker" ng-model="lineStartDate" date>
+                                            <i class="mdi dataIcon mdi-table-large"></i>
+                                            <label for="verification_time2">指令时间</label>
                                         </div>
-                                    </div>
-
-                                    <div class="col s1 right-align">
-                                        <p>数量：</p>
-                                    </div>
-                                    <div class="col s1">
-                                        <input type="number" ng-model="$parent.distributeNum">
-                                    </div>
-                                    <div class="col s2">
-                                        <div class="col s6 right-align">
-                                            <a class="modal-action modal-close waves-light waves-effect red lighten-1 btn btn-floating" ng-click="closeMissionInfo()">
-                                                <i class="mdi mdi-close"></i>
-                                            </a>
-                                        </div>
-                                        <div class="col s6 left-align">
-                                            <a class="modal-action modal-close waves-light waves-effect cyan lighten-1 btn btn-floating" ng-click="submitMissionInfo(currentLine.id)">
-                                                <i class="mdi mdi-check"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col s12">
-                                        <div class="col s3 right-align">
-                                            <p>计划执行时间：</p>
-                                        </div>
-                                        <!--<div class="col s7" style="padding: 0">-->
-                                            <div class="col s3 input-field" style="margin: 0">
-                                                <input placeholder="" id="verification_time4" type="text" class="datepicker"
-                                                       ng-model="$parent.lineDate" date>
-                                                <i class="mdi dataIcon mdi-table-large"></i>
-                                                <label for="verification_time4" class="active">指令时间</label>
-                                            </div>
-                                            <div class="col s1"></div>
-                                            <div class="col s3 input-field" style="margin: 0">
-                                                <input id="verification_time3" type="text" class="timepicker" ng-model="$parent.lineStartTime" time>
-                                                <i class="mdi dataIcon mdi-clock"></i>
-                                                <label for="verification_time3">时/分</label>
-                                            </div>
-                                        <!--</div>-->
                                     </div>
                                 </div>
-                                <!--任务列表-->
-                                <div class="col s12 valign-wrapper" ng-repeat="nowMission in missionList" style="border-top: 1px solid #ccc">
-                                    <div class="col s3" style="padding: 0">
-                                        <div class="col s6 right-align" style="padding: 0">
-                                            <p>{{nowMission.addr_name}}&emsp;<span class="mdi mdi-arrow-right"></span></p>
-                                        </div>
-                                        <div class="col s6 left-align">
-                                            <p>{{nowMission.city_name}}&emsp;{{ "(" + nowMission.short_name + ")"}}</p>
-                                        </div>
+                                <div class="col s2" style="padding-right: 27px">
+                                    <div class="col s6 right-align" style="padding: 10px 5px">
+                                        <a ng-click="hideLineInfo()" style="width: 38px;height: 38px"
+                                           class="waves-light waves-effect red lighten-1 btn btn-floating">
+                                            <i style="line-height: 39px" class="mdi mdi-close"></i>
+                                        </a>
                                     </div>
-                                    <!--<div class="col s4">-->
-                                        <!--<p>{{"(" + nowMission.short_name + ")"}}</p>-->
-                                    <!--</div>-->
-                                    <div class="col s3">
-                                        <p>{{nowMission.plan_date | date:'yyyy-MM-dd - HH:mm'}}</p>
-                                    </div>
-                                    <div class="col s3">
-                                        <p>数量：{{nowMission.plan_count}}</p>
-                                    </div>
-                                    <div class="col s2">
-                                        <a ng-click="deleteMission(nowMission.id,currentLine.id)" style="width: 30px;height: 30px" class="modal-action modal-close waves-light waves-effect red lighten-1 btn btn-floating">
-                                            <i style="line-height: 30px" class="mdi mdi-close"></i>
+                                    <div class="col s6 center-align" style="padding: 10px 5px">
+                                        <a ng-click="confirmChange()" style="width: 38px;height: 38px"
+                                           class="waves-light waves-effect cyan lighten-1 btn btn-floating">
+                                            <i style="line-height: 39px" class="mdi mdi-check"></i>
                                         </a>
                                     </div>
                                 </div>
                             </div>
-                        </li>
-                    </ul>
+
+                            <div class="col s12 center-align" style="padding: 0;font-size: 1rem;color: darkgray;font-weight: bold">
+                                <ul class="collapsible" data-collapsible="accordion" style="overflow: hidden;margin: 0;box-shadow: none">
+                                    <li ng-repeat="currentLine in currentLineList">
+                                        <!--线路列表头-->
+                                        <div style="height: 60px;" class="collapsible-header col s12 valign-wrapper collapsible_height" ng-click="showMissionInfo(currentLine.id,currentLine.task_plan_date,currentLine.route_start_id,$index)">
+                                            <div class="col s8" style="margin-top: 7px">
+                                                <div class="col s6 center-align" style="padding-right: 0">
+                                                    <div class="col s5 center-align" style="padding: 0">
+                                                        <p style="margin: 0">编号：{{currentLine.id}}</p>
+                                                    </div>
+                                                    <div class="col s7 center-align" style="padding: 0">
+                                                        <p style="margin: 0">{{currentLine.city_route_start}}&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;{{currentLine.city_route_end}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col s6">
+                                                    <div class="col s6 right-align" style="padding: 0">
+                                                        <p style="margin: 0">计划执行时间：</p>
+                                                    </div>
+                                                    <div class="col s6 left-align" style="padding: 0">
+                                                        <p style="margin: 0">{{currentLine.task_plan_date | date:'yyyy-MM-dd'}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col s2" style="margin-top: 7px">
+                                                <div class="col s12 center-align">
+                                                    <p style="margin: 0;">{{currentLine.task_status | instructionsStatus}}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col s2" style="margin-top: 5px">
+                                                <div class="col s6 right" style="padding: 0 5px">
+                                                    <a ng-click="deleteLine(currentLine.id,$event)" style="width: 38px;height: 38px"
+                                                       class="waves-light waves-effect materialize-red lighten-2 btn btn-floating">
+                                                        <i style="line-height: 39px;margin-left: 4px" class="mdi mdi-delete-forever"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--拉开的当前任务列表栏,显示任务内容-->
+                                        <div class="collapsible-body" style="padding: 0">
+                                            <!--tab栏-->
+                                            <div class="col s12" ul-tabs style="padding: 0;">
+                                                <ul class="tabs tabs-fixed-width tab-demo z-depth-1" style="font-size: 25px;font-weight: bold;overflow-x: hidden">
+                                                    <li style="cursor: pointer" class="tab"><a ng-click="showLoadMissionInfo($index)" style="color: #26c6da">装车任务</a></li>
+                                                    <li style="cursor: pointer" class="tab"><a ng-click="showRouteFeeInfo($index)" style="color: #26c6da">出车款</a></li>
+                                                </ul>
+                                            </div>
+
+                                            <!--装车任务-->
+                                            <div class="load_mission load_mission{{$index}}" style="font-weight: normal">
+                                                <!--增加装车任务-->
+                                                <div class="row col s12" ng-show="addMissionBtn">
+                                                    <div class="col s3 right-align right" style="padding:15px 0">
+                                                        <button ng-click="addMission()" style="width:100%;height: 30px;line-height: 33px"
+                                                                class="btn waves-light waves-effect cyan lighten-1 fz12" type="button">
+                                                            增加装车任务
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                <!--装车填写信息-->
+                                                <div class="col s12 black-text fz14" style="height: 205px;background-color: #e0e0e0;border: 1px solid darkgray;width: 95%;margin: 20px 2.5%" ng-show="missionInfo">
+                                                    <div class="col s4 input-field">
+                                                        <select id="chooseLocate" name="chooseLocate" ng-change="cancelDestinationCity()" ng-model="$parent.locateId" watch material-select>
+                                                            <option value="" selected>装车地点</option>
+                                                            <option ng-repeat="locateCity in locateList" ng-value="locateCity.id">{{locateCity.addr_name}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col s4 input-field">
+                                                        <select class="destination_city" name="state" style="width:100%" ng-change="getReceiveDistributor(currentLine.id)" ng-model="$parent.sendCityId">
+                                                            <option value=""></option>
+                                                            <option ng-repeat="sendCity in sendCityList" ng-value="sendCity.id">{{sendCity.city_name}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col s4 input-field">
+                                                        <select id="chooseDistributor" name="chooseDistributor" ng-options="addr.date_id + ' ' + addr.short_name + '&emsp;' + addr.plan_count + '/' + addr.pre_count for addr in addrList" ng-model="$parent.receiveInfo" watch material-select>
+                                                            <option value="">送达经销商</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col s4 input-field">
+                                                        <input id="load_num" type="number" ng-model="$parent.distributeNum">
+                                                        <label for="load_num">装车数量</label>
+                                                    </div>
+                                                    <div class="col s4 input-field">
+                                                        <input placeholder="" id="verification_time4" type="text" class="datepicker"
+                                                               ng-model="$parent.lineDate" date>
+                                                        <i class="mdi dataIcon mdi-table-large"></i>
+                                                        <label for="verification_time4" class="active">计划执行日期</label>
+                                                    </div>
+                                                    <div class="col s4 input-field">
+                                                        <input id="verification_time3" type="text" class="timepicker" ng-model="$parent.lineStartTime" time>
+                                                        <i class="mdi dataIcon mdi-clock"></i>
+                                                        <label for="verification_time3">计划执行时间</label>
+                                                    </div>
+                                                    <div class="col s12">
+                                                        <div class="col s6 offset-s3" style="padding: 0;">
+                                                            <div class="col s5">
+                                                                <a ng-click="closeMissionInfo()" style="width: 100%;background-color: #a0a8b1;" class="waves-light waves-effect lighten-1 btn">
+                                                                    取消
+                                                                </a>
+                                                            </div>
+                                                            <div class="col s5 offset-s2">
+                                                                <a ng-click="submitMissionInfo(currentLine.id,$index)" style="width: 100%;background-color: #26c6da;" class="waves-light waves-effect lighten-1 btn">
+                                                                    确认
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--装车任务列表-->
+                                                <div class="col s12" style="width: 95%;margin: 20px 2.5%;padding: 0;">
+                                                    <div class="col s12" style="padding: 0;margin-bottom: 25px;font-size: 1.1rem;color: darkgray">
+                                                        <div class="col s12 valign-wrapper" style="height: 42px;background-color: #dcdfe0;font-weight: bold">
+                                                            <div class="col s12 valign-wrapper">
+                                                                <div class="col s6 left-align" style="color: darkgray;padding: 0;">
+                                                                    <p>调度编号：{{taskId}}</p>
+                                                                </div>
+                                                                <div class="col s6 right-align">
+                                                                    <p>指令调度：{{opName}}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col s12 wash_fee_details less_mar" style="padding: 0;">
+                                                            <div class="col s12 valign-wrapper" style="border-bottom: 1px solid darkgray;color: darkgray;font-weight: bold;font-size: 1rem;padding: 0;" ng-repeat="nowMission in missionList">
+                                                                <div class="col s5 left-align">
+                                                                    <p>{{nowMission.addr_name}}&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;{{nowMission.city_name}}&emsp;{{ "(" + nowMission.short_name + ")"}}</p>
+                                                                </div>
+                                                                <div class="col s3 left-align">
+                                                                    <p>{{nowMission.plan_date | date:'yyyy-MM-dd - HH:mm'}}</p>
+                                                                </div>
+                                                                <div class="col s2 left-align">
+                                                                    <p>装车数：{{nowMission.real_count}} / {{nowMission.plan_count}}</p>
+                                                                </div>
+                                                                <div class="col s2 center-align">
+                                                                    <p>{{nowMission.load_task_status | instructionsStatus}}</p>
+                                                                </div>
+                                                                <div class="col s1">
+                                                                    <span ng-click="deleteMission(nowMission.id,currentLine.id)" class="red-text mdi mdi-close" style="cursor: pointer;font-size: 1.25rem"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col s12" style="border-bottom: 1px solid darkgray;color: darkgray;font-weight: bold;font-size: 1.1rem;padding: 0;" ng-show="missionList.length == 0">
+                                                                <p style="letter-spacing: 1px">暂无任务信息</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!--出车款-->
+                                            <div class="route_fee_info route_fee_info{{$index}}">
+                                                <!--申请出车款按钮-->
+                                                <div class="row col s12" ng-show="applyRouteFeeBtn">
+                                                    <div class="col s3 right-align right" style="padding:15px 0">
+                                                        <button ng-click="applyRouteFee()" style="width:100%;height: 30px;line-height: 33px"
+                                                                class="btn waves-light waves-effect cyan lighten-1 fz12" type="button">
+                                                            申请出车款
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                <!--出车款信息-->
+                                                <div style="width: 90%;margin: 0 auto" ng-show="allRouteFeeInfo">
+                                                    <div class="col s6 left-align" style="color: #26c6da;font-size: 1.2rem;font-weight: bold" ng-show="hasRouteFeeInfoId">
+                                                        <p>{{"申请编号：" + routeFeeInfo.id}}</p>
+                                                    </div>
+                                                    <div class="col s6 right-align" style="font-size: 1.2rem;font-weight: bold" ng-show="hasRouteFeeInfoId">
+                                                        <p ng-show="routeFeeInfo.task_loan_status == 1" style="color: #e57373;">未发放</p>
+                                                        <p ng-show="routeFeeInfo.task_loan_status == 2" style="color: #26c6da">已发放</p>
+                                                        <p ng-show="routeFeeInfo.task_loan_status == 3" style="color: darkgray">已报销</p>
+                                                    </div>
+                                                    <div class="col s12 valign-wrapper" style="height: 60px;background-color: #26c6da;margin-top: 10px">
+                                                        <div class="col {{routeFeeInfo.task_loan_status == 3 ? 's12' : 's4'}} left-align" style="color: white;font-size: 1.2rem">
+                                                            <p>关联调度任务</p>
+                                                        </div>
+                                                        <div class="col s8 valign-wrapper" style="background-color: white;" ng-hide="routeFeeInfo.task_loan_status == 3">
+                                                            <div class="col s10" style="padding: 0">
+                                                                <select id="dispatch_mission_num" ng-model="$parent.dispatchMissionNum" material-select watch>
+                                                                    <option value="" selected>请选择</option>
+                                                                    <option ng-repeat="dispatch in dispatchMissionList" ng-value="dispatch.id">{{"调度编号：" + dispatch.id + "&emsp;" + dispatch.city_route_start + " - " + dispatch.city_route_end + "&emsp;" + dispatch.distance + "公里" + "&emsp;" + (dispatch.task_plan_date | date:'yyyy-MM-dd')}}</option>
+                                                                </select>
+                                                                <label for="dispatch_mission_num">关联调度编号</label>
+                                                            </div>
+                                                            <div class="col s2 right-align">
+                                                                <a ng-click="addMatchMission()" style="width: 34px;height: 34px"
+                                                                   class="waves-light waves-effect cyan lighten-1 btn btn-floating">
+                                                                    <i style="line-height: 35px" class="mdi mdi-plus"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!--有出车款信息下已关联调度任务信息-->
+                                                    <div class="col s12 valign-wrapper" ng-repeat="matchMission in matchDispatchMissionList" ng-show="hasRouteFeeInfoId" style="height: 60px;background-color: #e0e0e0;font-size: 1.1rem">
+                                                        <div class="col s3">
+                                                            <p>调度编号：{{matchMission.dp_route_task_id}}</p>
+                                                        </div>
+                                                        <div class="col s3">
+                                                            <p>{{matchMission.city_route_start + "-" + matchMission.city_route_end + "&emsp;" + matchMission.distance + "公里"}}</p>
+                                                        </div>
+                                                        <div class="col s3">
+                                                            <p>{{matchMission.task_plan_date | date:'yyyy-MM-dd'}}</p>
+                                                        </div>
+                                                        <div class="col s2">
+                                                            <p>{{matchMission.task_status | instructionsStatus}}</p>
+                                                        </div>
+                                                        <div class="col s1">
+                                                            <a ng-hide="routeFeeInfo.task_loan_status == 3" ng-click="deleteBackEndDispatchMission(matchMission.dp_route_task_loan_id,matchMission.dp_route_task_id)" style="cursor: pointer;text-align: center;color: #e57373;font-size: 1.6rem">
+                                                                <i class="mdi mdi-delete-forever"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+
+                                                    <!--无出车款信息下已关联调度任务信息-->
+                                                    <div class="col s12 valign-wrapper" ng-repeat="matchMission in addDispatchMissionList" ng-show="!hasRouteFeeInfoId" style="height: 60px;background-color: #e0e0e0;font-size: 1.1rem">
+                                                        <div class="col s3">
+                                                            <p>调度编号：{{matchMission.dp_route_task_id}}</p>
+                                                        </div>
+                                                        <div class="col s3">
+                                                            <p>{{matchMission.city_route_start + "-" + matchMission.city_route_end + "&emsp;" + matchMission.distance + "公里"}}</p>
+                                                        </div>
+                                                        <div class="col s3">
+                                                            <p>{{matchMission.task_plan_date | date:'yyyy-MM-dd'}}</p>
+                                                        </div>
+                                                        <div class="col s2">
+                                                            <p>{{matchMission.task_status | instructionsStatus}}</p>
+                                                        </div>
+                                                        <div class="col s1">
+                                                            <a ng-click="deleteFrontEndDispatchMission($index)" style="cursor: pointer;text-align: center;color: #e57373;font-size: 1.6rem">
+                                                                <i class="mdi mdi-delete-forever"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+
+                                                    <!--出车款信息-未发放-->
+                                                    <div class="col s12" style="margin-top: 20px" ng-show="routeFeeInfo.task_loan_status != 2 && routeFeeInfo.task_loan_status != 3">
+                                                        <div class="col s4 input-field">
+                                                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="road_toll_cost" name="road_toll_cost" ng-model="$parent.routeFeeInfo.apply_passing_cost">
+                                                            <label for="road_toll_cost">过路费（元）</label>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="fuel_cost" name="fuel_cost" ng-model="$parent.routeFeeInfo.apply_fuel_cost">
+                                                            <label for="fuel_cost">燃料费（元）</label>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="road_cost" name="road_cost" ng-model="$parent.routeFeeInfo.apply_protect_cost">
+                                                            <label for="road_cost">保道费（元）</label>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="fine_cost" name="fine_cost" ng-model="$parent.routeFeeInfo.apply_penalty_cost">
+                                                            <label for="fine_cost">罚款费（元）</label>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="parking_cost" name="parking_cost" ng-model="$parent.routeFeeInfo.apply_parking_cost">
+                                                            <label for="parking_cost">停车费（元）</label>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="taxi_cost" name="taxi_cost" ng-model="$parent.routeFeeInfo.apply_taxi_cost">
+                                                            <label for="taxi_cost">打车费（元）</label>
+                                                        </div>
+                                                        <div class="col s12 input-field">
+                                                            <input type="text" id="remark" name="remark" ng-model="$parent.routeFeeInfo.apply_explain">
+                                                            <label for="remark">备注：</label>
+                                                        </div>
+                                                        <div class="col s12 left-align" style="padding: 0;color: darkgray;font-size: 1.2rem;font-weight: bold">
+                                                            <div class="col s4">
+                                                                <p>出车款总额：<span id="totalCost" style="color: #e57373">{{routeFeeInfo.apply_passing_cost + routeFeeInfo.apply_fuel_cost + routeFeeInfo.apply_protect_cost + routeFeeInfo.apply_penalty_cost + routeFeeInfo.apply_parking_cost + routeFeeInfo.apply_taxi_cost}}</span> 元</p>
+                                                            </div>
+                                                            <div class="col s4">
+                                                                <p>申请时间：{{routeFeeInfo.apply_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                                                            </div>
+                                                            <div class="col s4">
+                                                                <p>申请人：{{routeFeeInfo.appl_user_name}}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!--出车款信息-已发放-->
+                                                    <div class="col s12 left-align" style="margin-top: 20px;font-size: 1.2rem;font-weight: bold;border-bottom: 1px solid darkgray" ng-show="routeFeeInfo.task_loan_status == 2 || routeFeeInfo.task_loan_status == 3">
+                                                        <div class="col s4">
+                                                            <p>过路费：<span style="color: #e57373">{{routeFeeInfo.apply_passing_cost}}</span> 元</p>
+                                                        </div>
+                                                        <div class="col s4">
+                                                            <p>燃料费：<span style="color: #e57373">{{routeFeeInfo.apply_fuel_cost}}</span> 元</p>
+                                                        </div>
+                                                        <div class="col s4">
+                                                            <p>保道费：<span style="color: #e57373">{{routeFeeInfo.apply_protect_cost}}</span> 元</p>
+                                                        </div>
+                                                        <div class="col s4">
+                                                            <p>罚款费：<span style="color: #e57373">{{routeFeeInfo.apply_penalty_cost}}</span> 元</p>
+                                                        </div>
+                                                        <div class="col s4">
+                                                            <p>停车费：<span style="color: #e57373">{{routeFeeInfo.apply_parking_cost}}</span> 元</p>
+                                                        </div>
+                                                        <div class="col s4">
+                                                            <p>打车费：<span style="color: #e57373">{{routeFeeInfo.apply_taxi_cost}}</span> 元</p>
+                                                        </div>
+                                                        <div class="col s12" style="color: darkgray">
+                                                            <p>申请备注：{{routeFeeInfo.apply_explain}}</p>
+                                                        </div>
+                                                        <div class="col s4">
+                                                            <p>出车款总额：<span style="color: #e57373">{{routeFeeInfo.apply_plan_money}}</span> 元</p>
+                                                        </div>
+                                                        <div class="col s4">
+                                                            <p>申请时间：{{routeFeeInfo.apply_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                                                        </div>
+                                                        <div class="col s4 right-align">
+                                                            <p>申请人：{{routeFeeInfo.appl_user_name}}</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <!--财务发放详情-->
+                                                    <div class="col s12 left-align" style="margin-top: 20px;font-size: 1.2rem;font-weight: bold;border-bottom: 1px solid darkgray" ng-show="routeFeeInfo.task_loan_status == 2 || routeFeeInfo.task_loan_status == 3">
+                                                        <div class="col s12">
+                                                            <p style="color: #26c6da;font-size: 1.3rem">财务发放详情</p>
+                                                        </div>
+                                                        <div class="col s4">
+                                                            <p>过路费：<span style="color: #e57373">{{routeFeeInfo.grant_passing_cost}}</span> 元</p>
+                                                        </div>
+                                                        <div class="col s4">
+                                                            <p>燃料费：<span style="color: #e57373">{{routeFeeInfo.grant_fuel_cost}}</span> 元</p>
+                                                        </div>
+                                                        <div class="col s4">
+                                                            <p>保道费：<span style="color: #e57373">{{routeFeeInfo.grant_protect_cost}}</span> 元</p>
+                                                        </div>
+                                                        <div class="col s4">
+                                                            <p>罚款费：<span style="color: #e57373">{{routeFeeInfo.grant_penalty_cost}}</span> 元</p>
+                                                        </div>
+                                                        <div class="col s4">
+                                                            <p>停车费：<span style="color: #e57373">{{routeFeeInfo.grant_parking_cost}}</span> 元</p>
+                                                        </div>
+                                                        <div class="col s4">
+                                                            <p>打车费：<span style="color: #e57373">{{routeFeeInfo.grant_taxi_cost}}</span> 元</p>
+                                                        </div>
+                                                        <div class="col s12" style="color: darkgray">
+                                                            <p>发放备注：{{routeFeeInfo.grant_explain}}</p>
+                                                        </div>
+                                                        <div class="col s4">
+                                                            <p>实际发放总额：<span style="color: #e57373">{{routeFeeInfo.grant_actual_money}}</span> 元</p>
+                                                        </div>
+                                                        <div class="col s4">
+                                                            <p>发放时间：{{routeFeeInfo.grant_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                                                        </div>
+                                                        <div class="col s4 right-align">
+                                                            <p>财务人员：{{routeFeeInfo.grant_user_name}}</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <!--财务报销详情-->
+                                                    <div class="col s12 left-align" style="margin-top: 20px;font-size: 1.2rem;font-weight: bold;border-bottom: 1px solid darkgray" ng-show="routeFeeInfo.task_loan_status == 3">
+                                                        <div class="col s12">
+                                                            <p style="color: #26c6da;font-size: 1.3rem">财务报销详情</p>
+                                                        </div>
+                                                        <div class="col s4">
+                                                            <p>过路费：<span style="color: #e57373">{{routeFeeInfo.refund_passing_cost}}</span> 元</p>
+                                                        </div>
+                                                        <div class="col s4">
+                                                            <p>燃料费：<span style="color: #e57373">{{routeFeeInfo.refund_fuel_cost}}</span> 元</p>
+                                                        </div>
+                                                        <div class="col s4">
+                                                            <p>保道费：<span style="color: #e57373">{{routeFeeInfo.refund_protect_cost}}</span> 元</p>
+                                                        </div>
+                                                        <div class="col s4">
+                                                            <p>罚款费：<span style="color: #e57373">{{routeFeeInfo.refund_penalty_cost}}</span> 元</p>
+                                                        </div>
+                                                        <div class="col s4">
+                                                            <p>停车费：<span style="color: #e57373">{{routeFeeInfo.refund_parking_cost}}</span> 元</p>
+                                                        </div>
+                                                        <div class="col s4">
+                                                            <p>打车费：<span style="color: #e57373">{{routeFeeInfo.refund_taxi_cost}}</span> 元</p>
+                                                        </div>
+                                                        <div class="col s12" style="color: darkgray">
+                                                            <p>报销备注：{{routeFeeInfo.refund_explain}}</p>
+                                                        </div>
+                                                        <div class="col s4">
+                                                            <p>实际报销：<span style="color: #e57373">{{routeFeeInfo.refund_actual_money}}</span> 元</p>
+                                                        </div>
+                                                        <div class="col s4">
+                                                            <p>还款金额：<span style="color: #e57373">{{routeFeeInfo.repayment_money}}</span> 元</p>
+                                                        </div>
+                                                        <div class="col s4">
+                                                            <p>盈亏：<span style="color: #e57373">{{routeFeeInfo.profit}}</span> 元</p>
+                                                        </div>
+                                                        <div class="col s6">
+                                                            <p>发放时间：{{routeFeeInfo.refund_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                                                        </div>
+                                                        <div class="col s6 right-align">
+                                                            <p>财务人员：{{routeFeeInfo.refund_user_name}}</p>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <!--保存按钮-->
+                                                    <div class="col s12" style="margin: 20px 0" ng-show="routeFeeInfo.task_loan_status != 2 && routeFeeInfo.task_loan_status != 3">
+                                                        <div class="col s4 offset-s4">
+                                                            <a ng-click="saveRouteFeeInfo($index)" style="width: 100%;background-color: #26c6da;" class="waves-light waves-effect lighten-1 btn">
+                                                                保存
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
             </div>
-
         </div>
 
         <!--右边任务指令信息卡片-->
@@ -401,12 +725,9 @@
                 <i class="mdi mdi-refresh" ng-click="getCarDetails()" style="margin:20px 0 0 10px;font-size: 30px;cursor: pointer"></i>
             </div>
             <div class="col s12" ng-repeat="details in newCarDetailsList">
-                <div class="card-panel white " style="padding: 0;cursor: pointer" ng-click="showDispatchInfo(details)">
-                    <div class="row cyan lighten-2 white-text setting_shipments_title vc-center"
+                <div class="card-panel white " style="padding: 0;cursor: pointer">
+                    <div ng-click="showDispatchInfo(details)" class="row cyan lighten-2 white-text setting_shipments_title vc-center"
                          style="padding: 8px 5px;height: 43px;margin-bottom: 0">
-                        <!--<div class="col s2 center">-->
-                            <!--<span style="font-size: 1.6rem" class="mdi mdi-truck"></span>-->
-                        <!--</div>-->
                         <div class="col s7">
                             <p style="font-size: 1rem;font-weight: bold;margin: 10px 0">{{details.truck_num}}</p>
                         </div>
@@ -418,7 +739,7 @@
                         <div class="col s9" style="padding: 0">
                             <div class="col s12 valign-wrapper" style="padding: 0">
                                 <div class="col s3 vc-center">
-                                    <span style="font-size: 1.3rem;color: darkgray" class="mdi mdi-map-marker"></span>
+                                    <span ng-click="showModifyCarPositionMod(details)" style="font-size: 1.3rem;color: darkgray" class="mdi mdi-map-marker"></span>
                                 </div>
                                 <div ng-if="!details.current_city == 0" class="col s9 left" style="padding: 0;">
                                     <p style="font-size: 1.0rem;color: black;margin: 5px 0;line-height: 26px">{{details.city_name}}</p>
@@ -445,7 +766,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

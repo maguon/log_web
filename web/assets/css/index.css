@@ -1213,3 +1213,8 @@ button[type="submit"] {
 .modal_accident p{
     margin: 12px 0 !important;
 }
+
+/*高德地图去水印*/
+.amap-logo,.amap-copyright {
+    display: none !important;
+}

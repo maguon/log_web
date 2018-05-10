@@ -80,11 +80,12 @@ app.controller("setting_dealer_details_controller", ["$scope", "_basic", "_confi
     // 修改经销商
     $scope.change_setting_dealer = function (isValid) {
         $scope.submitted = true;
+        var cleanFeeCount = $scope.dealer_details.clean_fee == null ? 0 : $scope.dealer_details.clean_fee.toFixed(2);
         if (isValid) {
             var obj = {
                 shortName: $scope.dealer_details.short_name,
                 receiveName: $scope.dealer_details.receive_name,
-                cleanFee: $scope.dealer_details.clean_fee.toFixed(2),
+                cleanFee: parseFloat(cleanFeeCount),
                 address: $("#amapAddress").val(),
                 lng: $scope.lng,
                 lat: $scope.lat,

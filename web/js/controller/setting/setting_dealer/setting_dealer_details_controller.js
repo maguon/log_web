@@ -85,7 +85,7 @@ app.controller("setting_dealer_details_controller", ["$scope", "_basic", "_confi
                 shortName: $scope.dealer_details.short_name,
                 receiveName: $scope.dealer_details.receive_name,
                 cleanFee: $scope.dealer_details.clean_fee.toFixed(2),
-                address: $scope.dealer_details.address,
+                address: $("#amapAddress").val(),
                 lng: $scope.lng,
                 lat: $scope.lat,
                 cityId: $scope.dealer_details.city_id,

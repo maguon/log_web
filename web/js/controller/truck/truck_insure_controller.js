@@ -16,6 +16,7 @@ app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "
     // 数据导出
     $scope.export = function () {
         var obj = {
+            active:1,
             relId:$scope.InsureNum,
             insureId:$scope.truckInsureName,
             insureType:$scope.truckInsureType,

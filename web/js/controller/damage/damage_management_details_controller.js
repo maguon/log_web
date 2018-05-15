@@ -354,12 +354,12 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
 
     // 保存基本信息
     $scope.saveHandleInfoModify = function (finishFlag) {
+        var repairId = $scope.damageInfoBefore.repair_id == "" ? 0 : $scope.damageInfoBefore.repair_id;
         if(
             $scope.damageInfoBefore.damage_type != ""
             && $scope.damageInfoBefore.damage_link_type != ""
             && $('#liable_person').val() != 0
             && $('#reimbursement_person').val() != 0
-            && $scope.damageInfoBefore.repair_id != ""
         ){
             _basic.put($host.api_url + "/user/" + userId + "/damageCheck/" + damageCheckId + "?damageId=" + damageId, {
                 underUserId: $('#liable_person').val(),
@@ -371,7 +371,7 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
                 reductionCost: $scope.damageInfoBefore.reduction_cost,
                 penaltyCost: $scope.damageInfoBefore.penalty_cost,
                 profit: $scope.damageInfoBefore.profit,
-                repairId: $scope.damageInfoBefore.repair_id,
+                repairId: repairId,
                 repairCost: $scope.damageInfoBefore.repair_cost,
                 transportCost: $scope.damageInfoBefore.transport_cost,
                 underCost: $scope.damageInfoBefore.under_cost,
@@ -485,7 +485,12 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
             }
         }
         else{
-            $scope.updateDamageStatus();
+            if(finishFlag){
+                $scope.updateDamageStatus();
+            }
+            else{
+                swal("保存成功", "", "success");
+            }
         }
     };
     

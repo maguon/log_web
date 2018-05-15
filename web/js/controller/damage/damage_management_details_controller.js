@@ -8,6 +8,8 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
     $scope.userName = _basic.getSession(_basic.USER_NAME);
     $scope.userDepartment = parseInt(_basic.getSession(_basic.USER_TYPE));
     $scope.userList = _config.userTypes;
+    $scope.damageTypeList = _config.damageType;
+    $scope.damageLinkTypeList = _config.damageLinkType;
     $scope.damageImageList = [];
     $scope.showRadioButton = true;
     $scope.paymentFlag = "1";
@@ -204,16 +206,9 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
                     if(data.result[0].damage_type === 0 || data.result[0].damage_type == null){
                         data.result[0].damage_type = ""
                     }
-                    else{
-                        data.result[0].damage_type = data.result[0].damage_type.toString();
-                    }
                     if(data.result[0].damage_link_type === 0 || data.result[0].damage_link_type == null){
                         data.result[0].damage_link_type = ""
                     }
-                    else{
-                        data.result[0].damage_link_type = data.result[0].damage_link_type.toString();
-                    }
-
                     if(data.result[0].repair_id === 0 || data.result[0].repair_id == null){
                         data.result[0].repair_id = ""
                     }

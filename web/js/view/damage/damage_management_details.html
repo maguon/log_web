@@ -160,22 +160,14 @@
                         <div class="col s6 input-field">
                             <select id="damageInsureType" material-select watch ng-model="damageInfoBefore.damage_type">
                                 <option value="" selected>请选择</option>
-                                <option value="1">A级</option>
-                                <option value="2">B级</option>
-                                <option value="3">C级</option>
-                                <option value="4">D级</option>
-                                <option value="6">F级</option>
+                                <option ng-repeat="damageTypeLevel in damageTypeList" ng-value="damageTypeLevel.id">{{damageTypeLevel.typeLevel}}</option>
                             </select>
                             <label style="font-weight: bold" for="damageInsureType"><span style="color: red">* </span>质损类型</label>
                         </div>
                         <div class="col s6 input-field">
                             <select id="damageLinkType" material-select watch ng-model="damageInfoBefore.damage_link_type">
                                 <option value="" selected>请选择</option>
-                                <option value="1">委托方质损</option>
-                                <option value="2">短驳质损</option>
-                                <option value="3">仓储质损</option>
-                                <option value="4">装车质损</option>
-                                <option value="5">运输质损</option>
+                                <option ng-repeat="damageLink in damageLinkTypeList" ng-value="damageLink.id">{{damageLink.typeName}}</option>
                             </select>
                             <label style="font-weight: bold" for="damageLinkType"><span style="color: red">* </span>质损环节类别</label>
                         </div>
@@ -249,8 +241,7 @@
                         </div>
                         <div class="col s3 input-field">
                             <select id="reimbursement_person" name="reimbursement_person" style="width:100%">
-                                <!--<option value=""></option>-->
-                                <!--<option ng-repeat="person in availableUserList" ng-value="person.uid">{{person.real_name + " " + (person.type | department)}}</option>-->
+
                             </select>
                             <label class="active" style="font-weight: bold" for="reimbursement_person"><span style="color: red">* </span>报销人</label>
                         </div>
@@ -268,8 +259,7 @@
                         </div>
                         <div class="col s4 input-field">
                             <select id="liable_person" name="liable_person" style="width:100%">
-                                <!--<option value=""></option>-->
-                                <!--<option ng-repeat="person in availableUserList" ng-value="person.uid">{{person.real_name + " " + (person.type | department)}}</option>-->
+
                             </select>
                             <label class="active" style="font-weight: bold" for="liable_person"><span style="color: red">* </span>责任人</label>
                         </div>

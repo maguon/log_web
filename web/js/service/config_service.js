@@ -205,11 +205,11 @@ baseService.factory("_config", function () {
 
     // 质损环节类别
     _this.damageLinkType = [
-        {id: 1, typeName: "委托方质损"},
-        {id: 2, typeName: "短驳质损"},
-        {id: 3, typeName: "仓储质损"},
-        {id: 4, typeName: "装车质损"},
-        {id: 5, typeName: "运输质损"}
+        {id: 1, typeName: "短驳移库"},
+        {id: 2, typeName: "公路运输"},
+        {id: 3, typeName: "公司运输"},
+        {id: 4, typeName: "驾驶员漏检"},
+        {id: 5, typeName: "交通事故"}
         ];
 
     // 质损类型

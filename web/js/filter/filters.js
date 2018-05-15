@@ -312,7 +312,7 @@ CommonFilter.filter("damageLinkType", function () {
         var damageLinkType;
         switch (input) {
             case 1:
-                damageLinkType = "短驳质损";
+                damageLinkType = "短驳移库";
                 break;
             case 2:
                 damageLinkType = "公路运输";

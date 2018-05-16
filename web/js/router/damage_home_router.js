@@ -111,5 +111,15 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/dispatch/look_instruction_list_details.html",
             controller:"look_instruction_list_details_controller"
         })
+        .state("driver_information",{
+            url:"/driver_information",
+            templateUrl: "js/view/truck/driver_information.html",
+            controller:'driver_information_controller'
+        })
+        .state("driver_information_details",{
+            url:"/driver_information_details/driverId/{driverId}",
+            templateUrl: "js/view/truck/driver_information_details.html",
+            controller:'driver_information_details_controller'
+        })
 
 }]);

@@ -60,6 +60,8 @@
                         <li><a href="#!" ui-sref="car_payment_loan"><i class="white-text mdi mdi-chevron-right"></i>商品车赔款打款管理</a></li>
                         <li><a href="#!" ui-sref="commercial_vehicle_compensate_loan"><i class="white-text mdi mdi-chevron-right"></i>商品车理赔借款管理</a></li>
                         <li><a href="#!" ui-sref="car_wash_fee"><i class="white-text mdi mdi-chevron-right"></i>洗车费用</a></li>
+                        <li><a href="#!" ui-sref="finance_route_fee"><i class="white-text mdi mdi-chevron-right"></i>出车款发放</a></li>
+                        <li><a href="#!" ui-sref="driver_salary"><i class="white-text mdi mdi-chevron-right"></i>司机工资</a></li>
                     </ul>
                 </div>
             </li>
@@ -74,6 +76,7 @@
                     <ul>
                         <li><a href="#!" ui-sref="car_query"><i class="mdi mdi-chevron-right white-text "></i>商品车信息</a></li>
                         <li><a href="#!" ui-sref="instruction_list"><i class="mdi mdi-chevron-right white-text "></i>指令列表</a></li>
+                        <li><a href="#!" ui-sref="driver_information"><i class="mdi mdi-chevron-right white-text "></i>司机信息</a></li>
                     </ul>
                 </div>
             </li>
@@ -93,6 +96,7 @@
                         <li><a href="#!" ui-sref="car_insurance_payment_statistics"><i class="mdi mdi-chevron-right white-text "></i>商品车保险赔付统计</a></li>
                         <li><a href="#!" ui-sref="accident_insurance_claims_statistics"><i class="mdi mdi-chevron-right white-text "></i>货车保险理赔统计</a></li>
                         <li><a href="#!" ui-sref="accident_statistics"><i class="mdi mdi-chevron-right white-text "></i>货车事故统计</a></li>
+                        <li><a href="#!" ui-sref="finance_route_fee_statistics"><i class="mdi mdi-chevron-right white-text "></i>财务出车款统计</a></li>
                     </ul>
                 </div>
             </li>
@@ -196,12 +200,18 @@
 <script src="/js/controller/finance/commercial_vehicle_compensate_loan_details_controller.js"></script>
 <script src="/js/controller/damage/car_wash_fee_controller.js"></script>
 <script src="/js/controller/damage/car_wash_fee_details_controller.js"></script>
+<script src="/js/controller/finance/finance_route_fee_controller.js"></script>
+<script src="/js/controller/finance/finance_route_fee_details_controller.js"></script>
+<script src="/js/controller/finance/driver_salary_controller.js"></script>
+<script src="/js/controller/finance/driver_salary_details_controller.js"></script>
 
 <!--公共数据-->
 <script src="/js/controller/car/car_query/car_query_controller.js"></script>
 <script src="/js/controller/car/car_query/car_query_details_controller.js"></script>
 <script src="/js/controller/dispatch/instruction_list_controller.js"></script>
 <script src="/js/controller/dispatch/look_instruction_list_details_controller.js"></script>
+<script src="/js/controller/truck/driver_information_controller.js"></script>
+<script src="/js/controller/truck/driver_information_details_controller.js"></script>
 
 <!--数据统计-->
 <script src="/js/controller/statistics/insurance_statistics_controller.js"></script>
@@ -210,6 +220,7 @@
 <script src="/js/controller/statistics/car_insurance_payment_statistics_controller.js"></script>
 <script src="/js/controller/statistics/accident_insurance_claims_statistics_controller.js"></script>
 <script src="/js/controller/statistics/accident_statistics_controller.js"></script>
+<script src="/js/controller/statistics/finance_route_fee_statistics_controller.js"></script>
 
 <!--管理员设置-->
 <script src="/js/controller/setting/setting_user_controller.js"></script>

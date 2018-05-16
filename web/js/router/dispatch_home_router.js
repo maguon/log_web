@@ -90,6 +90,16 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/dispatch/instruction_car_refuel_details.html",
             controller: "instruction_car_refuel_details_controller"
         })
+        .state("dispatch_route_fee",{
+            url:"/dispatch_route_fee",
+            templateUrl: "js/view/dispatch/dispatch_route_fee.html",
+            controller:'dispatch_route_fee_controller'
+        })
+        .state("dispatch_route_fee_details",{
+            url:"/dispatch_route_fee_details/id/{id}",
+            templateUrl: "js/view/dispatch/dispatch_route_fee_details.html",
+            controller:'dispatch_route_fee_details_controller'
+        })
 
         // 公共数据
         .state("car_query",{
@@ -102,6 +112,17 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/car/car_query/car_query_details.html",
             controller:'car_query_details_controller'
         })
+        .state("driver_information",{
+            url:"/driver_information",
+            templateUrl: "js/view/truck/driver_information.html",
+            controller:'driver_information_controller'
+        })
+        .state("driver_information_details",{
+            url:"/driver_information_details/driverId/{driverId}",
+            templateUrl: "js/view/truck/driver_information_details.html",
+            controller:'driver_information_details_controller'
+        })
+
 
         // 维修
         .state("truck_repair", {

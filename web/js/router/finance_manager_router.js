@@ -59,6 +59,36 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/damage/car_wash_fee_details.html",
             controller:'car_wash_fee_details_controller'
         })
+        .state("finance_route_fee",{
+            url:"/finance_route_fee",
+            templateUrl: "js/view/finance/finance_route_fee.html",
+            controller:'finance_route_fee_controller'
+        })
+        .state("finance_route_fee_details",{
+            url:"/finance_route_fee_details/id/{id}",
+            templateUrl: "js/view/finance/finance_route_fee_details.html",
+            controller:'finance_route_fee_details_controller'
+        })
+        .state("driver_salary",{
+            url:"/driver_salary",
+            templateUrl: "js/view/finance/driver_salary.html",
+            controller:'driver_salary_controller'
+        })
+        .state("driver_salary_details",{
+            url:"/driver_salary_details/id/{id}/driveId/{driveId}",
+            templateUrl: "js/view/finance/driver_salary_details.html",
+            controller:'driver_salary_details_controller'
+        })
+        .state("driver_information",{
+            url:"/driver_information",
+            templateUrl: "js/view/truck/driver_information.html",
+            controller:'driver_information_controller'
+        })
+        .state("driver_information_details",{
+            url:"/driver_information_details/driverId/{driverId}",
+            templateUrl: "js/view/truck/driver_information_details.html",
+            controller:'driver_information_details_controller'
+        })
 
         // 商品车信息
         .state("car_query",{
@@ -102,6 +132,11 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             url:"/accident_statistics",
             templateUrl: "js/view/statistics/accident_statistics.html",
             controller:"accident_statistics_controller"
+        })
+        .state("finance_route_fee_statistics", {
+            url:"/finance_route_fee_statistics",
+            templateUrl: "js/view/statistics/finance_route_fee_statistics.html",
+            controller:"finance_route_fee_statistics_controller"
         })
 
         // 管理员设置

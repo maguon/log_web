@@ -12,8 +12,8 @@ var restify = require('restify');
     server.pre(restify.pre.sanitizePath());
     server.pre(restify.pre.userAgentConnection());
     server.use(restify.throttle({
-        burst: 1000,
-        rate: 500,
+        burst: 100,
+        rate: 50,
         ip: true
     }));
     restify.CORS.ALLOW_HEADERS.push('Access-Control-Allow-Origin');

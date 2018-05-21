@@ -2,6 +2,7 @@ app.controller("app_version_controller", ["$scope", "$state", "$stateParams", "_
     $scope.size = 10;
     $scope.start = 0;
     var userId = _basic.getSession(_basic.USER_ID);
+    $scope.appTypeList = _config.appType;
     // 获取app筛选列表
     function getAppSystemList () {
         _basic.get($host.api_url + "/app?" + _basic.objToUrl({
@@ -55,6 +56,7 @@ app.controller("app_version_controller", ["$scope", "$state", "$stateParams", "_
                 if (data.success == true) {
                     $('#addAppSystem').modal('close');
                     swal("新增成功", "", "success");
+                    getAppSystemList();
                 } else {
                     swal(data.msg, "", "error");
                 }

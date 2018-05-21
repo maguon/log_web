@@ -20,11 +20,7 @@
                             <div class="col s6 input-field">
                                 <select  material-select watch name="addAppType" id="addAppType" ng-model="addAppType">
                                     <option value="" selected>请选择</option>
-                                    <option value="1">物联存车</option>
-                                    <option value="2">车辆管理</option>
-                                    <option value="3">司机</option>
-                                    <option value="4">质量监管</option>
-                                    <option value="5">现场调度</option>
+                                    <option ng-repeat="el in appTypeList" ng-value="el.app">{{el.typeName}}</option>
                                 </select>
                                 <label><span style="color: red">* </span>模块</label>
                             </div>
@@ -98,11 +94,7 @@
                             <div class=" col s6 input-field">
                                 <select  material-select watch id='app' name="showAppSystemList.app"  ng-model="showAppSystemList.app" style="border-bottom: 1px solid #000">
                                     <option value="" selected>请选择</option>
-                                    <option value="1">物联存车</option>
-                                    <option value="2">车辆管理</option>
-                                    <option value="3">司机</option>
-                                    <option value="4">质量监管</option>
-                                    <option value="5">现场调度</option>
+                                    <option ng-repeat="el in appTypeList" ng-value="el.app">{{el.typeName}}</option>
                                 </select>
                                 <label for="app"><span style="color: red">* </span>模块</label>
                             </div>
@@ -176,11 +168,7 @@
                                         <div class="input-field col s12">
                                             <select  material-select watch name="appType" class="appType" ng-model="appType">
                                                 <option value="">模块</option>
-                                                <option value="1">物联存车</option>
-                                                <option value="2">车辆管理</option>
-                                                <option value="3">司机</option>
-                                                <option value="4">质量监管</option>
-                                                <option value="5">现场调度</option>
+                                                <option ng-repeat="el in appTypeList" ng-value="el.app">{{el.typeName}}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -229,11 +217,7 @@
                                     <td  ng-if="appSystemItem.type==null">所有</td>
                                     <td  ng-if="appSystemItem.type==1">安卓</td>
                                     <td  ng-if="appSystemItem.type==2">IOS</td>
-                                    <td  ng-if="appSystemItem.app==1">物联存车</td>
-                                    <td  ng-if="appSystemItem.app==2">车辆管理</td>
-                                    <td  ng-if="appSystemItem.app==3">司机</td>
-                                    <td  ng-if="appSystemItem.app==4">质量监管</td>
-                                    <td  ng-if="appSystemItem.app==5">现场调度</td>
+                                    <td  ng-bind="appTypeList[appSystemItem.app].typeName"></td>
                                     <td  ng-bind="appSystemItem.version"></td>
                                     <td  ng-if="appSystemItem.force_update==1">是</td>
                                     <td  ng-if="appSystemItem.force_update==0">否</td>

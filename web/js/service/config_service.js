@@ -234,6 +234,15 @@ baseService.factory("_config", function () {
         {id: "8", typeName: "C3"}
     ];
 
+    //模块
+    _this.appType = [
+        {app: "0", typeName: "司机"},
+        {app: "1", typeName: "物联存车"},
+        {app: "2", typeName: "车辆管理"},
+        {app: "3", typeName: "调度"},
+        {app: "4", typeName: "质量监管"}
+    ];
+
     // 重载衡量标准
     _this.heavyLoad = 6;
 

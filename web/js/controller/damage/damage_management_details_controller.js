@@ -349,16 +349,19 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
 
     // 保存基本信息
     $scope.saveHandleInfoModify = function (finishFlag) {
+        var liablePersonText = $("#liable_person").find("option:selected").text().split(" ")[0];
+        if(liablePersonText=='责任人'){
+            liablePersonText = '';
+        }
         var repairId = $scope.damageInfoBefore.repair_id == "" ? 0 : $scope.damageInfoBefore.repair_id;
         if(
             $scope.damageInfoBefore.damage_type != ""
             && $scope.damageInfoBefore.damage_link_type != ""
-            && $('#liable_person').val() != 0
             && $('#reimbursement_person').val() != 0
         ){
             _basic.put($host.api_url + "/user/" + userId + "/damageCheck/" + damageCheckId + "?damageId=" + damageId, {
                 underUserId: $('#liable_person').val(),
-                underUserName: $("#liable_person").find("option:selected").text().split(" ")[0],
+                underUserName: liablePersonText,
                 damageType: parseInt($scope.damageInfoBefore.damage_type),
                 damageLinkType: parseInt($scope.damageInfoBefore.damage_link_type),
                 refundUserId: $('#reimbursement_person').val(),

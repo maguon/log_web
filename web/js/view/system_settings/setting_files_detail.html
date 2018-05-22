@@ -1,0 +1,60 @@
+ <meta charset="utf-8"/>
+<div>
+    <a style="margin: 90px 0 0 20px" class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light "
+       ui-sref="imported_files">
+        <i class="mdi mdi-arrow-left-bold"></i>
+    </a>
+    <div>
+        <p class="center-align cyan-text text-lighten-1">
+            <i class="mdi mdi-file-document look_icon cyan-text lighten-1"></i>
+            <span style="color: #3d4d56;font-size: 18px;margin:20px">{{imported_files_details_filename}}</span>
+            <span style="font-size: 15px;color: #cccccc ;margin:20px">{{imported_files_details_length}}B</span>
+            <span ><a target="_blank" href="http://stg.myxxjs.com:9002/api/user/64/file/{{imported_files_details_upload_id}}" download="{{imported_files_details_filename}}">下载</a></span>
+            <span style="float: right;margin-right:20px;color:black" >共<i style="color: #00b0ff;font-size: 18px;margin-right: 5px">{{DataList.length}}</i>条</span>
+        </p>
+
+    </div>
+    <h5 class="center-align cyan-text text-lighten-1"></h5>
+    <div class="col s12">
+        <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+        <table class=" bordered striped text_mid">
+            <thead class="blue-grey lighten-5">
+            <tr class="grey-text text-darken-2">
+                <th data-field="">VIN码</th>
+                <th data-field="">制造商</th>
+                <th data-field="">委托方</th>
+                <th data-field="">起始城市</th>
+                <th data-field="">发运城市</th>
+                <th data-field="">目的地</th>
+                <th data-field="">经销商</th>
+                <th data-field="">指令时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="carList in DataList" class="grey-text text-darken-1">
+                <td ng-if="carList.vin!==null">{{carList.vin}}</td>
+                <td ng-if="carList.vin==null">暂无数据</td>
+                <td ng-if="carList.make_name!==null">{{carList.make_name}}</td>
+                <td ng-if="carList.make_name==null">暂无数据</td>
+                <td ng-if="carList.en_short_name!==null">{{carList.en_short_name}}</td>
+                <td ng-if="carList.en_short_name==null">暂无数据</td>
+                <td ng-if="carList.route_start!==null">{{carList.route_start}}</td>
+                <td ng-if="carList.route_start==null">暂无数据</td>
+                <td ng-if="carList.addr_name!==null">{{carList.addr_name}}</td>
+                <td ng-if="carList.addr_name==null">暂无数据</td>
+                <td ng-if="carList.route_end!==null">{{carList.route_end}}</td>
+                <td ng-if="carList.route_end==null">暂无数据</td>
+                <td ng-if="carList.re_short_name!==null">{{carList.re_short_name}}</td>
+                <td ng-if="carList.re_short_name==null">暂无数据</td>
+                <td ng-if="carList.created_on!==null">{{carList.created_on | date:'yyyy-MM-dd HH:mm'}}</td>
+                <td ng-if="carList.created_on==null">暂无数据</td>
+            </tr>
+            <tr>
+            <tr ng-if="DataList.length==0">
+                <td colspan="8">暂无数据</td>
+            </tr>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

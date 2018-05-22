@@ -1,0 +1,128 @@
+<div>
+    <div class="row main_storage_car">
+        <div class="row grey-text text-darken-1">
+            <div class="col s11">
+                <div class="input-field col s2" style="margin-left: 70px">
+                    <select id="manager" style="width:100%"  ng-model="manager">
+                        <option value=""></option>
+                        <option ng-repeat="el in settingManagerList" ng-value="el.uid">{{el.real_name}}</option>
+                    </select>
+                </div>
+                <div class="input-field col s2">
+                    <input id="createdStart" type="text" class="datepicker" date ng-model="startDate"><i
+                        class="mdi dataIcon mdi-table-large"></i>
+                    <label for="createdStart">导入时间</label>
+                </div>
+                <div class="input-field col s2">
+                    <input id="createdEnd" type="text" class="datepicker" date ng-model="endDate"><i
+                        class="mdi dataIcon mdi-table-large"></i>
+                    <label for="createdEnd">至</label>
+                </div>
+            </div>
+            <div class="col s1  flex flex-round">
+                <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
+                   style="margin-right: 10px" ng-click="getMatchFiles()">
+                    <i class="mdi mdi-magnify"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="file_detail_modal">
+        <div>
+            <p class="center-align cyan-text text-lighten-1">
+                <i class="mdi mdi-file-document look_icon cyan-text lighten-1"></i>
+                <span style="color: #3d4d56;font-size: 18px;margin:20px">{{fileDetailObj.fileName }}</span>
+                <span style="font-size: 15px;color: #cccccc ;margin:20px">{{fileDetailObj.fileLength}}B</span>
+                <span style="float: right;margin-right:20px;color:black" >共<i style="color: #00b0ff;font-size: 18px;margin-right: 5px">{{fileDetailObj.fileRecord.length}}</i>条</span>
+            </p>
+        </div>
+        <h5 class="center-align cyan-text text-lighten-1"></h5>
+        <div class="col s12">
+            <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+            <table class=" bordered striped text_mid">
+                <thead class="blue-grey lighten-5">
+                <tr class="grey-text text-darken-2">
+                    <th data-field="">VIN码</th>
+                    <th data-field="">制造商</th>
+                    <th data-field="">委托方</th>
+                    <th data-field="">起始城市</th>
+                    <th data-field="">发运城市</th>
+                    <th data-field="">目的地</th>
+                    <th data-field="">经销商</th>
+                    <th data-field="">指令时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="car in fileDetailObj.fileRecord" class="grey-text text-darken-1">
+                    <td ng-if="car.vin!==null">{{car.vin}}</td>
+                    <td ng-if="car.vin==null">暂无数据</td>
+                    <td ng-if="car.make_name!==null">{{car.make_name}}</td>
+                    <td ng-if="car.make_name==null">暂无数据</td>
+                    <td ng-if="car.en_short_name!==null">{{car.en_short_name}}</td>
+                    <td ng-if="car.en_short_name==null">暂无数据</td>
+                    <td ng-if="car.route_start!==null">{{car.route_start}}</td>
+                    <td ng-if="car.route_start==null">暂无数据</td>
+                    <td ng-if="car.addr_name!==null">{{car.addr_name}}</td>
+                    <td ng-if="car.addr_name==null">暂无数据</td>
+                    <td ng-if="car.route_end!==null">{{car.route_end}}</td>
+                    <td ng-if="car.route_end==null">暂无数据</td>
+                    <td ng-if="car.re_short_name!==null">{{car.re_short_name}}</td>
+                    <td ng-if="car.re_short_name==null">暂无数据</td>
+                    <td ng-if="car.created_on!==null">{{car.order_date | date:'yyyy-MM-dd'}}</td>
+                    <td ng-if="car.created_on==null">暂无数据</td>
+                </tr>
+                <tr>
+                <tr ng-if="fileDetailObj.fileRecord.length==0">
+                    <td colspan="8">没有于导入文件对应的车辆信息</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col s12">
+        <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+        <table class=" bordered striped text_mid">
+            <thead class="blue-grey lighten-5">
+            <tr class="grey-text text-darken-2">
+                <th width="300" data-field="">文件编号</th>
+                <th width="120" data-field="">文件名</th>
+                <th width="100" data-field="">文件大小</th>
+                <th width="200" data-field="">导入时间</th>
+                <th width="100" >操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="fileInfo in importedFilesList" class="grey-text text-darken-1">
+                <td>{{fileInfo._id}}</td>
+                <td>{{fileInfo.filename}}</td>
+                <td >{{fileInfo.length}}B</td>
+                <td>{{fileInfo.uploadDate | date:'yyyy-MM-dd HH:mm'}}</td>
+                <td  class="operation">
+                    <span>
+                        <i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ng-click="changeDetail(fileInfo)"></i>
+                    </span>
+                    <a target="_blank" href="http://stg.myxxjs.com:9002/api/user/64/file/{{fileInfo._id}}"  download="{{fileInfo.filename}}"><i
+                            class="mdi  look_icon cyan-text lighten-1 mdi-arrow-down-bold-circle "></i></a>
+                </td>
+            </tr>
+            <tr ng-if="importedFilesList.length==0">
+                <td colspan="5">暂无数据</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!--分页-->
+    <div class="row">
+        <div class="paging_box col s12">
+            <div class="right">
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="pre_btn()">
+                    上一页
+                </a>
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_btn()">
+                    下一页
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -210,6 +210,17 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/system_settings/setting_repair.html",
             controller:'setting_repair_controller'
         })
+        //导入的文件
+        .state("setting_files",{
+            url:"/setting_files",
+            templateUrl: "js/view/system_settings/setting_files.html",
+            controller:'setting_files_controller'
+        })
+        .state("setting_files_detail", {
+            url: "/setting_files_detail/id/{id}",
+            templateUrl: "js/view/system_settings/setting_files_detail.html",
+            controller:'setting_files_detail_controller'
+        })
 
         // 仓储
         .state("storage_index", {  //路由状态

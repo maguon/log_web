@@ -224,7 +224,7 @@
                             <div class="col s11 input-field">
                                 <select id="repair_station" ng-model="damageInfoBefore.repair_id" material-select watch>
                                     <option value="" selected>请选择</option>
-                                    <option ng-repeat="repair in repairStationList" ng-value="repair.id">{{repair.address}}</option>
+                                    <option ng-repeat="repair in repairStationList" ng-value="repair.id">{{repair.repair_station_name}}</option>
                                 </select>
                                 <label style="font-weight: bold" for="repair_station">维修站</label>
                             </div>

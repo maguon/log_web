@@ -206,22 +206,20 @@
                 <table class="bordered striped text_mid">
                     <thead class="blue-grey lighten-5">
                     <tr class="grey-text text-darken-2">
-                        <th width="200" data-field="">理赔编号</th>
-                        <th width="150" data-field="">险种</th>
-                        <th width="200" data-field="">保险公司</th>
-                        <th width="200" data-field="">保险待赔</th>
-                        <th width="200" data-field="">财务借款</th>
-                        <th width="200" data-field="">实际赔付</th>
-                        <th width="300" data-field="">生成时间</th>
-                        <th width="300" data-field="">赔付时间</th>
-                        <th width="180" data-field="">状态</th>
-                        <th width="150">操作</th>
+                        <th data-field="">理赔编号</th>
+                        <th data-field="">保险公司</th>
+                        <th data-field="">保险待赔</th>
+                        <th data-field="">财务借款</th>
+                        <th data-field="">实际赔付</th>
+                        <th data-field="">生成时间</th>
+                        <th data-field="">赔付时间</th>
+                        <th data-field="">状态</th>
+                        <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="damage in damageInsurancePaymentList" class="grey-text text-darken-1">
                         <td>{{damage.id}}</td>
-                        <td>{{damage.insure_type | insuranceType}}</td>
                         <td>{{damage.insure_name}}</td>
                         <td>{{damage.insure_plan}}</td>
                         <td>{{damage.financial_loan}}</td>

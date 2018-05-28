@@ -10,6 +10,12 @@ app.controller("finance_route_fee_controller", ["$scope", "$host", "_basic", fun
             if (data.success === true) {
                 // console.log("data", data);
                 $scope.driveList = data.result;
+                for(var i =0;i< $scope.driveList.length;i++){
+                    if( $scope.driveList[i].mobile==null){
+                        $scope.driveList[i].mobile = '空';
+                    }
+                }
+
                 $('#driver_name').select2({
                     placeholder: '请选择',
                     containerCssClass : 'select2_dropdown'

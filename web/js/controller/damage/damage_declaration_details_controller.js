@@ -33,7 +33,7 @@ app.controller("damage_declaration_details_controller", ["$scope", "$stateParams
                 $scope.driverList = data.result;
                 var driverObj = {};
                 for (var i = 0; i < data.result.length; i++) {
-                    driverObj[data.result[i].drive_name + "-" + data.result[i].tel] = null;
+                    driverObj[data.result[i].drive_name + "-" + data.result[i].mobile] = null;
                 }
                 // 填充autoComplete
                 $('#autocomplete-input-driver').autocomplete({

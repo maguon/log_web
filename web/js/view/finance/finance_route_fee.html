@@ -10,7 +10,7 @@
                     <select id="driver_name" style="width: 100%" ng-change="clearDriverInfo()" ng-model="driverId">
                         <option value=""></option>
                         <option value="0">清除选择</option>
-                        <option ng-repeat="driver in driveList" ng-value="driver.id">{{driver.drive_name + " - " + driver.tel}}</option>
+                        <option ng-repeat="driver in driveList" ng-value="driver.id">{{driver.drive_name + " - " + driver.mobile}}</option>
                     </select>
                     <label class="active" for="driver_name">司机</label>
                 </div>

@@ -96,6 +96,11 @@ app.controller("dispatch_route_fee_controller", ["$scope", "$host", "_basic", fu
             if (data.success === true) {
                 // console.log("data", data);
                 $scope.driveList = data.result;
+                for(var i =0;i< $scope.driveList.length;i++){
+                    if( $scope.driveList[i].mobile==null){
+                        $scope.driveList[i].mobile = '空';
+                    }
+                }
                 $('#driver_name_mod').select2({
                     placeholder: '请选择司机',
                     containerCssClass : 'select2_dropdown'

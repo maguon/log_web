@@ -254,7 +254,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         $scope.lineInfo = true;
     };
 
-    // 控制tab显示隐藏
+    /*// 控制tab显示隐藏
     $scope.showLoadMissionInfo = function (index) {
         $(".load_mission" + index).show();
         $(".route_fee_info").hide();
@@ -264,7 +264,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         $scope.dispatchMissionNum = "";
         $(".route_fee_info" + index).show();
         $(".load_mission").hide();
-    };
+    };*/
 
     // 线路填写完毕后确认按钮
     $scope.confirmChange = function () {
@@ -338,11 +338,11 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         $(".load_mission" + index).show();
         $(".route_fee_info").hide();
 
-        // 默认蓝条回到最左，防止蹿位
+       /* // 默认蓝条回到最左，防止蹿位
         $(".tabs .indicator").css({
             right: 590 + "px",
             left: 0 + "px"
-        });
+        });*/
 
         $scope.lineDate = moment(showLineDate).format("YYYY-MM-DD");// model双向的scope，用作任务时间默认显示和取值
         $scope.lineDateBak = moment(showLineDate).format("YYYY-MM-DD");// 不可改变的scope，用作刷新任务方法的参数使用
@@ -369,7 +369,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             }
         });
 
-        // 出车款信息
+       /* // 出车款信息
         _basic.get($host.api_url + "/dpRouteTaskLoan?dpRouteTaskId=" + showLineId).then(function (data) {
             if (data.success === true) {
                 // console.log("出车款信息", data);
@@ -403,10 +403,10 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             else {
                 swal(data.msg, "", "error");
             }
-        });
+        });*/
     };
 
-    // 获取出车款下关联调度任务信息
+    /*// 获取出车款下关联调度任务信息
     $scope.getMatchDispatchMissionList = function (loanId,status) {
         _basic.get($host.api_url + "/dpRouteTaskLoanRel?dpRouteTaskLoanId=" + loanId).then(function (data) {
             if (data.success === true) {
@@ -434,7 +434,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 swal(data.msg, "", "error");
             }
         });
-    };
+    };*/
 
     // 增加调度关联任务
     $scope.addMatchMission = function () {

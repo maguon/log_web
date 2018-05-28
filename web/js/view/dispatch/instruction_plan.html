@@ -343,7 +343,7 @@
                                             <div class="col s12" ul-tabs style="padding: 0;">
                                                 <ul class="tabs tabs-fixed-width tab-demo z-depth-1" style="font-size: 25px;font-weight: bold;overflow-x: hidden">
                                                     <li style="cursor: pointer" class="tab"><a ng-click="showLoadMissionInfo($index)" style="color: #26c6da">装车任务</a></li>
-                                                    <li style="cursor: pointer" class="tab"><a ng-click="showRouteFeeInfo($index)" style="color: #26c6da">出车款</a></li>
+                                                   <!-- <li style="cursor: pointer" class="tab"><a ng-click="showRouteFeeInfo($index)" style="color: #26c6da">出车款</a></li>-->
                                                 </ul>
                                             </div>
 
@@ -449,8 +449,8 @@
                                             </div>
 
                                             <!--出车款-->
-                                            <div class="route_fee_info route_fee_info{{$index}}">
-                                                <!--申请出车款按钮-->
+                                            <!--<div class="route_fee_info route_fee_info{{$index}}">
+                                                &lt;!&ndash;申请出车款按钮&ndash;&gt;
                                                 <div class="row col s12" ng-show="applyRouteFeeBtn">
                                                     <div class="col s3 right-align right" style="padding:15px 0">
                                                         <button ng-click="applyRouteFee()" style="width:100%;height: 30px;line-height: 33px"
@@ -460,7 +460,7 @@
                                                     </div>
                                                 </div>
 
-                                                <!--出车款信息-->
+                                                &lt;!&ndash;出车款信息&ndash;&gt;
                                                 <div style="width: 90%;margin: 0 auto" ng-show="allRouteFeeInfo">
                                                     <div class="col s6 left-align" style="color: #26c6da;font-size: 1.2rem;font-weight: bold" ng-show="hasRouteFeeInfoId">
                                                         <p>{{"申请编号：" + routeFeeInfo.id}}</p>
@@ -491,7 +491,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <!--有出车款信息下已关联调度任务信息-->
+                                                    &lt;!&ndash;有出车款信息下已关联调度任务信息&ndash;&gt;
                                                     <div class="col s12 valign-wrapper" ng-repeat="matchMission in matchDispatchMissionList" ng-show="hasRouteFeeInfoId" style="height: 60px;background-color: #e0e0e0;font-size: 1.1rem">
                                                         <div class="col s3">
                                                             <p>调度编号：{{matchMission.dp_route_task_id}}</p>
@@ -512,7 +512,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <!--无出车款信息下已关联调度任务信息-->
+                                                    &lt;!&ndash;无出车款信息下已关联调度任务信息&ndash;&gt;
                                                     <div class="col s12 valign-wrapper" ng-repeat="matchMission in addDispatchMissionList" ng-show="!hasRouteFeeInfoId" style="height: 60px;background-color: #e0e0e0;font-size: 1.1rem">
                                                         <div class="col s3">
                                                             <p>调度编号：{{matchMission.dp_route_task_id}}</p>
@@ -533,7 +533,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <!--出车款信息-未发放-->
+                                                    &lt;!&ndash;出车款信息-未发放&ndash;&gt;
                                                     <div class="col s12" style="margin-top: 20px" ng-show="routeFeeInfo.task_loan_status != 2 && routeFeeInfo.task_loan_status != 3">
                                                         <div class="col s4 input-field">
                                                             <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="road_toll_cost" name="road_toll_cost" ng-model="$parent.routeFeeInfo.apply_passing_cost">
@@ -576,7 +576,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <!--出车款信息-已发放-->
+                                                    &lt;!&ndash;出车款信息-已发放&ndash;&gt;
                                                     <div class="col s12 left-align" style="margin-top: 20px;font-size: 1.2rem;font-weight: bold;border-bottom: 1px solid darkgray" ng-show="routeFeeInfo.task_loan_status == 2 || routeFeeInfo.task_loan_status == 3">
                                                         <div class="col s4">
                                                             <p>过路费：<span style="color: #e57373">{{routeFeeInfo.apply_passing_cost}}</span> 元</p>
@@ -610,7 +610,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <!--财务发放详情-->
+                                                    &lt;!&ndash;财务发放详情&ndash;&gt;
                                                     <div class="col s12 left-align" style="margin-top: 20px;font-size: 1.2rem;font-weight: bold;border-bottom: 1px solid darkgray" ng-show="routeFeeInfo.task_loan_status == 2 || routeFeeInfo.task_loan_status == 3">
                                                         <div class="col s12">
                                                             <p style="color: #26c6da;font-size: 1.3rem">财务发放详情</p>
@@ -647,7 +647,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <!--财务报销详情-->
+                                                    &lt;!&ndash;财务报销详情&ndash;&gt;
                                                     <div class="col s12 left-align" style="margin-top: 20px;font-size: 1.2rem;font-weight: bold;border-bottom: 1px solid darkgray" ng-show="routeFeeInfo.task_loan_status == 3">
                                                         <div class="col s12">
                                                             <p style="color: #26c6da;font-size: 1.3rem">财务报销详情</p>
@@ -691,7 +691,7 @@
                                                     </div>
 
 
-                                                    <!--保存按钮-->
+                                                    &lt;!&ndash;保存按钮&ndash;&gt;
                                                     <div class="col s12" style="margin: 20px 0" ng-show="routeFeeInfo.task_loan_status != 2 && routeFeeInfo.task_loan_status != 3">
                                                         <div class="col s4 offset-s4">
                                                             <a ng-click="saveRouteFeeInfo($index)" style="width: 100%;background-color: #26c6da;" class="waves-light waves-effect lighten-1 btn">
@@ -700,7 +700,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>-->
                                         </div>
                                     </li>
                                 </ul>

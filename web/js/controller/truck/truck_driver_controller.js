@@ -79,10 +79,10 @@ app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host
         }
 
         if($scope.driveTel){
-            $scope.queryParams.tel = $scope.driveTel;
+            $scope.queryParams.mobile = $scope.driveTel;
         }
         else {
-            $scope.queryParams.tel= "";
+            $scope.queryParams.mobile= "";
         }
 
         if($scope.truckNumber){

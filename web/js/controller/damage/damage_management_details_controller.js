@@ -226,7 +226,7 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
                     }
                     // 无需赔款或需要赔款状态
                     indemnityStatus = data.result[0].damage_indemnity_status;
-                    $scope.paymentFlag = data.result[0].damage_indemnity_status.toString();
+                    $scope.paymentFlag = data.result[0].damage_indemnity_status+'';
                 }
                 if($scope.currentDamageStatus == 1){
                     $('#liable_person').val(0);

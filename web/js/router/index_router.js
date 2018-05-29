@@ -85,6 +85,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/dispatch/dispatch_route_fee_details.html",
             controller:'dispatch_route_fee_details_controller'
         })
+        .state("dispatch_route_requ",{
+            url:"/dispatch_route_requ",
+            templateUrl: "js/view/dispatch/dispatch_route_requ.html",
+            controller:'dispatch_route_requ_controller'
+        })
         .state("dispatch_order",{
             url:"/dispatch_order",
             templateUrl: "js/view/dispatch/dispatch_order.html",

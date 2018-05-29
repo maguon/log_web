@@ -3,7 +3,7 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic", f
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.start = 0;
     $scope.size = 10;
-    $scope.driverIdMod =0;
+    $scope.flag = true;
     // 查询调度列表
     function getCarInstructionList() {
         _basic.get($host.api_url + "/dpRouteTaskNotLoan?" + _basic.objToUrl({
@@ -50,6 +50,7 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic", f
 
     // 打开申请出车款模态框
     $scope.addApplyRouteFeeMod = function () {
+        $scope.flag = false;
         $scope.matchMissionList = [];
         $scope.driverIdMod = "";
         $scope.dispatchNumMod = "";
@@ -66,7 +67,9 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic", f
 
     //打开申请出车款模态框(列表)
     $scope.addRouteFee = function (dispatchIdSmall,driveIdSmall) {
+        $scope.flag = true;
         $scope.dispatchNumMod  = dispatchIdSmall;
+        $scope.driverIdModel  = driveIdSmall;
         _basic.get($host.api_url + "/dpRouteTask?driveId=" + driveIdSmall + "&taskStatusArr=1,2,3,4").then(function (data) {
             if (data.success === true) {
                 $scope.missionList = data.result;
@@ -78,6 +81,7 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic", f
                 swal(data.msg, "", "error");
             }
         });
+
         $("#addCarFinanceModel").modal("open");
 
     };
@@ -163,36 +167,70 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic", f
     $scope.addRouteFeeInfo = function () {
         var dpRouteTaskIds = [];
         var planMoneyCount = parseFloat($("#planMoney").html()).toFixed(2);
-        if($scope.driverIdMod != "" && $scope.matchMissionList.length !== 0){
-            for (var i = 0; i < $scope.matchMissionList.length; i++) {
-                dpRouteTaskIds.push($scope.matchMissionList[i].id)
+        if($scope.flag==true){
+            if($scope.driverIdModel != "" && $scope.matchMissionList.length !== 0){
+                for (var i = 0; i < $scope.matchMissionList.length; i++) {
+                    dpRouteTaskIds.push($scope.matchMissionList[i].id)
+                }
+                _basic.post($host.api_url + "/user/" + userId + "/dpRouteTaskLoan",{
+                    driveId: $scope.driverIdModel,
+                    applyPassingCost: $scope.roadTollCost,
+                    applyFuelCost: $scope.fuelCost,
+                    applyProtectCost: $scope.roadCost,
+                    applyPenaltyCost: $scope.fineCost,
+                    applyParkingCost: $scope.parkingCost,
+                    applyTaxiCost: $scope.taxiCost,
+                    applyExplain: $scope.remark,
+                    applyPlanMoney: parseFloat(planMoneyCount),
+                    dpRouteTaskIds: dpRouteTaskIds
+                }).then(function (data) {
+                    if (data.success === true) {
+                        $("#addCarFinanceModel").modal("close");
+                        swal("新增成功", "", "success");
+                        $scope.searchCarFinanceList();
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
             }
-            _basic.post($host.api_url + "/user/" + userId + "/dpRouteTaskLoan",{
-                driveId: $scope.driverIdMod,
-                applyPassingCost: $scope.roadTollCost,
-                applyFuelCost: $scope.fuelCost,
-                applyProtectCost: $scope.roadCost,
-                applyPenaltyCost: $scope.fineCost,
-                applyParkingCost: $scope.parkingCost,
-                applyTaxiCost: $scope.taxiCost,
-                applyExplain: $scope.remark,
-                applyPlanMoney: parseFloat(planMoneyCount),
-                dpRouteTaskIds: dpRouteTaskIds
-            }).then(function (data) {
-                if (data.success === true) {
-                    // console.log("data", data);
-                    $("#addCarFinanceModel").modal("close");
-                    swal("新增成功", "", "success");
-                    $scope.searchCarFinanceList();
-                }
-                else {
-                    swal(data.msg, "", "error");
-                }
-            });
+            else{
+                swal("请填写司机和调度编号！", "", "warning");
+            }
         }
         else{
-            swal("请填写司机和调度编号！", "", "warning");
+            if($scope.driverIdMod != "" && $scope.matchMissionList.length !== 0){
+                for (var i = 0; i < $scope.matchMissionList.length; i++) {
+                    dpRouteTaskIds.push($scope.matchMissionList[i].id)
+                }
+                _basic.post($host.api_url + "/user/" + userId + "/dpRouteTaskLoan",{
+                    driveId: $scope.driverIdMod,
+                    applyPassingCost: $scope.roadTollCost,
+                    applyFuelCost: $scope.fuelCost,
+                    applyProtectCost: $scope.roadCost,
+                    applyPenaltyCost: $scope.fineCost,
+                    applyParkingCost: $scope.parkingCost,
+                    applyTaxiCost: $scope.taxiCost,
+                    applyExplain: $scope.remark,
+                    applyPlanMoney: parseFloat(planMoneyCount),
+                    dpRouteTaskIds: dpRouteTaskIds
+                }).then(function (data) {
+                    if (data.success === true) {
+                        // console.log("data", data);
+                        $("#addCarFinanceModel").modal("close");
+                        swal("新增成功", "", "success");
+                        $scope.searchCarFinanceList();
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
+            }
+            else{
+                swal("请填写司机和调度编号！", "", "warning");
+            }
         }
+
     };
 
 
@@ -214,7 +252,6 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic", f
     function getDriverList() {
         _basic.get($host.api_url + "/drive").then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
                 $scope.driveList = data.result;
                 for(var i =0;i< $scope.driveList.length;i++){
                     if( $scope.driveList[i].mobile==null){
@@ -222,6 +259,11 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic", f
                     }
                 }
                 $('#driver_name_mod').select2({
+                    placeholder: '请选择司机',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+                $('#driver_name_model').select2({
                     placeholder: '请选择司机',
                     containerCssClass : 'select2_dropdown',
                     allowClear: true

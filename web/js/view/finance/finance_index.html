@@ -86,6 +86,84 @@
                 </div>
             </div>
         </div>
+        <div class="row bold grey-text">
+            <div class="col s12 white" style="width:98.7%;background-color: white;border:3px solid #ccc;border-radius: 12px;margin:40px 0 0 10px;">
+
+                <!-- 左侧 图标/名称 -->
+                <div class="col s4 center-align" style=" height: 200px;margin-top:20px;margin-bottom:20px;border-right:1px solid #ccc;">
+
+                    <div class="col s4 " style="height: 200px;padding-top:60px;">
+                        <i class="mdi mdi-cash-100 fz50" style="color: rgb(245,166,35)"></i>
+                    </div>
+                    <div class="col s6" style="height: 200px;padding-top:30px;">
+                        <div class="col s10 fz24" style="color: rgb(245,166,35);border-bottom: 1px solid #c2c0c2;padding-bottom: 30px">出车款</div>
+                        <div class="col s9 fz20" style="margin-top: 30px">未申请调度任务数</div>
+                        <div class="col s3 fz20" style="color: rgb(193,115,206);margin-top: 30px">{{dpRouteTaskNotLoanCount}}</div>
+                    </div>
+                </div>
+
+                <!-- 右侧 图标/信息 -->
+                <div class="col s8" style="height: 200px;margin-top:20px;margin-bottom:20px;">
+
+                    <!-- 上部分 -->
+                    <div class="col s12" style="height: 100px;">
+                        <!-- 左侧 -->
+                        <div class="col s6 vc-center center-align" style="height: 80px;border-right: 1px solid #c2c0c2;">
+                            <div class="col s4" style="width:80px;height:80px;display:inline-block;border-radius: 100%;font-size: 2.5rem;background-color: rgb(245,166,35);line-height: 65px">
+                                <span class="fz15 white-text">未派发</span>
+                            </div>
+                            <div class="col s4">
+                                <span class="grey-text bold fz18" style="padding-left: 10px;">未派发笔数</span>
+                            </div>
+                            <div class="col s4 cyan-text fz20">
+                                {{notDistributedCount}}
+                            </div>
+                        </div>
+
+                        <!-- 右侧 -->
+                        <div class="col s6 vc-center" style="height: 80px;">
+                            <div class="col s7 center-align">
+                                <span class="grey-text bold fz18" style="padding-left: 10px;">未派发金额</span>
+                            </div>
+                            <div class="col s5 right-align fz25 red-text">
+                                {{notDistributedMoneyCount | number}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 分割线 -->
+                    <div class="divider col s12" style="background-color: #c2c0c2;"></div>
+
+                    <!-- 下部分 -->
+                    <div class="col s12" style="height: 100px;margin-top:20px;">
+                        <div class="col s6 vc-center center-align" style="height: 80px;border-right: 1px solid #c2c0c2;">
+                            <div class="col s4 cyan" style="width:80px;height:80px;display:inline-block;border-radius: 100%;font-size: 2.5rem;line-height: 65px">
+                                <span class="fz15 white-text">未报销</span>
+                            </div>
+                            <div class="col s4">
+                                <span class="grey-text bold fz18" style="padding-left: 10px;">已派发未报销笔数</span>
+                            </div>
+                            <div class="col s4 cyan-text fz20">
+                                {{unreimbursedCount}}
+                            </div>
+                        </div>
+
+                        <!-- 右侧 -->
+                        <div class="col s6 vc-center" style="height: 80px;">
+                            <div class="col s7 center-align">
+                                <span class="grey-text bold fz18" style="padding-left: 10px;">已派发未报销金额</span>
+                            </div>
+                            <div class="col s5 right-align fz25 red-text">
+                                {{unreimbursedMoneyCount | number}}
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
     </div>
 </div>
 

@@ -4,6 +4,41 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic", f
     $scope.start = 0;
     $scope.size = 10;
     $scope.flag = true;
+
+
+    // 获取所有司机信息
+    function getDriverList() {
+        _basic.get($host.api_url + "/drive").then(function (data) {
+            if (data.success === true) {
+                $scope.driveList = data.result;
+                for(var i =0;i< $scope.driveList.length;i++){
+                    if( $scope.driveList[i].mobile==null){
+                        $scope.driveList[i].mobile = '空';
+                    }
+                }
+                $('#driver_name_mod').select2({
+                    placeholder: '请选择司机',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+                $('#driver_name_model').select2({
+                    placeholder: '请选择司机',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+                $('#driver_name').select2({
+                    placeholder: '请选择',
+                    containerCssClass : 'select2_dropdown'
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+
+
     // 查询调度列表
     function getCarInstructionList() {
         _basic.get($host.api_url + "/dpRouteTaskNotLoan?" + _basic.objToUrl({
@@ -51,6 +86,7 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic", f
     // 打开申请出车款模态框
     $scope.addApplyRouteFeeMod = function () {
         $scope.flag = false;
+        $scope.missionList=[];
         $scope.matchMissionList = [];
         $scope.driverIdMod = "";
         $scope.dispatchNumMod = "";
@@ -224,7 +260,6 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic", f
                     dpRouteTaskIds: dpRouteTaskIds
                 }).then(function (data) {
                     if (data.success === true) {
-                        // console.log("data", data);
                         $("#addCarFinanceModel").modal("close");
                         swal("新增成功", "", "success");
                         $scope.searchCarInstructionList();
@@ -256,37 +291,7 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic", f
     };
 
 
-    // 获取所有司机信息
-    function getDriverList() {
-        _basic.get($host.api_url + "/drive").then(function (data) {
-            if (data.success === true) {
-                $scope.driveList = data.result;
-                for(var i =0;i< $scope.driveList.length;i++){
-                    if( $scope.driveList[i].mobile==null){
-                        $scope.driveList[i].mobile = '空';
-                    }
-                }
-                $('#driver_name_mod').select2({
-                    placeholder: '请选择司机',
-                    containerCssClass : 'select2_dropdown',
-                    allowClear: true
-                });
-                $('#driver_name_model').select2({
-                    placeholder: '请选择司机',
-                    containerCssClass : 'select2_dropdown',
-                    allowClear: true
-                });
-                $('#driver_name').select2({
-                    placeholder: '请选择',
-                    containerCssClass : 'select2_dropdown'
-                });
-                $("#driver_name_mod").val(null).trigger("change");
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
-    };
+
     // 获取数据
     $scope.queryData = function () {
         getCarInstructionList();

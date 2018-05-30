@@ -68,7 +68,6 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic", f
     //打开申请出车款模态框(列表)
     $scope.addRouteFee = function (dispatchIdSmall,driveIdSmall) {
         $scope.flag = true;
-        $scope.dispatchNumMod = "";
         $scope.roadTollCost = 0;
         $scope.fuelCost = 0;
         $scope.roadCost = 0;

@@ -7,9 +7,9 @@
             </div>
             <div class="row" style="width: 80%;margin: 0 auto">
                 <div class="col s4 input-field" style="margin-bottom: 10px" ng-show="flag">
-                    <select id="driver_name_model" style="width: 100%" ng-change="searchMatchMission()" ng-model="driverIdModel">
-                        <option value=""></option>
-                        <option ng-repeat="driver in driveList" ng-value="driver.id">{{driver.drive_name + " - " + driver.mobile}}</option>
+                    <select id="driver_name_model" style="width: 100%" material-select watch ng-model="driverIdModel">
+                        <option value="" selected disabled>请选择</option>
+                        <option ng-repeat="driver in driveSmallList" ng-value="driver.id">{{driver.drive_name + " - " + driver.mobile}}</option>
                     </select>
                     <label class="active" for="driver_name_mod"><span style="color: red">* </span>司机</label>
                 </div>
@@ -50,7 +50,7 @@
                         <p>计划出车时间：{{mission.task_plan_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
                     </div>
                     <div class="col s2">
-                        <p>{{mission.task_status | missionStatus}}</p>
+                        <p>{{mission.task_status | taskStatus}}</p>
                     </div>
                     <div class="col s1" style="font-size: 1.5rem">
                         <a ng-click="deleteMatchMissionMod($index)" style="margin-right: 10px;cursor: pointer;text-align: center;color: #e57373"><i class="mdi mdi-delete-forever" style="margin: 0"></i></a>
@@ -178,7 +178,7 @@
                         <td>{{car.truck_num}}</td>
                         <td>{{car.plan_count}}</td>
                         <td>{{car.task_plan_date | date:'yyyy-MM-dd'}}</td>
-                        <td>{{car.task_status | missionStatus}}</td>
+                        <td>{{car.task_status | taskStatus}}</td>
                         <td class="operation fz12">
                             <a ng-click="addRouteFee(car.id,car.drive_id)" class="btn-floating btn-small waves-light waves-effect cyan lighten-2 btn vc-center"style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-plus" style="margin: 0"></i></a>
                         </td>

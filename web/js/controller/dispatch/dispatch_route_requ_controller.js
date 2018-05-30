@@ -1,10 +1,9 @@
-app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
+app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic","_config",  function ($scope, $host, _basic,_config) {
 
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.start = 0;
     $scope.size = 10;
     $scope.flag = true;
-
 
     // 获取所有司机信息
     function getDriverList() {
@@ -21,11 +20,11 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic", f
                     containerCssClass : 'select2_dropdown',
                     allowClear: true
                 });
-                $('#driver_name_model').select2({
+               /* $('#driver_name_model').select2({
                     placeholder: '请选择司机',
                     containerCssClass : 'select2_dropdown',
                     allowClear: true
-                });
+                });*/
                 $('#driver_name').select2({
                     placeholder: '请选择',
                     containerCssClass : 'select2_dropdown'
@@ -42,6 +41,7 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic", f
     // 查询调度列表
     function getCarInstructionList() {
         _basic.get($host.api_url + "/dpRouteTaskNotLoan?" + _basic.objToUrl({
+            taskStatusArr:8,
             dpRouteTaskId: $scope.instructionNum,
             driveId: $scope.driverId,
             truckNum: $scope.truckNum,
@@ -113,8 +113,14 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic", f
         $scope.remark = "";
         $scope.planMoney = 0;
         $scope.dispatchNumMod  = dispatchIdSmall;
-        $scope.driverIdModel  = driveIdSmall;
-        _basic.get($host.api_url + "/dpRouteTaskNotLoan?driveId=" + driveIdSmall + "&taskStatusArr=1,2,3,4").then(function (data) {
+        _basic.get($host.api_url + "/drive?driveId=" + driveIdSmall).then(function (data) {
+            if (data.success === true) {
+                $scope.driveSmallList = data.result;
+                $scope.driverIdModel  =$scope.driveSmallList[0].id;
+            }
+        });
+       /* $scope.driverIdModel  = driveIdSmall;*/
+        _basic.get($host.api_url + "/dpRouteTaskNotLoan?driveId=" + driveIdSmall + "&taskStatusArr=8").then(function (data) {
             if (data.success === true) {
                 $scope.missionList = data.result;
                 $scope.matchMissionList = [];
@@ -132,7 +138,7 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic", f
 
     // 根据选择的司机id查询关联任务信息
     $scope.searchMatchMission = function () {
-        _basic.get($host.api_url + "/dpRouteTaskNotLoan?driveId=" + $scope.driverIdMod + "&taskStatusArr=1,2,3,4").then(function (data) {
+        _basic.get($host.api_url + "/dpRouteTaskNotLoan?driveId=" + $scope.driverIdMod + "&taskStatusArr=8").then(function (data) {
             if (data.success === true) {
                 $scope.missionList = data.result;
                 $scope.matchMissionList = [];

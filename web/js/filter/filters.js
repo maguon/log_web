@@ -237,6 +237,42 @@ CommonFilter.filter("missionStatus", function () {
     }
 });
 
+
+
+// 调度任务状态类型过滤器
+CommonFilter.filter("taskStatus", function () {
+    return function (input) {
+        var taskStatus;
+        switch (input) {
+            case 1:
+                taskStatus = "待接受";
+                break;
+            case 2:
+                taskStatus = "已接受";
+                break;
+            case 3:
+                taskStatus = "执行";
+                break;
+            case 4:
+                taskStatus = "在途";
+                break;
+            case 8:
+                taskStatus = "取消安排";
+                break;
+            case 9:
+                taskStatus = "已完成";
+                break;
+            case 10:
+                taskStatus = "全部完成";
+                break;
+            default:
+                taskStatus = "未知";
+        }
+        return taskStatus;
+    }
+});
+
+
 // 质损状态类型过滤器
 CommonFilter.filter("damageStatus", function () {
     return function (input) {

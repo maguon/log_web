@@ -76,7 +76,6 @@ app.controller("dispatch_index_controller", ["$scope", "$host", "_basic", functi
         // 获取送达商品车数量
         _basic.get($host.api_url + "/carLoadStatusCount?carLoadStatus=2&arriveDateStart=" + nowDate + "&arriveDateEnd=" + nowDate).then(function (arriveCarData) {
             if (arriveCarData.success === true) {
-                // console.log("arriveCarData",arriveCarData);
                 if(arriveCarData.result.length !== 0){
                     if(arriveCarData.result[0].arrive_count == null){
                         arriveCarData.result[0].arrive_count = 0;

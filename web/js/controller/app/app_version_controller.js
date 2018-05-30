@@ -1,5 +1,5 @@
 app.controller("app_version_controller", ["$scope", "$state", "$stateParams", "_basic", "_config", "$host", function ($scope, $state, $stateParams, _basic, _config, $host) {
-    $scope.size = 10;
+    $scope.size = 11;
     $scope.start = 0;
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.appTypeList = _config.appType;
@@ -13,6 +13,8 @@ app.controller("app_version_controller", ["$scope", "$state", "$stateParams", "_
             size:$scope.size
         })).then(function (data) {
             if (data.success === true) {
+                $scope.appSystemBoxArray = data.result;
+                $scope.appSystemList = $scope.appSystemBoxArray.slice(0, 10);
                 if ($scope.start > 0) {
                     $("#pre").show();
                 }
@@ -25,7 +27,7 @@ app.controller("app_version_controller", ["$scope", "$state", "$stateParams", "_
                 else {
                     $("#next").show();
                 }
-                $scope.appSystemList = data.result;
+
             }
             else {
                 swal(data.msg, "", "error");
@@ -110,11 +112,11 @@ app.controller("app_version_controller", ["$scope", "$state", "$stateParams", "_
     };
     // 分页
     $scope.getPrePage = function () {
-        $scope.start = $scope.start - $scope.size;
+        $scope.start = $scope.start - ($scope.size-1);
         getAppSystemList();
     };
     $scope.getNextPage = function () {
-        $scope.start = $scope.start + $scope.size;
+        $scope.start = $scope.start + ($scope.size-1);
         getAppSystemList();
     };
     $scope.searchAppSystem();

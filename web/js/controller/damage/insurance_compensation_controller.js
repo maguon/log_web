@@ -1,7 +1,7 @@
 app.controller("insurance_compensation_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
 
     $scope.start = 0;
-    $scope.size = 20;
+    $scope.size = 21;
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.handler = _basic.getSession(_basic.USER_NAME);
     $scope.handleStatus = "1";
@@ -37,7 +37,8 @@ app.controller("insurance_compensation_controller", ["$scope", "$host", "_basic"
             size:$scope.size
         })).then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
+                $scope.boxArray = data.result;
+                $scope.damageInsurancePaymentList = $scope.boxArray.slice(0, 20);
                 if ($scope.start > 0) {
                     $("#pre").show();
                 }
@@ -50,7 +51,6 @@ app.controller("insurance_compensation_controller", ["$scope", "$host", "_basic"
                 else {
                     $("#next").show();
                 }
-                $scope.damageInsurancePaymentList = data.result;
             }
             else {
                 swal(data.msg, "", "error");
@@ -182,12 +182,12 @@ app.controller("insurance_compensation_controller", ["$scope", "$host", "_basic"
 
     // 分页
     $scope.previous_page = function () {
-        $scope.start = $scope.start - $scope.size;
+        $scope.start = $scope.start - ($scope.size-1);
         $scope.getInsurancePaymentList();
     };
 
     $scope.next_page = function () {
-        $scope.start = $scope.start + $scope.size;
+        $scope.start = $scope.start + ($scope.size-1);
         $scope.getInsurancePaymentList();
     };
 

@@ -4,22 +4,24 @@
 app.controller("setting_repair_controller", ["_basic", "_config", "$host", "$scope", function (_basic, _config, $host, $scope) {
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.start = 0;
-    $scope.size = 10;
+    $scope.size = 11;
     $scope.search_id='';
     $scope.station='';
     // 搜索所有查询
     // 分页
     $scope.previousPage = function () {
-        $scope.start = $scope.start - $scope.size;
+        $scope.start = $scope.start - ($scope.size-1);
         searchAll();
     };
     $scope.nextPage = function () {
-        $scope.start = $scope.start + $scope.size;
+        $scope.start = $scope.start + ($scope.size-1);
         searchAll();
     };
     var searchAll = function () {
         _basic.get($host.api_url + "/repairStation?start=" + $scope.start + "&size=" + $scope.size).then(function (data) {
             if (data.success === true) {
+                $scope.boxArray = data.result;
+                $scope.repairStationArray = $scope.boxArray.slice(0, 10);
                 if ($scope.start > 0) {
                     $("#pre").show();
                 }
@@ -32,7 +34,6 @@ app.controller("setting_repair_controller", ["_basic", "_config", "$host", "$sco
                 else {
                     $("#next").show();
                 }
-                $scope.repairStationArray = data.result;
             } else {
                 swal(data.msg, "", "error");
             }
@@ -46,6 +47,8 @@ app.controller("setting_repair_controller", ["_basic", "_config", "$host", "$sco
         };
         _basic.get($host.api_url + "/repairStation?"+ _basic.objToUrl(obj)+"&start=" + $scope.start + "&size=" + $scope.size).then(function (data) {
             if (data.success == true) {
+                $scope.boxArray = data.result;
+                $scope.repairStationArray = $scope.boxArray.slice(0, 10);
                 if ($scope.start > 0) {
                     $("#pre").show();
                 }
@@ -59,7 +62,6 @@ app.controller("setting_repair_controller", ["_basic", "_config", "$host", "$sco
                     $("#next").show();
                 }
 
-                $scope.repairStationArray = data.result;
             }
         })
     }

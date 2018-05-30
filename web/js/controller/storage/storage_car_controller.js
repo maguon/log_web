@@ -34,14 +34,11 @@
 /*
 *
 * */
-// var Storage_carController = angular.module("Storage_carController", []);
 app.controller("storage_car_controller", ["$scope", "$rootScope", "$stateParams", "$host", "_basic", "_config", "baseService", function ($scope, $rootScope, $stateParams, $host, _basic, _config, baseService) {
     $scope.curruntId = 0;
     $scope.start = 0;
     $scope.size = 11;
     var userId = _basic.getSession(_basic.USER_ID);
-    // $pass_parameter.setter("jiangsen");
-
     var searchAll = function () {
         var obj = {
             active: 1,
@@ -68,16 +65,12 @@ app.controller("storage_car_controller", ["$scope", "$rootScope", "$stateParams"
                 $scope.storage_car = $scope.storage_car_box.slice(0, 10);
                 if ($scope.start > 0) {
                     $scope.pre = true;
-                    // $("#pre").removeClass("disabled");
                 } else {
                     $scope.pre = false;
-                    // $("#pre").addClass("disabled");
                 }
                 if ($scope.storage_car_box.length < $scope.size) {
-                    // $("#next").addClass("disabled");
                     $scope.next = false;
                 } else {
-                    // $("#next").removeClass("disabled");
                     $scope.next = true;
                 }
             } else {
@@ -178,98 +171,6 @@ app.controller("storage_car_controller", ["$scope", "$rootScope", "$stateParams"
             swal(data.msg, "", "error");
         }
     });
-    // $scope.newStorage_car = function (){
-    //     $scope.submitted = false;
-    //     $('.tabWrap .tab').removeClass("active");
-    //     $(".tab_box ").removeClass("active");
-    //     $(".tab_box ").hide();
-    //     $('.tabWrap .test1').addClass("active");
-    //     $("#test1").addClass("active");
-    //     $("#test1").show();
-    //     $scope.vin = "";
-    //     $scope.make_name = "";
-    //     // $scope.model_name = "";
-    //     $scope.arrive_time = "";
-    //     $scope.start_city = "";
-    //     $scope.arrive_city = "";
-    //     $scope.client = "";
-    //     $scope.dealer = "";
-    //     // $scope.create_time = "";
-    //     // $scope.car_color = "";
-    //     // $scope.engineNum = "";
-    //     $scope.remark = "";
-    //     $scope.storage_name = "";
-    //     // 照片清空
-    //     $scope.imgArr = [];
-    //     // 车辆型号清空
-    //     $scope.carModelName = "";
-    //     // 存放位置清空
-    //     $scope.parkingArray = "";
-    //     $scope.parking_id = "";
-    //     $scope.colArr = "";
-    //     // "enterTime":$scope.enter_time,
-    //
-    //     $scope.plan_out_time = "";
-    //     $(".modal").modal({
-    //         height: 500
-    //     });
-    //     $("#newStorage_car").modal("open");
-    //
-    // };
-    // // // 图片上传
-    // // 图片
-    // $scope.storage_imageBox = [];
-    //
-    //
-    // $scope.uploadBrandImage = function (dom) {
-    //     var filename = $(dom).val();
-    //     console.log($(dom).val());
-    //     if ((/\.(jpe?g|png|gif|svg|bmp|tiff?)$/i).test(filename)) {
-    //         //check size
-    //         //$file_input[0].files[0].size
-    //         var max_size_str = $(dom).attr('max_size');
-    //         var max_size = 4 * 1024 * 1024; //default: 4M
-    //         var re = /\d+m/i;
-    //         if (re.test(max_size_str)) {
-    //             max_size = parseInt(max_size_str.substring(0, max_size_str.length - 1)) * 1024 * 1024;
-    //         }
-    //
-    //         if ($(dom)[0].files[0].size > max_size) {
-    //             swal('图片文件最大: ' + max_size_str, "", "error");
-    //             return false;
-    //         }
-    //
-    //     }
-    //     else if (filename && filename.length > 0) {
-    //         $(dom).val('');
-    //         swal('支持的图片类型为. (jpeg,jpg,png,gif,svg,bmp,tiff)', "", "error");
-    //     }
-    //     // $currentDom = $(dom).prev();
-    //     _basic.formPost($(dom).parent().parent(), $host.file_url + '/user/' + userId + '/image?imageType=4', function (data) {
-    //
-    //         if (data.success) {
-    //             console.log(data, $scope.Picture_carId);
-    //             var imageId = data.imageId;
-    //             _basic.post($host.record_url + "/car/" + $scope.Picture_carId + "/vin/" + $scope.vin + "/storageImage", {
-    //                 "username": _basic.getSession(_basic.USER_NAME),
-    //                 "userId": userId,
-    //                 "userType": _basic.getSession(_basic.USER_TYPE),
-    //                 "url": imageId
-    //             }).then(function (data) {
-    //                 if (data.success == true) {
-    //                     $scope.storage_imageBox.push({src: $host.file_url + '/image/' + imageId});
-    //                 }
-    //             });
-    //         } else {
-    //             swal('上传图片失败', "", "error");
-    //         }
-    //     }, function (error) {
-    //         swal('服务器内部错误', "", "error");
-    //     })
-    //
-    // };
-    //
-    // 存放位置联动查询--行
 
     // // 存放位置联动查询--区域
     $scope.changeStorageId = function (val) {
@@ -383,7 +284,6 @@ app.controller("storage_car_controller", ["$scope", "$rootScope", "$stateParams"
     $scope.loginStorageCar = function (el, id) {
         $scope.self_vin = el;
         $scope.self_car_id = id;
-        // console.log(el, id);
         $(".modal").modal();
         $("#loginStorageCar").modal("open");
     };

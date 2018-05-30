@@ -1,7 +1,7 @@
 app.controller("driver_salary_controller", ["$scope", "$host", "$state", "_config", "_basic", function ($scope, $host, $state, _config, _basic) {
 
     $scope.start = 0;
-    $scope.size = 10;
+    $scope.size = 11;
     $scope.selectedIdsArr = [];
     $scope.noLoadDistanceCount = 0;
     $scope.loadDistanceCount = 0;
@@ -63,7 +63,8 @@ app.controller("driver_salary_controller", ["$scope", "$host", "$state", "_confi
             size:$scope.size
         })).then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
+                $scope.boxArray = data.result;
+                $scope.driverSalaryList = $scope.boxArray.slice(0, 10);
                 if ($scope.start > 0) {
                     $("#pre").show();
                 }
@@ -76,7 +77,6 @@ app.controller("driver_salary_controller", ["$scope", "$host", "$state", "_confi
                 else {
                     $("#next").show();
                 }
-                $scope.driverSalaryList = data.result;
                 $scope.temporaryMonth = $("#start_month").val();
             }
             else {
@@ -219,12 +219,12 @@ app.controller("driver_salary_controller", ["$scope", "$host", "$state", "_confi
 
     // 分页
     $scope.pre_btn = function () {
-        $scope.start = $scope.start - $scope.size;
+        $scope.start = $scope.start - ($scope.size-1);
         $scope.searchDriverSalaryList();
     };
 
     $scope.next_btn = function () {
-        $scope.start = $scope.start + $scope.size;
+        $scope.start = $scope.start + ($scope.size-1);
         $scope.searchDriverSalaryList();
     };
 

@@ -1,7 +1,7 @@
 app.controller("truck_compensate_loan_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
 
     $scope.start = 0;
-    $scope.size = 10;
+    $scope.size = 11;
     
     // 获取所有保险公司
     $scope.getInsuranceCompany = function () {
@@ -29,7 +29,8 @@ app.controller("truck_compensate_loan_controller", ["$scope", "$host", "_basic",
             size:$scope.size
         })).then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
+                $scope.boxArray = data.result;
+                $scope.compensateLoanList = $scope.boxArray.slice(0, 10);
                 if ($scope.start > 0) {
                     $("#pre").show();
                 }
@@ -42,7 +43,6 @@ app.controller("truck_compensate_loan_controller", ["$scope", "$host", "_basic",
                 else {
                     $("#next").show();
                 }
-                $scope.compensateLoanList = data.result;
             }
             else {
                 swal(data.msg, "", "error");
@@ -58,12 +58,12 @@ app.controller("truck_compensate_loan_controller", ["$scope", "$host", "_basic",
 
     // 分页
     $scope.pre_btn = function () {
-        $scope.start = $scope.start - $scope.size;
+        $scope.start = $scope.start - ($scope.size-1);
         $scope.getCompensateLoanList();
     };
 
     $scope.next_btn = function () {
-        $scope.start = $scope.start + $scope.size;
+        $scope.start = $scope.start + ($scope.size-1);
         $scope.getCompensateLoanList();
     };
 

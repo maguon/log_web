@@ -1,7 +1,7 @@
 app.controller("damage_declaration_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
 
     $scope.start = 0;
-    $scope.size = 20;
+    $scope.size = 21;
     $scope.processingStatus = "";
     $scope.vinCode = "";
 
@@ -16,6 +16,8 @@ app.controller("damage_declaration_controller", ["$scope", "$host", "_basic", fu
             size:$scope.size
         })).then(function (damageData) {
             if (damageData.success === true) {
+                $scope.boxArray = data.result;
+                $scope.damageList = $scope.boxArray.slice(0, 20);
                 if ($scope.start > 0) {
                     $("#pre").show();
                 }
@@ -28,8 +30,6 @@ app.controller("damage_declaration_controller", ["$scope", "$host", "_basic", fu
                 else {
                     $("#next").show();
                 }
-                // console.log("damageData",damageData);
-                $scope.damageList = damageData.result;
             }
             else {
                 swal(damageData.msg, "", "error");
@@ -45,12 +45,12 @@ app.controller("damage_declaration_controller", ["$scope", "$host", "_basic", fu
 
     // 分页
     $scope.previous_page = function () {
-        $scope.start = $scope.start - $scope.size;
+        $scope.start = $scope.start - ($scope.size-1);
         $scope.getDamageInfoList();
     };
 
     $scope.next_page = function () {
-        $scope.start = $scope.start + $scope.size;
+        $scope.start = $scope.start + ($scope.size-1);
         $scope.getDamageInfoList();
     };
 

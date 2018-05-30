@@ -2,7 +2,7 @@ app.controller("dispatch_route_fee_controller", ["$scope", "$host", "_basic", fu
 
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.start = 0;
-    $scope.size = 10;
+    $scope.size = 11;
 
     // 查询出车款列表
     $scope.getCarFinanceList = function () {
@@ -21,7 +21,8 @@ app.controller("dispatch_route_fee_controller", ["$scope", "$host", "_basic", fu
             size:$scope.size
         })).then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
+                $scope.boxArray = data.result;
+                $scope.carFinanceList = $scope.boxArray.slice(0, 10);
                 if ($scope.start > 0) {
                     $("#pre").show();
                 }
@@ -34,7 +35,6 @@ app.controller("dispatch_route_fee_controller", ["$scope", "$host", "_basic", fu
                 else {
                     $("#next").show();
                 }
-                $scope.carFinanceList = data.result;
             }
             else {
                 swal(data.msg, "", "error");
@@ -81,12 +81,12 @@ app.controller("dispatch_route_fee_controller", ["$scope", "$host", "_basic", fu
 
     // 分页
     $scope.pre_btn = function () {
-        $scope.start = $scope.start - $scope.size;
+        $scope.start = $scope.start - ($scope.size-1);
         $scope.getCarFinanceList();
     };
 
     $scope.next_btn = function () {
-        $scope.start = $scope.start + $scope.size;
+        $scope.start = $scope.start + ($scope.size-1);
         $scope.getCarFinanceList();
     };
 

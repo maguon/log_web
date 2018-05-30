@@ -3,7 +3,6 @@
  */
 app.controller("setting_files_controller", ["$scope", "$rootScope", "$host", "_basic", function ($scope, $rootScope, $host, _basic) {
 
-    var userId = _basic.getSession(_basic.USER_ID);
     $scope.ImportedFilesList = [];
     $scope.fileDetailObj = {
         fileName: "",
@@ -11,7 +10,7 @@ app.controller("setting_files_controller", ["$scope", "$rootScope", "$host", "_b
         fileRecord: []
     };
     $scope.start = 0;
-    $scope.size = 10;
+    $scope.size = 11;
     $("#pre").hide();
     $("#next").hide();
 
@@ -50,7 +49,8 @@ app.controller("setting_files_controller", ["$scope", "$rootScope", "$host", "_b
                 size:$scope.size
             })).then(function (data) {
                 if (data.success === true) {
-                    // console.log("data",data);
+                    $scope.boxArray = data.result;
+                    $scope.importedFilesList = $scope.boxArray.slice(0, 10);
                     if ($scope.start > 0) {
                         $("#pre").show();
                     }
@@ -63,7 +63,6 @@ app.controller("setting_files_controller", ["$scope", "$rootScope", "$host", "_b
                     else {
                         $("#next").show();
                     }
-                    $scope.importedFilesList = data.result;
                 }
                 else {
                     swal(data.msg, "", "error");
@@ -90,12 +89,12 @@ app.controller("setting_files_controller", ["$scope", "$rootScope", "$host", "_b
 
     // 分页
     $scope.pre_btn = function () {
-        $scope.start = $scope.start - $scope.size;
+        $scope.start = $scope.start - ($scope.size-1);
         $scope.searchMatchFiles();
     };
 
     $scope.next_btn = function () {
-        $scope.start = $scope.start + $scope.size;
+        $scope.start = $scope.start + ($scope.size-1);
         $scope.searchMatchFiles();
     };
 

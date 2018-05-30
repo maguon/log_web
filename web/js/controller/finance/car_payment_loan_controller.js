@@ -1,6 +1,6 @@
 app.controller("car_payment_loan_controller", ["$scope", "$state", "$stateParams", "_basic", "_config", "$host", function ($scope, $state, $stateParams, _basic, _config, $host) {
     $scope.start = 0;
-    $scope.size = 10;
+    $scope.size = 11;
     // 获取所有经销商car
      function getreceiveName () {
         _basic.get($host.api_url + "/receive").then(function (receiveData) {
@@ -29,6 +29,8 @@ app.controller("car_payment_loan_controller", ["$scope", "$state", "$stateParams
             size:$scope.size
         })).then(function (data) {
             if (data.success === true) {
+                $scope.boxArray = data.result;
+                $scope.paymentLoanList = $scope.boxArray.slice(0, 10);
                 if ($scope.start > 0) {
                     $("#pre").show();
                 }
@@ -41,7 +43,6 @@ app.controller("car_payment_loan_controller", ["$scope", "$state", "$stateParams
                 else {
                     $("#next").show();
                 }
-                $scope.paymentLoanList = data.result;
             }
             else {
                 swal(data.msg, "", "error");
@@ -57,12 +58,12 @@ app.controller("car_payment_loan_controller", ["$scope", "$state", "$stateParams
 
     // 分页
     $scope.preBtn = function () {
-        $scope.start = $scope.start - $scope.size;
+        $scope.start = $scope.start - ($scope.size-1);
         $scope.getPaymentLoanList();
     };
 
     $scope.nextBtn = function () {
-        $scope.start = $scope.start + $scope.size;
+        $scope.start = $scope.start + ($scope.size-1);
         $scope.getPaymentLoanList();
     };
 

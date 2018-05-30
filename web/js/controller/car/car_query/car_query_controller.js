@@ -3,7 +3,7 @@
  */
 app.controller("car_query_controller", ["$scope", "$rootScope", "$host", "_basic", "_config", "baseService", function ($scope, $rootScope, $host, _basic, _config, baseService) {
     $scope.start = 0;
-    $scope.size = 20;
+    $scope.size = 21;
     // 车辆品牌
     $scope.getCarMakeData = function () {
         _basic.get($host.api_url + "/carMake").then(function (carMakeData) {
@@ -105,6 +105,8 @@ app.controller("car_query_controller", ["$scope", "$rootScope", "$host", "_basic
                 size:$scope.size
             })).then(function (data) {
             if (data.success === true) {
+                $scope.boxArray = data.result;
+                $scope.responseData = $scope.boxArray.slice(0, 20);
                 if ($scope.start > 0) {
                     $("#pre").show();
                 }
@@ -117,9 +119,6 @@ app.controller("car_query_controller", ["$scope", "$rootScope", "$host", "_basic
                 else {
                     $("#next").show();
                 }
-
-                $scope.responseData = data.result;
-                // console.log("responseData:", $scope.responseData);
             }
             else {
                 swal(data.msg, "", "error");
@@ -129,12 +128,12 @@ app.controller("car_query_controller", ["$scope", "$rootScope", "$host", "_basic
 
     // 分页
     $scope.previous_page = function () {
-        $scope.start = $scope.start - $scope.size;
+        $scope.start = $scope.start - ($scope.size-1);
         $scope.search_car();
     };
 
     $scope.next_page = function () {
-        $scope.start = $scope.start + $scope.size;
+        $scope.start = $scope.start + ($scope.size-1);
         $scope.search_car();
     };
 

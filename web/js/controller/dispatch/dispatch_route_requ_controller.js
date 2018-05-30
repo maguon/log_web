@@ -2,7 +2,7 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic","_
 
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.start = 0;
-    $scope.size = 10;
+    $scope.size = 11;
     $scope.flag = true;
 
     // 获取所有司机信息
@@ -20,11 +20,6 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic","_
                     containerCssClass : 'select2_dropdown',
                     allowClear: true
                 });
-               /* $('#driver_name_model').select2({
-                    placeholder: '请选择司机',
-                    containerCssClass : 'select2_dropdown',
-                    allowClear: true
-                });*/
                 $('#driver_name').select2({
                     placeholder: '请选择',
                     containerCssClass : 'select2_dropdown'
@@ -49,6 +44,8 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic","_
             size:$scope.size
         })).then(function (data) {
             if (data.success === true) {
+                $scope.carInstructionBoxArray = data.result;
+                $scope.carInstructionList = $scope.carInstructionBoxArray.slice(0, 10);
                 if ($scope.start > 0) {
                     $("#pre").show();
                 }
@@ -61,7 +58,8 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic","_
                 else {
                     $("#next").show();
                 }
-                $scope.carInstructionList = data.result;
+
+
             }
             else {
                 swal(data.msg, "", "error");
@@ -287,12 +285,12 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic","_
 
     // 分页
     $scope.pre_btn = function () {
-        $scope.start = $scope.start - $scope.size;
+        $scope.start = $scope.start - ($scope.size - 1);
         getCarInstructionList();
     };
 
     $scope.next_btn = function () {
-        $scope.start = $scope.start + $scope.size;
+        $scope.start = $scope.start + ($scope.size - 1);
         getCarInstructionList();
     };
 

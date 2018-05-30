@@ -1,24 +1,15 @@
 /**
- * Created by ASUS on 2017/6/27.
- */
-/**
  * Created by ASUS on 2017/5/4.
  */
-// var Storage_carController = angular.module("Storage_carController", []);
 app.controller("add_storage_car_controller", ["$scope", "$rootScope","$state","$stateParams","$host", "_basic", "_config", "baseService", function ($scope, $rootScope,$state,$stateParams,$host, _basic,  _config, baseService) {
     var userId=_basic.getSession(_basic.USER_ID);
-    var Picture_carId
     $scope.vin=$stateParams.vin;
-    // $scope.vin = "";
     $scope.make_name = "";
     $scope.order_time = "";
     $scope.start_city = "";
     $scope.arrive_city = "";
     $scope.client = "";
     $scope.dealer = "";
-    // $scope.create_time = "";
-    // $scope.car_color = "";
-    // $scope.engineNum = "";
     $scope.remark = "";
     $scope.storage_name = "";
     // 存放位置清空

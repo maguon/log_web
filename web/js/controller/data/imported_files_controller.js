@@ -11,7 +11,7 @@ app.controller("imported_files_controller", ["$scope", "$rootScope", "$host", "_
         fileRecord: []
     };
     $scope.start = 0;
-    $scope.size = 10;
+    $scope.size = 11;
 
     // 点击查询
     $scope.getMatchFiles = function () {
@@ -33,7 +33,8 @@ app.controller("imported_files_controller", ["$scope", "$rootScope", "$host", "_
                 size:$scope.size
             })).then(function (data) {
                 if (data.success === true) {
-                    // console.log("data",data);
+                    $scope.boxArray = data.result;
+                    $scope.importedFilesList = $scope.boxArray.slice(0, 10);
                     if ($scope.start > 0) {
                         $("#pre").show();
                     }
@@ -46,7 +47,7 @@ app.controller("imported_files_controller", ["$scope", "$rootScope", "$host", "_
                     else {
                         $("#next").show();
                     }
-                    $scope.importedFilesList = data.result;
+
                 }
                 else {
                     swal(data.msg, "", "error");
@@ -73,12 +74,12 @@ app.controller("imported_files_controller", ["$scope", "$rootScope", "$host", "_
 
     // 分页
     $scope.pre_btn = function () {
-        $scope.start = $scope.start - $scope.size;
+        $scope.start = $scope.start - ($scope.size-1);
         $scope.searchMatchFiles();
     };
 
     $scope.next_btn = function () {
-        $scope.start = $scope.start + $scope.size;
+        $scope.start = $scope.start + ($scope.size-1);
         $scope.searchMatchFiles();
     };
 }]);

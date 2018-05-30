@@ -1,7 +1,7 @@
 app.controller("damage_management_controller", ["$scope", "$host", "_basic", "_config", function ($scope, $host, _basic, _config) {
 
     $scope.start = 0;
-    $scope.size = 20;
+    $scope.size = 21;
     // 获取config数据
     $scope.damageLinkType = _config.damageLinkType;
     $scope.damageType = _config.damageType;
@@ -92,6 +92,8 @@ app.controller("damage_management_controller", ["$scope", "$host", "_basic", "_c
             size:$scope.size
         })).then(function (data) {
             if (data.success === true) {
+                $scope.boxArray = data.result;
+                $scope.damageMamagementList = $scope.boxArray.slice(0, 20);
                 if ($scope.start > 0) {
                     $("#pre").show();
                 }
@@ -104,7 +106,7 @@ app.controller("damage_management_controller", ["$scope", "$host", "_basic", "_c
                 else {
                     $("#next").show();
                 }
-                $scope.damageMamagementList = data.result;
+
             }
             else {
                 swal(data.msg, "", "error");
@@ -120,12 +122,12 @@ app.controller("damage_management_controller", ["$scope", "$host", "_basic", "_c
 
     // 分页
     $scope.previous_page = function () {
-        $scope.start = $scope.start - $scope.size;
+        $scope.start = $scope.start - ($scope.size-1);
         $scope.getDamageManagementList();
     };
 
     $scope.next_page = function () {
-        $scope.start = $scope.start + $scope.size;
+        $scope.start = $scope.start + ($scope.size-1);
         $scope.getDamageManagementList();
     };
 

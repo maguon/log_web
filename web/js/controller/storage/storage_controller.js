@@ -130,11 +130,9 @@ app.controller("storage_store_controller", ["$scope", "$host", "_basic", "$state
                 "remark": $scope.remark,
                 "storageId": $scope.private_storageId,
                 "storageName": $scope.private_storageName,
-                // "enterTime":$scope.enter_time,
                 "parkingId": $scope.parking_id,
                 "planOutTime": $scope.plan_out_time
             };
-            // console.log(obj_car);
             _basic.post($host.api_url + "/user/" + userId + "/carStorageRel", obj_car).then(function (data) {
                 if (data.success == true) {
                     $('ul.tabs li a').removeClass("active");
@@ -143,7 +141,6 @@ app.controller("storage_store_controller", ["$scope", "$host", "_basic", "$state
                     $('ul.tabs li.test2 a').addClass("active");
                     $("#test2").addClass("active");
                     $("#test2").show();
-                    // searchAll();
                     $scope.LookGarage($scope.private_storageId);
                     $scope.Picture_carId = data.id;
                 }
@@ -158,10 +155,7 @@ app.controller("storage_store_controller", ["$scope", "$host", "_basic", "$state
     $scope.imgArr = [];
     $scope.uploadBrandImage = function (dom) {
         var filename = $(dom).val();
-        // console.log($(dom).val());
         if ((/\.(jpe?g|png|gif|svg|bmp|tiff?)$/i).test(filename)) {
-            //check size
-            //$file_input[0].files[0].size
             var max_size_str = $(dom).attr('max_size');
             var max_size = 4 * 1024 * 1024; //default: 4M
             var re = /\d+m/i;
@@ -181,7 +175,6 @@ app.controller("storage_store_controller", ["$scope", "$host", "_basic", "$state
         }
         _basic.formPost($(dom).parent().parent(), $host.file_url + '/user/' + userId + '/image?imageType=4', function (data) {
             if (data.success) {
-                // console.log(data, $scope.Picture_carId);
                 var imageId = data.imageId;
                 _basic.post($host.record_url + "/car/" + $scope.Picture_carId + "/vin/" + $scope.vin + "/storageImage", {
                     "username": _basic.getSession(_basic.USER_NAME),
@@ -191,10 +184,8 @@ app.controller("storage_store_controller", ["$scope", "$host", "_basic", "$state
                 }).then(function (data) {
                     if (data.success == true) {
                         $scope.imgArr.push({src: $host.file_url + '/image/' + imageId});
-                        // console.log($scope.imgArr);
                     }
                 });
-                // .appendChild(div)
             }
             else {
                 swal('上传图片失败', "", "error");
@@ -207,7 +198,6 @@ app.controller("storage_store_controller", ["$scope", "$host", "_basic", "$state
 
     // 当汽车详情页
     $scope.lookStorageCar = function (val) {
-        // console.log(val);
         $state.go("storageCar_details", {}, {reload: true})
     };
 }]);

@@ -1,7 +1,6 @@
 /**
  * Created by ASUS on 2017/5/4.
  */
-// var Storage_carController = angular.module("Storage_carController", []);
 app.controller("add_storage_car_vin_controller", ["$scope", "$rootScope","$state","$stateParams","$host", "_basic", "_config", "baseService", function ($scope, $rootScope,$state,$stateParams,$host, _basic,  _config, baseService) {
     // $scope.data={};
     var vinObjs ={}
@@ -15,7 +14,6 @@ app.controller("add_storage_car_vin_controller", ["$scope", "$rootScope","$state
     });
 
     $scope.short_search=function () {
-        // console.log($scope.demand_vin);
         if($scope.demand_vin!=undefined){
             if($scope.demand_vin.length>=6){
                 _basic.get($host.api_url+"/carList?vinCode="+$scope.demand_vin,{},{hidenShadow:true}).then(function (data) {

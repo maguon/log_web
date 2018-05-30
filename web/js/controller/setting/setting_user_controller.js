@@ -3,10 +3,9 @@
  */
 app.controller("setting_user_controller", ["_basic", "_config", "$host", "$scope", function (_basic, _config, $host, $scope) {
 
-    var adminId = _basic.getSession(_basic.USER_ID);
     var adminType = _basic.getSession(_basic.USER_TYPE);
     $scope.start = 0;
-    $scope.size = 20;
+    $scope.size = 21;
 
     var user_info_obj = _config.userTypes;
     var user_info_fun = function () {
@@ -40,6 +39,8 @@ app.controller("setting_user_controller", ["_basic", "_config", "$host", "$scope
         // 获取所有用户
         _basic.get($host.api_url + "/user?type=" + $scope.userType + "&start=" + $scope.start + "&size=" + $scope.size).then(function (data) {
             if (data.success === true) {
+                $scope.boxArray = data.result;
+                $scope.matchUser = $scope.boxArray.slice(0, 20);
                 if ($scope.start > 0) {
                     $("#pre").show();
                 }
@@ -53,7 +54,6 @@ app.controller("setting_user_controller", ["_basic", "_config", "$host", "$scope
                     $("#next").show();
                 }
 
-                $scope.matchUser = data.result;
             } else {
                 swal(data.msg, "", "error");
             }
@@ -165,12 +165,12 @@ app.controller("setting_user_controller", ["_basic", "_config", "$host", "$scope
 
     // 分页
     $scope.previous_page = function () {
-        $scope.start = $scope.start - $scope.size;
+        $scope.start = $scope.start - ($scope.size-1);
         searchAll();
     };
 
     $scope.next_page = function () {
-        $scope.start = $scope.start + $scope.size;
+        $scope.start = $scope.start + ($scope.size-1);
         searchAll();
     };
 

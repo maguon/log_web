@@ -18,9 +18,6 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
         _basic.get($host.api_url + "/city").then(function (data) {
             if (data.success == true) {
                 $scope.get_city = data.result;
-                // for(var i=0;i<data.result.length;i++){
-                //     $scope.get_city.push({id:data.result[i].id,city_name:data.result[i].city_name})
-                // }
                 $('#chooseStartCity').select2({
                     containerCssClass: 'select2_dropdown'
                 });
@@ -86,10 +83,7 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
     $scope.uploadBrandImage = function (dom) {
         var filename = $(dom).val();
         if (filename) {
-            // console.log($(dom).val());
             if ((/\.(jpe?g|png|gif|svg|bmp|tiff?)$/i).test(filename)) {
-                //check size
-                //$file_input[0].files[0].size
                 var max_size_str = $(dom).attr('max_size');
                 var max_size = 4 * 1024 * 1024; //default: 4M
                 var re = /\d+m/i;
@@ -107,7 +101,6 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
             }
             _basic.formPost($(dom).parent().parent(), $host.file_url + '/user/' + userId + '/image?imageType=4', function (data) {
                 if (data.success) {
-                    // console.log(data, $scope.Picture_carId);
                     var imageId = data.imageId;
                     _basic.post($host.record_url + "/car/" + $scope.Picture_carId + "/vin/" + $scope.vin + "/storageImage", {
                         "username": _basic.getSession(_basic.USER_NAME),
@@ -122,7 +115,6 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
                             }
                             var nowDate = moment(new Date()).format("YYYY-MM-DD HH:mm");
                             $scope.storage_image_i.push($host.file_url + '/image/' + imageId);
-                            // $scope.storage_imageBox.push({src: $host.file_url + '/image/' + imageId});
                             $scope.storage_imageBox.push({
                                 src: $host.file_url + '/image/' + imageId,
                                 record_id: $scope._id,
@@ -146,9 +138,7 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
         _basic.get($host.api_url + "/storageParking?storageId=" + val).then(function (data) {
             if (data.success == true) {
                 $scope.storageParking = data.result;
-
                 $scope.parkingArray = baseService.storageParking($scope.storageParking);
-                // console.log($scope.parkingArray)
 
             }
             else {

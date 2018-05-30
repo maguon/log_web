@@ -1,10 +1,8 @@
 /**
  * Created by ASUS on 2017/5/5.
  */
-// var storage_car_mapController = angular.module("storage_car_mapController", []);
 app.controller("storage_car_map_controller", ["$state", "$rootScope", "$stateParams", "_config", "baseService", "$scope", "$host", "_basic", function ( $state, $rootScope, $stateParams, _config, baseService, $scope, $host, _basic) {
     var val = $stateParams.id;
-    // console.log($stateParams.form);
     $scope._form=$stateParams.form;
     var data = new Date();
     var now_date = moment(data).format('YYYYMMDD');
@@ -14,7 +12,6 @@ app.controller("storage_car_map_controller", ["$state", "$rootScope", "$statePar
     _basic.get($host.api_url + "/storageDate?storageId=" + val + "&dateStart=" + now_date + "&dateEnd=" + now_date).then(function (data) {
         if (data.success == true) {
             $scope.storage = data.result[0];
-            // console.log($scope.storage)
         }
     });
     _basic.get($host.api_url + "/storageArea?storageId=" + val+"&&areaStatus=1").then(function (data) {
@@ -22,7 +19,6 @@ app.controller("storage_car_map_controller", ["$state", "$rootScope", "$statePar
             if(data.result.length>0){
                 $scope.storageArea = data.result;
                 $scope.area=$scope.storageArea[0];
-                // console.log($scope.storage)
                 $scope.get_area_count($scope.area.id);
                 $scope.show_area=true;
             }else {
@@ -35,14 +31,12 @@ app.controller("storage_car_map_controller", ["$state", "$rootScope", "$statePar
         _basic.get($host.api_url + "/storageArea?areaId=" + id).then(function (data) {
             if (data.success == true) {
                 $scope.self_storageArea = data.result[0];
-                // console.log($scope.storage)
             }
         });
         _basic.get($host.api_url + "/storageParking?areaId=" + id).then(function (data) {
             if (data.success == true) {
                 $scope.self_storageParking = data.result;
                 $scope.garageParkingArray = baseService.storageParking($scope.self_storageParking);
-                // console.log($scope.garageParkingArray);
                 $scope.ageParkingCol = $scope.garageParkingArray[0].col
             }
 
@@ -53,14 +47,12 @@ app.controller("storage_car_map_controller", ["$state", "$rootScope", "$statePar
         _basic.get($host.api_url + "/storageDate?storageId=" + val + "&dateStart=" + now_date + "&dateEnd=" + now_date).then(function (data) {
             if (data.success == true) {
                 $scope.storage = data.result[0];
-                // console.log($scope.storage)
             }
         });
         _basic.get($host.api_url + "/storageParking?storageId=" + val).then(function (data) {
             if (data.success == true) {
                 $scope.self_storageParking = data.result;
                 $scope.garageParkingArray = baseService.storageParking($scope.self_storageParking);
-                // console.log($scope.garageParkingArray);
                 $scope.ageParkingCol = $scope.garageParkingArray[0].col
 
             }
@@ -69,37 +61,6 @@ app.controller("storage_car_map_controller", ["$state", "$rootScope", "$statePar
     };
     $scope.LookGarage(val);
 
-    // // 车辆品牌查询
-/*    _basic.get($host.api_url + "/carMake").then(function (data) {
-        if (data.success == true) {
-            $scope.makecarName = data.result;
-        } else {
-            swal(data.msg, "", "error");
-        }
-    });
-    // 车辆型号联动查询
-    $scope.changeMakeId = function (val) {
-        // console.log(val);
-
-
-        if ($scope.curruntId == val) {
-
-        } else {
-            $scope.curruntId = val;
-            _basic.get($host.api_url + "/carMake/" + val + "/carModel").then(function (data) {
-                if (data.success == true) {
-                    $scope.carModelName = data.result;
-
-                } else {
-                    swal(data.msg, "", "error")
-                }
-            })
-        }
-
-
-    };
-    // 颜色
-    $scope.color = _config.config_color;*/
 
     // 存放位置联动查询--行
     $scope.changeStorageId = function (val) {

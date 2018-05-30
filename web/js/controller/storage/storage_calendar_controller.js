@@ -1,7 +1,5 @@
-// var storage_working_calendarController = angular.module("storage_working_calendarController", []);
 app.controller("storage_working_calendar_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
     var date = new Date();
-    // console.log(moment(date).format('YYYY-MM-DD h:mm:ss '))
     var now_date = moment(date).format('YYYYMMDD');
     var month = date.getMonth() + 1;
     $scope.today_month = date.getFullYear() + "年" + month + "月";

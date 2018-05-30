@@ -1,7 +1,7 @@
 app.controller("finance_route_fee_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
 
     $scope.start = 0;
-    $scope.size = 10;
+    $scope.size = 11;
 
 
     // 获取所有司机信息
@@ -45,7 +45,8 @@ app.controller("finance_route_fee_controller", ["$scope", "$host", "_basic", fun
             size:$scope.size
         })).then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
+                $scope.boxArray = data.result;
+                $scope.carFinanceList = $scope.boxArray.slice(0, 10);
                 if ($scope.start > 0) {
                     $("#pre").show();
                 }
@@ -58,7 +59,6 @@ app.controller("finance_route_fee_controller", ["$scope", "$host", "_basic", fun
                 else {
                     $("#next").show();
                 }
-                $scope.carFinanceList = data.result;
             }
             else {
                 swal(data.msg, "", "error");
@@ -99,12 +99,12 @@ app.controller("finance_route_fee_controller", ["$scope", "$host", "_basic", fun
 
     // 分页
     $scope.pre_btn = function () {
-        $scope.start = $scope.start - $scope.size;
+        $scope.start = $scope.start - ($scope.size-1);
         $scope.getCarFinanceList();
     };
 
     $scope.next_btn = function () {
-        $scope.start = $scope.start + $scope.size;
+        $scope.start = $scope.start + ($scope.size-1);
         $scope.getCarFinanceList();
     };
 

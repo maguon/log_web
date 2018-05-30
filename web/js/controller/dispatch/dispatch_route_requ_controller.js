@@ -78,7 +78,7 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic", f
         $scope.planMoney = 0;
         $scope.dispatchNumMod  = dispatchIdSmall;
         $scope.driverIdModel  = driveIdSmall;
-        _basic.get($host.api_url + "/dpRouteTask?driveId=" + driveIdSmall + "&taskStatusArr=1,2,3,4").then(function (data) {
+        _basic.get($host.api_url + "/dpRouteTaskNotLoan?driveId=" + driveIdSmall + "&taskStatusArr=1,2,3,4").then(function (data) {
             if (data.success === true) {
                 $scope.missionList = data.result;
                 $scope.matchMissionList = [];
@@ -96,7 +96,7 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic", f
 
     // 根据选择的司机id查询关联任务信息
     $scope.searchMatchMission = function () {
-        _basic.get($host.api_url + "/dpRouteTask?driveId=" + $scope.driverIdMod + "&taskStatusArr=1,2,3,4").then(function (data) {
+        _basic.get($host.api_url + "/dpRouteTaskNotLoan?driveId=" + $scope.driverIdMod + "&taskStatusArr=1,2,3,4").then(function (data) {
             if (data.success === true) {
                 $scope.missionList = data.result;
                 $scope.matchMissionList = [];
@@ -121,9 +121,8 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic", f
             }
             else {
                 // 根据选择的调度id查询调度详细信息
-                _basic.get($host.api_url + "/dpRouteTask?dpRouteTaskId=" + $scope.dispatchNumMod).then(function (data) {
+                _basic.get($host.api_url + "/dpRouteTaskNotLoan?dpRouteTaskId=" + $scope.dispatchNumMod).then(function (data) {
                     if (data.success === true) {
-                        // console.log("data", data);
                         $scope.matchMissionList.push(data.result[0]);
                     }
                     else {
@@ -195,7 +194,8 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic", f
                     if (data.success === true) {
                         $("#addCarFinanceModel").modal("close");
                         swal("新增成功", "", "success");
-                        $scope.searchCarFinanceList();
+                        $scope.searchCarInstructionList();
+
                     }
                     else {
                         swal(data.msg, "", "error");
@@ -227,7 +227,7 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic", f
                         // console.log("data", data);
                         $("#addCarFinanceModel").modal("close");
                         swal("新增成功", "", "success");
-                        $scope.searchCarFinanceList();
+                        $scope.searchCarInstructionList();
                     }
                     else {
                         swal(data.msg, "", "error");

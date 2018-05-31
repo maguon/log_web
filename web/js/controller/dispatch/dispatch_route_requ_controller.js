@@ -110,17 +110,20 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic","_
         $scope.taxiCost = 0;
         $scope.remark = "";
         $scope.planMoney = 0;
-        $scope.dispatchNumMod  = dispatchIdSmall;
+        $scope.driveIdSmall= driveIdSmall;
         _basic.get($host.api_url + "/drive?driveId=" + driveIdSmall).then(function (data) {
             if (data.success === true) {
                 $scope.driveSmallList = data.result;
-                $scope.driverIdModel  =$scope.driveSmallList[0].id;
+
+               /* $scope.driverIdModel  =$scope.driveSmallList[0].id;*/
             }
         });
        /* $scope.driverIdModel  = driveIdSmall;*/
         _basic.get($host.api_url + "/dpRouteTaskNotLoan?driveId=" + driveIdSmall + "&taskStatusArr=8").then(function (data) {
             if (data.success === true) {
                 $scope.missionList = data.result;
+                $scope.dispatchNumMod  = dispatchIdSmall;
+                $scope.driverIdModel =  $scope.driveIdSmall;
                 $scope.matchMissionList = [];
                 $scope.roadTollCost = 0;
                 $scope.createMatchMissionCard();
@@ -215,12 +218,12 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic","_
         var dpRouteTaskIds = [];
         var planMoneyCount = parseFloat($("#planMoney").html()).toFixed(2);
         if($scope.flag==true){
-            if($scope.driverIdModel != "" && $scope.matchMissionList.length !== 0){
+            if( $scope.driveIdSmall != "" && $scope.matchMissionList.length !== 0){
                 for (var i = 0; i < $scope.matchMissionList.length; i++) {
                     dpRouteTaskIds.push($scope.matchMissionList[i].id)
                 }
                 _basic.post($host.api_url + "/user/" + userId + "/dpRouteTaskLoan",{
-                    driveId: $scope.driverIdModel,
+                    driveId: $scope.driveIdSmall,
                     applyPassingCost: $scope.roadTollCost,
                     applyFuelCost: $scope.fuelCost,
                     applyProtectCost: $scope.roadCost,

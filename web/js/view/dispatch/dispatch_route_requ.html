@@ -11,7 +11,7 @@
                         <option value="" selected disabled>请选择</option>
                         <option ng-repeat="driver in driveSmallList" ng-value="driver.id">{{driver.drive_name + " - " + driver.mobile}}</option>
                     </select>
-                    <label class="active" for="driver_name_mod"><span style="color: red">* </span>司机</label>
+                    <label for="driver_name_mod"><span style="color: red">* </span>司机</label>
                 </div>
                 <div class="col s4 input-field" style="margin-bottom: 10px" ng-show="!flag">
                     <select id="driver_name_mod" style="width: 100%" ng-change="searchMatchMission()" ng-model="driverIdMod">

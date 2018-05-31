@@ -2,7 +2,7 @@ app.controller("accident_claim_controller", ["$scope", "$host", "_basic", functi
 
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.start = 0;
-    $scope.size = 20;
+    $scope.size = 21;
     $scope.accidentClaimList = [];
     $scope.relationAccidentNum = "";
     $scope.hasLoanType = true;
@@ -38,7 +38,8 @@ app.controller("accident_claim_controller", ["$scope", "$host", "_basic", functi
             size:$scope.size
         })).then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
+                $scope.boxArray = data.result;
+                $scope.damageClaimList = $scope.boxArray.slice(0, 20);
                 if ($scope.start > 0) {
                     $("#pre").show();
                 }
@@ -51,7 +52,6 @@ app.controller("accident_claim_controller", ["$scope", "$host", "_basic", functi
                 else {
                     $("#next").show();
                 }
-                $scope.damageClaimList = data.result;
             }
             else {
                 swal(data.msg, "", "error");
@@ -67,12 +67,12 @@ app.controller("accident_claim_controller", ["$scope", "$host", "_basic", functi
 
     // 分页
     $scope.previous_page = function () {
-        $scope.start = $scope.start - $scope.size;
+        $scope.start = $scope.start - ($scope.size-1);
         $scope.getDamageClaimList();
     };
 
     $scope.next_page = function () {
-        $scope.start = $scope.start + $scope.size;
+        $scope.start = $scope.start + ($scope.size-1);
         $scope.getDamageClaimList();
     };
 

@@ -4,7 +4,7 @@
 app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host", function ($scope, _basic, _config, $host) {
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.start = 0;
-    $scope.size = 20;
+    $scope.size = 21;
     // 驾驶类型
     $scope.licenseType = _config.licenseType;
 
@@ -13,6 +13,8 @@ app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host
         obj.start = obj.start + "";
         _basic.get($host.api_url + "/drive?" + _basic.objToUrl(obj)).then(function (driveData) {
             if (driveData.success === true) {
+                $scope.boxArray = driveData.result;
+                $scope.driveList = $scope.boxArray.slice(0, 20);
                 if ($scope.start > 0) {
                     $("#pre").show();
                 }
@@ -25,8 +27,6 @@ app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host
                 else {
                     $("#next").show();
                 }
-                $scope.driveList = driveData.result;
-                // console.log("driveData",driveData);
             }
             else {
                 swal(driveData.msg, "", "error");
@@ -154,12 +154,12 @@ app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host
 
     // 分页
     $scope.previous_page = function () {
-        $scope.start = $scope.start - $scope.size;
+        $scope.start = $scope.start - ($scope.size-1);
         $scope.common_search_driver();
     };
 
     $scope.next_page = function () {
-        $scope.start = $scope.start + $scope.size;
+        $scope.start = $scope.start + ($scope.size-1);
         $scope.common_search_driver();
     };
 

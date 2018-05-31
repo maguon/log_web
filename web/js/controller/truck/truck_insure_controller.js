@@ -1,5 +1,5 @@
 app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "_basic", "_config", "$host", function ($scope, $state, $stateParams, _basic, _config, $host) {
-    $scope.size = 10;
+    $scope.size = 11;
     $scope.start = 0;
     var userId = _basic.getSession(_basic.USER_ID);
     // 获取所有保险公司
@@ -43,6 +43,8 @@ app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "
             size:$scope.size
         })).then(function (data) {
             if (data.success === true) {
+                $scope.boxArray = data.result;
+                $scope.truckInsureList = $scope.boxArray.slice(0, 10);
                 if ($scope.start > 0) {
                     $("#pre").show();
                 }
@@ -55,7 +57,6 @@ app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "
                 else {
                     $("#next").show();
                 }
-                $scope.truckInsureList = data.result;
                 for(var i = 0; i < $scope.truckInsureList.length; i++) {
                     var endDate = new Date($scope.truckInsureList[i].end_date).getTime();
                     var nowDate = new Date().getTime();
@@ -201,11 +202,11 @@ app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "
     }
     // 分页
     $scope.getPrePage = function () {
-        $scope.start = $scope.start - $scope.size;
+        $scope.start = $scope.start - ($scope.size-1);
         getTruckInsureList();
     };
     $scope.getNextPage = function () {
-        $scope.start = $scope.start + $scope.size;
+        $scope.start = $scope.start + ($scope.size-1);
         getTruckInsureList();
     };
     // 获取数据

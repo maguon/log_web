@@ -16,7 +16,7 @@ app.controller("damage_declaration_controller", ["$scope", "$host", "_basic", fu
             size:$scope.size
         })).then(function (damageData) {
             if (damageData.success === true) {
-                $scope.boxArray = data.result;
+                $scope.boxArray = damageData.result;
                 $scope.damageList = $scope.boxArray.slice(0, 20);
                 if ($scope.start > 0) {
                     $("#pre").show();

@@ -1,7 +1,7 @@
 app.controller("driver_information_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
 
     $scope.start = 0;
-    $scope.size = 10;
+    $scope.size = 11;
 
     // 获取所有公司列表
     $scope.getCompanyList = function () {
@@ -27,7 +27,8 @@ app.controller("driver_information_controller", ["$scope", "$host", "_basic", fu
             size:$scope.size
         })).then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
+                $scope.boxArray = data.result;
+                $scope.damageClaimList = $scope.boxArray.slice(0, 10);
                 if ($scope.start > 0) {
                     $("#pre").show();
                 }
@@ -56,12 +57,12 @@ app.controller("driver_information_controller", ["$scope", "$host", "_basic", fu
 
     // 分页
     $scope.pre_btn = function () {
-        $scope.start = $scope.start - $scope.size;
+        $scope.start = $scope.start - ($scope.size-1);
         $scope.getDriverInfoList();
     };
 
     $scope.next_btn = function () {
-        $scope.start = $scope.start + $scope.size;
+        $scope.start = $scope.start + ($scope.size-1);
         $scope.getDriverInfoList();
     };
 

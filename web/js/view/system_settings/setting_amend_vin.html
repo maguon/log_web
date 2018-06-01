@@ -1,23 +1,20 @@
 <div id="setting_amend_vin" >
     <div class="grey-text text-darken-2" >
-        <!--<div class="modal-content ">-->
-            <!--<div class="" style="width: 95%;margin: 0 auto">-->
             <div class=" vc-center ">
                 <h4 class="center-align cyan-text text-lighten-1">vin码查询</h4>
             </div>
             <div class="divider" style="background: #00bcd4;height: 2px;"></div>
             <div class="row no-marBottom">
                 <div class="row " style="width: 900px;margin: 0 auto">
-                    <form name="demand_car_form" ng-submit="demand_car(demand_car_form.$valid)" novalidate>
+                    <form name="demand_car_form" novalidate>
                         <div class="mp-30 valign-wrapper" style="overflow: hidden">
                             <div class="col s1 cyan-text text-lighten-1" style="font-size: 25px;min-width: 90px">vin码:</div>
-                            <div class="input-field col s10 " ng-class="{'has-error':demand_car_form.demand_vin.$invalid&&submitted}">
+                            <div class="input-field col s10">
                                 <span></span>
                                 <input type="text" id="demand_vin" name="demand_vin" ng-model="demand_vin" placeholder="仅支持17位VIN码查询"  autocomplete="off"  required minlength="17" maxlength="17">
-                                <!--<label for="demand_vin" style="font-size: 20px"></label>-->
                             </div>
                             <div  class="col s1 vc-center " >
-                                <button class=" btn btn-floating btn-large waves-effect cyan lighten-1" ><i style="font-size: 40px" class="mdi white-text mdi-magnify"></i></button>
+                                <button ng-click="demand_car()" class=" btn btn-floating btn-large waves-effect cyan lighten-1" ><i style="font-size: 40px" class="mdi white-text mdi-magnify"></i></button>
                             </div>
                         </div>
 
@@ -28,50 +25,137 @@
                     <!--<div class="divider"></div>-->
                     <div style="width: 80%;height: 30ex;margin: 0 auto">
                         <p style="display: none" class="no_car_detail center-align cyan-text text-lighten-1 mp-50">无该VIN码车辆信息</p>
-                        <div style="display: none" class="car_detail mp-50">
-                            <div class="row" style="margin-bottom: 10px">
-                                <div class="input-field col s12 mp-30" >
-                                    <h5 class="col s1 cyan-text text-lighten-1">Vin码:</h5>
-                                    <span class="col s9 grey-text" ng-show="flag==true" style="font-size: 30px">{{vin}}</span>
-                                    <input class="col s9 grey-text" ng-show="flag==false"  style="font-size: 30px" type="text" id="amend_vin" ng-model="vin" name="search_vin">
-                                    <div class="col s2">
+
+
+
+
+                        <div style="display: none" class="car_detail mp-50 col s12">
+                            <div class="row  blue-grey lighten-5" style="width:80%;border:1px solid #bdbdbd">
+                                <!-- header -->
+                                <!-- header -->
+                                <div class="col s12  cyan-text vc-center left-align" style="height:85px;border-bottom :1px solid #bdbdbd">
+                                    <div class="col s6">
+                                        <h5 class="col s3 cyan-text text-lighten-1">Vin码:</h5>
+                                        <span class="col s9 grey-text" ng-show="flag==true" style="font-size: 30px">{{vin}}</span>
+                                        <input class="col s9 grey-text" ng-show="flag==false"  style="font-size: 30px" type="text" id="amend_vin" ng-model="vin" name="search_vin">
+                                    </div>
+                                    <div class="col s4 right-align offset-s4">
                                         <a class="btn  btn-large btn-floating waves-effect cyan" ng-show="flag==true"  ng-click="open_vin_amend()"> <i class="mdi mdi-pencil "></i></a>
                                         <a class="btn  btn-large btn-floating waves-effect cyan" ng-show="flag==false" ng-click="close_vin_amend()" style="margin-right: 10px"> <i class="mdi mdi-close " ></i></a>
                                         <a class="btn  btn-large btn-floating waves-effect cyan" ng-show="flag==false" ng-click="amend_vin(car_details.id,flag)"> <i class="mdi mdi-check "></i></a>
                                     </div>
                                 </div>
+
+                                <div class="col s12 white" style="height:20px;"></div>
+                                <!-- body -->
+                                <div class="col s12 white" style="height:70px;">
+                                    <div class="input-field col s4">
+                                        <select material-select watch  id="look_makecarName"  name="look_makecarName"  ng-model="car_details.make_id" required>
+                                            <option value="" disabled selected>请选择</option>
+                                            <option ng-repeat="el in makecarName" ng-value="el.id" >{{el.make_name}}</option>
+                                        </select>
+                                        <label for="look_makecarName" ><span style="color: red">*</span>制造商</label>
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <select material-select watch id="client1" name="client"  ng-model="car_details.entrust_id" >
+                                            <option value="" disabled selected>请选择</option>
+                                            <option ng-repeat="el in get_entrust" ng-value="el.id" >{{el.short_name}}</option>
+                                        </select>
+                                        <label for="client1">委托方</label>
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <input type="text" id="last_name" class="datepicker" date ng-model="car_details.order_date"><i
+                                            class="mdi dataIcon mdi-table-large"></i>
+                                        <label for="last_name">指令时间</label>
+                                    </div>
+                                </div>
+                                <!-- body -->
+                                <div class="col s12 white" style="height:70px;">
+                                    <div class="input-field col s4">
+                                        <select material-select watch id="start_addr" name="start_addr"  required  ng-model="start_addr" >
+                                            <option value="" disabled selected>请选择</option>
+                                            <option ng-repeat="start_addr in start_address" ng-value="start_addr.id" >{{start_addr.addr_name}}</option>
+                                        </select>
+                                        <label for="start_addr">发运地名称</label>
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <select id="chooseStartCity" name="state" style="width:100%" ng-change="get_addr(start_city)" ng-model="start_city">
+                                            <option value="0">发运地城市</option>
+                                            <option ng-repeat="city in get_city" ng-value="city.id">{{city.city_name}}</option>
+                                        </select>
+
+
+                                    </div>
+                                    <div class="input-field col s2">
+                                        <select id="chooseEndCity" name="state" style="width:100%" ng-change="get_received(arrive_city)" ng-model="arrive_city">
+                                            <option value="0">目的地城市</option>
+                                            <option ng-repeat="city in get_city" ng-value="city.id" >{{city.city_name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-field col s2">
+                                        <select material-select watch id="dealer1" name="dealer" ng-model="car_details.receive_id">
+                                            <option value="" disabled selected>请选择</option>
+                                            <option ng-repeat="el in get_receive" ng-value="el.id" >{{el.short_name}}</option>
+                                        </select>
+                                        <label for="dealer1">经销商</label>
+                                    </div>
+                                </div>
+                                <!-- body -->
+                                <div class="col s12 white" style="height:170px;">
+                                    <p class="col s12 min-width-2 left-align" style="color: #26c6da">备注:</p>
+                                    <div class="col s12 valign-wrapper" style="position: relative">
+                                        <p class=" col s12 p0">
+                                            <textarea id="look_remark" style="height: 50px" name="remark" class="col s12" ng-model="car_details.remark"></textarea>
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                
+                                
+                                
+                                
+                                <!--<div class="row">
+                                    <div class="col s4">
+                                        <span class="cyan-text text-lighten-1 ">发运地城市:</span>
+                                        <span ng-cloak class="grey-text">{{car_details.route_start}}</span>
+                                    </div>
+                                    <div class="col s4">
+                                        <span class="cyan-text text-lighten-1 ">委托方:</span>
+                                        <span ng-cloak class="grey-text">{{car_details.en_short_name}}</span>
+                                    </div>
+                                    <div class="col s4">
+                                        <span class="cyan-text text-lighten-1 ">制造商:</span>
+                                        <span ng-cloak class="grey-text">{{car_details.make_name}}</span>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 50px">
+                                    <div class="col s4">
+                                        <span class="cyan-text text-lighten-1 ">目的地城市:</span>
+                                        <span ng-cloak class="grey-text">{{car_details.route_end}}</span>
+                                    </div>
+                                    <div class="col s4">
+                                        <span class="cyan-text text-lighten-1 ">经销商:</span>
+                                        <span ng-cloak class="grey-text">{{car_details.re_short_name}}</span>
+                                    </div>
+                                    &lt;!&ndash;<div class="col s4">&ndash;&gt;
+                                    &lt;!&ndash;<span class="cyan-text text-lighten-1 bold">型号:</span>&ndash;&gt;
+                                    &lt;!&ndash;<span>4652346523</span>&ndash;&gt;
+                                    &lt;!&ndash;</div>&ndash;&gt;
+                                </div>-->
                             </div>
-                            <div class="divider" style="margin: 0 0 30px 0"></div>
-                            <div class="row">
-                                <div class="col s4">
-                                    <span class="cyan-text text-lighten-1 ">发运地城市:</span>
-                                    <span ng-cloak class="grey-text">{{car_details.route_start}}</span>
+
+                            <div class="col s12">
+                                <div class="col s12 input-field center-align" style="margin-top: 30px ; margin-bottom: 30px" >
+                                    <a href="" class="btn waves-effect circle_button" ng-click="putDataItem(car_details.id)">确定</a>
                                 </div>
-                                <div class="col s4">
-                                    <span class="cyan-text text-lighten-1 ">委托方:</span>
-                                    <span ng-cloak class="grey-text">{{car_details.en_short_name}}</span>
-                                </div>
-                                <div class="col s4">
-                                    <span class="cyan-text text-lighten-1 ">制造商:</span>
-                                    <span ng-cloak class="grey-text">{{car_details.make_name}}</span>
-                                </div>
-                            </div>
-                            <div class="row" style="margin-top: 50px">
-                                <div class="col s4">
-                                    <span class="cyan-text text-lighten-1 ">目的地城市:</span>
-                                    <span ng-cloak class="grey-text">{{car_details.route_end}}</span>
-                                </div>
-                                <div class="col s4">
-                                    <span class="cyan-text text-lighten-1 ">经销商:</span>
-                                    <span ng-cloak class="grey-text">{{car_details.re_short_name}}</span>
-                                </div>
-                                <!--<div class="col s4">-->
-                                <!--<span class="cyan-text text-lighten-1 bold">型号:</span>-->
-                                <!--<span>4652346523</span>-->
-                                <!--</div>-->
                             </div>
                         </div>
-                        </div>
+
+
+
+
+
+                     </div>
 
                 </div>
             </div>

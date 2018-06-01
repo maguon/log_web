@@ -1,3 +1,113 @@
+
+<!--商品车模态框-->
+<div id="commodityCar" class="modal ">
+    <div class="cyan lighten-1 white-text center-align modal_title" >商品车信息</div>
+    <div class="modal-content">
+        <div class="row col" style="width:94%; margin-left: 3%; height: 500px">
+            <!--上部分：查询功能-->
+            <div class="row col" style="width: 100%;position: relative">
+                <div class="input-field col s12">
+                    <input type="text" id="autocomplete-input"  placeholder="           模糊查询至少需要6位vin码"  ng-model="commodityVin" ng-change="shortSearch()"  style="margin: 0 0 20px 0"  class="autocomplete">
+                    <label for="autocomplete-input">VIN码</label>
+                </div>
+                <button class=" btn btn-floating btn-small waves-effect cyan lighten-1" ng-if="carId!==undefined" ng-click="getCommodityCarData()"  style="position: absolute;top: 15px;right: 10px;">
+                    <i class="mdi white-text mdi-plus fz30"></i>
+                </button>
+                <button class=" btn btn-floating btn-small waves-effect cyan lighten-1" ng-if="carId==undefined" disabled style="position: absolute;top: 15px;right: 10px;">
+                    <i class="mdi white-text mdi-plus fz30"></i>
+                </button>
+            </div>
+
+            <!--下部分：查询结果-->
+            <div class="col s12" ng-show="flag==true">
+                <div class="row  blue-grey lighten-5" style="width:98%;border:1px solid #bdbdbd">
+                    <!-- header -->
+                    <div class="col s12  cyan-text vc-center left-align" style="height:50px;border-bottom :1px solid #bdbdbd">
+                        <div class="col s4">
+                            VIN码：{{commodityCarList.vin}}
+                        </div>
+                        <div class="col s4 right-align offset-s4 grey-text">
+                           导入时间：{{commodityCarList.created_on|date:'yyyy-MM-dd hh:mm'}}
+                        </div>
+                    </div>
+                    <!-- body -->
+                    <div class="col s12 white" style="height:70px;">
+                        <div class="input-field col s4">
+                            <select material-select watch  id="look_makecarName"  name="look_makecarName"  ng-model="commodityCarList.make_id" required>
+                                <option value="" disabled selected>请选择</option>
+                                <option ng-repeat="el in makecarName" ng-value="el.id" >{{el.make_name}}</option>
+                            </select>
+                            <label for="look_makecarName" ><span style="color: red">*</span>制造商</label>
+                        </div>
+                        <div class="input-field col s4">
+                            <select material-select watch id="client1" name="client"  ng-model="commodityCarList.entrust_id" >
+                                <option value="" disabled selected>请选择</option>
+                                <option ng-repeat="el in get_entrust" ng-value="el.id" >{{el.short_name}}</option>
+                            </select>
+                            <label for="client1">委托方</label>
+                        </div>
+                        <div class="input-field col s4">
+                            <input type="text" id="last_name" class="datepicker" date ng-model="commodityCarList.order_date"><i
+                                class="mdi dataIcon mdi-table-large"></i>
+                            <label for="last_name">指令时间</label>
+                        </div>
+                    </div>
+                    <!-- body -->
+                    <div class="col s12 white" style="height:70px;">
+                        <div class="input-field col s4">
+                            <select material-select watch id="start_addr" name="start_addr"  required  ng-model="start_addr" >
+                                <option value="" disabled selected>请选择</option>
+                                <option ng-repeat="start_addr in start_address" ng-value="start_addr.id" >{{start_addr.addr_name}}</option>
+                            </select>
+                            <label for="start_addr">发运地名称</label>
+                        </div>
+                        <div class="input-field col s4">
+                            <select id="chooseStartCity" name="state" style="width:100%" ng-change="get_addr(start_city)" ng-model="start_city">
+                                <option value="0">发运地城市</option>
+                                <option ng-repeat="city in get_city" ng-value="city.id">{{city.city_name}}</option>
+                            </select>
+
+
+                        </div>
+                        <div class="input-field col s2">
+                            <select id="chooseEndCity" name="state" style="width:100%" ng-change="get_received(arrive_city)" ng-model="arrive_city">
+                                <option value="0">目的地城市</option>
+                                <option ng-repeat="city in get_city" ng-value="city.id" >{{city.city_name}}</option>
+                            </select>
+                        </div>
+                        <div class="input-field col s2">
+                            <select material-select watch id="dealer1" name="dealer" ng-model="commodityCarList.receive_id">
+                                <option value="" disabled selected>请选择</option>
+                                <option ng-repeat="el in get_receive" ng-value="el.id" >{{el.short_name}}</option>
+                            </select>
+                            <label for="dealer1">经销商</label>
+                        </div>
+                    </div>
+                    <!-- body -->
+                    <div class="col s12 white" style="height:70px;">
+                        <p class="col s12 min-width-2 left-align" style="color: #26c6da">备注:</p>
+                        <div class="col s12 valign-wrapper" style="position: relative">
+                            <p class=" col s12 p0">
+                                <textarea id="look_remark" style="height: 100px" name="remark" class="col s12" ng-model="commodityCarList.remark"></textarea>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col s12 white" style="height:100px;"></div>
+                </div>
+
+                <div class="col s12">
+                    <div class="col s12 input-field center-align" style="margin-top: 30px ; margin-bottom: 30px" >
+                        <a href="" class="btn waves-effect circle_button" ng-click="putDataItem(commodityCarList.id)">确定</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <div>
     <div class="row">
         <form name="file_upload_form " id="file_upload_form" >
@@ -8,36 +118,33 @@
                     </div>
                 </div>
             </div>
-            <div class="col s2 offset-s4">
-                <div class="row">
-                    <div class="file-field input-field right-align" >
-                        <div class="btn cyan lighten-2 circle_button " style="position:relative;overflow: hidden">
-                            <span>批量数据导入</span>
-                            <input type="file" style="font-size: 100px"  name="file" accept="text/csv" onchange='angular.element(this).scope().fileChange(this)' >
+            <div class="col s4 offset-s4">
+                <div class="col s4">
+                    <div class="row">
+                        <div class="file-field input-field">
+                            <div class="btn cyan lighten-2 circle_button">
+                                <span>批量数据导入</span>
+                                <input type="file" style="font-size: 100px"  name="file" accept="text/csv" onchange='angular.element(this).scope().fileChange(this)' >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s4">
+                    <div class="row">
+                        <div class="file-field cyan input-field ">
+                            <a href="" class="right btn waves-effect circle_button" ng-click="openDataModel()">单条数据修改</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s4">
+                    <div class="row">
+                        <div class="file-field cyan input-field ">
+                            <a href="" class="right btn waves-effect circle_button" ng-click="new_data_list()">单条数据增加</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col s2">
-                <div class="row">
-                    <div class="file-field cyan input-field ">
-                        <a href="" class="right btn waves-effect circle_button" ng-click="new_data_list()">单条数据增加</a>
-                    </div>
 
-
-                </div>
-            </div>
-            <!--<div class="col s3">-->
-                <!--<p class="flow-text cyan-text"><i class="mdi mdi-bookmark-check mdi-32px"></i>{{rightNumber}}</p>-->
-            <!--</div>-->
-            <!--<div class="col s3">-->
-                <!--<p class="flow-text cyan-text"><i class="mdi mdi-bookmark-remove mdi-32px"></i>{{errorNumber}}</p>-->
-            <!--</div>-->
-            <!--<div class="col s1" ng-if="errorNumber<1&&rightNumber>0">-->
-                <!--&lt;!&ndash;<a href="" class="btn btn-large waves-effect cyan lighten-2"></a>&ndash;&gt;-->
-                <!--<button class="btn cyan lighten-2" ng-click="fileUpload($event)" >上传</button>-->
-            <!--</div>-->
-            <!--<button class="btn cyan lighten-2" ng-click="testUpload()" >上传</button>-->
         </form>
     </div>
 
@@ -45,34 +152,6 @@
         <div class="col s12">
             <div class="col s12 templateBox" ng-show="templateBox">
                 <img style="width: 100%" src="/assets/images/import_instruction.png" />
-                <!--<div class="template_title red-text text-lighten-2 bold fz16">
-                    模板要求
-                </div>
-                <p class="col s12 bold grey-text text-darken-1">表格模板为以下字段:</p>
-                <table class="responsive-table striped">
-                    <thead class="blue-grey lighten-4 grey-text text-darken-1">
-                    <tr class="center-align">
-                        <th class="center-align">VIN码</th>
-                        <th class="center-align">品牌</th>
-                        <th class="center-align">到港时间</th>
-                        <th class="center-align">经销商</th>
-                        <th class="center-align">委托方</th>
-                        <th class="center-align">起始城市</th>
-                        <th class="center-align">目的城市</th>
-                    </tr>
-                    </thead>
-                </table>
-                <div class="col s12 warnBox">
-                    <div class="col s4 fz12  red-text text-lighten-3">
-                        *必填字段为：17位VIN码、品牌、委托方
-                    </div>
-                    <div class="col s4 fz12  red-text text-lighten-3">
-                        *其余为可填字段
-                    </div>
-                    <div class="col s4 fz12  red-text text-lighten-3">
-                        *城市由编码代替，编码可在数据字典中查询
-                    </div>
-                </div>-->
             </div>
         </div>
     </div>
@@ -156,7 +235,7 @@
                     <form name="new_carForm" style="color:#616161" ng-submit="newSubmitForm(new_carForm.$valid)" novalidate>
                         <div class="row" style="margin-top: 40px">
                             <div class="row "  >
-                                <div class="input-field col s4" ng-class="{ 'has-error':new_carForm.vin.$invalid&&submitted }" >
+                                <div class="input-field col s4">
                                     <input  id="vin" name="vin" autocomplete="off" ng-model="vin" type="text" ng-pattern="/^[a-zA-Z0-9]{17}$/"   required >
                                     <label for="vin"><span style="color: red;margin-right: 5px">*</span>VIN码</label>
                                 </div>
@@ -175,12 +254,12 @@
 
                             <div class="row">
                                 <div class="col s4 p0">
-                                    <div class=" input-field col s6" ng-class="{'has-error':new_carForm.start_city.$invalid&&submitted}">
+                                    <div class=" input-field col s6">
                                         <select id="start_city" name="state" style="width:100%" ng-change="start_city_change(start_city.id)" ng-options="start_city.city_name for start_city in get_city" ng-model="start_city" required>
                                             <option value=""></option>
                                         </select>
                                     </div>
-                                    <div class="input-field col s6" ng-class="{'has-error':new_carForm.base_addr.$invalid&&submitted}">
+                                    <div class="input-field col s6">
                                         <select material-select watch id="base_addr" name="base_addr" ng-options="base_addr.addr_name for base_addr in baseAddr" required ng-model="base_addr">
                                             <option value="" disabled selected>请选择</option>
                                         </select>
@@ -188,7 +267,7 @@
                                     </div>
                                 </div>
 
-                                <div class="input-field col s4"  ng-class="{'has-error':new_carForm.client.$invalid&&submitted}">
+                                <div class="input-field col s4">
                                     <select material-select watch id="client" name="client"  ng-model="client"  required>
                                         <option value="" disabled selected>请选择</option>
                                         <option ng-repeat="el in get_entrust" ng-value="el.id" >{{el.short_name}}</option>
@@ -196,13 +275,13 @@
                                     <label for="client">委托方</label>
                                 </div>
                                 <div class=" col s4 p0">
-                                    <div class="input-field col s6"  ng-class="{'has-error':new_carForm.arrive_city.$invalid&&submitted}">
+                                    <div class="input-field col s6">
                                         <select material-select watch id="arrive_city" name="arrive_city"  required ng-change="get_received(arrive_city.id)" ng-options="arrive_city.city_name for arrive_city in get_city"  ng-model="arrive_city" >
                                             <option value="" disabled selected>请选择</option>
                                         </select>
                                         <label for="arrive_city">目的地城市</label>
                                     </div>
-                                    <div class="input-field col s6"  ng-class="{'has-error':new_carForm.dealer.$invalid&&submitted}">
+                                    <div class="input-field col s6">
                                     <select material-select watch id="dealer" name="dealer" required  ng-model="dealer" >
                                         <option value="" disabled selected>请选择</option>
                                         <option ng-repeat="el in get_receive" ng-value="el.id" >{{el.short_name}}</option>

@@ -8,6 +8,7 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
         var userType = _basic.getSession(_basic.USER_TYPE);
         $scope.upload_percent = 0;
         $scope.num = 0;
+        $scope.flag=false;
         $scope.templateBox = true;
         $scope.success_data_box = false;
         $scope.dataBox = false;
@@ -22,12 +23,6 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
         $scope.upload_isSuccesss = false;
         $scope.show_error = false;
         $scope.error_msg = false;
-        // $scope.$apply(function () {
-        //     $scope.obj={
-        //         "width":$scope.x+"%"
-        //     };
-        // });
-
         $scope.csvFile = null;
         $scope.rightNumber = 0;
         $scope.errorNumber = 0;
@@ -116,10 +111,6 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
 
             }
 
-
-            // }
-            // swal("错误条数"+ $scope.tableContentErrorFilter.length);
-
         };
 
         $scope.fileUpload = function () {
@@ -131,7 +122,6 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                         socketUpload($scope.file_id);
                         orginDataLength = $scope.tableContentFilter.length;
                     }
-                    // _socket.uploadCarInfoArray(data.result.id,uploadDataArray);
                 }
             });
         };
@@ -139,7 +129,6 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
         //发送数组中最后一条车辆信息
         function socketUpload(fileId) {
             if (uploadDataArray && uploadDataArray.length > 0) {
-                // $scope.progress=true;
                 $scope.num = $scope.num + 1;
                 var carItem = uploadDataArray[uploadDataArray.length - 1];
                 _socket.uploadCarInfo($scope.file_id, carItem, uploadDataArray.length - 1, function (msg) {
@@ -147,9 +136,6 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                 })
             }
             else {
-                // $scope.progress=false;
-                // $scope.templateBox=true;
-                // $scope.success_data_box=false;
                 swal("上传完成", "", "success");
                 $scope.$apply(function () {
                     $scope.show_error = true;
@@ -210,16 +196,10 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                 config: {
                     complete: function (result) {
                         $scope.$apply(function () {
-
-                            //if (!($scope.fileType == "application/vnd.ms-excel" || $scope.fileType == 'text/csv')) {
                             if(result==null ||result.data==null ||result.data.length ==0){
                                 swal("文件类型错误");
                             } else {
                                 $scope.tableHeadeArray = result.data[0];
-                                // console.log($scope.tableHeadeArray);
-                                // console.log(result.data.slice(1,result.data.length));
-                                // console.log(result.data[0]);
-
                                 $scope.templateBox = false;
                                 // 表头校验
                                 if ($scope.titleFilter($scope.tableHeadeArray) != false) {
@@ -263,8 +243,6 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                 },
                 before: function (file, inputElem) {
                     $scope.fileType = file.type;
-                    // executed before parsing each file begins;
-                    // what you return here controls the flow
                 },
                 error: function (err, file, inputElem, reason) {
                     console.log(err)
@@ -482,4 +460,165 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
             )
 
         };
+
+
+        //单条数据修改
+        $scope.openDataModel = function () {
+            $('.modal').modal();
+            $('#commodityCar').modal('open');
+            $scope.commodityVin = '';
+            $scope.flag = false;
+
+        }
+    // 城市信息获取
+    $scope.get_Msg = function () {
+        _basic.get($host.api_url + "/city").then(function (data) {
+            if (data.success == true) {
+                $scope.get_city = data.result;
+                $('#chooseStartCity').select2({
+                    containerCssClass: 'select2_dropdown'
+                });
+                $('#chooseEndCity').select2({
+                    containerCssClass: 'select2_dropdown'
+                });
+            }
+        });
+
+        // 车辆品牌查询
+        _basic.get($host.api_url + "/carMake").then(function (data) {
+            if (data.success == true) {
+                $scope.makecarName = data.result;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+
+        // 经销商
+        _basic.get($host.api_url + "/receive").then(function (data) {
+            if (data.success == true) {
+                $scope.get_receive = data.result;
+            }
+        });
+
+        // 委托方
+        _basic.get($host.api_url + "/entrust").then(function (data) {
+            if (data.success == true) {
+                $scope.get_entrust = data.result;
+            }
+        })
+    };
+    $scope.get_Msg();
+
+    // 发运地城市地质联动
+    $scope.get_addr = function (id) {
+        $scope.selectedText = $("#chooseStartCity").find("option:selected").text();
+        _basic.get($host.api_url + "/baseAddr?cityId=" + id).then(function (data) {
+            if (data.success == true) {
+                $scope.start_address = data.result;
+            }
+            else {
+                swal(data.msg, "", "error")
+            }
+        })
+    };
+
+        //模糊查询
+        var vinObjs ={}
+        $('#autocomplete-input').autocomplete({
+            data: vinObjs,
+            limit: 10,
+            onAutocomplete: function(val) {
+            },
+            minLength: 6,
+        });
+        $scope.shortSearch=function () {
+            if($scope.commodityVin!==""&&$scope.commodityVin!==undefined) {
+                if ($scope.commodityVin.length >= 6) {
+                    _basic.get($host.api_url + "/carList?vinCode=" + $scope.commodityVin, {}).then(function (data) {
+                        if (data.success == true&& data.result.length > 0) {
+                            $scope.vinMsg = data.result;
+                            $scope.carId= data.result[0].id;
+                            vinObjs = {};
+                            for (var i in $scope.vinMsg) {
+                                vinObjs[$scope.vinMsg[i].vin] = null;
+                            }
+                            return vinObjs;
+                        }
+
+                        else {
+                            return {};
+                        }
+                    }).then(function (vinObjs) {
+                        $('#autocomplete-input').autocomplete({
+                            data: vinObjs,
+                            minLength: 6
+                        });
+                        $('#autocomplete-input').focus();
+                    })
+                } else {
+                    $('#autocomplete-input').autocomplete({minLength: 6});
+                    $scope.vinMsg = {}
+                }
+            }
+        };
+
+        // 查询vin码
+        $scope.getCommodityCarData=function () {
+            _basic.get($host.api_url + "/carList?carId="+$scope.carId).then(function (data) {
+                if (data.success == true) {
+                    if(data.result.length==0){
+                        $scope.commodityCarList = null;
+                    }else {
+                        $scope.commodityCarList =data.result[0];
+                        $scope.start_addr = $scope.commodityCarList.base_addr_id;
+                        $scope.select_city_start = {id: $scope.commodityCarList.route_start_id, city_name: $scope.commodityCarList.route_start};
+                        $scope.select_city_end = {id: $scope.commodityCarList.route_end_id, city_name: $scope.commodityCarList.route_end};
+                        $scope.start_city = $scope.select_city_start.id;
+                        $scope.arrive_city = $scope.select_city_end.id === null ? "0" : $scope.select_city_end.id;
+                        if($scope.commodityCarList.order_date==null){
+                            $scope.commodityCarList.order_date ='';
+                        }
+                        $scope.commodityCarList.order_date = moment($scope.commodityCarList.order_date).format('YYYY-MM-DD');
+                        $scope.get_addr($scope.commodityCarList.route_start_id)
+                        $scope.flag=true;
+                    }
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            })
+        };
+
+
+
+    // 修改
+    $scope.putDataItem = function (id) {
+            // 如果没有选中select或是重置了初始值，则传空字符串
+            var arrive_city = $scope.arrive_city == 0 ? "" : $scope.arrive_city;
+            var obj = {
+                "vin": $scope.commodityCarList.vin,
+                "makeId": $scope.commodityCarList.make_id,
+                "makeName": $("#look_makecarName").find("option:selected").text(),
+                "orderDate": $scope.commodityCarList.order_date,
+                "remark": $scope.commodityCarList.remark,
+                "routeStartId": $scope.start_city,
+                "baseAddrId": $scope.start_addr,
+                "routeEndId": arrive_city,
+                "receiveId": $scope.commodityCarList.receive_id,
+                "entrustId": $scope.commodityCarList.entrust_id
+            };
+            // 修改仓库信息
+            _basic.put($host.api_url + "/user/" + userId + "/car/" + id, _basic.removeNullProps(obj)).then(function (data) {
+                if (data.success == true) {
+                    $('#commodityCar').modal('close');
+                    swal("修改成功", "", "success");
+
+                }
+                else {
+                    swal(data.msg, "", "error")
+                }
+            });
+    };
+
     }]);

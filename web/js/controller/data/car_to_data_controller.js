@@ -535,7 +535,7 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
         $scope.shortSearch=function () {
             if($scope.commodityVin!==""&&$scope.commodityVin!==undefined) {
                 if ($scope.commodityVin.length >= 6) {
-                    _basic.get($host.api_url + "/carList?vinCode=" + $scope.commodityVin, {}).then(function (data) {
+                    _basic.get($host.api_url + "/carList?userId="+userId+"&vinCode=" + $scope.commodityVin, {}).then(function (data) {
                         if (data.success == true&& data.result.length > 0) {
                             $scope.vinMsg = data.result;
                             $scope.carId= data.result[0].id;

@@ -11,7 +11,7 @@ app.controller("damage_management_controller", ["$scope", "$host", "_basic", "_c
     $scope.downloadCsvFile = function () {
         var obj = {
             damageId: $scope.damageNum,
-            vin:$scope.vinCode,
+            vinCode:$scope.vinCode,
             routeEndId:$scope.endCity,
             makeId:$scope.brand,
             receiveId:$scope.distributor,

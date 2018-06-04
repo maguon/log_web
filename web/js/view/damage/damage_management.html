@@ -7,8 +7,9 @@
                     <label for="damage_number">质损编号</label>
                 </div>
                 <div class="input-field col s2">
-                    <input id="VinCode" type="text" ng-model="vinCode">
-                    <label for="VinCode">VIN码</label>
+                    <input type="text" id="autocomplete-input" name="vin" ng-change="shortSearch()" ng-model="vinCode" autocomplete="off" class="autocomplete">
+                   <!-- <input id="VinCode" type="text" ng-model="vinCode">-->
+                    <label for="autocomplete-input">VIN码</label>
                 </div>
                 <div class="col s2 input-field">
                     <select id="end_city_list" name="state" style="width:100%" ng-change="getReceiveList()" ng-model="endCity">

@@ -78,7 +78,7 @@ app.controller("damage_management_controller", ["$scope", "$host", "_basic", "_c
         _basic.get($host.api_url + "/damage?" + _basic.objToUrl({
             damageId:$scope.damageNum,
             damageStatus:$scope.processingStatus,
-            vin:$scope.vinCode,
+            vinCode:$scope.vinCode,
             makeId:$scope.brand,
             declareUserName:$scope.reportPerson,
             createdOnStart:$scope.reportTimeStart,
@@ -118,44 +118,6 @@ app.controller("damage_management_controller", ["$scope", "$host", "_basic", "_c
     $scope.searchDamageManagementList = function () {
         $scope.start = 0;
         $scope.getDamageManagementList();
-    };
-
-    //模糊查询
-    var vinObjs ={}
-    $('#autocomplete-input').autocomplete({
-        data: vinObjs,
-        limit: 10,
-        onAutocomplete: function(val) {
-        },
-        minLength: 6,
-    });
-    $scope.shortSearch=function () {
-        if($scope.vinCode&&$scope.vinCode!==''){
-            if($scope.vinCode.length>=6){
-                _basic.get($host.api_url + "/damage?vinCode=" + $scope.vinCode, {}).then(function (data) {
-                    if(data.success==true&&data.result.length>0){
-                        $scope.vinMsg=data.result;
-                        vinObjs ={};
-                        for(var i in $scope.vinMsg){
-                            vinObjs[$scope.vinMsg[i].vin]=null;
-                        }
-                        return vinObjs;
-                    }else{
-                        return {};
-                    }
-                }).then(function(vinObjs){
-                    $('#autocomplete-input').autocomplete({
-                        data: vinObjs,
-                        minLength: 6
-                    });
-                    $('#autocomplete-input').focus();
-
-                })
-            }else {
-                $('#autocomplete-input').autocomplete({minLength:6});
-                $scope.vinMsg={}
-            }
-        }
     };
 
     // 分页

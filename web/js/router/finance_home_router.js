@@ -89,6 +89,11 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/truck/driver_information_details.html",
             controller:'driver_information_details_controller'
         })
+        .state("dispatch_route_requ",{
+            url:"/dispatch_route_requ",
+            templateUrl: "js/view/dispatch/dispatch_route_requ.html",
+            controller:'dispatch_route_requ_controller'
+        })
 
         // 商品车信息
         .state("car_query",{

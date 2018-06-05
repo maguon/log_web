@@ -38,11 +38,14 @@
                                     <option ng-repeat="el in setting_city" ng-value="el.id" ng-show="el.city_status==1">{{el.city_name}}</option>
                                 </select>
                             </div>
-
-                            <div class="col s12 input-field" style="margin-top: 20px">
-                                <input type="text" id="amapAddress" autocomplete="off" ng-change="amapAutocomplete()" ng-model="dealer_details.address" name="address">
-                                <label class="grey-text bold" for="amapAddress">详细地址</label>
+                            <div style="position: relative;">
+                                <div class="col s12 input-field" style="margin-top: 20px">
+                                    <input type="text" id="amapAddress" autocomplete="off" ng-change="amapAutocomplete()" ng-model="dealer_details.address" name="address">
+                                    <label class="grey-text bold" for="amapAddress">详细地址</label>
+                                </div>
+                                <i class="mdi  mdi-telegram fz40 cyan-text" style="position: absolute;top:220px;right:0" ng-click="getDetailAddress()"></i>
                             </div>
+
                         </div>
                         <div class="row">
                             <div class="col s12 bold" style="margin-top: 18px">备注:</div>

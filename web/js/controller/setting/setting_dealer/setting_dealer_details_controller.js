@@ -29,7 +29,6 @@ app.controller("setting_dealer_details_controller", ["$scope", "_basic", "_confi
             };
             var autocomplete = new AMap.Autocomplete(autoOptions);
             AMap.event.addListener(autocomplete, "select", function(e){
-                // console.log(e);
                 if(e.poi.location === undefined){
                     swal("无法获取该位置地理信息", "请重新输入", "warning")
                 }
@@ -37,16 +36,38 @@ app.controller("setting_dealer_details_controller", ["$scope", "_basic", "_confi
                     $scope.$apply(function () {
                         $scope.lng = e.poi.location.lng;
                         $scope.lat = e.poi.location.lat;
-                    });
-                    // console.log($scope.lng,$scope.lat);
-                    $scope.showTruckPosition(e.poi.location.lng,e.poi.location.lat);
+                    })
+                    $scope.showPosition(e.poi.location.lng,e.poi.location.lat);
                 }
             });
         });
     };
 
+    $scope.getDetailAddress = function (){
+        AMap.plugin('AMap.Geocoder', function() {
+            var geocoder = new AMap.Geocoder({
+                // city 指定进行编码查询的城市，支持传入城市名、adcode 和 citycode
+                city: '中国',
+                radius: 1000 //范围，默认：500
+            });
+            var mapAddress = amapAddress.value;
+            geocoder.getLocation(mapAddress, function(status, result) {
+                if (status === 'complete' && result.info === 'OK') {
+                    // result中对应详细地理坐标信息
+                    $scope.lat = result.geocodes[0].location.getLat();
+                    $scope.lng = result.geocodes[0].location.getLng();
+                    $scope.showPosition( $scope.lng, $scope.lat)
+                }
+                else{
+                    swal("无法获取该位置地理信息", "请重新输入", "warning")
+                }
+            })
+        })
+    }
+
+
     // 显示车辆位置
-    $scope.showTruckPosition = function (lon, lat) {
+    $scope.showPosition = function (lon, lat) {
         var marker, map = new AMap.Map("a_map_location", {
             resizeEnable: true,
             center: [lon, lat],
@@ -74,7 +95,7 @@ app.controller("setting_dealer_details_controller", ["$scope", "_basic", "_confi
                 $scope.lat = data.result[0].lat ? data.result[0].lat : 38.92;
 
                 // 显示经销商位置
-                $scope.showTruckPosition($scope.lng, $scope.lat);
+                $scope.showPosition($scope.lng, $scope.lat);
             }
         });
     };

@@ -210,7 +210,8 @@ baseService.factory("_config", function () {
         {id: 3, typeName: "公司运输"},
         {id: 4, typeName: "驾驶员漏检"},
         {id: 5, typeName: "交通事故"},
-        {id: 6, typeName: "前端责任"}
+        {id: 6, typeName: "前端责任"},
+        {id: 7, typeName: "安盛船务责任"}
         ];
 
     // 质损类型

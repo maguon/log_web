@@ -6,6 +6,8 @@ app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$hos
     $scope.flag=true;
     // 查询vin码
     $scope.demand_car=function () {
+        $scope.start_address = [];
+        $scope.car_details.route_start_id='';
         if($scope.demand_vin.length==17){
             var obj={
                 vin:$scope.demand_vin,

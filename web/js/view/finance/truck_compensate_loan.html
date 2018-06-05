@@ -52,45 +52,43 @@
     <!--表格-->
     <div class="row">
         <div class="col s12">
-            <div class="col s12">
-                <div class="divider" style="background: #00bcd4;height: 2px"></div>
-                <table class="bordered striped text_mid">
-                    <thead class="blue-grey lighten-5">
-                    <tr class="grey-text text-darken-2">
-                        <th width="200" data-field="">理赔编号</th>
-                        <th width="250" data-field="">险种</th>
-                        <th width="300" data-field="">保险公司</th>
-                        <th width="200" data-field="">借款金额</th>
-                        <th width="250" data-field="">经办人</th>
-                        <th width="280" data-field="">借款时间</th>
-                        <th width="280" data-field="">还款时间</th>
-                        <th width="180" data-field="">状态</th>
-                        <th width="150">操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="loan in compensateLoanList" class="grey-text text-darken-1">
-                        <td>{{loan.accident_insure_id}}</td>
-                        <td>{{loan.insure_type | insuranceType}}</td>
-                        <td>{{loan.insure_name}}</td>
-                        <td style="color: rgb(230,123,123)">{{loan.financial_loan}}</td>
-                        <td>{{loan.insure_user_name}}</td>
-                        <td>{{loan.loan_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                        <td>{{loan.repayment_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                        <td style="color: #f1b054" class="text-lighten-2" ng-if="loan.loan_status == 0">拒绝</td>
-                        <td class="red-text text-lighten-2" ng-if="loan.loan_status == 1">未借</td>
-                        <td class="cyan-text text-lighten-2" ng-if="loan.loan_status == 2">已借</td>
-                        <td style="color: darkgray" class="text-lighten-2" ng-if="loan.loan_status == 3">已还</td>
-                        <td class="operation">
-                            <a ui-sref="truck_compensate_loan_details({id:loan.id,compensateId:loan.accident_insure_id})" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-eye" style="margin: 0"></i></a>
-                        </td>
-                    </tr>
-                    <tr class="grey-text text-darken-1" ng-if="compensateLoanList.length == 0">
-                        <td colspan="9"><span style="letter-spacing: 2px">暂无数据</span></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+            <div class="divider" style="background: #00bcd4;height: 2px"></div>
+            <table class="bordered striped text_mid">
+                <thead class="blue-grey lighten-5">
+                <tr class="grey-text text-darken-2">
+                    <th width="200" data-field="">理赔编号</th>
+                    <th width="250" data-field="">险种</th>
+                    <th width="300" data-field="">保险公司</th>
+                    <th width="200" data-field="">借款金额</th>
+                    <th width="250" data-field="">经办人</th>
+                    <th width="280" data-field="">借款时间</th>
+                    <th width="280" data-field="">还款时间</th>
+                    <th width="180" data-field="">状态</th>
+                    <th width="150">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="loan in compensateLoanList" class="grey-text text-darken-1">
+                    <td>{{loan.accident_insure_id}}</td>
+                    <td>{{loan.insure_type | insuranceType}}</td>
+                    <td>{{loan.insure_name}}</td>
+                    <td style="color: rgb(230,123,123)">{{loan.financial_loan}}</td>
+                    <td>{{loan.insure_user_name}}</td>
+                    <td>{{loan.loan_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td>{{loan.repayment_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td style="color: #f1b054" class="text-lighten-2" ng-if="loan.loan_status == 0">拒绝</td>
+                    <td class="red-text text-lighten-2" ng-if="loan.loan_status == 1">未借</td>
+                    <td class="cyan-text text-lighten-2" ng-if="loan.loan_status == 2">已借</td>
+                    <td style="color: darkgray" class="text-lighten-2" ng-if="loan.loan_status == 3">已还</td>
+                    <td class="operation">
+                        <a ui-sref="truck_compensate_loan_details({id:loan.id,compensateId:loan.accident_insure_id})" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-eye" style="margin: 0"></i></a>
+                    </td>
+                </tr>
+                <tr class="grey-text text-darken-1" ng-if="compensateLoanList.length == 0">
+                    <td colspan="9"><span style="letter-spacing: 2px">暂无数据</span></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
     <!--分页-->

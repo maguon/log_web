@@ -13,7 +13,8 @@ app.controller("setting_dealer_details_controller", ["$scope", "_basic", "_confi
                 $scope.setting_city = data.result;
                 $('#start_city').select2({
                     placeholder: '选择城市',
-                    containerCssClass : 'select2_dropdown'
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
                 });
             }
         });
@@ -67,11 +68,12 @@ app.controller("setting_dealer_details_controller", ["$scope", "_basic", "_confi
             if (data.success === true) {
                 // console.log("data",data);
                 $scope.dealer_details = data.result[0];
+                $scope.dealer_details.city_id = data.result[0].city_id;
+                $scope.getCityList();
                 $scope.lng = data.result[0].lng ? data.result[0].lng : 121.62;
                 $scope.lat = data.result[0].lat ? data.result[0].lat : 38.92;
 
                 // 显示经销商位置
-                // var positionResult = baseService.transformMarkerPosition($scope.lng, $scope.lat);
                 $scope.showTruckPosition($scope.lng, $scope.lat);
             }
         });
@@ -122,7 +124,7 @@ app.controller("setting_dealer_details_controller", ["$scope", "_basic", "_confi
     };
 
     $scope.queryData = function () {
-        $scope.getCityList();
+      /*  $scope.getCityList();*/
         $scope.seeDetails();
     };
     $scope.queryData();

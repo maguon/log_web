@@ -640,6 +640,14 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'driver_salary_details_controller'
         })
 
+
+        // 结算管理
+        .state("settlement_management",{
+            url:"/settlement_management",
+            templateUrl: "js/view/settlement/settlement_management.html",
+            controller:'settlement_management_controller'
+        })
+
         // 下载app
         .state("admin_download_app",{
             url:"/admin_download_app",

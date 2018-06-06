@@ -12,11 +12,12 @@ app.controller("imported_files_controller", ["$scope", "$rootScope", "$host", "_
     };
     $scope.start = 0;
     $scope.size = 11;
+    $("#pre").hide();
+    $("#next").hide();
 
     // 点击查询
     $scope.getMatchFiles = function () {
-        $scope.start = 0;
-        $scope.searchMatchFiles();
+
     };
 
     // 根据条件搜索文件

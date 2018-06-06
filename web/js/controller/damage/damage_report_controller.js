@@ -69,14 +69,13 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
     };
 
     // 获取所有司机信息
-    $scope.getAllDriver = function () {
+    function getAllDriver() {
         _basic.get($host.api_url + "/drive").then(function (data) {
             if (data.success === true) {
-                // console.log("driver",data);
                 $scope.driverList = data.result;
                 var driverObj = {};
                 for (var i = 0; i < data.result.length; i++) {
-                    driverObj[data.result[i].drive_name + "-" + data.result[i].tel] = null;
+                    driverObj[data.result[i].drive_name + "-" + data.result[i].mobile] = null;
                 }
                 // 填充autoComplete
                 $('#autocomplete-input-driver').autocomplete({
@@ -85,7 +84,8 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
                     // 点击后填充完成函数
                     onAutocomplete: function(val) {
                         var driverNameAndTel = val.split("-");
-                        $scope.searchAccurateDriver(driverNameAndTel);
+                        $scope.driverNameTel = driverNameAndTel.slice(1)+'';
+                        $scope.searchAccurateDriver();
                     },
                     minLength: 1
                 });
@@ -97,8 +97,8 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
     };
 
     // 根据电话号精确搜索司机
-    $scope.searchAccurateDriver = function (nameAndTelArr) {
-        _basic.get($host.api_url + "/drive?tel=" + nameAndTelArr[1]).then(function (data) {
+    $scope.searchAccurateDriver = function () {
+        _basic.get($host.api_url + "/drive?mobile=" + $scope.driverNameTel).then(function (data) {
             if (data.success === true) {
                 // console.log("data",data);
                 $scope.AccurateDriverInfo = data.result[0];
@@ -229,7 +229,7 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
 
     // 获取数据
     $scope.queryData = function () {
-        $scope.getAllDriver();
+        getAllDriver();
     };
     $scope.queryData();
 }]);

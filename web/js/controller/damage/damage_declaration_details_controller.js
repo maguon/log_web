@@ -55,7 +55,7 @@ app.controller("damage_declaration_details_controller", ["$scope", "$stateParams
 
     // 根据电话号精确搜索司机
     $scope.searchAccurateDriver = function (nameAndTelArr) {
-        _basic.get($host.api_url + "/drive?tel=" + nameAndTelArr[1]).then(function (data) {
+        _basic.get($host.api_url + "/drive?mobile=" + nameAndTelArr[1]).then(function (data) {
             if (data.success === true) {
                 $scope.truckNum = data.result[0].truck_num;
                 $scope.driverId = data.result[0].id;

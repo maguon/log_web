@@ -111,7 +111,7 @@
                     <td>{{damage.created_on | date:'yyyy-MM-dd HH:mm'}}</td>
                     <td>{{damage.vin}}</td>
                     <td>{{damage.make_name}}</td>
-                    <td>{{damage.damage_explain}}</td>
+                    <td class="unnecessary" style="max-width: 150px;">{{damage.damage_explain}}</td>
                     <td>{{damage.declare_user_name}}</td>
                     <td>{{damage.under_user_name}}</td>
                     <td ng-class="{'damage_pending_treatment':damage.damage_status == 1 , 'damage_in_process':damage.damage_status == 2}">{{damage.damage_status | damageStatus}}</td>

@@ -1,0 +1,135 @@
+<!--交接单详情-->
+<div class="settlement_management_detail">
+
+        <div class="storage_storeTitle vc-center">
+            <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
+                <i class="mdi mdi-arrow-left-bold"></i>
+            </a>
+            <h4 class="center-align cyan-text text-lighten-1">交接单详情</h4>
+        </div>
+        <div class="row no-marBottom" ul-tabs>
+            <div class="col s12 p0">
+                <ul class="tabWrap grey lighten-4">
+                    <li class="tab col s6  lookBaseMsg vc-center" ng-click="lookBaseMsg()">交接单信息</li>
+                    <li class="tab  col s6 lookImg vc-center" ng-click="lookImg()">交接单照片</li>
+                </ul>
+            </div>
+            <div id="lookBaseMsg" class="col s12 tab_box" style="width: 70%;margin-left: 15%">
+                <div class="row  cyan-text bold" style="height:30px;margin-left:2%;margin-top: 30px ">
+                    交接单编码:{{settlementList.number}}
+                </div>
+                <div class="row  blue-grey lighten-5" style="border:1px solid #bdbdbd">
+                    <!-- header -->
+                    <div class="col s12  cyan-text vc-center left-align" style="height:70px;border-bottom :1px solid #bdbdbd">
+                        <div class="col s6">
+                            <div class="col s3 cyan-text text-lighten-1 bold">委托方:{{settlementList.short_name}}</div>
+                        </div>
+                        <div class="col s6 right-align">
+                            65465464
+                        </div>
+                    </div>
+
+                    <div class="col s12 white" style="height:20px;"></div>
+                    <!-- body -->
+                    <div class="col s12 white" style="height:70px;">
+                        <div class="input-field col s8">
+                            <input id="remark" name="remark" type="text" name="remark"  ng-model="settlementList.remark">
+                            <label for="remark">备注</label>
+                        </div>
+                        <div class="input-field col s4">
+                            <input type="text" ng-model="settlementList.created_on" id="putHandoverReceiveStartTime" name="putHandoverReceiveStartTime"  class="datepicker" autocomplete="off" date>
+                            <i class="mdi dataIcon mdi-table-large"></i>
+                            <label for="putHandoverReceiveStartTime">交接单收到日期</label>
+
+
+                        </div>
+                    </div>
+                    <!-- body -->
+                    <div class="col s12 white" style="height:70px;">
+                        <div class="col s12 input-field right-align">
+                            <button class="btn waves-light waves-effect cyan lighten-2"  ng-click="putDataItem(car_details.id)">保存</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="position: relative;margin-top: 40px">
+                    <div class="input-field col s12">
+                        <input type="text" id="autocomplete-input"  placeholder="           模糊查询至少需要6位vin码"  ng-model="creditVin" ng-change="shortSearch()"  style="margin: 0 0 20px 0"  class="autocomplete">
+                        <label for="autocomplete-input">VIN码</label>
+                    </div>
+                    <button class=" btn btn-floating btn-small waves-effect cyan lighten-1" ng-if="carId!==undefined" ng-click="addLinkCar()"  style="position: absolute;top: 15px;right: 10px;">
+                        <i class="mdi white-text mdi-plus fz30"></i>
+                    </button>
+                    <button class=" btn btn-floating btn-small waves-effect cyan lighten-1" ng-if="carId==undefined" disabled style="position: absolute;top: 15px;right: 10px;">
+                        <i class="mdi white-text mdi-plus fz30"></i>
+                    </button>
+                </div>
+                <div class="row"  style="height:270px">
+                    <div class="row blue-grey lighten-5" style="border:1px solid #bdbdbd">
+                        <!-- header -->
+                        <div class="col s12 lighten-1 cyan-text vc-center left-align" style="height:50px;border-bottom:1px solid #bdbdbd">
+                            <div class="col s4 ">
+                                VIN码：{{settlementList.vin}}
+                            </div>
+                            <div class="col s3 right-align red-text offset-s4">
+                                {{settlementList.valuation| currency }}
+                            </div>
+                            <div class="col s1 right-align red-text" style="cursor: pointer" ng-click="deletesettlementList(settlementList.car_id)">x</div>
+                        </div>
+
+                        <!-- body -->
+                        <div class="col s12 lighten-1 white grey-text vc-center fz13 left-align" style="height:40px;">
+                            <div class="input-field col s4">
+                                制造商：{{settlementList.start_port_name}}
+                            </div>
+                            <div class="input-field col s4 center-align">
+                                起始城市：{{settlementList.end_port_name}}
+                            </div>
+                            <div class="input-field col s4 right-align">
+                                目的城市：{{settlementList.start_ship_date | date:'yyyy-MM-dd' }}
+                            </div>
+                        </div>
+                        <!-- body -->
+                        <div class="col s12 lighten-1 white grey-text vc-center fz13 left-align" style="height:40px;padding-bottom: 20px">
+                            <div class="input-field col s4">
+                                调度编号：{{settlementList.ship_company_name}}
+                            </div>
+                            <div class="input-field col s4 center-align">
+                                司机：{{settlementList.ship_name}}
+                            </div>
+                            <div class="input-field col s4 right-align">
+                                或车牌号：{{settlementList.end_ship_date | date:'yyyy-MM-dd'}}
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+            </div>
+
+            <!--交接单照片-->
+            <div id="lookImg" class="col s12 tab_box" style="width: 95%; margin:0 2% ">
+                <div class="row no-marBottom">
+                    <div class="col s12 valign-wrapper">
+                        <div class="storage_car_picture_wrap col s12 p0" >
+                            <form name="uploadImageForm" class="uploadImageForm">
+                                <div class="upload_btn left">
+                                    <div class="storage_car_picture  vc-center  p0  white-text cyan lighten-1">
+                                        <input name="image" type="file" onchange="angular.element(this).scope().uploadBrandImage(this)" max_size="4M">
+                                        <i class="mdi mdi-instagram"></i>
+                                    </div>
+                                </div>
+                                <ul id="look_img">
+                                    <li ng-repeat="el in storage_imageBox" ng-mouseenter="show=true" ng-mouseleave="show=false"  repeat-finish="renderFinish()" class="truck_car_picture col s2 vc-center  p0 grey white-text">
+                                        <img ng-src="{{el.src}}"  class="responsive-img">
+                                        <b class="delete_img vc-center black fz18" ng-click="delete_img(el.record_id,el.src)"><i class="mdi mdi-close"></i></b>
+                                        <p class="img_date white-text center-align" ng-show="show" ng-cloak>{{el.user}}上传于{{el.time|date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+</div>

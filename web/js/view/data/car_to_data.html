@@ -242,7 +242,6 @@
                                 <div class="input-field col s4">
                                     <select material-select watch id="car_brand" name="car_brand" ng-options="car_brand.make_name for car_brand in get_carMake"   ng-model="car_brand" >
                                         <option value="" disabled selected>请选择</option>
-                                        <!--<option ng-repeat="el in get_carMake" ng-value="el.id" >{{el.make_name}}</option>-->
                                     </select>
                                     <label for="car_brand">品牌</label>
                                 </div>
@@ -304,7 +303,7 @@
 
                         <div class="divider" style="background: #00bcd4;height: 2px;"></div>
                         <div class="modal-footer right-align">
-                            <button class="btn btn-floating waves-light waves-effect  cyan lighten-1" type="submit" name="action" >
+                            <button class="btn btn-floating waves-light waves-effect  cyan lighten-1" type="submit" name="action" ng-click="addCarItem()">
                                 <i class="mdi mdi-trending-neutral"></i>
                                 <!--下一步-->
                             </button>

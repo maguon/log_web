@@ -337,10 +337,8 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
         };
 
         // 新增车辆信息
-        $scope.newSubmitForm = function (invalid) {
-
-            $scope.submitted = true;
-            if (invalid) {
+        $scope.addCarItem = function () {
+            if ($scope.vin!==''&&$scope.car_brand.id!==undefined&&$scope.car_brand.make_name!==undefined&&$scope.start_city.id!==undefined&&$scope.base_addr!==undefined&&$scope.client!=='') {
                 var obj = {
                     "vin": $scope.vin,
                     "makeId": $scope.car_brand.id,
@@ -350,8 +348,8 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                     "routeStart": $scope.start_city.city_name,
                     "routeEndId": $scope.arrive_city.id,
                     "routeEnd": $scope.arrive_city.city_name,
-                    "receiveId": $scope.client,
-                    "entrustId": $scope.dealer,
+                    "receiveId": $scope.dealer,
+                    "entrustId": $scope.client,
                     "orderDate": $scope.arrival_time,
                     "remark": $scope.remark
                 };
@@ -366,6 +364,9 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                         $scope.Picture_carId = data.id;
                     }
                 })
+            }
+            else{
+                swal("请填写完整信息！", "", "warning");
             }
         };
 

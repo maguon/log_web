@@ -641,11 +641,18 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
 
 
+
         // 结算管理
         .state("settlement_management",{
             url:"/settlement_management",
             templateUrl: "js/view/settlement/settlement_management.html",
             controller:'settlement_management_controller'
+        })
+        // 结算管理详情
+        .state("settlement_management_detail",{
+            url:"/settlement_management_detail/id/{id}",
+            templateUrl: "js/view/settlement/settlement_management_detail.html",
+            controller:'settlement_management_detail_controller'
         })
 
         // 下载app

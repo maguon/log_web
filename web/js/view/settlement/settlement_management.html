@@ -1,3 +1,174 @@
+<!--结算管理-->
 <div class="settlement_management">
+
+    <!--添加模态框-->
+    <div id="addSettlementItem" class="modal">
+        <div class="cyan lighten-1 white-text center-align modal_title" >新增交接单</div>
+        <div class="modal-content">
+            <div class="row col" style="width: 60%;">
+                <div class="col s12" style="height: 55px">
+                    <select material-select watch ng-model="addEntrustId" id="addEntrustId" style="width: 100%">
+                        <option value="" selected>请选择</option>
+                        <option ng-repeat="addEntrust in entrustList" value={{addEntrust.id}}>{{addEntrust.short_name}}</option>
+                    </select>
+                </div>
+                <div class="col s12 input-field"  style="height: 55px">
+                    <input type="text" ng-model="addHandoverReceiveStartTime" id="addHandoverReceiveStartTime" name="addHandoverReceiveStartTime"  class="datepicker" autocomplete="off" date>
+                    <i class="mdi dataIcon mdi-table-large"></i>
+                    <label for="addHandoverReceiveStartTime">交接单收到日期</label>
+                </div>
+                <div class="col s12 input-field"  style="height: 55px">
+                    <input id="addRemark" name="remark"  ng-model="newRemark" type="text">
+                    <label for="addRemark">备注:</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider" style="background: #ccc;height: 1px;"></div>
+        <div class="modal-footer vc-center">
+            <a class=" modal-action modal-close waves-effect waves-light grey lighten-1 btn"  >取消 </a>
+            <button class="btn waves-light waves-effect cyan lighten-2"  ng-click="addSettlementItem()" name="action" style="margin-left: 10px">确定</button>
+        </div>
+    </div>
+
+
+    <!--查询-->
+    <div>
+        <!--查询条件-->
+        <div class="row">
+            <div class="row grey-text text-darken-1">
+                <div class="col s10">
+                    <div class="col s12">
+                        <!--交接单编号-->
+                        <div class="input-field col s3">
+                            <input id="handover" type="text"  ng-model="handover">
+                            <label for="handover">交接单编号</label>
+                        </div>
+
+                        <!--VIN码-->
+                        <div class="input-field col s3">
+                            <input id="VIN" type="text" ng-model="VIN">
+                            <label for="VIN">VIN码</label>
+                        </div>
+
+                        <!--起始城市-->
+                        <div class="input-field col s3">
+                            <select id="startCity" name="startCity" material-select watch ng-model="startCity">
+                                <option value="">请选择</option>
+                                <option ng-repeat="startCity in cityList" value={{startCity.id}}>{{startCity.city_name}}</option>
+                            </select>
+                        </div>
+
+                        <!--委托方-->
+                        <div class="input-field col s3">
+                            <select material-select watch ng-model="entrustId" id="entrustId" style="width: 100%">
+                                <option value="" selected>请选择</option>
+                                <option ng-repeat="entrust in entrustList" value={{entrust.id}}>{{entrust.short_name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col s12">
+                        <!--目的城市-->
+                        <div class="input-field col s3">
+                            <select id="endCity" name="endCity" material-select watch ng-model="endCity" ng-change="getReceiveMod(endCity)">
+                                <option value="">请选择</option>
+                                <option ng-repeat="endCity in cityList" value={{endCity.id}}>{{endCity.city_name}}</option>
+                            </select>
+                        </div>
+
+                        <!--经销商-->
+                        <div class="input-field col s3">
+                            <select material-select watch ng-model="receiveId">
+                                <option value="" selected>经销商</option>
+                                <option ng-repeat="receive in receiveList" value={{receive.id}}>{{receive.short_name}}</option>
+                            </select>
+                        </div>
+
+                        <!--交接单收到时间-->
+                        <div class="input-field col s3">
+                            <input type="text" ng-model="handoverReceiveStartTime" id="handoverReceiveStartTime" name="handoverReceiveStartTime"  class="datepicker" autocomplete="off"    date><i class="mdi dataIcon mdi-table-large"></i>
+                            <label for="handoverReceiveStartTime">交接单收到时间(始)</label>
+                        </div>
+                        <div class="input-field col s3">
+                            <input type="text" ng-model="handoverReceiveEndTime" id="handoverReceiveEndTime" name="handoverReceiveEndTime"  class="datepicker" autocomplete="off"   date><i class="mdi dataIcon mdi-table-large"></i>
+                            <label for="handoverReceiveEndTime">交接单收到时间(终)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!--按钮-->
+                <div class="col s2" style="margin-top: 30px">
+                    <div class="col s4" >
+                        <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getSettlement()">
+                            <i class="mdi mdi-magnify"></i>
+                        </a>
+                    </div>
+                    <div class="col s4 center-align">
+                        <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
+                            <i class="mdi mdi-cloud-download"></i>
+                        </a>
+                    </div>
+                    <div class="col s4 right-align">
+                        <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2  btn vc-center"  ng-click="addSettlement()">
+                            <i class="mdi mdi-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s12">
+            <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+            <table class=" bordered striped text_mid">
+                <thead class="blue-grey lighten-5">
+                <tr class="grey-text text-darken-2">
+                    <th data-field="">交接单编号</th>
+                    <th data-field="">委托方</th>
+                    <th data-field="">始发城市</th>
+                    <th data-field="">经销商</th>
+                    <th data-field="">目的城市</th>
+                    <th data-field="">交接车辆</th>
+                    <th data-field="">交接单收到日期</th>
+                    <th data-field="">提交人</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="settlementInfo in settlementList" class="grey-text text-darken-1">
+                    <td>{{settlementInfo.number}}</td>
+                    <td>{{settlementInfo.entrust_id}}</td>
+                    <td >{{settlementInfo.length}}B</td>
+                    <td>{{settlementInfo.uploadDate}}</td>
+                    <td>{{settlementInfo._id}}</td>
+                    <td>{{settlementInfo.filename}}</td>
+                    <td >{{settlementInfo.length}}B</td>
+                    <td>{{settlementInfo.uploadDate | date:'yyyy-MM-dd'}}</td>
+                    <td  class="operation">
+                        <a ui-sref="settlement_management_detail({id:settlementInfo.id,from:'settlement_management'})" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
+                            <i class="mdi mdi-file-document" style="margin: 0"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr ng-if="settlementList.length==0">
+                    <td colspan="9">暂无数据</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!--分页-->
+        <div class="row">
+            <div class="paging_box col s12">
+                <div class="right">
+                    <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="pre_btn()">
+                        上一页
+                    </a>
+                    <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_btn()">
+                        下一页
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 </div>

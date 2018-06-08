@@ -1,10 +1,10 @@
 <!--交接单详情-->
 <div class="settlement_management_detail">
-
+    <a style="margin: 90px 0 0 20px" class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light "
+       ui-sref="settlement_management">
+        <i class="mdi mdi-arrow-left-bold"></i>
+    </a>
         <div class="storage_storeTitle vc-center">
-            <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
-                <i class="mdi mdi-arrow-left-bold"></i>
-            </a>
             <h4 class="center-align cyan-text text-lighten-1">交接单详情</h4>
         </div>
         <div class="row no-marBottom" ul-tabs>
@@ -37,7 +37,7 @@
                             <label for="remark">备注</label>
                         </div>
                         <div class="input-field col s4">
-                            <input type="text" ng-model="settlementList.created_on" id="putHandoverReceiveStartTime" name="putHandoverReceiveStartTime"  class="datepicker" autocomplete="off" date>
+                            <input type="text" ng-model="settlementList.received_date" id="putHandoverReceiveStartTime" name="putHandoverReceiveStartTime"  class="datepicker" autocomplete="off" date>
                             <i class="mdi dataIcon mdi-table-large"></i>
                             <label for="putHandoverReceiveStartTime">交接单收到日期</label>
 
@@ -63,7 +63,7 @@
                         <i class="mdi white-text mdi-plus fz30"></i>
                     </button>
                 </div>
-                <div class="row"  style="height:270px"  ng-repeat="settlementList in car_details" >
+                <div class="row"  style="height:130px"  ng-repeat="settlementList in car_details" >
                     <div class="row blue-grey lighten-5" style="border:1px solid #bdbdbd">
                         <!-- header -->
                         <div class="col s12 lighten-1 cyan-text vc-center left-align" style="height:50px;border-bottom:1px solid #bdbdbd">
@@ -71,9 +71,9 @@
                                 VIN码：{{settlementList.vin}}
                             </div>
                             <div class="col s3 right-align grey-text offset-s4">
-                               送达时间: {{settlementList.enter_time| date:'yyyy-MM-dd HH:mm:ss' }}
+                               送达时间: {{settlementList.arrive_date| date:'yyyy-MM-dd HH:mm:ss' }}
                             </div>
-                            <div class="col s1 right-align red-text" style="cursor: pointer" ng-click="deletesettlementList(settlementList.car_id)">x</div>
+                            <div class="col s1 right-align red-text" style="cursor: pointer" ng-click="deleteSettlementList(settlementList.car_id,settlementList.settle_handover_id)">x</div>
                         </div>
 
                         <!-- body -->
@@ -82,19 +82,19 @@
                                 制造商：{{settlementList.make_name}}
                             </div>
                             <div class="input-field col s4 center-align">
-                                起始城市：{{settlementList.route_start}}
+                                起始城市：{{settlementList.route_start_name}}
                             </div>
                             <div class="input-field col s4 right-align">
-                                目的城市：{{settlementList.route_end  }}
+                                目的城市：{{settlementList.route_end_name}}
                             </div>
                         </div>
                         <!-- body -->
                         <div class="col s12 lighten-1 white grey-text vc-center fz13 left-align" style="height:40px;padding-bottom: 20px">
                             <div class="input-field col s4">
-                                调度编号：{{settlementList.ship_company_name}}
+                                调度编号：{{settlementList.dp_route_task_id}}
                             </div>
                             <div class="input-field col s4 center-align">
-                                司机：{{settlementList.drivder_name}}
+                                司机：{{settlementList.drive_name}}
                             </div>
                             <div class="input-field col s4 right-align">
                                 货车牌号：{{settlementList.truck_num}}
@@ -118,9 +118,8 @@
                                     </div>
                                 </div>
                                 <ul id="look_img">
-                                    <li ng-repeat="el in storage_imageBox" ng-mouseenter="show=true" ng-mouseleave="show=false"  repeat-finish="renderFinish()" class="truck_car_picture col s2 vc-center  p0 grey white-text">
+                                    <li ng-repeat="el in ImageBox" ng-mouseenter="show=true" ng-mouseleave="show=false"  repeat-finish="renderFinish()" class="truck_car_picture col s2 vc-center  p0 grey white-text">
                                         <img ng-src="{{el.src}}"  class="responsive-img">
-                                        <b class="delete_img vc-center black fz18" ng-click="delete_img(el.record_id,el.src)"><i class="mdi mdi-close"></i></b>
                                         <p class="img_date white-text center-align" ng-show="show" ng-cloak>{{el.user}}上传于{{el.time|date:'yyyy-MM-dd HH:mm:ss'}}</p>
                                     </li>
                                 </ul>

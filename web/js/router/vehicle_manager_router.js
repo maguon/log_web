@@ -145,7 +145,16 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/truck/truck_insure.html",
             controller:'truck_insure_controller'
         })
-
+        .state("insurance_compensation",{
+            url:"/insurance_compensation",
+            templateUrl: "js/view/truck/insurance_compensation.html",
+            controller:'insurance_compensation_controller'
+        })
+        .state("add_damage_insurance_details",{
+            url:"/add_damage_insurance_details/id/{id}",
+            templateUrl: "js/view/truck/add_damage_insurance_details.html",
+            controller:'add_damage_insurance_details_controller'
+        })
         // 保单详情
         .state("truck_guarantee_details",{
             url:"/truck_guarantee_details/id/{id}/type/{type}?from",

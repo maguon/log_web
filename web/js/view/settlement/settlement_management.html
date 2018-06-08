@@ -135,15 +135,15 @@
                 <tbody>
                 <tr ng-repeat="settlementInfo in settlementList" class="grey-text text-darken-1">
                     <td>{{settlementInfo.number}}</td>
-                    <td>{{settlementInfo.entrust_id}}</td>
-                    <td >{{settlementInfo.length}}B</td>
+                    <td>{{settlementInfo.short_name}}</td>
+                    <td >{{settlementInfo.length}}</td>
                     <td>{{settlementInfo.uploadDate}}</td>
                     <td>{{settlementInfo._id}}</td>
                     <td>{{settlementInfo.filename}}</td>
-                    <td >{{settlementInfo.length}}B</td>
-                    <td>{{settlementInfo.uploadDate | date:'yyyy-MM-dd'}}</td>
+                    <td >{{settlementInfo.received_date | date:'yyyy-MM-dd'}}</td>
+                    <td>{{settlementInfo.op_user_name}}</td>
                     <td  class="operation">
-                        <a ui-sref="settlement_management_detail({id:settlementInfo.id,from:'settlement_management'})" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
+                        <a ui-sref="settlement_management_detail({id:settlementInfo.id})" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
                             <i class="mdi mdi-file-document" style="margin: 0"></i>
                         </a>
                     </td>

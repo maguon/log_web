@@ -42,11 +42,6 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/damage/damage_management_details.html",
             controller:'damage_management_details_controller'
         })
-        .state("insurance_compensation",{
-            url:"/insurance_compensation",
-            templateUrl: "js/view/damage/insurance_compensation.html",
-            controller:'insurance_compensation_controller'
-        })
         .state("car_wash_fee",{
             url:"/car_wash_fee",
             templateUrl: "js/view/damage/car_wash_fee.html",
@@ -56,11 +51,6 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             url:"/car_wash_fee_details/id/{id}",
             templateUrl: "js/view/damage/car_wash_fee_details.html",
             controller:'car_wash_fee_details_controller'
-        })
-        .state("add_damage_insurance_details",{
-            url:"/add_damage_insurance_details/id/{id}",
-            templateUrl: "js/view/damage/add_damage_insurance_details.html",
-            controller:'add_damage_insurance_details_controller'
         })
         // 管理员设置
         .state("setting_users", {

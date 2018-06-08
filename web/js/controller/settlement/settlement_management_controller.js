@@ -100,13 +100,13 @@ app.controller("settlement_management_controller", ["$scope","$state","$statePar
     function getSettlementData(){
         _basic.get($host.api_url + "/settleHandover?" + _basic.objToUrl({
             number:$scope.handover,
-            VIN:$scope.VIN,
+            vin:$scope.VIN,
             startCity: $scope.startCity,
             entrustId:$scope.entrustId,
             endCity:$scope.endCity,
             receiveId:$scope.receiveId,
-            handoverReceiveStartTime:$scope.handoverReceiveStartTime,
-            handoverReceiveEndTime:$scope.handoverReceiveEndTime,
+            receivedDateStart:$scope.handoverReceiveStartTime,
+            receivedDateEnd:$scope.handoverReceiveEndTime,
             start:$scope.start.toString(),
             size:$scope.size
         })).then(function (data) {
@@ -164,7 +164,9 @@ app.controller("settlement_management_controller", ["$scope","$state","$statePar
                         remark: $scope.newRemark
                     }).then(function (data) {
                         if (data.success == true) {
-                           $scope.settleHandoverId = data.settleHandoverId;
+                           $scope.settleHandoverId = data.result.settleHandoverId;
+                            $('#addSettlementItem').modal('close');
+                            getSettlementData();
                             window.location.href = "/index_home.html#!/settlement_management_detail/id/"+ $scope.settleHandoverId;
 
                         } else {

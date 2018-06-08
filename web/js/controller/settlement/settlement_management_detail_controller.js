@@ -7,17 +7,13 @@ app.controller("settlement_management_detail_controller", ["$scope","$state","$s
     var userId = _basic.getSession(_basic.USER_ID);
     var settlementId = $stateParams.id;
     $scope.carId = undefined;
-    // 点击返回按钮返回之前页面
-    $scope.return = function () {
-        $state.go($stateParams.from, {reload: true});
-    };
-
 
     //获取详细信息
     function getDetailItem(){
         _basic.get($host.api_url + "/settleHandover?settleHandoverId="+settlementId).then(function (data) {
             if (data.success === true) {
                 $scope.settlementList = data.result[0];
+                $scope.settlementList.received_date=  moment(data.result[0].received_date).format('YYYY-MM-DD');
                 $scope.lookBaseMsg();
             }
             else {
@@ -74,10 +70,10 @@ app.controller("settlement_management_detail_controller", ["$scope","$state","$s
     $scope.shortSearch=function () {
         if($scope.carVin!==""&&$scope.carVin!==undefined) {
             if ($scope.carVin.length >= 6) {
-                _basic.get($host.api_url + "/carList?vinCode=" + $scope.carVin, {}).then(function (data) {
+                _basic.get($host.api_url + "/dpRouteLoadTaskDetailBase?carLoadStatus=2&vinCode=" + $scope.carVin, {}).then(function (data) {
                     if (data.success == true&& data.result.length > 0) {
                         $scope.vinMsg = data.result;
-                        $scope.carId= data.result[0].id;
+                        $scope.carId= data.result[0].car_id;
                         vinObjs = {};
                         for (var i in $scope.vinMsg) {
                             vinObjs[$scope.vinMsg[i].vin] = null;
@@ -104,12 +100,8 @@ app.controller("settlement_management_detail_controller", ["$scope","$state","$s
 
     // 查询本委托方下得所有关联车辆
     function seachLinkCar(){
-
-    }
-
-    //添加关联车辆
-    $scope.addLinkCar=function () {
-        _basic.get($host.api_url+"/car?vin="+$scope.carVin+"&active=1").then(function (data) {
+        $scope.carVin="";
+        _basic.get($host.api_url+"/settleHandoverCarRel?settleHandoverId="+settlementId).then(function (data) {
             if(data.success=true){
                 if(data.result.length==0){
                     swal('数据库中没有这条数据！','','error')
@@ -118,8 +110,143 @@ app.controller("settlement_management_detail_controller", ["$scope","$state","$s
                 }
             }
         })
+    }
+
+
+    //添加关联车辆
+    $scope.addLinkCar=function () {
+        _basic.post($host.api_url+"/user/" + userId+'/settleHandoverCarRel' ,{
+            settleHandoverId: settlementId,
+            carId: $scope.carId
+        }).then(function (data) {
+            if(data.success=true){
+                seachLinkCar();
+            }
+        })
     };
 
 
+   //删除当前车辆信息
+     $scope.deleteSettlementList = function(carId,settleHandoverId){
+         swal({
+                 title: "确定删除当前车辆吗？",
+                 type: "warning",
+                 showCancelButton: true,
+                 confirmButtonColor: "#DD6B55",
+                 confirmButtonText: "确认",
+                 cancelButtonText: "取消",
+                 closeOnConfirm: true
+             },
+             function(){
+                 _basic.delete($host.api_url + "/user/" + userId + "/settleHandover/" +settleHandoverId+ "/car/" +carId ).then(function (data) {
+                     if (data.success === true) {
+                         seachLinkCar();
+                     }
+                     else {
+                         swal(data.msg, "", "error");
+                     }
+                 });
+             });
+     }
+
+
+    // 照片上传函数
+    // 图片上传
+    $scope.imgArr = [];
+    // 预览详情照片
+    $scope.ImageBox = [];
+    $scope.ImageI = [];
+
+    $scope.uploadBrandImage = function (dom) {
+        var filename = $(dom).val();
+        if (filename) {
+            if ((/\.(jpe?g|png|gif|svg|bmp|tiff?)$/i).test(filename)) {
+                var max_size_str = $(dom).attr('max_size');
+                var max_size = 4 * 1024 * 1024; //default: 4M
+                var re = /\d+m/i;
+                if (re.test(max_size_str)) {
+                    max_size = parseInt(max_size_str.substring(0, max_size_str.length - 1)) * 1024 * 1024;
+                }
+                if ($(dom)[0].files[0].size > max_size) {
+                    swal('图片文件最大: ' + max_size_str, "", "error");
+                    return false;
+                }
+            }
+            else if (filename && filename.length > 0) {
+                $(dom).val('');
+                swal('支持的图片类型为. (jpeg,jpg,png,gif,svg,bmp,tiff)', "", "error");
+            }
+            _basic.formPost($(dom).parent().parent(), $host.file_url + '/user/' + userId + '/image?imageType=7', function (data) {
+                if (data.success) {
+                    var imageId = data.imageId;
+                    _basic.post($host.record_url + "/car/" + $scope.Picture_carId + "/vin/" + $scope.vin + "/storageImage", {
+                        "username": _basic.getSession(_basic.USER_NAME),
+                        "userId": userId,
+                        "userType": _basic.getSession(_basic.USER_TYPE),
+                        "url": imageId
+                    }).then(function (data) {
+                        if (data.success == true) {
+                            $scope._id = data.result._id;
+                            if ($scope.ImageBox.length != 0) {
+                                viewer.destroy();
+                            }
+                            var nowDate = moment(new Date()).format("YYYY-MM-DD HH:mm");
+                            $scope.ImageI.push($host.file_url + '/image/' + imageId);
+                            $scope.ImageBox.push({
+                                src: $host.file_url + '/image/' + imageId,
+                                record_id: $scope._id,
+                                time: nowDate,
+                                user: _basic.getSession(_basic.USER_NAME)
+                            });
+                        }
+                    });
+                }
+                else {
+                    swal('上传图片失败', "", "error");
+                }
+            }, function (error) {
+                swal('服务器内部错误', "", "error");
+            })
+        }
+    };
+
+    // var add_viewer;
+    $scope.renderFinish = function () {
+        viewer = new Viewer(document.getElementById('look_img'), {
+            url: 'data-original'
+        });
+    };
+
+    //交接单图片
+    $scope.uploadBrandImage_drive = function (dom) {
+        var dom_obj = $(dom);
+        var filename = $(dom).val();
+        uploadBrandImage(filename, dom_obj, function (imageId) {
+            var nowDate = moment(new Date()).format("YYYY-MM-DD HH:mm");
+            $scope.$apply(function () {
+                $scope.drive_img = [{
+                    img: $host.file_url + '/image/' + imageId,
+                }];
+            });
+            var obj = {
+                "truckImage": imageId,
+                "imageType": 1
+            };
+            _basic.put($host.api_url + "/user/" + userId + "/truck/" + truck_id + "/image", obj).then(function (data) {
+                if (data.success == true) {
+
+                } else {
+                    swal(data.msg, "", "error")
+                }
+            })
+
+        });
+    };
+
+
+
+
+
     getDetailItem();
+    seachLinkCar();
 }])

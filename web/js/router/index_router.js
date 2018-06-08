@@ -564,7 +564,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
         .state("insurance_compensation",{
             url:"/insurance_compensation",
-            templateUrl: "js/view/damage/insurance_compensation.html",
+            templateUrl: "js/view/truck/insurance_compensation.html",
             controller:'insurance_compensation_controller'
         })
         .state("car_wash_fee",{
@@ -579,7 +579,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
         .state("add_damage_insurance_details",{
             url:"/add_damage_insurance_details/id/{id}",
-            templateUrl: "js/view/damage/add_damage_insurance_details.html",
+            templateUrl: "js/view/truck/add_damage_insurance_details.html",
             controller:'add_damage_insurance_details_controller'
         })
 

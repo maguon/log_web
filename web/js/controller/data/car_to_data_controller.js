@@ -363,6 +363,9 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                         $("#test2").show();
                         $scope.Picture_carId = data.id;
                     }
+                    else{
+                        swal(data.msg, "", "error")
+                    }
                 })
             }
             else{

@@ -492,7 +492,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                                     // 重新计算过路费
                                     var distanceCount = 0;
                                     for (var i = 0; i < $scope.addDispatchMissionList.length; i++) {
-                                        $scope.routeFeeInfo.apply_passing_cost = (distanceCount += $scope.addDispatchMissionList[i].distance) * 0.8
+                                        $scope.routeFeeInfo.apply_passing_cost = (distanceCount += $scope.addDispatchMissionList[i].distance) * 1.5
                                     }
                                 });
                             }
@@ -558,7 +558,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                     else{
                         var distanceCount = 0;
                         for (var i = 0; i < $scope.addDispatchMissionList.length; i++) {
-                            $scope.routeFeeInfo.apply_passing_cost = (distanceCount += $scope.addDispatchMissionList[i].distance) * 0.8
+                            $scope.routeFeeInfo.apply_passing_cost = (distanceCount += $scope.addDispatchMissionList[i].distance) * 1.5
                         }
                     }
                 });

@@ -160,6 +160,7 @@ app.controller("settlement_management_controller", ["$scope","$state","$statePar
                     _basic.post($host.api_url + "/user/" + userId + "/settleHandover", {
                         number: $scope.addHandoverReceiveStartTime,
                         entrustId: $scope.addEntrustId,
+                        receivedDate: $scope.addHandoverReceiveStartTime,
                         remark: $scope.newRemark
                     }).then(function (data) {
                         if (data.success == true) {

@@ -25,7 +25,7 @@
                             <div class="col s3 cyan-text text-lighten-1 bold">委托方:{{settlementList.short_name}}</div>
                         </div>
                         <div class="col s6 right-align">
-                            65465464
+                            经销商：{{}}
                         </div>
                     </div>
 
@@ -47,13 +47,13 @@
                     <!-- body -->
                     <div class="col s12 white" style="height:70px;">
                         <div class="col s12 input-field right-align">
-                            <button class="btn waves-light waves-effect cyan lighten-2"  ng-click="putDataItem(car_details.id)">保存</button>
+                            <button class="btn waves-light waves-effect cyan lighten-2"  ng-click="putDataItem(settlementList.id)">保存</button>
                         </div>
                     </div>
                 </div>
                 <div class="row" style="position: relative;margin-top: 40px">
                     <div class="input-field col s12">
-                        <input type="text" id="autocomplete-input"  placeholder="           模糊查询至少需要6位vin码"  ng-model="creditVin" ng-change="shortSearch()"  style="margin: 0 0 20px 0"  class="autocomplete">
+                        <input type="text" id="autocomplete-input"  placeholder="           模糊查询至少需要6位vin码"  ng-model="carVin" ng-change="shortSearch()"  style="margin: 0 0 20px 0"  class="autocomplete">
                         <label for="autocomplete-input">VIN码</label>
                     </div>
                     <button class=" btn btn-floating btn-small waves-effect cyan lighten-1" ng-if="carId!==undefined" ng-click="addLinkCar()"  style="position: absolute;top: 15px;right: 10px;">
@@ -63,15 +63,15 @@
                         <i class="mdi white-text mdi-plus fz30"></i>
                     </button>
                 </div>
-                <div class="row"  style="height:270px">
+                <div class="row"  style="height:270px"  ng-repeat="settlementList in car_details" >
                     <div class="row blue-grey lighten-5" style="border:1px solid #bdbdbd">
                         <!-- header -->
                         <div class="col s12 lighten-1 cyan-text vc-center left-align" style="height:50px;border-bottom:1px solid #bdbdbd">
                             <div class="col s4 ">
                                 VIN码：{{settlementList.vin}}
                             </div>
-                            <div class="col s3 right-align red-text offset-s4">
-                                {{settlementList.valuation| currency }}
+                            <div class="col s3 right-align grey-text offset-s4">
+                               送达时间: {{settlementList.enter_time| date:'yyyy-MM-dd HH:mm:ss' }}
                             </div>
                             <div class="col s1 right-align red-text" style="cursor: pointer" ng-click="deletesettlementList(settlementList.car_id)">x</div>
                         </div>
@@ -79,13 +79,13 @@
                         <!-- body -->
                         <div class="col s12 lighten-1 white grey-text vc-center fz13 left-align" style="height:40px;">
                             <div class="input-field col s4">
-                                制造商：{{settlementList.start_port_name}}
+                                制造商：{{settlementList.make_name}}
                             </div>
                             <div class="input-field col s4 center-align">
-                                起始城市：{{settlementList.end_port_name}}
+                                起始城市：{{settlementList.route_start}}
                             </div>
                             <div class="input-field col s4 right-align">
-                                目的城市：{{settlementList.start_ship_date | date:'yyyy-MM-dd' }}
+                                目的城市：{{settlementList.route_end  }}
                             </div>
                         </div>
                         <!-- body -->
@@ -94,10 +94,10 @@
                                 调度编号：{{settlementList.ship_company_name}}
                             </div>
                             <div class="input-field col s4 center-align">
-                                司机：{{settlementList.ship_name}}
+                                司机：{{settlementList.drivder_name}}
                             </div>
                             <div class="input-field col s4 right-align">
-                                或车牌号：{{settlementList.end_ship_date | date:'yyyy-MM-dd'}}
+                                货车牌号：{{settlementList.truck_num}}
                             </div>
                         </div>
                     </div>

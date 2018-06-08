@@ -172,7 +172,7 @@ app.controller("dispatch_route_fee_controller", ["$scope", "$host", "_basic", fu
                     // 根据新增的任务卡片计算过路费
                     var distanceCount = 0;
                     for (var i = 0; i < $scope.matchMissionList.length; i++) {
-                        $scope.roadTollCost = (distanceCount += $scope.matchMissionList[i].distance) * 0.8
+                        $scope.roadTollCost = (distanceCount += $scope.matchMissionList[i].distance) * 1.5
                     }
                 });
             }
@@ -203,7 +203,7 @@ app.controller("dispatch_route_fee_controller", ["$scope", "$host", "_basic", fu
                     else{
                         var distanceCount = 0;
                         for (var i = 0; i < $scope.matchMissionList.length; i++) {
-                            $scope.roadTollCost = (distanceCount += $scope.matchMissionList[i].distance) * 0.8
+                            $scope.roadTollCost = (distanceCount += $scope.matchMissionList[i].distance) * 1.5
                         }
                     }
                 });

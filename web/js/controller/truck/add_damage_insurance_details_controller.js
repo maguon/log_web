@@ -24,6 +24,7 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$statePara
                 console.log("data", data);
                 $scope.currentInsurInfo = data.result[0];
                 $scope.insuranceCompany = data.result[0].insure_id;
+                $scope.damageMoney = data.result[0].damage_money;
                 $scope.insuranceCompensation = data.result[0].insure_plan;
                 $scope.insurancePayment = data.result[0].insure_actual;
                 $scope.insureStatus = data.result[0].insure_status;
@@ -132,6 +133,7 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$statePara
         _basic.put($host.api_url + "/user/" + userId + "/damageInsure/" + damageId, {
             insureId: $scope.insuranceCompany,
             insurePlan: $scope.insuranceCompensation,
+            damageMoney: $scope.damageMoney,
             financialLoan: $scope.currentInsurInfo.financial_loan,
             insureActual: $scope.insurancePayment,
             paymentExplain: $scope.currentInsurInfo.payment_explain,

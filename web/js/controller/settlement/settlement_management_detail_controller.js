@@ -6,6 +6,7 @@
 app.controller("settlement_management_detail_controller", ["$scope","$state","$stateParams", "$host", "_basic", function ($scope,$state,$stateParams,$host, _basic) {
     var userId = _basic.getSession(_basic.USER_ID);
     var settlementId = $stateParams.id;
+    $scope.entrustId = '';
     $scope.carId = undefined;
 
     //获取详细信息
@@ -13,6 +14,7 @@ app.controller("settlement_management_detail_controller", ["$scope","$state","$s
         _basic.get($host.api_url + "/settleHandover?settleHandoverId="+settlementId).then(function (data) {
             if (data.success === true) {
                 $scope.settlementList = data.result[0];
+                $scope.entrustId= data.result[0].entrust_id;
                 $scope.settlementList.received_date=  moment(data.result[0].received_date).format('YYYY-MM-DD');
                 $scope.lookBaseMsg();
             }
@@ -70,20 +72,28 @@ app.controller("settlement_management_detail_controller", ["$scope","$state","$s
     $scope.shortSearch=function () {
         if($scope.carVin!==""&&$scope.carVin!==undefined) {
             if ($scope.carVin.length >= 6) {
-                _basic.get($host.api_url + "/dpRouteLoadTaskDetailBase?carLoadStatus=2&vinCode=" + $scope.carVin, {}).then(function (data) {
-                    if (data.success == true&& data.result.length > 0) {
-                        $scope.vinMsg = data.result;
-                        $scope.carId= data.result[0].car_id;
-                        vinObjs = {};
-                        for (var i in $scope.vinMsg) {
-                            vinObjs[$scope.vinMsg[i].vin] = null;
+                _basic.get($host.api_url + "/dpRouteLoadTaskDetailBase?vinCode=" +$scope.carVin+ '&entrustId='+$scope.entrustId+'&carLoadStatus=2', {}).then(function (data) {
+                    if (data.success == true) {
+                        if(data.result.length == 0){
+                            $scope.carVin=""
+                            swal('该VIN码不存在！', "", "error")
                         }
-                        return vinObjs;
+                        else{
+                            $scope.vinMsg = data.result;
+                            $scope.carId= data.result[0].car_id;
+                            vinObjs = {};
+                            for (var i in $scope.vinMsg) {
+                                vinObjs[$scope.vinMsg[i].vin] = null;
+                            }
+                            return vinObjs;
+                        }
+
                     }
 
                     else {
-                        return {};
+                        swal(data.msg, "", "error");
                     }
+
                 }).then(function (vinObjs) {
                     $('#autocomplete-input').autocomplete({
                         data: vinObjs,
@@ -102,12 +112,8 @@ app.controller("settlement_management_detail_controller", ["$scope","$state","$s
     function seachLinkCar(){
         $scope.carVin="";
         _basic.get($host.api_url+"/settleHandoverCarRel?settleHandoverId="+settlementId).then(function (data) {
-            if(data.success=true){
-                if(data.result.length==0){
-                    swal('数据库中没有这条数据！','','error')
-                }else {
-                    $scope.car_details=data.result;
-                }
+            if(data.success=true&&data.result.length>0){
+                $scope.car_details=data.result;
             }
         })
     }
@@ -119,8 +125,12 @@ app.controller("settlement_management_detail_controller", ["$scope","$state","$s
             settleHandoverId: settlementId,
             carId: $scope.carId
         }).then(function (data) {
-            if(data.success=true){
+            if(data.success==true){
                 seachLinkCar();
+            }
+            else {
+                $scope.carVin="";
+                swal(data.msg, "", "error");
             }
         })
     };

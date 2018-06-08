@@ -557,7 +557,7 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
         });
     };
 
-    // 点击确定新增理赔信息
+  /*  // 点击确定新增理赔信息
     $scope.saveInsuranceInfo = function () {
         if($scope.insuranceCompanyId !== "" && $scope.insuranceCompensation !== 0){
             _basic.post($host.api_url + "/user/" + userId + "/insure",{
@@ -605,7 +605,7 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
                 });
             });
     };
-
+*/
     // 获取数据
     $scope.queryData = function () {
         $scope.getCurrentDamageInfo();

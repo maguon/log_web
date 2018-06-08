@@ -516,23 +516,32 @@
                         <div class="col s6 left-align">
                             <p style="font-weight: bold;color: #00bcd4">理赔编号：{{damage.id}}</p>
                         </div>
-                        <div class="col s5 right-align" style="font-weight: bold">
+                        <div class="col s6 right-align" style="font-weight: bold">
                             <p>生成日期：{{damage.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</p>
                         </div>
-                        <div class="col s1 right-align" ng-if="damage.insure_status == 1">
+                        <!--<div class="col s1 right-align" ng-if="damage.insure_status == 1">
                             <span ng-click="deletePaymentInfo(damage.id)" style="font-size: 1.8rem;cursor: pointer" class="mdi mdi-delete-forever"></span>
-                        </div>
+                        </div>-->
                     </div>
                     <!--内容-->
-                    <div class="col s12 card_body center-align" style="font-size: 1.07rem;padding: 0;">
+                    <div class="col s12 card_body" style="font-size: 1.07rem;padding: 0;">
                         <div class="col s4">
                             <p><span style="font-weight: bold">保险公司：</span>{{damage.insure_name}}</p>
                         </div>
-                        <div class="col s4">
+                        <div class="col s4 offset-s4 right-align">
                             <p><span style="font-weight: bold">经办人：</span>{{damage.insure_user_name}}</p>
                         </div>
-                        <div class="col s4">
+                        <div class="col s4 ">
+                            <p><span style="font-weight: bold">待赔金额：</span><span style="font-weight: bold;color: rgb(231,127,127);font-size: 1.2rem">{{damage.insure_plan}}</span> 元</p>
+                        </div>
+                        <div class="col s4 center-align">
+                            <p><span style="font-weight: bold">定损金额：</span><span style="font-weight: bold;color: rgb(231,127,127);font-size: 1.2rem">{{damage.damage_money}}</span> 元</p>
+                        </div>
+                        <div class="col s4 right-align" ng-show="damage.insure_actual!==null">
                             <p><span style="font-weight: bold">保险赔付：</span><span style="font-weight: bold;color: rgb(231,127,127);font-size: 1.2rem">{{damage.insure_actual}}</span> 元</p>
+                        </div>
+                        <div class="col s4 right-align" ng-show="damage.insure_actual==null">
+                            <p><span style="font-weight: bold">保险赔付：</span><span style="font-weight: bold;color: rgb(231,127,127);font-size: 1.2rem">0</span> 元</p>
                         </div>
                     </div>
                 </div>

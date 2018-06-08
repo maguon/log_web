@@ -159,6 +159,7 @@ app.controller("insurance_compensation_controller", ["$scope", "$host", "_basic"
             }
             _basic.post($host.api_url + "/user/" + userId + "/damageInsure",{
                 insureId: $scope.insuranceCompanyMod,
+                damageMoney:$scope.damageMoney,
                 insurePlan: $scope.insurePlanMod,
                 financialLoanStatus: $scope.hasLoan,
                 financialLoan: $scope.loanMoneyNum,

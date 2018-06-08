@@ -19,7 +19,11 @@
                         <input disabled id="handler" type="text" ng-model="handler">
                         <label for="handler">经办人</label>
                     </div>
-                    <div class="col s6 input-field">
+                    <div class="col s3 input-field">
+                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="damageMoney" type="number" ng-model="damageMoney">
+                        <label for="damageMoney"><span style="color: red">* </span>定损金额（元）</label>
+                    </div>
+                    <div class="col s3 input-field">
                         <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="insure_plan_mod" type="number" ng-model="insurePlanMod">
                         <label for="insure_plan_mod"><span style="color: red">* </span>待赔金额（元）</label>
                     </div>

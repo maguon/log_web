@@ -85,9 +85,14 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
 
     //打开新增模态框
     $scope.addPeccancy = function (){
-        $scope.entrustList = [];
-        $scope.addEntrustId = '';
-        $scope.newRemark = '';
+        $scope.driveNameList = [];
+        $scope.addDrivderId='';
+        $scope.addPeccancyTruckNum='';
+        $scope.addPeccancyScore='';
+        $scope.addPeccancyMoney='';
+        $scope.addStartTime='';
+        $scope.addEndTime='';
+        $scope.newRemark='';
         $('#addPeccancyItem').modal('open');
     }
 
@@ -121,15 +126,49 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
     }
 
 
-
-
     //打开修改模态框
     $scope.putPeccancy = function (id){
-        $scope.entrustList = [];
-        $scope.addEntrustId = '';
-        $scope.newRemark = '';
         $('#putPeccancyItem').modal('open');
+        _basic.get($host.api_url + "/settleHandover?" +id).then(function (data) {
+            if (data.success === true) {
+                if(data.result.length==0){
+                    putPeccancyList = [];
+                }
+                else{
+                    putPeccancyList = data.result[0];
+                }
+            }
+        })
     }
+
+    //点击确定 修改完成
+    $scope.putPeccancyItem = function (){
+        if ($scope.addDrivderId !== undefined && $scope.addPeccancyTruckNum !== undefined && $scope.addPeccancyScore !== undefined
+            &&$scope.addPeccancyMoney !== undefined &&$scope.addStartTime !== undefined&&$scope.addEndTime!==undefined) {
+            _basic.post($host.api_url + "/user/" + userId + "/settleHandover", {
+                insureId: $scope.addDrivderId,
+                insureType: $scope.addPeccancyTruckNum,
+                insurePlan: $scope.addPeccancyScore,
+                financialLoanStatus: $scope.addPeccancyMoney,
+                financialLoan: $scope.addStartTime,
+                paymentExplain: $scope.addEndTime,
+                remark: $scope.newRemark
+            }).then(function (data) {
+                if (data.success === true) {
+                    swal("新增成功", "", "success");
+                    $('#addPeccancyItem').modal('close');
+                    getPeccancyData();
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            })
+        }
+        else {
+            swal("请填写完整信息！", "", "warning");
+        }
+    }
+
 
 
     // 分页

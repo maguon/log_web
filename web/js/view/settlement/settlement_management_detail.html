@@ -21,8 +21,11 @@
                 <div class="row  blue-grey lighten-5" style="border:1px solid #bdbdbd">
                     <!-- header -->
                     <div class="col s12  cyan-text vc-center left-align" style="height:70px;border-bottom :1px solid #bdbdbd">
-                        <div class="col s6">
-                            <div class="col s3 cyan-text text-lighten-1 bold">委托方:{{settlementList.short_name}}</div>
+                        <div class="col s6" ng-if="settlementList.r_short_name!==null">
+                            <div class="col s12 cyan-text text-lighten-1 bold">委托方:{{settlementList.short_name}}</div>
+                        </div>
+                        <div class="col s12" ng-if="settlementList.r_short_name==null">
+                            <div class="col s12 left-align cyan-text text-lighten-1 bold">委托方:{{settlementList.short_name}}</div>
                         </div>
                         <div class="col s6 right-align"  ng-if="settlementList.r_short_name!==null">
                             经销商：{{settlementList.r_short_name}}
@@ -40,8 +43,6 @@
                             <input type="text" ng-model="settlementList.received_date" id="putHandoverReceiveStartTime" name="putHandoverReceiveStartTime"  class="datepicker" autocomplete="off" date>
                             <i class="mdi dataIcon mdi-table-large"></i>
                             <label for="putHandoverReceiveStartTime">交接单收到日期</label>
-
-
                         </div>
                     </div>
                     <!-- body -->

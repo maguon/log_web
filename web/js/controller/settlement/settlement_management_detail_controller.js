@@ -27,10 +27,10 @@ app.controller("settlement_management_detail_controller", ["$scope","$state","$s
     //修改交接单信息
     $scope.putDataItem = function(id){
         var obj = {
-            number: $scope.settlementList.created_on,
-            remark: $scope.settlementList.remark
+            receivedDate:$scope.settlementList.received_date,
+            remark:$scope.settlementList.remark
         };
-        _basic.put($host.api_url + "/user/" + id, obj).then(function (data) {
+        _basic.put($host.api_url + "/user/" + userId+'/settleHandover/'+id, obj).then(function (data) {
             if (data.success == true) {
                 swal("修改成功", "", "success");
                 getDetailItem()
@@ -127,6 +127,7 @@ app.controller("settlement_management_detail_controller", ["$scope","$state","$s
         }).then(function (data) {
             if(data.success==true){
                 seachLinkCar();
+                getDetailItem();
             }
             else {
                 $scope.carVin="";
@@ -254,9 +255,10 @@ app.controller("settlement_management_detail_controller", ["$scope","$state","$s
     };
 
 
-
-
-
-    getDetailItem();
-    seachLinkCar();
+    //获取数据
+    function getData(){
+        getDetailItem();
+        seachLinkCar();
+    }
+    getData();
 }])

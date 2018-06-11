@@ -78,20 +78,20 @@
             <!--违章结算编号-->
             <div class="col s12">
                 <div class="col s12 cyan-text fz18 input-field bold" style="height: 50px;border-bottom: 2px solid #ccc">
-                违章结算编号:{{1212121212}}
+                违章结算编号:{{putPeccancyList.number}}
                 </div>
             </div>
             <!--司机   货车牌号  -->
-            <div class="col s12" style="height: 70px;margin-top: 20px">
+            <div class="col s12" style="height: 60px;margin-top: 20px">
                 <div class="col s6">
-                    <select material-select watch ng-model="putDrivderId" id="putDrivderId" style="width: 100%">
+                    <select material-select watch ng-model="putPeccancyList.putDrivderId" id="putDrivderId" style="width: 100%">
                         <option value="" selected>请选择</option>
                         <option ng-repeat="putEntrust in entrustList" value={{putEntrust.id}}>{{putEntrust.short_name}}</option>
                     </select>
                 </div>
 
                 <div class="col s6">
-                    <select material-select watch ng-model="putTruckNum" id="putTruckNum" style="width: 100%">
+                    <select material-select watch ng-model="putPeccancyList.putTruckNum" id="putTruckNum" style="width: 100%">
                         <option value="" selected>请选择</option>
                         <option ng-repeat="putEntrust in entrustList" value={{putEntrust.id}}>{{putEntrust.short_name}}</option>
                     </select>
@@ -101,15 +101,15 @@
 
 
             <!--扣罚分数  扣罚金额-->
-            <div class="col s12" style="height: 70px">
+            <div class="col s12" style="height: 60px">
 
                 <div class="col s6 input-field">
-                    <input id="putPeccancyScore" type="number"  ng-model="putPeccancyScore">
+                    <input id="putPeccancyScore" type="number"  ng-model="putPeccancyList.putPeccancyScore">
                     <label for="putPeccancyScore">扣罚分数</label>
                 </div>
 
                 <div class="col s6 input-field">
-                    <input id="putPeccancyMoney" type="number"  ng-model="putPeccancyMoney">
+                    <input id="putPeccancyMoney" type="number"  ng-model="putPeccancyList.putPeccancyMoney">
                     <label for="putPeccancyMoney">扣罚金额</label>
                 </div>
 
@@ -117,13 +117,13 @@
 
 
             <!--时间范围-->
-            <div class="col s12"  style="height: 70px">
+            <div class="col s12"  style="height: 60px">
                 <div class="input-field col s6">
-                    <input type="text" ng-model="putStartTime" id="putStartTime" name="putStartTime"  class="datepicker" autocomplete="off"    date><i class="mdi dataIcon mdi-table-large"></i>
+                    <input type="text" ng-model="putPeccancyList.putStartTime" id="putStartTime" name="putStartTime"  class="datepicker" autocomplete="off"    date><i class="mdi dataIcon mdi-table-large"></i>
                     <label for="putStartTime">时间范围(始)</label>
                 </div>
                 <div class="input-field col s6">
-                    <input type="text" ng-model="putEndTime" id="putEndTime" name="putEndTime"  class="datepicker" autocomplete="off"   date><i class="mdi dataIcon mdi-table-large"></i>
+                    <input type="text" ng-model="putPeccancyList.putEndTime" id="putEndTime" name="putEndTime"  class="datepicker" autocomplete="off"   date><i class="mdi dataIcon mdi-table-large"></i>
                     <label for="putEndTime">时间范围(终)</label>
                 </div>
             </div>
@@ -131,15 +131,15 @@
 
             <!--备注-->
             <div class="col s12">
-                <div class="col s12 input-field"  style="height: 70px">
-                    <input id="putRemark" name="remark"  ng-model="newRemark" type="text">
+                <div class="col s12 input-field"  style="height: 60px">
+                    <input id="putRemark" name="remark"  ng-model="putPeccancyList.newRemark" type="text">
                     <label for="putRemark">备注:</label>
                 </div>
             </div>
 
             <!--结算人-->
             <div class="col s4 offset-s8 input-field">
-              结算人:{{}}
+              结算人:{{putPeccancyList.user}}
             </div>
         </div>
     </div>

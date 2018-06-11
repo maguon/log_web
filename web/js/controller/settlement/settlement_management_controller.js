@@ -79,7 +79,7 @@ app.controller("settlement_management_controller", ["$scope","$state","$statePar
     $scope.export = function () {
         var obj = {
             number:$scope.handover,
-            vin:$scope.VIN,
+            vinCode:$scope.VIN,
             routeStartId: $scope.startCity,
             entrustId:$scope.entrustId,
             routeEndId:$scope.endCity,
@@ -100,7 +100,7 @@ app.controller("settlement_management_controller", ["$scope","$state","$statePar
     function getSettlementData(){
         _basic.get($host.api_url + "/settleHandover?" + _basic.objToUrl({
             number:$scope.handover,
-            vin:$scope.VIN,
+            vinCode:$scope.VIN,
             routeStartId: $scope.startCity,
             entrustId:$scope.entrustId,
             routeEndId:$scope.endCity,

@@ -24,8 +24,8 @@
                         <div class="col s6">
                             <div class="col s3 cyan-text text-lighten-1 bold">委托方:{{settlementList.short_name}}</div>
                         </div>
-                        <div class="col s6 right-align">
-                            经销商：{{}}
+                        <div class="col s6 right-align"  ng-if="settlementList.r_short_name!==null">
+                            经销商：{{settlementList.r_short_name}}
                         </div>
                     </div>
 

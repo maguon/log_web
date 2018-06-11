@@ -136,10 +136,10 @@
                 <tr ng-repeat="settlementInfo in settlementList" class="grey-text text-darken-1">
                     <td>{{settlementInfo.number}}</td>
                     <td>{{settlementInfo.short_name}}</td>
-                    <td >{{settlementInfo.length}}</td>
-                    <td>{{settlementInfo.uploadDate}}</td>
-                    <td>{{settlementInfo._id}}</td>
-                    <td>{{settlementInfo.filename}}</td>
+                    <td >{{settlementInfo.city_route_start}}</td>
+                    <td>{{settlementInfo.r_short_name}}</td>
+                    <td>{{settlementInfo.city_route_end}}</td>
+                    <td>{{settlementInfo.car_count}}</td>
                     <td >{{settlementInfo.received_date | date:'yyyy-MM-dd'}}</td>
                     <td>{{settlementInfo.op_user_name}}</td>
                     <td  class="operation">

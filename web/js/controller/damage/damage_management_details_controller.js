@@ -14,7 +14,7 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
     $scope.showRadioButton = true;
     $scope.paymentFlag = "1";
     $scope.financeIndemnityStatus = 1; // 财务打款状态
-
+    $scope.cityList = [];
 
     // tab切换
     $scope.showDamageImage = function () {
@@ -23,7 +23,6 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
     $scope.showDamageHandleInfo = function () {
         $scope.getBeforeDamageInfo();
         $scope.getRepairStationList();
-        $scope.getCityList()
     };
     $scope.showInsuranceInfo = function () {
         $scope.getInsuranceInfo();
@@ -84,6 +83,7 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
             if (data.success === true) {
                 $scope.currentDamageStatus = data.result[0].damage_status;
                 $scope.currentDamageInfo = data.result[0];
+                $scope.currentDamageInfo.vin = data.result[0].vin;
                 // console.log("currentDamageInfo",$scope.currentDamageInfo);
             }
             else {
@@ -155,7 +155,8 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
                 "username": _basic.getSession(_basic.USER_NAME),
                 "userId": userId,
                 "userType": _basic.getSession(_basic.USER_TYPE),
-                "url": imageId
+                "url": imageId,
+                "vin":  $scope.currentDamageInfo.vin
             }).then(function (data) {
                 if (data.success == true) {
                     $scope.getCurrentDamageImage();
@@ -266,12 +267,12 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
         if(indemnityStatus === 2){
             _basic.get($host.api_url + "/damageCheckIndemnity?damageCheckId=" + damageCheckId).then(function (data) {
                 if (data.success === true) {
-                    // console.log("paymentData", data);
                     $scope.paymentInfo = data.result[0];
                     $scope.bankAccount = data.result[0].bank_number;
                     $scope.accountName = data.result[0].bank_user_name;
                     $scope.openingBank = data.result[0].bank_name;
                     $scope.locatedCity = data.result[0].city_id;
+                    $scope.getCityList();
                     $scope.distributor = data.result[0].receive_name;
                     $scope.paymentMoney = data.result[0].plan_money;
                     $scope.paymentRemark = data.result[0].apply_explain;
@@ -298,7 +299,8 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
                 $scope.cityList = data.result;
                 $('#located_city').select2({
                     placeholder: '所在城市',
-                    containerCssClass : 'select2_dropdown'
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
                 });
             }
             else {

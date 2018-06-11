@@ -499,6 +499,14 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/truck/add_truck_management.html",
             controller:'add_truck_management_controller'
         })
+
+        //司机违章扣款
+        .state("peccancy_withhold",{
+            url:"/peccancy_withhold",
+            templateUrl: "js/view/truck/peccancy_withhold.html",
+            controller:'peccancy_withhold_controller'
+        })
+
         // 事故车详情
         .state("look_truck_management",{
             url:"/look_truck_management/id/{id}?from",

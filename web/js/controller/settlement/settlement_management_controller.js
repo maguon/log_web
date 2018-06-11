@@ -79,13 +79,13 @@ app.controller("settlement_management_controller", ["$scope","$state","$statePar
     $scope.export = function () {
         var obj = {
             number:$scope.handover,
-            VIN:$scope.VIN,
-            startCity: $scope.startCity,
+            vin:$scope.VIN,
+            routeStartId: $scope.startCity,
             entrustId:$scope.entrustId,
-            endCity:$scope.endCity,
+            routeEndId:$scope.endCity,
             receiveId:$scope.receiveId,
-            handoverReceiveStartTime:$scope.handoverReceiveStartTime,
-            handoverReceiveEndTime:$scope.handoverReceiveEndTime
+            receivedDateStart:$scope.handoverReceiveStartTime,
+            receivedDateEnd:$scope.handoverReceiveEndTime
         };
         window.open($host.api_url + "/settleHandover.csv?" + _basic.objToUrl(obj));
     };
@@ -101,9 +101,9 @@ app.controller("settlement_management_controller", ["$scope","$state","$statePar
         _basic.get($host.api_url + "/settleHandover?" + _basic.objToUrl({
             number:$scope.handover,
             vin:$scope.VIN,
-            startCity: $scope.startCity,
+            routeStartId: $scope.startCity,
             entrustId:$scope.entrustId,
-            endCity:$scope.endCity,
+            routeEndId:$scope.endCity,
             receiveId:$scope.receiveId,
             receivedDateStart:$scope.handoverReceiveStartTime,
             receivedDateEnd:$scope.handoverReceiveEndTime,
@@ -158,7 +158,6 @@ app.controller("settlement_management_controller", ["$scope","$state","$statePar
                 },
                 function () {
                     _basic.post($host.api_url + "/user/" + userId + "/settleHandover", {
-                        number: $scope.addHandoverReceiveStartTime,
                         entrustId: $scope.addEntrustId,
                         receivedDate: $scope.addHandoverReceiveStartTime,
                         remark: $scope.newRemark

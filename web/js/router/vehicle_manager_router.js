@@ -81,6 +81,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/system_settings/setting_dealer/add_setting_dealer_details.html",
             controller:'add_setting_dealer_controller'
         })
+        .state("setting_repair",{
+            url:"/setting_repair",
+            templateUrl: "js/view/system_settings/setting_repair.html",
+            controller:'setting_repair_controller'
+        })
 
         // 车管
         .state("truck_company",{

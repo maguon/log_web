@@ -23,6 +23,7 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
     $scope.showDamageHandleInfo = function () {
         $scope.getBeforeDamageInfo();
         $scope.getRepairStationList();
+        $scope.cityList = [];
     };
     $scope.showInsuranceInfo = function () {
         $scope.getInsuranceInfo();
@@ -59,7 +60,6 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
                         text: data.result[i].real_name + " " + data.result[i].job
                     }
                 }
-                // console.log("responsibilityDataList",responsibilityDataList);
                 $('#liable_person').select2({
                     placeholder: '责任人',
                     containerCssClass : 'select2_dropdown',
@@ -84,7 +84,6 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
                 $scope.currentDamageStatus = data.result[0].damage_status;
                 $scope.currentDamageInfo = data.result[0];
                 $scope.currentDamageInfo.vin = data.result[0].vin;
-                // console.log("currentDamageInfo",$scope.currentDamageInfo);
             }
             else {
                 swal(data.msg, "", "error");
@@ -102,7 +101,6 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
                     for (var i = 0; i < $scope.damageImageList.length; i++) {
                         $scope.damageImageList[i].url = $host.file_url + '/image/' + $scope.damageImageList[i].url
                     }
-                    // console.log("imageData",$scope.damageImageList);
                 }
             }
             else {
@@ -198,6 +196,36 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
             })
     };
 
+    // 获取维修站列表
+    $scope.getRepairStationList = function () {
+        _basic.get($host.api_url + "/repairStation?repairSationStatus=1").then(function (data) {
+            if (data.success === true) {
+                $scope.repairStationList = data.result;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+    // 获取城市列表
+    $scope.getCityList = function () {
+        _basic.get($host.api_url + "/city").then(function (data) {
+            if (data.success === true) {
+                $scope.cityList = data.result;
+                $('#located_city').select2({
+                    placeholder: '所在城市',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+
     // 获取当前damageId下之前保存的信息
     $scope.getBeforeDamageInfo = function () {
         _basic.get($host.api_url + "/damageCheck?damageId=" + damageId).then(function (data) {
@@ -248,22 +276,9 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
         });
     };
 
-    // 获取维修站列表
-    $scope.getRepairStationList = function () {
-        _basic.get($host.api_url + "/repairStation?repairSationStatus=1").then(function (data) {
-            if (data.success === true) {
-                // console.log("data", data);
-                $scope.repairStationList = data.result;
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
-    };
 
     // 获取打款信息
     $scope.getRemittanceInfo = function () {
-         console.log("indemnityStatus",indemnityStatus);
         if(indemnityStatus === 2){
             _basic.get($host.api_url + "/damageCheckIndemnity?damageCheckId=" + damageCheckId).then(function (data) {
                 if (data.success === true) {
@@ -295,22 +310,6 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
         }
     };
 
-    // 获取城市列表
-    $scope.getCityList = function () {
-        _basic.get($host.api_url + "/city").then(function (data) {
-            if (data.success === true) {
-                $scope.cityList = data.result;
-                $('#located_city').select2({
-                    placeholder: '所在城市',
-                    containerCssClass : 'select2_dropdown',
-                    allowClear: true
-                });
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
-    };
 
     // 点击开始处理，变为处理中状态并初始化处理信息
     $scope.beginProcessing = function () {
@@ -382,7 +381,6 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
                 remark: $scope.damageInfoBefore.remark
             }).then(function (data) {
                 if (data.success === true) {
-                    // $scope.getBeforeDamageInfo();
                     $scope.savePaymentInfoModify(finishFlag);
                 }
                 else {
@@ -432,6 +430,8 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
                             $scope.updateDamageStatus();
                         }
                         else{
+                            $scope.cityList = [];
+                            $scope.locatedCity ='';
                             $scope.getBeforeDamageInfo();
                         }
                         // 修改借款状态

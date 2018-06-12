@@ -506,6 +506,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/truck/peccancy_withhold.html",
             controller:'peccancy_withhold_controller'
         })
+        //司机超油扣款
+        .state("driver_exceedOil",{
+            url:"/driver_exceedOil",
+            templateUrl: "js/view/truck/driver_exceedOil.html",
+            controller:'driver_exceedOil_controller'
+        })
 
         // 事故车详情
         .state("look_truck_management",{

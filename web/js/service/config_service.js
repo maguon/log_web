@@ -205,15 +205,23 @@ baseService.factory("_config", function () {
 
     // 质损环节类别
     _this.damageLinkType = [
-        {id: 1, typeName: "长春办收发车"},
-        {id: 2, typeName: "运输途中遭人为破坏"},
-        {id: 3, typeName: "沈阳办收发车"},
-        {id: 4, typeName: "驾驶员违规操作"},
-        {id: 5, typeName: "天津办收发车"},
-        {id: 6, typeName: "通用判定"},
-        {id: 7, typeName: "安盛判定"},
-        {id: 8, typeName: "PDI漏检"},
-        {id: 9, typeName: "大连现场收发车"}
+        {id: 1, typeName: "短驳移库"},
+        {id: 2, typeName: "公路运输"},
+        {id: 3, typeName: "公司运输"},
+        {id: 4, typeName: "驾驶员漏检"},
+        {id: 5, typeName: "交通事故"},
+        {id: 6, typeName: "前端责任"},
+        {id: 7, typeName: "安盛船务责任"},
+        {id: 8, typeName: "安盛判定"},
+        {id: 9, typeName: "通用判定"},
+        {id: 10, typeName: "驾驶员违规操作"},
+        {id: 11, typeName: "长春办收发车"},
+        {id: 12, typeName: "沈阳办收发车"},
+        {id: 13, typeName: "天津办收发车"},
+        {id: 14, typeName: "PDI漏检"},
+        {id: 15, typeName: "大连现场收发车"},
+        {id: 16, typeName: "运输途中遭人为破坏"}
+
         ];
 
     // 质损类型

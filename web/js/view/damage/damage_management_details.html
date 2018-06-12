@@ -378,17 +378,17 @@
                                 </div>
                                 <div class="col s4 input-field">
                                     <select id="located_city" name="located_city" style="width:100%" ng-model="locatedCity">
-                                        <option value=""></option>
+                                        <option value=""><span style="color: red">* </span></option>
                                         <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
                                     </select>
                                 </div>
                                 <div class="col s4 input-field">
                                     <input type="text" id="distributor" name="distributor" ng-model="distributor">
-                                    <label for="distributor">经销商</label>
+                                    <label for="distributor"><span style="color: red">* </span>经销商</label>
                                 </div>
                                 <div class="col s4 input-field">
                                     <input type="number" id="payment_money" name="payment_money" ng-model="paymentMoney">
-                                    <label class="{{paymentMoney != null ? 'active' : 'inactive'}}" for="payment_money">赔款金额（元）</label>
+                                    <label class="{{paymentMoney != null ? 'active' : 'inactive'}}" for="payment_money"><span style="color: red">* </span>赔款金额（元）</label>
                                 </div>
                                 <div class="col s12 input-field">
                                     <input type="text" id="payment_remark" name="payment_remark" ng-model="paymentRemark">

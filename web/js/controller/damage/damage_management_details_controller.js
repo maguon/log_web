@@ -406,6 +406,12 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
                 && $scope.accountName != undefined
                 && $scope.openingBank != ""
                 && $scope.openingBank != undefined
+                && $scope.locatedCity != ""
+                && $scope.locatedCity !=undefined
+                && $scope.distributor != ""
+                && $scope.distributor !=undefined
+                && $scope.paymentMoney!= ""
+                && $scope.paymentMoney!=undefined
             ){
                 $scope.getCityList();
                 // 新增操作
@@ -421,24 +427,23 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
                     applyExplain: $scope.paymentRemark
                 }).then(function (data) {
                     if (data.success === true) {
-                        // 修改借款状态
-                        _basic.put($host.api_url + "/user/" + userId + "/damageCheck/" + damageCheckId + "/damageIndemnityStatus/2", {}).then(function (data) {
-                            if (data.success === true) {
-                                swal("保存成功", "", "success");
-                                // $scope.getBeforeDamageInfo();
-                            }
-                            else {
-                                swal(data.msg, "", "error");
-                            }
-                        });
                         // 判断是否需要更新处理状态
                         if(finishFlag){
                             $scope.updateDamageStatus();
                         }
                         else{
-                            swal("保存成功", "", "success");
                             $scope.getBeforeDamageInfo();
                         }
+                        // 修改借款状态
+                        _basic.put($host.api_url + "/user/" + userId + "/damageCheck/" + damageCheckId + "/damageIndemnityStatus/2", {}).then(function (data) {
+                            if (data.success === true) {
+                                swal("保存成功", "", "success");
+
+                            }
+                            else {
+                                swal(data.msg, "", "error");
+                            }
+                        });
                     }
                     else {
                         swal(data.msg, "", "error");
@@ -457,6 +462,12 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
                 && $scope.accountName != undefined
                 && $scope.openingBank != ""
                 && $scope.openingBank != undefined
+                && $scope.locatedCity != ""
+                && $scope.locatedCity !=undefined
+                && $scope.distributor != ""
+                && $scope.distributor !=undefined
+                && $scope.paymentMoney!= ""
+                && $scope.paymentMoney!=undefined
             ){
                 // 修改操作
                 _basic.put($host.api_url + "/user/" + userId + "/damageCheckIndemnity/" + indemnityId,{

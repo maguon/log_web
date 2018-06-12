@@ -348,31 +348,52 @@ CommonFilter.filter("damageLinkType", function () {
         var damageLinkType;
         switch (input) {
             case 1:
-                damageLinkType = "长春办收发车";
+                damageLinkType = "短驳移库";
                 break;
             case 2:
-                damageLinkType = "运输途中遭人为破坏";
+                damageLinkType = "公路运输";
                 break;
             case 3:
-                damageLinkType = "沈阳办收发车";
+                damageLinkType = "公司运输";
                 break;
             case 4:
-                damageLinkType = "驾驶员违规操作";
+                damageLinkType = "驾驶员漏检";
                 break;
             case 5:
-                damageLinkType = "天津办收发车";
+                damageLinkType = "交通事故";
                 break;
             case 6:
-                damageLinkType = "通用判定";
+                damageLinkType = "前端责任";
                 break;
             case 7:
-                damageLinkType = "安盛判定";
+                damageLinkType = "安盛船务责任";
                 break;
             case 8:
-                damageLinkType = "PDI漏检";
+                damageLinkType = "安盛判定";
                 break;
             case 9:
+                damageLinkType = "通用判定";
+                break;
+            case 10:
+                damageLinkType = "驾驶员违规操作";
+                break;
+            case 11:
+                damageLinkType = "长春办收发车";
+                break;
+            case 12:
+                damageLinkType = "沈阳办收发车";
+                break;
+            case 13:
+                damageLinkType = "天津办收发车";
+                break;
+            case 14:
+                damageLinkType = "PDI漏检";
+                break;
+            case 15:
                 damageLinkType = "大连现场收发车";
+                break;
+            case 16:
+                damageLinkType = "运输途中遭人为破坏";
                 break;
             default:
                 damageLinkType = "未知";

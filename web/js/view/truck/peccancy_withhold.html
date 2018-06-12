@@ -72,82 +72,133 @@
 <!--修改模态框-->
 <div id="putPeccancyItem" class="modal">
     <div class="cyan lighten-1 white-text center-align modal_title" >违章扣款详情</div>
-    <div class="modal-content">
-        <div class="row col" style="width: 80%;">
+    <div ng-show="putPeccancyList.fine_status==1">
+        <div class="modal-content">
+            <div class="row col" style="width: 80%;">
 
-            <!--违章结算编号-->
-            <div class="col s12">
-                <div class="col s12 cyan-text fz18 input-field bold" style="height: 50px;border-bottom: 2px solid #ccc">
-                违章结算编号:{{putPeccancyList.number}}
+                <!--违章结算编号-->
+                <div class="col s12">
+                    <div class="col s12 input-field" style="width: 98%;margin-left: 1%; height: 50px;border-bottom: 2px solid #ccc">
+                        <div class="col s6 cyan-text fz18  bold" >
+                            违章结算编号:{{putPeccancyList.id}}
+                        </div>
+                        <div class="col s6 red-text  input-field bold right-align"> 未扣</div>
+                    </div>
                 </div>
-            </div>
-            <!--司机   货车牌号  -->
-            <div class="col s12" style="height: 60px;margin-top: 20px">
-                <div class="col s6">
-                    <select material-select watch ng-model="putPeccancyList.putDrivderId" id="putDrivderId" style="width: 100%">
-                        <option value="" selected>请选择</option>
-                        <option ng-repeat="putEntrust in entrustList" value={{putEntrust.id}}>{{putEntrust.short_name}}</option>
-                    </select>
-                </div>
+                <!--司机   货车牌号  -->
+                <div class="col s12" style="height: 60px;margin-top: 20px">
+                    <div class="col s6 input-field">
+                        <select id="putDrivderId"  ng-model="putPeccancyList.drive_id"  style="width: 100%">
+                            <option ng-repeat="putDrive in driveList" ng-value='putDrive.id'>{{putDrive.drive_name}}</option>
+                        </select>
+                    </div>
 
-                <div class="col s6">
-                    <select material-select watch ng-model="putPeccancyList.putTruckNum" id="putTruckNum" style="width: 100%">
-                        <option value="" selected>请选择</option>
-                        <option ng-repeat="putEntrust in entrustList" value={{putEntrust.id}}>{{putEntrust.short_name}}</option>
-                    </select>
-                </div>
+                    <div class="col s6 input-field">
+                        <input id="putTruckNum" type="text"  ng-model="putPeccancyList.truck_num">
+                        <label for="putTruckNum"><span class="red-text">*</span> 货车牌号</label>
+                    </div>
 
-            </div>
-
-
-            <!--扣罚分数  扣罚金额-->
-            <div class="col s12" style="height: 60px">
-
-                <div class="col s6 input-field">
-                    <input id="putPeccancyScore" type="number"  ng-model="putPeccancyList.putPeccancyScore">
-                    <label for="putPeccancyScore">扣罚分数</label>
                 </div>
 
-                <div class="col s6 input-field">
-                    <input id="putPeccancyMoney" type="number"  ng-model="putPeccancyList.putPeccancyMoney">
-                    <label for="putPeccancyMoney">扣罚金额</label>
+
+                <!--扣罚分数  扣罚金额-->
+                <div class="col s12" style="height: 60px">
+
+                    <div class="col s6 input-field">
+                        <input id="putPeccancyScore" type="number"  ng-model="putPeccancyList.fine_score">
+                        <label for="putPeccancyScore">扣罚分数</label>
+                    </div>
+
+                    <div class="col s6 input-field">
+                        <input id="putPeccancyMoney" type="number"  ng-model="putPeccancyList.fine_money">
+                        <label for="putPeccancyMoney">扣罚金额</label>
+                    </div>
+
                 </div>
 
-            </div>
 
-
-            <!--时间范围-->
-            <div class="col s12"  style="height: 60px">
-                <div class="input-field col s6">
-                    <input type="text" ng-model="putPeccancyList.putStartTime" id="putStartTime" name="putStartTime"  class="datepicker" autocomplete="off"    date><i class="mdi dataIcon mdi-table-large"></i>
-                    <label for="putStartTime">时间范围(始)</label>
+                <!--时间范围-->
+                <div class="col s12"  style="height: 60px">
+                    <div class="input-field col s6">
+                        <input type="text" ng-model="putPeccancyList.start_date" id="putStartTime" name="putStartTime"  class="datepicker" autocomplete="off"    date><i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="putStartTime">时间范围(始)</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input type="text" ng-model="putPeccancyList.end_date" id="putEndTime" name="putEndTime"  class="datepicker" autocomplete="off"   date><i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="putEndTime">时间范围(终)</label>
+                    </div>
                 </div>
-                <div class="input-field col s6">
-                    <input type="text" ng-model="putPeccancyList.putEndTime" id="putEndTime" name="putEndTime"  class="datepicker" autocomplete="off"   date><i class="mdi dataIcon mdi-table-large"></i>
-                    <label for="putEndTime">时间范围(终)</label>
+
+
+                <!--备注-->
+                <div class="col s12">
+                    <div class="col s12 input-field"  style="height: 60px">
+                        <input id="putRemark" name="remark"  ng-model="putPeccancyList.remark" type="text">
+                        <label for="putRemark">备注:</label>
+                    </div>
                 </div>
-            </div>
 
-
-            <!--备注-->
-            <div class="col s12">
-                <div class="col s12 input-field"  style="height: 60px">
-                    <input id="putRemark" name="remark"  ng-model="putPeccancyList.newRemark" type="text">
-                    <label for="putRemark">备注:</label>
+                <!--结算人-->
+                <div class="col s3 offset-s9 input-field">
+                    结算人:{{putPeccancyList.settle_user_name}}
                 </div>
-            </div>
-
-            <!--结算人-->
-            <div class="col s4 offset-s8 input-field">
-              结算人:{{putPeccancyList.user}}
             </div>
         </div>
+        <div class="divider" style="background: #ccc;height: 1px;"></div>
+        <div class="modal-footer vc-center">
+            <a class="modal-action modal-close waves-effect grey waves-light lighten-1 btn" style="margin-right: 10px;">取消</a>
+            <button class="btn waves-light waves-effect lighten-2"  name="action" ng-click="putPeccancyItem()">确定 </button>
+        </div>
     </div>
+    <div ng-show="putPeccancyList.fine_status!==1">
+        <div class="modal-content">
+            <div class="row col" style="width: 80%;">
+                <!--违章结算编号-->
+                <div class="col s12">
+                    <div class="col s12 input-field" style="width: 98%;margin-left: 1%; height: 50px;border-bottom: 2px solid #ccc">
+                        <div class="col s6 cyan-text fz18  bold" >
+                            违章结算编号:{{putPeccancyList.id}}
+                        </div>
+                        <div class="col s6 grey-text input-field bold right-align">已扣</div>
+                    </div>
+                </div>
+                <!--司机   货车牌号  -->
+                <div class="col s12" style="height: 60px;margin-top: 20px;border-bottom: 1px dotted #ccc">
+                    <div class="col s6 input-field">司机:  {{putPeccancyList.drive_name}}</div>
+                    <div class="col s6 input-field">货车牌号:  {{putPeccancyList.truck_num}}</div>
+                </div>
 
-    <div class="divider" style="background: #ccc;height: 1px;"></div>
-    <div class="modal-footer vc-center">
-        <a class=" modal-action modal-close waves-effect waves-light grey lighten-1 btn"  >取消 </a>
-        <button class="btn waves-light waves-effect cyan lighten-2"  ng-click="putPeccancyItem()" name="action" style="margin-left: 10px">确定</button>
+                <!--扣罚分数  扣罚金额-->
+                <div class="col s12" style="height: 60px;border-bottom: 1px dotted #ccc">
+
+                    <div class="col s6 input-field">扣罚分数:  {{putPeccancyList.fine_score}}</div>
+
+                    <div class="col s6 input-field">扣罚金额:  <span class="red-text fz20">{{putPeccancyList.fine_money}}</span> 元</div>
+
+                </div>
+
+
+                <!--时间范围-->
+                <div class="col s12"  style="height: 60px;border-bottom: 1px dotted #ccc">
+                    <div class="input-field col s6">时间范围(始):  {{putPeccancyList.start_date}}</div>
+                    <div class="input-field col s6">时间范围(终):  {{putPeccancyList.end_date}}</div>
+                </div>
+
+                <!--备注-->
+                <div class="col s12">
+                    <div class="col s12 input-field"  style="height: 60px;border-bottom: 1px dotted #ccc">备注:  {{putPeccancyList.remark}}</div>
+                </div>
+
+                <!--结算人-->
+                <div class="col s3 offset-s9 input-field">
+                    结算人:  {{putPeccancyList.settle_user_name}}
+                </div>
+            </div>
+        </div>
+        <div class="divider" style="background: #ccc;height: 1px;"></div>
+        <div class="modal-footer right-align">
+            <button class="btn waves-light waves-effect lighten-2"  name="action" ng-click="putPeccancyItem2()"  style="margin-right: 50px">确定 </button>
+        </div>
     </div>
 </div>
 
@@ -161,7 +212,7 @@
 
                     <!--司机-->
                     <div class="input-field col s6">
-                        <select id="driver" name="driver" material-select watch ng-model="driverId">
+                        <select id="driver" name="driver" material-select watch ng-model="driverId" style="width: 100%">
                             <option value="">请选择</option>
                             <option ng-repeat="driver in driveNameList" value={{driver.id}}>{{driver.drive_name}}</option>
                         </select>
@@ -217,15 +268,15 @@
             </thead>
             <tbody>
             <tr ng-repeat="peccancyInfo in peccancyList" class="grey-text text-darken-1">
-                <td>{{peccancyInfo.number}}</td>
-                <td>{{peccancyInfo.short_name}}</td>
-                <td >{{peccancyInfo.length}}</td>
-                <td>{{peccancyInfo.uploadDate}}</td>
-                <td>{{peccancyInfo._id}}</td>
-                <td>{{peccancyInfo.filename}}</td>
-                <td >{{peccancyInfo.received_date | date:'yyyy-MM-dd'}}</td>
-                <td class="red-text" ng-if="peccancyInfo.op_user_name==1">未知</td>
-                <td ng-if="peccancyInfo.op_user_name!==1">已知</td>
+                <td>{{peccancyInfo.id}}</td>
+                <td>{{peccancyInfo.drive_name}}</td>
+                <td >{{peccancyInfo.truck_num}}</td>
+                <td>{{peccancyInfo.fine_score}}</td>
+                <td>{{peccancyInfo.fine_money}}</td>
+                <td>{{peccancyInfo.start_date | date:'yyyy-MM-dd'}}至{{peccancyInfo.end_date | date:'yyyy-MM-dd'}}</td>
+                <td>{{peccancyInfo.settle_user_name}}</td>
+                <td class="red-text" ng-if="peccancyInfo.fine_status==1">未扣</td>
+                <td ng-if="peccancyInfo.fine_status!==1">已扣</td>
                 <td  class="operation">
                     <a ng-click="putPeccancy(peccancyInfo.id)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
                         <i class="mdi mdi-file-document" style="margin: 0"></i>

@@ -13,8 +13,8 @@ app.controller("instruction_drive_details_controller", ["$scope", "$host", "_con
         var p = new Promise(function (resolve, reject) {
             var obj = {
                 taskStatus: 9,
-                loadDistance: 3,
-                noLoadDistance: 3,
+                loadDistance: 5,
+                noLoadDistance: 5,
                 driveId: $scope.driveId,
                 dateIdStart: dateIdStart,
                 dateIdEnd: dateIdEnd
@@ -42,12 +42,12 @@ app.controller("instruction_drive_details_controller", ["$scope", "$host", "_con
 
     $scope.drive_instruction_list = function () {
         if ($scope.car_status == 0) {
-            loadDistance = 3;
+            loadDistance = 5;
             noLoadDistance = "";
         }
         else if ($scope.car_status == 1) {
             loadDistance = "";
-            noLoadDistance = 3;
+            noLoadDistance = 5;
         }
         else {
             loadDistance = "";

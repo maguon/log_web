@@ -142,18 +142,96 @@ app.controller("driver_information_details_controller", ["$scope", "$host", "$st
         });
     };
 
+
+    // 分页
+    $scope.pre_btn = function () {
+        $scope.start = $scope.start - $scope.size;
+        $scope.getDispatchMissionList();
+    };
+
+    $scope.next_btn = function () {
+        $scope.start = $scope.start + $scope.size;
+        $scope.getDispatchMissionList();
+    };
+
+
+    //获取公里数
+    function getDistance(){
+        var p = new Promise(function (resolve, reject) {
+            var obj = {
+                taskStatus: 9,
+                loadDistance: 5,
+                noLoadDistance: 5,
+                driveId:driverId
+            };
+            _basic.get($host.api_url + "/driveDistanceCount?" + _basic.objToUrl(obj)).then(function (data) {
+                if (data.success == true && data.result.length > 0) {
+                    $scope.driveDetail = data.result[0];
+                    if ($scope.driveDetail.no_load_distance == null) {
+                        $scope.driveDetail.no_load_distance = 0
+                    }
+                    if ($scope.driveDetail.load_distance == null) {
+                        $scope.driveDetail.load_distance = 0
+                    }
+                    resolve();
+                } else {
+                    swal("异常", "", "error")
+                }
+            });
+        });
+        return p
+
+    }
+
+    //货车责任
+    $scope.getAccident = function(){
+        $scope.start = 0;
+        $scope.getDriverAccidentInfo();
+    }
     // 获取司机货车责任信息
     $scope.getDriverAccidentInfo = function () {
-        _basic.get($host.api_url + "/truckAccident?driveId=" + driverId).then(function (data) {
+        _basic.get($host.api_url + "/truckAccident?"+ _basic.objToUrl({
+            driveId: driverId,
+            truckAccidentId:$scope.truckAccidentId,
+            truckType: $scope.truckAccidentType,
+            accidentDateStart: $scope.startTime,
+            accidentDateEnd: $scope.endTime,
+            start:$scope.start.toString(),
+            size:$scope.size
+        })).then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
-                $scope.driverAccidentList = data.result;
+                $scope.boxArrayAccident = data.result;
+                $scope.driverAccidentList = $scope.boxArrayAccident.slice(0, 10);
+                if ($scope.start > 0) {
+                    $("#preAccident").show();
+                }
+                else {
+                    $("#preAccident").hide();
+                }
+                if (data.result.length < $scope.size) {
+                    $("#nextAccident").hide();
+                }
+                else {
+                    $("#nextAccident").show();
+                }
             }
             else {
                 swal(data.msg, "", "error");
             }
         });
     };
+    // 分页
+    $scope.pre_btnAccident = function () {
+        $scope.start = $scope.start - ($scope.size-1);
+        $scope.getDriverAccidentInfo();
+    };
+
+    $scope.next_btnAccident = function () {
+        $scope.start = $scope.start + ($scope.size-1);
+        $scope.getDriverAccidentInfo();
+    };
+
+
 
     // 获取商品车责任信息
     $scope.getCarResList = function () {
@@ -168,36 +246,161 @@ app.controller("driver_information_details_controller", ["$scope", "$host", "$st
         });
     };
 
-
-    // 分页
-    $scope.pre_btn = function () {
-        $scope.start = $scope.start - $scope.size;
-        $scope.getDispatchMissionList();
-    };
-
-    $scope.next_btn = function () {
-        $scope.start = $scope.start + $scope.size;
-        $scope.getDispatchMissionList();
-    };
-
     // 显示货车责任模态框
     $scope.showTruckAccidentModal = function (accidentInfo) {
         $("#truckAccidentDetailsModal").modal("open");
-        // console.log("accidentInfo",accidentInfo);
-        $scope.truckAccidentDetail = accidentInfo;
+        _basic.get($host.api_url + "/truckAccident?truckAccidentId="+accidentInfo).then(function (data) {
+            if (data.success === true) {
+                $scope.truckAccidentDetail = data.result[0];
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        })
     };
 
     // 显示商品车责任模态框
     $scope.showCarAccidentModal = function (accidentInfo) {
         $("#carAccidentDetailsModal").modal("open");
-        // console.log("accidentInfo",accidentInfo);
+
         $scope.carAccidentDetail = accidentInfo;
     };
+
+    //违章扣款
+    $scope.getPeccancy = function (){
+        $scope.start = 0;
+        $scope.getPeccancyList();
+    };
+    $scope.getPeccancyList = function (){
+        _basic.get($host.api_url + "/drivePeccancy?" + _basic.objToUrl({
+            startDateStart:$scope.startPeccancyTime,
+            endDateEnd:$scope.endPeccancyTime,
+            fineStatus:$scope.peccancyStu,
+            start:$scope.start.toString(),
+            size:$scope.size
+        })).then(function (data) {
+            if (data.success === true) {
+                $scope.boxArray = data.result;
+                $scope.peccancyList = $scope.boxArray.slice(0, 10);
+                if ($scope.start > 0) {
+                    $("#prePeccancy").show();
+                }
+                else {
+                    $("#prePeccancy").hide();
+                }
+                if (data.result.length < $scope.size) {
+                    $("#nextPeccancy").hide();
+                }
+                else {
+                    $("#nextPeccancy").show();
+                }
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
+    //详情
+    $scope.detailPeccancy = function(id){
+        $('#putPeccancyItem').modal('open');
+        _basic.get($host.api_url + "/drivePeccancy?peccancyId=" +id).then(function (data) {
+            if (data.success === true) {
+                if(data.result.length==0){
+                    $scope.putPeccancyList = [];
+                }
+                else{
+                    $scope.putPeccancyList = data.result[0];
+                    $scope.putPeccancyList.start_date = moment(data.result[0].start_date).format('YYYY-MM-DD');
+                    $scope.putPeccancyList.end_date =  moment(data.result[0].end_date).format('YYYY-MM-DD');
+                    $scope.putPeccancyList.drive_id = data.result[0].drive_id;
+                }
+            }
+        })
+    }
+
+    $scope.putPeccancyItem2 = function (){
+        $('#putPeccancyItem').modal('close');
+    }
+    // 分页
+    $scope.pre_btnPeccancy = function () {
+        $scope.start = $scope.start - ($scope.size-1);
+        $scope.getDriverAccidentInfo();
+    };
+    $scope.next_btnPeccancy = function () {
+        $scope.start = $scope.start + ($scope.size-1);
+        $scope.getDriverAccidentInfo();
+    };
+
+    //超油扣款
+    $scope.getExceedOil= function (){
+        $scope.start = 0;
+        $scope.getExceedOilList();
+    };
+    $scope.getExceedOilList = function (){
+        _basic.get($host.api_url + "/driveExceedOil?" + _basic.objToUrl({
+            dpRouteTaskId:$scope.dispatchId,
+            taskPlanDateStart:$scope.driveStartTime,
+            taskPlanDateEnd:$scope.driveEndTime,
+            fineStatus:$scope.ExceedOilStu,
+            start:$scope.start.toString(),
+            size:$scope.size
+        })).then(function (data) {
+            if (data.success === true) {
+                $scope.boxArray = data.result;
+                $scope.ExceedOilList = $scope.boxArray.slice(0, 10);
+                if ($scope.start > 0) {
+                    $("#preExceedOil").show();
+                }
+                else {
+                    $("#preExceedOil").hide();
+                }
+                if (data.result.length < $scope.size) {
+                    $("#nextExceedOil").hide();
+                }
+                else {
+                    $("#nextExceedOil").show();
+                }
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
+    $scope.putExceedOil =function (id){
+        $('#putExceedOilItem').modal('open');
+        _basic.get($host.api_url + "/driveExceedOil?exceedOilId=" +id).then(function (data) {
+            if (data.success === true) {
+                if(data.result.length==0){
+                    $scope.putExceedOilList = [];
+                }
+                else{
+                    $scope.putExceedOilList = data.result[0];
+                    $scope.putExceedOilList.task_plan_date = moment(data.result[0].task_plan_date).format('YYYY-MM-DD');
+                }
+            }
+        })
+    }
+    $scope.putExceedOilItem2 = function (){
+        $('#putExceedOilItem').modal('close');
+    }
+    // 分页
+    $scope.pre_btnExceedOil = function () {
+        $scope.start = $scope.start - ($scope.size-1);
+        $scope.getExceedOilList();
+    };
+    $scope.next_btnExceedOil = function () {
+        $scope.start = $scope.start + ($scope.size-1);
+        $scope.getExceedOilList();
+    };
+
+
+
 
     // 获取数据
     $scope.queryData = function () {
         $scope.getBasicDriverInfo();
         $scope.getStartCityInfo();
+        getDistance();
     };
     $scope.queryData();
 }]);

@@ -15,7 +15,9 @@
                     <p>事故编号：{{truckAccidentDetail.id}}</p>
                 </div>
                 <div class="col s6 right-align" style="color: darkgray;font-weight: bold;font-size: 1.2rem">
-                    <p>{{truckAccidentDetail.truck_accident_type == 1 ? "一般" : "严重"}}事故</p>
+                    <p ng-if="truckAccidentDetail.truck_accident_type == 1">一般事故</p>
+                    <p ng-if="truckAccidentDetail.truck_accident_type == 2">严重事故</p>
+                    <p ng-if="truckAccidentDetail.truck_accident_type == null||truckAccidentDetail.truck_accident_type == ''"></p>
                 </div>
                 <div class="col s12">
                     <div class="divider" style="background: darkgray;height: 2px;margin-top: 15px"></div>
@@ -42,7 +44,7 @@
                             <p>事故地点：{{truckAccidentDetail.address}}</p>
                         </div>
                         <div class="col s6">
-                            <p>发生时间：{{truckAccidentDetail.accident_date}}</p>
+                            <p>发生时间：{{truckAccidentDetail.accident_date| date:'yyyy-MM-dd HH:mm'}}</p>
                         </div>
                     </div>
                     <div class="col s12" style="border-bottom: 2px solid darkgray;color: darkgray;font-weight: bold">
@@ -185,6 +187,119 @@
     </div>
 </div>
 
+<!--违章扣款详情模态框-->
+<div id="putPeccancyItem" class="modal">
+    <div class="cyan lighten-1 white-text center-align modal_title" >违章扣款详情</div>
+    <div>
+        <div class="modal-content">
+            <div class="row col" style="width: 80%;">
+                <!--违章结算编号-->
+                <div class="col s12">
+                    <div class="col s12 input-field" style="width: 98%;margin-left: 1%; height: 50px;border-bottom: 2px solid #ccc">
+                        <div class="col s6 cyan-text fz18  bold" >
+                            违章结算编号:{{putPeccancyList.id}}
+                        </div>
+                        <div class="col s6 grey-text input-field bold right-align"  ng-show="putPeccancyList.fine_status!==1">已扣</div>
+                        <div class="col s6 grey-text input-field bold right-align"  ng-show="putPeccancyList.fine_status==1">未扣</div>
+                    </div>
+                </div>
+                <!--司机   货车牌号  -->
+                <div class="col s12" style="height: 60px;margin-top: 20px;border-bottom: 1px dotted #ccc">
+                    <div class="col s6 input-field">司机:  {{putPeccancyList.drive_name}}</div>
+                    <div class="col s6 input-field">货车牌号:  {{putPeccancyList.truck_num}}</div>
+                </div>
+
+                <!--扣罚分数  扣罚金额-->
+                <div class="col s12" style="height: 60px;border-bottom: 1px dotted #ccc">
+
+                    <div class="col s6 input-field">扣罚分数:  {{putPeccancyList.fine_score}}</div>
+
+                    <div class="col s6 input-field">扣罚金额:  <span class="red-text fz20">{{putPeccancyList.fine_money}}</span> 元</div>
+
+                </div>
+
+
+                <!--时间范围-->
+                <div class="col s12"  style="height: 60px;border-bottom: 1px dotted #ccc">
+                    <div class="input-field col s6">时间范围(始):  {{putPeccancyList.start_date}}</div>
+                    <div class="input-field col s6">时间范围(终):  {{putPeccancyList.end_date}}</div>
+                </div>
+
+                <!--备注-->
+                <div class="col s12">
+                    <div class="col s12 input-field"  style="height: 60px;border-bottom: 1px dotted #ccc">备注:  {{putPeccancyList.remark}}</div>
+                </div>
+
+                <!--结算人-->
+                <div class="col s3 offset-s9 input-field">
+                    结算人:  {{putPeccancyList.settle_user_name}}
+                </div>
+            </div>
+        </div>
+        <div class="divider" style="background: #ccc;height: 1px;"></div>
+        <div class="modal-footer right-align">
+            <button class="btn waves-light waves-effect lighten-2"  name="action" ng-click="putPeccancyItem2()"  style="margin-right: 50px">确定 </button>
+        </div>
+    </div>
+</div>
+
+<!--超油扣款详情模态框-->
+<div id="putExceedOilItem" class="modal">
+    <div class="cyan lighten-1 white-text center-align modal_title" >超油扣款详情</div>
+    <div>
+        <div class="modal-content">
+            <div class="row col" style="width: 80%;">
+                <!--超油结算编号-->
+                <div class="col s12">
+                    <div class="col s12 input-field" style="width: 98%;margin-left: 1%; height: 50px;border-bottom: 2px solid #ccc">
+                        <div class="col s6 cyan-text fz18  bold" >
+                            超油结算编号:{{putExceedOilList.id}}
+                        </div>
+                        <div class="col s6 grey-text input-field bold right-align" ng-show="putExceedOilList.fine_status!==1">已扣</div>
+                        <div class="col s6 grey-text input-field bold right-align" ng-show="putExceedOilList.fine_status==1">未扣</div>
+                    </div>
+                </div>
+
+                <!--调度编号 司机-->
+                <div class="col s12" style="height: 60px;margin-top: 20px;border-bottom: 1px dotted #ccc">
+                    <div class="col s6 input-field">调度编号:  {{putExceedOilList.dp_route_task_id}}</div>
+                    <div class="col s6 input-field">司机:  {{putExceedOilList.drive_name}}</div>
+                </div>
+
+                <!-- 货车牌号 计划执行时间 -->
+                <div class="col s12" style="height: 60px;margin-top: 20px;border-bottom: 1px dotted #ccc">
+                    <div class="col s6 input-field">货车牌号:  {{putExceedOilList.truck_num}}</div>
+                    <div class="col s6 input-field">计划执行时间:  {{putExceedOilList.task_plan_date | date:'yyyy-MM-dd'}}</div>
+                </div>
+
+                <!--超油量  超油金额-->
+                <div class="col s12" style="height: 60px;border-bottom: 1px dotted #ccc">
+
+                    <div class="col s6 input-field">超油量:  {{putExceedOilList.exceed_oil_quantity}}L</div>
+
+                    <div class="col s6 input-field">超油金额:  <span class="red-text fz20">{{putExceedOilList.exceed_oil_money}}</span> 元</div>
+
+                </div>
+
+                <!--备注-->
+                <div class="col s12">
+                    <div class="col s12 input-field"  style="height: 60px;border-bottom: 1px dotted #ccc">备注:  {{putExceedOilList.remark}}</div>
+                </div>
+
+                <!--结算人-->
+                <div class="col s3 offset-s9 input-field">
+                    结算人:  {{putExceedOilList.settle_user_name}}
+                </div>
+            </div>
+        </div>
+        <div class="divider" style="background: #ccc;height: 1px;"></div>
+        <div class="modal-footer right-align">
+            <button class="btn waves-light waves-effect lighten-2"  name="action" ng-click="putExceedOilItem2()"  style="margin-right: 50px">确定 </button>
+        </div>
+    </div>
+</div>
+
+<!--司机信息详情-->
 <div class="driver_information_details">
     <div class="vc-center">
         <h5 class="center-align cyan-text text-lighten-1">司机信息详情</h5>
@@ -200,6 +315,8 @@
                 <li class="tab"><a href="#dispatchMission" ng-click="getDispatchMissionList()" style="color: #26c6da;line-height: 40px">调度任务</a></li>
                 <li class="tab"><a href="#truckRes" ng-click="getDriverAccidentInfo()" style="color: #26c6da;line-height: 40px">货车责任</a></li>
                 <li class="tab"><a href="#carRes" ng-click="getCarResList()" style="color: #26c6da;line-height: 40px">商品车责任</a></li>
+                <li class="tab"><a href="#driverPeccancyList" ng-click="getPeccancyList()" style="color: #26c6da;line-height: 40px">违章扣款</a></li>
+                <li class="tab"><a href="#driverExceedOil" ng-click="getExceedOilList()" style="color: #26c6da;line-height: 40px">超油扣款</a></li>
             </ul>
         </div>
 
@@ -388,8 +505,20 @@
                     </div>
                 </div>
             </div>
+            <div class="col s12 bold cyan" style="height: 2px;margin-top: 40px"></div>
+            <div class="row bold fz20">
+                <div class="col s4" style="padding-top: 25px">
+                    总里程:<span class="cyan-text fz32">{{driveDetail.load_distance+driveDetail.no_load_distance}}</span>公里
+                </div>
+                <div class="col s4 center-align" style="padding-top: 25px">
+                    重载里程<span class="red-text fz16">(>=5辆): </span><span class="cyan-text fz32">{{driveDetail.load_distance}}</span>公里
+                </div>
+                <div class="col s4 right-align" style="padding-top: 25px">
+                    重载里程:<span class="red-text fz16">(<5辆): </span><span class="cyan-text fz32">{{driveDetail.no_load_distance}}</span>公里
+                </div>
+            </div>
             <!--表格-->
-            <div class="col s12" style="padding: 0;margin-top: 20px">
+            <div class="col s12" style="padding: 0;">
                 <div class="divider" style="background: #00bcd4;height: 2px"></div>
                 <table class="bordered striped text_mid">
                     <thead class="blue-grey lighten-5">
@@ -444,48 +573,104 @@
 
         <!--货车责任-->
         <div id="truckRes" class="row col s12" style="padding: 0;">
-            <div class="col s4" ng-repeat="accident in driverAccidentList">
-                <div class="card-panel white " style="padding: 0">
-                    <div class="row setting_shipments_title vc-center"
-                         style="padding: 10px;height: 50px;background-color: #e0e0e0;">
-                        <div class="col s12 center"
-                             style="padding: 0;font-weight: bold;color: darkgray;font-size: 1.1rem">
-                            <div class="col s6 left-align">
-                                <p style="color: #26c6da">事故编号：{{accident.id}}</p>
+            <!--查询条件-->
+            <div class="row">
+                <div class="row grey-text text-darken-1">
+                    <div class="col s11">
+                        <div class="col s12">
+
+                            <!--事故编号-->
+                            <div class="input-field col s3">
+                                <input name="search_num" id="search_num" type="text" ng-model="truckAccidentId">
+                                <label for="search_num">事故编号</label>
                             </div>
-                            <div class="col s6 center-align">
-                                <p>{{accident.truck_accident_type == 1 ? "一般" : "严重"}}</p>
+                            <!--事故类型-->
+                            <div class="input-field col s3">
+                                <select material-select  ng-model="truckAccidentType">
+                                    <option value="">请选择</option>
+                                    <option value="1">一般</option>
+                                    <option value="2">严重</option>
+                                </select>
+                                <label>事故类型</label>
                             </div>
+
+                            <!--发生时间-->
+                            <div class="input-field col s3">
+                                <input id="startTime" type="text" ng-model="startTime" class="datepicker" autocomplete="off" date>
+                                <i class="mdi dataIcon mdi-table-large"></i>
+                                <label for="startTime">发生时间(始)</label>
+                            </div>
+
+                            <!--发生时间-->
+                            <div class="input-field col s3">
+                                <input id="endTime" type="text" ng-model="endTime" class="datepicker" autocomplete="off" date>
+                                <i class="mdi dataIcon mdi-table-large"></i>
+                                <label for="endTime">发生时间(終)</label>
+                            </div>
+
                         </div>
 
-                        <a style="top: 56%;width: 45px;height: 45px;right: 30px;background-color: #26c6da;" class="right btn-floating setting_shipments_btn btn waves-effect waves-light vc-center">
-                            <i style="font-size: 1.4rem;line-height: 44px" ng-click="showTruckAccidentModal(accident)" class="mdi mdi-file-document"></i>
-                        </a>
                     </div>
-                    <div class="row less_mar" style="color: darkgray;font-size: 1.1rem;font-weight: bold">
-                        <div class="col s12">
-                            <p>{{accident.accident_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+
+                    <!--按钮-->
+                    <div class="col s1" style="margin-top: 15px">
+                        <div class="col s12" >
+                            <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getAccident()">
+                                <i class="mdi mdi-magnify"></i>
+                            </a>
                         </div>
-                        <div class="col s6">
-                            <p>调度编号：{{accident.dp_route_task_id}}</p>
-                        </div>
-                        <div class="col s6">
-                            <p>货车：{{accident.truck_num}}</p>
-                        </div>
-                        <div class="col s12">
-                            <p>事故描述：{{accident.accident_explain}}</p>
-                        </div>
-                        <div class="col s12">
-                            <div class="divider" style="background: darkgray;height: 1px;margin-top: 10px;margin-bottom: 10px"></div>
-                        </div>
-                        <div class="col s12">
-                            <div class="col s6" style="padding: 0;">
-                                <p>承担金额：<span style="color: #e57373">{{accident.under_cost == null ? "0.00" : accident.under_cost.toFixed(2)}}</span> 元</p>
-                            </div>
-                            <div class="col s6 center-align" style="padding: 0;">
-                                <p>{{accident.accident_status == 1 ? "待处理" : accident.accident_status == 2 ? "处理中" : "已处理"}}</p>
-                            </div>
-                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12">
+                <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+                <table class=" bordered striped text_mid">
+                    <thead class="blue-grey lighten-5">
+                    <tr class="grey-text text-darken-2">
+                        <th data-field="">事故编号</th>
+                        <th data-field="">事故类型</th>
+                        <th data-field="">调度编号</th>
+                        <th data-field="">路线</th>
+                        <th data-field="">发生时间</th>
+                        <th data-field="">货车</th>
+                        <th data-field="">承担金额</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="accident in driverAccidentList" class="grey-text text-darken-1">
+                        <td>{{accident.id}}</td>
+                        <td ng-if="accident.truck_accident_type==1">一般</td>
+                        <td ng-if="accident.truck_accident_type==2">严重</td>
+                        <td ng-if="accident.truck_accident_type==null||accident.truck_accident_type==''"></td>
+                        <td >{{accident.dp_route_task_id}}</td>
+                        <td>{{accident.city_route_start}}--{{accident.city_route_end}}</td>
+                        <td>{{accident.accident_date| date:'yyyy-MM-dd HH:mm'}}</td>
+                        <td>{{accident.truck_num }}</td>
+                        <td>{{accident.under_cost}}</td>
+                        <td  class="operation">
+                            <a ng-click="showTruckAccidentModal(accident.id)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
+                                <i class="mdi mdi-file-document" style="margin: 0"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr ng-if="driverAccidentList.length==0">
+                        <td colspan="8">暂无数据</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!--分页-->
+            <div class="row">
+                <div class="paging_box col s12">
+                    <div class="right">
+                        <a class="waves-light waves-effect cyan lighten-1 btn" id="preAccident" ng-click="pre_btnAccident()">
+                            上一页
+                        </a>
+                        <a class="waves-light waves-effect cyan lighten-1 btn" id="nextAccident" ng-click="next_btnAccident()">
+                            下一页
+                        </a>
                     </div>
                 </div>
             </div>
@@ -543,5 +728,198 @@
             </div>
         </div>
 
+        <!--违章扣款-->
+        <div id="driverPeccancyList">
+            <!--查询条件-->
+            <div class="row">
+                <div class="row grey-text text-darken-1">
+                    <div class="col s11">
+                        <div class="col s12">
+
+                            <!--发生时间-->
+                            <div class="input-field col s4">
+                                <input id="startPeccancyTime" type="text" ng-model="startPeccancyTime" class="datepicker" autocomplete="off" date>
+                                <i class="mdi dataIcon mdi-table-large"></i>
+                                <label for="startPeccancyTime">发生时间(始)</label>
+                            </div>
+
+                            <!--发生时间-->
+                            <div class="input-field col s4">
+                                <input id="endPeccancyTime" type="text" ng-model="endPeccancyTime" class="datepicker" autocomplete="off" date>
+                                <i class="mdi dataIcon mdi-table-large"></i>
+                                <label for="endPeccancyTime">发生时间(終)</label>
+                            </div>
+
+                            <!--结算状态-->
+                            <div class="input-field col s4">
+                                <select material-select watch ng-model="peccancyStu" id="peccancyStu">
+                                    <option value="" selected>状态</option>
+                                    <option ng-value="1">未扣</option>
+                                    <option ng-value="2">已扣</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--按钮-->
+                    <div class="col s1" style="margin-top: 15px">
+                        <div class="col s12" >
+                            <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getPeccancy()">
+                                <i class="mdi mdi-magnify"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12">
+                <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+                <table class=" bordered striped text_mid">
+                    <thead class="blue-grey lighten-5">
+                    <tr class="grey-text text-darken-2">
+                        <th data-field="">违章结算编号</th>
+                        <th data-field="">货车编号</th>
+                        <th data-field="">扣罚分数</th>
+                        <th data-field="">扣罚金额</th>
+                        <th data-field="">发生时间</th>
+                        <th data-field="">状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="peccancyInfo in peccancyList" class="grey-text text-darken-1">
+                        <td>{{peccancyInfo.id}}</td>
+                        <td >{{peccancyInfo.truck_num}}</td>
+                        <td>{{peccancyInfo.fine_score}}</td>
+                        <td>{{peccancyInfo.fine_money}}</td>
+                        <td>{{peccancyInfo.start_date | date:'yyyy-MM-dd'}}--{{peccancyInfo.end_date | date:'yyyy-MM-dd'}}</td>
+                        <td class="red-text" ng-if="peccancyInfo.fine_status==1">未扣</td>
+                        <td ng-if="peccancyInfo.fine_status!==1">已扣</td>
+                        <td  class="operation">
+                            <a ng-click="detailPeccancy(peccancyInfo.id)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
+                                <i class="mdi mdi-file-document" style="margin: 0"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr ng-if="peccancyList.length==0">
+                        <td colspan="7">暂无数据</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!--分页-->
+            <div class="row">
+                <div class="paging_box col s12">
+                    <div class="right">
+                        <a class="waves-light waves-effect cyan lighten-1 btn" id="prePeccancy" ng-click="pre_btnPeccancy()">
+                            上一页
+                        </a>
+                        <a class="waves-light waves-effect cyan lighten-1 btn" id="nextPeccancy" ng-click="next_btnPeccancy()">
+                            下一页
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--超油扣款-->
+        <div id="driverExceedOil">
+            <!--查询条件-->
+            <div class="row">
+                <div class="row grey-text text-darken-1">
+                    <div class="col s11" style="margin-top: 20px">
+                        <div class="col s12">
+
+                            <!--调度编号-->
+                            <div class="input-field col" style="width: 25%">
+                                <input id="dispatchId" name="dispatchId" ng-model="dispatchId" type="text">
+                                <label for="dispatchId">调度编号</label>
+                            </div>
+
+                            <!--指令日期-->
+                            <div class="input-field col" style="width: 25%">
+                                <input type="text"  id="driveStartTime" class="datepicker" autocomplete="off" ng-model="driveStartTime" date><i class="mdi dataIcon mdi-table-large"></i>
+                                <label for="driveStartTime">计划执行时间(始)</label>
+                            </div>
+                            <div class="input-field col" style="width: 25%">
+                                <input type="text" id="driveEndTime" class="datepicker" autocomplete="off" ng-model="driveEndTime" date><i class="mdi dataIcon mdi-table-large"></i>
+                                <label for="driveEndTime">计划执行时间(终)</label>
+                            </div>
+
+                            <!--结算状态-->
+                            <div class="input-field col" style="width: 25%">
+                                <select material-select watch ng-model="ExceedOilStu" id="ExceedOilStu">
+                                    <option value="" selected>状态</option>
+                                    <option ng-value="1">未扣</option>
+                                    <option ng-value="2">已扣</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--按钮-->
+                    <div class="col s1" style="margin-top: 15px">
+                        <div class="col s12" >
+                            <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getExceedOil()">
+                                <i class="mdi mdi-magnify"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12">
+                <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+                <table class=" bordered striped text_mid">
+                    <thead class="blue-grey lighten-5">
+                    <tr class="grey-text text-darken-2">
+                        <th data-field="">超油结算编号</th>
+                        <th data-field="">货车牌号</th>
+                        <th data-field="">调度编号</th>
+                        <th data-field="">计划执行时间</th>
+                        <th data-field="">超油量(L)</th>
+                        <th data-field="">超油金额</th>
+                        <th data-field="">状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="ExceedOilInfo in ExceedOilList" class="grey-text text-darken-1">
+                        <td>{{ExceedOilInfo.id}}</td>
+                        <td >{{ExceedOilInfo.truck_num}}</td>
+                        <td>{{ExceedOilInfo.dp_route_task_id}}</td>
+                        <td>{{ExceedOilInfo.task_plan_date| date:'yyyy-MM-dd'}}</td>
+                        <td>{{ExceedOilInfo.exceed_oil_quantity }}</td>
+                        <td>{{ExceedOilInfo.exceed_oil_money }}</td>
+                        <td class="red-text" ng-if="ExceedOilInfo.fine_status==1">未扣</td>
+                        <td ng-if="ExceedOilInfo.fine_status!==1">已扣</td>
+                        <td  class="operation">
+                            <a ng-click="putExceedOil(ExceedOilInfo.id)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
+                                <i class="mdi mdi-file-document" style="margin: 0"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr ng-if="ExceedOilList.length==0">
+                        <td colspan="8">暂无数据</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!--分页-->
+            <div class="row">
+                <div class="paging_box col s12">
+                    <div class="right">
+                        <a class="waves-light waves-effect cyan lighten-1 btn" id="preExceedOil" ng-click="pre_btnExceedOil()">
+                            上一页
+                        </a>
+                        <a class="waves-light waves-effect cyan lighten-1 btn" id="nextExceedOil" ng-click="next_btnExceedOil()">
+                            下一页
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

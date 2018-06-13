@@ -193,7 +193,7 @@ app.controller("driver_information_details_controller", ["$scope", "$host", "$st
         _basic.get($host.api_url + "/truckAccident?"+ _basic.objToUrl({
             driveId: driverId,
             truckAccidentId:$scope.truckAccidentId,
-            truckType: $scope.truckAccidentType,
+            truckAccidentType: $scope.truckAccidentType,
             accidentDateStart: $scope.startTime,
             accidentDateEnd: $scope.endTime,
             start:$scope.start.toString(),

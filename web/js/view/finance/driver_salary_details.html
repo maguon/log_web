@@ -915,7 +915,7 @@
                 </div>
 
 
-                <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold" ng-if="salaryDetails.grant_status !== 3">
+                <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
                     <div class="col s12" style="color: #26c6da">
                         <p>报销扣款 <span style="font-size: 1rem">(元)</span></p>
                     </div>
@@ -923,7 +923,7 @@
                         <input style="font-size: 1.5rem;text-align: center;color: rgb(230,123,123);margin-bottom: 17px" type="number" id="Reimbursement" name="Reimbursement" ng-model="Reimbursement">
                     </div>
                 </div>
-                <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold" ng-if="salaryDetails.grant_status == 3">
+                <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status == 3">
                     <div class="col s12" style="color: #26c6da">
                         <p>报销扣款 <span style="font-size: 1rem">(元)</span></p>
                     </div>
@@ -931,13 +931,10 @@
                         <p >{{Reimbursement.toFixed(2)}}</p>
                     </div>
                 </div>
-
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
                     <span style="color: #26c6da" class="mdi mdi-equal"></span>
                 </div>
-
-
-                <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold" ng-if="salaryDetails.grant_status !== 3">
+                <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
                     <div class="col s12" style="color: #26c6da">
                         <p>其他扣款 <span style="font-size: 1rem">(元)</span></p>
                     </div>
@@ -945,14 +942,15 @@
                         <input style="font-size: 1.5rem;text-align: center;color: rgb(230,123,123);margin-bottom: 17px" type="number" id="other_deductions" name="other_deductions" ng-model="otherDeductions">
                     </div>
                 </div>
-                <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold" ng-if="salaryDetails.grant_status == 3">
+                <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status == 3">
                     <div class="col s12" style="color: #26c6da">
                         <p>其他扣款 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12 input-field" style="color: #e57373;margin: 0">
-                        <p>{{otherDeductions.toFixed(2)}}</p>
+                        <p >{{otherDeductions.toFixed(2)}}</p>
                     </div>
                 </div>
+
             </div>
             <div class="col s12 valign-wrapper">
                 <div class="col s12 center-align" style="font-size: 3rem;padding: 0">
@@ -969,10 +967,7 @@
                     </div>
                 </div>
             </div>
-
-
-
-
+            <!--按钮-->
             <div class="col s12" style="margin-top: 70px" ng-hide="salaryDetails.grant_status == 3">
                 <div class="col s1 offset-s4">
                     <a ng-click="saveSettlementSalary()" style="width: 100%" class="waves-light waves-effect cyan lighten-2 btn">

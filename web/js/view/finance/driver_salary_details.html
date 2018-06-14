@@ -385,56 +385,36 @@
                         </div>
                     </div>
                     <!--头-->
-                    <div class="col s12">
-                        <div class="col s12 valign-wrapper" style="padding: 0;color: darkgray;font-weight: bold;font-size: 1rem;border-bottom: 1px solid darkgray">
-                            <div class="col s2 center-align">
-                                <p>质损编号</p>
-                            </div>
-                            <div class="col s2 center-align" style="padding: 0;">
-                                <p>VIN</p>
-                            </div>
-                            <div class="col s2 center-align">
-                                <p>制造商</p>
-                            </div>
-                            <div class="col s2 center-align">
-                                <p>质损程度</p>
-                            </div>
-                            <div class="col s2 center-align">
-                                <p>承担金额（元）</p>
-                            </div>
-                            <div class="col s4">
-                                <p>发生时间</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--未结算质损责任-->
-                    <div class="col s12" ng-repeat="damage in unsettledDamageList">
-                        <div class="col s12 valign-wrapper" style="padding: 0;color: darkgray;font-size: 0.8rem;border-bottom: 1px solid darkgray">
-                            <div class="col s2 center-align">
-                                <p>{{damage.id}}</p>
-                            </div>
-                            <div class="col s2 center-align" style="padding: 0;">
-                                <p>{{damage.vin}}</p>
-                            </div>
-                            <div class="col s2 center-align">
-                                <p>{{damage.make_name}}</p>
-                            </div>
-                            <div class="col s2 center-align" style="padding: 0;">
-                                <p>{{damage.damage_type | damageType}}</p>
-                            </div>
-                            <div class="col s2 center-align">
-                                <p>{{damage.under_cost}}</p>
-                            </div>
-                            <div class="col s2">
-                                <p>{{damage.created_on | date:'yyyy-MM-dd'}}</p>
-                            </div>
-                            <div class="col s2 center-align" style="font-size: 1.4rem">
+                    <table class=" bordered striped text_mid">
+                        <thead class="blue-grey lighten-5">
+                        <tr class="grey-text text-darken-2">
+                            <th data-field="">质损编号</th>
+                            <th data-field="">VIN</th>
+                            <th data-field="">制造商</th>
+                            <th data-field="">质损程度</th>
+                            <th data-field="">承担金额（元）</th>
+                            <th data-field="">发生时间</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="damage in unsettledDamageList" class="grey-text text-darken-1">
+                            <td>{{damage.id}}</td>
+                            <td >{{damage.vin}}</td>
+                            <td>{{damage.make_name}}</td>
+                            <td>{{damage.damage_type | damageType}}</td>
+                            <td>{{damage.under_cost}}</td>
+                            <td>{{damage.created_on | date:'yyyy-MM-dd'}}</td>
+                            <td  class="operation">
                                 <a ng-click="showCarDamageModal(damage,'unsettled')" style="margin-right: 10px;cursor: pointer;text-align: center;color: #26c6da"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
                                 <a ng-click="addSettledDamage(damage.id)" class="cyan-text" style="cursor: pointer;text-align: center;color: #26c6da"><i class="mdi mdi-plus-circle" style="margin: 0"></i></a>
-                            </div>
-                        </div>
-                    </div>
+                            </td>
+                        </tr>
+                        <tr ng-if="unsettledDamageList.length==0">
+                            <td colspan="7">暂无数据</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
@@ -450,56 +430,36 @@
                         </div>
                     </div>
                     <!--头-->
-                    <div class="col s12">
-                        <div class="col s12 valign-wrapper" style="padding: 0;color: darkgray;font-weight: bold;font-size: 1rem;border-bottom: 1px solid darkgray">
-                            <div class="col s2 center-align">
-                                <p>质损编号</p>
-                            </div>
-                            <div class="col s2 center-align" style="padding: 0;">
-                                <p>VIN</p>
-                            </div>
-                            <div class="col s2 center-align">
-                                <p>制造商</p>
-                            </div>
-                            <div class="col s2 center-align">
-                                <p>质损程度</p>
-                            </div>
-                            <div class="col s2 center-align">
-                                <p>承担金额（元）</p>
-                            </div>
-                            <div class="col s4">
-                                <p>发生时间</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--结算质损责任-->
-                    <div class="col s12" ng-repeat="damage in settledDamageList">
-                        <div class="col s12 valign-wrapper" style="padding: 0;color: darkgray;font-size: 0.8rem;border-bottom: 1px solid darkgray">
-                            <div class="col s2 center-align">
-                                <p>{{damage.damage_id}}</p>
-                            </div>
-                            <div class="col s2 center-align" style="padding: 0;">
-                                <p>{{damage.vin}}</p>
-                            </div>
-                            <div class="col s2 center-align">
-                                <p>{{damage.make_name}}</p>
-                            </div>
-                            <div class="col s2 center-align" style="padding: 0;">
-                                <p>{{damage.damage_type | damageType}}</p>
-                            </div>
-                            <div class="col s2 center-align">
-                                <p>{{damage.under_cost}}</p>
-                            </div>
-                            <div class="col s2">
-                                <p>{{damage.created_on | date:'yyyy-MM-dd'}}</p>
-                            </div>
-                            <div class="col s2 center-align" style="font-size: 1.4rem">
+                    <table class=" bordered striped text_mid">
+                        <thead class="blue-grey lighten-5">
+                        <tr class="grey-text text-darken-2">
+                            <th data-field="">质损编号</th>
+                            <th data-field="">VIN</th>
+                            <th data-field="">制造商</th>
+                            <th data-field="">质损程度</th>
+                            <th data-field="">承担金额（元）</th>
+                            <th data-field="">发生时间</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="damage in settledDamageList" class="grey-text text-darken-1">
+                            <td>{{damage.damage_id}}</td>
+                            <td >{{damage.vin}}</td>
+                            <td>{{damage.make_name}}</td>
+                            <td>{{damage.damage_type | damageType}}</td>
+                            <td>{{damage.under_cost}}</td>
+                            <td>{{damage.created_on | date:'yyyy-MM-dd'}}</td>
+                            <td  class="operation">
                                 <a ng-click="showCarDamageModal(damage,'settled')" style="margin-right: 10px;cursor: pointer;text-align: center;color: #26c6da"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
                                 <a ng-hide="salaryDetails.grant_status == 3" ng-click="minusSettledDamage(damage.damage_id)" style="cursor: pointer;text-align: center;color: #e57373"><i class="mdi mdi-minus-circle" style="margin: 0"></i></a>
-                            </div>
-                        </div>
-                    </div>
+                            </td>
+                        </tr>
+                        <tr ng-if="settledDamageList.length==0">
+                            <td colspan="7">暂无数据</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
@@ -529,7 +489,7 @@
                         </div>
                     </div>
                     <!--头-->
-                    <div class="col s12">
+                 <!--   <div class="col s12">
                         <div class="col s12 valign-wrapper" style="padding: 0;color: darkgray;font-weight: bold;font-size: 1rem;border-bottom: 1px solid darkgray">
                             <div class="col s2">
                                 <p>事故编号</p>
@@ -549,7 +509,7 @@
                         </div>
                     </div>
 
-                    <!--未结算事故责任-->
+                    &lt;!&ndash;未结算事故责任&ndash;&gt;
                     <div class="col s12" ng-repeat="accident in unsettledAccidentList">
                         <div class="col s12 valign-wrapper" style="padding: 0;color: darkgray;font-size: 0.8rem;border-bottom: 1px solid darkgray">
                             <div class="col s2">
@@ -572,7 +532,36 @@
                                 <a ng-click="addSettledAccident(accident.id)" class="cyan-text" style="cursor: pointer;text-align: center;color: #26c6da"><i class="mdi mdi-plus-circle" style="margin: 0"></i></a>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
+
+                    <table class=" bordered striped text_mid">
+                        <thead class="blue-grey lighten-5">
+                        <tr class="grey-text text-darken-2">
+                            <th data-field="">事故编号</th>
+                            <th data-field="">货车</th>
+                            <th data-field="">质损程度</th>
+                            <th data-field="">承担金额（元）</th>
+                            <th data-field="">发生时间</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="accident in unsettledAccidentList" class="grey-text text-darken-1">
+                            <td>{{accident.id}}</td>
+                            <td>{{accident.truck_num}}</td>
+                            <td>{{accident.truck_accident_type | damageType}}</td>
+                            <td>{{accident.under_cost}}</td>
+                            <td>{{accident.accident_date | date:'yyyy-MM-dd'}}</td>
+                            <td  class="operation">
+                                <a ng-click="showTruckAccidentModal(accident,'unsettled')" style="margin-right: 10px;cursor: pointer;text-align: center;color: #26c6da"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
+                                <a ng-click="addSettledAccident(accident.id)" class="cyan-text" style="cursor: pointer;text-align: center;color: #26c6da"><i class="mdi mdi-plus-circle" style="margin: 0"></i></a>
+                            </td>
+                        </tr>
+                        <tr ng-if="unsettledAccidentList.length==0">
+                            <td colspan="6">暂无数据</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
@@ -588,7 +577,7 @@
                         </div>
                     </div>
                     <!--头-->
-                    <div class="col s12">
+                  <!--  <div class="col s12">
                         <div class="col s12 valign-wrapper" style="padding: 0;color: darkgray;font-weight: bold;font-size: 1rem;border-bottom: 1px solid darkgray">
                             <div class="col s2">
                                 <p>事故编号</p>
@@ -608,7 +597,7 @@
                         </div>
                     </div>
 
-                    <!--结算事故责任-->
+                    &lt;!&ndash;结算事故责任&ndash;&gt;
                     <div class="col s12" ng-repeat="accident in settledAccidentList">
                         <div class="col s12 valign-wrapper" style="padding: 0;color: darkgray;font-size: 0.8rem;border-bottom: 1px solid darkgray">
                             <div class="col s2">
@@ -631,7 +620,36 @@
                                 <a ng-hide="salaryDetails.grant_status == 3" ng-click="minusSettledAccident(accident.accident_id)" style="cursor: pointer;text-align: center;color: #e57373"><i class="mdi mdi-minus-circle" style="margin: 0"></i></a>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
+
+                    <table class=" bordered striped text_mid">
+                        <thead class="blue-grey lighten-5">
+                        <tr class="grey-text text-darken-2">
+                            <th data-field="">事故编号</th>
+                            <th data-field="">货车</th>
+                            <th data-field="">质损程度</th>
+                            <th data-field="">承担金额（元）</th>
+                            <th data-field="">发生时间</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="accident in settledAccidentList" class="grey-text text-darken-1">
+                            <td>{{accident.accident_id}}</td>
+                            <td>{{accident.truck_num}}</td>
+                            <td>{{accident.truck_accident_type | damageType}}</td>
+                            <td>{{accident.under_cost}}</td>
+                            <td>{{accident.accident_date | date:'yyyy-MM-dd'}}</td>
+                            <td  class="operation">
+                                <a ng-click="showTruckAccidentModal(accident,'settled')" style="margin-right: 10px;cursor: pointer;text-align: center;color: #26c6da"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
+                                <a ng-hide="salaryDetails.grant_status == 3" ng-click="minusSettledAccident(accident.accident_id)" style="cursor: pointer;text-align: center;color: #e57373"><i class="mdi mdi-minus-circle" style="margin: 0"></i></a>
+                            </td>
+                        </tr>
+                        <tr ng-if="settledAccidentList.length==0">
+                            <td colspan="6">暂无数据</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
@@ -841,7 +859,7 @@
                             </td>
                         </tr>
                         <tr ng-if="settledExceedOilList.length==0">
-                            <td colspan="7">暂无数据</td>
+                            <td colspan="8">暂无数据</td>
                         </tr>
                         </tbody>
                     </table>

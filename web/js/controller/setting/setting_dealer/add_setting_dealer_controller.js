@@ -69,6 +69,27 @@ app.controller("add_setting_dealer_controller", ["$scope", "_basic", "_config", 
             });
         });
     };
+    $scope.getDetailAddress = function (){
+        AMap.plugin('AMap.Geocoder', function() {
+            var geocoder = new AMap.Geocoder({
+                // city 指定进行编码查询的城市，支持传入城市名、adcode 和 citycode
+                city: '中国',
+                radius: 1000 //范围，默认：500
+            });
+            var mapAddress = amapAddress.value;
+            geocoder.getLocation(mapAddress, function(status, result) {
+                if (status === 'complete' && result.info === 'OK') {
+                    // result中对应详细地理坐标信息
+                    $scope.lat = result.geocodes[0].location.getLat();
+                    $scope.lng = result.geocodes[0].location.getLng();
+                   /* $scope.showPosition( $scope.lng, $scope.lat)*/
+                }
+                else{
+                    swal("无法获取该位置地理信息", "请重新输入", "warning")
+                }
+            })
+        })
+    }
 
     // 新增经销商
     $scope.add_setting_dealer = function (isValid) {

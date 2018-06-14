@@ -5,7 +5,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host", "$statePa
     var driveId = $stateParams.driveId;
     var heavyLoad = _config.heavyLoad;
     $scope.otherDeductions = 0;
-
+    $scope.Reimbursement = 0;
     // 获取当前司机基本信息
     $scope.getSalaryDetails = function () {
         _basic.get($host.api_url + "/driveSalary?driveSalaryId=" + salaryId).then(function (data) {
@@ -14,6 +14,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host", "$statePa
                 $scope.salaryDetails = data.result[0];
                 if(data.result[0].other_fee != null){
                     $scope.otherDeductions = data.result[0].other_fee;
+                    $scope.Reimbursement = data.result[0].refund_fee;
                 }
             }
             else {
@@ -117,67 +118,59 @@ app.controller("driver_salary_details_controller", ["$scope", "$host", "$statePa
         });
     };
 
-    // 获取结算工资信息
-    $scope.grantWages = function () {
-        $scope.getCarDamageInfo();
-        $scope.getTruckAccidentInfo();
-    };
-
-    // 将未结算任务添加到结算任务
-    $scope.addSettledSalary = function (taskId) {
-        _basic.post($host.api_url + "/user/" + userId + "/driveSalaryTaskRel",{
-            driveSalaryId: salaryId,
-            dpRouteTaskId: taskId
-        }).then(function (data) {
+    //获取违章扣款信息
+    $scope.getPeccancyList = function(){
+        // 未结算事故责任
+        _basic.get($host.api_url + "/drivePeccancy?driveId=" + driveId + "&statStatus=1").then(function (data) {
             if (data.success === true) {
-                swal("操作成功", "", "success");
-                $scope.getCurrentSalaryInfo()
+                $scope.peccancyAccidentList = data.result;
             }
             else {
                 swal(data.msg, "", "error");
             }
         });
-    };
 
-    // 移除结算任务到未结算任务
-    $scope.minusSettledSalary = function (taskId) {
-        swal({
-                title: "确定移除当前结算任务？",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: true
-            },
-            function(){
-                _basic.delete($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/dpRouteTask/" + taskId).then(function (data) {
-                    if (data.success === true) {
-                        $scope.getCurrentSalaryInfo()
-                    }
-                    else {
-                        swal(data.msg, "", "error");
-                    }
-                });
-            });
-
-    };
-
-    // 保存应发工资信息
-    $scope.saveWagesPaidInfo = function () {
-        _basic.put($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId,{
-            loadDistance: $scope.loadDistanceCount,
-            noLoadDistance: $scope.noLoadDistanceCount,
-            planSalary: $scope.salaryDetails.plan_salary
-        }).then(function (data) {
+        // 已结算事故责任
+        _basic.get($host.api_url + "/driveSalaryPeccancyRel?driveSalaryId=" + salaryId).then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
+                $scope.peccancylAccidentPay = 0;
+                for (var i = 0; i < data.result.length; i++) {
+                    $scope.peccancylAccidentPay += data.result[i].fine_money
+                }
+                $scope.settledPeccancyList = data.result;
             }
             else {
                 swal(data.msg, "", "error");
             }
         });
-    };
+    }
+
+    //获取超油扣款信息
+    $scope.getExceedOilList = function (){
+        // 未结超油扣款信息
+        _basic.get($host.api_url + "/driveExceedOil?driveId=" + driveId + "&statStatus=1").then(function (data) {
+            if (data.success === true) {
+                $scope.ExceedOilAccidentList = data.result;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+
+        // 已结算超油扣款信息
+        _basic.get($host.api_url + "/driveSalaryExceedOilRel?driveSalaryId=" + salaryId).then(function (data) {
+            if (data.success === true) {
+                $scope.ExceedOilAccidentPay = 0;
+                for (var i = 0; i < data.result.length; i++) {
+                    $scope.ExceedOilAccidentPay += data.result[i].exceed_oil_money;
+                }
+                $scope.settledExceedOilList = data.result;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
 
     // 将未结算质损添加到结算质损
     $scope.addSettledDamage = function (damageId) {
@@ -259,6 +252,165 @@ app.controller("driver_salary_details_controller", ["$scope", "$host", "$statePa
 
     };
 
+    // 将未结算任务添加到结算任务
+    $scope.addSettledSalary = function (taskId) {
+        _basic.post($host.api_url + "/user/" + userId + "/driveSalaryTaskRel",{
+            driveSalaryId: salaryId,
+            dpRouteTaskId: taskId
+        }).then(function (data) {
+            if (data.success === true) {
+                swal("操作成功", "", "success");
+                $scope.getCurrentSalaryInfo()
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+    // 移除结算任务到未结算任务
+    $scope.minusSettledSalary = function (taskId) {
+        swal({
+                title: "确定移除当前结算任务？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确认",
+                cancelButtonText: "取消",
+                closeOnConfirm: true
+            },
+            function(){
+                _basic.delete($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/dpRouteTask/" + taskId).then(function (data) {
+                    if (data.success === true) {
+                        $scope.getCurrentSalaryInfo()
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
+            });
+
+    };
+
+    // 将未结算违约扣款添加到结算扣款
+    $scope.addPeccancyAccident = function (peccancyInfoId) {
+        _basic.post($host.api_url + "/user/" + userId + "/driveSalaryPeccancyRel",{
+            driveSalaryId: salaryId,
+            peccancyId: peccancyInfoId
+        }).then(function (data) {
+            if (data.success === true) {
+                swal("操作成功", "", "success");
+                $scope.getPeccancyList();
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+    // 移除结算扣款到未结算扣款
+    $scope.minusPeccancyAccident = function (peccancyId) {
+        swal({
+                title: "确定移除当前违章扣款？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确认",
+                cancelButtonText: "取消",
+                closeOnConfirm: true
+            },
+            function(){
+                _basic.delete($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/peccancy/" + peccancyId).then(function (data) {
+                    if (data.success === true) {
+                        $scope.getPeccancyList();
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
+            });
+
+    };
+
+    // 将未结算违约扣油添加到结算扣油
+    $scope.addExceedOilAccident = function (OilId) {
+        _basic.post($host.api_url + "/user/" + userId + "/driveSalaryExceedOilRel",{
+            driveSalaryId: salaryId,
+            exceedOilId: OilId
+        }).then(function (data) {
+            if (data.success === true) {
+                swal("操作成功", "", "success");
+                $scope.getExceedOilList ();
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+    // 移除结算扣油到未结算扣油
+    $scope.minusExceedOilAccident = function (OilId) {
+        swal({
+                title: "确定移除当前超油扣款？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确认",
+                cancelButtonText: "取消",
+                closeOnConfirm: true
+            },
+            function(){
+                _basic.delete($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/exceedOil/" + OilId).then(function (data) {
+                    if (data.success === true) {
+                        $scope.getExceedOilList();
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
+            });
+
+    };
+
+    // 商品车质损详情
+    $scope.showCarDamageModal = function (damageInfo,status) {
+        $scope.damageInfo = damageInfo;
+        $scope.damageHandleStatus = status;
+        $("#carDamageModal").modal("open");
+    };
+
+    // 货车责任详情
+    $scope.showTruckAccidentModal = function (accidentInfo,status) {
+        $scope.accidentInfo = accidentInfo;
+        $scope.accidentHandleStatus = status;
+        $("#truckAccidentModal").modal("open");
+    };
+
+
+    // 获取结算工资信息
+    $scope.grantWages = function () {
+        $scope.getCarDamageInfo();
+        $scope.getTruckAccidentInfo();
+        $scope.getPeccancyList();
+        $scope.getExceedOilList();
+    };
+
+    // 保存应发工资信息
+    $scope.saveWagesPaidInfo = function () {
+        _basic.put($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId,{
+            loadDistance: $scope.loadDistanceCount,
+            noLoadDistance: $scope.noLoadDistanceCount,
+            planSalary: $scope.salaryDetails.plan_salary
+        }).then(function (data) {
+            if (data.success === true) {
+                // console.log("data", data);
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
     // 任务工资详情
     $scope.showDispatchMissionModal = function (salaryInfo,status) {
         $scope.salaryInfo = salaryInfo;
@@ -280,31 +432,15 @@ app.controller("driver_salary_details_controller", ["$scope", "$host", "$statePa
         $("#dispatchMissionModal").modal("open");
     };
 
-    // 商品车质损详情
-    $scope.showCarDamageModal = function (damageInfo,status) {
-        $scope.damageInfo = damageInfo;
-        $scope.damageHandleStatus = status;
-        // console.log("damageInfo",damageInfo);
-        $("#carDamageModal").modal("open");
-    };
-
-    // 货车责任详情
-    $scope.showTruckAccidentModal = function (accidentInfo,status) {
-        $scope.accidentInfo = accidentInfo;
-        $scope.accidentHandleStatus = status;
-        // console.log("accidentInfo",accidentInfo);
-        $("#truckAccidentModal").modal("open");
-    };
-
     // 保存结算工资信息
     $scope.saveSettlementSalary = function () {
-        var grantCount = $scope.salaryDetails.plan_salary - $scope.personalCommitmentCount - $scope.personalAccidentPay - $scope.otherDeductions;
+        var grantCount = $scope.salaryDetails.plan_salary - $scope.personalCommitmentCount - $scope.personalAccidentPay - $scope.peccancylAccidentPay - $scope.ExceedOilAccidentPay-$scope.Reimbursement- $scope.otherDeductions;
         _basic.put($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/driveActualSalary",{
+            refundFee:$scope.Reimbursement,
             otherFee: $scope.otherDeductions,
             actualSalary: grantCount
         }).then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
                 swal("保存成功", "", "success");
             }
             else {

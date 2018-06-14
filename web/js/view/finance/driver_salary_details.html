@@ -197,6 +197,7 @@
         </div>
     </div>
 
+    <!--详情-->
     <div class="row" style="width: 95%;margin: 0 auto">
         <!--基本信息-->
         <div class="col s12">
@@ -244,6 +245,8 @@
                 <li class="tab"><a href="#missionSalary" style="color: #26c6da;line-height: 40px">任务工资</a></li>
                 <li class="tab"><a id="carDamagePage" href="#carDamage" ng-click="getCarDamageInfo()" style="color: #26c6da;line-height: 40px">商品车质损</a></li>
                 <li class="tab"><a id="truckAccidentPage" href="#truckAccident" ng-click="getTruckAccidentInfo()" style="color: #26c6da;line-height: 40px">货车事故</a></li>
+                <li class="tab"><a href="#driverPeccancyList" ng-click="getPeccancyList()" style="color: #26c6da;line-height: 40px">违章扣款</a></li>
+                <li class="tab"><a href="#driverExceedOil" ng-click="getExceedOilList()" style="color: #26c6da;line-height: 40px">超油扣款</a></li>
                 <li class="tab"><a id="settlementSalaryPage" href="#settlementSalary" ng-click="grantWages()" style="color: #26c6da;line-height: 40px">结算工资</a></li>
             </ul>
         </div>
@@ -262,56 +265,36 @@
                         </div>
                     </div>
                     <!--头-->
-                    <div class="col s12">
-                        <div class="col s12 valign-wrapper" style="padding: 0;color: darkgray;font-weight: bold;font-size: 1rem;border-bottom: 1px solid darkgray">
-                            <div class="col s2">
-                                <p>调度编号</p>
-                            </div>
-                            <div class="col s2">
-                                <p>线路</p>
-                            </div>
-                            <div class="col s2">
-                                <p>公里数</p>
-                            </div>
-                            <div class="col s2">
-                                <p>货车</p>
-                            </div>
-                            <div class="col s2 center-align">
-                                <p>运送车辆</p>
-                            </div>
-                            <div class="col s4">
-                                <p>完成时间</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--未结算任务数据-->
-                    <div class="col s12" ng-repeat="salary in unsettledSalaryList">
-                        <div class="col s12 valign-wrapper" style="padding: 0;color: darkgray;font-size: 0.8rem;border-bottom: 1px solid darkgray">
-                            <div class="col s2">
-                                <p>{{salary.id}}</p>
-                            </div>
-                            <div class="col s2">
-                                <p>{{salary.city_route_start + " - " + salary.city_route_end}}</p>
-                            </div>
-                            <div class="col s2">
-                                <p>{{salary.distance}}</p>
-                            </div>
-                            <div class="col s2" style="padding: 0;">
-                                <p>{{salary.truck_num + "（" + salary.brand_name + "）"}}</p>
-                            </div>
-                            <div class="col s2 center-align">
-                                <p>{{salary.car_count}}</p>
-                            </div>
-                            <div class="col s2">
-                                <p>{{salary.task_end_date | date:'yyyy-MM-dd'}}</p>
-                            </div>
-                            <div class="col s2 center-align" style="font-size: 1.4rem">
+                    <table class=" bordered striped text_mid">
+                        <thead class="blue-grey lighten-5">
+                        <tr class="grey-text text-darken-2">
+                            <th data-field="">调度编号</th>
+                            <th data-field="">线路</th>
+                            <th data-field="">公里数</th>
+                            <th data-field="">货车</th>
+                            <th data-field="">运送车辆</th>
+                            <th data-field="">完成时间</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="salary in unsettledSalaryList" class="grey-text text-darken-1">
+                            <td>{{salary.id}}</td>
+                            <td >{{salary.city_route_start + " - " + salary.city_route_end}}</td>
+                            <td>{{salary.distance}}</td>
+                            <td>{{salary.truck_num + "（" + salary.brand_name + "）"}}</td>
+                            <td>{{salary.car_count}}</td>
+                            <td>{{salary.task_end_date | date:'yyyy-MM-dd'}}</td>
+                            <td  class="operation">
                                 <a ng-click="showDispatchMissionModal(salary,'unsettled')" style="margin-right: 10px;cursor: pointer;text-align: center;color: #26c6da"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
                                 <a ng-click="addSettledSalary(salary.id)" class="cyan-text" style="cursor: pointer;text-align: center;color: #26c6da"><i class="mdi mdi-plus-circle" style="margin: 0"></i></a>
-                            </div>
-                        </div>
-                    </div>
+                            </td>
+                        </tr>
+                        <tr ng-if="unsettledSalaryList.length==0">
+                            <td colspan="7">暂无数据</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
@@ -327,56 +310,36 @@
                         </div>
                     </div>
                     <!--头-->
-                    <div class="col s12">
-                        <div class="col s12 valign-wrapper" style="padding: 0;color: darkgray;font-weight: bold;font-size: 1rem;border-bottom: 1px solid darkgray">
-                            <div class="col s2">
-                                <p>调度编号</p>
-                            </div>
-                            <div class="col s2">
-                                <p>线路</p>
-                            </div>
-                            <div class="col s2">
-                                <p>公里数</p>
-                            </div>
-                            <div class="col s2">
-                                <p>货车</p>
-                            </div>
-                            <div class="col s2 center-align">
-                                <p>运送车辆</p>
-                            </div>
-                            <div class="col s4">
-                                <p>完成时间</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--结算任务数据-->
-                    <div class="col s12" ng-repeat="salary in settledSalaryList">
-                        <div class="col s12 valign-wrapper" style="padding: 0;color: darkgray;font-size: 0.8rem;border-bottom: 1px solid darkgray">
-                            <div class="col s2">
-                                <p>{{salary.dp_route_task_id}}</p>
-                            </div>
-                            <div class="col s2">
-                                <p>{{salary.city_route_start + " - " + salary.city_route_end}}</p>
-                            </div>
-                            <div class="col s2">
-                                <p>{{salary.distance}}</p>
-                            </div>
-                            <div class="col s2" style="padding: 0;">
-                                <p>{{salary.truck_num + "（" + salary.brand_name + "）"}}</p>
-                            </div>
-                            <div class="col s2 center-align">
-                                <p>{{salary.car_count}}</p>
-                            </div>
-                            <div class="col s2">
-                                <p>{{salary.task_end_date | date:'yyyy-MM-dd'}}</p>
-                            </div>
-                            <div class="col s2 center-align" style="font-size: 1.4rem">
+                    <table class=" bordered striped text_mid">
+                        <thead class="blue-grey lighten-5">
+                        <tr class="grey-text text-darken-2">
+                            <th data-field="">调度编号</th>
+                            <th data-field="">线路</th>
+                            <th data-field="">公里数</th>
+                            <th data-field="">货车</th>
+                            <th data-field="">运送车辆</th>
+                            <th data-field="">完成时间</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="salary in settledSalaryList" class="grey-text text-darken-1">
+                            <td>{{salary.dp_route_task_id}}</td>
+                            <td >{{salary.city_route_start + " - " + salary.city_route_end}}</td>
+                            <td>{{salary.distance}}</td>
+                            <td>{{salary.truck_num + "（" + salary.brand_name + "）"}}</td>
+                            <td>{{salary.car_count}}</td>
+                            <td>{{salary.task_end_date | date:'yyyy-MM-dd'}}</td>
+                            <td  class="operation">
                                 <a ng-click="showDispatchMissionModal(salary,'settled')" style="margin-right: 10px;cursor: pointer;text-align: center;color: #26c6da"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
                                 <a ng-hide="salaryDetails.grant_status == 3" ng-click="minusSettledSalary(salary.dp_route_task_id)" style="cursor: pointer;text-align: center;color: #e57373"><i class="mdi mdi-minus-circle" style="margin: 0"></i></a>
-                            </div>
-                        </div>
-                    </div>
+                            </td>
+                        </tr>
+                        <tr ng-if="settledSalaryList.length==0">
+                            <td colspan="7">暂无数据</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
@@ -684,14 +647,220 @@
             </div>
         </div>
 
+        <!--违章扣款-->
+        <div id="driverPeccancyList" class="row col s12" style="padding: 0;">
+            <!--未结算违章扣款-->
+            <div class="col s6" ng-hide="salaryDetails.grant_status == 3">
+                <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px;min-height: 380px">
+                    <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
+                        <div class="col s6 left-align" style="color: #26c6da">
+                            <p style="margin: 0">未结算违章扣款</p>
+                        </div>
+                        <div class="col s6 right-align" style="color: darkgray;font-size: 1.05rem">
+                            <p style="color: #26c6da;margin: 0;font-size: 1.2rem">{{peccancyAccidentList.length}} 条</p>
+                        </div>
+                    </div>
+                    <!--头-->
+
+                    <table class=" bordered striped text_mid">
+                        <thead class="blue-grey lighten-5">
+                        <tr class="grey-text text-darken-2">
+                            <th data-field="">违章结算编号</th>
+                            <th data-field="">货车编号</th>
+                            <th data-field="">扣罚分数</th>
+                            <th data-field="">扣罚金额</th>
+                            <th data-field="">发生时间</th>
+                            <th data-field="">状态</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="peccancyInfo in peccancyAccidentList" class="grey-text text-darken-1">
+                            <td>{{peccancyInfo.id}}</td>
+                            <td >{{peccancyInfo.truck_num}}</td>
+                            <td>{{peccancyInfo.fine_score}}</td>
+                            <td class="red-text">{{peccancyInfo.fine_money |number:2}}</td>
+                            <td>{{peccancyInfo.start_date | date:'yyyy-MM-dd'}}至{{peccancyInfo.end_date | date:'yyyy-MM-dd'}}</td>
+                            <td class="red-text" ng-if="peccancyInfo.stat_status==1">未扣</td>
+                            <td ng-if="peccancyInfo.stat_status!==1">已扣</td>
+                            <td  class="operation">
+                                <a ng-click="addPeccancyAccident(peccancyInfo.id)" class="cyan-text fz12">
+                                <i class="mdi mdi-plus-circle"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr ng-if="peccancyAccidentList.length==0">
+                            <td colspan="7">暂无数据</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!--违章扣款结算-->
+            <div class="col {{salaryDetails.grant_status == 3 ? 's12' : 's6'}}">
+                <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px;min-height: 380px">
+                    <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
+                        <div class="col s6 left-align" style="color: #26c6da">
+                            <p style="margin: 0">违章扣款结算</p>
+                        </div>
+                        <div class="col s6 right-align" style="color: darkgray;font-size: 1.05rem">
+                            <p style="color: #26c6da;margin: 0;font-size: 1.2rem">{{settledPeccancyList.length}} 条</p>
+                        </div>
+                    </div>
+                    <!--头-->
+                    <table class=" bordered striped text_mid">
+                        <thead class="blue-grey lighten-5">
+                        <tr class="grey-text text-darken-2">
+                            <th data-field="">违章结算编号</th>
+                            <th data-field="">货车编号</th>
+                            <th data-field="">扣罚分数</th>
+                            <th data-field="">扣罚金额</th>
+                            <th data-field="">发生时间</th>
+                            <th data-field="">状态</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="peccancyInfo in settledPeccancyList" class="grey-text text-darken-1">
+                            <td>{{peccancyInfo.peccancy_id}}</td>
+                            <td >{{peccancyInfo.truck_num}}</td>
+                            <td>{{peccancyInfo.fine_score}}</td>
+                            <td class="red-text">{{peccancyInfo.fine_money |number:2}}</td>
+                            <td>{{peccancyInfo.start_date | date:'yyyy-MM-dd'}}至{{peccancyInfo.end_date | date:'yyyy-MM-dd'}}</td>
+                            <td class="red-text" ng-if="peccancyInfo.stat_status==1">未扣</td>
+                            <td ng-if="peccancyInfo.stat_status!==1">已扣</td>
+                            <td  class="operation">
+                                <a ng-hide="salaryDetails.grant_status == 3" ng-click="minusPeccancyAccident(peccancyInfo.peccancy_id)" style="cursor: pointer;text-align: center;color: #e57373">
+                                    <i class="mdi mdi-minus-circle" style="margin: 0"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr ng-if="settledPeccancyList.length==0">
+                            <td colspan="7">暂无数据</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col s12 right-align" style="color: darkgray;font-size: 1.2rem;font-weight: bold;margin: 20px 0">
+                <p>扣款总额：<span style="color: #e57373">{{peccancylAccidentPay.toFixed(2)}}</span> 元</p>
+            </div>
+        </div>
+
+        <!--超油扣款-->
+        <div id="driverExceedOil" class="row col s12" style="padding: 0;">
+            <!--未结算超油扣款-->
+            <div class="col s6" ng-hide="salaryDetails.grant_status == 3">
+                <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px;min-height: 380px">
+                    <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
+                        <div class="col s6 left-align" style="color: #26c6da">
+                            <p style="margin: 0">未结算超油扣款</p>
+                        </div>
+                        <div class="col s6 right-align" style="color: darkgray;font-size: 1.05rem">
+                            <p style="color: #26c6da;margin: 0;font-size: 1.2rem">{{ExceedOilAccidentList.length}} 条</p>
+                        </div>
+                    </div>
+                    <!--头-->
+                    <table class=" bordered striped text_mid">
+                        <thead class="blue-grey lighten-5">
+                        <tr class="grey-text text-darken-2">
+                            <th data-field="">超油结算编号</th>
+                            <th data-field="">货车牌号</th>
+                            <th data-field="">调度编号</th>
+                            <th data-field="">计划执行时间</th>
+                            <th data-field="">超油量(L)</th>
+                            <th data-field="">罚款金额</th>
+                            <th data-field="">状态</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="ExceedOilInfo in ExceedOilAccidentList" class="grey-text text-darken-1">
+                            <td>{{ExceedOilInfo.id}}</td>
+                            <td>{{ExceedOilInfo.truck_num}}</td>
+                            <td>{{ExceedOilInfo.dp_route_task_id}}</td>
+                            <td>{{ExceedOilInfo.task_plan_date| date:'yyyy-MM-dd'}}</td>
+                            <td>{{ExceedOilInfo.exceed_oil_quantity }}</td>
+                            <td class="red-text">{{ExceedOilInfo.exceed_oil_money}}</td>
+                            <td class="red-text" ng-if="ExceedOilInfo.stat_status==1">未扣</td>
+                            <td ng-if="ExceedOilInfo.stat_status!==1">已扣</td>
+                            <td  class="operation">
+                                <a ng-click="addExceedOilAccident(ExceedOilInfo.id)" class="cyan-text fz12">
+                                    <i class="mdi mdi-plus-circle"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr ng-if="ExceedOilAccidentList.length==0">
+                            <td colspan="8">暂无数据</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!--结算超油扣款-->
+            <div class="col {{salaryDetails.grant_status == 3 ? 's12' : 's6'}}">
+                <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px;min-height: 380px">
+                    <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
+                        <div class="col s6 left-align" style="color: #26c6da">
+                            <p style="margin: 0">结算超油扣款</p>
+                        </div>
+                        <div class="col s6 right-align" style="color: darkgray;font-size: 1.05rem">
+                            <p style="color: #26c6da;margin: 0;font-size: 1.2rem">{{settledExceedOilList.length}} 条</p>
+                        </div>
+                    </div>
+                    <!--头-->
+                    <table class=" bordered striped text_mid">
+                        <thead class="blue-grey lighten-5">
+                        <tr class="grey-text text-darken-2">
+                            <th data-field="">超油结算编号</th>
+                            <th data-field="">货车牌号</th>
+                            <th data-field="">调度编号</th>
+                            <th data-field="">计划执行时间</th>
+                            <th data-field="">超油量(L)</th>
+                            <th data-field="">罚款金额</th>
+                            <th data-field="">状态</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="ExceedOilInfo in settledExceedOilList" class="grey-text text-darken-1">
+                            <td>{{ExceedOilInfo.exceed_oil_id}}</td>
+                            <td>{{ExceedOilInfo.truck_num}}</td>
+                            <td>{{ExceedOilInfo.dp_route_task_id}}</td>
+                            <td>{{ExceedOilInfo.task_plan_date| date:'yyyy-MM-dd'}}</td>
+                            <td>{{ExceedOilInfo.exceed_oil_quantity }}</td>
+                            <td class="red-text">{{ExceedOilInfo.exceed_oil_money}}</td>
+                            <td class="red-text" ng-if="ExceedOilInfo.stat_status==1">未扣</td>
+                            <td ng-if="ExceedOilInfo.stat_status!==1">已扣</td>
+                            <td  class="operation">
+                                <a ng-hide="salaryDetails.grant_status == 3" ng-click="minusExceedOilAccident(ExceedOilInfo.exceed_oil_id)" style="cursor: pointer;text-align: center;color: #e57373">
+                                    <i class="mdi mdi-minus-circle" style="margin: 0"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr ng-if="settledExceedOilList.length==0">
+                            <td colspan="7">暂无数据</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col s12 right-align" style="color: darkgray;font-size: 1.2rem;font-weight: bold;margin: 20px 0">
+                <p>扣款总数：<span style="color: #e57373">{{ExceedOilAccidentPay.toFixed(2)}}</span> 元</p>
+            </div>
+        </div>
+
         <!--结算工资-->
         <div id="settlementSalary" class="row col s12" style="padding: 0;">
-            <div class="col s12 valign-wrapper" style="margin-top: 50px">
-                <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold">
-                    <div class="col s12" style="color: #26c6da">
+            <div class="col s12 valign-wrapper">
+                <div class="col s3 z-depth-1 center-align" style="border: 2px solid rgb(245,166,35);font-size: 1.2rem;font-weight: bold;background: rgb(245,166,35)">
+                    <div class="col s12" style="color: #fff">
                         <p>任务工资 <span style="font-size: 1rem">(元)</span></p>
                     </div>
-                    <div class="col s12" style="color: #e57373">
+                    <div class="col s12" style="color: #fff">
                         <p>{{salaryDetails.plan_salary.toFixed(2)}}</p>
                     </div>
                 </div>
@@ -720,7 +889,55 @@
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
                     <span style="color: #26c6da" class="mdi mdi-minus"></span>
                 </div>
+            </div>
+            <div class="col s12 valign-wrapper" style="margin-top: 50px">
                 <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold">
+                    <div class="col s12" style="color: #26c6da">
+                        <p>违章扣款 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12" style="color: #e57373">
+                        <p>{{peccancylAccidentPay.toFixed(2)}}</p>
+                    </div>
+                </div>
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span style="color: #26c6da" class="mdi mdi-minus"></span>
+                </div>
+                <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold">
+                    <div class="col s12" style="color: #26c6da">
+                        <p>超油扣款 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12" style="color: #e57373">
+                        <p>{{ExceedOilAccidentPay.toFixed(2)}}</p>
+                    </div>
+                </div>
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span style="color: #26c6da" class="mdi mdi-minus"></span>
+                </div>
+
+
+                <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold" ng-if="salaryDetails.grant_status !== 3">
+                    <div class="col s12" style="color: #26c6da">
+                        <p>报销扣款 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <input style="font-size: 1.5rem;text-align: center;color: rgb(230,123,123);margin-bottom: 17px" type="number" id="Reimbursement" name="Reimbursement" ng-model="Reimbursement">
+                    </div>
+                </div>
+                <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold" ng-if="salaryDetails.grant_status == 3">
+                    <div class="col s12" style="color: #26c6da">
+                        <p>报销扣款 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <p >{{Reimbursement.toFixed(2)}}</p>
+                    </div>
+                </div>
+
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span style="color: #26c6da" class="mdi mdi-equal"></span>
+                </div>
+
+
+                <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold" ng-if="salaryDetails.grant_status !== 3">
                     <div class="col s12" style="color: #26c6da">
                         <p>其他扣款 <span style="font-size: 1rem">(元)</span></p>
                     </div>
@@ -728,26 +945,42 @@
                         <input style="font-size: 1.5rem;text-align: center;color: rgb(230,123,123);margin-bottom: 17px" type="number" id="other_deductions" name="other_deductions" ng-model="otherDeductions">
                     </div>
                 </div>
-                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold" ng-if="salaryDetails.grant_status == 3">
+                    <div class="col s12" style="color: #26c6da">
+                        <p>其他扣款 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <p>{{otherDeductions.toFixed(2)}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 valign-wrapper">
+                <div class="col s12 center-align" style="font-size: 3rem;padding: 0">
                     <span style="color: #26c6da" class="mdi mdi-equal"></span>
                 </div>
-                <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;background-color: #26c6da;font-size: 1.2rem;font-weight: bold">
+            </div>
+            <div class="col s12 valign-wrapper">
+                <div class="col s4 offset-s4 z-depth-1 center-align cyan" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold">
                     <div class="col s12" style="color: white">
                         <p>应付工资 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12" style="color: white">
-                        <p>{{(salaryDetails.plan_salary - personalCommitmentCount - personalAccidentPay - otherDeductions).toFixed(2)}}</p>
+                        <p>{{(salaryDetails.plan_salary - personalCommitmentCount - personalAccidentPay - peccancylAccidentPay- ExceedOilAccidentPay- Reimbursement-otherDeductions).toFixed(2)}}</p>
                     </div>
                 </div>
             </div>
-            <div class="col s12" style="margin-top: 150px" ng-hide="salaryDetails.grant_status == 3">
-                <div class="col s2 offset-s3">
+
+
+
+
+            <div class="col s12" style="margin-top: 70px" ng-hide="salaryDetails.grant_status == 3">
+                <div class="col s1 offset-s4">
                     <a ng-click="saveSettlementSalary()" style="width: 100%" class="waves-light waves-effect cyan lighten-2 btn">
                         保存
                     </a>
                 </div>
-                <div class="col s2 offset-s2">
-                    <a ng-click="grantSettlementSalary()" style="width: 100%" class="waves-light waves-effect red lighten-1 btn">
+                <div class="col s1 offset-s2">
+                    <a ng-click="grantSettlementSalary()" style="width: 100%;background: rgb(245,166,35)" class="waves-light waves-effect lighten-1 btn" >
                         发放
                     </a>
                 </div>

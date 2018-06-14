@@ -30,7 +30,7 @@
             </div>
 
 
-            <!--扣罚分数  扣罚金额-->
+            <!--超油量  超油金额-->
             <div class="col s12" style="height: 70px">
 
                 <div class="col s6 input-field">
@@ -132,9 +132,9 @@
                     </div>
                 </div>
 
-                <!--结算人-->
+                <!--操作人-->
                 <div class="col s3 offset-s9 input-field">
-                    结算人:{{putExceedOilList.settle_user_name}}
+                    操作人:{{putExceedOilList.op_user_name}}
                 </div>
             </div>
         </div>
@@ -183,9 +183,9 @@
                     <div class="col s12 input-field"  style="height: 60px;border-bottom: 1px dotted #ccc">备注:  {{putExceedOilList.remark}}</div>
                 </div>
 
-                <!--结算人-->
+                <!--操作人-->
                 <div class="col s3 offset-s9 input-field">
-                    结算人:  {{putExceedOilList.settle_user_name}}
+                    操作人:  {{putExceedOilList.op_user_name}}
                 </div>
             </div>
         </div>
@@ -272,7 +272,7 @@
                 <th data-field="">计划执行时间</th>
                 <th data-field="">超油量(L)</th>
                 <th data-field="">超油金额</th>
-                <th data-field="">结算人</th>
+                <th data-field="">操作人</th>
                 <th data-field="">状态</th>
                 <th>操作</th>
             </tr>
@@ -286,7 +286,7 @@
                 <td>{{ExceedOilInfo.task_plan_date| date:'yyyy-MM-dd'}}</td>
                 <td>{{ExceedOilInfo.exceed_oil_quantity }}</td>
                 <td>{{ExceedOilInfo.exceed_oil_money }}</td>
-                <td>{{ExceedOilInfo.settle_user_name}}</td>
+                <td>{{ExceedOilInfo.op_user_name}}</td>
                 <td class="red-text" ng-if="ExceedOilInfo.fine_status==1">未扣</td>
                 <td ng-if="ExceedOilInfo.fine_status!==1">已扣</td>
                 <td  class="operation">

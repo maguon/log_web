@@ -138,9 +138,9 @@
                     </div>
                 </div>
 
-                <!--结算人-->
+                <!--操作人-->
                 <div class="col s3 offset-s9 input-field">
-                    结算人:{{putPeccancyList.settle_user_name}}
+                    操作人:{{putPeccancyList.op_user_name}}
                 </div>
             </div>
         </div>
@@ -189,9 +189,9 @@
                     <div class="col s12 input-field"  style="height: 60px;border-bottom: 1px dotted #ccc">备注:  {{putPeccancyList.remark}}</div>
                 </div>
 
-                <!--结算人-->
+                <!--操作人-->
                 <div class="col s3 offset-s9 input-field">
-                    结算人:  {{putPeccancyList.settle_user_name}}
+                    操作人:  {{putPeccancyList.op_user_name}}
                 </div>
             </div>
         </div>
@@ -261,7 +261,7 @@
                 <th data-field="">扣罚分数</th>
                 <th data-field="">扣罚金额</th>
                 <th data-field="">时间范围</th>
-                <th data-field="">结算人</th>
+                <th data-field="">操作人</th>
                 <th data-field="">状态</th>
                 <th>操作</th>
             </tr>
@@ -274,7 +274,7 @@
                 <td>{{peccancyInfo.fine_score}}</td>
                 <td>{{peccancyInfo.fine_money}}</td>
                 <td>{{peccancyInfo.start_date | date:'yyyy-MM-dd'}}至{{peccancyInfo.end_date | date:'yyyy-MM-dd'}}</td>
-                <td>{{peccancyInfo.settle_user_name}}</td>
+                <td>{{peccancyInfo.op_user_name}}</td>
                 <td class="red-text" ng-if="peccancyInfo.fine_status==1">未扣</td>
                 <td ng-if="peccancyInfo.fine_status!==1">已扣</td>
                 <td  class="operation">

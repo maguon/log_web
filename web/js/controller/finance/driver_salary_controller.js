@@ -53,7 +53,7 @@ app.controller("driver_salary_controller", ["$scope", "$host", "$state", "_confi
         $scope.monthVal = monthStart;
         _basic.get($host.api_url + "/driveSalary?" + _basic.objToUrl({
             monthDateId: monthStart,
-            driveId: $scope.driverName,
+            driveName: $scope.driverName,
             operateType: $scope.carType,
             companyId: $scope.insureCompany,
             truckNum: $scope.truckNumber,

@@ -5,16 +5,16 @@
     <div class="divider" style="background: #00bcd4;height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
     <div class="row col s12" style="width: 96%;margin: 0 auto">
         <!-- 信息修改或新增模态框 -->
-        <div id="modifyModel" class="modal modal-fixed-footer" style="height: 400px">
+        <div id="modifyModel" class="modal modal-fixed-footer" style="height: 500px">
             <div class="modal-content center" style="font-weight: bold">
                 <h4>设置线路</h4>
                 <div class="divider black lighten-2"></div>
-                <div class="row vc-center" style="height: 40%">
+                <div class="row vc-center" style="height: 30%">
                     <h6 class="black-text fz40" style="font-weight:600">{{startCity}}&emsp;
                         <span class="mdi mdi-swap-horizontal">&emsp;{{endCity}}</span>
                     </h6>
                 </div>
-                <div class="row col s8 vc-center offset-s2 fz18" style="height: 28%;">
+                <div class="row col s8 vc-center offset-s2 fz18" style="height: 20%;">
                     <p class="col s3" style="text-align: right">
                         里程数：
                     </p>
@@ -23,6 +23,17 @@
                     </div>
                     <p class="col s3" style="text-align: left">
                         公里
+                    </p>
+                </div>
+                <div class="row col s8 vc-center offset-s2 fz18" style="height: 20%;">
+                    <p class="col s3" style="text-align: right">
+                        保道费：
+                    </p>
+                    <div class="col s6">
+                        <input style="text-align: center" type="number" ng-model="applyProtectCost" placeholder="请输入保道费">
+                    </div>
+                    <p class="col s3" style="text-align: left">
+                        元
                     </p>
                 </div>
             </div>

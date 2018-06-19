@@ -29,10 +29,13 @@
                                 <option ng-repeat="el in setting_city" ng-value="el.id" ng-show="el.city_status==1">{{el.city_name}}</option>
                             </select>
                         </div>
-                        <div class="col s12 mp-40 input-field" ng-class="{'has-error':add_setting_dealerFrom.address.$invalid&&submitted }" >
-                            <input type="text" id="amapAddress" ng-change="amapAutocomplete()" ng-model="input_address" autocomplete="off" name="amapAddress" required>
-                            <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
-                            <label class="grey-text bold" for="amapAddress">详细地址</label>
+                        <div style="position: relative;">
+                            <div class="col s12 mp-40 input-field" ng-class="{'has-error':add_setting_dealerFrom.address.$invalid&&submitted }" >
+                                <input type="text" id="amapAddress" ng-change="amapAutocomplete()" ng-model="input_address" autocomplete="off" name="amapAddress" required>
+                                <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+                                <label class="grey-text bold" for="amapAddress">详细地址</label>
+                            </div>
+                            <i class="mdi  mdi-telegram fz40 cyan-text" style="position: absolute;top:90px;right:0" ng-click="getDetailAddress()"></i>
                         </div>
                     </div>
                     <div class="row">

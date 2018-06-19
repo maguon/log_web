@@ -29,11 +29,12 @@
                             </select>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" style="position: relative;">
                         <div class="col s12 input-field mp-40"  ng-class="{'has-error':setting_dealer_details_form.address.$invalid&&submitted}">
                             <input type="text" id="amapAddress" autocomplete="off" ng-change="amapAutocomplete()" ng-model="input_address" name="amapAddress" required>
                             <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
                             <label class="grey-text bold" for="amapAddress">详细地址</label>
+                            <i class="mdi  mdi-telegram fz40 cyan-text" style="position: absolute;top:0px;right:0" ng-click="getDetailAddress()"></i>
                         </div>
                     </div>
                     <div class="row">

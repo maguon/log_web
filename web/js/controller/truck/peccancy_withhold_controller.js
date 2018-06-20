@@ -142,7 +142,7 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
 
     //点击确定 增加完成
     $scope.addPeccancyItem = function (){
-        if ($scope.addDrivderId !== undefined && $scope.addPeccancyTruckNum !== undefined && $scope.addPeccancyScore !== undefined
+        if ($scope.addDrivderId !== undefined && $scope.addPeccancyTruckNum !== '' && $scope.addPeccancyScore !== undefined
             &&$scope.addPeccancyMoney !== undefined &&$scope.addStartTime !== undefined&&$scope.addEndTime!==undefined) {
             _basic.post($host.api_url + "/user/" + userId + "/drivePeccancy", {
                 driveId: $scope.addDrivderId,
@@ -193,7 +193,7 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
 
     //点击确定 修改完成
     $scope.putPeccancyItem = function (){
-        if ( $scope.putPeccancyList.drive_id !== undefined && $scope.putPeccancyList.id !== undefined && $scope.putPeccancyList.fine_score !== undefined
+        if ( $scope.putPeccancyList.drive_id !== undefined && $scope.putPeccancyList.truck_num!== '' && $scope.putPeccancyList.fine_score !== undefined
             &&$scope.putPeccancyList.fine_money!== undefined &&$scope.putPeccancyList.start_date !== undefined&&$scope.putPeccancyList.end_date!==undefined) {
             _basic.put($host.api_url + "/user/" + userId + "/peccancy/"+$scope.id, {
                 driveId: $scope.putPeccancyList.drive_id,
@@ -226,12 +226,12 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
     // 分页
     $scope.pre_btn = function () {
         $scope.start = $scope.start - ($scope.size-1);
-        getSettlementData();
+        getPeccancyData();
     };
 
     $scope.next_btn = function () {
         $scope.start = $scope.start + ($scope.size-1);
-        getSettlementData();
+        getPeccancyData();
     };
 
     //获取数据

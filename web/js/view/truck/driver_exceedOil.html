@@ -67,7 +67,7 @@
 <!--修改模态框-->
 <div id="putExceedOilItem" class="modal">
     <div class="cyan lighten-1 white-text center-align modal_title" >超油扣款详情</div>
-    <div ng-show="putExceedOilList.fine_status==1">
+    <div ng-show="putExceedOilList.stat_status==1">
         <div class="modal-content">
             <div class="row col" style="width: 80%;">
 
@@ -144,7 +144,7 @@
             <button class="btn waves-light waves-effect lighten-2"  name="action" ng-click="putExceedOilItem()">确定 </button>
         </div>
     </div>
-    <div ng-show="putExceedOilList.fine_status!==1">
+    <div ng-show="putExceedOilList.stat_status!==1">
         <div class="modal-content">
             <div class="row col" style="width: 80%;">
                 <!--超油结算编号-->
@@ -287,8 +287,8 @@
                 <td>{{ExceedOilInfo.exceed_oil_quantity }}</td>
                 <td>{{ExceedOilInfo.exceed_oil_money }}</td>
                 <td>{{ExceedOilInfo.op_user_name}}</td>
-                <td class="red-text" ng-if="ExceedOilInfo.fine_status==1">未扣</td>
-                <td ng-if="ExceedOilInfo.fine_status!==1">已扣</td>
+                <td class="red-text" ng-if="ExceedOilInfo.stat_status==1">未扣</td>
+                <td ng-if="ExceedOilInfo.stat_status!==1">已扣</td>
                 <td  class="operation">
                     <a ng-click="putExceedOil(ExceedOilInfo.id)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
                         <i class="mdi mdi-file-document" style="margin: 0"></i>

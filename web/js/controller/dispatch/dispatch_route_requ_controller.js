@@ -139,7 +139,7 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic","_
 
     // 根据选择的司机id查询关联任务信息
     $scope.searchMatchMission = function () {
-        _basic.get($host.api_url + "/dpRouteTask?driveId=" + $scope.driverIdMod + "&taskStatusArr=8").then(function (data) {
+        _basic.get($host.api_url + "/dpRouteTaskNotLoan?driveId=" + $scope.driverIdMod + "&taskStatusArr=8").then(function (data) {
             if (data.success === true) {
                 // console.log("data", data);
                 $scope.missionList = data.result;

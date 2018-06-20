@@ -90,7 +90,7 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
     function getPeccancyData(){
         _basic.get($host.api_url + "/drivePeccancy?" + _basic.objToUrl({
             driveId:$scope.driverId,
-            fineStatus:$scope.peccancyStu,
+            statStatus:$scope.peccancyStu,
             start:$scope.start.toString(),
             size:$scope.size
         })).then(function (data) {

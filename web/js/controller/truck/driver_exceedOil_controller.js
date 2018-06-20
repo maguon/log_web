@@ -35,7 +35,7 @@ app.controller("driver_exceedOil_controller", ["$scope", "$state", "_basic", "_c
             dpRouteTaskId:$scope.dispatchId,
             taskPlanDateStart:$scope.driveStartTime,
             taskPlanDateEnd:$scope.driveEndTime,
-            fineStatus:$scope.ExceedOilStu,
+            statStatus:$scope.ExceedOilStu,
             start:$scope.start.toString(),
             size:$scope.size
         })).then(function (data) {

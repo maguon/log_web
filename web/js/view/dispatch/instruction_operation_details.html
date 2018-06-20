@@ -192,12 +192,12 @@
                                 <div class="col s2 contactsBox fz17" ng-hide="mission.load_task_status == 3 || mission.load_task_status == 7">
                                     <i ng-click="deleteLoadCar(load.car_id,load.id,mission.id)" style="cursor:pointer;" class="mdi mdi-close-circle"></i>
                                 </div>
-                                <div class="col s1" ng-show="currentOperateInfo.task_status == 4 && load.car_load_status == 1 && load.exception_status == null">
+                                <div class="col s1" ng-show=" load.car_load_status == 1 && load.exception_status == null">
                                     <button ng-click="vehicleDelivery(load.id,mission.id)" style="width: 25px;height: 25px;line-height: 25px" class="btn btn-floating waves-light waves-effect cyan lighten-1" type="button">
                                         <i style="font-size: 1.1rem;line-height: 27px" class="mdi mdi-check"></i>
                                     </button>
                                 </div>
-                                <div class="col s1" ng-show="currentOperateInfo.task_status == 4 && load.car_load_status == 1 && load.exception_status == null">
+                                <div class="col s1" ng-show="load.car_load_status == 1 && load.exception_status == null">
                                     <button ng-click="AbnormalOccurrence(load.car_id,mission.id)" style="width: 25px;height: 25px;line-height: 25px;background-color: rgb(229,115,115);" class="btn btn-floating waves-light waves-effect lighten-1" type="button">
                                         <i style="font-size: 1.1rem;line-height: 27px" class="mdi mdi-exclamation"></i>
                                     </button>
@@ -213,7 +213,7 @@
                                     完成装车
                                 </button>
                             </div>
-                            <div class="col s2 right" ng-show="currentOperateInfo.task_status == 4 && mission.load_task_status == 3">
+                            <div class="col s2 right" ng-show="mission.load_task_status == 3">
                                 <button ng-click="completeSendCar(mission.id)" style="height: 30px;font-size: 0.9rem;line-height: 2rem;margin: 10px 0"
                                         class="btn waves-light waves-effect cyan lighten-1" type="button">
                                     完成配送

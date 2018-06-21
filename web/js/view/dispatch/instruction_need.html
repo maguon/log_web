@@ -101,27 +101,23 @@
                                             <div class="col s6">
                                                 需求人: <span>{{user}}</span>
                                             </div>
-                                            <div class="input-field col s6">
-                                                <select id="add_start_city" style="width: 100%;" ng-change="getAddressMod(add_start_city.id)" ng-model="add_start_city">
-                                                    <option value=""></option>
-                                                    <option ng-repeat="city in startCityList"  ng-value="city.id">{{city.city_name}}</option>
+                                            <div class="input-field col s6"  ng-class="{'has-error':add_need_instructForm.add_start_city.$invalid&&submitted}">
+                                                <select id="add_start_city"  style="width: 100%; " name="add_start_city" material-select watch ng-change="getAddressMod(add_start_city.id)" ng-model="add_start_city" ng-options="add_start_city.city_name for add_start_city in startCityList" required>
+                                                    <option value="">请选择</option>
                                                 </select>
-                                                <label class="active" for="add_start_city">起始城市</label>
                                             </div>
-                                            <div class="input-field col s6">
+                                            <div class="input-field col s6" ng-class="{'has-error':add_need_instructForm.add_dispatch_car_position.$invalid&&submitted}">
                                                 <select id="add_dispatch_car_position" name="add_dispatch_car_position" material-select watch ng-model="add_dispatch_car_position" ng-options="baseAddr.id as baseAddr.addr_name for baseAddr in baseAddrListMod" required>
                                                     <option value="">请选择</option>
                                                 </select>
                                                 <label for="add_dispatch_car_position">装车地点</label>
                                             </div>
-                                            <div class="input-field col s6">
-                                                <select id="add_end_city" style="width: 100%;" ng-change="getReceiveMod(add_end_city.id)" ng-model="add_end_city">
+                                            <div class="input-field col s6"  ng-class="{'has-error':add_need_instructForm.add_end_city.$invalid&&submitted}">
+                                                <select id="add_end_city" style="width: 100%; " name="add_end_city" material-select watch ng-change="getReceiveMod(add_end_city.id)" ng-model="add_end_city" ng-options="add_end_city.city_name for add_end_city in startCityList" required>
                                                     <option value="">请选择</option>
-                                                    <option ng-repeat="city in startCityList"  ng-value="city.id">{{city.city_name}}</option>
                                                 </select>
-                                                <label class="active" for="add_end_city">目的城市</label>
                                             </div>
-                                            <div class="input-field col s6">
+                                            <div class="input-field col s6" ng-class="{'has-error':add_need_instructForm.add_dealer.$invalid&&submitted}">
                                                 <select id="add_dealer" name="add_dealer" material-select watch  ng-model="add_dealer"  ng-options="receive.id as receive.short_name for receive in receiveListMod" required>
                                                     <option value="">请选择</option>
                                                 </select>

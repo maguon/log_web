@@ -10,16 +10,25 @@ app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_b
             $scope.startCityList = data.result;
             $('#start_city_list').select2({
                 placeholder: '起始城市',
-                containerCssClass: 'select2_dropdown'
-            });
-            $('#start_city_list_mod').select2({
-                placeholder: '起始城市',
-                containerCssClass: 'select2_dropdown'
-            });
+                containerCssClass: 'select2_dropdown',
+                allowClear: true
+            })
             $('#end_city_list').select2({
                 placeholder: '目的城市',
-                containerCssClass: 'select2_dropdown'
+                containerCssClass: 'select2_dropdown',
+                allowClear: true
+            })
+            $('#add_start_city').select2({
+                placeholder: '起始城市',
+                containerCssClass: 'select2_dropdown',
+                allowClear: true
             });
+            $('#add_end_city').select2({
+                placeholder: '目的城市',
+                containerCssClass: 'select2_dropdown',
+                allowClear: true
+            })
+
         }
     });
 
@@ -80,12 +89,17 @@ app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_b
         $scope.time = moment(data).format('YYYY-MM-DD');
         $scope.user = _basic.getSession(_basic.USER_NAME);
         $scope.submitted = false;
-        $scope.add_start_city = {};
+        $scope.add_start_city = '';
         $scope.add_dispatch_car_position = '';
-        $scope.add_end_city = {};
+        $scope.add_end_city = '';
         $scope.add_dealer = '';
         $scope.add_car_num = '';
         $scope.add_instruct_Time = '';
+
+
+
+
+
     };
     $scope.search_all = function () {
         var obj = {

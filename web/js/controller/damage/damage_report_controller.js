@@ -15,9 +15,9 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
     var damageId;
 
 
-    // 根据输入的vin码进行模糊查询和精确查询
+    // 根据输入的VIN进行模糊查询和精确查询
     $scope.searchVinInfo = function () {
-        // 模糊查询所有匹配的6位vin码
+        // 模糊查询所有匹配的6位VIN
         if ($scope.vinCode != undefined && $scope.vinCode != "") {
             if ($scope.vinCode.length >= 6) {
                 _basic.get($host.api_url + "/carList?vinCode=" + $scope.vinCode + "&start=0&size=4").then(function (data) {
@@ -48,7 +48,7 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
             }
         }
 
-        // 根据填充完毕的完整vin码信息进行精确查询
+        // 根据填充完毕的完整VIN信息进行精确查询
         if ($scope.vinCode.length == 17) {
             _basic.get($host.api_url + "/carList?vin=" + $scope.vinCode).then(function (data) {
                 if (data.success === true && data.result.length !== 0) {
@@ -58,7 +58,7 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
                 }
                 else {
                     $scope.vinCheck = false;
-                    swal("vin码不存在，请重新填写","","error")
+                    swal("VIN不存在，请重新填写","","error")
                 }
             });
         }
@@ -148,11 +148,11 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
                 });
             }
             else{
-                swal("vin码有误，请重新填写","","error")
+                swal("VIN有误，请重新填写","","error")
             }
         }
         else{
-            swal("请填写vin码","","error")
+            swal("请填写VIN","","error")
         }
     };
 

@@ -7,8 +7,8 @@
             <!--上部分：查询功能-->
             <div class="row col" style="width: 100%;position: relative">
                 <div class="input-field col s12">
-                    <input type="text" id="autocomplete-input"  placeholder="           模糊查询至少需要6位vin码"  ng-model="commodityVin" ng-change="shortSearch()"  style="margin: 0 0 20px 0"  class="autocomplete">
-                    <label for="autocomplete-input">VIN码</label>
+                    <input type="text" id="autocomplete-input"  placeholder="           模糊查询至少需要6位VIN"  ng-model="commodityVin" ng-change="shortSearch()"  style="margin: 0 0 20px 0"  class="autocomplete">
+                    <label for="autocomplete-input">VIN</label>
                 </div>
                 <button class=" btn btn-floating btn-small waves-effect cyan lighten-1" ng-if="carId!==undefined" ng-click="getCommodityCarData()"  style="position: absolute;top: 15px;right: 10px;">
                     <i class="mdi white-text mdi-plus fz30"></i>
@@ -24,7 +24,7 @@
                     <!-- header -->
                     <div class="col s12  cyan-text vc-center left-align" style="height:50px;border-bottom :1px solid #bdbdbd">
                         <div class="col s4">
-                            VIN码：{{commodityCarList.vin}}
+                            VIN：{{commodityCarList.vin}}
                         </div>
                         <div class="col s4 right-align offset-s4 grey-text">
                            导入时间：{{commodityCarList.created_on|date:'yyyy-MM-dd hh:mm'}}
@@ -237,7 +237,7 @@
                             <div class="row "  >
                                 <div class="input-field col s4">
                                     <input  id="vin" name="vin" autocomplete="off" ng-model="vin" type="text" ng-pattern="/^[a-zA-Z0-9]{17}$/"   required >
-                                    <label for="vin"><span style="color: red;margin-right: 5px">*</span>VIN码</label>
+                                    <label for="vin"><span style="color: red;margin-right: 5px">*</span>VIN</label>
                                 </div>
                                 <div class="input-field col s4">
                                     <select material-select watch id="car_brand" name="car_brand" ng-options="car_brand.make_name for car_brand in get_carMake"   ng-model="car_brand" >

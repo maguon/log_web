@@ -4,7 +4,7 @@
 app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$host",function ($scope,_basic,_config,$host){
     var admin=_basic.getSession(_basic.USER_ID);
     $scope.flag=true;
-    // 查询vin码
+    // 查询VIN
     $scope.demand_car=function () {
         $scope.start_address = [];
         $scope.car_details.route_start_id='';
@@ -39,16 +39,16 @@ app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$hos
         }
     };
     
-    // 打开修改vin码
+    // 打开修改VIN
     $scope.open_vin_amend=function () {
         $scope.flag=false;
     };
-    // 关闭修改vin码
+    // 关闭修改VIN
     $scope.close_vin_amend=function () {
         $scope.flag=true;
         $scope.vin=$scope.car_details.vin;
     };
-    // 修改vin码
+    // 修改VIN
     $scope.amend_vin=function (id) {
         $scope.flag=true;
         var obj={

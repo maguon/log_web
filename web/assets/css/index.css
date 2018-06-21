@@ -1068,7 +1068,7 @@ input[type=text]{
     margin: 0;
 }
 
-/*vin码异常时文字红色*/
+/*VIN异常时文字红色*/
 .abnormal{
     color: rgb(229, 58, 61);
 }

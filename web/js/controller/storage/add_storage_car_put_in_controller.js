@@ -58,7 +58,7 @@ app.controller("add_storage_car_put_in_controller", ["$scope", "$rootScope","$st
         $("#test1").addClass("active");
         $("#test1").show();
 
-        // vin码查询
+        // VIN查询
         var obj={
             vin:$scope.vin,
         };

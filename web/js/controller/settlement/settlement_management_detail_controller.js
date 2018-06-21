@@ -77,7 +77,7 @@ app.controller("settlement_management_detail_controller", ["$scope","$state","$s
                     if (data.success == true) {
                         if(data.result.length == 0){
                             $scope.carVin=""
-                            swal('该VIN码不存在！', "", "error")
+                            swal('该VIN不存在！', "", "error")
                         }
                         else{
                             $scope.vinMsg = data.result;
@@ -112,9 +112,15 @@ app.controller("settlement_management_detail_controller", ["$scope","$state","$s
     // 查询本委托方下得所有关联车辆
     function seachLinkCar(){
         $scope.carVin="";
+        $scope.car_details =[];
         _basic.get($host.api_url+"/settleHandoverCarRel?settleHandoverId="+settlementId).then(function (data) {
-            if(data.success=true&&data.result.length>0){
-                $scope.car_details=data.result;
+            if(data.success=true){
+                if(data.result.length==0){
+                    $scope.car_details =[];
+                }else{
+                    $scope.car_details=data.result;
+                }
+
             }
         })
     }

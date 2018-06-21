@@ -567,7 +567,7 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
             }
         };
 
-        // 查询vin码
+        // 查询VIN
         $scope.getCommodityCarData=function () {
             _basic.get($host.api_url + "/carList?carId="+$scope.carId).then(function (data) {
                 if (data.success == true) {

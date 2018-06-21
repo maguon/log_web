@@ -9,7 +9,7 @@ app.controller("car_query_details_controller", ["$scope", "$stateParams", "$host
     $scope.tabSwitchLeft = true;
     $scope.tabSwitchRight = false;
 
-    // 根据vin码获取相关车辆信息
+    // 根据VIN获取相关车辆信息
     $scope.getVinCodeInfo = function () {
         _basic.get($host.api_url + "/carList?" + "carId=" + carId).then(function (carData) {
             if (carData.success === true) {
@@ -22,7 +22,7 @@ app.controller("car_query_details_controller", ["$scope", "$stateParams", "$host
         });
     };
 
-    // 根据用户id和vin码获取相关操作记录
+    // 根据用户id和VIN获取相关操作记录
     $scope.getOperationRecord = function () {
         _basic.get($host.record_url + "/user/" + userId + "/car/" + carId + "/record").then(function (recordData) {
             if (recordData.success === true) {

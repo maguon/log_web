@@ -54,8 +54,8 @@
                 </div>
                 <div class="row" style="position: relative;margin-top: 40px">
                     <div class="input-field col s12">
-                        <input type="text" id="autocomplete-input"  placeholder="           模糊查询至少需要6位vin码"  ng-model="carVin" ng-change="shortSearch()"  style="margin: 0 0 20px 0"  class="autocomplete">
-                        <label for="autocomplete-input">VIN码</label>
+                        <input type="text" id="autocomplete-input"  placeholder="           模糊查询至少需要6位VIN"  ng-model="carVin" ng-change="shortSearch()"  style="margin: 0 0 20px 0"  class="autocomplete">
+                        <label for="autocomplete-input">VIN</label>
                     </div>
                     <button class=" btn btn-floating btn-small waves-effect cyan lighten-1" ng-if="carId!==undefined" ng-click="addLinkCar()"  style="position: absolute;top: 15px;right: 10px;">
                         <i class="mdi white-text mdi-plus fz30"></i>
@@ -69,7 +69,7 @@
                         <!-- header -->
                         <div class="col s12 lighten-1 cyan-text vc-center left-align" style="height:50px;border-bottom:1px solid #bdbdbd">
                             <div class="col s4 ">
-                                VIN码：{{settlementList.vin}}
+                                VIN：{{settlementList.vin}}
                             </div>
                             <div class="col s3 right-align grey-text offset-s4">
                                送达时间: {{settlementList.arrive_date| date:'yyyy-MM-dd HH:mm:ss' }}

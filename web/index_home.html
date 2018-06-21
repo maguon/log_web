@@ -92,7 +92,7 @@
                         <li><a href="#!" ui-sref="instruction_need"><i class="mdi mdi-chevron-right white-text "></i>调度需求</a></li>
                         <li><a href="#!" ui-sref="instruction_driver_mileage"><i class="mdi mdi-chevron-right white-text "></i>司机里程</a></li>
                         <li><a href="#!" ui-sref="instruction_car_refuel"><i class="mdi mdi-chevron-right white-text "></i>车辆加油管理</a></li>
-                        <li><a href="#!" ui-sref="dispatch_route_fee"><i class="white-text mdi mdi-chevron-right"></i>出车款管理</a></li>
+                        <li><a href="#!" ui-sref="dispatch_route_fee"><i class="white-text mdi mdi-chevron-right"></i>出车款信息</a></li>
                     </ul>
                 </div>
             </li>
@@ -187,9 +187,9 @@
                         <li><a href="#!" ui-sref="truck_compensate_loan"><i class="white-text mdi mdi-chevron-right"></i>货车理赔借款管理</a></li>
                         <li><a href="#!" ui-sref="car_payment_loan"><i class="white-text mdi mdi-chevron-right"></i>商品车赔款打款管理</a></li>
                         <li><a href="#!" ui-sref="commercial_vehicle_compensate_loan"><i class="white-text mdi mdi-chevron-right"></i>商品车理赔借款管理</a></li>
-                        <li><a href="#!" ui-sref="finance_route_fee"><i class="white-text mdi mdi-chevron-right"></i>出车款发放</a></li>
+                        <li><a href="#!" ui-sref="finance_route_fee"><i class="white-text mdi mdi-chevron-right"></i>出车款管理</a></li>
                         <li><a href="#!" ui-sref="driver_salary"><i class="white-text mdi mdi-chevron-right"></i>司机工资</a></li>
-                        <li><a href="#!" ui-sref="dispatch_route_requ"><i class="white-text mdi mdi-chevron-right"></i>出车款申请</a></li>
+                        <li><a href="#!" ui-sref="dispatch_route_requ"><i class="white-text mdi mdi-chevron-right"></i>出车款发放</a></li>
                     </ul>
                 </div>
             </li>
@@ -197,7 +197,16 @@
     </li>
 
     <li class="bold side_navigator">
-        <a href="#!" ui-sref="settlement_management" class=" waves-effect waves-light first-N" ><i class="white-text mdi mdi-comment-text"></i>结算管理</a>
+        <ul class="collapsible collapsible-accordion">
+            <li class="bold">
+                <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-home-variant "></i>结算管理</a>
+                <div class="collapsible-body slider_nav_box blue-grey darken-3" style="padding: 0;">
+                    <ul>
+                        <li><a href="#!" ui-sref="settlement_management"><i class="mdi mdi-chevron-right white-text "></i>交接单管理</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
     </li>
 
     <li class="bold side_navigator">
@@ -225,7 +234,7 @@
                         <li><a href="#!" ui-sref="setting_users"><i class="mdi mdi-chevron-right white-text"></i>用户管理</a></li>
                         <li><a href="#!" ui-sref="setting_storage"><i class="mdi mdi-chevron-right white-text "></i>仓库设置</a></li>
                         <li><a href="#!" ui-sref="setting_car_brand"><i class="mdi mdi-chevron-right white-text "></i>车辆设置</a></li>
-                        <li><a href="#!" ui-sref="setting_amend_vin" ><i class="white-text mdi mdi-chevron-right"></i>修改VIN码</a></li>
+                        <li><a href="#!" ui-sref="setting_amend_vin" ><i class="white-text mdi mdi-chevron-right"></i>修改VIN</a></li>
                         <li><a href="#!" ui-sref="truck_insurance"  ><i class="white-text mdi mdi-chevron-right"></i>保险公司</a></li>
                         <li><a href="#!" ui-sref="setting_city"><i class="white-text mdi mdi-chevron-right"></i>城市设置</a></li>
                         <li><a href="#!" ui-sref="setting_line"><i class="white-text mdi mdi-chevron-right"></i>路线设置</a></li>

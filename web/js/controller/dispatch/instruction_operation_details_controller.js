@@ -155,7 +155,7 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
         }
     };
 
-    // 根据输入的vin码进行模糊查询
+    // 根据输入的VIN进行模糊查询
     $scope.searchMatchVin = function () {
         if ($scope.vinNum != undefined) {
             if ($scope.vinNum.length >= 6) {
@@ -185,7 +185,7 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
         }
     };
 
-    // 查询输入的Vin码是否存在
+    // 查询输入的VIN是否存在
     $scope.checkVinNum = function (missionId) {
         // console.log("missionId",missionId);
         if($scope.vinNum != ""){
@@ -193,7 +193,7 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
                 if (checkData.success === true) {
                     // console.log("checkData",checkData);
                     if(checkData.result.length === 0){
-                        swal("查无此vin码信息或商品车不是待装车状态，不能进行装车", "", "error");
+                        swal("查无此VIN信息或商品车不是待装车状态，不能进行装车", "", "error");
                     }
                     else{
                         $scope.addLoadCar(checkData.result[0].id,missionId)
@@ -205,7 +205,7 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
             });
         }
         else{
-            swal("请输入vin码", "", "warning");
+            swal("请输入VIN", "", "warning");
         }
     };
 

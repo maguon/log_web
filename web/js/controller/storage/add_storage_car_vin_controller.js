@@ -42,7 +42,7 @@ app.controller("add_storage_car_vin_controller", ["$scope", "$rootScope","$state
         }
     };
 
-    // 查询vin码
+    // 查询VIN
     $scope.demand_car=function ($iValid) {
         $scope.submitted=true;
         if($iValid&&$scope.demand_vin.length==17){

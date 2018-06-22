@@ -204,7 +204,7 @@
                         <td>{{car.grant_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                         <td>{{car.refund_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                         <td>{{car.appl_user_name}}</td>
-                        <td style="color: #e57373" ng-if="car.task_loan_status == 1">未发放</td>
+                        <td style="color: #e57373" ng-if="car.task_loan_status == 1">取消</td>
                         <td style="color: #26c6da" ng-if="car.task_loan_status == 2">已发放</td>
                         <td ng-if="car.task_loan_status == 3">已报销</td>
                         <td class="operation fz12">

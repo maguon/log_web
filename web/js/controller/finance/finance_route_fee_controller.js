@@ -30,16 +30,9 @@ app.controller("finance_route_fee_controller", ["$scope", "$host", "_basic", fun
     // 查询出车款列表
     $scope.getCarFinanceList = function () {
         _basic.get($host.api_url + "/dpRouteTaskLoan?" + _basic.objToUrl({
-            dpRouteTaskLoanId: $scope.dispatchNum,
             driveId: $scope.driverId,
-            truckNum: $scope.truckNum,
-            applyUserName: $scope.reportPerson,
-            applyDateStart: $scope.reportStartTime,
-            applyDateEnd: $scope.reportEndTime,
             grantDateStart: $scope.grantStartTime,
             grantDateEnd: $scope.grantEndTime,
-            refundDateStart: $scope.reimbursementStartTime,
-            refundDateEnd: $scope.reimbursementEndTime,
             taskLoanStatus: $scope.grantStatus,
             start:$scope.start.toString(),
             size:$scope.size
@@ -82,16 +75,9 @@ app.controller("finance_route_fee_controller", ["$scope", "$host", "_basic", fun
     // 下载csv
     $scope.downloadCsvFile = function () {
         var obj = {
-            dpRouteTaskLoanId: $scope.dispatchNum,
             driveId: $scope.driverId,
-            truckNum: $scope.truckNum,
-            applyUserName: $scope.reportPerson,
-            applyDateStart: $scope.reportStartTime,
-            applyDateEnd: $scope.reportEndTime,
             grantDateStart: $scope.grantStartTime,
             grantDateEnd: $scope.grantEndTime,
-            refundDateStart: $scope.reimbursementStartTime,
-            refundDateEnd: $scope.reimbursementEndTime,
             taskLoanStatus: $scope.grantStatus
         };
         window.open($host.api_url + "/dpRouteTaskLoan.csv?" + _basic.objToUrl(obj));

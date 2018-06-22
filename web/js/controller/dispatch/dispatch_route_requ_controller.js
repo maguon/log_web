@@ -80,7 +80,7 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic","_
         getCarInstructionList();
     };
 
-
+/*
     // 打开申请出车款模态框
     $scope.addApplyRouteFeeMod = function () {
         $scope.flag = false;
@@ -97,7 +97,7 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic","_
         $scope.remark = "";
         $scope.planMoney = 0;
         $("#addCarFinanceModel").modal("open");
-    };
+    };*/
 
     //打开申请出车款模态框(列表)
     $scope.addRouteFee = function (dispatchIdSmall,driveIdSmall) {
@@ -113,20 +113,23 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic","_
         $scope.driveIdSmall= driveIdSmall;
         _basic.get($host.api_url + "/drive?driveId=" + driveIdSmall).then(function (data) {
             if (data.success === true) {
-                $scope.driveSmallList = data.result;
-
-               /* $scope.driverIdModel  =$scope.driveSmallList[0].id;*/
+                $scope.driveSmallList = data.result[0];
             }
         });
-       /* $scope.driverIdModel  = driveIdSmall;*/
-        _basic.get($host.api_url + "/dpRouteTaskNotLoan?driveId=" + driveIdSmall + "&taskStatusArr=8").then(function (data) {
+        _basic.get($host.api_url + "/dpRouteTaskNotLoan?dpRouteTaskId=" + dispatchIdSmall + "&taskStatusArr=8").then(function (data) {
             if (data.success === true) {
-                $scope.missionList = data.result;
-                $scope.dispatchNumMod  = dispatchIdSmall;
-                $scope.driverIdModel =  $scope.driveIdSmall;
-                $scope.matchMissionList = [];
-                $scope.roadTollCost = 0;
-                $scope.createMatchMissionCard();
+                $scope.missionList = data.result[0];
+                $scope.roadCost = data.result[0].protect_fee;
+                $scope.roadTollCost = data.result[0].distance*0.8;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+        _basic.get($host.api_url + "/dpRouteLoadTaskCleanRel?dpRouteTaskId=" +dispatchIdSmall ).then(function (data) {
+            if (data.success === true) {
+                $scope.responseData = data.result;
+
             }
             else {
                 swal(data.msg, "", "error");
@@ -137,7 +140,8 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic","_
 
     };
 
-    // 根据选择的司机id查询关联任务信息
+
+    /*// 根据选择的司机id查询关联任务信息
     $scope.searchMatchMission = function () {
         _basic.get($host.api_url + "/dpRouteTaskNotLoan?driveId=" + $scope.driverIdMod + "&taskStatusArr=8").then(function (data) {
             if (data.success === true) {
@@ -150,9 +154,9 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic","_
                 swal(data.msg, "", "error");
             }
         });
-    };
+    };*/
 
-    // 选中关联任务后创建信息卡片
+  /*  // 选中关联任务后创建信息卡片
     $scope.createMatchMissionCard = function () {
         if ($scope.dispatchNumMod !== "") {
             // 检测数组中是否有和当前选中的相同的id
@@ -283,7 +287,7 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic","_
         }
 
     };
-
+*/
 
 
 

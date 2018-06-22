@@ -118,6 +118,18 @@ app.controller("dispatch_route_fee_controller", ["$scope", "$host", "_basic", fu
 
     // 打开申请出车款模态框
     $scope.openApplyRouteFeeMod = function () {
+        _basic.get($host.api_url + "/drive").then(function (data) {
+            if (data.success === true) {
+                $scope.driveList = data.result;
+                $('#driver_name_mod').select2({
+                    placeholder: '请选择司机',
+                    containerCssClass : 'select2_dropdown'
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
         $scope.matchMissionList = [];
         $scope.driverIdMod = "";
         $scope.dispatchNumMod = "";

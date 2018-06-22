@@ -34,7 +34,6 @@ app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_b
 
     // 获取装车地点
     $scope.getAddres = function (id) {
-        // console.log($scope.start_city);
         if ($scope.start_city == 0 || $scope.start_city == "" || $scope.start_city == null) {
             $scope.start_city = null;
             $scope.baseAddrList = [];
@@ -83,22 +82,34 @@ app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_b
     };
 
     $scope.add_need = function () {
-        $('.modal').modal();
-        $('#newNeed').modal('open');
+        _basic.get($host.api_url + "/city").then(function (data) {
+            if (data.success == true) {
+                $scope.startCityList = data.result;
+                $('#add_start_city').select2({
+                    placeholder: '起始城市',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
+                $('#add_end_city').select2({
+                    placeholder: '目的城市',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                })
+
+            }
+        });
         var data = new Date();
         $scope.time = moment(data).format('YYYY-MM-DD');
         $scope.user = _basic.getSession(_basic.USER_NAME);
         $scope.submitted = false;
-        $scope.add_start_city = '';
+        $scope.add_start_city = {};
         $scope.add_dispatch_car_position = '';
-        $scope.add_end_city = '';
+        $scope.add_end_city = {};
         $scope.add_dealer = '';
         $scope.add_car_num = '';
         $scope.add_instruct_Time = '';
-
-
-
-
+        $('.modal').modal();
+        $('#newNeed').modal('open');
 
     };
     $scope.search_all = function () {

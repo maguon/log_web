@@ -115,6 +115,9 @@ app.controller("add_setting_dealer_controller", ["$scope", "_basic", "_config", 
                         $scope.remark = "";
                         $scope.submitted = false;
                     }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
                 });
             }
         }

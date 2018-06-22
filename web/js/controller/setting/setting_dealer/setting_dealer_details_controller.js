@@ -122,6 +122,9 @@ app.controller("setting_dealer_details_controller", ["$scope", "_basic", "_confi
                     $scope.submitted = false;
                     $scope.seeDetails();
                 }
+                else {
+                    swal(data.msg, "", "error");
+                }
             });
         }
     };

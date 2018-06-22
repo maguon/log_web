@@ -113,6 +113,9 @@ app.controller("setting_shipments_details_controller", ["$scope", "_basic", "_co
                     swal("修改成功", "", "success");
                     $scope.submitted = false;
                 }
+                else {
+                    swal(data.msg, "", "error");
+                }
             });
         }
     };

@@ -488,7 +488,7 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
             driveName: $scope.driverInfo.drive_name,
             gender: $scope.driverInfo.gender,
             idNumber: $scope.driverInfo.id_number,
-            tel: $scope.driverInfo.tel,
+            tel: $scope.driverInfo.mobile,
             companyId: $scope.driverInfo.company_id,
             licenseType: $scope.driverInfo.license_type,
             // entryDate: $scope.driverInfo.confirm_date,

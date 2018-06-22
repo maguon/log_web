@@ -160,6 +160,18 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/truck/add_damage_insurance_details.html",
             controller:'add_damage_insurance_details_controller'
         })
+        //司机违章扣款
+        .state("peccancy_withhold",{
+            url:"/peccancy_withhold",
+            templateUrl: "js/view/truck/peccancy_withhold.html",
+            controller:'peccancy_withhold_controller'
+        })
+        //司机超油扣款
+        .state("driver_exceedOil",{
+            url:"/driver_exceedOil",
+            templateUrl: "js/view/truck/driver_exceedOil.html",
+            controller:'driver_exceedOil_controller'
+        })
         // 保单详情
         .state("truck_guarantee_details",{
             url:"/truck_guarantee_details/id/{id}/type/{type}?from",

@@ -167,58 +167,52 @@
             </div>
             <div class="row col s12" style="border-top: 1px solid darkgray"></div>
             <div class="row col s12">
-                <div class=" col s12">
-                    <div class="col s4">
-                        <p><span style="color: #26c6da">质损类型：</span>普通/严重</p>
+                <div class="row col s12" style="color: #26c6da;font-size: 1.2rem;font-weight: bold">
+                    <div class="col s6">
+                        <p>质损类型：{{damageInfoBefore.damage_type | damageType}}</p>
                     </div>
-                    <div class="col s4">
-                        <p><span style="color: #26c6da">责任人：</span>张建国</p>
-                    </div>
-                    <div class="col s4">
-                        <p><span style="color: #26c6da">报销人：</span>上海浦兴</p>
+                    <div class="col s6">
+                        <p>质损环节：{{damageInfoBefore.damage_link_type | damageLinkType}}</p>
                     </div>
                 </div>
-                <div class=" col s12">
-                    <div class="col s4">
-                        <p><span style="color: #26c6da">维修站：</span>上海浦兴</p>
+
+                <div class="row col s12" style="color: darkgray;font-size: 1.1rem;font-weight: bold">
+                    <div class="col s3">
+                        <p>降价费：<span style="color: #e18281">{{damageInfoBefore.reduction_cost.toFixed(2)}}</span> 元</p>
                     </div>
-                    <div class="col s4">
-                        <p><span style="color: #26c6da">维修费：</span>3400元</p>
+                    <div class="col s3">
+                        <p>罚款：<span style="color: #e18281">{{damageInfoBefore.penalty_cost.toFixed(2)}}</span> 元</p>
                     </div>
-                    <div class="col s4">
-                        <p><span style="color: #26c6da">运费：</span>100元</p>
+                    <div class="col s3">
+                        <p>盈亏：<span style="color: #e18281">{{damageInfoBefore.profit.toFixed(2)}}</span> 元</p>
                     </div>
-                </div>
-                <div class=" col s12">
-                    <div class="col s4">
-                        <p><span style="color: #26c6da">降价费：</span>10999元</p>
-                    </div>
-                    <div class="col s4">
-                        <p><span style="color: #26c6da">罚款：</span>200元</p>
-                    </div>
-                    <div class="col s4">
-                        <p><span style="color: #26c6da">盈亏：</span>-1900元</p>
+                    <div class="col s3">
+                        <p>运费：<span style="color: #e18281">{{damageInfoBefore.transport_cost.toFixed(2)}}</span> 元</p>
                     </div>
                 </div>
-                <div class="col s12">
-                    <div class="col s4">
-                        <p><span style="color: #26c6da">责任人承担费用：</span><span style="font-size: 1.4rem;color: rgb(230,123,123)">10999</span>元</p>
+                <div class="row col s12" style="color: darkgray;font-size: 1.1rem;font-weight: bold">
+                    <div class="col s6">
+                        <p>维修站：{{damageInfoBefore.repair_station_name}}</p>
                     </div>
-                    <div class="col s4">
-                        <p><span style="color: #26c6da">公司承担费用：</span><span style="font-size: 1.4rem;color: rgb(230,123,123)">4390</span>元</p>
+                    <div class="col s3">
+                        <p>维修费：<span style="color: #e18281">{{damageInfoBefore.repair_cost.toFixed(2)}}</span> 元</p>
                     </div>
-                    <div class="col s4">
-                        <p><span style="color: #26c6da">保险赔付：</span><span style="font-size: 1.4rem;color: rgb(230,123,123)">2000</span>元</p>
-                    </div>
-                </div>
-                <div class="col s12">
-                    <div class="col s12">
-                        <p><span style="color: #26c6da">备注：</span></p>
-                    </div>
-                    <div class="col s12">
-                        <p>外部维修，公司免</p>
+                    <div class="col s3">
+                        <p>报销人：{{damageInfoBefore.refund_user_name}}</p>
                     </div>
                 </div>
+                <div class="row col s12" style="color: #26c6da;font-size: 1.2rem;font-weight: bold">
+                    <div class="col s4">
+                        <p>公司承担费用：<span style="color: #e18281">{{damageInfoBefore.company_cost.toFixed(2)}}</span> 元</p>
+                    </div>
+                    <div class="col s4">
+                        <p>责任人：{{damageInfoBefore.under_user_name}}</p>
+                    </div>
+                    <div class="col s4">
+                        <p>责任人承担费用：<span style="color: #e18281">{{damageInfoBefore.under_cost.toFixed(2)}}</span> 元</p>
+                    </div>
+                </div>
+
             </div>
 
         </div>

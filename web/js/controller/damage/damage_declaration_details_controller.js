@@ -179,6 +179,27 @@ app.controller("damage_declaration_details_controller", ["$scope", "$stateParams
         });
     };
 
+    // 获取当前damageId下之前保存的信息
+   function  getBeforeDamageInfo(){
+        _basic.get($host.api_url + "/damageCheck?damageId=" + damageId).then(function (data) {
+            if (data.success === true) {
+                if(data.result.length !== 0){
+                    if(data.result[0].damage_type === 0 || data.result[0].damage_type == null){
+                        data.result[0].damage_type = ""
+                    }
+                    if(data.result[0].damage_link_type === 0 || data.result[0].damage_link_type == null){
+                        data.result[0].damage_link_type = ""
+                    }
+                }
+                $scope.damageInfoBefore = data.result[0];
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+
     // tab切换
     $scope.showDamageDetails = function () {
         $scope.photoClick = false;
@@ -194,6 +215,7 @@ app.controller("damage_declaration_details_controller", ["$scope", "$stateParams
     $scope.queryData = function () {
         $scope.getCurrentDamageInfo();
         $scope.getAllDriver();
+        getBeforeDamageInfo();
     };
     $scope.queryData();
 }]);

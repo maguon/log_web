@@ -87,7 +87,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
         .state("dispatch_route_requ",{
             url:"/dispatch_route_requ",
-            templateUrl: "js/view/dispatch/dispatch_route_requ.html",
+            templateUrl: "js/view/finance/dispatch_route_requ.html",
             controller:'dispatch_route_requ_controller'
         })
         .state("dispatch_order",{
@@ -639,7 +639,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'finance_route_fee_controller'
         })
         .state("finance_route_fee_details",{
-            url:"/finance_route_fee_details/id/{id}",
+            url:"/finance_route_fee_details/id/{id}/dpId/{dpId}",
             templateUrl: "js/view/finance/finance_route_fee_details.html",
             controller:'finance_route_fee_details_controller'
         })

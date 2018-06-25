@@ -110,17 +110,30 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic","_
         $scope.taxiCost = 0;
         $scope.remark = "";
         $scope.planMoney = 0;
+        $scope.bigPrice = 0;
         $scope.driveIdSmall= driveIdSmall;
+
+        //司机 车牌号 挂车货位
         _basic.get($host.api_url + "/drive?driveId=" + driveIdSmall).then(function (data) {
             if (data.success === true) {
                 $scope.driveSmallList = data.result[0];
             }
         });
+
+        //状态 调度编号 路线 计划装车数 计划执行时间
         _basic.get($host.api_url + "/dpRouteTaskNotLoan?dpRouteTaskId=" + dispatchIdSmall + "&taskStatusArr=8").then(function (data) {
             if (data.success === true) {
-                $scope.missionList = data.result[0];
-                $scope.roadCost = data.result[0].protect_fee;
-                $scope.roadTollCost = data.result[0].distance*0.8;
+                if(data.result.length==0){
+                    $scope.missionList = {};
+                }else {
+                    $scope.missionList = data.result[0];
+                    $scope.roadTollCost = data.result[0].distance*0.8;
+                    if(data.result[0].protect_fee ==null||data.result[0].protect_fee ==0){
+                        $scope.roadCost = 0;
+                    }else{
+                        $scope.roadCost = data.result[0].protect_fee;
+                    }
+                }
             }
             else {
                 swal(data.msg, "", "error");
@@ -129,6 +142,10 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic","_
         _basic.get($host.api_url + "/dpRouteLoadTaskCleanRel?dpRouteTaskId=" +dispatchIdSmall ).then(function (data) {
             if (data.success === true) {
                 $scope.responseData = data.result;
+                for(i=0;i<$scope.responseData.length;i++){
+                    $scope.totalPrice  =$scope.responseData[i].single_price*$scope.responseData[i].car_count;
+                    $scope.bigPrice  +=$scope.responseData[i].single_price*$scope.responseData[i].car_count;
+                }
 
             }
             else {

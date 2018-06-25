@@ -72,20 +72,20 @@
                     </div>
                     <div class="col s12 grey-text" style="border-bottom: 1px dotted #ccc;border-left: 1px dotted #ccc;border-right: 1px dotted #ccc;">
                             <div ng-repeat="response in responseData" class="grey-text text-darken-1 col s12" style="height:50px;width:100%;border-bottom: 1px dotted #ccc;">
-                                <div class="col s3" style="margin-top: 13px">{{111111}}</div>
+                                <div class="col s3" style="margin-top: 13px">{{response.short_name}}</div>
                                 <div class="col s2" style="margin-top: 13px"><span class="red-text">{{response.single_price}}</span>元/辆</div>
                                 <div class="col s1" style="margin-top: 13px">{{response.car_count}}辆</div>
                                 <div class="col s2" style="margin-top: 13px">洗车费</div>
-                                <input class="col s1" style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="" ng-model="">
+                                <input class="col s2" style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="totalPrice" ng-model="totalPrice">
                                 <div class="col s1" style="margin-top: 13px">元</div>
-                                <div class="col s2" style="margin-top: 7px">
+                                <div class="col s1" style="margin-top: 7px">
                                     <button class="btn btn-floating waves-light waves-effect cyan lighten-1" ng-click="putWashCost(response.id)">
                                         <i  class="mdi mdi-check"></i>
                                     </button>
                                 </div>
                             </div>
-                            <div class="grey-text text-darken-1 col s12" ng-if="responseData.length == 0">
-                              <div class="center-align"><span style="letter-spacing: 2px">暂无数据</span></div>
+                            <div class="grey-text col s12" style="height:50px" ng-if="responseData.length == 0">
+                              <div class="center-align" style="margin-top: 15px"><span style="letter-spacing: 2px;">暂无洗车费</span></div>
                             </div>
 
                     </div>
@@ -100,8 +100,8 @@
                 <!--总额计算-->
                 <div class="col s12" style="color: darkgray;font-size: 1.1rem;font-weight: bold;margin-top: 20px">
                     <div  class="col s4 left-align">出车款：<span id="Money" style="color: #e57474">{{roadTollCost + fuelCost + roadCost + fineCost + parkingCost + taxiCost}}</span> 元</div>
-                    <div  class="col s4 center-align">洗车费：<span id="Wash" style="color: #e57474">{{}}</span> 元</div>
-                    <div  class="col s4 right-align">总额：<span id="planMoney" style="color: #e57474">{{roadTollCost + fuelCost + roadCost + fineCost + parkingCost + taxiCost}}</span> 元</div>
+                    <div  class="col s4 center-align">洗车费：<span id="Wash" style="color: #e57474">{{bigPrice}}</span> 元</div>
+                    <div  class="col s4 right-align">总额：<span id="planMoney" style="color: #e57474">{{roadTollCost + fuelCost + roadCost + fineCost + parkingCost + taxiCost + bigPrice}}</span> 元</div>
                 </div>
 
                 <!--按钮-->

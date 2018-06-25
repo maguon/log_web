@@ -277,6 +277,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 routeStartId: routeStartId,
                 routeEndId: $scope.lineEndCityInfo.end_id,
                 distance: $scope.lineEndCityInfo.distance,
+                protectFee: $scope.lineEndCityInfo.protect_fee,
                 taskPlanDate: $scope.lineStartDate
             }).then(function (data) {
                 if (data.success === true) {

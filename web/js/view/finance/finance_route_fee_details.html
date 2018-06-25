@@ -8,11 +8,215 @@
     </div>
     <div class="divider" style="background: #00bcd4;height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
 
-    <!--已发放-->
+    <!--出车款发放编号  状态-->
+    <div class="row col s12 cyan-text bold" style="height: 50px; width:80%;margin:0 auto">
+        <div class="col s6 left-align">出车款发放编号:{{routeFeeInfo.id}}</div>
+        <div class="col s6 right-align" ng-if="routeFeeInfo.task_loan_status==1">已发放</div>
+        <div class="col s6 right-align" ng-if="routeFeeInfo.task_loan_status==2">已报销</div>
+    </div>
+
+    <div class="row z-depth-2" style="width:80%;margin:0 auto; padding: 0;margin-bottom: 20px">
+        <!--基本信息-->
+        <div class="col s12 fz14 valign-wrapper" style="background-color: #dcdfe0;color: #26c6da;font-size: 1.2rem;font-weight: bold;border-bottom: 1px solid #ccc">
+            <div class="row col s12">
+                <div class="col s3 input-field cyan-text left-align">
+                    <span>司机：</span>{{routeFeeInfo.drive_name}}
+                </div>
+                <div class="col s3 input-field grey-text center-align">
+                    <span>车牌号：</span>{{routeFeeInfo.truck_num}}
+                </div>
+                <div class="col s3 input-field grey-text center-align">
+                    <span>挂车货位：</span>{{routeFeeInfo.number}}
+                </div>
+                <div class="col s3 input-field cyan-text right-align">{{routeFeeInfo.task_status | taskStatus}}</div>
+            </div>
+        </div>
+        <div class="col s12 fz14 valign-wrapper" style="background-color: #dcdfe0;color: #26c6da;font-size: 1.2rem;font-weight: bold">
+            <div class="row col s12 grey-text">
+                <div class="col s3 input-field cyan-text left-align">
+                    <span>调度编号：</span>{{routeFeeInfo.id}}
+                </div>
+                <div class="col s3 input-field center-align">
+                    <span class="cyan-text" style="margin-right: 10px">{{routeFeeInfo.city_route_start}}--{{routeFeeInfo.city_route_end}}</span>{{routeFeeInfo.distance}}公里
+                </div>
+                <div class="col s3 input-field center-align">
+                    <span>计划装车数量：</span>{{routeFeeInfo.plan_count}}
+                </div>
+                <div class="col s3 input-field right-align">
+                    <span>计划执行时间：</span>{{routeFeeInfo.task_plan_date | date:'yyyy-MM-dd'}}
+                </div>
+            </div>
+        </div>
 
 
+        <!--已发放-->
+        <div  ng-if="routeFeeInfo.task_loan_status==1">
+            <!--出车款信息-->
+            <div class="col s12" style="margin-top: 14px;width:98%;margin-left: 1%">
+                <div class="col s4 input-field">
+                    <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="road_toll_cost" name="road_toll_cost" ng-model="routeFeeInfo.grant_passing_cost">
+                    <label class="{{roadTollCost != null ? 'active' : 'inactive'}}" for="road_toll_cost">过路费（元）</label>
+                </div>
+                <div class="col s4 input-field">
+                    <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="fuel_cost" name="fuel_cost" ng-model="routeFeeInfo.">
+                    <label class="{{fuelCost != null ? 'active' : 'inactive'}}" for="fuel_cost">燃料费（元）</label>
+                </div>
+                <div class="col s4 input-field">
+                    <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="road_cost" name="road_cost" ng-model="routeFeeInfo.">
+                    <label class="{{roadCost != null ? 'active' : 'inactive'}}" for="road_cost">保道费（元）</label>
+                </div>
+                <div class="col s4 input-field">
+                    <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="fine_cost" name="fine_cost" ng-model="routeFeeInfo.">
+                    <label class="{{fineCost != null ? 'active' : 'inactive'}}" for="fine_cost">罚款费（元）</label>
+                </div>
+                <div class="col s4 input-field">
+                    <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="parking_cost" name="parking_cost" ng-model="routeFeeInfo.">
+                    <label class="{{parkingCost != null ? 'active' : 'inactive'}}" for="parking_cost">停车费（元）</label>
+                </div>
+                <div class="col s4 input-field">
+                    <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="taxi_cost" name="taxi_cost" ng-model="routeFeeInfo.">
+                    <label class="{{taxiCost != null ? 'active' : 'inactive'}}" for="taxi_cost">打车费（元）</label>
+                </div>
+            </div>
 
-    <!--已报销-->
+            <!--洗车费-->
+            <div class="row col s12"  style="width: 98%;margin-left:1%;">
+                <div class="col s12 valign-wrapper" style="height: 55px;margin-bottom: 20px;background-color: #dcdfe0;font-weight: bold;font-size: 1.2rem">
+                    <div class="col s4  cyan-text left-align"><p>洗车费</p> </div>
+                    <div class="col s8  red-text right-align"><p>洗车费修改后，请点击对号进行保存</p></div>
+                </div>
+                <div class="col s12 grey-text" style="border-bottom: 1px dotted #ccc;border-left: 1px dotted #ccc;border-right: 1px dotted #ccc;">
+                    <div ng-repeat="response in responseData" class="grey-text text-darken-1 col s12" style="height:50px;width:100%;">
+                        <div class="col s3" style="margin-top: 13px">{{response.short_name}}</div>
+                        <div class="col s2" style="margin-top: 13px"><span class="red-text">{{response.single_price}}</span>元/辆</div>
+                        <div class="col s1" style="margin-top: 13px">{{response.car_count}}辆</div>
+                        <div class="col s2" style="margin-top: 13px">洗车费</div>
+                        <input class="col s2" style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="totalPrice" ng-model="totalPrice">
+                        <div class="col s1" style="margin-top: 13px">元</div>
+                        <div class="col s1" style="margin-top: 7px">
+                            <button class="btn btn-floating waves-light waves-effect cyan lighten-1" ng-click="putWashCost(response.id)">
+                                <i  class="mdi mdi-check"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="grey-text col s12" style="height:50px" ng-if="responseData.length == 0">
+                        <div class="center-align" style="margin-top: 15px"><span style="letter-spacing: 2px;">暂无洗车费</span></div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!--备注-->
+            <div class="col s12 input-field" style="width: 98%;margin-left:1%;">
+                <input type="text" id="putRemark" name="remark" ng-model="routeFeeInfo.">
+                <label for="remark">备注：</label>
+            </div>
+
+            <!--总额计算-->
+            <div class="col s12" style="height:50px;width: 98%;margin-left:1%;color: darkgray;font-size: 1.1rem;font-weight: bold;margin-top: 20px;">
+                <div  class="col s4 left-align">出车款：<span id="Money" style="color: #e57474">{{roadTollCost + fuelCost + roadCost + fineCost + parkingCost + taxiCost}}</span> 元</div>
+                <div  class="col s4 center-align">洗车费：<span id="Wash" style="color: #e57474">{{bigPrice}}</span> 元</div>
+                <div  class="col s4 right-align">总额：<span id="planMoney" style="color: #e57474">{{roadTollCost + fuelCost + roadCost + fineCost + parkingCost + taxiCost + bigPrice}}</span> 元</div>
+            </div>
+
+            <!--发放人 发放时间-->
+            <div class="row col s12 grey-text bold" style="height: 50px;width: 96%;margin-left:2%;padding-top: 30px;margin-bottom:30px;border-top:2px solid #ccc ">
+                <div class="col s6 left-align">发放人:{{routeFeeInfo.id}}</div>
+                <div class="col s6 right-align">发放时间:{{routeFeeInfo.id}}</div>
+            </div>
+
+        </div>
+
+       <!-- &lt;!&ndash;已结算&ndash;&gt;
+        <div  ng-if="routeFeeInfo.task_loan_status!==1">
+            &lt;!&ndash;出车款信息&ndash;&gt;
+            <div class="col s12"  ng-if="routeFeeInfo.task_loan_status!==1" style="width:96%;margin-left: 2%;font-size: 1.2rem;color: darkgray;font-weight: bold;padding: 0;">
+                <div class="col s4">
+                    <p>过路费：<span style="color: #e57373">{{routeFeeInfo.refund_passing_cost}}</span> 元</p>
+                </div>
+                <div class="col s4">
+                    <p>燃料费：<span style="color: #e57373">{{routeFeeInfo.refund_fuel_cost}}</span> 元</p>
+                </div>
+                <div class="col s4">
+                    <p>保道费：<span style="color: #e57373">{{routeFeeInfo.refund_protect_cost}}</span> 元</p>
+                </div>
+                <div class="col s4">
+                    <p>罚款费：<span style="color: #e57373">{{routeFeeInfo.refund_penalty_cost}}</span> 元</p>
+                </div>
+                <div class="col s4">
+                    <p>停车费：<span style="color: #e57373">{{routeFeeInfo.refund_parking_cost}}</span> 元</p>
+                </div>
+                <div class="col s4">
+                    <p>打车费：<span style="color: #e57373">{{routeFeeInfo.refund_taxi_cost}}</span> 元</p>
+                </div>
+            </div>
+            &lt;!&ndash;洗车费&ndash;&gt;
+            <div class="row col s12"  style="width: 98%;margin-left:1%;">
+                <div class="col s12 valign-wrapper" style="height: 55px;margin-bottom: 20px;background-color: #dcdfe0;font-weight: bold;font-size: 1.2rem">
+                    <div class="col s4  cyan-text left-align"><p>洗车费</p> </div>
+                    <div class="col s8  red-text right-align"><p>洗车费修改后，请点击对号进行保存</p></div>
+                </div>
+                <div class="col s12 grey-text" style="border-bottom: 1px dotted #ccc;border-left: 1px dotted #ccc;border-right: 1px dotted #ccc;">
+                    <div ng-repeat="response in responseData" class="grey-text text-darken-1 col s12" style="height:50px;width:100%;">
+                        <div class="col s3" style="margin-top: 13px">{{response.short_name}}</div>
+                        <div class="col s2" style="margin-top: 13px"><span class="red-text">{{response.single_price}}</span>元/辆</div>
+                        <div class="col s1" style="margin-top: 13px">{{response.car_count}}辆</div>
+                        <div class="col s2" style="margin-top: 13px">洗车费</div>
+                        <input class="col s2" style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="totalPrice" ng-model="totalPrice">
+                        <div class="col s1" style="margin-top: 13px">元</div>
+                        <div class="col s1" style="margin-top: 7px">
+                            <button class="btn btn-floating waves-light waves-effect cyan lighten-1" ng-click="putWashCost(response.id)">
+                                <i  class="mdi mdi-check"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="grey-text col s12" style="height:50px" ng-if="responseData.length == 0">
+                        <div class="center-align" style="margin-top: 15px"><span style="letter-spacing: 2px;">暂无洗车费</span></div>
+                    </div>
+
+                </div>
+            </div>
+
+            &lt;!&ndash;备注&ndash;&gt;
+            <div class="col s12 input-field" style="width: 98%;margin-left:1%;">
+                <input type="text" id="remark" name="remark" ng-model="remark">
+                <label for="remark">备注：</label>
+            </div>
+
+            &lt;!&ndash;总额计算&ndash;&gt;
+            <div class="col s12" style="height:50px;width: 98%;margin-left:1%;color: darkgray;font-size: 1.1rem;font-weight: bold;margin-top: 20px;">
+                <div  class="col s4 left-align">出车款：<span id="Money" style="color: #e57474">{{roadTollCost + fuelCost + roadCost + fineCost + parkingCost + taxiCost}}</span> 元</div>
+                <div  class="col s4 center-align">洗车费：<span id="Wash" style="color: #e57474">{{bigPrice}}</span> 元</div>
+                <div  class="col s4 right-align">总额：<span id="planMoney" style="color: #e57474">{{roadTollCost + fuelCost + roadCost + fineCost + parkingCost + taxiCost + bigPrice}}</span> 元</div>
+            </div>
+
+            &lt;!&ndash;发放人 发放时间&ndash;&gt;
+            <div class="row col s12 grey-text bold" style="height: 50px;width: 96%;margin-left:2%;padding-top: 30px;margin-bottom:30px;border-top:2px solid #ccc ">
+                <div class="col s6 left-align">发放人:{{routeFeeInfo.id}}</div>
+                <div class="col s6 right-align">发放时间:{{routeFeeInfo.id}}</div>
+            </div>
+
+        </div>-->
+
+
+    </div>
+    <!--按钮-->
+    <div class="row col s12" style="margin-top: 20px" ng-if="routeFeeInfo.task_loan_status==1">
+        <div class="col s6">
+            <div class="col s4 offset-s8 right-align">
+                <a style="width: 100% ;background: rgb(245,166,35)" ng-click="addRouteFeeInfo()" style="width: 100%" class="waves-light waves-effect lighten-1 btn">
+                    保存
+                </a>
+            </div>
+        </div>
+        <div class="col s6">
+            <div class="col s4">
+                <a ng-click="addRouteFeeInfo()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                    报销
+                </a>
+            </div>
+        </div>
+    </div>
 
 
 

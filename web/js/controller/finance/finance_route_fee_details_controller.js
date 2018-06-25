@@ -4,10 +4,9 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$stateParams"
     var routeFeeId = $stateParams.id;
     var dispatchIdSmall = $stateParams.dpId;
     // 获取当前出车款详情信息
-    $scope.getCurrentRouteFeeInfo = function () {
+   function getCurrentRouteFeeInfo() {
         _basic.get($host.api_url + "/dpRouteTaskLoan?dpRouteTaskLoanId=" + routeFeeId).then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
                 $scope.routeFeeInfo = data.result[0];
             }
             else {
@@ -16,20 +15,21 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$stateParams"
         });
     };
 
-    // 获取已添加的关联任务信息
+
+
+   /* // 获取已添加的关联任务信息
     $scope.getMatchMissionList = function () {
         _basic.get($host.api_url + "/dpRouteTaskLoanRel?dpRouteTaskLoanId=" + routeFeeId).then(function (data) {
             if (data.success === true) {
-                // console.log("missionListData", data);
                 $scope.matchMissionList = data.result;
             }
             else {
                 swal(data.msg, "", "error");
             }
         });
-    };
+    };*/
 
-    // 点击发放或保存
+ /*   // 点击发放或保存
     $scope.grantRouteFeeInfo = function (operation) {
         var totalCost = parseFloat($("#totalCost").html()).toFixed(2);
         _basic.put($host.api_url + "/user/" + userId + "/dpRouteTaskLoanGrant/" + routeFeeId,{
@@ -68,8 +68,8 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$stateParams"
         $("#reimbursementCarFinanceModel").modal("open");
     };
 
-    // 模态框内点击确定保存信息
-    $scope.saveReimbursementInfo = function () {
+    // 模态框内点击确定保存信息*/
+   /* $scope.saveReimbursementInfo = function () {
         var refundActualMoneyCost = parseFloat($("#reimbursement_money_mod").val()).toFixed(2);
         _basic.put($host.api_url + "/user/" + userId + "/dpRouteTaskLoanRepayment/" + routeFeeId,{
             refundPassingCost: $scope.roadTollCostMod,
@@ -100,12 +100,12 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$stateParams"
                 swal(data.msg, "", "error");
             }
         });
-    };
+    };*/
 
     // 获取数据
     $scope.queryData = function () {
-        $scope.getCurrentRouteFeeInfo();
-        $scope.getMatchMissionList();
+       getCurrentRouteFeeInfo();
+      /*  $scope.getMatchMissionList();*/
     };
     $scope.queryData();
 }]);

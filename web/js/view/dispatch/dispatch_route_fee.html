@@ -120,9 +120,8 @@
                 <div class="col s3 input-field">
                     <select id="grant_status" ng-model="grantStatus" material-select watch>
                         <option value="" selected>请选择</option>
-                        <option value="1" selected>未发放</option>
-                        <option value="2" selected>已发放</option>
-                        <option value="3" selected>已报销</option>
+                        <option value="1" selected>已发放</option>
+                        <option value="2" selected>已报销</option>
                     </select>
                     <label for="grant_status">发放状态</label>
                 </div>
@@ -204,9 +203,8 @@
                         <td>{{car.grant_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                         <td>{{car.refund_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                         <td>{{car.appl_user_name}}</td>
-                        <td style="color: #e57373" ng-if="car.task_loan_status == 1">取消</td>
-                        <td style="color: #26c6da" ng-if="car.task_loan_status == 2">已发放</td>
-                        <td ng-if="car.task_loan_status == 3">已报销</td>
+                        <td style="color: #26c6da" ng-if="car.task_loan_status == 1">已发放</td>
+                        <td ng-if="car.task_loan_status == 2">已报销</td>
                         <td class="operation fz12">
                             <a ng-click="deleteCurrentFinanceInfo(car.id)" style="margin-right: 10px;cursor: pointer;text-align: center;color: #e57373"><i class="mdi mdi-delete-forever" style="margin: 0"></i></a>
                             <a ui-sref="dispatch_route_fee_details({id:car.id})" class="cyan-text" style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-eye" style="margin: 0"></i></a>

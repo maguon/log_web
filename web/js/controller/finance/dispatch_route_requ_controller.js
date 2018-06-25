@@ -3,7 +3,7 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic","_
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.start = 0;
     $scope.size = 11;
-    $scope.flag = true;
+    $scope.truckId = '';
 
     // 获取所有司机信息
     function getDriverList() {
@@ -30,8 +30,6 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic","_
             }
         });
     };
-
-
 
     // 查询调度列表
     function getCarInstructionList() {
@@ -112,11 +110,13 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic","_
         $scope.planMoney = 0;
         $scope.bigPrice = 0;
         $scope.driveIdSmall= driveIdSmall;
+        $scope.dispatchIdSmall=dispatchIdSmall;
 
         //司机 车牌号 挂车货位
         _basic.get($host.api_url + "/drive?driveId=" + driveIdSmall).then(function (data) {
             if (data.success === true) {
                 $scope.driveSmallList = data.result[0];
+                $scope.truckId = data.result[0].truck_id;
             }
         });
 
@@ -139,12 +139,21 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic","_
                 swal(data.msg, "", "error");
             }
         });
-        _basic.get($host.api_url + "/dpRouteLoadTaskCleanRel?dpRouteTaskId=" +dispatchIdSmall ).then(function (data) {
+        washCarFee();
+        $("#addCarFinanceModel").modal("open");
+
+    };
+    //获取洗车费
+    function washCarFee(){
+        $scope.totalPrice=0;
+        $scope.bigPrice =0;
+        //洗车费
+        _basic.get($host.api_url + "/dpRouteLoadTaskCleanRel?dpRouteTaskId=" + $scope.dispatchIdSmall + "&statusArr=1,2").then(function (data) {
             if (data.success === true) {
                 $scope.responseData = data.result;
                 for(i=0;i<$scope.responseData.length;i++){
-                    $scope.totalPrice  =$scope.responseData[i].single_price*$scope.responseData[i].car_count;
-                    $scope.bigPrice  +=$scope.responseData[i].single_price*$scope.responseData[i].car_count;
+                    $scope.totalPrice  =$scope.responseData[i].actual_price;
+                    $scope.bigPrice  +=$scope.responseData[i].actual_price;
                 }
 
             }
@@ -153,9 +162,54 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic","_
             }
         });
 
-        $("#addCarFinanceModel").modal("open");
+    }
 
-    };
+    //洗车费修改
+    $scope.putWashCost = function (id,totalPrice){
+        var obj = {
+            "actualPrice": totalPrice
+        };
+        _basic.put($host.api_url + "/user/" + userId + "/loadTaskCleanRel/"+id, obj).then(function (data) {
+            if (data.success == true) {
+                washCarFee();
+                swal("修改成功", "", "success");
+            } else {
+                swal(data.msg, "", "error");
+            }
+        })
+    }
+
+
+    //出车款发放
+    $scope.addRouteFeeInfo = function(){
+        var planMoneyCount = parseFloat($("#planMoney").html()).toFixed(2);
+        // 根据选择的调度id查询调度详细信息
+        _basic.post($host.api_url + "/user/" + userId + "/dpRouteTaskLoan",{
+            driveId: $scope.driveIdSmall,
+            truckId: $scope.truckId,
+            grantPassingCost: $scope.roadTollCost,
+            grantFuelCost: $scope.fuelCost,
+            grantProtectCost: $scope.roadCost,
+            grantPenaltyCost: $scope.fineCost,
+            grantParkingCost: $scope.parkingCost,
+            grantTaxiCost: $scope.taxiCost,
+            grantExplain: $scope.remark,
+            grantActualMoney: parseFloat(planMoneyCount),
+            dpRouteTaskIds: [$scope.dispatchIdSmall]
+        }).then(function (data) {
+            if (data.success === true) {
+                $("#addCarFinanceModel").modal("close");
+                swal("新增成功", "", "success");
+              /*  $scope.searchCarInstructionList();*/
+                getCarInstructionList();
+
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
+
 
 
     /*// 根据选择的司机id查询关联任务信息

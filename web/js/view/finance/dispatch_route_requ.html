@@ -37,7 +37,7 @@
                 </div>
 
                <!--出车款信息-->
-                <div class="col s12" style="margin-top: 20px">
+                <div class="col s12" style="margin-top: 14px">
                     <div class="col s4 input-field">
                         <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="road_toll_cost" name="road_toll_cost" ng-model="roadTollCost">
                         <label class="{{roadTollCost != null ? 'active' : 'inactive'}}" for="road_toll_cost">过路费（元）</label>
@@ -79,7 +79,7 @@
                                 <input class="col s2" style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="totalPrice" ng-model="totalPrice">
                                 <div class="col s1" style="margin-top: 13px">元</div>
                                 <div class="col s1" style="margin-top: 7px">
-                                    <button class="btn btn-floating waves-light waves-effect cyan lighten-1" ng-click="putWashCost(response.id)">
+                                    <button class="btn btn-floating waves-light waves-effect cyan lighten-1" ng-click="putWashCost(response.id,totalPrice)">
                                         <i  class="mdi mdi-check"></i>
                                     </button>
                                 </div>

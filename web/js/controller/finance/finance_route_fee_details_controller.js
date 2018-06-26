@@ -30,20 +30,23 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$stateParams"
     function washCarFee(){
         $scope.totalPrice=0;
         $scope.bigPrice =0;
-        //洗车费
-        _basic.get($host.api_url + "/dpRouteLoadTaskCleanRel?dpRouteTaskId=" + dispatchIdSmall + "&statusArr=1,2").then(function (data) {
-            if (data.success === true) {
-                $scope.responseData = data.result;
-                for(i=0;i<$scope.responseData.length;i++){
-                    $scope.bigPrice  +=$scope.responseData[i].actual_price;
+        if(dispatchIdSmall==''||dispatchIdSmall==null||dispatchIdSmall==undefined){
+            $scope.responseData=[];
+        }else{
+            //洗车费
+            _basic.get($host.api_url + "/dpRouteLoadTaskCleanRel?dpRouteTaskId=" + dispatchIdSmall + "&statusArr=1,2").then(function (data) {
+                if (data.success === true) {
+                    $scope.responseData = data.result;
+                    for(i=0;i<$scope.responseData.length;i++){
+                        $scope.bigPrice  +=$scope.responseData[i].actual_price;
+                    }
+
                 }
-
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
-
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
     }
 
     //洗车费修改

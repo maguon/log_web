@@ -77,6 +77,7 @@
                         <td>{{car.grant_user_name}}</td>
                         <td style="color: #26c6da" ng-if="car.task_loan_status == 1">已发放</td>
                         <td ng-if="car.task_loan_status == 2">已报销</td>
+                        <td ng-if="car.task_loan_status !== 2&&car.task_loan_status !== 1"></td>
                         <td class="operation fz12">
                             <a ui-sref="finance_route_fee_details({id:car.id,dpId:car.dp_route_task_id})" class="cyan-text" style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
                         </td>

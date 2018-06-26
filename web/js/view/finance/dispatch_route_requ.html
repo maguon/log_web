@@ -76,10 +76,10 @@
                                 <div class="col s2" style="margin-top: 13px"><span class="red-text">{{response.single_price}}</span>元/辆</div>
                                 <div class="col s1" style="margin-top: 13px">{{response.car_count}}辆</div>
                                 <div class="col s2" style="margin-top: 13px">洗车费</div>
-                                <input class="col s2" style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="totalPrice" ng-model="totalPrice">
+                                <input class="col s2" style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="totalPrice" ng-model="response.actual_price">
                                 <div class="col s1" style="margin-top: 13px">元</div>
                                 <div class="col s1" style="margin-top: 7px">
-                                    <button class="btn btn-floating waves-light waves-effect cyan lighten-1" ng-click="putWashCost(response.id,totalPrice)">
+                                    <button class="btn btn-floating waves-light waves-effect cyan lighten-1" ng-click="putWashCost(response.id,response.actual_price)">
                                         <i  class="mdi mdi-check"></i>
                                     </button>
                                 </div>

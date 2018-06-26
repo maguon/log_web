@@ -115,8 +115,14 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic","_
         //司机 车牌号 挂车货位
         _basic.get($host.api_url + "/drive?driveId=" + driveIdSmall).then(function (data) {
             if (data.success === true) {
-                $scope.driveSmallList = data.result[0];
-                $scope.truckId = data.result[0].truck_id;
+                if(data.result.length==0){
+                    $scope.driveSmallList=[];
+                    $scope.truckId ='';
+                }else{
+                    $scope.driveSmallList = data.result[0];
+                    $scope.truckId = data.result[0].truck_id;
+                }
+
             }
         });
 

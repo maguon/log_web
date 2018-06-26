@@ -56,6 +56,7 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$stateParams"
                 washCarFee();
                 swal("修改成功", "", "success");
             } else {
+                washCarFee();
                 swal(data.msg, "", "error");
             }
         })
@@ -124,17 +125,6 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$stateParams"
                 getCurrentRouteFeeInfo();
                 $("#reimbursementCarFinanceModel").modal("close");
                 swal("操作成功", "", "success");
-               /* // 修改借款状态
-                _basic.put($host.api_url + "/user/" + userId + "/dpRouteTaskLoan/" + routeFeeId + "/taskLoanStatus/2",{}).then(function (data) {
-                    if (data.success === true) {
-
-
-
-                    }
-                    else {
-                        swal(data.msg, "", "error");
-                    }
-                });*/
             }
             else {
                 swal(data.msg, "", "error");

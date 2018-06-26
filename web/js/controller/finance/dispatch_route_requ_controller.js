@@ -180,6 +180,7 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic","_
                 washCarFee();
                 swal("修改成功", "", "success");
             } else {
+                washCarFee();
                 swal(data.msg, "", "error");
             }
         })

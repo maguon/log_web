@@ -153,7 +153,7 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic","_
     function washCarFee(){
         $scope.totalPrice=0;
         $scope.bigPrice =0;
-        if(dispatchIdSmall==''||dispatchIdSmall==null||dispatchIdSmall==undefined){
+        if(  $scope.dispatchIdSmall==''||  $scope.dispatchIdSmall==null||  $scope.dispatchIdSmall==undefined){
             $scope.responseData=[];
         }else {
             //洗车费

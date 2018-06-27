@@ -33,7 +33,7 @@ app.controller("finance_index_controller", ["$scope", "$host", "_basic", functio
     }
 
     //获取未派发接口
-    function getNotDistributedCount() {
+/*    function getNotDistributedCount() {
         var url = $host.api_url + "/dpRouteTaskLoanCount?taskLoanStatus=1";
         _basic.get(url).then(function (data) {
             if (data.success) {
@@ -44,14 +44,14 @@ app.controller("finance_index_controller", ["$scope", "$host", "_basic", functio
                 swal(data.msg, "", "error");
             }
         });
-    }
-    //获取未派发接口
+    }*/
+    //获取未报销接口
     function getUnreimbursedCount() {
-        var url = $host.api_url + "/dpRouteTaskLoanCount?taskLoanStatus=2";
+        var url = $host.api_url + "/dpRouteTaskLoanCount?taskLoanStatus=1";
         _basic.get(url).then(function (data) {
             if (data.success) {
                 $scope.unreimbursedCount=data.result[0].task_loan_count;
-                $scope.unreimbursedMoneyCount=data.result[0].apply_plan_money;
+                $scope.unreimbursedMoneyCount=data.result[0].grant_actual_money;
 
             } else {
                 swal(data.msg, "", "error");
@@ -123,7 +123,7 @@ app.controller("finance_index_controller", ["$scope", "$host", "_basic", functio
         getCarLoanCount();
         getCarCompensateLoanCount();
         dpRouteTaskNotLoanCount();
-        getNotDistributedCount();
+       /* getNotDistributedCount();*/
         getUnreimbursedCount();
     };
     $scope.queryData();

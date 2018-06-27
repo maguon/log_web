@@ -209,9 +209,8 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic","_
         }).then(function (data) {
             if (data.success === true) {
                 $("#addCarFinanceModel").modal("close");
-                swal("新增成功", "", "success");
-              /*  $scope.searchCarInstructionList();*/
                 getCarInstructionList();
+                window.location.href = '/index_home.html#!/finance_route_fee_details/id/'+data.id+'/dpId/'+$scope.dispatchIdSmall ;
 
             }
             else {

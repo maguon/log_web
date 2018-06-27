@@ -11,10 +11,6 @@ app.controller("finance_index_controller", ["$scope", "$host", "_basic", functio
     $scope.notRepaymentMoneyTruckCount =0;
     $scope.indemnityMoneyCarCount=0;
     $scope.dpRouteTaskNotLoanCount = 0;
-    // 未派发笔数
-    $scope.notDistributedCount = 0;
-    // 未派发金额
-    $scope.notDistributedMoneyCount = 0;
     // 未报销笔数
     $scope.unreimbursedCount = 0;
     // 未报销金额
@@ -32,19 +28,6 @@ app.controller("finance_index_controller", ["$scope", "$host", "_basic", functio
         });
     }
 
-    //获取未派发接口
-/*    function getNotDistributedCount() {
-        var url = $host.api_url + "/dpRouteTaskLoanCount?taskLoanStatus=1";
-        _basic.get(url).then(function (data) {
-            if (data.success) {
-                $scope.notDistributedCount=data.result[0].task_loan_count;
-                $scope.notDistributedMoneyCount=data.result[0].apply_plan_money;
-
-            } else {
-                swal(data.msg, "", "error");
-            }
-        });
-    }*/
     //获取未报销接口
     function getUnreimbursedCount() {
         var url = $host.api_url + "/dpRouteTaskLoanCount?taskLoanStatus=1";

@@ -131,7 +131,27 @@ app.controller("dispatch_order_details_controller", ["$scope", "$host", "$locati
         });
     }
 
+    //获取洗车费
+    function washCarFee(){
+        $scope.bigPrice =0;
+        if(val==''||val==null||val==undefined){
+            $scope.responseData=[];
+        }else{
+            //洗车费
+            _basic.get($host.api_url + "/dpRouteLoadTaskCleanRel?dpRouteTaskId=" + val + "&statusArr=1,2").then(function (data) {
+                if (data.success === true) {
+                    $scope.responseData = data.result;
+                    for(i=0;i<$scope.responseData.length;i++){
+                        $scope.bigPrice  +=$scope.responseData[i].actual_price;
+                    }
 
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
+    }
 
     /**
      *获取关联的其他调度任务
@@ -186,6 +206,7 @@ app.controller("dispatch_order_details_controller", ["$scope", "$host", "$locati
      * */
     function getData(){
         getHeaderInfo();
+        washCarFee();
         $scope.lookOrderTask();
     }
     getData();

@@ -177,9 +177,8 @@
                 <div class="card-content bold white lighten-3" style="height:65px" >
                     <div class="row col s12">
                         <div class="col s6 left-align">出车款编号:{{outFeeInfo.id}}</div>
-                        <div class="col s6 right-align" ng-show="outFeeInfo.task_loan_status == 1" style="color: #e57373;">未发放</div>
-                        <div class="col s6 right-align" ng-show="outFeeInfo.task_loan_status == 2" style="color: #26c6da">已发放</div>
-                        <div class="col s6 right-align" ng-show="outFeeInfo.task_loan_status == 3" style="color:orange">已报销</div>
+                        <div class="col s6 right-align" ng-show="outFeeInfo.task_loan_status == 1" style="color: #26c6da">已发放</div>
+                        <div class="col s6 right-align" ng-show="outFeeInfo.task_loan_status == 2" style="color:orange">已报销</div>
                     </div>
                 </div>
 
@@ -207,41 +206,139 @@
                     </div>
                 </div>
 
-                <!--出车款申请 申请时间-->
-                <div class="row card-content bold grey lighten-3" style="width:100%;height: 65px;">
+                <!--出车款发放 发放时间-->
+                <div class="row card-content bold grey lighten-3" style="width:100%;height:65px;">
                     <div class="row col s12">
-                        <div class="col s6 left-align fz18">出车款申请</div>
-                        <div class="col s6 right-align grey-text">申请时间{{outFeeInfo.apply_date |date:"yyyy-MM-dd hh:mm"}}</div>
+                        <div class="col s6 left-align fz18">出车款发放</div>
+                        <div class="col s6 right-align grey-text">发放时间{{outFeeInfo.grant_date |date:"yyyy-MM-dd hh:mm"}}</div>
                     </div>
+
+
                 </div>
 
                 <!--各种费用及备注-->
-                <div class="row card-content bold white grey-text lighten-3" style="height:150px">
-                    <div class="row col s12">
-                        <div class="col s4 left-align">过路费:<span class="red-text fz18">{{outFeeInfo.apply_passing_cost |number:2}}</span>元</div>
-                        <div class="col s4">燃料费:<span class="red-text fz18">{{outFeeInfo.apply_fuel_cost |number:2}}</span>元</div>
-                        <div class="col s4">保道费:<span class="red-text fz18">{{outFeeInfo.apply_protect_cost|number:2}}</span>元</div>
-                        <div class="col s4">罚款费:<span class="red-text fz18">{{outFeeInfo.apply_penalty_cost|number:2}}</span>元</div>
-                        <div class="col s4">停车费:<span class="red-text fz18">{{outFeeInfo.apply_parking_cost|number:2}}</span>元</div>
-                        <div class="col s4">打车费:<span class="red-text fz18">{{outFeeInfo.apply_taxi_cost|number:2}}</span>元</div>
-                        <div class="col s4">申请备注:{{outFeeInfo.apply_explain}}</div>
-                        <div class="col s12" style="border-bottom: 1px solid #ccc;margin:6px"></div>
-                        <div class="col s6">应发放总额:<span class="red-text fz18">{{outFeeInfo.apply_plan_money|number:2}}</span>元</div>
-                        <div class="col s6 right-align">申请人:{{outFeeInfo.appl_user_name}}</div>
+                <!--出车款信息-->
+                <div class="col s12 center-align"  ng-if="outFeeInfo.task_loan_status!==1" style="width:96%;margin-left: 2%;font-size: 1.2rem;color: darkgray;font-weight: bold;padding: 0;">
+                    <div class="col s4">
+                        <p>过路费：<span style="color: #e57373">{{outFeeInfo.refund_passing_cost}}</span> 元</p>
+                    </div>
+                    <div class="col s4">
+                        <p>燃料费：<span style="color: #e57373">{{outFeeInfo.refund_fuel_cost}}</span> 元</p>
+                    </div>
+                    <div class="col s4">
+                        <p>保道费：<span style="color: #e57373">{{outFeeInfo.refund_protect_cost}}</span> 元</p>
+                    </div>
+                    <div class="col s4">
+                        <p>罚款费：<span style="color: #e57373">{{outFeeInfo.refund_penalty_cost}}</span> 元</p>
+                    </div>
+                    <div class="col s4">
+                        <p>停车费：<span style="color: #e57373">{{outFeeInfo.refund_parking_cost}}</span> 元</p>
+                    </div>
+                    <div class="col s4">
+                        <p>打车费：<span style="color: #e57373">{{outFeeInfo.refund_taxi_cost}}</span> 元</p>
                     </div>
                 </div>
 
+                <!--洗车费-->
+                <div class="row col s12"  style="width: 98%;margin-left:1%;">
+                    <div class="col s12 valign-wrapper" style="height: 55px;background-color: #dcdfe0;font-weight: bold;font-size: 1.2rem">
+                        <div class="col s4  cyan-text left-align"><p>洗车费</p> </div>
+                        <div class="col s8  red-text right-align"><p></p></div>
+                    </div>
+                    <div class="col s12 grey-text" style="border-bottom: 1px dotted #ccc;border-left: 1px dotted #ccc;border-right: 1px dotted #ccc;">
+                        <div ng-repeat="response in responseData" class="grey-text text-darken-1 col s12 center-align" style="height:50px;width:100%;">
+                            <div class="col s3" style="margin-top: 13px">{{response.short_name}}</div>
+                            <div class="col s3" style="margin-top: 13px"><span class="red-text">{{response.single_price}}</span>元/辆</div>
+                            <div class="col s2" style="margin-top: 13px">{{response.car_count}}辆</div>
+                            <div class="col s2" style="margin-top: 13px">洗车费</div>
+                            <div class="col s2" style="margin-top: 13px">{{response.actual_price}}元</div>
+                        </div>
+                        <div class="grey-text col s12" style="height:50px" ng-if="responseData.length == 0">
+                            <div class="center-align" style="margin-top: 15px"><span style="letter-spacing: 2px;">暂无洗车费</span></div>
+                        </div>
 
-                <!--财务发放详情 发放时间-->
-                <div class="card-content bold grey lighten-3" style="height: 65px;" ng-if="outFeeInfo.task_loan_status == 3|| outFeeInfo.task_loan_status == 2">
-                    <div class="row col s12" style="margin-bottom: 5px">
+                    </div>
+                </div>
+
+                <!--备注-->
+                <div class="row col s12  grey-text bold" style="width: 98%;margin-left:1%;">
+                    <div  class="col s6 left-align">备注：{{outFeeInfo.grant_explain}}</div>
+                    <div class="col s6 right-align">发放人:{{outFeeInfo.grant_user_name}}</div>
+                </div>
+
+                <!--总额计算-->
+                <div class="col s12" style="height:50px;width: 98%;margin-left:1%;margin-bottom:30px;color: darkgray;font-size: 1.1rem;font-weight: bold;margin-top: 20px;">
+                    <div  class="col s4 left-align">出车款：<span id="hasMoney" style="color: #e57474">{{outFeeInfo.grant_passing_cost + outFeeInfo.grant_fuel_cost + outFeeInfo.grant_protect_cost + outFeeInfo.grant_penalty_cost + outFeeInfo.grant_parking_cost + outFeeInfo.grant_taxi_cost}}</span> 元</div>
+                    <div  class="col s4 center-align">洗车费：<span id="hasWash" style="color: #e57474">{{bigPrice}}</span> 元</div>
+                    <div  class="col s4 right-align">总额：<span id="actMoney" style="color: #e57474">{{outFeeInfo.grant_passing_cost + outFeeInfo.grant_fuel_cost + outFeeInfo.grant_protect_cost + outFeeInfo.grant_penalty_cost + outFeeInfo.grant_parking_cost + outFeeInfo.grant_taxi_cost+ bigPrice}}</span> 元</div>
+                </div>
+
+                <!--财务报销详情-->
+                <div class="row col s12" style="margin-top: 12px;" ng-show="outFeeInfo.task_loan_status == 2">
+                    <div class="col s12 z-depth-2" style="padding: 0;">
+                        <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;color: darkgray;font-size: 1.2rem;font-weight: bold">
+                            <div class="col s4 left-align">
+                                <p style="margin: 0;color: #26c6da">财务报销详情</p>
+                            </div>
+                            <div class="col s8">
+                                <div class="col s12 right-align">
+                                    <p style="color: darkgray">已报销</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="width: 92%;margin: 0 auto">
+                            <div class="col s12" style="font-size: 1.2rem;color: darkgray;font-weight: bold;padding: 0;">
+                                <div class="col s4">
+                                    <p>过路费：<span style="color: #e57373">{{outFeeInfo.refund_passing_cost}}</span> 元</p>
+                                </div>
+                                <div class="col s4">
+                                    <p>燃料费：<span style="color: #e57373">{{outFeeInfo.refund_fuel_cost}}</span> 元</p>
+                                </div>
+                                <div class="col s4">
+                                    <p>保道费：<span style="color: #e57373">{{outFeeInfo.refund_protect_cost}}</span> 元</p>
+                                </div>
+                                <div class="col s4">
+                                    <p>罚款费：<span style="color: #e57373">{{outFeeInfo.refund_penalty_cost}}</span> 元</p>
+                                </div>
+                                <div class="col s4">
+                                    <p>停车费：<span style="color: #e57373">{{outFeeInfo.refund_parking_cost}}</span> 元</p>
+                                </div>
+                                <div class="col s4">
+                                    <p>打车费：<span style="color: #e57373">{{outFeeInfo.refund_taxi_cost}}</span> 元</p>
+                                </div>
+                            </div>
+                            <div class="col s12" style="color: darkgray;font-size: 1.2rem">
+                                <p><span style="font-weight: bold">发放备注：</span>{{outFeeInfo.refund_explain}}</p>
+                            </div>
+                            <div class="col s4" style="color: darkgray;font-size: 1.2rem;font-weight: bold">
+                                <p>实际报销：<span style="color: #e57373">{{outFeeInfo.refund_actual_money}}</span> 元</p>
+                            </div>
+                            <div class="col s4" style="color: darkgray;font-size: 1.2rem;font-weight: bold">
+                                <p>还款金额：<span style="color: #e57373">{{outFeeInfo.repayment_money}}</span> 元</p>
+                            </div>
+                            <div class="col s4" style="color: darkgray;font-size: 1.2rem;font-weight: bold">
+                                <p>盈亏：<span style="color: #e57373">{{outFeeInfo.profit}}</span> 元</p>
+                            </div>
+                            <div class="col s6" style="color: darkgray;font-size: 1.2rem;font-weight: bold;margin-bottom: 30px">
+                                财务人员：{{outFeeInfo.refund_user_name}}
+                            </div>
+                            <div class="col s6 right-align" style="color: darkgray;font-size: 1.2rem;font-weight: bold;margin-bottom: 30px">
+                                报销时间：{{outFeeInfo.refund_date | date:'yyyy-MM-dd HH:mm:ss'}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+               <!-- &lt;!&ndash;财务发放详情 发放时间&ndash;&gt;
+                <div class="card-content bold" style="height: 65px;" ng-if="outFeeInfo.task_loan_status == 2">
+                    <div class="row col s12 grey lighten-3" style="margin-bottom: 5px">
                         <div class="col s6 left-align fz18">财务发放详情</div>
                         <div class="col s6 right-align grey-text">申请时间{{outFeeInfo.grant_date |date:'yyyy-MM-dd hh:mm'}}</div>
                     </div>
                 </div>
 
 
-                <!--各种费用及备注-->
+                &lt;!&ndash;各种费用及备注&ndash;&gt;
                 <div class="card-content bold white grey-text lighten-3" style="height:150px"  ng-if="outFeeInfo.task_loan_status == 3|| outFeeInfo.task_loan_status == 2">
                     <div class="row col s12">
                         <div class="col s4 left-align">过路费:<span class="red-text fz18">{{outFeeInfo.grant_passing_cost|number:2}}</span>元</div>
@@ -258,7 +355,7 @@
                 </div>
 
 
-                <!--财务报销详情 报销时间-->
+                &lt;!&ndash;财务报销详情 报销时间&ndash;&gt;
                 <div class="card-content bold grey lighten-3" style="height: 65px;" ng-if="outFeeInfo.task_loan_status == 3">
                     <div class="row col s12" style="margin-bottom: 5px">
                         <div class="col s6 left-align fz18">财务报销详情</div>
@@ -267,7 +364,7 @@
                 </div>
 
 
-                <!--各种费用及备注-->
+                &lt;!&ndash;各种费用及备注&ndash;&gt;
                 <div class="card-content bold white grey-text lighten-3" style="height:150px"  ng-if="outFeeInfo.task_loan_status == 3">
                     <div class="row col s12">
                         <div class="col s4 left-align">过路费:<span class="red-text fz18">{{outFeeInfo.refund_passing_cost|number:2}}</span>元</div>
@@ -283,10 +380,10 @@
                         <div class="col s4">盈亏:<span class="red-text fz18">{{outFeeInfo.profit|number:2}}</span>元</div>
                         <div class="col s12 right-align">财务人员:{{outFeeInfo.refund_user_name}}</div>
                     </div>
-                </div>
+                </div>-->
 
             </div>
-
+            <!--暂无数据-->
             <div class="row col s12" ng-if="outFeeInfo==undefined" style="width: 90%; margin-left:5%; margin-top:10px;">
                 <div style="height:200px;line-height: 200px;text-align: center">
                     <i class="mdi  mdi-alert-circle-outline red-text fz30"></i>

@@ -193,8 +193,10 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic","_
     //出车款发放
     $scope.addRouteFeeInfo = function(){
         var planMoneyCount = parseFloat($("#planMoney").html()).toFixed(2);
-        // 根据选择的调度id查询调度详细信息
-        _basic.post($host.api_url + "/user/" + userId + "/dpRouteTaskLoan",{
+        if ($scope.truckId==  "") {
+            $scope.truckId= 0;
+        }
+        var obj={
             driveId: $scope.driveIdSmall,
             truckId: $scope.truckId,
             grantPassingCost: $scope.roadTollCost,
@@ -206,7 +208,9 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic","_
             grantExplain: $scope.remark,
             grantActualMoney: parseFloat(planMoneyCount),
             dpRouteTaskIds: [$scope.dispatchIdSmall]
-        }).then(function (data) {
+        }
+        // 根据选择的调度id查询调度详细信息
+        _basic.post($host.api_url + "/user/" + userId + "/dpRouteTaskLoan",obj).then(function (data) {
             if (data.success === true) {
                 $("#addCarFinanceModel").modal("close");
                 getCarInstructionList();

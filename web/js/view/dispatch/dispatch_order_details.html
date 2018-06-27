@@ -108,10 +108,10 @@
 
             <!--按键切换  装车任务   出车款 洗车费-->
             <ul class="tabWrap grey lighten-3">
-                <li class="tab col s3 lookOrderTask  vc-center"  ng-click="lookOrderTask()">装车任务</li>
-                <li class="tab col s3 lookOutFee   vc-center"  ng-click="lookOutFee()">出车款</li>
-                <li class="tab col s3 lookWashFee vc-center"  ng-click="lookWashFee()">洗车费</li>
-                <li class="tab col s3 lookRecord  vc-center"  ng-click="lookRecord()">执行记录</li>
+                <li class="tab col s4 lookOrderTask  vc-center"  ng-click="lookOrderTask()">装车任务</li>
+                <li class="tab col s4 lookOutFee   vc-center"  ng-click="lookOutFee()">出车款</li>
+              <!--  <li class="tab col s3 lookWashFee vc-center"  ng-click="lookWashFee()">洗车费</li>-->
+                <li class="tab col s4 lookRecord  vc-center"  ng-click="lookRecord()">执行记录</li>
             </ul>
         </div>
 
@@ -392,7 +392,7 @@
             </div>
         </div>
 
-        <!--洗车费-->
+     <!--   &lt;!&ndash;洗车费&ndash;&gt;
         <div id="lookWashFee" class="col s12 tab_box card" style="width: 80%; margin:0 10% ">
 
             <div class="card-content bold white lighten-3" ng-if="washFeeList.length!==0" style="width: 70%; margin:0 15%">
@@ -403,7 +403,7 @@
                         <div class="row col s12">
 
                             <div class="col s6 fz16 cyan-text left-align">
-                                {{el.addr_name}}--{{el.short_name}}
+                                {{el.addr_name}}&#45;&#45;{{el.short_name}}
                             </div>
                             <div class="col s3"></div>
                             <div class="col s3 right-align red-text" ng-if="el.status==1">未领取</div>
@@ -444,7 +444,7 @@
             </div>
 
         </div>
-
+-->
         <!--执行记录-->
         <div id="lookRecord" class="col s12 tab_box card" style="width: 80%; margin:0 10%;padding-bottom: 20px">
             <div class="card-content bold white  grey-text lighten-3" style="width: 80%; margin:0 10%;">

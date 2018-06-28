@@ -93,6 +93,21 @@ baseService.factory("_config", function () {
             subType: [{type: 51, name: "财务操作员"}],
             index: 'finance_manager.html',
             qr: []
+        },
+        {
+            type: 61,
+            name: "结算操作员",
+            subType: [],
+            index: 'settlement_home.html',
+            qr: []
+        },
+
+        {
+            type: 69,
+            name: "结算管理员",
+            subType: [{type: 61, name: "结算操作员"}],
+            index: 'settlement_manager.html',
+            qr: []
         }
 
     ];

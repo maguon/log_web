@@ -639,7 +639,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'finance_route_fee_controller'
         })
         .state("finance_route_fee_details",{
-            url:"/finance_route_fee_details/id/{id}/dpId/{dpId}",
+            url:"/finance_route_fee_details/id/{id}",
             templateUrl: "js/view/finance/finance_route_fee_details.html",
             controller:'finance_route_fee_details_controller'
         })

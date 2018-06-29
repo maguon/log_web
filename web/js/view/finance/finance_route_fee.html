@@ -54,8 +54,8 @@
                         <th data-field="">发放编号</th>
                         <th data-field="">司机</th>
                         <th data-field="">货车牌号</th>
-                        <th data-field="">调度编号</th>
-                        <th data-field="">路线</th>
+                       <!-- <th data-field="">调度编号</th>
+                        <th data-field="">路线</th>-->
                         <th data-field="">发放金额</th>
                         <th data-field="">发放时间</th>
                         <th data-field="">报销时间</th>
@@ -69,8 +69,8 @@
                         <td>{{car.id}}</td>
                         <td>{{car.drive_name}}</td>
                         <td>{{car.truck_num}}</td>
-                        <td>{{car.dp_route_task_id}}</td>
-                        <td>{{car.city_route_start}}--{{car.city_route_end}}</td>
+                       <!-- <td>{{car.dp_route_task_id}}</td>
+                        <td>{{car.city_route_start}}&#45;&#45;{{car.city_route_end}}</td>-->
                         <td>{{car.grant_actual_money|number:2}}</td>
                         <td>{{car.grant_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                         <td>{{car.refund_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
@@ -79,11 +79,11 @@
                         <td ng-if="car.task_loan_status == 2">已报销</td>
                         <td ng-if="car.task_loan_status !== 2&&car.task_loan_status !== 1"></td>
                         <td class="operation fz12">
-                            <a ui-sref="finance_route_fee_details({id:car.id,dpId:car.dp_route_task_id})" class="cyan-text" style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
+                            <a ui-sref="finance_route_fee_details({id:car.id})" class="cyan-text" style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
                         </td>
                     </tr>
                     <tr class="grey-text text-darken-1" ng-if="carFinanceList.length == 0">
-                        <td colspan="11"><span style="letter-spacing: 2px">暂无数据</span></td>
+                        <td colspan="9"><span style="letter-spacing: 2px">暂无数据</span></td>
                     </tr>
                     </tbody>
                 </table>

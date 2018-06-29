@@ -2,51 +2,105 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$stateParams"
 
     var userId = _basic.getSession(_basic.USER_ID);
     var routeFeeId = $stateParams.id;
-    var dispatchIdSmall = $stateParams.dpId;
+    $scope.dpRouteTaskIds=[];
     // 获取当前出车款详情信息
    function getCurrentRouteFeeInfo() {
         _basic.get($host.api_url + "/dpRouteTaskLoan?dpRouteTaskLoanId=" + routeFeeId).then(function (data) {
             if (data.success === true) {
-                $scope.routeFeeInfo = data.result[0];
-                $scope.routeFeeInfo.drive_id = data.result[0].drive_id;
-                $scope.routeFeeInfo.truck_id = data.result[0].truck_id;
-                $scope.routeFeeInfo.dp_route_task_id = data.result[0].dp_route_task_id;
+                if(data.result.length==0){
+                    $scope.routeFeeInfo = [];
+                }else{
+                    $scope.routeFeeInfo = data.result[0];
+                    $scope.routeFeeInfo.drive_id = data.result[0].drive_id;
+                    $scope.routeFeeInfo.truck_id = data.result[0].truck_id;
+                    searchMatchMission();
+                }
             }
             else {
                 swal(data.msg, "", "error");
             }
         });
-       _basic.get($host.api_url + "/dpRouteTaskLoanRel?dpRouteTaskLoanId=" + routeFeeId).then(function (data) {
-           if (data.success === true) {
-               $scope.routeFeeItem = data.result[0];
-           }
-           else {
-               swal(data.msg, "", "error");
-           }
-       });
+    };
+
+
+    // 根据选择的司机id查询关联任务信息
+    function  searchMatchMission(){
+        _basic.get($host.api_url + "/dpRouteTaskNotLoan?driveId=" +  $scope.routeFeeInfo.drive_id + "&taskStatusArr=8").then(function (data) {
+            if (data.success === true) {
+                if(data.result.length==0){
+                    $scope.missionList =[];
+                }else{
+                    $scope.missionList = data.result;
+                }
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+    // 获取已添加的关联任务信息
+    function getMatchMissionCar() {
+        _basic.get($host.api_url + "/dpRouteTaskLoanRel?dpRouteTaskLoanId=" + routeFeeId).then(function (data) {
+            if (data.success === true) {
+                if(data.result.length==0){
+                    $scope.matchMissionList =[];
+                }else {
+                    $scope.matchMissionList = data.result;
+                }
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+    //添加或者删除调度时，费用的变化
+    function getMatchMissionList() {
+        _basic.get($host.api_url + "/dpRouteTaskLoanRel?dpRouteTaskLoanId=" + routeFeeId).then(function (data) {
+            if (data.success === true) {
+                if(data.result.length==0){
+                    $scope.matchMissionList =[];
+                }else{
+                    $scope.matchMissionList = data.result;
+                    $scope.routeFeeInfo.grant_passing_cost=0;
+                    $scope.routeFeeInfo.grant_protect_cost=0;
+                    for(var i = 0;i<  $scope.matchMissionList.length;i++){
+                        if($scope.matchMissionList[i].protect_fee==null){
+                            $scope.matchMissionList[i].protect_fee=0;
+                        }
+                        $scope.routeFeeInfo.grant_passing_cost += $scope.matchMissionList[i].distance*0.8;
+                        $scope.routeFeeInfo.grant_protect_cost += $scope.matchMissionList[i].protect_fee;
+                    }
+                }
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
     };
 
     //获取洗车费
     function washCarFee(){
-        $scope.totalPrice=0;
         $scope.bigPrice =0;
-        if(dispatchIdSmall==''||dispatchIdSmall==null||dispatchIdSmall==undefined){
-            $scope.responseData=[];
-        }else{
-            //洗车费
-            _basic.get($host.api_url + "/dpRouteLoadTaskCleanRel?dpRouteTaskId=" + dispatchIdSmall + "&statusArr=1,2").then(function (data) {
-                if (data.success === true) {
+        //洗车费
+        _basic.get($host.api_url + "/dpRouteLoadTaskCleanRel?dpRouteTaskLoanId=" + routeFeeId + "&statusArr=1,2").then(function (data) {
+            if (data.success === true) {
+                if(data.result.length==0){
+                    $scope.responseData =[];
+                }else{
                     $scope.responseData = data.result;
-                    for(i=0;i<$scope.responseData.length;i++){
+                    for(var i = 0;i<  $scope.responseData.length;i++){
                         $scope.bigPrice  +=$scope.responseData[i].actual_price;
                     }
 
                 }
-                else {
-                    swal(data.msg, "", "error");
-                }
-            });
-        }
+
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
     }
 
     //洗车费修改
@@ -65,17 +119,64 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$stateParams"
         })
     }
 
-   /* // 获取已添加的关联任务信息
-    $scope.getMatchMissionList = function () {
-        _basic.get($host.api_url + "/dpRouteTaskLoanRel?dpRouteTaskLoanId=" + routeFeeId).then(function (data) {
-            if (data.success === true) {
-                $scope.matchMissionList = data.result;
+
+    // 新增关联任务
+    $scope.createMatchMissionCard = function (dispatchNum) {
+        $scope.dispatchNum=dispatchNum;
+        if(dispatchNum !== ""){
+            // 检测是否有相同的关联任务
+            function checkDispatchId(obj) {
+                return obj.dp_route_task_id === dispatchNum;
             }
-            else {
-                swal(data.msg, "", "error");
+            if ($scope.matchMissionList.some(checkDispatchId)) {
+                swal("不能重复添加相同任务！", "", "warning");
             }
-        });
-    };*/
+            else{
+                _basic.post($host.api_url + "/user/" + userId + "/dpRouteTaskLoanRel",{
+                    dpRouteTaskLoanId: routeFeeId,
+                    dpRouteTaskId: dispatchNum
+                }).then(function (data) {
+                    if (data.success === true) {
+                        swal("新增成功", "", "success");
+                        washCarFee();
+                        getMatchMissionList();
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
+            }
+        }
+        else{
+            swal("请选择调度编号！", "", "warning");
+        }
+    };
+
+    // 删除关联任务
+    $scope.deleteMatchMission = function (id) {
+        swal({
+                title: "确定删除当前任务吗？",
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确认",
+                cancelButtonText: "取消",
+                closeOnConfirm: true
+            },
+            function(){
+                _basic.delete($host.api_url + "/user/" + userId + "/dpRouteTaskLoan/" + routeFeeId + "/dpRouteTask/" + id).then(function (data) {
+                    if (data.success === true) {
+                        swal("删除成功", "", "success");
+                        washCarFee();
+                        getMatchMissionList();
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
+            });
+    };
 
     // 点击保存
     $scope.grantRouteFeeInfo = function () {
@@ -84,16 +185,18 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$stateParams"
             driveId: $scope.routeFeeInfo.drive_id,
             truckId:$scope.routeFeeInfo.truck_id ,
             grantPassingCost: $scope.routeFeeInfo.grant_passing_cost,
-            grantFuelCost: $scope.routeFeeInfo.grant_fuel_cost,
+            grantFuelCost:$scope.routeFeeInfo.grant_fuel_cost,
             grantProtectCost: $scope.routeFeeInfo.grant_protect_cost,
-            grantPenaltyCost: $scope.routeFeeInfo.grant_penalty_cost,
+            grantPenaltyCost:$scope.routeFeeInfo.grant_penalty_cost,
             grantParkingCost: $scope.routeFeeInfo.grant_parking_cost,
             grantTaxiCost: $scope.routeFeeInfo.grant_taxi_cost,
             grantExplain: $scope.routeFeeInfo.grant_explain,
             grantActualMoney: parseFloat(totalCost),
-            dpRouteTaskIds:[$scope.routeFeeInfo.dp_route_task_id]
+            dpRouteTaskIds:[$scope.dpRouteTaskIds]
         }).then(function (data) {
             if (data.success === true) {
+                getMatchMissionCar();
+                getCurrentRouteFeeInfo();
                 swal("保存成功", "", "success");
             }
             else {
@@ -138,8 +241,8 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$stateParams"
     // 获取数据
     $scope.queryData = function () {
        getCurrentRouteFeeInfo();
-        washCarFee();
-      /*  $scope.getMatchMissionList();*/
+       washCarFee();
+        getMatchMissionCar();
     };
     $scope.queryData();
 }]);

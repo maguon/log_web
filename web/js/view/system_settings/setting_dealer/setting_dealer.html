@@ -38,23 +38,26 @@
                     </button>
                 </div>
             </div>
-
             <div class="row addDealer">
-                <div class=" input-field col s4">
+                <div class=" input-field col s3">
                     <select id="start_city_list" name="state" style="width:100%" ng-change="get_dealer()" ng-model="city">
                         <option value=""></option>
                         <option value="0" >清除选择</option>
                         <option ng-repeat="el in get_city" ng-value="el.id">{{el.city_name}}</option>
                     </select>
                 </div>
-                <div class="input-field col s4">
+                <div class="input-field col s3">
                     <select material-select watch id="s_dealer" class="grey-text"   ng-model="s_dealer">
                         <option value=""  selected>请选择</option>
                         <option ng-repeat="el in get_receive" ng-value="el.id" >{{el.short_name}}</option>
                     </select>
                     <label for="s_dealer">经销商</label>
                 </div>
-                <div class="col s4">
+                <div class="col s3 input-field">
+                    <input id="index" name="index"  ng-model="s_dealer" type="text">
+                    <label for="index">编号:</label>
+                </div>
+                <div class="col s3">
                     <a href="" class="right btn-floating btn-large btn waves-effect cyan lighten-1 waves-light vc-center"
                        ui-sref="add_setting_dealer"><i class="mdi mdi-plus"></i>
                     </a>
@@ -146,6 +149,7 @@
                     </div>
                 </div>
             </div>
+            <div ng-if='setting_dealer.length==0' class="row dealerWrap"><p style="text-align: center;margin-top: 50px">暂无数据</p></div>
         </div>
         <div class="paging_box col s12">
             <div class="right">

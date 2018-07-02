@@ -12,7 +12,7 @@ app.controller("driver_information_details_controller", ["$scope", "$host", "$st
     $scope.noLoadDistance = 0;
 
     $scope.start = 0;
-    $scope.size = 10;
+    $scope.size = 11;
 
     // 获取司机基本信息
     $scope.getBasicDriverInfo = function () {
@@ -121,7 +121,8 @@ app.controller("driver_information_details_controller", ["$scope", "$host", "$st
             size:$scope.size
         })).then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
+                $scope.driverDispatchMissionBox = data.result;
+                $scope.driverDispatchMissionList = $scope.driverDispatchMissionBox.slice(0, 10);
                 if ($scope.start > 0) {
                     $("#pre").show();
                 }
@@ -134,7 +135,6 @@ app.controller("driver_information_details_controller", ["$scope", "$host", "$st
                 else {
                     $("#next").show();
                 }
-                $scope.driverDispatchMissionList = data.result;
             }
             else {
                 swal(data.msg, "", "error");
@@ -142,15 +142,14 @@ app.controller("driver_information_details_controller", ["$scope", "$host", "$st
         });
     };
 
-
     // 分页
     $scope.pre_btn = function () {
-        $scope.start = $scope.start - $scope.size;
+        $scope.start = $scope.start - ($scope.size-1);
         $scope.getDispatchMissionList();
     };
 
     $scope.next_btn = function () {
-        $scope.start = $scope.start + $scope.size;
+        $scope.start = $scope.start +($scope.size-1);
         $scope.getDispatchMissionList();
     };
 
@@ -184,11 +183,11 @@ app.controller("driver_information_details_controller", ["$scope", "$host", "$st
     }
 
     //货车责任
-    $scope.getAccident = function(){
+    $scope.getTruckAccident = function(){
         $scope.start = 0;
         $scope.getDriverAccidentInfo();
     }
-    // 获取司机货车责任信息
+    // 获取货车责任信息
     $scope.getDriverAccidentInfo = function () {
         _basic.get($host.api_url + "/truckAccident?"+ _basic.objToUrl({
             driveId: driverId,
@@ -203,16 +202,16 @@ app.controller("driver_information_details_controller", ["$scope", "$host", "$st
                 $scope.boxArrayAccident = data.result;
                 $scope.driverAccidentList = $scope.boxArrayAccident.slice(0, 10);
                 if ($scope.start > 0) {
-                    $("#preAccident").show();
+                    $("#preTruck").show();
                 }
                 else {
-                    $("#preAccident").hide();
+                    $("#preTruck").hide();
                 }
                 if (data.result.length < $scope.size) {
-                    $("#nextAccident").hide();
+                    $("#nextTruck").hide();
                 }
                 else {
-                    $("#nextAccident").show();
+                    $("#nextTruck").show();
                 }
             }
             else {
@@ -221,12 +220,12 @@ app.controller("driver_information_details_controller", ["$scope", "$host", "$st
         });
     };
     // 分页
-    $scope.pre_btnAccident = function () {
+    $scope.preTruck = function () {
         $scope.start = $scope.start - ($scope.size-1);
         $scope.getDriverAccidentInfo();
     };
 
-    $scope.next_btnAccident = function () {
+    $scope.nextTruck = function () {
         $scope.start = $scope.start + ($scope.size-1);
         $scope.getDriverAccidentInfo();
     };
@@ -237,15 +236,13 @@ app.controller("driver_information_details_controller", ["$scope", "$host", "$st
     $scope.getCarResList = function () {
         _basic.get($host.api_url + "/damage?driveId=" + driverId).then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
                 $scope.carResList = data.result;
             }
             else {
                 swal(data.msg, "", "error");
             }
         });
-    };
-
+    }
     // 显示货车责任模态框
     $scope.showTruckAccidentModal = function (accidentInfo) {
         $("#truckAccidentDetailsModal").modal("open");
@@ -273,6 +270,7 @@ app.controller("driver_information_details_controller", ["$scope", "$host", "$st
     };
     $scope.getPeccancyList = function (){
         _basic.get($host.api_url + "/drivePeccancy?" + _basic.objToUrl({
+            driveId:driverId,
             startDateStart:$scope.startPeccancyTime,
             endDateEnd:$scope.endPeccancyTime,
             fineStatus:$scope.peccancyStu,
@@ -338,6 +336,7 @@ app.controller("driver_information_details_controller", ["$scope", "$host", "$st
     };
     $scope.getExceedOilList = function (){
         _basic.get($host.api_url + "/driveExceedOil?" + _basic.objToUrl({
+            driveId:driverId,
             dpRouteTaskId:$scope.dispatchId,
             taskPlanDateStart:$scope.driveStartTime,
             taskPlanDateEnd:$scope.driveEndTime,

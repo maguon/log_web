@@ -657,6 +657,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
 
 
         // 结算管理
+        .state("settlement_index",{
+            url:"/settlement_index",
+            templateUrl: "js/view/settlement/settlement_index.html",
+            controller:'settlement_index_controller'
+        })
         .state("settlement_management",{
             url:"/settlement_management",
             templateUrl: "js/view/settlement/settlement_management.html",

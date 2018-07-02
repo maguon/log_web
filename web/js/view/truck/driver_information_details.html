@@ -232,7 +232,7 @@
 
                 <!--结算人-->
                 <div class="col s3 offset-s9 input-field">
-                    结算人:  {{putPeccancyList.settle_user_name}}
+                    结算人:  {{putPeccancyList.op_user_name}}
                 </div>
             </div>
         </div>
@@ -288,7 +288,7 @@
 
                 <!--结算人-->
                 <div class="col s3 offset-s9 input-field">
-                    结算人:  {{putExceedOilList.settle_user_name}}
+                    结算人:  {{putExceedOilList.op_user_name}}
                 </div>
             </div>
         </div>
@@ -312,11 +312,11 @@
             <ul class="tabs ui-tabs tabs-fixed-width tab-demo z-depth-1" style="font-size: 25px;font-weight: bold;overflow-x: hidden;margin-bottom: 25px" ul-tabs>
                 <li class="tab"><a href="#driverBasicInfo" style="color: #26c6da;line-height: 40px">基本信息</a></li>
                 <li class="tab"><a href="#driverPic" style="color: #26c6da;line-height: 40px">照片</a></li>
-                <li class="tab"><a href="#dispatchMission" ng-click="getDispatchMissionList()" style="color: #26c6da;line-height: 40px">调度任务</a></li>
-                <li class="tab"><a href="#truckRes" ng-click="getDriverAccidentInfo()" style="color: #26c6da;line-height: 40px">货车责任</a></li>
+                <li class="tab"><a href="#dispatchMission" ng-click="searchDriverInfoList()" style="color: #26c6da;line-height: 40px">调度任务</a></li>
+                <li class="tab"><a href="#truckRes" ng-click="getTruckAccident()" style="color: #26c6da;line-height: 40px">货车责任</a></li>
                 <li class="tab"><a href="#carRes" ng-click="getCarResList()" style="color: #26c6da;line-height: 40px">商品车责任</a></li>
-                <li class="tab"><a href="#driverPeccancyList" ng-click="getPeccancyList()" style="color: #26c6da;line-height: 40px">违章扣款</a></li>
-                <li class="tab"><a href="#driverExceedOil" ng-click="getExceedOilList()" style="color: #26c6da;line-height: 40px">超油扣款</a></li>
+                <li class="tab"><a href="#driverPeccancyList" ng-click="getPeccancy()" style="color: #26c6da;line-height: 40px">违章扣款</a></li>
+                <li class="tab"><a href="#driverExceedOil" ng-click="getExceedOil()" style="color: #26c6da;line-height: 40px">超油扣款</a></li>
             </ul>
         </div>
 
@@ -543,7 +543,7 @@
                         <td>{{dispatch.car_count}}</td>
                         <td>{{dispatch.task_end_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                         <td>{{dispatch.route_op_name}}</td>
-                        <td>{{dispatch.task_status}}</td>
+                        <td>{{dispatch.task_status|taskStatus}}</td>
                         <td class="operation fz12">
                             <a ng-href="#!/dispatch_order_details/id/{{dispatch.id}}/?from=driver_information_details&driverId={{driverIdd}}" class="cyan-text" style="cursor: pointer;text-align: center;color: #26c6da">
                                 <i class="mdi mdi-eye" style="margin: 0"></i>
@@ -615,7 +615,7 @@
                     <!--按钮-->
                     <div class="col s1" style="margin-top: 15px">
                         <div class="col s12" >
-                            <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getAccident()">
+                            <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getTruckAccident()">
                                 <i class="mdi mdi-magnify"></i>
                             </a>
                         </div>
@@ -665,10 +665,10 @@
             <div class="row">
                 <div class="paging_box col s12">
                     <div class="right">
-                        <a class="waves-light waves-effect cyan lighten-1 btn" id="preAccident" ng-click="pre_btnAccident()">
+                        <a class="waves-light waves-effect cyan lighten-1 btn" id="preTruck" ng-click="preTruck()">
                             上一页
                         </a>
-                        <a class="waves-light waves-effect cyan lighten-1 btn" id="nextAccident" ng-click="next_btnAccident()">
+                        <a class="waves-light waves-effect cyan lighten-1 btn" id="nextTruck" ng-click="nextTruck()">
                             下一页
                         </a>
                     </div>
@@ -793,8 +793,8 @@
                         <td>{{peccancyInfo.fine_score}}</td>
                         <td>{{peccancyInfo.fine_money}}</td>
                         <td>{{peccancyInfo.start_date | date:'yyyy-MM-dd'}}--{{peccancyInfo.end_date | date:'yyyy-MM-dd'}}</td>
-                        <td class="red-text" ng-if="peccancyInfo.fine_status==1">未扣</td>
-                        <td ng-if="peccancyInfo.fine_status!==1">已扣</td>
+                        <td class="red-text" ng-if="peccancyInfo.stat_status==1">未扣</td>
+                        <td ng-if="peccancyInfo.stat_status!==1">已扣</td>
                         <td  class="operation">
                             <a ng-click="detailPeccancy(peccancyInfo.id)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
                                 <i class="mdi mdi-file-document" style="margin: 0"></i>
@@ -892,8 +892,8 @@
                         <td>{{ExceedOilInfo.task_plan_date| date:'yyyy-MM-dd'}}</td>
                         <td>{{ExceedOilInfo.exceed_oil_quantity }}</td>
                         <td>{{ExceedOilInfo.exceed_oil_money }}</td>
-                        <td class="red-text" ng-if="ExceedOilInfo.fine_status==1">未扣</td>
-                        <td ng-if="ExceedOilInfo.fine_status!==1">已扣</td>
+                        <td class="red-text" ng-if="ExceedOilInfo.stat_status==1">未扣</td>
+                        <td ng-if="ExceedOilInfo.stat_status!==1">已扣</td>
                         <td  class="operation">
                             <a ng-click="putExceedOil(ExceedOilInfo.id)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
                                 <i class="mdi mdi-file-document" style="margin: 0"></i>

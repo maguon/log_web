@@ -4,7 +4,7 @@
     <!--查询条件-->
     <div class="row col s12">
 
-        <!-- vin 委托方 目的地城市 经销商  指令编号  司机  计划执行时间-->
+        <!-- vin 委托方 目的地城市 经销商  调度编号  司机  计划执行时间-->
         <div class="col s10">
 
             <!--vin-->
@@ -39,10 +39,10 @@
                 <label for="dealer">经销商</label>
             </div>
 
-            <!--指令编号-->
+            <!--调度编号-->
             <div class="col s3 input-field">
                 <input id="instruction_number" type="text" ng-model="instructionNum">
-                <label for="instruction_number">指令编号</label>
+                <label for="instruction_number">调度编号</label>
             </div>
 
             <!--司机-->
@@ -85,7 +85,7 @@
                 <th data-field="">VIN</th>
                 <th data-field="">车型</th>
                 <th data-field="">委托方</th>
-                <th data-field="">指令编号</th>
+                <th data-field="">调度编号</th>
                 <th data-field="">路线</th>
                 <th data-field="">经销商</th>
                 <th data-field="">司机</th>
@@ -157,7 +157,7 @@
             <div class="row col s12">
                 <div class="col s6 valign-wrapper">
                     <div class="col s12 input-field left-align" style="padding-left: 10%">
-                        指令编号:{{notHandOverDetailArray.dp_route_task_id}}
+                        调度编号:{{notHandOverDetailArray.dp_route_task_id}}
                     </div>
                 </div>
                 <div class="col s6 valign-wrapper">

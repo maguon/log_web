@@ -12,6 +12,7 @@
         <ul class="tabs ui-tabs tabs-fixed-width tab-demo z-depth-1"
             style="font-size: 25px;font-weight: bold;overflow-x: hidden;margin-bottom: 25px" ul-tabs>
             <li class="tab"><a ng-click="showDriverDetails()" style="color: #26c6da;line-height: 40px" href="javascript:void(0)">基本信息</a></li>
+            <li class="tab"><a ng-click="showCompanyDetails()" style="color: #26c6da;line-height: 40px" href="javascript:void(0)">所属公司</a></li>
             <li class="tab"><a ng-click="showDriverImages()" style="color: #26c6da;line-height: 40px" href="javascript:void(0)">照片</a></li>
             <li class="tab"><a ng-click="showDriverBand()" style="color: #26c6da;line-height: 40px" href="javascript:void(0)">绑定货车</a></li>
         </ul>
@@ -39,31 +40,10 @@
             </div>
             <div class="row">
                 <div class="input-field col s4"
-                     ng-class="{'has-error':truck_driver_details.operate_type.$invalid&&submitted }">
-                    <select id="operate_type" name="operate_type" material-select watch ng-change="chooseOperateType()" ng-model="driverInfo.operate_type">
-                        <option value="">请选择</option>
-                        <option value="1">自营</option>
-                        <option value="2">外协</option>
-                        <option value="3">供方</option>
-                        <option value="4">承包</option>
-                    </select>
-                    <label><span style="color: red">* </span>所属类型</label>
-                </div>
-                <div class="input-field col s4"
-                     ng-class="{'has-error':truck_driver_details.company.$invalid&&submitted }">
-                    <select id="company" name="company" material-select watch ng-model="driverInfo.company_id" required>
-                        <option value="" selected>请选择</option>
-                        <option ng-repeat="company in companyList" ng-value="company.id" selected>{{company.company_name}}</option>
-                    </select>
-                    <label><span style="color: red">* </span>所属公司</label>
-                </div>
-                <div class="input-field col s4"
                      ng-class="{'has-error':truck_driver_details.id_card.$invalid&&submitted }">
                     <input id="id_card" name="id_card" type="text" ng-model="driverInfo.id_number" required>
                     <label for="id_card"><span style="color: red">* </span>身份证</label>
                 </div>
-            </div>
-            <div class="row">
                 <div class="input-field col s4"
                      ng-class="{'has-error':truck_driver_details.license.$invalid&&submitted }">
                     <select id="license" name="license" material-select watch ng-model="driverInfo.license_type" required>
@@ -79,13 +59,13 @@
                     <i class="mdi dataIcon mdi-table-large"></i>
                     <label for="endTime"><span style="color: red">* </span>驾驶证到期时间</label>
                 </div>
+            </div>
+            <div class="row">
                 <div class="input-field col s4">
                     <input id="driver_parent" type="text" ng-model="driverInfo.sib_tel">
                     <label for="driver_parent">紧急联系人电话</label>
                 </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
+                <div class="input-field col s8">
                     <input id="driver_address" type="text" ng-model="driverInfo.address">
                     <label for="driver_address">家庭住址</label>
                 </div>
@@ -116,6 +96,31 @@
                 </div>
             </div>
             <!--</form>-->
+        </div>
+        <div class="driver_details_step_4" ng-if="stepforth">
+            <div class="input-field col s4"
+                 ng-class="{'has-error':truck_driver_details.operate_type.$invalid&&submitted }" style="margin-top:50px">
+                <select id="operate_type" name="operate_type" material-select watch ng-change="chooseOperateType()" ng-model="driverInfo.operate_type">
+                    <option value="">请选择</option>
+                    <option value="1">自营</option>
+                    <option value="2">外协</option>
+                    <option value="3">供方</option>
+                    <option value="4">承包</option>
+                </select>
+                <label><span style="color: red">* </span>所属类型</label>
+            </div>
+            <div class="input-field col s4" style="margin-top:50px">
+                <select id="company" name="company" material-select watch ng-model="driverInfo.company_id" required>
+                    <option value="">请选择</option>
+                    <option ng-repeat="company in companyList" ng-value="company.id" selected>{{company.company_name}}</option>
+                </select>
+                <label><span style="color: red">* </span>所属公司</label>
+            </div>
+            <div class="input-field col s4" style="margin-top:70px">
+                <div class="row vc-center">
+                    <button class="btn waves-effect"  name="action" ng-click="putCompanyId()">修改</button>
+                </div>
+            </div>
         </div>
         <div class="driver_details_step_2" ng-if="stepSecond">
             <div class="row col s12">
@@ -222,7 +227,6 @@
             </div>
 
         </div>
-
         <div class="driver_details_step_3" ng-if="stepThird">
             <div class="row">
                 <div class="input-field col s4" ng-show="bindTruckInput">

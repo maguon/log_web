@@ -167,24 +167,27 @@ app.controller("look_head_truck_details_controller", ["$scope", "$state", "$stat
             _basic.get($host.record_url + "/user/" + userId + "/truck/" + truck_id + "/record").then(function (data) {
                 if (data.success == true) {
                     // console.log(data);
-                    $scope.operating_record = data.result[0];
-                    // console.log("operating_record",data);
-                    $scope.comment = $scope.operating_record.comments;
-                    $scope.truck_image = $scope.operating_record.images;
-                    if ($scope.truck_image.length > 0) {
-                        for (var i in $scope.truck_image) {
-                            if ($scope.truck_image_i.indexOf($host.file_url + '/image/' + $scope.truck_image[i].url) == -1) {
-                                $scope.truck_image_i.push($host.file_url + '/image/' + $scope.truck_image[i].url);
-                                $scope.truck_imageBox.push({
-                                    src: $host.file_url + '/image/' + $scope.truck_image[i].url,
-                                    record_id: $scope.operating_record._id,
-                                    time: $scope.truck_image[i].timez,
-                                    user: $scope.truck_image[i].name
-                                });
+                    if(data.result.length==0){
+                        $scope.operating_record={};
+                    }else{
+                        $scope.operating_record = data.result[0];
+                        // console.log("operating_record",data);
+                        $scope.comment = $scope.operating_record.comments;
+                        $scope.truck_image = $scope.operating_record.images;
+                        if ($scope.truck_image.length > 0) {
+                            for (var i in $scope.truck_image) {
+                                if ($scope.truck_image_i.indexOf($host.file_url + '/image/' + $scope.truck_image[i].url) == -1) {
+                                    $scope.truck_image_i.push($host.file_url + '/image/' + $scope.truck_image[i].url);
+                                    $scope.truck_imageBox.push({
+                                        src: $host.file_url + '/image/' + $scope.truck_image[i].url,
+                                        record_id: $scope.operating_record._id,
+                                        time: $scope.truck_image[i].timez,
+                                        user: $scope.truck_image[i].name
+                                    });
+                                }
                             }
                         }
                     }
-
                     // $scope.imgArr.push({src:$host.file_url+'/image/'+imageId});
                 } else {
                     swal(data.msg, "", "error")
@@ -225,7 +228,6 @@ app.controller("look_head_truck_details_controller", ["$scope", "$state", "$stat
             "brandId": $scope.truckFirst.brand_id,
             "truckTel": $scope.truckFirst.truck_tel,
             "theCode": $scope.truckFirst.the_code,
-            "companyId": $scope.truckFirst.company_id,
             "truckType": 1,
             "drivingDate": $scope.truckFirst.driving_date,
             "licenseDate": $scope.truckFirst.license_date,
@@ -235,7 +237,7 @@ app.controller("look_head_truck_details_controller", ["$scope", "$state", "$stat
         if (inValid) {
             _basic.put($host.api_url + "/user/" + userId + "/truck/" + id, obj).then(function (data) {
                 if (data.success == true) {
-                    swal("修改成功", "", "success")
+                    swal("修改成功", "", "success");
                 } else {
                     swal(data.msg, "", "error")
                 }
@@ -243,6 +245,31 @@ app.controller("look_head_truck_details_controller", ["$scope", "$state", "$stat
         }
 
     };
+
+    //修改所属公司
+    $scope.putCompanyId = function(){
+        _basic.get($host.api_url + "/company?companyId="+$scope.truckFirst.company_id).then(function (data) {
+            if (data.success == true&&data.result.length>0) {
+                $scope.companyName = data.result[0].company_name;
+                putCompany($scope.companyName)
+            } else {
+                swal(data.msg, "", "error")
+            }
+        });
+    }
+    function putCompany(companyName){
+        _basic.put($host.api_url + "/user/" + userId + "/truck/" + id+'/truckCompany?truckNum='+$scope.truckFirst.truck_num, {
+            "companyId": $scope.truckFirst.company_id,
+            "companyName": companyName
+        }).then(function (data) {
+            if (data.success == true) {
+                swal("修改成功", "", "success")
+            } else {
+                swal(data.msg, "", "error")
+            }
+        });
+    }
+
 
     // 照片上传函数
     function uploadBrandImage(filename, dom_obj, callback) {

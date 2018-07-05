@@ -143,7 +143,6 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
             "brandId":$scope.truckTrailer.brand_id,
             "truckTel": $scope.truckTrailer.truck_tel,
             "theCode": $scope.truckTrailer.the_code,
-            "companyId":$scope.truckTrailer.company_id,
             "truckType":2,
             "number":$scope.truckTrailer.number,
             "drivingDate":$scope.truckTrailer.driving_date,
@@ -161,6 +160,33 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
         }
 
     };
+
+    //修改所属公司
+    $scope.putCompanyId = function(){
+        _basic.get($host.api_url + "/company?companyId="+$scope.truckTrailer.company_id).then(function (data) {
+            if (data.success == true&&data.result.length>0) {
+                $scope.companyName = data.result[0].company_name;
+                putCompany($scope.companyName)
+            } else {
+                swal(data.msg, "", "error")
+            }
+        });
+    }
+    function putCompany(companyName){
+        _basic.put($host.api_url + "/user/" + userId + "/truck/" + id+'/truckCompany?truckNum='+$scope.truckTrailer.truck_num, {
+            "companyId": $scope.truckTrailer.company_id,
+            "companyName": companyName
+        }).then(function (data) {
+            if (data.success == true) {
+                swal("修改成功", "", "success")
+            } else {
+                swal(data.msg, "", "error")
+            }
+        });
+    }
+
+
+
     // 照片上传函数
     function uploadBrandImage(filename,dom_obj,callback) {
         if(filename){

@@ -7,6 +7,7 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
     $scope.stepFirst = true;
     $scope.stepSecond = false;
     $scope.stepThird = false;
+    $scope.stepforth = false;
     // 电话号正则
     $scope.mobileReg = _config.mobileRegx;
     // 驾驶类型
@@ -173,18 +174,26 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
         $scope.stepFirst = true;
         $scope.stepSecond = false;
         $scope.stepThird = false;
+        $scope.stepforth = false;
     };
     $scope.showDriverImages = function () {
         $scope.stepFirst = false;
         $scope.stepSecond = true;
         $scope.stepThird = false;
+        $scope.stepforth = false;
     };
     $scope.showDriverBand = function () {
         $scope.stepFirst = false;
         $scope.stepSecond = false;
         $scope.stepThird = true;
+        $scope.stepforth = false;
     };
-
+    $scope.showCompanyDetails = function () {
+        $scope.stepFirst = false;
+        $scope.stepSecond = false;
+        $scope.stepThird = false;
+        $scope.stepforth = true;
+    };
 
     // 司机解绑与重新绑定
     $scope.check_trailer = function (truckId) {
@@ -489,7 +498,7 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
             gender: $scope.driverInfo.gender,
             idNumber: $scope.driverInfo.id_number,
             tel: $scope.driverInfo.mobile,
-            companyId: $scope.driverInfo.company_id,
+
             licenseType: $scope.driverInfo.license_type,
             // entryDate: $scope.driverInfo.confirm_date,
             address: $scope.driverInfo.address,
@@ -510,6 +519,33 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
             }
         });
     };
+
+    //修改所属公司
+    $scope.putCompanyId = function(){
+        _basic.get($host.api_url + "/company?companyId="+$scope.driverInfo.company_id).then(function (data) {
+            if (data.success == true&&data.result.length>0) {
+                $scope.companyName = data.result[0].company_name;
+                putCompany($scope.companyName)
+            } else {
+                swal(data.msg, "", "error")
+            }
+        });
+    }
+    function putCompany(companyName){
+        _basic.put($host.api_url + "/user/" + userId + "/drive/" + driverId+'/driveCompany', {
+            companyId: $scope.driverInfo.company_id,
+            companyName: companyName
+        }).then(function (data) {
+            if (data.success == true) {
+                swal("修改成功", "", "success")
+            } else {
+                swal(data.msg, "", "error")
+            }
+        });
+    }
+
+
+
 
     // 根据输入关键字过滤货车
     $scope.updateTruckList = function () {

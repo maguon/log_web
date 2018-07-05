@@ -1,5 +1,57 @@
 <!--结算主控-->
 <div class="settlement_index">
 
+    <!--上部分-->
+    <div class="row">
+        <div class="col s4 homeWrapList ">
+            <div class="red lighten-2 valign-wrapper z-depth-2">
+                <div class="col s3 offset-s1 ">
+                    <div class=" s_index_icon red lighten-3 vc-center left ">
+                        <i class="mdi mdi-car white-text text-lighten-2 "></i>
+                    </div>
+                </div>
+                <div class="col s7  white-text  pull-s1 text-lighten-2 right-align">
+                    <div class="white-text text-lighten-2 left-align">
+                        未返还交接单车辆：
+                    </div>
+                    <h5 class="right-align">{{getNum}}</h5>
+                </div>
+            </div>
+        </div>
 
+    </div>
+
+    <!--下部分-->
+    <div class="row">
+        <div class="col s4 storage_detailsList">
+            <div  class="settlement_details white z-depth-2 bold valign-wrapper" style="height: 250px;">
+                <div class="col s6 center-align" style="border-right:1px solid deepskyblue">
+                    <div class="col s12 cyan-text" style="height: 70px;line-height: 70px">今日</div>
+                    <div class="col s6"  style="border-right:1px solid #ccc">
+                        <div class="col s12 "><i class="mdi mdi-checkbox-multiple-marked-outline cyan-text fz30"></i></div>
+                        <div class="col s12 grey-text" style="height: 70px;line-height: 70px">交接单</div>
+                        <div class="col s12 red-text fz22">{{getDaySettCount}}</div>
+                    </div>
+                    <div class="col s6">
+                        <div class="col s12 "><i class="mdi mdi-car cyan-text fz30"></i></div>
+                        <div class="col s12 grey-text fz15" style="height: 70px;line-height: 70px">车辆</div>
+                        <div class="col s12 red-text fz22">{{getDayCarCount}}</div>
+                    </div>
+                </div>
+                <div class="col s6 center-align">
+                    <div class="col s12 cyan-text" style="height: 70px;line-height: 70px">本月</div>
+                    <div class="col s6"  style="border-right:1px solid #ccc">
+                        <div class="col s12 "><i class="mdi mdi-checkbox-multiple-marked-outline cyan-text fz30"></i></div>
+                        <div class="col s12 grey-text fz15" style="height: 70px;line-height: 70px">交接单</div>
+                        <div class="col s12 red-text fz22">{{getMonthSettCount}}</div>
+                    </div>
+                    <div class="col s6">
+                        <div class="col s12 "><i class="mdi mdi-car cyan-text fz30"></i></div>
+                        <div class="col s12 grey-text fz15" style="height: 70px;line-height:70px">车辆</div>
+                        <div class="col s12 red-text fz22">{{getMonthCarCount}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

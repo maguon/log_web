@@ -673,6 +673,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/settlement/settlement_management_detail.html",
             controller:'settlement_management_detail_controller'
         })
+        .state("not_handover",{
+            url:"/not_handover",
+            templateUrl: "js/view/settlement/not_handover.html",
+            controller:'not_handover_controller'
+        })
 
         // 下载app
         .state("admin_download_app",{

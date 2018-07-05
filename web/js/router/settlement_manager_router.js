@@ -68,6 +68,11 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/settlement/settlement_management_detail.html",
             controller:'settlement_management_detail_controller'
         })
+        .state("not_handover",{
+            url:"/not_handover",
+            templateUrl: "js/view/settlement/not_handover.html",
+            controller:'not_handover_controller'
+        })
 
         //管理员设置
         .state("setting_city",{

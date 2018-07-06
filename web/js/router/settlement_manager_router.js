@@ -50,12 +50,12 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/truck/driver_information_details.html",
             controller:'driver_information_details_controller'
         })
-        .state("car_statistics",{
+      /*  .state("car_statistics",{
             url:"/car_statistics",
             templateUrl: "js/view/car/car_statistics.html",
             controller:'car_statistics_controller'
         })
-
+*/
         // 结算管理
         .state("settlement_management",{
             url:"/settlement_management",

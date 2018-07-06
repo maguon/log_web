@@ -403,11 +403,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/car/car_query/car_query_details.html",
             controller:'car_query_details_controller'
         })
-        .state("car_statistics",{
+       /* .state("car_statistics",{
             url:"/car_statistics",
             templateUrl: "js/view/car/car_statistics.html",
             controller:'car_statistics_controller'
-        })
+        })*/
 
          // 车管
         .state("truck_details",{

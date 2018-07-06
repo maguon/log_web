@@ -75,6 +75,11 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
         })
 
         //管理员设置
+        .state("setting_users", {
+            url: "/setting_users",
+            templateUrl: "js/view/system_settings/user_manager.html",
+            controller:'setting_user_controller'
+        })
         .state("setting_city",{
             url:"/setting_city",
             templateUrl: "js/view/system_settings/setting_city.html",

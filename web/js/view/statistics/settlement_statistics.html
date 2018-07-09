@@ -1,0 +1,67 @@
+<div class="vehicle_repair_statistics" style="width: 85%;margin: 0 auto">
+    <div class="row valign-wrapper">
+        <h5 class="col s12 cyan-text lighten-1 center-align">
+            结算统计
+        </h5>
+    </div>
+
+    <!--柱状图-->
+    <div style="width: 98.6%">
+        <!--结算-按月统计-->
+        <div class="row z-depth-2">
+            <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                <div class="col s6 left">
+                    <p>结算-按月统计</p>
+                </div>
+                <div class="col s6 right">
+                    <div class="col s3 left">
+                        <p class="right">选择日期区间:</p>
+                    </div>
+                    <div class="col s3">
+                        <input id="chooseMileageStart" type="text" ng-value="startInitial" readonly>
+                    </div>
+                    <div class="col s1 center">
+                        <p>至</p>
+                    </div>
+                    <div class="col s3">
+                        <input id="chooseMileageEnd" type="text" ng-value="endInitial" readonly>
+                    </div>
+                    <div class="col s2 center">
+                        <i class="mdi mdi-magnify" ng-click="searchSettlementMonCount()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                    </div>
+                </div>
+            </div>
+            <!--交接单数统计-->
+            <div class="col s12">
+                <div class="col s12" id="settlementMonth" style="min-width:400px;height:350px;margin-top: 40px"></div>
+            </div>
+            <!--交接车辆统计-->
+            <div class="col s12">
+                <div class="col s12" id="carMonth" style="min-width:400px;height:350px;margin: 35px 0 35px 0"></div>
+            </div>
+        </div>
+
+        <!--结算-按日统计-->
+        <div class="row z-depth-2" style="margin-top: 50px">
+            <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                <div class="col s6 left">
+                    <p>结算-按日统计</p>
+                </div>
+                <div class="col s6 right">
+                    <select class="col s6 grey-text text-darken-1 right" material-select watch ng-change="getDayInfo()" ng-model="settlementInfoSize">
+                        <option value="30" selected>近30天</option>
+                        <option value="10" selected>近10天</option>
+                    </select>
+                </div>
+            </div>
+            <!--交接单数统计-->
+            <div class="col s12">
+                <div class="col s12" id="settlementDay" style="min-width:400px;height:350px;margin-top: 40px"></div>
+            </div>
+            <!--交接车辆统计-->
+            <div class="col s12">
+                <div class="col s12" id="carDay" style="min-width:400px;height:350px;margin: 40px 0 40px 0"></div>
+            </div>
+        </div>
+    </div>
+</div>

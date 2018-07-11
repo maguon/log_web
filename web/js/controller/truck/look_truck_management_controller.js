@@ -32,7 +32,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                 $scope.lng = data.result[0].lng;
                 $scope.lat = data.result[0].lat;
                 $scope.remark = data.result[0].accident_explain;
-                $scope.truckTel = data.result[0].tel;
+                $scope.truckTel = data.result[0].mobile;
                 $scope.truckType = data.result[0].operate_type;
                 $scope.companyName = data.result[0].company_name;
 

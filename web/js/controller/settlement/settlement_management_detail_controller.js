@@ -76,8 +76,7 @@ app.controller("settlement_management_detail_controller", ["$scope","$state","$s
                 _basic.get($host.api_url + "/dpRouteLoadTaskDetailBase?vinCode=" +$scope.carVin+ '&entrustId='+$scope.entrustId+'&carLoadStatus=2', {}).then(function (data) {
                     if (data.success == true) {
                         if(data.result.length == 0){
-                            $scope.carVin=""
-                            swal('该VIN不存在！', "", "error")
+                          /*  $scope.carVin=""*/
                         }
                         else{
                             $scope.vinMsg = data.result;

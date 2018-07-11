@@ -64,10 +64,18 @@
     <div id="repairRecord">
         <div class="row valign-wrapper">
             <div class="col s9">
-                <div class="col s3 input-field">
+              <!--  <div class="col s3 input-field">
                     <input type="text" name="truck_name" id="record_truck_name" ng-model="recordTruckNum">
                     <label for="record_truck_name">车牌号</label>
+                </div>-->
+                <div class="input-field col s3">
+                    <select id="record_truck_name" style="width: 100%" ng-model="recordTruckNum">
+                        <option value=""></option>
+                        <option ng-repeat="el in truckNumList" >{{el.truck_num}}</option>
+                    </select>
                 </div>
+
+
                 <div class="col s3 input-field">
                     <select material-select watch id="record_truck_type" class="truck_type" ng-model="recordTruckType">
                         <option ng-value="" selected>请选择</option>
@@ -168,6 +176,9 @@
                             <td class="operation">
                                 <a ui-sref="truck_repair({id:repair.truck_id,type:repair.truck_type,status:'',from:'truck_repair_list'})" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-eye" style="margin: 0"></i></a>
                             </td>
+                        </tr>
+                        <tr class="grey-text text-darken-1" ng-if="repairRecordList.length == 0">
+                            <td colspan="10"><span style="letter-spacing: 2px">暂无数据</span></td>
                         </tr>
                         </tbody>
                     </table>

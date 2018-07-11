@@ -221,10 +221,19 @@
                     </div>
                 </div>
                 <div class="col s12">
-                    <div class="col s3 input-field" >
+
+                <!--    <div class="col s3 input-field" >
                         <input type="text" name="insure_num" id="truck_num" ng-model="truckNum">
                         <label for="truck_num">车牌号码</label>
                     </div>
+-->
+                    <div class="input-field col s3">
+                        <select id="truck_num" style="width: 100%" ng-model="truckNum">
+                            <option value=""></option>
+                            <option ng-repeat="el in truckNumList" >{{el.truck_num}}</option>
+                        </select>
+                    </div>
+
                     <div class="col s3 input-field">
                         <select material-select watch id="truck_type" class="truck_type" ng-model="truckType">
                             <option value="" selected>请选择</option>

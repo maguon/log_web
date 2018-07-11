@@ -8,7 +8,22 @@ app.controller("truck_repair_list_controller", ['$rootScope', '$scope', '_basic'
     $scope.record_repair_size = 10;
     $scope.hasNotAccident = true;
     $scope.forbidSelect = true;
-
+    //車牌号
+    function getTruckNumList () {
+        _basic.get($host.api_url + "/truckBase").then(function (data) {
+            if (data.success === true) {
+                $scope.truckNumList = data.result;
+                $('#record_truck_name').select2({
+                    placeholder: '车牌号',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
     // 数据导出
     $scope.export = function () {
         if ($scope.repair_status == 0) {
@@ -178,6 +193,7 @@ app.controller("truck_repair_list_controller", ['$rootScope', '$scope', '_basic'
     // 获取数据
     $scope.queryData = function () {
         $scope.getRepairRecordList();
+        getTruckNumList ();
     };
     $scope.queryData()
 

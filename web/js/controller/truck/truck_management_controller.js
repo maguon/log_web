@@ -22,7 +22,8 @@ app.controller("truck_management_controller", ["$scope", "$state", "$stateParams
                     $scope.truckNumList = data.result;
                     $('#truckNum').select2({
                         placeholder: '车牌号',
-                        containerCssClass : 'select2_dropdown'
+                        containerCssClass : 'select2_dropdown',
+                        allowClear: true
                     });
                 }
                 else {

@@ -19,6 +19,16 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     $scope.addDispatchMissionList = [];
     $(".load_mission").hide();
 
+    function truckDispatchCount(){
+        _basic.get($host.api_url + "/truckDispatchCount?dispatchFlag=1").then(function (data) {
+            if (data.success === true) {
+                $scope.readyAcceptCount =data.result[0].ready_accept_count;
+                $scope.onRoadCount =data.result[0].on_road_count;
+            }
+        })
+    }
+
+
     // 获取发运商品车信息（左侧信息卡片）
     $scope.getDeliveryCarInfo = function () {
         _basic.get($host.api_url + "/dpTaskStat?dpTaskStatStatus=1").then(function (dispatchCarData) {
@@ -772,6 +782,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     // 获取数据
     $scope.queryData = function () {
+        truckDispatchCount();
         $scope.getDeliveryCarInfo();
         $scope.getCarDetails();
     };

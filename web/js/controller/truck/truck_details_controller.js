@@ -35,6 +35,40 @@ app.controller("truck_details_controller", ["$scope", "$state", "$stateParams", 
     };
     $scope.getBrandList();
 
+    //車牌号
+    function getTruckNumList () {
+        _basic.get($host.api_url + "/truckFirst").then(function (data) {
+            if (data.success === true) {
+                $scope.truckNumList = data.result;
+                $('#search_num').select2({
+                    placeholder: '车牌号',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
+    //車牌号
+    function getTrailerNumList () {
+        _basic.get($host.api_url + "/truckTrailer").then(function (data) {
+            if (data.success === true) {
+                $scope.truckTrailerNumList = data.result;
+                $('#search_hand_num').select2({
+                    placeholder: '车牌号',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
+    getTruckNumList ();
+    getTrailerNumList ();
 
     // 头车搜索请求
     $scope.head_query = function (params) {

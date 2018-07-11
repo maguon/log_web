@@ -68,10 +68,18 @@
                                             <label for="search_company">请选择</label>
                                         </div>
                                     </div>
+
                                     <div class="input-field col s2">
+                                        <select id="search_num" style="width: 100%" ng-model="search_num">
+                                            <option value="">牌号</option>
+                                            <option ng-repeat="el in truckNumList" >{{el.truck_num}}</option>
+                                        </select>
+                                    </div>
+
+                                   <!-- <div class="input-field col s2">
                                         <input name="search_num" id="search_num" type="text" ng-model="search_num"   >
                                         <label for="search_num">牌号</label>
-                                    </div>
+                                    </div>-->
                                     <div class="input-field col s2">
                                         <input name="search_driver" id="search_driver" type="text" ng-model="search_driver" >
                                         <label for="search_driver">关联司机</label>
@@ -212,10 +220,18 @@
                                         </select>
                                         <label for="search_hand_company">请选择</label>
                                     </div>
+
                                     <div class="input-field col s2">
+                                        <select id="search_hand_num" style="width: 100%" ng-model="search_hand_num">
+                                            <option value="">牌号</option>
+                                            <option ng-repeat="el in truckTrailerNumList" >{{el.truck_num}}</option>
+                                        </select>
+                                    </div>
+
+                                   <!-- <div class="input-field col s2">
                                         <input name="search_hand_num" id="search_hand_num" type="text" ng-model="search_hand_num"  minlength="6" >
                                         <label for="search_hand_num">牌号</label>
-                                    </div>
+                                    </div>-->
                                     <div class="input-field col s2">
                                         <input name="search_hand_num_start" id="search_hand_num_start" type="number" ng-model="search_hand_num_start"  >
                                         <label for="search_hand_num_start">挂车货位(始)</label>

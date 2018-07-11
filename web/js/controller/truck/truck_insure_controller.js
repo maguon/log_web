@@ -13,6 +13,22 @@ app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "
             }
         });
     };
+    //車牌号
+    function getTruckNumList () {
+        _basic.get($host.api_url + "/truckBase").then(function (data) {
+            if (data.success === true) {
+                $scope.truckNumList = data.result;
+                $('#truck_num').select2({
+                    placeholder: '车牌号码',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
     // 数据导出
     $scope.export = function () {
         var obj = {
@@ -212,6 +228,7 @@ app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "
     // 获取数据
     function queryData () {
         getInsuranceCompany();
+        getTruckNumList ();
         $scope.searchTruckInsure();
     };
     queryData();

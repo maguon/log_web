@@ -46,7 +46,7 @@ app.controller("settlement_statistics_controller", ["$scope", "$host", "_basic",
         }
     ];
 
-    // 点击搜索按钮根据日期搜索货车加油信息
+    // 点击搜索按钮根据日期搜索
     $scope.searchSettlementMonCount = function () {
         var monthStart = $("#chooseMileageStart").val();
         var monthEnd = $("#chooseMileageEnd").val();
@@ -91,15 +91,12 @@ app.controller("settlement_statistics_controller", ["$scope", "$host", "_basic",
             if (data.success === true) {
                 data.result.reverse();
                 $scope.settlementDay = [];
-                // 申请笔数金额初始化
                 settlementCountDay[0].data = [];
                 carCountDay[0].data = [];
                 for (var i = 0; i < data.result.length; i++) {
                     // x轴月份
                     $scope.settlementDay.push(data.result[i].id);
-                    // 申请笔数
                     settlementCountDay[0].data.push(Math.ceil(data.result[i].settle_handover_count));
-                    // 申请金额
                     carCountDay[0].data.push(Math.ceil(data.result[i].car_count));
                 }
                 $scope.showCountDayChart();

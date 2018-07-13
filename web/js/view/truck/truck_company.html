@@ -118,13 +118,6 @@
                 </a>
             </div>
         </div>
-        <!--<div class="col s1">-->
-            <!--<a style="width: 100%;padding:0  1rem;" class="waves-effect waves-light cyan lighten-1 btn-large " ng-click="search()">搜索</a>-->
-        <!--</div>-->
-        <!--<div class="col s2">-->
-            <!--<a style="width: 100%" class="waves-effect waves-light  red lighten-2 btn-large " ng-click="addCompany()">增加公司</a>-->
-
-        <!--</div>-->
     </div>
     <div class="row">
         <div class="divider"></div>
@@ -148,11 +141,12 @@
                     <td ng-if="el.operate_type=='4'">承包</td>
                     <td ng-bind="el.contacts"></td>
                     <td ng-bind="el.tel"></td>
-                    <!--<td ng-bind="el.city_name"></td>-->
                     <td class="operation">
                         <span><i class="mdi mdi-file-outline look_icon cyan-text lighten-1 " ng-click="LookCompany(el.id)"></i></span>
-                        <!--<span><i class="mdi cyan-text text-lighten-2 mdi-truck-delivery"></i></span>-->
                     </td>
+                </tr>
+                <tr class="grey-text text-darken-1" ng-if="Company.length == 0">
+                    <td colspan="5"><span style="letter-spacing: 2px">暂无数据</span></td>
                 </tr>
                 </tbody>
             </table>
@@ -168,9 +162,6 @@
                         <div class="input-field row form_box" ng-class="{ 'has-error' : look_companyForm.company_name.$invalid&&look_submitted }">
                             <p class="col s2-0" style="padding: 10px 0.75rem"><span class="red-text">*</span><span >公司名称:</span></p>
                             <input  type="text" name="company_name" autocomplete="off" ng-model="company.company_name" class="col s8-0 " required>
-                            <!--<div class="form-tips red white-text" ng-if="look_companyForm.company_name.$error&&look_submitted" ng-messages="look_companyForm.company_name.$error">-->
-                            <!--<div ng-message="required">不能为空</div>-->
-                            <!--</div>-->
                         </div>
                         <div class="row ">
                             <div class="col s6">
@@ -191,18 +182,8 @@
                                     <p class="col s4-0"><span class="red-text">*</span><span >合作时间:</span></p>
                                     <div class="dateBox col s6-0 form_box" style="padding:0" ng-class="{'has-error':look_companyForm.look_cooperation_time.$invalid&&look_submitted}">
                                         <input type="text" autocomplete="off" name="look_cooperation_time" class="datepicker" ng-model="look_cooperation_time"  date required><i class="mdi dataIcon mdi-table-large"></i>
-                                        <!--<div class="form-tips red white-text" ng-if="look_companyForm.look_cooperation_time.$error&&look_submitted" ng-messages="look_companyForm.look_cooperation_time.$error">-->
-                                        <!--<div ng-message="required">不能为空</div>-->
-                                        <!--</div>-->
                                     </div>
                                 </div>
-                                <!--<div class="row valign-wrapper no-marBottom" ng-class="{ 'has-error' : look_companyForm.look_city.$invalid&&look_submitted }">-->
-                                    <!--<p class="col s4-0"><span class="red-text">*</span><span >所在城市:</span></p>-->
-                                    <!--<select car-select name="look_city" class="browser-default col s6-0" ng-model="company.city_id" required>-->
-                                        <!--&lt;!&ndash;<option value="" disabled selected>请选择</option>&ndash;&gt;-->
-                                        <!--<option ng-value="op.id"  ng-repeat="op in citys">{{op.city_name}}</option>-->
-                                    <!--</select>-->
-                                <!--</div>-->
                             </div>
                         </div>
                         <div class="row">
@@ -210,9 +191,6 @@
                                 <div class="row form_box valign-wrapper no-marBottom" ng-class="{'has-error':look_companyForm.look_contacts.$invalid&&look_submitted}">
                                     <p class="col s4-0"><span class="red-text">*</span><span >联系人:</span></p>
                                     <input  type="text" name="look_contacts" autocomplete="off" ng-model="company.contacts" class=" col s6-0 " required>
-                                    <!--<div class="form-tips red white-text" ng-if="look_companyForm.look_contacts.$error&&look_submitted" ng-messages="look_companyForm.look_contacts.$error">-->
-                                    <!--<div ng-message="required">不能为空</div>-->
-                                    <!--</div>-->
                                 </div>
                             </div>
 
@@ -220,9 +198,6 @@
                                 <div class="row form_box valign-wrapper no-marBottom" ng-class="{'has-error':look_companyForm.look_tel.$invalid&&look_submitted}">
                                     <p class="col s4-0"><span class="red-text">*</span><span >联系电话:</span></p>
                                     <input  type="text" name="look_tel" autocomplete="off" ng-model="company.tel" class="col s6-0 " required>
-                                    <!--<div class="form-tips red white-text" ng-if="look_companyForm.look_tel.$error&&look_submitted" ng-messages="look_companyForm.look_tel.$error">-->
-                                    <!--<div ng-message="required">不能为空</div>-->
-                                    <!--</div>-->
                                 </div>
                             </div>
                         </div>

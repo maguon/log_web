@@ -56,7 +56,7 @@
                     <th>加油所属</th>
                     <th>加油量（升）</th>
                     <th>加油金额</th>
-                    <th width="220">操作</th>
+                    <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -69,19 +69,19 @@
                     <td ng-if="el.refuel_address_type==2">外部加油</td>
                     <td>{{el.refuel_volume}}</td>
                     <td>{{el.refuel_money}}</td>
-                    <td class="details vc-center" width="220">
+                    <td class="details vc-center">
                         <div class="col s12">
-                            <div class="col s4 right-align" style="padding: 0;">
-                                <a style="width: 35px;height: 35px;font-size: 0.9rem;line-height: 36px" class="btn btn-floating" ng-click="resolve(el.id)" ng-if="el.check_status==1" >
+                            <div class="col s6" style="padding: 0;"  ng-if="el.check_status==1">
+                                <a style="width: 35px;height: 35px;font-size: 0.9rem;line-height: 36px" class="btn btn-floating" ng-click="resolve(el.id)" >
                                     通过
                                 </a>
                             </div>
-                            <div class="col s4">
-                                <a style="width: 35px;height: 35px;font-size: 0.9rem;line-height: 36px;margin-left: 15px" class="btn btn-floating red lighten-2" ng-click="reject(el.id)" ng-if="el.check_status==1" >
+                            <div class="col s6"  ng-if="el.check_status==1">
+                                <a style="width: 35px;height: 35px;font-size: 0.9rem;line-height: 36px;margin-left: 15px" class="btn btn-floating red lighten-2" ng-click="reject(el.id)" >
                                     拒绝
                                 </a>
                             </div>
-                            <div class="col s4">
+                            <div class="col s12">
                                 <a style="margin-left: 10px" ui-sref="instruction_car_refuel_details({id:el.id,from:'instruction_car_refuel'})" class="right-align">
                                     <i class="mdi mdi-file-outline cyan-text lighten-1 fz21"></i>
                                 </a>
@@ -111,29 +111,31 @@
         </div>
     </div>
 
-    <div id="modal1" class="modal">
-        <div class="col s12 cyan white-text" style="height: 50px">
+
+</div>
+<div id="modal1" class="modal modal-fixed-footer" style="width: 65%;height: 290px">
+    <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+        <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
             <h5 class="center-align" >拒绝原因</h5>
         </div>
-        <div class="divider a1_divider"></div>
-        <div class="modal-content">
-            <div class="container" style="width: 90%">
-                <div class="row" style="margin-top:80px">
-                    <div class="input-field col s12">
-                        <input type="text" id="textarea1" ng-model="reject_reason_msg" class="materialize-textarea" maxlength="100">
-                        <label for="textarea1"><span style="color: red">* </span>拒绝原因（100字以内）</label>
-                    </div>
-                </div>
+
+        <div class="row col s12" style="margin-top:80px;width: 90%">
+            <div class="input-field col s12">
+                <input type="text" id="textarea1" ng-model="reject_reason_msg" class="materialize-textarea" maxlength="100">
+                <label for="textarea1"><span style="color: red">* </span>拒绝原因（100字以内）</label>
             </div>
         </div>
+
         <div class="divider" style="background: #00bcd4;height: 2px;"></div>
-        <div class="modal-footer right-align">
-            <a  class="btn-floating modal-action modal-close waves-effect waves-light grey lighten-1 btn"  >
-                <i class="mdi mdi-close"></i>
-            </a>
-            <button class="btn btn-floating waves-light waves-effect cyan lighten-1" ng-click="reject_reason()" style="margin-right: 10px" >
-                <i class="mdi mdi-check"></i>
-            </button>
-        </div>
+
     </div>
+    <div class="row col s12 modal-footer right-align">
+        <a  class="btn-floating modal-action modal-close waves-effect waves-light grey lighten-1 btn"  >
+            <i class="mdi mdi-close"></i>
+        </a>
+        <button class="btn btn-floating waves-light waves-effect cyan lighten-1" ng-click="reject_reason()" style="margin-right: 10px" >
+            <i class="mdi mdi-check"></i>
+        </button>
+    </div>
+
 </div>

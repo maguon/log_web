@@ -4,6 +4,8 @@
 app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_basic", function ($scope, $host, _config, _basic) {
     // 指令任务状态
     $scope.taskStatusList = _config.taskStatus;
+    $scope.start = 0;
+    $scope.size = 11;
     $scope.instructionStatus = "1";
     _basic.get($host.api_url + "/city").then(function (data) {
         if (data.success == true) {
@@ -112,7 +114,16 @@ app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_b
         $('#newNeed').modal('open');
 
     };
-    $scope.search_all = function () {
+    /**
+     * 点击查询按钮
+     * */
+    $scope.search_all = function (){
+        $scope.start = 0;
+        seachAllInfo();
+    }
+
+
+   function seachAllInfo() {
         var obj = {
             dpDemandId: $scope.instructionNum,
             demandStatus: $scope.instructionStatus,
@@ -126,20 +137,36 @@ app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_b
             routeStartId: $scope.start_city,
             baseAddrId: $scope.dispatch_car_position,
             routeEndId: $scope.arrive_city,
-            receiveId: $scope.dealer
+            receiveId: $scope.dealer,
+            start: $scope.start.toString(),
+            size: $scope.size
         };
         _basic.get($host.api_url + "/dpDemand?" + _basic.objToUrl(obj)).then(function (data) {
             if (data.success == true && data.result.length >= 0) {
                 for (var i = 0; i < data.result.length; i++) {
                     data.result[i].date_id = moment(data.result[i].date_id.toString()).format("YYYY-MM-DD");
                 }
-                $scope.instruction_neee_list = data.result;
+                $scope.instructionBoxArray = data.result;
+                $scope.instruction_neee_list = $scope.instructionBoxArray.slice(0,10);
+
+                if ($scope.start > 0) {
+                    $("#pre").show();
+                }
+                else {
+                    $("#pre").hide();
+                }
+                if (data.result.length < $scope.size) {
+                    $("#next").hide();
+                }
+                else {
+                    $("#next").show();
+                }
             } else {
                 $scope.instruction_list = [];
             }
         })
     };
-    $scope.search_all();
+    seachAllInfo();
 
     // 新增需求
     $scope.add_need_instruct = function (inValid) {
@@ -165,4 +192,19 @@ app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_b
             })
         }
     }
+    /**
+     * 上一页
+     */
+    $scope.preBtn = function () {
+        $scope.start = $scope.start - ($scope.size - 1) ;
+        seachAllInfo();
+    };
+
+    /**
+     * 下一页
+     */
+    $scope.nextBtn = function () {
+        $scope.start = $scope.start + ($scope.size - 1) ;
+        seachAllInfo();
+    };
 }]);

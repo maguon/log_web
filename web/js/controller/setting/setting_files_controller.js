@@ -2,7 +2,7 @@
   Created by star on 2018/1/10
  */
 app.controller("setting_files_controller", ["$scope", "$rootScope", "$host", "_basic", function ($scope, $rootScope, $host, _basic) {
-
+    var userId = _basic.getSession(_basic.USER_ID);
     $scope.ImportedFilesList = [];
     $scope.fileDetailObj = {
         fileName: "",

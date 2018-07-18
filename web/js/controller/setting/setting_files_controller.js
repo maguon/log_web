@@ -27,7 +27,10 @@ app.controller("setting_files_controller", ["$scope", "$rootScope", "$host", "_b
         });
     };
 
-
+    //点击下载
+    $scope.export = function(id){
+        window.open($host.file_url + "/user/" +userId+'/file/'+id);
+    }
 
     // 点击查询
     $scope.getMatchFiles = function () {

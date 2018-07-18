@@ -15,13 +15,21 @@ app.controller("imported_files_controller", ["$scope", "$rootScope", "$host", "_
     $("#pre").hide();
     $("#next").hide();
 
+    //点击下载
+    $scope.export = function(id){
+        window.open($host.file_url + "/user/" +userId+'/file/'+id);
+    }
+
     // 点击查询
     $scope.getMatchFiles = function () {
-
+        $scope.start = 0;
+        searchMatchFiles();
     };
 
+
+
     // 根据条件搜索文件
-    $scope.searchMatchFiles = function () {
+     function searchMatchFiles() {
         if ($scope.startDate == null || $scope.endDate == null || $scope.startDate == "" || $scope.endDate == "") {
             swal('请输入完整的查询时间', "", "error");
         }
@@ -30,7 +38,7 @@ app.controller("imported_files_controller", ["$scope", "$rootScope", "$host", "_
                 fileType: "1",
                 startDate: $scope.startDate,
                 endDate: $scope.endDate,
-                start:$scope.start.toString(),
+                start:$scope.start,
                 size:$scope.size
             })).then(function (data) {
                 if (data.success === true) {
@@ -76,11 +84,11 @@ app.controller("imported_files_controller", ["$scope", "$rootScope", "$host", "_
     // 分页
     $scope.pre_btn = function () {
         $scope.start = $scope.start - ($scope.size-1);
-        $scope.searchMatchFiles();
+        searchMatchFiles();
     };
 
     $scope.next_btn = function () {
         $scope.start = $scope.start + ($scope.size-1);
-        $scope.searchMatchFiles();
+        searchMatchFiles();
     };
 }]);

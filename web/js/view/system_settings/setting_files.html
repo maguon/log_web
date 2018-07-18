@@ -101,8 +101,10 @@
                     <span>
                         <i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ng-click="changeDetail(fileInfo)"></i>
                     </span>
-                    <a target="_blank" href="http://stg.myxxjs.com:9002/api/user/64/file/{{fileInfo._id}}"  download="{{fileInfo.filename}}"><i
-                            class="mdi  look_icon cyan-text lighten-1 mdi-arrow-down-bold-circle "></i></a>
+                   <!-- <a target="_blank" href="http://stg.myxxjs.com:9002/api/user/64/file/{{fileInfo._id}}"  download="{{fileInfo.filename}}"><i
+                            class="mdi  look_icon cyan-text lighten-1 mdi-arrow-down-bold-circle "></i></a>-->
+                    <a class="mdi  look_icon cyan-text lighten-1 mdi-arrow-down-bold-circle fz24"  ng-click="export(fileInfo._id)">
+                    </a>
                 </td>
             </tr>
             <tr ng-if="importedFilesList.length==0">

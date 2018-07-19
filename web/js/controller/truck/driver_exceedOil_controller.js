@@ -164,12 +164,21 @@ app.controller("driver_exceedOil_controller", ["$scope", "$state", "_basic", "_c
                 }
                 else{
                     $scope.putExceedOilList = data.result[0];
+                    $scope.putExceedOilList.dp_route_task_id = data.result[0].dp_route_task_id;
                     $scope.putExceedOilList.task_plan_date = moment(data.result[0].task_plan_date).format('YYYY-MM-DD');
+                    getStartCityAndEndCity($scope.putExceedOilList.dp_route_task_id);
                 }
             }
         })
-    }
+    };
 
+    function getStartCityAndEndCity(id){
+        _basic.get($host.api_url + "/dpRouteLoadTask?dpRouteTaskId=" +id).then(function (data) {
+            if (data.success == true) {
+                $scope.loadTask = data.result[0];
+            }
+        })
+    }
 
     //点击确定 修改完成
     $scope.putExceedOilItem = function (){

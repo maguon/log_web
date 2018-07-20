@@ -69,19 +69,19 @@
                     <td ng-if="el.refuel_address_type==2">外部加油</td>
                     <td>{{el.refuel_volume}}</td>
                     <td>{{el.refuel_money}}</td>
-                    <td class="details vc-center">
+                    <td class="details vc-center" >
                         <div class="col s12">
-                            <div class="col s6" style="padding: 0;"  ng-if="el.check_status==1">
-                                <a style="width: 35px;height: 35px;font-size: 0.9rem;line-height: 36px" class="btn btn-floating" ng-click="resolve(el.id)" >
+                            <div class="col s4 right-align" style="padding: 0;">
+                                <a style="width: 35px;height: 35px;font-size: 0.9rem;line-height: 36px" class="btn btn-floating" ng-click="resolve(el.id)" ng-if="el.check_status==1" >
                                     通过
                                 </a>
                             </div>
-                            <div class="col s6"  ng-if="el.check_status==1">
-                                <a style="width: 35px;height: 35px;font-size: 0.9rem;line-height: 36px;margin-left: 15px" class="btn btn-floating red lighten-2" ng-click="reject(el.id)" >
+                            <div class="col s4">
+                                <a style="width: 35px;height: 35px;font-size: 0.9rem;line-height: 36px;margin-left: 15px" class="btn btn-floating red lighten-2" ng-click="reject(el.id)" ng-if="el.check_status==1" >
                                     拒绝
                                 </a>
                             </div>
-                            <div class="col s12">
+                            <div class="col s4">
                                 <a style="margin-left: 10px" ui-sref="instruction_car_refuel_details({id:el.id,from:'instruction_car_refuel'})" class="right-align">
                                     <i class="mdi mdi-file-outline cyan-text lighten-1 fz21"></i>
                                 </a>

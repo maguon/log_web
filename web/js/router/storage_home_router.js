@@ -143,6 +143,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/car/car_query/car_query_details.html",
             controller:'car_query_details_controller'
         })
+        .state("dealerMap",{
+            url:"/dealerMap",
+            templateUrl: "js/view/system_settings/dealerMap.html",
+            controller:'dealerMap_controller'
+        })
         .state("add_storage_car_vin", {
             url:"/add_storage_car_vin",
             templateUrl: "js/view/storage/add_storage_car_vin.html",

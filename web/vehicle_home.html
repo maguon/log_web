@@ -77,6 +77,7 @@
                         <li><a href="#!" ui-sref="car_query"><i class="mdi mdi-chevron-right white-text "></i>商品车信息</a></li>
                         <li><a href="#!" ui-sref="instruction_list"><i class="mdi mdi-chevron-right white-text "></i>指令列表</a></li>
                         <li><a href="#!" ui-sref="driver_information"><i class="mdi mdi-chevron-right white-text "></i>司机信息</a></li>
+                        <li><a href="#!" ui-sref="dealerMap"><i class="white-text mdi mdi-chevron-right"></i>经销商</a></li>
                     </ul>
                 </div>
             </li>
@@ -139,7 +140,7 @@
 <script src="/assets/plugins/fullcalendar-3.3.0/lib/jquery-ui.min.js"></script>
 <script src="/assets/plugins/month_picker/month_picker.min.js"></script>
 <!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=8iGBbYV3ghkvGehg79nG5LaGX2vVawjG"></script>-->
-<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.2&key=cfbd1db1ba7309dd7687fef4fd39ba3f"></script>
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.2&key=cfbd1db1ba7309dd7687fef4fd39ba3f&plugin=AMap.MarkerClusterer"></script>
 <script src="/assets/plugins/fullcalendar-3.3.0/lib/moment.min.js"></script>
 <script src="/assets/plugins/jquery.cropit.js"></script>
 <script src="/assets/plugins/fullcalendar-3.3.0/fullcalendar.min.js"></script>
@@ -200,7 +201,7 @@
 <script src="/js/controller/dispatch/look_instruction_list_details_controller.js"></script>
 <script src="/js/controller/truck/driver_information_controller.js"></script>
 <script src="/js/controller/truck/driver_information_details_controller.js"></script>
-
+<script src="/js/controller/setting/dealerMap_controller.js"></script>
 <!--数据统计-->
 <script src="/js/controller/statistics/insurance_statistics_controller.js"></script>
 <script src="/js/controller/statistics/maintenance_statistics_controller.js"></script>

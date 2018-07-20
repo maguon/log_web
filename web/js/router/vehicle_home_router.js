@@ -56,6 +56,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/system_settings/setting_dealer/add_setting_dealer_details.html",
             controller:'add_setting_dealer_controller'
         })
+        .state("dealerMap",{
+            url:"/dealerMap",
+            templateUrl: "js/view/system_settings/dealerMap.html",
+            controller:'dealerMap_controller'
+        })
 
         // 车管
         .state("truck_company",{

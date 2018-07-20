@@ -226,7 +226,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/system_settings/setting_files_detail.html",
             controller:'setting_files_detail_controller'
         })
-
+        .state("dealerMap",{
+            url:"/dealerMap",
+            templateUrl: "js/view/system_settings/dealerMap.html",
+            controller:'dealerMap_controller'
+        })
         // 仓储
         .state("storage_index", {  //路由状态
             url: "/storage_index",  //路由路径

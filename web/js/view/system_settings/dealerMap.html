@@ -1,0 +1,98 @@
+<div class="setting_dealer">
+    <div class="row">
+        <div class="row valign-wrapper">
+            <h5 class="col s12 cyan-text lighten-1  center-align">
+                经销商
+            </h5>
+        </div>
+        <div class="row">
+            <div class="divider cyan lighten-2"></div>
+        </div>
+        <div class="row" style="position: relative;margin-bottom: 0">
+            <div class="col s4 grey-text" auto-map-height >
+
+                <div class="col s12" ng-show="flag==true" style="height: 590px;overflow: auto">
+                    <div ng-repeat="el in get_city" class="col s3" style=" padding:1rem;">
+                        <div class="col s12 city_model_panel z-depth-1 center-align"  style="cursor: pointer">
+                            <p style="margin: 9px 0;color: #26c6da" id="query" ng-click="getCityDealer(el.id)">{{el.city_name}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="get_receive.length!==0&&dealer_details==null" style="height: 590px;overflow: auto">
+                    <div class="row col s12" style="margin-bottom: 50px" ng-show="flag==false">
+                        <a class="storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="returnLast()">
+                            <i class="mdi mdi-arrow-left-bold"></i>
+                        </a>
+                    </div>
+                    <div ng-repeat="el in get_receive" class="row col s12 dealerBox grey lighten-3 p0" ng-click="getDetailDealer(el.id)" style="cursor: pointer;margin-bottom: 15px;height:70px">
+                        <div class="col s12 valign-wrapper">
+                            <div class="col s4 fz18">
+                                <h6 class="blue-grey-text lighten-1">{{el.id+"     "+el.short_name}}</h6>
+                            </div>
+                            <div class="col s8">
+                                <h6><span>公司名称:</span><span>{{el.receive_name}}</span></h6>
+                            </div>
+                        </div>
+                        <div class="col s12 valign-wrapper">
+                            <div class="col s12">
+                                <h6><span>公司地址:</span><span>{{el.address}}</span></h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="dealer_details!==null" id="dealer_details" class="col s12" style="margin-top: 30px">
+                    <div class="row">
+                        <a class="storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
+                            <i class="mdi mdi-arrow-left-bold"></i>
+                        </a>
+                    </div>
+                    <div class="row col s12" style="height: 590px;">
+                        <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 25px;font-size: 1.1rem;color: darkgray">
+                            <div class="col s12" style="height: 75px;background-color: #dcdfe0;font-weight: bold;;line-height: 50px">
+                                <div class="col s12 valign-wrapper">
+                                    <div class="col s12 left-align" style="color: #26c6da;padding: 0;">
+                                        <p>经销商详情</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row col s12 wash_fee_details less_mar" style="color: darkgray;font-weight: bold;font-size: 1.05rem;">
+                                <div class="col s12" style="border-bottom: 1px solid darkgray;height: 50px;line-height: 50px">
+                                    公司简称:{{dealer_details.short_name}}
+                                </div>
+                                <div class="col s12" style="border-bottom: 1px solid darkgray;height: 50px;line-height: 50px">
+                                    公司全称:{{dealer_details.receive_name}}
+                                </div>
+                                <div class="col s12" style="border-bottom: 1px solid darkgray;height: 50px;line-height: 50px"  ng-repeat="el in dealerContacts">
+                                    联系人：{{el.contacts_name+""+el.tel}}
+                                </div>
+                                <div class="col s12" style="border-bottom: 1px solid darkgray;height: 50px;line-height: 50px">
+                                    详细地址:{{dealer_details.address}}
+                                </div>
+                                <div class="col s12" style="border-bottom: 1px solid darkgray;height: 50px;line-height: 50px">
+                                    备注:{{dealer_details.remark}}
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+                </div>
+            </div>
+
+            <!--高德地图-->
+            <div id="amap_setting_dealer" class="col s8 amap_test" style="height: 590px"></div>
+
+        </div>
+
+    </div>
+</div>

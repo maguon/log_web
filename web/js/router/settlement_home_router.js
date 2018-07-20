@@ -15,6 +15,11 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
         })
 
         // 公共數據
+        .state("dealerMap",{
+            url:"/dealerMap",
+            templateUrl: "js/view/system_settings/dealerMap.html",
+            controller:'dealerMap_controller'
+        })
         .state("car_query",{
             url:"/car_query",
             templateUrl: "js/view/car/car_query/car_query.html",

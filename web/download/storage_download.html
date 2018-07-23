@@ -63,8 +63,18 @@
 </body>
 
 <script language="JavaScript" type="text/javascript">
-    var apkUrl = 'http://myxxjs.com/log_storage_0.0.2.apk'
-    $('#downloadHref')[0].href = apkUrl;
+
+    $.ajax({
+        type:"GET",
+        url:'http://stg.myxxjs.com:9001/api/app?type=1&start=0&size=1',
+        async:true,
+        success:function (data) {
+            value= data.result[0].version;
+            var apkUrl = 'http://myxxjs.com/log_storage_'+value+'.apk';
+            $('#downloadHref')[0].href = apkUrl;
+        }
+    });
+
     var wechatFlag = false;
     var iosFlag = false;
     function IsPC() {

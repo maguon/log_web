@@ -6,15 +6,9 @@ app.controller("dealerMap_controller", ["$scope", "_basic", "_config", "baseServ
     $scope.flag=true;
     // 城市信息获取
    function getMsg() {
-        _basic.get($host.api_url + "/city").then(function (data) {
+        _basic.get($host.api_url + "/receiveCount").then(function (data) {
             if (data.success == true) {
                 $scope.get_city = data.result;
-                $('#start_city_list').select2({
-                    placeholder: '选择城市',
-                    containerCssClass : 'select2_dropdown',
-                    allowClear: true
-
-                });
             }
         });
     };
@@ -45,7 +39,7 @@ app.controller("dealerMap_controller", ["$scope", "_basic", "_config", "baseServ
         var map = new AMap.Map("amap_setting_dealer", {
             resizeEnable: true,
             center:[116.46,39.92],
-            zoom: 4
+            zoom: 5
         });
         for(var i=0;i<truckPositionList.length;i+=1){
             markers.push(new AMap.Marker({
@@ -107,6 +101,7 @@ app.controller("dealerMap_controller", ["$scope", "_basic", "_config", "baseServ
             if (data.success === true) {
                 if (data.result.length == 0) {
                     getAllPositionInfo();
+                    swal('此城市暂无经销商!', "", "error")
                 } else {
                     $scope.get_receive = data.result;
                     $scope.cityName = data.result[0].city_name;
@@ -115,47 +110,6 @@ app.controller("dealerMap_controller", ["$scope", "_basic", "_config", "baseServ
                     for (var i = 0; i < data.result.length; i++) {
                         dealerPositionList.push([data.result[i].lng, data.result[i].lat])
                     }
-                   /* //初始化地图对象，加载地图
-                    var district, map = new AMap.Map("amap_setting_dealer", {
-                        resizeEnable: true,
-                        center: [$scope.lng, $scope.lat],//地图中心点
-                        zoom: 8 //地图显示的缩放级别
-                    });
-
-                    //加载行政区划插件
-                    AMap.service('AMap.DistrictSearch', function () {
-                        var opts = {
-                            subdistrict: 1,   //返回下一级行政区
-                            extensions: 'all',  //返回行政区边界坐标组等具体信息
-                            level: 'city'  //查询行政级别为 市
-                        };
-                        //实例化DistrictSearch
-                        district = new AMap.DistrictSearch(opts);
-                        district.setLevel('district');
-                        //行政区查询
-                        district.search($scope.cityName+'市', function (status, result) {
-                         if(result!==null&&result!=='{}'){
-                             var bounds = result.districtList[0].boundaries;
-                             var polygons = [];
-                             if (bounds) {
-                                 for (var i = 0; i< bounds.length; i++) {
-                                     //生成行政区划polygon
-                                     var polygon = new AMap.Polygon({
-                                         map: map,
-                                         strokeWeight: 1,
-                                         path: bounds[i],
-                                         fillOpacity: 0.7,
-                                         fillColor: '#CCF3FF',
-                                         strokeColor: '#CC66CC'
-                                     });
-                                     polygons.push(polygon);
-                                 }
-                             }
-                         }
-
-                        });
-                    });
-                    */
                     var map = new AMap.Map('amap_setting_dealer', {
                         resizeEnable: true
                     });
@@ -166,8 +120,6 @@ app.controller("dealerMap_controller", ["$scope", "_basic", "_config", "baseServ
                             map: map,
                             icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png"
                         });
-                        // 设置鼠标划过点标记显示的文字提示
-                        marker.setTitle(data.result[i].short_name);
 
                         // 设置label标签
                         marker.setLabel({//label默认蓝框白底左上角显示，样式className为：amap-marker-label

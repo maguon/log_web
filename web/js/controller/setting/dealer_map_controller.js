@@ -1,5 +1,5 @@
 
-app.controller("dealerMap_controller", ["$scope", "_basic", "_config", "baseService", "$host", function ($scope, _basic, _config, baseService, $host) {
+app.controller("dealer_map_controller", ["$scope", "_basic", "_config", "baseService", "$host", function ($scope, _basic, _config, baseService, $host) {
     var truckPositionList = [];
     var dealerPositionList=[];
     $scope.dealer_details=null;

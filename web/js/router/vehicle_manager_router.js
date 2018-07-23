@@ -76,10 +76,10 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/system_settings/data_dictionary.html",
             controller:'data_dictionary_controller'
         })
-        .state("dealerMap",{
-            url:"/dealerMap",
-            templateUrl: "js/view/system_settings/dealerMap.html",
-            controller:'dealerMap_controller'
+        .state("dealer_map",{
+            url:"/dealer_map",
+            templateUrl: "js/view/system_settings/dealer_map.html",
+            controller:'dealer_map_controller'
         })
         .state("add_setting_dealer",{
             url:"/add_setting_dealer",

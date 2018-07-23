@@ -203,10 +203,10 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/truck/driver_information_details.html",
             controller:'driver_information_details_controller'
         })
-        .state("dealerMap",{
-            url:"/dealerMap",
-            templateUrl: "js/view/system_settings/dealerMap.html",
-            controller:'dealerMap_controller'
+        .state("dealer_map",{
+            url:"/dealer_map",
+            templateUrl: "js/view/system_settings/dealer_map.html",
+            controller:'dealer_map_controller'
         })
         // 数据统计
         .state("chauffeur_mileage_statistics", {

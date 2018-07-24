@@ -35,11 +35,16 @@
                     <div class="col s12 white" style="height:20px;"></div>
                     <!-- body -->
                     <div class="col s12 white" style="height:70px;">
-                        <div class="input-field col s8">
+                        <div class="input-field col s6">
                             <input id="remark" name="remark" type="text" name="remark"  ng-model="settlementList.remark">
                             <label for="remark">备注</label>
                         </div>
-                        <div class="input-field col s4">
+                        <!--序号-->
+                        <div class="input-field col S3">
+                            <input id="numberId" type="number"  ng-model="settlementList.serial_number">
+                            <label for="numberId">序号</label>
+                        </div>
+                        <div class="input-field col s3">
                             <input type="text" ng-model="settlementList.received_date" id="putHandoverReceiveStartTime" name="putHandoverReceiveStartTime"  class="datepicker" autocomplete="off" date>
                             <i class="mdi dataIcon mdi-table-large"></i>
                             <label for="putHandoverReceiveStartTime">交接单收到日期</label>

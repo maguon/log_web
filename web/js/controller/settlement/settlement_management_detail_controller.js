@@ -27,6 +27,7 @@ app.controller("settlement_management_detail_controller", ["$scope","$state","$s
     //修改交接单信息
     $scope.putDataItem = function(id){
         var obj = {
+            serialNumber:$scope.settlementList.serial_number,
             receivedDate:$scope.settlementList.received_date,
             remark:$scope.settlementList.remark
         };

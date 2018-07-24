@@ -80,6 +80,8 @@ app.controller("settlement_management_controller", ["$scope","$state","$statePar
         var obj = {
             number:$scope.handover,
             vinCode:$scope.VIN,
+            serialNumber:$scope.numberId,
+            opUserName:$scope.opUserName,
             routeStartId: $scope.startCity,
             entrustId:$scope.entrustId,
             routeEndId:$scope.endCity,
@@ -101,6 +103,8 @@ app.controller("settlement_management_controller", ["$scope","$state","$statePar
         _basic.get($host.api_url + "/settleHandover?" + _basic.objToUrl({
             number:$scope.handover,
             vinCode:$scope.VIN,
+            serialNumber:$scope.numberId,
+            opUserName:$scope.opUserName,
             routeStartId: $scope.startCity,
             entrustId:$scope.entrustId,
             routeEndId:$scope.endCity,
@@ -158,6 +162,7 @@ app.controller("settlement_management_controller", ["$scope","$state","$statePar
                 },
                 function () {
                     _basic.post($host.api_url + "/user/" + userId + "/settleHandover", {
+                        serialNumber: $scope.addNumberId,
                         entrustId: $scope.addEntrustId,
                         receivedDate: $scope.addHandoverReceiveStartTime,
                         remark: $scope.newRemark

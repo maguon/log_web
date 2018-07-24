@@ -8,6 +8,9 @@ app.controller("settlement_management_detail_controller", ["$scope","$state","$s
     var settlementId = $stateParams.id;
     $scope.entrustId = '';
     $scope.carId = undefined;
+    $scope.settlementList = {
+        serial_number : 0
+    }
 
     //获取详细信息
     function getDetailItem(){

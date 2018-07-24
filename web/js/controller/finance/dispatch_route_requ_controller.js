@@ -1,4 +1,4 @@
-app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic","_config",  function ($scope, $host, _basic,_config) {
+app.controller("dispatch_route_requ_controller", ["$scope", "$host","$state", "_basic",  function ($scope, $host,$state, _basic) {
 
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.start = 0;
@@ -214,7 +214,13 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host", "_basic","_
             if (data.success === true) {
                 $("#addCarFinanceModel").modal("close");
                 getCarInstructionList();
-                window.location.href = '/index_home.html#!/finance_route_fee_details/id/'+data.id+'/dpId/'+$scope.dispatchIdSmall ;
+                $state.go('finance_route_fee_details', {
+                    reload: true,
+                    id:data.id,
+                    dpId:$scope.dispatchIdSmall,
+                    from: 'dispatch_route_requ'
+                });
+              /*  window.location.href = '/index_home.html#!/finance_route_fee_details/id/'+data.id+'/dpId/'+$scope.dispatchIdSmall ;*/
 
             }
             else {

@@ -17,7 +17,7 @@
                 <div class="col s12"  style="height: 55px;margin-top: 10px">
                     <div class="col s6 input-field">
                         <input type="number" ng-model="addNumberId" id="addNumberId" name="addNumberId" ng-pattern="/^[1-9]?\d$/"  required>
-                        <label for="addNumberId">序号</label>
+                        <label for="addNumberId" class="active">序号</label>
                     </div>
                     <div class="col s6 input-field">
                         <input type="text" ng-model="addHandoverReceiveStartTime" id="addHandoverReceiveStartTime" name="addHandoverReceiveStartTime"  class="datepicker" autocomplete="off" date>
@@ -49,22 +49,26 @@
             <div class="row grey-text text-darken-1">
                 <div class="col s10">
                     <div class="col s12">
-                        <!--序号-->
-                        <div class="input-field col" style="width: 20%;">
-                            <input id="numberId" type="number"  ng-model="numberId">
-                            <label for="numberId">序号</label>
-                        </div>
 
                         <!--交接单编号-->
                         <div class="input-field col" style="width: 20%;">
                             <input id="handover" type="text"  ng-model="handover">
                             <label for="handover">交接单编号</label>
                         </div>
-
-                        <!--VIN-->
+                        <!--目的城市-->
                         <div class="input-field col" style="width: 20%;">
-                            <input id="VIN" type="text" ng-model="VIN">
-                            <label for="VIN">VIN</label>
+                            <select id="endCity" name="endCity" material-select watch ng-model="endCity" ng-change="getReceiveMod(endCity)">
+                                <option value="">请选择</option>
+                                <option ng-repeat="endCity in cityList" value={{endCity.id}}>{{endCity.city_name}}</option>
+                            </select>
+                        </div>
+
+                        <!--经销商-->
+                        <div class="input-field col" style="width: 20%;">
+                            <select material-select watch ng-model="receiveId">
+                                <option value="" selected>经销商</option>
+                                <option ng-repeat="receive in receiveList" value={{receive.id}}>{{receive.short_name}}</option>
+                            </select>
                         </div>
 
                         <!--起始城市-->
@@ -84,20 +88,11 @@
                         </div>
                     </div>
                     <div class="col s12">
-                        <!--目的城市-->
-                        <div class="input-field col" style="width: 20%;">
-                            <select id="endCity" name="endCity" material-select watch ng-model="endCity" ng-change="getReceiveMod(endCity)">
-                                <option value="">请选择</option>
-                                <option ng-repeat="endCity in cityList" value={{endCity.id}}>{{endCity.city_name}}</option>
-                            </select>
-                        </div>
 
-                        <!--经销商-->
+                        <!--VIN-->
                         <div class="input-field col" style="width: 20%;">
-                            <select material-select watch ng-model="receiveId">
-                                <option value="" selected>经销商</option>
-                                <option ng-repeat="receive in receiveList" value={{receive.id}}>{{receive.short_name}}</option>
-                            </select>
+                            <input id="VIN" type="text" ng-model="VIN">
+                            <label for="VIN">VIN</label>
                         </div>
 
                         <!--交接单收到时间-->
@@ -112,14 +107,22 @@
 
                         <!--提交人-->
                         <div class="input-field col" style="width: 20%;">
-                            <input id="opUserName" type="text" ng-model="opUserName">
-                            <label for="opUserName">提交人</label>
+                            <select ng-model="opUserName" id="opUserName" name="opUserName" style="width: 100%">
+                                <option value="" selected>请选择</option>
+                                <option ng-repeat="el in opUserNameList" ng-value="el.op_user_id">{{el.op_user_name}}</option>
+                            </select>
+                        </div>
+
+                        <!--序号-->
+                        <div class="input-field col" style="width: 20%;">
+                            <input id="numberId" type="number"  ng-model="numberId">
+                            <label for="numberId">序号</label>
                         </div>
                     </div>
                 </div>
 
                 <!--按钮-->
-                <div class="col s2" style="margin-top: 60px">
+                <div class="col s2" style="margin-top: 40px">
                     <div class="col s4" >
                         <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getSettlement()">
                             <i class="mdi mdi-magnify"></i>

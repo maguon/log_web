@@ -6,8 +6,24 @@
 app.controller("settlement_management_controller", ["$scope","$state","$stateParams", "$host", "_basic", function ($scope,$state,$stateParams,$host, _basic) {
     $scope.start = 0;
     $scope.size = 11;
+    $scope.addNumberId = 0;
     var userId = _basic.getSession(_basic.USER_ID);
-
+    //提交人
+    function  getopUserId(){
+        _basic.get($host.api_url + "/settleHandover?typeArr=61%2C69").then(function (data) {
+            if (data.success === true) {
+                $scope.opUserNameList = data.result;
+                $('#opUserName').select2({
+                    placeholder: '提交人',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(cityData.msg, "", "error");
+            }
+        });
+    }
     // 获取起始城市信息
     function getCityInfo() {
         _basic.get($host.api_url + "/city").then(function (cityData) {
@@ -80,7 +96,7 @@ app.controller("settlement_management_controller", ["$scope","$state","$statePar
             number:$scope.handover,
             vinCode:$scope.VIN,
             serialNumber:$scope.numberId,
-            opUserName:$scope.opUserName,
+            opUserId:$scope.opUserName,
             routeStartId: $scope.startCity,
             entrustId:$scope.entrustId,
             routeEndId:$scope.endCity,
@@ -103,7 +119,7 @@ app.controller("settlement_management_controller", ["$scope","$state","$statePar
             number:$scope.handover,
             vinCode:$scope.VIN,
             serialNumber:$scope.numberId,
-            opUserName:$scope.opUserName,
+            opUserId:$scope.opUserName,
             routeStartId: $scope.startCity,
             entrustId:$scope.entrustId,
             routeEndId:$scope.endCity,
@@ -139,7 +155,7 @@ app.controller("settlement_management_controller", ["$scope","$state","$statePar
     //打开添加模态框
     $scope.addSettlement = function (){
         $scope.entrustList = [];
-        $scope.addEntrustId = '';
+        $scope.entrustId = '';
         $scope.newRemark = '';
         $scope.addNumberId = 0;
         $scope.addHandoverReceiveStartTime = moment(new Date()).format("YYYY-MM-DD");
@@ -149,7 +165,7 @@ app.controller("settlement_management_controller", ["$scope","$state","$statePar
 
     //点击確定
     $scope.addSettlementItem = function(){
-        if ($scope.addEntrustId !== ''&& $scope.addNumberId!==undefined) {
+        if ($scope.addEntrustId !== undefined&& $scope.addNumberId!==undefined) {
             swal({
                     title: "确定提交？",
                     text: '<p style="color:red;font-size: 18px">提交后委托方将不可修改</p><p style="margin-top: 30px">点击确定后将跳转到交接单详情页</p>',
@@ -172,7 +188,13 @@ app.controller("settlement_management_controller", ["$scope","$state","$statePar
                            $scope.settleHandoverId = data.result.settleHandoverId;
                             $('#addSettlementItem').modal('close');
                             getSettlementData();
-                            window.location.href = "/index_home.html#!/settlement_management_detail/id/"+ $scope.settleHandoverId;
+                            $state.go('settlement_management_detail', {
+                                reload: true,
+                                id:$scope.settleHandoverId,
+                                from: 'settlement_management'
+                            });
+
+                          /*  window.location.href = "/index_home.html#!/settlement_management_detail/id/"+ $scope.settleHandoverId;*/
 
                         } else {
                             swal(data.msg, "", "error");
@@ -200,6 +222,7 @@ app.controller("settlement_management_controller", ["$scope","$state","$statePar
 
     //获取数据
     function queryData() {
+        getopUserId();
         getSettlementData();
         getCityInfo();
         getEntrustData();

@@ -10,7 +10,7 @@ app.controller("settlement_management_controller", ["$scope","$state","$statePar
     var userId = _basic.getSession(_basic.USER_ID);
     //提交人
     function  getopUserId(){
-        _basic.get($host.api_url + "/settleHandover?typeArr=61%2C69").then(function (data) {
+        _basic.get($host.api_url + "/user?typeArr=61%2C69").then(function (data) {
             if (data.success === true) {
                 $scope.opUserNameList = data.result;
                 $('#opUserName').select2({
@@ -20,7 +20,7 @@ app.controller("settlement_management_controller", ["$scope","$state","$statePar
                 });
             }
             else {
-                swal(cityData.msg, "", "error");
+                swal(data.msg, "", "error");
             }
         });
     }

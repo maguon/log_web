@@ -7,7 +7,6 @@ app.controller("settlement_management_controller", ["$scope","$state","$statePar
     $scope.start = 0;
     $scope.size = 11;
     var userId = _basic.getSession(_basic.USER_ID);
-    $scope.addHandoverReceiveStartTime = moment(new Date()).format("YYYY-MM-DD");
 
     // 获取起始城市信息
     function getCityInfo() {
@@ -142,13 +141,15 @@ app.controller("settlement_management_controller", ["$scope","$state","$statePar
         $scope.entrustList = [];
         $scope.addEntrustId = '';
         $scope.newRemark = '';
+        $scope.addNumberId = 0;
+        $scope.addHandoverReceiveStartTime = moment(new Date()).format("YYYY-MM-DD");
         getEntrustData();
         $('#addSettlementItem').modal('open');
     }
 
     //点击確定
     $scope.addSettlementItem = function(){
-        if ($scope.addEntrustId !== '') {
+        if ($scope.addEntrustId !== ''&& $scope.addNumberId!==undefined) {
             swal({
                     title: "确定提交？",
                     text: '<p style="color:red;font-size: 18px">提交后委托方将不可修改</p><p style="margin-top: 30px">点击确定后将跳转到交接单详情页</p>',

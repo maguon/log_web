@@ -26,20 +26,25 @@ app.controller("settlement_management_detail_controller", ["$scope","$state","$s
 
     //修改交接单信息
     $scope.putDataItem = function(id){
-        var obj = {
-            serialNumber:$scope.settlementList.serial_number,
-            receivedDate:$scope.settlementList.received_date,
-            remark:$scope.settlementList.remark
-        };
-        _basic.put($host.api_url + "/user/" + userId+'/settleHandover/'+id, obj).then(function (data) {
-            if (data.success == true) {
-                swal("修改成功", "", "success");
-                getDetailItem()
-            } else {
-                swal(data.msg, "", "error");
-            }
+        if ($scope.settlementList.serial_number!==null) {
+            var obj = {
+                serialNumber:$scope.settlementList.serial_number,
+                receivedDate:$scope.settlementList.received_date,
+                remark:$scope.settlementList.remark
+            };
+            _basic.put($host.api_url + "/user/" + userId+'/settleHandover/'+id, obj).then(function (data) {
+                if (data.success == true) {
+                    swal("修改成功", "", "success");
+                    getDetailItem()
+                } else {
+                    swal(data.msg, "", "error");
+                }
 
-        })
+            })
+        }
+       else{
+            swal("请填写完整信息！", "", "warning");
+        }
     }
 
     // 车辆照片跳转

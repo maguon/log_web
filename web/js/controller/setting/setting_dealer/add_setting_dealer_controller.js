@@ -7,7 +7,7 @@ app.controller("add_setting_dealer_controller", ["$scope", "_basic", "_config", 
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.lng = 121.62;
     $scope.lat = 38.92;
-
+    $scope.receiveTypeList=_config.receiveType;
     // 获取城市
     $scope.getCityList = function () {
         _basic.get($host.api_url + "/city").then(function (data) {
@@ -92,13 +92,13 @@ app.controller("add_setting_dealer_controller", ["$scope", "_basic", "_config", 
     }
 
     // 新增经销商
-    $scope.add_setting_dealer = function (isValid) {
-        $scope.submitted = true;
-        if (isValid) {
-            if ($scope.lng != 121.62 && $scope.lat != 38.92) {
+    $scope.add_setting_dealer = function () {
+            if ($scope.lng != 121.62 && $scope.lat != 38.92&&$scope.receive_type!==undefined&&$scope.short_name!==undefined&&
+                $scope.deal_name!==undefined&&$scope.setting_city_id!==null&&$scope.input_address!==undefined) {
                 var obj = {
                     shortName: $scope.short_name,
                     receiveName: $scope.deal_name,
+                    receiveType:$scope.receive_type,
                     address: $scope.input_address,
                     lng: $scope.lng,
                     lat: $scope.lat,
@@ -110,6 +110,7 @@ app.controller("add_setting_dealer_controller", ["$scope", "_basic", "_config", 
                         swal("新增成功", "", "success");
                         $scope.short_name = "";
                         $scope.deal_name = "";
+                        $scope.receive_type = '';
                         $scope.input_address = "";
                         $scope.setting_city_id = "";
                         $scope.remark = "";
@@ -120,7 +121,10 @@ app.controller("add_setting_dealer_controller", ["$scope", "_basic", "_config", 
                     }
                 });
             }
-        }
+            else {
+                swal("请填写完整信息！", "", "warning");
+            }
+
     };
 
     // 获取数据

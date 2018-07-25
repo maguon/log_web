@@ -79,9 +79,12 @@
                             </div>
                         </div>
                         <div class="col s6 valign-wrapper" style="height: 61px">
-                            <div class="col s12">
+                            <div class="col s6">
                                 <h6 class="blue-grey-text lighten-1 fz13" ><span>所属城市:</span><span>{{el.city_name}}</span></h6>
                                 <h6 class="fz13"><span>公司地址:</span><span>{{el.address}}</span></h6>
+                            </div>
+                            <div class="col s6 right-align">
+                                <h6 class="fz13"><span>经销商类型:</span><span>{{receiveTypeList[el.receive_type-1].typeName}}</span></h6>
                             </div>
                         </div>
                         <div class="col s1 valign-wrapper">

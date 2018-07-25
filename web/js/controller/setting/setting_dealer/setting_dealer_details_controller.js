@@ -5,7 +5,7 @@
 app.controller("setting_dealer_details_controller", ["$scope", "_basic", "_config", "baseService", "$host", "$stateParams", function ($scope, _basic, _config, baseService, $host, $stateParams) {
     var userId = _basic.getSession(_basic.USER_ID);
     var marker;
-
+    $scope.receiveTypeList=_config.receiveType;
     // 获取城市
     $scope.getCityList = function () {
         _basic.get($host.api_url + "/city").then(function (data) {
@@ -101,13 +101,17 @@ app.controller("setting_dealer_details_controller", ["$scope", "_basic", "_confi
     };
 
     // 修改经销商
-    $scope.change_setting_dealer = function (isValid) {
-        $scope.submitted = true;
+    $scope.change_setting_dealer = function () {
         var cleanFeeCount = $scope.dealer_details.clean_fee == null ? 0 : $scope.dealer_details.clean_fee.toFixed(2);
-        if (isValid) {
+        if ($scope.dealer_details.receive_type!==undefined
+            &&$scope.dealer_details.short_name!==undefined
+            &&$scope.dealer_details.receive_name!==undefined
+            &&$scope.dealer_details.city_id!==''
+            &&$scope.dealer_details.address!=='') {
             var obj = {
                 shortName: $scope.dealer_details.short_name,
                 receiveName: $scope.dealer_details.receive_name,
+                receiveType:$scope.dealer_details.receive_type,
                 cleanFee: parseFloat(cleanFeeCount),
                 address: $("#amapAddress").val(),
                 lng: $scope.lng,
@@ -126,6 +130,9 @@ app.controller("setting_dealer_details_controller", ["$scope", "_basic", "_confi
                     swal(data.msg, "", "error");
                 }
             });
+        }
+        else{
+            swal("请填写完整信息！", "", "warning");
         }
     };
 

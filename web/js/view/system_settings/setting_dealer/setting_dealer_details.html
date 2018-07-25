@@ -22,15 +22,24 @@
                     </ul>
                 </div>
                 <div id="dealer_details" class="col s12" style="margin-top: 30px">
-                    <form name="setting_dealer_details_form" ng-submit="change_setting_dealer(setting_dealer_details_form.$valid)" novalidate>
+
                         <div class="row">
-                            <div class="col s12 input-field" ng-class="{'has-error':setting_dealer_details_form.short_name.$invalid&&submitted}">
+                            <div class="col s12 input-field" >
                                 <input type="text" id="short_name" name="short_name" autocomplete="off" ng-model="dealer_details.short_name" required>
                                 <label class="grey-text bold" for="short_name">公司简称</label>
                             </div>
-                            <div class="col s12 input-field mp-40" ng-class="{'has-error':setting_dealer_details_form.deal_name.$invalid&&submitted}">
+                            <div class="col s12 input-field mp-40" >
                                 <input type="text" id="deal_name" name="deal_name" autocomplete="off" ng-model="dealer_details.receive_name" required>
                                 <label class="grey-text bold" for="deal_name">公司全称</label>
+                            </div>
+                            <div class="col s12 input-field mp-40">
+                                <select material-select watch id="receiveType" ng-model="dealer_details.receive_type" required>
+                                    <option value="" disabled selected>请选择</option>
+                                    <option ng-value="1">4S店</option>
+                                    <option ng-value="2">大客户</option>
+                                    <option ng-value="3">临时停放地</option>
+                                </select>
+                                <label class="grey-text bold" for="receiveType">经销商类型</label>
                             </div>
                             <div class="col s12 input-field" style="margin-top: 25px">
                                 <select id="start_city" name="state" style="width:100%" ng-model="dealer_details.city_id">
@@ -43,7 +52,7 @@
                                     <input type="text" id="amapAddress" autocomplete="off" ng-change="amapAutocomplete()" ng-model="dealer_details.address" name="address">
                                     <label class="grey-text bold" for="amapAddress">详细地址</label>
                                 </div>
-                                <i class="mdi  mdi-telegram fz40 cyan-text" style="position: absolute;top:220px;right:0" ng-click="getDetailAddress()"></i>
+                                <i class="mdi  mdi-telegram fz40 cyan-text" style="position: absolute;top:310px;right:0" ng-click="getDetailAddress()"></i>
                             </div>
 
                         </div>
@@ -58,12 +67,12 @@
                         </div>
                         <div class="row">
                             <div class="col s2 offset-s6">
-                                <button href="" name="action" type="submit" class="btn btn-floating cyan btn-large">
+                                <button href="" name="action" type="button" class="btn btn-floating cyan btn-large" ng-click="change_setting_dealer()">
                                     <i class="mdi mdi-check"></i>
                                 </button>
                             </div>
                         </div>
-                    </form>
+
                 </div>
                 <div id="operation_record" class="col s12">
                     <p ng-if="recordList.length == 0" class="center-align">暂无操作记录</p>

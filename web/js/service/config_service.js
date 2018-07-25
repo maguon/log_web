@@ -268,6 +268,12 @@ baseService.factory("_config", function () {
         {app: "3", typeName: "调度"},
         {app: "4", typeName: "质量监管"}
     ];
+    //经销商类型
+    _this.receiveType = [
+        {id: "1", typeName: "4S店"},
+        {id: "2", typeName: "大客户"},
+        {id: "3", typeName: "临时停放地"}
+    ];
 
     // 重载衡量标准
     _this.heavyLoad = 6;

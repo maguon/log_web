@@ -7,7 +7,7 @@ app.controller("setting_dealer_controller", ["$scope", "_basic", "_config", "$ho
     $scope.start = 0;
     $scope.size = 11;
     $scope.addContacts = [];
-
+    $scope.receiveTypeList=_config.receiveType;
     // 城市信息获取
     $scope.get_Msg = function () {
         _basic.get($host.api_url + "/city").then(function (data) {

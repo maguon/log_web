@@ -46,6 +46,7 @@ app.controller("setting_dealer_controller", ["$scope", "_basic", "_config", "$ho
     $scope.search_all_dealer = function () {
         var obj = {
             receiveId: $scope.s_dealer,
+            receiveType:$scope.receive_type,
             cityId: $scope.city,
             start: $scope.start,
             size: $scope.size

@@ -103,7 +103,7 @@ app.controller("setting_dealer_details_controller", ["$scope", "_basic", "_confi
     // 修改经销商
     $scope.change_setting_dealer = function () {
         var cleanFeeCount = $scope.dealer_details.clean_fee == null ? 0 : $scope.dealer_details.clean_fee.toFixed(2);
-        if ($scope.dealer_details.receive_type!==undefined
+        if ($scope.dealer_details.receive_type!==null
             &&$scope.dealer_details.short_name!==undefined
             &&$scope.dealer_details.receive_name!==undefined
             &&$scope.dealer_details.city_id!==''

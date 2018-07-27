@@ -44,7 +44,7 @@
         </tr>
         </tbody>
     </table>
-    <a  href="/#" id="downloadHref">
+    <a  href="/#" id="downloadHref" disabled>
         <button id="downloadBtn" class="mp-pointer" onclick="openGuide()" style="font-size: 20px;background-color: rgb(138, 185, 46);width: 80%;height: 40px;margin-top: 15px; color: #fff;border: 1px solid #FFF;">
             立即下载
         </button>
@@ -59,18 +59,21 @@
     </div>
 </div>
 
-<script src="./js/system_config.js"></script>
+<script src="stg_host.js"></script>
 </body>
 
 <script language="JavaScript" type="text/javascript">
     $.ajax({
         type:"GET",
-        url:'http://stg.myxxjs.com:9001/api/app?type=0&start=0&size=1',
+        url:host.api_url+'/app?app=0&start=0&size=1',
         async:true,
         success:function (data) {
-            value= data.result[0].version;
-            var apkUrl = 'http://myxxjs.com/log_driver_'+value+'.apk';
+            apkUrl= data.result[0].url;
             $('#downloadHref')[0].href = apkUrl;
+            $('#downloadHref').attr("disabled",false);
+        },
+        error: function () {
+            alert('地址错误！');
         }
     });
 

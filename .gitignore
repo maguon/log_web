@@ -2,6 +2,7 @@
 config/config.js
 conf.json
 web/js/host/host_config.js
+web/download/host.js
 public/apidocs/json/index.json
 .idea/*
 uploads/*

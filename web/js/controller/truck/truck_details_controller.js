@@ -179,6 +179,14 @@ app.controller("truck_details_controller", ["$scope", "$state", "$stateParams", 
         }
 
     };
+    //导出头车信息
+    $scope.export_head = function(){
+        $scope.setParams();
+        var obj = $scope.queryParams;
+        window.open($host.api_url + "/truckFirstCsv.csv?" + _basic.objToUrl(obj));
+    }
+
+
     // 头车搜索事件-条件查询
     $scope.searchHead_car = function () {
         $scope.head_start = 0;
@@ -256,11 +264,14 @@ app.controller("truck_details_controller", ["$scope", "$state", "$stateParams", 
         })
 
     };
-
-
+    //挂车导出
+    $scope.export_hand = function () {
+        $scope.hand_setParams();
+        var obj=$scope.hand_queryParams;
+        window.open($host.api_url + "/truckTrailerCsv.csv?" + _basic.objToUrl(obj));
+    }
     // 挂车接口查询
     $scope.hand_query = function (params) {
-
         _basic.get($host.api_url + "/truckTrailer?" + _basic.objToUrl(params)).then(function (data) {
             if (data.success == true) {
                 $scope.hand_car_box = data.result;

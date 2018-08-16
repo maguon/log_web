@@ -111,10 +111,10 @@
                                 <td ng-bind="el.id"></td>
                                 <td ng-bind="el.truck_num"></td>
                                 <td ng-if="el.truck_type==null">&nbsp;</td>
-                                <td ng-if="el.truck_type==1">车头</td>
+                                <td ng-if="el.truck_type==1">头车</td>
                                 <td ng-if="el.truck_type==2">挂车</td>
                                 <td ng-bind="el.drive_name"></td>
-                                <td ng-bind="el.dp_route_task_id"></td>
+                                <td>{{el.dp_route_task_id}}({{el.city_route_start}}-{{el.city_route_end}})</td>
                                 <td ng-bind="el.accident_date| date:'yyyy-MM-dd'"></td>
                                 <td ng-if="el.truck_accident_type==null">&nbsp;</td>
                                 <td ng-if="el.truck_accident_type==0">&nbsp;</td>

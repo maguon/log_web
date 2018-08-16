@@ -23,9 +23,12 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                 $scope.driveId = data.result[0].drive_id;
                 $scope.dpRouteTaskId = data.result[0].dp_route_task_id;
                 $scope.accidentDate = data.result[0].accident_date;
+                $scope.cityRouteStart = data.result[0].city_route_start;
+                $scope.cityRouteEnd = data.result[0].city_route_end;
                 $scope.accidentDateDetail = moment($scope.accidentDate).format("YYYY-MM-DD");
                 $scope.lineStartTime = moment($scope.accidentDate).format("HH:mm");
                 $scope.truckNum = data.result[0].truck_num;
+                $scope.truckType = data.result[0].truck_type;
                 $scope.driveName = data.result[0].drive_name;
                 $scope.accidentStatus = data.result[0].accident_status;
                 $scope.address = data.result[0].address;
@@ -33,7 +36,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                 $scope.lat = data.result[0].lat;
                 $scope.remark = data.result[0].accident_explain;
                 $scope.truckTel = data.result[0].mobile;
-                $scope.truckType = data.result[0].operate_type;
+                $scope.operateType = data.result[0].operate_type;
                 $scope.companyName = data.result[0].company_name;
 
                 $scope.showMarkerPosition($scope.lng, $scope.lat);

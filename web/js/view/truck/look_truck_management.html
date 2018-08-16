@@ -158,12 +158,15 @@
                 <div class="col s3 center-align">
                     <div style="color: #00bcd4;font-size: 1.6rem">事故编号：{{vId}}</div>
                 </div>
-                <div class="col s6 center-align">
+                <div class="col s3 center-align">
+                    <div style="color: darkgray;font-size: 1.6rem">{{cityRouteStart}}-{{cityRouteEnd}}</div>
+                </div>
+                <div class="col s3 center-align">
                     <div style="color: darkgray;font-size: 1.6rem">{{accidentDate | date:"yyyy-MM-dd HH:mm"}}</div>
                 </div>
-                <div class="col s3 left-align">
+                <div class="col s3 center-align">
                     <div class="col s12" ng-if="accidentStatus == 1">
-                        <p style="color: darkgray;padding: 0;font-size: 1.6rem;margin-top: 35px;">待处理</p>
+                        <p style="color: darkgray;font-size: 1.6rem;margin-top: 27px;">待处理</p>
                     </div>
                     <div class="col s12" ng-if="accidentStatus == 2">
                         <p style="color: red;padding: 0;font-size: 1.6rem;margin-top: 35px;">处理中</p>
@@ -177,20 +180,21 @@
         <div class="row col s12 valign-wrapper" >
             <div class="col s12">
                 <div class="col s3 valign-wrapper">
-                    <div class="col s4 right-align" ng-if="truckType==1">
+                    <div class="col s4 right-align" ng-if="operateType==1">
                         <span class="white lighten-2 center" style="width:40px;height:40px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #21B1E3 !important;line-height: 41px">自</span>
                     </div>
-                    <div class="col s4 right-align" ng-if="truckType==2">
+                    <div class="col s4 right-align" ng-if="operateType==2">
                         <span class="white lighten-2 center" style="width:40px;height:40px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #89C052 !important;line-height: 41px">协</span>
                     </div>
-                    <div class="col s4 right-align" ng-if="truckType==3">
+                    <div class="col s4 right-align" ng-if="operateType==3">
                         <span class="white lighten-2 center" style="width:40px;height:40px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #EFB366 !important;line-height: 41px">供</span>
                     </div>
-                    <div class="col s4 right-align" ng-if="truckType==4">
+                    <div class="col s4 right-align" ng-if="operateType==4">
                         <span class="white lighten-2 center" style="width:40px;height:40px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #C786D3 !important;line-height: 41px">包</span>
                     </div>
                     <div class="col s8" style="padding: 0;">
-                        <p class=" lighten-2 left-align" style="margin: 5px 0;font-weight: bold;font-size: 1.2rem;color: darkgray">{{truckNum}}</p>
+                        <p class=" lighten-2 left-align"  ng-if="truckType==1" style="margin: 5px 0;font-weight: bold;font-size: 1.2rem;color: darkgray">{{truckNum}}(头车)</p>
+                        <p class=" lighten-2 left-align"  ng-if="truckType==2" style="margin: 5px 0;font-weight: bold;font-size: 1.2rem;color: darkgray">{{truckNum}}(挂车)</p>
                     </div>
                 </div>
                 <div class="col s3 valign-wrapper">

@@ -8,7 +8,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
     $scope.userList = _config.userTypes;
     $scope.underUserName = '';
     $scope.nowDate = new Date().getTime();
-
+    var user_info_obj = _config.userTypes;
     // 点击返回按钮返回之前页面
     $scope.return = function () {
         $state.go($stateParams.from, {reload: true});
@@ -263,7 +263,8 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                 $('#fined').select2({
                     placeholder: '责任人',
                     containerCssClass: 'select2_dropdown',
-                    data: responsibilityDataList
+                    data: responsibilityDataList,
+                    allowClear: true
                 });
                 getBeforeAccList();
             }
@@ -290,9 +291,16 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                         }
                         $scope.truckAccidentCheckId = data.result[0].id;
                         $scope.underUserName = data.result[0].under_user_name;
+                        $scope.underUserType = data.result[0].type;
+                        for (var i = 0; i < user_info_obj.length; i++) {
+                            if( $scope.underUserType == user_info_obj[i].type){
+                                $scope.underUserNameType = user_info_obj[i].name;
+                            }
+                        }
+                        var underUse = $scope.underUserName +' '+  $scope.underUserNameType;
                         if ($scope.underUserName !== null) {
                             $("#fined").val(data.result[0].under_user_id),
-                                $("#select2-liable_person-container").html($("#fined").find("option:selected").text($scope.underUserName));
+                            $("#select2-liable_person-container").html($("#fined").find("option:selected").text(underUse));
                         }
                         else {
                             $("#fined").val(0);

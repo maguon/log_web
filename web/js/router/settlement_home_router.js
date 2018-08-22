@@ -61,6 +61,17 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             controller:'car_statistics_controller'
         })*/
 
+        //数据统计
+        .state("settlement_statistics", {
+            url:"/settlement_statistics",
+            templateUrl: "js/view/statistics/settlement_statistics.html",
+            controller:"settlement_statistics_controller"
+        })
+        .state("transport_planning_statistics", {
+            url:"/transport_planning_statistics",
+            templateUrl: "js/view/statistics/transport_planning_statistics.html",
+            controller:"transport_planning_statistics_controller"
+        })
         // 结算管理
         .state("settlement_management",{
             url:"/settlement_management",

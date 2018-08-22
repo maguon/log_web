@@ -1,19 +1,32 @@
 <!--查看装车详情模态框-->
 <div id="orderTaskModal" class="modal">
     <div class="cyan lighten-1 white-text center-align modal_title" style="margin-bottom:30px ">装车详情</div>
-
+    <div class="col s12" style="width:90%;margin-left: 5%;">
+        <div class="row col s12 fz18 cyan-text">
+            <p ng-show="taskDetailModelList.load_task_type==1">
+                {{taskDetailModelList.addr_name}}&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;
+                <span ng-show="taskDetailModelList.transfer_flag==1">{{taskDetailModelList.transfer_addr_name}} <span  class="red-text">(转)</span></span>
+                <span ng-show="taskDetailModelList.transfer_flag!==1">{{taskDetailModelList.short_name}}</span>
+            <p ng-show="taskDetailModelList.load_task_type!==1">
+                {{taskDetailModelList.addr_name}}<span  class="red-text">(转)</span>&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;
+                <span ng-show="taskDetailModelList.transfer_flag==1">{{taskDetailModelList.transfer_addr_name}} <span  class="red-text">(转)</span></span>
+                <span ng-show="taskDetailModelList.transfer_flag!==1">{{taskDetailModelList.short_name}}</span>
+            </p>
+        </div>
+    </div>
+    <div  class="divider" style="border:1px solid #ccc;margin-bottom:40px;width:92%;margin-left: 4%;"></div>
     <div  class="row col s12 fz16" ng-if="taskDetailList.length!==0" ng-repeat="el in taskDetailList" style="width:90%;margin-left: 5%;border-bottom: 1px dotted #ccc;">
         <div class="col s1">
             <i class="mdi mdi-car fz25"></i>
         </div>
         <div class="col s5">
-            VIN{{el.vin}}
+           {{el.vin}}
         </div>
         <div class="col s3">
             {{el.make_name}}
         </div>
         <div class="col s3">
-            {{el.short_name}}
+           委托方： {{el.short_name}}
         </div>
 
     </div>
@@ -23,7 +36,7 @@
             <span class="bold grey-text fz22">暂无数据</span>
         </div>
     </div>
-    <div  class="divider" style="border:1px solid #ccc;margin-top:100px"></div>
+    <div  class="divider" style="border:1px solid #ccc;margin-top:40px;width:92%;margin-left: 4%;"></div>
 
         <!--确定按钮-->
     <div class="modal-footer right-align col s12" style="margin: 15px auto">
@@ -79,11 +92,11 @@
                     </div>
                 </div>
                 <div class="col s6 right-align grey-text">
-                    计划执行时间:{{dispatchOrderList.task_plan_date |date:'yyyy-MM-dd hh:mm'}}
+                    计划执行时间:{{dispatchOrderList.task_plan_date |date:'yyyy-MM-dd'}}
                 </div>
             </div>
 
-            <!--司机 货车 计划装车数-->
+            <!--司机 货车 计划装车数 实际装车数-->
             <div class="row col s12 cyan-text">
                 <div class="col s6 left-align">
                     <div class="col s6">
@@ -94,7 +107,10 @@
                     </div>
                 </div>
                 <div class="col s6 right-align grey-text">
-                    计划装车数:{{dispatchOrderList.plan_count}}
+                    <div class="col s6" ng-if="dispatchOrderList.plan_count==null">计划装车数:0</div>
+                    <div class="col s6" ng-if="dispatchOrderList.plan_count!==null">计划装车数:{{dispatchOrderList.plan_count}}</div>
+                    <div class="col s6 right-align"  ng-if="dispatchOrderList.real_count==null">实际装车数:0 </div>
+                    <div class="col s6 right-align"  ng-if="dispatchOrderList.real_count!==null">实际装车数:{{dispatchOrderList.real_count}} </div>
                 </div>
             </div>
         </div>
@@ -118,13 +134,22 @@
         <!--装车任务-->
         <div id="lookOrderTask" class="col s12 tab_box card" style="width: 80%; margin:0 10% ;padding: 50px 0">
             <div class="row col s12" ng-if="taskList.length!==0" ng-repeat="el in taskList" style="width: 90%; margin-left:5%; margin-top:10px;">
-
                 <div class="card-content bold cyan-text grey lighten-3" style="height:75px;border: 1px solid #ccc;" >
                     <div class="row col s12">
-
                         <div class="col s4 fz16 cyan-text">
-                           {{el.addr_name}}--{{el.short_name}}
+                            <p ng-show="el.load_task_type==1">
+                                {{el.addr_name}}&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;
+                                <span ng-show="el.transfer_flag==1">{{el.transfer_addr_name}} <span  class="red-text">(转)</span></span>
+                                <span ng-show="el.transfer_flag!==1">{{el.short_name}}</span>
+                            <p ng-show="el.load_task_type!==1">
+                                {{el.addr_name}}<span  class="red-text">(转)</span>&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;
+                                <span ng-show="el.transfer_flag==1">{{el.transfer_addr_name}} <span  class="red-text">(转)</span></span>
+                                <span ng-show="el.transfer_flag!==1">{{el.short_name}}</span>
+                            </p>
                         </div>
+                       <!-- <div class="col s4 fz16 cyan-text">
+                           {{el.addr_name}}&#45;&#45;{{el.short_name}}
+                        </div>-->
                         <div class="col s3"></div>
                         <div class="col s4 right-align">
                             <button ng-click="showOrderTaskModal(el.id)" ng-if="el.load_task_status!==1" style="padding: 0 35px 10px 35px;height: 30px;line-height: 33px;margin-right: 10px" class="btn waves-light waves-effect cyan lighten-1 fz12" type="button">
@@ -132,30 +157,56 @@
                             </button>
                         </div>
                         <div class="col s1 right-align grey-text">
-
-                           {{el.load_task_status | missionStatus}}
+                            {{el.load_task_status | missionStatus}}
                         </div>
-
                     </div>
                 </div>
-                <div class="card-content bold  white grey-text lighten-3" style="border: 1px solid #ccc;height:70px;">
+
+                <!--未装车-->
+                <div class="card-content bold  white grey-text lighten-3" ng-if="el.load_task_status ==1" style="border: 1px solid #ccc;height:70px;">
 
                     <!--计划装车数  计划执行时间 实际装车数 实际执行时间-->
                     <div class="row col s12">
-
                         <div class="col s2 ">
                             计划装车数:{{el.plan_count}}
                         </div>
                         <div class="col s4">
                             计划执行时间:{{el.plan_date |date:'yyyy-MM-dd hh:mm'}}
                         </div>
-                        <div class="col s2 center">
-                            实际装车数:{{el.real_count}}
+                        <div class="col s3 center">
+                            派发调度:{{el.task_op_name}}
                         </div>
-                        <div class="col s4 right-align">
-                            实际执行时间:{{el.load_date |date:'yyyy-MM-dd hh:mm'}}
+                        <div class="col s3 right-align">
+                            需求路线:{{el.demand_route_start}}--{{el.demand_route_end}}
                         </div>
 
+                    </div>
+                </div>
+                <!--已装车-->
+                <div class="card-content bold  white grey-text lighten-3" ng-if="el.load_task_status!==1" style="border: 1px solid #ccc;height:120px;">
+
+                    <!--计划装车数  计划执行时间 实际装车数 实际执行时间-->
+                    <div class="row col s12" style="padding-bottom: 15px;border-bottom: 1px dotted #ccc;">
+                        <div class="col s3">
+                            计划装车数:{{el.plan_count}}
+                        </div>
+                        <div class="col s3">
+                            计划执行时间:{{el.plan_date |date:'yyyy-MM-dd hh:mm'}}
+                        </div>
+                        <div class="col s3 center">
+                            派发调度:{{el.task_op_name}}
+                        </div>
+                        <div class="col s3 right-align">
+                            需求路线:{{el.demand_route_start}}--{{el.demand_route_end}}
+                        </div>
+                    </div>
+                    <div class="row col s12">
+                        <div class="col s3">
+                            实际装车数:{{el.real_count}}
+                        </div>
+                        <div class="col s3">
+                            实际执行时间:{{el.load_date |date:'yyyy-MM-dd hh:mm'}}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -167,7 +218,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
         <!--出车款-->

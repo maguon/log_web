@@ -12,7 +12,6 @@ app.controller("look_instruction_need_details_controller", ["$scope", "$host", "
         _basic.get($host.api_url + "/dpDemand?dpDemandId=" + $stateParams.id).then(function (data) {
             if (data.success === true && data.result.length > 0) {
                 $scope.this_instruction = data.result[0];
-                // console.log("this_instruction",$scope.this_instruction);
                 if ($scope.this_instruction.date_id) {
                     $scope.data_id = moment($scope.this_instruction.date_id.toString()).format("YYYY-MM-DD");
                 }
@@ -30,7 +29,6 @@ app.controller("look_instruction_need_details_controller", ["$scope", "$host", "
                     sendPlanCount += data.result[i].plan_count
                 }
                 $scope.disPatchInfoList = data.result;
-                // console.log("disPatchInfoList",$scope.disPatchInfoList);
                 $scope.PlanCount = sendPlanCount;
             }
             else {
@@ -40,27 +38,25 @@ app.controller("look_instruction_need_details_controller", ["$scope", "$host", "
     };
 
     // 控制商品车详情开合
-    $scope.open_LoadTaskList = function (id, index) {
-        $(".this_LoadTaskList").hide();
-        if ($(".this_LoadTaskList" + index).attr("flag") == 'false') {
+    $scope.open_LoadTaskList = function (id) {
             _basic.get($host.api_url + "/dpRouteLoadTask/" + id + "/dpRouteLoadTaskDetail").then(function (data) {
-                $(".this_LoadTaskList").attr("flag", "false");
                 if (data.success == true && data.result.length >= 0) {
-                    // console.log("vinData",data);
                     $scope.this_LoadTaskList = data.result;
-                    $(".this_LoadTaskList" + index).show();
-                    $(".this_LoadTaskList" + index).attr("flag", 'true');
                 }
                 else {
-                    $(".this_LoadTaskList" + index).attr("flag", 'false');
-                    $(".this_LoadTaskList" + index).hide();
+                    swal(data.msg, "", "error");
                 }
-            })
-        }
-        else {
-            $(".this_LoadTaskList" + index).attr("flag", 'false');
-            $(".this_LoadTaskList" + index).hide();
-        }
+            });
+        _basic.get($host.api_url + "/dpRouteLoadTask?dpRouteLoadTaskId=" + id).then(function (data) {
+            if (data.success == true && data.result.length >= 0) {
+                $scope.loadTaskModelList = data.result[0];
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        })
+
+        $('#carInfoModel').modal('open');
     };
 
     // 取消需求

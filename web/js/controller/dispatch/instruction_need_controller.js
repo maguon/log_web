@@ -6,6 +6,8 @@ app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_b
     $scope.taskStatusList = _config.taskStatus;
     $scope.start = 0;
     $scope.size = 11;
+    $scope.startTransfer = 0;
+    $scope.sizeTransfer = 11;
     $scope.instructionStatus = "1";
     _basic.get($host.api_url + "/city").then(function (data) {
         if (data.success == true) {
@@ -30,15 +32,53 @@ app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_b
                 containerCssClass: 'select2_dropdown',
                 allowClear: true
             })
-
         }
     });
 
+    // 需求路线跳转
+    $scope.originalDemantd = function () {
+        $('ul.tabWrap li').removeClass("active");
+        $(".tab_box").removeClass("active");
+        $(".tab_box").hide();
+        $('ul.tabWrap li.originalDemantd ').addClass("active");
+        $("#originalDemantd").addClass("active");
+        $("#originalDemantd").show();
+    };
+    $scope.ransferDemand = function () {
+        $('ul.tabWrap li').removeClass("active");
+        $(".tab_box").removeClass("active");
+        $(".tab_box").hide();
+        $('ul.tabWrap li.ransferDemand ').addClass("active");
+        $("#ransferDemand").addClass("active");
+        $("#ransferDemand").show();
+        seachTransferInfo();
+        _basic.get($host.api_url + "/city").then(function (data) {
+            if (data.success == true) {
+                $scope.startCityList = data.result;
+                $('#transferCity').select2({
+                    placeholder: '中转城市',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
+                $('#end_city_list_t').select2({
+                    placeholder: '目的城市',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
+                $('#start_city_list_t').select2({
+                    placeholder: '原始起始城市',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
+
+            }
+        });
+    }
+
     // 获取装车地点
     $scope.getAddres = function (id) {
-        if ($scope.start_city == 0 || $scope.start_city == "" || $scope.start_city == null) {
-            $scope.start_city = null;
-            $scope.baseAddrList = [];
+        if (id == undefined || id == "" || id == null) {
+            $scope.receiveList = [];
         }
         else {
             _basic.get($host.api_url + "/baseAddr?cityId=" + id).then(function (data) {
@@ -61,8 +101,7 @@ app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_b
 
     // 获取经销商
     $scope.getRecive = function (id) {
-        if ($scope.arrive_city == 0 || $scope.arrive_city == "" || $scope.arrive_city == null) {
-            $scope.arrive_city = null;
+        if (id == undefined || id == "" || id == null) {
             $scope.receiveList = [];
         }
         else {
@@ -114,15 +153,16 @@ app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_b
         $('#newNeed').modal('open');
 
     };
-    /**
-     * 点击查询按钮
-     * */
+
+    // 点击查询按钮
     $scope.search_all = function (){
         $scope.start = 0;
         seachAllInfo();
     }
-
-
+    $scope.searchTransfer = function (){
+        $scope.startTransfer = 0;
+        seachTransferInfo();
+    }
    function seachAllInfo() {
         var obj = {
             dpDemandId: $scope.instructionNum,
@@ -166,8 +206,46 @@ app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_b
             }
         })
     };
-    seachAllInfo();
 
+    function seachTransferInfo(){
+        var obj = {
+            routeStartId: $scope.start_city2,
+            baseAddrId: $scope.dispatch_car_position2,
+            transferCityId: $scope.transferCity,
+            transferAddrId: $scope.transferPlace,
+            routeEndId: $scope.arrive_city2,
+            receiveId: $scope.dealer2,
+            dateIdStart: $scope.instruct_start_time2,
+            dateIdEnd: $scope.instruct_endTime2,
+            transferStatus:1,
+            start: $scope.startTransfer.toString(),
+            size: $scope.sizeTransfer
+        };
+        _basic.get($host.api_url + "/dpTransferDemand?" + _basic.objToUrl(obj)).then(function (data) {
+            if (data.success == true && data.result.length >= 0) {
+                for (var i = 0; i < data.result.length; i++) {
+                    data.result[i].date_id = moment(data.result[i].date_id.toString()).format("YYYY-MM-DD");
+                }
+                $scope.instructionBoxArray = data.result;
+                $scope.instruction_neee_list_t = $scope.instructionBoxArray.slice(0,10);
+
+                if ($scope.startTransfer > 0) {
+                    $("#preTransfer").show();
+                }
+                else {
+                    $("#preTransfer").hide();
+                }
+                if (data.result.length < $scope.sizeTransfer) {
+                    $("#nextTransfer").hide();
+                }
+                else {
+                    $("#nextTransfer").show();
+                }
+            } else {
+                $scope.instruction_neee_list_t = [];
+            }
+        })
+    };
     // 新增需求
     $scope.add_need_instruct = function (inValid) {
         $scope.submitted = true;
@@ -199,6 +277,10 @@ app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_b
         $scope.start = $scope.start - ($scope.size - 1) ;
         seachAllInfo();
     };
+    $scope.preTransferBtn = function () {
+        $scope.startTransfer = $scope.startTransfer - ($scope.sizeTransfer - 1) ;
+        seachTransferInfo();
+    };
 
     /**
      * 下一页
@@ -207,4 +289,10 @@ app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_b
         $scope.start = $scope.start + ($scope.size - 1) ;
         seachAllInfo();
     };
+    $scope.nextTransferBtn = function () {
+        $scope.startTransfer = $scope.startTransfer + ($scope.sizeTransfer - 1) ;
+        seachTransferInfo();
+    };
+    $scope.originalDemantd();
+    seachAllInfo();
 }]);

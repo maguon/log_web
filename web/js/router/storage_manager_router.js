@@ -73,6 +73,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/dispatch/look_instruction_need_details.html",
             controller:"look_instruction_need_details_controller"
         })
+        .state("look_instruction_need_transfer_detail", {
+            url: "/look_instruction_need_transfer_detail/id/{id}/from/{from}",
+            templateUrl: "js/view/dispatch/look_instruction_need_transfer_detail.html",
+            controller:"look_instruction_need_transfer_detail_controller"
+        })
         .state("setting_users", {
             url: "/setting_users",  //路由路径
             templateUrl: "js/view/system_settings/user_manager.html", //路由填充的模板
@@ -196,7 +201,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/statistics/import_data_statistics.html",
             controller:"import_data_statistics_controller"
         })
-
+        .state("transport_planning_statistics", {
+            url:"/transport_planning_statistics",
+            templateUrl: "js/view/statistics/transport_planning_statistics.html",
+            controller:"transport_planning_statistics_controller"
+        })
         // 质损申报
         .state("damage_declaration",{
             url:"/damage_declaration",

@@ -100,6 +100,14 @@ app.controller("dispatch_order_details_controller", ["$scope", "$host", "$locati
                 swal(data.msg, "", "error");
             }
         });
+        _basic.get($host.api_url + "/dpRouteLoadTask?dpRouteLoadTaskId="+id).then(function (data) {
+            if (data.success == true) {
+                /*获取列表详情*/
+                $scope.taskDetailModelList = data.result[0];
+            } else {
+                swal(data.msg, "", "error");
+            }
+        });
     };
 
 

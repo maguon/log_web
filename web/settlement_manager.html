@@ -70,6 +70,20 @@
     <li class="bold side_navigator">
         <ul class="collapsible collapsible-accordion">
             <li class="bold">
+                <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-chart-line "></i>数据统计</a>
+                <div class="collapsible-body slider_nav_box blue-grey darken-3" style="padding: 0;">
+                    <ul>
+                        <li><a href="#!" ui-sref="settlement_statistics"><i class="mdi mdi-chevron-right white-text "></i>结算统计</a></li>
+                        <li><a href="#!" ui-sref="transport_planning_statistics"><i class="mdi mdi-chevron-right white-text "></i>发运计划统计</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+
+    <li class="bold side_navigator">
+        <ul class="collapsible collapsible-accordion">
+            <li class="bold">
                 <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-home-variant "></i>结算管理</a>
                 <div class="collapsible-body slider_nav_box blue-grey darken-3" style="padding: 0;">
                     <ul>
@@ -164,6 +178,10 @@
 
 <!--用户信息-->
 <script src="/js/controller/user/user_info_controller.js"></script>
+
+<!--数据统计-->
+<script src="/js/controller/statistics/settlement_statistics_controller.js"></script>
+<script src="/js/controller/statistics/transport_planning_statistics_controller.js"></script>
 
 <!--公共数据-->
 <script src="/js/controller/car/car_query/car_query_controller.js"></script>

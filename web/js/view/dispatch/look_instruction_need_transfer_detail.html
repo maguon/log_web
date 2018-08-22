@@ -1,0 +1,199 @@
+
+<!--查看vin码模态框-->
+<div id="carInfoModel" class="modal">
+    <div class="modal-content center fz20" style="font-weight: 500;padding: 0;">
+        <div class="row col s12 vc-center" style="font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
+            <div class="col s12 fz22 white-text" style="font-weight: 600">装车详情 </div>
+        </div>
+        <div class="row col s12 grey-text text-darken-2 fz15" style="width: 94%;margin-left: 3%">
+            <div class="col s12">
+                <div class="col s6 left-align">调度编号:{{loadTaskModelList.dp_route_task_id}}</div>
+                <div class="col s6 right-align cyan-text">{{loadTaskModelList.load_task_status| missionStatus}}</div>
+            </div>
+            <div class="col s12" style="margin: 10px 0px;">
+                <div class="col s2 cyan-text  left-align" >{{loadTaskModelList.city_start_name}}--{{loadTaskModelList.transfer_city_name}} </div>
+                <div class="col s3 left-align"><p><span>原始路线:</span>{{loadTaskModelList.city_start_name}}--{{loadTaskModelList.city_name}}</p> </div>
+                <div class="col s3 left-align">
+                    <p><span>经销商：</span>{{loadTaskModelList.short_name}}</p>
+                </div>
+                <div class="col s2 right-align">
+                    <p><span>司机：</span>{{loadTaskModelList.drive_name}}</p>
+                </div>
+                <div class="col s2 right-align">
+                    <p><span>货车：</span>{{loadTaskModelList.truck_num}}</p>
+                </div>
+            </div>
+            <div class="col s12" style="background: #ccc;height: 1px;margin-bottom: 10px"></div>
+            <div class="col s12">
+                <div class="col s12 fz13" ng-repeat="vinInfo in this_LoadTaskList" ng-if="!(this_LoadTaskList.length == 0)" style="border-bottom: 1px dotted #ccc">
+                    <div class="col s1 left-align fz22">
+                        <i class="mdi mdi-car"></i>
+                    </div>
+                    <div class="col s5 left-align">
+                        <span>{{vinInfo.vin}}</span>
+                    </div>
+                    <div class="col s3 center">
+                        <span>{{vinInfo.make_name}}</span>
+                    </div>
+                    <div class="col s3 right-align">
+                        <span>委托方:{{vinInfo.short_name}}</span>
+                    </div>
+                </div>
+
+                <div class="col s12 fz13" ng-if="this_LoadTaskList.length == 0">
+                    <div class="col s12 center">
+                        <span style="letter-spacing: 1px">暂无装车信息</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s12" style="background: #ccc;height: 1px;margin-top:60px;margin-bottom: 10px"></div>
+        <div class="modal-footer  right-align">
+            <button class="modal-action modal-close btn waves-light waves-effect cyan lighten-1" type="button" style="margin-right: 10px" >
+                确定
+            </button>
+        </div>
+    </div>
+</div>
+<a style="margin: 90px 0 0 20px" class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light "
+   ui-sref="instruction_need">
+    <i class="mdi mdi-arrow-left-bold"></i>
+</a>
+<div id="look_instruction_need_details">
+    <div class="">
+        <div class="modal-content grey-text text-darken-2">
+            <div class="vc-center">
+                <h5 class="center-align cyan-text text-lighten-1">调度需求执行情况</h5>
+            </div>
+            <div class="divider" style="background: #00bcd4;height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
+            <div class="row no-marBottom" ul-tabs>
+                <div id="look_msg" class="col s12 tab_box" style="width: 90%; margin:0 5% ">
+                    <div class="col s12" style="padding: 0 20px">
+                        <div class="col s12 z-depth-2 white" style="padding: 0;margin-bottom: 25px;font-size: 1.1rem;color: darkgray">
+                            <div class="col s12 wash_fee_details less_mar" style="margin-top:10px">
+                                <div class="col  cyan-text bold" style="width: 20%">
+                                    <h5>{{this_instruction.transfer_city_name}}--{{this_instruction.route_end_name}}</h5>
+                                </div>
+                                <div class="col" style="width: 20%">
+                                    <p><span>派送车辆：</span>{{this_instruction.pre_count}}</p>
+                                </div>
+                                <div class="col" style="width: 20%">
+                                    <p><span>已派送车辆：</span>{{this_instruction.plan_count}}</p>
+                                </div>
+                                <div class="col" style="width: 20%">
+                                    <p><span>装车地点：</span>{{this_instruction.transfer_addr_name}}</p>
+                                </div>
+                                <div class="col right-align" style="width: 20%">
+                                    <p class="red-text" ng-if="this_instruction.transfer_status==1">未完成</p>
+                                </div>
+                            </div>
+                            <div class="col s12 wash_fee_details less_mar" style="margin-bottom:10px">
+                                <div class="col" style="width: 20%">
+                                    <p><span>原始需求编号：</span>{{this_instruction.demand_id}}</p></div>
+                                <div class="col" style="width: 20%">
+                                    <p><span>原始路线：</span>{{this_instruction.demand_route_start}}--{{this_instruction.demand_route_end}}</p>
+                                </div>
+                                <div class="col" style="width: 20%">
+                                    <p><span>原始装车地点：</span>{{this_instruction.demand_addr_name}}</p>
+                                </div>
+                                <div class="col" style="width: 20%">
+                                    <p><span>经销商：</span>{{this_instruction.short_name}}</p>
+                                </div>
+                                <div class="col cyan-text right-align" style="width: 20%">
+                                    <p><span>指令日期：</span>{{dateId}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12" ul-tabs style="overflow: hidden;padding:0 20px;margin-bottom: 10px">
+                        <ul class="tabs tabs-fixed-width tab-demo z-depth-1 bold">
+                            <li class="tab"><a  href="#haveArrived">已到达车辆安排情况({{this_instruction.plan_count}}/{{this_instruction.arrive_count}})</a></li>
+                            <li class="tab"><a href="#approaching">即将到达车辆({{this_instruction.transfer_count}})</a></li>
+                        </ul>
+                    </div>
+                    <div id="haveArrived" class="col s12">
+                        <div class="col s12">
+                            <table class="bordered striped text_mid">
+                                <thead class="blue-grey lighten-5">
+                                <tr class="grey-text text-darken-2">
+                                    <th data-field="">调度编号</th>
+                                    <th data-field="">路线</th>
+                                    <th data-field="">是否中转</th>
+                                    <th data-field="">中转站</th>
+                                    <th data-field="">司机</th>
+                                    <th data-field="">货车</th>
+                                    <th data-field="">计划装车</th>
+                                    <th data-field="">实际装车</th>
+                                    <th data-field="">计划执行时间</th>
+                                    <th data-field="">送达时间</th>
+                                    <th data-field="">状态</th>
+                                    <th data-field=""></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="dispatchInfo in disPatchHaveInfoList" class="grey-text text-darken-1">
+                                    <td>{{dispatchInfo.dp_route_task_id}}</td>
+                                    <td ng-if="dispatchInfo.transfer_flag==0">{{dispatchInfo.city_start_name}}--{{dispatchInfo.city_name}}</td>
+                                    <td ng-if="dispatchInfo.transfer_flag==1">{{dispatchInfo.city_start_name}}--{{dispatchInfo.transfer_city_name}}</td>
+                                    <td ng-if="dispatchInfo.transfer_flag==0">否</td>
+                                    <td ng-if="dispatchInfo.transfer_flag==1">是</td>
+                                    <td ng-if="dispatchInfo.transfer_addr_name==null"></td>
+                                    <td ng-if="dispatchInfo.transfer_addr_name!==null">{{dispatchInfo.transfer_addr_name}}</td>
+                                    <td >{{dispatchInfo.drive_name}}</td>
+                                    <td>{{dispatchInfo.truck_num}}</td>
+                                    <td >{{dispatchInfo.plan_count}}</td>
+                                    <td>{{dispatchInfo.real_count}}</td>
+                                    <td >{{dispatchInfo.task_plan_date|date:'yyyy-MM-dd'}}</td>
+                                    <td>{{dispatchInfo.arrive_date|date:'yyyy-MM-dd'}}</td>
+                                    <td>{{dispatchInfo.load_task_status | missionStatus}}</td>
+                                    <td class="operation vc-center">
+                                        <a  ng-click="open_LoadTaskList(dispatchInfo.id)" class="cyan-text fz12" style="cursor: pointer;display: inline-block;width: 37px;height: 37px;">  <i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-file-document"></i></a>
+                                    </td>
+                                </tr>
+                                <tr class="grey-text text-darken-1" ng-if="disPatchHaveInfoList.length == 0">
+                                    <td colspan="12"><span style="letter-spacing: 2px">暂无数据</span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="approaching" class="col s12">
+                        <div class="col s12">
+                            <table class="bordered striped text_mid">
+                                <thead class="blue-grey lighten-5">
+                                <tr class="grey-text text-darken-2">
+                                    <th data-field="">调度编号</th>
+                                    <th data-field="">路线</th>
+                                    <th data-field="">装车地点</th>
+                                    <th data-field="">司机</th>
+                                    <th data-field="">货车</th>
+                                    <th data-field="">装车数</th>
+                                    <th data-field="">在途时间</th>
+                                    <th data-field=""></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="dispatchInfo in disPatchInfoList" class="grey-text text-darken-1">
+                                    <td>{{dispatchInfo.dp_route_task_id}}</td>
+                                    <td>{{dispatchInfo.city_start_name}}--{{dispatchInfo.transfer_city_name}}</td>
+                                    <td>{{dispatchInfo.addr_name}}</td>
+                                    <td >{{dispatchInfo.drive_name}}</td>
+                                    <td>{{dispatchInfo.truck_num}}</td>
+                                    <td>{{dispatchInfo.real_count}}</td>
+                                    <td>{{dispatchInfo.load_date|date:'yy-MM-dd hh:ss'}}</td>
+                                    <td class="operation vc-center">
+                                        <a  ng-click="open_LoadTaskList(dispatchInfo.id)" class="cyan-text fz12" style="cursor: pointer;display: inline-block;width: 37px;height: 37px;">  <i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-file-document"></i></a>
+                                    </td>
+                                </tr>
+                                <tr class="grey-text text-darken-1" ng-if="disPatchInfoList.length == 0">
+                                    <td colspan="12"><span style="letter-spacing: 2px">暂无数据</span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

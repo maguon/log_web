@@ -1,8 +1,8 @@
 <div class="instruction_plan">
     <div class="row">
-        <!--点击路线模态框-->
+        <!--点击直达路线模态框-->
         <div id="carInfoModel" class="modal modal-fixed-footer" style="width: 72%">
-            <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+            <div class="modal-content center fz20" style="font-weight: 500;padding: 0;">
                 <div class="row col s12 vc-center" style="font-weight: bold;height: 80px;background-color:rgb(63,185,193)">
                     <div class="col s3 fz22 white-text" style="font-weight: 600">
                         <p>{{currentModelInfo.date_id}}</p>
@@ -14,18 +14,20 @@
                         <p>{{currentDistance == "notSet" ? "里程未设置" : currentDistance + " 公里"}}</p>
                     </div>
                 </div>
-                <div class="row col s12 vc-center">
-                    <div class="col s6">
-                        <p>发运车商品总数：<span style="color: rgb(63,185,193);font-size: 1.8rem">{{currentModelInfo.pre_count}}</span> 辆</p>
-                    </div>
-                    <div class="col s6">
-                        <p>未派发商品车数：<span style="color: rgb(229,115,115);font-size: 1.8rem">{{currentModelInfo.pre_count - currentModelInfo.plan_count}}</span> 辆</p>
+                <div class="row col s12 vc-center" style="width: 94%;margin-left: 3%">
+                    <div class="col s12" style="height: 50px;line-height: 50px;border: 1px solid #ccc;background:#dcdfe0 ">
+                        <div class="col s6 left-align">
+                            <p>发运车商品总数：<span style="color: rgb(63,185,193);font-size: 1.8rem">{{currentModelInfo.pre_count}}</span> </p>
+                        </div>
+                        <div class="col s6 right-align">
+                            <p>已安排商品车数：<span style="color: rgb(229,115,115);font-size: 1.8rem">{{transportationCountList}}</span> </p>
+                        </div>
                     </div>
                 </div>
                 <!--模态框内信息卡片-->
-                <div class="row col s12">
-                    <div class="col s4" ng-repeat="transport in transportationList">
-                        <div class="card-panel white " style="padding: 0">
+                <div class="row col s12" style="width: 94%;margin-left: 3%">
+                    <div class="col s6" ng-repeat="transport in transportationList" >
+                        <div class="card-panel white "  style="padding: 0">
                             <div class="row white-text setting_shipments_title vc-center" ng-class="{'dis_bgc':transport.demand_status != 1}"
                                  style="padding: 8px;height: 50px;margin-bottom: 12px;background-color:rgb(77,208,225);">
                                 <div class="col s12 center fz17">
@@ -34,10 +36,10 @@
                             </div>
                             <div class="row fz15" ng-class="{'dis_txt':transport.demand_status != 1}">
                                 <div class="col s7" style="margin-bottom: 12px" >
-                                    <p>共发运商品车：<span style="color: rgb(229,115,115)" ng-class="{'dis_txt':transport.demand_status != 1}">{{transport.pre_count}}</span>&nbsp;辆</p>
+                                    <p>发运车商品总数：<span style="color: rgb(229,115,115)" ng-class="{'dis_txt':transport.demand_status != 1}">{{transport.pre_count}}</span>&nbsp;</p>
                                 </div>
                                 <div class="col s5" style="margin-bottom: 12px">
-                                    <p>已派发：<span style="color: rgb(229,115,115)" ng-class="{'dis_txt':transport.demand_status != 1}">{{transport.plan_count}}</span>&nbsp;辆</p>
+                                    <p>已安排：<span style="color: rgb(229,115,115)" ng-class="{'dis_txt':transport.demand_status != 1}">{{transport.plan_count}}</span>&nbsp;</p>
                                 </div>
                             </div>
 
@@ -45,6 +47,93 @@
                     </div>
                 </div>
 
+            </div>
+            <div class="modal-footer vc-center">
+                <button class="modal-action modal-close btn waves-light waves-effect cyan lighten-1" type="button" style="margin-left: 56px" >
+                    确定
+                </button>
+            </div>
+        </div>
+
+        <!--点击中转路线模态框-->
+        <div id="showCarTransferInfoModel" class="modal modal-fixed-footer" style="width: 72%">
+            <div class="modal-content center fz20" style="font-weight: 500;padding: 0;">
+                <div class="row col s12 vc-center" style="font-weight: bold;height: 80px;background-color:rgb(63,185,193)">
+                    <div class="col s3 fz22 white-text" style="font-weight: 600">
+                        <p>{{currentTransferModelInfo.date_id}}</p>
+                    </div>
+                    <div class="col s6 vc-center">
+                        <h6 class="white-text fz22" style="font-weight:600">{{currentTransferModelInfo.transfer_city_name}}&emsp;<span style="font-size: 1.7rem" class="mdi mdi-arrow-right"></span><span>&emsp;{{currentTransferModelInfo.route_end_name}}</span></h6>
+                    </div>
+                    <div class="col s3 fz22 white-text" style="font-weight: 600">
+                        <p>{{currentTransferDistance == "notSet" ? "里程未设置" : currentTransferDistance + " 公里"}}</p>
+                    </div>
+                </div>
+                <div class="row  no-marBottom"  style="width: 94%;margin-left: 3%;margin-bottom: 10px">
+                    <div class="col s12" ul-tabs style="overflow: hidden">
+                        <ul class="tabWrap white lighten-4">
+                            <li class="tab col s6 arrivedStu vc-center" ng-click="arrivedStu()">已到达</li>
+                            <li class="tab col s6 arriveStu vc-center" ng-click="arriveStu()">即将到达</li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="arrivedStu" class="row tab_box" style="width: 92%;margin-left: 4%">
+                    <div class="col s12 vc-center card-panel" style="width: 100%;height: 40px;line-height: 40px;background:#dcdfe0">
+                        <div class="col s6 left-align">
+                            <p>已到达中转站商品车总数 ：<span style="color: rgb(63,185,193);font-size: 1.8rem">{{arrivedCarCount}}</span></p>
+                        </div>
+                        <div class="col s6 right-align">
+                            <p>已安排商品车数：<span style="color: rgb(229,115,115);font-size: 1.8rem">{{arriveTransportPlanCount}}</span></p>
+                        </div>
+                    </div>
+                    <div class="col s6" ng-repeat="transport in transportationTransportListStatus7" >
+                        <div class="card-panel white" style="padding: 0">
+                            <div class="row white-text setting_shipments_title vc-center"  style="padding: 8px;height: 50px;margin-bottom: 20px;background-color:rgb(77,208,225);">
+                                <div class="col s12 center fz17">
+                                    <p><span >{{transport.transfer_addr_name}}</span>&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;<span>{{transport.short_name}}</span></p>
+                                </div>
+                            </div>
+                            <div class="row fz15">
+                                <div class="col s4" style="margin-bottom: 12px" >
+                                    <p>始发站：{{transport.addr_name}}</p>
+                                </div>
+                                <div class="col s5" style="margin-bottom: 12px" >
+                                    <p>发运商品车总数：<span class="cyan-text">{{transport.arrive_count}}</span>&nbsp</p>
+                                </div>
+                                <div class="col s3" style="margin-bottom: 12px">
+                                    <p>已安排：<span style="color: rgb(229,115,115)">{{transport.plan_count}}</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="arriveStu" class="row tab_box" style="width: 92%;margin-left: 4%">
+                    <div class="col s12 vc-center card-panel" style="width: 100%;height: 40px;line-height: 40px;background:#dcdfe0">
+                        <div class="col s12 left-align">
+                            <p>即将到达中转站商品车总数：<span style="color: rgb(63,185,193);font-size: 1.8rem">{{haveArrivedCarCount}}</span></p>
+                        </div>
+                    </div>
+                    <div class="col s6" ng-repeat="transport in transportationTransportListStatus3">
+                        <div class="card-panel white"  style="padding: 0">
+                            <div class="row white-text setting_shipments_title vc-center" style="padding: 8px;height: 50px;margin-bottom: 20px;background-color:rgb(77,208,225);">
+                                <div class="col s12 center fz17">
+                                    <p><span >{{transport.transfer_addr_name}}</span>&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;<span>{{transport.short_name}}</span></p>
+                                </div>
+                            </div>
+                            <div class="row fz15">
+                                <div class="col s6 left-align" style="margin-bottom: 12px;" >
+                                    <p>始发站：{{transport.addr_name}}</p>
+                                </div>
+                                <div class="col s6 right-align" style="margin-bottom: 12px;" >
+                                    <p>发运商品车总数：<span class="cyan-text">{{transport.real_count}}</span></p>
+                                </div>
+                                <div class="col s12 left-align" style="margin-bottom: 12px;">
+                                    <p>在途时间：{{transport.load_date| date:'yyyy-MM-dd  HH:mm'}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer vc-center">
                 <button class="modal-action modal-close btn waves-light waves-effect cyan lighten-1" type="button" style="margin-left: 56px" >
@@ -98,58 +187,117 @@
         </div>
 
         <!--左栏发运商品车信息卡片-->
-        <div class="row col s2">
-            <div class="col input-field s8" style="margin-bottom: 15px">
-                <input id="searchLeftCard" type="text" ng-model="leftKeyWord">
-                <label for="searchLeftCard">起始地/目的地</label>
-            </div>
-            <div class="col s2 flex flex-round">
-                <i class="mdi mdi-magnify" ng-click="updateLeftCardList()" style="margin:20px 0 0 10px;font-size: 30px;cursor: pointer"></i>
-            </div>
-            <div class="col s2 flex flex-round left">
-                <i class="mdi mdi-refresh" ng-click="getDeliveryCarInfo()" style="margin:20px 0 0 10px;font-size: 30px;cursor: pointer"></i>
-            </div>
-            <div class="col s12" ng-repeat="car in newDispatchCarList">
-                <div class="card-panel white " style="padding: 0">
-                    <div class="row cyan lighten-2 white-text setting_shipments_title vc-center"
-                         style="padding: 10px;height: 42px">
-                        <div class="col s12 center" style="padding: 0;">
-                            <h6 class="white-text fz16" style="font-weight:bold;margin: 0">{{car.city_route_start}}&emsp;
-                                <span style="font-size: 1.2rem" class="mdi mdi-arrow-right"></span>
-                                <span>&emsp;{{car.city_route_end}}</span>
-                            </h6>
+        <div class="row col" ul-tabs style="width: 20%">
+            <ul class="tabs tabs-fixed-width tab-demo z-depth-1" style="font-size: 25px;font-weight: bold;overflow-x: hidden">
+                <li class="tab"><a href="#traightUp" style="color: #26c6da">直达</a></li>
+                <li class="tab"><a href="#transfer" style="colors: #26c6da">中转</a></li>
+            </ul>
+
+            <!--直发-->
+            <div id="traightUp">
+                <div class="col input-field s8" style="margin-bottom: 15px">
+                    <input id="searchLeftCard" type="text" ng-model="leftKeyWord">
+                    <label for="searchLeftCard">起始地/目的地</label>
+                </div>
+                <div class="col s2 flex flex-round">
+                    <i class="mdi mdi-magnify" ng-click="updateLeftCardList()" style="margin:20px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                </div>
+                <div class="col s2 flex flex-round left">
+                    <i class="mdi mdi-refresh" ng-click="getDeliveryCarInfo()" style="margin:20px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                </div>
+                <div class="col s12" ng-repeat="car in newDispatchCarList">
+                    <div class="card-panel white " style="padding: 0">
+                        <div class="row cyan lighten-2 white-text setting_shipments_title vc-center"
+                             style="padding: 10px;height: 42px">
+                            <div class="col s12" style="padding: 0;">
+                                <h6 class="white-text fz16" style="font-weight:bold;margin: 0">{{car.city_route_start}}&emsp;
+                                    <span style="font-size: 1.2rem" class="mdi mdi-arrow-right"></span>
+                                    <span>&emsp;{{car.city_route_end}}</span>
+                                </h6>
+                            </div>
+
+                            <a style="top: 58%;width: 37px;height: 37px;right: 9px"
+                               class="right btn-floating setting_shipments_btn  btn waves-effect materialize-red  lighten-2 waves-light vc-center ">
+                                <i style="font-size: 1.3rem;line-height: 38px" ng-click="showCarInfoModel(car)"
+                                   class="mdi mdi-file-document"></i>
+                            </a>
+                        </div>
+                        <div class="row fz14">
+                            <div class="col s12 grey-text">
+                                <p style="margin: -5px 0;">{{car.date_id}}</p>
+                            </div>
+                            <div class="col s5" style="padding-right: 0">
+                                <p class="grey-text row " style="padding: 6px 0 8px 0;margin:0">
+                                    总发运:
+                                    <span style="font-size: 1.2rem;color:rgb(229,115,115);font-weight: bold">{{car.pre_count}}&nbsp;</span>
+                                </p>
+                            </div>
+                            <div class="col s7" style="padding-left: 0">
+                                <p class="grey-text row right-align" style="padding: 6px 0 8px 0;margin:0">
+                                   中转/已安排:
+                                    <span style="font-size: 1.2rem;color:rgb(229,115,115);font-weight: bold">{{car.transfer_count}}/{{car.plan_count}}&nbsp;</span>
+                                </p>
+                            </div>
                         </div>
 
-                        <a style="top: 65%;width: 37px;height: 37px;right: 9px"
-                           class="right btn-floating setting_shipments_btn  btn waves-effect materialize-red  lighten-2 waves-light vc-center ">
-                            <i style="font-size: 1.3rem;line-height: 38px" ng-click="showCarInfoModel(car)"
-                               class="mdi mdi-file-document"></i>
-                        </a>
                     </div>
-                    <div class="row fz14">
-                        <div class="col s12 center grey-text">
-                            <p style="margin: -5px 0;">{{car.date_id}}</p>
-                        </div>
-                        <div class="col s6" style="padding-right: 0">
-                            <p class="grey-text row center" style="padding: 6px 0 8px 0;margin:0">
-                                待发运
-                                <span style="font-size: 1.2rem;color:rgb(229,115,115);font-weight: bold">{{car.pre_count}}&nbsp;</span>
-                            </p>
-                        </div>
-                        <div class="col s6" style="padding-left: 0">
-                            <p class="grey-text row center" style="padding: 6px 0 8px 0;margin:0">
-                                已安排
-                                <span style="font-size: 1.2rem;color:rgb(229,115,115);font-weight: bold">{{car.plan_count}}&nbsp;</span>
-                            </p>
-                        </div>
-                    </div>
-
                 </div>
             </div>
+            <!--中转-->
+            <div id="transfer">
+                <div class="col input-field s8" style="margin-bottom: 15px">
+                    <input id="searchLeftCardTransfer" type="text" ng-model="leftTransferKeyWord">
+                    <label for="searchLeftCardTransfer">起始地/目的地</label>
+                </div>
+                <div class="col s2 flex flex-round">
+                    <i class="mdi mdi-magnify" ng-click="updateTransferLeftCardList()" style="margin:20px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                </div>
+                <div class="col s2 flex flex-round left">
+                    <i class="mdi mdi-refresh" ng-click="getDeliveryCarInfo()" style="margin:20px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                </div>
+                <div class="col s12" ng-repeat="car in newTransferDispatchCarList">
+                    <div class="card-panel white " style="padding: 0">
+                        <div class="row cyan lighten-2 white-text setting_shipments_title vc-center"
+                             style="padding: 10px;height: 42px">
+                            <div class="col s12" style="padding: 0;">
+                                <h6 class="white-text fz16" style="font-weight:bold;margin: 0">{{car.transfer_city_name}}&emsp;
+                                    <span style="font-size: 1.2rem" class="mdi mdi-arrow-right"></span>
+                                    <span>&emsp;{{car.route_end_name}}</span>
+                                </h6>
+                            </div>
+
+                            <a style="top: 58%;width: 37px;height: 37px;right: 9px"
+                               class="right btn-floating setting_shipments_btn  btn waves-effect materialize-red  lighten-2 waves-light vc-center ">
+                                <i style="font-size: 1.3rem;line-height: 38px" ng-click="showCarTransferInfoModel(car)"
+                                   class="mdi mdi-file-document"></i>
+                            </a>
+                        </div>
+                        <div class="row fz14">
+                            <div class="col s12 grey-text">
+                                <p style="margin: -5px 0;">{{car.date_id}}</p>
+                            </div>
+                            <div class="col s8" style="padding-right: 0">
+                                <p class="grey-text row" style="padding: 6px 0 8px 0;margin:0">
+                                    即将到达/车辆总数:
+                                    <span style="font-size: 1.2rem;color:rgb(229,115,115);font-weight: bold">{{car.transfer_count}}/{{car.pre_count}}&nbsp;</span>
+                                </p>
+                            </div>
+                            <div class="col s4" style="padding-left: 0">
+                                <p class="grey-text row right-align" style="padding: 6px 0 8px 0;margin:0">
+                                    已安排:
+                                    <span style="font-size: 1.2rem;color:rgb(229,115,115);font-weight: bold">{{car.plan_count}}&nbsp;</span>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <!--中间调度指令-->
-        <div class="col s8">
+        <div class="col" style="width: 60%">
             <div class="col s12" style="margin-bottom: 11px">
                 <h5 class="col s12 cyan-text lighten-1 center-align">
                     调度指令<span class="fz15 bold red-text">(待运:{{readyAcceptCount}}&nbsp;&nbsp;&nbsp;在途:{{onRoadCount}})</span>
@@ -360,50 +508,142 @@
                                                 </div>
 
                                                 <!--装车填写信息-->
-                                                <div class="col s12 black-text fz14" style="height: 205px;background-color: #e0e0e0;border: 1px solid darkgray;width: 95%;margin: 20px 2.5%" ng-show="missionInfo">
-                                                    <div class="col s4 input-field">
-                                                        <select id="chooseLocate" name="chooseLocate" ng-change="cancelDestinationCity()" ng-model="$parent.locateId" watch material-select>
-                                                            <option value="" selected>装车地点</option>
-                                                            <option ng-repeat="locateCity in locateList" ng-value="locateCity.id">{{locateCity.addr_name}}</option>
+                                                <div class="col s12 black-text fz14" style="background-color: #e0e0e0;border: 1px solid darkgray;width: 95%;margin: 20px 2.5%" ng-show="missionInfo">
+                                                    <div class="col s12 input-field">
+                                                        <select  material-select watch  id="" ng-model="selectWhereStart" ng-change="changeWhereStart(selectWhereStart)">
+                                                            <option value="" selected disabled>请选择</option>
+                                                            <option ng-value="1">始发站出发</option>
+                                                            <option ng-value="2">中转站出发</option>
                                                         </select>
                                                     </div>
-                                                    <div class="col s4 input-field">
-                                                        <select class="destination_city" name="state" style="width:100%" ng-change="getReceiveDistributor(currentLine.id)" ng-model="$parent.sendCityId">
-                                                            <option value=""></option>
-                                                            <option ng-repeat="sendCity in sendCityList" ng-value="sendCity.id">{{sendCity.city_name}}</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col s4 input-field">
-                                                        <select id="chooseDistributor" name="chooseDistributor" ng-options="addr.date_id + ' ' + addr.short_name + '&emsp;' + addr.plan_count + '/' + addr.pre_count for addr in addrList" ng-model="$parent.receiveInfo" watch material-select>
-                                                            <option value="">送达经销商</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col s4 input-field">
-                                                        <input id="load_num" type="number" ng-model="$parent.distributeNum">
-                                                        <label for="load_num">装车数量</label>
-                                                    </div>
-                                                    <div class="col s4 input-field">
-                                                        <input placeholder="" id="verification_time4" type="text" class="datepicker"
-                                                               ng-model="$parent.lineDate" date>
-                                                        <i class="mdi dataIcon mdi-table-large"></i>
-                                                        <label for="verification_time4" class="active">计划执行日期</label>
-                                                    </div>
-                                                    <div class="col s4 input-field">
-                                                        <input id="verification_time3" type="text" class="timepicker" ng-model="$parent.lineStartTime" time>
-                                                        <i class="mdi dataIcon mdi-clock"></i>
-                                                        <label for="verification_time3">计划执行时间</label>
-                                                    </div>
-                                                    <div class="col s12">
-                                                        <div class="col s6 offset-s3" style="padding: 0;">
-                                                            <div class="col s5">
-                                                                <a ng-click="closeMissionInfo()" style="width: 100%;background-color: #a0a8b1;" class="waves-light waves-effect lighten-1 btn">
-                                                                    取消
-                                                                </a>
+                                                    <div ng-show="selectWhereStart==1" style="height:350px;">
+                                                        <div class="col s4 input-field">
+                                                            <select id="chooseLocate" name="chooseLocate" ng-change="cancelDestinationCity()" ng-model="locateId" watch material-select>
+                                                                <option value="" selected>装车地点</option>
+                                                                <option ng-repeat="locateCity in locateList" ng-value="locateCity.id">{{locateCity.addr_name}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <select class="destination_city" name="state" style="width:100%" ng-change="getReceiveDistributor(currentLine.id,sendCityId,locateId)" ng-model="sendCityId">
+                                                                <option value=""></option>
+                                                                <option ng-repeat="sendCity in sendCityList" ng-value="sendCity.id">{{sendCity.city_name}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <select id="chooseDistributor" name="chooseDistributor" ng-options="addr.date_id + ' ' + addr.short_name + '&emsp;' + addr.plan_count + '/' + addr.pre_count for addr in addrList" ng-model="$parent.receiveInfo" watch material-select>
+                                                                <option value="">经销商</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <input id="load_num" type="number" name="load_num" ng-model="$parent.distributeNum" style="margin: 0;">
+                                                            <label for="load_num">装车数量</label>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <input placeholder="" id="verification_time4" type="text" class="datepicker"
+                                                                   ng-model="$parent.lineDate" date>
+                                                            <i class="mdi dataIcon mdi-table-large"></i>
+                                                            <label for="verification_time4" class="active">计划装车日期</label>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <input id="verification_time3" type="text" class="timepicker" ng-model="$parent.lineStartTime" time>
+                                                            <i class="mdi dataIcon mdi-clock"></i>
+                                                            <label for="verification_time3">计划装车时间</label>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <select material-select watch id="whetherTransfer" ng-change="checkWhetherTransfer(whetherTransfer)" ng-model="whetherTransfer">
+                                                                <option value="" selected disabled>请选择</option>
+                                                                <option ng-value="0">否</option>
+                                                                <option ng-value="1">是</option>
+                                                            </select>
+                                                            <label for="whetherTransfer">是否中转</label>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <select class="transfer_city" name="state" style="width:100%" ng-change="getTransferCity(transferCityId)" ng-model="transferCityId" ng-disabled="hasTransferType">
+                                                                <option value=""></option>
+                                                                <option ng-repeat="transferCity in sendCityList" ng-value="transferCity.id">{{transferCity.city_name}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <select id="transferName" name="transferName"  watch material-select ng-disabled="hasTransferType" ng-model="transferName">
+                                                                <option value="">中转站</option>
+                                                                <option ng-repeat="transfer in transferCityList" ng-value="transfer.id">{{transfer.addr_name}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col s12" style="margin-top: 30px">
+                                                            <div class="col s6 offset-s3" style="padding: 0;">
+                                                                <div class="col s5">
+                                                                    <a ng-click="closeMissionInfo()" style="width: 100%;background-color: #a0a8b1;" class="waves-light waves-effect lighten-1 btn">
+                                                                        取消
+                                                                    </a>
+                                                                </div>
+                                                                <div class="col s5 offset-s2">
+                                                                    <a ng-click="submitMissionInfo(currentLine.id,sendCityId,locateId,whetherTransfer,transferCityId,transferName,$index)" style="width: 100%;background-color: #26c6da;" class="waves-light waves-effect lighten-1 btn">
+                                                                        确认
+                                                                    </a>
+                                                                </div>
                                                             </div>
-                                                            <div class="col s5 offset-s2">
-                                                                <a ng-click="submitMissionInfo(currentLine.id,$index)" style="width: 100%;background-color: #26c6da;" class="waves-light waves-effect lighten-1 btn">
-                                                                    确认
-                                                                </a>
+                                                        </div>
+                                                    </div>
+                                                    <div ng-show="selectWhereStart==2" style="height:420px;">
+                                                        <div class="col s4 input-field">
+                                                            <select id="transferChooseLocate" name="chooseLocate" ng-change="changeTransferLocate(ransferLocateId)" ng-model="ransferLocateId" watch material-select>
+                                                                <option value="" selected>中转装车地点</option>
+                                                                <option ng-repeat="locateCity in locateList" ng-value="locateCity.id">{{locateCity.addr_name}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col s8 input-field">
+                                                            <select id="originalRoute" name="originalRoute" ng-options="el.demand_route_start +'(' + el.addr_name+ ')' + '--' + el.route_end_name +'(' + el.short_name+ ')' + '&emsp; ' + el.date_id+'&emsp;'+el.plan_count +'/'+el.pre_count for el in transferCityLocateList" ng-model="$parent.originalRoute" watch material-select>
+                                                                <option value="" selected>原始路线</option>
+                                                            </select>
+
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <input id="load_num2" type="number" name="load_num" ng-model="$parent.distributeNum2" style="margin: 0;">
+                                                            <label for="load_num2">装车数量</label>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <input placeholder="" id="verification_time1" type="text" class="datepicker"
+                                                                   ng-model="$parent.lineDate2" date>
+                                                            <i class="mdi dataIcon mdi-table-large"></i>
+                                                            <label for="verification_time1" class="active">计划装车日期</label>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <input id="verification_time" type="text" class="timepicker" ng-model="$parent.lineStartTime2" time>
+                                                            <i class="mdi dataIcon mdi-clock"></i>
+                                                            <label for="verification_time">计划装车时间</label>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <select material-select watch id="whetherTransfer2" ng-change="checkWhetherTransfer(whetherTransfer2)" ng-model="whetherTransfer2">
+                                                                <option value="" selected>请选择</option>
+                                                                <option value="0">否</option>
+                                                                <option value="1">是</option>
+                                                            </select>
+                                                            <label for="whetherTransfer2">是否中转</label>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <select class="transfer_city" name="state" style="width:100%" ng-change="getTransferCity(transferCityId2)" ng-model="transferCityId2" ng-disabled="hasTransferType">
+                                                                <option value=""></option>
+                                                                <option ng-repeat="transferCity in sendCityList" ng-value="transferCity.id">{{transferCity.city_name}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <select id="transferName2" name="transferName"  watch material-select ng-disabled="hasTransferType2" ng-model="transferName2">
+                                                                <option value="">中转站</option>
+                                                                <option ng-repeat="transfer in transferCityList" ng-value="transfer.id">{{transfer.addr_name}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col s12" style="margin-top: 30px">
+                                                            <div class="col s6 offset-s3" style="padding: 0;">
+                                                                <div class="col s5">
+                                                                    <a ng-click="closeMissionInfo()" style="width: 100%;background-color: #a0a8b1;" class="waves-light waves-effect lighten-1 btn">
+                                                                        取消
+                                                                    </a>
+                                                                </div>
+                                                                <div class="col s5 offset-s2">
+                                                                    <a ng-click="postMissionInfo(currentLine.id,currentLine.city_route_end,ransferLocateId,whetherTransfer2,transferCityId2,transferName2,originalRoute,$index)" style="width: 100%;background-color: #26c6da;" class="waves-light waves-effect lighten-1 btn">
+                                                                        确认
+                                                                    </a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -423,21 +663,36 @@
                                                             </div>
                                                         </div>
                                                         <div class="col s12 wash_fee_details less_mar" style="padding: 0;">
-                                                            <div class="col s12 valign-wrapper" style="border-bottom: 1px solid darkgray;color: darkgray;font-weight: bold;font-size: 1rem;padding: 0;" ng-repeat="nowMission in missionList">
-                                                                <div class="col s5 left-align">
-                                                                    <p>{{nowMission.addr_name}}&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;{{nowMission.city_name}}&emsp;{{ "(" + nowMission.short_name + ")"}}</p>
+                                                            <div class="col s12" style="border-bottom: 1px solid darkgray;color: darkgray;font-weight: bold;font-size: 1rem;padding: 0;" ng-repeat="nowMission in missionList">
+                                                                <div class="col s12">
+                                                                    <div class="col s11 left-align cyan-text">
+                                                                        <p ng-show="nowMission.load_task_type==1">
+                                                                            {{nowMission.addr_name}}&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;
+                                                                            <span ng-show="nowMission.transfer_flag==1">{{nowMission.transfer_addr_name}} <span  class="red-text">(转)</span></span>
+                                                                            <span ng-show="nowMission.transfer_flag!==1">{{nowMission.short_name}}</span>
+                                                                        <p ng-show="nowMission.load_task_type!==1">
+                                                                            {{nowMission.addr_name}}<span  class="red-text">(转)</span>&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;
+                                                                        <span ng-show="nowMission.transfer_flag==1">{{nowMission.transfer_addr_name}} <span  class="red-text">(转)</span></span>
+                                                                        <span ng-show="nowMission.transfer_flag!==1">{{nowMission.short_name}}</span>
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="col s1 right-align">
+                                                                        <p ng-click="deleteMission(nowMission.id,currentLine.id)" class="red-text mdi mdi-close" style="cursor: pointer;font-size: 1.25rem"></p>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="col s3 left-align">
-                                                                    <p>{{nowMission.plan_date | date:'yyyy-MM-dd - HH:mm'}}</p>
-                                                                </div>
-                                                                <div class="col s2 left-align">
-                                                                    <p>装车数：{{nowMission.real_count}} / {{nowMission.plan_count}}</p>
-                                                                </div>
-                                                                <div class="col s2 center-align">
-                                                                    <p>{{nowMission.load_task_status | instructionsStatus}}</p>
-                                                                </div>
-                                                                <div class="col s1">
-                                                                    <span ng-click="deleteMission(nowMission.id,currentLine.id)" class="red-text mdi mdi-close" style="cursor: pointer;font-size: 1.25rem"></span>
+                                                                <div class="col s12 fz13" style="margin-bottom: 10px">
+                                                                    <div class="col s5 left-align">
+                                                                        <p>原始路线:{{nowMission.demand_route_start}}&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;{{nowMission.demand_route_end}}&emsp;{{ "(" + nowMission.short_name + ")"}}</p>
+                                                                    </div>
+                                                                    <div class="col s3 left-align">
+                                                                        <p>{{nowMission.plan_date | date:'yyyy-MM-dd - HH:mm'}}</p>
+                                                                    </div>
+                                                                    <div class="col s2 left-align">
+                                                                        <p>装车数：{{nowMission.real_count}} / {{nowMission.plan_count}}</p>
+                                                                    </div>
+                                                                    <div class="col s2 right-align">
+                                                                        <p>{{nowMission.load_task_status | missionStatus}}</p>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col s12" style="border-bottom: 1px solid darkgray;color: darkgray;font-weight: bold;font-size: 1.1rem;padding: 0;" ng-show="missionList.length == 0">
@@ -712,7 +967,7 @@
         </div>
 
         <!--右边任务指令信息卡片-->
-        <div class="col s2">
+        <div class="col" style="width: 20%">
             <div class="col input-field s8" style="margin-bottom: 15px">
                 <input id="searchRightCard" type="text" ng-model="rightKeyWord">
                 <label for="searchRightCard">车牌/地址/司机</label>

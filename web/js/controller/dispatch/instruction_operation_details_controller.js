@@ -7,15 +7,6 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.showDetails = false;
     $scope.vinNum = "";
-    // $('#abnormalModel').modal('open');
-    var vinObjs = {};
-    $('#autocomplete-input').autocomplete({
-        data: vinObjs,
-        // limit: 5, // The max amount of results that can be shown at once. Default: Infinity.
-        minLength: 6
-    });
-
-
     // 根据点击的truckId查询当前司机信息
     $scope.getDriverInfo = function () {
         _basic.get($host.api_url + "/truckDispatch?dispatchFlag=1&truckId=" + truckId).then(function (driverData) {
@@ -39,7 +30,6 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
     $scope.getOperationInfo = function () {
         _basic.get($host.api_url + "/dpRouteTask?truckId=" + truckId + "&taskStatusArr=1,2,3,4,9").then(function (operateData) {
             if (operateData.success === true) {
-                // console.log("operateData",operateData);
                 for(var i = 0;i < operateData.result.length;i++){
                     if(operateData.result[i].task_start_date === null){
                         operateData.result[i].task_start_date = "暂无";
@@ -55,14 +45,11 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
 
     // 点击tab获取当前指令操作信息
     $scope.getCurrentOperationInfo = function (operationId) {
-        // console.log("operationId",operationId);
         _basic.get($host.api_url + "/dpRouteTask?dpRouteTaskId=" + operationId + "&truckId=" + truckId).then(function (currentOperateData) {
             if (currentOperateData.success === true) {
-                // console.log("currentOperateData",currentOperateData);
                 $scope.currentOperateInfo = currentOperateData.result[0];
                 $scope.getOperationMission(currentOperateData.result[0].id);
                 $scope.showDetails = true;
-                // console.log("currentOperateInfo",$scope.currentOperateInfo);
             }
             else {
                 swal(currentOperateData.msg, "", "error");
@@ -74,8 +61,8 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
     $scope.getOperationMission = function (operationId) {
         _basic.get($host.api_url + "/dpRouteLoadTask?dpRouteTaskId=" + operationId).then(function (missionData) {
             if (missionData.success === true) {
-                // console.log("missionData",missionData);
                 $scope.missionList = missionData.result;
+
             }
             else {
                 swal(missionData.msg, "", "error");
@@ -99,7 +86,8 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
     $scope.beginExecution = function () {
         _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" + $scope.currentOperateInfo.id + "/taskStatus/3",{}).then(function (data) {
             if (data.success === true) {
-                $scope.getCurrentOperationInfo($scope.currentOperateInfo.id)
+                $scope.getCurrentOperationInfo($scope.currentOperateInfo.id);
+                $scope.getOperationInfo();
             }
             else {
                 swal(data.msg, "", "error");
@@ -135,7 +123,6 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
     $scope.showTruckLoadInfo = function (missionId) {
         _basic.get($host.api_url + "/dpRouteLoadTask/" + missionId + "/dpRouteLoadTaskDetail").then(function (loadData) {
             if (loadData.success === true) {
-                // console.log("loadData", loadData);
                 $scope.loadList = loadData.result;
             }
             else {
@@ -144,7 +131,7 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
         });
     };
 
-    // 阻止点击冒泡
+  /*  // 阻止点击冒泡
     $scope.cancelBubble = function (ev) {
         ev.stopPropagation();
     };
@@ -153,16 +140,22 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
         if($scope.currentOperateInfo.task_status === 1 || $scope.currentOperateInfo.task_status === 2){
             ev.stopPropagation();
         }
-    };
+    };*/
 
     // 根据输入的VIN进行模糊查询
     $scope.searchMatchVin = function () {
+        var vinObjs = {};
+        $('#autocomplete-input').autocomplete({
+            data: vinObjs,
+            // limit: 5, // The max amount of results that can be shown at once. Default: Infinity.
+            minLength: 6
+        });
         if ($scope.vinNum != undefined) {
             if ($scope.vinNum.length >= 6) {
-                _basic.get($host.api_url + "/carList?vinCode=" + $scope.vinNum + "&carStatus=1&start=0&size=5").then(function (data) {
+                _basic.get($host.api_url + "/carList?vinCode=" + $scope.vinNum + "&carStatusArr=1,2&start=0&size=5").then(function (data) {
                     if (data.success == true && data.result.length > 0) {
                         $scope.vin_msg = data.result;
-                        vinObjs = {};
+                       /* vinObjs = {};*/
                         for (var i in $scope.vin_msg) {
                             vinObjs[$scope.vin_msg[i].vin] = null;
                         }
@@ -171,15 +164,15 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
                         return {};
                     }
                 }).then(function (vinObjs) {
-                    $('#autocomplete-input').autocomplete({
+                    $('.autocomplete').autocomplete({
                         data: vinObjs,
                         minLength: 6
                     });
-                    $('#autocomplete-input').focus();
+                    $('.autocomplete').focus();
 
                 })
             } else {
-                $('#autocomplete-input').autocomplete({minLength: 6});
+                $('.autocomplete').autocomplete({minLength: 6});
                 $scope.vin_msg = {}
             }
         }
@@ -187,11 +180,9 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
 
     // 查询输入的VIN是否存在
     $scope.checkVinNum = function (missionId) {
-        // console.log("missionId",missionId);
         if($scope.vinNum != ""){
-            _basic.get($host.api_url + "/carList?vin=" + $scope.vinNum + "&carStatus=1").then(function (checkData) {
+            _basic.get($host.api_url + "/carList?vin=" + $scope.vinNum + "&carStatusArr=1,2").then(function (checkData) {
                 if (checkData.success === true) {
-                    // console.log("checkData",checkData);
                     if(checkData.result.length === 0){
                         swal("查无此VIN信息或商品车不是待装车状态，不能进行装车", "", "error");
                     }
@@ -211,8 +202,6 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
 
     // 新增装车数
     $scope.addLoadCar = function (carId,missionId) {
-        // console.log("carId",carId);
-        // console.log("missionId",missionId);
         _basic.post($host.api_url + "/user/" + userId + "/dpRouteLoadTask/" + missionId + "/dpRouteLoadTaskDetail?truckId=" + truckId,{
             carId:carId,
             vin:$scope.vinNum,
@@ -221,7 +210,7 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
             if (addLoadData.success === true) {
                 $scope.showTruckLoadInfo(missionId);
                 $scope.vinNum = "";
-                swal("新增成功", "", "success");
+                swal("装车成功", "", "success");
             }
             else {
                 swal(addLoadData.msg, "", "error");

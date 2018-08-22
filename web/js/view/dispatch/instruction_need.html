@@ -1,75 +1,65 @@
 <div id="instruction_list" >
     <div class="modal-content grey-text text-darken-2">
         <div class="row no-marBottom" ul-tabs style="overflow: hidden">
-            <div id="header_car" class="row tab_box" >
+            <div class="col s12">
+                <ul class="tabWrap grey lighten-4 white-text">
+                    <li class="tab col s6 originalDemantd vc-center" ng-click="originalDemantd()">原始需求</li>
+                    <li class="tab col s6 ransferDemand vc-center"  ng-click="ransferDemand()">中转路线需求</li>
+                </ul>
+            </div>
+            <div id="originalDemantd"  class="row tab_box" style="margin-top: 50px">
                 <div class="storage_storeTitle">
                     <div class="row grey-text text-darken-1 valign-wrapper">
                         <div class="col s10" style="padding: 0;">
                             <div class="col s12">
-                                <div class="col s8" style="padding: 0;">
-                                    <div class="input-field col s4">
-                                        <input type="text" ng-model="instructionNum" id="instruct_need_num" name="instruct_need_endTime">
-                                        <label for="instruct_need_num">需求编号</label>
-                                    </div>
-                                    <div class="input-field col s4">
-                                        <input type="text" ng-model="instruct_need_startTime" id="instruct_need_startTime" name="instruct_need_startTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                        <label for="instruct_need_startTime">创建时间(始)</label>
-                                    </div>
-                                    <div class="input-field col s4">
-                                        <input type="text" ng-model="instruct_need_endTime" id="instruct_need_endTime" name="instruct_need_endTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                        <label for="instruct_need_endTime">创建时间(终)</label>
-                                    </div>
+                                <div class="input-field col s3">
+                                    <input type="text" ng-model="instructionNum" id="instruct_need_num" name="instruct_need_endTime">
+                                    <label for="instruct_need_num">需求编号</label>
                                 </div>
-                                <div class="col s4" style="padding: 0">
-                                    <div class="input-field col s6">
-                                        <select id="start_city_list" name="state" style="width:100%" ng-change="getAddres(start_city)" ng-model="start_city">
-                                            <option value="">全部</option>
-                                            <option value="0" >清除选择</option>
-                                            <option ng-repeat="city in startCityList" ng-value="city.id">{{city.city_name}}</option>
-                                        </select>
-                                    </div>
-                                    <div class=" input-field col s6">
-                                        <select id="dispatch_car_position" ng-options="baseAddr.id as baseAddr.addr_name for baseAddr in baseAddrList" material-select watch ng-model="dispatch_car_position">
-                                            <option value="">请选择</option>
-                                        </select>
-                                        <label for="dispatch_car_position">装车地点</label>
-                                    </div>
+                                <div class="input-field col s3">
+                                    <input type="text" ng-model="instruct_start_time" id="instruct_start_time" name="instruct_start_time"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
+                                    <label for="instruct_start_time">指令日期(始)</label>
+                                </div>
+                                <div class="input-field col s3">
+                                    <input type="text" ng-model="instruct_endTime" id="instruct_endTime" name="instruct_endTime"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
+                                    <label for="instruct_endTime">指令日期(终)</label>
+                                </div>
+                                <div class="input-field col s3">
+                                    <select id="instruction_status" material-select watch ng-model="instructionStatus">
+                                        <option value="">所有</option>
+                                        <option value="0">取消</option>
+                                        <option value="1">未完成</option>
+                                        <option value="2">已完成</option>
+                                    </select>
+                                    <label for="instruction_status">需求状态</label>
                                 </div>
                             </div>
                             <div class="col s12">
-                                <div class="col s8" style="padding: 0;">
-                                    <div class="input-field col s4">
-                                        <select id="instruction_status" material-select watch ng-model="instructionStatus">
-                                            <option value="">所有</option>
-                                            <option value="0">取消</option>
-                                            <option value="1">未完成</option>
-                                            <option value="2">已完成</option>
-                                        </select>
-                                        <label for="instruction_status">需求状态</label>
-                                    </div>
-                                    <div class="input-field col s4">
-                                        <input type="text" ng-model="instruct_start_time" id="instruct_start_time" name="instruct_start_time"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
-                                        <label for="instruct_start_time">指令时间(始)</label>
-                                    </div>
-                                    <div class="input-field col s4">
-                                        <input type="text" ng-model="instruct_endTime" id="instruct_endTime" name="instruct_endTime"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
-                                        <label for="instruct_endTime">指令时间(终)</label>
-                                    </div>
+                                <div class="input-field col s3">
+                                    <select id="start_city_list" name="state" style="width:100%" ng-change="getAddres(start_city)" ng-model="start_city">
+                                        <option value="">全部</option>
+                                        <option value="0" >清除选择</option>
+                                        <option ng-repeat="city in startCityList" ng-value="city.id">{{city.city_name}}</option>
+                                    </select>
                                 </div>
-                                <div class="col s4" style="padding: 0">
-                                    <div class="input-field col s6">
-                                        <select id="end_city_list" name="state" style="width:100%" ng-change="getRecive(arrive_city)" ng-model="arrive_city">
-                                            <option value=""></option>
-                                            <option value="0" >清除选择</option>
-                                            <option ng-repeat="city in startCityList"  ng-value="city.id">{{city.city_name}}</option>
-                                        </select>
-                                    </div>
-                                    <div class=" input-field col s6">
-                                        <select id="dealer" material-select watch ng-model="dealer" ng-options="receive.id as receive.short_name for receive in receiveList">
-                                            <option value="">请选择</option>
-                                        </select>
-                                        <label for="dealer">送达地点</label>
-                                    </div>
+                                <div class=" input-field col s3">
+                                    <select id="dispatch_car_position" ng-options="baseAddr.id as baseAddr.addr_name for baseAddr in baseAddrList" material-select watch ng-model="dispatch_car_position">
+                                        <option value="">请选择</option>
+                                    </select>
+                                    <label for="dispatch_car_position">装车地点</label>
+                                </div>
+                                <div class="input-field col s3">
+                                    <select id="end_city_list" name="state" style="width:100%" ng-change="getRecive(arrive_city)" ng-model="arrive_city">
+                                        <option value=""></option>
+                                        <option value="0" >清除选择</option>
+                                        <option ng-repeat="city in startCityList"  ng-value="city.id">{{city.city_name}}</option>
+                                    </select>
+                                </div>
+                                <div class=" input-field col s3">
+                                    <select id="dealer" material-select watch ng-model="dealer" ng-options="receive.id as receive.short_name for receive in receiveList">
+                                        <option value="">请选择</option>
+                                    </select>
+                                    <label for="dealer">经销商</label>
                                 </div>
                             </div>
                         </div>
@@ -148,52 +138,171 @@
                             </form>
                         </div>
                     </div>
+                    <!--表-->
+                    <div class="col s12">
+                        <div class="col s12">
+                            <div class="divider" style="background: #00bcd4;height: 2px"></div>
+                            <table class=" bordered striped dic_table">
+                                <thead class="blue-grey lighten-5">
+                                <tr class="grey-text text-darken-2">
+                                    <th data-field="">需求编号</th>
+                                    <th data-field="">指令时间</th>
+                                    <th data-field="">起始城市</th>
+                                    <th data-field="">装车地点</th>
+                                    <th data-field="">目的城市</th>
+                                    <th data-field="">经销商</th>
+                                    <th data-field="">安排 / 计划</th>
+                                    <th data-field="">需求提出人</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="el in instruction_neee_list" class="grey-text text-darken-1">
+                                    <td>{{el.id}}</td>
+                                    <td>{{el.date_id}}</td>
+                                    <td>{{el.route_start}}</td>
+                                    <td>{{el.addr_name}}</td>
+                                    <td>{{el.route_end}}</td>
+                                    <td>{{el.short_name}}</td>
+                                    <td>{{el.plan_count + " / " + el.pre_count}}</td>
+                                    <td>{{el.demand_op_name}}</td>
+                                    <td class="operation">
+                                        <a  ui-sref="look_instruction_need_details({id:el.id,from:'instruction_need'})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ></i></a>
+                                    </td>
+                                </tr>
+                                <tr class="grey-text text-darken-1" ng-if="instruction_neee_list.length == 0">
+                                    <td colspan="9"><span style="letter-spacing: 2px">暂无数据</span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- 上下页按钮 -->
+                    <div class="paging_box col s12">
+                        <div class="right">
+                            <a class="waves-light waves-effect cyan lighten-1 btn  "  id="pre"   ng-click="preBtn()">
+                                上一页
+                            </a>
+                            <a class="waves-light waves-effect cyan lighten-1 btn " id="next"  ng-click="nextBtn()">
+                                下一页
+                            </a>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <div id="ransferDemand" class="row tab_box" style="margin-top: 50px">
+                <div class="storage_storeTitle">
+                    <div class="row grey-text text-darken-1 valign-wrapper">
+                        <div class="col s10" style="padding: 0;">
+                            <div class="col s12">
+                                <div class="input-field col s3">
+                                    <select id="transferCity" name="state" style="width:100%" ng-change="getAddres(transferCity)" ng-model="transferCity">
+                                        <option value=""></option>
+                                        <option value="0" >清除选择</option>
+                                        <option ng-repeat="city in startCityList"  ng-value="city.id">{{city.city_name}}</option>
+                                    </select>
+                                </div>
+                                <div class=" input-field col s3">
+                                    <select id="transferPlace" material-select watch ng-model="transferPlace" ng-options="baseAddr.id as baseAddr.addr_name for baseAddr in baseAddrList">
+                                        <option value="">中转地点</option>
+                                    </select>
+                                    <label for="transferPlace"></label>
+                                </div>
+                                <div class=" input-field col s3">
+                                    <select id="end_city_list_t" name="state" style="width:100%" ng-change="getRecive(arrive_city2)" ng-model="arrive_city2">
+                                        <option value=""></option>
+                                        <option value="0" >清除选择</option>
+                                        <option ng-repeat="city in startCityList"  ng-value="city.id">{{city.city_name}}</option>
+                                    </select>
+                                </div>
+                                <div class=" input-field col s3">
+                                    <select id="dealer2" material-select watch ng-model="dealer2" ng-options="receive.id as receive.short_name for receive in receiveList">
+                                        <option value="">请选择</option>
+                                    </select>
+                                    <label for="dealer">经销商</label>
+                                </div>
+                            </div>
+                            <div class="col s12">
+                                <div class=" input-field col s3">
+                                    <select id="start_city_list_t" name="state" style="width:100%" ng-change="getAddres(start_city2)" ng-model="start_city2">
+                                        <option value="">全部</option>
+                                        <option value="0" >清除选择</option>
+                                        <option ng-repeat="city in startCityList" ng-value="city.id">{{city.city_name}}</option>
+                                    </select>
+                                </div>
+                                <div class=" input-field col s3">
+                                    <select id="dispatch_car_position2" ng-options="baseAddr.id as baseAddr.addr_name for baseAddr in baseAddrList" material-select watch ng-model="dispatch_car_position2">
+                                        <option value="">请选择</option>
+                                    </select>
+                                    <label for="dispatch_car_position">原始装车地点</label>
+                                </div>
 
+                                <div class=" input-field col s3">
+                                    <input type="text" ng-model="instruct_start_time2" id="instruct_start_time2" name="instruct_start_time"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
+                                    <label for="instruct_start_time2">指令日期(始)</label>
+                                </div>
+                                <div class="input-field col s3">
+                                    <input type="text" ng-model="instruct_endTime2" id="instruct_endTime2" name="instruct_endTime"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
+                                    <label for="instruct_endTime2">指令日期(终)</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s2" style="padding: 0;">
+                            <div class="col s12 vc-center">
+                                <a class=" btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="searchTransfer()">
+                                    <i class="mdi mdi-magnify"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="col s12">
                     <div class="col s12">
                         <div class="divider" style="background: #00bcd4;height: 2px"></div>
                         <table class=" bordered striped dic_table">
                             <thead class="blue-grey lighten-5">
                             <tr class="grey-text text-darken-2">
-                                <th data-field="">编号</th>
-                                <th data-field="">需求提出人</th>
-                                <th data-field="">指令时间</th>
-                                <th data-field="">起始地城市</th>
-                                <th data-field="">装车地点</th>
+                                <th data-field="">中转城市</th>
+                                <th data-field="">中转站</th>
+                                <th data-field="">原始起始地城市</th>
+                                <th data-field="">原始装车地点</th>
                                 <th data-field="">目的城市</th>
                                 <th data-field="">经销商</th>
-                                <th data-field="">安排 / 计划</th>
+                                <th data-field="">指令日期</th>
+                                <th data-field="">即将到达/车辆总数</th>
+                                <th data-field="">已安排</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="el in instruction_neee_list" class="grey-text text-darken-1">
-                                <td>{{el.id}}</td>
-                                <td>{{el.demand_op_name}}</td>
-                                <td>{{el.date_id}}</td>
-                                <td>{{el.route_start}}</td>
+                            <tr ng-repeat="el in instruction_neee_list_t" class="grey-text text-darken-1">
+                                <td>{{el.transfer_city_name}}</td>
+                                <td>{{el.transfer_addr_name}}</td>
+                                <td>{{el.route_start_name}}</td>
                                 <td>{{el.addr_name}}</td>
-                                <td>{{el.route_end}}</td>
+                                <td>{{el.route_end_name}}</td>
                                 <td>{{el.short_name}}</td>
-                                <td>{{el.plan_count + " / " + el.pre_count}}</td>
+                                <td>{{el.date_id}}</td>
+                                <td>{{el.transfer_count + " / " + el.pre_count}}</td>
+                                <td>{{el.plan_count}}</td>
                                 <td class="operation">
-                                    <a  ui-sref="look_instruction_need_details({id:el.id,from:'instruction_need'})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ></i></a>
+                                    <a  ui-sref="look_instruction_need_transfer_detail({id:el.id,from:'instruction_need'})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ></i></a>
                                 </td>
+                            </tr>
+                            <tr class="grey-text text-darken-1" ng-if="instruction_neee_list_t.length == 0">
+                                <td colspan="10"><span style="letter-spacing: 2px">暂无数据</span></td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-
-
                 <!-- 上下页按钮 -->
                 <div class="paging_box col s12">
                     <div class="right">
-                        <a class="waves-light waves-effect cyan lighten-1 btn  "  id="pre"   ng-click="preBtn()">
+                        <a class="waves-light waves-effect cyan lighten-1 btn  "  id="preTransfer"   ng-click="preTransferBtn()">
                             上一页
                         </a>
-                        <a class="waves-light waves-effect cyan lighten-1 btn " id="next"  ng-click="nextBtn()">
+                        <a class="waves-light waves-effect cyan lighten-1 btn " id="nextTransfer"  ng-click="nextTransferBtn()">
                             下一页
                         </a>
                     </div>

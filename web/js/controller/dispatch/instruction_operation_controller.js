@@ -27,7 +27,9 @@ app.controller("instruction_operation_controller", ["$scope", "$host", "_basic",
             $scope.currentCity = "";
             $scope.taskStart = "";
         }
-        _basic.get($host.api_url + "/truckDispatch?" + _basic.objToUrl({
+        _basic.get($host.api_url + "/truckDispatchLoadTask?" + _basic.objToUrl({
+                transferCityId:$scope.transferId,
+                transferAddrId:$scope.transferArr,
                 dispatchFlag:1,
                 truckNum:$scope.truckNum,
                 driveName:$scope.driveName,
@@ -67,6 +69,10 @@ app.controller("instruction_operation_controller", ["$scope", "$host", "_basic",
                 });
                 $('#end_city_list').select2({
                     placeholder: '目的城市',
+                    containerCssClass : 'select2_dropdown'
+                });
+                $('#transferId').select2({
+                    placeholder: '中转站城市',
                     containerCssClass : 'select2_dropdown'
                 });
             }
@@ -111,6 +117,23 @@ app.controller("instruction_operation_controller", ["$scope", "$host", "_basic",
             });
         }
     };
+    //根据中转站获取中转站地点
+    $scope.getTansferAddress = function(transferId){
+        if(transferId == "" || transferId == null || transferId== 0){
+            $transferId = null;
+            $scope.transferList = [];
+        }
+        else{
+            _basic.get($host.api_url + "/baseAddr?cityId=" + transferId).then(function (locateData) {
+                if (locateData.success === true) {
+                    $scope.transferList = locateData.result;
+                }
+                else {
+                    swal(locateData.msg, "", "error");
+                }
+            });
+        }
+    }
 
     // 获取所有数据
     $scope.queryData = function () {

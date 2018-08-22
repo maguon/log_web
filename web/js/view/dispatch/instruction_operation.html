@@ -2,50 +2,70 @@
 
     <div class="row col s12 valign-wrapper">
         <div class="row col s11">
-            <div class="input-field col s4">
-                <input id="truck" type="text" ng-model="truckNum">
-                <label for="truck">货车</label>
+            <div class="row col s12">
+                <div class="input-field col" style="width: 25%">
+                    <input id="truck" type="text" ng-model="truckNum">
+                    <label for="truck">货车牌号</label>
+                </div>
+                <div class="input-field col" style="width: 25%">
+                    <input id="driver" type="text" ng-model="driveName">
+                    <label for="driver">司机</label>
+                </div>
+                <div class="input-field col" style="width: 12.5%">
+                    <select id="transferId" name="state" style="width:100%" ng-change="getTansferAddress(transferId)" ng-model="transferId">
+                        <option value=""></option>
+                        <option value="0" >清除选择</option>
+                        <option ng-repeat="city in startCityList" ng-value="city.id">{{city.city_name}}</option>
+                    </select>
+                </div>
+                <div class="input-field col" style="width: 12.5%">
+                    <select material-select watch ng-model="transferArr">
+                        <option value="" selected>中转站地点</option>
+                        <option ng-repeat="locateAddr in transferList" ng-value="locateAddr.id">{{locateAddr.addr_name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="input-field col" style="width: 25%">
+                    <select material-select watch ng-model="currentStatus">
+                        <option value="" selected>当前状态</option>
+                        <option value="1">待运中</option>
+                        <option value="2">在途</option>
+                    </select>
+                </div>
             </div>
-            <div class="input-field col s4">
-                <input id="driver" type="text" ng-model="driveName">
-                <label for="driver">司机</label>
+            <div class="row col s12">
+
+                <div class="input-field col" style="width: 25%">
+                    <select id="start_city_list" name="state" style="width:100%" ng-change="getLocateAddress()" ng-model="startCityId">
+                        <option value=""></option>
+                        <option value="0" >清除选择</option>
+                        <option ng-repeat="city in startCityList" ng-value="city.id">{{city.city_name}}</option>
+                    </select>
+                </div>
+                <div class="input-field col" style="width: 25%">
+                    <select material-select watch ng-model="locateAddrId">
+                        <option value="" selected>装车地点</option>
+                        <option ng-repeat="locateAddr in locateList" ng-value="locateAddr.id">{{locateAddr.addr_name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="input-field col" style="width: 25%">
+                    <select id="end_city_list" name="state" style="width:100%" ng-change="getDistributor()" ng-model="endCityId">
+                        <option value=""></option>
+                        <option value="0" >清除选择</option>
+                        <option ng-repeat="city in startCityList" ng-value="city.id">{{city.city_name}}</option>
+                    </select>
+                </div>
+                <div class="input-field col" style="width: 25%">
+                    <select material-select watch ng-model="distributorId">
+                        <option value="" selected>经销商</option>
+                        <option ng-repeat="distributor in distributorList" ng-value="distributor.id">
+                            {{distributor.short_name}}
+                        </option>
+                    </select>
+                </div>
             </div>
-            <div class="input-field col s4">
-                <select material-select watch ng-model="currentStatus">
-                    <option value="" selected>当前状态</option>
-                    <option value="1">待运中</option>
-                    <option value="2">在途</option>
-                </select>
-            </div>
-            <div class="input-field col s3">
-                <select id="start_city_list" name="state" style="width:100%" ng-change="getLocateAddress()" ng-model="startCityId">
-                    <option value=""></option>
-                    <option value="0" >清除选择</option>
-                    <option ng-repeat="city in startCityList" ng-value="city.id">{{city.city_name}}</option>
-                </select>
-            </div>
-            <div class="input-field col s3">
-                <select material-select watch ng-model="locateAddrId">
-                    <option value="" selected>装车地点</option>
-                    <option ng-repeat="locateAddr in locateList" ng-value="locateAddr.id">{{locateAddr.addr_name}}
-                    </option>
-                </select>
-            </div>
-            <div class="input-field col s3">
-                <select id="end_city_list" name="state" style="width:100%" ng-change="getDistributor()" ng-model="endCityId">
-                    <option value=""></option>
-                    <option value="0" >清除选择</option>
-                    <option ng-repeat="city in startCityList" ng-value="city.id">{{city.city_name}}</option>
-                </select>
-            </div>
-            <div class="input-field col s3">
-                <select material-select watch ng-model="distributorId">
-                    <option value="" selected>经销商</option>
-                    <option ng-repeat="distributor in distributorList" ng-value="distributor.id">
-                        {{distributor.short_name}}
-                    </option>
-                </select>
-            </div>
+
         </div>
         <div class="row col s1 center">
             <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
@@ -88,6 +108,9 @@
                             <i class="mdi mdi-eye look_icon cyan-text lighten-1"></i>
                         </a>
                     </td>
+                </tr>
+                <tr class="grey-text text-darken-1" ng-if="dispatchList.length == 0">
+                    <td colspan="6"><span style="letter-spacing: 2px">暂无数据</span></td>
                 </tr>
                 </tbody>
             </table>

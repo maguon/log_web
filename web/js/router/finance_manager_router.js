@@ -147,7 +147,11 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/statistics/finance_route_fee_statistics.html",
             controller:"finance_route_fee_statistics_controller"
         })
-
+        .state("transport_planning_statistics", {
+            url:"/transport_planning_statistics",
+            templateUrl: "js/view/statistics/transport_planning_statistics.html",
+            controller:"transport_planning_statistics_controller"
+        })
         // 管理员设置
         .state("setting_users", {
             url: "/setting_users",

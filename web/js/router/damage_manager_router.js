@@ -162,5 +162,9 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/system_settings/dealer_map.html",
             controller:'dealer_map_controller'
         })
-
+        .state("transport_planning_statistics", {
+            url:"/transport_planning_statistics",
+            templateUrl: "js/view/statistics/transport_planning_statistics.html",
+            controller:"transport_planning_statistics_controller"
+        })
 }]);

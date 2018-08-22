@@ -29,7 +29,18 @@ app.controller("driver_salary_controller", ["$scope", "$host", "$state", "_confi
         });
     };
 
-    // 获取所有公司列表
+    // 所属类型--公司联动
+    $scope.getCompany = function () {
+        _basic.get($host.api_url + "/company?operateType=" + $scope.carType).then(function (data) {
+            if (data.success == true) {
+                $scope.companyList = data.result;
+            } else {
+                swal(data.msg, "", "error")
+            }
+        });
+    };
+
+  /*  // 获取所有公司列表
     $scope.getCompanyList = function () {
         _basic.get($host.api_url + "/company").then(function (data) {
             if (data.success === true) {
@@ -39,7 +50,7 @@ app.controller("driver_salary_controller", ["$scope", "$host", "$state", "_confi
                 swal(data.msg, "", "error");
             }
         });
-    };
+    };*/
 
     // 获取司机工资信息
     $scope.searchDriverSalaryList = function (status) {
@@ -232,7 +243,6 @@ app.controller("driver_salary_controller", ["$scope", "$host", "$state", "_confi
     // 获取数据
     $scope.queryData = function () {
         $scope.getTruckBrandList();
-        $scope.getCompanyList();
         $scope.searchDriverSalaryList("init");
     };
     $scope.queryData();

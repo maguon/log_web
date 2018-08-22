@@ -107,7 +107,7 @@
                 <label for="driver_name">司机</label>
             </div>
             <div class="col s3 input-field">
-                <select id="car_type" ng-model="carType" material-select watch>
+                <select id="car_type" ng-change="getCompany()" ng-model="carType"  material-select watch>
                     <option value="" selected>请选择</option>
                     <option value="1">自营</option>
                     <option value="2">外协</option>

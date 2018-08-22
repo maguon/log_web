@@ -1,13 +1,13 @@
 app.controller("transport_planning_statistics_controller", ["$scope", "$host", "_basic","$timeout", function ($scope, $host, _basic,$timeout) {
 
     // 日期初始值
-    $scope.startInitial = moment(new Date()).format('YYYY') + "01";
-    $scope.endInitial = moment(new Date()).format('YYYYMM');
-    // monthPicker控件
+    $scope.startInitial = moment(new Date()).format('YYYY') + "-01-01";
+    $scope.endInitial = moment(new Date()).format('YYYY-MM-DD');
+   /* // monthPicker控件
     $('#choosePlanStart_month,#choosePlanEnd_month').MonthPicker({
         Button: false,
         MonthFormat: 'yymm'
-    });
+    });*/
     $scope.start = 0;
     $scope.size = 12;
     $scope.daySize =20;
@@ -91,8 +91,6 @@ app.controller("transport_planning_statistics_controller", ["$scope", "$host", "
 
     //通过日期接口获取点击数据
     $scope.queryDate =function (){
-        $scope.startInitial = $("#choosePlanStart_month").val();
-        $scope.endInitial = $("#choosePlanEnd_month").val();
         getPlanCountCar();
     };
 
@@ -217,8 +215,8 @@ app.controller("transport_planning_statistics_controller", ["$scope", "$host", "
     function getPlanCountCar(){
         $scope.carCount=0;
         var obj={
-            monthStart:$scope.startInitial,
-            monthEnd:$scope.endInitial,
+            DayStart:moment($scope.startInitial.toString()).format("YYYYMMDD"),
+            DayEnd: moment($scope.endInitial.toString()).format("YYYYMMDD"),
             entrustId:$scope.client,
             makeId:$scope.truckBrand,
             routeStartId:$scope.startCity,
@@ -226,7 +224,7 @@ app.controller("transport_planning_statistics_controller", ["$scope", "$host", "
             routeEndId:$scope.endCity,
             receiveId:$scope.receiveName
         };
-        _basic.get($host.api_url + "/carMonthStat?"+_basic.objToUrl(obj)).then(function (data) {
+        _basic.get($host.api_url + "/carDayStat?"+_basic.objToUrl(obj)).then(function (data) {
             if (data.success === true){
                 if(data.result.length==0){
                     $scope.carCount=0;

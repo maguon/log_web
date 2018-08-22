@@ -5,13 +5,13 @@
             <div class="col s4 fz20" style="margin-top: 10px">调度需求</div>
             <div class="col s4 push-s4">
                 <div class="col s4">
-                    <input id="choosePlanStart_month" type="text" ng-value="startInitial" readonly>
+                    <input id="choosePlanStart_month" type="text"  class="datepicker" ng-model="startInitial" date>
                 </div>
                 <div class="col s1 center">
                     <p>至</p>
                 </div>
                 <div class="col s4">
-                    <input id="choosePlanEnd_month" type="text" ng-value="endInitial" readonly>
+                    <input id="choosePlanEnd_month" type="text" class="datepicker" ng-model="endInitial" date>
                 </div>
                 <div class="col s2 center">
                     <i class="mdi mdi-magnify" ng-click="queryDate()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>

@@ -143,35 +143,57 @@ app.controller("instruction_operation_details_controller", ["$scope", "$host", "
     };*/
 
     // 根据输入的VIN进行模糊查询
-    $scope.searchMatchVin = function () {
+    $scope.searchMatchVin = function (routeId,addrId,loadTaskType) {
         var vinObjs = {};
         $('#autocomplete-input').autocomplete({
             data: vinObjs,
             // limit: 5, // The max amount of results that can be shown at once. Default: Infinity.
             minLength: 6
         });
+
         if ($scope.vinNum != undefined) {
             if ($scope.vinNum.length >= 6) {
-                _basic.get($host.api_url + "/carList?vinCode=" + $scope.vinNum + "&carStatusArr=1,2&start=0&size=5").then(function (data) {
-                    if (data.success == true && data.result.length > 0) {
-                        $scope.vin_msg = data.result;
-                       /* vinObjs = {};*/
-                        for (var i in $scope.vin_msg) {
-                            vinObjs[$scope.vin_msg[i].vin] = null;
-                        }
-                        return vinObjs;
-                    } else {
-                        return {};
-                    }
-                }).then(function (vinObjs) {
-                    $('.autocomplete').autocomplete({
-                        data: vinObjs,
-                        minLength: 6
-                    });
-                    $('.autocomplete').focus();
 
-                })
-            } else {
+                if(loadTaskType==1){
+                    _basic.get($host.api_url + "/carList?vinCode=" + $scope.vinNum + "&carStatusArr=1,2&start=0&size=5").then(function (data) {
+                        if (data.success == true && data.result.length > 0) {
+                            $scope.vin_msg = data.result;
+                            /* vinObjs = {};*/
+                            for (var i in $scope.vin_msg) {
+                                vinObjs[$scope.vin_msg[i].vin] = null;
+                            }
+                            return vinObjs;
+                        } else {
+                            return {};
+                        }
+                    }).then(function (vinObjs) {
+                        $('.autocomplete').autocomplete({
+                            data: vinObjs,
+                            minLength: 6
+                        });
+                        $('.autocomplete').focus();
+                    })
+                }
+                else{
+                    _basic.get($host.api_url + "/carList?vinCode=" + $scope.vinNum +'&currentCityId='+routeId +'&currentAddrId='+ addrId+ "&carStatusArr=1,2&start=0&size=5").then(function (data) {
+                        if (data.success == true && data.result.length > 0) {
+                            $scope.vin_msg = data.result;
+                            for (var i in $scope.vin_msg) {
+                                vinObjs[$scope.vin_msg[i].vin] = null;
+                            }
+                            return vinObjs;
+                        } else {
+                            return {};
+                        }
+                    }).then(function (vinObjs) {
+                        $('.autocomplete').autocomplete({
+                            data: vinObjs,
+                            minLength: 6
+                        });
+                        $('.autocomplete').focus();
+                    })
+                }
+            }else {
                 $('.autocomplete').autocomplete({minLength: 6});
                 $scope.vin_msg = {}
             }

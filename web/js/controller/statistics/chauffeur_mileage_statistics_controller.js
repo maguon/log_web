@@ -55,6 +55,7 @@ app.controller("chauffeur_mileage_statistics_controller", ["$scope", "$host", "_
         }
         _basic.get($host.api_url + "/distanceMonthStat?monthStart=" + start + "&monthEnd=" + end).then(function (data) {
             if (data.success === true) {
+                data.result.reverse();
                 // 司机里程X轴月份
                 $scope.mileageMonth = [];
                 // 初始化统计数
@@ -79,6 +80,7 @@ app.controller("chauffeur_mileage_statistics_controller", ["$scope", "$host", "_
     $scope.getMileageCountWeekInfo = function () {
         _basic.get($host.api_url + "/distanceWeekStat?start=0&size=10").then(function (data) {
             if (data.success === true) {
+                data.result.reverse();
                 // 司机里程X轴按周统计
                 $scope.mileageWeek = [];
                 // 初始化统计数

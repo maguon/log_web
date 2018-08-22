@@ -83,6 +83,7 @@ app.controller("car_refueling_statistics_controller", ["$scope", "$host", "_basi
         }
         _basic.get($host.api_url + "/refuelMonthStat?monthStart=" + start + "&monthEnd=" + end).then(function (data) {
             if (data.success === true) {
+                data.result.reverse();
                 // 货车加油X轴月份
                 $scope.refuelingVolMonth = [];
                 $scope.refuelingMoneyMonth = [];
@@ -122,6 +123,7 @@ app.controller("car_refueling_statistics_controller", ["$scope", "$host", "_basi
     $scope.getTruckRefuelingWeekInfo = function () {
         _basic.get($host.api_url + "/refuelWeekStat?start=0&size=10").then(function (data) {
             if (data.success === true) {
+                data.result.reverse();
                 // 货车加油X轴周数
                 $scope.refuelingVolWeek = [];
                 $scope.refuelingMoneyWeek = [];

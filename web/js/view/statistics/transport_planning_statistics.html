@@ -1,0 +1,117 @@
+<div class="transport_planning_statistics" style="width: 90%;margin: 0 auto">
+    <!--調度需求 时间选择-->
+    <div class="row z-depth-2 cyan" style="height: 50px;margin: 30px auto">
+        <div class="col s12 white-text">
+            <div class="col s4 fz20" style="margin-top: 10px">调度需求</div>
+            <div class="col s4 push-s4">
+                <div class="col s4">
+                    <input id="choosePlanStart_month" type="text" ng-value="startInitial" readonly>
+                </div>
+                <div class="col s1 center">
+                    <p>至</p>
+                </div>
+                <div class="col s4">
+                    <input id="choosePlanEnd_month" type="text" ng-value="endInitial" readonly>
+                </div>
+                <div class="col s2 center">
+                    <i class="mdi mdi-magnify" ng-click="queryDate()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--查询条件 计划装车数-->
+    <div class="row z-depth-2 white" style="height: 150px;">
+        <div class="col s12 grey-text">
+            <div class="col s9" style="height:110px;margin-top:20px;">
+                <!--车辆品牌-->
+                <div class="col s4">
+                    <div class="col s12 card" style="height: 43px;background: #f1f5f5">
+                        <select id="truck_brand" name="truck_brand" material-select watch ng-model="truckBrand" ng-change="changeTruckBand(truckBrand,client,startCity,baseAddr,endCity,receiveName)">
+                            <option value="">请选择</option>
+                            <option ng-repeat="el in carMakeList" ng-value="el.id">{{el.make_name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <!--委托方-->
+                <div class="col s4">
+                    <div class="col s12 card" style="height: 43px;background: #f1f5f5">
+                        <select material-select watch id="client" ng-model="client" ng-change="changeClient(truckBrand,client,startCity,baseAddr,endCity,receiveName)">
+                            <option value="">请选择</option>
+                            <option ng-repeat="el in entrustList" ng-value="el.id">{{el.short_name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <!--起始城市-->
+                <div class="col s4">
+                    <div class="col s12 card" style="height: 43px;background: #f1f5f5">
+                        <select material-select watch id="startCity" ng-change="getAddres(truckBrand,client,startCity,baseAddr,endCity,receiveName)" ng-model="startCity">
+                            <option value="">请选择</option>
+                            <option ng-repeat="el in cityList" ng-value="el.id">{{el.city_name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <!--始发地点-->
+                <div class="col s4">
+                    <div class="col s12 card" style="height: 44px;background: #f1f5f5;">
+                        <select  ng-options="baseAddr.id as baseAddr.addr_name for baseAddr in baseAddrList" material-select watch ng-model="baseAddr" ng-change="changeBaseAddr(truckBrand,client,startCity,baseAddr,endCity,receiveName)">
+                            <option value="">始发地点</option>
+                        </select>
+                    </div>
+                </div>
+                <!--目的城市-->
+                <div class="col s4">
+                    <div class="col s12 card" style="height: 43px;background: #f1f5f5">
+                        <select material-select watch id="endCity" ng-model="endCity" ng-change="getRecive(truckBrand,client,startCity,baseAddr,endCity,receiveName)">
+                            <option value="">请选择</option>
+                            <option ng-repeat="el in cityList" ng-value="el.id">{{el.city_name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <!--经销商-->
+                <div class="col s4">
+                    <div class="col s12 card" style="height: 44px;background: #f1f5f5">
+                        <select material-select watch id="" ng-model="receiveName" ng-change="changeReciveName(truckBrand,client,startCity,baseAddr,endCity,receiveName)">
+                            <option value="">经销商</option>
+                            <option ng-repeat="el in receiveList" ng-value="el.id">{{el.short_name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col s3 card" style="height:110px;margin-top:27px;border: 1px solid #ccc">
+                <div class="col s12 fz18 center" style="margin-top: 20px;margin-bottom:10px">计划发车数</div>
+                <div class="col s12 fz32 cyan-text bold center" >{{carCount}}</div>
+            </div>
+        </div>
+    </div>
+
+    <!--柱状图-->
+    <div style="width: 100%;margin-top: 40px">
+        <!--按月发车统计-->
+        <div class="row z-depth-2">
+            <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                <div class="col s12 left">
+                    <p>最近<span class="cyan-text">12</span>个月发车统计</p>
+                </div>
+            </div>
+            <!--数量统计-->
+            <div class="col s12">
+                <div class="col s12" id="planStatisticsMonth" style="min-width:400px;height:380px;margin: 40px 0 40px 0"></div>
+            </div>
+        </div>
+
+        <!--按周发车统计-->
+        <div class="row z-depth-2" style="margin-top: 50px">
+            <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                <div class="col s12 left">
+                    <p>最近<span class="cyan-text">20</span>天发车统计</p>
+                </div>
+            </div>
+            <!--数量统计图-->
+            <div class="col s12">
+                <div class="col s12" id="planStatisticsDay" style="min-width:400px;height:380px;margin: 40px 0 40px 0"></div>
+            </div>
+        </div>
+    </div>
+
+</div>

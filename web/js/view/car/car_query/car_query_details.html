@@ -46,27 +46,29 @@
             <div class="row" style="height: 30px"></div>
             <div class="row">
                 <div class="col s12">
-                    <div class="input-field col s4">
+                    <div class="input-field col s2">
                         <input id="entrust" type="text" ng-model="vincodeList[0].en_short_name" disabled>
                         <label for="entrust">委托方</label>
                     </div>
-                    <div class="row col s8">
-                        <div class="input-field col s3">
-                            <input id="order_add" type="text" ng-model="vincodeList[0].addr_name" disabled>
-                            <label for="order_add">发运地地址</label>
-                        </div>
-                        <div class="input-field col s3">
-                            <input id="order_start" type="text" ng-model="vincodeList[0].route_start" disabled>
-                            <label for="order_start">发运地名称</label>
-                        </div>
-                        <div class="input-field col s3">
-                            <input id="receive" type="text" ng-model="vincodeList[0].re_short_name" disabled>
-                            <label for="receive">经销商</label>
-                        </div>
-                        <div class="input-field col s3">
-                            <input id="order_end" type="text" ng-model="vincodeList[0].route_end" disabled>
-                            <label for="order_end">目的地城市</label>
-                        </div>
+                    <div class="input-field col s2">
+                        <input id="order_add" type="text" ng-model="vincodeList[0].addr_name" disabled>
+                        <label for="order_add">发运地地址</label>
+                    </div>
+                    <div class="input-field col s2">
+                        <input id="order_start" type="text" ng-model="vincodeList[0].route_start" disabled>
+                        <label for="order_start">发运地名称</label>
+                    </div>
+                    <div class="input-field col s2">
+                        <input id="now_place" type="text" ng-model="vincodeList[0].current_city" disabled>
+                        <label for="now_place">当前所在地</label>
+                    </div>
+                    <div class="input-field col s2">
+                        <input id="receive" type="text" ng-model="vincodeList[0].re_short_name" disabled>
+                        <label for="receive">经销商</label>
+                    </div>
+                    <div class="input-field col s2">
+                        <input id="order_end" type="text" ng-model="vincodeList[0].route_end" disabled>
+                        <label for="order_end">目的地城市</label>
                     </div>
                 </div>
             </div>

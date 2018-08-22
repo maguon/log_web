@@ -14,7 +14,6 @@ app.controller("car_query_details_controller", ["$scope", "$stateParams", "$host
         _basic.get($host.api_url + "/carList?" + "carId=" + carId).then(function (carData) {
             if (carData.success === true) {
                 $scope.vincodeList = carData.result;
-                // console.log("vincodeList:", carData.result);
             }
             else {
                 swal(carData.msg, "", "error");
@@ -26,10 +25,8 @@ app.controller("car_query_details_controller", ["$scope", "$stateParams", "$host
     $scope.getOperationRecord = function () {
         _basic.get($host.record_url + "/user/" + userId + "/car/" + carId + "/record").then(function (recordData) {
             if (recordData.success === true) {
-                // console.log("recordList",recordData);
                 if(recordData.result.length !== 0){
                     $scope.recordList = recordData.result[0].comment;
-                    // console.log("recordList",$scope.recordList);
                     if(recordData.result[0].storage_image.length !== 0){
                         // 将数组里的图片有效路径转为正确路径,并添加用户名
                         for (var i = 0; i < recordData.result[0].storage_image.length; i++) {
@@ -37,7 +34,6 @@ app.controller("car_query_details_controller", ["$scope", "$stateParams", "$host
                             recordData.result[0].storage_image[i].user = userName;
                         }
                         $scope.imageList = recordData.result[0].storage_image;
-                        // console.log("imageList_url",$scope.imageList)
                     }
                     else{
                         $scope.imageList = [];

@@ -62,7 +62,7 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
     }
 
     function  getNotHandover(){
-        _basic.get($host.api_url + "/notSettleHandover?" + _basic.objToUrl({
+        _basic.get($host.api_url + "/notSettleHandover?transferFlag=0&" + _basic.objToUrl({
             carLoadStatus:2,
             vinCode:$scope.VIN,
             entrustId:$scope.client,
@@ -72,7 +72,6 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
             driveId:$scope.driverIdMod,
             receivedDateStart:$scope.planTimeStart,
             receivedDateEnd:$scope.planTimeEnd,
-            transferFlag:0,
             start:$scope.start.toString(),
             size:$scope.size
         })).then(function (data) {

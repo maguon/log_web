@@ -121,7 +121,7 @@ app.controller("settlement_management_detail_controller", ["$scope","$state","$s
     function seachLinkCar(){
         $scope.carVin="";
         $scope.car_details =[];
-        _basic.get($host.api_url+"/settleHandoverCarRel?settleHandoverId="+settlementId).then(function (data) {
+        _basic.get($host.api_url+"/settleHandoverCarRel?transferFlag=0&settleHandoverId="+settlementId).then(function (data) {
             if(data.success=true){
                 if(data.result.length==0){
                     $scope.car_details =[];

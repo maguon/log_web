@@ -192,6 +192,14 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host","$state", "_
 
     //出车款发放
     $scope.addRouteFeeInfo = function(){
+        //出车款状态修改
+        _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" + $scope.dispatchIdSmall+'/status/2',{}).then(function (data) {
+            if (data.success == true) {
+                //console.log(data)
+            } else {
+                swal(data.msg, "", "error");
+            }
+        })
         var planMoneyCount = parseFloat($("#planMoney").html()).toFixed(2);
         if ($scope.truckId==  "") {
             $scope.truckId= 0;
@@ -220,8 +228,6 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host","$state", "_
                     dpId:$scope.dispatchIdSmall,
                     from: 'dispatch_route_requ'
                 });
-              /*  window.location.href = '/index_home.html#!/finance_route_fee_details/id/'+data.id+'/dpId/'+$scope.dispatchIdSmall ;*/
-
             }
             else {
                 swal(data.msg, "", "error");

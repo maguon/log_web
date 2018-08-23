@@ -16,7 +16,7 @@
                 <p>指令编号：{{currentFeeInfo.dp_route_task_id}}</p>
             </div>
             <div class="col s4">
-                <p>领取状态：{{currentStatus == 0 ? "未通过" : currentStatus == 1 ? "未审核" : "已通过"}}</p>
+                <p>领取状态：{{currentStatus == 0 ? "未通过" : currentStatus == 1 ? "未领取" : "已通过"}}</p>
             </div>
         </div>
 
@@ -59,7 +59,7 @@
             </div>
             <div class="col s2">
                 <a ng-click="receiveWashFee()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
-                    领取
+                    发放
                 </a>
             </div>
         </div>

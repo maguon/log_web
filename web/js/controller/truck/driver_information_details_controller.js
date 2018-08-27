@@ -18,7 +18,6 @@ app.controller("driver_information_details_controller", ["$scope", "$host", "$st
     $scope.getBasicDriverInfo = function () {
         _basic.get($host.api_url + "/drive?driveId=" + driverId).then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
                 if(data.result[0].drive_image != null){
                     data.result[0].drive_image = $host.file_url + '/image/' + data.result[0].drive_image;
                 }
@@ -158,12 +157,10 @@ app.controller("driver_information_details_controller", ["$scope", "$host", "$st
     function getDistance(){
         var p = new Promise(function (resolve, reject) {
             var obj = {
-                taskStatus: 9,
-                loadDistance: 5,
-                noLoadDistance: 5,
+                taskStatus: 10,
                 driveId:driverId
             };
-            _basic.get($host.api_url + "/driveDistanceCount?" + _basic.objToUrl(obj)).then(function (data) {
+            _basic.get($host.api_url + "/driveDistanceLoad?" + _basic.objToUrl(obj)).then(function (data) {
                 if (data.success == true && data.result.length > 0) {
                     $scope.driveDetail = data.result[0];
                     if ($scope.driveDetail.no_load_distance == null) {

@@ -26,7 +26,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host", "$statePa
     // 获取当前司机结算任务
     $scope.getCurrentSalaryInfo = function () {
         // 未结算任务
-        _basic.get($host.api_url + "/dpRouteTaskBase?driveId=" + driveId + "&taskStatus=10&loadDistance=6&noLoadDistance=6&statStatus=1").then(function (data) {
+        _basic.get($host.api_url + "/dpRouteTaskBase?driveId=" + driveId + "&taskStatus=10&statStatus=1").then(function (data) {
             if (data.success === true) {
                 // console.log("data", data);
                 $scope.unsettledSalaryList = data.result;
@@ -37,7 +37,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host", "$statePa
         });
 
         // 已结算任务
-        _basic.get($host.api_url + "/driveSalaryTaskRel?driveSalaryId=" + salaryId + "&loadDistance=6&noLoadDistance=6").then(function (data) {
+        _basic.get($host.api_url + "/driveSalaryTaskRel?driveSalaryId=" + salaryId).then(function (data) {
             if (data.success === true) {
                 // console.log("data", data);
                 $scope.noLoadDistanceCount = 0;

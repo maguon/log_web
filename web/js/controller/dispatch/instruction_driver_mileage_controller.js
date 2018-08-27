@@ -9,14 +9,12 @@ app.controller("instruction_driver_mileage_controller", ["$scope", "$host", "_ba
     $scope.search = function () {
         var obj = {
             taskStatus: 10,
-            loadDistance: 3,
-            noLoadDistance: 3,
             driveName: $scope.drive_name,
             truckNum: $scope.truckNum,
             dateIdStart: $scope.driver_mileage_startTime,
             dateIdEnd: $scope.driver_mileage_endTime
         };
-        _basic.get($host.api_url + "/driveDistanceCount?" + _basic.objToUrl(obj)).then(function (data) {
+        _basic.get($host.api_url + "/driveDistanceLoad?" + _basic.objToUrl(obj)).then(function (data) {
             if (data.success === true) {
                 $scope.driveDistanceCount = data.result;
             }

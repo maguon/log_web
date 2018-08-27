@@ -7,19 +7,16 @@ app.controller("instruction_drive_details_controller", ["$scope", "$host", "_con
     $scope.driveId = $stateParams.id;
     $scope.driver_mileage_startTime = dateIdStart;
     $scope.driver_mileage_endTime = dateIdEnd;
-    var loadDistance = "";
-    var noLoadDistance = "";
+    var loadFlag = "";
     var drive_detail = function () {
         var p = new Promise(function (resolve, reject) {
             var obj = {
-                taskStatus: 9,
-                loadDistance: 5,
-                noLoadDistance: 5,
+                taskStatus: 10,
                 driveId: $scope.driveId,
                 dateIdStart: dateIdStart,
                 dateIdEnd: dateIdEnd
             };
-            _basic.get($host.api_url + "/driveDistanceCount?" + _basic.objToUrl(obj)).then(function (data) {
+            _basic.get($host.api_url + "/driveDistanceLoad?" + _basic.objToUrl(obj)).then(function (data) {
                 if (data.success == true && data.result.length > 0) {
                     $scope.driveDetail = data.result[0];
                     if ($scope.driveDetail.no_load_distance == null) {
@@ -42,22 +39,18 @@ app.controller("instruction_drive_details_controller", ["$scope", "$host", "_con
 
     $scope.drive_instruction_list = function () {
         if ($scope.car_status == 0) {
-            loadDistance = 5;
-            noLoadDistance = "";
+            loadFlag =0;
         }
         else if ($scope.car_status == 1) {
-            loadDistance = "";
-            noLoadDistance = 5;
+            loadFlag =1;
         }
         else {
-            loadDistance = "";
-            noLoadDistance = "";
+            loadFlag ='';
         }
 
         var obj = {
             driveId:$scope.driveId,
-            loadDistance: loadDistance,
-            noLoadDistance: noLoadDistance,
+            loadFlag:loadFlag,
             dateIdStart: $scope.driver_mileage_startTime,
             dateIdEnd: $scope.driver_mileage_endTime
         };

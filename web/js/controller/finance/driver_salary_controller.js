@@ -105,7 +105,7 @@ app.controller("driver_salary_controller", ["$scope", "$host", "$state", "_confi
     // 根据司机id查询未结算工资信息
     $scope.showDriverWageSettlement = function (driverInfo) {
         $scope.driverInfo = driverInfo;
-        _basic.get($host.api_url + "/dpRouteTaskBase?driveId=" + driverInfo.drive_id + "&taskStatus=10&loadDistance=5&noLoadDistance=5&statStatus=1").then(function (data) {
+        _basic.get($host.api_url + "/dpRouteTaskBase?driveId=" + driverInfo.drive_id + "&taskStatus=10&statStatus=1").then(function (data) {
             if (data.success === true) {
                 // console.log("driverData", data);
                 $scope.driverWageSettlementList = data.result;

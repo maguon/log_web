@@ -58,6 +58,7 @@
                 <thead class="blue-grey lighten-5">
                 <tr class="grey-text text-darken-2">
                     <th width="150" data-field="">指令编号</th>
+                    <th width="150" data-field="">调度编号</th>
                     <th width="180" data-field="">司机</th>
                     <th width="150" data-field="">计划洗车费</th>
                     <th width="150" data-field="">实际洗车费</th>
@@ -71,6 +72,7 @@
                 <tbody>
                 <tr class="grey-text text-darken-1" ng-repeat="car in carWashFeeList">
                     <td width="150">{{car.id}}</td>
+                    <td width="150">{{car.dp_route_task_id}}</td>
                     <td width="180">{{car.drive_name}}</td>
                     <td width="150">{{car.total_price}}</td>
                     <td width="150">{{car.actual_price}}</td>
@@ -89,6 +91,17 @@
                 </tr>
                 </tbody>
             </table>
+        </div>
+
+        <div class="paging_box col s12" style="height: 45px">
+            <div class="right">
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="previous_page()">
+                    上一页
+                </a>
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_page()">
+                    下一页
+                </a>
+            </div>
         </div>
     </div>
 </div>

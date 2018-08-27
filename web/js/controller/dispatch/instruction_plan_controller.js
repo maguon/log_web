@@ -387,6 +387,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             var routeStartId = $scope.currentLineList.length === 0 ? $scope.dispatchInfo.current_city :  $scope.currentLineList[$scope.currentLineList.length - 1].route_end_id;
             _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask", {
                 truckId: $scope.dispatchInfo.truck_id,
+                truckNumber:$scope.dispatchInfo.trail_number,
                 driveId: $scope.dispatchInfo.drive_id,
                 routeStartId: routeStartId,
                 routeEndId: $scope.lineEndCityInfo.end_id,

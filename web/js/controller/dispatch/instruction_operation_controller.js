@@ -12,7 +12,38 @@ app.controller("instruction_operation_controller", ["$scope", "$host", "_basic",
     $scope.currentCity = "";
     $scope.taskStart = "";
 
-
+    //获取货车牌号
+    function getTruckNum() {
+        _basic.get($host.api_url + "/truckBase").then(function (data) {
+            if (data.success === true) {
+                $scope.truckNumListAllList = data.result;
+                $('#truckNum').select2({
+                    placeholder: '货车牌号',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        })
+    }
+    //获取司机
+     function getDriveName() {
+        _basic.get($host.api_url + "/drive").then(function (data) {
+            if (data.success === true) {
+                $scope.driveList = data.result;
+                $('#driver_name').select2({
+                    placeholder: '司机',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
     // 查询指令数据
     $scope.getTruckDispatch = function () {
         if($scope.currentStatus == "1"){
@@ -137,6 +168,8 @@ app.controller("instruction_operation_controller", ["$scope", "$host", "_basic",
 
     // 获取所有数据
     $scope.queryData = function () {
+        getTruckNum();
+        getDriveName();
         $scope.getTruckDispatch();
         $scope.getStartCityInfo();
     };

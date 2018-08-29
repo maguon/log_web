@@ -70,7 +70,22 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/system_settings/setting_shipments/setting_shipments_details.html",
             controller:'setting_shipments_details_controller'
         })
-
+        // 质损
+        .state("damage_declaration",{
+            url:"/damage_declaration",
+            templateUrl: "js/view/damage/damage_declaration.html",
+            controller:'damage_declaration_controller'
+        })
+        .state("damage_report",{
+            url:"/damage_report",
+            templateUrl: "js/view/damage/damage_report.html",
+            controller:'damage_report_controller'
+        })
+        .state("damage_declaration_details",{
+            url:"/damage_declaration_details/id/{id}/status/{status}",
+            templateUrl: "js/view/damage/damage_declaration_details.html",
+            controller:'damage_declaration_details_controller'
+        })
         .state("data_dictionary",{
             url:"/data_dictionary",
             templateUrl: "js/view/system_settings/data_dictionary.html",

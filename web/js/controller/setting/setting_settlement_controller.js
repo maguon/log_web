@@ -28,11 +28,13 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
                 $scope.cityList = data.result;
                 $('#startCity').select2({
                     placeholder: '始发城市',
-                    containerCssClass : 'select2_dropdown'
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
                 });
                 $('#endCity').select2({
                     placeholder: '目的城市',
-                    containerCssClass : 'select2_dropdown'
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
                 });
             }
         });

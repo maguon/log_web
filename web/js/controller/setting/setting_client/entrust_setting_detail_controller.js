@@ -223,6 +223,24 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
         }
     };
 
+    //获取任務執行记录
+    function  getRecordList () {
+        _basic.get($host.record_url + "/entrustRecord?cityRouteId=" + $scope.cityRouteId+'&entrustId='+$scope.entrustItem.id).then(function (data) {
+            if (data.success == true) {
+                if(data.result.length == 0){
+                    $scope.recordList =[];
+                }
+                else{
+                    $scope.recordList = data.result[0].comment;
+                }
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
+
+
     //模态框内的菜单跳转
     $scope.routerSetting = function(){
         $('.tabWrap .tab').removeClass("active");
@@ -239,6 +257,7 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
         $('.tabWrap .setting_record').addClass("active");
         $("#settingRecord").addClass("active");
         $("#settingRecord").show();
+        getRecordList ();
     }
 
     $scope.changeCityCode();

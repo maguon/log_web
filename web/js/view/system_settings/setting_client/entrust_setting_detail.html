@@ -53,10 +53,23 @@
                 </div>
 
                 <div id="settingRecord"  class="row tab_box">
-
-                        <div class="col grey-text text-darken-1 valign-wrapper">
+                        <div class="col s12 grey-text text-darken-1 valign-wrapper">
                             <div class="col s12" style="padding: 0;">
-
+                                <div class="row" style="height: 200px;">
+                                    <div ng-if="recordList.length!==0">
+                                        <h6 class="cyan-text fz25" style="font-weight:600;margin-top: 45px;margin-left: 150px">{{startCity}}&emsp;
+                                            <span class="mdi mdi-swap-horizontal">&emsp;{{endCity}}</span>
+                                        </h6>
+                                        <p  ng-repeat="el in recordList" style="line-height: 30px;margin-top: 30px;margin-left: 150px;border-bottom: 1px dotted #ccc">
+                                            <span>{{el.timez | date:"yyyy-MM-dd HH:mm:ss"}}</span>
+                                            &nbsp;<span>{{el.content}}</span>
+                                            &nbsp;<span>操作人: <span>{{el.name}}</span></span>
+                                        </p>
+                                    </div>
+                                    <div ng-if="recordList.length==0">
+                                        <p style="text-align: center"><i class="mdi  mdi-alert-circle-outline red-text fz30" style="font-weight:600;margin-top: 45px;"></i>&nbsp;&nbsp;&nbsp;暂无设置记录</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

@@ -15,11 +15,6 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host","$state", "_
                         $scope.driveList[i].mobile = '空';
                     }
                 }
-                $('#driver_name_mod').select2({
-                    placeholder: '请选择司机',
-                    containerCssClass : 'select2_dropdown',
-                    allowClear: true
-                });
                 $('#driver_name').select2({
                     placeholder: '请选择',
                     containerCssClass : 'select2_dropdown'
@@ -193,13 +188,17 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host","$state", "_
     //出车款发放
     $scope.addRouteFeeInfo = function(){
         //出车款状态修改
-        _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" + $scope.dispatchIdSmall+'/status/2',{}).then(function (data) {
-            if (data.success == true) {
-                //console.log(data)
-            } else {
-                swal(data.msg, "", "error");
-            }
-        })
+        if( $scope.responseData.length==0){
+        }else{
+            _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" + $scope.dispatchIdSmall+'/status/2',{}).then(function (data) {
+                if (data.success == true) {
+                    //console.log(data)
+                } else {
+                    swal(data.msg, " ", "error");
+                }
+            })
+        }
+
         var planMoneyCount = parseFloat($("#planMoney").html()).toFixed(2);
         if ($scope.truckId==  "") {
             $scope.truckId= 0;

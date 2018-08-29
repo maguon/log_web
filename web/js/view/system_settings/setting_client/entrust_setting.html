@@ -1,0 +1,58 @@
+<div>
+    <div style="width: 90%;margin: 0 auto">
+        <div class="row card" style="height: 100px">
+            <div class="col s12 m12">
+                <div class="col s12" >
+                  <!--  &lt;!&ndash;编号&ndash;&gt;
+                    <div class="input-field col s5" style="margin-top: 30px">
+                        <div class="col s12 p0" >
+                            <input name="search_id" id="search_id" type="text" ng-model="search_id" >
+                            <label for="search_id">编号</label>
+                        </div>
+                    </div>-->
+                    <!--委托方-->
+                    <div class="input-field col s10" style="margin-top: 30px">
+                        <select  id="client" name="client"  ng-model="client"  required>
+                            <option value="" disabled selected>请选择</option>
+                            <option ng-repeat="el in get_entrust" ng-value="el.id" >{{el.short_name}}</option>
+                        </select>
+                    </div>
+                    <!--查询按钮-->
+                    <div class="col s1 right" style="margin-top: 20px">
+                        <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
+                           style="margin-right: 10px" ng-click="getEntrustSetting()">
+                            <i class="mdi mdi-magnify"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="width:90%;margin:40px auto;background: white">
+        <ul class="collapsible card row"  data-collapsible="accordion" collapsible style="border-bottom: 1px solid #4dd0e1;">
+            <li ng-repeat="el in entrustSettingArray" class="cyan-text text-darken-1 col s12" style="border-bottom: 1px solid #ccc;height: 60px;line-height:60px;">
+                <div ng-bind="el.id" class="col s1 center-align"></div>
+                <div class="col s1 right-align"><i class="mdi mdi-home fz20" ></i></div>
+                <div ng-bind="el.short_name" class="grey-text col s7 left-align"></div>
+                <div class="grey-text col s2 left-align">已设置线路:{{el.route_count}}</div>
+                <div  class="operation table_operation vc-center center-align col s1">
+                    <span><a  ui-sref="entrust_setting_detail({id:el.id, from:'entrust_setting'})"><i class="mdi mdi-pencil cyan-text text-lighten-1"></i></a></span>
+
+<!--
+                    <span><i class="mdi mdi-pencil cyan-text text-lighten-1" ui-sref="entrust_setting_detail({el.id, from:'entrust_setting'})"></i></span>
+-->
+                </div>
+            <li class="grey-text text-darken-1" ng-if="repairStationArray.length == 0" style="border-bottom: 1px solid #ccc;height: 100px;line-height: 100px;text-align: center">
+                <div colspan="4"><span style="letter-spacing: 2px">暂无数据</span></div>
+            </li>
+            </li>
+        </ul>
+    </div>
+    <div class="paging_box col s12" style="width:90%;margin:0 auto">
+        <div class="right">
+            <a class="waves-light waves-effect cyan lighten-1 btn"  id="pre"   ng-click="previousPage()"> 上一页</a>
+            <a class="waves-light waves-effect cyan lighten-1 btn" id="next"  ng-click="nextPage()"> 下一页 </a>
+        </div>
+    </div>
+</div>
+

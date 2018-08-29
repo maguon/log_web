@@ -1,0 +1,109 @@
+
+<div class="setting_city">
+    <div class="vc-center">
+        <h5 class="center-align cyan-text text-lighten-1">委托方路线设置</h5>
+    </div>
+    <div class="divider" style="background: #00bcd4;height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
+    <div class="row col s12" style="width: 96%;margin: 0 auto">
+        <!-- 信息修改或新增模态框 -->
+        <div id="modifyModel" class="modal modal-fixed-footer" style="height: 500px">
+            <div class="row no-marBottom" style="font-weight: bold" ul-tabs>
+                <div class="col s12 p0">
+                    <ul class="tabWrap grey lighten-4 fz20">
+                        <li class="tab col s6  router_setting vc-center" ng-click="routerSetting()" style="line-height: 60px;height: 60px;">线路设置</li>
+                        <li  class="tab  col s6 setting_record vc-center" ng-click="settingRecord()" style="line-height: 60px;height: 60px;">设置记录</li>
+                    </ul>
+                </div>
+
+                <div id="routerSetting"  class="row tab_box">
+
+
+                    <div class="col grey-text text-darken-1 valign-wrapper" style="padding: 0;width: 80%;margin-left: 10%">
+                        <div class="col s12">
+                            <div class="col s6" style="height: 30%;margin-top: 20px;">
+                                <h6 class="cyan-text fz25" style="font-weight:600">{{startCity}}&emsp;
+                                    <span class="mdi mdi-swap-horizontal">&emsp;{{endCity}}</span>
+                                </h6>
+                            </div>
+                            <div class="col s6 cyan-text right-align fz18" style="height: 30%;margin-top: 40px">{{entrustItem.short_name}}</div>
+
+                            <div class="col s12 input-field" style="margin-top: 30px;">
+                                <input  id="distance" ng-model="distance" type="text" name="distance"  required >
+                                <label for="distance"><span style="color: red">*</span>公里数(公里)</label>
+                            </div>
+                            <div class="col s12 input-field" style="margin-top: 30px">
+                                <input  id="price" ng-model="price" type="text"  name="price" required >
+                                <label for="price"><span style="color: red">*</span>价格(元)/公里</label>
+                            </div>
+                            <div class="col s12 right-align input-field" style="margin-top: 30px">
+                                总价：<span class="red-text bold fz20"> {{price*distance|number:2}}</span>元
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer vc-center">
+                        <a class=" modal-action modal-close waves-effect waves-light grey lighten-1 btn">
+                            <i class="mdi mdi-close"></i>
+                        </a>
+                        <button ng-click="distanceModify()" class="btn waves-light waves-effect cyan lighten-1" type="button" style="margin-left: 56px" >
+                            <i class="mdi mdi-check"></i>
+                        </button>
+                    </div>
+
+
+                </div>
+
+                <div id="settingRecord"  class="row tab_box">
+
+                        <div class="col grey-text text-darken-1 valign-wrapper">
+                            <div class="col s12" style="padding: 0;">
+
+                            </div>
+                        </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row col s12 card grey-text bold" style="width: 99%;margin-left:0.5%;height:45px;line-height: 45px">
+            <div class="col s12">
+                <select material-select watch ng-model="entrustItem.id" ng-change="changeClient(entrustItem.id)" style="appearance: none;">
+                    <option ng-repeat="entrust in entrustList" ng-value=entrust.id>
+                        {{entrust.short_name}}
+                      <div style="float: right">已设置线路数:&nbsp;&nbsp;{{entrust.route_count}}</div>
+
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="col s6" style="margin-bottom: 30px">
+            <div class="col s12 z-depth-1" style="height: 45px;">
+                <input style="text-align: left" type="text" ng-model="cityCode" ng-change="changeCityCode(cityCode)" placeholder="输入城市" />
+            </div>
+
+            <div class="col s12 z-depth-2 white" style="min-height: 600px;padding-top: 20px">
+                <div class="col s3 m3 l2" style="margin:10px 0;" ng-repeat="startCity in startCityList">
+                    <a ng-click="searchCityLine(startCity,$index)" style="width: 100%;font-size: 10px;height:44px;border:1px solid #00b0ff;padding: 0 10px;display: flex !important;" class="waves-effect vc-center   {{startCity.flag? 'white cyan-text':'cyan white-text'}}  waves-light btn">
+                        <div>
+                            <p style="margin: 0;display: block;height: 18px;line-height: 18px">{{startCity.city_name}}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col s6" style="margin-bottom: 30px">
+            <div class="col s12 z-depth-1 bold" style="height: 45px;line-height: 45px">
+               <div class="col s6 cyan-text">{{startCity == undefined ? "暂无" : startCity}}</div>
+            </div>
+            <div class="col s12 z-depth-2" style="background-color: white;min-height: 600px">
+                <div class="col s3 m3 l2" style="margin:10px 0" ng-repeat="endCity in endCityList">
+                    <a ng-click="modifyLineInfo(endCity)" style="width: 100%;font-size: 10px;height:44px;border:1px solid #00b0ff;padding: 0 10px;display: flex !important;" class="waves-effect vc-center {{endCity.flag==1?'grey':endCity.flag==0?'cyan':'white  cyan-text'}} waves-light btn">
+                        <div id="endCity">
+                            <p style="margin: 0;display: block;height: 18px;line-height: 18px">{{endCity.city_name}}</p>
+                            <p ng-if="endCity.dis !== ''" style="margin: 0;display: block;height: 18px;line-height: 18px">{{endCity.dis == "" ? endCity.dis :endCity.fee+'元' +'x'+ endCity.dis+'公里'}}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

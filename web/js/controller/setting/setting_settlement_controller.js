@@ -1,5 +1,6 @@
 app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "$scope", function (_basic, _config, $host, $scope) {
-
+    $scope.start = 0;
+    $scope.size = 11;
     // 委托方
     function getEntrust(){
         _basic.get($host.api_url + "/entrust").then(function (data) {
@@ -64,5 +65,95 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
         });
     };
 
+    // 数据导出
+    $scope.export = function () {
+        var obj = {
+            entrustId: $scope.entrustId,
+            orderStart: $scope.instruct_starTime,
+            orderEnd: $scope.instruct_endTime,
+            makeId: $scope.car_brand,
+            routeStartId: $scope.startCity,
+            addrId: $scope.locateId,
+            routeEndId: $scope.endCity,
+            receiveId: $scope.receiveId
+        };
+        swal({
+                title: "确定导出结算报表？",
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                closeOnConfirm: true,
+                closeOnCancel:true
+            },
+            function () {
+
+                window.open($host.api_url + "/entrustCar.csv?" + _basic.objToUrl(obj));
+            })
+    };
+
+    //查询功能
+    $scope.getSettlement = function (){
+        $scope.start = 0;
+        getSettlementData();
+    }
+
+    //获取查询数据
+    function getSettlementData(){
+        if($scope.entrustId==undefined||$scope.instruct_starTime==undefined||$scope.instruct_endTime==undefined){
+            $scope.settlementList=[];
+            $("#pre").hide();
+            $("#next").hide();
+        }
+        else{
+            _basic.get($host.api_url + "/entrustCar?" + _basic.objToUrl({
+                entrustId: $scope.entrustId,
+                orderStart: $scope.instruct_starTime,
+                orderEnd: $scope.instruct_endTime,
+                makeId: $scope.car_brand,
+                routeStartId: $scope.startCity,
+                addrId: $scope.locateId,
+                routeEndId: $scope.endCity,
+                receiveId: $scope.receiveId,
+                start:$scope.start.toString(),
+                size:$scope.size
+            })).then(function (data) {
+                if (data.success === true) {
+                    $scope.boxArray = data.result;
+                    $scope.settlementList = $scope.boxArray.slice(0, 10);
+                    if ($scope.start > 0) {
+                        $("#pre").show();
+                    }
+                    else {
+                        $("#pre").hide();
+                    }
+                    if (data.result.length < $scope.size) {
+                        $("#next").hide();
+                    }
+                    else {
+                        $("#next").show();
+                    }
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
+
+    }
+    // 分页
+    $scope.pre_btn = function () {
+        $scope.start = $scope.start - ($scope.size-1);
+        getSettlementData();
+    };
+
+    $scope.next_btn = function () {
+        $scope.start = $scope.start + ($scope.size-1);
+        getSettlementData();
+    };
+
     getEntrust();
+    getSettlementData();
 }])

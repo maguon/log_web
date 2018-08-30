@@ -116,7 +116,8 @@
                 <td>{{settlementInfo.order_date | date:'yyyy-MM-dd'}}</td>
                 <td>{{settlementInfo.distance}}</td>
                 <td>{{settlementInfo.fee}} </td>
-                <td>{{settlementInfo.distance*settlementInfo.fee |number:2}}</td>
+                <td ng-if="settlementInfo.fee!==null&&settlementInfo.distance!==null">{{settlementInfo.distance*settlementInfo.fee |number:2}}</td>
+                <td ng-if="settlementInfo.fee==null||settlementInfo.distance==null"></td>
             </tr>
             <tr ng-if="settlementList.length==0&&entrustId!==undefined&&instruct_starTime!==undefined&&instruct_endTime!==undefined">
                 <td colspan="10">暂无数据</td>

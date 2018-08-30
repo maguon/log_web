@@ -101,12 +101,18 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
                         }
                     }
                 }
+
+                getEntrustCityRouteRel();
             }
             else {
                 swal(data.msg, "", "error");
             }
         });
-        _basic.get($host.api_url + "/entrustCityRouteRel?routeStartId=" + currentCityInfo.id+"&entrustId="+$scope.entrustItem.id).then(function (data) {
+
+    };
+
+    function getEntrustCityRouteRel(){
+        _basic.get($host.api_url + "/entrustCityRouteRel?routeStartId=" +  $scope.selectedCityId+"&entrustId="+$scope.entrustItem.id).then(function (data) {
             if (data.success === true) {
                 for (var i = 0; i < $scope.endCityList.length; i++) {
                     for (var j = 0; j < data.result.length; j++) {
@@ -134,8 +140,7 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
             }
 
         })
-    };
-
+    }
 
     $scope.changeClient = function (entrustId){
         $state.go('entrust_setting_detail', {

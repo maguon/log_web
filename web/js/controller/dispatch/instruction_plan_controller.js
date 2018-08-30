@@ -358,7 +358,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         $scope.lineEndCityInfo = "";
         $scope.lineStartDate = "";
         // 线路的起始城市根据当前线路的最后一条的结束城市为准
-        if($scope.currentLineList.length === 0){
+        if($scope.currentLineList&&$scope.currentLineList.length === 0){
             $scope.startCityName = $scope.dispatchInfo.city_name;
             startCityId = cityId;
         }
@@ -387,6 +387,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             var routeStartId = $scope.currentLineList.length === 0 ? $scope.dispatchInfo.current_city :  $scope.currentLineList[$scope.currentLineList.length - 1].route_end_id;
             _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask", {
                 truckId: $scope.dispatchInfo.truck_id,
+                routeId:$scope.lineEndCityInfo.route_id,
                 truckNumber:$scope.dispatchInfo.trail_number,
                 driveId: $scope.dispatchInfo.drive_id,
                 routeStartId: routeStartId,

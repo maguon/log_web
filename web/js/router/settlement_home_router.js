@@ -89,7 +89,21 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/settlement/not_handover.html",
             controller:'not_handover_controller'
         })
-
+        .state("entrust_setting",{
+            url:"/entrust_setting",
+            templateUrl: "js/view/system_settings/setting_client/entrust_setting.html",
+            controller:'entrust_setting_controller'
+        })
+        .state("entrust_setting_detail",{
+            url:"/entrust_setting_detail/id/{id}",
+            templateUrl: "js/view/system_settings/setting_client/entrust_setting_detail.html",
+            controller:'entrust_setting_detail_controller'
+        })
+        .state("setting_settlement",{
+            url:"/setting_settlement",
+            templateUrl: "js/view/system_settings/setting_settlement.html",
+            controller:'setting_settlement_controller'
+        })
         //管理员设置
         .state("setting_city",{
             url:"/setting_city",

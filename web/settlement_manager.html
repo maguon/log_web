@@ -81,19 +81,23 @@
         </ul>
     </li>
 
+
     <li class="bold side_navigator">
         <ul class="collapsible collapsible-accordion">
             <li class="bold">
-                <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-home-variant "></i>结算管理</a>
+                <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-chevron-right "></i>结算管理</a>
                 <div class="collapsible-body slider_nav_box blue-grey darken-3" style="padding: 0;">
                     <ul>
                         <li><a href="#!" ui-sref="settlement_management"><i class="mdi mdi-chevron-right white-text "></i>交接单管理</a></li>
                         <li><a href="#!" ui-sref="not_handover"><i class="mdi mdi-chevron-right white-text "></i>未返还交接单</a></li>
+                        <li><a href="#!" ui-sref="setting_settlement"><i class="mdi mdi-chevron-right white-text "></i>委托方结算</a></li>
                     </ul>
                 </div>
             </li>
         </ul>
     </li>
+
+
 
     <li class="bold side_navigator">
         <ul class="collapsible collapsible-accordion">
@@ -105,8 +109,10 @@
                         <li><a href="#!" ui-sref="setting_city"><i class="white-text mdi mdi-chevron-right"></i>城市设置</a></li>
                         <li><a href="#!" ui-sref="setting_line"><i class="white-text mdi mdi-chevron-right"></i>路线设置</a></li>
                         <li><a href="#!" ui-sref="setting_client"><i class="white-text mdi mdi-chevron-right"></i>委托方</a></li>
+                        <li><a href="#!" ui-sref="entrust_setting"><i class="white-text mdi mdi-chevron-right"></i>委托方设置</a></li>
                         <li><a href="#!" ui-sref="setting_dealer"><i class="white-text mdi mdi-chevron-right"></i>经销商</a></li>
                         <li><a href="#!" ui-sref="setting_shipments"><i class="white-text mdi mdi-chevron-right"></i>发运地</a></li>
+
                     </ul>
                 </div>
             </li>
@@ -210,5 +216,7 @@
 <script src="/js/controller/setting/setting_shipments/setting_shipments_controller.js"></script>
 <script src="/js/controller/setting/setting_shipments/add_setting_shipments_controller.js"></script>
 <script src="/js/controller/setting/setting_shipments/setting_shipments_details_controller.js"></script>
-
+<script src="/js/controller/setting/setting_client/entrust_setting_controller.js"></script>
+<script src="/js/controller/setting/setting_client/entrust_setting_detail_controller.js"></script>
+<script src="/js/controller/setting/setting_settlement_controller.js"></script>
 </html>

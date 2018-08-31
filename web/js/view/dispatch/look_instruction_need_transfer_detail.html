@@ -11,8 +11,8 @@
                 <div class="col s6 right-align cyan-text">{{loadTaskModelList.load_task_status| missionStatus}}</div>
             </div>
             <div class="col s12" style="margin: 10px 0px;">
-                <div class="col s2 cyan-text  left-align" >{{loadTaskModelList.city_start_name}}--{{loadTaskModelList.transfer_city_name}} </div>
-                <div class="col s3 left-align"><p><span>原始路线:</span>{{loadTaskModelList.city_start_name}}--{{loadTaskModelList.city_name}}</p> </div>
+                <div class="col s2 cyan-text  left-align" >{{loadTaskModelList.city_start}}--{{loadTaskModelList.transfer_city}} </div>
+                <div class="col s3 left-align"><p><span>原始路线:</span>{{loadTaskModelList.city_start}}--{{loadTaskModelList.city_end}}</p> </div>
                 <div class="col s3 left-align">
                     <p><span>经销商：</span>{{loadTaskModelList.short_name}}</p>
                 </div>
@@ -133,8 +133,8 @@
                                 <tbody>
                                 <tr ng-repeat="dispatchInfo in disPatchHaveInfoList" class="grey-text text-darken-1">
                                     <td>{{dispatchInfo.dp_route_task_id}}</td>
-                                    <td ng-if="dispatchInfo.transfer_flag==0">{{dispatchInfo.city_start_name}}--{{dispatchInfo.city_name}}</td>
-                                    <td ng-if="dispatchInfo.transfer_flag==1">{{dispatchInfo.city_start_name}}--{{dispatchInfo.transfer_city_name}}</td>
+                                    <td ng-if="dispatchInfo.transfer_flag==0">{{dispatchInfo.city_start}}--{{dispatchInfo.city_end}}</td>
+                                    <td ng-if="dispatchInfo.transfer_flag==1">{{dispatchInfo.city_start}}--{{dispatchInfo.transfer_city}}</td>
                                     <td ng-if="dispatchInfo.transfer_flag==0">否</td>
                                     <td ng-if="dispatchInfo.transfer_flag==1">是</td>
                                     <td ng-if="dispatchInfo.transfer_addr_name==null"></td>
@@ -175,7 +175,7 @@
                                 <tbody>
                                 <tr ng-repeat="dispatchInfo in disPatchInfoList" class="grey-text text-darken-1">
                                     <td>{{dispatchInfo.dp_route_task_id}}</td>
-                                    <td>{{dispatchInfo.city_start_name}}--{{dispatchInfo.transfer_city_name}}</td>
+                                    <td>{{dispatchInfo.city_start}}--{{dispatchInfo.transfer_city}}</td>
                                     <td>{{dispatchInfo.addr_name}}</td>
                                     <td >{{dispatchInfo.drive_name}}</td>
                                     <td>{{dispatchInfo.truck_num}}</td>

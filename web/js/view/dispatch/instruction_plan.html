@@ -524,9 +524,8 @@
                                                             </select>
                                                         </div>
                                                         <div class="col s4 input-field">
-                                                            <select class="destination_city" name="state" style="width:100%" ng-change="getReceiveDistributor(currentLine.id,sendCityId,locateId)" ng-model="sendCityId">
+                                                            <select id="destination_city"  style="width: 100%;" name="state" material-select watch ng-change="getReceiveDistributor(currentLine.id,sendCityId.id,locateId)" ng-model="sendCityId" ng-options="sendCityId.city_name for sendCityId in sendCityList" required>
                                                                 <option value=""></option>
-                                                                <option ng-repeat="sendCity in sendCityList" ng-value="sendCity.id">{{sendCity.city_name}}</option>
                                                             </select>
                                                         </div>
                                                         <div class="col s4 input-field">
@@ -558,9 +557,8 @@
                                                             <label for="whetherTransfer">是否中转</label>
                                                         </div>
                                                         <div class="col s4 input-field">
-                                                            <select class="transfer_city" name="state" style="width:100%" ng-change="getTransferCity(transferCityId)" ng-model="transferCityId" ng-disabled="hasTransferType">
+                                                            <select id="transfer_city"  style="width: 100%;" name="state" material-select watch ng-change="getTransferCity(transferCityId.id)" ng-model="transferCityId"  ng-options="transferCityId.city_name for transferCityId in sendCityList" ng-disabled="hasTransferType" required>
                                                                 <option value=""></option>
-                                                                <option ng-repeat="transferCity in sendCityList" ng-value="transferCity.id">{{transferCity.city_name}}</option>
                                                             </select>
                                                         </div>
                                                         <div class="col s4 input-field">
@@ -621,9 +619,8 @@
                                                             <label for="whetherTransfer2">是否中转</label>
                                                         </div>
                                                         <div class="col s4 input-field">
-                                                            <select class="transfer_city" name="state" style="width:100%" ng-change="getTransferCity(transferCityId2)" ng-model="transferCityId2" ng-disabled="hasTransferType">
+                                                            <select id="transfer_city2"  style="width: 100%;" name="state" material-select watch ng-change="getTransferCity(transferCityId2.id)" ng-model="transferCityId2"  ng-options="transferCityId2.city_name for transferCityId2 in sendCityList" ng-disabled="hasTransferType" required>
                                                                 <option value=""></option>
-                                                                <option ng-repeat="transferCity in sendCityList" ng-value="transferCity.id">{{transferCity.city_name}}</option>
                                                             </select>
                                                         </div>
                                                         <div class="col s4 input-field">

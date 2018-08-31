@@ -691,13 +691,18 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         _basic.get($host.api_url + "/city").then(function (cityData) {
             if (cityData.success === true) {
                 $scope.sendCityList = cityData.result;
-                $('.destination_city').select2({
+                $('#destination_city').select2({
                     placeholder: '目的地城市',
                     containerCssClass : 'select2_dropdown',
                     allowClear: true
 
                 });
-                $('.transfer_city').select2({
+                $('#transfer_city').select2({
+                    placeholder: '中转站城市',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+                $('#transfer_city2').select2({
                     placeholder: '中转站城市',
                     containerCssClass : 'select2_dropdown',
                     allowClear: true
@@ -791,38 +796,47 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     // 提交线路下的 （始发站出发） 任务信息
     $scope.submitMissionInfo = function (lineId,sendCityId,locateId,whetherTransfer,transferCityId,transferName,index) {
         if(locateId != "" && sendCityId != "" && $scope.receiveInfo != "" && $scope.distributeNum != "" && $scope.lineDate != "" && $scope.lineStartTime != ""){
-            var obj={
-               loadTaskType:$scope.selectWhereStart,
-               dpDemandId:$scope.receiveInfo.id,
-               transferDemandId:0,
-               routeStartId:$scope.dispatchInfo.current_city,
-               baseAddrId:locateId,
-               routeEndId:sendCityId,
-               receiveId:$scope.receiveInfo.receive_id,
-               dateId:$scope.receiveInfo.date_id,
-               planDate:$scope.lineDate + " " + $scope.lineStartTime,
-               planCount:$scope.distributeNum,
-               transferFlag:whetherTransfer,
-               transferCityId:transferCityId,
-               transferAddrId:transferName
-           };
+
             // 如果不中转就去掉后两个属性
             if (whetherTransfer==0) {
-                 obj={
+               var  obj={
                      loadTaskType:$scope.selectWhereStart,
                      dpDemandId:$scope.receiveInfo.id,
                      transferDemandId:0,
                      routeStartId:$scope.dispatchInfo.current_city,
+                     routeStart:$scope.dispatchInfo.city_name,
                      baseAddrId:locateId,
-                     routeEndId:sendCityId,
+                     routeEndId:sendCityId.id,
+                     routeEnd:sendCityId.city_name,
                      receiveId:$scope.receiveInfo.receive_id,
                      dateId:$scope.receiveInfo.date_id,
                      planDate:$scope.lineDate + " " + $scope.lineStartTime,
                      planCount:$scope.distributeNum,
                      transferFlag:0,
                      transferCityId:0,
+                     transferCity:'',
                      transferAddrId:0
                  }
+            }
+            else{
+                var obj={
+                    loadTaskType:$scope.selectWhereStart,
+                    dpDemandId:$scope.receiveInfo.id,
+                    transferDemandId:0,
+                    routeStartId:$scope.dispatchInfo.current_city,
+                    routeStart:$scope.dispatchInfo.city_name,
+                    baseAddrId:locateId,
+                    routeEndId:sendCityId.id,
+                    routeEnd:sendCityId.city_name,
+                    receiveId:$scope.receiveInfo.receive_id,
+                    dateId:$scope.receiveInfo.date_id,
+                    planDate:$scope.lineDate + " " + $scope.lineStartTime,
+                    planCount:$scope.distributeNum,
+                    transferFlag:whetherTransfer,
+                    transferCityId:transferCityId.id,
+                    transferCity:transferCityId.city_name,
+                    transferAddrId:transferName
+                };
             }
             _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask/" + lineId + "/dpRouteLoadTask",obj).then(function (data) {
                 if(data.success === true){
@@ -844,38 +858,47 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     // 提交线路下的 （中转站出发） 任务信息
     $scope.postMissionInfo = function (lineId,cityRouteEnd,locateId,whetherTransfer2,transferCityId2,transferName2,originalRoute,index) {
         if(locateId != "" && originalRoute != ""  && $scope.distributeNum2 != "" && $scope.lineDate2 != "" && $scope.lineStartTime2 != ""){
-            var obj={
-                loadTaskType:$scope.selectWhereStart,
-                dpDemandId:$scope.originalRoute.demand_id,
-                transferDemandId:originalRoute.id,
-                routeStartId:$scope.originalRoute.transfer_city_id,
-                baseAddrId:locateId,
-                routeEndId:$scope.originalRoute.route_end_id,
-                receiveId:$scope.originalRoute.receive_id,
-                dateId:$scope.originalRoute.date_id,
-                planDate:$scope.lineDate2 + " " + $scope.lineStartTime2,
-                planCount:$scope.distributeNum2,
-                transferFlag:whetherTransfer2,
-                transferCityId:transferCityId2,
-                transferAddrId:transferName2
-            };
+
             // 如果不中转就去掉后两个属性
-            if (whetherTransfer==0) {
-                obj={
+            if (whetherTransfer2==0) {
+              var  obj={
                     loadTaskType:$scope.selectWhereStart,
                     dpDemandId:$scope.originalRoute.demand_id,
                     transferDemandId:originalRoute.id,
                     routeStartId:$scope.originalRoute.transfer_city_id,
+                    routeStart:$scope.originalRoute.transfer_city_name,
                     baseAddrId:locateId,
                     routeEndId:$scope.originalRoute.route_end_id,
+                    routeEnd:originalRoute.route_end_name,
                     receiveId:$scope.originalRoute.receive_id,
                     dateId:$scope.originalRoute.date_id,
                     planDate:$scope.lineDate2 + " " + $scope.lineStartTime2,
                     planCount:$scope.distributeNum2,
                     transferFlag:0,
                     transferCityId:0,
+                    transferCity:"",
                     transferAddrId:0
                 }
+            }
+            else{
+                var obj={
+                    loadTaskType:$scope.selectWhereStart,
+                    dpDemandId:$scope.originalRoute.demand_id,
+                    transferDemandId:originalRoute.id,
+                    routeStartId:$scope.originalRoute.transfer_city_id,
+                    routeStart:$scope.originalRoute.transfer_city_name,
+                    baseAddrId:locateId,
+                    routeEndId:$scope.originalRoute.route_end_id,
+                    routeEnd:originalRoute.route_end_name,
+                    receiveId:$scope.originalRoute.receive_id,
+                    dateId:$scope.originalRoute.date_id,
+                    planDate:$scope.lineDate2 + " " + $scope.lineStartTime2,
+                    planCount:$scope.distributeNum2,
+                    transferFlag:whetherTransfer2,
+                    transferCityId:transferCityId2.id,
+                    transferCity:transferCityId2.city_name,
+                    transferAddrId:transferName2
+                };
             }
             _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask/" + lineId + "/dpRouteLoadTask",obj).then(function (data) {
                 if(data.success === true){

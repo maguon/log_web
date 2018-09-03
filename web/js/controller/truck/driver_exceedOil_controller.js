@@ -212,12 +212,12 @@ app.controller("driver_exceedOil_controller", ["$scope", "$state", "_basic", "_c
     // 分页
     $scope.pre_btn = function () {
         $scope.start = $scope.start - ($scope.size-1);
-        getSettlementData();
+        getExceedOilData();
     };
 
     $scope.next_btn = function () {
         $scope.start = $scope.start + ($scope.size-1);
-        getSettlementData();
+        getExceedOilData();
     };
 
     //获取数据

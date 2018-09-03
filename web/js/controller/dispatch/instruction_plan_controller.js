@@ -385,13 +385,17 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     $scope.confirmChange = function () {
         if ($scope.lineEndCityInfo != "" && $scope.lineStartDate != "") {
             var routeStartId = $scope.currentLineList.length === 0 ? $scope.dispatchInfo.current_city :  $scope.currentLineList[$scope.currentLineList.length - 1].route_end_id;
+            var routeStart = $scope.currentLineList.length === 0 ? $scope.dispatchInfo.city_name :  $scope.currentLineList[$scope.currentLineList.length - 1].city_route_end;
+
             _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask", {
                 truckId: $scope.dispatchInfo.truck_id,
                 routeId:$scope.lineEndCityInfo.route_id,
                 truckNumber:$scope.dispatchInfo.trail_number,
                 driveId: $scope.dispatchInfo.drive_id,
                 routeStartId: routeStartId,
+                routeStart:routeStart,
                 routeEndId: $scope.lineEndCityInfo.end_id,
+                routeEnd:$scope.lineEndCityInfo.city_name,
                 distance: $scope.lineEndCityInfo.distance,
                 cityRouteId: $scope.lineEndCityInfo.id,
                 taskPlanDate: $scope.lineStartDate
@@ -953,7 +957,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         $scope.routeFeeInfo.apply_explain = "";
     };
 
-    // 保存出车款信息
+    /*// 保存出车款信息
     $scope.saveRouteFeeInfo = function (index) {
         var totalCost = parseFloat($("#totalCost").html()).toFixed(2);
         var saveDpRouteTaskIdArr = [];
@@ -1018,7 +1022,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 }
             });
         }
-    };
+    };*/
 
     // 获取数据
     function queryData() {

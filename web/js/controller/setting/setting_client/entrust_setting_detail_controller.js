@@ -50,21 +50,6 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
         });
     };
 
-    $scope.changeCityCode = function (name){
-        if(name!==undefined){
-            _basic.get($host.api_url + "/city?cityName="+name).then(function (data) {
-                if (data.success === true) {
-                    $scope.startCityList = data.result;
-                }
-            })
-        }
-        else{
-            getCityList();
-        }
-
-    }
-
-
     // 根据选择的城市获取线路，并设置线路公里数
     $scope.searchCityLine = function (currentCityInfo,index) {
         $scope.startCityIndex = index;
@@ -151,31 +136,35 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
     }
 
     // 点击打开模态框
-    $scope.modifyLineInfo = function (lineInfo) {
-
-        $scope.routerSetting();
-        $scope.endCity = lineInfo.city_name;
-        $scope.distance = lineInfo.dis;
-        $scope.price = lineInfo.fee;
-        $scope.modifyFlag = lineInfo.flag;
-        $scope.routeId = lineInfo.routeId;
-        $scope.endCityId = lineInfo.id;
-        _basic.get($host.api_url + "/cityRoute?routeStartId=" +$scope.selectedCityId+'&routeEndId='+$scope.endCityId).then(function (data) {
-            if (data.success === true&&data.result.length>0) {
-                $scope.cityRouteId=data.result[0].id;
-            }
-        })
-        if($scope.modifyFlag!==1){
-            if($scope.hasChosen){
-                $('#modifyModel').modal('open');
+    $scope.modifyLineInfo = function (lineInfo,flag,ev) {
+        if(flag==1){
+            ev.stopPropagation();
+        }else{
+            $scope.routerSetting();
+            $scope.endCity = lineInfo.city_name;
+            $scope.distance = lineInfo.dis;
+            $scope.price = lineInfo.fee;
+            $scope.modifyFlag = lineInfo.flag;
+            $scope.routeId = lineInfo.routeId;
+            $scope.endCityId = lineInfo.id;
+            _basic.get($host.api_url + "/cityRoute?routeStartId=" +$scope.selectedCityId+'&routeEndId='+$scope.endCityId).then(function (data) {
+                if (data.success === true&&data.result.length>0) {
+                    $scope.cityRouteId=data.result[0].id;
+                }
+            })
+            if($scope.modifyFlag!==1){
+                if($scope.hasChosen){
+                    $('#modifyModel').modal('open');
+                }
+                else{
+                    swal("请先选择起始城市！", "", "warning");
+                }
             }
             else{
-                swal("请先选择起始城市！", "", "warning");
+                $('#modifyModel').modal('close');
             }
         }
-        else{
-            $('#modifyModel').modal('close');
-        }
+
 
     };
 
@@ -265,6 +254,6 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
         getRecordList ();
     }
 
-    $scope.changeCityCode();
+    getCityList();
     getEntrust();
 }]);

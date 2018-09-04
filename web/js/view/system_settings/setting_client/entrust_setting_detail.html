@@ -89,10 +89,7 @@
             </div>
         </div>
         <div class="col s6" style="margin-bottom: 30px">
-            <div class="col s12 z-depth-1" style="height: 45px;">
-                <input style="text-align: left" type="text" ng-model="cityCode" ng-change="changeCityCode(cityCode)" placeholder="输入城市" />
-            </div>
-
+            <div class="col s12 z-depth-1" style="height: 45px;"></div>
             <div class="col s12 z-depth-2 white" style="min-height: 600px;padding-top: 20px">
                 <div class="col s3 m3 l2" style="margin:10px 0;" ng-repeat="startCity in startCityList">
                     <a ng-click="searchCityLine(startCity,$index)" style="width: 100%;font-size: 10px;height:44px;border:1px solid #00b0ff;padding: 0 10px;display: flex !important;" class="waves-effect vc-center   {{startCity.flag? 'white cyan-text':'cyan white-text'}}  waves-light btn">
@@ -109,7 +106,7 @@
             </div>
             <div class="col s12 z-depth-2" style="background-color: white;min-height: 600px">
                 <div class="col s3 m3 l2" style="margin:10px 0" ng-repeat="endCity in endCityList">
-                    <a ng-click="modifyLineInfo(endCity)" style="width: 100%;font-size: 10px;height:44px;border:1px solid #00b0ff;padding: 0 10px;display: flex !important;" class="waves-effect vc-center {{endCity.flag==1?'grey':endCity.flag==0?'cyan':'white  cyan-text'}} waves-light btn">
+                    <a ng-click="modifyLineInfo(endCity,endCity.flag,$event)" style="width: 100%;font-size: 10px;height:44px;border:1px solid #00b0ff;padding: 0 10px;display: flex !important;" class="waves-effect vc-center {{endCity.flag==1?'grey':endCity.flag==0?'cyan':'white  cyan-text'}} waves-light btn">
                         <div id="endCity">
                             <p style="margin: 0;display: block;height: 18px;line-height: 18px">{{endCity.city_name}}</p>
                             <p ng-if="endCity.dis !== ''" style="margin: 0;display: block;height: 18px;line-height: 18px">{{endCity.dis == "" ? endCity.dis :endCity.fee+'元' +'x'+ endCity.dis+'公里'}}</p>

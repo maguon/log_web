@@ -15,27 +15,51 @@
                     </ul>
                 </div>
 
+
+
+
+
+
+
+
                 <div id="routerSetting"  class="row tab_box">
-
-
                     <div class="col grey-text text-darken-1 valign-wrapper" style="padding: 0;width: 80%;margin-left: 10%">
                         <div class="col s12">
-                            <div class="col s6" style="height: 30%;margin-top: 20px;">
-                                <h6 class="cyan-text fz25" style="font-weight:600">{{startCity}}&emsp;
+                            <div class="col s6" style="height: 30%;margin-top: 10px;">
+                                <h6 class="cyan-text fz25" style="font-weight:500">{{startCity}}&emsp;
                                     <span class="mdi mdi-swap-horizontal">&emsp;{{endCity}}</span>
                                 </h6>
                             </div>
-                            <div class="col s6 cyan-text right-align fz18" style="height: 30%;margin-top: 40px">{{entrustItem.short_name}}</div>
+                            <div class="col s6 cyan-text right-align fz18" style="height: 30%;margin-top: 30px">{{entrustItem.short_name}}</div>
 
-                            <div class="col s12 input-field" style="margin-top: 30px;">
-                                <input  id="distance" ng-model="distance" type="text" name="distance"  required >
+
+                            <div class="col s3 m3 l2" style="margin:5px 0;" ng-repeat="carBand in carBandList">
+                                <a  style="width: 100%;font-size: 10px;height:44px;border:1px solid #00b0ff;padding: 0 10px;display: flex !important;" class="waves-effect vc-center  cyan white-text  waves-light btn">
+                                    <div>
+                                        <p style="margin: 0;display: block;height: 18px;line-height: 18px">{{carBand.make_name}}</p>
+                                        <p ng-if="carBand.dis !== ''" style="margin: 0;display: block;height: 18px;line-height: 18px">{{carBand.distance == "" ? carBand.distance :carBand.distance+'公里' +'x'+  carBand.fee+'元'}}</p>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!--品牌-->
+                            <div class="input-field col s12">
+                                <select material-select watch id="car_brand" name="car_brand" ng-options="car_brand.make_name for car_brand in get_carMake"   ng-model="car_brand" >
+                                    <option value="" disabled selected>请选择</option>
+                                </select>
+                                <label for="car_brand">品牌</label>
+                            </div>
+
+
+                            <div class="col s12 input-field">
+                                <input  id="distance" ng-model="distance" type="number" name="distance"  required >
                                 <label for="distance"><span style="color: red">*</span>公里数(公里)</label>
                             </div>
-                            <div class="col s12 input-field" style="margin-top: 30px">
-                                <input  id="price" ng-model="price" type="text"  name="price" required >
+                            <div class="col s12 input-field">
+                                <input  id="price" ng-model="price" type="number"  name="price" required >
                                 <label for="price"><span style="color: red">*</span>价格(元)/公里</label>
                             </div>
-                            <div class="col s12 right-align input-field" style="margin-top: 30px">
+                            <div class="col s12 right-align input-field">
                                 总价：<span class="red-text bold fz20"> {{price*distance|number:2}}</span>元
                             </div>
                         </div>
@@ -48,9 +72,13 @@
                             <i class="mdi mdi-check"></i>
                         </button>
                     </div>
-
-
                 </div>
+
+
+
+
+
+
 
                 <div id="settingRecord"  class="row tab_box">
                         <div class="col s12 grey-text text-darken-1 valign-wrapper">
@@ -76,6 +104,17 @@
                 </div>
             </div>
         </div>
+
+
+
+
+
+
+
+
+
+
+
 
         <div class="row col s12 card grey-text bold" style="width: 99%;margin-left:0.5%;height:45px;line-height: 45px">
             <div class="col s12">
@@ -106,10 +145,9 @@
             </div>
             <div class="col s12 z-depth-2" style="background-color: white;min-height: 600px">
                 <div class="col s3 m3 l2" style="margin:10px 0" ng-repeat="endCity in endCityList">
-                    <a ng-click="modifyLineInfo(endCity,endCity.flag,$event)" style="width: 100%;font-size: 10px;height:44px;border:1px solid #00b0ff;padding: 0 10px;display: flex !important;" class="waves-effect vc-center {{endCity.flag==1?'grey':endCity.flag==0?'cyan':'white  cyan-text'}} waves-light btn">
+                    <a ng-click="modifyLineInfo(endCity,endCity.flag,$event)" style="width: 100%;font-size: 10px;height:44px;border:1px solid #00b0ff;padding: 0 10px;display: flex !important;" class="waves-effect vc-center {{endCity.flag==1?'grey':'white  cyan-text'}} waves-light btn">
                         <div id="endCity">
                             <p style="margin: 0;display: block;height: 18px;line-height: 18px">{{endCity.city_name}}</p>
-                            <p ng-if="endCity.dis !== ''" style="margin: 0;display: block;height: 18px;line-height: 18px">{{endCity.dis == "" ? endCity.dis :endCity.fee+'元' +'x'+ endCity.dis+'公里'}}</p>
                         </div>
                     </a>
                 </div>

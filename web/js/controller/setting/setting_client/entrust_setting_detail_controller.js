@@ -24,6 +24,12 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
                 swal(data.msg, "", "error");
             }
         })
+        //品牌获取
+        _basic.get($host.api_url + "/carMake").then(function (data) {
+            if (data.success == true) {
+                $scope.get_carMake = data.result;
+            }
+        });
     };
 
     // 获取所有起始城市和结束城市
@@ -87,7 +93,7 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
                     }
                 }
 
-                getEntrustCityRouteRel();
+               /* getEntrustCityRouteRel();*/
             }
             else {
                 swal(data.msg, "", "error");
@@ -96,7 +102,7 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
 
     };
 
-    function getEntrustCityRouteRel(){
+   /* function getEntrustCityRouteRel(){
         _basic.get($host.api_url + "/entrustCityRouteRel?routeStartId=" +  $scope.selectedCityId+"&entrustId="+$scope.entrustItem.id).then(function (data) {
             if (data.success === true) {
                 for (var i = 0; i < $scope.endCityList.length; i++) {
@@ -125,7 +131,7 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
             }
 
         })
-    }
+    }*/
 
     $scope.changeClient = function (entrustId){
         $state.go('entrust_setting_detail', {
@@ -147,11 +153,8 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
             $scope.modifyFlag = lineInfo.flag;
             $scope.routeId = lineInfo.routeId;
             $scope.endCityId = lineInfo.id;
-            _basic.get($host.api_url + "/cityRoute?routeStartId=" +$scope.selectedCityId+'&routeEndId='+$scope.endCityId).then(function (data) {
-                if (data.success === true&&data.result.length>0) {
-                    $scope.cityRouteId=data.result[0].id;
-                }
-            })
+            getcityRoute();
+            entrustCityRouteRel();
             if($scope.modifyFlag!==1){
                 if($scope.hasChosen){
                     $('#modifyModel').modal('open');
@@ -164,46 +167,47 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
                 $('#modifyModel').modal('close');
             }
         }
-
-
     };
+
+    function getcityRoute(){
+        _basic.get($host.api_url + "/cityRoute?routeStartId=" +$scope.selectedCityId+'&routeEndId='+$scope.endCityId).then(function (data) {
+            if (data.success === true&&data.result.length>0) {
+                $scope.cityRouteId=data.result[0].route_id;
+            }
+        });
+    }
+
+    function entrustCityRouteRel(){
+        $scope.car_brand =null;
+        $scope.price =null;
+        $scope.distance =null;
+        _basic.get($host.api_url + "/entrustCityRouteRel?entrustId="+$scope.entrustItem.id+"routeStartId=" +$scope.selectedCityId+'&routeEndId='+$scope.endCityId).then(function (data) {
+            if (data.success === true) {
+                if(data.result.length==0){
+                    $scope.carBandList=[];
+                }
+                else{
+                    $scope.carBandList=data.result;
+                }
+
+            }
+        });
+    }
 
     // 修改或设置里程数
     $scope.distanceModify = function () {
-        // flag为0时执行修改操作，为2执行新增操作
-        if($scope.modifyFlag==0){
-            if($scope.distance !== null){
-                _basic.put($host.api_url + "/user/" + userId + "/entrustCityRouteRel/" + $scope.routeId,{
-                    entrustId: $scope.entrustItem.id,
-                    cityRouteId: $scope.routeId,
-                    distance:parseFloat($scope.distance),
-                    fee: parseFloat($scope.price)
-                }).then(function (modifyData) {
-                    if (modifyData.success === true) {
-                        swal("修改成功", "", "success");
-                        $('#modifyModel').modal('close');
-                        $scope.searchCityLine($scope.startCityList[$scope.startCityIndex],$scope.startCityIndex)
-                    }
-                    else {
-                        swal(modifyData.msg, "", "error");
-                    }
-                });
-            }
-            else{
-                swal("里程数不能为空！", "", "error");
-            }
-        }
-        else{
-            if($scope.distance !== ""){
+            if($scope.makeId !== null&&$scope.distance !== null&&$scope.fee !== null){
                 _basic.post($host.api_url + "/user/" + userId + "/entrustCityRouteRel",{
                     entrustId: $scope.entrustItem.id,
                     cityRouteId:$scope.cityRouteId,
+                    makeId:$scope.car_brand.id,
+                    makeName:$scope.car_brand.make_name,
                     distance:$scope.distance,
                     fee: $scope.price
                 }).then(function (data) {
                     if (data.success === true) {
-                        swal("修改成功", "", "success");
-                        $('#modifyModel').modal('close');
+                        swal("创建成功", "", "success");
+                        entrustCityRouteRel();
                         $scope.searchCityLine($scope.startCityList[$scope.startCityIndex],$scope.startCityIndex)
                     }
                     else {
@@ -212,10 +216,9 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
                 });
             }
             else{
-                swal("里程数不能为空！", "", "error");
+                swal("请输入完整信息！", "", "error");
             }
         }
-    };
 
     //获取任務執行记录
     function  getRecordList () {

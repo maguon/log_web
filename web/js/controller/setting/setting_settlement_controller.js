@@ -104,7 +104,7 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
 
     //获取查询数据
     function getSettlementData(){
-        if($scope.entrustId==undefined||$scope.instruct_starTime==undefined||$scope.instruct_endTime==undefined){
+        if($scope.instruct_starTime==undefined||$scope.instruct_endTime==undefined){
             $scope.settlementList=[];
             $("#pre").hide();
             $("#next").hide();

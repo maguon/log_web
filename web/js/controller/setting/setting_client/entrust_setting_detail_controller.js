@@ -206,7 +206,7 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
                     fee: $scope.price
                 }).then(function (data) {
                     if (data.success === true) {
-                        swal("创建成功", "", "success");
+                        swal("操作成功", "", "success");
                         entrustCityRouteRel();
                         $scope.searchCityLine($scope.startCityList[$scope.startCityIndex],$scope.startCityIndex)
                     }

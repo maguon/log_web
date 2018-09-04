@@ -30,11 +30,18 @@
 
                     <!--品牌-->
                     <div class="input-field col s3">
-                        <select material-select watch id="car_brand" name="car_brand" ng-options="car_brand.make_name for car_brand in get_carMake"   ng-model="car_brand" >
-                            <option value="" disabled selected>请选择</option>
+                        <select  id="car_brand" name="car_brand" material-select watch ng-model="car_brand">
+                            <option value="">请选择</option>
+                            <option ng-repeat="el in get_carMake" ng-value="el.id">{{el.make_name}}</option>
                         </select>
+
+
+                       <!-- <select material-select watch id="car_brand" name="car_brand" ng-options="car_brand.make_name for car_brand in get_carMake"   ng-model="car_brand.id" >
+                            <option value="" disabled selected>请选择</option>
+                        </select>-->
                         <label for="car_brand">品牌</label>
                     </div>
+
 
 
                     <!--起始城市-->

@@ -448,7 +448,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             });
     };
 
-    // 点击线路获取当前路线下的装车任务信息和出车款信息
+    // 点击线路获取当前路线下的装车任务信息
     $scope.showMissionInfo = function (showLineId,showLineDate,startLineId,index) {
         $scope.showLineId = showLineId;
         $scope.showLineDate = showLineDate;
@@ -460,7 +460,6 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         $scope.lineDate = moment(showLineDate).format("YYYY-MM-DD");// model双向的scope，用作任务时间默认显示和取值
         $scope.lineDate2 = moment(showLineDate).format("YYYY-MM-DD");// model双向的scope，用作任务时间默认显示和取值
         $scope.lineDateBak = moment(showLineDate).format("YYYY-MM-DD");// 不可改变的scope，用作刷新任务方法的参数使用
-        $scope.startLineId = startLineId;
         $scope.missionInfo = false;
         $scope.addMissionBtn = true;
 
@@ -482,74 +481,10 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             }
         });
 
-       /* // 出车款信息
-        _basic.get($host.api_url + "/dpRouteTaskLoan?dpRouteTaskId=" + showLineId).then(function (data) {
-            if (data.success === true) {
-                // console.log("出车款信息", data);
-                if(data.result.length !== 0){
-                    // 根据是否有出车款信息来判断是否有出车款id
-                    $scope.hasRouteFeeInfoId = true;
-                    $scope.routeFeeInfo = data.result[0];
-                    // 有出车款信息时查询关联调度任务
-                    $scope.getMatchDispatchMissionList(data.result[0].id,data.result[0].task_loan_status)
-                }
-                else{
-                    // 无出车款信息时设置当前默认线路调度任务
-                    $scope.addDispatchMissionList = [];
-                    $scope.routeFeeInfo = {};
-                    _basic.get($host.api_url + "/dpRouteTask?dpRouteTaskId=" + showLineId).then(function (data) {
-                        if (data.success === true) {
-                            // console.log("无出车款信息时设置当前默认线路调度任务",data);
-                            data.result[0].dp_route_task_id = data.result[0].id;
-                            $scope.addDispatchMissionList.push(data.result[0]);
-                            $scope.routeFeeInfo.apply_passing_cost = data.result[0].distance * 0.8;
-                        }
-                        else {
-                            swal(data.msg, "", "error");
-                        }
-                    });
-                    $scope.hasRouteFeeInfoId = false;
-                    $scope.allRouteFeeInfo = false;
-                    $scope.applyRouteFeeBtn = true;
-                }
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });*/
     };
 
-    /*// 获取出车款下关联调度任务信息
-    $scope.getMatchDispatchMissionList = function (loanId,status) {
-        _basic.get($host.api_url + "/dpRouteTaskLoanRel?dpRouteTaskLoanId=" + loanId).then(function (data) {
-            if (data.success === true) {
-                // 根据是否有关联调度任务来判断是否需要申请出车款
-                if(data.result.length !== 0){
-                    $scope.allRouteFeeInfo = true;
-                    $scope.applyRouteFeeBtn = false;
-                }
-                else{
-                    $scope.allRouteFeeInfo = false;
-                    $scope.applyRouteFeeBtn = true;
-                }
-                // console.log("关联调度任务", data);
-                $scope.matchDispatchMissionList = data.result;
-                // 未发放状态下计算过路费
-                if(status == 1){
-                    // 重新计算过路费
-                    var distanceCount = 0;
-                    for (var i = 0; i < $scope.matchDispatchMissionList.length; i++) {
-                        $scope.routeFeeInfo.apply_passing_cost = (distanceCount += $scope.matchDispatchMissionList[i].distance) * 0.8
-                    }
-                }
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
-    };*/
 
-    // 增加调度关联任务
+    /*// 增加调度关联任务
     $scope.addMatchMission = function () {
         if($scope.dispatchMissionNum !== ""){
             // 根据是否有出车款判断是接口增还是前台增
@@ -622,7 +557,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         else{
             swal("请选择任务信息！", "", "warning");
         }
-    };
+    };*/
 
     // 删除调度任务（接口）
     $scope.deleteBackEndDispatchMission = function (loanId,taskId) {
@@ -679,7 +614,23 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     $scope.addMission = function () {
         $scope.addMissionBtn = false;
         $scope.missionInfo = true;
-        // 获取装车地点信息
+        $scope.locateId = "";
+        $scope.sendCityId = "";
+        $scope.receiveInfo = "";
+        $scope.distributeNum = "";
+        $scope.lineStartTime = "";
+        $scope.ransferLocateId = "";
+        $scope.originalRoute = "";
+        $scope.distributeNum2 = "";
+        $scope.lineStartTime2 = "";
+        $scope.whetherTransfer2 = "";
+        $scope.transferCityId2 = "";
+        $scope.hasTransferType2 = "";
+        getBaseAddr()
+    }
+
+    // 获取装车地点信息
+    function getBaseAddr(){
         _basic.get($host.api_url + "/baseAddr?cityId=" + $scope.startLineId).then(function (locateData) {
             if (locateData.success === true) {
                 $scope.locateList = locateData.result;
@@ -688,28 +639,22 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 swal(locateData.msg, "", "error");
             }
         });
-        // 获取送达城市
         _basic.get($host.api_url + "/city").then(function (cityData) {
             if (cityData.success === true) {
                 $scope.sendCityList = cityData.result;
-                $('#destination_city').select2({
+                $('.destination_city').select2({
                     placeholder: '目的地城市',
                     containerCssClass : 'select2_dropdown',
                     allowClear: true
 
                 });
-                $('#transfer_city').select2({
+                $('.transfer_city').select2({
                     placeholder: '中转站城市',
                     containerCssClass : 'select2_dropdown',
                     allowClear: true
                 });
-                $('#transfer_city2').select2({
+                $('.transfer_city2').select2({
                     placeholder: '中转站城市',
-                    containerCssClass : 'select2_dropdown',
-                    allowClear: true
-                });
-                $('#startCity').select2({
-                    placeholder: '原始始发城市',
                     containerCssClass : 'select2_dropdown',
                     allowClear: true
                 });
@@ -718,12 +663,8 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 swal(cityData.msg, "", "error");
             }
         });
-        $scope.locateId = "";
-        $scope.sendCityId = "";
-        $scope.receiveInfo = "";
-        $scope.distributeNum = "";
-        $scope.lineStartTime = "";
     }
+
 
     //获取中转站
     $scope.getTransferCity = function (cityId){
@@ -739,20 +680,25 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     //选择中转站之后点击中转装车地点查询 原始装车地和经销商
     $scope.changeTransferLocate = function (transferAddrId){
-        _basic.get($host.api_url + "/dpTransferDemand?transferStatus=1&transferAddrId=" + transferAddrId.id).then(function (data) {
-            if (data.success === true) {
-                $scope.transferCityLocateList = data.result;
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
+        if(transferAddrId==null){
+            transferCityLocateList=[];
+        }
+        else{
+            _basic.get($host.api_url + "/dpTransferDemand?transferStatus=1&transferAddrId=" + transferAddrId.id).then(function (data) {
+                if (data.success === true) {
+                    $scope.transferCityLocateList = data.result;
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
+
     }
 
     //改变是始发站出发还是中转站出发
     $scope.changeWhereStart = function (selectWhereStart) {
         $scope.selectWhereStart=selectWhereStart;
-        $scope.addMission();
     };
 
     //抵达的是否是中转站
@@ -868,7 +814,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     // 提交线路下的 （中转站出发） 任务信息
     $scope.postMissionInfo = function (lineId,cityRouteEnd,locateId,whetherTransfer2,transferCityId2,transferName2,originalRoute,index) {
-        if(locateId != {} && originalRoute != ""  && $scope.distributeNum2 != "" && $scope.lineDate2 != "" && $scope.lineStartTime2 != ""){
+        if(locateId.id != undefined && locateId.addr_name!==undefined&&  originalRoute != ""  && $scope.distributeNum2 != "" && $scope.lineDate2 != "" && $scope.lineStartTime2 != ""){
 
             // 如果不中转就去掉后两个属性
             if (whetherTransfer2==0) {
@@ -970,72 +916,6 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         $scope.routeFeeInfo.apply_explain = "";
     };
 
-    /*// 保存出车款信息
-    $scope.saveRouteFeeInfo = function (index) {
-        var totalCost = parseFloat($("#totalCost").html()).toFixed(2);
-        var saveDpRouteTaskIdArr = [];
-        var addDpRouteTaskIdArr = [];
-        // 根据有无出车款id判断是新增操作还是保存操作
-        if($scope.hasRouteFeeInfoId){
-            // 保存
-            for (var i = 0; i < $scope.matchDispatchMissionList.length; i++) {
-                saveDpRouteTaskIdArr.push($scope.matchDispatchMissionList[i].dp_route_task_id)
-            }
-            _basic.put($host.api_url + "/user/" + userId + "/dpRouteTaskLoanApply/" + $scope.routeFeeInfo.id,{
-                applyPassingCost: $scope.routeFeeInfo.apply_passing_cost,
-                applyFuelCost: $scope.routeFeeInfo.apply_fuel_cost,
-                applyProtectCost: $scope.routeFeeInfo.apply_protect_cost,
-                applyPenaltyCost: $scope.routeFeeInfo.apply_penalty_cost,
-                applyParkingCost: $scope.routeFeeInfo.apply_parking_cost,
-                applyTaxiCost: $scope.routeFeeInfo.apply_taxi_cost,
-                applyExplain: $scope.routeFeeInfo.apply_explain,
-                applyPlanMoney: parseFloat(totalCost),
-                dpRouteTaskIds: saveDpRouteTaskIdArr
-            }).then(function (data) {
-                if (data.success === true) {
-                    swal("保存成功", "", "success");
-                }
-                else {
-                    swal(data.msg, "", "error");
-                }
-            });
-        }
-        else{
-            // 新增
-            for (var j = 0; j < $scope.addDispatchMissionList.length; j++) {
-                addDpRouteTaskIdArr.push($scope.addDispatchMissionList[j].dp_route_task_id)
-            }
-            _basic.post($host.api_url + "/user/" + userId + "/dpRouteTaskLoan", {
-                driveId: $scope.dispatchInfo.drive_id,
-                applyPassingCost: $scope.routeFeeInfo.apply_passing_cost,
-                applyFuelCost: $scope.routeFeeInfo.apply_fuel_cost,
-                applyProtectCost: $scope.routeFeeInfo.apply_protect_cost,
-                applyPenaltyCost: $scope.routeFeeInfo.apply_penalty_cost,
-                applyParkingCost: $scope.routeFeeInfo.apply_parking_cost,
-                applyTaxiCost: $scope.routeFeeInfo.apply_taxi_cost,
-                applyExplain: $scope.routeFeeInfo.apply_explain,
-                applyPlanMoney: parseFloat(totalCost),
-                dpRouteTaskIds: addDpRouteTaskIdArr
-            }).then(function (data) {
-                if (data.success === true) {
-                    swal("操作成功", "", "success");
-                    $scope.showMissionInfo($scope.showLineId,$scope.showLineDate,$scope.startLineId,$scope.clickIndex);
-                    // 默认显示当前装车任务
-                    $(".route_fee_info" + index).show();
-                    $(".load_mission").hide();
-
-                    // 默认蓝条回到最左，防止蹿位
-                    $(".tabs .indicator").css({
-                        right: 0 + "px",
-                        left: 603 + "px"
-                    });
-                }
-                else {
-                    swal(data.msg, "", "error");
-                }
-            });
-        }
-    };*/
 
     // 获取数据
     function queryData() {

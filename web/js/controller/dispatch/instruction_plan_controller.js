@@ -738,7 +738,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     //选择中转站之后点击中转装车地点查询 原始装车地和经销商
     $scope.changeTransferLocate = function (transferAddrId){
-        _basic.get($host.api_url + "/dpTransferDemand?transferStatus=1&transferAddrId=" + transferAddrId).then(function (data) {
+        _basic.get($host.api_url + "/dpTransferDemand?transferStatus=1&transferAddrId=" + transferAddrId.id).then(function (data) {
             if (data.success === true) {
                 $scope.transferCityLocateList = data.result;
             }
@@ -799,7 +799,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     // 提交线路下的 （始发站出发） 任务信息
     $scope.submitMissionInfo = function (lineId,sendCityId,locateId,whetherTransfer,transferCityId,transferName,index) {
-        if(locateId != "" && sendCityId != "" && $scope.receiveInfo != "" && $scope.distributeNum != "" && $scope.lineDate != "" && $scope.lineStartTime != ""){
+        if(locateId != {} && sendCityId != "" && $scope.receiveInfo != "" && $scope.distributeNum != "" && $scope.lineDate != "" && $scope.lineStartTime != ""){
 
             // 如果不中转就去掉后两个属性
             if (whetherTransfer==0) {

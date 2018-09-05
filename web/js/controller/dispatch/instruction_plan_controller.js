@@ -683,7 +683,30 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             if (locateData.success === true) {
                 $scope.locateList = locateData.result;
                 $scope.missionInfo = true;
-                    getCity();
+                _basic.get($host.api_url + "/city").then(function (cityData) {
+                    if (cityData.success === true) {
+                        $scope.sendCityList = cityData.result;
+                        $('#destination_city').select2({
+                            placeholder: '目的地城市',
+                            containerCssClass : 'select2_dropdown',
+                            allowClear: true
+
+                        });
+                        $('#transfer_city').select2({
+                            placeholder: '中转站城市',
+                            containerCssClass : 'select2_dropdown',
+                            allowClear: true
+                        });
+                        $('#transfer_city2').select2({
+                            placeholder: '中转站城市',
+                            containerCssClass : 'select2_dropdown',
+                            allowClear: true
+                        });
+                    }
+                    else {
+                        swal(cityData.msg, "", "error");
+                    }
+                });
                 $scope.selectWhereStart=1;
             }
             else {
@@ -698,33 +721,10 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         $scope.lineStartTime = "";
     }
 
-    // 获取送达城市
+   /* // 获取送达城市
     function  getCity(){
-        _basic.get($host.api_url + "/city").then(function (cityData) {
-            if (cityData.success === true) {
-                $scope.sendCityList = cityData.result;
-                $('#destination_city').select2({
-                    placeholder: '目的地城市',
-                    containerCssClass : 'select2_dropdown',
-                    allowClear: true
 
-                });
-                $('#transfer_city').select2({
-                    placeholder: '中转站城市',
-                    containerCssClass : 'select2_dropdown',
-                    allowClear: true
-                });
-                $('#transfer_city2').select2({
-                    placeholder: '中转站城市',
-                    containerCssClass : 'select2_dropdown',
-                    allowClear: true
-                });
-            }
-            else {
-                swal(cityData.msg, "", "error");
-            }
-        });
-    }
+    }*/
 
 
     //获取中转站

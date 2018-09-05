@@ -18,10 +18,12 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     $scope.lineStartTime = "";
     $scope.addDispatchMissionList = [];
     $(".load_mission").hide();
-    $scope.selectWhereStart=1;
     $scope.transportationTransportPlanCount=0;
     $scope.arriveTransportPlanCount=0;
     $scope.dateTime = null;
+    //增加装车任务时，默认始发站出发
+    $scope.selectWhereStart=1;
+
     //中间调度指令边儿上的（待运和在途）
     function truckDispatchCount(){
         _basic.get($host.api_url + "/truckDispatchCount?dispatchFlag=1").then(function (data) {
@@ -676,22 +678,28 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     // 增加任务
     $scope.addMission = function () {
         $scope.addMissionBtn = false;
-        $scope.locateId = "";
-        $scope.sendCityId = "";
-        $scope.receiveInfo = "";
-        $scope.distributeNum = "";
-        $scope.lineStartTime = "";
         // 获取装车地点信息
         _basic.get($host.api_url + "/baseAddr?cityId=" + $scope.startLineId).then(function (locateData) {
             if (locateData.success === true) {
                 $scope.locateList = locateData.result;
                 $scope.missionInfo = true;
+                    getCity();
+                $scope.selectWhereStart=1;
             }
             else {
                 swal(locateData.msg, "", "error");
             }
         });
-        // 获取送达城市
+
+        $scope.locateId = "";
+        $scope.sendCityId = "";
+        $scope.receiveInfo = "";
+        $scope.distributeNum = "";
+        $scope.lineStartTime = "";
+    }
+
+    // 获取送达城市
+    function  getCity(){
         _basic.get($host.api_url + "/city").then(function (cityData) {
             if (cityData.success === true) {
                 $scope.sendCityList = cityData.result;
@@ -711,18 +719,13 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                     containerCssClass : 'select2_dropdown',
                     allowClear: true
                 });
-                $('#startCity').select2({
-                    placeholder: '原始始发城市',
-                    containerCssClass : 'select2_dropdown',
-                    allowClear: true
-                });
             }
             else {
                 swal(cityData.msg, "", "error");
             }
         });
-
     }
+
 
     //获取中转站
     $scope.getTransferCity = function (cityId){

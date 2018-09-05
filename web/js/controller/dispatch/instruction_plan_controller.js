@@ -780,7 +780,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         if(lineId != ""){
             _basic.get($host.api_url + "/dpDemandBase?" + _basic.objToUrl({
                 routeStartId:$scope.startLineId,
-                baseAddrId:locateId,
+                baseAddrId:locateId.id,
                 routeEndId:sendCityId,
                 demandStatus:"1"
             })).then(function (addrData) {
@@ -809,17 +809,20 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                      transferDemandId:0,
                      routeStartId:$scope.dispatchInfo.current_city,
                      routeStart:$scope.dispatchInfo.city_name,
-                     baseAddrId:locateId,
+                     baseAddrId:locateId.id,
+                     addrName:locateId.addr_name,
                      routeEndId:sendCityId.id,
                      routeEnd:sendCityId.city_name,
                      receiveId:$scope.receiveInfo.receive_id,
+                     shortName:$scope.receiveInfo.short_name,
                      dateId:$scope.receiveInfo.date_id,
                      planDate:$scope.lineDate + " " + $scope.lineStartTime,
                      planCount:$scope.distributeNum,
                      transferFlag:0,
                      transferCityId:0,
                      transferCity:'',
-                     transferAddrId:0
+                     transferAddrId:0,
+                     transferAddrName:''
                  }
             }
             else{
@@ -829,17 +832,20 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                     transferDemandId:0,
                     routeStartId:$scope.dispatchInfo.current_city,
                     routeStart:$scope.dispatchInfo.city_name,
-                    baseAddrId:locateId,
+                    baseAddrId:locateId.id,
+                    addrName:locateId.addr_name,
                     routeEndId:sendCityId.id,
                     routeEnd:sendCityId.city_name,
                     receiveId:$scope.receiveInfo.receive_id,
+                    shortName:$scope.receiveInfo.short_name,
                     dateId:$scope.receiveInfo.date_id,
                     planDate:$scope.lineDate + " " + $scope.lineStartTime,
                     planCount:$scope.distributeNum,
                     transferFlag:whetherTransfer,
                     transferCityId:transferCityId.id,
                     transferCity:transferCityId.city_name,
-                    transferAddrId:transferName
+                    transferAddrId:transferName.id,
+                    transferAddrName:transferName.addr_name
                 };
             }
             _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask/" + lineId + "/dpRouteLoadTask",obj).then(function (data) {
@@ -861,7 +867,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     // 提交线路下的 （中转站出发） 任务信息
     $scope.postMissionInfo = function (lineId,cityRouteEnd,locateId,whetherTransfer2,transferCityId2,transferName2,originalRoute,index) {
-        if(locateId != "" && originalRoute != ""  && $scope.distributeNum2 != "" && $scope.lineDate2 != "" && $scope.lineStartTime2 != ""){
+        if(locateId != {} && originalRoute != ""  && $scope.distributeNum2 != "" && $scope.lineDate2 != "" && $scope.lineStartTime2 != ""){
 
             // 如果不中转就去掉后两个属性
             if (whetherTransfer2==0) {
@@ -871,17 +877,20 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                     transferDemandId:originalRoute.id,
                     routeStartId:$scope.originalRoute.transfer_city_id,
                     routeStart:$scope.originalRoute.transfer_city_name,
-                    baseAddrId:locateId,
+                    baseAddrId:locateId.id,
+                    addrName:locateId.addr_name,
                     routeEndId:$scope.originalRoute.route_end_id,
                     routeEnd:originalRoute.route_end_name,
                     receiveId:$scope.originalRoute.receive_id,
+                    shortName:$scope.originalRoute.short_name,
                     dateId:$scope.originalRoute.date_id,
                     planDate:$scope.lineDate2 + " " + $scope.lineStartTime2,
                     planCount:$scope.distributeNum2,
                     transferFlag:0,
                     transferCityId:0,
                     transferCity:"",
-                    transferAddrId:0
+                    transferAddrId:0,
+                    transferAddrName:''
                 }
             }
             else{
@@ -891,17 +900,20 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                     transferDemandId:originalRoute.id,
                     routeStartId:$scope.originalRoute.transfer_city_id,
                     routeStart:$scope.originalRoute.transfer_city_name,
-                    baseAddrId:locateId,
+                    baseAddrId:locateId.id,
+                    addrName:locateId.addr_name,
                     routeEndId:$scope.originalRoute.route_end_id,
                     routeEnd:originalRoute.route_end_name,
                     receiveId:$scope.originalRoute.receive_id,
+                    shortName:$scope.originalRoute.short_name,
                     dateId:$scope.originalRoute.date_id,
                     planDate:$scope.lineDate2 + " " + $scope.lineStartTime2,
                     planCount:$scope.distributeNum2,
                     transferFlag:whetherTransfer2,
                     transferCityId:transferCityId2.id,
                     transferCity:transferCityId2.city_name,
-                    transferAddrId:transferName2
+                    transferAddrId:transferName2.id,
+                    transferAddrName:transferName2.addr_name
                 };
             }
             _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask/" + lineId + "/dpRouteLoadTask",obj).then(function (data) {

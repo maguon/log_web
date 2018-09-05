@@ -520,7 +520,7 @@
                                                         <div class="col s4 input-field">
                                                             <select id="chooseLocate" name="chooseLocate" ng-change="cancelDestinationCity()" ng-model="locateId" watch material-select>
                                                                 <option value="" selected>装车地点</option>
-                                                                <option ng-repeat="locateCity in locateList" ng-value="locateCity.id">{{locateCity.addr_name}}</option>
+                                                                <option ng-repeat="locateCity in locateList" ng-value="locateCity">{{locateCity.addr_name}}</option>
                                                             </select>
                                                         </div>
                                                         <div class="col s4 input-field">
@@ -564,7 +564,7 @@
                                                         <div class="col s4 input-field">
                                                             <select id="transferName" name="transferName"  watch material-select ng-disabled="hasTransferType" ng-model="transferName">
                                                                 <option value="">中转站</option>
-                                                                <option ng-repeat="transfer in transferCityList" ng-value="transfer.id">{{transfer.addr_name}}</option>
+                                                                <option ng-repeat="transfer in transferCityList" ng-value="transfer">{{transfer.addr_name}}</option>
                                                             </select>
                                                         </div>
                                                         <div class="col s12" style="margin-top: 30px">
@@ -586,7 +586,7 @@
                                                         <div class="col s4 input-field">
                                                             <select id="transferChooseLocate" name="chooseLocate" ng-change="changeTransferLocate(ransferLocateId)" ng-model="ransferLocateId" watch material-select>
                                                                 <option value="" selected>中转装车地点</option>
-                                                                <option ng-repeat="locateCity in locateList" ng-value="locateCity.id">{{locateCity.addr_name}}</option>
+                                                                <option ng-repeat="locateCity in locateList" ng-value="locateCity">{{locateCity.addr_name}}</option>
                                                             </select>
                                                         </div>
                                                         <div class="col s8 input-field">
@@ -626,7 +626,7 @@
                                                         <div class="col s4 input-field">
                                                             <select id="transferName2" name="transferName"  watch material-select ng-disabled="hasTransferType2" ng-model="transferName2">
                                                                 <option value="">中转站</option>
-                                                                <option ng-repeat="transfer in transferCityList" ng-value="transfer.id">{{transfer.addr_name}}</option>
+                                                                <option ng-repeat="transfer in transferCityList" ng-value="transfer">{{transfer.addr_name}}</option>
                                                             </select>
                                                         </div>
                                                         <div class="col s12" style="margin-top: 30px">

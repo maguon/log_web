@@ -678,13 +678,11 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     // 增加任务
     $scope.addMission = function () {
         $scope.addMissionBtn = false;
+        $scope.missionInfo = true;
         // 获取装车地点信息
         _basic.get($host.api_url + "/baseAddr?cityId=" + $scope.startLineId).then(function (locateData) {
             if (locateData.success === true) {
                 $scope.locateList = locateData.result;
-                $scope.missionInfo = true;
-                    getCity();
-                $scope.selectWhereStart=1;
             }
             else {
                 swal(locateData.msg, "", "error");

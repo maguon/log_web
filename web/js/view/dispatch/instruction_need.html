@@ -98,7 +98,7 @@
                                                 <!--<label for="add_start_city">起始城市</label>-->
                                             </div>
                                             <div class="input-field col s6" ng-class="{'has-error':add_need_instructForm.add_dispatch_car_position.$invalid&&submitted}">
-                                                <select id="add_dispatch_car_position" name="add_dispatch_car_position" material-select watch ng-model="add_dispatch_car_position" ng-options="baseAddr.id as baseAddr.addr_name for baseAddr in baseAddrListMod" required>
+                                                <select id="add_dispatch_car_position" name="add_dispatch_car_position" material-select watch ng-model="add_dispatch_car_position" ng-options="baseAddr as baseAddr.addr_name for baseAddr in baseAddrListMod" required>
                                                     <option value="">请选择</option>
                                                 </select>
                                                 <label for="add_dispatch_car_position">装车地点</label>
@@ -110,7 +110,7 @@
                                                <!-- <label for="add_end_city">目的城市</label>-->
                                             </div>
                                             <div class="input-field col s6" ng-class="{'has-error':add_need_instructForm.add_dealer.$invalid&&submitted}">
-                                                <select id="add_dealer" name="add_dealer" material-select watch  ng-model="add_dealer"  ng-options="receive.id as receive.short_name for receive in receiveListMod" required>
+                                                <select id="add_dealer" name="add_dealer" material-select watch  ng-model="add_dealer"  ng-options="receive as receive.short_name for receive in receiveListMod" required>
                                                     <option value="">请选择</option>
                                                 </select>
                                                 <label for="add_dealer">送达地点</label>

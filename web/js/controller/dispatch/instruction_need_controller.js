@@ -253,10 +253,12 @@ app.controller("instruction_need_controller", ["$scope", "$host", "_config", "_b
             var obj = {
                 routeStartId: $scope.add_start_city.id,
                 routeStart: $scope.add_start_city.city_name,
-                baseAddrId: $scope.add_dispatch_car_position,
+                baseAddrId: $scope.add_dispatch_car_position.id,
+                addrName:$scope.add_dispatch_car_position.addr_name,
                 routeEndId: $scope.add_end_city.id,
                 routeEnd: $scope.add_end_city.city_name,
-                receiveId: $scope.add_dealer,
+                receiveId: $scope.add_dealer.id,
+                shortName:$scope.add_dealer.city_name,
                 preCount: $scope.add_car_num,
                 dateId: $scope.add_instruct_Time
             };

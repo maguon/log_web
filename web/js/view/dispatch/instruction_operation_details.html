@@ -166,7 +166,7 @@
                         </div>
                     </div>
                     <div class="collapsible-body col s12" style="margin-bottom: 20px">
-                        <div class="col s12" style="background-color: rgb(242,242,242)" ng-show="currentOperateInfo.task_status == 3">
+                        <div class="col s12" style="background-color: rgb(242,242,242)" ng-show="currentOperateInfo.task_status == 3&&mission.load_task_status == 1">
                             <div class="col s11 input-field" style="margin:10px 0">
                                 <input id="autocomplete-input" type="text" ng-change="searchMatchVin(mission.route_start_id,mission.base_addr_id,mission.load_task_type)" ng-model="$parent.vinNum" class="autocomplete" minlength="6">
                                 <label for="autocomplete-input">请输入车辆VIN</label>

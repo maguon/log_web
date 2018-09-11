@@ -202,6 +202,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         });
         $('#showCarTransferInfoModel').modal('open');
     };
+
     // 根据卡片信息查询起始目的地信息 (即将到达)
     $scope.arrivedStu=function(){
         $scope.currentTransferModelInfo.date_id= moment($scope.currentTransferModelInfo.date_id.toString()).format("YYYY-MM-DD");
@@ -237,17 +238,12 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     $scope.arriveStu=function(){
         $scope.currentTransferModelInfo.date_id= moment($scope.currentTransferModelInfo.date_id.toString()).format("YYYY-MM-DD");
         var dateTime=moment($scope.currentTransferModelInfo.date_id).format("YYYYMMDD");
-        console.log($host.api_url + "/dpTransferDemand?arriveCount=0&" + _basic.objToUrl({
-            dateId:dateTime
-        }))
-
         _basic.get($host.api_url + "/dpTransferDemand?arriveCount=0&" + _basic.objToUrl({
             dateId:dateTime,
             transferCityId: $scope.currentTransferModelInfo.transfer_city_id,
             routeStartId:$scope.currentTransferModelInfo.route_start_id,
             routeEndId: $scope.currentTransferModelInfo.route_end_id,
             transferStatus:1
-
         })).then(function (data) {
             if (data.success === true) {
                 $scope.arrivedCarCount=0;
@@ -294,7 +290,6 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             if (currentLineData.success === true) {
                 currentLineData.result.reverse();
                 $scope.currentLineList = currentLineData.result;
-                // console.log("currentLineData", currentLineData);
             }
             else {
                 swal(currentLineData.msg, "", "error");
@@ -304,7 +299,6 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         // 当前司机未执行调度任务
         _basic.get($host.api_url + "/dpRouteTask?driveId=" + dispatchInfo.drive_id + "&taskStatus=1").then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
                 $scope.dispatchMissionList = data.result;
             }
             else {
@@ -312,7 +306,6 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             }
         });
         $scope.showMiddleCard = true;
-        // console.log("dispatchInfo", $scope.dispatchInfo);
     };
 
     // 显示修改车辆位置模态框
@@ -482,82 +475,6 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         });
 
     };
-
-
-    /*// 增加调度关联任务
-    $scope.addMatchMission = function () {
-        if($scope.dispatchMissionNum !== ""){
-            // 根据是否有出车款判断是接口增还是前台增
-            if($scope.hasRouteFeeInfoId){
-                // 检测是否有相同的关联任务
-                function checkDispatchId(obj) {
-                    return obj.dp_route_task_id === $scope.dispatchMissionNum;
-                }
-                if ($scope.matchDispatchMissionList.some(checkDispatchId)) {
-                    swal("不能重复添加相同任务！", "", "warning");
-                }
-                else{
-                    _basic.post($host.api_url + "/user/" + userId + "/dpRouteTaskLoanRel",{
-                        dpRouteTaskLoanId:$scope.routeFeeInfo.id,
-                        dpRouteTaskId: $scope.dispatchMissionNum
-                    }).then(function (data) {
-                        if (data.success === true) {
-                            swal("添加成功", "", "success");
-                            $scope.getMatchDispatchMissionList($scope.routeFeeInfo.id,$scope.routeFeeInfo.task_loan_status);
-                        }
-                        else {
-                            swal(data.msg, "", "error");
-                        }
-                    });
-                }
-            }
-            else{
-                // 检测是否有相同的关联任务
-                function checkAddDispatchId(obj) {
-                    return obj.dp_route_task_id === $scope.dispatchMissionNum;
-                }
-                if ($scope.addDispatchMissionList.some(checkAddDispatchId)) {
-                    swal("不能重复添加相同任务！", "", "warning");
-                }
-                else{
-                    // 根据调度编号查询详细信息
-                    _basic.get($host.api_url + "/dpRouteTaskLoanRel?dpRouteTaskId=" + $scope.dispatchMissionNum).then(function (data) {
-                        if (data.success === true) {
-                            // 判断调度任务是否已被关联
-                            if(data.result.length === 0){
-                                // 查询详细信息
-                                _basic.get($host.api_url + "/dpRouteTask?dpRouteTaskId=" + $scope.dispatchMissionNum + "&taskStatus=1").then(function (detailsData) {
-                                    if (detailsData.success === true) {
-                                        detailsData.result[0].dp_route_task_id = detailsData.result[0].id;
-                                        $scope.addDispatchMissionList.push(detailsData.result[0]);
-                                    }
-                                    else {
-                                        swal(detailsData.msg, "", "error");
-                                    }
-                                }).then(function () {
-                                    // 重新计算过路费
-                                    var distanceCount = 0;
-                                    for (var i = 0; i < $scope.addDispatchMissionList.length; i++) {
-                                        $scope.routeFeeInfo.apply_passing_cost = (distanceCount += $scope.addDispatchMissionList[i].distance) * 1.5
-                                    }
-                                });
-                            }
-                            else{
-                                swal("此调度任务已被关联！", "", "warning");
-                            }
-                        }
-                        else {
-                            swal(data.msg, "", "error");
-                        }
-                    });
-                }
-            }
-
-        }
-        else{
-            swal("请选择任务信息！", "", "warning");
-        }
-    };*/
 
     // 删除调度任务（接口）
     $scope.deleteBackEndDispatchMission = function (loanId,taskId) {

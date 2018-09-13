@@ -16,34 +16,43 @@
                         <p style="margin: 0">申请打款信息</p>
                     </div>
                     <div class="col s7 right-align" style="color: darkgray">
-                        <p>申请时间：{{loanInfo.indemnity_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                        <p>申请时间：{{loanInfo.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</p>
                     </div>
                     <div class="col s2 right-align" style="color: red">
                         <p ng-if="loanInfo.indemnity_status==1">未打款</p>
                         <p ng-if="loanInfo.indemnity_status==2">已打款</p>
                     </div>
                 </div>
+
                 <div class="col s12">
                     <div class="col s12 bold_txt" style="color: darkgray;font-size: 1.1rem">
                         <div class="col s4">
                             <p><span>银行账号：</span>{{loanInfo.bank_number}}</p>
                         </div>
-                        <div class="col s4">
+                        <div class="col s2">
                             <p><span>户名：</span>{{loanInfo.bank_user_name}}</p>
                         </div>
-                        <div class="col s4">
+                        <div class="col s3">
                             <p><span>开户行：</span>{{loanInfo.bank_name}}</span></p>
+                        </div>
+                        <div class="col s3">
+                            <p><span>城市：</span>{{loanInfo.city_name}}</p>
                         </div>
                         <div  class="col s12" style="height:1px;border-bottom: 1px dotted #ccc;width:98%;margin-left: 1%"></div>
                         <div class="col s4">
-                            <p><span>城市：</span>{{loanInfo.city_name}}</p>
-                        </div>
-                        <div class="col s4">
-                            <p><span>经销商：</span>{{loanInfo.receive_name}}</p>
-                        </div>
-                        <div class="col s4">
                             <p><span>打款金额：</span><span style="color: #e57474">{{loanInfo.plan_money}}.00</span> 元</p>
                         </div>
+                        <div class="col s2">
+                            <p><span>联系人：</span>{{loanInfo.contacts_name}}</p>
+
+                        </div>
+                        <div class="col s3">
+                            <p><span>联系电话：</span>{{loanInfo.tel}}</p>
+                        </div>
+                        <div class="col s3">
+                            <p><span>经销商：</span>{{loanInfo.receive_name}}</p>
+                        </div>
+
                         <div  class="col s12" style="height:1px;border-bottom: 1px dotted #ccc;width:98%;margin-left: 1%"></div>
                         <div class="col s4">
                             <p style="word-break: break-all"><span>申请打款备注：</span>{{loanInfo.apply_explain}}</p>

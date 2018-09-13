@@ -17,6 +17,29 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/user/user_info.html",
             controller:'user_info_controller'
         })
+        .state("truck_insure",{
+            url:"/truck_insure",
+            templateUrl: "js/view/truck/truck_insure.html",
+            controller:'truck_insure_controller'
+        })
+        .state("truck_management",{
+            url:"/truck_management",
+            templateUrl: "js/view/truck/truck_management.html",
+            controller:'truck_management_controller'
+        })
+        // 新增（事故车）
+        .state("add_truck_management",{
+            url:"/add_truck_management?from",
+            templateUrl: "js/view/truck/add_truck_management.html",
+            controller:'add_truck_management_controller'
+        })
+        // 事故车详情
+        .state("look_truck_management",{
+            url:"/look_truck_management/id/{id}?from",
+            templateUrl: "js/view/truck/look_truck_management.html",
+            controller:'look_truck_management_controller'
+        })
+
 
         // 财务
         .state("truck_compensate_loan",{

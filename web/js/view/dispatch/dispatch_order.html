@@ -63,11 +63,22 @@
         </div>
 
         <!--查询按钮-->
-        <div class="col s2 center" style="margin-top:45px;">
-            <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn "   ng-click="getOrderInfo()">
-                <i class="mdi mdi-magnify"></i>
-            </a>
+        <div class="col s2" style="margin-top:45px;">
+            <div class="col s6 center">
+                <a ng-click="getOrderInfo()" class="btn-floating btn-large waves-light waves-effect red lighten-2 btn vc-center" style="margin-right: 10px">
+                    <i class="mdi mdi-magnify"></i>
+                </a>
+            </div>
+            <div class="col s6 center">
+                <a ng-click="downloadCsvFile()" style="background-color: #f0ad4e;" class="btn-floating btn-large waves-light waves-effect lighten-2 btn vc-center">
+                    <i class="mdi mdi-cloud-download"></i>
+                </a>
+            </div>
         </div>
+
+
+
+
     </div>
 
 

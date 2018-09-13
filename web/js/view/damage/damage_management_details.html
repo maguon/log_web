@@ -364,32 +364,47 @@
                             </div>
                             <!--未完成状态下打款信息-->
                             <div class="col s10 offset-s1" style="margin-bottom: 20px" ng-show="currentDamageStatus != 3 && financeIndemnityStatus == 1">
-                                <div class="col s4 input-field">
-                                    <input type="text" id="bank_account" name="bank_account" ng-model="bankAccount">
-                                    <label for="bank_account"><span style="color: red">* </span>银行账号</label>
+
+                               <div class="col s12">
+                                   <div class="col s3 input-field">
+                                       <input type="text" id="bank_account" name="bank_account" ng-model="bankAccount">
+                                       <label for="bank_account"><span style="color: red">* </span>银行账号</label>
+                                   </div>
+                                   <div class="col s3 input-field">
+                                       <input type="text" id="account_name" name="account_name" ng-model="accountName">
+                                       <label for="account_name"><span style="color: red">* </span>户名</label>
+                                   </div>
+                                   <div class="col s3 input-field">
+                                       <input type="text" id="opening_bank" name="opening_bank" ng-model="openingBank">
+                                       <label for="opening_bank"><span style="color: red">* </span>开户行</label>
+                                   </div>
+                                   <div class="col s3 input-field">
+                                       <select id="located_city" name="located_city" style="width:100%" ng-model="locatedCity">
+                                           <option value=""><span style="color: red">* </span></option>
+                                           <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
+                                       </select>
+                                   </div>
+                               </div>
+                                <div class="col s12">
+                                    <div class="col s3 input-field">
+                                        <input type="text" id="distributor" name="distributor" ng-model="distributor">
+                                        <label for="distributor"><span style="color: red">* </span>经销商</label>
+                                    </div>
+                                    <div class="col s3 input-field">
+                                        <input type="number" id="payment_money" name="payment_money" ng-model="paymentMoney">
+                                        <label class="{{paymentMoney != null ? 'active' : 'inactive'}}" for="payment_money"><span style="color: red">* </span>赔款金额（元）</label>
+                                    </div>
+
+                                    <div class="col s3 input-field">
+                                        <input type="text" id="contactsName" name="contactsName" ng-model="contactsName">
+                                        <label for="contactsName"><span style="color: red">* </span>联系人</label>
+                                    </div>
+                                    <div class="col s3 input-field">
+                                        <input type="text" id="contactsTel" name="contactsTel" ng-model="contactsTel">
+                                        <label for="contactsTel"><span style="color: red">* </span>联系电话</label>
+                                    </div>
                                 </div>
-                                <div class="col s4 input-field">
-                                    <input type="text" id="account_name" name="account_name" ng-model="accountName">
-                                    <label for="account_name"><span style="color: red">* </span>户名</label>
-                                </div>
-                                <div class="col s4 input-field">
-                                    <input type="text" id="opening_bank" name="opening_bank" ng-model="openingBank">
-                                    <label for="opening_bank"><span style="color: red">* </span>开户行</label>
-                                </div>
-                                <div class="col s4 input-field">
-                                    <select id="located_city" name="located_city" style="width:100%" ng-model="locatedCity">
-                                        <option value=""><span style="color: red">* </span></option>
-                                        <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
-                                    </select>
-                                </div>
-                                <div class="col s4 input-field">
-                                    <input type="text" id="distributor" name="distributor" ng-model="distributor">
-                                    <label for="distributor"><span style="color: red">* </span>经销商</label>
-                                </div>
-                                <div class="col s4 input-field">
-                                    <input type="number" id="payment_money" name="payment_money" ng-model="paymentMoney">
-                                    <label class="{{paymentMoney != null ? 'active' : 'inactive'}}" for="payment_money"><span style="color: red">* </span>赔款金额（元）</label>
-                                </div>
+
                                 <div class="col s12 input-field">
                                     <input type="text" id="payment_remark" name="payment_remark" ng-model="paymentRemark">
                                     <label for="payment_remark">申请打款备注</label>
@@ -399,25 +414,33 @@
                             <div class="col s10 offset-s1" style="margin-bottom: 20px;color: darkgray;font-size: 1.08rem" ng-show="currentDamageStatus == 3 || financeIndemnityStatus == 2">
                                 <!--打款基本信息-->
                                 <div class="col s12" style="padding: 0;">
-                                    <div class="col s5">
+                                    <div class="col s4">
                                         <p>银行账号：{{bankAccount}}</p>
                                     </div>
-                                    <div class="col s3">
+                                    <div class="col s2">
                                         <p>户名：{{accountName}}</p>
                                     </div>
-                                    <div class="col s4">
+                                    <div class="col s3">
                                         <p>开户行：{{openingBank}}</p>
+                                    </div>
+                                    <div class="col s3">
+                                        <p>所在城市：{{paymentInfo.city_name}}</p>
                                     </div>
                                 </div>
                                 <div class="col s12" style="padding: 0;">
-                                    <div class="col s5">
-                                        <p>所在城市：{{paymentInfo.city_name}}</p>
+                                    <div class="col s4">
+                                        <p>赔款金额：<span style="color: #e77a7a;font-weight: bold">{{paymentMoney.toFixed(2)}}</span> 元</p>
+
+                                    </div>
+                                    <div class="col s2">
+                                        <p>联系人：{{contactsName}}</p>
+
+                                    </div>
+                                    <div class="col s3">
+                                        <p>联系电话：{{contactsTel}}</p>
                                     </div>
                                     <div class="col s3">
                                         <p>经销商：{{paymentInfo.receive_name}}</p>
-                                    </div>
-                                    <div class="col s4">
-                                        <p>赔款金额：<span style="color: #e77a7a;font-weight: bold">{{paymentMoney.toFixed(2)}}</span> 元</p>
                                     </div>
                                 </div>
                                 <div class="col s12">

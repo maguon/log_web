@@ -45,9 +45,13 @@
             <div class="col s4">
                 <p><span>计划洗车费：</span><span style="font-weight: bold;font-size: 1.3rem;color: rgb(230,121,121)">{{currentFeeInfo.total_price}}</span> 元</p>
             </div>
-            <div class="col s4 input-field">
+            <div class="col s2 input-field">
                 <input style="font-size: 1.8rem;text-align: right;color: rgb(230,123,123)" id="driver" type="number" ng-model="totalPrice">
                 <label class="{{totalPrice != null ? 'active' : 'inactive'}}" for="driver">总洗车费（元）</label>
+            </div>
+            <div class="col s2 input-field">
+                <input style="font-size: 1.8rem;text-align: right;color: rgb(230,123,123)" id="guard_fee" type="number" ng-model="guardFee">
+                <label class="{{guardFee != null ? 'active' : 'inactive'}}" for="guard_fee">门卫费（元）</label>
             </div>
         </div>
 

@@ -150,7 +150,10 @@ app.controller("dispatch_order_details_controller", ["$scope", "$host", "$locati
                 if (data.success === true) {
                     $scope.responseData = data.result;
                     for(i=0;i<$scope.responseData.length;i++){
-                        $scope.bigPrice  +=$scope.responseData[i].actual_price;
+                        if($scope.responseData[i].actual_price==null){
+                            $scope.responseData[i].actual_price=0;
+                        }
+                        $scope.bigPrice  +=$scope.responseData[i].actual_price+$scope.responseData[i].actual_guard_fee;
                     }
 
                 }

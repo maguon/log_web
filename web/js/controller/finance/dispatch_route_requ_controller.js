@@ -146,7 +146,6 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host","$state", "_
     };
     //获取洗车费
     function washCarFee(){
-        $scope.totalPrice=0;
         $scope.bigPrice =0;
         if(  $scope.dispatchIdSmall==''||  $scope.dispatchIdSmall==null||  $scope.dispatchIdSmall==undefined){
             $scope.responseData=[];
@@ -156,8 +155,7 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host","$state", "_
                 if (data.success === true) {
                     $scope.responseData = data.result;
                     for (i = 0; i < $scope.responseData.length; i++) {
-                        $scope.totalPrice = $scope.responseData[i].actual_price;
-                        $scope.bigPrice += $scope.responseData[i].actual_price;
+                        $scope.bigPrice += $scope.responseData[i].actual_price+$scope.responseData[i].actual_guard_fee;
                     }
 
                 }
@@ -169,9 +167,10 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host","$state", "_
     }
 
     //洗车费修改
-    $scope.putWashCost = function (id,totalPrice){
+    $scope.putWashCost = function (id,totalPrice,guardFee){
         var obj = {
-            "actualPrice": totalPrice
+            actualPrice: totalPrice,
+            actualGuardFee:guardFee
         };
         _basic.put($host.api_url + "/user/" + userId + "/loadTaskCleanRel/"+id, obj).then(function (data) {
             if (data.success == true) {

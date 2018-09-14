@@ -13,7 +13,11 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/user/user_info.html",
             controller:'user_info_controller'
         })
-
+        .state("car_wash_fee_management",{
+            url:"/car_wash_fee_management",
+            templateUrl: "js/view/finance/car_wash_fee_management.html",
+            controller:'car_wash_fee_management_controller'
+        })
         // 公共數據
         .state("dealer_map",{
             url:"/dealer_map",

@@ -19,6 +19,7 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
     // tab切换
     $scope.showDamageImage = function () {
         $scope.getCurrentDamageImage();
+        $scope.getBeforeDamageInfo();
     };
     $scope.showDamageHandleInfo = function () {
         $scope.getBeforeDamageInfo();
@@ -290,6 +291,8 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
                     $scope.getCityList();
                     $scope.distributor = data.result[0].receive_name;
                     $scope.paymentMoney = data.result[0].plan_money;
+                    $scope.contactsName = data.result[0].contacts_name;
+                    $scope.contactsTel = data.result[0].tel;
                     $scope.paymentRemark = data.result[0].apply_explain;
                     indemnityId = data.result[0].id;
                     $scope.financeIndemnityStatus = data.result[0].indemnity_status;
@@ -422,6 +425,8 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
                     cityId: $scope.locatedCity,
                     receiveName: $scope.distributor,
                     planMoney: $scope.paymentMoney,
+                    contactsName:$scope.contactsName,
+                    tel:$scope.contactsTel,
                     applyExplain: $scope.paymentRemark
                 }).then(function (data) {
                     if (data.success === true) {
@@ -479,6 +484,8 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
                     cityId: $scope.locatedCity,
                     receiveName: $scope.distributor,
                     planMoney: $scope.paymentMoney,
+                    contactsName:$scope.contactsName,
+                    tel:$scope.contactsTel,
                     applyExplain: $scope.paymentRemark
                 }).then(function (data) {
                     if (data.success === true) {
@@ -534,7 +541,7 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
         });
     };
     $scope.showPaymentVoucherImage = function () {
-        viewer = new Viewer(document.getElementById('payment_voucher'), {
+        viewer = new Viewer(document.getElementsByClassName('payment_voucher'), {
             url: 'data-original'
         });
     };

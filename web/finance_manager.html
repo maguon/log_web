@@ -53,6 +53,20 @@
     <li class="bold side_navigator">
         <ul class="collapsible collapsible-accordion">
             <li class="bold">
+                <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-account-settings-variant "></i>车辆管理</a>
+                <div class="collapsible-body blue-grey darken-3" style="padding: 0;">
+                    <ul >
+                        <li><a href="#!" ui-sref="truck_management"><i class="white-text mdi mdi-chevron-right"></i>车辆事故</a></li>
+                        <li><a href="#!" ui-sref="truck_insure"><i class="white-text mdi mdi-chevron-right"></i>货车保险</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+
+    <li class="bold side_navigator">
+        <ul class="collapsible collapsible-accordion">
+            <li class="bold">
                 <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-cash-usd"></i>财务管理</a>
                 <div class="collapsible-body slider_nav_box blue-grey darken-3" style="padding: 0;">
                     <ul>
@@ -194,6 +208,11 @@
 
 <!--用户信息-->
 <script src="/js/controller/user/user_info_controller.js"></script>
+
+<script src="/js/controller/truck/truck_management_controller.js"></script>
+<script src="/js/controller/truck/add_truck_management_controller.js"></script>
+<script src="/js/controller/truck/look_truck_management_controller.js"></script>
+<script src="/js/controller/truck/truck_insure_controller.js"></script>
 
 <!--财务管理-->
 <script src="/js/controller/finance/truck_compensate_loan_controller.js"></script>

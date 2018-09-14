@@ -56,6 +56,24 @@ app.controller("car_payment_loan_controller", ["$scope", "$state", "$stateParams
         $scope.getPaymentLoanList();
     };
 
+    // 下载csv
+    $scope.downloadCsvFile = function () {
+        var obj = {
+            damageId: $scope.damageId,
+            indemnityStatus: $scope.indemnityStatus,
+            applyUserName: $scope.applyUserName,
+            planMoneyStart: $scope.planMoneyStart,
+            planMoneyEnd: $scope.planMoneyEnd,
+            receiveName: $scope.receiveName,
+            applyDateStart: $scope.applyDateStart,
+            applyDateEnd: $scope.applyDateEnd,
+            indemnityDateStart: $scope.indemnityDateStart,
+            indemnityDateEnd: $scope.indemnityDateEnd
+        };
+        window.open($host.api_url + "/damageCheckIndemnity.csv?" + _basic.objToUrl(obj));
+    };
+
+
     // 分页
     $scope.preBtn = function () {
         $scope.start = $scope.start - ($scope.size-1);

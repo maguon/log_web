@@ -35,6 +35,20 @@ app.controller("dispatch_order_controller", ["$scope", "$host", "_config","_basi
         seachOrderInfo();
     }
 
+    // 下载csv
+    $scope.downloadCsvFile = function () {
+        var obj = {
+            dpRouteTaskId: $scope.dispatchId,
+            taskStatus: $scope.taskStatus,
+            taskPlanDateStart: $scope.planTimeStart,
+            taskPlanDateEnd:$scope.planTimeEnd,
+            driveName:$scope.driver,
+            truckNum:$scope.truckNum,
+            routeStartId:$scope.startCity,
+            routeEndId:$scope.endCity
+        };
+        window.open($host.api_url + "/dpRouteTask.csv?" + _basic.objToUrl(obj));
+    };
 
 
     /**

@@ -51,12 +51,20 @@
             </div>
         </div>
         <div class="col s2">
-            <div class="col s12 center">
+            <div class="col s6 center">
                 <a ng-click="searchPaymentLoanList()" class="btn-floating btn-large waves-light waves-effect red lighten-2 btn vc-center" style="margin-right: 10px">
                     <i class="mdi mdi-magnify"></i>
                 </a>
             </div>
+            <div class="col s6 center">
+                <a ng-click="downloadCsvFile()" style="background-color: #f0ad4e;" class="btn-floating btn-large waves-light waves-effect lighten-2 btn vc-center">
+                    <i class="mdi mdi-cloud-download"></i>
+                </a>
+            </div>
         </div>
+
+
+
     </div>
     <!--表格-->
     <div class="row">
@@ -70,6 +78,8 @@
                         <th data-field="">打款账号</th>
                         <th data-field="">开户行</th>
                         <th data-field="">经销商</th>
+                        <!--<th data-field="">联系人</th>
+                        <th data-field="">联系电话</th>-->
                         <th data-field="">申请金额</th>
                         <th data-field="">打款时间</th>
                         <th data-field="">状态</th>
@@ -82,6 +92,8 @@
                         <td>{{paymentLoanItem.bank_number}}</td>
                         <td>{{paymentLoanItem.bank_name}}</td>
                         <td>{{paymentLoanItem.receive_name}}</td>
+                        <!--<td>{{paymentLoanItem.contacts_name}}</td>
+                        <td>{{paymentLoanItem.tel}}</td>-->
                         <td>{{paymentLoanItem.plan_money}}</td>
                         <td>{{paymentLoanItem.indemnity_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                         <td class="text-lighten-2 darkgrey" ng-if="paymentLoanItem.indemnity_status == 2">已打款</td>

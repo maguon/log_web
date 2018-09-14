@@ -27,7 +27,11 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/system_settings/data_dictionary.html",
             controller: 'data_dictionary_controller'
         })
-
+        .state("car_wash_fee_management",{
+            url:"/car_wash_fee_management",
+            templateUrl: "js/view/finance/car_wash_fee_management.html",
+            controller:'car_wash_fee_management_controller'
+        })
         // 指令调度
         .state("instruction_plan", {
             url: "/instruction_plan",

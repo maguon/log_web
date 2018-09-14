@@ -154,7 +154,6 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
             $scope.routeId = lineInfo.routeId;
             $scope.endCityId = lineInfo.id;
             getcityRoute();
-            entrustCityRouteRel();
             if($scope.modifyFlag!==1){
                 if($scope.hasChosen){
                     $('#modifyModel').modal('open');
@@ -173,15 +172,17 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
         _basic.get($host.api_url + "/cityRoute?routeStartId=" +$scope.selectedCityId+'&routeEndId='+$scope.endCityId).then(function (data) {
             if (data.success === true&&data.result.length>0) {
                 $scope.cityRouteId=data.result[0].route_id;
+                entrustCityRouteRel();
             }
         });
+
     }
 
     function entrustCityRouteRel(){
         $scope.car_brand =null;
         $scope.price =null;
         $scope.distance =null;
-        _basic.get($host.api_url + "/entrustCityRouteRel?entrustId="+$scope.entrustItem.id+"routeStartId=" +$scope.selectedCityId+'&routeEndId='+$scope.endCityId).then(function (data) {
+        _basic.get($host.api_url + "/entrustCityRouteRel?entrustId="+$scope.entrustItem.id+"&cityRouteId=" +$scope.cityRouteId).then(function (data) {
             if (data.success === true) {
                 if(data.result.length==0){
                     $scope.carBandList=[];

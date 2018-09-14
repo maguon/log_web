@@ -262,11 +262,12 @@ baseService.factory("_config", function () {
 
     //模块
     _this.appType = [
-        {app: "0", typeName: "司机"},
+        {app: "0", typeName: "车驿通"},
         {app: "1", typeName: "物联存车"},
-        {app: "2", typeName: "车辆管理"},
-        {app: "3", typeName: "调度"},
-        {app: "4", typeName: "质量监管"}
+        {app: "2", typeName: "车管助手"},
+        {app: "3", typeName: "慧调配"},
+        {app: "4", typeName: "质安栈"},
+        {app: "6", typeName: "捷易结"}
     ];
     //经销商类型
     _this.receiveType = [

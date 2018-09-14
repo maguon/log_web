@@ -25,7 +25,7 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
             }
         })
         //品牌获取
-        _basic.get($host.api_url + "/carMake").then(function (data) {
+        _basic.get($host.api_url + "/entrustMakeRel?entrustId="+entrustId).then(function (data) {
             if (data.success == true) {
                 $scope.get_carMake = data.result;
             }
@@ -201,7 +201,7 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
                 _basic.post($host.api_url + "/user/" + userId + "/entrustCityRouteRel",{
                     entrustId: $scope.entrustItem.id,
                     cityRouteId:$scope.cityRouteId,
-                    makeId:$scope.car_brand.id,
+                    makeId:$scope.car_brand.make_id,
                     makeName:$scope.car_brand.make_name,
                     distance:$scope.distance,
                     fee: $scope.price

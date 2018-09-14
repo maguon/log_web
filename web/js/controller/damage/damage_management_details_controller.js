@@ -19,6 +19,7 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
     // tab切换
     $scope.showDamageImage = function () {
         $scope.getCurrentDamageImage();
+        $scope.getBeforeDamageInfo();
     };
     $scope.showDamageHandleInfo = function () {
         $scope.getBeforeDamageInfo();
@@ -412,10 +413,6 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
                 && $scope.distributor !=undefined
                 && $scope.paymentMoney!= ""
                 && $scope.paymentMoney!=undefined
-                && $scope.contactsName!= ""
-                && $scope.contactsName!=undefined
-                && $scope.contactsTel!= ""
-                && $scope.contactsTel!=undefined
             ){
                 $scope.getCityList();
                 // 新增操作
@@ -476,10 +473,6 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
                 && $scope.distributor !=undefined
                 && $scope.paymentMoney!= ""
                 && $scope.paymentMoney!=undefined
-                && $scope.contactsName!= ""
-                && $scope.contactsName!=undefined
-                && $scope.contactsTel!= ""
-                && $scope.contactsTel!=undefined
             ){
                 // 修改操作
                 _basic.put($host.api_url + "/user/" + userId + "/damageCheckIndemnity/" + indemnityId,{
@@ -548,7 +541,7 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
         });
     };
     $scope.showPaymentVoucherImage = function () {
-        viewer = new Viewer(document.getElementById('payment_voucher'), {
+        viewer = new Viewer(document.getElementsByClassName('payment_voucher'), {
             url: 'data-original'
         });
     };

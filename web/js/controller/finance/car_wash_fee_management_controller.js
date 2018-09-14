@@ -1,4 +1,5 @@
-app.controller("car_wash_fee_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
+
+app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
 
     $scope.receive_status = "1";
     $scope.start = 0;
@@ -42,7 +43,7 @@ app.controller("car_wash_fee_controller", ["$scope", "$host", "_basic", function
     }
 
 
-   function getCarWashFeeList() {
+    function getCarWashFeeList() {
         _basic.get($host.api_url + "/dpRouteLoadTaskCleanRel?" + _basic.objToUrl({
             loadTaskCleanRelId: $scope.instructionNum,
             driveName: $scope.driver,

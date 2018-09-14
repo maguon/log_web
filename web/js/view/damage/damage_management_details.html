@@ -120,25 +120,115 @@
 
         <!--质损照片-->
         <div id="damageImages" class="row col s12 damage_image_step_2" style="margin-top: 20px">
-            <div class="col s1">
-                <form name="uploadImageForm" class="uploadImageForm vc-center" style="display: inline-block">
-                    <div class="upload_btn">
-                        <div style="margin: 0;width: 80px"
-                             class="storage_car_picture col s4 vc-center p0 cyan lighten-1 white-text">
-                            <input name="image" type="file"
-                                   onchange="angular.element(this).scope().uploadDamageImage(this)" max_size="4M">
-                            <i class="mdi mdi-instagram"></i>
+            <!--相片-->
+            <div class="col s12">
+                <div class="col s1">
+                    <form name="uploadImageForm" class="uploadImageForm vc-center" style="display: inline-block">
+                        <div class="upload_btn">
+                            <div style="margin: 0;width: 80px"
+                                 class="storage_car_picture col s4 vc-center p0 cyan lighten-1 white-text">
+                                <input name="image" type="file"
+                                       onchange="angular.element(this).scope().uploadDamageImage(this)" max_size="4M">
+                                <i class="mdi mdi-instagram"></i>
+                            </div>
                         </div>
+                    </form>
+                </div>
+                <div class="col s11" id="damage_image">
+                    <div ng-repeat="damage in damageImageList" repeat-finish="damageFinish()" ng-mouseenter="show=true" ng-mouseleave="show=false" class="truck_car_picture col s3 vc-center p0 grey white-text">
+                        <img ng-src="{{damage.url}}" class="responsive-img">
+                        <span class="delete_img vc-center black white-text fz19" ng-click="deleteImage(damage.url)"><i class="mdi mdi-close"></i></span>
+                        <p style="margin-bottom: 0" class="img_date white-text center-align" ng-show="show" ng-cloak>{{damage.name}} 上传于 {{damage.timez | date:'yyyy-MM-dd'}}</p>
                     </div>
-                </form>
-            </div>
-            <div class="col s11" id="damage_image">
-                <div ng-repeat="damage in damageImageList" repeat-finish="damageFinish()" ng-mouseenter="show=true" ng-mouseleave="show=false" class="truck_car_picture col s3 vc-center p0 grey white-text">
-                    <img ng-src="{{damage.url}}" class="responsive-img">
-                    <span class="delete_img vc-center black white-text fz19" ng-click="deleteImage(damage.url)"><i class="mdi mdi-close"></i></span>
-                    <p style="margin-bottom: 0" class="img_date white-text center-align" ng-show="show" ng-cloak>{{damage.name}} 上传于 {{damage.timez | date:'yyyy-MM-dd'}}</p>
                 </div>
             </div>
+
+            <!--打款信息-->
+            <div class="col s12" ng-show="paymentFlag == 2" style="margin-top: 20px">
+                <div class="col s12">
+                    <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
+                        <div class="col s12 valign-wrapper" style="height: 50px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
+                            <div class="col s12 center-align" style="color: darkgray">
+                                <p style="margin: 0;color: #26c6da">打款信息</p>
+                            </div>
+                        </div>
+
+                        <div class="col s10 offset-s1" style="margin-bottom: 20px;color: darkgray;font-size: 1.08rem" ng-show="financeIndemnityStatus == 1 || financeIndemnityStatus == 2">
+                            <!--打款基本信息-->
+                            <div class="col s12" style="padding: 0;">
+                                <div class="col s4">
+                                    <p>银行账号：{{bankAccount}}</p>
+                                </div>
+                                <div class="col s3">
+                                    <p>户名：{{accountName}}</p>
+                                </div>
+                                <div class="col s3">
+                                    <p>开户行：{{openingBank}}</p>
+                                </div>
+                                <div class="col s2">
+                                    <p>所在城市：{{paymentInfo.city_name}}</p>
+                                </div>
+                            </div>
+                            <div class="col s12" style="padding: 0;">
+                                <div class="col s4">
+                                    <p>联系人：{{contactsName}}</p>
+
+                                </div>
+                                <div class="col s3">
+                                    <p>联系电话：{{contactsTel}}</p>
+                                </div>
+                                <div class="col s3">
+                                    <p>经销商：{{paymentInfo.receive_name}}</p>
+                                </div>
+                                <div class="col s2">
+                                    <p>赔款金额：<span style="color: #e77a7a;font-weight: bold">{{paymentMoney.toFixed(2)}}</span> 元</p>
+
+                                </div>
+                            </div>
+                            <div class="col s12">
+                                <p>申请打款备注：{{paymentRemark}}</p>
+                            </div>
+                            <!--财务确认后显示的已打款信息-->
+                            <div class="financeInfo" ng-show="financeIndemnityStatus == 2">
+                                <div class="col s12" style="margin: 0">
+                                    <hr>
+                                </div>
+                                <div class="col s12 valign-wrapper" style="padding: 0;">
+                                    <div class="col s8" style="padding: 0;">
+                                        <div class="col s12 left-align">
+                                            <p style="font-size: 1.2rem;color: #26c6da;font-weight: bold">已打款</p>
+                                        </div>
+                                        <div class="col s12 left-align">
+                                            <p>实际打款金额：<span style="color: #e77a7a;font-weight: bold">{{paymentInfo.actual_money.toFixed(2)}}</span> 元</p>
+                                        </div>
+                                        <div class="col s12 left-align">
+                                            <p>打款时间：{{paymentInfo.indemnity_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                                        </div>
+                                    </div>
+                                    <!--打款凭证照片-->
+                                    <div class="col s4 payment_voucher" style="padding: 0;">
+                                        <div class="col s12">
+                                            <div ng-click="showPaymentVoucherImage()" class="truck_car_picture col s3 vc-center p0 grey white-text">
+                                                <img ng-src="{{realImageSrc != null ? realImageSrc : '../assets/images/not_uploaded_img.png'}}" class="responsive-img">
+                                            </div>
+                                        </div>
+                                        <div class="col s12" ng-show="realImageSrc == null">
+                                            <p style="font-weight: bold;text-indent: 2.5rem">打款凭证未上传</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s12">
+                                    <p>财务打款备注：{{paymentInfo.indemnity_explain}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
         </div>
 
         <!--处理信息-->
@@ -387,6 +477,14 @@
                                </div>
                                 <div class="col s12">
                                     <div class="col s3 input-field">
+                                        <input type="text" id="contactsName" name="contactsName" ng-model="contactsName">
+                                        <label for="contactsName">联系人</label>
+                                    </div>
+                                    <div class="col s3 input-field">
+                                        <input type="text" id="contactsTel" name="contactsTel" ng-model="contactsTel">
+                                        <label for="contactsTel">联系电话</label>
+                                    </div>
+                                    <div class="col s3 input-field">
                                         <input type="text" id="distributor" name="distributor" ng-model="distributor">
                                         <label for="distributor"><span style="color: red">* </span>经销商</label>
                                     </div>
@@ -395,14 +493,6 @@
                                         <label class="{{paymentMoney != null ? 'active' : 'inactive'}}" for="payment_money"><span style="color: red">* </span>赔款金额（元）</label>
                                     </div>
 
-                                    <div class="col s3 input-field">
-                                        <input type="text" id="contactsName" name="contactsName" ng-model="contactsName">
-                                        <label for="contactsName"><span style="color: red">* </span>联系人</label>
-                                    </div>
-                                    <div class="col s3 input-field">
-                                        <input type="text" id="contactsTel" name="contactsTel" ng-model="contactsTel">
-                                        <label for="contactsTel"><span style="color: red">* </span>联系电话</label>
-                                    </div>
                                 </div>
 
                                 <div class="col s12 input-field">
@@ -417,30 +507,30 @@
                                     <div class="col s4">
                                         <p>银行账号：{{bankAccount}}</p>
                                     </div>
-                                    <div class="col s2">
+                                    <div class="col s3">
                                         <p>户名：{{accountName}}</p>
                                     </div>
                                     <div class="col s3">
                                         <p>开户行：{{openingBank}}</p>
                                     </div>
-                                    <div class="col s3">
+                                    <div class="col s2">
                                         <p>所在城市：{{paymentInfo.city_name}}</p>
                                     </div>
                                 </div>
                                 <div class="col s12" style="padding: 0;">
                                     <div class="col s4">
-                                        <p>赔款金额：<span style="color: #e77a7a;font-weight: bold">{{paymentMoney.toFixed(2)}}</span> 元</p>
-
-                                    </div>
-                                    <div class="col s2">
                                         <p>联系人：{{contactsName}}</p>
 
                                     </div>
                                     <div class="col s3">
                                         <p>联系电话：{{contactsTel}}</p>
                                     </div>
-                                    <div class="col s3">
+                                    <div class="col s2">
                                         <p>经销商：{{paymentInfo.receive_name}}</p>
+                                    </div>
+                                    <div class="col s2">
+                                        <p>赔款金额：<span style="color: #e77a7a;font-weight: bold">{{paymentMoney.toFixed(2)}}</span> 元</p>
+
                                     </div>
                                 </div>
                                 <div class="col s12">
@@ -464,7 +554,7 @@
                                             </div>
                                         </div>
                                         <!--打款凭证照片-->
-                                        <div class="col s4" id="payment_voucher" style="padding: 0;">
+                                        <div class="col s4 payment_voucher"  style="padding: 0;">
                                             <div class="col s12">
                                                 <div ng-click="showPaymentVoucherImage()" class="truck_car_picture col s3 vc-center p0 grey white-text">
                                                     <img ng-src="{{realImageSrc != null ? realImageSrc : '../assets/images/not_uploaded_img.png'}}" class="responsive-img">
@@ -516,20 +606,6 @@
 
         <!--保险信息-->
         <div id="insuranceInfo" class="row col s12 insurance_info_step_4">
-            <!--<div class="row col s12 valign-wrapper" style="margin-top: 30px">
-                <div class="col s4 offset-s4" >
-                    <a ng-click="showInsuranceModel()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
-                        添加理赔信息
-                    </a>
-                </div>
-            </div>
-            &lt;!&ndash;文字提示&ndash;&gt;
-            <div class="row col s12" style="display: none">
-                <div class="col s12 center-align" style="font-size: 1.6rem;font-weight: bold;color: rgb(230,118,118);letter-spacing: 2px">
-                    <p>此功能只能增加专属于该项质损的保险信息</p>
-                    <p>一份保险包含多项质损的信息需在“<span style="color: rgb(71,207,224)">保险赔偿</span>”栏目里增加</p>
-                </div>
-            </div >-->
             <!--保险信息卡片-->
             <div class="row col s12" style="margin-top: 15px">
                 <!--下面加repeat-->
@@ -542,9 +618,6 @@
                         <div class="col s6 right-align" style="font-weight: bold">
                             <p>生成日期：{{damage.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</p>
                         </div>
-                        <!--<div class="col s1 right-align" ng-if="damage.insure_status == 1">
-                            <span ng-click="deletePaymentInfo(damage.id)" style="font-size: 1.8rem;cursor: pointer" class="mdi mdi-delete-forever"></span>
-                        </div>-->
                     </div>
                     <!--内容-->
                     <div class="col s12 card_body" style="font-size: 1.07rem;padding: 0;">

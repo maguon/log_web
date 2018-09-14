@@ -52,9 +52,20 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
         if ($scope.vinCode.length == 17) {
             _basic.get($host.api_url + "/carList?vin=" + $scope.vinCode).then(function (data) {
                 if (data.success === true && data.result.length !== 0) {
-                    // console.log("data", data);
                     $scope.vinCheck = true;
                     $scope.vinData = data.result[0];
+                }
+                else {
+                    $scope.vinCheck = false;
+                    swal("VIN不存在，请重新填写","","error")
+                }
+            });
+            _basic.get($host.api_url + "/dpRouteLoadTaskDetailBase?carLoadStatus=1&vinCode=" + $scope.vinCode).then(function (data) {
+                if (data.success === true && data.result.length !== 0) {
+                    $scope.vinCheck = true;
+                    $scope.vinBaseData = data.result[0];
+                    $scope.vinBaseData.load_date =  moment(data.result[0].load_date.toString()).format("YYYY-MM-DD");
+
                 }
                 else {
                     $scope.vinCheck = false;

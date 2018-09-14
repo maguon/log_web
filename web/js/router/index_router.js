@@ -628,6 +628,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/damage/car_wash_fee_details.html",
             controller:'car_wash_fee_details_controller'
         })
+        .state("car_wash_fee_management",{
+            url:"/car_wash_fee_management",
+            templateUrl: "js/view/finance/car_wash_fee_management.html",
+            controller:'car_wash_fee_management_controller'
+        })
         .state("add_damage_insurance_details",{
             url:"/add_damage_insurance_details/id/{id}",
             templateUrl: "js/view/truck/add_damage_insurance_details.html",

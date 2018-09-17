@@ -28,6 +28,19 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="row col s12">
+                        <div class="col s4 offset-s4 input-field valign-wrapper">
+                            <div class="col s11 input-field">
+                                <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" ng-model="guardFeeCount" id="guard_fee" name="guard_fee">
+                                <label class="{{guardFeeCount != null ? 'active' : 'inactive'}}" for="guard_fee">门卫费金额</label>
+                            </div>
+                            <div class="col s1 left-align" style="padding: 0;">
+                                元
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="modal-footer vc-center">
                     <button class="btn modal-action modal-close waves-light waves-effect grey lighten-1" type="button">

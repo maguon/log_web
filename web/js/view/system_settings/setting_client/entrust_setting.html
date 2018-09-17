@@ -1,15 +1,48 @@
+<!--关联品牌模态框-->
+<div class="row" style="margin: 0">
+    <div id="entrustMakeInfoModel" class="modal modal-fixed-footer" style="width: 75%;height: 550px">
+        <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+            <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
+                <p>委托方关联品牌</p>
+            </div>
+            <div class="row col s12" id="chip" style="width: 80%;margin-left: 10%">
+                <div class="chip col s2"><img src="../../../assets/images/point.png" alt="Contact Person">{{shortName}}</div>
+                <div class="chip chips-initial col s2" ng-repeat="el in entrustMakeRelList">
+                    {{el.make_name}}
+                    <i class="red-text mdi mdi-close right-align" ng-click="deleteChip(el.make_id,el.entrust_id)" style="cursor: pointer;"></i>
+                </div>
+                <div class="col s12">
+                    <div class="input-field col s10">
+                        <select material-select watch id="car_brand" name="car_brand" ng-options="car_brand.make_name for car_brand in get_carMake"   ng-model="car_brand" >
+                            <option value="" disabled selected>请选择</option>
+                        </select>
+                        <label for="car_brand">品牌</label>
+                    </div>
+                    <a ng-click="addChip()" class="btn-floating btn-small waves-light waves-effect cyan lighten-2 btn vc-center" style="margin-right: 10px;margin-top:15px">
+                        <i class="mdi mdi-plus"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer valign-wrapper">
+            <div class="col s12">
+                <div class="col s2 offset-s5">
+                    <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                        关闭
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div>
     <div style="width: 90%;margin: 0 auto">
         <div class="row card" style="height: 100px">
             <div class="col s12 m12">
                 <div class="col s12" >
-                  <!--  &lt;!&ndash;编号&ndash;&gt;
-                    <div class="input-field col s5" style="margin-top: 30px">
-                        <div class="col s12 p0" >
-                            <input name="search_id" id="search_id" type="text" ng-model="search_id" >
-                            <label for="search_id">编号</label>
-                        </div>
-                    </div>-->
                     <!--委托方-->
                     <div class="input-field col s10" style="margin-top: 30px">
                         <select  id="client" name="client"  ng-model="client"  required>
@@ -37,10 +70,7 @@
                 <div class="grey-text col s2 left-align">已设置线路:{{el.route_count}}</div>
                 <div  class="operation table_operation vc-center center-align col s1">
                     <span><a  ui-sref="entrust_setting_detail({id:el.id, from:'entrust_setting'})"><i class="mdi mdi-pencil cyan-text text-lighten-1"></i></a></span>
-
-<!--
-                    <span><i class="mdi mdi-pencil cyan-text text-lighten-1" ui-sref="entrust_setting_detail({el.id, from:'entrust_setting'})"></i></span>
--->
+                    <span><i class="mdi mdi-car look_icon cyan-text lighten-1" ng-click="entrustMakeRel(el.id)"></i></span>
                 </div>
             <li class="grey-text text-darken-1" ng-if="repairStationArray.length == 0" style="border-bottom: 1px solid #ccc;height: 100px;line-height: 100px;text-align: center">
                 <div colspan="4"><span style="letter-spacing: 2px">暂无数据</span></div>

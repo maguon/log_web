@@ -91,7 +91,7 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$stateParams"
                 }else{
                     $scope.responseData = data.result;
                     for(var i = 0;i<  $scope.responseData.length;i++){
-                        $scope.bigPrice  +=$scope.responseData[i].actual_price;
+                        $scope.bigPrice += $scope.responseData[i].actual_price+$scope.responseData[i].actual_guard_fee;
                     }
 
                 }
@@ -104,9 +104,10 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$stateParams"
     }
 
     //洗车费修改
-    $scope.putWashCost = function (id,totalPrice){
+    $scope.putWashCost = function (id,totalPrice,guardFee){
         var obj = {
-            "actualPrice": totalPrice
+            actualPrice: totalPrice,
+            actualGuardFee:guardFee
         };
         _basic.put($host.api_url + "/user/" + userId + "/loadTaskCleanRel/"+id, obj).then(function (data) {
             if (data.success == true) {

@@ -64,6 +64,8 @@
                     <th data-field="">洗车数</th>
                     <th data-field="">计划洗车费</th>
                     <th data-field="">实际洗车费</th>
+                    <th data-field="">计划门卫费</th>
+                    <th data-field="">实际门卫费</th>
                     <th data-field="">货车牌号</th>
                     <th data-field="">送达经销商</th>
                     <th data-field="">领取时间</th>
@@ -75,10 +77,12 @@
                     <td>{{car.id}}</td>
                     <td>{{car.dp_route_task_id}}</td>
                     <td>{{car.drive_name}}</td>
-                    <td>{{car.total_price}}</td>
                     <td>{{car.single_price}}</td>
                     <td>{{car.car_count}}</td>
+                    <td>{{car.total_price}}</td>
                     <td>{{car.actual_price}}</td>
+                    <td>{{car.guard_fee}}</td>
+                    <td>{{car.actual_guard_fee}}</td>
                     <td>{{car.truck_num}}</td>
                     <td>{{car.short_name}}</td>
                     <td>{{car.clean_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>

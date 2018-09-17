@@ -7,14 +7,16 @@ app.controller("car_wash_fee_details_controller", ["$scope", "$host", "$statePar
     $scope.getCurrentCarWashFeeInfo = function () {
         _basic.get($host.api_url + "/dpRouteLoadTaskCleanRel?loadTaskCleanRelId=" + carId).then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
                 $scope.currentFeeInfo = data.result[0];
                 $scope.currentStatus = data.result[0].status;
+
                 if(data.result[0].status === 1){
                     $scope.totalPrice = data.result[0].total_price;
+                    $scope.guardFee  =data.result[0].guard_fee;
                 }
                 else{
                     $scope.totalPrice = data.result[0].actual_price;
+                    $scope.guardFee  =data.result[0].actual_guard_fee;
                 }
 
             }
@@ -37,10 +39,10 @@ app.controller("car_wash_fee_details_controller", ["$scope", "$host", "$statePar
             },
             function(){
                 _basic.put($host.api_url + "/user/" + userId + "/loadTaskCleanRel/" + carId + "/status/0",{
-                    actualPrice: 0
+                    actualPrice: 0,
+                    actualGuardFee:0
                 }).then(function (data) {
                     if (data.success === true) {
-                        // console.log("data", data);
                         $scope.getCurrentCarWashFeeInfo();
                     }
                     else {
@@ -63,10 +65,10 @@ app.controller("car_wash_fee_details_controller", ["$scope", "$host", "$statePar
             },
             function(){
                 _basic.put($host.api_url + "/user/" + userId + "/loadTaskCleanRel/" + carId + "/status/2",{
-                    actualPrice: $scope.totalPrice
+                    actualPrice: $scope.totalPrice,
+                    actualGuardFee:$scope.guardFee
                 }).then(function (data) {
                     if (data.success === true) {
-                        // console.log("data", data);
                         $state.go("car_wash_fee")
                     }
                     else {

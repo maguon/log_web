@@ -17,11 +17,11 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
             }
         });
         // 车辆品牌
-        _basic.get($host.api_url + "/carMake").then(function (data) {
+     /*   _basic.get($host.api_url + "/carMake").then(function (data) {
             if (data.success == true) {
                 $scope.get_carMake = data.result;
             }
-        });
+        });*/
         //城市
         _basic.get($host.api_url + "/city").then(function (data) {
             if (data.success == true) {
@@ -39,6 +39,18 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
             }
         });
     };
+
+    $scope.changeCarMake = function (entrustId){
+        _basic.get($host.api_url + "/entrustMakeRel?entrustId=" + entrustId).then(function (data) {
+            if (data.success == true && data.result.length >= 0) {
+                $scope.entrustMakeRelList = data.result;
+
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
 
     // 发运地名称
     $scope.getAddrData = function () {

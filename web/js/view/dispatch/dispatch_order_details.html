@@ -300,8 +300,8 @@
                             <div class="col s3" style="margin-top: 13px">{{response.short_name}}</div>
                             <div class="col s3" style="margin-top: 13px"><span class="red-text">{{response.single_price}}</span>元/辆</div>
                             <div class="col s2" style="margin-top: 13px">{{response.car_count}}辆</div>
-                            <div class="col s2" style="margin-top: 13px">洗车费</div>
-                            <div class="col s2" style="margin-top: 13px">{{response.actual_price}}元</div>
+                            <div class="col s2" style="margin-top: 13px">洗车费<span class="red-text">{{response.actual_price}}</span> 元</div>
+                            <div class="col s2" style="margin-top: 13px">门卫费<span class="red-text">{{response.actual_guard_fee}}</span>元</div>
                         </div>
                         <div class="grey-text col s12" style="height:50px" ng-if="responseData.length == 0">
                             <div class="center-align" style="margin-top: 15px"><span style="letter-spacing: 2px;">暂无洗车费</span></div>

@@ -23,7 +23,6 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
                 _basic.get($host.api_url + "/carList?vinCode=" + $scope.vinCode + "&start=0&size=4").then(function (data) {
                     if (data.success == true && data.result.length > 0) {
                         $scope.vin_msg = data.result;
-                        // console.log("vin_msg", $scope.vin_msg);
                         var vinObjs = {};
                         for (var i in $scope.vin_msg) {
                             vinObjs[$scope.vin_msg[i].vin] = null;
@@ -54,18 +53,13 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
                 if (data.success === true && data.result.length !== 0) {
                     $scope.vinCheck = true;
                     $scope.vinData = data.result[0];
-                }
-                else {
-                    $scope.vinCheck = false;
-                    swal("VIN不存在，请重新填写","","error")
-                }
-            });
-            _basic.get($host.api_url + "/dpRouteLoadTaskDetailBase?carLoadStatus=1&vinCode=" + $scope.vinCode).then(function (data) {
-                if (data.success === true && data.result.length !== 0) {
-                    $scope.vinCheck = true;
-                    $scope.vinBaseData = data.result[0];
-                    $scope.vinBaseData.load_date =  moment(data.result[0].load_date.toString()).format("YYYY-MM-DD");
+                    if(data.result[0].load_date!==null){
+                        $scope.vinData.load_date=moment(data.result[0].load_date.toString()).format("YYYY-MM-DD hh:ss");
+                    }
 
+                    if($scope.vinData.drive_name!==null){
+                        getDriverDetail();
+                    }
                 }
                 else {
                     $scope.vinCheck = false;
@@ -78,6 +72,18 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
         }
 
     };
+
+    function getDriverDetail(){
+        _basic.get($host.api_url + "/drive?driveName=" + $scope.vinData.drive_name).then(function (data) {
+            if (data.success === true) {
+                $scope.AccurateDriverInfo = data.result[0];
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
+
 
     // 获取所有司机信息
     function getAllDriver() {
@@ -111,9 +117,8 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
     $scope.searchAccurateDriver = function () {
         _basic.get($host.api_url + "/drive?mobile=" + $scope.driverNameTel).then(function (data) {
             if (data.success === true) {
-                // console.log("data",data);
                 $scope.AccurateDriverInfo = data.result[0];
-                // console.log("id",$scope.AccurateDriverInfo.id)
+                $scope.vinData.truck_num= data.result[0].truck_num;
             }
             else {
                 swal(data.msg, "", "error");
@@ -133,10 +138,10 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
 
     // 提交填写信息转到下一步
     $scope.nextStep = function () {
-        var truckId = $scope.driverName === "" ? 0 : $scope.AccurateDriverInfo.truck_id;
-        var truckNum = $scope.driverName === "" ? "" : $scope.AccurateDriverInfo.truck_num;
-        var driveId = $scope.driverName === "" ? 0 : $scope.AccurateDriverInfo.id;
-        var driveName = $scope.driverName === "" ? "" : $scope.AccurateDriverInfo.drive_name;
+        var truckId = $scope.vinData.drive_name === "" ||$scope.vinData.drive_name === null? 0 : $scope.AccurateDriverInfo.truck_id;
+        var truckNum = $scope.vinData.drive_name === "" ||$scope.vinData.drive_name === null? "" : $scope.AccurateDriverInfo.truck_num;
+        var driveId = $scope.vinData.drive_name === "" ||$scope.vinData.drive_name === null? 0 : $scope.AccurateDriverInfo.id;
+        var driveName = $scope.vinData.drive_name === "" ||$scope.vinData.drive_name === null? "" : $scope.AccurateDriverInfo.drive_name;
         if($scope.vinCode !== ""){
             if($scope.vinCode.length === 17 && $scope.vinCheck){
                 _basic.post($host.api_url + "/user/" + userId + "/damage",{

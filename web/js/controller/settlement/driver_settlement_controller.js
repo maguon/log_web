@@ -25,13 +25,45 @@ app.controller("driver_settlement_controller", ["_basic", "_config", "$host", "$
         });
     }
 
+    //获取货车牌号
+    function getTruckNum() {
+        _basic.get($host.api_url + "/truckBase").then(function (data) {
+            if (data.success === true) {
+                $scope.truckNumListAllList = data.result;
+                $('#truckNum').select2({
+                    placeholder: '货车牌号',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        })
+    }
+
+    // 根据select选择的所属类型获取所属公司信息
+    $scope.chooseOperateType = function () {
+        _basic.get($host.api_url + "/company?operateType=" + $scope.operateType).then(function (companyData) {
+            if (companyData.success === true) {
+                $scope.companyList = companyData.result;
+            }
+            else {
+                swal(companyData.msg, "", "error");
+            }
+        });
+    };
+
     // 数据导出
     $scope.export = function () {
         var obj = {
             orderStart: $scope.instruct_starTime,
             orderEnd: $scope.instruct_endTime,
             driveId: $scope.drivderId,
-            companyId: $scope.searchCompany
+            companyId: $scope.searchCompany,
+            operateType:$scope.operateType,
+            truckId:$scope.truckNum
+
         };
         swal({
                 title: "确定导出司机结算表？",
@@ -63,6 +95,8 @@ app.controller("driver_settlement_controller", ["_basic", "_config", "$host", "$
             orderEnd: $scope.instruct_endTime,
             driveId: $scope.drivderId,
             companyId: $scope.searchCompany,
+            operateType:$scope.operateType,
+            truckId:$scope.truckNum,
             start:$scope.start.toString(),
             size:$scope.size
         })).then(function (data) {
@@ -97,7 +131,7 @@ app.controller("driver_settlement_controller", ["_basic", "_config", "$host", "$
         $scope.start = $scope.start + ($scope.size-1);
         getSettlementData();
     };
-
+    getTruckNum();
     getDriveNameList ();
     getSettlementData();
 }])

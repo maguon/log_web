@@ -279,6 +279,8 @@ baseService.factory("_config", function () {
     // 重载衡量标准
     _this.heavyLoad = 6;
 
+    //计算过路费根据距离修改参数
+    _this.passingCost=1.6;
 
     // 正则验证
     // 电话号

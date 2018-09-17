@@ -476,56 +476,6 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     };
 
-    // 删除调度任务（接口）
-    $scope.deleteBackEndDispatchMission = function (loanId,taskId) {
-        swal({
-                title: "确定删除当前调度任务吗？",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: true
-            },
-            function(){
-                _basic.delete($host.api_url + "/user/" + userId + "/dpRouteTaskLoan/" + loanId + "/dpRouteTask/" + taskId).then(function (data) {
-                    if (data.success === true) {
-                        $scope.getMatchDispatchMissionList(loanId,$scope.routeFeeInfo.task_loan_status)
-                    }
-                    else {
-                        swal(data.msg, "", "error");
-                    }
-                });
-            });
-    };
-
-    // 删除调度任务（前台）
-    $scope.deleteFrontEndDispatchMission = function (index) {
-        swal({
-                title: "确定删除当前调度任务吗？",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: true
-            },
-            function(){
-                $scope.$apply(function () {
-                    $scope.addDispatchMissionList.splice(index, 1);
-                    // 重新计算过路费
-                    if($scope.addDispatchMissionList.length === 0){
-                        $scope.routeFeeInfo.apply_passing_cost = 0
-                    }
-                    else{
-                        var distanceCount = 0;
-                        for (var i = 0; i < $scope.addDispatchMissionList.length; i++) {
-                            $scope.routeFeeInfo.apply_passing_cost = (distanceCount += $scope.addDispatchMissionList[i].distance) * 1.5
-                        }
-                    }
-                });
-            });
-    };
 
     // 增加任务
     $scope.addMission = function () {

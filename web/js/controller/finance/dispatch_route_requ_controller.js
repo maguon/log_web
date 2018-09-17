@@ -1,10 +1,10 @@
-app.controller("dispatch_route_requ_controller", ["$scope", "$host","$state", "_basic",  function ($scope, $host,$state, _basic) {
+app.controller("dispatch_route_requ_controller", ["$scope", "$host","$state", "_basic", "_config",  function ($scope, $host,$state, _basic,_config) {
 
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.start = 0;
     $scope.size = 11;
     $scope.truckId = '';
-
+    $scope.passingCost=_config.passingCost;
     // 获取所有司机信息
     function getDriverList() {
         _basic.get($host.api_url + "/drive").then(function (data) {
@@ -128,7 +128,7 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host","$state", "_
                     $scope.missionList = {};
                 }else {
                     $scope.missionList = data.result[0];
-                    $scope.roadTollCost = data.result[0].distance*0.8;
+                    $scope.roadTollCost = data.result[0].distance*$scope.passingCost;
                     if(data.result[0].protect_fee ==null||data.result[0].protect_fee ==0){
                         $scope.roadCost = 0;
                     }else{
@@ -191,7 +191,6 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host","$state", "_
         }else{
             _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" + $scope.dispatchIdSmall+'/status/2',{}).then(function (data) {
                 if (data.success == true) {
-                    //console.log(data)
                 } else {
                     swal(data.msg, " ", "error");
                 }
@@ -232,158 +231,6 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host","$state", "_
             }
         });
     }
-
-
-
-    /*// 根据选择的司机id查询关联任务信息
-    $scope.searchMatchMission = function () {
-        _basic.get($host.api_url + "/dpRouteTaskNotLoan?driveId=" + $scope.driverIdMod + "&taskStatusArr=8").then(function (data) {
-            if (data.success === true) {
-                // console.log("data", data);
-                $scope.missionList = data.result;
-                $scope.matchMissionList = [];
-                $scope.roadTollCost = 0;
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
-    };*/
-
-  /*  // 选中关联任务后创建信息卡片
-    $scope.createMatchMissionCard = function () {
-        if ($scope.dispatchNumMod !== "") {
-            // 检测数组中是否有和当前选中的相同的id
-            function checkDispatchId(obj) {
-                return obj.id === $scope.dispatchNumMod;
-            }
-
-            if ($scope.matchMissionList.some(checkDispatchId)) {
-                swal("不能重复添加相同任务！", "", "warning");
-            }
-            else {
-                // 根据选择的调度id查询调度详细信息
-                _basic.get($host.api_url + "/dpRouteTaskNotLoan?dpRouteTaskId=" + $scope.dispatchNumMod).then(function (data) {
-                    if (data.success === true) {
-                        $scope.matchMissionList.push(data.result[0]);
-                    }
-                    else {
-                        swal(data.msg, "", "error");
-                    }
-                }).then(function () {
-                    // 根据新增的任务卡片计算过路费
-                    var distanceCount = 0;
-                    for (var i = 0; i < $scope.matchMissionList.length; i++) {
-                        $scope.roadTollCost = (distanceCount += $scope.matchMissionList[i].distance) * 0.8
-                    }
-                });
-            }
-        }
-        else{
-            swal("请选择任务信息！", "", "warning");
-        }
-    };
-
-    // 删除关联任务
-    $scope.deleteMatchMissionMod = function (index) {
-        swal({
-                title: "确定删除当前任务吗？",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: true
-            },
-            function(){
-                $scope.$apply(function () {
-                    $scope.matchMissionList.splice(index, 1);
-                    // 重新计算过路费
-                    if($scope.matchMissionList.length === 0){
-                        $scope.roadTollCost = 0
-                    }
-                    else{
-                        var distanceCount = 0;
-                        for (var i = 0; i < $scope.matchMissionList.length; i++) {
-                            $scope.roadTollCost = (distanceCount += $scope.matchMissionList[i].distance) * 0.8
-                        }
-                    }
-                });
-            });
-    };
-
-    // 新增出车款信息
-    $scope.addRouteFeeInfo = function () {
-        var dpRouteTaskIds = [];
-        var planMoneyCount = parseFloat($("#planMoney").html()).toFixed(2);
-        if($scope.flag==true){
-            if( $scope.driveIdSmall != "" && $scope.matchMissionList.length !== 0){
-                for (var i = 0; i < $scope.matchMissionList.length; i++) {
-                    dpRouteTaskIds.push($scope.matchMissionList[i].id)
-                }
-                _basic.post($host.api_url + "/user/" + userId + "/dpRouteTaskLoan",{
-                    driveId: $scope.driveIdSmall,
-                    applyPassingCost: $scope.roadTollCost,
-                    applyFuelCost: $scope.fuelCost,
-                    applyProtectCost: $scope.roadCost,
-                    applyPenaltyCost: $scope.fineCost,
-                    applyParkingCost: $scope.parkingCost,
-                    applyTaxiCost: $scope.taxiCost,
-                    applyExplain: $scope.remark,
-                    applyPlanMoney: parseFloat(planMoneyCount),
-                    dpRouteTaskIds: dpRouteTaskIds
-                }).then(function (data) {
-                    if (data.success === true) {
-                        $("#addCarFinanceModel").modal("close");
-                        swal("新增成功", "", "success");
-                        $scope.searchCarInstructionList();
-
-                    }
-                    else {
-                        swal(data.msg, "", "error");
-                    }
-                });
-            }
-            else{
-                swal("请填写司机和调度编号！", "", "warning");
-            }
-        }
-        else{
-            if($scope.driverIdMod != "" && $scope.matchMissionList.length !== 0){
-                for (var i = 0; i < $scope.matchMissionList.length; i++) {
-                    dpRouteTaskIds.push($scope.matchMissionList[i].id)
-                }
-                _basic.post($host.api_url + "/user/" + userId + "/dpRouteTaskLoan",{
-                    driveId: $scope.driverIdMod,
-                    applyPassingCost: $scope.roadTollCost,
-                    applyFuelCost: $scope.fuelCost,
-                    applyProtectCost: $scope.roadCost,
-                    applyPenaltyCost: $scope.fineCost,
-                    applyParkingCost: $scope.parkingCost,
-                    applyTaxiCost: $scope.taxiCost,
-                    applyExplain: $scope.remark,
-                    applyPlanMoney: parseFloat(planMoneyCount),
-                    dpRouteTaskIds: dpRouteTaskIds
-                }).then(function (data) {
-                    if (data.success === true) {
-                        $("#addCarFinanceModel").modal("close");
-                        swal("新增成功", "", "success");
-                        $scope.searchCarInstructionList();
-                    }
-                    else {
-                        swal(data.msg, "", "error");
-                    }
-                });
-            }
-            else{
-                swal("请填写司机和调度编号！", "", "warning");
-            }
-        }
-
-    };
-*/
-
-
 
     // 分页
     $scope.pre_btn = function () {

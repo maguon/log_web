@@ -267,7 +267,7 @@ baseService.factory("_config", function () {
         {app: "2", typeName: "车管助手"},
         {app: "3", typeName: "慧调配"},
         {app: "4", typeName: "质安栈"},
-        {app: "6", typeName: "捷易结"}
+        {app: "5", typeName: "捷易结"}
     ];
     //经销商类型
     _this.receiveType = [

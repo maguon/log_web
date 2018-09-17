@@ -5,6 +5,7 @@ app.controller("admin_download_app_controller", ["$scope", "$host", "_basic", fu
     $scope.dispatch = false;
     $scope.driver = false;
     $scope.damage = false;
+    $scope.settlement = false;
 
     // 控制显示隐藏
     $scope.showStorage = function () {
@@ -13,6 +14,7 @@ app.controller("admin_download_app_controller", ["$scope", "$host", "_basic", fu
         $scope.dispatch = false;
         $scope.driver = false;
         $scope.damage = false;
+        $scope.settlement = false;
     };
 
     $scope.showVehicle = function () {
@@ -21,6 +23,7 @@ app.controller("admin_download_app_controller", ["$scope", "$host", "_basic", fu
         $scope.dispatch = false;
         $scope.driver = false;
         $scope.damage = false;
+        $scope.settlement = false;
     };
 
     $scope.showDispatch = function () {
@@ -29,6 +32,7 @@ app.controller("admin_download_app_controller", ["$scope", "$host", "_basic", fu
         $scope.dispatch = true;
         $scope.driver = false;
         $scope.damage = false;
+        $scope.settlement = false;
     };
 
     $scope.showDriver = function () {
@@ -37,6 +41,7 @@ app.controller("admin_download_app_controller", ["$scope", "$host", "_basic", fu
         $scope.dispatch = false;
         $scope.driver = true;
         $scope.damage = false;
+        $scope.settlement = false;
     };
 
     $scope.showDamage = function () {
@@ -45,6 +50,16 @@ app.controller("admin_download_app_controller", ["$scope", "$host", "_basic", fu
         $scope.dispatch = false;
         $scope.driver = false;
         $scope.damage = true;
+        $scope.settlement = false;
+    };
+
+    $scope.showSettlement = function () {
+        $scope.storage = false;
+        $scope.vehicle = false;
+        $scope.dispatch = false;
+        $scope.driver = false;
+        $scope.damage = false;
+        $scope.settlement = true;
     };
 
     // 获取数据

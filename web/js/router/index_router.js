@@ -721,6 +721,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/settlement/not_handover.html",
             controller:'not_handover_controller'
         })
+        .state("driver_settlement",{
+            url:"/driver_settlement",
+            templateUrl: "js/view/settlement/driver_settlement.html",
+            controller:'driver_settlement_controller'
+        })
+
 
         // 下载app
         .state("admin_download_app",{

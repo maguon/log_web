@@ -1,0 +1,98 @@
+<!--委托方结算-->
+<div class="setting_settlement">
+
+    <!--查询条件-->
+    <div class="row">
+        <div class="row grey-text text-darken-1">
+            <div class="col s10">
+                <div class="col s12">
+
+                    <!--指令日期(始)  指令日期(终)-->
+                    <div class="input-field col s3">
+                        <input type="text" ng-model="instruct_starTime" id="instruct_start_time" name="instruct_start_time"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="instruct_start_time">指令日期(始)</label>
+                    </div>
+
+
+                    <div class="input-field col s3">
+                        <input type="text" ng-model="instruct_endTime" id="instruct_endTime" name="instruct_endTime"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="instruct_endTime">指令日期(终)</label>
+                    </div>
+
+                    <!--司机-->
+                    <div class="input-field col s3">
+                        <select material-select watch ng-model="drivderId" id="driveName" style="width: 100%">
+                            <option value="" selected>请选择</option>
+                            <option ng-repeat="addDrivder in driveNameList" value={{addDrivder.id}}>{{addDrivder.drive_name}}</option>
+                        </select>
+                    </div>
+
+                    <!--公司名称-->
+                    <div class="input-field col s3">
+                        <select id="insure_company" ng-model="searchCompany" material-select watch>
+                            <option value="" selected>请选择</option>
+                            <option ng-repeat="company in companyList" ng-value="company.id">{{company.company_name}}</option>
+                        </select>
+                        <label for="insure_company">所属公司</label>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--按钮-->
+            <div class="col s2" style="margin-top: 20px">
+                <div class="col s6" >
+                    <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getSettlement()">
+                        <i class="mdi mdi-magnify"></i>
+                    </a>
+                </div>
+                <div class="col s6 center-align">
+                    <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
+                        <i class="mdi mdi-cloud-download"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col s12">
+        <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+        <table class=" bordered striped text_mid">
+            <thead class="blue-grey lighten-5">
+            <tr class="grey-text text-darken-2">
+                <th data-field="">司机</th>
+                <th data-field="">所属公司</th>
+                <th data-field="">车牌号</th>
+                <th data-field="">车辆总数</th>
+                <th data-field="">价值</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="settlementInfo in settlementList" class="grey-text text-darken-1">
+                <td>{{settlementInfo.drive_name}}</td>
+                <td>{{settlementInfo.company_name}}</td>
+                <td>{{settlementInfo.truck_num}}</td>
+                <td >{{settlementInfo.car_count}}</td>
+                <td>{{settlementInfo.value_total}}</td>
+            </tr>
+            <tr ng-if="settlementList.length==0">
+                <td colspan="5">暂无数据</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!--分页-->
+    <div class="row">
+        <div class="paging_box col s12">
+            <div class="right">
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="pre_btn()">
+                    上一页
+                </a>
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_btn()">
+                    下一页
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>

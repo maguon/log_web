@@ -13,6 +13,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     $scope.hasRouteFeeInfoId = false;
     $scope.leftKeyWord = "";
     $scope.rightKeyWord = "";
+    $scope.rightKeyWord2 = "";
     $scope.lineEndCityInfo = "";
     $scope.lineStartDate = "";
     $scope.lineStartTime = "";
@@ -23,6 +24,8 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     $scope.dateTime = null;
     //增加装车任务时，默认始发站出发
     $scope.selectWhereStart=1;
+    $scope.truckNumberCount =0;
+    $scope.truckIdCount =0;
 
     //中间调度指令边儿上的（待运和在途）
     function truckDispatchCount(){
@@ -77,21 +80,56 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                         carDetailsData.result[i].city_name = "";
                     }
                     if(carDetailsData.result[i].current_city === 0){
-                        carDetailsData.result[i].operate_status = "在途"
+                        carDetailsData.result[i].operate_status = "途"
                     }
                     else{
-                        carDetailsData.result[i].operate_status = "待运中"
+                        carDetailsData.result[i].operate_status = "待"
                     }
                 }
                 $scope.carDetailsList = carDetailsData.result;
                 $scope.newCarDetailsList = $scope.carDetailsList;
+
+            }
+            else {
+                swal(carDetailsData.msg, "", "error");
+            }
+        });
+        _basic.get($host.api_url + '/cityTruckDispatchCount?dispatchFlag=1').then(function (locateData) {
+            if (locateData.success === true) {
+                $scope.truckIdCount = locateData.result[0].truck_id;
+                $scope.truckNumberCount = locateData.result[0].truck_number;
+            }
+            else {
+                swal(locateData.msg, "", "error");
+            }
+        });
+    };
+    $scope.getCarDetails2 = function () {
+        _basic.get($host.api_url + "/truckDispatch?dispatchFlag=0").then(function (carDetailsData) {
+            if (carDetailsData.success === true) {
+                // 防止过滤出错，将信息为null的转为空字符串
+                for (var i = 0; i < carDetailsData.result.length; i++) {
+                    if (carDetailsData.result[i].drive_name === null) {
+                        carDetailsData.result[i].drive_name = "";
+                    }
+                    if (carDetailsData.result[i].city_name === null) {
+                        carDetailsData.result[i].city_name = "";
+                    }
+                    if(carDetailsData.result[i].current_city === 0){
+                        carDetailsData.result[i].operate_status = "途"
+                    }
+                    else{
+                        carDetailsData.result[i].operate_status = "待"
+                    }
+                }
+                $scope.carDetailsList2 = carDetailsData.result;
+                $scope.newCarDetailsList2 = $scope.carDetailsList2;
             }
             else {
                 swal(carDetailsData.msg, "", "error");
             }
         });
     };
-
     // 根据输入的关键字筛选左侧卡片 直达  信息
     $scope.updateLeftCardList = function () {
         $scope.newDispatchCarList = [];
@@ -130,15 +168,115 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         $scope.newCarDetailsList = [];
         if($scope.rightKeyWord != ""){
             for(var i = 0;i < $scope.carDetailsList.length;i++){
-                if(($scope.carDetailsList[i].truck_num).indexOf($scope.rightKeyWord) !== -1 || ($scope.carDetailsList[i].city_name).indexOf($scope.rightKeyWord) !== -1 || ($scope.carDetailsList[i].drive_name).indexOf($scope.rightKeyWord) !== -1){
-                    $scope.newCarDetailsList.push($scope.carDetailsList[i])
+                if(($scope.carDetailsList[i].truck_num).indexOf($scope.rightKeyWord) !== -1 || ($scope.carDetailsList[i].city_name).indexOf($scope.rightKeyWord) !== -1 || ($scope.carDetailsList[i].drive_name).indexOf($scope.rightKeyWord) !== -1)
+                {
+                    $scope.newCarDetailsList.push($scope.carDetailsList[i]);
                 }
             }
+
         }
         else{
             $scope.newCarDetailsList = $scope.carDetailsList;
         }
     };
+
+    //版位数 城市
+    function getTruckNumber(){
+        _basic.get($host.api_url + "/truckDisCount").then(function (cityData) {
+            if (cityData.success === true) {
+                $scope.truckNumberList = cityData.result;
+            }
+            else {
+                swal(cityData.msg, "", "error");
+            }
+        });
+        _basic.get($host.api_url + "/city").then(function (cityData) {
+            if (cityData.success === true) {
+                $scope.cityList = cityData.result;
+                $('#citySelect').select2({
+                    placeholder: '城市',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+
+                });
+            }
+            else {
+                swal(cityData.msg, "", "error");
+            }
+        });
+    }
+    $scope.changecitySelect = function (citySelect,truckNumber){
+        $scope.truckIdCount =0;
+        $scope.truckNumberCount =0;
+        if(citySelect==null||citySelect==undefined||citySelect==''){
+          var  url =$host.api_url + "/truckDispatch?dispatchFlag=1&truckNumber="+truckNumber;
+          var  urlCount = $host.api_url + "/cityTruckDispatchCount?dispatchFlag=1&truckNumber="+truckNumber;
+        }
+       else if(truckNumber==null||truckNumber==undefined||truckNumber==''){
+            var  url = $host.api_url + "/truckDispatch?dispatchFlag=1&currentCity="+citySelect;
+            var  urlCount = $host.api_url + "/cityTruckDispatchCount?dispatchFlag=1&currentCity="+citySelect;
+        }
+        else{
+            var url = $host.api_url + "/truckDispatch?dispatchFlag=1&currentCity="+citySelect+"&truckNumber="+truckNumber;
+            var  urlCount = $host.api_url + "/cityTruckDispatchCount?dispatchFlag=1&currentCity="+citySelect+"&truckNumber="+truckNumber;
+        }
+        _basic.get(url).then(function (locateData) {
+            if (locateData.success === true) {
+                $scope.carDetailsList = locateData.result;
+                $scope.updateRightCardList();
+            }
+            else {
+                swal(locateData.msg, "", "error");
+            }
+        });
+        _basic.get(urlCount).then(function (locateData) {
+            if (locateData.success === true) {
+                $scope.truckIdCount = locateData.result[0].truck_id;
+                $scope.truckNumberCount = locateData.result[0].truck_number;
+            }
+            else {
+                swal(locateData.msg, "", "error");
+            }
+        });
+    }
+    $scope.changeTruckNumber = function (citySelect,truckNumber){
+        $scope.truckIdCount =0;
+        $scope.truckNumberCount =0;
+         if(citySelect==null||citySelect==undefined||citySelect==''){
+             var url =$host.api_url + "/truckDispatch?dispatchFlag=1&truckNumber="+truckNumber;
+             var  urlCount = $host.api_url + "/cityTruckDispatchCount?dispatchFlag=1&truckNumber="+truckNumber;
+         }
+       else if(truckNumber==null||truckNumber==undefined||truckNumber==''){
+            var  url = $host.api_url + "/truckDispatch?dispatchFlag=1&currentCity="+citySelect;
+             var  urlCount = $host.api_url + "/cityTruckDispatchCount?dispatchFlag=1&currentCity="+citySelect;
+        }
+        else{
+             var url = $host.api_url + "/truckDispatch?dispatchFlag=1&currentCity="+citySelect+"&truckNumber="+truckNumber;
+             var  urlCount = $host.api_url + "/cityTruckDispatchCount?dispatchFlag=1&currentCity="+citySelect+"&truckNumber="+truckNumber;
+         }
+        _basic.get(url).then(function (locateData) {
+            if (locateData.success === true) {
+                $scope.carDetailsList = locateData.result;
+                $scope.updateRightCardList();
+            }
+            else {
+                swal(locateData.msg, "", "error");
+            }
+        });
+        _basic.get(urlCount).then(function (locateData) {
+            if (locateData.success === true) {
+                $scope.truckIdCount = locateData.result[0].truck_id;
+                $scope.truckNumberCount = locateData.result[0].truck_number;
+                if(locateData.result[0].truck_number==null){
+                    $scope.truckNumberCount=0;
+                }
+            }
+            else {
+                swal(locateData.msg, "", "error");
+            }
+        });
+    }
+
 
     // 点击左侧 直达 的卡片详情显示模态框
     $scope.showCarInfoModel = function (currentModelInfo) {
@@ -385,7 +523,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask", {
                 truckId: $scope.dispatchInfo.truck_id,
                 routeId:$scope.lineEndCityInfo.route_id,
-                truckNumber:$scope.dispatchInfo.trail_number,
+                truckNumber:$scope.dispatchInfo.truck_number,
                 driveId: $scope.dispatchInfo.drive_id,
                 routeStartId: routeStartId,
                 routeStart:routeStart,
@@ -783,12 +921,13 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         $scope.routeFeeInfo.apply_explain = "";
     };
 
-
     // 获取数据
     function queryData() {
         truckDispatchCount();
         $scope.getDeliveryCarInfo();
         $scope.getCarDetails();
+        $scope.getCarDetails2();
+        getTruckNumber();
     };
     queryData();
 }]);

@@ -90,36 +90,43 @@ app.controller("driver_settlement_controller", ["_basic", "_config", "$host", "$
 
     //获取查询数据
     function getSettlementData(){
-        _basic.get($host.api_url + "/driveSettle?" + _basic.objToUrl({
-            orderStart: $scope.instruct_starTime,
-            orderEnd: $scope.instruct_endTime,
-            driveId: $scope.drivderId,
-            companyId: $scope.searchCompany,
-            operateType:$scope.operateType,
-            truckId:$scope.truckNum,
-            start:$scope.start.toString(),
-            size:$scope.size
-        })).then(function (data) {
-            if (data.success === true) {
-                $scope.boxArray = data.result;
-                $scope.settlementList = $scope.boxArray.slice(0, 10);
-                if ($scope.start > 0) {
-                    $("#pre").show();
+        if($scope.instruct_starTime==undefined||$scope.instruct_endTime==undefined){
+            $scope.settlementList=[];
+            $("#pre").hide();
+            $("#next").hide();
+        }
+        else{
+            _basic.get($host.api_url + "/driveSettle?" + _basic.objToUrl({
+                orderStart: $scope.instruct_starTime,
+                orderEnd: $scope.instruct_endTime,
+                driveId: $scope.drivderId,
+                companyId: $scope.searchCompany,
+                operateType: $scope.operateType,
+                truckId: $scope.truckNum,
+                start: $scope.start.toString(),
+                size: $scope.size
+            })).then(function (data) {
+                if (data.success === true) {
+                    $scope.boxArray = data.result;
+                    $scope.settlementList = $scope.boxArray.slice(0, 10);
+                    if ($scope.start > 0) {
+                        $("#pre").show();
+                    }
+                    else {
+                        $("#pre").hide();
+                    }
+                    if (data.result.length < $scope.size) {
+                        $("#next").hide();
+                    }
+                    else {
+                        $("#next").show();
+                    }
                 }
                 else {
-                    $("#pre").hide();
+                    swal(data.msg, "", "error");
                 }
-                if (data.result.length < $scope.size) {
-                    $("#next").hide();
-                }
-                else {
-                    $("#next").show();
-                }
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
+            });
+        }
     }
     // 分页
     $scope.pre_btn = function () {

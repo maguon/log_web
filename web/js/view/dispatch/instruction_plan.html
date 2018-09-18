@@ -713,56 +713,117 @@
 
         <!--右边任务指令信息卡片-->
         <div class="col" style="width: 20%">
-            <div class="col input-field s8" style="margin-bottom: 15px">
-                <input id="searchRightCard" type="text" ng-model="rightKeyWord">
-                <label for="searchRightCard">车牌/地址/司机</label>
-            </div>
-            <div class="col s2 flex flex-round">
-                <i class="mdi mdi-magnify" ng-click="updateRightCardList()" style="margin:20px 0 0 10px;font-size: 30px;cursor: pointer"></i>
-            </div>
+            <ul class="tabs tabs-fixed-width tab-demo z-depth-1" style="font-size: 25px;font-weight: bold;overflow-x: hidden">
+                <li class="tab"><a href="#haveUser" style="color: #26c6da">可用</a></li>
+                <li class="tab"><a href="#notHaveUser" style="colors: #26c6da">不可用</a></li>
+            </ul>
+            <!--可用-->
+            <div id="haveUser">
+                <!--城市-->
+                <div class="col s6">
+                    <select id="citySelect"  material-select watch  ng-model="citySelect" ng-change="changecitySelect(citySelect,truckNumber)">
+                        <option value="">请选择</option>
+                        <option ng-repeat="el in cityList" ng-value="el.id">{{el.city_name}}</option>
+                    </select>
+                </div>
+                <!--板位数-->
+                <div class="col s6">
+                    <select id="truckNumber"  material-select watch  ng-model="truckNumber" ng-change="changeTruckNumber(citySelect,truckNumber)">
+                        <option value="">板位数</option>
+                        <option ng-repeat="el in truckNumberList" ng-value="el.truck_number">{{el.truck_number}}</option>
+                    </select>
+                </div>
+                <div class="col s4" style="margin-top: 25px">可用车辆</div>
+                <div class="col s2 red-text bold fz22 right-align" style="margin-top:20px">{{truckIdCount}}</div>
+                <div class="col s4" style="margin-top: 25px">车位总数</div>
+                <div class="col s2 red-text bold fz22 right-align" style="margin-top:20px">{{truckNumberCount}}</div>
+                <div class="col input-field s8" style="margin-bottom: 15px">
+                    <input id="searchRightCard" type="text" ng-model="rightKeyWord">
+                    <label for="searchRightCard">车牌/地址/司机</label>
+                </div>
+                <div class="col s2 flex flex-round">
+                    <i class="mdi mdi-magnify" ng-click="updateRightCardList()" style="margin:20px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                </div>
+                <div class="col s2 flex flex-round">
+                    <i class="mdi mdi-refresh" ng-click="getCarDetails()" style="margin:20px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                </div>
 
-            <div class="col s2 flex flex-round">
-                <i class="mdi mdi-refresh" ng-click="getCarDetails()" style="margin:20px 0 0 10px;font-size: 30px;cursor: pointer"></i>
-            </div>
-            <div class="col s12" ng-repeat="details in newCarDetailsList">
-                <div class="card-panel white " style="padding: 0;cursor: pointer">
-                    <div ng-click="showDispatchInfo(details)" class="row cyan lighten-2 white-text setting_shipments_title vc-center"
-                         style="padding: 8px 5px;height: 43px;margin-bottom: 0">
-                        <div class="col s7">
-                            <p style="font-size: 1rem;font-weight: bold;margin: 10px 0">{{details.truck_num}}</p>
+                <div class="col s6" ng-repeat="details in newCarDetailsList">
+                    <div class="card-panel white " style="padding: 0;cursor: pointer">
+                        <div ng-click="showDispatchInfo(details)" class="row cyan lighten-2 white-text setting_shipments_title vc-center"
+                             style="padding: 8px 5px;height: 43px;margin-bottom: 0">
+                            <div class="col s9">
+                                <p style="font-size: 10px;font-weight: bold;margin: 10px 0">{{details.truck_num}}</p>
+                            </div>
+                            <div class="col s3 center-align" style="padding: 0;">
+                                <p style="font-size: 13px;font-weight: bold;margin: 10px 0">{{details.operate_status}}</p>
+                            </div>
                         </div>
-                        <div class="col s5" style="padding: 0;">
-                            <p style="font-size: 1rem;font-weight: bold;margin: 10px 0">{{details.operate_status}}</p>
+                        <div class="row valign-wrapper">
+                            <div class="col s12" style="padding: 0">
+                                <div class="col s12 valign-wrapper" style="padding: 0">
+                                    <div ng-if="!details.current_city == 0" class="col s12 left" style="padding: 0;">
+                                        <span ng-click="showModifyCarPositionMod(details)" style="font-size: 15px;color: darkgray" class="mdi mdi-map-marker"></span>
+                                        <span style="font-size: 10px;color: black;margin: 5px 0;line-height: 26px">{{details.city_name}}</span>
+                                    </div>
+                                    <div ng-if="details.current_city == 0" class="col s12 left" style="padding: 0;">
+                                        <span ng-click="showModifyCarPositionMod(details)" style="font-size: 15px;color: darkgray" class="mdi mdi-map-marker"></span>
+                                        <span style="font-size: 10px;color: black;margin: 5px 0;line-height: 26px">{{details.task_start_name}}
+                                            <span class="mdi mdi-arrow-right"></span>
+                                            {{details.task_end_name}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col s12 valign-wrapper" style="margin-bottom: 0;padding: 0">
+                                    <div class="col s1 vc-center">
+                                        <span style="font-size: 13px;color: darkgray" class="mdi mdi-account"></span>
+                                    </div>
+                                    <div class="col s7 left fz12" style="padding: 0;">
+                                        <p style="color: black;margin: 5px 0;line-height: 26px">{{details.drive_name}}</p>
+                                    </div>
+                                    <div class="col s4 red-text bold center-align" style="padding: 0">{{details.car_count}}/{{details.truck_number}}</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="row valign-wrapper">
-                        <div class="col s9" style="padding: 0">
-                            <div class="col s12 valign-wrapper" style="padding: 0">
-                                <div class="col s3 vc-center">
-                                    <span ng-click="showModifyCarPositionMod(details)" style="font-size: 1.3rem;color: darkgray" class="mdi mdi-map-marker"></span>
+                </div>
+            </div>
+            <!--不可用-->
+            <div id="notHaveUser">
+                <div style="margin-top: 20px">
+                    <div class="col s6" ng-repeat="details in newCarDetailsList2">
+                        <div class="card-panel white " style="padding: 0;cursor: pointer">
+                            <div class="row grey lighten-2 white-text setting_shipments_title vc-center"
+                                 style="padding: 8px 5px;height: 43px;margin-bottom: 0">
+                                <div class="col s9">
+                                    <p style="font-size: 10px;font-weight: bold;margin: 10px 0">{{details.truck_num}}</p>
                                 </div>
-                                <div ng-if="!details.current_city == 0" class="col s9 left" style="padding: 0;">
-                                    <p style="font-size: 1.0rem;color: black;margin: 5px 0;line-height: 26px">{{details.city_name}}</p>
-                                </div>
-                                <div ng-if="details.current_city == 0" class="col s9 left" style="padding: 0;">
-                                    <p style="font-size: 1.0rem;color: black;margin: 5px 0;line-height: 26px">{{details.task_start_name}}
-                                       <span class="mdi mdi-arrow-right"></span>
-                                        {{details.task_end_name}}
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col s12 valign-wrapper" style="margin-bottom: 0;padding: 0">
-                                <div class="col s3 vc-center">
-                                    <span style="font-size: 1.3rem;color: darkgray" class="mdi mdi-account"></span>
-                                </div>
-                                <div class="col s9 left fz12" style="padding: 0;">
-                                    <p style="color: black;margin: 5px 0;line-height: 26px">{{details.drive_name}}</p>
+                                <div class="col s3 center-align" style="padding: 0;">
                                 </div>
                             </div>
-                        </div>
-                        <div class="col s3" style="padding: 0">
-                            <div class="col s12">
-                                <p class="center fz19" style="color: rgb(229,115,115);font-weight: bold;margin: 0">{{details.car_count}}</p>
+                            <div class="row valign-wrapper">
+                                <div class="col s12" style="padding: 0">
+                                    <div class="col s12 valign-wrapper" style="padding: 0">
+                                        <div ng-if="!details.current_city == 0" class="col s12 left" style="padding: 0;">
+                                            <span  style="font-size: 15px;color: darkgray" class="mdi mdi-map-marker"></span>
+                                            <span style="font-size: 10px;color: black;margin: 5px 0;line-height: 26px">{{details.city_name}}</span>
+                                        </div>
+                                        <div ng-if="details.current_city == 0" class="col s12 left" style="padding: 0;">
+                                            <span style="font-size: 15px;color: darkgray" class="mdi mdi-map-marker"></span>
+                                            <span style="font-size: 10px;color: black;margin: 5px 0;line-height: 26px">未知</span>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 valign-wrapper" style="margin-bottom: 0;padding: 0">
+                                        <div class="col s1 vc-center">
+                                            <span style="font-size: 13px;color: darkgray" class="mdi mdi-account"></span>
+                                        </div>
+                                        <div class="col s8 left fz12">
+                                            <p style="color: black;margin: 5px 0;line-height: 26px">{{details.drive_name}}</p>
+                                        </div>
+                                        <div class="col s3 red-text bold">{{details.truck_number==null?0:details.truck_number}}</div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>

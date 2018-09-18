@@ -40,27 +40,32 @@ app.controller("storage_car_controller", ["$scope", "$rootScope", "$stateParams"
     $scope.size = 11;
     var userId = _basic.getSession(_basic.USER_ID);
     var searchAll = function () {
-        var obj = {
-            active: 1,
-            start: $scope.start,
-            size: $scope.size,
-            vinCode: $scope.search_vin,
-            makeId: $scope.search_makeId,
-            relStatus: $scope.search_relStatus,
-            storageId: $scope.search_storage,
-            receiveId: $scope.search_dealer,
-            entrustId: $scope.client,
-            routeStartId: $scope.source_city,
-            routeEndId: $scope.arrive_city,
-            enterStart: $scope.put_in_time_start,
-            enterEnd: $scope.put_in_time_end,
-            realStart: $scope.out_time_start,
-            realEnd: $scope.out_time_end,
-            orderStart: $scope.order_time_start,
-            orderEnd: $scope.order_time_end
-        };
-        _basic.get($host.api_url + "/car?" + _basic.objToUrl(obj)).then(function (data) {
+        // 基本检索URL
+        var url = $host.api_url + "/car?start=" + $scope.start + "&size=" + $scope.size;
+        // 检索条件
+        var conditionsObj = makeConditions();
+        var conditions = _basic.objToUrl(conditionsObj);
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
+
+        _basic.get(url).then(function (data) {
+
             if (data.success == true) {
+
+
+                conditionsObj.routeEndName = $scope.arriveCityNm;
+                conditionsObj.routeStartName = $scope.sourceCityNm;
+
+                // 当前画面的检索信息
+                var pageItems = {
+                    pageId: "storage_car",
+                    start: $scope.start,
+                    size: $scope.size,
+                    conditions: conditionsObj
+                };
+                // 将当前画面的条件
+                $rootScope.refObj = {pageArray: []};
+                $rootScope.refObj.pageArray.push(pageItems);
                 $scope.storage_car_box = data.result;
                 $scope.storage_car = $scope.storage_car_box.slice(0, 10);
                 if ($scope.start > 0) {
@@ -101,56 +106,136 @@ app.controller("storage_car_controller", ["$scope", "$rootScope", "$stateParams"
     $scope.rel_status = _config.car_rel_status;
     $scope.search_relStatus = 1;
 
-    // 信息获取
-    $scope.get_Msg = function () {
-        // 城市
-        _basic.get($host.api_url + "/city").then(function (data) {
-            if (data.success == true) {
-                $scope.get_city = data.result;
-                $('#chooseShipmentStart').select2({
-                    placeholder: '发运地城市',
-                    containerCssClass: 'select2_dropdown'
-                });
-                $('#chooseEndCity').select2({
-                    placeholder: '目的地城市',
-                    containerCssClass: 'select2_dropdown'
-                });
+
+    function getCityInfo (sourceCity,arriveCity) {
+        var url = $host.api_url + "/city";
+        $('#chooseShipmentStart').select2({
+            placeholder: sourceCity,
+            containerCssClass: 'select2_dropdown',
+            ajax: {
+                type: 'GET',
+                url: url,
+                dataType: 'json',
+                delay: 400,
+                data: function (params) {
+                    return {
+                        cityName : params.term
+                    };
+                },
+                processResults: function (data, params) {
+                    var options = [];
+                    $(data.result).each(function (i, o) {
+                        options.push({
+                            id: o.id,
+                            text: o.city_name
+                        });
+                    });
+                    return {
+                        results: options
+                    };
+                },
+                cache: true
+            },
+            allowClear: true
+        }).on("select2:unselecting", function (e) {
+            $scope.source_city = '';
+            $scope.sourceCityNm = '发运地城市';
+        }).on('change', function () {
+            if ($("#chooseShipmentStart").val() != null && $("#chooseShipmentStart").val() !== "") {
+                $scope.source_city = $("#chooseShipmentStart").select2("data")[0].id;
+                $scope.sourceCityNm = $("#chooseShipmentStart").select2("data")[0].text;
             }
         });
-
-        // 车辆品牌查询
-        _basic.get($host.api_url + "/carMake").then(function (data) {
-            if (data.success == true) {
-                $scope.makecarName = data.result;
-            } else {
-                swal(data.msg, "", "error");
+        $('#chooseEndCity').select2({
+            placeholder: arriveCity,
+            containerCssClass: 'select2_dropdown',
+            ajax: {
+                type: 'GET',
+                url: url,
+                dataType: 'json',
+                delay: 400,
+                data: function (params) {
+                    return {
+                        cityName: params.term
+                    };
+                },
+                processResults: function (data, params) {
+                    var options = [];
+                    $(data.result).each(function (i, o) {
+                        options.push({
+                            id: o.id,
+                            text: o.city_name
+                        });
+                    });
+                    return {
+                        results: options
+                    };
+                },
+                cache: true
+            },
+            allowClear: true
+        })/*.on("select2:unselecting", function (e) {
+            $scope.arrive_city = '';
+            $scope.arriveCityNm="目的地城市";
+        })*/.on('change', function () {
+            if ($("#chooseEndCity").val() != null && $("#chooseEndCity").val() !== "") {
+                $scope.arrive_city = $("#chooseEndCity").select2("data")[0].id;
+                $scope.arriveCityNm = $("#chooseEndCity").select2("data")[0].text;
             }
         });
-
-        // 仓库查询
-        _basic.get($host.api_url + "/storage").then(function (data) {
-            if (data.success == true) {
-                $scope.storage = data.result;
-            } else {
-                swal(data.msg, "", "error");
-            }
-        });
-
-        // 经销商
-        _basic.get($host.api_url + "/receive").then(function (data) {
-            if (data.success == true) {
-                $scope.get_receive = data.result;
-            }
-        });
-
-        // 委托方
-        _basic.get($host.api_url + "/entrust").then(function (data) {
-            if (data.success == true) {
-                $scope.get_entrust = data.result;
-            }
-        })
     };
-    $scope.get_Msg();
+
+
+     // 信息获取
+     $scope.get_Msg = function () {
+         /*// 城市
+         _basic.get($host.api_url + "/city").then(function (data) {
+             if (data.success == true) {
+                 $scope.get_city = data.result;
+                 $('#chooseShipmentStart').select2({
+                     placeholder: '发运地城市',
+                     containerCssClass: 'select2_dropdown'
+                 });
+                 $('#chooseEndCity').select2({
+                     placeholder: '目的地城市',
+                     containerCssClass: 'select2_dropdown'
+                 });
+             }
+         });*/
+
+         // 车辆品牌查询
+         _basic.get($host.api_url + "/carMake").then(function (data) {
+             if (data.success == true) {
+                 $scope.makecarName = data.result;
+             } else {
+                 swal(data.msg, "", "error");
+             }
+         });
+
+         // 仓库查询
+         _basic.get($host.api_url + "/storage").then(function (data) {
+             if (data.success == true) {
+                 $scope.storage = data.result;
+             } else {
+                 swal(data.msg, "", "error");
+             }
+         });
+
+         // 经销商
+         _basic.get($host.api_url + "/receive").then(function (data) {
+             if (data.success == true) {
+                 $scope.get_receive = data.result;
+             }
+         });
+
+         // 委托方
+         _basic.get($host.api_url + "/entrust").then(function (data) {
+             if (data.success == true) {
+                 $scope.get_entrust = data.result;
+             }
+         })
+     };
+     $scope.get_Msg();
 
     // 清除城市id
     $scope.eliminateCityId = function () {
@@ -172,7 +257,7 @@ app.controller("storage_car_controller", ["$scope", "$rootScope", "$stateParams"
         }
     });
 
-    // // 存放位置联动查询--区域
+    // 存放位置联动查询--区域
     $scope.changeStorageId = function (val) {
         _basic.get($host.api_url + "/storageArea?storageId=" + val + "&&areaStatus=1").then(function (data) {
             if (data.success == true) {
@@ -343,5 +428,78 @@ app.controller("storage_car_controller", ["$scope", "$rootScope", "$stateParams"
                 });
             });
     };
-    searchAll();
+
+    /**
+     * 设置检索条件。
+     * @param conditions 上次检索条件
+     */
+    function setConditions(conditions) {
+          $scope.search_vin=conditions.vinCode;
+          $scope.search_makeId=conditions.makeId;
+          $scope.search_relStatus=conditions.relStatus;
+          $scope.search_storage=conditions.storageId;
+          $scope.search_dealer=conditions.receiveId;
+          $scope.client=conditions.entrustId;
+          $scope.source_city=conditions.routeStartId;
+          $scope.arrive_city=conditions.routeEndId;
+          $scope.put_in_time_start=conditions.enterStart;
+          $scope.put_in_time_end=conditions.enterEnd;
+          $scope.out_time_start=conditions.realStart;
+          $scope.out_time_end=conditions.realEnd;
+          $scope.order_time_start=conditions.orderStart;
+          $scope.order_time_end=conditions.orderEnd;
+    }
+
+    /**
+     * 组装检索条件。
+     */
+    function makeConditions() {
+        return {
+            active: 1,
+            vinCode: $scope.search_vin,
+            makeId: $scope.search_makeId,
+            relStatus: $scope.search_relStatus,
+            storageId: $scope.search_storage,
+            receiveId: $scope.search_dealer,
+            entrustId: $scope.client,
+            routeStartId: $scope.source_city,
+            routeEndId: $scope.arrive_city,
+            enterStart: $scope.put_in_time_start,
+            enterEnd: $scope.put_in_time_end,
+            realStart: $scope.out_time_start,
+            realEnd: $scope.out_time_end,
+            orderStart: $scope.order_time_start,
+            orderEnd: $scope.order_time_end
+        };
+    }
+
+    /**
+     * 画面初期显示时，用来获取画面必要信息的初期方法。
+     */
+    function initData() {
+        // 如果是从后画面跳回来时，取得上次检索条件
+        if ($stateParams.from === "storageCar_details" && $rootScope.refObj !== undefined && $rootScope.refObj.pageArray.length > 0) {
+            var pageItems = $rootScope.refObj.pageArray.pop();
+            if (pageItems.pageId === "storage_car") {
+                // 设定画面翻页用数据
+                $scope.start = pageItems.start;
+                $scope.size = pageItems.size;
+                // 将上次的检索条件设定到画面
+                setConditions(pageItems.conditions);
+                $scope.arriveCityNm = pageItems.conditions.routeEndName;
+                $scope.sourceCityNm = pageItems.conditions.routeStartName;
+            }
+        } else {
+            // 初始显示时，没有前画面，所以没有基本信息
+            $rootScope.refObj = {pageArray: []};
+
+            $scope.arriveCityNm = "目的地城市";
+            $scope.sourceCityNm = "发运地城市";
+        }
+        getCityInfo ($scope.arriveCityNm,$scope.sourceCityNm)
+        // 查询数据
+        searchAll();
+    }
+    initData();
+
 }]);

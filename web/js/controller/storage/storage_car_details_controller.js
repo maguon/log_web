@@ -268,14 +268,15 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
     };
 
     // 仓库车辆详情
+
+
     // 返回
     $scope.return = function () {
-        // console.log($stateParams.mark);
         if ($stateParams.mark == 1) {
-            $state.go($stateParams.from, {reload: true})
+            $state.go($stateParams.from,{from:"storageCar_details"}, {reload: true})
         }
         else {
-            $state.go($stateParams.from, {
+            $state.go($stateParams.from,{from:"storageCar_details"}, {
                 id: $scope.self_car.storage_id,
                 form: $stateParams._form,
                 status: $stateParams.status
@@ -304,18 +305,21 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
         $scope.vin = vin;
         _basic.get($host.record_url + "/user/" + userId + "/car/" + val + "/record").then(function (data) {
             if (data.success == true) {
-                // console.log(data);
-                $scope.operating_record = data.result[0];
-                $scope.comment = $scope.operating_record.comment;
-                $scope.storage_image = $scope.operating_record.storage_image;
-                for (var i in $scope.storage_image) {
-                    $scope.storage_image_i.push($host.file_url + '/image/' + $scope.storage_image[i].url);
-                    $scope.storage_imageBox.push({
-                        src: $host.file_url + '/image/' + $scope.storage_image[i].url,
-                        record_id: $scope.operating_record._id,
-                        time: $scope.storage_image[i].timez,
-                        user: $scope.storage_image[i].name
-                    });
+                if(data.result.length==0){
+                    $scope.operating_record=null;
+                }else{
+                    $scope.operating_record = data.result[0];
+                    $scope.comment = $scope.operating_record.comment;
+                    $scope.storage_image = $scope.operating_record.storage_image;
+                    for (var i in $scope.storage_image) {
+                        $scope.storage_image_i.push($host.file_url + '/image/' + $scope.storage_image[i].url);
+                        $scope.storage_imageBox.push({
+                            src: $host.file_url + '/image/' + $scope.storage_image[i].url,
+                            record_id: $scope.operating_record._id,
+                            time: $scope.storage_image[i].timez,
+                            user: $scope.storage_image[i].name
+                        });
+                    }
                 }
             }
             else {

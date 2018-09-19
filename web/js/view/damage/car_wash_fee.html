@@ -85,13 +85,13 @@
                     <td width="250">{{car.clean_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                     <td width="120">{{car.status == 0 ? "未通过" : car.status == 1 ? "未领取" : "已领取"}}</td>
                     <td width="200" class="details">
-                        <a ui-sref="car_wash_fee_details({id:car.id})" style="font-size: 1.5rem">
+                        <a ui-sref="car_wash_fee_details({id:car.id,from:'car_wash_fee'})" style="font-size: 1.5rem">
                             <i class="mdi mdi-file-document look_icon cyan-text lighten-1"></i>
                         </a>
                     </td>
                 </tr>
                 <tr class="grey-text text-darken-1" ng-if="carWashFeeList.length == 0">
-                    <td colspan="10"><span style="letter-spacing: 2px">暂无数据</span></td>
+                    <td colspan="12"><span style="letter-spacing: 2px">暂无数据</span></td>
                 </tr>
                 </tbody>
             </table>

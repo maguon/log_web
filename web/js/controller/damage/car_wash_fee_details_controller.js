@@ -1,7 +1,12 @@
-app.controller("car_wash_fee_details_controller", ["$scope", "$host", "$stateParams", "$state", "_basic", function ($scope, $host, $stateParams, $state, _basic) {
+app.controller("car_wash_fee_details_controller", ["$scope", "$host", "$stateParams", "$state", "_basic", function ($scope,  $host, $stateParams, $state, _basic) {
 
     var userId = _basic.getSession(_basic.USER_ID);
     var carId = $stateParams.id;
+
+    // 返回
+    $scope.return = function () {
+        $state.go($stateParams.from,{from:"car_wash_fee_details"}, {reload: true})
+    };
 
     // 根据当前id查询洗车费详情
     $scope.getCurrentCarWashFeeInfo = function () {

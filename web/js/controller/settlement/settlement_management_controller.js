@@ -277,9 +277,9 @@ app.controller("settlement_management_controller", ["$scope","$rootScope","$stat
                 $scope.entrustNm = pageItems.conditions.entrustNm;
                 /*始发城市*/
                 $scope.routeStartNm = pageItems.conditions.routeStartNm;
-                $scope.routeStartId = pageItems.conditions.routeStartId;
                 /*目的城市*/
                 $scope.routeEndNm = pageItems.conditions.routeEndNm;
+                $scope.routeEndId = pageItems.conditions.routeEndId;
                 /*提交人*/
                 $scope.opUserNm = pageItems.conditions.opUserNm;
                 /*经销商*/
@@ -298,7 +298,7 @@ app.controller("settlement_management_controller", ["$scope","$rootScope","$stat
             $scope.receiveNm = "经销商";
             $scope.routeStartId='';
         }
-        $scope.getReceiveMod($scope.routeStartId);
+        $scope.getReceiveMod($scope.routeEndId);
         // 查询数据
         getSettlementData();
 

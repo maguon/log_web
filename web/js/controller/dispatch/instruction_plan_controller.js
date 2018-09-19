@@ -182,7 +182,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     //版位数 城市
     function getTruckNumber(){
-        _basic.get($host.api_url + "/truckDisCount").then(function (cityData) {
+        _basic.get($host.api_url + "/truckNumberType").then(function (cityData) {
             if (cityData.success === true) {
                 $scope.truckNumberList = cityData.result;
             }

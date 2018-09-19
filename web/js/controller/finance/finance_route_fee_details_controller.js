@@ -1,9 +1,13 @@
-app.controller("finance_route_fee_details_controller", ["$scope", "$stateParams", "$host", "_basic",  "_config",function ($scope, $stateParams, $host, _basic,_config) {
+app.controller("finance_route_fee_details_controller", ["$scope", "$state","$stateParams", "$host", "_basic",  "_config",function ($scope, $state,$stateParams, $host, _basic,_config) {
 
     var userId = _basic.getSession(_basic.USER_ID);
     var routeFeeId = $stateParams.id;
     $scope.dpRouteTaskIds=[];
     $scope.passingCost=_config.passingCost;
+
+    $scope.return = function(){
+        $state.go($stateParams.from,{from:"finance_route_fee_details"}, {reload: true})
+    }
     // 获取当前出车款详情信息
    function getCurrentRouteFeeInfo() {
         _basic.get($host.api_url + "/dpRouteTaskLoan?dpRouteTaskLoanId=" + routeFeeId).then(function (data) {

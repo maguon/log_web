@@ -79,7 +79,7 @@
                         <td ng-if="car.task_loan_status == 2">已报销</td>
                         <td ng-if="car.task_loan_status !== 2&&car.task_loan_status !== 1"></td>
                         <td class="operation fz12">
-                            <a ui-sref="finance_route_fee_details({id:car.id})" class="cyan-text" style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
+                            <a ui-sref="finance_route_fee_details({id:car.id,from:'finance_route_fee'})" class="cyan-text" style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
                         </td>
                     </tr>
                     <tr class="grey-text text-darken-1" ng-if="carFinanceList.length == 0">

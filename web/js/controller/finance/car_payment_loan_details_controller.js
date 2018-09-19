@@ -4,6 +4,11 @@ app.controller("car_payment_loan_details_controller", ["$scope", "$state", "$sta
     var paymentId = $stateParams.paymentId;
     $scope.hasEnlargeImage = false;
     $scope.hasRepayment = false;
+
+    // 返回
+    $scope.return = function () {
+        $state.go($stateParams.from,{from:"car_payment_loan_details"}, {reload: true})
+    };
     // 获取当前打款数据
     function getCurrentLoanInfo() {
         _basic.get($host.api_url + "/damageCheckIndemnity?damageId=" + paymentId).then(function (data) {

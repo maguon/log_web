@@ -66,11 +66,12 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
         })
         .state("commercial_vehicle_compensate_loan",{
             url:"/commercial_vehicle_compensate_loan",
+            params: {"from": null},
             templateUrl: "js/view/finance/commercial_vehicle_compensate_loan.html",
             controller:'commercial_vehicle_compensate_loan_controller'
         })
         .state("commercial_vehicle_compensate_loan_details",{
-            url:"/commercial_vehicle_compensate_loan_details/id/{id}/compensateId/{compensateId}",
+            url:"/commercial_vehicle_compensate_loan_details/id/{id}/compensateId/{compensateId}/from/{from}",
             templateUrl: "js/view/finance/commercial_vehicle_compensate_loan_details.html",
             controller:'commercial_vehicle_compensate_loan_details_controller'
         })

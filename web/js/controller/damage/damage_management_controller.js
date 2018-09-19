@@ -1,4 +1,4 @@
-app.controller("damage_management_controller", ["$scope", "$host", "_basic", "_config", function ($scope, $host, _basic, _config) {
+app.controller("damage_management_controller", ["$scope","$rootScope","$state","$stateParams", "$host", "_basic", "_config", function ($scope, $rootScope,$state,$stateParams,$host, _basic, _config) {
 
     $scope.start = 0;
     $scope.size = 21;
@@ -9,21 +9,14 @@ app.controller("damage_management_controller", ["$scope", "$host", "_basic", "_c
 
     // 下载csv
     $scope.downloadCsvFile = function () {
-        var obj = {
-            damageId: $scope.damageNum,
-            vinCode:$scope.vinCode,
-            routeEndId:$scope.endCity,
-            makeId:$scope.brand,
-            receiveId:$scope.distributor,
-            damageStatus:$scope.processingStatus,
-            createdOnStart:$scope.reportTimeStart,
-            createdOnEnd:$scope.reportTimeEnd,
-            underUserName:$scope.responsibilityPerson,
-            declareUserName:$scope.reportPerson,
-            damageLinkType:$scope.damage_link_type,
-            damageType:$scope.damage_type
-        };
-        window.open($host.api_url + "/damage.csv?" + _basic.objToUrl(obj));
+        // 基本检索URL
+        var url = $host.api_url + "/damage.csv?" ;
+        // 检索条件
+        var conditionsObj = makeConditions();
+        var conditions = _basic.objToUrl(conditionsObj);
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
+        window.open(url);
     };
 
     // 获取品牌列表
@@ -61,7 +54,6 @@ app.controller("damage_management_controller", ["$scope", "$host", "_basic", "_c
             $scope.receiveList = [];
         }
         else{
-            // console.log($scope.endCity);
             _basic.get($host.api_url + "/receive?cityId=" + $scope.endCity).then(function (data) {
                 if (data.success === true) {
                     $scope.receiveList = data.result;
@@ -75,23 +67,28 @@ app.controller("damage_management_controller", ["$scope", "$host", "_basic", "_c
 
     // 获取质损管理列表
     $scope.getDamageManagementList = function () {
-        _basic.get($host.api_url + "/damage?" + _basic.objToUrl({
-            damageId:$scope.damageNum,
-            damageStatus:$scope.processingStatus,
-            vinCode:$scope.vinCode,
-            makeId:$scope.brand,
-            declareUserName:$scope.reportPerson,
-            createdOnStart:$scope.reportTimeStart,
-            createdOnEnd:$scope.reportTimeEnd,
-            underUserName:$scope.responsibilityPerson,
-            routeEndId:$scope.endCity,
-            receiveId:$scope.distributor,
-            damageLinkType:$scope.damage_link_type,
-            damageType:$scope.damage_type,
-            start:$scope.start.toString(),
-            size:$scope.size
-        })).then(function (data) {
-            if (data.success === true) {
+        // 基本检索URL
+        var url = $host.api_url + "/damage?start=" + $scope.start + "&size=" + $scope.size;
+        // 检索条件
+        var conditionsObj = makeConditions();
+        var conditions = _basic.objToUrl(conditionsObj);
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
+
+        _basic.get(url).then(function (data) {
+
+            if (data.success == true) {
+
+                // 当前画面的检索信息
+                var pageItems = {
+                    pageId: "damage_management",
+                    start: $scope.start,
+                    size: $scope.size,
+                    conditions: conditionsObj
+                };
+                // 将当前画面的条件
+                $rootScope.refObj = {pageArray: []};
+                $rootScope.refObj.pageArray.push(pageItems);
                 $scope.boxArray = data.result;
                 $scope.damageMamagementList = $scope.boxArray.slice(0, 20);
                 if ($scope.start > 0) {
@@ -130,6 +127,75 @@ app.controller("damage_management_controller", ["$scope", "$host", "_basic", "_c
         $scope.start = $scope.start + ($scope.size-1);
         $scope.getDamageManagementList();
     };
+
+    /**
+     * 设置检索条件。
+     * @param conditions 上次检索条件
+     */
+    function setConditions(conditions) {
+        $scope.damageNum=conditions.damageId;
+        $scope.processingStatus=conditions.damageStatus;
+        $scope.vinCode=conditions.vinCode;
+        $scope.brand=conditions.makeId;
+        $scope.reportPerson=conditions.declareUserName;
+        $scope.reportTimeStart=conditions.createdOnStart;
+        $scope.reportTimeEnd=conditions.createdOnEnd;
+        $scope.responsibilityPerson=conditions.underUserName;
+        $scope.endCity=conditions.routeEndId;
+        $scope.distributor=conditions.receiveId;
+        $scope.damage_link_type=conditions.damageLinkType;
+        $scope.damage_type=conditions.damageType;
+    }
+
+    /**
+     * 组装检索条件。
+     */
+    function makeConditions() {
+        return {
+            damageId:$scope.damageNum,
+            damageStatus:$scope.processingStatus,
+            vinCode:$scope.vinCode,
+            makeId:$scope.brand,
+            declareUserName:$scope.reportPerson,
+            createdOnStart:$scope.reportTimeStart,
+            createdOnEnd:$scope.reportTimeEnd,
+            underUserName:$scope.responsibilityPerson,
+            routeEndId:$scope.endCity,
+            receiveId:$scope.distributor,
+            damageLinkType:$scope.damage_link_type,
+            damageType:$scope.damage_type
+        };
+    }
+
+
+    /**
+     * 画面初期显示时，用来获取画面必要信息的初期方法。
+     */
+    function initData() {
+        // 如果是从后画面跳回来时，取得上次检索条件
+        if ($stateParams.from === "damage_management_details" && $rootScope.refObj !== undefined && $rootScope.refObj.pageArray.length > 0) {
+            var pageItems = $rootScope.refObj.pageArray.pop();
+            if (pageItems.pageId === "damage_management") {
+                // 设定画面翻页用数据
+                $scope.start = pageItems.start;
+                $scope.size = pageItems.size;
+                // 将上次的检索条件设定到画面
+                setConditions(pageItems.conditions);
+
+            }
+        } else {
+            // 初始显示时，没有前画面，所以没有基本信息
+            $rootScope.refObj = {pageArray: []};
+
+        }
+        $scope.getReceiveList();
+        // 查询数据
+        $scope.getDamageManagementList();
+
+    }
+    initData();
+
+
 
     // 获取数据
     $scope.queryData = function () {

@@ -93,7 +93,7 @@ app.controller("settlement_management_controller", ["$scope","$rootScope","$stat
     // 数据导出
     $scope.export = function () {
         // 基本检索URL
-        var url = $host.api_url + "/settleHandover.csv" ;
+        var url = $host.api_url + "/settleHandover.csv?" ;
         // 检索条件
         var conditionsObj = makeConditions();
         var conditions = _basic.objToUrl(conditionsObj);

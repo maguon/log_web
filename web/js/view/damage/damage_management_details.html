@@ -1,12 +1,10 @@
-<a style="margin: 90px 0 0 20px" class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light "
-   ui-sref="damage_management">
-    <i class="mdi mdi-arrow-left-bold"></i>
-</a>
-
 <div class="damage_management_details" style="width: 80%;margin: 0 auto">
     <div class="row">
-        <div class="vc-center">
-            <h5 class="center-align cyan-text text-lighten-1">质损详情&nbsp;-{{currentDamageInfo.id}}</h5>
+        <div class="storage_storeTitle vc-center ">
+            <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
+                <i class="mdi mdi-arrow-left-bold"></i>
+            </a>
+            <h4 class="center-align cyan-text text-lighten-1">质损详情&nbsp;-{{currentDamageInfo.id}}</h4>
         </div>
 
         <!--增加保险信息模态框-->

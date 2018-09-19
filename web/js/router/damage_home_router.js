@@ -23,6 +23,7 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
         // 质损申报
         .state("damage_declaration",{
             url:"/damage_declaration",
+            params: {"from": null},
             templateUrl: "js/view/damage/damage_declaration.html",
             controller:'damage_declaration_controller'
         })
@@ -32,18 +33,19 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             controller:'damage_report_controller'
         })
         .state("damage_declaration_details",{
-            url:"/damage_declaration_details/id/{id}/status/{status}",
+            url:"/damage_declaration_details/id/{id}/status/{status}/from/{from}",
             templateUrl: "js/view/damage/damage_declaration_details.html",
             controller:'damage_declaration_details_controller'
         })
         // 质损管理
         .state("damage_management",{
             url:"/damage_management",
+            params: {"from": null},
             templateUrl: "js/view/damage/damage_management.html",
             controller:'damage_management_controller'
         })
         .state("damage_management_details",{
-            url:"/damage_management_details/id/{id}",
+            url:"/damage_management_details/id/{id}/from/{from}",
             templateUrl: "js/view/damage/damage_management_details.html",
             controller:'damage_management_details_controller'
         })

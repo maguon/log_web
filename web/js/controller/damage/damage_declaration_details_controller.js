@@ -1,11 +1,16 @@
-app.controller("damage_declaration_details_controller", ["$scope", "$stateParams", "$host", "_basic", function ($scope, $stateParams, $host, _basic) {
+app.controller("damage_declaration_details_controller", ["$scope","$state", "$stateParams", "$host", "_basic", function ($scope,$state, $stateParams, $host, _basic) {
     var userId = _basic.getSession(_basic.USER_ID);
     var damageId = $stateParams.id;
     $scope.photoClick = false;
     $scope.driverModify = false;
     $scope.damageStatus = $stateParams.status;
     $scope.damageImageList = [];
-    // console.log("damageId",damageId);
+
+    // 返回
+    $scope.return = function () {
+        $state.go($stateParams.from,{from:"damage_declaration_details"}, {reload: true})
+    };
+
 
     // 获取当前质损信息
     $scope.getCurrentDamageInfo = function () {

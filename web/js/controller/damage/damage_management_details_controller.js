@@ -1,4 +1,4 @@
-app.controller("damage_management_details_controller", ["$scope", "$stateParams", "$host", "_config", "_basic", function ($scope, $stateParams, $host, _config, _basic) {
+app.controller("damage_management_details_controller", ["$scope","$state", "$stateParams", "$host", "_config", "_basic", function ($scope,$state, $stateParams, $host, _config, _basic) {
     var userId = _basic.getSession(_basic.USER_ID);
     var damageId = $stateParams.id;
     var recordId;
@@ -15,6 +15,11 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
     $scope.paymentFlag = "1";
     $scope.financeIndemnityStatus = 1; // 财务打款状态
     $scope.cityList = [];
+
+    // 返回
+    $scope.return = function () {
+        $state.go($stateParams.from,{from:"damage_management_details"}, {reload: true})
+    };
 
     // tab切换
     $scope.showDamageImage = function () {

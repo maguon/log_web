@@ -116,7 +116,7 @@
                     <td>{{damage.under_user_name}}</td>
                     <td ng-class="{'damage_pending_treatment':damage.damage_status == 1 , 'damage_in_process':damage.damage_status == 2}">{{damage.damage_status | damageStatus}}</td>
                     <td class="details">
-                        <a ui-sref="damage_management_details({id:damage.id})" style="font-size: 1.5rem">
+                        <a ui-sref="damage_management_details({id:damage.id,from:'damage_management'})" style="font-size: 1.5rem">
                             <i class="mdi mdi-file-document look_icon cyan-text lighten-1"></i>
                         </a>
                     </td>

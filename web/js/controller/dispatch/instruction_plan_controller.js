@@ -209,17 +209,23 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         $scope.truckIdCount =0;
         $scope.truckNumberCount =0;
         if(citySelect==null||citySelect==undefined||citySelect==''){
-          var  url =$host.api_url + "/truckDispatch?dispatchFlag=1&truckNumber="+truckNumber;
-          var  urlCount = $host.api_url + "/cityTruckDispatchCount?dispatchFlag=1&truckNumber="+truckNumber;
+            var obj={
+                truckNumber:truckNumber
+            }
         }
        else if(truckNumber==null||truckNumber==undefined||truckNumber==''){
-            var  url = $host.api_url + "/truckDispatch?dispatchFlag=1&currentCity="+citySelect;
-            var  urlCount = $host.api_url + "/cityTruckDispatchCount?dispatchFlag=1&currentCity="+citySelect;
+            var obj={
+                currentCity:citySelect
+            }
         }
         else{
-            var url = $host.api_url + "/truckDispatch?dispatchFlag=1&currentCity="+citySelect+"&truckNumber="+truckNumber;
-            var  urlCount = $host.api_url + "/cityTruckDispatchCount?dispatchFlag=1&currentCity="+citySelect+"&truckNumber="+truckNumber;
+            var obj={
+                currentCity:citySelect,
+                truckNumber:truckNumber
+            }
         }
+        var  url = $host.api_url + "/truckDispatch?dispatchFlag=1&"+_basic.objToUrl(obj);
+        var  urlCount = $host.api_url + "/cityTruckDispatchCount?dispatchFlag=1&"+_basic.objToUrl(obj);
         _basic.get(url).then(function (locateData) {
             if (locateData.success === true) {
                 $scope.carDetailsList = locateData.result;
@@ -233,6 +239,9 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             if (locateData.success === true) {
                 $scope.truckIdCount = locateData.result[0].truck_id;
                 $scope.truckNumberCount = locateData.result[0].truck_number;
+                if(locateData.result[0].truck_number==null){
+                    $scope.truckNumberCount=0;
+                }
             }
             else {
                 swal(locateData.msg, "", "error");
@@ -242,18 +251,24 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     $scope.changeTruckNumber = function (citySelect,truckNumber){
         $scope.truckIdCount =0;
         $scope.truckNumberCount =0;
-         if(citySelect==null||citySelect==undefined||citySelect==''){
-             var url =$host.api_url + "/truckDispatch?dispatchFlag=1&truckNumber="+truckNumber;
-             var  urlCount = $host.api_url + "/cityTruckDispatchCount?dispatchFlag=1&truckNumber="+truckNumber;
-         }
-       else if(truckNumber==null||truckNumber==undefined||truckNumber==''){
-            var  url = $host.api_url + "/truckDispatch?dispatchFlag=1&currentCity="+citySelect;
-             var  urlCount = $host.api_url + "/cityTruckDispatchCount?dispatchFlag=1&currentCity="+citySelect;
+        if(citySelect==null||citySelect==undefined||citySelect==''){
+            var obj={
+                truckNumber:truckNumber
+            }
+        }
+        else if(truckNumber==null||truckNumber==undefined||truckNumber==''){
+            var obj={
+                currentCity:citySelect
+            }
         }
         else{
-             var url = $host.api_url + "/truckDispatch?dispatchFlag=1&currentCity="+citySelect+"&truckNumber="+truckNumber;
-             var  urlCount = $host.api_url + "/cityTruckDispatchCount?dispatchFlag=1&currentCity="+citySelect+"&truckNumber="+truckNumber;
-         }
+            var obj={
+                currentCity:citySelect,
+                truckNumber:truckNumber
+            }
+        }
+        var  url = $host.api_url + "/truckDispatch?dispatchFlag=1&"+_basic.objToUrl(obj);
+        var  urlCount = $host.api_url + "/cityTruckDispatchCount?dispatchFlag=1&"+_basic.objToUrl(obj);
         _basic.get(url).then(function (locateData) {
             if (locateData.success === true) {
                 $scope.carDetailsList = locateData.result;

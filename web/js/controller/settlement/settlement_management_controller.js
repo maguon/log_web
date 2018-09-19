@@ -3,11 +3,12 @@
  */
 
 //结算管理
-app.controller("settlement_management_controller", ["$scope","$state","$stateParams", "$host", "_basic", function ($scope,$state,$stateParams,$host, _basic) {
+app.controller("settlement_management_controller", ["$scope","$rootScope","$state","$stateParams", "$host", "_basic", function ($scope,$rootScope,$state,$stateParams,$host, _basic) {
     $scope.start = 0;
     $scope.size = 11;
     $scope.addNumberId = 0;
     var userId = _basic.getSession(_basic.USER_ID);
+
     //提交人
     function  getopUserId(){
         _basic.get($host.api_url + "/user?typeArr=61%2C69").then(function (data) {
@@ -24,6 +25,7 @@ app.controller("settlement_management_controller", ["$scope","$state","$statePar
             }
         });
     }
+
     // 获取起始城市信息
     function getCityInfo() {
         _basic.get($host.api_url + "/city").then(function (cityData) {
@@ -46,7 +48,6 @@ app.controller("settlement_management_controller", ["$scope","$state","$statePar
             }
         });
     };
-
 
     // 委托方
    function getEntrustData() {
@@ -71,7 +72,6 @@ app.controller("settlement_management_controller", ["$scope","$state","$statePar
         });
     };
 
-
     // 经销商
     $scope.getReceiveMod = function (id) {
         if(id == 0 || id == "" || id == null){
@@ -92,7 +92,44 @@ app.controller("settlement_management_controller", ["$scope","$state","$statePar
 
     // 数据导出
     $scope.export = function () {
-        var obj = {
+        // 基本检索URL
+        var url = $host.api_url + "/settleHandover.csv" ;
+        // 检索条件
+        var conditionsObj = makeConditions();
+        var conditions = _basic.objToUrl(conditionsObj);
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
+        window.open(url);
+    };
+
+    //查询功能
+    $scope.getSettlement = function (){
+        $scope.start = 0;
+        getSettlementData();
+    }
+
+    /**
+     * 设置检索条件。
+     * @param conditions 上次检索条件
+     */
+    function setConditions(conditions) {
+        $scope.handover=conditions.number;
+        $scope.VIN=conditions.vinCode;
+        $scope.numberId=conditions.serialNumber;
+        $scope.opUserName=conditions.opUserId;
+        $scope.startCity=conditions.routeStartId;
+        $scope.entrustId=conditions.entrustId;
+        $scope.endCity=conditions.routeEndId;
+        $scope.receiveId=conditions.receiveId;
+        $scope.handoverReceiveStartTime=conditions.receivedDateStart;
+        $scope.handoverReceiveEndTime=conditions.receivedDateEnd;
+    }
+
+    /**
+     * 组装检索条件。
+     */
+    function makeConditions() {
+        return {
             number:$scope.handover,
             vinCode:$scope.VIN,
             serialNumber:$scope.numberId,
@@ -104,32 +141,35 @@ app.controller("settlement_management_controller", ["$scope","$state","$statePar
             receivedDateStart:$scope.handoverReceiveStartTime,
             receivedDateEnd:$scope.handoverReceiveEndTime
         };
-        window.open($host.api_url + "/settleHandover.csv?" + _basic.objToUrl(obj));
-    };
-
-    //查询功能
-    $scope.getSettlement = function (){
-        $scope.start = 0;
-        getSettlementData();
     }
+
 
     //获取查询数据
     function getSettlementData(){
-        _basic.get($host.api_url + "/settleHandover?" + _basic.objToUrl({
-            number:$scope.handover,
-            vinCode:$scope.VIN,
-            serialNumber:$scope.numberId,
-            opUserId:$scope.opUserName,
-            routeStartId: $scope.startCity,
-            entrustId:$scope.entrustId,
-            routeEndId:$scope.endCity,
-            receiveId:$scope.receiveId,
-            receivedDateStart:$scope.handoverReceiveStartTime,
-            receivedDateEnd:$scope.handoverReceiveEndTime,
-            start:$scope.start.toString(),
-            size:$scope.size
-        })).then(function (data) {
-            if (data.success === true) {
+
+        // 基本检索URL
+        var url = $host.api_url + "/settleHandover?start=" + $scope.start + "&size=" + $scope.size;
+        // 检索条件
+        var conditionsObj = makeConditions();
+        var conditions = _basic.objToUrl(conditionsObj);
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
+
+        _basic.get(url).then(function (data) {
+
+            if (data.success == true) {
+
+                // 当前画面的检索信息
+                var pageItems = {
+                    pageId: "settlement_management",
+                    start: $scope.start,
+                    size: $scope.size,
+                    conditions: conditionsObj
+                };
+                // 将当前画面的条件
+                $rootScope.refObj = {pageArray: []};
+                $rootScope.refObj.pageArray.push(pageItems);
+
                 $scope.boxArray = data.result;
                 $scope.settlementList = $scope.boxArray.slice(0, 10);
                 if ($scope.start > 0) {
@@ -150,7 +190,6 @@ app.controller("settlement_management_controller", ["$scope","$state","$statePar
             }
         });
     }
-
 
     //打开添加模态框
     $scope.addSettlement = function (){
@@ -208,7 +247,6 @@ app.controller("settlement_management_controller", ["$scope","$state","$statePar
 
     }
 
-
     // 分页
     $scope.pre_btn = function () {
         $scope.start = $scope.start - ($scope.size-1);
@@ -219,6 +257,55 @@ app.controller("settlement_management_controller", ["$scope","$state","$statePar
         $scope.start = $scope.start + ($scope.size-1);
         getSettlementData();
     };
+
+
+    /**
+     * 画面初期显示时，用来获取画面必要信息的初期方法。
+     */
+    function initData() {
+        // 如果是从后画面跳回来时，取得上次检索条件
+        if ($stateParams.from === "settlement_management_detail" && $rootScope.refObj !== undefined && $rootScope.refObj.pageArray.length > 0) {
+            var pageItems = $rootScope.refObj.pageArray.pop();
+            if (pageItems.pageId === "settlement_management") {
+                // 设定画面翻页用数据
+                $scope.start = pageItems.start;
+                $scope.size = pageItems.size;
+                // 将上次的检索条件设定到画面
+                setConditions(pageItems.conditions);
+
+                /*委托方*/
+                $scope.entrustNm = pageItems.conditions.entrustNm;
+                /*始发城市*/
+                $scope.routeStartNm = pageItems.conditions.routeStartNm;
+                $scope.routeStartId = pageItems.conditions.routeStartId;
+                /*目的城市*/
+                $scope.routeEndNm = pageItems.conditions.routeEndNm;
+                /*提交人*/
+                $scope.opUserNm = pageItems.conditions.opUserNm;
+                /*经销商*/
+                $scope.receiveNm = pageItems.conditions.receiveNm;
+
+
+            }
+        } else {
+            // 初始显示时，没有前画面，所以没有基本信息
+            $rootScope.refObj = {pageArray: []};
+
+            $scope.routeEndNm = "目的城市";
+            $scope.routeStartNm = "始发城市";
+            $scope.entrustNm = "委托方";
+            $scope.opUserNm = "提交人";
+            $scope.receiveNm = "经销商";
+            $scope.routeStartId='';
+        }
+        $scope.getReceiveMod($scope.routeStartId);
+        // 查询数据
+        getSettlementData();
+
+    }
+    initData();
+
+
 
     //获取数据
     function queryData() {

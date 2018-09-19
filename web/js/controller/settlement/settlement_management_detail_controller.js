@@ -12,6 +12,11 @@ app.controller("settlement_management_detail_controller", ["$scope","$state","$s
         serial_number : 0
     }
 
+    // 返回
+    $scope.return = function () {
+        $state.go($stateParams.from,{from:"settlement_management_detail"}, {reload: true})
+    };
+
     //获取详细信息
     function getDetailItem(){
         _basic.get($host.api_url + "/settleHandover?settleHandoverId="+settlementId).then(function (data) {

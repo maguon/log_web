@@ -1,4 +1,4 @@
-app.controller("driver_salary_details_controller", ["$scope", "$host", "$stateParams", "_config", "_basic", function ($scope, $host, $stateParams, _config, _basic) {
+app.controller("driver_salary_details_controller", ["$scope", "$host","$state", "$stateParams", "_config", "_basic", function ($scope, $host, $state,$stateParams, _config, _basic) {
 
     var userId = _basic.getSession(_basic.USER_ID);
     var salaryId = $stateParams.id;
@@ -6,6 +6,11 @@ app.controller("driver_salary_details_controller", ["$scope", "$host", "$statePa
     var heavyLoad = _config.heavyLoad;
     $scope.otherDeductions = 0;
     $scope.Reimbursement = 0;
+    // 返回
+    $scope.return = function () {
+        $state.go($stateParams.from,{from:"driver_salary_details"}, {reload: true})
+    };
+
     // 获取当前司机基本信息
     $scope.getSalaryDetails = function () {
         _basic.get($host.api_url + "/driveSalary?driveSalaryId=" + salaryId).then(function (data) {

@@ -21,11 +21,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
         .state("instruction_operation", {
             url: "/instruction_operation",
+            params: {"from": null},
             templateUrl: "js/view/dispatch/instruction_operation.html",
             controller:"instruction_operation_controller"
         })
         .state("instruction_operation_details", {
-            url: "/instruction_operation_details/id/{truckId}",
+            url: "/instruction_operation_details/id/{truckId}/from/{from}",
             templateUrl: "js/view/dispatch/instruction_operation_details.html",
             controller:"instruction_operation_details_controller"
         })

@@ -1,12 +1,18 @@
 /**
  * Created by zcy on 2017/8/31.
  */
-app.controller("instruction_operation_details_controller", ["$scope", "$host", "$stateParams", "_basic", function ($scope, $host, $stateParams, _basic) {
+app.controller("instruction_operation_details_controller", ["$scope","$state", "$host", "$stateParams", "_basic", function ($scope, $state, $host, $stateParams, _basic) {
     $('ul.tabs').tabs();
     var truckId = $stateParams.truckId;
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.showDetails = false;
     $scope.vinNum = "";
+    // 返回
+    $scope.return = function () {
+        $state.go($stateParams.from,{from:"instruction_operation_details"}, {reload: true})
+    };
+
+
     // 根据点击的truckId查询当前司机信息
     $scope.getDriverInfo = function () {
         _basic.get($host.api_url + "/truckDispatch?dispatchFlag=1&truckId=" + truckId).then(function (driverData) {

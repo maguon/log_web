@@ -64,6 +64,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         // 调度需求
         .state("instruction_need", {
             url: "/instruction_need",
+            params: {"from": null},
             templateUrl: "js/view/dispatch/instruction_need.html",
             controller:"instruction_need_controller"
         })

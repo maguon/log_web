@@ -57,6 +57,7 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
         })
         .state("instruction_need", {
             url: "/instruction_need",
+            params: {"from": null},
             templateUrl: "js/view/dispatch/instruction_need.html",
             controller: "instruction_need_controller"
         })

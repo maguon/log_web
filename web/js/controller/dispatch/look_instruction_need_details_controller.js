@@ -7,6 +7,13 @@ app.controller("look_instruction_need_details_controller", ["$scope", "$host", "
     $scope.LoadTaskList = false;
     var userId = _basic.getSession(_basic.USER_ID);
 
+
+    // 返回
+    $scope.return = function () {
+        $state.go($stateParams.from,{from:"look_instruction_need_details"}, {reload: true})
+    };
+
+
     // 获取需求详情信息
     $scope.getDispatchInfo = function () {
         _basic.get($host.api_url + "/dpDemand?dpDemandId=" + $stateParams.id).then(function (data) {

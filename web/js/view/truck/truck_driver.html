@@ -99,7 +99,7 @@
                         <span ng-show="driver.license_date | ptime" class="small-tips red lighten-2">临</span>
                     </td>
                     <td width="150" class="details">
-                        <a ui-sref="truck_driver_details({id:driver.id})" class=""><i
+                        <a ui-sref="truck_driver_details({id:driver.id,from:'truck_driver'})" class=""><i
                                 class="mdi mdi-eye look_icon cyan-text lighten-1"></i></a>
                         <span class="switch" ng-click="disableDriver(driver.drive_status,driver.id)"
                               style="height: 30px;">

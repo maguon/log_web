@@ -17,6 +17,12 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
     $scope.bindMainTxt = false;
     $scope.bindViceTxt = false;
 
+
+    // 返回
+    $scope.return = function () {
+        $state.go($stateParams.from,{from:"truck_driver_details"}, {reload: true})
+    };
+
     // 获取关联货车及公司信息
     $scope.getCompanyAndTruckInfo = function () {
         _basic.get($host.api_url + "/company").then(function (companyData) {

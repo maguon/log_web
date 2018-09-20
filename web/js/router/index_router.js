@@ -514,6 +514,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
         .state("truck_driver",{
             url:"/truck_driver",
+            params: {"from": null},
             templateUrl: "js/view/truck/truck_driver.html",
             controller:'truck_driver_controller'
         })
@@ -523,7 +524,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'add_truck_driver_controller'
         })
         .state("truck_driver_details",{
-            url:"/truck_driver_details/{id}",
+            url:"/truck_driver_details/{id}/from/{from}",
             templateUrl: "js/view/truck/truck_driver_details.html",
             controller:'truck_driver_details_controller'
         })

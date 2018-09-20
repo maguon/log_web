@@ -173,11 +173,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
         .state("insurance_compensation",{
             url:"/insurance_compensation",
+            params: {"from": null},
             templateUrl: "js/view/truck/insurance_compensation.html",
             controller:'insurance_compensation_controller'
         })
         .state("add_damage_insurance_details",{
-            url:"/add_damage_insurance_details/id/{id}",
+            url:"/add_damage_insurance_details/id/{id}/from/{from}",
             templateUrl: "js/view/truck/add_damage_insurance_details.html",
             controller:'add_damage_insurance_details_controller'
         })

@@ -1,4 +1,4 @@
-app.controller("insurance_compensation_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
+app.controller("insurance_compensation_controller", ["$scope", "$rootScope","$state","$stateParams","$host", "_basic", function ($scope,$rootScope,$state,$stateParams, $host, _basic) {
 
     $scope.start = 0;
     $scope.size = 21;
@@ -22,21 +22,28 @@ app.controller("insurance_compensation_controller", ["$scope", "$host", "_basic"
 
     // 获取保险赔偿列表
     $scope.getInsurancePaymentList = function () {
-        _basic.get($host.api_url + "/damageInsure?" + _basic.objToUrl({
-            damageInsureId:$scope.compensateNum,
-            damageId:$scope.damageNum,
-            insureId: $scope.insuranceCompany,
-            createdOnStart: $scope.claimStartTimeStart,
-            createdOnEnd: $scope.claimStartTimeEnd,
-            financialLoanStatus: $scope.loanStatus,
-            insurePlanStart: $scope.paymentMoneyStart,
-            insurePlanEnd: $scope.paymentMoneyEnd,
-            insureStatus: $scope.handleStatus,
-            insureUserName: $scope.agentName,
-            start:$scope.start.toString(),
-            size:$scope.size
-        })).then(function (data) {
-            if (data.success === true) {
+        // 基本检索URL
+        var url = $host.api_url + "/damageInsure?start=" + $scope.start + "&size=" + $scope.size;
+        // 检索条件
+        var conditionsObj = makeConditions();
+        var conditions = _basic.objToUrl(conditionsObj);
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
+
+        _basic.get(url).then(function (data) {
+
+            if (data.success == true) {
+
+                // 当前画面的检索信息
+                var pageItems = {
+                    pageId: "insurance_compensation",
+                    start: $scope.start,
+                    size: $scope.size,
+                    conditions: conditionsObj
+                };
+                // 将当前画面的条件
+                $rootScope.refObj = {pageArray: []};
+                $rootScope.refObj.pageArray.push(pageItems);
                 $scope.boxArray = data.result;
                 $scope.damageInsurancePaymentList = $scope.boxArray.slice(0, 20);
                 if ($scope.start > 0) {
@@ -66,19 +73,14 @@ app.controller("insurance_compensation_controller", ["$scope", "$host", "_basic"
 
     // 下载csv
     $scope.downloadCsvFile = function () {
-        var obj = {
-            damageInsureId: $scope.compensateNum,
-            damageId: $scope.damageNum,
-            insureId: $scope.insuranceCompany,
-            createdOnStart: $scope.claimStartTimeStart,
-            createdOnEnd: $scope.claimStartTimeEnd,
-            financialLoanStatus: $scope.loanStatus,
-            insurePlanStart: $scope.paymentMoneyStart,
-            insurePlanEnd: $scope.paymentMoneyEnd,
-            insureStatus: $scope.handleStatus,
-            insureUserName: $scope.agentName
-        };
-        window.open($host.api_url + "/damageInsureRel.csv?" + _basic.objToUrl(obj));
+        // 基本检索URL
+        var url = $host.api_url + "/damageInsureRel.csv?" ;
+        // 检索条件
+        var conditionsObj = makeConditions();
+        var conditions = _basic.objToUrl(conditionsObj);
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
+        window.open(url);
     };
 
     // 开启增加质损保险模态框并初始化所有信息
@@ -193,6 +195,63 @@ app.controller("insurance_compensation_controller", ["$scope", "$host", "_basic"
     };
 
 
+    /**
+     * 设置检索条件。
+     * @param conditions 上次检索条件
+     */
+    function setConditions(conditions) {
+        $scope.compensateNum=conditions.damageInsureId;
+        $scope.damageNum=conditions.damageId;
+        $scope.insuranceCompany=conditions.insureId;
+        $scope.claimStartTimeStart=conditions.createdOnStart;
+        $scope.claimStartTimeEnd=conditions.createdOnEnd;
+        $scope.loanStatus=conditions.financialLoanStatus;
+        $scope.paymentMoneyStart=conditions.insurePlanStart;
+        $scope.paymentMoneyEnd=conditions.insurePlanEnd;
+        $scope.handleStatus=conditions.insureStatus;
+        $scope.agentName=conditions.insureUserName;
+    }
+
+    /**
+     * 组装检索条件。
+     */
+    function makeConditions() {
+        return {
+            damageInsureId: $scope.compensateNum,
+            damageId: $scope.damageNum,
+            insureId: $scope.insuranceCompany,
+            createdOnStart: $scope.claimStartTimeStart,
+            createdOnEnd: $scope.claimStartTimeEnd,
+            financialLoanStatus: $scope.loanStatus,
+            insurePlanStart: $scope.paymentMoneyStart,
+            insurePlanEnd: $scope.paymentMoneyEnd,
+            insureStatus: $scope.handleStatus,
+            insureUserName: $scope.agentName
+        };
+    }
+
+    /**
+     * 画面初期显示时，用来获取画面必要信息的初期方法。
+     */
+    function initData() {
+        // 如果是从后画面跳回来时，取得上次检索条件
+        if ($stateParams.from === "add_damage_insurance_details" && $rootScope.refObj !== undefined && $rootScope.refObj.pageArray.length > 0) {
+            var pageItems = $rootScope.refObj.pageArray.pop();
+            if (pageItems.pageId === "insurance_compensation") {
+                // 设定画面翻页用数据
+                $scope.start = pageItems.start;
+                $scope.size = pageItems.size;
+                // 将上次的检索条件设定到画面
+                setConditions(pageItems.conditions);
+            }
+        } else {
+            // 初始显示时，没有前画面，所以没有基本信息
+            $rootScope.refObj = {pageArray: []};
+        }
+        // 查询数据
+        $scope.getInsurancePaymentList();
+    }
+    initData();
     // 获取数据
     $scope.queryData = function () {
         $scope.getInsurancePaymentList();

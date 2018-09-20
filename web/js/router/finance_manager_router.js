@@ -24,6 +24,7 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
         })
         .state("truck_management",{
             url:"/truck_management",
+            params: {"from": null},
             templateUrl: "js/view/truck/truck_management.html",
             controller:'truck_management_controller'
         })

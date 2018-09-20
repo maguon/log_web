@@ -11,7 +11,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
     var user_info_obj = _config.userTypes;
     // 点击返回按钮返回之前页面
     $scope.return = function () {
-        $state.go($stateParams.from, {reload: true});
+        $state.go($stateParams.from,{from:'look_truck_management'}, {reload: true});
     };
 
     //获取信息

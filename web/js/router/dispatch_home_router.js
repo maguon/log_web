@@ -84,11 +84,12 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
 
         .state("instruction_driver_mileage", {
             url: "/instruction_driver_mileage",
+            params: {"from": null},
             templateUrl: "js/view/dispatch/instruction_driver_mileage.html",
             controller: "instruction_driver_mileage_controller"
         })
         .state("instruction_drive_details", {
-            url: "/instruction_drive_details/id/{id}/timeStart/{timeStart}/timeEnd/{timeEnd}?refer",
+            url: "/instruction_drive_details/id/{id}/timeStart/{timeStart}/timeEnd/{timeEnd}/from/{from}",
             templateUrl: "js/view/dispatch/instruction_drive_details.html",
             controller: "instruction_drive_details_controller"
         })

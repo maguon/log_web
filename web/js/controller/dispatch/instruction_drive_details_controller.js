@@ -66,7 +66,7 @@ app.controller("instruction_drive_details_controller", ["$scope", "$host", "_con
 
 
     $scope.return = function () {
-        $state.go($stateParams.refer, {reload: true})
+        $state.go($stateParams.from,{from:'instruction_drive_details'}, {reload: true})
     }
 
 }]);

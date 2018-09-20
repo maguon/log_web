@@ -7,6 +7,11 @@ app.controller("instruction_car_refuel_details_controller", ["$scope", "$host", 
     $scope.from = $stateParams.from;
     var userId = _basic.getSession(_basic.USER_ID);
 
+
+    // 返回
+    $scope.return = function () {
+        $state.go($stateParams.from,{from:"instruction_car_refuel_details"}, {reload: true})
+    };
     // 通过
     $scope.resolve = function (id) {
         swal({

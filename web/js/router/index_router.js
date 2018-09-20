@@ -78,6 +78,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
         .state("instruction_car_refuel", {
             url: "/instruction_car_refuel",
+            params: {"from": null},
             templateUrl: "js/view/dispatch/instruction_car_refuel.html",
             controller:"instruction_car_refuel_controller"
         })

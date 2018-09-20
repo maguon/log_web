@@ -1,4 +1,4 @@
-app.controller("dispatch_order_controller", ["$scope", "$host", "_config","_basic", function ($scope, $host,_config, _basic) {
+app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$stateParams", "$host", "_config","_basic", function ($scope,$rootScope,$state,$stateParams,  $host,_config, _basic) {
     $scope.start = 0;
     $scope.size = 11;
     // 调度任务状态
@@ -37,17 +37,14 @@ app.controller("dispatch_order_controller", ["$scope", "$host", "_config","_basi
 
     // 下载csv
     $scope.downloadCsvFile = function () {
-        var obj = {
-            dpRouteTaskId: $scope.dispatchId,
-            taskStatus: $scope.taskStatus,
-            taskPlanDateStart: $scope.planTimeStart,
-            taskPlanDateEnd:$scope.planTimeEnd,
-            driveName:$scope.driver,
-            truckNum:$scope.truckNum,
-            routeStartId:$scope.startCity,
-            routeEndId:$scope.endCity
-        };
-        window.open($host.api_url + "/dpRouteTask.csv?" + _basic.objToUrl(obj));
+        // 基本检索URL
+        var url = $host.api_url + "/dpRouteTask.csv?" ;
+        // 检索条件
+        var conditionsObj = makeConditions();
+        var conditions = _basic.objToUrl(conditionsObj);
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
+        window.open(url);
     };
 
 
@@ -55,23 +52,28 @@ app.controller("dispatch_order_controller", ["$scope", "$host", "_config","_basi
      * 查询列表
      * */
     function seachOrderInfo(){
+        // 基本检索URL
+        var url = $host.api_url + "/dpRouteTask?start=" + $scope.start + "&size=" + $scope.size;
+        // 检索条件
+        var conditionsObj = makeConditions();
+        var conditions = _basic.objToUrl(conditionsObj);
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
 
-        // 检索条件组装
-        var condition = _basic.objToUrl({
-            dpRouteTaskId: $scope.dispatchId,
-            taskStatus: $scope.taskStatus,
-            taskPlanDateStart: $scope.planTimeStart,
-            taskPlanDateEnd:$scope.planTimeEnd,
-            driveName:$scope.driver,
-            truckNum:$scope.truckNum,
-            routeStartId:$scope.startCity,
-            routeEndId:$scope.endCity,
-            start: $scope.start.toString(),
-            size: $scope.size
-        });
+        _basic.get(url).then(function (data) {
 
-        _basic.get($host.api_url + "/dpRouteTask?" + condition).then(function (data) {
             if (data.success == true) {
+
+                // 当前画面的检索信息
+                var pageItems = {
+                    pageId: "dispatch_order",
+                    start: $scope.start,
+                    size: $scope.size,
+                    conditions: conditionsObj
+                };
+                // 将当前画面的条件
+                $rootScope.refObj = {pageArray: []};
+                $rootScope.refObj.pageArray.push(pageItems);
                 $scope.dispatchOrderBoxArray = data.result;
                 $scope.dispatchOrderArray = $scope.dispatchOrderBoxArray.slice(0,10);
                 if ($scope.start > 0) {
@@ -93,6 +95,60 @@ app.controller("dispatch_order_controller", ["$scope", "$host", "_config","_basi
     };
 
 
+    /**
+     * 设置检索条件。
+     * @param conditions 上次检索条件
+     */
+    function setConditions(conditions) {
+        $scope.dispatchId=conditions.dpRouteTaskId;
+        $scope.taskStatus=conditions.taskStatus;
+        $scope.planTimeStart=conditions.taskPlanDateStart;
+        $scope.planTimeEnd=conditions.taskPlanDateEnd;
+        $scope.driver=conditions.driveName;
+        $scope.truckNum=conditions.truckNum;
+        $scope.startCity=conditions.routeStartId;
+        $scope.endCity=conditions.routeEndId;
+    }
+
+    /**
+     * 组装检索条件。
+     */
+    function makeConditions() {
+        return {
+            dpRouteTaskId: $scope.dispatchId,
+            taskStatus: $scope.taskStatus,
+            taskPlanDateStart: $scope.planTimeStart,
+            taskPlanDateEnd:$scope.planTimeEnd,
+            driveName:$scope.driver,
+            truckNum:$scope.truckNum,
+            routeStartId:$scope.startCity,
+            routeEndId:$scope.endCity
+        };
+    }
+
+    /**
+     * 画面初期显示时，用来获取画面必要信息的初期方法。
+     */
+    function initData() {
+        // 如果是从后画面跳回来时，取得上次检索条件
+        if ($stateParams.from === "dispatch_order_details" && $rootScope.refObj !== undefined && $rootScope.refObj.pageArray.length > 0) {
+            var pageItems = $rootScope.refObj.pageArray.pop();
+            if (pageItems.pageId === "dispatch_order") {
+                // 设定画面翻页用数据
+                $scope.start = pageItems.start;
+                $scope.size = pageItems.size;
+                // 将上次的检索条件设定到画面
+                setConditions(pageItems.conditions);
+            }
+        } else {
+            // 初始显示时，没有前画面，所以没有基本信息
+            $rootScope.refObj = {pageArray: []};
+        }
+        // 查询数据
+        seachOrderInfo();
+
+    }
+    initData();
 
 
 

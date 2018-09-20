@@ -113,6 +113,7 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
         })
         .state("dispatch_order",{
             url:"/dispatch_order",
+            params: {"from": null},
             templateUrl: "js/view/dispatch/dispatch_order.html",
             controller:'dispatch_order_controller'
         })

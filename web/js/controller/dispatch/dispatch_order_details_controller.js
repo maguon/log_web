@@ -10,7 +10,7 @@ app.controller("dispatch_order_details_controller", ["$scope", "$host", "$locati
             });
         }
         else{
-            $state.go($stateParams.from, {reload: true})
+            $state.go($stateParams.from,{from:'dispatch_order_details'}, {reload: true})
         }
     };
 

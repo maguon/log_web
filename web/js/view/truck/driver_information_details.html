@@ -1,8 +1,3 @@
-<a style="margin: 90px 0 0 20px" class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light "
-   ui-sref="driver_information">
-    <i class="mdi mdi-arrow-left-bold"></i>
-</a>
-
 <!--货车事故详情模态框-->
 <div class="row" style="margin: 0">
     <div id="truckAccidentDetailsModal" class="modal modal-fixed-footer" style="width: 75%;height: 650px">
@@ -301,10 +296,12 @@
 
 <!--司机信息详情-->
 <div class="driver_information_details">
-    <div class="vc-center">
-        <h5 class="center-align cyan-text text-lighten-1">司机信息详情</h5>
+    <div class="storage_storeTitle vc-center ">
+        <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
+            <i class="mdi mdi-arrow-left-bold"></i>
+        </a>
+        <h4 class="center-align cyan-text text-lighten-1">司机信息详情</h4>
     </div>
-
     <div class="divider" style="background: #00bcd4;height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
     <div class="row" style="width: 90%;margin: 0 auto">
         <!--tab栏-->

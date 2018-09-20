@@ -1,4 +1,4 @@
-app.controller("driver_information_details_controller", ["$scope", "$host", "$stateParams", "_basic", "_config", function ($scope, $host, $stateParams, _basic, _config) {
+app.controller("driver_information_details_controller", ["$scope","$state", "$host", "$stateParams", "_basic", "_config", function ($scope, $state, $host, $stateParams, _basic, _config) {
 
     var driverId = $stateParams.driverId;
     $scope.driverIdd = $stateParams.driverId;
@@ -13,6 +13,11 @@ app.controller("driver_information_details_controller", ["$scope", "$host", "$st
 
     $scope.start = 0;
     $scope.size = 11;
+
+    // 返回
+    $scope.return = function () {
+        $state.go($stateParams.from,{from:"driver_information_details"}, {reload: true})
+    };
 
     // 获取司机基本信息
     $scope.getBasicDriverInfo = function () {

@@ -112,11 +112,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
         .state("accident_claim",{
             url:"/accident_claim",
+            params: {"from": null},
             templateUrl: "js/view/truck/accident_claim.html",
             controller:'accident_claim_controller'
         })
         .state("accident_claim_details",{
-            url:"/accident_claim_details/id/{id}",
+            url:"/accident_claim_details/id/{id}/from/{from}",
             templateUrl: "js/view/truck/accident_claim_details.html",
             controller:'accident_claim_details_controller'
         })

@@ -1,14 +1,19 @@
-app.controller("accident_claim_details_controller", ["$scope", "$host", "$stateParams", "_basic", function ($scope, $host, $stateParams, _basic) {
+app.controller("accident_claim_details_controller", ["$scope","$state", "$host", "$stateParams", "_basic", function ($scope, $state, $host, $stateParams, _basic) {
 
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.accidentId = $stateParams.id;
     $scope.relationAccidentNum = "";
 
+    // 返回
+    $scope.return = function () {
+        $state.go($stateParams.from,{from:"accident_claim_details"}, {reload: true})
+    };
+
     // 获取所有保险公司
     $scope.getInsureCompanyList = function () {
         _basic.get($host.api_url + "/truckInsure").then(function (data) {
             if (data.success === true) {
-                // console.log("data",data);
+
                 $scope.insureCompanyList = data.result;
             }
             else {

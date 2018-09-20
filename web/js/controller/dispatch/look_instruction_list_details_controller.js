@@ -14,7 +14,7 @@ app.controller("look_instruction_list_details_controller", ["$scope", "$host", "
             })
         }
         else {
-            $state.go($stateParams.from, {reload: true})
+            $state.go($stateParams.from,{from:"look_instruction_list_details"}, {reload: true})
         }
 
     };

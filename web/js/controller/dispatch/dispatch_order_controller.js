@@ -1,7 +1,7 @@
 app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$stateParams", "$host", "_config","_basic", function ($scope,$rootScope,$state,$stateParams,  $host,_config, _basic) {
     $scope.start = 0;
     $scope.size = 11;
-    // 调度任务状态
+    // 调度指令状态
     $scope.taskStatusList =_config.taskStatus;
 
 

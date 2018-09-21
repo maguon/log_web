@@ -245,7 +245,7 @@ CommonFilter.filter("missionStatus", function () {
 
 
 
-// 调度任务状态类型过滤器
+// 调度指令状态类型过滤器
 CommonFilter.filter("taskStatus", function () {
     return function (input) {
         var taskStatus;

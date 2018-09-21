@@ -114,7 +114,7 @@ baseService.factory("_config", function () {
 
     _this.rel_status = 1;
 
-    // 调度任务状态
+    // 指令状态
     _this.taskStatus = [
         {
             id: 1,
@@ -145,6 +145,32 @@ baseService.factory("_config", function () {
             taskStatusName: "全部完成"
         }
     ];
+
+    // 任务状态
+    _this.missionStatus = [
+        {
+            id: 1,
+            taskStatusName: "未装车"
+        },
+        {
+            id: 3,
+            taskStatusName: "已装车"
+        },
+        {
+            id: 7,
+            taskStatusName: "已送达"
+        },
+        {
+            id: 8,
+            taskStatusName: "取消任务"
+        },
+        {
+            id: 9,
+            taskStatusName: "已完成"
+        }
+    ];
+
+
 
     // 车辆状态
     _this.car_rel_status = [

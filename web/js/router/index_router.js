@@ -718,7 +718,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/finance/driver_salary_details.html",
             controller:'driver_salary_details_controller'
         })
-
+        .state("driver_cost",{
+            url:"/driver_cost",
+            params: {"from": null},
+            templateUrl: "js/view/finance/driver_cost.html",
+            controller:'driver_cost_controller'
+        })
 
 
         // 结算管理

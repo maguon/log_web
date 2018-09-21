@@ -4,8 +4,10 @@
 app.controller("instruction_list_controller", ["$scope","$rootScope","$state","$stateParams", "$host", "_config", "_basic", function ($scope, $rootScope,$state,$stateParams,$host, _config, _basic) {
     $scope.start = 0;
     $scope.size = 11;
-    // 指令任务状态
+    // 指令状态
     $scope.taskStatusList = _config.taskStatus;
+    // 任务状态
+    $scope.missionStatusList = _config.missionStatus;
     _basic.get($host.api_url + "/city").then(function (data) {
         if (data.success == true) {
             $scope.cityList = data.result;
@@ -130,6 +132,7 @@ app.controller("instruction_list_controller", ["$scope","$rootScope","$state","$
         $scope.end_city= conditions.routeEndId;
         $scope.dealer = conditions.receiveId;
         $scope.task_status= conditions.taskStatus;
+        $scope.dispatch_car_status= conditions.loadTaskStatus;
     }
 
     /**
@@ -143,6 +146,7 @@ app.controller("instruction_list_controller", ["$scope","$rootScope","$state","$
             taskPlanDateEnd: $scope.instruct_endTime,
             truckNum: $scope.truck_num,
             driveName: $scope.driver,
+            loadTaskStatus: $scope.dispatch_car_status,
             routeStartId: $scope.start_city,
             baseAddrId: $scope.dispatch_car_position,
             routeEndId:$scope.end_city,

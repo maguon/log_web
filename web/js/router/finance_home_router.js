@@ -171,6 +171,27 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/statistics/transport_planning_statistics.html",
             controller:"transport_planning_statistics_controller"
         })
+        .state("setting_settlement",{
+            url:"/setting_settlement",
+            templateUrl: "js/view/system_settings/setting_settlement.html",
+            controller:'setting_settlement_controller'
+        })
+        .state("driver_settlement",{
+            url:"/driver_settlement",
+            templateUrl: "js/view/settlement/driver_settlement.html",
+            controller:'driver_settlement_controller'
+        })
+        .state("instruction_driver_mileage", {
+            url: "/instruction_driver_mileage",
+            params: {"from": null},
+            templateUrl: "js/view/dispatch/instruction_driver_mileage.html",
+            controller:"instruction_driver_mileage_controller"
+        })
+        .state("instruction_drive_details", {
+            url: "/instruction_drive_details/id/{id}/timeStart/{timeStart}/timeEnd/{timeEnd}/from/{from}",
+            templateUrl: "js/view/dispatch/instruction_drive_details.html",
+            controller:"instruction_drive_details_controller"
+        })
         // 数据字典
         .state("data_dictionary",{
             url:"/data_dictionary",

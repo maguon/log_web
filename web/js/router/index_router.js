@@ -457,6 +457,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
          // 车管
         .state("truck_details",{
             url:"/truck_details",
+            params: {"from": null},
             templateUrl: "js/view/truck/truck_details.html",
             controller:'truck_details_controller'
         })

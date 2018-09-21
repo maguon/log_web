@@ -99,7 +99,7 @@ baseService.factory("_config", function () {
             name: "结算操作员",
             subType: [],
             index: 'settlement_home.html',
-            qr: []
+            qr: [{qrSrc: "../assets/images/qr_code/qr_account_app.png"}]
         },
 
         {
@@ -107,7 +107,7 @@ baseService.factory("_config", function () {
             name: "结算管理员",
             subType: [{type: 61, name: "结算操作员"}],
             index: 'settlement_manager.html',
-            qr: []
+            qr:[{qrSrc: "../assets/images/qr_code/qr_account_app.png"}]
         }
 
     ];

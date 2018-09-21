@@ -9,31 +9,6 @@ app.controller("instruction_need_controller", ["$scope","$rootScope","$state","$
     $scope.startTransfer = 0;
     $scope.sizeTransfer = 11;
     $scope.instructionStatus = "1";
-    _basic.get($host.api_url + "/city").then(function (data) {
-        if (data.success == true) {
-            $scope.startCityList = data.result;
-            $('#start_city_list').select2({
-                placeholder: '起始城市',
-                containerCssClass: 'select2_dropdown',
-                allowClear: true
-            })
-            $('#end_city_list').select2({
-                placeholder: '目的城市',
-                containerCssClass: 'select2_dropdown',
-                allowClear: true
-            })
-            $('#add_start_city').select2({
-                placeholder: '起始城市',
-                containerCssClass: 'select2_dropdown',
-                allowClear: true
-            });
-            $('#add_end_city').select2({
-                placeholder: '目的城市',
-                containerCssClass: 'select2_dropdown',
-                allowClear: true
-            })
-        }
-    });
 
     // 需求路线跳转
     $scope.originalDemantd = function () {
@@ -51,29 +26,39 @@ app.controller("instruction_need_controller", ["$scope","$rootScope","$state","$
         $('ul.tabWrap li.ransferDemand ').addClass("active");
         $("#ransferDemand").addClass("active");
         $("#ransferDemand").show();
-        seachTransferInfo();
-        _basic.get($host.api_url + "/city").then(function (data) {
-            if (data.success == true) {
-                $scope.startCityList = data.result;
-                $('#transferCity').select2({
-                    placeholder: '中转城市',
-                    containerCssClass: 'select2_dropdown',
-                    allowClear: true
-                });
-                $('#end_city_list_t').select2({
-                    placeholder: '目的城市',
-                    containerCssClass: 'select2_dropdown',
-                    allowClear: true
-                });
-                $('#start_city_list_t').select2({
-                    placeholder: '原始起始城市',
-                    containerCssClass: 'select2_dropdown',
-                    allowClear: true
-                });
-
-            }
-        });
     }
+
+    _basic.get($host.api_url + "/city").then(function (data) {
+        if (data.success == true) {
+            $scope.startCityList = data.result;
+            $('#start_city_list').select2({
+                placeholder: '起始城市',
+                containerCssClass: 'select2_dropdown',
+                allowClear: true
+            })
+            $('#end_city_list').select2({
+                placeholder: '目的城市',
+                containerCssClass: 'select2_dropdown',
+                allowClear: true
+            });
+            $('#transferCity').select2({
+                placeholder: '中转城市',
+                containerCssClass: 'select2_dropdown',
+                allowClear: true
+            });
+            $('#end_city_list_t').select2({
+                placeholder: '目的城市',
+                containerCssClass: 'select2_dropdown',
+                allowClear: true
+            });
+            $('#start_city_list_t').select2({
+                placeholder: '原始起始城市',
+                containerCssClass: 'select2_dropdown',
+                allowClear: true
+            });
+
+        }
+    });
 
     // 获取装车地点
     $scope.getAddres = function (id) {
@@ -162,7 +147,7 @@ app.controller("instruction_need_controller", ["$scope","$rootScope","$state","$
     $scope.searchTransfer = function (){
         $scope.startTransfer = 0;
         seachTransferInfo();
-    }
+    };
     function seachAllInfo() {
         // 基本检索URL
         var url = $host.api_url + "/dpDemand?start=" + $scope.start + "&size=" + $scope.size;
@@ -256,7 +241,6 @@ app.controller("instruction_need_controller", ["$scope","$rootScope","$state","$
         })
     };
 
-
     /**
      * 设置检索条件。
      * @param conditions 上次检索条件
@@ -313,7 +297,6 @@ app.controller("instruction_need_controller", ["$scope","$rootScope","$state","$
                 setConditions(pageItems.conditions);
                 $scope.baseAddrId = pageItems.conditions.routeStartId;
                 $scope.receiveId = pageItems.conditions.routeEndId;
-
 
             }
         } else {
@@ -374,26 +357,17 @@ app.controller("instruction_need_controller", ["$scope","$rootScope","$state","$
                 $scope.sizeTransfer = pageItems.size;
                 // 将上次的检索条件设定到画面
                 setConditions2(pageItems.conditions);
-                $scope.baseAddrId = pageItems.conditions.routeStartId;
-                $scope.receiveId = pageItems.conditions.routeEndId;
-                $scope.routeStartNm = pageItems.conditions.routeStartNm;
-                $scope.routeEndIdNm = pageItems.conditions.routeEndIdNm;
-                $scope.transferCityNm = pageItems.conditions.transferCityNm;
-
-
+                $scope.ransferDemand();
             }
         } else {
             // 初始显示时，没有前画面，所以没有基本信息
             $rootScope.refObj = {pageArray: []};
-            $scope.routeStartNm = "原始起始城市";
-            $scope.routeEndIdNm = "目的城市";
-            $scope.transferCityNm = "中转城市";
+
         }
-        $scope.ransferDemand(  $scope.routeStartNm,$scope.routeEndIdNm, $scope.transferCityNm )
-        $scope.getAddres( $scope.baseAddrId);
-        $scope.getRecive( $scope.receiveId);
+        $scope.getAddres($scope.baseAddrId);
+        $scope.getRecive($scope.receiveId);
         // 查询数据
-        seachAllInfo();
+        seachTransferInfo();
 
     }
     initData2();
@@ -449,5 +423,4 @@ app.controller("instruction_need_controller", ["$scope","$rootScope","$state","$
         seachTransferInfo();
     };
     $scope.originalDemantd();
-    seachAllInfo();
 }]);

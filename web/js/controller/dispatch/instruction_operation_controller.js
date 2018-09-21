@@ -47,63 +47,6 @@ app.controller("instruction_operation_controller", ["$scope","$rootScope","$stat
             }
         });
     }
-
-    // 查询指令数据
-    $scope.getTruckDispatch = function () {
-        // 基本检索URL
-        var url = $host.api_url + "/truckDispatchLoadTask?start=" + $scope.start + "&size=" + $scope.size;
-        // 检索条件
-        var conditionsObj = makeConditions();
-        var conditions = _basic.objToUrl(conditionsObj);
-        // 检索URL
-        url = conditions.length > 0 ? url + "&" + conditions : url;
-
-        _basic.get(url).then(function (data) {
-
-            if (data.success == true) {
-
-                // 当前画面的检索信息
-                var pageItems = {
-                    pageId: "instruction_operation",
-                    start: $scope.start,
-                    size: $scope.size,
-                    conditions: conditionsObj
-                };
-                // 将当前画面的条件
-                $rootScope.refObj = {pageArray: []};
-                $rootScope.refObj.pageArray.push(pageItems);
-
-                // 根据城市判断状态
-                for (var i = 0; i < data.result.length; i++) {
-                    if (data.result[i].current_city === 0) {
-                        data.result[i].operate_status = "在途"
-                    }
-                    else {
-                        data.result[i].operate_status = "待运中"
-                    }
-                }
-                $scope.boxArray = data.result;
-                $scope.dispatchList = $scope.boxArray.slice(0, 10);
-                if ($scope.start > 0) {
-                    $("#pre").show();
-                }
-                else {
-                    $("#pre").hide();
-                }
-                if (data.result.length < $scope.size) {
-                    $("#next").hide();
-                }
-                else {
-                    $("#next").show();
-                }
-               /* $scope.dispatchList = data.result;*/
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
-    };
-
     // 获取起始城市信息
     $scope.getStartCityInfo = function () {
         _basic.get($host.api_url + "/city").then(function (cityData) {
@@ -182,6 +125,63 @@ app.controller("instruction_operation_controller", ["$scope","$rootScope","$stat
         }
     }
 
+
+    // 查询指令数据
+    $scope.getTruckDispatch = function () {
+        // 基本检索URL
+        var url = $host.api_url + "/truckDispatchLoadTask?start=" + $scope.start + "&size=" + $scope.size;
+        // 检索条件
+        var conditionsObj = makeConditions();
+        var conditions = _basic.objToUrl(conditionsObj);
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
+
+        _basic.get(url).then(function (data) {
+
+            if (data.success == true) {
+
+                // 当前画面的检索信息
+                var pageItems = {
+                    pageId: "instruction_operation",
+                    start: $scope.start,
+                    size: $scope.size,
+                    conditions: conditionsObj
+                };
+                // 将当前画面的条件
+                $rootScope.refObj = {pageArray: []};
+                $rootScope.refObj.pageArray.push(pageItems);
+
+                // 根据城市判断状态
+                for (var i = 0; i < data.result.length; i++) {
+                    if (data.result[i].current_city === 0) {
+                        data.result[i].operate_status = "在途"
+                    }
+                    else {
+                        data.result[i].operate_status = "待运中"
+                    }
+                }
+                $scope.boxArray = data.result;
+                $scope.dispatchList = $scope.boxArray.slice(0, 10);
+                if ($scope.start > 0) {
+                    $("#pre").show();
+                }
+                else {
+                    $("#pre").hide();
+                }
+                if (data.result.length < $scope.size) {
+                    $("#next").hide();
+                }
+                else {
+                    $("#next").show();
+                }
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+
     /**
      * 设置检索条件。
      * @param conditions 上次检索条件
@@ -203,14 +203,17 @@ app.controller("instruction_operation_controller", ["$scope","$rootScope","$stat
      * 组装检索条件。
      */
     function makeConditions() {
+        /*待运*/
         if($scope.currentStatus == "1"){
             $scope.taskStart = "0";
             $scope.currentCity = "";
         }
+        /*在途*/
         if($scope.currentStatus == "2"){
             $scope.taskStart = "";
             $scope.currentCity = "0";
         }
+        /*空*/
         if($scope.currentStatus == ""){
             $scope.currentCity = "";
             $scope.taskStart = "";
@@ -243,6 +246,16 @@ app.controller("instruction_operation_controller", ["$scope","$rootScope","$stat
                 $scope.size = pageItems.size;
                 // 将上次的检索条件设定到画面
                 setConditions(pageItems.conditions);
+                if(pageItems.conditions.taskStart==''&& pageItems.conditions.currentCity==''){
+                    $scope.currentStatus ='';
+                }
+                else if(pageItems.conditions.taskStart==''&& pageItems.conditions.currentCity!==''){
+                    $scope.currentStatus ='2';
+                }
+                else{
+                    $scope.currentStatus ='1';
+                }
+
 
             }
         } else {

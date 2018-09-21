@@ -498,6 +498,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         // 车辆维修管理
         .state("truck_repair_list",{
             url:"/truck_repair_list",
+            params: {"from": null},
             templateUrl: "js/view/truck/truck_repair_list.html",
             controller:'truck_repair_list_controller'
         })

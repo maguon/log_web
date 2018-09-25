@@ -28,8 +28,8 @@ app.controller("driver_cost_controller", ["$scope","$rootScope","$state","$state
     // 数据导出
     $scope.export = function () {
         var obj = {
-            orderStart: $scope.instruct_starTime,
-            orderEnd: $scope.instruct_endTime,
+            dateStart: moment($scope.instruct_starTime).format("YYYYMMDD"),
+            dateEnd: moment($scope.instruct_endTime).format("YYYYMMDD"),
             driveId: $scope.drivderId
         };
         swal({

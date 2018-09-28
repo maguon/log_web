@@ -5,7 +5,7 @@ app.controller("damage_management_controller", ["$scope","$rootScope","$state","
     // 获取config数据
     $scope.damageLinkType = _config.damageLinkType;
     $scope.damageType = _config.damageType;
-
+    $scope.user_info_obj = _config.userTypes;
 
     // 下载csv
     $scope.downloadCsvFile = function () {
@@ -140,6 +140,7 @@ app.controller("damage_management_controller", ["$scope","$rootScope","$state","
         $scope.reportPerson=conditions.declareUserName;
         $scope.reportTimeStart=conditions.createdOnStart;
         $scope.reportTimeEnd=conditions.createdOnEnd;
+        $scope.titleName=conditions.underUserType;
         $scope.responsibilityPerson=conditions.underUserName;
         $scope.endCity=conditions.routeEndId;
         $scope.distributor=conditions.receiveId;
@@ -159,6 +160,7 @@ app.controller("damage_management_controller", ["$scope","$rootScope","$state","
             declareUserName:$scope.reportPerson,
             createdOnStart:$scope.reportTimeStart,
             createdOnEnd:$scope.reportTimeEnd,
+            underUserType:$scope.titleName,
             underUserName:$scope.responsibilityPerson,
             routeEndId:$scope.endCity,
             receiveId:$scope.distributor,

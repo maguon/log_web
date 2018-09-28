@@ -39,7 +39,7 @@
                         <option value="3" >已处理</option>
                     </select>
                 </div>
-                <div class="col s4" style="padding: 0">
+                <div class="col s3" style="padding: 0">
                     <div class="col input-field s6">
                         <input id="report_time_start" type="text" class="datepicker" ng-model="reportTimeStart" date><i
                             class="mdi dataIcon mdi-table-large"></i>
@@ -51,25 +51,35 @@
                         <label for="report_time_end">至</label>
                     </div>
                 </div>
-                <div class="col input-field s2">
-                    <input id="responsibility_person" type="text" ng-model="responsibilityPerson">
-                    <label for="responsibility_person">责任人</label>
+                <div class="col s6" style="padding: 0">
+                    <div class="col input-field s4">
+                        <select material-select watch id="titleName" name="state" style="width:100%" ng-model="titleName">
+                            <option value="">责任人职务</option>
+                            <option ng-repeat="el in user_info_obj" ng-value="el.type">{{el.name}}</option>
+                        </select>
+                    </div>
+                    <div class="col input-field s4">
+                        <input id="responsibility_person" type="text" ng-model="responsibilityPerson">
+                        <label for="responsibility_person">责任人</label>
+                    </div>
+                    <div class="col input-field s4">
+                        <input id="report_person" type="text" ng-model="reportPerson">
+                        <label for="report_person">申报人</label>
+                    </div>
                 </div>
-                <div class="col input-field s2">
-                    <input id="report_person" type="text" ng-model="reportPerson">
-                    <label for="report_person">申报人</label>
-                </div>
-                <div class="col s2 input-field">
+                <div class="col s3" style="padding: 0">
+                <div class="col s6 input-field">
                     <select id="damageLinkType" material-select watch ng-model="damage_link_type">
                         <option value="">质损环节类别</option>
                         <option ng-repeat="damage in damageLinkType" ng-value="damage.id">{{damage.typeName}}</option>
                     </select>
                 </div>
-                <div class="col s2 input-field">
+                <div class="col s6 input-field">
                     <select material-select watch ng-model="damage_type">
                         <option value="">质损类型</option>
                         <option ng-repeat="damage in damageType" ng-value="damage.id">{{damage.typeLevel}}</option>
                     </select>
+                </div>
                 </div>
             </div>
 

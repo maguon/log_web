@@ -754,6 +754,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/settlement/driver_settlement.html",
             controller:'driver_settlement_controller'
         })
+        .state("settlement_car",{
+            url:"/settlement_car",
+            templateUrl: "js/view/settlement/settlement_car.html",
+            controller:'settlement_car_controller'
+        })
 
 
         // 下载app

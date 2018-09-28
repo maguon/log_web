@@ -3,6 +3,10 @@ app.controller("car_settlement_controller", ["$scope", "_basic", "_config", "$ho
     $scope.sizeAlready = 11;
     $scope.start = 0;
     $scope.size = 11;
+    $("#pre").hide();
+    $("#next").hide();
+    $("#preCar").hide();
+    $("#nextCar").hide();
     // 跳转
     $scope.alreadySettled = function () {
         $('ul.tabWrap li').removeClass("active");
@@ -71,23 +75,6 @@ app.controller("car_settlement_controller", ["$scope", "_basic", "_config", "$ho
         });
     }
 
-
-    // 城市-经销商联动（已结算）
-    $scope.get_dealer = function () {
-        if($scope.routeEndId == 0 || $scope.routeEndId == "" || $scope.routeEndId == null){
-            $scope.routeEndId = null;
-            $scope.get_receive = [];
-        }
-        else{
-            // 经销商下拉列表
-            _basic.get($host.api_url + "/receive?cityId=" + $scope.routeEndId).then(function (data) {
-                if (data.success === true) {
-                    $scope.get_receive = data.result;
-                }
-            });
-        }
-    };
-
     // 城市-经销商联动(未结算)
     $scope.getCarDealer = function () {
         if($scope.carEndCity == 0 || $scope.carEndCity == "" || $scope.carEndCity == null){
@@ -106,36 +93,42 @@ app.controller("car_settlement_controller", ["$scope", "_basic", "_config", "$ho
 
     <!--已结算车辆 查找-->
     function getCarList () {
-        _basic.get($host.api_url + "/settleCar?" + _basic.objToUrl({
-            vin: $scope.VIN,
-            entrustId:$scope.enstrustId,
-            routeStartId:$scope.routeStartId,
-            routeEndId:$scope.routeEndId,
-            receiveId:$scope.s_dealer,
-            start:$scope.startAlready.toString(),
-            size:$scope.sizeAlready
-        })).then(function (data) {
-            if (data.success === true) {
-                $scope.appBoxArray = data.result;
-                $scope.carList = $scope.appBoxArray.slice(0, 10);
-                if ($scope.startAlready > 0) {
-                    $("#pre").show();
-                }
-                else {
-                    $("#pre").hide();
-                }
-                if (data.result.length < $scope.sizeAlready) {
-                    $("#next").hide();
-                }
-                else {
-                    $("#next").show();
-                }
+        if ($scope.orderStart == null || $scope.orderEnd == null || $scope.orderStart == "" || $scope.orderEnd == "") {
+            swal('请输入完整的查询时间', "", "error");
+        }
+        else{
+            _basic.get($host.api_url + "/settleCar?" + _basic.objToUrl({
+                vin: $scope.VIN,
+                entrustId:$scope.enstrustId,
+                routeStartId:$scope.routeStartId,
+                routeEndId:$scope.routeEndId,
+                orderStart:$scope.orderStart,
+                orderEnd:$scope.orderEnd,
+                start:$scope.startAlready.toString(),
+                size:$scope.sizeAlready
+            })).then(function (data) {
+                if (data.success === true) {
+                    $scope.appBoxArray = data.result;
+                    $scope.carList = $scope.appBoxArray.slice(0, 10);
+                    if ($scope.startAlready > 0) {
+                        $("#pre").show();
+                    }
+                    else {
+                        $("#pre").hide();
+                    }
+                    if (data.result.length < $scope.sizeAlready) {
+                        $("#next").hide();
+                    }
+                    else {
+                        $("#next").show();
+                    }
 
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
     };
     // 点击搜索
     $scope.searchCarSettlment = function () {
@@ -156,36 +149,43 @@ app.controller("car_settlement_controller", ["$scope", "_basic", "_config", "$ho
 
     <!--未结算车辆 查找-->
     function getCarListS () {
-        _basic.get($host.api_url + "/notSettleCar?" + _basic.objToUrl({
-            vin: $scope.carVIN,
-            entrustId:$scope.carClient,
-            routeStartId:$scope.carStartCity,
-            routeEndId:$scope.carEndCity,
-            receiveId:$scope.carDealer,
-            start:$scope.start.toString(),
-            size:$scope.size
-        })).then(function (data) {
-            if (data.success === true) {
-                $scope.appBoxArray = data.result;
-                $scope.carLists = $scope.appBoxArray.slice(0, 10);
-                if ($scope.start > 0) {
-                    $("#preCar").show();
-                }
-                else {
-                    $("#preCar").hide();
-                }
-                if (data.result.length < $scope.size) {
-                    $("#nextCar").hide();
-                }
-                else {
-                    $("#nextCar").show();
-                }
+        if ($scope.orderStartCar == null || $scope.orderEndCar == null || $scope.orderStartCar == "" || $scope.orderEndCar == "") {
+            swal('请输入完整的查询时间', "", "error");
+        }
+        else {
+            _basic.get($host.api_url + "/notSettleCar?" + _basic.objToUrl({
+                vin: $scope.carVIN,
+                entrustId: $scope.carClient,
+                routeStartId: $scope.carStartCity,
+                routeEndId: $scope.carEndCity,
+                receiveId: $scope.carDealer,
+                orderStart:$scope.orderStartCar,
+                orderEnd:$scope.orderEndCar,
+                start: $scope.start.toString(),
+                size: $scope.size
+            })).then(function (data) {
+                if (data.success === true) {
+                    $scope.appBoxArray = data.result;
+                    $scope.carLists = $scope.appBoxArray.slice(0, 10);
+                    if ($scope.start > 0) {
+                        $("#preCar").show();
+                    }
+                    else {
+                        $("#preCar").hide();
+                    }
+                    if (data.result.length < $scope.size) {
+                        $("#nextCar").hide();
+                    }
+                    else {
+                        $("#nextCar").show();
+                    }
 
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
     };
     // 点击搜索
     $scope.searchCar = function () {
@@ -203,11 +203,27 @@ app.controller("car_settlement_controller", ["$scope", "_basic", "_config", "$ho
         getCarListS();
     };
 
+    function settleCarCount(){
+        _basic.get($host.api_url + "/settleCarCount").then(function (entrustData) {
+            if (entrustData.success === true) {
+                $scope.settleCarCountList = entrustData.result[0];
+            }
+            else {
+                swal(entrustData.msg, "", "error");
+            }
+        });
+        _basic.get($host.api_url + "/notSettleCarCount").then(function (entrustData) {
+            if (entrustData.success === true) {
+                $scope.notSettleCarCountList = entrustData.result[0];
+            }
+            else {
+                swal(entrustData.msg, "", "error");
+            }
+        });
+    }
 
 
-
-    getCarList();
-    getCarListS();
     getCity();
+    settleCarCount();
 
 }]);

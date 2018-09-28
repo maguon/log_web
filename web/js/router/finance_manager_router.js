@@ -268,6 +268,16 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/finance/driver_cost.html",
             controller:'driver_cost_controller'
         })
+        .state("settlement_car",{
+            url:"/settlement_car",
+            templateUrl: "js/view/settlement/settlement_car.html",
+            controller:'settlement_car_controller'
+        })
+        .state("car_settlement",{
+            url:"/car_settlement",
+            templateUrl: "js/view/settlement/car_settlement.html",
+            controller:'car_settlement_controller'
+        })
         // 数据字典
         .state("data_dictionary",{
             url:"/data_dictionary",

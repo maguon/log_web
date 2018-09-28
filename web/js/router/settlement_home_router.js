@@ -113,6 +113,16 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/finance/car_wash_fee_management.html",
             controller:'car_wash_fee_management_controller'
         })
+        .state("settlement_car",{
+            url:"/settlement_car",
+            templateUrl: "js/view/settlement/settlement_car.html",
+            controller:'settlement_car_controller'
+        })
+        .state("car_settlement",{
+            url:"/car_settlement",
+            templateUrl: "js/view/settlement/car_settlement.html",
+            controller:'car_settlement_controller'
+        })
         //管理员设置
         .state("setting_city",{
             url:"/setting_city",

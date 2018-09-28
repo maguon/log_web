@@ -164,20 +164,18 @@
                 <th data-field="">routeEndId</th>
                 <th data-field="">目的地</th>
                 <th data-field="">price</th>
-                <th data-field="">导入时间</th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="car in fileDetailObj.fileRecord" class="grey-text text-darken-1">
                 <td  ng-bind="car.vin"></td>
                 <td  ng-bind="car.entrust_id"></td>
-                <td  ng-bind="car.short_name"></td>
+                <td  ng-bind="car.e_short_name"></td>
                 <td  ng-bind="car.route_start_id"></td>
                 <td  ng-bind="car.route_start"></td>
                 <td  ng-bind="car.route_end_id"></td>
                 <td  ng-bind="car.route_end"></td>
                 <td class="red-text bold" ng-bind="car.price"></td>
-                <td>{{car.updated_on | date:'yyyy-MM-dd HH:mm:ss'}}</td>
             </tr>
             <tr>
             <tr ng-if="fileDetailObj.fileRecord.length==0">
@@ -243,7 +241,7 @@
             <div class="row">
                 <div class="col s12">
                     <div class="col s12 tableBox" ng-show="tableBox">
-                        <img style="width: 100%" src="/assets/images/import_instruction.png" />
+                        <img style="width: 100%" src="/assets/images/inport_settlement.png" />
                     </div>
                 </div>
             </div>

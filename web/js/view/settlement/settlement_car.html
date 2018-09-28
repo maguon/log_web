@@ -12,19 +12,19 @@
             <div class="col s6 input-field">
                 <select id="startCity" name="state" style="width:100%" ng-model="addRouteStartId">
                     <option value=""></option>
-                    <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
+                    <option ng-repeat="city in cityCarList" ng-value="city.id">{{city.city_name}}</option>
                 </select>
             </div>
             <div class="col s6 input-field">
                 <select id="endCity" name="state" style="width:100%" ng-model="addRouteEndId">
                     <option value=""></option>
-                    <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
+                    <option ng-repeat="city in cityCarList" ng-value="city.id">{{city.city_name}}</option>
                 </select>
             </div>
             <div class="input-field col s6">
                 <select id="client" name="client" style="width:100%" ng-model="addRnstrustId" >
                     <option value=""></option>
-                    <option ng-repeat="el in entrustList" ng-value="el.id" >{{el.short_name}}</option>
+                    <option ng-repeat="el in entrustCarList" ng-value="el.id" >{{el.short_name}}</option>
                 </select>
             </div>
             <div class="col s6 input-field" style="height: 70px">

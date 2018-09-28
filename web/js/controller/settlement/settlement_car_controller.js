@@ -261,21 +261,45 @@ app.controller("settlement_car_controller", ["$scope","$rootScope","$state","$st
             })
         };
 
+
+        function getAddCity() {
+            //起始城市 目的城市
+            _basic.get($host.api_url + "/city").then(function (data) {
+                if (data.success == true) {
+                    $scope.cityCarList = data.result;
+                    $('#startCity').select2({
+                        placeholder: '起始城市',
+                        containerCssClass: 'select2_dropdown',
+                        allowClear: true
+                    });
+                    $('#endCity').select2({
+                        placeholder: '目的城市',
+                        containerCssClass: 'select2_dropdown',
+                        allowClear: true
+                    });
+                }
+            });
+            //获取委托方
+            _basic.get($host.api_url + "/entrust").then(function (entrustData) {
+                if (entrustData.success === true) {
+                    $scope.entrustCarList = entrustData.result;
+                    $('#client').select2({
+                        placeholder: '委托方',
+                        containerCssClass : 'select2_dropdown',
+                        allowClear: true
+                    });
+                }
+                else {
+                    swal(entrustData.msg, "", "error");
+                }
+            });
+        }
+        getAddCity();
         function getCity(){
             //起始城市 目的城市
             _basic.get($host.api_url + "/city").then(function (data) {
                 if (data.success == true) {
                     $scope.cityList = data.result;
-                    $('#startCity').select2({
-                        placeholder: '起始城市',
-                        containerCssClass : 'select2_dropdown',
-                        allowClear: true
-                    });
-                    $('#endCity').select2({
-                        placeholder: '目的城市',
-                        containerCssClass : 'select2_dropdown',
-                        allowClear: true
-                    });
 
                     $('#updateStartCity').select2({
                         placeholder: '起始城市',
@@ -295,11 +319,6 @@ app.controller("settlement_car_controller", ["$scope","$rootScope","$state","$st
             _basic.get($host.api_url + "/entrust").then(function (entrustData) {
                 if (entrustData.success === true) {
                     $scope.entrustList = entrustData.result;
-                    $('#client').select2({
-                        placeholder: '委托方',
-                        containerCssClass : 'select2_dropdown',
-                        allowClear: true
-                    });
                     $('#updateClient').select2({
                         placeholder: '委托方',
                         containerCssClass : 'select2_dropdown',

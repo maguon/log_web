@@ -29,7 +29,7 @@
             </div>
             <div class="col s6 input-field" style="height: 70px">
                 <input type="number" ng-model="price" id="price" name="price" required>
-                <label for="price" class="active"><span class="red-text">*</span>price</label>
+                <label for="price" class="active"><span class="red-text">*</span>金额</label>
             </div>
         </div>
         <div class="divider" style="background: #ccc;height: 1px;"></div>
@@ -93,7 +93,7 @@
                         </div>
                         <div class="col s6 input-field" style="height: 70px">
                             <input type="number" ng-model="showSettlementList.price" id="updatePrice" name="updatePrice" required>
-                            <label for="updatePrice" class="active"><span class="red-text">*</span>price</label>
+                            <label for="updatePrice" class="active"><span class="red-text">*</span>金额</label>
                         </div>
                         <div class="divider" style="background: #ccc;height: 1px;"></div>
                     </div>
@@ -106,36 +106,6 @@
                     </div>
                 </div>
             </div>
-            
-            
-            
-           <!-- <div class="col s12" ng-show="flag==true" style="width: 100%;margin-bottom: 40px">
-                <div class="col s12 input-field" style="height: 70px">
-                    <input type="text" ng-model="showSettlementList.vin" id="updateVIN" name="updateVIN" required>
-                    <label for="updateVIN" class="active"><span class="red-text">*</span>VIN</label>
-                </div>
-                <div class="col s6 input-field" style="height: 70px">
-                    <input type="text" ng-model="showSettlementList.route_start_id" id="updateRrouteStartId" name="updateRrouteStartId" required>
-                    <label for="updateRrouteStartId" class="active"><span class="red-text">*</span>routeStartId</label>
-                </div>
-                <div class="col s6 input-field" style="height: 70px">
-                    <input type="text" ng-model="showSettlementList.route_end_id" id="updateRouteEndId" name="updateRouteEndId" required>
-                    <label for="updateRouteEndId" class="active"><span class="red-text">*</span>routeEndId</label>
-                </div>
-                <div class="col s6 input-field" style="height: 70px">
-                    <input type="text" ng-model="showSettlementList.entrust_id" id="updateEnstrustId" name="updateEnstrustId"  required>
-                    <label for="updateEnstrustId" class="active"><span class="red-text">*</span>enstrustId</label>
-                </div>
-                <div class="col s6 input-field" style="height: 70px">
-                    <input type="number" ng-model="showSettlementList.price" id="updatePrice" name="updatePrice" required>
-                    <label for="updatePrice" class="active"><span class="red-text">*</span>price</label>
-                </div>
-                <div class="divider" style="background: #ccc;height: 1px;"></div>
-                <div class="modal-footer vc-center">
-                    <a class=" modal-action modal-close waves-effect waves-light grey lighten-1 btn"  >取消 </a>
-                    <button class="btn waves-light waves-effect cyan lighten-2"  ng-click="updateSettlementItem()" name="action" style="margin-left: 10px">确定</button>
-                </div>
-            </div>-->
         </div>
     </div>
 </div>
@@ -163,7 +133,7 @@
                 <th data-field="">始发地</th>
                 <th data-field="">routeEndId</th>
                 <th data-field="">目的地</th>
-                <th data-field="">price</th>
+                <th data-field="">金额</th>
             </tr>
             </thead>
             <tbody>

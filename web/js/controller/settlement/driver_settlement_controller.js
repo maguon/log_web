@@ -1,6 +1,8 @@
 app.controller("driver_settlement_controller", ["_basic", "_config", "$host", "$scope", function (_basic, _config, $host, $scope) {
     $scope.start = 0;
     $scope.size = 11;
+    $("#pre").hide();
+    $("#next").hide();
     //司机 公司
     function getDriveNameList () {
         _basic.get($host.api_url + "/drive?driveName=").then(function (data) {
@@ -56,30 +58,34 @@ app.controller("driver_settlement_controller", ["_basic", "_config", "$host", "$
 
     // 数据导出
     $scope.export = function () {
-        var obj = {
-            orderStart: $scope.instruct_starTime,
-            orderEnd: $scope.instruct_endTime,
-            driveId: $scope.drivderId,
-            companyId: $scope.searchCompany,
-            operateType:$scope.operateType,
-            truckId:$scope.truckNum
+        if($scope.instruct_starTime==undefined||$scope.instruct_endTime==undefined){
+            swal('请输入完整的查询时间', "", "error");
+        }
+        else {
+            var obj = {
+                orderStart: $scope.instruct_starTime,
+                orderEnd: $scope.instruct_endTime,
+                driveId: $scope.drivderId,
+                companyId: $scope.searchCompany,
+                operateType: $scope.operateType,
+                truckId: $scope.truckNum
 
-        };
-        swal({
-                title: "确定导出司机结算表？",
-                text: "",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                closeOnConfirm: true,
-                closeOnCancel:true
-            },
-            function () {
-                window.open($host.api_url + "/driveSettle.csv?" + _basic.objToUrl(obj));
-            })
-
+            };
+            swal({
+                    title: "确定导出司机结算表？",
+                    text: "",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "确定",
+                    cancelButtonText: "取消",
+                    closeOnConfirm: true,
+                    closeOnCancel: true
+                },
+                function () {
+                    window.open($host.api_url + "/driveSettle.csv?" + _basic.objToUrl(obj));
+                })
+        }
     };
 
     //查询功能
@@ -91,9 +97,8 @@ app.controller("driver_settlement_controller", ["_basic", "_config", "$host", "$
     //获取查询数据
     function getSettlementData(){
         if($scope.instruct_starTime==undefined||$scope.instruct_endTime==undefined){
+            swal('请输入完整的查询时间', "", "error");
             $scope.settlementList=[];
-            $("#pre").hide();
-            $("#next").hide();
         }
         else{
             _basic.get($host.api_url + "/driveSettle?" + _basic.objToUrl({
@@ -140,5 +145,4 @@ app.controller("driver_settlement_controller", ["_basic", "_config", "$host", "$
     };
     getTruckNum();
     getDriveNameList ();
-    getSettlementData();
 }])

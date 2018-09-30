@@ -397,7 +397,7 @@ app.controller("settlement_car_controller", ["$scope","$rootScope","$state","$st
 
         // 新增结算车辆信息
         $scope.addsettlementItem = function () {
-            if ($scope.VIN!==''&&$scope.addRouteStartId!==undefined&&$scope.addRouteEndId!==undefined&&$scope.addRnstrustId!==undefined&&$scope.price!==undefined) {
+            if ($scope.VIN!==undefined&&$scope.addRouteStartId!==undefined&&$scope.addRouteEndId!==undefined&&$scope.addRnstrustId!==undefined&&$scope.price!==undefined) {
                 var obj = {
                     vin: $scope.VIN,
                     entrustId:$scope.addRnstrustId,
@@ -490,8 +490,8 @@ app.controller("settlement_car_controller", ["$scope","$rootScope","$state","$st
 
         //修改
         $scope.updateSettlementItem = function (id) {
-            if ($scope.showSettlementList.vin !== "" && $scope.showSettlementList.entrust_id !== ""
-                && $scope.showSettlementList.route_start_id !== "" && $scope.showSettlementList.route_end_id !== "" && $scope.showSettlementList.price!== "") {
+            if ($scope.showSettlementList.entrust_id !== ""&& $scope.showSettlementList.route_start_id !== ""
+                && $scope.showSettlementList.route_end_id !== "" && $scope.showSettlementList.price!== "") {
                 var obj = {
                     vin: $scope.showSettlementList.vin,
                     entrustId: $scope.showSettlementList.entrust_id,

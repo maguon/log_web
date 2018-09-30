@@ -1,6 +1,8 @@
 app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "$scope", function (_basic, _config, $host, $scope) {
     $scope.start = 0;
     $scope.size = 11;
+    $("#pre").hide();
+    $("#next").hide();
     // 委托方
     function getEntrust(){
         _basic.get($host.api_url + "/entrust").then(function (data) {
@@ -16,12 +18,6 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
                 swal(data.msg, "", "error");
             }
         });
-        // 车辆品牌
-     /*   _basic.get($host.api_url + "/carMake").then(function (data) {
-            if (data.success == true) {
-                $scope.get_carMake = data.result;
-            }
-        });*/
         //城市
         _basic.get($host.api_url + "/city").then(function (data) {
             if (data.success == true) {
@@ -81,31 +77,40 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
 
     // 数据导出
     $scope.export = function () {
-        var obj = {
-            entrustId: $scope.entrustId,
-            orderStart: $scope.instruct_starTime,
-            orderEnd: $scope.instruct_endTime,
-            makeId: $scope.car_brand,
-            routeStartId: $scope.startCity,
-            addrId: $scope.locateId,
-            routeEndId: $scope.endCity,
-            receiveId: $scope.receiveId
-        };
-        swal({
-                title: "确定导出结算报表？",
-                text: "",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                closeOnConfirm: true,
-                closeOnCancel:true
-            },
-            function () {
+        if($scope.instruct_starTime==undefined||$scope.instruct_endTime==undefined){
+            swal('请输入完整的指令时间', "", "error");
+            $scope.settlementList=[];
+            $("#pre").hide();
+            $("#next").hide();
+        }
+        else {
 
-                window.open($host.api_url + "/entrustCar.csv?" + _basic.objToUrl(obj));
-            })
+            var obj = {
+                entrustId: $scope.entrustId,
+                orderStart: $scope.instruct_starTime,
+                orderEnd: $scope.instruct_endTime,
+                makeId: $scope.car_brand,
+                routeStartId: $scope.startCity,
+                addrId: $scope.locateId,
+                routeEndId: $scope.endCity,
+                receiveId: $scope.receiveId
+            };
+            swal({
+                    title: "确定导出结算报表？",
+                    text: "",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "确定",
+                    cancelButtonText: "取消",
+                    closeOnConfirm: true,
+                    closeOnCancel: true
+                },
+                function () {
+
+                    window.open($host.api_url + "/entrustCar.csv?" + _basic.objToUrl(obj));
+                })
+        }
     };
 
     //查询功能
@@ -117,9 +122,8 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
     //获取查询数据
     function getSettlementData(){
         if($scope.instruct_starTime==undefined||$scope.instruct_endTime==undefined){
+            swal('请输入完整的指令时间', "", "error");
             $scope.settlementList=[];
-            $("#pre").hide();
-            $("#next").hide();
         }
         else{
             _basic.get($host.api_url + "/entrustCar?" + _basic.objToUrl({
@@ -169,5 +173,4 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
     };
 
     getEntrust();
-    getSettlementData();
 }])

@@ -406,18 +406,18 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
         // 根据借款状态判断是新增操作还是修改操作
         if($scope.paymentFlag == 2 && indemnityId == null){
             if(
-                $scope.bankAccount != ""
-                && $scope.bankAccount != undefined
-                && $scope.accountName != ""
-                && $scope.accountName != undefined
-                && $scope.openingBank != ""
-                && $scope.openingBank != undefined
-                && $scope.locatedCity != ""
-                && $scope.locatedCity !=undefined
-                && $scope.distributor != ""
-                && $scope.distributor !=undefined
-                && $scope.paymentMoney!= ""
-                && $scope.paymentMoney!=undefined
+                $scope.bankAccount !== ""
+                && $scope.bankAccount !== undefined
+                && $scope.accountName !== ""
+                && $scope.accountName !== undefined
+                && $scope.openingBank !== ""
+                && $scope.openingBank !== undefined
+                && $scope.locatedCity !== ""
+                && $scope.locatedCity !==undefined
+                && $scope.distributor !== ""
+                && $scope.distributor !==undefined
+                && $scope.paymentMoney!== ""
+                && $scope.paymentMoney!==undefined
             ){
                 $scope.getCityList();
                 // 新增操作
@@ -466,18 +466,18 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
         }
         else if($scope.paymentFlag == 2 && indemnityId != null){
             if(
-                $scope.bankAccount != ""
-                && $scope.bankAccount != undefined
-                && $scope.accountName != ""
-                && $scope.accountName != undefined
-                && $scope.openingBank != ""
-                && $scope.openingBank != undefined
-                && $scope.locatedCity != ""
-                && $scope.locatedCity !=undefined
-                && $scope.distributor != ""
-                && $scope.distributor !=undefined
-                && $scope.paymentMoney!= ""
-                && $scope.paymentMoney!=undefined
+                $scope.bankAccount !== ""
+                && $scope.bankAccount !== undefined
+                && $scope.accountName !== ""
+                && $scope.accountName !== undefined
+                && $scope.openingBank !== ""
+                && $scope.openingBank !== undefined
+                && $scope.locatedCity !== ""
+                && $scope.locatedCity !==undefined
+                && $scope.distributor !== ""
+                && $scope.distributor !==undefined
+                && $scope.paymentMoney!== ""
+                && $scope.paymentMoney!==undefined
             ){
                 // 修改操作
                 _basic.put($host.api_url + "/user/" + userId + "/damageCheckIndemnity/" + indemnityId,{

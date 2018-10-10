@@ -66,7 +66,7 @@
             <!--申报人-->
             <div class="row col s12 valign-wrapper" style="font-weight: bold">
                 <div class="col s4">
-                    <p><span style="color: #26c6da">申报人：</span>{{userName}}&emsp;&emsp;<span>{{userDepartment | department}}</span></p>
+                    <p><span style="color: #26c6da">申报人：</span>{{currentDamageInfo.declare_user_name}}&emsp;&emsp;<span>{{currentDamageInfo.type | department}}</span></p>
                 </div>
                 <div class="col s3">
                     <p><span style="color: #26c6da">申报日期：</span>{{currentDamageInfo.created_on | date:'yyyy-MM-dd HH:mm'}}</p>

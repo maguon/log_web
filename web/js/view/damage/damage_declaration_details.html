@@ -16,7 +16,7 @@
         <div class="damage_details_step_1" ng-if="damageStatus == 1 && !photoClick" style="font-size: 1.1rem;font-weight: bold;color: darkgray;display: inline-block">
             <div class="row col s12 valign-wrapper">
                 <div class="input-field col s4">
-                    <input disabled id="person" name="phone" type="text" ng-model="currentDamageInfo.real_name">
+                    <input disabled id="person" name="phone" type="text" ng-model="currentDamageInfo.declare_user_name">
                     <label for="person">申报人</label>
                 </div>
                 <div class="input-field col s4">
@@ -78,7 +78,7 @@
         <div class="damage_details_step_2" ng-if="damageStatus == 2 && !photoClick" style="font-size: 1.1rem;font-weight: bold;color: darkgray;display: inline-block">
             <div class="row col s12 valign-wrapper">
                 <div class="col s4">
-                    <p><span style="color: #26c6da">申报人：</span>{{currentDamageInfo.real_name}}&emsp;&emsp;<span>{{currentDamageInfo.type | department}}</span></p>
+                    <p><span style="color: #26c6da">申报人：</span>{{currentDamageInfo.declare_user_name}}&emsp;&emsp;<span>{{currentDamageInfo.type | department}}</span></p>
                 </div>
                 <div class="col s4">
                     <p><span style="color: #26c6da">申报日期：</span>{{currentDamageInfo.created_on}}</p>
@@ -123,7 +123,7 @@
             <div class="row col s12">
                 <div class="col s12">
                     <div class="col s4">
-                        <p><span style="color: #26c6da">申报人：</span>{{currentDamageInfo.real_name}}&emsp;&emsp;<span>{{currentDamageInfo.type | department}}</span></p>
+                        <p><span style="color: #26c6da">申报人：</span>{{currentDamageInfo.declare_user_name}}&emsp;&emsp;<span>{{currentDamageInfo.type | department}}</span></p>
                     </div>
                     <div class="col s4">
                         <p><span style="color: #26c6da">申报日期：</span>{{currentDamageInfo.created_on}}</p>

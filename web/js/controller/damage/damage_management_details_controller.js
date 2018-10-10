@@ -5,8 +5,8 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
     var damageCheckId;
     var indemnityStatus;
     var indemnityId = null;
-    $scope.userName = _basic.getSession(_basic.USER_NAME);
-    $scope.userDepartment = parseInt(_basic.getSession(_basic.USER_TYPE));
+   /* $scope.userName = _basic.getSession(_basic.USER_NAME);
+    $scope.userDepartment = parseInt(_basic.getSession(_basic.USER_TYPE));*/
     $scope.userList = _config.userTypes;
     $scope.damageTypeList = _config.damageType;
     $scope.damageLinkTypeList = _config.damageLinkType;

@@ -4,17 +4,14 @@
             <h5 class="col s12 cyan-text lighten-1  center-align">
                 用户信息
             </h5>
-            <!--<div class="col s8 right-align">-->
-            <!---->
-            <!--</div>-->
         </div>
         <div class="row">
             <div class="divider"></div>
         </div>
         <div style="width: 75%;margin: 0 auto">
             <ul class="collapsible"  data-collapsible="accordion" collapsible>
-                <li  style="border-bottom: 1px solid #4dd0e1" ng-repeat="el in user_info_section" >
-                    <div class="collapsible-header user_info_list " ><i class="mdi   mdi-account" ></i><span>{{el.type_name}}</span></div>
+                <li ng-repeat="el in user_info_section" >
+                    <div class="collapsible-header user_info_list "  style="border-bottom: 1px solid #4dd0e1"><i class="mdi   mdi-account" ></i><span>{{el.type_name}}</span></div>
                     <div class="collapsible-body" style="padding: 0">
                             <div class="col s12 p0" >
                                 <table class=" bordered striped">

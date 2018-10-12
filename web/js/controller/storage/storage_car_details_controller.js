@@ -276,7 +276,7 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
             $state.go($stateParams.from,{from:"storageCar_details"}, {reload: true})
         }
         else {
-            $state.go($stateParams.from,{from:"storageCar_details"}, {
+            $state.go($stateParams.from, {
                 id: $scope.self_car.storage_id,
                 form: $stateParams._form,
                 status: $stateParams.status

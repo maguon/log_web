@@ -24,7 +24,7 @@
                         <input type="checkbox" ng-click="selectAllCheckBox($event)" id="selectAll" name="selectAll" class="filled-in" />
                         <label for="selectAll" style="color: black">全选</label>
                     </div>
-                    <div class="col s12 center-align" style="color: darkgray;font-weight: bold;letter-spacing: 2px">
+                    <div class="col s12 center-align" style="color: darkgray;font-weight: bold;letter-spacing: 2px"  ng-hide="driverWageSettlementList.length !== 0">
                         <p>暂无关联任务</p>
                     </div>
                     <!--路线信息卡片-->

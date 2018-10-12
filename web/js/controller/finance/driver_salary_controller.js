@@ -214,7 +214,8 @@ app.controller("driver_salary_controller", ["$scope","$rootScope","$state","$sta
                     function () {
                         $state.go("driver_salary_details", {
                             id: data.id,
-                            driveId: $scope.driverInfo.drive_id
+                            driveId: $scope.driverInfo.drive_id,
+                            from:'driver_salary'
                         });
                         $("#wageSettlementModal").modal("close");
                     });

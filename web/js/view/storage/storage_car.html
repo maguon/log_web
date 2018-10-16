@@ -108,7 +108,8 @@
                     <td ng-bind="el.enter_time|date:'yyyy-MM-dd HH:mm:ss'"></td>
                     <td ng-if="el.storage_id!=null" ng-bind="el.storage_name"></td>
                     <td ng-if="el.storage_id==null" >无</td>
-                    <td ng-bind="el.area_name">无</td>
+                    <td ng-if="el.area_name==null">无</td>
+                    <td ng-if="el.area_name!==null">{{el.area_name}}</td>
                     <td ng-if="el.col!=null">{{el.row}}排{{el.col}}列</td>
                     <td ng-if="el.col==null">无</td>
                     <td ng-bind="el.real_out_time|date:'yyyy-MM-dd'"></td>

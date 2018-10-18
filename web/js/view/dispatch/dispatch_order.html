@@ -35,9 +35,12 @@
 
             <!--司机-->
             <div class="col s3 input-field">
-                <input name="driver" id="driver" type="text" ng-model="driver">
-                <label for="driver">司机</label>
+                <select id="driver"  ng-model="driver"  style="width: 100%">
+                    <option value=""></option>
+                    <option ng-repeat="putDrive in driveList" ng-value='putDrive.drive_name'>{{putDrive.drive_name}}</option>
+                </select>
             </div>
+
 
             <!--货车-->
             <div class="col s3 input-field">

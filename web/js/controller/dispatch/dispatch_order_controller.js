@@ -1,6 +1,8 @@
 app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$stateParams", "$host", "_config","_basic", function ($scope,$rootScope,$state,$stateParams,  $host,_config, _basic) {
     $scope.start = 0;
     $scope.size = 11;
+    $("#pre").hide();
+    $("#next").hide();
     // 调度指令状态
     $scope.taskStatusList =_config.taskStatus;
 
@@ -22,6 +24,23 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
                     containerCssClass : 'select2_dropdown',
                     allowClear: true
                 });
+            }
+        });
+    }
+
+    //获取司机
+    function getDriveName() {
+        _basic.get($host.api_url + "/drive").then(function (data) {
+            if (data.success === true) {
+                $scope.driveList = data.result;
+                $('#driver').select2({
+                    placeholder: '司机',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
             }
         });
     }
@@ -139,14 +158,14 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
                 $scope.size = pageItems.size;
                 // 将上次的检索条件设定到画面
                 setConditions(pageItems.conditions);
+
+                // 查询数据
+                seachOrderInfo();
             }
         } else {
             // 初始显示时，没有前画面，所以没有基本信息
             $rootScope.refObj = {pageArray: []};
         }
-        // 查询数据
-        seachOrderInfo();
-
     }
     initData();
 
@@ -175,7 +194,7 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
      */
     function getData (){
         getCity();
-        seachOrderInfo();
+        getDriveName();
     }
     getData();
 }])

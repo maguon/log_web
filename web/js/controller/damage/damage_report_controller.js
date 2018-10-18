@@ -49,7 +49,7 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
 
         // 根据填充完毕的完整VIN信息进行精确查询
         if ($scope.vinCode.length == 17) {
-            _basic.get($host.api_url + "/carList?vin=" + $scope.vinCode).then(function (data) {
+            _basic.get($host.api_url + "/carDamageDeclare?vin=" + $scope.vinCode).then(function (data) {
                 if (data.success === true && data.result.length !== 0) {
                     $scope.vinCheck = true;
                     $scope.vinData = data.result[0];

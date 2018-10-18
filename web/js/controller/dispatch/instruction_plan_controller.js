@@ -333,6 +333,55 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         $('#carInfoModel').modal('open');
     };
 
+
+    // 点击左侧 直达 的卡片详情显示模态框中的模态框
+    $scope.showCarDetailModel = function (transport) {
+        // 根据卡片信息查询起始目的地信息
+        _basic.get($host.api_url + "/carList?" + _basic.objToUrl({
+            orderStart:transport.date_id,
+            orderEnd :transport.date_id,
+            routeStartId: transport.route_start_id,
+            addrId:transport.base_addr_id,
+            receiveId:transport.receive_id,
+            routeEndId: transport.route_end_id
+        })).then(function (data) {
+            if (data.success === true) {
+                $scope.vinList = data.result;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+        $(".modal").modal();
+        $('#carDetailModel').modal('open');
+    };
+
+
+
+    // 点击左侧 中转 的卡片详情显示模态框中的模态框
+    $scope.showCarTDetailModel = function (transport) {
+        // 根据卡片信息查询起始目的地信息
+        _basic.get($host.api_url + "/carList?" + _basic.objToUrl({
+            orderStart:transport.date_id,
+            orderEnd :transport.date_id,
+            routeStartId: transport.route_start_id,
+            addrId:transport.base_addr_id,
+            receiveId:transport.receive_id,
+            routeEndId: transport.route_end_id
+        })).then(function (data) {
+            if (data.success === true) {
+                $scope.vinTList = data.result;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+        $(".modal").modal();
+        $('#carTDetailModel').modal('open');
+    };
+
+
+
     // 点击左侧 中转 的卡片详情显示模态框
     $scope.showCarTransferInfoModel = function (currentModelInfo) {
         // 转换日期格式
@@ -763,6 +812,62 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             swal("请先选择装车地点", "", "error");
         }
     };
+
+    // 根据经销商查看模态框详情(始发)
+    $scope.showCarModel= function(sendCityId,locateId){
+        if($scope.receiveInfo !== null&&$scope.receiveInfo !==''){
+            // 根据卡片信息查询起始目的地信息
+            _basic.get($host.api_url + "/carList?" + _basic.objToUrl({
+                orderStart:$scope.receiveInfo.date_id,
+                orderEnd :$scope.receiveInfo.date_id,
+                routeStartId: $scope.startLineId,
+                addrId:locateId.id,
+                receiveId:$scope.receiveInfo.receive_id,
+                routeEndId: sendCityId
+            })).then(function (data) {
+                if (data.success === true) {
+                    $scope.vinTList = data.result;
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+            $(".modal").modal();
+            $('#carTDetailModel').modal('open');
+        }
+        else{
+            swal("请先选择经销商", "", "error");
+        }
+    }
+
+    // 根据经销商查看模态框详情(中转)
+    $scope.showCarModelT= function(){
+        if($scope.originalRoute !== null&&$scope.originalRoute !==''){
+            // 根据卡片信息查询起始目的地信息
+            _basic.get($host.api_url + "/carList?" + _basic.objToUrl({
+                orderStart:$scope.originalRoute.date_id,
+                orderEnd :$scope.originalRoute.date_id,
+                routeStartId: $scope.originalRoute.route_start_id,
+                addrId:$scope.originalRoute.base_addr_id,
+                receiveId:$scope.originalRoute.receive_id,
+                routeEndId: $scope.originalRoute.route_end_id
+            })).then(function (data) {
+                if (data.success === true) {
+                    $scope.vinTList = data.result;
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+            $(".modal").modal();
+            $('#carTDetailModel').modal('open');
+        }
+        else{
+            swal("请先选择原始路线", "", "error");
+        }
+    }
+
+
 
     // 提交线路下的 （始发站出发） 任务信息
     $scope.submitMissionInfo = function (lineId,sendCityId,locateId,whetherTransfer,transferCityId,transferName,index) {

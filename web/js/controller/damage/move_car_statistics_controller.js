@@ -20,12 +20,22 @@ app.controller("move_car_statistics_controller", ["$scope", "$host", "_basic", f
     }
 
     function getMoveCar(){
-        var obj ={
-            ops:[11,12,13],
-            userId: $scope.manager,
-            startDate:$scope.dateStart,
-            endDate:$scope.dateEnd
-        };
+        if($scope.ops==undefined){
+            var obj ={
+                ops:[11,12,13],
+                userId: $scope.manager,
+                startDate:$scope.dateStart,
+                endDate:$scope.dateEnd
+            };
+        }
+        else{
+            var obj ={
+                op:$scope.ops,
+                userId: $scope.manager,
+                startDate:$scope.dateStart,
+                endDate:$scope.dateEnd
+            };
+        }
         if($scope.dateStart==undefined||$scope.dateEnd==undefined){
             swal('请输入完整的时间范围', "", "error");
             $scope.moveCarList=[];

@@ -160,7 +160,6 @@
                         <li><a href="#!" ui-sref="truck_indemnity_loan_statistics"><i class="mdi mdi-chevron-right white-text "></i>货车理赔借款管理</a></li>
                         <li><a href="#!" ui-sref="settlement_statistics"><i class="mdi mdi-chevron-right white-text "></i>结算统计</a></li>
                         <li><a href="#!" ui-sref="transport_planning_statistics"><i class="mdi mdi-chevron-right white-text "></i>发运计划统计</a></li>
-
                     </ul>
                 </div>
             </li>
@@ -172,7 +171,27 @@
     </li>
 
     <li class="bold side_navigator">
-        <a href="#!" ui-sref="damage_management" class="waves-effect waves-light first-N" ><i class="white-text mdi mdi-water-pump"></i>质损管理</a>
+        <ul class="collapsible collapsible-accordion">
+            <li class="bold">
+                <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-water-pump "></i>质损管理</a>
+                <div class="collapsible-body slider_nav_box blue-grey darken-3" style="padding: 0;">
+                    <ul>
+
+                        <li><a href="#!" ui-sref="damage_management"><i class="mdi mdi-chevron-right white-text "></i>质损管理</a></li>
+                        <li><a href="#!" ui-sref="car_detection_statistics"><i class="mdi mdi-chevron-right white-text "></i>质检统计</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+
+
+
+
+
+
+    <li class="bold side_navigator">
+
     </li>
 
     <li class="bold side_navigator">
@@ -226,6 +245,7 @@
                         <li><a href="#!" ui-sref="add_storage_car_vin"><i class="white-text mdi mdi-chevron-right"></i>入库车辆</a></li>
                         <li><a href="#!" ui-sref="storage_store"><i class="white-text mdi mdi-chevron-right"></i>仓储存放</a></li>
                         <li><a href="#!" ui-sref="storage_car"><i class="white-text mdi mdi-chevron-right"></i>仓储车辆</a></li>
+                        <li><a href="#!" ui-sref="move_car_statistics"><i class="mdi mdi-chevron-right white-text "></i>仓储统计</a></li>
                     </ul>
                 </div>
             </li>
@@ -466,7 +486,8 @@
 <script src="/js/controller/finance/car_wash_fee_management_controller.js"></script>
 <script src="/js/controller/damage/car_wash_fee_details_controller.js"></script>
 <script src="/js/controller/truck/add_damage_insurance_details_controller.js"></script>
-
+<script src="/js/controller/damage/move_car_statistics_controller.js"></script>
+<script src="/js/controller/damage/car_detection_statistics_controller.js"></script>
 <!--财务管理-->
 <script src="/js/controller/finance/dispatch_route_requ_controller.js"></script>
 <script src="/js/controller/finance/truck_compensate_loan_controller.js"></script>

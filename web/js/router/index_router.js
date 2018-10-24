@@ -410,7 +410,6 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:"transport_planning_statistics_controller"
         })
 
-
         // 从首页跳详情图
         .state("storage_car_details", {
             url:"/storage_car_details/{id}/vin/{vin}/_form/{_form}?from",
@@ -629,6 +628,19 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/damage/damage_management_details.html",
             controller:'damage_management_details_controller'
         })
+        .state("move_car_statistics", {
+            url:"/move_car_statistics",
+            templateUrl: "js/view/damage/move_car_statistics.html",
+            controller:"move_car_statistics_controller"
+        })
+        .state("car_detection_statistics", {
+            url:"/car_detection_statistics",
+            templateUrl: "js/view/damage/car_detection_statistics.html",
+            controller:"car_detection_statistics_controller"
+        })
+
+
+
         .state("insurance_compensation",{
             url:"/insurance_compensation",
             params: {"from": null},

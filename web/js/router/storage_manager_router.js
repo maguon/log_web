@@ -242,6 +242,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             url: "/look_instruction_list_details/id/{id}/from/{from}",
             templateUrl: "js/view/dispatch/look_instruction_list_details.html",
             controller:"look_instruction_list_details_controller"
+        })
+        .state("move_car_statistics", {
+            url:"/move_car_statistics",
+            templateUrl: "js/view/damage/move_car_statistics.html",
+            controller:"move_car_statistics_controller"
         });
 
 }]);

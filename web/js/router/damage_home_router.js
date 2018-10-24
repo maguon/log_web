@@ -49,6 +49,11 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/damage/damage_management_details.html",
             controller:'damage_management_details_controller'
         })
+        .state("car_detection_statistics", {
+            url:"/car_detection_statistics",
+            templateUrl: "js/view/damage/car_detection_statistics.html",
+            controller:"car_detection_statistics_controller"
+        })
         .state("car_wash_fee",{
             url:"/car_wash_fee",
             params: {"from": null},

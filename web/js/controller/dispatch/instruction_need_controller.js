@@ -103,11 +103,22 @@ app.controller("instruction_need_controller", ["$scope","$rootScope","$state","$
         _basic.get($host.api_url + "/receive?cityId=" + id).then(function (data) {
             if (data.success == true) {
                 $scope.receiveListMod = data.result;
+                $('#add_dealer').select2({
+                    placeholder: '送达地点',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
             }
         });
     };
 
     $scope.add_need = function () {
+        $scope.receiveListMod=[];
+        $('#add_dealer').select2({
+            placeholder: '送达地点',
+            containerCssClass: 'select2_dropdown',
+            allowClear: true
+        });
         _basic.get($host.api_url + "/city").then(function (data) {
             if (data.success == true) {
                 $scope.startCityList = data.result;

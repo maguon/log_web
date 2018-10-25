@@ -576,7 +576,7 @@
 
                                             <!--装车任务-->
                                             <div class="load_mission load_mission{{$index}}" style="font-weight: normal">
-                                                <!--增加装车任务-->
+                                               <!-- &lt;!&ndash;增加装车任务&ndash;&gt;
                                                 <div class="row col s12" ng-show="addMissionBtn">
                                                     <div class="col s3 right-align right" style="padding:15px 0">
                                                         <button ng-click="addMission()" style="width:100%;height: 30px;line-height: 33px"
@@ -585,9 +585,9 @@
                                                         </button>
                                                     </div>
                                                 </div>
-
+-->
                                                 <!--装车填写信息-->
-                                                <div class="col s12 black-text fz14" style="background-color: #e0e0e0;border: 1px solid darkgray;width: 95%;margin: 20px 2.5%" ng-show="missionInfo">
+                                                <div class="col s12 black-text fz14" style="background-color: #e0e0e0;border: 1px solid darkgray;width: 95%;margin: 20px 2.5%">
                                                     <div class="col s12 input-field">
                                                         <select  material-select watch  id="" ng-model="selectWhereStart" ng-change="changeWhereStart(selectWhereStart)">
                                                             <option value="" selected disabled>请选择</option>
@@ -650,12 +650,12 @@
                                                         </div>
                                                         <div class="col s12" style="margin-top: 30px">
                                                             <div class="col s6 offset-s3" style="padding: 0;">
-                                                                <div class="col s5">
+                                                               <!-- <div class="col s5">
                                                                     <a ng-click="closeMissionInfo()" style="width: 100%;background-color: #a0a8b1;" class="waves-light waves-effect lighten-1 btn">
                                                                         取消
                                                                     </a>
-                                                                </div>
-                                                                <div class="col s5 offset-s2">
+                                                                </div>-->
+                                                                <div class="col s5 offset-s3">
                                                                     <a ng-click="submitMissionInfo(currentLine.id,sendCityId,locateId,whetherTransfer,transferCityId,transferName,$index)" style="width: 100%;background-color: #26c6da;" class="waves-light waves-effect lighten-1 btn">
                                                                         确认
                                                                     </a>
@@ -663,7 +663,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div ng-show="selectWhereStart==2" style="height:420px;">
+                                                    <div ng-show="selectWhereStart==2" style="height:350px;">
                                                         <div class="col s4 input-field">
                                                             <select id="transferChooseLocate" name="chooseLocate" ng-change="changeTransferLocate(ransferLocateId)" ng-model="ransferLocateId" watch material-select>
                                                                 <option value="" selected>中转装车地点</option>
@@ -715,12 +715,12 @@
                                                         </div>
                                                         <div class="col s12" style="margin-top: 30px">
                                                             <div class="col s6 offset-s3" style="padding: 0;">
-                                                                <div class="col s5">
+                                                               <!-- <div class="col s5">
                                                                     <a ng-click="closeMissionInfo()" style="width: 100%;background-color: #a0a8b1;" class="waves-light waves-effect lighten-1 btn">
                                                                         取消
                                                                     </a>
-                                                                </div>
-                                                                <div class="col s5 offset-s2">
+                                                                </div>-->
+                                                                <div class="col s5 offset-s3">
                                                                     <a ng-click="postMissionInfo(currentLine.id,currentLine.city_route_end,ransferLocateId,whetherTransfer2,transferCityId2,transferName2,originalRoute,$index)" style="width: 100%;background-color: #26c6da;" class="waves-light waves-effect lighten-1 btn">
                                                                         确认
                                                                     </a>

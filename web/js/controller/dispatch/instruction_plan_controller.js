@@ -645,6 +645,18 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     // 点击线路获取当前路线下的装车任务信息
     $scope.showMissionInfo = function (showLineId,showLineDate,startLineId,index) {
+        $scope.locateId = "";
+        $scope.sendCityId = "";
+        $scope.receiveInfo = "";
+        $scope.distributeNum = "";
+        $scope.lineStartTime = "";
+        $scope.ransferLocateId = "";
+        $scope.originalRoute = "";
+        $scope.distributeNum2 = "";
+        $scope.lineStartTime2 = "";
+        $scope.whetherTransfer2 = "";
+        $scope.transferCityId2 = "";
+        $scope.hasTransferType2 = "";
         $scope.showLineId = showLineId;
         $scope.showLineDate = showLineDate;
         $scope.startLineId = startLineId;
@@ -657,7 +669,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         $scope.lineDateBak = moment(showLineDate).format("YYYY-MM-DD");// 不可改变的scope，用作刷新任务方法的参数使用
         $scope.missionInfo = false;
         $scope.addMissionBtn = true;
-
+        getBaseAddr();
         // 装车任务信息
         _basic.get($host.api_url + "/dpRouteLoadTask?dpRouteTaskId=" + showLineId + "&loadTaskStatusArr=1,3,7").then(function (missionData) {
             if (missionData.success === true) {
@@ -678,6 +690,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     };
 
+/*
 
     // 增加任务
     $scope.addMission = function () {
@@ -697,6 +710,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         $scope.hasTransferType2 = "";
         getBaseAddr()
     }
+*/
 
     // 获取装车地点信息
     function getBaseAddr(){
@@ -922,9 +936,9 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             }
             _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask/" + lineId + "/dpRouteLoadTask",obj).then(function (data) {
                 if(data.success === true){
-                    swal("新增成功", "", "success");
-                    $scope.missionInfo = false;
-                    $scope.addMissionBtn = true;
+                    swal("新增装车任务成功", "", "success");
+                    $scope.missionInfo = true;
+                    $scope.addMissionBtn =false ;
                     $scope.showMissionInfo(lineId,$scope.lineDateBak,$scope.startLineId,index);
                 }
                 else{
@@ -990,7 +1004,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             }
             _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask/" + lineId + "/dpRouteLoadTask",obj).then(function (data) {
                 if(data.success === true){
-                    swal("新增成功", "", "success");
+                    swal("新增装车任务成功", "", "success");
                     $scope.missionInfo = false;
                     $scope.addMissionBtn = true;
                     $scope.showMissionInfo(lineId,$scope.lineDateBak,$scope.startLineId,index);

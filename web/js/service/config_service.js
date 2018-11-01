@@ -26,7 +26,7 @@ baseService.factory("_config", function () {
         {
             type: 19,
             name: "车管部管理员",
-            subType: [{type: 11, name: "车管部操作员"}],
+            subType: [{type: 10, name: "司机"},{type: 11, name: "车管部操作员"}],
             index: 'vehicle_manager.html',
             qr: [{qrSrc: "../assets/images/qr_code/qr_tm_app.png"}]
         },

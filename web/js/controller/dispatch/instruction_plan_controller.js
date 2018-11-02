@@ -670,6 +670,17 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         $scope.missionInfo = false;
         $scope.addMissionBtn = true;
         getBaseAddr();
+
+        //获取出发城市
+        _basic.get($host.api_url + "/dpRouteTask?dpRouteTaskId=" + showLineId).then(function (data) {
+            if (data.success == true) {
+                $scope.dispatchInfoList = data.result[0];
+
+            } else {
+                swal(data.msg, "", "error");
+            }
+        });
+
         // 装车任务信息
         _basic.get($host.api_url + "/dpRouteLoadTask?dpRouteTaskId=" + showLineId + "&loadTaskStatusArr=1,3,7").then(function (missionData) {
             if (missionData.success === true) {
@@ -893,8 +904,8 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                      loadTaskType:$scope.selectWhereStart,
                      dpDemandId:$scope.receiveInfo.id,
                      transferDemandId:0,
-                     routeStartId:$scope.dispatchInfo.current_city,
-                     routeStart:$scope.dispatchInfo.city_name,
+                     routeStartId:$scope.dispatchInfoList.route_start_id,
+                     routeStart:$scope.dispatchInfoList.route_start,
                      baseAddrId:locateId.id,
                      addrName:locateId.addr_name,
                      routeEndId:sendCityId.id,
@@ -916,8 +927,8 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                     loadTaskType:$scope.selectWhereStart,
                     dpDemandId:$scope.receiveInfo.id,
                     transferDemandId:0,
-                    routeStartId:$scope.dispatchInfo.current_city,
-                    routeStart:$scope.dispatchInfo.city_name,
+                    routeStartId:$scope.dispatchInfoList.route_start_id,
+                    routeStart:$scope.dispatchInfoList.route_start,
                     baseAddrId:locateId.id,
                     addrName:locateId.addr_name,
                     routeEndId:sendCityId.id,

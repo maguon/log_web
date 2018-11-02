@@ -818,23 +818,28 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     // 根据选择的城市获取送达经销商和指令时间及派发数量信息
     $scope.getReceiveDistributor = function (lineId,sendCityId,locateId) {
-        if(lineId != ""){
-            _basic.get($host.api_url + "/dpDemandBase?" + _basic.objToUrl({
-                routeStartId:$scope.startLineId,
-                baseAddrId:locateId.id,
-                routeEndId:sendCityId,
-                demandStatus:"1"
-            })).then(function (addrData) {
-                if (addrData.success === true) {
-                    $scope.addrList = addrData.result;
-                }
-                else {
-                    swal(addrData.msg, "", "error");
-                }
-            });
+        if(locateId!==null&&sendCityId!==undefined){
+            if(lineId != ""){
+                _basic.get($host.api_url + "/dpDemandBase?" + _basic.objToUrl({
+                    routeStartId:$scope.startLineId,
+                    baseAddrId:locateId.id,
+                    routeEndId:sendCityId,
+                    demandStatus:"1"
+                })).then(function (addrData) {
+                    if (addrData.success === true) {
+                        $scope.addrList = addrData.result;
+                    }
+                    else {
+                        swal(addrData.msg, "", "error");
+                    }
+                });
+            }
+            else{
+                swal("请先选择装车地点", "", "error");
+            }
         }
-        else{
-            swal("请先选择装车地点", "", "error");
+        else {
+            return;
         }
     };
 

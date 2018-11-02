@@ -6,7 +6,6 @@ app.controller("driver_salary_controller", ["$scope","$rootScope","$state","$sta
     $scope.noLoadDistanceCount = 0;
     $scope.loadDistanceCount = 0;
     $scope.shouldPay = 0;
-    $scope.startMonth = moment(new Date()).format('YYYYMM');
     var heavyLoad = _config.heavyLoad;
     var userId = _basic.getSession(_basic.USER_ID);
 
@@ -15,6 +14,20 @@ app.controller("driver_salary_controller", ["$scope","$rootScope","$state","$sta
         Button: false,
         MonthFormat: 'yymm'
     });
+
+
+    //获取上个月年月
+    function getLastMonth(){//获取上个月日期
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = date.getMonth();
+        if(month == 0){
+            year = year -1;
+            month = 12;
+        }
+        $scope.startMonth = year.toString()+month.toString();
+    }
+
 
     // 获取货车品牌信息
     $scope.getTruckBrandList = function () {
@@ -293,6 +306,7 @@ app.controller("driver_salary_controller", ["$scope","$rootScope","$state","$sta
 
     // 获取数据
     $scope.queryData = function () {
+        getLastMonth();
         $scope.getTruckBrandList();
         $scope.searchDriverSalaryList("init");
     };

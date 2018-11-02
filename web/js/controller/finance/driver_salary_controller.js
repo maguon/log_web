@@ -27,7 +27,7 @@ app.controller("driver_salary_controller", ["$scope","$rootScope","$state","$sta
         }
         $scope.startMonth = year.toString()+month.toString();
     }
-
+    getLastMonth();
 
     // 获取货车品牌信息
     $scope.getTruckBrandList = function () {
@@ -57,8 +57,11 @@ app.controller("driver_salary_controller", ["$scope","$rootScope","$state","$sta
         if(status === "init"){
             $scope.monthStart = $scope.startMonth
         }
-        else{
+        else if(status === undefined){
             $scope.monthStart = $('#start_month').val();
+        }
+        else{
+            $scope.monthStart =status;
         }
         $scope.monthVal =  $scope.monthStart;
 
@@ -70,40 +73,48 @@ app.controller("driver_salary_controller", ["$scope","$rootScope","$state","$sta
         // 检索URL
         url = conditions.length > 0 ? url + "&" + conditions : url;
 
-        _basic.get(url).then(function (data) {
+        if($scope.monthStart==""||$scope.monthStart==null){
+            $scope.driverSalaryList=[];
+            $("#next").hide();
+            swal('请填写月份进行查询!', "", "error")
+        }
+        else{
+            _basic.get(url).then(function (data) {
 
-            if (data.success == true) {
+                if (data.success == true) {
 
-                // 当前画面的检索信息
-                var pageItems = {
-                    pageId: "driver_salary",
-                    start: $scope.start,
-                    size: $scope.size,
-                    conditions: conditionsObj
-                };
-                // 将当前画面的条件
-                $rootScope.refObj = {pageArray: []};
-                $rootScope.refObj.pageArray.push(pageItems);
-                $scope.boxArray = data.result;
-                $scope.driverSalaryList = $scope.boxArray.slice(0, 10);
-                if ($scope.start > 0) {
-                    $("#pre").show();
+                    // 当前画面的检索信息
+                    var pageItems = {
+                        pageId: "driver_salary",
+                        start: $scope.start,
+                        size: $scope.size,
+                        conditions: conditionsObj
+                    };
+                    // 将当前画面的条件
+                    $rootScope.refObj = {pageArray: []};
+                    $rootScope.refObj.pageArray.push(pageItems);
+                    $scope.boxArray = data.result;
+                    $scope.driverSalaryList = $scope.boxArray.slice(0, 10);
+                    if ($scope.start > 0) {
+                        $("#pre").show();
+                    }
+                    else {
+                        $("#pre").hide();
+                    }
+                    if (data.result.length < $scope.size) {
+                        $("#next").hide();
+                    }
+                    else {
+                        $("#next").show();
+                    }
+                    $scope.temporaryMonth = $("#start_month").val();
                 }
                 else {
-                    $("#pre").hide();
+                    swal(data.msg, "", "error");
                 }
-                if (data.result.length < $scope.size) {
-                    $("#next").hide();
-                }
-                else {
-                    $("#next").show();
-                }
-                $scope.temporaryMonth = $("#start_month").val();
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
+            });
+        }
+
     };
 
     // 点击查询
@@ -117,13 +128,13 @@ app.controller("driver_salary_controller", ["$scope","$rootScope","$state","$sta
         $scope.driverInfo = driverInfo;
         _basic.get($host.api_url + "/dpRouteTaskBase?driveId=" + driverInfo.drive_id + "&taskStatus=10&statStatus=1").then(function (data) {
             if (data.success === true) {
-                // console.log("driverData", data);
                 $scope.driverWageSettlementList = data.result;
                 $("#wageSettlementModal").modal("open");
                 $scope.selectedIdsArr = [];
                 $("[name = 'selectAll']").prop('checked' , false);
                 $scope.noLoadDistanceCount = 0;
                 $scope.loadDistanceCount = 0;
+                $scope.settleMonth=$scope.monthStart.slice(0,4)+"-"+$scope.monthStart.slice(-2);
             }
             else {
                 swal(data.msg, "", "error");
@@ -210,6 +221,7 @@ app.controller("driver_salary_controller", ["$scope","$rootScope","$state","$sta
         _basic.post($host.api_url + "/user/" + userId + "/driveSalary",{
             driveId: $scope.driverInfo.drive_id,
             truckId: truckId,
+            monthDateId:$scope.monthStart,
             loadDistance: $scope.loadDistanceCount,
             noLoadDistance: $scope.noLoadDistanceCount,
             planSalary: $scope.shouldPay,
@@ -292,21 +304,21 @@ app.controller("driver_salary_controller", ["$scope","$rootScope","$state","$sta
                 $scope.size = pageItems.size;
                 // 将上次的检索条件设定到画面
                 setConditions(pageItems.conditions);
+                $scope.searchDriverSalaryList(pageItems.conditions.monthDateId);
             }
         } else {
             // 初始显示时，没有前画面，所以没有基本信息
             $rootScope.refObj = {pageArray: []};
+            $scope.searchDriverSalaryList('init');
         }
         $scope.getCompany();
-        // 查询数据
-        $scope.searchDriverSalaryList();
+
     }
     initData();
 
 
     // 获取数据
     $scope.queryData = function () {
-        getLastMonth();
         $scope.getTruckBrandList();
         $scope.searchDriverSalaryList("init");
     };

@@ -106,6 +106,28 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/system_settings/dealer_map.html",
             controller:'dealer_map_controller'
         })
+        .state("accident_claim",{
+            url:"/accident_claim",
+            params: {"from": null},
+            templateUrl: "js/view/truck/accident_claim.html",
+            controller:'accident_claim_controller'
+        })
+        .state("accident_claim_details",{
+            url:"/accident_claim_details/id/{id}/from/{from}",
+            templateUrl: "js/view/truck/accident_claim_details.html",
+            controller:'accident_claim_details_controller'
+        })
+        .state("insurance_compensation",{
+            url:"/insurance_compensation",
+            params: {"from": null},
+            templateUrl: "js/view/truck/insurance_compensation.html",
+            controller:'insurance_compensation_controller'
+        })
+        .state("add_damage_insurance_details",{
+            url:"/add_damage_insurance_details/id/{id}/from/{from}",
+            templateUrl: "js/view/truck/add_damage_insurance_details.html",
+            controller:'add_damage_insurance_details_controller'
+        })
         // 商品车信息
         .state("car_query",{
             url:"/car_query",
@@ -118,7 +140,11 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/car/car_query/car_query_details.html",
             controller:'car_query_details_controller'
         })
-
+        .state("car_settlement",{
+            url:"/car_settlement",
+            templateUrl: "js/view/settlement/car_settlement.html",
+            controller:'car_settlement_controller'
+        })
         // 数据统计
         .state("insurance_statistics", {
             url:"/insurance_statistics",

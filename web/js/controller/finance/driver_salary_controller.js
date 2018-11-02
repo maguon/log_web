@@ -64,6 +64,7 @@ app.controller("driver_salary_controller", ["$scope","$rootScope","$state","$sta
             $scope.monthStart =status;
         }
         $scope.monthVal =  $scope.monthStart;
+        $scope.startMonth =  $scope.monthStart;
 
         // 基本检索URL
         var url = $host.api_url + "/driveSalary?start=" + $scope.start + "&size=" + $scope.size;
@@ -320,7 +321,6 @@ app.controller("driver_salary_controller", ["$scope","$rootScope","$state","$sta
     // 获取数据
     $scope.queryData = function () {
         $scope.getTruckBrandList();
-        $scope.searchDriverSalaryList("init");
     };
     $scope.queryData();
 }]);

@@ -10,7 +10,7 @@ app.controller("look_instruction_list_details_controller", ["$scope", "$host", "
                 id: $stateParams.id,
                 timeStart: $stateParams.timeStart,
                 timeEnd: $stateParams.timeEnd,
-                refer: $stateParams.refer
+                from: $stateParams.refer
             })
         }
         else {

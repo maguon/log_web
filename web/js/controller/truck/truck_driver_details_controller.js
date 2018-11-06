@@ -169,8 +169,12 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
     $scope.getTruckUserInfo = function () {
         _basic.get($host.record_url + "/user/" + userId + "/tuser/" + driverId + "/record").then(function (truckInfoData) {
             if(truckInfoData.success === true){
-                // console.log("truckInfoData",truckInfoData);
-                $scope.truckInfoList = truckInfoData.result[0].comments;
+                if(truckInfoData.result.length==0){
+                    $scope.truckInfoList=[];
+                }
+               else{
+                    $scope.truckInfoList = truckInfoData.result[0].comments;
+                }
             }
         });
     };

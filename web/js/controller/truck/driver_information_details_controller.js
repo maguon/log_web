@@ -166,14 +166,22 @@ app.controller("driver_information_details_controller", ["$scope","$state", "$ho
                 driveId:driverId
             };
             _basic.get($host.api_url + "/driveDistanceLoad?" + _basic.objToUrl(obj)).then(function (data) {
-                if (data.success == true && data.result.length > 0) {
-                    $scope.driveDetail = data.result[0];
-                    if ($scope.driveDetail.no_load_distance == null) {
-                        $scope.driveDetail.no_load_distance = 0
+                if (data.success == true) {
+                    if(data.result.length==0){
+                        $scope.driveDetail=[];
+                        $scope.driveDetail.no_load_distance = 0;
+                        $scope.driveDetail.load_distance = 0;
                     }
-                    if ($scope.driveDetail.load_distance == null) {
-                        $scope.driveDetail.load_distance = 0
+                    else{
+                        $scope.driveDetail = data.result[0];
+                        if ($scope.driveDetail.no_load_distance == null) {
+                            $scope.driveDetail.no_load_distance = 0
+                        }
+                        if ($scope.driveDetail.load_distance == null) {
+                            $scope.driveDetail.load_distance = 0
+                        }
                     }
+
                     resolve();
                 } else {
                     swal("异常", "", "error")

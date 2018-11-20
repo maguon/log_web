@@ -26,8 +26,8 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
         $scope.csvFile = null;
         $scope.rightNumber = 0;
         $scope.errorNumber = 0;
-
-
+        $scope.putStartCity='';
+        $scope.putArriveCity='';
         $scope.update = function () {
             _basic.setCookie('url', "jiangsen");
         };
@@ -598,31 +598,59 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
 
     // 修改
     $scope.putDataItem = function (id) {
-            // 如果没有选中select或是重置了初始值，则传空字符串
-            var arrive_city = $scope.arrive_city == 0 ? "" : $scope.arrive_city;
-            var obj = {
-                "vin": $scope.commodityCarList.vin,
-                "makeId": $scope.commodityCarList.make_id,
-                "makeName": $("#look_makecarName").find("option:selected").text(),
-                "orderDate": $scope.commodityCarList.order_date,
-                "remark": $scope.commodityCarList.remark,
-                "routeStartId": $scope.start_city,
-                "baseAddrId": $scope.start_addr,
-                "routeEndId": arrive_city,
-                "receiveId": $scope.commodityCarList.receive_id,
-                "entrustId": $scope.commodityCarList.entrust_id
-            };
-            // 修改仓库信息
-            _basic.put($host.api_url + "/user/" + userId + "/car/" + id, _basic.removeNullProps(obj)).then(function (data) {
+        $scope.putDataItemId = id;
+        if($scope.arrive_city==0||$scope.arrive_city==''||$scope.start_city==0||$scope.start_city==''){
+            swal('请填写完整信息！',"","error")
+        }
+        else{
+            _basic.get($host.api_url +'/city?cityId='+$scope.start_city).then(function (data) {
                 if (data.success == true) {
-                    $('#commodityCar').modal('close');
-                    swal("修改成功", "", "success");
-
+                    $scope.putStartCity=data.result[0].city_name;
                 }
                 else {
                     swal(data.msg, "", "error")
                 }
             });
+            _basic.get($host.api_url +'/city?cityId='+$scope.arrive_city).then(function (data) {
+                if (data.success == true) {
+                    $scope.putArriveCity=data.result[0].city_name;
+                    putSingleData();
+                }
+                else {
+                    swal(data.msg, "", "error")
+                }
+            });
+        };
     };
 
-    }]);
+function putSingleData(){
+    var obj = {
+        "vin": $scope.commodityCarList.vin,
+        "makeId": $scope.commodityCarList.make_id,
+        "makeName": $("#look_makecarName").find("option:selected").text(),
+        "orderDate": $scope.commodityCarList.order_date,
+        "remark": $scope.commodityCarList.remark,
+        "routeStartId": $scope.start_city,
+        "routeStart":$scope.putStartCity,
+        "baseAddrId": $scope.start_addr,
+        "routeEndId": $scope.arrive_city,
+        "routeEnd":$scope.putArriveCity,
+        "receiveId": $scope.commodityCarList.receive_id,
+        "entrustId": $scope.commodityCarList.entrust_id
+    };
+    // 修改仓库信息
+    _basic.put($host.api_url + "/user/" + userId + "/car/" +  $scope.putDataItemId, _basic.removeNullProps(obj)).then(function (data) {
+        if (data.success == true) {
+            $('#commodityCar').modal('close');
+            swal("修改成功", "", "success");
+
+        }
+        else {
+            swal(data.msg, "", "error")
+        }
+    });
+}
+
+
+
+}]);

@@ -66,9 +66,8 @@
                                 <option value="0">发运地城市</option>
                                 <option ng-repeat="city in get_city" ng-value="city.id">{{city.city_name}}</option>
                             </select>
-
-
                         </div>
+
                         <div class="input-field col s2">
                             <select id="chooseEndCity" name="state" style="width:100%" ng-change="get_received(arrive_city)" ng-model="arrive_city">
                                 <option value="0">目的地城市</option>
@@ -273,7 +272,7 @@
                                 </div>
                                 <div class=" col s4 p0">
                                     <div class="input-field col s6">
-                                        <select material-select watch id="arrive_city" name="arrive_city"  required ng-change="get_received(arrive_city.id)" ng-options="arrive_city.city_name for arrive_city in get_city"  ng-model="arrive_city" >
+                                        <select material-select watch id="arrive_city" name="arrive_city"  required ng-change="get_received(arrive_city.id)"  ng-model="arrive_city" ng-options="arrive_city.city_name for arrive_city in get_city"  >
                                             <option value="" disabled selected>请选择</option>
                                         </select>
                                         <label for="arrive_city">目的地城市</label>

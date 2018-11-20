@@ -51,8 +51,8 @@ app.controller("instruction_drive_details_controller", ["$scope", "$host", "_con
         var obj = {
             driveId:$scope.driveId,
             loadFlag:loadFlag,
-            taskPlanDateStart: $scope.driver_mileage_startTime,
-            taskPlanDateEnd: $scope.driver_mileage_endTime
+            dateIdStart: $scope.driver_mileage_startTime,
+            dateIdEnd: $scope.driver_mileage_endTime
         };
         _basic.get($host.api_url + "/dpRouteTask?" + _basic.objToUrl(obj)).then(function (data) {
             if (data.success == true) {

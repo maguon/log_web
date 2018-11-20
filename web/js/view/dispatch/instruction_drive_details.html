@@ -18,11 +18,8 @@
                             <div class="col s4">
                                 联系电话:<span>{{driveDetail.mobile}}</span>
                             </div>
-                            <div class="col s4">
-                                货车:
-                                <span>{{driveDetail.truck_num}}</span>
-                            </div>
-                            <div class="col s4">
+
+                            <div class="col s4 offset-s4">
                                 状态:
                                 <span ng-if="driveDetail.current_city>0&&driveDetail.task_end==0&&driveDetail.task_start==0">待运</span>
                                 <span ng-if="driveDetail.current_city==0&&driveDetail.task_end>0&&driveDetail.task_start>0">在途</span>
@@ -35,11 +32,11 @@
                         <div class="col s8 ">
                             <div class="col s6 input-field">
                                 <input type="text" ng-model="driver_mileage_startTime" id="driver_mileage_startTime" name="driver_mileage_startTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                <label for="driver_mileage_startTime">指令时间(始)</label>
+                                <label for="driver_mileage_startTime">指令完成时间(始)</label>
                             </div>
                             <div class="col s6 input-field">
                                 <input type="text" ng-model="driver_mileage_endTime" id="driver_mileage_endTime" name="driver_mileage_endTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                <label for="driver_mileage_endTime">指令时间(终)</label>
+                                <label for="driver_mileage_endTime">指令完成时间(终)</label>
                             </div>
                         </div>
 
@@ -80,7 +77,7 @@
                         <thead class="blue-grey lighten-5">
                         <tr class="grey-text text-darken-2">
                             <th data-field="">指令编号</th>
-                            <th data-field="">指令执行时间</th>
+                            <th data-field="">指令完成时间</th>
                             <th data-field="">起始城市</th>
                             <th data-field="">目的城市</th>
                             <th data-field="">装载车辆</th>
@@ -91,7 +88,7 @@
                         <tbody>
                         <tr ng-repeat="el in instruction_list" class="grey-text text-darken-1">
                             <td ng-bind="el.id">1</td>
-                            <td ng-bind="el.task_plan_date|date:'yyyy-MM-dd'">2</td>
+                            <td ng-bind="el.date_id">2</td>
                             <td ng-bind="el.city_route_start">无</td>
                             <td ng-bind="el.city_route_end">
                             <td ng-bind="el.car_count"></td>

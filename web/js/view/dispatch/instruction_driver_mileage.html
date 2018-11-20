@@ -11,18 +11,14 @@
                                         <input name="drive_name" id="drive_name" type="text" ng-model="drive_name"   >
                                         <label for="drive_name">司机</label>
                                     </div>
-                                    <div class="input-field col s4">
-                                        <input name="truckNum" id="truckNum" type="text" ng-model="truckNum"   >
-                                        <label for="truckNum">货车牌号</label>
-                                    </div>
-                                    <div class="col s4">
+                                    <div class="col s8">
                                         <div class="input-field col s6">
                                             <input type="text" ng-model="driver_mileage_startTime" id="driver_mileage_startTime" name="driver_mileage_startTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                            <label for="driver_mileage_startTime">统计时间(始)</label>
+                                            <label for="driver_mileage_startTime">指令完成时间(始)</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <input type="text" ng-model="driver_mileage_endTime" id="driver_mileage_endTime" name="driver_mileage_endTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                            <label for="driver_mileage_endTime">统计时间(终)</label>
+                                            <label for="driver_mileage_endTime">指令完成时间(终)</label>
                                         </div>
                                     </div>
                                 </div>
@@ -41,7 +37,6 @@
                                 <tr class="grey-text text-darken-2">
                                     <th data-field="">司机</th>
                                     <th data-field="">完成任务数</th>
-                                    <th data-field="">货车牌号</th>
                                     <th data-field="">总计里程</th>
                                     <th data-field="">重载公里数</th>
                                     <th data-field="">空载公里数</th>
@@ -53,7 +48,6 @@
                                 <tr ng-repeat="el in driveDistanceCount" class="grey-text text-darken-1">
                                     <td ng-bind="el.drive_name">1</td>
                                     <td ng-bind="el.complete_count">2</td>
-                                    <td ng-bind="el.truck_num"></td>
                                     <td ng-bind="el.load_distance+el.no_load_distance|nullTo"></td>
                                     <td ng-bind="el.load_distance|nullTo"></td>
                                     <td ng-bind="el.no_load_distance|nullTo"></td>

@@ -605,7 +605,6 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         if(start==null){
             $scope.addCityList =[];
             $scope.endCityInfoMod="";
-            $scope.addCityList =[];
         }
         else{
             _basic.get($host.api_url + "/cityRouteDispatch?routeStartId="+start.id).then(function(data){
@@ -1391,28 +1390,6 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 });
             });
     };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     // 获取数据
     function queryData() {

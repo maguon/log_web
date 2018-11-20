@@ -8,7 +8,7 @@ app.controller("instruction_driver_mileage_controller", ["$scope","$rootScope","
     // 司机里程
     $scope.search = function () {
         // 基本检索URL
-        var url = $host.api_url + "/driveDistanceLoad?";
+        var url = $host.api_url + "/driveDistanceLoadStat?";
         // 检索条件
         var conditionsObj = makeConditions();
         var conditions = _basic.objToUrl(conditionsObj);
@@ -52,7 +52,6 @@ app.controller("instruction_driver_mileage_controller", ["$scope","$rootScope","
      */
     function setConditions(conditions) {
         $scope.drive_name=conditions.driveName;
-        $scope.truckNum=conditions.truckNum;
         $scope.driver_mileage_startTime=conditions.dateIdStart;
         $scope.driver_mileage_endTime=conditions.dateIdEnd;
     }
@@ -62,9 +61,8 @@ app.controller("instruction_driver_mileage_controller", ["$scope","$rootScope","
      */
     function makeConditions() {
         return {
-            taskStatus: 10,
+            taskStatus: 9,
             driveName: $scope.drive_name,
-            truckNum: $scope.truckNum,
             dateIdStart: $scope.driver_mileage_startTime,
             dateIdEnd: $scope.driver_mileage_endTime
         };

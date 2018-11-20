@@ -14,16 +14,9 @@
                         <div class="col s4">
                             <h5><span>{{driveDetail.drive_name}}</span></h5>
                         </div>
-                        <div class="col s8 " >
-                            <div class="col s4">
+                        <div class="col s8 right-align" >
+                            <div class="col s12">
                                 联系电话:<span>{{driveDetail.mobile}}</span>
-                            </div>
-
-                            <div class="col s4 offset-s4">
-                                状态:
-                                <span ng-if="driveDetail.current_city>0&&driveDetail.task_end==0&&driveDetail.task_start==0">待运</span>
-                                <span ng-if="driveDetail.current_city==0&&driveDetail.task_end>0&&driveDetail.task_start>0">在途</span>
-
                             </div>
                         </div>
                     </div>

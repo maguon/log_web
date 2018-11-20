@@ -867,6 +867,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     //发布临时路线
     $scope.releaseTmporaryLine =function(temporaryLine,event){
         event.stopPropagation();
+
         var obj={
             dpRouteTaskTmpId:temporaryLine.id,
             truckId:$scope.dispatchInfo.truck_id,
@@ -881,17 +882,28 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             taskPlanDate: moment(temporaryLine.task_plan_date.toString()).format("YYYY-MM-DD"),
             currentCity:$scope.dispatchInfo.current_city
         };
-        _basic.post($host.api_url + "/user/" + userId + "/dpRouteTaskBatch" ,obj).then(function (data) {
-            if(data.success === true){
-                swal("新增装车任务成功", "", "success");
-                $scope.missionInfo = true;
-                $scope.addMissionBtn =false ;
-                $scope.showDispatchInfo($scope.dispatchInfo)
-            }
-            else{
-                swal(data.msg, "", "error");
-            }
-        })
+        swal({
+                title: "确定发布此临时任务吗？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确认",
+                cancelButtonText: "取消",
+                closeOnConfirm: false
+            },
+            function () {
+                _basic.post($host.api_url + "/user/" + userId + "/dpRouteTaskBatch", obj).then(function (data) {
+                    if (data.success === true) {
+                        swal("新增任务成功", "", "success");
+                        $scope.missionInfo = true;
+                        $scope.addMissionBtn = false;
+                        $scope.showDispatchInfo($scope.dispatchInfo)
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                })
+            })
     }
 
 

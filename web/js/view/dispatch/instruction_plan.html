@@ -66,7 +66,64 @@
 </div>
 
 
+<!--生成临时路线模态框-->
+<div id="temporaryLineMod" class="modal modal-fixed-footer" style="width: 56%;height: 450px">
+    <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+        <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
+            <p>生成临时路线</p>
+        </div>
+        <div class="row" style="width: 85%;margin: 0 auto">
+            <!--生成路线-->
+            <div class="col s12 black-text fz14 center-align" style="padding: 0;">
+                <div class="col s4 center-align">
+                    <div class="col s5 center-align">
+                        <select  id="chooseStartCityMod" name="state" style="width:100%;display: block"  ng-model="startCityInfoMod" ng-change="changeMod(startCityInfoMod)" ng-options="city.city_name  for city in sendCityList" >
+                            <option value=""></option>
+                        </select>
+                    </div>
 
+                    <div class="col s7 center-align">
+                        <select id="chooseEndCityMod"  name="state" style="width:100%;display: block" ng-model="endCityInfoMod" ng-options="city.city_name + ' ' + city.distance + ' km'   for city in addCityList" >
+                            <option value="">目的城市</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col s6">
+                    <div class="col s5 right-align" style="padding-top:20px">
+                        <p>计划执行时间：</p>
+                    </div>
+                    <div class="col s7" style="padding: 0">
+                        <div class="col s7 input-field" style="margin: 0;padding: 0">
+                            <input id="verification_timeM" type="text" class="datepicker" ng-model="lineStartDate" date>
+                            <i class="mdi dataIcon mdi-table-large"></i>
+                            <label for="verification_timeM">指令时间</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!--取消  保存   发布-->
+                <div class="col s2" style="padding-right: 27px">
+
+                    <!--取消-->
+                    <div class="col s6 right-align" style="padding: 10px 5px">
+                        <a ng-click="hideLineInfo()" style="width: 38px;height: 38px;"
+                           class="waves-light waves-effect  grey lighten-1 btn btn-floating">
+                            取消
+                        </a>
+                    </div>
+
+                    <!--保存-->
+                    <div class="col s6 right-align" style="padding: 10px 5px">
+                        <a ng-click="keepLineInfo()" style="width: 38px;height: 38px;"
+                           class="waves-light waves-effect red lighten-1 btn btn-floating">
+                            保存
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <div class="instruction_plan">
@@ -477,9 +534,14 @@
                                 <div class="col s6 left-align" style="color: #26c6da;padding: 0;">
                                     <p>当前任务</p>
                                 </div>
-                                <div class="col s6 right-align">
+                                <div class="col s3 right-align">
+                                    <button ng-click="showCreateTemporaryLine()" style="padding: 0 35px;height: 30px;line-height: 33px" class="btn waves-light waves-effect cyan lighten-1 fz12" type="button">
+                                        生成临时路线
+                                    </button>
+                                </div>
+                                <div class="col s3 right-align">
                                     <button ng-click="showCreateLine(dispatchInfo.current_city)" style="padding: 0 35px;height: 30px;line-height: 33px" class="btn waves-light waves-effect cyan lighten-1 fz12" type="button">
-                                        生成路线
+                                        生成当前路线
                                     </button>
                                 </div>
                             </div>
@@ -492,12 +554,12 @@
                                         <p>{{startCityName}}&emsp;&emsp;<span class="mdi mdi-arrow-right"></span></p>
                                     </div>
                                     <div class="col s7">
-                                        <select id="chooseEndCity" name="state" style="width:100%" ng-options="city.city_name + ' ' + city.distance + ' km'   for city in cityList" ng-model="lineEndCityInfo">
+                                        <select watch material-select id="chooseEndCity" name="state" style="width:100%" ng-options="city.city_name + ' ' + city.distance + ' km'   for city in cityList" ng-model="lineEndCityInfo">
                                             <option value=""></option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col s6">
+                                <div class="col s5">
                                     <div class="col s5 right-align">
                                         <p>计划执行时间：</p>
                                     </div>
@@ -509,17 +571,23 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col s2" style="padding-right: 27px">
+
+                                <!--取消  保存   发布-->
+                                <div class="col s3" style="padding-right: 27px">
+
+                                    <!--取消-->
                                     <div class="col s6 right-align" style="padding: 10px 5px">
-                                        <a ng-click="hideLineInfo()" style="width: 38px;height: 38px"
-                                           class="waves-light waves-effect red lighten-1 btn btn-floating">
-                                            <i style="line-height: 39px" class="mdi mdi-close"></i>
+                                        <a ng-click="hideLineInfo()" style="width: 38px;height: 38px;"
+                                           class="waves-light waves-effect  grey lighten-1 btn btn-floating">
+                                           取消
                                         </a>
                                     </div>
+
+                                    <!--发布-->
                                     <div class="col s6 center-align" style="padding: 10px 5px">
                                         <a ng-click="confirmChange()" style="width: 38px;height: 38px"
                                            class="waves-light waves-effect cyan lighten-1 btn btn-floating">
-                                            <i style="line-height: 39px" class="mdi mdi-check"></i>
+                                            发布
                                         </a>
                                     </div>
                                 </div>
@@ -589,7 +657,7 @@
                                                 <!--装车填写信息-->
                                                 <div class="col s12 black-text fz14" style="background-color: #e0e0e0;border: 1px solid darkgray;width: 95%;margin: 20px 2.5%">
                                                     <div class="col s12 input-field">
-                                                        <select  material-select watch  id="" ng-model="selectWhereStart" ng-change="changeWhereStart(selectWhereStart)">
+                                                        <select  material-select watch ng-model="selectWhereStart" ng-change="changeWhereStart(selectWhereStart)">
                                                             <option value="" selected disabled>请选择</option>
                                                             <option ng-value="1">始发站出发</option>
                                                             <option ng-value="2">中转站出发</option>
@@ -791,6 +859,283 @@
                         </div>
                     </div>
                 </div>
+
+
+                <!--临时任务-->
+                <div class="col s12">
+                    <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 25px;font-size: 1.1rem;color: darkgray">
+                        <div class="col s12" style="height: 55px;background-color: #dcdfe0;font-weight: bold">
+                            <div class="col s12 valign-wrapper">
+                                <div class="col s6 left-align" style="color: #26c6da;padding: 0;">
+                                    <p>临时任务</p>
+                                </div>
+                                <div class="col s6"></div>
+                            </div>
+                        </div>
+                        <div class="col s12 wash_fee_details less_mar" style="padding: 0;">
+
+                            <div class="col s12 center-align" style="padding: 0;font-size: 1rem;color: darkgray;font-weight: bold">
+                                <ul class="collapsible" data-collapsible="accordion" style="overflow: hidden;margin: 0;box-shadow: none">
+                                    <li ng-repeat="temporaryLine in temporaryLineList">
+                                        <!--线路列表头-->
+                                        <div style="height: 60px;" class="collapsible-header col s12 valign-wrapper collapsible_height" ng-click="showMissionInfo2(temporaryLine.id,temporaryLine.task_plan_date,temporaryLine.route_start_id,$index)">
+                                            <div class="col s8" style="margin-top: 7px">
+                                                <div class="col s6 center-align" style="padding-right: 0">
+                                                    <div class="col s5 center-align" style="padding: 0">
+                                                        <p style="margin: 0">编号：{{temporaryLine.id}}</p>
+                                                    </div>
+                                                    <div class="col s7 center-align" style="padding: 0">
+                                                        <p style="margin: 0">{{temporaryLine.city_route_start}}&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;{{temporaryLine.city_route_end}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col s6">
+                                                    <div class="col s6 right-align" style="padding: 0">
+                                                        <p style="margin: 0">计划执行时间：</p>
+                                                    </div>
+                                                    <div class="col s6 left-align" style="padding: 0">
+                                                        <p style="margin: 0">{{temporaryLine.task_plan_date | date:'yyyy-MM-dd'}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col s2" style="margin-top: 7px">
+                                                <div class="col s12 center-align">
+                                                    <p style="margin: 0;">{{temporaryLine.task_status | instructionsStatus}}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col s2" style="margin-top: 5px">
+                                                <div class="col s6 left-align" style="padding: 0 5px">
+                                                    <a ng-click="releaseTmporaryLine(temporaryLine,$event)" style="width: 38px;height: 38px"
+                                                       class="waves-light waves-effect materialize-red lighten-2 btn btn-floating">
+                                                       发布
+                                                    </a>
+                                                </div>
+                                                <div class="col s6 right-align" style="padding: 0 5px">
+                                                    <a ng-click="deletetemporaryLine(temporaryLine.id,$event)" style="width: 38px;height: 38px"
+                                                       class="waves-light waves-effect materialize-red lighten-2 btn btn-floating">
+                                                       删除
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <!--拉开的当前任务列表栏,显示任务内容-->
+                                        <div class="collapsible-body" style="padding: 0">
+                                            <!--tab栏-->
+                                            <div class="col s12" ul-tabs style="padding: 0;">
+                                                <ul class="tabs tabs-fixed-width tab-demo z-depth-1" style="font-size: 25px;font-weight: bold;overflow-x: hidden">
+                                                    <li style="cursor: pointer" class="tab"><a style="color: #26c6da">装车任务</a></li>
+                                                </ul>
+                                            </div>
+
+                                            <!--装车任务-->
+                                            <div class="load_mission load_mission{{$index}}" style="font-weight: normal">
+
+                                                <!--装车填写信息-->
+                                                <div class="col s12 black-text fz14" style="background-color: #e0e0e0;border: 1px solid darkgray;width: 95%;margin: 20px 2.5%">
+                                                    <div class="col s12 input-field">
+                                                        <select  material-select watch ng-model="selectWhereStart" ng-change="changeWhereStart(selectWhereStart)">
+                                                            <option value="" selected disabled>请选择</option>
+                                                            <option ng-value="1">始发站出发</option>
+                                                            <option ng-value="2">中转站出发</option>
+                                                        </select>
+                                                    </div>
+                                                    <div ng-show="selectWhereStart==1" style="height:350px;">
+                                                        <div class="col s4 input-field">
+                                                            <select id="chooseLocate9" name="chooseLocate" ng-change="cancelDestinationCity()" ng-model="locateId" watch material-select>
+                                                                <option value="" selected>装车地点</option>
+                                                                <option ng-repeat="locateCity in locateList" ng-value="locateCity">{{locateCity.addr_name}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <select class="destination_city"  style="width: 100%;"  ng-change="getReceiveDistributor(temporaryLine.id,sendCityId.id,locateId)" ng-model="sendCityId" ng-options="sendCityId.city_name for sendCityId in sendCityList" required>
+                                                                <option value=""></option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <select class="col s10" id="chooseDistributor9" name="chooseDistributor" ng-options="addr.date_id + ' ' + addr.short_name + '&emsp;' + addr.plan_count + '/' + addr.pre_count for addr in addrList" ng-model="$parent.receiveInfo" watch material-select>
+                                                                <option value="">经销商</option>
+                                                            </select>
+                                                            <i style="font-size: 1.5rem;margin-top: 6px" ng-click="showCarModel(sendCityId.id,locateId)"
+                                                               class="mdi mdi-file-document cyan-text vc-center col s2"></i>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <input id="load_num9" type="number" name="load_num" ng-model="$parent.distributeNum" style="margin: 0;">
+                                                            <label for="load_num">装车数量</label>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <input placeholder="" id="verification_time8" type="text" class="datepicker"
+                                                                   ng-model="$parent.lineDate" date>
+                                                            <i class="mdi dataIcon mdi-table-large"></i>
+                                                            <label for="verification_time4" class="active">计划装车日期</label>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <input id="verification_time9" type="text" class="timepicker" ng-model="$parent.lineStartTime" time>
+                                                            <i class="mdi dataIcon mdi-clock"></i>
+                                                            <label for="verification_time3">计划装车时间</label>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <select material-select watch id="whetherTransfer1" ng-change="checkWhetherTransfer(whetherTransfer)" ng-model="whetherTransfer">
+                                                                <option value="" selected disabled>请选择</option>
+                                                                <option ng-value="0">否</option>
+                                                                <option ng-value="1">是</option>
+                                                            </select>
+                                                            <label for="whetherTransfer">是否中转</label>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <select class="transfer_city"  style="width: 100%;" ng-change="getTransferCity(transferCityId.id)" ng-model="transferCityId"  ng-options="transferCityId.city_name for transferCityId in sendCityList" ng-disabled="hasTransferType" required>
+                                                                <option value=""></option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <select id="transferName9" name="transferName"  watch material-select ng-disabled="hasTransferType" ng-model="transferName">
+                                                                <option value="">中转站</option>
+                                                                <option ng-repeat="transfer in transferCityList" ng-value="transfer">{{transfer.addr_name}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col s12" style="margin-top: 30px">
+                                                            <div class="col s6 offset-s3" style="padding: 0;">
+                                                                <div class="col s5 offset-s3">
+                                                                    <a ng-click="submitMissionInfo2(temporaryLine.id,sendCityId,locateId,whetherTransfer,transferCityId,transferName,$index)" style="width: 100%;background-color: #26c6da;" class="waves-light waves-effect lighten-1 btn">
+                                                                        确认
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div ng-show="selectWhereStart==2" style="height:350px;">
+                                                        <div class="col s4 input-field">
+                                                            <select id="transferChooseLocate7" name="chooseLocate" ng-change="changeTransferLocate(ransferLocateId)" ng-model="ransferLocateId" watch material-select>
+                                                                <option value="" selected>中转装车地点</option>
+                                                                <option ng-repeat="locateCity in locateList" ng-value="locateCity">{{locateCity.addr_name}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col s8 input-field">
+                                                            <select class="col s10" id="originalRoute7" name="originalRoute" ng-options="el.demand_route_start +'(' + el.addr_name+ ')' + '--' + el.route_end_name +'(' + el.short_name+ ')' + '&emsp; ' + el.date_id+'&emsp;'+el.plan_count +'/'+el.pre_count for el in transferCityLocateList" ng-model="$parent.originalRoute" watch material-select>
+                                                                <option value="" selected>原始路线</option>
+                                                            </select>
+                                                            <i style="font-size: 1.5rem;margin-top: 6px" ng-click="showCarModelT()"
+                                                               class="mdi mdi-file-document cyan-text vc-center col s2"></i>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <input id="load_num7" type="number" name="load_num" ng-model="$parent.distributeNum2" style="margin: 0;">
+                                                            <label for="load_num2">装车数量</label>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <input placeholder="" id="verification_time7" type="text" class="datepicker"
+                                                                   ng-model="$parent.lineDate2" date>
+                                                            <i class="mdi dataIcon mdi-table-large"></i>
+                                                            <label for="verification_time1" class="active">计划装车日期</label>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <input id="verification_time0" type="text" class="timepicker" ng-model="$parent.lineStartTime2" time>
+                                                            <i class="mdi dataIcon mdi-clock"></i>
+                                                            <label for="verification_time">计划装车时间</label>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <select material-select watch id="whetherTransfer7" ng-change="checkWhetherTransfer(whetherTransfer2)" ng-model="whetherTransfer2">
+                                                                <option value="" selected>请选择</option>
+                                                                <option value="0">否</option>
+                                                                <option value="1">是</option>
+                                                            </select>
+                                                            <label for="whetherTransfer2">是否中转</label>
+                                                        </div>
+
+
+                                                        <div class="col s4 input-field">
+                                                            <select class="transfer_city2"  style="width: 100%;"  ng-change="getTransferCity(transferCityId2.id)" ng-model="transferCityId2"  ng-options="transferCityId2.city_name for transferCityId2 in sendCityList" ng-disabled="hasTransferType" required>
+                                                                <option value=""></option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col s4 input-field">
+                                                            <select id="transferName7" name="transferName"  watch material-select ng-disabled="hasTransferType2" ng-model="transferName2">
+                                                                <option value="">中转站</option>
+                                                                <option ng-repeat="transfer in transferCityList" ng-value="transfer">{{transfer.addr_name}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col s12" style="margin-top: 30px">
+                                                            <div class="col s6 offset-s3" style="padding: 0;">
+                                                                <!-- <div class="col s5">
+                                                                     <a ng-click="closeMissionInfo()" style="width: 100%;background-color: #a0a8b1;" class="waves-light waves-effect lighten-1 btn">
+                                                                         取消
+                                                                     </a>
+                                                                 </div>-->
+                                                                <div class="col s5 offset-s3">
+                                                                    <a ng-click="postMissionInfo2(temporaryLine.id,temporaryLine.city_route_end,ransferLocateId,whetherTransfer2,transferCityId2,transferName2,originalRoute,$index)" style="width: 100%;background-color: #26c6da;" class="waves-light waves-effect lighten-1 btn">
+                                                                        确认
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--装车任务列表-->
+                                                <div class="col s12" style="width: 95%;margin: 20px 2.5%;padding: 0;">
+                                                    <div class="col s12" style="padding: 0;margin-bottom: 25px;font-size: 1.1rem;color: darkgray">
+                                                        <div class="col s12 valign-wrapper" style="height: 42px;background-color: #dcdfe0;font-weight: bold">
+                                                           <!-- <div class="col s12 valign-wrapper">
+                                                                <div class="col s6 left-align" style="color: darkgray;padding: 0;">
+                                                                    <p></p>
+                                                                </div>
+                                                                <div class="col s6 right-align">
+                                                                    <p>指令调度：{{opName}}</p>
+                                                                </div>
+                                                            </div>-->
+                                                        </div>
+                                                        <div class="col s12 wash_fee_details less_mar" style="padding: 0;">
+                                                            <div class="col s12" style="border-bottom: 1px solid darkgray;color: darkgray;font-weight: bold;font-size: 1rem;padding: 0;" ng-repeat="nowMission in missionList2">
+                                                                <div class="col s12">
+                                                                    <div class="col s11 left-align cyan-text">
+                                                                        <p ng-show="nowMission.load_task_type==1">
+                                                                            {{nowMission.addr_name}}&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;
+                                                                            <span ng-show="nowMission.transfer_flag==1">{{nowMission.transfer_addr_name}} <span  class="red-text">(转)</span></span>
+                                                                            <span ng-show="nowMission.transfer_flag!==1">{{nowMission.short_name}}</span>
+                                                                        <p ng-show="nowMission.load_task_type!==1">
+                                                                            {{nowMission.addr_name}}<span  class="red-text">(转)</span>&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;
+                                                                            <span ng-show="nowMission.transfer_flag==1">{{nowMission.transfer_addr_name}} <span  class="red-text">(转)</span></span>
+                                                                            <span ng-show="nowMission.transfer_flag!==1">{{nowMission.short_name}}</span>
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="col s1 right-align">
+                                                                        <p ng-click="deleteMission2(nowMission.id,temporaryLine.id)" class="red-text mdi mdi-close" style="cursor: pointer;font-size: 1.25rem"></p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col s12 fz13" style="margin-bottom: 10px">
+                                                                    <div class="col s5 left-align">
+                                                                        <p>原始路线:{{nowMission.demand_route_start}}&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;{{nowMission.demand_route_end}}&emsp;{{ "(" + nowMission.short_name + ")"}}</p>
+                                                                    </div>
+                                                                    <div class="col s3 left-align">
+                                                                        <p>{{nowMission.plan_date | date:'yyyy-MM-dd - HH:mm'}}</p>
+                                                                    </div>
+                                                                    <div class="col s2 left-align">
+                                                                        <p>装车数：{{nowMission.real_count}} / {{nowMission.plan_count}}</p>
+                                                                    </div>
+                                                                    <div class="col s2 right-align">
+                                                                        <p>{{nowMission.load_task_status | missionStatus}}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col s12" style="border-bottom: 1px solid darkgray;color: darkgray;font-weight: bold;font-size: 1.1rem;padding: 0;" ng-show="missionList2.length == 0">
+                                                                <p style="letter-spacing: 1px">暂无任务信息</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         </div>
 

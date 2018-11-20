@@ -67,29 +67,29 @@
 
 
 <!--生成临时路线模态框-->
-<div id="temporaryLineMod" class="modal modal-fixed-footer" style="width: 56%;height: 450px">
+<div id="temporaryLineMod" class="modal modal-fixed-footer" style="width: 56%;height: 190px">
     <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
         <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
-            <p>生成临时路线</p>
+            <p>创建临时路线</p>
         </div>
         <div class="row" style="width: 85%;margin: 0 auto">
             <!--生成路线-->
             <div class="col s12 black-text fz14 center-align" style="padding: 0;">
                 <div class="col s4 center-align">
-                    <div class="col s5 center-align">
+                    <div class="col s6 center-align">
                         <select  id="chooseStartCityMod" name="state" style="width:100%;display: block"  ng-model="startCityInfoMod" ng-change="changeMod(startCityInfoMod)" ng-options="city.city_name  for city in sendCityList" >
                             <option value=""></option>
                         </select>
                     </div>
 
-                    <div class="col s7 center-align">
+                    <div class="col s6 center-align">
                         <select id="chooseEndCityMod"  name="state" style="width:100%;display: block;background: #fafafa;" ng-model="endCityInfoMod" ng-options="city.city_name + ' ' + city.distance + ' km'   for city in addCityList" >
                             <option value="">目的城市</option>
                         </select>
                     </div>
                 </div>
                 <div class="col s6">
-                    <div class="col s5 right-align" style="padding-top:20px">
+                    <div class="col s5 right-align" style="padding-top:17px">
                         <p>计划执行时间：</p>
                     </div>
                     <div class="col s7" style="padding: 0">
@@ -107,16 +107,16 @@
                     <!--取消-->
                     <div class="col s6 right-align" style="padding: 10px 5px">
                         <a ng-click="hideLineInfo()" style="width: 38px;height: 38px;"
-                           class="waves-light waves-effect  grey lighten-1 btn btn-floating">
-                            取消
+                           class="waves-light waves-effect  red lighten-1 btn btn-floating">
+                            <i style="line-height: 39px" class="mdi mdi-close"></i>
                         </a>
                     </div>
 
                     <!--保存-->
                     <div class="col s6 right-align" style="padding: 10px 5px">
                         <a ng-click="keepLineInfo()" style="width: 38px;height: 38px;"
-                           class="waves-light waves-effect red lighten-1 btn btn-floating">
-                            保存
+                           class="waves-light waves-effect cyan lighten-1 btn btn-floating">
+                            <i style="line-height: 39px" class="mdi mdi-check"></i>
                         </a>
                     </div>
                 </div>
@@ -535,13 +535,13 @@
                                     <p>当前任务</p>
                                 </div>
                                 <div class="col s3 right-align">
-                                    <button ng-click="showCreateTemporaryLine()" style="padding: 0 35px;height: 30px;line-height: 33px" class="btn waves-light waves-effect cyan lighten-1 fz12" type="button">
-                                        生成临时路线
+                                    <button ng-click="showCreateTemporaryLine()" style="padding: 0 35px;height: 30px;line-height: 33px;background:#fea353" class="btn waves-light waves-effect lighten-1 fz12" type="button" >
+                                        创建临时路线
                                     </button>
                                 </div>
                                 <div class="col s3 right-align">
                                     <button ng-click="showCreateLine(dispatchInfo.current_city)" style="padding: 0 35px;height: 30px;line-height: 33px" class="btn waves-light waves-effect cyan lighten-1 fz12" type="button">
-                                        生成当前路线
+                                        创建路线
                                     </button>
                                 </div>
                             </div>
@@ -578,8 +578,8 @@
                                     <!--取消-->
                                     <div class="col s6 right-align" style="padding: 10px 5px">
                                         <a ng-click="hideLineInfo()" style="width: 38px;height: 38px;"
-                                           class="waves-light waves-effect  grey lighten-1 btn btn-floating">
-                                           取消
+                                           class="waves-light waves-effect  red lighten-1 btn btn-floating">
+                                            <i style="line-height: 39px" class="mdi mdi-close"></i>
                                         </a>
                                     </div>
 
@@ -587,7 +587,7 @@
                                     <div class="col s6 center-align" style="padding: 10px 5px">
                                         <a ng-click="confirmChange()" style="width: 38px;height: 38px"
                                            class="waves-light waves-effect cyan lighten-1 btn btn-floating">
-                                            发布
+                                            <i style="line-height: 39px" class="mdi mdi-check"></i>
                                         </a>
                                     </div>
                                 </div>
@@ -862,7 +862,7 @@
 
 
                 <!--临时任务-->
-                <div class="col s12">
+                <div class="col s12" ng-show="temporaryLineList.length!==0">
                     <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 25px;font-size: 1.1rem;color: darkgray">
                         <div class="col s12" style="height: 55px;background-color: #dcdfe0;font-weight: bold">
                             <div class="col s12 valign-wrapper">
@@ -906,15 +906,15 @@
 
                                             <div class="col s2" style="margin-top: 5px">
                                                 <div class="col s6 left-align" style="padding: 0 5px">
-                                                    <a ng-click="releaseTmporaryLine(temporaryLine,$event)" style="width: 38px;height: 38px"
-                                                       class="waves-light waves-effect materialize-red lighten-2 btn btn-floating">
-                                                       发布
+                                                    <a ng-click="releaseTmporaryLine(temporaryLine,$event)" style="width: 38px;height: 38px;padding-left: 5px"
+                                                       class="waves-light waves-effect materialize-cyan lighten-2 btn btn-floating">
+                                                        <i style="line-height: 39px" class="mdi mdi-check"></i>
                                                     </a>
                                                 </div>
                                                 <div class="col s6 right-align" style="padding: 0 5px">
                                                     <a ng-click="deletetemporaryLine(temporaryLine.id,$event)" style="width: 38px;height: 38px"
                                                        class="waves-light waves-effect materialize-red lighten-2 btn btn-floating">
-                                                       删除
+                                                        <i style="line-height: 39px;margin-left: 4px" class="mdi mdi-delete-forever"></i>
                                                     </a>
                                                 </div>
                                             </div>

@@ -43,6 +43,24 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
         });
     };
 
+    //未返回还车辆
+    function getNum() {
+        if ($scope.planTimeStart == undefined || $scope.planTimeEnd == undefined) {
+            $scope.getNum =0;
+        }
+        else{
+            _basic.get($host.api_url + "/notSettleHandoverCarCount?transferFlag=0&carLoadStatus=2&taskPlanDateStart="+$scope.planTimeStart +"&taskPlanDateEnd="+ $scope.planTimeEnd)
+                .then(function (data) {
+                    if (data.success === true) {
+                        $scope.getNum=data.result[0].car_count;
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
+        }
+
+    };
 
     // 目的地城市-经销商联动
     $scope.get_received = function (id) {
@@ -93,6 +111,7 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
     //查询
     $scope.getNotHandoverInfo = function () {
         $scope.start = 0;
+        getNum();
         getNotHandover();
     }
 
@@ -110,8 +129,8 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
                 receiveId: $scope.receiveId,
                 dpRouteTaskId: $scope.instructionNum,
                 driveId: $scope.driverIdMod,
-                receivedDateStart: $scope.planTimeStart,
-                receivedDateEnd: $scope.planTimeEnd,
+                taskPlanDateStart: $scope.planTimeStart,
+                taskPlanDateEnd: $scope.planTimeEnd,
                 start: $scope.start.toString(),
                 size: $scope.size
             })).then(function (data) {
@@ -161,5 +180,6 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
         getNotHandover();
     };
     getMsg();
+    getNum();
 
 }])

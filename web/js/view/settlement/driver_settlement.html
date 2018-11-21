@@ -83,6 +83,9 @@
                 <th data-field="">所属类型</th>
                 <th data-field="">所属公司</th>
                 <th data-field="">车辆总数</th>
+                <th data-field="">重载里程</th>
+                <th data-field="">空载里程</th>
+                <th data-field="">重载率(%)</th>
                 <th data-field="">产值</th>
             </tr>
             </thead>
@@ -93,6 +96,9 @@
                 <td>{{settlementInfo.operate_type|carType}}</td>
                 <td>{{settlementInfo.company_name}}</td>
                 <td >{{settlementInfo.car_count}}</td>
+                <td >{{settlementInfo.load_distance}}</td>
+                <td >{{settlementInfo.no_load_distance}}</td>
+                <td ng-bind="(settlementInfo.load_distance*100|nullTo)/(settlementInfo.load_distance+settlementInfo.no_load_distance|nullTo) | number:2"></td>
                 <td>{{settlementInfo.value_total}}</td>
             </tr>
             <tr ng-if="settlementList.length==0&&instruct_starTime!==undefined&&instruct_endTime!==undefined">

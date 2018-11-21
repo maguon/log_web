@@ -96,8 +96,10 @@
                 <td>{{settlementInfo.operate_type|carType}}</td>
                 <td>{{settlementInfo.company_name}}</td>
                 <td >{{settlementInfo.car_count}}</td>
-                <td >{{settlementInfo.load_distance}}</td>
-                <td >{{settlementInfo.no_load_distance}}</td>
+                <td ng-if="settlementInfo.load_distance==null">0</td>
+                <td ng-if="settlementInfo.load_distance!==null">{{settlementInfo.load_distance}}</td>
+                <td ng-if="settlementInfo.no_load_distance==null">0</td>
+                <td ng-if="settlementInfo.no_load_distance!==null">{{settlementInfo.no_load_distance}}</td>
                 <td ng-bind="(settlementInfo.load_distance*100|nullTo)/(settlementInfo.load_distance+settlementInfo.no_load_distance|nullTo) | number:2"></td>
                 <td>{{settlementInfo.value_total}}</td>
             </tr>

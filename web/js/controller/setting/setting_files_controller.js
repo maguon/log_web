@@ -90,6 +90,32 @@ app.controller("setting_files_controller", ["$scope", "$rootScope", "$host", "_b
         })
     }
 
+    //删除
+    $scope.delete = function(id){
+        swal({
+                title: "确定删除所在车辆吗？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确认",
+                cancelButtonText: "取消",
+                closeOnConfirm: false
+            },
+        function (isConfirm) {
+            if (isConfirm) {
+                _basic.delete($host.api_url + "/user/" + userId + "/upload/" +  id).then(function (data) {
+                    if (data.success === true) {
+                       swal('删除成功！','','success')
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
+            }
+    });
+    }
+
+
     // 分页
     $scope.pre_btn = function () {
         $scope.start = $scope.start - ($scope.size-1);

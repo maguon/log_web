@@ -174,10 +174,7 @@ app.controller("storage_car_controller", ["$scope", "$rootScope", "$stateParams"
                 cache: true
             },
             allowClear: true
-        })/*.on("select2:unselecting", function (e) {
-            $scope.arrive_city = '';
-            $scope.arriveCityNm="目的地城市";
-        })*/.on('change', function () {
+        }).on('change', function () {
             if ($("#chooseEndCity").val() != null && $("#chooseEndCity").val() !== "") {
                 $scope.arrive_city = $("#chooseEndCity").select2("data")[0].id;
                 $scope.arriveCityNm = $("#chooseEndCity").select2("data")[0].text;
@@ -188,20 +185,6 @@ app.controller("storage_car_controller", ["$scope", "$rootScope", "$stateParams"
 
      // 信息获取
      $scope.get_Msg = function () {
-         /*// 城市
-         _basic.get($host.api_url + "/city").then(function (data) {
-             if (data.success == true) {
-                 $scope.get_city = data.result;
-                 $('#chooseShipmentStart').select2({
-                     placeholder: '发运地城市',
-                     containerCssClass: 'select2_dropdown'
-                 });
-                 $('#chooseEndCity').select2({
-                     placeholder: '目的地城市',
-                     containerCssClass: 'select2_dropdown'
-                 });
-             }
-         });*/
 
          // 车辆品牌查询
          _basic.get($host.api_url + "/carMake").then(function (data) {
@@ -429,6 +412,17 @@ app.controller("storage_car_controller", ["$scope", "$rootScope", "$stateParams"
             });
     };
 
+    // 数据导出
+    $scope.export = function () {
+        // 基本检索URL
+        var url = $host.api_url + "/carRel.csv?" ;
+        // 检索条件
+        var conditionsObj = makeConditions();
+        var conditions = _basic.objToUrl(conditionsObj);
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
+        window.open(url);
+    };
     /**
      * 设置检索条件。
      * @param conditions 上次检索条件
@@ -497,8 +491,8 @@ app.controller("storage_car_controller", ["$scope", "$rootScope", "$stateParams"
             $scope.sourceCityNm = "发运地城市";
         }
         getCityInfo ($scope.arriveCityNm,$scope.sourceCityNm)
-        // 查询数据
-        searchAll();
+      /*  // 查询数据
+        searchAll();*/
     }
     initData();
 

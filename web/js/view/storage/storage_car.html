@@ -2,7 +2,7 @@
     <div class="row main_storage_car">
         <div class="row  grey-text text-darken-1">
             <div class="col s12">
-                <div class="input-field col s4">
+                <div class="input-field col s2">
                     <div class="col s12 p0">
                         <input name="search_vin" id="search_vin" type="text" ng-model="search_vin" minlength="6" >
                         <label for="search_vin">车辆VIN(最少6位)</label>
@@ -17,14 +17,14 @@
                     </div>
                     <div class="input-field col s2">
                         <select material-select id="search_relStatus" watch ng-model="search_relStatus">
-                        <option value="">请选择</option>
+                        <option value="" disabled>请选择</option>
                         <option ng-repeat="el in rel_status" ng-value="el.s_num">{{el.status_text}}</option>
                         </select>
                         <label for="search_relStatus">车辆状态</label>
                     </div>
                     <div class="input-field col s2">
                         <select material-select watch id="search_storage" ng-model="search_storage" >
-                            <option value="" class="cyan-text text-lighten-2"  selected>请选择</option>
+                            <option value="" class="cyan-text text-lighten-2"  selected disabled>请选择</option>
                             <option ng-repeat="el in storage" ng-value="el.id">{{el.storage_name}}</option>
                         </select>
                         <label for="search_storage">所在仓库</label>
@@ -62,9 +62,18 @@
                     <label for="order_time_end">指令时间(终)</label>
                 </div>
                 <div class="col s2 searchBtn-box">
-                    <a class="searchBtn btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="searchStorage_car()">
-                        <i class="mdi mdi-magnify"></i>
-                    </a>
+                    <div class="col s6 center-align">
+                        <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center "  ng-click="searchStorage_car()">
+                            <i class="mdi mdi-magnify"></i>
+                        </a>
+                    </div>
+                    <div class="col s6 center-align">
+                        <a class=" btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
+                            <i class="mdi mdi-cloud-download"></i>
+                        </a>
+                    </div>
+
+
                 </div>
             </div>
             <div class="col s12 " style="margin-top: 15px">

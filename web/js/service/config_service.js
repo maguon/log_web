@@ -20,7 +20,7 @@ baseService.factory("_config", function () {
             name: "车管部操作员",
             subType: [],
             index: 'vehicle_home.html',
-            qr: [{qrSrc: "../assets/images/qr_code/qr_tm_app.png"}]
+            qr: [{qrSrc: "/download/tm_download.html"}]
         },
 
         {
@@ -28,7 +28,7 @@ baseService.factory("_config", function () {
             name: "车管部管理员",
             subType: [{type: 10, name: "司机"},{type: 11, name: "车管部操作员"}],
             index: 'vehicle_manager.html',
-            qr: [{qrSrc: "../assets/images/qr_code/qr_tm_app.png"}]
+            qr: [{qrSrc: "/download/tm_download.html"}]
         },
 
         {
@@ -36,7 +36,7 @@ baseService.factory("_config", function () {
             name: "仓储部操作人员",
             subType: [],
             index: 'storage_home.html',
-            qr: [{qrSrc: "../assets/images/qr_code/qr_storage_app.png"}]
+            qr: [{qrSrc: "/download/storage_download.html"}]
         },
 
         {
@@ -44,7 +44,7 @@ baseService.factory("_config", function () {
             name: "仓储部管理员",
             subType: [{type: 21, name: "仓储部操作人员"}],
             index: 'storage_manager.html',
-            qr: [{qrSrc: "../assets/images/qr_code/qr_storage_app.png"}]
+            qr: [{qrSrc: "/download/storage_download.html"}]
         },
 
         {
@@ -52,7 +52,7 @@ baseService.factory("_config", function () {
             name: "调度操作员",
             subType: [],
             index: 'dispatch_home.html',
-            qr: [{qrSrc: "../assets/images/qr_code/qr_dispatch_app.png"}, {qrSrc: "../assets/images/qr_code/qr_driver_app.png"}]
+            qr: [{qrSrc:"/download/dispatch_download.html"}, {qrSrc:"/download/driver_download.html" }]
         },
 
         {
@@ -60,7 +60,7 @@ baseService.factory("_config", function () {
             name: "调度管理员",
             subType: [{type: 31, name: "调度操作员"}],
             index: 'dispatch_manager.html',
-            qr: [{qrSrc: "../assets/images/qr_code/qr_dispatch_app.png"}, {qrSrc: "../assets/images/qr_code/qr_driver_app.png"}]
+            qr: [{qrSrc:"/download/dispatch_download.html"}, {qrSrc:"/download/driver_download.html" }]
         },
 
         {
@@ -68,7 +68,7 @@ baseService.factory("_config", function () {
             name: "质损操作员",
             subType: [],
             index: 'damage_home.html',
-            qr: [{qrSrc: "../assets/images/qr_code/qr_damage_app.png"}]
+            qr: [{qrSrc: "/download/qa_download.html"}]
         },
 
         {
@@ -76,7 +76,7 @@ baseService.factory("_config", function () {
             name: "质损管理员",
             subType: [{type: 41, name: "质损操作员"}],
             index: 'damage_manager.html',
-            qr: [{qrSrc: "../assets/images/qr_code/qr_damage_app.png"}]
+            qr: [{qrSrc: "/download/qa_download.html"}]
         },
 
         {
@@ -99,7 +99,7 @@ baseService.factory("_config", function () {
             name: "结算操作员",
             subType: [],
             index: 'settlement_home.html',
-            qr: [{qrSrc: "../assets/images/qr_code/qr_account_app.png"}]
+            qr: [{qrSrc: "/download/account_download.html"}]
         },
 
         {
@@ -107,7 +107,7 @@ baseService.factory("_config", function () {
             name: "结算管理员",
             subType: [{type: 61, name: "结算操作员"}],
             index: 'settlement_manager.html',
-            qr:[{qrSrc: "../assets/images/qr_code/qr_account_app.png"}]
+            qr: [{qrSrc: "/download/account_download.html"}]
         }
 
     ];

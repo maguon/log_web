@@ -137,7 +137,15 @@ publicDirective.directive('header', function () {
                 $scope.qrList = [];
                 for (var i = 0; i < user_info_obj.length; i++) {
                     if(userType == user_info_obj[i].type){
-                        $scope.qrList = user_info_obj[i].qr;
+                        $scope.qrList = [];
+                        if(user_info_obj[i].qr.length>0){
+                            for(var j=0;j<user_info_obj[i].qr.length;j++){
+                                QRCode.toDataURL($host.domain_name+user_info_obj[i].qr[j].qrSrc, function (err, url) {
+                                    $scope.qrList.push({qrSrc:url});
+                                })
+                            }
+                        }
+
                         break;
                     }
                 }

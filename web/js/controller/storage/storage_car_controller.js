@@ -251,7 +251,7 @@ app.controller("storage_car_controller", ["$scope", "$rootScope", "$stateParams"
         });
     };
 
-    // 存放位置联动查询--列
+    // 存放位置联动查询--位
     $scope.changeStorageRow = function (val, array) {
         if (val) {
             $scope.colArr = array[val - 1].col;
@@ -321,7 +321,7 @@ app.controller("storage_car_controller", ["$scope", "$rootScope", "$stateParams"
     // 移动位置
     $scope.move_parking = function (parkingId, row, col) {
         swal({
-                title: "该车辆确定移位到" + row + "排" + col + "列？",
+                title: "该车辆确定移位到" + row + "道" + col + "位？",
                 text: "",
                 type: "warning",
                 showCancelButton: true,

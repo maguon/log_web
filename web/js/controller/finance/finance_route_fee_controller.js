@@ -14,7 +14,8 @@ app.controller("finance_route_fee_controller", ["$scope", "$rootScope","$state",
                 }
                 $('#driver_name').select2({
                     placeholder: '请选择',
-                    containerCssClass : 'select2_dropdown'
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
                 });
             }
             else {
@@ -68,12 +69,6 @@ app.controller("finance_route_fee_controller", ["$scope", "$rootScope","$state",
         });
     };
 
-    // 清除司机数据
-    $scope.clearDriverInfo = function () {
-        if($scope.driverId == 0 || $scope.driverId == "" || $scope.driverId == null){
-            $scope.driverId = null;
-        }
-    };
 
     // 点击查询
     $scope.searchCarFinanceList = function () {
@@ -100,6 +95,7 @@ app.controller("finance_route_fee_controller", ["$scope", "$rootScope","$state",
     function setConditions(conditions) {
         $scope.driverId=conditions.driveId;
         $scope.grantStartTime=conditions.grantDateStart;
+        $scope.dispatchId=conditions.dpRouteTaskId;
         $scope.grantEndTime=conditions.grantDateEnd;
         $scope.grantStatus=conditions.taskLoanStatus;
     }
@@ -111,6 +107,7 @@ app.controller("finance_route_fee_controller", ["$scope", "$rootScope","$state",
         return {
             driveId: $scope.driverId,
             grantDateStart: $scope.grantStartTime,
+            dpRouteTaskId: $scope.dispatchId,
             grantDateEnd: $scope.grantEndTime,
             taskLoanStatus: $scope.grantStatus
         };

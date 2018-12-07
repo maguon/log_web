@@ -947,6 +947,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 swal(cityData.msg, "", "error");
             }
         });
+        $scope.addrList = [];
     }
 
 
@@ -995,6 +996,9 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         }
     }
 
+    //
+
+
     // 选择装车地点时重置目的地城市和经销商
     $scope.cancelDestinationCity = function () {
         $scope.addrList = [];
@@ -1012,6 +1016,11 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 })).then(function (addrData) {
                     if (addrData.success === true) {
                         $scope.addrList = addrData.result;
+                        $('#chooseDistributor').select2({
+                            placeholder: '经销商',
+                            containerCssClass : 'select2_dropdown',
+                            allowClear: true
+                        });
                     }
                     else {
                         swal(addrData.msg, "", "error");

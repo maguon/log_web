@@ -967,6 +967,8 @@
                     <span style="color: #26c6da" class="mdi mdi-equal"></span>
                 </div>
             </div>
+
+
             <div class="col s12 valign-wrapper">
                 <div class="col s4 offset-s4 z-depth-1 center-align cyan" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold">
                     <div class="col s12" style="color: white">
@@ -977,6 +979,26 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col s12 valign-wrapper" ng-show="salaryDetails.grant_status !== 3">
+                <div class="col s4 z-depth-1 offset-s4 center-align input-field" style="height:100px;margin-top:30px;border: 2px solid #26c6da;">
+                    <div class="col s12" style="margin-top: 20px">
+                        <p class="col s3 cyan-text" >备注:</p>
+                        <input id="beCare1"  type="text"  ng-model="remark" class="col s9"/>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col s12 valign-wrapper" ng-show="salaryDetails.grant_status == 3">
+                <div class="col s4  z-depth-1 offset-s4 center-align input-field" style="height:100px;margin-top:30px;border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold">
+                    <div class="col s12" style="margin-top: 20px">
+                        <p class="col s3 cyan-text" >备注:</p>
+                        <input   type="text"  ng-model="remark" class="col s9" readonly="readonly"/>
+                    </div>
+
+                </div>
+            </div>
+
             <!--按钮-->
             <div class="col s12" style="margin-top: 70px" ng-hide="salaryDetails.grant_status == 3">
                 <div class="col s1 offset-s4">

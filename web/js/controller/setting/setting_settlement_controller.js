@@ -75,6 +75,10 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
         });
     };
 
+    $scope.jumpSettlement = function (){
+
+    }
+
     // 数据导出
     $scope.export = function () {
         if($scope.instruct_starTime==undefined||$scope.instruct_endTime==undefined){

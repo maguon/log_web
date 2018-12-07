@@ -93,7 +93,7 @@ app.controller("add_storage_car_controller", ["$scope", "$rootScope","$state","$
 
         })
     };
-    // 存放位置联动查询--列
+    // 存放位置联动查询--位
     $scope.changeStorageRow = function (val, array) {
 
         if (val) {

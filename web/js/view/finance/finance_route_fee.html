@@ -2,15 +2,14 @@
     <div class="row valign-wrapper">
         <div class="col s10">
             <div class="col s12" style="padding: 0;">
-                <div class="col s3 input-field">
-                    <select id="driver_name" style="width: 100%" ng-change="clearDriverInfo()" ng-model="driverId">
+                <div class="col  input-field" style="width: 20%">
+                    <select id="driver_name" style="width: 100%" ng-model="driverId">
                         <option value=""></option>
-                        <option value="0">清除选择</option>
                         <option ng-repeat="driver in driveList" ng-value="driver.id">{{driver.drive_name + " - " + driver.mobile}}</option>
                     </select>
                     <label class="active" for="driver_name">司机</label>
                 </div>
-                <div class="col s3 input-field">
+                <div class="col  input-field" style="width: 20%">
                     <select id="grant_status" ng-model="grantStatus" material-select watch>
                         <option value="" selected>请选择</option>
                         <option value="1">已发放</option>
@@ -18,12 +17,15 @@
                     </select>
                     <label for="grant_status">发放状态</label>
                 </div>
-
-                <div class="col s3 input-field">
+                <div class="col  input-field" style="width: 20%">
+                    <input id="addExceedOilDispatch" type="text"  ng-model="dispatchId">
+                    <label for="addExceedOilDispatch"> 调度编号</label>
+                </div>
+                <div class="col  input-field" style="width: 20%">
                     <input type="text" id="grant_start_time" name="grant_start_time" ng-model="grantStartTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
                     <label for="grant_start_time">发放时间(始)</label>
                 </div>
-                <div class="col s3 input-field">
+                <div class="col  input-field" style="width: 20%">
                     <input type="text" id="grant_end_time" name="grant_end_time" ng-model="grantEndTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
                     <label for="grant_end_time">发放时间(终)</label>
                 </div>

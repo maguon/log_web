@@ -119,7 +119,7 @@
                     <td ng-if="el.storage_id==null" >无</td>
                     <td ng-if="el.area_name==null">无</td>
                     <td ng-if="el.area_name!==null">{{el.area_name}}</td>
-                    <td ng-if="el.col!=null">{{el.row}}排{{el.col}}列</td>
+                    <td ng-if="el.col!=null">{{el.row}}道{{el.col}}位</td>
                     <td ng-if="el.col==null">无</td>
                     <td ng-bind="el.real_out_time|date:'yyyy-MM-dd'"></td>
                     <td class="operation">
@@ -153,9 +153,9 @@
                                             <div class="col s6 offset-s3">
                                                 当前位置
                                                 <span class="red-text" ng-bind="now_row"></span>
-                                                <span>排</span>
+                                                <span>道</span>
                                                 <span class="red-text" ng-bind="now_col"></span>
-                                                <span>列</span>
+                                                <span>位</span>
                                             </div>
                                         </div>
                                     </div>
@@ -208,7 +208,7 @@
                                                 <option value=""  selected>请选择</option>
                                                 <option ng-repeat="el in garageParkingArray" ng-value="el.row">{{el.row}}</option>
                                             </select>
-                                            <label >排</label>
+                                            <label >道</label>
                                         </div>
                                         <div class="input-field col s3">
                                             <select material-select watch ng-model="login_parkingId"  name="login_parkingId" required>

@@ -657,7 +657,7 @@ input[type=text]{
     height: 50px;
     border-radius: 100%;
 }
-/*列*/
+/*位*/
 .garage_col{
     min-width: 36px;
     flex: 1;
@@ -977,7 +977,7 @@ input[type=text]{
     top: 0;
 }
 
-/*下拉列表长度控制*/
+/*下拉位表长度控制*/
 .dropdown-content.select-dropdown.active{
     max-height: 200px;
 }
@@ -1064,7 +1064,7 @@ input[type=text]{
     background: grey;
 }
 
-/*列表头高度*/
+/*位表头高度*/
 .collapsible_height p{
     margin: 3px 0;
 }

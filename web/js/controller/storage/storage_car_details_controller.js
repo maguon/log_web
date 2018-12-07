@@ -133,7 +133,7 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
         }
     };
 
-    // 存放位置联动查询--行
+    // 存放位置联动查询--道
     $scope.changeStorageId = function (val) {
         _basic.get($host.api_url + "/storageParking?storageId=" + val).then(function (data) {
             if (data.success == true) {
@@ -147,7 +147,7 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
         });
     };
 
-    // 存放位置联动查询--列
+    // 存放位置联动查询--位
     $scope.changeStorageRow = function (val, array) {
         $scope.colArr = array[val - 1].col;
     };
@@ -222,7 +222,7 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
     $scope.move_parking = function (parkingId, row, col) {
         // console.log(parkingId, row, col);
         swal({
-                title: "该车辆确定移位到" + row + "排" + col + "列？",
+                title: "该车辆确定移位到" + row + "道" + col + "位？",
                 text: "",
                 type: "warning",
                 showCancelButton: true,
@@ -342,7 +342,7 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
                 else {
                     $scope.order_date = $scope.self_car.order_date;
                 }
-                $scope.look_storageName = $scope.self_car.storage_name + $scope.self_car.area_name + $scope.self_car.row + "排" + $scope.self_car.col + "列";
+                $scope.look_storageName = $scope.self_car.storage_name + $scope.self_car.area_name + $scope.self_car.row + "道" + $scope.self_car.col + "位";
                 // 车辆id
                 $scope.look_car_id = $scope.self_car.id;
                 $scope.select_city_start = {id: $scope.self_car.route_start_id, city_name: $scope.self_car.route_start};

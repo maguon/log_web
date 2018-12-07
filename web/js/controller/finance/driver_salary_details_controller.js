@@ -20,6 +20,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                 if(data.result[0].other_fee != null){
                     $scope.otherDeductions = data.result[0].other_fee;
                     $scope.Reimbursement = data.result[0].refund_fee;
+                    $scope.remark = data.result[0].remark;
                 }
             }
             else {
@@ -443,7 +444,8 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
         _basic.put($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/driveActualSalary",{
             refundFee:$scope.Reimbursement,
             otherFee: $scope.otherDeductions,
-            actualSalary: grantCount
+            actualSalary: grantCount,
+            remark: $scope.remark
         }).then(function (data) {
             if (data.success === true) {
                 swal("保存成功", "", "success");

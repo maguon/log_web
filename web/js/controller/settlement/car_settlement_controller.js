@@ -216,10 +216,11 @@ app.controller("car_settlement_controller", ["$scope", "_basic", "_config", "$ho
             routeEndId: $scope.carEndCity,
             receiveId: $scope.carDealer,
             orderStart:$scope.orderStartCar,
-            orderEnd:$scope.orderEndCar
+            orderEnd:$scope.orderEndCar,
+            settleStatus:2
         })).then(function (entrustData) {
             if (entrustData.success === true) {
-                $scope.settleCarCountList = entrustData.result[1];
+                $scope.settleCarCountList = entrustData.result[0];
             }
             else {
                 swal(entrustData.msg, "", "error");
@@ -227,14 +228,15 @@ app.controller("car_settlement_controller", ["$scope", "_basic", "_config", "$ho
         });
     }
     function notSettleCarCount(){
-        _basic.get($host.api_url + "/settleCarCount?"+ _basic.objToUrl({
+        _basic.get($host.api_url + "/notSettleCarCount?"+ _basic.objToUrl({
             vin: $scope.carVIN,
             entrustId: $scope.carClient,
             routeStartId: $scope.carStartCity,
             routeEndId: $scope.carEndCity,
             receiveId: $scope.carDealer,
             orderStart:$scope.orderStartCar,
-            orderEnd:$scope.orderEndCar
+            orderEnd:$scope.orderEndCar,
+            settleStatus:1
         })).then(function (entrustData) {
             if (entrustData.success === true) {
                 $scope.notSettleCarCountList = entrustData.result[0];

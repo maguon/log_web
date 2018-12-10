@@ -224,8 +224,8 @@
                 <div class="col s12">
                     <div class="col s12">
                         <div class="col s12 cyan white-text vc-center fz18" style="height: 60px;border-bottom: 1px solid  #4e84cb;border-top:1px solid  #fff" >
-                            <div class="col s6 left-align">未结算车辆:{{notSettleCarCountList.settle_car_count}}</div>
-                            <div class="col s6 right-align">预计金额:{{notSettleCarCountList.price}}元</div>
+                            <div class="col s6 left-align">未结算车辆:{{notSettleCarCountList.not_settle_car_count}}</div>
+                            <div class="col s6 right-align">预计金额:{{notSettleCarCountList.plan_price}}元</div>
                         </div>
                         <div class="divider" style="background: #00bcd4;height: 2px"></div>
                         <table class="bordered striped text_mid">
@@ -249,8 +249,8 @@
                                 <td  ng-bind="carItem.route_start"></td>
                                 <td  ng-bind="carItem.route_end"></td>
                                 <td  ng-bind="carItem.distance"></td>
-                                <td  ng-bind="carItem.plan_price"></td>
-                                <td class="red-text bold" ng-bind="carItem.price"></td>
+                                <td  ng-bind="carItem.fee"></td>
+                                <td class="red-text bold" ng-bind="carItem.plan_price"></td>
                               <!--  <td  ng-bind="carItem.r_short_name"></td>-->
                                 <td>{{carItem.order_date | date:'yyyy-MM-dd'}}</td>
                             </tr>

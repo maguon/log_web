@@ -135,6 +135,8 @@ app.controller("car_settlement_controller", ["$scope", "_basic", "_config", "$ho
     $scope.searchCarSettlment = function () {
         $scope.startAlready=0;
         getCarList();
+        settleCarCount();
+
     };
 
     // 分页
@@ -193,6 +195,7 @@ app.controller("car_settlement_controller", ["$scope", "_basic", "_config", "$ho
     $scope.searchCar = function () {
         $scope.start=0;
         getCarListS();
+        notSettleCarCount();
     };
 
     // 分页
@@ -206,15 +209,33 @@ app.controller("car_settlement_controller", ["$scope", "_basic", "_config", "$ho
     };
 
     function settleCarCount(){
-        _basic.get($host.api_url + "/settleCarCount").then(function (entrustData) {
+        _basic.get($host.api_url + "/settleCarCount?"+ _basic.objToUrl({
+            vin: $scope.carVIN,
+            entrustId: $scope.carClient,
+            routeStartId: $scope.carStartCity,
+            routeEndId: $scope.carEndCity,
+            receiveId: $scope.carDealer,
+            orderStart:$scope.orderStartCar,
+            orderEnd:$scope.orderEndCar
+        })).then(function (entrustData) {
             if (entrustData.success === true) {
-                $scope.settleCarCountList = entrustData.result[0];
+                $scope.settleCarCountList = entrustData.result[1];
             }
             else {
                 swal(entrustData.msg, "", "error");
             }
         });
-        _basic.get($host.api_url + "/notSettleCarCount").then(function (entrustData) {
+    }
+    function notSettleCarCount(){
+        _basic.get($host.api_url + "/settleCarCount?"+ _basic.objToUrl({
+            vin: $scope.carVIN,
+            entrustId: $scope.carClient,
+            routeStartId: $scope.carStartCity,
+            routeEndId: $scope.carEndCity,
+            receiveId: $scope.carDealer,
+            orderStart:$scope.orderStartCar,
+            orderEnd:$scope.orderEndCar
+        })).then(function (entrustData) {
             if (entrustData.success === true) {
                 $scope.notSettleCarCountList = entrustData.result[0];
             }
@@ -224,8 +245,6 @@ app.controller("car_settlement_controller", ["$scope", "_basic", "_config", "$ho
         });
     }
 
-
     getCity();
-    settleCarCount();
 
 }]);

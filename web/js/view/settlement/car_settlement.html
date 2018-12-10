@@ -86,7 +86,7 @@
                     <div class="col s12">
                         <div class="col s12 cyan white-text vc-center fz18" style="height: 60px;border-bottom: 1px solid  #4e84cb;border-top:1px solid  #fff" >
                             <div class="col s6 left-align ">结算车辆:{{settleCarCountList.settle_car_count}}</div>
-                            <div class="col s6 right-align">金额:{{settleCarCountList.price}}</div>
+                            <div class="col s6 right-align">金额:{{settleCarCountList.price}}元</div>
                         </div>
                         <div class="divider" style="background: #00bcd4;height: 2px"></div>
                         <table class="bordered striped text_mid">
@@ -224,8 +224,8 @@
                 <div class="col s12">
                     <div class="col s12">
                         <div class="col s12 cyan white-text vc-center fz18" style="height: 60px;border-bottom: 1px solid  #4e84cb;border-top:1px solid  #fff" >
-                            <div class="col s6 left-align">未结算车辆:{{notSettleCarCountList.not_settle_count}}</div>
-                            <div class="col s6 right-align"></div>
+                            <div class="col s6 left-align">未结算车辆:{{notSettleCarCountList.settle_car_count}}</div>
+                            <div class="col s6 right-align">预计金额:{{notSettleCarCountList.price}}元</div>
                         </div>
                         <div class="divider" style="background: #00bcd4;height: 2px"></div>
                         <table class="bordered striped text_mid">

@@ -96,7 +96,9 @@
                                 <th data-field="">委托方</th>
                                 <th data-field="">起始城市</th>
                                 <th data-field="">目的城市</th>
-                                <th data-field="">金额</th>
+                                <th data-field="">公里数</th>
+                                <th data-field="">价格/公里</th>
+                                <th data-field="">实际金额</th>
                                 <th data-field="">指令时间</th>
                             </tr>
                             </thead>
@@ -106,14 +108,16 @@
                                 <td  ng-bind="carItem.e_short_name"></td>
                                 <td  ng-bind="carItem.route_start"></td>
                                 <td  ng-bind="carItem.route_end"></td>
+                                <td  ng-bind="carItem.distance"></td>
+                                <td  ng-bind="carItem.fee"></td>
                                 <td class="red-text bold" ng-bind="carItem.price"></td>
                                 <td>{{carItem.order_date | date:'yyyy-MM-dd'}}</td>
                             </tr>
                             <tr ng-if="carList.length == 0&&orderStart!==undefined&&orderEnd!==undefined">
-                                <td colspan="6">暂无数据</td>
+                                <td colspan="8">暂无数据</td>
                             </tr>
                             <tr ng-if="orderEnd==undefined||orderStart==undefined&&carList.length == 0">
-                                <td colspan="6"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
+                                <td colspan="8"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
                             </tr>
 
                             </tbody>
@@ -177,7 +181,7 @@
 
                         <div class=" col s4">
                             <!--目的地-->
-                            <div class=" col s4">
+                            <div class=" col s6">
                                 <div class="input-field col s12">
                                     <select id="carEndCity" name="state" style="width:100%" ng-model="carEndCity" ng-change="getCarDealer()">
                                         <option value=""></option>
@@ -186,7 +190,7 @@
                                 </div>
                             </div>
 
-                            <!--经销商-->
+                          <!--  &lt;!&ndash;经销商&ndash;&gt;
                             <div class=" col s4">
                                 <div class="input-field col s12">
                                     <select material-select watch id="carDealer" class="grey-text"   ng-model="carDealer">
@@ -196,9 +200,9 @@
                                     <label for="carDealer">经销商</label>
                                 </div>
                             </div>
-
+-->
                             <!--vin-->
-                            <div class=" col s4">
+                            <div class=" col s6">
                                 <div class="input-field col s12">
                                     <input type="text" ng-model="carVIN" id="carVIN" name="carVIN" required>
                                     <label for="VIN" class="active">VIN</label>
@@ -231,7 +235,10 @@
                                 <th data-field="">委托方</th>
                                 <th data-field="">起始城市</th>
                                 <th data-field="">目的城市</th>
-                                <th data-field="">经销商</th>
+                                <th data-field="">公里数</th>
+                                <th data-field="">价格/公里</th>
+                                <th data-field="">预计金额</th>
+                            <!--    <th data-field="">经销商</th>-->
                                 <th data-field="">指令时间</th>
                             </tr>
                             </thead>
@@ -241,14 +248,17 @@
                                 <td  ng-bind="carItem.e_short_name"></td>
                                 <td  ng-bind="carItem.route_start"></td>
                                 <td  ng-bind="carItem.route_end"></td>
-                                <td  ng-bind="carItem.r_short_name"></td>
+                                <td  ng-bind="carItem.distance"></td>
+                                <td  ng-bind="carItem.plan_price"></td>
+                                <td class="red-text bold" ng-bind="carItem.price"></td>
+                              <!--  <td  ng-bind="carItem.r_short_name"></td>-->
                                 <td>{{carItem.order_date | date:'yyyy-MM-dd'}}</td>
                             </tr>
                             <tr ng-if="carList.length == 0&&orderStartCar!==undefined&&orderEndCar!==undefined">
-                                <td colspan="6">暂无数据</td>
+                                <td colspan="8">暂无数据</td>
                             </tr>
                             <tr ng-if="orderEndCar==undefined||orderStartCar==undefined&&carList.length == 0">
-                                <td colspan="6"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
+                                <td colspan="8"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
                             </tr>
 
                             </tbody>

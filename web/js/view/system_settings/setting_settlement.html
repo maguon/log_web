@@ -83,7 +83,7 @@
                     </a>
                 </div>
                 <div class="col s4" >
-                    <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2  btn vc-center" ng-click="jumpSettlement()">
+                    <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2  btn vc-center"  ng-click="jumpSettlement()">
                         <i class="mdi mdi-arrow-top-right"></i>
                     </a>
                 </div>
@@ -100,8 +100,9 @@
     <div class="row">
         <div class="col s12">
             <div class="col s12 cyan white-text vc-center fz18" style="height: 60px;border-bottom: 1px solid  #4e84cb;border-top:1px solid  #fff" >
-                <div class="col s6 left-align">结算车辆:{{}}</div>
-                <div class="col s6 right-align">金额:{{}}</div>
+                <div class="col s2 left-align">已估值车辆:{{carMsg.entrust_car_count}}</div>
+                <div class="col s4 left-align">未估值车辆:{{notCarMsg.entrust_car_not_count}}</div>
+                <div class="col s6 right-align">已估值金额:{{carMsg.entrust_car_price}}元</div>
             </div>
             <table class=" bordered striped text_mid">
                 <thead class="blue-grey lighten-5">

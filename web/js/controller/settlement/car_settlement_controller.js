@@ -98,6 +98,7 @@ app.controller("car_settlement_controller", ["$scope", "_basic", "_config", "$ho
         }
         else{
             _basic.get($host.api_url + "/settleCar?" + _basic.objToUrl({
+                settleStatus:2,
                 vin: $scope.VIN,
                 entrustId:$scope.enstrustId,
                 routeStartId:$scope.routeStartId,
@@ -153,7 +154,8 @@ app.controller("car_settlement_controller", ["$scope", "_basic", "_config", "$ho
             swal('请输入完整的查询时间', "", "error");
         }
         else {
-            _basic.get($host.api_url + "/notSettleCar?" + _basic.objToUrl({
+            _basic.get($host.api_url + "/settleCar?" + _basic.objToUrl({
+                settleStatus:1,
                 vin: $scope.carVIN,
                 entrustId: $scope.carClient,
                 routeStartId: $scope.carStartCity,

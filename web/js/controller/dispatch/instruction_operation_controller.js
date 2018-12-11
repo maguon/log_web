@@ -47,6 +47,7 @@ app.controller("instruction_operation_controller", ["$scope","$rootScope","$stat
             }
         });
     }
+
     // 获取起始城市信息
     $scope.getStartCityInfo = function () {
         _basic.get($host.api_url + "/city").then(function (cityData) {
@@ -60,71 +61,12 @@ app.controller("instruction_operation_controller", ["$scope","$rootScope","$stat
                     placeholder: '目的城市',
                     containerCssClass : 'select2_dropdown'
                 });
-                $('#transferId').select2({
-                    placeholder: '中转站城市',
-                    containerCssClass : 'select2_dropdown'
-                });
             }
             else {
                 swal(cityData.msg, "", "error");
             }
         });
     };
-
-    // 根据起始城市查询装车地点
-    $scope.getLocateAddress = function () {
-        if($scope.startCityId == "" || $scope.startCityId == null || $scope.startCityId == 0){
-            $scope.startCityId = null;
-            $scope.locateList = [];
-        }
-        else{
-            _basic.get($host.api_url + "/baseAddr?cityId=" + $scope.startCityId).then(function (locateData) {
-                if (locateData.success === true) {
-                    $scope.locateList = locateData.result;
-                }
-                else {
-                    swal(locateData.msg, "", "error");
-                }
-            });
-        }
-    };
-
-    // 根据目的城市获取经销商
-    $scope.getDistributor = function () {
-        if($scope.endCityId == 0 || $scope.endCityId == "" || $scope.endCityId == null){
-            $scope.endCityId = null;
-            $scope.distributorList = [];
-        }
-        else{
-            _basic.get($host.api_url + "/receive?cityId=" + $scope.endCityId).then(function (distributorData) {
-                if (distributorData.success === true) {
-                    $scope.distributorList = distributorData.result;
-                }
-                else {
-                    swal(distributorData.msg, "", "error");
-                }
-            });
-        }
-    };
-
-    //根据中转站获取中转站地点
-    $scope.getTansferAddress = function(){
-        if($scope.transferId == "" || $scope.transferId == null || $scope.transferId== 0){
-            $scope.$transferId = null;
-            $scope.transferList = [];
-        }
-        else{
-            _basic.get($host.api_url + "/baseAddr?cityId=" + $scope.transferId).then(function (locateData) {
-                if (locateData.success === true) {
-                    $scope.transferList = locateData.result;
-                }
-                else {
-                    swal(locateData.msg, "", "error");
-                }
-            });
-        }
-    }
-
 
     // 查询指令数据
     $scope.getTruckDispatch = function () {
@@ -187,14 +129,10 @@ app.controller("instruction_operation_controller", ["$scope","$rootScope","$stat
      * @param conditions 上次检索条件
      */
     function setConditions(conditions) {
-        $scope.transferId=conditions.transferCityId;
-        $scope.transferArr=conditions.transferAddrId;
         $scope.truckNum=conditions.truckId;
         $scope.driveName=conditions.driveName;
         $scope.startCityId=conditions.cityTaskStart;
-        $scope.locateAddrId=conditions.baseAddrId;
         $scope.endCityId=conditions.taskEnd;
-        $scope.distributorId=conditions.receiveId;
         $scope.currentCity=conditions.currentCity;
         $scope.taskStart=conditions.taskStart;
     }
@@ -219,15 +157,11 @@ app.controller("instruction_operation_controller", ["$scope","$rootScope","$stat
             $scope.taskStart = "";
         }
         return {
-            transferCityId:$scope.transferId,
-            transferAddrId:$scope.transferArr,
             dispatchFlag:1,
             truckId:$scope.truckNum,
             driveName:$scope.driveName,
             cityTaskStart:$scope.startCityId,
-            baseAddrId:$scope.locateAddrId,
             taskEnd:$scope.endCityId,
-            receiveId:$scope.distributorId,
             currentCity:$scope.currentCity,
             taskStart:$scope.taskStart
         };
@@ -262,9 +196,6 @@ app.controller("instruction_operation_controller", ["$scope","$rootScope","$stat
             // 初始显示时，没有前画面，所以没有基本信息
             $rootScope.refObj = {pageArray: []};
         }
-        $scope.getLocateAddress();
-        $scope.getDistributor();
-        $scope.getTansferAddress();
         // 查询数据
         $scope.getTruckDispatch();
 

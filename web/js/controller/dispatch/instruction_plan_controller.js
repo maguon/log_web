@@ -1021,6 +1021,12 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                             containerCssClass : 'select2_dropdown',
                             allowClear: true
                         });
+                        $('#chooseDistributor9').select2({
+                            placeholder: '经销商',
+                            containerCssClass : 'select2_dropdown',
+                            allowClear: true
+                        });
+
                     }
                     else {
                         swal(addrData.msg, "", "error");

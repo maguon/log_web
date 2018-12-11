@@ -681,7 +681,7 @@
                                                                 <label for="addrListdsdfds">经销商</label>
                                                             </div>
                                                             <div class="col s10 input-field left-align"  ng-show="addrList.length!==0">
-                                                                <select class="col" style="width: 100%;" id="chooseDistributor"   ng-model="$parent.receiveInfo" ng-options="addr.date_id + ' ' + addr.short_name + '&emsp;' + addr.plan_count + '/' + addr.pre_count for addr in addrList">
+                                                                <select class="col s12" style="width: 100%;" id="chooseDistributor"   ng-model="$parent.receiveInfo" ng-options="addr.date_id + ' ' + addr.short_name + '&emsp;' + addr.plan_count + '/' + addr.pre_count for addr in addrList">
                                                                     <option value=""></option>
                                                                 </select>
                                                             </div>
@@ -965,12 +965,26 @@
                                                                 <option value=""></option>
                                                             </select>
                                                         </div>
-                                                        <div class="col s4 input-field">
-                                                            <select class="col s10" id="chooseDistributor9" name="chooseDistributor" ng-options="addr.date_id + ' ' + addr.short_name + '&emsp;' + addr.plan_count + '/' + addr.pre_count for addr in addrList" ng-model="$parent.receiveInfo">
+                                                        <div class="col s4">
+                                                            <div class="col s10 left-align input-field" ng-show="addrList.length==0">
+                                                                <input id="addrListdsdfds9" type="text"  ng-model="$parent.receiveInfo" style="margin: 0;" readonly="readonly" >
+                                                                <label for="addrListdsdfds9">经销商</label>
+                                                            </div>
+                                                            <div class="col s10 input-field left-align"  ng-show="addrList.length!==0">
+                                                                <select class="col s12" style="width: 100%;" id="chooseDistributor9"   ng-model="$parent.receiveInfo" ng-options="addr.date_id + ' ' + addr.short_name + '&emsp;' + addr.plan_count + '/' + addr.pre_count for addr in addrList">
+                                                                    <option value=""></option>
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="col s2 right-align">
+                                                                <i style="font-size: 1.5rem;width: 100%;margin-top: 30px" ng-click="showCarModel(sendCityId.id,locateId)"
+                                                                   class="mdi mdi-file-document cyan-text col"></i>
+                                                            </div>
+                                                           <!-- <select class="col s10" id="chooseDistributor9" name="chooseDistributor" ng-options="addr.date_id + ' ' + addr.short_name + '&emsp;' + addr.plan_count + '/' + addr.pre_count for addr in addrList" ng-model="$parent.receiveInfo">
                                                                 <option value="">经销商</option>
-                                                            </select>
-                                                            <i style="font-size: 1.5rem;margin-top: 6px" ng-click="showCarModel(sendCityId.id,locateId)"
-                                                               class="mdi mdi-file-document cyan-text vc-center col s2"></i>
+                                                            </select>-->
+                                                          <!--  <i style="font-size: 1.5rem;" ng-click="showCarModel(sendCityId.id,locateId)"
+                                                               class="mdi mdi-file-document cyan-text vc-center col s2"></i>-->
                                                         </div>
                                                         <div class="col s4 input-field">
                                                             <input id="load_num9" type="number" name="load_num" ng-model="$parent.distributeNum" style="margin: 0;">

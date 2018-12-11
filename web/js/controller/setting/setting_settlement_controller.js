@@ -3,6 +3,7 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
     $scope.size = 11;
     $("#pre").hide();
     $("#next").hide();
+    $scope.receiveList=[];
     // 委托方
     function getEntrust(){
         _basic.get($host.api_url + "/entrust").then(function (data) {
@@ -106,6 +107,11 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
         _basic.get($host.api_url + "/receive?cityId=" + id).then(function (data) {
             if (data.success == true) {
                 $scope.receiveList = data.result;
+                $('#receiveId').select2({
+                    placeholder: '经销商',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
             }
         });
     };

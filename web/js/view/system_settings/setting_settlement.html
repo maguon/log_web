@@ -21,12 +21,12 @@
 
                     <!--委托方-->
                     <div class="input-field col s3">
-                        <select material-select watch id="client1" name="client"  ng-model="entrustId" ng-change="changeCarMake(entrustId)">
+                        <select  id="client" name="client"  ng-model="entrustId" ng-change="changeCarMake(entrustId)" required style="width: 100%">
                             <option value="" disabled selected>请选择</option>
                             <option ng-repeat="el in get_entrust" ng-value="el.id" >{{el.short_name}}</option>
                         </select>
-                        <label for="client1"> 委托方</label>
                     </div>
+
 
                     <!--品牌-->
                     <div class="input-field col s3">
@@ -64,7 +64,13 @@
                     </div>
 
                     <!--经销商-->
-                    <div class="input-field col s3">
+                    <div class="input-field col s3" ng-show="receiveList.length!==0">
+                        <select material-select watch ng-model="receiveId" id="receiveId" style="width: 100%">
+                            <option value="" selected>经销商</option>
+                            <option ng-repeat="receive in receiveList" value={{receive.id}}>{{receive.short_name}}</option>
+                        </select>
+                    </div>
+                    <div class="input-field col s3" ng-show="receiveList.length==0">
                         <select material-select watch ng-model="receiveId">
                             <option value="" selected>经销商</option>
                             <option ng-repeat="receive in receiveList" value={{receive.id}}>{{receive.short_name}}</option>

@@ -13,8 +13,8 @@ app.controller("instruction_drive_details_controller", ["$scope", "$host", "_con
             var obj = {
                 taskStatus: 9,
                 driveId: $scope.driveId,
-                dateIdStart: dateIdStart,
-                dateIdEnd: dateIdEnd
+                dateIdStart: $scope.driver_mileage_startTime,
+                dateIdEnd: $scope.driver_mileage_endTime
             };
             _basic.get($host.api_url + "/driveDistanceLoadStat?" + _basic.objToUrl(obj)).then(function (data) {
                 if (data.success == true && data.result.length > 0) {
@@ -35,9 +35,14 @@ app.controller("instruction_drive_details_controller", ["$scope", "$host", "_con
     };
     drive_detail().then(function () {
         $scope.drive_instruction_list();
+
     });
 
     $scope.drive_instruction_list = function () {
+        drive_detail();
+
+
+
         if ($scope.car_status == '0') {
             loadFlag ='0';
         }

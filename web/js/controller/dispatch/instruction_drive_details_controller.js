@@ -10,22 +10,40 @@ app.controller("instruction_drive_details_controller", ["$scope", "$host", "_con
     var loadFlag = "";
     var drive_detail = function () {
         var p = new Promise(function (resolve, reject) {
+            if ($scope.car_status == '0') {
+                loadFlag ='0';
+            }
+            else if ($scope.car_status == 1) {
+                loadFlag =1;
+            }
+            else {
+                loadFlag ='';
+            }
+
             var obj = {
                 taskStatus: 9,
                 driveId: $scope.driveId,
                 dateIdStart: $scope.driver_mileage_startTime,
-                dateIdEnd: $scope.driver_mileage_endTime
+                dateIdEnd: $scope.driver_mileage_endTime,
+                loadFlag:loadFlag
             };
             _basic.get($host.api_url + "/driveDistanceLoadStat?" + _basic.objToUrl(obj)).then(function (data) {
-                if (data.success == true && data.result.length > 0) {
-                    $scope.driveDetail = data.result[0];
-                    if ($scope.driveDetail.no_load_distance == null) {
+                if (data.success == true ) {
+                    if(data.result.length ==0){
                         $scope.driveDetail.no_load_distance = 0
-                    }
-                    if ($scope.driveDetail.load_distance == null) {
                         $scope.driveDetail.load_distance = 0
                     }
-                    resolve();
+                    else {
+                        $scope.driveDetail = data.result[0];
+                        if ($scope.driveDetail.no_load_distance == null) {
+                            $scope.driveDetail.no_load_distance = 0
+                        }
+                        if ($scope.driveDetail.load_distance == null) {
+                            $scope.driveDetail.load_distance = 0
+                        }
+                        resolve();
+                    }
+
                 } else {
                     swal("异常", "", "error")
                 }

@@ -86,6 +86,19 @@ app.controller("car_query_controller", ["$scope", "$rootScope","$state","$stateP
         }
     };
 
+     /*导出*/
+    $scope.export = function(){
+        // 基本检索URL
+        var url = $host.api_url + "/carList.csv?" ;
+        // 检索条件
+        var conditionsObj = makeConditions();
+        var conditions = _basic.objToUrl(conditionsObj);
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
+        window.open(url);
+    }
+
+
     // 根据条件搜索车辆
     $scope.search_car = function () {
         // 基本检索URL

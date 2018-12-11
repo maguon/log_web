@@ -1,7 +1,7 @@
 <div class="car_demand">
     <div class="row main_storage_car">
         <div class="row grey-text text-darken-1 valign-wrapper">
-            <div class="col s11">
+            <div class="col s10">
                 <div class="input-field col s4">
                     <input id="last_name" type="text" ng-model="vin_code">
                     <label for="last_name">VIN</label>
@@ -68,11 +68,21 @@
                     <label for="last_name">至</label>
                 </div>
             </div>
-            <div class="col s1 center">
-                <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
-                   ng-click="searchMatchCar()">
-                    <i class="mdi mdi-magnify"></i>
-                </a>
+            <div class="col s2 center">
+                <div class="col s6 right-align">
+                    <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
+                       ng-click="searchMatchCar()">
+                        <i class="mdi mdi-magnify"></i>
+                    </a>
+                </div>
+                <div class="col s6 center-align">
+                    <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
+                        <i class="mdi mdi-cloud-download"></i>
+                    </a>
+                </div>
+
+
+
             </div>
         </div>
     </div>

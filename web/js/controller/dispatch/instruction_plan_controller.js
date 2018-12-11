@@ -1016,12 +1016,12 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 })).then(function (addrData) {
                     if (addrData.success === true) {
                         $scope.addrList = addrData.result;
-                        $('#chooseDistributor').select2({
+                        $('.chooseDistributor').select2({
                             placeholder: '经销商',
                             containerCssClass : 'select2_dropdown',
                             allowClear: true
                         });
-                        $('#chooseDistributor9').select2({
+                        $('.chooseDistributor9').select2({
                             placeholder: '经销商',
                             containerCssClass : 'select2_dropdown',
                             allowClear: true

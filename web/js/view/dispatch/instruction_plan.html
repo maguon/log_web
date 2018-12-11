@@ -966,7 +966,7 @@
                                                             </select>
                                                         </div>
                                                         <div class="col s4 input-field">
-                                                            <select class="col s10" id="chooseDistributor9" name="chooseDistributor" ng-options="addr.date_id + ' ' + addr.short_name + '&emsp;' + addr.plan_count + '/' + addr.pre_count for addr in addrList" ng-model="$parent.receiveInfo" watch material-select>
+                                                            <select class="col s10" id="chooseDistributor9" name="chooseDistributor" ng-options="addr.date_id + ' ' + addr.short_name + '&emsp;' + addr.plan_count + '/' + addr.pre_count for addr in addrList" ng-model="$parent.receiveInfo">
                                                                 <option value="">经销商</option>
                                                             </select>
                                                             <i style="font-size: 1.5rem;margin-top: 6px" ng-click="showCarModel(sendCityId.id,locateId)"

@@ -8,6 +8,7 @@ app.controller("setting_dealer_controller", ["$scope", "_basic", "_config", "$ho
     $scope.size = 11;
     $scope.addContacts = [];
     $scope.receiveTypeList=_config.receiveType;
+    $scope.get_receive =[];
     // 城市信息获取
     $scope.get_Msg = function () {
         _basic.get($host.api_url + "/city").then(function (data) {
@@ -15,7 +16,8 @@ app.controller("setting_dealer_controller", ["$scope", "_basic", "_config", "$ho
                 $scope.get_city = data.result;
                 $('#start_city_list').select2({
                     placeholder: '选择城市',
-                    containerCssClass : 'select2_dropdown'
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
                 });
             }
         });
@@ -33,6 +35,11 @@ app.controller("setting_dealer_controller", ["$scope", "_basic", "_config", "$ho
             _basic.get($host.api_url + "/receive?cityId=" + $scope.city).then(function (data) {
                 if (data.success === true) {
                     $scope.get_receive = data.result;
+                    $('#s_dealer').select2({
+                        placeholder: '经销商',
+                        containerCssClass : 'select2_dropdown',
+                        allowClear: true
+                    });
                 }
             });
         }

@@ -67,13 +67,21 @@
                             <option ng-repeat="el in get_city" ng-value="el.id">{{el.city_name}}</option>
                         </select>
                     </div>
-                    <div class="input-field col s3">
-                        <select material-select watch id="s_dealer" class="grey-text"   ng-model="s_dealer">
+                    <div class="input-field col s3" ng-show="get_receive.length!==0">
+                        <select  id="s_dealer" class="grey-text"   ng-model="s_dealer" style="width: 100%">
+                            <option value=""  selected></option>
+                            <option ng-repeat="el in get_receive" ng-value="el.id" >{{el.short_name}}</option>
+                        </select>
+                    </div>
+                    <div class="input-field col s3" ng-show="get_receive.length==0">
+                        <select material-select watch id="s_dealer1" class="grey-text"   ng-model="s_dealer">
                             <option value=""  selected>请选择</option>
                             <option ng-repeat="el in get_receive" ng-value="el.id" >{{el.short_name}}</option>
                         </select>
-                        <label for="s_dealer">经销商</label>
+                        <label for="s_dealer1">经销商</label>
                     </div>
+
+
                     <div class="col s3 input-field">
                         <input id="index" name="index"  ng-model="s_dealer" type="text">
                         <label for="index">编号</label>

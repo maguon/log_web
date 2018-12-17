@@ -412,6 +412,152 @@ app.controller("storage_car_controller", ["$scope", "$rootScope", "$stateParams"
             });
     };
 
+
+
+    //导入
+
+    // 主体原始错误数据
+    $scope.tableContentErrorFilter = [];
+    // 主体原始成功数据
+    $scope.tableContentFilter = [];
+    // 过滤条件数据
+    var colObjs = [
+        {name: 'vin', type: 'string', length: 17, require: true},
+        {name: 'entrustId', type: 'number', length: 3},
+        {name: 'storageId', type: 'number', length: 3, require: true}];
+    // 头部条件判断
+    $scope.titleFilter = function (headerArray) {
+        if (colObjs.length != headerArray.length) {
+            return false;
+        } else {
+            for (i = 0; i < headerArray.length; i++) {
+                if (colObjs[i].name != headerArray[i]) {
+                    return false
+                }
+            }
+        }
+    };
+    // 主体条件判断
+    $scope.ContentFilter = function (contentArray) {
+
+        for (var i = 0; i < contentArray.length; i++) {
+            var flag = true;
+            var isNumber;
+            for (var j = 0; j < colObjs.length; j++) {
+
+                if (colObjs[j].require) {
+                    if (contentArray[i][j] == null && contentArray[i][j].length == 0) {
+                        $scope.errorNumber = $scope.errorNumber + 1;
+                        $scope.tableContentErrorFilter.push(contentArray[i]);
+
+                        break;
+                    }
+                }
+
+
+                if (contentArray[i][j] == '' || isNaN(contentArray[i][j])) {
+                    isNumber = "string"
+                } else {
+                    isNumber = "number"
+                }
+                if (colObjs[j].type != isNumber && contentArray[i][j] != '' &&colObjs[j].require ) {
+                    $scope.errorNumber = $scope.errorNumber + 1;
+                    $scope.tableContentErrorFilter.push(contentArray[i]);
+
+                    break;
+                }
+                //check length
+                if (colObjs[j].type=='string'&&(colObjs[j].length && colObjs[j].length != contentArray[i][j].length)) {
+                    $scope.errorNumber = $scope.errorNumber + 1;
+                    $scope.tableContentErrorFilter.push(contentArray[i]);
+
+                    break;
+                }
+
+            }
+            if (flag == true) {
+                $scope.rightNumber = $scope.rightNumber + 1;
+                $scope.tableContentFilter.push(contentArray[i]);
+            }
+
+
+        }
+
+    };
+
+
+
+    $scope.fileChange = function (file) {
+        // 表头原始数据
+        $scope.tableHeadeArray = [];
+        // 主体原始错误数据
+        $scope.tableContentErrorFilter = [];
+        // 主体原始成功数据
+        $scope.tableContentFilter = [];
+        $scope.rightNumber = 0;
+        $scope.errorNumber = 0;
+        $(file).parse({
+            config: {
+                complete: function (result) {
+                    $scope.$apply(function () {
+                        if(result==null ||result.data==null ||result.data.length ==0){
+                            swal("文件类型错误");
+                        } else {
+                            $scope.tableHeadeArray = result.data[0];
+                            // 表头校验
+                            if ($scope.titleFilter($scope.tableHeadeArray) != false) {
+                                // 主体内容校验
+                                var content_filter_array = result.data.slice(1, result.data.length);
+                                var con_line = [];
+
+                                for (var i = 0; i < content_filter_array.length; i++) {
+                                    if (content_filter_array[i].length == 1 && content_filter_array[i][0] == "") {
+                                        break;
+                                    } else {
+                                        con_line.push(content_filter_array[i]);
+                                    }
+                                }
+                                $scope.ContentFilter(con_line);
+                                fileUpload();
+                                $scope.tableHeader = result.data[0];
+                            }
+                            else {
+                                swal("表头格式错误", "", "error");
+                            }
+
+                        }
+
+                    });
+
+                }
+            },
+            before: function (file, inputElem) {
+                $scope.fileType = file.type;
+            },
+            error: function (err, file, inputElem, reason) {
+                console.log(err)
+            },
+            complete: function (val) {
+            }
+        })
+    };
+
+
+    function fileUpload() {
+        _basic.formPost($("#file_upload_form"), $host.api_url + '/user/' + userId + '/carExportsFile', function (data) {
+            if (data.success == true) {
+                swal("正确条数" + data.result.failedCase+"   "+ "错误条数" + data.result.successedInsert);
+
+            }
+            else {
+                swal(data.msg, "", "error")
+            }
+        });
+    };
+
+
+
+
     // 数据导出
     $scope.export = function () {
         // 基本检索URL

@@ -304,14 +304,7 @@ publicDirective.directive("collapsible", function () {
         }
     }
 });
-publicDirective.directive("tooltipped", function () {
-    return {
-        restrict: "A",
-        link: function () {
-            $('.tooltipped').tooltip({delay: 50});
-        }
-    }
-});
+
 /*
 *
 *

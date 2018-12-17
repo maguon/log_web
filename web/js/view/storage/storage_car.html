@@ -62,18 +62,30 @@
                     <label for="order_time_end">指令时间(终)</label>
                 </div>
                 <div class="col s2 searchBtn-box">
-                    <div class="col s6 center-align">
+                    <div class="col s4 center-align">
                         <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center "  ng-click="searchStorage_car()">
                             <i class="mdi mdi-magnify"></i>
                         </a>
                     </div>
-                    <div class="col s6 center-align">
+                    <div class="col s4 center-align">
                         <a class=" btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
                             <i class="mdi mdi-cloud-download"></i>
                         </a>
                     </div>
 
 
+
+                    <div class="col s4 center-align ">
+                        <form  name="file_upload_form " id="file_upload_form">
+                            <div class="file-field">
+                                <div class="btn cyan lighten-2 circle_button"  style="height: 56px;width: 56px;border-radius:50%;position: relative">
+                                    <i class="mdi   mdi-logout" style="position: absolute;top: 6px;right: 19px"></i>
+                                    <input type="file" style="font-size: 100px;height: 45px;"  name="file" accept="text/csv" onchange='angular.element(this).scope().fileChange(this)' >
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
                 </div>
             </div>
             <div class="col s12 " style="margin-top: 15px">

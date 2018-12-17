@@ -544,9 +544,11 @@ app.controller("storage_car_controller", ["$scope", "$rootScope", "$stateParams"
 
 
     function fileUpload() {
+            $(".shadeDowWrap").show();
         _basic.formPost($("#file_upload_form"), $host.api_url + '/user/' + userId + '/carExportsFile', function (data) {
             if (data.success == true) {
-                swal("正确条数" + data.result.failedCase+"   "+ "错误条数" + data.result.successedInsert);
+                    $(".shadeDowWrap").hide();
+                    swal("出库车辆数" +data.result.successedInsert);
 
             }
             else {

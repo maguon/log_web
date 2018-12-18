@@ -49,17 +49,19 @@
             <table class="highlight bordered striped text_mid">
                 <thead class="blue-grey lighten-5">
                 <tr class="table_header grey-text text-darken-1">
-                    <th class="s3" data-field="">仓库名称</th>
-                    <th class="s3" data-field="">总车位</th>
-                    <th class="s2" data-field="">状态</th>
-                    <th class="s2 table_operation center-align">操作</th>
+                    <th  data-field="">仓库编号</th>
+                    <th  data-field="">仓库名称</th>
+                    <th  data-field="">总车位</th>
+                    <th  data-field="">状态</th>
+                    <th class=" table_operation center-align">操作</th>
                 </tr>
                 </thead>
 
                 <tbody>
                 <tr ng-repeat="el in storage" class="grey-text text-darken-1">
+                    <td ng-bind="el.id"></td>
                     <td ng-bind="el.storage_name"></td>
-                    <td  ng-bind="el.total_seats?el.total_seats:0"></td>
+                    <td ng-bind="el.total_seats?el.total_seats:0"></td>
                     <td ng-if="el.storage_status==1">在用</td>
                     <td ng-if="el.storage_status==0">停用</td>
                     <td class="operation table_operation vc-center">

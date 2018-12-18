@@ -544,7 +544,7 @@ app.controller("storage_car_controller", ["$scope", "$rootScope", "$stateParams"
 
 
     function fileUpload() {
-            $(".shadeDowWrap").show();
+        $(".shadeDowWrap").show();
         _basic.formPost($("#file_upload_form"), $host.api_url + '/user/' + userId + '/carExportsFile', function (data) {
             if (data.success == true) {
                     $(".shadeDowWrap").hide();
@@ -552,6 +552,7 @@ app.controller("storage_car_controller", ["$scope", "$rootScope", "$stateParams"
 
             }
             else {
+                $(".shadeDowWrap").hide();
                 swal(data.msg, "", "error")
             }
         });

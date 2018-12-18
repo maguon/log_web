@@ -555,7 +555,11 @@ app.controller("storage_car_controller", ["$scope", "$rootScope", "$stateParams"
                 $(".shadeDowWrap").hide();
                 swal(data.msg, "", "error")
             }
+        },function(error){
+            $(".shadeDowWrap").hide();
+            swal('服务器异常', "", "error")
         });
+
     };
 
 

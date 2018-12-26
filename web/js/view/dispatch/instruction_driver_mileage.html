@@ -5,7 +5,7 @@
                 <div id="header_car" class="row tab_box" >
                     <div class="storage_storeTitle">
                         <div class="row  grey-text text-darken-1">
-                            <div class="col s11">
+                            <div class="col s10">
                                 <div class="col s12">
                                     <div class="input-field col s4">
                                         <input name="drive_name" id="drive_name" type="text" ng-model="drive_name"   >
@@ -23,11 +23,30 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col s1 vc-center">
+                         <!--   <div class="col s1 vc-center">
                                 <a class=" btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="search_all()">
                                     <i class="mdi mdi-magnify"></i>
                                 </a>
                             </div>
+-->
+
+                            <div class="col s2 center">
+                                <div class="col s6 right-align">
+                                    <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
+                                       ng-click="search_all()">
+                                        <i class="mdi mdi-magnify"></i>
+                                    </a>
+                                </div>
+                                <div class="col s6 center-align">
+                                    <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
+                                        <i class="mdi mdi-cloud-download"></i>
+                                    </a>
+                                </div>
+
+
+
+                            </div>
+
                         </div>
                     </div>
                     <div class="col s12" >

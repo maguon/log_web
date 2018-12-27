@@ -102,8 +102,8 @@ app.controller("driver_settlement_controller", ["_basic", "_config", "$host", "$
         }
         else{
             _basic.get($host.api_url + "/driveSettle?" + _basic.objToUrl({
-                orderStart: $scope.instruct_starTime,
-                orderEnd: $scope.instruct_endTime,
+                dateIdStart: $scope.instruct_starTime,
+                dateIdEnd: $scope.instruct_endTime,
                 driveId: $scope.drivderId,
                 companyId: $scope.searchCompany,
                 operateType: $scope.operateType,

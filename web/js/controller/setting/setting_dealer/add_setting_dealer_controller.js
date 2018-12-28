@@ -8,8 +8,9 @@ app.controller("add_setting_dealer_controller", ["$scope", "_basic", "_config", 
     $scope.lng = 121.62;
     $scope.lat = 38.92;
     $scope.receiveTypeList=_config.receiveType;
-    // 获取城市
+
     $scope.getCityList = function () {
+        // 获取城市
         _basic.get($host.api_url + "/city").then(function (data) {
             if (data.success == true) {
                 $scope.setting_city = data.result;
@@ -19,6 +20,13 @@ app.controller("add_setting_dealer_controller", ["$scope", "_basic", "_config", 
                 });
             }
         });
+        // 车辆品牌
+        _basic.get($host.api_url + "/carMake").then(function (data) {
+            if (data.success == true) {
+                $scope.get_carMake = data.result;
+            }
+        });
+
     };
 
     // 选择清除城市重置value
@@ -100,6 +108,8 @@ app.controller("add_setting_dealer_controller", ["$scope", "_basic", "_config", 
                     receiveName: $scope.deal_name,
                     receiveType:$scope.receive_type,
                     address: $scope.input_address,
+                    makeId: $scope.car_brand.id,
+                    makeName: $scope.car_brand.make_name,
                     lng: $scope.lng,
                     lat: $scope.lat,
                     cityId: $scope.setting_city_id,

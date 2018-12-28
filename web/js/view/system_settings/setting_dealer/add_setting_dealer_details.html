@@ -24,12 +24,18 @@
                             <input type="text" id="deal_name" name="deal_name" ng-model="deal_name" required>
                             <label class="grey-text bold" for="deal_name">公司全称</label>
                         </div>
-                        <div class="col s12 input-field mp-40">
+                        <div class="col s6 input-field mp-40">
                             <select material-select watch id="receiveType" ng-model="receive_type" required>
                                 <option value="" disabled selected>请选择</option>
                                 <option ng-repeat="el in receiveTypeList" ng-value="el.id">{{el.typeName}}</option>
                             </select>
                             <label class="grey-text bold" for="receiveType">经销商类型</label>
+                        </div>
+                        <div class="col s6 input-field mp-40">
+                            <select material-select watch id="car_brand" name="car_brand" ng-options="car_brand.make_name for car_brand in get_carMake"   ng-model="car_brand" >
+                                <option value="" disabled selected>请选择</option>
+                            </select>
+                            <label class="grey-text bold" for="car_brand">经营品牌</label>
                         </div>
                     </div>
                     <div class="row">

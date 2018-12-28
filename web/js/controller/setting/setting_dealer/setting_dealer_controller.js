@@ -9,8 +9,9 @@ app.controller("setting_dealer_controller", ["$scope", "_basic", "_config", "$ho
     $scope.addContacts = [];
     $scope.receiveTypeList=_config.receiveType;
     $scope.get_receive =[];
-    // 城市信息获取
+
     $scope.get_Msg = function () {
+        // 城市信息获取
         _basic.get($host.api_url + "/city").then(function (data) {
             if (data.success == true) {
                 $scope.get_city = data.result;
@@ -21,6 +22,13 @@ app.controller("setting_dealer_controller", ["$scope", "_basic", "_config", "$ho
                 });
             }
         });
+        // 车辆品牌
+        _basic.get($host.api_url + "/carMake").then(function (data) {
+            if (data.success == true) {
+                $scope.get_carMake = data.result;
+            }
+        });
+
     };
     $scope.get_Msg();
 
@@ -47,17 +55,33 @@ app.controller("setting_dealer_controller", ["$scope", "_basic", "_config", "$ho
 
     // 搜索经销商
     $scope.search_dealer = function () {
+        $scope.start = 0;
         $scope.search_all_dealer();
     };
 
     $scope.search_all_dealer = function () {
-        var obj = {
-            receiveId: $scope.s_dealer,
-            receiveType:$scope.receive_type,
-            cityId: $scope.city,
-            start: $scope.start,
-            size: $scope.size
-        };
+        if($scope.car_brand==undefined){
+            var obj = {
+                receiveId: $scope.s_dealer,
+                receiveType:$scope.receive_type,
+                cityId: $scope.city,
+                makeId: '',
+                makeName: '',
+                start: $scope.start,
+                size: $scope.size
+            };
+        }else {
+            var obj = {
+                receiveId: $scope.s_dealer,
+                receiveType:$scope.receive_type,
+                cityId: $scope.city,
+                makeId: $scope.car_brand.id,
+                makeName: $scope.car_brand.make_name,
+                start: $scope.start,
+                size: $scope.size
+            };
+        }
+
         _basic.get($host.api_url + "/receive?" + _basic.objToUrl(obj)).then(function (data) {
             if (data.success === true) {
                 // $scope.setting_dealer=data.result;

@@ -6,8 +6,9 @@ app.controller("setting_dealer_details_controller", ["$scope", "_basic", "_confi
     var userId = _basic.getSession(_basic.USER_ID);
     var marker;
     $scope.receiveTypeList=_config.receiveType;
-    // 获取城市
-    $scope.getCityList = function () {
+
+  function getCityList() {
+        // 获取城市
         _basic.get($host.api_url + "/city").then(function (data) {
             if (data.success == true) {
                 $scope.setting_city = data.result;
@@ -18,7 +19,16 @@ app.controller("setting_dealer_details_controller", ["$scope", "_basic", "_confi
                 });
             }
         });
+
     };
+function getCarMake(){
+    // 车辆品牌
+    _basic.get($host.api_url + "/carMake").then(function (data) {
+        if (data.success == true) {
+            $scope.get_carMake = data.result;
+        }
+    });
+}
 
     // 高德autocomplete
     $scope.amapAutocomplete = function () {
@@ -85,12 +95,12 @@ app.controller("setting_dealer_details_controller", ["$scope", "_basic", "_confi
 
     // 查看详情
     $scope.seeDetails = function () {
+        $scope.car_brand=$("#car_brand").find("option:selected").text();
         _basic.get($host.api_url + "/receive?receiveId=" + $stateParams.dealer_id).then(function (data) {
             if (data.success === true) {
-                // console.log("data",data);
                 $scope.dealer_details = data.result[0];
+                $scope.dealer_details.make_id = data.result[0].make_id;
                 $scope.dealer_details.city_id = data.result[0].city_id;
-                $scope.getCityList();
                 $scope.lng = data.result[0].lng ? data.result[0].lng : 121.62;
                 $scope.lat = data.result[0].lat ? data.result[0].lat : 38.92;
 
@@ -99,7 +109,17 @@ app.controller("setting_dealer_details_controller", ["$scope", "_basic", "_confi
             }
         });
     };
-
+    $scope.changeMakeName =function(id){
+        if(id==undefined){
+            return;
+        }
+        // 车辆品牌
+        _basic.get($host.api_url + "/carMake?makeId="+id).then(function (data) {
+            if (data.success == true) {
+                $scope.make_name = data.result[0].make_name;
+            }
+        });
+    }
     // 修改经销商
     $scope.change_setting_dealer = function () {
         var cleanFeeCount = $scope.dealer_details.clean_fee == null ? 0 : $scope.dealer_details.clean_fee.toFixed(2);
@@ -107,11 +127,14 @@ app.controller("setting_dealer_details_controller", ["$scope", "_basic", "_confi
             &&$scope.dealer_details.short_name!==undefined
             &&$scope.dealer_details.receive_name!==undefined
             &&$scope.dealer_details.city_id!==''
-            &&$scope.dealer_details.address!=='') {
+            &&$scope.dealer_details.address!==''
+        &&$scope.dealer_details.make_id!=='') {
             var obj = {
                 shortName: $scope.dealer_details.short_name,
                 receiveName: $scope.dealer_details.receive_name,
                 receiveType:$scope.dealer_details.receive_type,
+                makeId:$scope.dealer_details.make_id,
+                makeName: $scope.make_name,
                 cleanFee: parseFloat(cleanFeeCount),
                 address: $("#amapAddress").val(),
                 lng: $scope.lng,
@@ -155,8 +178,9 @@ app.controller("setting_dealer_details_controller", ["$scope", "_basic", "_confi
     };
 
     $scope.queryData = function () {
-      /*  $scope.getCityList();*/
         $scope.seeDetails();
+        getCarMake();
+        getCityList()
     };
     $scope.queryData();
 }]);

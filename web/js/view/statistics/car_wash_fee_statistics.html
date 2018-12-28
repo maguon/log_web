@@ -12,9 +12,12 @@
                 <div class="col s5 left">
                     <p>商品车洗车费-按月统计</p>
                 </div>
-                <div class="col s6 right">
-                    <div class="col s3 left">
-                        <p class="right">选择日期区间:</p>
+                <div class="col s7 right">
+                    <div class="col s3 center-align">
+                        <select material-select watch id="car_brand" name="car_brand"    ng-model="car_brand" >
+                            <option value="" disabled selected>全部品牌</option>
+                            <option ng-repeat="el in get_carMake" ng-value="el.id">{{el.make_name}}</option>
+                        </select>
                     </div>
                     <div class="col s3">
                         <input id="chooseCarWashFeeStart_month" type="text" ng-value="startInitial" readonly>
@@ -26,7 +29,7 @@
                         <input id="chooseCarWashFeeEnd_month" type="text" ng-value="endInitial" readonly>
                     </div>
                     <div class="col s2 center">
-                        <i class="mdi mdi-magnify" ng-click="getCarWashFeeMonthCount();getReceiveCarWashFeeRankingMonth()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                        <i class="mdi mdi-magnify" ng-click="getCarWashFeeMonthCount();getReceiveCarWashFeeRankingMonth();getCarWashFeeWeekCount();getReceiveCarWashFeeRankingWeek();" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
                     </div>
                 </div>
             </div>

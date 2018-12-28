@@ -1,5 +1,14 @@
 app.controller("car_wash_fee_statistics_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
 
+    function getMakeName(){
+        // 车辆品牌
+        _basic.get($host.api_url + "/carMake").then(function (data) {
+            if (data.success == true) {
+                $scope.get_carMake = data.result;
+            }
+        });
+    }
+
     // 日期初始值
     $scope.startInitial = moment(new Date()).format('YYYY') + "01";
     $scope.endInitial = moment(new Date()).format('YYYYMM');
@@ -26,6 +35,9 @@ app.controller("car_wash_fee_statistics_controller", ["$scope", "$host", "_basic
 
     // 获取商品车洗车费按月统计数据
     $scope.getCarWashFeeMonthCount = function () {
+        if($scope.car_brand==undefined){
+            $scope.car_brand=''
+        }
         var monthStart = $('#chooseCarWashFeeStart_month').val();
         var monthEnd = $('#chooseCarWashFeeEnd_month').val();
         if(monthStart == "" || monthStart == undefined){
@@ -34,7 +46,7 @@ app.controller("car_wash_fee_statistics_controller", ["$scope", "$host", "_basic
         if(monthEnd == "" || monthEnd == undefined){
             monthEnd = $scope.endInitial;
         }
-        _basic.get($host.api_url + "/dpRouteLoadTaskCleanRelMonthStat?monthStart=" + monthStart + "&monthEnd=" + monthEnd).then(function (data) {
+        _basic.get($host.api_url + "/dpRouteLoadTaskCleanRelMonthStat?monthStart=" + monthStart + "&monthEnd=" + monthEnd+'&makeId='+$scope.car_brand).then(function (data) {
             if (data.success === true) {
                 data.result.reverse();
                 // console.log("data", data);
@@ -54,7 +66,10 @@ app.controller("car_wash_fee_statistics_controller", ["$scope", "$host", "_basic
 
     // 获取商品车洗车费按周统计数据
     $scope.getCarWashFeeWeekCount = function () {
-        _basic.get($host.api_url + "/dpRouteLoadTaskCleanRelWeekStat?start=0&size=10").then(function (data) {
+        if($scope.car_brand==undefined){
+            $scope.car_brand=''
+        }
+        _basic.get($host.api_url + "/dpRouteLoadTaskCleanRelWeekStat?start=0&size=10"+'&makeId='+$scope.car_brand).then(function (data) {
             if (data.success === true) {
                 data.result.reverse();
                 // console.log("data", data);
@@ -74,6 +89,9 @@ app.controller("car_wash_fee_statistics_controller", ["$scope", "$host", "_basic
 
     // 获取经销商洗车费按月统计排行数据
     $scope.getReceiveCarWashFeeRankingMonth = function () {
+        if($scope.car_brand==undefined){
+            $scope.car_brand=''
+        }
         var monthStart = $('#chooseCarWashFeeStart_month').val();
         var monthEnd = $('#chooseCarWashFeeEnd_month').val();
         if(monthStart == "" || monthStart == undefined){
@@ -82,7 +100,7 @@ app.controller("car_wash_fee_statistics_controller", ["$scope", "$host", "_basic
         if(monthEnd == "" || monthEnd == undefined){
             monthEnd = $scope.endInitial;
         }
-        _basic.get($host.api_url + "/dpRouteLoadTaskCleanRelReceiveMonthStat?monthStart=" + monthStart + "&monthEnd=" + monthEnd).then(function (data) {
+        _basic.get($host.api_url + "/dpRouteLoadTaskCleanRelReceiveMonthStat?monthStart=" + monthStart + "&monthEnd=" + monthEnd+'&makeId='+$scope.car_brand).then(function (data) {
             if (data.success === true) {
                 var carWashFeeList = [];
                 if(data.result.length > 0){
@@ -110,7 +128,10 @@ app.controller("car_wash_fee_statistics_controller", ["$scope", "$host", "_basic
 
     // 获取经销商洗车费按周统计排行数据
     $scope.getReceiveCarWashFeeRankingWeek = function () {
-        _basic.get($host.api_url + "/dpRouteLoadTaskCleanRelReceiveWeekStat?start=0&size=10").then(function (data) {
+        if($scope.car_brand==undefined){
+            $scope.car_brand=''
+        }
+        _basic.get($host.api_url + "/dpRouteLoadTaskCleanRelReceiveWeekStat?start=0&size=10"+'&makeId='+$scope.car_brand).then(function (data) {
             if (data.success === true) {
                 var carWashFeeList = [];
                 if(data.result.length > 0){
@@ -136,40 +157,6 @@ app.controller("car_wash_fee_statistics_controller", ["$scope", "$host", "_basic
         });
     };
 
-    // 模拟经销商洗车费top10假数据
-    /*$scope.virtualDataSimulation = function () {
-        var carWashFeeRanking = [
-            {receive_name: "大连万海", money_count: 8456},
-            {receive_name: "大连庞大", money_count: 4651},
-            {receive_name: "大连兆远", money_count: 7764},
-            {receive_name: "大连德瑞", money_count: 9963},
-            {receive_name: "大连禾泰", money_count: 4619},
-            {receive_name: "大连凯祥", money_count: 8512},
-            {receive_name: "大连汇达", money_count: 1172},
-            {receive_name: "沈阳庞大", money_count: 6731},
-            {receive_name: "鑫达", money_count: 5555},
-            {receive_name: "上海鸿程", money_count: 2499}
-        ];
-
-        // 求出金额最大项
-        var moneyArr = [];
-        for (var i = 0; i < carWashFeeRanking.length; i++) {
-            moneyArr.push(carWashFeeRanking[i].money_count);
-        }
-        var maxCount = Math.max.apply(null,moneyArr);
-        // 根据金额最大项来计算百分比
-        for (var j = 0; j < carWashFeeRanking.length; j++) {
-            moneyArr[j] = Math.floor((moneyArr[j] / maxCount) * 100);
-            carWashFeeRanking[j].percent = moneyArr[j];
-        }
-        // 根据平均值进行从大到小排序
-        carWashFeeRanking.sort(function (a,b) {
-            var val1 = a.money_count;
-            var val2 = b.money_count;
-            return val2 - val1;
-        });
-        $scope.sortCarWashFeeRanking = carWashFeeRanking;
-    };*/
 
     // 显示商品车洗车费金额按月统计柱状图
     $scope.showCarWashFeeStatistics_month = function () {
@@ -263,6 +250,7 @@ app.controller("car_wash_fee_statistics_controller", ["$scope", "$host", "_basic
         $scope.getCarWashFeeWeekCount();
         $scope.getReceiveCarWashFeeRankingMonth();
         $scope.getReceiveCarWashFeeRankingWeek();
+        getMakeName();
     };
     $scope.queryData();
 }]);

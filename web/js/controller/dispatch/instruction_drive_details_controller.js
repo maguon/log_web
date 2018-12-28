@@ -24,6 +24,7 @@ app.controller("instruction_drive_details_controller", ["$scope", "$host", "_con
             var obj = {
                 taskStatus: 9,
                 driveId: $scope.driveId,
+                truckId:makeId,
                 dateIdStart: $scope.driver_mileage_startTime,
                 dateIdEnd: $scope.driver_mileage_endTime,
                 loadFlag:loadFlag

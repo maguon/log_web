@@ -47,7 +47,7 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             controller:"look_instruction_list_details_controller"
         })
         .state("_look_instruction_list_details", {
-            url: "/look_instruction_list_details/id/{id}/instruction_id/{instruction_id}/timeStart/{timeStart}/timeEnd/{timeEnd}/from/{from}?refer",
+            url: "/look_instruction_list_details/id/{id}/instruction_id/{instruction_id}/timeStart/{timeStart}/timeEnd/{timeEnd}/makeId/{makeId}/from/{from}?refer",
             templateUrl: "js/view/dispatch/look_instruction_list_details.html",
             controller:"look_instruction_list_details_controller"
         })
@@ -93,7 +93,7 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             controller:"instruction_driver_mileage_controller"
         })
         .state("instruction_drive_details", {
-            url: "/instruction_drive_details/id/{id}/timeStart/{timeStart}/timeEnd/{timeEnd}/from/{from}",
+            url: "/instruction_drive_details/id/{id}/timeStart/{timeStart}/timeEnd/{timeEnd}/makeId/{makeId}/from/{from}",
             templateUrl: "js/view/dispatch/instruction_drive_details.html",
             controller:"instruction_drive_details_controller"
         })

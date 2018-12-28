@@ -14,7 +14,12 @@
                         <div class="col s4">
                             <h5><span>{{driveDetail.drive_name}}</span></h5>
                         </div>
-                        <div class="col s8 right-align" >
+                        <div class="col s4 center-align" >
+                            <div class="col s12">
+                                货车牌号:<span>{{driveDetail.truck_num}}</span>
+                            </div>
+                        </div>
+                        <div class="col s4 right-align" >
                             <div class="col s12">
                                 联系电话:<span>{{driveDetail.mobile}}</span>
                             </div>
@@ -73,7 +78,7 @@
                             <th data-field="">指令完成时间</th>
                             <th data-field="">起始城市</th>
                             <th data-field="">目的城市</th>
-                            <th data-field="">货车牌号</th>
+                           <!-- <th data-field="">货车牌号</th>-->
                             <th data-field="">装载车辆</th>
                             <th data-field="">公里数</th>
                             <th>操作</th>
@@ -85,11 +90,11 @@
                             <td ng-bind="el.date_id">2</td>
                             <td ng-bind="el.city_route_start">无</td>
                             <td ng-bind="el.city_route_end">
-                            <td ng-bind="el.truck_num">
+                           <!-- <td ng-bind="el.truck_num">-->
                             <td ng-bind="el.car_count"></td>
                             <td ng-bind="el.distance"></td>
                             <td class="operation">
-                                <a href="#" ui-sref="_look_instruction_list_details({instruction_id:el.id,id:driveId,timeStart:driver_mileage_startTime,timeEnd:driver_mileage_endTime,refer:'instruction_driver_mileage',from:'instruction_drive_details'})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ></i></a>
+                                <a href="#" ui-sref="_look_instruction_list_details({instruction_id:el.id,id:driveId,timeStart:driver_mileage_startTime,timeEnd:driver_mileage_endTime,makeId:driveDetail.truck_id,refer:'instruction_driver_mileage',from:'instruction_drive_details'})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ></i></a>
                             </td>
                         </tr>
                         </tbody>

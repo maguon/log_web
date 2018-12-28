@@ -10,6 +10,7 @@ app.controller("look_instruction_list_details_controller", ["$scope", "$host", "
                 id: $stateParams.id,
                 timeStart: $stateParams.timeStart,
                 timeEnd: $stateParams.timeEnd,
+                makeId: $stateParams.makeId,
                 from: $stateParams.refer
             })
         }

@@ -4,6 +4,7 @@
 app.controller("instruction_drive_details_controller", ["$scope", "$host", "_config", "_basic", "$state", "$stateParams", function ($scope, $host, _config, _basic, $state, $stateParams) {
     var dateIdStart = $stateParams.timeStart;
     var dateIdEnd = $stateParams.timeEnd;
+    var makeId = $stateParams.makeId;
     $scope.driveId = $stateParams.id;
     $scope.driver_mileage_startTime = dateIdStart;
     $scope.driver_mileage_endTime = dateIdEnd;
@@ -75,6 +76,7 @@ app.controller("instruction_drive_details_controller", ["$scope", "$host", "_con
             taskStatusArr:[9,10],
             driveId:$scope.driveId,
             loadFlag:loadFlag,
+            truckId:makeId,
             dateIdStart: $scope.driver_mileage_startTime,
             dateIdEnd: $scope.driver_mileage_endTime
         };

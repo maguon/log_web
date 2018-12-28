@@ -55,6 +55,7 @@
                             <thead class="blue-grey lighten-5">
                                 <tr class="grey-text text-darken-2">
                                     <th data-field="">司机</th>
+                                    <th data-field="">货车牌号</th>
                                     <th data-field="">完成任务数</th>
                                     <th data-field="">总计里程</th>
                                     <th data-field="">重载公里数</th>
@@ -66,6 +67,7 @@
                             <tbody>
                                 <tr ng-repeat="el in driveDistanceCount" class="grey-text text-darken-1">
                                     <td ng-bind="el.drive_name">1</td>
+                                    <td ng-bind="el.truck_num">
                                     <td ng-bind="el.complete_count">2</td>
                                     <td ng-bind="el.load_distance+el.no_load_distance|nullTo"></td>
                                     <td ng-bind="el.load_distance|nullTo"></td>

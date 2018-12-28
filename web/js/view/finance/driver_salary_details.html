@@ -865,7 +865,9 @@
 
         <!--结算工资-->
         <div id="settlementSalary" class="row col s12" style="padding: 0;">
-            <div class="col s12 valign-wrapper">
+
+
+           <!-- <div class="col s12 valign-wrapper">
                 <div class="col s3 z-depth-1 center-align" style="border: 2px solid rgb(245,166,35);font-size: 1.2rem;font-weight: bold;background: rgb(245,166,35)">
                     <div class="col s12" style="color: #fff">
                         <p>任务工资 <span style="font-size: 1rem">(元)</span></p>
@@ -899,8 +901,47 @@
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
                     <span style="color: #26c6da" class="mdi mdi-minus"></span>
                 </div>
-            </div>
-            <div class="col s12 valign-wrapper" style="margin-top: 50px">
+            </div>-->
+
+            <div class="col s12 valign-wrapper">
+
+                <!--任务工资-->
+                <div class="col s3 z-depth-1 center-align" style="border: 2px solid rgb(245,166,35);font-size: 1.2rem;font-weight: bold ;background: rgb(245,166,35)">
+                    <div class="col s12" style="color: #fff">
+                        <p>任务工资 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12" style="color: #fff">
+                        <p>{{salaryDetails.plan_salary.toFixed(2)}}</p>
+                    </div>
+                </div>
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span style="color: #26c6da" class="mdi mdi-minus"></span>
+                </div>
+
+                <!--商品车质损承担-->
+                <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold">
+                    <div class="col s12" style="color: #26c6da">
+                        <p>商品车质损承担 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12" style="color: #e57373">
+                        <p>{{personalCommitmentCount.toFixed(2)}}</p>
+                    </div>
+                </div>
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span style="color: #26c6da" class="mdi mdi-minus"></span>
+                </div>
+                <!--货车事故承担-->
+                <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold">
+                    <div class="col s12" style="color: #26c6da">
+                        <p>货车事故承担 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <p>{{personalAccidentPay.toFixed(2)}}</p>
+                    </div>
+                </div>
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span style="color: #26c6da" class="mdi mdi-minus"></span>
+                </div>
                 <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold">
                     <div class="col s12" style="color: #26c6da">
                         <p>违章扣款 <span style="font-size: 1rem">(元)</span></p>
@@ -909,9 +950,12 @@
                         <p>{{peccancylAccidentPay.toFixed(2)}}</p>
                     </div>
                 </div>
-                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
-                    <span style="color: #26c6da" class="mdi mdi-minus"></span>
-                </div>
+
+
+
+            </div>
+
+            <div class="col s12 valign-wrapper" style="margin-top: 50px">
                 <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold">
                     <div class="col s12" style="color: #26c6da">
                         <p>超油扣款 <span style="font-size: 1rem">(元)</span></p>
@@ -923,8 +967,6 @@
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
                     <span style="color: #26c6da" class="mdi mdi-minus"></span>
                 </div>
-
-
                 <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
                     <div class="col s12" style="color: #26c6da">
                         <p>报销扣款 <span style="font-size: 1rem">(元)</span></p>
@@ -941,6 +983,27 @@
                         <p >{{Reimbursement.toFixed(2)}}</p>
                     </div>
                 </div>
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span style="color: #26c6da" class="mdi mdi-minus"></span>
+                </div>
+
+                <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
+                    <div class="col s12" style="color: #26c6da">
+                        <p>社保缴费 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <input style="font-size: 1.5rem;text-align: center;color: rgb(230,123,123);margin-bottom: 17px" type="number" id="socialSecurityFee" name="socialSecurityFee" ng-model="socialSecurityFee">
+                    </div>
+                </div>
+                <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status == 3">
+                    <div class="col s12" style="color: #26c6da">
+                        <p>社保缴费 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <p >{{socialSecurityFee.toFixed(2)}}</p>
+                    </div>
+                </div>
+
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
                     <span style="color: #26c6da" class="mdi mdi-minus"></span>
                 </div>
@@ -962,20 +1025,23 @@
                 </div>
 
             </div>
+
+
+            <!--等于号-->
             <div class="col s12 valign-wrapper">
                 <div class="col s12 center-align" style="font-size: 3rem;padding: 0">
                     <span style="color: #26c6da" class="mdi mdi-equal"></span>
                 </div>
             </div>
 
-
+            <!--应付工资-->
             <div class="col s12 valign-wrapper">
                 <div class="col s4 offset-s4 z-depth-1 center-align cyan" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold">
                     <div class="col s12" style="color: white">
                         <p>应付工资 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12" style="color: white">
-                        <p>{{(salaryDetails.plan_salary - personalCommitmentCount - personalAccidentPay - peccancylAccidentPay- ExceedOilAccidentPay- Reimbursement-otherDeductions).toFixed(2)}}</p>
+                        <p>{{(salaryDetails.plan_salary - personalCommitmentCount - personalAccidentPay - peccancylAccidentPay- ExceedOilAccidentPay- socialSecurityFee -Reimbursement-otherDeductions).toFixed(2)}}</p>
                     </div>
                 </div>
             </div>

@@ -19,6 +19,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                 $scope.salaryDetails = data.result[0];
                 if(data.result[0].other_fee != null){
                     $scope.otherDeductions = data.result[0].other_fee;
+                    $scope.socialSecurityFee = data.result[0].social_security_fee;
                     $scope.Reimbursement = data.result[0].refund_fee;
                     $scope.remark = data.result[0].remark;
                 }
@@ -440,9 +441,10 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
 
     // 保存结算工资信息
     $scope.saveSettlementSalary = function () {
-        var grantCount = $scope.salaryDetails.plan_salary - $scope.personalCommitmentCount - $scope.personalAccidentPay - $scope.peccancylAccidentPay - $scope.ExceedOilAccidentPay-$scope.Reimbursement- $scope.otherDeductions;
+        var grantCount = $scope.salaryDetails.plan_salary - $scope.personalCommitmentCount - $scope.personalAccidentPay - $scope.peccancylAccidentPay - $scope.ExceedOilAccidentPay-$scope.Reimbursement- $scope.socialSecurityFee-$scope.otherDeductions;
         _basic.put($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/driveActualSalary",{
             refundFee:$scope.Reimbursement,
+            socialSecurityFee:$scope.socialSecurityFee,
             otherFee: $scope.otherDeductions,
             actualSalary: grantCount,
             remark: $scope.remark

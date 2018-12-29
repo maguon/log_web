@@ -165,7 +165,7 @@ app.controller("driver_information_details_controller", ["$scope","$state", "$ho
                 taskStatus: 10,
                 driveId:driverId
             };
-            _basic.get($host.api_url + "/driveDistanceLoad?" + _basic.objToUrl(obj)).then(function (data) {
+            _basic.get($host.api_url + "/driveDistanceLoadStat?" + _basic.objToUrl(obj)).then(function (data) {
                 if (data.success == true) {
                     if(data.result.length==0){
                         $scope.driveDetail=[];
@@ -339,7 +339,7 @@ app.controller("driver_information_details_controller", ["$scope","$state", "$ho
         $scope.getDriverAccidentInfo();
     };
 
-    //超油扣款
+    //超量扣款
     $scope.getExceedOil= function (){
         $scope.start = 0;
         $scope.getExceedOilList();

@@ -152,9 +152,9 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
         });
     }
 
-    //获取超油扣款信息
+    //获取超量扣款信息
     $scope.getExceedOilList = function (){
-        // 未结超油扣款信息
+        // 未结超量扣款信息
         _basic.get($host.api_url + "/driveExceedOil?driveId=" + driveId + "&statStatus=1").then(function (data) {
             if (data.success === true) {
                 $scope.ExceedOilAccidentList = data.result;
@@ -164,7 +164,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
             }
         });
 
-        // 已结算超油扣款信息
+        // 已结算超量扣款信息
         _basic.get($host.api_url + "/driveSalaryExceedOilRel?driveSalaryId=" + salaryId).then(function (data) {
             if (data.success === true) {
                 $scope.ExceedOilAccidentPay = 0;
@@ -358,7 +358,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
     // 移除结算扣油到未结算扣油
     $scope.minusExceedOilAccident = function (OilId) {
         swal({
-                title: "确定移除当前超油扣款？",
+                title: "确定移除当前超量扣款？",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",

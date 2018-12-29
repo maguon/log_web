@@ -245,7 +245,7 @@
                 <li class="tab"><a id="carDamagePage" href="#carDamage" ng-click="getCarDamageInfo()" style="color: #26c6da;line-height: 40px">商品车质损</a></li>
                 <li class="tab"><a id="truckAccidentPage" href="#truckAccident" ng-click="getTruckAccidentInfo()" style="color: #26c6da;line-height: 40px">货车事故</a></li>
                 <li class="tab"><a href="#driverPeccancyList" ng-click="getPeccancyList()" style="color: #26c6da;line-height: 40px">违章扣款</a></li>
-                <li class="tab"><a href="#driverExceedOil" ng-click="getExceedOilList()" style="color: #26c6da;line-height: 40px">超油扣款</a></li>
+                <li class="tab"><a href="#driverExceedOil" ng-click="getExceedOilList()" style="color: #26c6da;line-height: 40px">超量扣款</a></li>
                 <li class="tab"><a id="settlementSalaryPage" href="#settlementSalary" ng-click="grantWages()" style="color: #26c6da;line-height: 40px">结算工资</a></li>
             </ul>
         </div>
@@ -758,14 +758,14 @@
             </div>
         </div>
 
-        <!--超油扣款-->
+        <!--超量扣款-->
         <div id="driverExceedOil" class="row col s12" style="padding: 0;">
-            <!--未结算超油扣款-->
+            <!--未结算超量扣款-->
             <div class="col s6" ng-hide="salaryDetails.grant_status == 3">
                 <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px;min-height: 380px">
                     <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
                         <div class="col s6 left-align" style="color: #26c6da">
-                            <p style="margin: 0">未结算超油扣款</p>
+                            <p style="margin: 0">未结算超量扣款</p>
                         </div>
                         <div class="col s6 right-align" style="color: darkgray;font-size: 1.05rem">
                             <p style="color: #26c6da;margin: 0;font-size: 1.2rem">{{ExceedOilAccidentList.length}} 条</p>
@@ -775,11 +775,12 @@
                     <table class=" bordered striped text_mid">
                         <thead class="blue-grey lighten-5">
                         <tr class="grey-text text-darken-2">
-                            <th data-field="">超油结算编号</th>
+                            <th data-field="">超量结算编号</th>
                             <th data-field="">货车牌号</th>
                             <th data-field="">调度编号</th>
                             <th data-field="">计划执行时间</th>
-                            <th data-field="">超油量(L)</th>
+                            <th data-field="">超量类型</th>
+                            <th data-field="">超量数</th>
                             <th data-field="">罚款金额</th>
                             <th data-field="">状态</th>
                             <th></th>
@@ -791,6 +792,8 @@
                             <td>{{ExceedOilInfo.truck_num}}</td>
                             <td>{{ExceedOilInfo.dp_route_task_id}}</td>
                             <td>{{ExceedOilInfo.task_plan_date| date:'yyyy-MM-dd'}}</td>
+                            <td ng-if="ExceedOilInfo.exceed_type==1 ">油</td>
+                            <td ng-if="ExceedOilInfo.exceed_type!==1 ">尿素</td>
                             <td>{{ExceedOilInfo.exceed_oil_quantity }}</td>
                             <td class="red-text">{{ExceedOilInfo.exceed_oil_money}}</td>
                             <td class="red-text" ng-if="ExceedOilInfo.stat_status==1">未扣</td>
@@ -802,19 +805,19 @@
                             </td>
                         </tr>
                         <tr ng-if="ExceedOilAccidentList.length==0">
-                            <td colspan="8">暂无数据</td>
+                            <td colspan="9">暂无数据</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <!--结算超油扣款-->
+            <!--结算超量扣款-->
             <div class="col {{salaryDetails.grant_status == 3 ? 's12' : 's6'}}">
                 <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px;min-height: 380px">
                     <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
                         <div class="col s6 left-align" style="color: #26c6da">
-                            <p style="margin: 0">结算超油扣款</p>
+                            <p style="margin: 0">结算超量扣款</p>
                         </div>
                         <div class="col s6 right-align" style="color: darkgray;font-size: 1.05rem">
                             <p style="color: #26c6da;margin: 0;font-size: 1.2rem">{{settledExceedOilList.length}} 条</p>
@@ -824,11 +827,12 @@
                     <table class=" bordered striped text_mid">
                         <thead class="blue-grey lighten-5">
                         <tr class="grey-text text-darken-2">
-                            <th data-field="">超油结算编号</th>
+                            <th data-field="">超量结算编号</th>
                             <th data-field="">货车牌号</th>
                             <th data-field="">调度编号</th>
                             <th data-field="">计划执行时间</th>
-                            <th data-field="">超油量(L)</th>
+                            <th data-field="">超量类型</th>
+                            <th data-field="">超量数</th>
                             <th data-field="">罚款金额</th>
                             <th data-field="">状态</th>
                             <th></th>
@@ -840,6 +844,8 @@
                             <td>{{ExceedOilInfo.truck_num}}</td>
                             <td>{{ExceedOilInfo.dp_route_task_id}}</td>
                             <td>{{ExceedOilInfo.task_plan_date| date:'yyyy-MM-dd'}}</td>
+                            <td ng-if="ExceedOilInfo.exceed_type==1 ">油</td>
+                            <td ng-if="ExceedOilInfo.exceed_type!==1 ">尿素</td>
                             <td>{{ExceedOilInfo.exceed_oil_quantity }}</td>
                             <td class="red-text">{{ExceedOilInfo.exceed_oil_money}}</td>
                             <td class="red-text" ng-if="ExceedOilInfo.stat_status==1">未扣</td>
@@ -851,7 +857,7 @@
                             </td>
                         </tr>
                         <tr ng-if="settledExceedOilList.length==0">
-                            <td colspan="8">暂无数据</td>
+                            <td colspan="9">暂无数据</td>
                         </tr>
                         </tbody>
                     </table>
@@ -865,43 +871,6 @@
 
         <!--结算工资-->
         <div id="settlementSalary" class="row col s12" style="padding: 0;">
-
-
-           <!-- <div class="col s12 valign-wrapper">
-                <div class="col s3 z-depth-1 center-align" style="border: 2px solid rgb(245,166,35);font-size: 1.2rem;font-weight: bold;background: rgb(245,166,35)">
-                    <div class="col s12" style="color: #fff">
-                        <p>任务工资 <span style="font-size: 1rem">(元)</span></p>
-                    </div>
-                    <div class="col s12" style="color: #fff">
-                        <p>{{salaryDetails.plan_salary.toFixed(2)}}</p>
-                    </div>
-                </div>
-                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
-                    <span style="color: #26c6da" class="mdi mdi-minus"></span>
-                </div>
-                <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold">
-                    <div class="col s12" style="color: #26c6da">
-                        <p>商品车质损承担 <span style="font-size: 1rem">(元)</span></p>
-                    </div>
-                    <div class="col s12" style="color: #e57373">
-                        <p>{{personalCommitmentCount.toFixed(2)}}</p>
-                    </div>
-                </div>
-                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
-                    <span style="color: #26c6da" class="mdi mdi-minus"></span>
-                </div>
-                <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold">
-                    <div class="col s12" style="color: #26c6da">
-                        <p>货车事故承担 <span style="font-size: 1rem">(元)</span></p>
-                    </div>
-                    <div class="col s12" style="color: #e57373">
-                        <p>{{personalAccidentPay.toFixed(2)}}</p>
-                    </div>
-                </div>
-                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
-                    <span style="color: #26c6da" class="mdi mdi-minus"></span>
-                </div>
-            </div>-->
 
             <div class="col s12 valign-wrapper">
 
@@ -958,7 +927,7 @@
             <div class="col s12 valign-wrapper" style="margin-top: 50px">
                 <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold">
                     <div class="col s12" style="color: #26c6da">
-                        <p>超油扣款 <span style="font-size: 1rem">(元)</span></p>
+                        <p>超量扣款 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12" style="color: #e57373">
                         <p>{{ExceedOilAccidentPay.toFixed(2)}}</p>

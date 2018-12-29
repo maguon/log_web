@@ -350,6 +350,7 @@ app.controller("driver_information_details_controller", ["$scope","$state", "$ho
             dpRouteTaskId:$scope.dispatchId,
             taskPlanDateStart:$scope.driveStartTime,
             taskPlanDateEnd:$scope.driveEndTime,
+            exceedType:$scope.exceedType,
             fineStatus:$scope.ExceedOilStu,
             start:$scope.start.toString(),
             size:$scope.size

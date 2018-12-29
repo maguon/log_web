@@ -832,23 +832,31 @@
                         <div class="col s12">
 
                             <!--调度编号-->
-                            <div class="input-field col" style="width: 25%">
+                            <div class="input-field col" style="width: 20%;">
                                 <input id="dispatchId" name="dispatchId" ng-model="dispatchId" type="text">
                                 <label for="dispatchId">调度编号</label>
                             </div>
 
                             <!--指令日期-->
-                            <div class="input-field col" style="width: 25%">
+                            <div class="input-field col" style="width: 20%;">
                                 <input type="text"  id="driveStartTime" class="datepicker" autocomplete="off" ng-model="driveStartTime" date><i class="mdi dataIcon mdi-table-large"></i>
                                 <label for="driveStartTime">计划执行时间(始)</label>
                             </div>
-                            <div class="input-field col" style="width: 25%">
+                            <div class="input-field col" style="width: 20%;">
                                 <input type="text" id="driveEndTime" class="datepicker" autocomplete="off" ng-model="driveEndTime" date><i class="mdi dataIcon mdi-table-large"></i>
                                 <label for="driveEndTime">计划执行时间(终)</label>
                             </div>
+                            <!--超量类型-->
+                            <div class="input-field col" style="width: 20%;">
+                                <select material-select watch ng-model="exceedType" >
+                                    <option value="" selected>超量类型</option>
+                                    <option ng-value="1">油</option>
+                                    <option ng-value="2">尿素</option>
+                                </select>
+                            </div>
 
                             <!--结算状态-->
-                            <div class="input-field col" style="width: 25%">
+                            <div class="input-field col" style="width: 20%;">
                                 <select material-select watch ng-model="ExceedOilStu" id="ExceedOilStu">
                                     <option value="" selected>状态</option>
                                     <option ng-value="1">未扣</option>

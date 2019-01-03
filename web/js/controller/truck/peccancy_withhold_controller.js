@@ -49,7 +49,7 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
                 if (data.success === true) {
                     $scope.truckNumListAllList = data.result;
                     $('#addPeccancyTruckId').select2({
-                        placeholder: selectText,
+                        placeholder: "货车牌号",
                         containerCssClass: 'select2_dropdown',
                         allowClear: true
                     });
@@ -175,8 +175,8 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
 
     //点击确定 增加完成
     $scope.addPeccancyItem = function (){
-        if ($scope.addDrivderId !== undefined && $scope.addPeccancyTruckId !== '' && $scope.addPeccancyScore !== undefined
-            &&$scope.addPeccancyMoney !== undefined &&$scope.addStartTime !== undefined&&$scope.addEndTime!==undefined) {
+        if ($scope.addDrivderId !== "" && $scope.addPeccancyTruckId !== '' && $scope.addPeccancyScore !== ''
+            &&$scope.addPeccancyMoney !== '' &&$scope.addStartTime !== ""&&$scope.addEndTime!=='') {
             _basic.post($host.api_url + "/user/" + userId + "/drivePeccancy", {
                 driveId: $scope.addDrivderId,
                 truckId: $scope.addPeccancyTruckId,
@@ -228,8 +228,8 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
 
     //点击确定 修改完成
     $scope.putPeccancyItem = function (){
-        if ( $scope.putPeccancyList.drive_id !== undefined && $scope.putPeccancyList.truck_id!== '' && $scope.putPeccancyList.fine_score !== undefined
-            &&$scope.putPeccancyList.fine_money!== undefined &&$scope.putPeccancyList.start_date !== undefined&&$scope.putPeccancyList.end_date!==undefined) {
+        if ( $scope.putPeccancyList.drive_id !== null && $scope.putPeccancyList.truck_id!== null && $scope.putPeccancyList.fine_score !== null
+            &&$scope.putPeccancyList.fine_money!== null &&$scope.putPeccancyList.start_date !== ''&&$scope.putPeccancyList.end_date!=='') {
             _basic.put($host.api_url + "/user/" + userId + "/peccancy/"+$scope.id, {
                 driveId: $scope.putPeccancyList.drive_id,
                 truckId:$scope.putPeccancyList.truck_id,

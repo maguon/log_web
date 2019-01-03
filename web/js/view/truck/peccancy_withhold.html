@@ -8,15 +8,17 @@
             <div class="col s12" style="height: 70px">
 
                 <div class="col s6 input-field">
-                    <select material-select watch ng-model="addDrivderId" id="addDrivderId" style="width: 100%" ng-change="changeDrivdeId(addDrivderId)">
+                    <select material-select watch ng-model="addDrivderId" id="addDrivderId" style="width: 100%" >
                         <option value="" selected>请选择</option>
                         <option ng-repeat="addDrivder in driveNameList" value={{addDrivder.id}}>{{addDrivder.drive_name}}</option>
                     </select>
                 </div>
 
                 <div class="col s6 input-field">
-                    <input id="addPeccancyTruckNum" type="text"  ng-model="addPeccancyTruckNum">
-                    <label for="addPeccancyTruckNum"><span class="red-text">*</span> 货车牌号</label>
+                    <select  material-select watch ng-model="addPeccancyTruckId" id="addPeccancyTruckId"  style="width: 100%">
+                        <option value="" selected>请选择</option>
+                        <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
+                    </select>
                 </div>
 
             </div>
@@ -95,8 +97,11 @@
                     </div>
 
                     <div class="col s6 input-field">
-                        <input id="putTruckNum" type="text"  ng-model="putPeccancyList.truck_num">
-                        <label for="putTruckNum"><span class="red-text">*</span> 货车牌号</label>
+                        <select  material-select watch ng-model="putPeccancyList.truck_id" id="putTruckNum"  style="width: 100%">
+                            <option ng-repeat="truckNumItem in truckNumListList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
+                        </select>
+                      <!--  <input id="putTruckNum" type="text"  ng-model="putPeccancyList.truck_num">
+                        <label for="putTruckNum"><span class="red-text">*</span> 货车牌号</label>-->
                     </div>
 
                 </div>

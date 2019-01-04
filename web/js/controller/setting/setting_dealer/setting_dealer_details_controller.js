@@ -109,7 +109,7 @@ function getCarMake(){
             }
         });
     };
-    $scope.changeMakeName =function(id){
+ /*   $scope.changeMakeName =function(id){
         if(id==undefined){
             return;
         }
@@ -119,22 +119,22 @@ function getCarMake(){
                 $scope.make_name = data.result[0].make_name;
             }
         });
-    }
+    }*/
     // 修改经销商
     $scope.change_setting_dealer = function () {
         var cleanFeeCount = $scope.dealer_details.clean_fee == null ? 0 : $scope.dealer_details.clean_fee.toFixed(2);
+        $scope.dealer_details.make_id = $scope.dealer_details.make_id == '' ?0 :$scope.dealer_details.make_id;
         if ($scope.dealer_details.receive_type!==null
             &&$scope.dealer_details.short_name!==undefined
             &&$scope.dealer_details.receive_name!==undefined
             &&$scope.dealer_details.city_id!==''
-            &&$scope.dealer_details.address!==''
-        &&$scope.dealer_details.make_id!=='') {
+            &&$scope.dealer_details.address!=='') {
             var obj = {
                 shortName: $scope.dealer_details.short_name,
                 receiveName: $scope.dealer_details.receive_name,
                 receiveType:$scope.dealer_details.receive_type,
                 makeId:$scope.dealer_details.make_id,
-                makeName: $scope.make_name,
+                makeName: $scope.dealer_details.make_name,
                 cleanFee: parseFloat(cleanFeeCount),
                 address: $("#amapAddress").val(),
                 lng: $scope.lng,

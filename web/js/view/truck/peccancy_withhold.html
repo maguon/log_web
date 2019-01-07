@@ -45,12 +45,12 @@
                 </div>
 
             </div>
-            <!--罚款 处理金额-->
+            <!--交通罚款 处理金额-->
             <div class="col s12" style="height: 70px">
 
                 <div class="col s6 input-field">
                     <input id="addPeccancyMoney" type="number"  ng-model="addPeccancyMoney">
-                    <label for="addPeccancyMoney"><span class="red-text">*</span>罚款</label>
+                    <label for="addPeccancyMoney"><span class="red-text">*</span>交通罚款</label>
                 </div>
                 <div class="input-field col s6">
                     <input id="addDealMoney" name="addDealMoney"  ng-model="addDealMoney" type="number">
@@ -133,16 +133,16 @@
                     </div>
 
                 </div>
-                <!--罚款  处理金额-->
+                <!--交通罚款  处理金额-->
                 <div class="col s12" style="height: 60px">
 
                     <div class="col s6 input-field">
-                        <input id="putFineMoney" type="number"  ng-model="putPeccancyList.fine_money">
-                        <label for="putFineMoney">罚款</label>
+                        <input id="putFineMoney" type="number"  ng-model="putPeccancyList.traffic_fine">
+                        <label for="putFineMoney">交通罚款</label>
                     </div>
 
                     <div class="col s6 input-field">
-                        <input id="putTrafficFine" type="number"  ng-model="putPeccancyList.traffic_fine">
+                        <input id="putTrafficFine" type="number"  ng-model="putPeccancyList.fine_money">
                         <label for="putTrafficFine">处理金额</label>
                     </div>
 
@@ -203,10 +203,10 @@
                     <div class="col s6 input-field">处理时间:  {{putPeccancyList.handle_date | date:'yyyy-MM-dd' }}</div>
                     <div class="col s6 input-field">扣分:  {{putPeccancyList.fine_score}}</div>
                 </div>
-                <!--罚款  处理金额-->
+                <!--交通罚款  处理金额-->
                 <div class="col s12" style="height: 60px;border-bottom: 1px dotted #ccc">
-                    <div class="col s6 input-field">罚款:<span class="red-text fz20">{{putPeccancyList.fine_money}}</span> 元</div>
-                    <div class="col s6 input-field">处理金额:  <span class="red-text fz20">{{putPeccancyList.traffic_fine}}</span> 元</div>
+                    <div class="col s6 input-field">交通罚款:<span class="red-text fz20">{{putPeccancyList.traffic_fine}}</span> 元</div>
+                    <div class="col s6 input-field">处理金额:  <span class="red-text fz20">{{putPeccancyList.fine_money}}</span> 元</div>
                 </div>
                 <!--违章地点-->
                 <div class="col s12" style="height: 60px;border-bottom: 1px dotted #ccc">
@@ -270,11 +270,11 @@
 
                     <div class="input-field col" style="width: 20%">
                         <input type="text" id="grant_start_time" name="grant_start_time" ng-model="getStartTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
-                        <label for="grant_start_time">时间范围(始)</label>
+                        <label for="grant_start_time">处理时间(始)</label>
                     </div>
                     <div class="input-field col" style="width: 20%">
                         <input type="text" id="grant_end_time" name="grant_end_time" ng-model="getEndTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
-                        <label for="grant_end_time">时间范围(终)</label>
+                        <label for="grant_end_time">处理时间(终)</label>
                     </div>
                 </div>
 
@@ -308,10 +308,11 @@
                 <th data-field="">违章结算编号</th>
                 <th data-field="">司机</th>
                 <th data-field="">货车牌号</th>
+                <th data-field="">货车类型</th>
                 <th data-field="">处理时间</th>
                 <th data-field="">违章地点</th>
                 <th data-field="">扣分</th>
-                <th data-field="">罚款</th>
+                <th data-field="">交通罚款</th>
                 <th data-field="">处理金额</th>
                 <th data-field="">时间范围</th>
                 <th data-field="">操作人</th>
@@ -323,16 +324,17 @@
             <tr ng-repeat="peccancyInfo in peccancyList" class="grey-text text-darken-1">
                 <td>{{peccancyInfo.id}}</td>
                 <td>{{peccancyInfo.drive_name}}</td>
-                <td >{{peccancyInfo.truck_num}}({{peccancyInfo.truck_type == 1 ? "头车" : "挂车"}})</td>
-                <td>{{peccancyInfo.created_on | date:'yyyy-MM-dd'}}</td>
+                <td >{{peccancyInfo.truck_num}}</td>
+                <td >{{peccancyInfo.truck_type == 1 ? "头" : "挂"}}</td>
+                <td>{{peccancyInfo.handle_date | date:'yyyy-MM-dd'}}</td>
                 <!--违章地点-->
                 <td>{{peccancyInfo.address}}</td>
                 <!--扣分-->
                 <td>{{peccancyInfo.fine_score}}</td>
-                <!--罚款-->
-                <td>{{peccancyInfo.fine_money }}</td>
-                <!--处理金额-->
+                <!--交通罚款-->
                 <td>{{peccancyInfo.traffic_fine}}</td>
+                <!--处理金额-->
+                <td>{{peccancyInfo.fine_money}}</td>
                 <td>{{peccancyInfo.start_date | date:'yyyy-MM-dd'}}至{{peccancyInfo.end_date | date:'yyyy-MM-dd'}}</td>
                 <td>{{peccancyInfo.op_user_name}}</td>
                 <td class="red-text" ng-if="peccancyInfo.stat_status==1">未扣</td>
@@ -344,7 +346,7 @@
                 </td>
             </tr>
             <tr ng-if="peccancyList.length==0">
-                <td colspan="12">暂无数据</td>
+                <td colspan="13">暂无数据</td>
             </tr>
             </tbody>
         </table>

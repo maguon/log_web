@@ -560,6 +560,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/truck/driver_exceedOil.html",
             controller:'driver_exceedOil_controller'
         })
+        //车辆安全检查
+        .state("security_check",{
+            url:"/security_check",
+            templateUrl: "js/view/truck/security_check.html",
+            controller:'security_check_controller'
+        })
 
         // 事故车详情
         .state("look_truck_management",{

@@ -5,8 +5,6 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
     var damageCheckId;
     var indemnityStatus;
     var indemnityId = null;
-   /* $scope.userName = _basic.getSession(_basic.USER_NAME);
-    $scope.userDepartment = parseInt(_basic.getSession(_basic.USER_TYPE));*/
     $scope.userList = _config.userTypes;
     $scope.damageTypeList = _config.damageType;
     $scope.damageLinkTypeList = _config.damageLinkType;
@@ -40,7 +38,6 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
     $scope.getLiablePersonList = function () {
         _basic.get($host.api_url + "/user?status=1").then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
                 var responsibilityDataList = [];
                 var reimbursementDataList = [];
                 for (var i = 0; i < data.result.length; i++) {
@@ -236,7 +233,6 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
     $scope.getBeforeDamageInfo = function () {
         _basic.get($host.api_url + "/damageCheck?damageId=" + damageId).then(function (data) {
             if (data.success === true) {
-                // console.log("damageData",data);
                 if(data.result.length !== 0){
                     if(data.result[0].damage_type === 0 || data.result[0].damage_type == null){
                         data.result[0].damage_type = ""
@@ -255,7 +251,6 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
                         data.result[0].refund_user_id = 0;
                     }
                     damageCheckId = data.result[0].id;
-                    // console.log("damageCheckId",damageCheckId);
                     if(data.result[0].damage_indemnity_status == 2){
                         $scope.showRadioButton = false;
                     }
@@ -339,7 +334,6 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
             remark: ""
         }).then(function (data) {
             if (data.success === true) {
-                // console.log("data",data);
                 $scope.getCurrentDamageInfo();// 刷新质损状态
                 $scope.getBeforeDamageInfo();// 获取默认信息
             }
@@ -563,7 +557,6 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
     $scope.getInsurePaymentCard = function () {
         _basic.get($host.api_url + "/damageInsure?damageId=" + damageId).then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
                 $scope.damageInsureCardList = data.result;
             }
             else {
@@ -578,7 +571,6 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
         _basic.get($host.api_url + "/truckInsure").then(function (insuranceListData) {
             if (insuranceListData.success === true) {
                 $scope.insuranceList = insuranceListData.result;
-                // console.log("insuranceListData",$scope.insuranceList)
             }
             else {
                 swal(insuranceListData.msg, "", "error");

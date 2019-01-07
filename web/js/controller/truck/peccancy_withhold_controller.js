@@ -76,42 +76,6 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
         }
     }
 
-  /*  //货车牌号联动查询
-    $scope.changeDrivdeId = function(drivdeId){
-        _basic.get($host.api_url + "/truckFirst?driveId=" + drivdeId).then(function (data) {
-            if (data.success == true) {
-                if(data.result.length==0) {
-                    $scope.addPeccancyTruckId = '';
-                }
-                else{
-                    $scope.addPeccancyTruckId = data.result[0].id;
-                }
-
-            } else {
-                swal(data.msg, "", "error")
-            }
-        });
-    }*/
-/*
-    $scope.changeDrivde = function(drivdeId){
-        _basic.get($host.api_url + "/truckFirst?driveId=" + drivdeId).then(function (data) {
-            if (data.success == true) {
-                if(data.result.length==0) {
-                    $scope.putPeccancyList.truck_num = '';
-                }
-                else{
-                    $scope.putPeccancyList.truck_num = data.result[0].truck_num;
-                    $scope.putPeccancyList.id = data.result[0].id;
-                }
-
-            } else {
-                swal(data.msg, "", "error")
-            }
-        });
-    }
-*/
-
-
     //查询功能
     $scope.getPeccancy = function (){
         $scope.start = 0;
@@ -123,6 +87,9 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
         _basic.get($host.api_url + "/drivePeccancy?" + _basic.objToUrl({
             driveId:$scope.driverId,
             statStatus:$scope.peccancyStu,
+            truckType:$scope.truckType,
+            startDateStart:$scope.getStartTime,
+            endDateEnd:$scope.getEndTime,
             start:$scope.start.toString(),
             size:$scope.size
         })).then(function (data) {
@@ -152,7 +119,10 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
     $scope.export = function () {
         var obj = {
             driveId:$scope.driverId,
-            fineStatus:$scope.peccancyStu
+            fineStatus:$scope.peccancyStu,
+            truckType:$scope.truckType,
+            startDateStart:$scope.getStartTime,
+            endDateEnd:$scope.getEndTime
         };
         window.open($host.api_url + "/drivePeccancy.csv?" + _basic.objToUrl(obj));
     };
@@ -166,6 +136,9 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
         $scope.addPeccancyMoney='';
         $scope.addStartTime='';
         $scope.addEndTime='';
+        $scope.addDealMoney='';
+        $scope.handleDate='';
+        $scope.addPlce='';
         $scope.newRemark='';
         getDriveNameList ();
         getTruckNum();
@@ -176,14 +149,18 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
     //点击确定 增加完成
     $scope.addPeccancyItem = function (){
         if ($scope.addDrivderId !== "" && $scope.addPeccancyTruckId !== '' && $scope.addPeccancyScore !== ''
-            &&$scope.addPeccancyMoney !== '' &&$scope.addStartTime !== ""&&$scope.addEndTime!=='') {
+            &&$scope.addPeccancyMoney !== '' &&$scope.addStartTime !== ""&&$scope.addEndTime!==''&&$scope.addDealMoney!==''&&$scope.handleDate!=='') {
             _basic.post($host.api_url + "/user/" + userId + "/drivePeccancy", {
                 driveId: $scope.addDrivderId,
-                truckId: $scope.addPeccancyTruckId,
+                truckId: $scope.addPeccancyTruckId.id,
+                truckType: $scope.addPeccancyTruckId.truck_type,
                 fineScore: $scope.addPeccancyScore,
+                trafficFine: $scope.addDealMoney,
                 fineMoney: $scope.addPeccancyMoney,
                 startDate: $scope.addStartTime,
                 endDate: $scope.addEndTime,
+                handleDate:$scope.handleDate,
+                address: $scope.addPlce,
                 remark: $scope.newRemark
             }).then(function (data) {
                 if (data.success === true) {
@@ -217,6 +194,7 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
                     $scope.putPeccancyList = data.result[0];
                     $scope.putPeccancyList.start_date = moment(data.result[0].start_date).format('YYYY-MM-DD');
                     $scope.putPeccancyList.end_date =  moment(data.result[0].end_date).format('YYYY-MM-DD');
+                    $scope.putPeccancyList.handle_date = moment(data.result[0].handle_date).format('YYYY-MM-DD');
                     $scope.putPeccancyList.drive_id = data.result[0].drive_id;
                     getDriveList($scope.putPeccancyList.drive_id);
                     getTruckNum($scope.putPeccancyList.truck_num)
@@ -229,7 +207,10 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
     //点击确定 修改完成
     $scope.putPeccancyItem = function (){
         if ( $scope.putPeccancyList.drive_id !== null && $scope.putPeccancyList.truck_id!== null && $scope.putPeccancyList.fine_score !== null
-            &&$scope.putPeccancyList.fine_money!== null &&$scope.putPeccancyList.start_date !== ''&&$scope.putPeccancyList.end_date!=='') {
+            &&$scope.putPeccancyList.fine_money!== null &&$scope.putPeccancyList.start_date !== ''&&$scope.putPeccancyList.end_date!==''
+            &&$scope.putPeccancyList.truck_type!==null
+            &&$scope.putPeccancyList.traffic_fine!== null
+            &&$scope.putPeccancyList.handle_date!=='') {
             _basic.put($host.api_url + "/user/" + userId + "/peccancy/"+$scope.id, {
                 driveId: $scope.putPeccancyList.drive_id,
                 truckId:$scope.putPeccancyList.truck_id,
@@ -237,6 +218,10 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
                 fineMoney: $scope.putPeccancyList.fine_money,
                 startDate: $scope.putPeccancyList.start_date,
                 endDate: $scope.putPeccancyList.end_date,
+                truckType: $scope.putPeccancyList.truck_type,
+                trafficFine: $scope.putPeccancyList.traffic_fine,
+                handleDate:$scope.putPeccancyList.handle_date,
+                address: $scope.putPeccancyList.address,
                 remark: $scope.putPeccancyList.remark
             }).then(function (data) {
                 if (data.success === true) {

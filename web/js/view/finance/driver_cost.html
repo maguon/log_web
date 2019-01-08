@@ -55,13 +55,13 @@
             </thead>
             <tbody>
             <tr ng-repeat="driveInfo in driveList" class="grey-text text-darken-1">
-                <td>{{driveInfo.drive_name}}</td>
-                <td>{{driveInfo.actual_price}}</td>
-                <td>{{driveInfo.actual_guard_fee}}</td>
-                <td>{{driveInfo.grant_actual_money}}</td>
-                <td>{{driveInfo.repair_money}}</td>
-                <td>{{driveInfo.peccancy_fine_money}}</td>
-                <td>{{driveInfo.exceed_oil_money}}</td>
+                <td>{{driveInfo.drive_name==null?0:driveInfo.drive_name}}</td>
+                <td>{{driveInfo.actual_price==null?0:driveInfo.actual_price}}</td>
+                <td>{{driveInfo.actual_guard_fee==null?0:driveInfo.actual_guard_fee}}</td>
+                <td>{{driveInfo.grant_actual_money==null?0:driveInfo.grant_actual_money}}</td>
+                <td>{{driveInfo.repair_money==null?0:driveInfo.repair_money}}</td>
+                <td>{{driveInfo.peccancy_fine_money==null?0:driveInfo.peccancy_fine_money}}</td>
+                <td>{{driveInfo.exceed_oil_money==null?0:driveInfo.exceed_oil_money}}</td>
             </tr>
             <tr ng-if="driveList.length==0&&instruct_starTime!==undefined&&instruct_endTime!==undefined">
                 <td colspan="10">暂无数据</td>

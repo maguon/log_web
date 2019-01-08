@@ -1,5 +1,4 @@
 app.controller("security_check_controller", ["$scope", "$state", "_basic", "_config", "$host", function ($scope, $state, _basic, _config, $host) {
-
     $scope.start = 0;
     $scope.size = 11;
     var userId = _basic.getSession(_basic.USER_ID);
@@ -91,7 +90,6 @@ app.controller("security_check_controller", ["$scope", "$state", "_basic", "_con
     }
 
     // 数据导出
-
     $scope.export = function () {
         var obj = {
             truckId:$scope.truckId,
@@ -100,6 +98,15 @@ app.controller("security_check_controller", ["$scope", "$state", "_basic", "_con
         };
         window.open($host.api_url + "/truckSecurityCheck.csv?" + _basic.objToUrl(obj));
     };
+
+    $scope.changeTruck =function (id){
+        if(id==null){
+            $scope.truckType=0
+        }else{
+            $scope.truckType=id.truck_type;
+        }
+
+    }
 
     //打开新增模态框
     $scope.addInspect = function (){
@@ -119,12 +126,17 @@ app.controller("security_check_controller", ["$scope", "$state", "_basic", "_con
         $('#addItem').modal('open');
     }
 
-
     //点击确定 增加完成
     $scope.addInspectItem = function (){
-        if ($scope.addTruckId !== "" && $scope.addTurn !== "" && $scope.addBraking !== ""
-            &&$scope.addLighting !== "" &&$scope.addTransmission !== ""&&$scope.addTyre!==""&&$scope.addStructure!==""&&$scope.addFacilities!==""
-        &&$scope.addLinkDevice!==""&& $scope.addStartTime!=='') {
+        if ($scope.addTruckId !== "" && $scope.addStartTime!=='') {
+            $scope.addTurn= ($scope.addTurn=="")?0:1;
+            $scope.addBraking=($scope.addBraking== true) ? 1 : 0;
+            $scope.addLighting=($scope.addLighting== true) ? 1 : 0;
+            $scope.addTransmission=($scope.addTransmission== true) ? 1 : 0;
+            $scope.addTyre=($scope.addTyre== true) ? 1 : 0;
+            $scope.addStructure=($scope.addStructure== true) ? 1 : 0;
+            $scope.addFacilities=($scope.addFacilities== true) ? 1 : 0;
+            $scope.addLinkDevice=($scope.addLinkDevice== true) ? 1 : 0;
             _basic.post($host.api_url + "/user/" + userId + "/truckSecurityCheck", {
                 truckId:$scope.addTruckId.id,
                 truckType: $scope.addTruckId.truck_type,
@@ -154,7 +166,6 @@ app.controller("security_check_controller", ["$scope", "$state", "_basic", "_con
         }
     }
 
-
     //打开修改模态框
     $scope.putInspect = function (id){
         $scope.id = id;
@@ -167,6 +178,15 @@ app.controller("security_check_controller", ["$scope", "$state", "_basic", "_con
                 }
                 else{
                     $scope.putInspectList = data.result[0];
+                    $scope.putInspectList.truck_type = data.result[0].truck_type;
+                    $scope.putInspectList.turn = (data.result[0].turn==1)?true:'';
+                    $scope.putInspectList.braking =( data.result[0].braking==1)?true:'';
+                    $scope.putInspectList.lighting = (data.result[0].lighting==1)?true:'';
+                    $scope.putInspectList.transmission = (data.result[0].transmission==1)?true:'';
+                    $scope.putInspectList.tyre = (data.result[0].tyre==1)?true:'';
+                    $scope.putInspectList.structure = (data.result[0].structure==1)?true:'';
+                    $scope.putInspectList.facilities = (data.result[0].facilities==1)?true:'';
+                    $scope.putInspectList.link_device = (data.result[0].link_device==1)?true:'';
                     $scope.putInspectList.check_date = moment(data.result[0].check_date).format('YYYY-MM-DD');
                     getTruckNum($scope.putInspectList.truck_num)
                 }
@@ -174,16 +194,17 @@ app.controller("security_check_controller", ["$scope", "$state", "_basic", "_con
         })
     }
 
-
     //点击确定 修改完成
     $scope.putInspectItem = function (){
-        if ($scope.putInspectList.turn !== null
-            &&$scope.putInspectList.braking!== null &&$scope.putInspectList.lighting !== null&&$scope.putInspectList.transmission!==null
-            &&$scope.putInspectList.tyre!==null
-            &&$scope.putInspectList.structure!== null
-            &&$scope.putInspectList.facilities!==null
-            &&$scope.putInspectList.link_device!==null
-            &&$scope.putInspectList.check_date!=='') {
+        $scope.putInspectList.turn = ($scope.putInspectList.turn==true)?1:0;
+        $scope.putInspectList.braking = ($scope.putInspectList.braking==true)?1:0;
+        $scope.putInspectList.lighting = ( $scope.putInspectList.lighting==true)?1:0;
+        $scope.putInspectList.transmission = ( $scope.putInspectList.transmission==true)?1:0;
+        $scope.putInspectList.tyre = ( $scope.putInspectList.tyre==true)?1:0;
+        $scope.putInspectList.structure = ( $scope.putInspectList.structure==true)?1:0;
+        $scope.putInspectList.facilities = ( $scope.putInspectList.facilities==true)?1:0;
+        $scope.putInspectList.link_device = ( $scope.putInspectList.link_device==true)?1:0;
+        if ($scope.putInspectList.turn !== null&&$scope.putInspectList.check_date!=='') {
             _basic.put($host.api_url + "/user/" + userId + "/truckSecurityCheck/"+$scope.id, {
                 turn:$scope.putInspectList.turn,
                 braking:$scope.putInspectList.braking,
@@ -210,7 +231,6 @@ app.controller("security_check_controller", ["$scope", "$state", "_basic", "_con
             swal("请填写完整信息！", "", "warning");
         }
     }
-
 
     // 分页
     $scope.pre_btn = function () {

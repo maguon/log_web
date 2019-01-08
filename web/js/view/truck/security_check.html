@@ -1,87 +1,14 @@
 <!--添加模态框-->
 <div id="addItem" class="modal">
-    <div class="cyan lighten-1 white-text center-align modal_title" >新增车辆安全检查项目</div>
+    <div class="cyan lighten-1 white-text center-align modal_title" >新增车辆安全检查</div>
     <div class="modal-content">
         <div class="row col s12" style="width: 80%;">
             <!--货车牌号-->
-            <div class="col s4 input-field">
-                <select  material-select watch ng-model="addTruckId"  id="addTruckId" style="width: 100%">
+            <div class="col s6 input-field">
+                <select  material-select watch ng-model="addTruckId"  id="addTruckId" style="width: 100%"  ng-change="changeTruck(addTruckId)">
                     <option value="" selected disabled>请选择</option>
                     <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem">{{truckNumItem.truck_num}}({{truckNumItem.truck_type == 1 ? "头车" : "挂车"}})</option>
                 </select>
-            </div>
-
-            <!--转向-->
-            <div class="input-field col s4" >
-                <select material-select watch ng-model="addTurn" id="addTurn">
-                    <option value="" selected disabled>请选择</option>
-                    <option ng-value="1">是</option>
-                    <option ng-value="0">否</option>
-                </select>
-                <label for="addTurn">转向</label>
-            </div>
-            <!--制动-->
-            <div class="input-field col s4" >
-                <select material-select watch ng-model="addBraking" id="addBraking">
-                    <option value="" selected disabled>请选择</option>
-                    <option ng-value="1">是</option>
-                    <option ng-value="0">否</option>
-                </select>
-                <label for="addBraking">制动</label>
-            </div>
-            <!--照明-->
-            <div class="input-field col s4" >
-                <select material-select watch ng-model="addLighting" id="addLighting" >
-                    <option value="" selected disabled>请选择</option>
-                    <option ng-value="1">是</option>
-                    <option ng-value="0">否</option>
-                </select>
-                <label for="addLighting">照明</label>
-            </div>
-            <!--传动-->
-            <div class="input-field col s4" >
-                <select material-select watch ng-model="addTransmission" id="addTransmission" >
-                    <option value="" selected disabled>请选择</option>
-                    <option ng-value="1">是</option>
-                    <option ng-value="0">否</option>
-                </select>
-                <label for="addTransmission">传动</label>
-            </div>
-            <!--轮胎-->
-            <div class="input-field col s4" >
-                <select material-select watch ng-model="addTyre" id="addTyre">
-                    <option value="" selected disabled>请选择</option>
-                    <option ng-value="1">是</option>
-                    <option ng-value="0">否</option>
-                </select>
-                <label for="addTyre">轮胎</label>
-            </div>
-            <!--结构-->
-            <div class="input-field col s4" >
-                <select material-select watch ng-model="addStructure" id="addStructure">
-                    <option value="" selected disabled>请选择</option>
-                    <option ng-value="1">是</option>
-                    <option ng-value="0">否</option>
-                </select>
-                <label for="addStructure">结构</label>
-            </div>
-            <!--安全设施-->
-            <div class="input-field col s4" >
-                <select material-select watch ng-model="addFacilities" id="addFacilities">
-                    <option value="" selected disabled>请选择</option>
-                    <option ng-value="1">是</option>
-                    <option ng-value="0">否</option>
-                </select>
-                <label for="addFacilities">安全设施</label>
-            </div>
-            <!--主挂连接装置-->
-            <div class="input-field col s4" >
-                <select material-select watch ng-model="addLinkDevice" id="addLinkDevice">
-                    <option value="" selected disabled>请选择</option>
-                    <option ng-value="1">是</option>
-                    <option ng-value="0">否</option>
-                </select>
-                <label for="addLinkDevice">主挂连接装置</label>
             </div>
             <!--检查时间-->
             <div class="input-field col s6">
@@ -89,8 +16,65 @@
                 <label for="add_start_time">检查时间</label>
             </div>
 
+            <!--转向-->
+            <div class="input-field col s3" ng-show="truckType==1" >
+                <div class="col s12" style="padding: 0;">
+                    <input type="checkbox" id="addTurn" name="select" class="filled-in" ng-model="addTurn"/>
+                    <label for="addTurn">转向</label>
+                </div>
+            </div>
+            <!--制动-->
+            <div class="input-field col s3 " ng-show="truckType==1 ||truckType==2" >
+                <div class="col s12" style="padding: 0;">
+                    <input type="checkbox" id="addBraking" name="select" class="filled-in" ng-model="addBraking"/>
+                    <label for="addBraking">制动</label>
+                </div>
+            </div>
+            <!--照明-->
+            <div class="input-field col s3" ng-show="truckType==1 ||truckType==2" >
+                <div class="col s12" style="padding: 0;">
+                    <input type="checkbox" id="addLighting" name="select" class="filled-in" ng-model="addLighting"/>
+                    <label for="addLighting">照明</label>
+                </div>
+            </div>
+            <!--传动-->
+            <div class="input-field col s3" ng-show="truckType==1"  >
+                <div class="col s12" style="padding: 0;">
+                    <input type="checkbox" id="addTransmission" name="select" class="filled-in" ng-model="addTransmission"/>
+                    <label for="addTransmission">传动</label>
+                </div>
+            </div>
+            <!--轮胎-->
+            <div class="input-field col s3" ng-show="truckType==1 ||truckType==2" >
+                <div class="col s12" style="padding: 0;">
+                    <input type="checkbox" id="addTyre" name="select" class="filled-in" ng-model="addTyre"/>
+                    <label for="addTyre">轮胎</label>
+                </div>
+            </div>
+            <!--结构-->
+            <div class="input-field col s3" ng-show="truckType==1 ||truckType==2" >
+                <div class="col s12" style="padding: 0;">
+                    <input type="checkbox" id="addStructure" name="select" class="filled-in" ng-model="addStructure"/>
+                    <label for="addStructure">结构</label>
+                </div>
+            </div>
+            <!--安全设施-->
+            <div class="input-field col s3" ng-show="truckType==1" >
+                <div class="col s12" style="padding: 0;">
+                    <input type="checkbox" id="addFacilities" name="select" class="filled-in" ng-model="addFacilities"/>
+                    <label for="addFacilities">安全设施</label>
+                </div>
+            </div>
+            <!--主挂连接装置-->
+            <div class="input-field col s3" ng-show="truckType==2" >
+                <div class="col s12" style="padding: 0;">
+                    <input type="checkbox" id="addLinkDevice" name="select" class="filled-in" ng-model="addLinkDevice"/>
+                    <label for="addLinkDevice">主挂连接装置</label>
+                </div>
+            </div>
+
             <!--备注-->
-            <div class="input-field col s6">
+            <div class="input-field col s12" style="margin-top: 30px">
                 <input id="addRemark" name="remark"  ng-model="addNewRemark" type="text">
                 <label for="addRemark">备注</label>
             </div>
@@ -108,97 +92,81 @@
 
 <!--修改模态框-->
 <div id="putItem" class="modal">
-    <div class="cyan lighten-1 white-text center-align modal_title" >车辆安全检查项目详情</div>
+    <div class="cyan lighten-1 white-text center-align modal_title" >车辆安全检查</div>
     <div class="modal-content">
         <div class="row col s12" style="width: 80%;">
             <!--货车牌号-->
-            <div class="col s4 input-field">
+            <div class="col s6 input-field">
                 <select  material-select watch ng-model="putInspectList.truck_id"  id="putTruckId" style="width: 100%">
                     <option value="" selected disabled>请选择</option>
                     <option disabled ng-repeat="truckNumItem in truckNumList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}({{truckNumItem.truck_type == 1 ? "头车" : "挂车"}})</option>
                 </select>
-            </div>
-
-            <!--转向-->
-            <div class="input-field col s4" >
-                <select material-select watch ng-model="putInspectList.turn" id="putTurn">
-                    <option value="" selected disabled>请选择</option>
-                    <option ng-value="1">是</option>
-                    <option ng-value="0">否</option>
-                </select>
-                <label for="putTurn">转向</label>
-            </div>
-            <!--制动-->
-            <div class="input-field col s4" >
-                <select material-select watch ng-model="putInspectList.braking" id="putBraking">
-                    <option value="" selected disabled>请选择</option>
-                    <option ng-value="1">是</option>
-                    <option ng-value="0">否</option>
-                </select>
-                <label for="putBraking">制动</label>
-            </div>
-            <!--照明-->
-            <div class="input-field col s4" >
-                <select material-select watch ng-model="putInspectList.lighting" id="putLighting" >
-                    <option value="" selected disabled>请选择</option>
-                    <option ng-value="1">是</option>
-                    <option ng-value="0">否</option>
-                </select>
-                <label for="putLighting">照明</label>
-            </div>
-            <!--传动-->
-            <div class="input-field col s4" >
-                <select material-select watch ng-model="putInspectList.transmission" id="putTransmission" >
-                    <option value="" selected disabled>请选择</option>
-                    <option ng-value="1">是</option>
-                    <option ng-value="0">否</option>
-                </select>
-                <label for="putTransmission">传动</label>
-            </div>
-            <!--轮胎-->
-            <div class="input-field col s4" >
-                <select material-select watch ng-model="putInspectList.tyre" id="putTyre">
-                    <option value="" selected disabled>请选择</option>
-                    <option ng-value="1">是</option>
-                    <option ng-value="0">否</option>
-                </select>
-                <label for="putTyre">轮胎</label>
-            </div>
-            <!--结构-->
-            <div class="input-field col s4" >
-                <select material-select watch ng-model="putInspectList.structure" id="putStructure">
-                    <option value="" selected disabled>请选择</option>
-                    <option ng-value="1">是</option>
-                    <option ng-value="0">否</option>
-                </select>
-                <label for="putStructure">结构</label>
-            </div>
-            <!--安全设施-->
-            <div class="input-field col s4" >
-                <select material-select watch ng-model="putInspectList.facilities" id="putFacilities">
-                    <option value="" selected disabled>请选择</option>
-                    <option ng-value="1">是</option>
-                    <option ng-value="0">否</option>
-                </select>
-                <label for="putFacilities">安全设施</label>
-            </div>
-            <!--主挂连接装置-->
-            <div class="input-field col s4" >
-                <select material-select watch ng-model="putInspectList.link_device" id="putLinkDevice">
-                    <option value="" selected disabled>请选择</option>
-                    <option ng-value="1">是</option>
-                    <option ng-value="0">否</option>
-                </select>
-                <label for="putLinkDevice">主挂连接装置</label>
             </div>
             <!--检查时间-->
             <div class="input-field col s6">
                 <input type="text" id="put_start_time" name="put_start_time" ng-model="putInspectList.check_date" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
                 <label for="put_start_time">检查时间</label>
             </div>
+            <!--转向-->
+            <div class="input-field col s3"  ng-show="putInspectList.truck_type ==1" >
+                <div class="col s12" style="padding: 0;">
+                    <input type="checkbox" id="putTurn" name="select" class="filled-in" ng-model="putInspectList.turn"/>
+                    <label for="putTurn">转向</label>
+                </div>
+            </div>
+            <!--制动-->
+            <div class="input-field col s3"  ng-show="putInspectList.truck_type ==1||putInspectList.truck_type ==2" >
+                <div class="col s12" style="padding: 0;">
+                    <input type="checkbox" id="putBraking" name="select" class="filled-in" ng-model="putInspectList.braking"/>
+                    <label for="putBraking">制动</label>
+                </div>
+            </div>
+            <!--照明-->
+            <div class="input-field col s3"  ng-show="putInspectList.truck_type ==1||putInspectList.truck_type ==2" >
+                <div class="col s12" style="padding: 0;">
+                    <input type="checkbox" id="putLighting" name="select" class="filled-in" ng-model="putInspectList.lighting"/>
+                    <label for="putLighting">照明</label>
+                </div>
+            </div>
+            <!--传动-->
+            <div class="input-field col s3"  ng-show="putInspectList.truck_type ==1" >
+                <div class="col s12" style="padding: 0;">
+                    <input type="checkbox" id="putTransmission" name="select" class="filled-in" ng-model="putInspectList.transmission"/>
+                    <label for="putTransmission">传动</label>
+                </div>
+            </div>
+            <!--轮胎-->
+            <div class="input-field col s3"  ng-show="putInspectList.truck_type ==1||putInspectList.truck_type ==2" >
+                <div class="col s12" style="padding: 0;">
+                    <input type="checkbox" id="putTyre" name="select" class="filled-in" ng-model="putInspectList.tyre"/>
+                    <label for="putTyre">轮胎</label>
+                </div>
+            </div>
+            <!--结构-->
+            <div class="input-field col s3"  ng-show="putInspectList.truck_type ==1||putInspectList.truck_type ==2" >
+                <div class="col s12" style="padding: 0;">
+                    <input type="checkbox" id="putStructure" name="select" class="filled-in" ng-model="putInspectList.structure"/>
+                    <label for="putStructure">结构</label>
+                </div>
+            </div>
+            <!--安全设施-->
+            <div class="input-field col s3"  ng-show="putInspectList.truck_type ==1" >
+                <div class="col s12" style="padding: 0;">
+                    <input type="checkbox" id="putFacilities" name="select" class="filled-in" ng-model="putInspectList.facilities"/>
+                    <label for="putFacilities">安全设施</label>
+                </div>
+            </div>
+            <!--主挂连接装置-->
+            <div class="input-field col s3"  ng-show="putInspectList.truck_type ==2" >
+                <div class="col s12" style="padding: 0;">
+                    <input type="checkbox" id="putLinkDevice" name="select" class="filled-in" ng-model="putInspectList.link_device"/>
+                    <label for="putLinkDevice">主挂连接装置</label>
+                </div>
+            </div>
+
 
             <!--备注-->
-            <div class="input-field col s6">
+            <div class="input-field col s12" style="margin-top: 30px">
                 <input id="putRemark" name="remark"  ng-model="putInspectList.remark" type="text">
                 <label for="putRemark">备注</label>
             </div>

@@ -1,10 +1,327 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<!--添加模态框-->
+<div id="addItem" class="modal">
+    <div class="cyan lighten-1 white-text center-align modal_title" >新增车辆安全检查项目</div>
+    <div class="modal-content">
+        <div class="row col s12" style="width: 80%;">
+            <!--货车牌号-->
+            <div class="col s4 input-field">
+                <select  material-select watch ng-model="addTruckId"  id="addTruckId" style="width: 100%">
+                    <option value="" selected disabled>请选择</option>
+                    <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem">{{truckNumItem.truck_num}}({{truckNumItem.truck_type == 1 ? "头车" : "挂车"}})</option>
+                </select>
+            </div>
 
-</body>
-</html>
+            <!--转向-->
+            <div class="input-field col s4" >
+                <select material-select watch ng-model="addTurn" id="addTurn">
+                    <option value="" selected disabled>请选择</option>
+                    <option ng-value="1">是</option>
+                    <option ng-value="0">否</option>
+                </select>
+                <label for="addTurn">转向</label>
+            </div>
+            <!--制动-->
+            <div class="input-field col s4" >
+                <select material-select watch ng-model="addBraking" id="addBraking">
+                    <option value="" selected disabled>请选择</option>
+                    <option ng-value="1">是</option>
+                    <option ng-value="0">否</option>
+                </select>
+                <label for="addBraking">制动</label>
+            </div>
+            <!--照明-->
+            <div class="input-field col s4" >
+                <select material-select watch ng-model="addLighting" id="addLighting" >
+                    <option value="" selected disabled>请选择</option>
+                    <option ng-value="1">是</option>
+                    <option ng-value="0">否</option>
+                </select>
+                <label for="addLighting">照明</label>
+            </div>
+            <!--传动-->
+            <div class="input-field col s4" >
+                <select material-select watch ng-model="addTransmission" id="addTransmission" >
+                    <option value="" selected disabled>请选择</option>
+                    <option ng-value="1">是</option>
+                    <option ng-value="0">否</option>
+                </select>
+                <label for="addTransmission">传动</label>
+            </div>
+            <!--轮胎-->
+            <div class="input-field col s4" >
+                <select material-select watch ng-model="addTyre" id="addTyre">
+                    <option value="" selected disabled>请选择</option>
+                    <option ng-value="1">是</option>
+                    <option ng-value="0">否</option>
+                </select>
+                <label for="addTyre">轮胎</label>
+            </div>
+            <!--结构-->
+            <div class="input-field col s4" >
+                <select material-select watch ng-model="addStructure" id="addStructure">
+                    <option value="" selected disabled>请选择</option>
+                    <option ng-value="1">是</option>
+                    <option ng-value="0">否</option>
+                </select>
+                <label for="addStructure">结构</label>
+            </div>
+            <!--安全设施-->
+            <div class="input-field col s4" >
+                <select material-select watch ng-model="addFacilities" id="addFacilities">
+                    <option value="" selected disabled>请选择</option>
+                    <option ng-value="1">是</option>
+                    <option ng-value="0">否</option>
+                </select>
+                <label for="addFacilities">安全设施</label>
+            </div>
+            <!--主挂连接装置-->
+            <div class="input-field col s4" >
+                <select material-select watch ng-model="addLinkDevice" id="addLinkDevice">
+                    <option value="" selected disabled>请选择</option>
+                    <option ng-value="1">是</option>
+                    <option ng-value="0">否</option>
+                </select>
+                <label for="addLinkDevice">主挂连接装置</label>
+            </div>
+            <!--检查时间-->
+            <div class="input-field col s6">
+                <input type="text" id="add_start_time" name="add_start_time" ng-model="addStartTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                <label for="add_start_time">检查时间</label>
+            </div>
+
+            <!--备注-->
+            <div class="input-field col s6">
+                <input id="addRemark" name="remark"  ng-model="addNewRemark" type="text">
+                <label for="addRemark">备注</label>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="divider" style="background: #ccc;height: 1px;"></div>
+    <div class="modal-footer vc-center">
+        <a class=" modal-action modal-close waves-effect waves-light grey lighten-1 btn"  >取消 </a>
+        <button class="btn waves-light waves-effect cyan lighten-2"  ng-click="addInspectItem()" name="action" style="margin-left: 10px">确定</button>
+    </div>
+</div>
+
+
+<!--修改模态框-->
+<div id="putItem" class="modal">
+    <div class="cyan lighten-1 white-text center-align modal_title" >车辆安全检查项目详情</div>
+    <div class="modal-content">
+        <div class="row col s12" style="width: 80%;">
+            <!--货车牌号-->
+            <div class="col s4 input-field">
+                <select  material-select watch ng-model="putInspectList.truck_id"  id="putTruckId" style="width: 100%">
+                    <option value="" selected disabled>请选择</option>
+                    <option disabled ng-repeat="truckNumItem in truckNumList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}({{truckNumItem.truck_type == 1 ? "头车" : "挂车"}})</option>
+                </select>
+            </div>
+
+            <!--转向-->
+            <div class="input-field col s4" >
+                <select material-select watch ng-model="putInspectList.turn" id="putTurn">
+                    <option value="" selected disabled>请选择</option>
+                    <option ng-value="1">是</option>
+                    <option ng-value="0">否</option>
+                </select>
+                <label for="putTurn">转向</label>
+            </div>
+            <!--制动-->
+            <div class="input-field col s4" >
+                <select material-select watch ng-model="putInspectList.braking" id="putBraking">
+                    <option value="" selected disabled>请选择</option>
+                    <option ng-value="1">是</option>
+                    <option ng-value="0">否</option>
+                </select>
+                <label for="putBraking">制动</label>
+            </div>
+            <!--照明-->
+            <div class="input-field col s4" >
+                <select material-select watch ng-model="putInspectList.lighting" id="putLighting" >
+                    <option value="" selected disabled>请选择</option>
+                    <option ng-value="1">是</option>
+                    <option ng-value="0">否</option>
+                </select>
+                <label for="putLighting">照明</label>
+            </div>
+            <!--传动-->
+            <div class="input-field col s4" >
+                <select material-select watch ng-model="putInspectList.transmission" id="putTransmission" >
+                    <option value="" selected disabled>请选择</option>
+                    <option ng-value="1">是</option>
+                    <option ng-value="0">否</option>
+                </select>
+                <label for="putTransmission">传动</label>
+            </div>
+            <!--轮胎-->
+            <div class="input-field col s4" >
+                <select material-select watch ng-model="putInspectList.tyre" id="putTyre">
+                    <option value="" selected disabled>请选择</option>
+                    <option ng-value="1">是</option>
+                    <option ng-value="0">否</option>
+                </select>
+                <label for="putTyre">轮胎</label>
+            </div>
+            <!--结构-->
+            <div class="input-field col s4" >
+                <select material-select watch ng-model="putInspectList.structure" id="putStructure">
+                    <option value="" selected disabled>请选择</option>
+                    <option ng-value="1">是</option>
+                    <option ng-value="0">否</option>
+                </select>
+                <label for="putStructure">结构</label>
+            </div>
+            <!--安全设施-->
+            <div class="input-field col s4" >
+                <select material-select watch ng-model="putInspectList.facilities" id="putFacilities">
+                    <option value="" selected disabled>请选择</option>
+                    <option ng-value="1">是</option>
+                    <option ng-value="0">否</option>
+                </select>
+                <label for="putFacilities">安全设施</label>
+            </div>
+            <!--主挂连接装置-->
+            <div class="input-field col s4" >
+                <select material-select watch ng-model="putInspectList.link_device" id="putLinkDevice">
+                    <option value="" selected disabled>请选择</option>
+                    <option ng-value="1">是</option>
+                    <option ng-value="0">否</option>
+                </select>
+                <label for="putLinkDevice">主挂连接装置</label>
+            </div>
+            <!--检查时间-->
+            <div class="input-field col s6">
+                <input type="text" id="put_start_time" name="put_start_time" ng-model="putInspectList.check_date" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                <label for="put_start_time">检查时间</label>
+            </div>
+
+            <!--备注-->
+            <div class="input-field col s6">
+                <input id="putRemark" name="remark"  ng-model="putInspectList.remark" type="text">
+                <label for="putRemark">备注</label>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="divider" style="background: #ccc;height: 1px;"></div>
+    <div class="modal-footer vc-center">
+        <a class="modal-action modal-close waves-effect grey waves-light lighten-1 btn" style="margin-right: 10px;">取消</a>
+        <button class="btn waves-light waves-effect lighten-2"  name="action" ng-click="putInspectItem()">确定 </button>
+    </div>
+
+</div>
+
+
+
+
+<!--查询条件-->
+<div class="row">
+    <div class="row grey-text text-darken-1">
+        <div class="col s10">
+            <div class="col s12">
+
+                <!--货车牌号-->
+                <div class="col s4 input-field">
+                    <select  material-select watch ng-model="truckId"  id="truckId" style="width: 100%">
+                        <option value="" selected disabled>请选择</option>
+                        <option ng-repeat="truckNumItem in truckNumListAll" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}({{truckNumItem.truck_type == 1 ? "头车" : "挂车"}})</option>
+                    </select>
+                </div>
+
+
+
+                <div class="input-field col s4">
+                    <input type="text" id="grant_start_time" name="grant_start_time" ng-model="getStartTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                    <label for="grant_start_time">检查时间(始)</label>
+                </div>
+
+
+                <div class="input-field col s4">
+                    <input type="text" id="grant_end_time" name="grant_end_time" ng-model="getEndTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                    <label for="grant_end_time">检查时间(终)</label>
+                </div>
+            </div>
+
+        </div>
+
+        <!--按钮-->
+        <div class="col s2" style="margin-top: 15px">
+            <div class="col s4" >
+                <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getInspect()">
+                    <i class="mdi mdi-magnify"></i>
+                </a>
+            </div>
+            <div class="col s4 center-align">
+                <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
+                    <i class="mdi mdi-cloud-download"></i>
+                </a>
+            </div>
+            <div class="col s4 right-align">
+                <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2  btn vc-center"  ng-click="addInspect()">
+                    <i class="mdi mdi-plus"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col s12">
+    <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+    <table class=" bordered striped text_mid">
+        <thead class="blue-grey lighten-5">
+        <tr class="grey-text text-darken-2">
+            <th data-field="">货车牌号</th>
+            <th data-field="">货车类型</th>
+            <th data-field="">转向</th>
+            <th data-field="">制动</th>
+            <th data-field="">照明</th>
+            <th data-field="">传动</th>
+            <th data-field="">轮胎</th>
+            <th data-field="">结构</th>
+            <th data-field="">安全设施</th>
+            <th data-field="">主挂链接装置</th>
+            <th data-field="">检查时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="el in InspectList" class="grey-text text-darken-1">
+            <td>{{el.truck_num}}</td>
+            <td>{{el.truck_type  == 1 ? "头车" : "挂车"}}</td>
+            <td>{{el.turn  == 1 ? "检" : ""}}</td>
+            <td>{{el.braking  == 1 ? "检" : ""}}</td>
+            <td>{{el.lighting  == 1 ? "检" : ""}}</td>
+            <td>{{el.transmission  == 1 ? "检" : ""}}</td>
+            <td>{{el.tyre  == 1 ? "检" : ""}}</td>
+            <td>{{el.structure  == 1 ? "检" : ""}}</td>
+            <td>{{el.facilities  == 1 ? "检" : ""}}</td>
+            <td>{{el.link_device  == 1 ? "检" : ""}}</td>
+            <td>{{el.check_date | date:'yyyy-MM-dd'}}</td>
+            <td  class="operation">
+                <a ng-click="putInspect(el.id)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
+                    <i class="mdi mdi-file-document" style="margin: 0"></i>
+                </a>
+            </td>
+        </tr>
+        <tr ng-if="InspectList.length==0">
+            <td colspan="12">暂无数据</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!--分页-->
+<div class="row">
+    <div class="paging_box col s12">
+        <div class="right">
+            <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="pre_btn()">
+                上一页
+            </a>
+            <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_btn()">
+                下一页
+            </a>
+        </div>
+    </div>
+</div>

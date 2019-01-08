@@ -121,8 +121,8 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
             driveId:$scope.driverId,
             fineStatus:$scope.peccancyStu,
             truckType:$scope.truckType,
-            startDateStart:$scope.getStartTime,
-            endDateEnd:$scope.getEndTime
+            handleDateStart:$scope.getStartTime,
+            handleDateEnd:$scope.getEndTime
         };
         window.open($host.api_url + "/drivePeccancy.csv?" + _basic.objToUrl(obj));
     };

@@ -193,7 +193,7 @@
                     <!--备注-->
                     <div class="input-field col s12" style="margin-top: 30px">
                         <input id="addRemark" name="remark"  ng-model="addNewRemark" type="text">
-                        <label for="addRemark">备注</label>
+                        <label for="addRemark">检查结论及建议</label>
                     </div>
                     <div class="divider" style="background: #ccc;height: 1px;"></div>
                     <div class="modal-footer vc-center">
@@ -258,7 +258,7 @@
                     <!--司机-->
                     <div class="col s4 input-field">
                         <select material-select watch ng-model="putInspectList.drive_id" id="putDrivderId" style="width: 100%" >
-                            <option value='' selected disabled>请选择</option>
+                            <option  ng-value='null'>请选择</option>
                             <option  ng-repeat="addDrivder in driveList" ng-value='addDrivder.id'>{{addDrivder.drive_name}}</option>
                         </select>
                     </div>
@@ -431,7 +431,7 @@
                     <!--备注-->
                     <div class="input-field col s12" style="margin-top: 30px">
                         <input id="putRemark" name="remark"  ng-model="putInspectList.remark" type="text">
-                        <label for="putRemark">备注</label>
+                        <label for="putRemark">检查结论及建议</label>
                     </div>
                     <div class="divider" style="background: #ccc;height: 1px;"></div>
                     <div class="modal-footer vc-center">
@@ -484,22 +484,30 @@
             <div class="col s12">
 
                 <!--货车牌号-->
-                <div class="col s4 input-field">
+                <div class="col s3 input-field">
                     <select  material-select watch ng-model="truckId"  id="truckId" style="width: 100%">
                         <option value="" selected disabled>请选择</option>
                         <option ng-repeat="truckNumItem in truckNumListAll" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}({{truckNumItem.truck_type == 1 ? "头车" : "挂车"}})</option>
                     </select>
                 </div>
 
+                <!--货车类型-->
+                <div class="col s3 input-field">
+                    <select material-select watch ng-model="getTruckType" id="getTruckType">
+                        <option value="" selected>请选择</option>
+                        <option ng-value="1">头车</option>
+                        <option ng-value="2">挂车</option>
+                    </select>
+                    <label for="getTruckType">货车类型</label>
+                </div>
 
-
-                <div class="input-field col s4">
+                <div class="input-field col s3">
                     <input type="text" id="grant_start_time" name="grant_start_time" ng-model="getStartTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
                     <label for="grant_start_time">检查时间(始)</label>
                 </div>
 
 
-                <div class="input-field col s4">
+                <div class="input-field col s3">
                     <input type="text" id="grant_end_time" name="grant_end_time" ng-model="getEndTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
                     <label for="grant_end_time">检查时间(终)</label>
                 </div>
@@ -546,6 +554,7 @@
             <th data-field="">安全设施</th>
             <th data-field="">连接</th>
             <th data-field="">检查时间</th>
+            <th data-field="">检查员</th>
             <th>操作</th>
         </tr>
         </thead>
@@ -565,6 +574,7 @@
             <td>{{el.facilities  == 0 ? "" :el.facilities  == 1 ? "未检" : el.facilities  == 2?'不合格': el.facilities  == 3?'合格':"复检合格"}}</td>
             <td>{{el.link_device  == 0 ? "" :el.link_device  == 1 ? "未检" : el.link_device  == 2?'不合格': el.link_device  == 3?'合格':"复检合格"}}</td>
             <td>{{el.check_date | date:'yyyy-MM-dd'}}</td>
+            <td>{{el.check_user_name}}</td>
             <td  class="operation">
                 <a ng-click="putInspect(el.id)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
                     <i class="mdi mdi-file-document" style="margin: 0"></i>
@@ -572,7 +582,7 @@
             </td>
         </tr>
         <tr ng-if="InspectList.length==0">
-            <td colspan="14">暂无数据</td>
+            <td colspan="15">暂无数据</td>
         </tr>
         </tbody>
     </table>

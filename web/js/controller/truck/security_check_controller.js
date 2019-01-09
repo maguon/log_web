@@ -6,6 +6,7 @@ app.controller("security_check_controller", ["$scope", "$state", "_basic", "_con
     $scope.truck_image_add = [];
     $scope.truck_image_put = [];
     var userId = _basic.getSession(_basic.USER_ID);
+    $scope.getTruckType ='';
 
     /*打开新增模态 跳转*/
    function addTruckItem(){
@@ -114,24 +115,41 @@ app.controller("security_check_controller", ["$scope", "$state", "_basic", "_con
     }
     //司机（修改）
     function getDriveList(selectText){
-        _basic.get($host.api_url + "/drive").then(function (data) {
-            if (data.success == true) {
-                $scope.driveList = data.result;
-                $('#putDrivderId').select2({
-                    placeholder: selectText,
-                    containerCssClass : 'select2_dropdown'
-                })
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
+        if(selectText==''||selectText==undefined){
+            _basic.get($host.api_url + "/drive").then(function (data) {
+                if (data.success == true) {
+                    $scope.driveList = data.result;
+                    $('#putDrivderId').select2({
+                        placeholder: '司机',
+                        containerCssClass : 'select2_dropdown'
+                    })
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }else{
+            _basic.get($host.api_url + "/drive").then(function (data) {
+                if (data.success == true) {
+                    $scope.driveList = data.result;
+                    $('#putDrivderId').select2({
+                        placeholder: selectText,
+                        containerCssClass : 'select2_dropdown'
+                    })
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
+
     }
 
     // 数据导出
     $scope.export = function () {
         var obj = {
             truckId:$scope.truckId,
+            truckType:$scope.getTruckType,
             checkDateStart:$scope.getStartTime,
             checkDateEnd:$scope.getEndTime
         };
@@ -148,6 +166,7 @@ app.controller("security_check_controller", ["$scope", "$state", "_basic", "_con
     function getInspectData(){
         _basic.get($host.api_url + "/truckSecurityCheck?" + _basic.objToUrl({
             truckId:$scope.truckId,
+            truckType:$scope.getTruckType,
             checkDateStart:$scope.getStartTime,
             checkDateEnd:$scope.getEndTime,
             start:$scope.start.toString(),
@@ -349,16 +368,14 @@ app.controller("security_check_controller", ["$scope", "$state", "_basic", "_con
 
     //点击确定 修改完成
     $scope.putInspectItem = function (){
+        if($scope.putInspectList.drive_id==''){
+            $scope.putInspectList.drive_id=0;
+        }
         $scope.putInspectList.turn=$scope.putInspectList.turn==""?0:$scope.putInspectList.turn;
         $scope.putInspectList.link_device=$scope.putInspectList.link_device==""?0:$scope.putInspectList.link_device;
         $scope.putInspectList.transmission=$scope.putInspectList.transmission==""?0:$scope.putInspectList.transmission;
         $scope.putInspectList.liquid=$scope.putInspectList.liquid==""?0:$scope.putInspectList.liquid;
-        if ($scope.putInspectList.braking !== null&&$scope.putInspectList.check_date!==''
-            && $scope.putInspectList.lighting !== null
-            && $scope.putInspectList.tyre !== null
-            && $scope.putInspectList.suspension !== null
-            && $scope.putInspectList.structure !== null
-            && $scope.putInspectList.facilities !== null) {
+        if ($scope.putInspectList.check_date!=='') {
             _basic.put($host.api_url + "/user/" + userId + "/truckSecurityCheck/"+$scope.id, {
                 driveId:$scope.putInspectList.drive_id,
                 turn:$scope.putInspectList.turn,
@@ -401,6 +418,8 @@ app.controller("security_check_controller", ["$scope", "$state", "_basic", "_con
 
     //获取图片详情
      function getImg() {
+         $scope.put_imageBox =[];
+         $scope.truck_image_put=[];
         // 照片详情
         _basic.get($host.record_url + "/truckCheck?truckCheckId="+ $scope.id).then(function (data) {
             if (data.success == true) {

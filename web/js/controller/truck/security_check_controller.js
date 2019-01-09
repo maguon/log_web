@@ -264,9 +264,12 @@ app.controller("security_check_controller", ["$scope", "$state", "_basic", "_con
 
     //点击确定 增加完成
     $scope.addInspectItem = function (){
+        if($scope.addDrivderId==''){
+            $scope.addDrivderId=0;
+        }
         if ($scope.addTruckId !== "" && $scope.addStartTime!=='') {
             _basic.post($host.api_url + "/user/" + userId + "/truckSecurityCheck", {
-                driveId: $scope.addDrivderId,
+                driveId:$scope.addDrivderId,
                 truckId:$scope.addTruckId.id,
                 truckType: $scope.addTruckId.truck_type,
                 turn:$scope.addTurn,
@@ -356,7 +359,7 @@ app.controller("security_check_controller", ["$scope", "$state", "_basic", "_con
                 }
                 else{
                     $scope.putInspectList = data.result[0];
-                    $scope.putInspectList.drive_id = data.result[0].drive_id==0?'':data.result[0].drive_id;
+                    $scope.putInspectList.drive_id = (data.result[0].drive_id==0|| data.result[0].drive_id==null|| data.result[0].drive_id=='')?null:data.result[0].drive_id;
                     $scope.putInspectList.truck_type = data.result[0].truck_type;
                     $scope.putInspectList.check_date = moment(data.result[0].check_date).format('YYYY-MM-DD');
                     getTruckNum($scope.putInspectList.truck_num)

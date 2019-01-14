@@ -72,7 +72,7 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
      * */
     function seachOrderInfo(){
         // 基本检索URL
-        var url = $host.api_url + "/dpRouteTask?start=" + $scope.start + "&size=" + $scope.size;
+        var url = $host.api_url + "/dpRouteTaskList?start=" + $scope.start + "&size=" + $scope.size;
         // 检索条件
         var conditionsObj = makeConditions();
         var conditions = _basic.objToUrl(conditionsObj);

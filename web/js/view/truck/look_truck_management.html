@@ -2,7 +2,7 @@
     <!--增加理赔模态框-->
     <div id="addInfoModel" class="modal modal-fixed-footer" style="width: 65%;height: 480px">
         <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-            <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
+            <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
                 <p>新增保险赔付</p>
             </div>
             <div class="row col s12" style="margin-top: 35px">
@@ -101,7 +101,7 @@
     <!--维修结束描述模态框-->
     <div id="repairFinishMod" class="modal modal-fixed-footer" style="width: 65%;height: 500px">
         <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-            <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
+            <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
                 <p>维修结束描述</p>
             </div>
             <div class="row col s12" style="margin-top: 35px">
@@ -150,16 +150,16 @@
         <h5 class="center-align cyan-text text-lighten-1">事故详情</h5>
     </div>
     <div>
-        <div class="management" style="background: #00bcd4;height: 2px;margin-top: 10px;"></div>
+        <div class="management cyan" style="height: 2px;margin-top: 10px;"></div>
     </div>
     <div>
         <div class="row col s12">
             <div class="col s12 valign-wrapper">
                 <div class="col s3 center-align">
-                    <div style="color: #00bcd4;font-size: 1.6rem">事故编号：{{vId}}</div>
+                    <div class="cyan-text" style="font-size: 1.6rem">事故编号：{{vId}}</div>
                 </div>
                 <div class="col s3 center-align">
-                    <div style="color: #00bcd4;font-size: 1.6rem">调度编号:{{dpRouteTaskId}}&nbsp;<span class="bold fz20" style="color: darkgray;">({{cityRouteStart}}-{{cityRouteEnd}})</span></div>
+                    <div class="cyan-text" style="font-size: 1.6rem">调度编号:{{dpRouteTaskId}}&nbsp;<span class="bold fz20" style="color: darkgray;">({{cityRouteStart}}-{{cityRouteEnd}})</span></div>
                 </div>
                 <div class="col s3 center-align">
                     <div style="color: darkgray;font-size: 1.6rem">{{accidentDate | date:"yyyy-MM-dd HH:mm"}}</div>
@@ -172,7 +172,7 @@
                         <p style="color: red;padding: 0;font-size: 1.6rem;margin-top: 35px;">处理中</p>
                     </div>
                     <div class="col s12" ng-if="accidentStatus == 3">
-                        <p style="color: #00bcd4;padding: 0;font-size: 1.6rem">已处理</p>
+                        <p class="cyan-text" style="padding: 0;font-size: 1.6rem">已处理</p>
                     </div>
                 </div>
             </div>
@@ -244,7 +244,7 @@
                         <div class="row">
                             <div class="col s6 input-field mp-40"  ng-class="{'has-error':add_truck_managementFrom.date.$invalid&&submitted }">
                                 <input type="text" id="accident_date" name="date" ng-model="accidentDateDetail" class="datepicker" autocomplete="off"  required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                <label check_operation_endTime class="grey-text bold" for="accident_date" style="color:#00bcd4 "><span style="color: red">*</span>发生时间</label>
+                                <label check_operation_endTime class="grey-text bold" for="accident_date"><span style="color: red">*</span>发生时间</label>
                             </div>
                             <div class="col s6 input-field mp-40"  ng-class="{'has-error':add_truck_managementFrom.accident_date.$invalid&&submitted }">
                                 <input type="text" id="verification_time3" name="accident_date" ng-model="lineStartTime" class="timepicker" autocomplete="off" required   time><i class="mdi dataIcon mdi-clock"></i>
@@ -255,7 +255,7 @@
                             <div class="col s12 input-field mp-40" ng-class="{'has-error':add_truck_managementFrom.address.$invalid&&submitted }" >
                                 <input type="text" id="amapAddress" ng-change="amapAutocomplete()" ng-model="address" autocomplete="off" name="amapAddress" required>
                                 <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
-                                <label class="grey-text bold" for="amapAddress" style="color:#00bcd4 "><span style="color: red">* </span>详细地址</label>
+                                <label class="grey-text bold" for="amapAddress"><span style="color: red">* </span>详细地址</label>
                             </div>
                         </div>
                         <div class="row">
@@ -454,7 +454,7 @@
                     <!--头-->
                     <div class="col s12 card_head valign-wrapper" style="padding: 0;border-bottom: 1px solid #ccc">
                         <div class="col s2">
-                            <p style="font-weight: bold;color: #00bcd4">维修编号：{{repairingInfo[0].id}}</p>
+                            <p class="cyan-text" style="font-weight: bold;">维修编号：{{repairingInfo[0].id}}</p>
                         </div>
                         <div class="col s8">
                             <p style="font-weight: bold;color: darkgray">{{repairingInfo[0].repair_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>

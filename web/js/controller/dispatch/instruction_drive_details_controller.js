@@ -78,8 +78,8 @@ app.controller("instruction_drive_details_controller", ["$scope", "$host", "_con
             driveId:$scope.driveId,
             loadFlag:loadFlag,
             truckId:makeId,
-            dateIdStart: $scope.driver_mileage_startTime,
-            dateIdEnd: $scope.driver_mileage_endTime
+            dateIdStart:moment( $scope.driver_mileage_startTime).format('YYYYMMDD'),
+            dateIdEnd:moment( $scope.driver_mileage_endTime).format('YYYYMMDD')
         };
         _basic.get($host.api_url + "/dpRouteTaskList?" + _basic.objToUrl(obj)).then(function (data) {
             if (data.success == true) {

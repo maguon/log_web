@@ -474,7 +474,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         $scope.dispatchInfo = dispatchInfo;
         $scope.lineInfo = false;
         // 往期任务
-        _basic.get($host.api_url + "/dpRouteTask?truckId=" + dispatchInfo.truck_id + "&taskStatus=10&start=0&size=5").then(function (pastMissionData) {
+        _basic.get($host.api_url + "/dpRouteTaskList?truckId=" + dispatchInfo.truck_id + "&taskStatus=10&start=0&size=5").then(function (pastMissionData) {
             if (pastMissionData.success === true) {
                 // 转换日期格式
                 for (var i = 0; i < pastMissionData.result.length; i++) {
@@ -488,7 +488,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         });
 
         // 当前线路
-        _basic.get($host.api_url + "/dpRouteTask?truckId=" + dispatchInfo.truck_id + "&taskStatusArr=1,2,3,4").then(function (currentLineData) {
+        _basic.get($host.api_url + "/dpRouteTaskList?truckId=" + dispatchInfo.truck_id + "&taskStatusArr=1,2,3,4").then(function (currentLineData) {
             if (currentLineData.success === true) {
                 currentLineData.result.reverse();
                 $scope.currentLineList = currentLineData.result;
@@ -511,7 +511,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
 
         // 当前司机未执行调度任务
-        _basic.get($host.api_url + "/dpRouteTask?driveId=" + dispatchInfo.drive_id + "&taskStatus=1").then(function (data) {
+        _basic.get($host.api_url + "/dpRouteTaskList?driveId=" + dispatchInfo.drive_id + "&taskStatus=1").then(function (data) {
             if (data.success === true) {
                 $scope.dispatchMissionList = data.result;
             }
@@ -777,7 +777,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         getBaseAddr();
 
         //获取出发城市
-        _basic.get($host.api_url + "/dpRouteTask?dpRouteTaskId=" + showLineId).then(function (data) {
+        _basic.get($host.api_url + "/dpRouteTaskList?dpRouteTaskId=" + showLineId).then(function (data) {
             if (data.success == true) {
                 $scope.dispatchInfoList = data.result[0];
 

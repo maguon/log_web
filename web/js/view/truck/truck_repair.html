@@ -6,7 +6,7 @@
         </a>
         <h4 class="center-align cyan-text text-lighten-1">维修记录详情</h4>
     </div>
-    <div class="divider" style="background: #00bcd4;height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
+    <div class="divider cyan" style="height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
 
     <!--维修结束模态框-->
     <div class="row" style="margin: 0">
@@ -105,7 +105,7 @@
                 <!--头-->
                 <div class="col s12 card_head valign-wrapper" style="padding: 0;border-bottom: 1px solid #ccc">
                     <div class="col s2">
-                        <p style="font-weight: bold;color: #00bcd4">维修编号：{{repairingItem.id}}</p>
+                        <p class="cyan-text" style="font-weight: bold;">维修编号：{{repairingItem.id}}</p>
                     </div>
                     <div class="col s8">
                         <p style="font-weight: bold;color: darkgray">{{repairingItem.repair_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
@@ -168,7 +168,7 @@
                         <!--列表头-->
                         <div class="collapsible-header" ng-click="getCurrentDamageImage(damageInfo.id,$index)">
                             <div class="col s4">
-                                <p style="font-weight: bold;color: #00bcd4;margin: 0">维修编号：{{repaired.id}}</p>
+                                <p class="cyan-text" style="font-weight: bold;margin: 0">维修编号：{{repaired.id}}</p>
                             </div>
                             <div class="col s8 right-align">
                                 <p style="margin: 0;font-weight: bold;color: darkgray;font-size: 1.1rem"><span>{{repaired.repair_date | date:'yyyy-MM-dd HH:mm:ss'}}</span>&emsp;至&emsp;<span>{{repaired.end_date | date:'yyyy-MM-dd HH:mm:ss'}}</span></p>

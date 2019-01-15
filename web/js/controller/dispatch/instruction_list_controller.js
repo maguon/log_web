@@ -168,6 +168,9 @@ app.controller("instruction_list_controller", ["$scope","$rootScope","$state","$
                 $scope.size = pageItems.size;
                 // 将上次的检索条件设定到画面
                 setConditions(pageItems.conditions);
+                // 查询数据
+                search_All();
+
             }
         } else {
             // 初始显示时，没有前画面，所以没有基本信息
@@ -175,9 +178,6 @@ app.controller("instruction_list_controller", ["$scope","$rootScope","$state","$
         }
         $scope.getRecive();
         $scope.getAddres();
-        // 查询数据
-        search_All();
-
     }
     initData();
 

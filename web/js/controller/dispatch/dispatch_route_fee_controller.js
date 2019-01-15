@@ -146,7 +146,7 @@ app.controller("dispatch_route_fee_controller", ["$scope", "$host", "_basic", "_
 
     // 根据选择的司机id查询关联任务信息
     $scope.searchMatchMission = function () {
-        _basic.get($host.api_url + "/dpRouteTask?driveId=" + $scope.driverIdMod + "&taskStatusArr=1,2,3,4").then(function (data) {
+        _basic.get($host.api_url + "/dpRouteTaskList?driveId=" + $scope.driverIdMod + "&taskStatusArr=1,2,3,4").then(function (data) {
             if (data.success === true) {
                 // console.log("data", data);
                 $scope.missionList = data.result;
@@ -172,7 +172,7 @@ app.controller("dispatch_route_fee_controller", ["$scope", "$host", "_basic", "_
             }
             else {
                 // 根据选择的调度id查询调度详细信息
-                _basic.get($host.api_url + "/dpRouteTask?dpRouteTaskId=" + $scope.dispatchNumMod).then(function (data) {
+                _basic.get($host.api_url + "/dpRouteTaskList?dpRouteTaskId=" + $scope.dispatchNumMod).then(function (data) {
                     if (data.success === true) {
                         $scope.matchMissionList.push(data.result[0]);
                     }

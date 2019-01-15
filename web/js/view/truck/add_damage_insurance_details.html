@@ -5,7 +5,7 @@
         </a>
         <h4 class="center-align cyan-text text-lighten-1">质损保险详情</h4>
     </div>
-    <div class="divider" style="background: #00bcd4;height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
+    <div class="divider cyan" style="height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
 
     <div class="row" style="width: 80%;margin: 0 auto">
         <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
@@ -91,7 +91,7 @@
                 <div class="col s12">
                     <div class="col s10 input-field">
                         <input id="associated_damage" type="text" ng-model="damageNum">
-                        <label style="color: #00bcd4;font-weight: bold" for="associated_damage"><span style="color: red;">* </span>关联质损</label>
+                        <label class="cyan-text" style="font-weight: bold" for="associated_damage"><span style="color: red;">* </span>关联质损</label>
                     </div>
                     <div class="col s2 center flex flex-round">
                         <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2 btn vc-center"
@@ -117,7 +117,7 @@
                     <!--头-->
                     <div class="col s12 card_head" style="padding: 0;border-bottom: 1px solid #ccc">
                         <div class="col s11">
-                            <p style="font-weight: bold;color: #00bcd4">质损编号：{{damage.id}}</p>
+                            <p class="cyan-text" style="font-weight: bold;">质损编号：{{damage.id}}</p>
                         </div>
                         <div class="col s1 right-align">
                             <span ng-if="insureStatus == 1" ng-click="deleteDamageInfo(damage.id)" style="font-size: 1.8rem;cursor: pointer;color: #e88282" class="mdi mdi-delete-forever"></span>

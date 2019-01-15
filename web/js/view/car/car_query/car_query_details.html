@@ -8,9 +8,9 @@
         </div>
         <div class="col s12 p0">
             <ul class="tabs tabs-fixed-width tab-demo z-depth-1" style="font-size: 25px;font-weight: bold;overflow-x: hidden">
-                <li class="tab"><a href="#basicInfo" style="color: #26c6da">基本信息</a></li>
-                <li class="tab"><a href="#imageBox" style="color: #26c6da">相册</a></li>
-                <li class="tab"><a href="#damageInfo" style="color: #26c6da">质损信息</a></li>
+                <li class="tab"><a href="#basicInfo" class="cyan-text" >基本信息</a></li>
+                <li class="tab"><a href="#imageBox" class="cyan-text">相册</a></li>
+                <li class="tab"><a href="#damageInfo" class="cyan-text" >质损信息</a></li>
             </ul>
         </div>
     </div>
@@ -72,7 +72,7 @@
                 </div>
             </div>
             <div class="row">
-                <p class="col s12" style="color: #26c6da">操作记录:</p>
+                <p class="col s12 cyan-text" >操作记录:</p>
                 <div class="col s12 valign-wrapper" ng-repeat="record in recordList">
                     <p>{{record.timez | date:'yyyy-MM-dd HH:mm:ss' + "&emsp;" + record.content}}&emsp;&emsp;<span>操作员：{{record.name}}</span>
                     </p>
@@ -80,7 +80,7 @@
             </div>
 
             <div class="row">
-                <p class="col s12" style="color: #26c6da;display: block;width: 100px">备注:</p>
+                <p class="col s12 cyan-text" style="display: block;width: 100px">备注:</p>
                 <div class="col s12 valign-wrapper">
                     <p>{{vincodeList[0].remark}}</p>
                 </div>
@@ -130,7 +130,7 @@
                                 <div class="col s12">
                                     <div class="col s2 valign-wrapper">
                                         <div class="col s3 center-align">
-                                            <p class="no-mp" style="color: #26c6da;font-size: 1.6rem"><span class="mdi mdi-clipboard-text"></span></p>
+                                            <p class="no-mp cyan-text" style="font-size: 1.6rem"><span class="mdi mdi-clipboard-text"></span></p>
                                         </div>
                                         <div class="col s9" style="font-size: 1rem;padding: 0">
                                             <p style="margin: 5px 0">质损描述：</p>

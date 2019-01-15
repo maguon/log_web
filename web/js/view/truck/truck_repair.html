@@ -74,7 +74,7 @@
             <div class="col s6 offset-s3">
                 <div class="col s3 valign-wrapper">
                     <div class="col s4 right-align">
-                        <span style="color: #26c6da;font-size: 1.6rem" class="mdi mdi-account"></span>
+                        <span style="font-size: 1.6rem" class="mdi mdi-account cyan-text"></span>
                     </div>
                     <div class="col s8" style="padding: 0;">
                         <span style="font-size: 1.2rem;font-weight: bold;color: darkgray">{{truckMessage.drive_name}}</span>
@@ -82,7 +82,7 @@
                 </div>
                 <div class="col s5 valign-wrapper">
                     <div class="col s4 right-align">
-                        <span style="color: #26c6da;font-size: 1.6rem" class="mdi mdi-cellphone-android"></span>
+                        <span style="font-size: 1.6rem" class="mdi mdi-cellphone-android cyan-text"></span>
                     </div>
                     <div class="col s8" style="padding: 0;">
                         <span style="font-size: 1.2rem;font-weight: bold;color: darkgray">{{truckMessage.mobile}}</span>
@@ -90,7 +90,7 @@
                 </div>
                 <div class="col s4 valign-wrapper">
                     <div class="col s4 right-align">
-                        <span style="color: #26c6da;font-size: 1.6rem" class="mdi mdi-hospital-building"></span>
+                        <span style="font-size: 1.6rem" class="mdi mdi-hospital-building cyan-text"></span>
                     </div>
                     <div class="col s8" style="padding: 0;">
                         <span style="font-size: 1.2rem;font-weight: bold;color: darkgray">{{truckMessage.company_name}}</span>
@@ -101,7 +101,7 @@
 
         <!--未完成维修卡片-->
         <div class="row">
-            <div ng-repeat="repairingItem in repairingList" class="row col s12" style="border: 2px solid #26c6da;border-radius: 5px;background-color: white;color: darkgray">
+            <div ng-repeat="repairingItem in repairingList" class="row col s12 cyan_border" style="border-radius: 5px;background-color: white;color: darkgray">
                 <!--头-->
                 <div class="col s12 card_head valign-wrapper" style="padding: 0;border-bottom: 1px solid #ccc">
                     <div class="col s2">
@@ -179,7 +179,7 @@
                             <div class="row">
                                 <div class="col s2 valign-wrapper">
                                     <div class="col s4 right-align">
-                                        <span style="color: #26c6da;font-size: 1.6rem" class="mdi mdi-file-document"></span>
+                                        <span style="font-size: 1.6rem" class="mdi mdi-file-document cyan-text"></span>
                                     </div>
                                     <div class="col s8" style="padding: 0;">
                                         <span style="font-size: 1.2rem;font-weight: bold;color: #e57474">{{repaired.repair_type == 1 ? "事故维修" : "非事故维修"}}</span>

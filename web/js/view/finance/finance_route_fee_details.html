@@ -11,14 +11,14 @@
     <!--基本信息-->
     <div class="row z-depth-2" style="width:80%;margin:0 auto; padding: 0;margin-bottom: 30px">
         <!--基本信息-->
-        <div class="col s12 fz14 valign-wrapper" style="background-color: #dcdfe0;color: #26c6da;font-size: 1.2rem;font-weight: bold;">
+        <div class="col s12 fz14 valign-wrapper cyan-text" style="background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold;">
             <div class="row col s12 cyan-text bold">
                 <div class="col s6 input-field left-align">出车款发放编号:{{routeFeeInfo.id}}</div>
                 <div class="col s6 input-field right-align" ng-if="routeFeeInfo.task_loan_status==1">已发放</div>
                 <div class="col s6 input-field right-align" ng-if="routeFeeInfo.task_loan_status==2">已报销</div>
             </div>
         </div>
-        <div class="col s12 fz14 valign-wrapper" style="color: #26c6da;font-size: 1.2rem;font-weight: bold">
+        <div class="col s12 fz14 valign-wrapper cyan-text" style="font-size: 1.2rem;font-weight: bold">
             <div class="row col s12">
                 <div class="col s4 input-field cyan-text left-align">
                     <span>司机：</span>{{routeFeeInfo.drive_name}}
@@ -54,10 +54,10 @@
         <!--任务信息卡片-->
         <div ng-repeat="mission in matchMissionList" class="col s12 valign-wrapper" style="height: 55px;background-color: #dcdfe0;color: darkgray;font-weight: bold;font-size: 1rem" ng-show="matchMissionList.length != 0">
             <div class="col s3">
-                <p style="color: #26c6da">调度编号：{{mission.dp_route_task_id}}</p>
+                <p class="cyan-text" >调度编号：{{mission.dp_route_task_id}}</p>
             </div>
             <div class="col s3">
-                <p style="color: #26c6da">{{mission.city_route_start}}-{{mission.city_route_end}} &nbsp;<span style="color: darkgray">{{mission.distance}}公里</span></p>
+                <p class="cyan-text" >{{mission.city_route_start}}-{{mission.city_route_end}} &nbsp;<span style="color: darkgray">{{mission.distance}}公里</span></p>
             </div>
             <div class="col s2">
                 <p>计划装车数量：{{mission.plan_count}}</p>
@@ -78,10 +78,10 @@
         <!--任务信息卡片-->
         <div ng-repeat="mission in matchMissionList" class="col s12 valign-wrapper" style="height: 55px;background-color: #dcdfe0;color: darkgray;font-weight: bold;font-size: 1rem" ng-show="matchMissionList.length != 0">
             <div class="col s2">
-                <p style="color: #26c6da">调度编号：{{mission.dp_route_task_id}}</p>
+                <p class="cyan-text" >调度编号：{{mission.dp_route_task_id}}</p>
             </div>
             <div class="col s3">
-                <p style="color: #26c6da">{{mission.city_route_start}}-{{mission.city_route_end}} &nbsp;<span style="color: darkgray">{{mission.distance}}公里</span></p>
+                <p class="cyan-text" >{{mission.city_route_start}}-{{mission.city_route_end}} &nbsp;<span style="color: darkgray">{{mission.distance}}公里</span></p>
             </div>
             <div class="col s3">
                 <p>计划装车数量：{{mission.plan_count}}</p>
@@ -276,7 +276,7 @@
         <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
             <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;color: darkgray;font-size: 1.2rem;font-weight: bold">
                 <div class="col s4 left-align">
-                    <p style="margin: 0;color: #26c6da">财务报销详情</p>
+                    <p style="margin: 0;" class="cyan-text" >财务报销详情</p>
                 </div>
                 <div class="col s8">
                     <div class="col s12 right-align">

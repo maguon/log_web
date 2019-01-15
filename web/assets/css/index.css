@@ -1165,6 +1165,10 @@ button[type="submit"] {
     color: #969696 !important;
 }
 
+.cyan_border{
+    border:2px solid #26c6da;
+}
+
 /*修改select2样式问题*/
 .select2_dropdown{
     background-color: transparent !important;

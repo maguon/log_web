@@ -290,10 +290,10 @@
                         <div class="col s8 offset-s2">
                             <div class="col s12 left-align" style="padding: 0;color: darkgray;font-weight: bold">
                                 <div class="col s6" style="padding: 0">
-                                    <p><span style="color: #26c6da;font-size: 1.6rem" class="mdi mdi-truck"></span> {{transportDetails.truck_num}}</p>
+                                    <p><span  style="font-size: 1.6rem" class="mdi mdi-truck cyan-text"></span> {{transportDetails.truck_num}}</p>
                                 </div>
                                 <div class="col s6" style="padding: 0">
-                                    <p><span style="color: #26c6da;font-size: 1.6rem" class="mdi mdi-account"></span> {{transportDetails.drive_name}}</p>
+                                    <p><span  style="font-size: 1.6rem" class="mdi mdi-account cyan-text"></span> {{transportDetails.drive_name}}</p>
                                 </div>
                             </div>
                             <div class="col s12" style="padding: 0;margin-top: 34px">
@@ -326,8 +326,8 @@
         <!--左栏发运商品车信息卡片-->
         <div class="row col" ul-tabs style="width: 20%">
             <ul class="tabs tabs-fixed-width tab-demo z-depth-1" style="font-size: 25px;font-weight: bold;overflow-x: hidden">
-                <li class="tab"><a href="#traightUp" style="color: #26c6da">直达</a></li>
-                <li class="tab"><a href="#transfer" style="colors: #26c6da">中转</a></li>
+                <li class="tab"><a href="#traightUp" class="cyan-text" >直达</a></li>
+                <li class="tab"><a href="#transfer" class="cyan-text" >中转</a></li>
             </ul>
 
             <!--直发-->
@@ -500,7 +500,7 @@
                     <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 25px;font-size: 1.1rem;color: darkgray">
                         <div class="col s12" style="height: 55px;background-color: #dcdfe0;font-weight: bold">
                             <div class="col s12 valign-wrapper">
-                                <div class="col s12 left-align" style="color: #26c6da;padding: 0;">
+                                <div class="col s12 left-align cyan-text" style="padding: 0;">
                                     <p>往期任务</p>
                                 </div>
                             </div>
@@ -508,10 +508,10 @@
                         <div class="col s12 wash_fee_details less_mar">
                             <div class="col s12" style="border-bottom: 1px solid darkgray;color: darkgray;font-weight: bold;font-size: 1.05rem" ng-repeat="mission in pastMissionList">
                                 <div class="col  center-align" style="width: 40%">
-                                    <p>{{mission.id}}&nbsp;&nbsp;&nbsp;{{mission.task_start_date | date:'yyyy-MM-dd'}}&nbsp;&nbsp;<span style="color: #26c6da" class="mdi mdi-arrow-right"></span>&nbsp;&nbsp;{{mission.date_id}}</p>
+                                    <p>{{mission.id}}&nbsp;&nbsp;&nbsp;{{mission.task_start_date | date:'yyyy-MM-dd'}}&nbsp;&nbsp;<span  class="mdi mdi-arrow-right cyan-text"></span>&nbsp;&nbsp;{{mission.date_id}}</p>
                                 </div>
                                 <div class="col  center-align"  style="width: 32%">
-                                    <p>{{mission.city_route_start}}&nbsp;&nbsp;<span style="color: #26c6da" class="mdi mdi-arrow-right"></span>&nbsp;&nbsp;{{mission.city_route_end}}&emsp;{{mission.distance}} 公里</p>
+                                    <p>{{mission.city_route_start}}&nbsp;&nbsp;<span  class="mdi mdi-arrow-right cyan-text"></span>&nbsp;&nbsp;{{mission.city_route_end}}&emsp;{{mission.distance}} 公里</p>
                                 </div>
                                 <div class="col  center-align"  style="width: 28%">
                                     <p>派发商品车：{{mission.car_count}} 辆&emsp;已完成</p>
@@ -531,7 +531,7 @@
                     <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 25px;font-size: 1.1rem;color: darkgray">
                         <div class="col s12" style="height: 55px;background-color: #dcdfe0;font-weight: bold">
                             <div class="col s12 valign-wrapper">
-                                <div class="col s6 left-align" style="color: #26c6da;padding: 0;">
+                                <div class="col s6 left-align cyan-text" style="padding: 0;">
                                     <p>当前任务</p>
                                 </div>
                                 <div class="col s3 right-align">
@@ -638,7 +638,7 @@
                                             <!--tab栏-->
                                             <div class="col s12" ul-tabs style="padding: 0;">
                                                 <ul class="tabs tabs-fixed-width tab-demo z-depth-1" style="font-size: 25px;font-weight: bold;overflow-x: hidden">
-                                                    <li style="cursor: pointer" class="tab"><a ng-click="showLoadMissionInfo($index)" style="color: #26c6da">装车任务</a></li>
+                                                    <li style="cursor: pointer" class="tab"><a ng-click="showLoadMissionInfo($index)" class="cyan-text">装车任务</a></li>
                                                 </ul>
                                             </div>
 
@@ -735,7 +735,7 @@
                                                                     </a>
                                                                 </div>-->
                                                                 <div class="col s5 offset-s3">
-                                                                    <a ng-click="submitMissionInfo(currentLine.id,sendCityId,locateId,whetherTransfer,transferCityId,transferName,$index)" style="width: 100%;background-color: #26c6da;" class="waves-light waves-effect lighten-1 btn">
+                                                                    <a ng-click="submitMissionInfo(currentLine.id,sendCityId,locateId,whetherTransfer,transferCityId,transferName,$index)" style="width: 100%;" class="cyan waves-light waves-effect lighten-1 btn">
                                                                         确认
                                                                     </a>
                                                                 </div>
@@ -800,7 +800,7 @@
                                                                     </a>
                                                                 </div>-->
                                                                 <div class="col s5 offset-s3">
-                                                                    <a ng-click="postMissionInfo(currentLine.id,currentLine.city_route_end,ransferLocateId,whetherTransfer2,transferCityId2,transferName2,originalRoute,$index)" style="width: 100%;background-color: #26c6da;" class="waves-light waves-effect lighten-1 btn">
+                                                                    <a ng-click="postMissionInfo(currentLine.id,currentLine.city_route_end,ransferLocateId,whetherTransfer2,transferCityId2,transferName2,originalRoute,$index)" style="width: 100%;" class="waves-light waves-effect lighten-1 btn cyan">
                                                                         确认
                                                                     </a>
                                                                 </div>
@@ -877,7 +877,7 @@
                     <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 25px;font-size: 1.1rem;color: darkgray">
                         <div class="col s12" style="height: 55px;background-color: #dcdfe0;font-weight: bold">
                             <div class="col s12 valign-wrapper">
-                                <div class="col s6 left-align" style="color: #26c6da;padding: 0;">
+                                <div class="col s6 left-align cyan-text" style="padding: 0;">
                                     <p>临时任务</p>
                                 </div>
                                 <div class="col s6"></div>
@@ -937,7 +937,7 @@
                                             <!--tab栏-->
                                             <div class="col s12" ul-tabs style="padding: 0;">
                                                 <ul class="tabs tabs-fixed-width tab-demo z-depth-1" style="font-size: 25px;font-weight: bold;overflow-x: hidden">
-                                                    <li style="cursor: pointer" class="tab"><a style="color: #26c6da">装车任务</a></li>
+                                                    <li style="cursor: pointer" class="tab"><a class="cyan-text" >装车任务</a></li>
                                                 </ul>
                                             </div>
 
@@ -1023,7 +1023,7 @@
                                                         <div class="col s12" style="margin-top: 30px">
                                                             <div class="col s6 offset-s3" style="padding: 0;">
                                                                 <div class="col s5 offset-s3">
-                                                                    <a ng-click="submitMissionInfo2(temporaryLine.id,sendCityId,locateId,whetherTransfer,transferCityId,transferName,$index)" style="width: 100%;background-color: #26c6da;" class="waves-light waves-effect lighten-1 btn">
+                                                                    <a ng-click="submitMissionInfo2(temporaryLine.id,sendCityId,locateId,whetherTransfer,transferCityId,transferName,$index)" style="width: 100%;" class="cyan waves-light waves-effect lighten-1 btn">
                                                                         确认
                                                                     </a>
                                                                 </div>
@@ -1088,7 +1088,7 @@
                                                                      </a>
                                                                  </div>-->
                                                                 <div class="col s5 offset-s3">
-                                                                    <a ng-click="postMissionInfo2(temporaryLine.id,temporaryLine.city_route_end,ransferLocateId,whetherTransfer2,transferCityId2,transferName2,originalRoute,$index)" style="width: 100%;background-color: #26c6da;" class="waves-light waves-effect lighten-1 btn">
+                                                                    <a ng-click="postMissionInfo2(temporaryLine.id,temporaryLine.city_route_end,ransferLocateId,whetherTransfer2,transferCityId2,transferName2,originalRoute,$index)" style="width: 100%;" class="waves-light waves-effect lighten-1 btn cyan">
                                                                         确认
                                                                     </a>
                                                                 </div>
@@ -1167,8 +1167,8 @@
         <!--右边任务指令信息卡片-->
         <div class="col" style="width: 20%">
             <ul class="tabs tabs-fixed-width tab-demo z-depth-1" style="font-size: 25px;font-weight: bold;overflow-x: hidden">
-                <li class="tab"><a href="#haveUser" style="color: #26c6da">可用</a></li>
-                <li class="tab"><a href="#notHaveUser" style="colors: #26c6da">不可用</a></li>
+                <li class="tab"><a href="#haveUser" class="cyan-text" >可用</a></li>
+                <li class="tab"><a href="#notHaveUser" class="cyan-text" >不可用</a></li>
             </ul>
             <!--可用-->
             <div id="haveUser">

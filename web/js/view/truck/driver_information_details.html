@@ -6,7 +6,7 @@
                 <p>货车事故详情</p>
             </div>
             <div class="row" style="width: 85%;margin: 0 auto">
-                <div class="col s6 left-align" style="color: #26c6da;font-weight: bold;font-size: 1.2rem">
+                <div class="col s6 left-align cyan-text" style="font-weight: bold;font-size: 1.2rem">
                     <p>事故编号：{{truckAccidentDetail.id}}</p>
                 </div>
                 <div class="col s6 right-align" style="color: darkgray;font-weight: bold;font-size: 1.2rem">
@@ -92,7 +92,7 @@
                 <p>商品车质损详情</p>
             </div>
             <div class="row" style="width: 85%;margin: 0 auto">
-                <div class="col s6 left-align" style="color: #26c6da;font-weight: bold;font-size: 1.2rem">
+                <div class="col s6 left-align cyan-text" style="font-weight: bold;font-size: 1.2rem">
                     <p>质损编号：{{carAccidentDetail.id}}</p>
                 </div>
                 <div class="col s6 right-align" style="color: darkgray;font-weight: bold;font-size: 1.2rem">
@@ -310,19 +310,19 @@
         <!--tab栏-->
         <div class="col s12">
             <ul class="tabs ui-tabs tabs-fixed-width tab-demo z-depth-1" style="font-size: 25px;font-weight: bold;overflow-x: hidden;margin-bottom: 25px" ul-tabs>
-                <li class="tab"><a href="#driverBasicInfo" style="color: #26c6da;line-height: 40px">基本信息</a></li>
-                <li class="tab"><a href="#driverPic" style="color: #26c6da;line-height: 40px">照片</a></li>
-                <li class="tab"><a href="#dispatchMission" ng-click="searchDriverInfoList()" style="color: #26c6da;line-height: 40px">调度任务</a></li>
-                <li class="tab"><a href="#truckRes" ng-click="getTruckAccident()" style="color: #26c6da;line-height: 40px">货车责任</a></li>
-                <li class="tab"><a href="#carRes" ng-click="getCarResList()" style="color: #26c6da;line-height: 40px">商品车责任</a></li>
-                <li class="tab"><a href="#driverPeccancyList" ng-click="getPeccancy()" style="color: #26c6da;line-height: 40px">违章扣款</a></li>
-                <li class="tab"><a href="#driverExceedOil" ng-click="getExceedOil()" style="color: #26c6da;line-height: 40px">超量扣款</a></li>
+                <li class="tab"><a href="#driverBasicInfo" class="cyan-text" style="line-height: 40px">基本信息</a></li>
+                <li class="tab"><a href="#driverPic" class="cyan-text" style="line-height: 40px">照片</a></li>
+                <li class="tab"><a href="#dispatchMission" class="cyan-text" ng-click="searchDriverInfoList()" style="line-height: 40px">调度任务</a></li>
+                <li class="tab"><a href="#truckRes" class="cyan-text" ng-click="getTruckAccident()" style="line-height: 40px">货车责任</a></li>
+                <li class="tab"><a href="#carRes" class="cyan-text" ng-click="getCarResList()" style="line-height: 40px">商品车责任</a></li>
+                <li class="tab"><a href="#driverPeccancyList" class="cyan-text" ng-click="getPeccancy()" style="line-height: 40px">违章扣款</a></li>
+                <li class="tab"><a href="#driverExceedOil" class="cyan-text" ng-click="getExceedOil()" style="line-height: 40px">超量扣款</a></li>
             </ul>
         </div>
 
         <!--基本信息-->
         <div id="driverBasicInfo" class="row col s12">
-            <div class="col s12 z-depth-1" style="border: 2px solid #26c6da;padding: 0;margin-top: 56px">
+            <div class="col s12 z-depth-1 cyan_border" style="padding: 0;margin-top: 56px">
                 <!--个人信息-->
                 <div class="col s12 valign-wrapper" style="padding: 0;background-color: #e6e6e6;">
                     <div class="col s1 center-align">
@@ -332,19 +332,19 @@
                     </div>
                     <div class="col s11" style="color: darkgray;font-size: 1.3rem;font-weight: bold">
                         <div class="col s8">
-                            <p style="color: #26c6da"><span class="mdi mdi mdi-human-male" style="font-size: 1.6rem"></span> {{driverDetails.drive_name}}</p>
+                            <p class="cyan-text"><span class="mdi mdi mdi-human-male" style="font-size: 1.6rem"></span> {{driverDetails.drive_name}}</p>
                         </div>
                         <div class="col s4">
-                            <p><span class="mdi mdi mdi-cellphone" style="font-size: 1.6rem;color: #26c6da"></span> {{driverDetails.tel}}</p>
+                            <p><span class="mdi mdi mdi-cellphone cyan-text" style="font-size: 1.6rem;"></span> {{driverDetails.tel}}</p>
                         </div>
                         <div class="col s4">
-                            <p><span class="mdi mdi mdi-hospital-building" style="font-size: 1.6rem;color: #26c6da"></span> {{driverDetails.company_name}}</p>
+                            <p><span class="mdi mdi mdi-hospital-building cyan-text" style="font-size: 1.6rem;"></span> {{driverDetails.company_name}}</p>
                         </div>
                         <div class="col s4">
-                            <p><span style="color: #26c6da">车头：</span> {{driverDetails.truck_num}}</p>
+                            <p><span class="cyan-text">车头：</span> {{driverDetails.truck_num}}</p>
                         </div>
                         <div class="col s4">
-                            <p><span style="color: #26c6da">挂车：</span> {{driverDetails.trail_num}} {{driverDetails.number}}位</p>
+                            <p><span class="cyan-text">挂车：</span> {{driverDetails.trail_num}} {{driverDetails.number}}位</p>
                         </div>
                     </div>
                 </div>
@@ -385,7 +385,7 @@
         <div id="driverPic" class="row col s12" style="padding: 0;">
             <div class="col s12" style="margin-top: 56px">
                 <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
-                    <div class="col s12 valign-wrapper" style="height: 50px;background-color: #dcdfe0;color: #26c6da;font-size: 1.2rem;font-weight: bold">
+                    <div class="col s12 valign-wrapper cyan-text" style="height: 50px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
                         <div class="col s12 left-align">
                             <p style="margin: 0">照片</p>
                         </div>
@@ -395,7 +395,7 @@
                         <div class="col s12" style="font-size: 1.2rem;color: darkgray;font-weight: bold;padding: 0;">
                             <div class="col s12">
                                 <div class="col s12">
-                                    <p style="color: #26c6da">证件照片</p>
+                                    <p class="cyan-text">证件照片</p>
                                 </div>
                             </div>
                             <div id="certificates_img" class="col s12 valign-wrapper">
@@ -545,7 +545,7 @@
                         <td>{{dispatch.route_op_name}}</td>
                         <td>{{dispatch.task_status|taskStatus}}</td>
                         <td class="operation fz12">
-                            <a ng-href="#!/dispatch_order_details/id/{{dispatch.id}}/?from=driver_information_details&driverId={{driverIdd}}" class="cyan-text" style="cursor: pointer;text-align: center;color: #26c6da">
+                            <a ng-href="#!/dispatch_order_details/id/{{dispatch.id}}/?from=driver_information_details&driverId={{driverIdd}}" class="cyan-text" style="cursor: pointer;text-align: center;">
                                 <i class="mdi mdi-eye" style="margin: 0"></i>
                             </a>
                         </td>
@@ -685,14 +685,14 @@
                         <div class="col s12 center"
                              style="padding: 0;font-weight: bold;color: darkgray;font-size: 1.1rem">
                             <div class="col s6 left-align">
-                                <p style="color: #26c6da">质损编号：{{car.id}}</p>
+                                <p class="cyan-text">质损编号：{{car.id}}</p>
                             </div>
                             <div class="col s6 center-align">
                                 <p>{{car.damage_type | damageType}}</p>
                             </div>
                         </div>
 
-                        <a style="top: 56%;width: 45px;height: 45px;right: 30px;background-color: #26c6da;" class="right btn-floating setting_shipments_btn btn waves-effect waves-light vc-center">
+                        <a style="top: 56%;width: 45px;height: 45px;right: 30px;" class="cyan right btn-floating setting_shipments_btn btn waves-effect waves-light vc-center">
                             <i style="font-size: 1.4rem;line-height: 44px" ng-click="showCarAccidentModal(car)" class="mdi mdi-file-document"></i>
                         </a>
                     </div>

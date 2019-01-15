@@ -11,7 +11,7 @@
         <div class="col s12">
             <div class="col s12 z-depth-2" style="padding: 0;">
                 <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
-                    <div class="col s3 left-align" style="color: #26c6da">
+                    <div class="col s3 left-align cyan-text" >
                         <p style="margin: 0">申请打款信息</p>
                     </div>
                     <div class="col s7 right-align" style="color: darkgray">
@@ -68,7 +68,7 @@
         <div class="col s12">
             <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 50px">
                 <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold" ng-click="showDamageList()">
-                    <div class="col s3 left-align" style="color: #26c6da">
+                    <div class="col s3 left-align cyan-text" >
                         <p style="margin: 0">质损编号：{{damageInfoCardList.id}}</p>
                     </div>
                     <div class="col s7 right-align" style="color: darkgray">
@@ -151,7 +151,7 @@
         <div class="col s12" ng-if="indemnityStatus == 1">
             <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
                 <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
-                    <div class="col s12 left-align" style="color: #26c6da">
+                    <div class="col s12 left-align cyan-text" >
                         <p style="margin: 0">打款处理信息</p>
                     </div>
                 </div>
@@ -190,12 +190,12 @@
             </div>
             <!--按钮-->
             <div class="col s2 offset-s4" style="margin-top: 20px" ng-show="!hasRepayment">
-                <a ng-click="updateLoanInfo()" style="width: 100%;background-color: #26c6da;" class="waves-light waves-effect lighten-1 btn">
+                <a ng-click="updateLoanInfo()" style="width: 100%;" class="waves-light waves-effect lighten-1 btn cyan">
                     打款
                 </a>
             </div>
             <div class="col s2 offset-s4" style="margin-top: 20px" ng-show="hasRepayment">
-                <a ng-click="savePaymentInfo()" style="width: 100%;background-color: #26c6da;" class="waves-light waves-effect lighten-1 btn">保存
+                <a ng-click="savePaymentInfo()" style="width: 100%;" class="waves-light waves-effect lighten-1 btn cyan">保存
                 </a>
             </div>
             <div class="col s2 offset-s2" style="margin-top: 20px" ng-show="hasRepayment">
@@ -207,17 +207,17 @@
         <div class="col s12" ng-if="indemnityStatus == 2">
             <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
                 <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
-                    <div class="col s12 left-align" style="color: #26c6da">
+                    <div class="col s12 left-align cyan-text" >
                         <p style="margin: 0">打款处理信息</p>
                     </div>
-                    <div class="col s12 right-align" style="color: #26c6da">
+                    <div class="col s12 right-align cyan-text" >
                         <p style="margin: 0">打款时间：{{loanInfo.indemnity_date |date:'yyyy-MM-dd HH:mm:ss'}}</p>
                     </div>
                 </div>
                 <div class="col s12" style="margin-bottom: 20px">
                     <div class="col s6 bold_txt" style="color: darkgray;font-size: 1.1rem;">
                         <div class="col s12 input-field">
-                            <span style="color: #26c6da">已打款</span>
+                            <span class="cyan-text" >已打款</span>
                         </div>
                         <div class="col s12 input-field">
                             <div style="font-weight: bold" for="companyFee">实际打款金额:<span style="color: #e57474">{{loanInfo.actual_money}}.00</span>元</div>

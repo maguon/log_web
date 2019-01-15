@@ -10,7 +10,7 @@
     <div class="row" style="width: 80%;margin: 0 auto">
         <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
             <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
-                <div class="col s3 left-align" style="color: #26c6da">
+                <div class="col s3 left-align cyan-text" >
                     <p style="margin: 0">理赔编号：{{currentInsurInfo.id}}</p>
                 </div>
                 <div class="col s7 right-align" style="color: darkgray">
@@ -18,7 +18,7 @@
                 </div>
                 <div class="col s2 center-align">
                     <p style="color: #e57373" ng-if="insureStatus == 1">处理中</p>
-                    <p style="color: #26c6da" ng-if="insureStatus == 2">已处理</p>
+                    <p class="cyan-text"  ng-if="insureStatus == 2">已处理</p>
                 </div>
             </div>
             <!--处理中状态下显示的输入框-->
@@ -105,7 +105,7 @@
             <div class="row col s12" ng-show="insureStatus == 2">
                 <div class="col s12">
                     <div class="col s12 left-align">
-                        <p style="font-size: 1.2rem;color: #26c6da;font-weight: bold;margin: 0">关联质损：</p>
+                        <p class="cyan-text" style="font-size: 1.2rem;font-weight: bold;margin: 0">关联质损：</p>
                     </div>
                 </div>
             </div>
@@ -113,7 +113,7 @@
             <!--关联质损信息卡片-->
             <div class="row col s12" style="padding: 0 34px;margin: 0">
                 <!--这下面加ng-repeat-->
-                <div class="row col s12" ng-repeat="damage in damageInfoCardList" style="border: 2px solid #26c6da;border-radius: 5px;background-color: white;color: darkgray">
+                <div class="row col s12 cyan_border" ng-repeat="damage in damageInfoCardList" style="border-radius: 5px;background-color: white;color: darkgray">
                     <!--头-->
                     <div class="col s12 card_head" style="padding: 0;border-bottom: 1px solid #ccc">
                         <div class="col s11">

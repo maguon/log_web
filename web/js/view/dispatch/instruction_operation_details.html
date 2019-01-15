@@ -42,7 +42,7 @@
         <div class="col s12" style="padding: 0;" ng-hide="operationList.length == 0">
             <ul class="tabs tabs-fixed-width tab-demo z-depth-1"  style="font-size: 25px;font-weight: bold;overflow-x: hidden">
                 <li ng-repeat="operationInfo in operationList" class="tab">
-                    <a ng-click="getCurrentOperationInfo(operationInfo.id)" style="color: #26c6da" href="javascript:void(0)">
+                    <a ng-click="getCurrentOperationInfo(operationInfo.id)" class="cyan-text"  href="javascript:void(0)">
                         {{operationInfo.city_route_start}}&emsp;
                         <span class="mdi mdi-arrow-right"></span>
                         &emsp;{{operationInfo.city_route_end}}

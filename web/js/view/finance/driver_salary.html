@@ -7,7 +7,7 @@
                     <p>工资结算</p>
                 </div>
                 <div class="row" style="width: 85%;margin: 0 auto">
-                    <div class="col s12" style="color: #26c6da;font-weight: bold;border-bottom: 1px solid darkgray;padding-bottom: 20px;margin-bottom: 20px">
+                    <div class="col s12 cyan-text" style="font-weight: bold;border-bottom: 1px solid darkgray;padding-bottom: 20px;margin-bottom: 20px">
                         <div class="col s3 left-align">
                             <p>{{driverInfo.drive_name}}&emsp;{{driverInfo.month_date_id}}</p>
                         </div>
@@ -52,7 +52,7 @@
                                             <p>{{lineInfo.city_route_start + " - " + lineInfo.city_route_end}}</p>
                                         </div>
                                         <div class="col s6 right-align">
-                                            <p><span style="color: #26c6da">{{lineInfo.distance}} </span> 公里</p>
+                                            <p><span class="cyan-text">{{lineInfo.distance}} </span> 公里</p>
                                         </div>
                                     </div>
                                     <div class="col s12" style="padding: 0;margin: 8px 0">
@@ -60,7 +60,7 @@
                                             <p>{{lineInfo.truck_num}}</p>
                                         </div>
                                         <div class="col s6 right-align">
-                                            <p>运送车辆：<span style="color: #26c6da">{{lineInfo.car_count}}</span></p>
+                                            <p>运送车辆：<span class="cyan-text">{{lineInfo.car_count}}</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -69,10 +69,10 @@
                     </div>
                     <div class="col s12 left-align valign-wrapper" style="margin: 20px 0;font-size: 1.2rem;color: darkgray;font-weight: bold">
                         <div class="col s4">
-                            <p>重载：<span style="color: #26c6da">{{loadDistanceCount}}</span> km</p>
+                            <p>重载：<span class="cyan-text">{{loadDistanceCount}}</span> km</p>
                         </div>
                         <div class="col s4">
-                            <p>空载：<span style="color: #26c6da">{{noLoadDistanceCount}}</span> km</p>
+                            <p>空载：<span class="cyan-text">{{noLoadDistanceCount}}</span> km</p>
                         </div>
                         <div class="col s4 input-field" style="margin-top: 0">
                             <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="text" id="should_pay" name="should_pay" ng-model="shouldPay">
@@ -195,7 +195,7 @@
                             <a ng-click="showDriverWageSettlement(salary)" style="cursor: pointer;text-align: center;color: #f6ad33"><i class="mdi mdi-comment-text" style="margin: 0"></i></a>
                         </td>
                         <td class="operation fz12" ng-show="salary.grant_status == 2 || salary.grant_status == 3">
-                            <a ui-sref="driver_salary_details({id:salary.id,driveId:salary.drive_id,from:'driver_salary'})" class="cyan-text" style="cursor: pointer;text-align: center;color: #26c6da"><i class="mdi mdi-eye" style="margin: 0"></i></a>
+                            <a ui-sref="driver_salary_details({id:salary.id,driveId:salary.drive_id,from:'driver_salary'})" class="cyan-text " style="cursor: pointer;text-align: center;"><i class="mdi mdi-eye" style="margin: 0"></i></a>
                         </td>
                     </tr>
                     <tr class="grey-text text-darken-1" ng-if="driverSalaryList.length == 0">

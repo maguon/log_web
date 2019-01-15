@@ -12,7 +12,7 @@
         <!--基本信息-->
         <div class="col s12">
             <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
-                <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;color: #26c6da;font-size: 1.2rem;font-weight: bold">
+                <div class="col s12 valign-wrapper cyan-text" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
                     <div class="col s3 left-align">
                         <p style="margin: 0">出车款编号：{{routeFeeInfo.id}}</p>
                     </div>
@@ -49,10 +49,10 @@
                     <div class="col s12" style="margin-top: 30px">
                         <div ng-repeat="mission in matchMissionList" class="col s12 valign-wrapper" style="height: 55px;margin-bottom: 20px;background-color: #dcdfe0;color: darkgray;font-weight: bold;font-size: 1rem" ng-show="matchMissionList.length != 0">
                             <div class="col s3">
-                                <p style="color: #26c6da">调度编号：{{mission.dp_route_task_id}}</p>
+                                <p class="cyan-text" >调度编号：{{mission.dp_route_task_id}}</p>
                             </div>
                             <div class="col s3">
-                                <p style="color: #26c6da">{{mission.city_route_start}}-{{mission.city_route_end}} &nbsp;<span style="color: darkgray">{{mission.distance}}公里</span></p>
+                                <p class="cyan-text" >{{mission.city_route_start}}-{{mission.city_route_end}} &nbsp;<span style="color: darkgray">{{mission.distance}}公里</span></p>
                             </div>
                             <div class="col s2">
                                 <p>计划装车数量：{{mission.plan_count}}</p>
@@ -138,7 +138,7 @@
         <!--保存按钮-->
         <div class="col s12" ng-show="routeFeeInfo.task_loan_status == 1" style="margin-bottom: 20px">
             <div class="col s4 offset-s4">
-                <a ng-click="saveRouteFeeInfo()" style="width: 100%;background-color: #26c6da;" class="waves-light waves-effect lighten-1 btn">
+                <a ng-click="saveRouteFeeInfo()" style="width: 100%;" class="waves-light waves-effect lighten-1 btn cyan">
                     保存
                 </a>
             </div>
@@ -149,7 +149,7 @@
             <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
                 <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;color: darkgray;font-size: 1.2rem;font-weight: bold">
                     <div class="col s6 left-align">
-                        <p style="margin: 0;color: #26c6da">财务发放详情</p>
+                        <p style="margin: 0;" class="cyan-text" >财务发放详情</p>
                     </div>
                     <div class="col s6">
                         <div class="col s6 right-align">
@@ -196,7 +196,7 @@
             <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
                 <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;color: darkgray;font-size: 1.2rem;font-weight: bold">
                     <div class="col s6 left-align">
-                        <p style="margin: 0;color: #26c6da">财务报销详情</p>
+                        <p style="margin: 0;" class="cyan-text" >财务报销详情</p>
                     </div>
                     <div class="col s6 right-align">
                         <div class="col s12">
@@ -212,7 +212,7 @@
             <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
                 <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;color: darkgray;font-size: 1.2rem;font-weight: bold">
                     <div class="col s6 left-align">
-                        <p style="margin: 0;color: #26c6da">财务报销详情</p>
+                        <p style="margin: 0;" class="cyan-text" >财务报销详情</p>
                     </div>
                     <div class="col s6">
                         <div class="col s6 right-align">

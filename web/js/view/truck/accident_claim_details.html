@@ -10,7 +10,7 @@
     <div class="row" style="width: 80%;margin: 0 auto">
         <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
             <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
-                <div class="col s3 left-align" style="color: #26c6da">
+                <div class="col s3 left-alig cyan-text" >
                     <p style="margin: 0">理赔编号：{{accidentId}}</p>
                 </div>
                 <div class="col s5 right-align" style="color: darkgray">
@@ -21,7 +21,7 @@
                 </div>
                 <div class="col s1 center-align">
                     <p ng-if="accidentDetails.insure_status == 1" style="color: #e57676">处理中</p>
-                    <p ng-if="accidentDetails.insure_status == 2" style="color: #26c6da">已处理</p>
+                    <p ng-if="accidentDetails.insure_status == 2" class="cyan-text">已处理</p>
                 </div>
             </div>
             <div class="col s12">
@@ -115,7 +115,7 @@
                         </div>
                     </div>
                     <div class="col s12" ng-show="accidentDetails.insure_status == 2">
-                        <p style="color: #26c6da;font-size: 1.1rem;font-weight: bold">关联事故</p>
+                        <p class="cyan-text" style="font-size: 1.1rem;font-weight: bold">关联事故</p>
                     </div>
 
                     <!--事故详情-->
@@ -123,14 +123,14 @@
                         <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 25px;font-size: 1.1rem;color: darkgray">
                             <div class="col s12" style="height: 55px;background-color: #dcdfe0;font-weight: bold">
                                 <div class="col s12 valign-wrapper">
-                                    <div class="col s8 left-align" style="color: #26c6da;padding: 0;">
+                                    <div class="col s8 left-align cyan-text" style="padding: 0;">
                                         <p style="margin: 0">事故编号：{{accident.id}}</p>
                                     </div>
                                     <div class="col s4 right-align valign-wrapper">
                                         <div class="col s10" style="padding: 0;">
                                             <p ng-if="accident.accident_status == 1" style="color: darkgray">未处理</p>
                                             <p ng-if="accident.accident_status == 2" style="color: #e57474">处理中</p>
-                                            <p ng-if="accident.accident_status == 3" style="color: #26c6da">已处理</p>
+                                            <p ng-if="accident.accident_status == 3" class="cyan-text" >已处理</p>
                                         </div>
                                         <div class="col s2 right-align" style="padding: 0;">
                                             <span style="font-size: 1.4rem;color: #e88282;cursor: pointer" ng-if="accidentDetails.insure_status == 1" ng-click="deleteAccidentInfo(accident.id)" class="mdi mdi-delete-forever"></span>

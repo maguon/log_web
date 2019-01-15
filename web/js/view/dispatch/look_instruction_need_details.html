@@ -71,14 +71,14 @@
                         <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 25px;font-size: 1.1rem;color: darkgray">
                             <div class="col s12" style="height: 55px;background-color: #dcdfe0;font-weight: bold;line-height: 50px">
                                 <div class="col s12 valign-wrapper">
-                                    <div class="col s8 left-align" style="color: #26c6da;padding: 0;">
+                                    <div class="col s8 left-align cyan-text" style="padding: 0;">
                                         <p style="margin: 0">需求编号：{{this_instruction.id}}</p>
                                     </div>
                                     <div class="col s4 right-align">
                                         <!--<p ng-if="(!disPatchInfoList.length == 0) && this_instruction.demand_status == 1">{{this_instruction.}}</p>-->
                                         <p ng-if="this_instruction.demand_status == 0" style="color: darkgray">已取消</p>
                                         <p ng-if="this_instruction.demand_status == 1" style="color: #e57474">未完成</p>
-                                        <p ng-if="this_instruction.demand_status == 2" style="color: #26c6da">已完成</p>
+                                        <p ng-if="this_instruction.demand_status == 2" class="cyan-text" >已完成</p>
                                     </div>
                                 </div>
                             </div>

@@ -35,7 +35,7 @@
 <!--中转车辆详情  模态框中的模态框-->
 <div id="carTDetailModel" class="modal modal-fixed-footer" style="width: 72%;overflow: auto">
     <div class="modal-content center fz20" style="font-weight: 500;padding: 0;">
-        <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
+        <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
             <p>车辆详情</p>
         </div>
         <div class="row col s12">
@@ -131,7 +131,7 @@
         <!--点击直达路线模态框-->
         <div id="carInfoModel" class="modal modal-fixed-footer" style="width: 72%;overflow: auto">
             <div class="modal-content center fz20" style="font-weight: 500;padding: 0;">
-                <div class="row col s12 vc-center" style="font-weight: bold;height: 80px;background-color:rgb(63,185,193)">
+                <div class="row col s12 vc-center cyan" style="font-weight: bold;height: 80px;">
                     <div class="col s3 fz22 white-text" style="font-weight: 600">
                         <p>{{currentModelInfo.date_id}}</p>
                     </div>
@@ -189,7 +189,7 @@
         <!--点击中转路线模态框-->
         <div id="showCarTransferInfoModel" class="modal modal-fixed-footer" style="width: 72%">
             <div class="modal-content center fz20" style="font-weight: 500;padding: 0;">
-                <div class="row col s12 vc-center" style="font-weight: bold;height: 80px;background-color:rgb(63,185,193)">
+                <div class="row col s12 vc-center cyan" style="font-weight: bold;height: 80px;">
                     <div class="col s3 fz22 white-text" style="font-weight: 600">
                         <p>{{currentTransferModelInfo.date_id}}</p>
                     </div>
@@ -244,7 +244,7 @@
                 <div id="arriveStu" class="row tab_box" style="width: 92%;margin-left: 4%">
                     <div class="col s12 vc-center card-panel" style="width: 98%;margin-left: 1%;height: 40px;line-height: 40px;background:#dcdfe0">
                         <div class="col s12 left-align">
-                            <p>即将到达中转站商品车总数：<span style="color: rgb(63,185,193);font-size: 1.8rem">{{haveArrivedCarCount}}</span></p>
+                            <p>即将到达中转站商品车总数：<span class="cyan-text" style="font-size: 1.8rem">{{haveArrivedCarCount}}</span></p>
                         </div>
                     </div>
                     <div class="col s6" ng-repeat="transport in transportationTransportListStatus3">

@@ -58,7 +58,7 @@ app.controller("add_truck_management_controller", ["$scope", "$state", "$statePa
 
         //点击加号
         $scope.search_dpRouteTaskId = function () {
-            _basic.get($host.api_url + "/dpRouteTask?dpRouteTaskId=" + $scope.dpRouteTaskId).then(function (data) {
+            _basic.get($host.api_url + "/dpRouteTaskList?dpRouteTaskId=" + $scope.dpRouteTaskId).then(function (data) {
                 if (data.success == true && data.result.length !== 0) {
                     $scope.driverName = data.result[0].drive_name;
                     $scope.startCityName = data.result[0].city_route_end;

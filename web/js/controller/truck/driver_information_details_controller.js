@@ -111,7 +111,7 @@ app.controller("driver_information_details_controller", ["$scope","$state", "$ho
 
     // 获取调度任务信息
     $scope.getDispatchMissionList = function () {
-        _basic.get($host.api_url + "/dpRouteTask?" + _basic.objToUrl({
+        _basic.get($host.api_url + "/dpRouteTaskList?" + _basic.objToUrl({
             driveId: driverId,
             dpRouteTaskId: $scope.dispatchNum,
             taskStatus: $scope.implementStatus,

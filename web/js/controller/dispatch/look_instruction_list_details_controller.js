@@ -34,7 +34,7 @@ app.controller("look_instruction_list_details_controller", ["$scope", "$host", "
                     $scope.recordList = data.result[0].comment;
                 }
             });
-            _basic.get($host.api_url + "/dpRouteTask?dpRouteTaskId=" + $scope._id).then(function (data) {
+            _basic.get($host.api_url + "/dpRouteTaskList?dpRouteTaskId=" + $scope._id).then(function (data) {
                 if (data.success == true && data.result.length > 0) {
                     $scope.this_instruction = data.result[0];
                     if ($scope.this_instruction.date_id) {

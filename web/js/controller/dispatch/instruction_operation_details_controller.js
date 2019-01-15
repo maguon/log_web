@@ -34,7 +34,7 @@ app.controller("instruction_operation_details_controller", ["$scope","$state", "
 
     // 获取所有非取消状态的指令操作信息
     $scope.getOperationInfo = function () {
-        _basic.get($host.api_url + "/dpRouteTask?truckId=" + truckId + "&taskStatusArr=1,2,3,4,9").then(function (operateData) {
+        _basic.get($host.api_url + "/dpRouteTaskList?truckId=" + truckId + "&taskStatusArr=1,2,3,4,9").then(function (operateData) {
             if (operateData.success === true) {
                 for(var i = 0;i < operateData.result.length;i++){
                     if(operateData.result[i].task_start_date === null){
@@ -51,7 +51,7 @@ app.controller("instruction_operation_details_controller", ["$scope","$state", "
 
     // 点击tab获取当前指令操作信息
     $scope.getCurrentOperationInfo = function (operationId) {
-        _basic.get($host.api_url + "/dpRouteTask?dpRouteTaskId=" + operationId + "&truckId=" + truckId).then(function (currentOperateData) {
+        _basic.get($host.api_url + "/dpRouteTaskList?dpRouteTaskId=" + operationId + "&truckId=" + truckId).then(function (currentOperateData) {
             if (currentOperateData.success === true) {
                 $scope.currentOperateInfo = currentOperateData.result[0];
                 $scope.getOperationMission(currentOperateData.result[0].id);

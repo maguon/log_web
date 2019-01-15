@@ -90,7 +90,7 @@ app.controller("driver_exceedOil_controller", ["$scope", "$state", "_basic", "_c
 
     //添加調度编号联动查询
     $scope.changeExceedOilDispatch =function (dispacthId) {
-        _basic.get($host.api_url + "/dpRouteTask?dpRouteTaskId=" + dispacthId).then(function (detailsData) {
+        _basic.get($host.api_url + "/dpRouteTaskList?dpRouteTaskId=" + dispacthId).then(function (detailsData) {
             if (detailsData.success === true) {
                 if(detailsData.result.length==0){
                     $scope.addExceedOilDriver = "";
@@ -111,7 +111,7 @@ app.controller("driver_exceedOil_controller", ["$scope", "$state", "_basic", "_c
 
     //修改調度编号联动查询
     $scope.changePutExceedOilDispatch = function (dispacthId){
-        _basic.get($host.api_url + "/dpRouteTask?dpRouteTaskId=" + dispacthId).then(function (detailsData) {
+        _basic.get($host.api_url + "/dpRouteTaskList?dpRouteTaskId=" + dispacthId).then(function (detailsData) {
             if (detailsData.success === true) {
                 if(detailsData.result.length==0){
                     $scope.putExceedOilList.drive_name = "";

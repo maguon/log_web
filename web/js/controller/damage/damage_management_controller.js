@@ -66,7 +66,7 @@ app.controller("damage_management_controller", ["$scope","$rootScope","$state","
     };
 
     // 获取质损管理列表
-    $scope.getDamageManagementList = function () {
+    function getDamageManagementList() {
         // 基本检索URL
         var url = $host.api_url + "/damage?start=" + $scope.start + "&size=" + $scope.size;
         // 检索条件
@@ -114,18 +114,18 @@ app.controller("damage_management_controller", ["$scope","$rootScope","$state","
     // 点击按钮进行查询
     $scope.searchDamageManagementList = function () {
         $scope.start = 0;
-        $scope.getDamageManagementList();
+        getDamageManagementList();
     };
 
     // 分页
     $scope.previous_page = function () {
         $scope.start = $scope.start - ($scope.size-1);
-        $scope.getDamageManagementList();
+        getDamageManagementList();
     };
 
     $scope.next_page = function () {
         $scope.start = $scope.start + ($scope.size-1);
-        $scope.getDamageManagementList();
+        getDamageManagementList();
     };
 
     /**
@@ -192,7 +192,7 @@ app.controller("damage_management_controller", ["$scope","$rootScope","$state","
         }
         $scope.getReceiveList();
         // 查询数据
-        $scope.getDamageManagementList();
+        getDamageManagementList();
 
     }
     initData();
@@ -201,7 +201,6 @@ app.controller("damage_management_controller", ["$scope","$rootScope","$state","
 
     // 获取数据
     $scope.queryData = function () {
-        $scope.searchDamageManagementList();
         $scope.getBrandList();
         $scope.getCityList();
     };

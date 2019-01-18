@@ -2,11 +2,14 @@
  * Created by ASUS on 2017/6/8.
  * Restructure by zcy on 2018/5/7.
  */
-app.controller("setting_dealer_details_controller", ["$scope", "_basic", "_config", "baseService", "$host", "$stateParams", function ($scope, _basic, _config, baseService, $host, $stateParams) {
+app.controller("setting_dealer_details_controller", ["$scope","$state", "$stateParams",  "_basic", "_config", "baseService", "$host", "$stateParams", function ($scope, $state, $stateParams, _basic, _config, baseService, $host, $stateParams) {
     var userId = _basic.getSession(_basic.USER_ID);
     var marker;
     $scope.receiveTypeList=_config.receiveType;
-
+    // 返回
+    $scope.return = function () {
+        $state.go($stateParams.from,{from:"setting_dealer__details"}, {reload: true})
+    };
   function getCityList() {
         // 获取城市
         _basic.get($host.api_url + "/city").then(function (data) {

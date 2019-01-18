@@ -56,7 +56,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'setting_client_details_controller'
         })
         .state("setting_dealer_details",{
-            url:"/setting_dealer_details/{dealer_id}",
+            url:"/setting_dealer_details/{dealer_id}?from",
             templateUrl: "js/view/system_settings/setting_dealer/setting_dealer_details.html",
             controller:'setting_dealer_details_controller'
         })

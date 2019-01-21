@@ -1,17 +1,17 @@
 <div class="transport_planning_statistics" style="width: 90%;margin: 0 auto">
     <!--調度需求 时间选择-->
     <div class="row z-depth-2 cyan" style="height: 50px;margin: 30px auto">
-        <div class="col s12 white-text">
+        <div class="col s12 white-text ">
             <div class="col s4 fz20" style="margin-top: 10px">调度需求</div>
             <div class="col s4 push-s4">
                 <div class="col s4">
-                    <input id="choosePlanStart_month" type="text"  class="datepicker" ng-model="startInitial" date>
+                    <input id="choosePlanStart_month" type="text" ng-value="startInitial" readonly>
                 </div>
                 <div class="col s1 center">
                     <p>至</p>
                 </div>
                 <div class="col s4">
-                    <input id="choosePlanEnd_month" type="text" class="datepicker" ng-model="endInitial" date>
+                    <input id="choosePlanEnd_month" type="text"  ng-value="endInitial" readonly>
                 </div>
                 <div class="col s2 center">
                     <i class="mdi mdi-magnify" ng-click="queryDate()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
@@ -91,7 +91,7 @@
         <div class="row z-depth-2">
             <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
                 <div class="col s12 left">
-                    <p>最近<span class="cyan-text">12</span>个月发车统计</p>
+                    <p>发车统计(按月)</p>
                 </div>
             </div>
             <!--数量统计-->

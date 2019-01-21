@@ -1,18 +1,18 @@
 app.controller("transport_planning_statistics_controller", ["$scope", "$host", "_basic","$timeout", function ($scope, $host, _basic,$timeout) {
 
     // 日期初始值
-    $scope.startInitial = moment(new Date()).format('YYYY') + "-01-01";
-    $scope.endInitial = moment(new Date()).format('YYYY-MM-DD');
-   /* // monthPicker控件
-    $('#choosePlanStart_month,#choosePlanEnd_month').MonthPicker({
-        Button: false,
-        MonthFormat: 'yymm'
-    });*/
+    $scope.startInitial = moment(new Date()).format('YYYY') + "01";
+    $scope.endInitial = moment(new Date()).format('YYYYMM');
     $scope.start = 0;
-    $scope.size = 12;
+  /*  $scope.size = 12;*/
     $scope.daySize =20;
     var month;
     var day;
+    // monthPicker控件
+    $('#choosePlanStart_month,#choosePlanEnd_month').MonthPicker({
+        Button: false,
+        MonthFormat: 'yymm'
+    });
     var obj={
         entrustId:$scope.client,
         makeId:$scope.truckBrand,
@@ -69,29 +69,12 @@ app.controller("transport_planning_statistics_controller", ["$scope", "$host", "
                 });
             }
         });
-
-        //起始地点
-        _basic.get($host.api_url + "/baseAddr?cityId=" + $scope.startCityId).then(function (locateData) {
-            if (locateData.success === true) {
-                $scope.locateList = locateData.result;
-            }
-            else {
-                swal(locateData.msg, "", "error");
-            }
-        });
-
-        // 经销商
-        _basic.get($host.api_url+"/receive").then(function (data) {
-            if(data.success==true){
-                $scope.get_receive=data.result;
-            }
-        });
-
     }
 
     //通过日期接口获取点击数据
     $scope.queryDate =function (){
         getPlanCountCar();
+        carMonth();
     };
 
     //起始城市改变 获取装车地点
@@ -214,9 +197,17 @@ app.controller("transport_planning_statistics_controller", ["$scope", "$host", "
     //获取计划发车数
     function getPlanCountCar(){
         $scope.carCount=0;
+        var monthStart = $('#choosePlanStart_month').val();
+        var monthEnd = $('#choosePlanEnd_month').val();
+        if(monthStart == "" || monthStart == undefined){
+            monthStart = $scope.startInitial;
+        }
+        if(monthEnd == "" || monthEnd == undefined){
+            monthEnd = $scope.endInitial;
+        }
         var obj={
-            DayStart:moment($scope.startInitial.toString()).format("YYYYMMDD"),
-            DayEnd: moment($scope.endInitial.toString()).format("YYYYMMDD"),
+            monthStart:monthStart,
+            monthEnd:monthEnd,
             entrustId:$scope.client,
             makeId:$scope.truckBrand,
             routeStartId:$scope.startCity,
@@ -224,7 +215,7 @@ app.controller("transport_planning_statistics_controller", ["$scope", "$host", "
             routeEndId:$scope.endCity,
             receiveId:$scope.receiveName
         };
-        _basic.get($host.api_url + "/carDayStat?"+_basic.objToUrl(obj)).then(function (data) {
+        _basic.get($host.api_url + "/carMonthStat?"+_basic.objToUrl(obj)).then(function (data) {
             if (data.success === true){
                 if(data.result.length==0){
                     $scope.carCount=0;
@@ -340,7 +331,15 @@ app.controller("transport_planning_statistics_controller", ["$scope", "$host", "
 
     // 获取月数据
     function carMonth(){
-        _basic.get($host.api_url + "/carMonthStat?start="+$scope.start+"&size="+$scope.size+'&'+_basic.objToUrl(obj)).then(function (data) {
+        var monthStart = $('#choosePlanStart_month').val();
+        var monthEnd = $('#choosePlanEnd_month').val();
+        if(monthStart == "" || monthStart == undefined){
+            monthStart = $scope.startInitial;
+        }
+        if(monthEnd == "" || monthEnd == undefined){
+            monthEnd = $scope.endInitial;
+        }
+        _basic.get($host.api_url + "/carMonthStat?monthStart="+monthStart+"&monthEnd="+monthEnd+'&'+_basic.objToUrl(obj)).then(function (data) {
             if (data.success === true){
                 data.result.reverse();
                 month = [];

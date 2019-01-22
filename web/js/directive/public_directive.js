@@ -97,6 +97,9 @@ publicDirective.directive('header', function () {
                         }
                     })
                 }
+                else{
+                    swal("新密码和确认密码不一致", "", "error");
+                }
             };
             //退出登录
             $scope.logOut = function () {

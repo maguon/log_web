@@ -51,7 +51,7 @@
                                 </div>
                                 <input type="text" class="cyan-text center text-lighten-1 col s6" style="margin-left: 0"
                                        value="{{brand.brand_name}}" readonly="readonly">
-                                <div class="col s2 center cyan-text text-lighten-1 mdi mdi-pencil" style="margin-left: 0;cursor: pointer" ng-click="postLoad(brand.id)"> </div>
+                                <div class="col s2 center cyan-text text-lighten-1 mdi  mdi-gas-station prefix" style="margin-left: 0;cursor: pointer" ng-click="postLoad(brand.id)"> </div>
                             </div>
                         </div>
                     </div>
@@ -73,12 +73,12 @@
 
                 <div class="col s6 input-field">
                     <input id="load" type="number" name="load" ng-model="loadItem.load_distance_oil" style="margin: 0;">
-                    <label for="load">重载油耗(百公里/升)</label>
+                    <label for="load">重载油耗(升/百公里)</label>
                 </div>
 
                 <div class="col s6 input-field">
                     <input id="not_load" type="number" name="not_load" ng-model="loadItem.no_load_distance_oil" style="margin: 0;">
-                    <label for="not_load">空载油耗(百公里/升)</label>
+                    <label for="not_load">空载油耗(升/百公里)</label>
                 </div>
 
             </div>

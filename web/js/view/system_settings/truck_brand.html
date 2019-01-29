@@ -49,12 +49,53 @@
                                     编号：{{brand.id}}
 
                                 </div>
-                                <input type="text" class="cyan-text center text-lighten-1 col s8" style="margin-left: 0"
+                                <input type="text" class="cyan-text center text-lighten-1 col s6" style="margin-left: 0"
                                        value="{{brand.brand_name}}" readonly="readonly">
+                                <div class="col s2 center cyan-text text-lighten-1 mdi mdi-pencil" style="margin-left: 0;cursor: pointer" ng-click="postLoad(brand.id)"> </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--车头的 100公里重载油量 和 空载油量模态框  百公里/升-->
+
+<div id="postLoad" class="modal">
+    <div class="cyan lighten-1 white-text center-align modal_title" >油耗设置</div>
+    <div class="modal-content">
+        <div class="row col" style="width: 80%;">
+
+            <div class="col s12" style="height: 70px">
+
+                <div class="col s6 input-field">
+                    <input id="load" type="number" name="load" ng-model="loadItem.load_distance_oil" style="margin: 0;">
+                    <label for="load">重载油耗(百公里/升)</label>
+                </div>
+
+                <div class="col s6 input-field">
+                    <input id="not_load" type="number" name="not_load" ng-model="loadItem.no_load_distance_oil" style="margin: 0;">
+                    <label for="not_load">空载油耗(百公里/升)</label>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row modal-footer valign-wrapper">
+        <div class=" col s12">
+            <div class="col s2 offset-s4">
+                <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                    取消
+                </a>
+            </div>
+            <div class="col s2">
+                <a ng-click="putInfo()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                    确定
+                </a>
             </div>
         </div>
     </div>

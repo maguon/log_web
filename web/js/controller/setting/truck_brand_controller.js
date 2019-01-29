@@ -51,4 +51,37 @@ app.controller("truck_brand_controller", ["$scope", "_basic", "_config", "$host"
         }
     }
 
+    //设置 车头的 100公里重载油量 和 空载油量
+    $scope.postLoad = function (id){
+        _basic.get($host.api_url + "/brand?brandId=" + id).then(function (data) {
+            if (data.success == true && data.result.length >= 0) {
+                $scope.loadItem = data.result[0];
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        })
+        $scope.brandId=id;
+        $("#postLoad").modal("open");
+    }
+    $scope.putInfo = function (){
+        if($scope.loadItem.load_distance_oil == "" || $scope.loadItem.no_load_distance_oil == ""){
+            swal("重载油耗或空载油耗不能为空！", "", "warning");
+        }
+        else{
+            _basic.put($host.api_url + "/user/" + userId + "/brand/" +  $scope.brandId+"/truckLoadDistanceOil",{
+                loadDistanceOil: $scope.loadItem.load_distance_oil,
+                noLoadDistanceOil: $scope.loadItem.no_load_distance_oil
+            }).then(function (data) {
+                if (data.success === true) {
+                    swal("保存成功", "", "success");
+                    $scope.getTruckBrand();
+                    $("#postLoad").modal("close");
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
+    }
 }]);

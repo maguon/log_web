@@ -67,13 +67,26 @@
                 </div>
 
                 <div class="row">
-                    <div class="input-field col s8 cyan_icon">
+                    <div class="input-field col s6 cyan_icon">
                         <i class="mdi mdi-map-marker-radius prefix" title="加油地"></i>
                         <input disabled type="text" ng-value="driveRefuel_details.refuel_address">
                     </div>
-                    <div class="input-field col s4 cyan_icon">
+                    <div class="input-field col  cyan_icon" style="width: 26%">
                         <i class="mdi mdi-gas-station prefix" title="加油时间"></i>
                         <input disabled type="text" ng-value="driveRefuel_details.refuel_date | date:'yyyy-MM-dd HH:mm:ss'">
+                    </div>
+                    <div class="input-field col  cyan_icon" style="width:12%">
+                        <i class="mdi mdi-tab prefix" title="重载 空载"></i>
+                        <input disabled type="text" ng-if="driveRefuel_details.load_flag==0" value="空载">
+                        <input disabled type="text" ng-if="driveRefuel_details.load_flag==1" value="重载">
+                        <input disabled type="text" ng-if="driveRefuel_details.load_flag==null" value="未知">
+
+                    </div>
+                    <div class="input-field col  cyan_icon" style="width: 12%">
+                        <i class="mdi mdi-road-variant prefix" title="公里数"></i>
+                        <input disabled type="text" ng-if="driveRefuel_details.distance!==null" ng-value="driveRefuel_details.distance">
+                        <input disabled type="text"  ng-if="driveRefuel_details.distance==null" ng-value="driveRefuel_details.distance=0">
+
                     </div>
                 </div>
 

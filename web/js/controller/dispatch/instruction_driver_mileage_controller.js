@@ -78,6 +78,35 @@ app.controller("instruction_driver_mileage_controller", ["$scope","$rootScope","
         };
     }
 
+
+    // 数据导出
+    $scope.exportItem = function (id,truckId) {
+        var obj = {
+            driveId:id,
+            truckId:truckId,
+            dateIdStart: moment($scope.driver_mileage_startTime).format("YYYY-MM-DD"),
+            dateIdEnd:moment($scope.driver_mileage_endTime).format("YYYY-MM-DD"),
+            taskStatusArr:[9,10]
+
+        };
+        swal({
+                title: "确定导出司机工作详情表？",
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                closeOnConfirm: true,
+                closeOnCancel:true
+            },
+            function () {
+                window.open($host.api_url + "/driveDistanceLoad.csv?" + _basic.objToUrl(obj));
+            })
+
+    };
+
+
     /**
      * 画面初期显示时，用来获取画面必要信息的初期方法。
      */

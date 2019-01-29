@@ -10,7 +10,7 @@
             <div class="divider cyan" style="height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
             <div class="row no-marBottom left-align fz17 bold_txt" style="width: 70%;margin: 0 auto">
                 <div class="row">
-                    <div class="input-field col s3 cyan_icon">
+                    <div class="input-field col s2 cyan_icon">
                         <i class="mdi mdi-truck prefix" title="车牌号"></i>
                         <input disabled type="text" ng-value="driveRefuel_details.truck_num">
                     </div>
@@ -18,10 +18,26 @@
                         <i class="mdi mdi-account prefix" title="司机"></i>
                         <input disabled type="text" ng-value="driveRefuel_details.drive_name">
                     </div>
-                    <div class="input-field col s4 cyan_icon">
+                    <div class="input-field col s3 cyan_icon">
                         <i class="mdi mdi-ray-start-end prefix" title="关联线路"></i>
                         <input disabled type="text" ng-value="driveRefuel_details.route_start + ' --> ' + driveRefuel_details.route_end + '    ' + driveRefuel_details.dp_route_task_id">
                     </div>
+                    <div class="input-field col s2 cyan_icon">
+                        <i class="mdi mdi-tab prefix" title="重载 空载"></i>
+                        <input disabled type="text" ng-if="driveRefuel_details.load_flag==0" value="空载">
+                        <input disabled type="text" ng-if="driveRefuel_details.load_flag==1" value="重载">
+                        <input disabled type="text" ng-if="driveRefuel_details.load_flag==null" value="未知">
+
+                    </div>
+                    <div class="input-field col s2  cyan_icon" >
+                        <i class="mdi mdi-road-variant prefix" title="公里数"></i>
+                        <input disabled type="text" ng-if="driveRefuel_details.distance!==null" ng-value="driveRefuel_details.distance+' 公里 '">
+                        <input disabled type="text"  ng-if="driveRefuel_details.distance==null" ng-value="driveRefuel_details.distance=0">
+
+                    </div>
+                </div>
+
+                <div class="row">
                     <div class="input-field col s2 cyan_icon" ng-if="driveRefuel_details.check_status==2">
                         <i class="mdi mdi-clipboard-check prefix" title="审核结果"></i>
                         <input style="color: #59b349 !important" disabled type="text" value="通过">
@@ -34,21 +50,19 @@
                         <i class="mdi mdi-clipboard-alert prefix" title="审核结果"></i>
                         <input disabled type="text" value="待审核">
                     </div>
-                </div>
-
-                <div class="row">
+                    <div class="input-field col s3 cyan_icon">
+                        <i class="mdi mdi-timetable prefix" title="申报时间"></i>
+                        <input disabled type="text" ng-value="driveRefuel_details.created_on | date:'yyyy-MM-dd HH:mm:ss'">
+                    </div>
                     <div class="input-field col s3 cyan_icon">
                         <i class="mdi mdi-oil prefix" title="加油量"></i>
                         <input disabled type="text" ng-value="driveRefuel_details.refuel_volume">
                     </div>
-                    <div class="input-field col s3 cyan_icon">
+                    <div class="input-field col s2 cyan_icon">
                         <i class="mdi mdi-coin prefix" title="加油金额"></i>
                         <input disabled type="text" ng-value="driveRefuel_details.refuel_money">
                     </div>
-                    <div class="input-field col s4 cyan_icon">
-                        <i class="mdi mdi-timetable prefix" title="申报时间"></i>
-                        <input disabled type="text" ng-value="driveRefuel_details.created_on | date:'yyyy-MM-dd HH:mm:ss'">
-                    </div>
+
                     <div class="input-field col s2 cyan_icon" ng-if="!(driveRefuel_details.check_status==1)">
                         <i class="mdi mdi-account-box prefix" title="审批人"></i>
                         <input disabled type="text" ng-value="driveRefuel_details.check_user_name">
@@ -67,26 +81,13 @@
                 </div>
 
                 <div class="row">
-                    <div class="input-field col s6 cyan_icon">
+                    <div class="input-field col s8 cyan_icon">
                         <i class="mdi mdi-map-marker-radius prefix" title="加油地"></i>
                         <input disabled type="text" ng-value="driveRefuel_details.refuel_address">
                     </div>
-                    <div class="input-field col  cyan_icon" style="width: 26%">
+                    <div class="input-field col s4  cyan_icon" >
                         <i class="mdi mdi-gas-station prefix" title="加油时间"></i>
                         <input disabled type="text" ng-value="driveRefuel_details.refuel_date | date:'yyyy-MM-dd HH:mm:ss'">
-                    </div>
-                    <div class="input-field col  cyan_icon" style="width:12%">
-                        <i class="mdi mdi-tab prefix" title="重载 空载"></i>
-                        <input disabled type="text" ng-if="driveRefuel_details.load_flag==0" value="空载">
-                        <input disabled type="text" ng-if="driveRefuel_details.load_flag==1" value="重载">
-                        <input disabled type="text" ng-if="driveRefuel_details.load_flag==null" value="未知">
-
-                    </div>
-                    <div class="input-field col  cyan_icon" style="width: 12%">
-                        <i class="mdi mdi-road-variant prefix" title="公里数"></i>
-                        <input disabled type="text" ng-if="driveRefuel_details.distance!==null" ng-value="driveRefuel_details.distance">
-                        <input disabled type="text"  ng-if="driveRefuel_details.distance==null" ng-value="driveRefuel_details.distance=0">
-
                     </div>
                 </div>
 

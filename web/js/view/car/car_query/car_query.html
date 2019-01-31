@@ -91,11 +91,12 @@
         <table class="bordered striped text_mid">
             <thead class="blue-grey lighten-5">
             <tr class="grey-text text-darken-2">
-                <th width="320" data-field="">VIN</th>
-                <th width="150" data-field="">制造商</th>
-                <th width="180" data-field="">发运地名称</th>
-                <th width="160" data-field="">目的地城市</th>
-                <th width="180" data-field="">委托方</th>
+                <th data-field="">VIN</th>
+                <th data-field="">制造商</th>
+                <th data-field="">发运地城市</th>
+                <th data-field="">发运地地址</th>
+                <th data-field="">目的地城市</th>
+                <th data-field="">委托方</th>
                 <th data-field="">经销商</th>
                 <th data-field="">指令时间</th>
                 <th>操作</th>
@@ -103,11 +104,12 @@
             </thead>
             <tbody>
             <tr ng-repeat="response in responseData" class="grey-text text-darken-1">
-                <td width="320">{{response.vin}}</td>
-                <td width="150">{{response.make_name}}</td>
-                <td width="180">{{response.addr_name}}</td>
-                <td width="160">{{response.route_end}}</td>
-                <td width="180">{{response.en_short_name}}</td>
+                <td>{{response.vin}}</td>
+                <td>{{response.make_name}}</td>
+                <td>{{response.route_start}}</td>
+                <td>{{response.addr_name}}</td>
+                <td>{{response.route_end}}</td>
+                <td>{{response.en_short_name}}</td>
                 <td>{{response.re_short_name}}</td>
                 <td>{{response.order_date | date:'yyyy-MM-dd'}}</td>
                 <td width="100" class="operation">

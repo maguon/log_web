@@ -39,7 +39,17 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
 
     //未估值车辆 已估值车辆 已估值金额
     function getCarMsg (){
-        _basic.get($host.api_url + "/entrustCarCount?orderStart=" +$scope.instruct_starTime +"&orderEnd=" +$scope.instruct_endTime).then(function (data) {
+        var obj = {
+            entrustId: $scope.entrustId,
+            orderStart: $scope.instruct_starTime,
+            orderEnd: $scope.instruct_endTime,
+            makeId: $scope.car_brand,
+            routeStartId: $scope.startCity,
+            addrId: $scope.locateId,
+            routeEndId: $scope.endCity,
+            receiveId: $scope.receiveId
+        };
+        _basic.get($host.api_url + "/entrustCarCount?"+ _basic.objToUrl(obj)).then(function (data) {
             if (data.success == true ) {
                 if(data.result.length > 0){
                     $scope.carMsg = data.result[0];
@@ -54,7 +64,7 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
                 swal(data.msg, "", "error");
             }
         });
-        _basic.get($host.api_url + "/entrustCarNotCount?orderStart=" +$scope.instruct_starTime +"&orderEnd=" +$scope.instruct_endTime).then(function (data) {
+        _basic.get($host.api_url + "/entrustCarNotCount?"+ _basic.objToUrl(obj)).then(function (data) {
             if (data.success == true ) {
                 if(data.result.length > 0){
                     $scope.notCarMsg = data.result[0];
@@ -156,7 +166,6 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
             $("#next").hide();
         }
         else {
-
             var obj = {
                 entrustId: $scope.entrustId,
                 orderStart: $scope.instruct_starTime,
@@ -184,6 +193,49 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
                 })
         }
     };
+
+    //未估值车辆导出
+    $scope.exportNotCar = function(){
+        if( $scope.notCarMsg==null||$scope.notCarMsg==undefined||$scope.notCarMsg.entrust_car_not_count==0){
+            swal({
+                    title: "未估值车辆为空",
+                    text: "",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "确定",
+                    cancelButtonText: "取消",
+                    closeOnConfirm: true,
+                    closeOnCancel: true
+                })
+        }
+        else {
+            var obj = {
+                entrustId: $scope.entrustId,
+                orderStart: $scope.instruct_starTime,
+                orderEnd: $scope.instruct_endTime,
+                makeId: $scope.car_brand,
+                routeStartId: $scope.startCity,
+                addrId: $scope.locateId,
+                routeEndId: $scope.endCity,
+                receiveId: $scope.receiveId
+            };
+            swal({
+                    title: "确定导出未估值车辆报表？",
+                    text: "",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "确定",
+                    cancelButtonText: "取消",
+                    closeOnConfirm: true,
+                    closeOnCancel: true
+                },
+                function () {
+                    window.open($host.api_url + "/entrustNotCar.csv?" + _basic.objToUrl(obj));
+                })
+        }
+    }
 
     //查询功能
     $scope.getSettlement = function (){

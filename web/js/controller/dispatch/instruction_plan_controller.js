@@ -26,7 +26,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     $scope.selectWhereStart=1;
     $scope.truckNumberCount =0;
     $scope.truckIdCount =0;
-
+    $scope.startCityId='';
     //中间调度指令边儿上的（待运和在途）
     function truckDispatchCount(){
         _basic.get($host.api_url + "/truckDispatchCount?dispatchFlag=1").then(function (data) {
@@ -193,7 +193,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         _basic.get($host.api_url + "/city").then(function (cityData) {
             if (cityData.success === true) {
                 $scope.cityList = cityData.result;
-                $('#citySelect').select2({
+                $('#citySelectOn').select2({
                     placeholder: '城市',
                     containerCssClass : 'select2_dropdown',
                     allowClear: true
@@ -566,28 +566,50 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         }
     };
 
+    $scope.changeStartSelectCity =function(city){
+        if(city==undefined){
+            return;
+        }
+        $scope.startCityId=city.id;
+        selectCity();
+    }
+
     // 生成当前线路按钮,点击显示路线信息并获取城市信息
     $scope.showCreateLine = function (cityId) {
-        var startCityId;
         $scope.lineEndCityInfo = "";
         $scope.lineStartDate = "";
         // 线路的起始城市根据当前线路的最后一条的结束城市为准
         if($scope.currentLineList&&$scope.currentLineList.length === 0){
             $scope.startCityName = $scope.dispatchInfo.city_name;
-            startCityId = cityId;
+            $scope.startCityId = cityId;
         }
         else{
             $scope.startCityName = $scope.currentLineList[$scope.currentLineList.length - 1].city_route_end;
-            startCityId = $scope.currentLineList[$scope.currentLineList.length - 1].route_end_id
+            $scope.startCityId = $scope.currentLineList[$scope.currentLineList.length - 1].route_end_id
         }
-        _basic.get($host.api_url + "/cityRouteDispatch?routeStartId=" + startCityId).then(function (cityData) {
+        _basic.get($host.api_url + "/city").then(function (cityData) {
+            if (cityData.success === true) {
+                $scope.citySeleList = cityData.result;
+                $('#startSeleCity').select2({
+                    placeholder: $scope.startCityName,
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+
+                });
+            }
+            else {
+                swal(cityData.msg, "", "error");
+            }
+        });
+        selectCity();
+        $scope.lineInfo = true;
+    };
+
+    function selectCity(){
+        _basic.get($host.api_url + "/cityRouteDispatch?routeStartId=" +  $scope.startCityId).then(function (cityData) {
             if (cityData.success === true) {
                 $scope.cityList = cityData.result;
                 $('#chooseEndCity').select2({
-                    placeholder: '选择城市',
-                    containerCssClass: 'select2_dropdown'
-                });
-                $('#chooseEndCity1').select2({
                     placeholder: '选择城市',
                     containerCssClass: 'select2_dropdown'
                 });
@@ -596,8 +618,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 swal(cityData.msg, "", "error");
             }
         });
-        $scope.lineInfo = true;
-    };
+    }
 
     //打开生成临时路线模态框
     $scope.showCreateTemporaryLine = function(){
@@ -662,10 +683,16 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     // 新增路线 发布 按钮
     $scope.confirmChange = function () {
+        var routeStartId;
+        var routeStart;
         if ($scope.lineEndCityInfo != "" && $scope.lineStartDate != "") {
-            var routeStartId = $scope.currentLineList.length === 0 ? $scope.dispatchInfo.current_city :  $scope.currentLineList[$scope.currentLineList.length - 1].route_end_id;
-            var routeStart = $scope.currentLineList.length === 0 ? $scope.dispatchInfo.city_name :  $scope.currentLineList[$scope.currentLineList.length - 1].city_route_end;
-
+            if($scope.startSeleCity!==null&&$scope.startSeleCity!==undefined){
+                routeStartId=$scope.startSeleCity.id;
+                routeStart=$scope.startSeleCity.city_name;
+            }else {
+                 routeStartId = $scope.currentLineList.length === 0 ? $scope.dispatchInfo.current_city :  $scope.currentLineList[$scope.currentLineList.length - 1].route_end_id;
+                 routeStart = $scope.currentLineList.length === 0 ? $scope.dispatchInfo.city_name :  $scope.currentLineList[$scope.currentLineList.length - 1].city_route_end;
+            }
             _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask", {
                 truckId: $scope.dispatchInfo.truck_id,
                 routeId:$scope.lineEndCityInfo.route_id,

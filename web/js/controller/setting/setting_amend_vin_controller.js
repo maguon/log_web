@@ -10,8 +10,7 @@ app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$hos
         $scope.car_details.route_start_id='';
         if($scope.demand_vin.length==17){
             var obj={
-                vin:$scope.demand_vin,
-                active:1
+                vin:$scope.demand_vin
             };
             _basic.get($host.api_url+"/car?"+_basic.objToUrl(obj)).then(function (data) {
                 if(data.success=true){

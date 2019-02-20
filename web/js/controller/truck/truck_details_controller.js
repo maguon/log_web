@@ -56,7 +56,7 @@ app.controller("truck_details_controller", ["$scope","$rootScope", "$state", "$s
 
     //車牌号
     function getTruckNumList () {
-        _basic.get($host.api_url + "/truckFirst").then(function (data) {
+        _basic.get($host.api_url + "/truckFirst?truckType=1").then(function (data) {
             if (data.success === true) {
                 $scope.truckNumList = data.result;
                 $('#search_num').select2({
@@ -72,7 +72,7 @@ app.controller("truck_details_controller", ["$scope","$rootScope", "$state", "$s
     }
     //車牌号
     function getTrailerNumList () {
-        _basic.get($host.api_url + "/truckTrailer").then(function (data) {
+        _basic.get($host.api_url + "/truckTrailer?truckType=2").then(function (data) {
             if (data.success === true) {
                 $scope.truckTrailerNumList = data.result;
                 $('#search_hand_num').select2({
@@ -274,7 +274,7 @@ app.controller("truck_details_controller", ["$scope","$rootScope", "$state", "$s
     // 挂车接口查询
     $scope.hand_query = function () {
         // 基本检索URL
-        var url = $host.api_url + "/truckTrailer?truckType=1&start=" + $scope.hand_start + "&size=" + $scope.hand_size;
+        var url = $host.api_url + "/truckTrailer?truckType=2&start=" + $scope.hand_start + "&size=" + $scope.hand_size;
         // 检索条件
         var conditionsObj = makeConditions2();
         var conditions = _basic.objToUrl(conditionsObj);

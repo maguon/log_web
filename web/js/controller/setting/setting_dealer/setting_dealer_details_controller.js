@@ -112,48 +112,22 @@ function getCarMake(){
             }
         });
     };
- /*   $scope.changeMakeName =function(id){
-        if(id==undefined){
-            return;
-        }
-        // 车辆品牌
-        _basic.get($host.api_url + "/carMake?makeId="+id).then(function (data) {
-            if (data.success == true) {
-                $scope.make_name = data.result[0].make_name;
-            }
-        });
-    }*/
+
     // 修改经销商
     $scope.change_setting_dealer = function () {
-        var cleanFeeCount = $scope.dealer_details.clean_fee == null ? 0 : $scope.dealer_details.clean_fee.toFixed(2);
-        $scope.dealer_details.make_id = $scope.dealer_details.make_id == '' ?0 :$scope.dealer_details.make_id;
+
         if ($scope.dealer_details.receive_type!==null
             &&$scope.dealer_details.short_name!==undefined
             &&$scope.dealer_details.receive_name!==undefined
             &&$scope.dealer_details.city_id!==''
             &&$scope.dealer_details.address!=='') {
-            var obj = {
-                shortName: $scope.dealer_details.short_name,
-                receiveName: $scope.dealer_details.receive_name,
-                receiveType:$scope.dealer_details.receive_type,
-                makeId:$scope.dealer_details.make_id,
-                makeName: $scope.dealer_details.make_name,
-                cleanFee: parseFloat(cleanFeeCount),
-                address: $("#amapAddress").val(),
-                lng: $scope.lng,
-                lat: $scope.lat,
-                cityId: $scope.dealer_details.city_id,
-                remark: $scope.dealer_details.remark
-            };
+            // 车辆品牌
+            $scope.dealer_details.make_id = $scope.dealer_details.make_id == '' ?0 :$scope.dealer_details.make_id;
+            _basic.get($host.api_url + "/carMake?makeId="+$scope.dealer_details.make_id).then(function (data) {
+                if (data.success == true) {
+                    $scope.dealer_details.make_name = data.result[0].make_name;
 
-            _basic.put($host.api_url + "/user/" + userId + "/receive/" + $stateParams.dealer_id, obj).then(function (data) {
-                if (data.success === true) {
-                    swal("修改成功", "", "success");
-                    $scope.submitted = false;
-                    $scope.seeDetails();
-                }
-                else {
-                    swal(data.msg, "", "error");
+                    putReceive();
                 }
             });
         }
@@ -161,6 +135,34 @@ function getCarMake(){
             swal("请填写完整信息！", "", "warning");
         }
     };
+
+
+    function putReceive(){
+        var cleanFeeCount = $scope.dealer_details.clean_fee == null ? 0 : $scope.dealer_details.clean_fee.toFixed(2);
+        var obj={
+            shortName: $scope.dealer_details.short_name,
+            receiveName: $scope.dealer_details.receive_name,
+            receiveType:$scope.dealer_details.receive_type,
+            makeId:$scope.dealer_details.make_id,
+            makeName: $scope.dealer_details.make_name,
+            cleanFee: parseFloat(cleanFeeCount),
+            address: $("#amapAddress").val(),
+            lng: $scope.lng,
+            lat: $scope.lat,
+            cityId: $scope.dealer_details.city_id,
+            remark: $scope.dealer_details.remark
+        }
+        _basic.put($host.api_url + "/user/" + userId + "/receive/" + $stateParams.dealer_id, obj ).then(function (data) {
+            if (data.success === true) {
+                swal("修改成功", "", "success");
+                $scope.submitted = false;
+                $scope.seeDetails();
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
 
     // 获取经销商操作记录
     $scope.getOperateDetails = function () {

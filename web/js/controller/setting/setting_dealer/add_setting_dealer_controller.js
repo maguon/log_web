@@ -102,7 +102,7 @@ app.controller("add_setting_dealer_controller", ["$scope", "_basic", "_config", 
     // 新增经销商
     $scope.add_setting_dealer = function () {
             if ($scope.lng != 121.62 && $scope.lat != 38.92&&$scope.receive_type!==undefined&&$scope.short_name!==undefined&&
-                $scope.deal_name!==undefined&&$scope.setting_city_id!==null&&$scope.input_address!==undefined) {
+                $scope.deal_name!==undefined&&$scope.setting_city_id!==null&&$scope.setting_city_id!==undefined&&$scope.input_address!==undefined) {
                 if($scope.car_brand == undefined){
                     var obj = {
                         shortName: $scope.short_name,

@@ -5,23 +5,42 @@
 app.controller("setting_dealer_details_controller", ["$scope","$state", "$stateParams",  "_basic", "_config", "baseService", "$host", "$stateParams", function ($scope, $state, $stateParams, _basic, _config, baseService, $host, $stateParams) {
     var userId = _basic.getSession(_basic.USER_ID);
     var marker;
+    $scope.dealer_details=null;
     $scope.receiveTypeList=_config.receiveType;
     // 返回
     $scope.return = function () {
         $state.go($stateParams.from,{from:"setting_dealer__details"}, {reload: true})
     };
-  function getCityList() {
-        // 获取城市
-        _basic.get($host.api_url + "/city").then(function (data) {
-            if (data.success == true) {
-                $scope.setting_city = data.result;
-                $('#start_city').select2({
-                    placeholder: '选择城市',
-                    containerCssClass : 'select2_dropdown',
-                    allowClear: true
-                });
-            }
-        });
+
+
+    function getCityList(selectText) {
+        if(selectText==''||selectText==undefined){
+            // 获取城市
+            _basic.get($host.api_url + "/city").then(function (data) {
+                if (data.success == true) {
+                    $scope.setting_city = data.result;
+                    $('#start_city').select2({
+                        placeholder: '选择城市',
+                        containerCssClass : 'select2_dropdown',
+                        allowClear: true
+                    });
+                }
+            });
+
+        }else{
+            // 获取城市
+            _basic.get($host.api_url + "/city").then(function (data) {
+                if (data.success == true) {
+                    $scope.setting_city = data.result;
+                    $('#start_city').select2({
+                        placeholder: selectText,
+                        containerCssClass : 'select2_dropdown',
+                        allowClear: true
+                    });
+                }
+            });
+
+        }
 
     };
 function getCarMake(){
@@ -106,7 +125,7 @@ function getCarMake(){
                 $scope.dealer_details.city_id = data.result[0].city_id;
                 $scope.lng = data.result[0].lng ? data.result[0].lng : 121.62;
                 $scope.lat = data.result[0].lat ? data.result[0].lat : 38.92;
-
+                getCityList($scope.dealer_details.city_name)
                 // 显示经销商位置
                 $scope.showPosition($scope.lng, $scope.lat);
             }

@@ -51,7 +51,8 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
             {name: '发运地址ID', type: 'number', length: 3, require: true},
             {name: '目的地ID', type: 'number', length: 3},
             {name: '经销商ID', type: 'number', length: 3},
-            {name: '指令时间', type: 'string'}];
+            {name: '指令时间', type: 'string'},
+            {name: '船名', type: 'string', length: 15}];
         // 头部条件判断
         $scope.titleFilter = function (headerArray) {
             if (colObjs.length != headerArray.length) {
@@ -474,58 +475,58 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
             $scope.flag = false;
 
         }
-    // 城市信息获取
-    $scope.get_Msg = function () {
-        _basic.get($host.api_url + "/city").then(function (data) {
-            if (data.success == true) {
-                $scope.get_city = data.result;
-                $('#chooseStartCity').select2({
-                    containerCssClass: 'select2_dropdown'
-                });
-                $('#chooseEndCity').select2({
-                    containerCssClass: 'select2_dropdown'
-                });
-            }
-        });
+        // 城市信息获取
+        $scope.get_Msg = function () {
+            _basic.get($host.api_url + "/city").then(function (data) {
+                if (data.success == true) {
+                    $scope.get_city = data.result;
+                    $('#chooseStartCity').select2({
+                        containerCssClass: 'select2_dropdown'
+                    });
+                    $('#chooseEndCity').select2({
+                        containerCssClass: 'select2_dropdown'
+                    });
+                }
+            });
 
-        // 车辆品牌查询
-        _basic.get($host.api_url + "/carMake").then(function (data) {
-            if (data.success == true) {
-                $scope.makecarName = data.result;
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
+            // 车辆品牌查询
+            _basic.get($host.api_url + "/carMake").then(function (data) {
+                if (data.success == true) {
+                    $scope.makecarName = data.result;
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
 
-        // 经销商
-        _basic.get($host.api_url + "/receive").then(function (data) {
-            if (data.success == true) {
-                $scope.get_receive = data.result;
-            }
-        });
+            // 经销商
+            _basic.get($host.api_url + "/receive").then(function (data) {
+                if (data.success == true) {
+                    $scope.get_receive = data.result;
+                }
+            });
 
-        // 委托方
-        _basic.get($host.api_url + "/entrust").then(function (data) {
-            if (data.success == true) {
-                $scope.get_entrust = data.result;
-            }
-        })
-    };
-    $scope.get_Msg();
+            // 委托方
+            _basic.get($host.api_url + "/entrust").then(function (data) {
+                if (data.success == true) {
+                    $scope.get_entrust = data.result;
+                }
+            })
+        };
+        $scope.get_Msg();
 
-    // 发运地城市地质联动
-    $scope.get_addr = function (id) {
-        $scope.selectedText = $("#chooseStartCity").find("option:selected").text();
-        _basic.get($host.api_url + "/baseAddr?cityId=" + id).then(function (data) {
-            if (data.success == true) {
-                $scope.start_address = data.result;
-            }
-            else {
-                swal(data.msg, "", "error")
-            }
-        })
-    };
+        // 发运地城市地质联动
+        $scope.get_addr = function (id) {
+            $scope.selectedText = $("#chooseStartCity").find("option:selected").text();
+            _basic.get($host.api_url + "/baseAddr?cityId=" + id).then(function (data) {
+                if (data.success == true) {
+                    $scope.start_address = data.result;
+                }
+                else {
+                    swal(data.msg, "", "error")
+                }
+            })
+        };
 
         //模糊查询
         var vinObjs ={}
@@ -596,60 +597,60 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
 
 
 
-    // 修改
-    $scope.putDataItem = function (id) {
-        $scope.putDataItemId = id;
-        if($scope.arrive_city==0||$scope.arrive_city==''||$scope.start_city==0||$scope.start_city==''){
-            swal('请填写完整信息！',"","error")
-        }
-        else{
-            _basic.get($host.api_url +'/city?cityId='+$scope.start_city).then(function (data) {
-                if (data.success == true) {
-                    $scope.putStartCity=data.result[0].city_name;
-                }
-                else {
-                    swal(data.msg, "", "error")
-                }
-            });
-            _basic.get($host.api_url +'/city?cityId='+$scope.arrive_city).then(function (data) {
-                if (data.success == true) {
-                    $scope.putArriveCity=data.result[0].city_name;
-                    putSingleData();
-                }
-                else {
-                    swal(data.msg, "", "error")
-                }
-            });
+        // 修改
+        $scope.putDataItem = function (id) {
+            $scope.putDataItemId = id;
+            if($scope.arrive_city==0||$scope.arrive_city==''||$scope.start_city==0||$scope.start_city==''){
+                swal('请填写完整信息！',"","error")
+            }
+            else{
+                _basic.get($host.api_url +'/city?cityId='+$scope.start_city).then(function (data) {
+                    if (data.success == true) {
+                        $scope.putStartCity=data.result[0].city_name;
+                    }
+                    else {
+                        swal(data.msg, "", "error")
+                    }
+                });
+                _basic.get($host.api_url +'/city?cityId='+$scope.arrive_city).then(function (data) {
+                    if (data.success == true) {
+                        $scope.putArriveCity=data.result[0].city_name;
+                        putSingleData();
+                    }
+                    else {
+                        swal(data.msg, "", "error")
+                    }
+                });
+            };
         };
-    };
 
-function putSingleData(){
-    var obj = {
-        "vin": $scope.commodityCarList.vin,
-        "makeId": $scope.commodityCarList.make_id,
-        "makeName": $("#look_makecarName").find("option:selected").text(),
-        "orderDate": $scope.commodityCarList.order_date,
-        "remark": $scope.commodityCarList.remark,
-        "routeStartId": $scope.start_city,
-        "routeStart":$scope.putStartCity,
-        "baseAddrId": $scope.start_addr,
-        "routeEndId": $scope.arrive_city,
-        "routeEnd":$scope.putArriveCity,
-        "receiveId": $scope.commodityCarList.receive_id,
-        "entrustId": $scope.commodityCarList.entrust_id
-    };
-    // 修改仓库信息
-    _basic.put($host.api_url + "/user/" + userId + "/car/" +  $scope.putDataItemId, _basic.removeNullProps(obj)).then(function (data) {
-        if (data.success == true) {
-            $('#commodityCar').modal('close');
-            swal("修改成功", "", "success");
+       function putSingleData(){
+        var obj = {
+            "vin": $scope.commodityCarList.vin,
+            "makeId": $scope.commodityCarList.make_id,
+            "makeName": $("#look_makecarName").find("option:selected").text(),
+            "orderDate": $scope.commodityCarList.order_date,
+            "remark": $scope.commodityCarList.remark,
+            "routeStartId": $scope.start_city,
+            "routeStart":$scope.putStartCity,
+            "baseAddrId": $scope.start_addr,
+            "routeEndId": $scope.arrive_city,
+            "routeEnd":$scope.putArriveCity,
+            "receiveId": $scope.commodityCarList.receive_id,
+            "entrustId": $scope.commodityCarList.entrust_id
+        };
+        // 修改仓库信息
+        _basic.put($host.api_url + "/user/" + userId + "/car/" +  $scope.putDataItemId, _basic.removeNullProps(obj)).then(function (data) {
+            if (data.success == true) {
+                $('#commodityCar').modal('close');
+                swal("修改成功", "", "success");
 
-        }
-        else {
-            swal(data.msg, "", "error")
-        }
-    });
-}
+            }
+            else {
+                swal(data.msg, "", "error")
+            }
+        });
+    }
 
 
 

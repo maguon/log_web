@@ -52,7 +52,7 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
             {name: '目的地ID', type: 'number', length: 3},
             {name: '经销商ID', type: 'number', length: 3},
             {name: '指令时间', type: 'string'},
-            {name: '船名', type: 'string', length: 15}];
+            {name: '船名', type: 'string'}];
         // 头部条件判断
         $scope.titleFilter = function (headerArray) {
             if (colObjs.length != headerArray.length) {

@@ -1,12 +1,10 @@
-app.controller("damage_management_details_controller", ["$scope", "$stateParams", "$host", "_config", "_basic", function ($scope, $stateParams, $host, _config, _basic) {
+app.controller("damage_management_details_controller", ["$scope","$state", "$stateParams", "$host", "_config", "_basic", function ($scope,$state, $stateParams, $host, _config, _basic) {
     var userId = _basic.getSession(_basic.USER_ID);
     var damageId = $stateParams.id;
     var recordId;
     var damageCheckId;
     var indemnityStatus;
     var indemnityId = null;
-    $scope.userName = _basic.getSession(_basic.USER_NAME);
-    $scope.userDepartment = parseInt(_basic.getSession(_basic.USER_TYPE));
     $scope.userList = _config.userTypes;
     $scope.damageTypeList = _config.damageType;
     $scope.damageLinkTypeList = _config.damageLinkType;
@@ -15,6 +13,11 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
     $scope.paymentFlag = "1";
     $scope.financeIndemnityStatus = 1; // 财务打款状态
     $scope.cityList = [];
+
+    // 返回
+    $scope.return = function () {
+        $state.go($stateParams.from,{from:"damage_management_details"}, {reload: true})
+    };
 
     // tab切换
     $scope.showDamageImage = function () {
@@ -35,7 +38,6 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
     $scope.getLiablePersonList = function () {
         _basic.get($host.api_url + "/user?status=1").then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
                 var responsibilityDataList = [];
                 var reimbursementDataList = [];
                 for (var i = 0; i < data.result.length; i++) {
@@ -231,7 +233,6 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
     $scope.getBeforeDamageInfo = function () {
         _basic.get($host.api_url + "/damageCheck?damageId=" + damageId).then(function (data) {
             if (data.success === true) {
-                // console.log("damageData",data);
                 if(data.result.length !== 0){
                     if(data.result[0].damage_type === 0 || data.result[0].damage_type == null){
                         data.result[0].damage_type = ""
@@ -250,7 +251,6 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
                         data.result[0].refund_user_id = 0;
                     }
                     damageCheckId = data.result[0].id;
-                    // console.log("damageCheckId",damageCheckId);
                     if(data.result[0].damage_indemnity_status == 2){
                         $scope.showRadioButton = false;
                     }
@@ -334,7 +334,6 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
             remark: ""
         }).then(function (data) {
             if (data.success === true) {
-                // console.log("data",data);
                 $scope.getCurrentDamageInfo();// 刷新质损状态
                 $scope.getBeforeDamageInfo();// 获取默认信息
             }
@@ -401,18 +400,18 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
         // 根据借款状态判断是新增操作还是修改操作
         if($scope.paymentFlag == 2 && indemnityId == null){
             if(
-                $scope.bankAccount != ""
-                && $scope.bankAccount != undefined
-                && $scope.accountName != ""
-                && $scope.accountName != undefined
-                && $scope.openingBank != ""
-                && $scope.openingBank != undefined
-                && $scope.locatedCity != ""
-                && $scope.locatedCity !=undefined
-                && $scope.distributor != ""
-                && $scope.distributor !=undefined
-                && $scope.paymentMoney!= ""
-                && $scope.paymentMoney!=undefined
+                $scope.bankAccount !== ""
+                && $scope.bankAccount !== undefined
+                && $scope.accountName !== ""
+                && $scope.accountName !== undefined
+                && $scope.openingBank !== ""
+                && $scope.openingBank !== undefined
+                && $scope.locatedCity !== ""
+                && $scope.locatedCity !==undefined
+                && $scope.distributor !== ""
+                && $scope.distributor !==undefined
+                && $scope.paymentMoney!== ""
+                && $scope.paymentMoney!==undefined
             ){
                 $scope.getCityList();
                 // 新增操作
@@ -461,18 +460,18 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
         }
         else if($scope.paymentFlag == 2 && indemnityId != null){
             if(
-                $scope.bankAccount != ""
-                && $scope.bankAccount != undefined
-                && $scope.accountName != ""
-                && $scope.accountName != undefined
-                && $scope.openingBank != ""
-                && $scope.openingBank != undefined
-                && $scope.locatedCity != ""
-                && $scope.locatedCity !=undefined
-                && $scope.distributor != ""
-                && $scope.distributor !=undefined
-                && $scope.paymentMoney!= ""
-                && $scope.paymentMoney!=undefined
+                $scope.bankAccount !== ""
+                && $scope.bankAccount !== undefined
+                && $scope.accountName !== ""
+                && $scope.accountName !== undefined
+                && $scope.openingBank !== ""
+                && $scope.openingBank !== undefined
+                && $scope.locatedCity !== ""
+                && $scope.locatedCity !==undefined
+                && $scope.distributor !== ""
+                && $scope.distributor !==undefined
+                && $scope.paymentMoney!== ""
+                && $scope.paymentMoney!==undefined
             ){
                 // 修改操作
                 _basic.put($host.api_url + "/user/" + userId + "/damageCheckIndemnity/" + indemnityId,{
@@ -558,7 +557,6 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
     $scope.getInsurePaymentCard = function () {
         _basic.get($host.api_url + "/damageInsure?damageId=" + damageId).then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
                 $scope.damageInsureCardList = data.result;
             }
             else {
@@ -573,7 +571,6 @@ app.controller("damage_management_details_controller", ["$scope", "$stateParams"
         _basic.get($host.api_url + "/truckInsure").then(function (insuranceListData) {
             if (insuranceListData.success === true) {
                 $scope.insuranceList = insuranceListData.result;
-                // console.log("insuranceListData",$scope.insuranceList)
             }
             else {
                 swal(insuranceListData.msg, "", "error");

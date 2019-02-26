@@ -2,7 +2,7 @@
     <!--增加理赔模态框-->
     <div id="addInfoModel" class="modal modal-fixed-footer" style="width: 65%;height: 480px">
         <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-            <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
+            <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
                 <p>新增保险赔付</p>
             </div>
             <div class="row col s12" style="margin-top: 35px">
@@ -70,7 +70,7 @@
     <!--维修原因模态框-->
     <div id="repairReasonMod" class="modal modal-fixed-footer" style="width: 65%;height: 380px">
         <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-            <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
+            <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
                 <p>维修原因描述</p>
             </div>
             <div class="row col s12" style="margin-top: 35px">
@@ -101,7 +101,7 @@
     <!--维修结束描述模态框-->
     <div id="repairFinishMod" class="modal modal-fixed-footer" style="width: 65%;height: 500px">
         <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-            <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
+            <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
                 <p>维修结束描述</p>
             </div>
             <div class="row col s12" style="margin-top: 35px">
@@ -150,16 +150,16 @@
         <h5 class="center-align cyan-text text-lighten-1">事故详情</h5>
     </div>
     <div>
-        <div class="management" style="background: #00bcd4;height: 2px;margin-top: 10px;"></div>
+        <div class="management cyan" style="height: 2px;margin-top: 10px;"></div>
     </div>
     <div>
         <div class="row col s12">
             <div class="col s12 valign-wrapper">
                 <div class="col s3 center-align">
-                    <div style="color: #00bcd4;font-size: 1.6rem">事故编号：{{vId}}</div>
+                    <div class="cyan-text" style="font-size: 1.6rem">事故编号：{{vId}}</div>
                 </div>
                 <div class="col s3 center-align">
-                    <div style="color: #00bcd4;font-size: 1.6rem">调度编号:{{dpRouteTaskId}}&nbsp;<span class="bold fz20" style="color: darkgray;">({{cityRouteStart}}-{{cityRouteEnd}})</span></div>
+                    <div class="cyan-text" style="font-size: 1.6rem">调度编号:{{dpRouteTaskId}}&nbsp;<span class="bold fz20" style="color: darkgray;">({{cityRouteStart}}-{{cityRouteEnd}})</span></div>
                 </div>
                 <div class="col s3 center-align">
                     <div style="color: darkgray;font-size: 1.6rem">{{accidentDate | date:"yyyy-MM-dd HH:mm"}}</div>
@@ -172,7 +172,7 @@
                         <p style="color: red;padding: 0;font-size: 1.6rem;margin-top: 35px;">处理中</p>
                     </div>
                     <div class="col s12" ng-if="accidentStatus == 3">
-                        <p style="color: #00bcd4;padding: 0;font-size: 1.6rem">已处理</p>
+                        <p class="cyan-text" style="padding: 0;font-size: 1.6rem">已处理</p>
                     </div>
                 </div>
             </div>
@@ -199,7 +199,7 @@
                 </div>
                 <div class="col s3 valign-wrapper">
                     <div class="col s3 right-align">
-                        <span style="color: #26c6da;font-size: 1.6rem" class="mdi mdi-account"></span>
+                        <span  style="font-size: 1.6rem" class="mdi mdi-account cyan-text"></span>
                     </div>
                     <div class="col s9" style="padding: 0;">
                         <span style="font-size: 1.2rem;font-weight: bold;color: darkgray">{{driveName}}</span>
@@ -207,7 +207,7 @@
                 </div>
                 <div class="col s3 valign-wrapper">
                     <div class="col s4 right-align">
-                        <span style="color: #26c6da;font-size: 1.6rem" class="mdi mdi-cellphone-android"></span>
+                        <span  style="font-size: 1.6rem" class="mdi mdi-cellphone-android cyan-text"></span>
                     </div>
                     <div class="col s8" style="padding: 0;">
                         <span style="font-size: 1.2rem;font-weight: bold;color: darkgray">{{truckTel}}</span>
@@ -215,7 +215,7 @@
                 </div>
                 <div class="col s3 valign-wrapper">
                     <div class="col s4 right-align">
-                        <span style="color: #26c6da;font-size: 1.6rem" class="mdi mdi-hospital-building"></span>
+                        <span style="font-size: 1.6rem" class="mdi mdi-hospital-building cyan-text"></span>
                     </div>
                     <div class="col s8" style="padding: 0;">
                         <span style="font-size: 1.2rem;font-weight: bold;color: darkgray">{{companyName}}</span>
@@ -244,7 +244,7 @@
                         <div class="row">
                             <div class="col s6 input-field mp-40"  ng-class="{'has-error':add_truck_managementFrom.date.$invalid&&submitted }">
                                 <input type="text" id="accident_date" name="date" ng-model="accidentDateDetail" class="datepicker" autocomplete="off"  required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                <label check_operation_endTime class="grey-text bold" for="accident_date" style="color:#00bcd4 "><span style="color: red">*</span>发生时间</label>
+                                <label check_operation_endTime class="grey-text bold" for="accident_date"><span style="color: red">*</span>发生时间</label>
                             </div>
                             <div class="col s6 input-field mp-40"  ng-class="{'has-error':add_truck_managementFrom.accident_date.$invalid&&submitted }">
                                 <input type="text" id="verification_time3" name="accident_date" ng-model="lineStartTime" class="timepicker" autocomplete="off" required   time><i class="mdi dataIcon mdi-clock"></i>
@@ -255,7 +255,7 @@
                             <div class="col s12 input-field mp-40" ng-class="{'has-error':add_truck_managementFrom.address.$invalid&&submitted }" >
                                 <input type="text" id="amapAddress" ng-change="amapAutocomplete()" ng-model="address" autocomplete="off" name="amapAddress" required>
                                 <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
-                                <label class="grey-text bold" for="amapAddress" style="color:#00bcd4 "><span style="color: red">* </span>详细地址</label>
+                                <label class="grey-text bold" for="amapAddress"><span style="color: red">* </span>详细地址</label>
                             </div>
                         </div>
                         <div class="row">
@@ -326,8 +326,8 @@
                     </div>
                 </div>
                 <div class="row col s12">
-                    <div class="col s6 input-field" style="margin-top: 15px;color: #26c6da">
-                        <select id="fined" style="width: 100%;color: #26c6da"></select>
+                    <div class="col s6 input-field cyan-text" style="margin-top: 15px;">
+                        <select class="cyan-text" id="fined" style="width: 100%;"></select>
                     </div>
                     <div class="col s6 valign-wrapper">
                         <div class="col s11 input-field" style="padding: 0">
@@ -450,11 +450,11 @@
 
             <!--正在维修信息-->
             <div class="col s8 offset-s2" style="margin-top: 20px" ng-show="repairingInfo.length != 0">
-                <div class="row col s12" style="border: 2px solid #26c6da;border-radius: 5px;background-color: white;color: darkgray">
+                <div class="row col s12 cyan_border" style="border-radius: 5px;background-color: white;color: darkgray">
                     <!--头-->
                     <div class="col s12 card_head valign-wrapper" style="padding: 0;border-bottom: 1px solid #ccc">
                         <div class="col s2">
-                            <p style="font-weight: bold;color: #00bcd4">维修编号：{{repairingInfo[0].id}}</p>
+                            <p class="cyan-text" style="font-weight: bold;">维修编号：{{repairingInfo[0].id}}</p>
                         </div>
                         <div class="col s8">
                             <p style="font-weight: bold;color: darkgray">{{repairingInfo[0].repair_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
@@ -502,7 +502,7 @@
                         <li ng-repeat="accident in repairedInfo">
                             <div class="collapsible-header">
                                 <div class="col s6">
-                                    <p style="margin: 0;color: #26c6da;font-weight: bold">维修编号：{{accident.id}}</p>
+                                    <p class="cyan-text" style="margin: 0;font-weight: bold">维修编号：{{accident.id}}</p>
                                 </div>
                                 <div class="col s6 right-align">
                                     <p style="margin: 0;color: darkgray;font-weight: bold">{{accident.created_on | date:'yyyy-MM-dd HH:mm:ss'}}&emsp;至&emsp;{{accident.end_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
@@ -542,10 +542,10 @@
                     <li ng-repeat="el in accidentDetails">
                         <div class="collapsible-header" ng-click="getConnectedAccidentList(el.id)">
                             <div class="col s6">
-                                <p style="margin: 0;color: #26c6da;font-weight: bold">理赔编号：{{el.id}}</p>
+                                <p  class="cyan-text" style="margin: 0;font-weight: bold">理赔编号：{{el.id}}</p>
                             </div>
                             <div class="col s6 right-align">
-                                <p style="margin: 0;color: #26c6da;font-weight: bold" ng-if="el.insure_status == 1">处理中</p>
+                                <p class="cyan-text" style="margin: 0;font-weight: bold" ng-if="el.insure_status == 1">处理中</p>
                                 <p style="margin: 0;color: darkgray;font-weight: bold" ng-if="el.insure_status == 2">已结束</p>
                             </div>
                         </div>
@@ -598,7 +598,7 @@
                             <div class="col s12 fz14" ng-repeat="accident in accidentClaimList" style="margin-bottom: 5px">
                                 <div class="col s7 modal_accident valign-wrapper" style="font-size: 1.1rem;color: darkgray;font-weight: bold;">
                                     <div class="col s1 right-align" style="padding: 0;margin-top: -5px">
-                                        <span style="width:8px;height:8px;display:inline-block;border-radius: 100%;background-color: #26c6da"></span>
+                                        <span class="cyan-text" style="width:8px;height:8px;display:inline-block;border-radius: 100%;"></span>
                                     </div>
                                     <div class="col s4 left-align ">
                                         <p class="fz12">事故编号：{{accident.id}}</p>
@@ -621,7 +621,7 @@
                                     <div class="col s3 center-align">
                                         <p class="fz14" ng-if="accident.accident_status == 1">未处理</p>
                                         <p class="fz14" ng-if="accident.accident_status == 2" style="color: #e88282">处理中</p>
-                                        <p class="fz14" ng-if="accident.accident_status == 3" style="color: #26c6da">已处理</p>
+                                        <p class="fz14 cyan-text" ng-if="accident.accident_status == 3" >已处理</p>
                                     </div>
                                     <div class="col s1">
                                         <span style="font-size: 1.4rem;color: #e88282;cursor: pointer" ng-click="deleteAccidentInfo(el.id)" class="mdi mdi-delete-forever"></span>

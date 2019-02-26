@@ -4,6 +4,12 @@
 app.controller("look_instruction_need_transfer_detail_controller", ["$scope", "$host", "_basic", "$state", "$stateParams", function ($scope, $host, _basic, $state, $stateParams) {
     $scope.LoadTaskList = false;
 
+
+    // 返回
+    $scope.return = function () {
+        $state.go($stateParams.from,{from:"look_instruction_need_transfer_detail"}, {reload: true})
+    };
+
     // 获取需求详情信息
     $scope.getDispatchInfo = function () {
         _basic.get($host.api_url + "/dpTransferDemand?transferDemandId=" + $stateParams.id).then(function (data) {

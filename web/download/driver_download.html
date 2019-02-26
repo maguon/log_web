@@ -65,7 +65,7 @@
 <script language="JavaScript" type="text/javascript">
     $.ajax({
         type:"GET",
-        url:host.api_url+'/app?app=0&start=0&size=1',
+        url:host.api_url+'/app?app=0&type=1&start=0&size=1',
         async:true,
         success:function (data) {
             apkUrl= data.result[0].url;
@@ -97,7 +97,7 @@
 
             return ;
         }
-        var iosAgent = ['iphone','ipad','ipod']
+        var iosAgent = ['iphone','ipad','ipod'];
         for (var v = 0; v < iosAgent.length; v++) {
             if (userAgentInfo.indexOf(iosAgent[v]) > 0) {
                 iosFlag = true;
@@ -106,7 +106,7 @@
                 $('#versionSpan')[0].innerText=sys_config.ios_dl_info.version;
                 $('#releasedSpan')[0].innerText = sys_config.ios_dl_info.released;
                 $('#downloadHref')[0].href = sys_config.ios_dl_info.url;*/
-                alert('暂不支持IOS系统')
+                alert('暂不支持IOS系统');
                 return ;
             }
         }

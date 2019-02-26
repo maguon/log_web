@@ -1,4 +1,4 @@
-app.controller("driver_salary_details_controller", ["$scope", "$host", "$stateParams", "_config", "_basic", function ($scope, $host, $stateParams, _config, _basic) {
+app.controller("driver_salary_details_controller", ["$scope", "$host","$state", "$stateParams", "_config", "_basic", function ($scope, $host, $state,$stateParams, _config, _basic) {
 
     var userId = _basic.getSession(_basic.USER_ID);
     var salaryId = $stateParams.id;
@@ -6,15 +6,21 @@ app.controller("driver_salary_details_controller", ["$scope", "$host", "$statePa
     var heavyLoad = _config.heavyLoad;
     $scope.otherDeductions = 0;
     $scope.Reimbursement = 0;
+    // 返回
+    $scope.return = function () {
+        $state.go($stateParams.from,{from:"driver_salary_details"}, {reload: true})
+    };
+
     // 获取当前司机基本信息
     $scope.getSalaryDetails = function () {
         _basic.get($host.api_url + "/driveSalary?driveSalaryId=" + salaryId).then(function (data) {
             if (data.success === true) {
-                // console.log("salaryDetails", data);
                 $scope.salaryDetails = data.result[0];
+                $scope.socialSecurityFee = data.result[0].social_security_fee;
                 if(data.result[0].other_fee != null){
                     $scope.otherDeductions = data.result[0].other_fee;
                     $scope.Reimbursement = data.result[0].refund_fee;
+                    $scope.remark = data.result[0].remark;
                 }
             }
             else {
@@ -28,7 +34,6 @@ app.controller("driver_salary_details_controller", ["$scope", "$host", "$statePa
         // 未结算任务
         _basic.get($host.api_url + "/dpRouteTaskBase?driveId=" + driveId + "&taskStatus=10&statStatus=1").then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
                 $scope.unsettledSalaryList = data.result;
             }
             else {
@@ -39,7 +44,6 @@ app.controller("driver_salary_details_controller", ["$scope", "$host", "$statePa
         // 已结算任务
         _basic.get($host.api_url + "/driveSalaryTaskRel?driveSalaryId=" + salaryId).then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
                 $scope.noLoadDistanceCount = 0;
                 $scope.loadDistanceCount = 0;
                 // 计算重载和空载里程
@@ -64,7 +68,6 @@ app.controller("driver_salary_details_controller", ["$scope", "$host", "$statePa
         // 未结算质损
         _basic.get($host.api_url + "/damage?damageStatus=3&driveId=" + driveId + "&statStatus=1").then(function (data) {
             if (data.success === true) {
-                // console.log("unsettled", data);
                 $scope.unsettledDamageList = data.result;
             }
             else {
@@ -75,7 +78,6 @@ app.controller("driver_salary_details_controller", ["$scope", "$host", "$statePa
         // 已结算质损
         _basic.get($host.api_url + "/driveSalaryDamageRel?driveSalaryId=" + salaryId).then(function (data) {
             if (data.success === true) {
-                // console.log("settled", data);
                 // 计算个人合计承担金额
                 $scope.personalCommitmentCount = 0;
                 for (var i = 0; i < data.result.length; i++) {
@@ -94,7 +96,6 @@ app.controller("driver_salary_details_controller", ["$scope", "$host", "$statePa
         // 未结算事故责任
         _basic.get($host.api_url + "/truckAccident?driveId=" + driveId + "&accidentStatus=3&statStatus=1").then(function (data) {
             if (data.success === true) {
-                // console.log("unsettled", data);
                 $scope.unsettledAccidentList = data.result;
             }
             else {
@@ -105,7 +106,6 @@ app.controller("driver_salary_details_controller", ["$scope", "$host", "$statePa
         // 已结算事故责任
         _basic.get($host.api_url + "/driveSalaryAccidentRel?driveSalaryId=" + salaryId).then(function (data) {
             if (data.success === true) {
-                // console.log("settled", data);
                 $scope.personalAccidentPay = 0;
                 for (var i = 0; i < data.result.length; i++) {
                     $scope.personalAccidentPay += data.result[i].under_cost
@@ -145,9 +145,9 @@ app.controller("driver_salary_details_controller", ["$scope", "$host", "$statePa
         });
     }
 
-    //获取超油扣款信息
+    //获取超量扣款信息
     $scope.getExceedOilList = function (){
-        // 未结超油扣款信息
+        // 未结超量扣款信息
         _basic.get($host.api_url + "/driveExceedOil?driveId=" + driveId + "&statStatus=1").then(function (data) {
             if (data.success === true) {
                 $scope.ExceedOilAccidentList = data.result;
@@ -157,7 +157,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host", "$statePa
             }
         });
 
-        // 已结算超油扣款信息
+        // 已结算超量扣款信息
         _basic.get($host.api_url + "/driveSalaryExceedOilRel?driveSalaryId=" + salaryId).then(function (data) {
             if (data.success === true) {
                 $scope.ExceedOilAccidentPay = 0;
@@ -351,7 +351,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host", "$statePa
     // 移除结算扣油到未结算扣油
     $scope.minusExceedOilAccident = function (OilId) {
         swal({
-                title: "确定移除当前超油扣款？",
+                title: "确定移除当前超量扣款？",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
@@ -403,7 +403,6 @@ app.controller("driver_salary_details_controller", ["$scope", "$host", "$statePa
             planSalary: $scope.salaryDetails.plan_salary
         }).then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
             }
             else {
                 swal(data.msg, "", "error");
@@ -415,14 +414,12 @@ app.controller("driver_salary_details_controller", ["$scope", "$host", "$statePa
     $scope.showDispatchMissionModal = function (salaryInfo,status) {
         $scope.salaryInfo = salaryInfo;
         $scope.salaryHandleStatus = status;
-        // console.log("salaryInfo",salaryInfo);
         // 根据结算状态取不同字段
         var currentSalaryId = status === "unsettled" ? salaryInfo.id : salaryInfo.dp_route_task_id;
 
         //获取装车任务信息
         _basic.get($host.api_url + "/dpRouteLoadTask?dpRouteTaskId=" + currentSalaryId).then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
                 $scope.lineList = data.result;
             }
             else {
@@ -434,11 +431,13 @@ app.controller("driver_salary_details_controller", ["$scope", "$host", "$statePa
 
     // 保存结算工资信息
     $scope.saveSettlementSalary = function () {
-        var grantCount = $scope.salaryDetails.plan_salary - $scope.personalCommitmentCount - $scope.personalAccidentPay - $scope.peccancylAccidentPay - $scope.ExceedOilAccidentPay-$scope.Reimbursement- $scope.otherDeductions;
+        var grantCount = $scope.salaryDetails.plan_salary - $scope.personalCommitmentCount - $scope.personalAccidentPay - $scope.peccancylAccidentPay - $scope.ExceedOilAccidentPay-$scope.Reimbursement- $scope.socialSecurityFee-$scope.otherDeductions;
         _basic.put($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/driveActualSalary",{
             refundFee:$scope.Reimbursement,
+            socialSecurityFee:$scope.socialSecurityFee,
             otherFee: $scope.otherDeductions,
-            actualSalary: grantCount
+            actualSalary: grantCount,
+            remark: $scope.remark
         }).then(function (data) {
             if (data.success === true) {
                 swal("保存成功", "", "success");

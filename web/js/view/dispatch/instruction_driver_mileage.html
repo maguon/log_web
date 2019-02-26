@@ -5,42 +5,47 @@
                 <div id="header_car" class="row tab_box" >
                     <div class="storage_storeTitle">
                         <div class="row  grey-text text-darken-1">
-                            <div class="col s11">
+                            <div class="col s10">
                                 <div class="col s12">
                                     <div class="input-field col s4">
                                         <input name="drive_name" id="drive_name" type="text" ng-model="drive_name"   >
                                         <label for="drive_name">司机</label>
                                     </div>
-                                    <div class="input-field col s4">
-                                        <input name="truckNum" id="truckNum" type="text" ng-model="truckNum"   >
-                                        <label for="truckNum">货车牌号</label>
-                                    </div>
-                                    <div class="col s4">
+                                    <div class="col s8">
                                         <div class="input-field col s6">
                                             <input type="text" ng-model="driver_mileage_startTime" id="driver_mileage_startTime" name="driver_mileage_startTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                            <label for="driver_mileage_startTime">统计时间(始)</label>
+                                            <label for="driver_mileage_startTime">指令完成时间(始)</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <input type="text" ng-model="driver_mileage_endTime" id="driver_mileage_endTime" name="driver_mileage_endTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                            <label for="driver_mileage_endTime">统计时间(终)</label>
+                                            <label for="driver_mileage_endTime">指令完成时间(终)</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col s1 vc-center">
-                                <a class=" btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="search_all()">
-                                    <i class="mdi mdi-magnify"></i>
-                                </a>
+                            <div class="col s2 center">
+                                <div class="col s6 right-align">
+                                    <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
+                                       ng-click="search_all()">
+                                        <i class="mdi mdi-magnify"></i>
+                                    </a>
+                                </div>
+                                <div class="col s6 center-align">
+                                    <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
+                                        <i class="mdi mdi-cloud-download"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col s12" >
+                        <div class="divider cyan" style="height: 2px;"></div>
                         <table class="bordered striped text_mid">
                             <thead class="blue-grey lighten-5">
                                 <tr class="grey-text text-darken-2">
                                     <th data-field="">司机</th>
-                                    <th data-field="">完成任务数</th>
                                     <th data-field="">货车牌号</th>
+                                    <th data-field="">完成任务数</th>
                                     <th data-field="">总计里程</th>
                                     <th data-field="">重载公里数</th>
                                     <th data-field="">空载公里数</th>
@@ -51,14 +56,15 @@
                             <tbody>
                                 <tr ng-repeat="el in driveDistanceCount" class="grey-text text-darken-1">
                                     <td ng-bind="el.drive_name">1</td>
+                                    <td ng-bind="el.truck_num">
                                     <td ng-bind="el.complete_count">2</td>
-                                    <td ng-bind="el.truck_num"></td>
                                     <td ng-bind="el.load_distance+el.no_load_distance|nullTo"></td>
                                     <td ng-bind="el.load_distance|nullTo"></td>
                                     <td ng-bind="el.no_load_distance|nullTo"></td>
                                     <td ng-bind="(el.load_distance*100|nullTo)/(el.load_distance+el.no_load_distance|nullTo) | number:2"></td>
                                     <td class="operation">
-                                        <a href="#" ui-sref="instruction_drive_details({id:el.drive_id,timeStart:driver_mileage_startTime,timeEnd:driver_mileage_endTime,refer:'instruction_driver_mileage',})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ></i></a>
+                                        <a href="#" ui-sref="instruction_drive_details({id:el.drive_id,timeStart:driver_mileage_startTime,timeEnd:driver_mileage_endTime,makeId:el.truck_id,from:'instruction_driver_mileage',})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ></i></a>
+                                        <a ng-click="exportItem(el.drive_id,el.truck_id)" class=""><i class="mdi mdi-cloud-download look_icon cyan-text lighten-1" ></i></a>
                                     </td>
                                 </tr>
                                 <tr class="grey-text text-darken-1" ng-if="driveDistanceCount.length == 0">

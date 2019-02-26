@@ -3,7 +3,7 @@
     <div class="row" style="margin: 0">
         <div id="addCarFinanceModel" class="modal modal-fixed-footer" style="width: 75%;height: 550px">
             <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-                <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
+                <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
                     <p>申请出车款</p>
                 </div>
                 <div class="row" style="width: 80%;margin: 0 auto">
@@ -32,10 +32,10 @@
                     <!--任务信息卡片-->
                     <div ng-repeat="mission in matchMissionList" class="col s12 valign-wrapper" style="height: 55px;margin-bottom: 20px;background-color: #dcdfe0;color: darkgray;font-weight: bold;font-size: 1rem" ng-show="matchMissionList.length != 0">
                         <div class="col s3">
-                            <p style="color: #26c6da">调度编号：{{mission.id}}</p>
+                            <p class="cyan-text" >调度编号：{{mission.id}}</p>
                         </div>
                         <div class="col s3">
-                            <p style="color: #26c6da">{{mission.city_route_start}}-{{mission.city_route_end}} &nbsp;<span style="color: darkgray">{{mission.distance}}公里</span></p>
+                            <p class="cyan-text" >{{mission.city_route_start}}-{{mission.city_route_end}} &nbsp;<span style="color: darkgray">{{mission.distance}}公里</span></p>
                         </div>
                         <div class="col s2">
                             <p>计划装车数量：{{mission.car_count}}</p>
@@ -175,7 +175,7 @@
     <div class="row">
         <div class="col s12">
             <div class="col s12">
-                <div class="divider" style="background: #00bcd4;height: 2px"></div>
+                <div class="divider cyan" style="height: 2px;"></div>
                 <table class="bordered striped text_mid">
                     <thead class="blue-grey lighten-5">
                     <tr class="grey-text text-darken-2">
@@ -203,7 +203,7 @@
                         <td>{{car.grant_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                         <td>{{car.refund_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                         <td>{{car.appl_user_name}}</td>
-                        <td style="color: #26c6da" ng-if="car.task_loan_status == 1">已发放</td>
+                        <td class="cyan-text"  ng-if="car.task_loan_status == 1">已发放</td>
                         <td ng-if="car.task_loan_status == 2">已报销</td>
                         <td class="operation fz12">
                             <a ng-click="deleteCurrentFinanceInfo(car.id)" style="margin-right: 10px;cursor: pointer;text-align: center;color: #e57373"><i class="mdi mdi-delete-forever" style="margin: 0"></i></a>

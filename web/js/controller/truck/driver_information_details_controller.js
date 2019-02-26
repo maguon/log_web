@@ -1,4 +1,4 @@
-app.controller("driver_information_details_controller", ["$scope", "$host", "$stateParams", "_basic", "_config", function ($scope, $host, $stateParams, _basic, _config) {
+app.controller("driver_information_details_controller", ["$scope","$state", "$host", "$stateParams", "_basic", "_config", function ($scope, $state, $host, $stateParams, _basic, _config) {
 
     var driverId = $stateParams.driverId;
     $scope.driverIdd = $stateParams.driverId;
@@ -13,6 +13,11 @@ app.controller("driver_information_details_controller", ["$scope", "$host", "$st
 
     $scope.start = 0;
     $scope.size = 11;
+
+    // 返回
+    $scope.return = function () {
+        $state.go($stateParams.from,{from:"driver_information_details"}, {reload: true})
+    };
 
     // 获取司机基本信息
     $scope.getBasicDriverInfo = function () {
@@ -106,7 +111,7 @@ app.controller("driver_information_details_controller", ["$scope", "$host", "$st
 
     // 获取调度任务信息
     $scope.getDispatchMissionList = function () {
-        _basic.get($host.api_url + "/dpRouteTask?" + _basic.objToUrl({
+        _basic.get($host.api_url + "/dpRouteTaskList?" + _basic.objToUrl({
             driveId: driverId,
             dpRouteTaskId: $scope.dispatchNum,
             taskStatus: $scope.implementStatus,
@@ -160,15 +165,23 @@ app.controller("driver_information_details_controller", ["$scope", "$host", "$st
                 taskStatus: 10,
                 driveId:driverId
             };
-            _basic.get($host.api_url + "/driveDistanceLoad?" + _basic.objToUrl(obj)).then(function (data) {
-                if (data.success == true && data.result.length > 0) {
-                    $scope.driveDetail = data.result[0];
-                    if ($scope.driveDetail.no_load_distance == null) {
-                        $scope.driveDetail.no_load_distance = 0
+            _basic.get($host.api_url + "/driveDistanceLoadStat?" + _basic.objToUrl(obj)).then(function (data) {
+                if (data.success == true) {
+                    if(data.result.length==0){
+                        $scope.driveDetail=[];
+                        $scope.driveDetail.no_load_distance = 0;
+                        $scope.driveDetail.load_distance = 0;
                     }
-                    if ($scope.driveDetail.load_distance == null) {
-                        $scope.driveDetail.load_distance = 0
+                    else{
+                        $scope.driveDetail = data.result[0];
+                        if ($scope.driveDetail.no_load_distance == null) {
+                            $scope.driveDetail.no_load_distance = 0
+                        }
+                        if ($scope.driveDetail.load_distance == null) {
+                            $scope.driveDetail.load_distance = 0
+                        }
                     }
+
                     resolve();
                 } else {
                     swal("异常", "", "error")
@@ -326,7 +339,7 @@ app.controller("driver_information_details_controller", ["$scope", "$host", "$st
         $scope.getDriverAccidentInfo();
     };
 
-    //超油扣款
+    //超量扣款
     $scope.getExceedOil= function (){
         $scope.start = 0;
         $scope.getExceedOilList();
@@ -337,6 +350,7 @@ app.controller("driver_information_details_controller", ["$scope", "$host", "$st
             dpRouteTaskId:$scope.dispatchId,
             taskPlanDateStart:$scope.driveStartTime,
             taskPlanDateEnd:$scope.driveEndTime,
+            exceedType:$scope.exceedType,
             fineStatus:$scope.ExceedOilStu,
             start:$scope.start.toString(),
             size:$scope.size

@@ -11,6 +11,7 @@
                 <table class="bordered striped text_mid">
                     <thead class="blue-grey lighten-5">
                     <tr class="grey-text text-darken-1">
+                        <th data-field="">仓库编号</th>
                         <th data-field="">仓库名称</th>
                         <th data-field="">总车位</th>
                         <th data-field="">剩余车位</th>
@@ -23,6 +24,7 @@
                     </thead>
                     <tbody class="grey-text text-darken-1">
                     <tr ng-repeat="el in store_storage" ng-if="el.storage_status==1">
+                        <td ng-bind="el.id"></td>
                         <td ng-bind="el.storage_name"></td>
                         <td >{{el.total_seats}}</td>
                         <td ng-bind="el.total_seats-el.balance"></td>

@@ -21,71 +21,78 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
         // 财务
         .state("truck_compensate_loan",{
             url:"/truck_compensate_loan",
+            params: {"from": null},
             templateUrl: "js/view/finance/truck_compensate_loan.html",
             controller:'truck_compensate_loan_controller'
         })
         .state("truck_compensate_loan_details",{
-            url:"/truck_compensate_loan_details/id/{id}/compensateId/{compensateId}",
+            url:"/truck_compensate_loan_details/id/{id}/compensateId/{compensateId}/from/{from}",
             templateUrl: "js/view/finance/truck_compensate_loan_details.html",
             controller:'truck_compensate_loan_details_controller'
         })
         .state("car_payment_loan",{
             url:"/car_payment_loan",
+            params: {"from": null},
             templateUrl: "js/view/finance/car_payment_loan.html",
             controller:'car_payment_loan_controller'
         })
         .state("car_payment_loan_details",{
-            url:"/car_payment_loan_details/id/{id}/paymentId/{paymentId}",
+            url:"/car_payment_loan_details/id/{id}/paymentId/{paymentId}/from/{from}",
             templateUrl: "js/view/finance/car_payment_loan_details.html",
             controller:'car_payment_loan_details_controller'
         })
         .state("commercial_vehicle_compensate_loan",{
             url:"/commercial_vehicle_compensate_loan",
+            params: {"from": null},
             templateUrl: "js/view/finance/commercial_vehicle_compensate_loan.html",
             controller:'commercial_vehicle_compensate_loan_controller'
         })
         .state("commercial_vehicle_compensate_loan_details",{
-            url:"/commercial_vehicle_compensate_loan_details/id/{id}/compensateId/{compensateId}",
+            url:"/commercial_vehicle_compensate_loan_details/id/{id}/compensateId/{compensateId}/from/{from}",
             templateUrl: "js/view/finance/commercial_vehicle_compensate_loan_details.html",
             controller:'commercial_vehicle_compensate_loan_details_controller'
         })
         .state("car_wash_fee",{
             url:"/car_wash_fee",
+            params: {"from": null},
             templateUrl: "js/view/damage/car_wash_fee.html",
             controller:'car_wash_fee_controller'
         })
         .state("car_wash_fee_details",{
-            url:"/car_wash_fee_details/id/{id}",
+            url:"/car_wash_fee_details/id/{id}/from/{from}",
             templateUrl: "js/view/damage/car_wash_fee_details.html",
             controller:'car_wash_fee_details_controller'
         })
         .state("finance_route_fee",{
             url:"/finance_route_fee",
+            params: {"from": null},
             templateUrl: "js/view/finance/finance_route_fee.html",
             controller:'finance_route_fee_controller'
         })
         .state("finance_route_fee_details",{
-            url:"/finance_route_fee_details/id/{id}/dpId/{dpId}",
+            url:"/finance_route_fee_details/id/{id}/from/{from}",
             templateUrl: "js/view/finance/finance_route_fee_details.html",
             controller:'finance_route_fee_details_controller'
         })
         .state("driver_salary",{
             url:"/driver_salary",
+            params: {"from": null},
             templateUrl: "js/view/finance/driver_salary.html",
             controller:'driver_salary_controller'
         })
         .state("driver_salary_details",{
-            url:"/driver_salary_details/id/{id}/driveId/{driveId}",
+            url:"/driver_salary_details/id/{id}/driveId/{driveId}/from/{from}",
             templateUrl: "js/view/finance/driver_salary_details.html",
             controller:'driver_salary_details_controller'
         })
         .state("driver_information",{
             url:"/driver_information",
+            params: {"from": null},
             templateUrl: "js/view/truck/driver_information.html",
             controller:'driver_information_controller'
         })
         .state("driver_information_details",{
-            url:"/driver_information_details/driverId/{driverId}",
+            url:"/driver_information_details/driverId/{driverId}/from/{from}",
             templateUrl: "js/view/truck/driver_information_details.html",
             controller:'driver_information_details_controller'
         })
@@ -99,18 +106,45 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/system_settings/dealer_map.html",
             controller:'dealer_map_controller'
         })
+        .state("accident_claim",{
+            url:"/accident_claim",
+            params: {"from": null},
+            templateUrl: "js/view/truck/accident_claim.html",
+            controller:'accident_claim_controller'
+        })
+        .state("accident_claim_details",{
+            url:"/accident_claim_details/id/{id}/from/{from}",
+            templateUrl: "js/view/truck/accident_claim_details.html",
+            controller:'accident_claim_details_controller'
+        })
+        .state("insurance_compensation",{
+            url:"/insurance_compensation",
+            params: {"from": null},
+            templateUrl: "js/view/truck/insurance_compensation.html",
+            controller:'insurance_compensation_controller'
+        })
+        .state("add_damage_insurance_details",{
+            url:"/add_damage_insurance_details/id/{id}/from/{from}",
+            templateUrl: "js/view/truck/add_damage_insurance_details.html",
+            controller:'add_damage_insurance_details_controller'
+        })
         // 商品车信息
         .state("car_query",{
             url:"/car_query",
+            params: {"from": null},
             templateUrl: "js/view/car/car_query/car_query.html",
             controller:'car_query_controller'
         })
         .state("car_query_details",{
-            url:"/car_query_details/vin/{vin}/id/{id}",
+            url:"/car_query_details/vin/{vin}/id/{id}/from/{from}",
             templateUrl: "js/view/car/car_query/car_query_details.html",
             controller:'car_query_details_controller'
         })
-
+        .state("car_settlement",{
+            url:"/car_settlement",
+            templateUrl: "js/view/settlement/car_settlement.html",
+            controller:'car_settlement_controller'
+        })
         // 数据统计
         .state("insurance_statistics", {
             url:"/insurance_statistics",
@@ -144,6 +178,7 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
         })
         .state("instruction_list", {
             url: "/instruction_list",
+            params: {"from": null},
             templateUrl: "js/view/dispatch/instruction_list.html",
             controller:"instruction_list_controller"
         })
@@ -161,6 +196,33 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             url:"/transport_planning_statistics",
             templateUrl: "js/view/statistics/transport_planning_statistics.html",
             controller:"transport_planning_statistics_controller"
+        })
+        .state("setting_settlement",{
+            url:"/setting_settlement",
+            templateUrl: "js/view/system_settings/setting_settlement.html",
+            controller:'setting_settlement_controller'
+        })
+        .state("driver_settlement",{
+            url:"/driver_settlement",
+            templateUrl: "js/view/settlement/driver_settlement.html",
+            controller:'driver_settlement_controller'
+        })
+        .state("instruction_driver_mileage", {
+            url: "/instruction_driver_mileage",
+            params: {"from": null},
+            templateUrl: "js/view/dispatch/instruction_driver_mileage.html",
+            controller:"instruction_driver_mileage_controller"
+        })
+        .state("instruction_drive_details", {
+            url: "/instruction_drive_details/id/{id}/timeStart/{timeStart}/timeEnd/{timeEnd}/makeId/{makeId}/from/{from}",
+            templateUrl: "js/view/dispatch/instruction_drive_details.html",
+            controller:"instruction_drive_details_controller"
+        })
+        .state("driver_cost",{
+            url:"/driver_cost",
+            params: {"from": null},
+            templateUrl: "js/view/finance/driver_cost.html",
+            controller:'driver_cost_controller'
         })
         // 数据字典
         .state("data_dictionary",{

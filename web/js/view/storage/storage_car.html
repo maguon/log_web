@@ -2,7 +2,7 @@
     <div class="row main_storage_car">
         <div class="row  grey-text text-darken-1">
             <div class="col s12">
-                <div class="input-field col s4">
+                <div class="input-field col s2">
                     <div class="col s12 p0">
                         <input name="search_vin" id="search_vin" type="text" ng-model="search_vin" minlength="6" >
                         <label for="search_vin">车辆VIN(最少6位)</label>
@@ -17,14 +17,14 @@
                     </div>
                     <div class="input-field col s2">
                         <select material-select id="search_relStatus" watch ng-model="search_relStatus">
-                        <option value="">请选择</option>
+                        <option value="" disabled>请选择</option>
                         <option ng-repeat="el in rel_status" ng-value="el.s_num">{{el.status_text}}</option>
                         </select>
                         <label for="search_relStatus">车辆状态</label>
                     </div>
                     <div class="input-field col s2">
                         <select material-select watch id="search_storage" ng-model="search_storage" >
-                            <option value="" class="cyan-text text-lighten-2"  selected>请选择</option>
+                            <option value="" class="cyan-text text-lighten-2"  selected disabled>请选择</option>
                             <option ng-repeat="el in storage" ng-value="el.id">{{el.storage_name}}</option>
                         </select>
                         <label for="search_storage">所在仓库</label>
@@ -39,17 +39,11 @@
             </div>
             <div class="col s12 " style="margin-top: 15px">
                 <div class="input-field col s2">
-                    <select id="chooseShipmentStart" name="state" style="width:100%" ng-change="eliminateCityId()" ng-model="source_city">
-                        <option value="">全部</option>
-                        <option value="0" >清除选择</option>
-                        <option ng-repeat="city in get_city" ng-value="city.id">{{city.city_name}}</option>
+                    <select id="chooseShipmentStart" style="width:100%">
                     </select>
                 </div>
                 <div class="input-field col s2">
-                    <select id="chooseEndCity" name="state" style="width:100%" ng-change="eliminateCityId()" ng-model="arrive_city">
-                        <option value="">全部</option>
-                        <option value="0" >清除选择</option>
-                        <option ng-repeat="city in get_city" ng-value="city.id">{{city.city_name}}</option>
+                    <select id="chooseEndCity" style="width:100%">
                     </select>
                 </div>
                 <div class="input-field col s2">
@@ -68,9 +62,30 @@
                     <label for="order_time_end">指令时间(终)</label>
                 </div>
                 <div class="col s2 searchBtn-box">
-                    <a class="searchBtn btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="searchStorage_car()">
-                        <i class="mdi mdi-magnify"></i>
-                    </a>
+                    <div class="col s4 center-align">
+                        <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center "  ng-click="searchStorage_car()">
+                            <i class="mdi mdi-magnify"></i>
+                        </a>
+                    </div>
+                    <div class="col s4 center-align">
+                        <a class=" btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
+                            <i class="mdi mdi-cloud-download"></i>
+                        </a>
+                    </div>
+
+
+
+                    <div class="col s4 center-align ">
+                        <form  name="file_upload_form " id="file_upload_form">
+                            <div class="file-field">
+                                <div class="btn cyan lighten-2 circle_button"  style="height: 56px;width: 56px;border-radius:50%;position: relative">
+                                    <i class="mdi   mdi-logout" style="position: absolute;top: 6px;right: 19px"></i>
+                                    <input type="file" style="font-size: 100px;height: 45px;"  name="file" accept="text/csv" onchange='angular.element(this).scope().fileChange(this)' >
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
                 </div>
             </div>
             <div class="col s12 " style="margin-top: 15px">
@@ -93,7 +108,7 @@
             </div>
         </div>
         <div class="col s12" >
-            <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+            <div class="divider cyan" style="height: 2px;"></div>
             <table class="bordered striped text_mid">
                 <thead class="blue-grey lighten-5">
                 <tr class="grey-text text-darken-2">
@@ -114,8 +129,9 @@
                     <td ng-bind="el.enter_time|date:'yyyy-MM-dd HH:mm:ss'"></td>
                     <td ng-if="el.storage_id!=null" ng-bind="el.storage_name"></td>
                     <td ng-if="el.storage_id==null" >无</td>
-                    <td ng-bind="el.area_name">无</td>
-                    <td ng-if="el.col!=null">{{el.row}}排{{el.col}}列</td>
+                    <td ng-if="el.area_name==null">无</td>
+                    <td ng-if="el.area_name!==null">{{el.area_name}}</td>
+                    <td ng-if="el.col!=null">{{el.row}}道{{el.col}}位</td>
                     <td ng-if="el.col==null">无</td>
                     <td ng-bind="el.real_out_time|date:'yyyy-MM-dd'"></td>
                     <td class="operation">
@@ -149,9 +165,9 @@
                                             <div class="col s6 offset-s3">
                                                 当前位置
                                                 <span class="red-text" ng-bind="now_row"></span>
-                                                <span>排</span>
+                                                <span>道</span>
                                                 <span class="red-text" ng-bind="now_col"></span>
-                                                <span>列</span>
+                                                <span>位</span>
                                             </div>
                                         </div>
                                     </div>
@@ -204,7 +220,7 @@
                                                 <option value=""  selected>请选择</option>
                                                 <option ng-repeat="el in garageParkingArray" ng-value="el.row">{{el.row}}</option>
                                             </select>
-                                            <label >排</label>
+                                            <label >道</label>
                                         </div>
                                         <div class="input-field col s3">
                                             <select material-select watch ng-model="login_parkingId"  name="login_parkingId" required>
@@ -216,7 +232,7 @@
                                             <label >道位</label>
                                         </div>
                                     </div>
-                                 <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+                                 <div class="divider cyan" style="height: 2px;"></div>
                                 </div>
                                  <div class="modal-footer vc-center">
                                     <a  class=" modal-action  waves-effect grey lighten-1waves-light btn" ng-click="close_rel()" style="margin-right: 10px" >
@@ -249,3 +265,5 @@
         </div>
     </div>
 </div>
+
+

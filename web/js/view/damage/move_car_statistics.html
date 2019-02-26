@@ -1,0 +1,67 @@
+<div class="move_car_statistics">
+    <div class="row valign-wrapper">
+        <!--查询条件-->
+        <div class="col s10">
+            <div class="col s3 input-field" style="margin-bottom: 20px;">
+                <select id="manager" style="width:100%"  ng-model="manager">
+                    <option value=""></option>
+                    <option ng-repeat="el in settingManagerList" ng-value="el.uid">{{el.real_name}}</option>
+                </select>
+            </div>
+            <div class="col s3 input-field" style="margin-bottom: 20px;">
+                <select material-select watch id="ops" style="width:100%"  ng-model="ops">
+                    <option value="" selected disabled>类型</option>
+                    <option ng-value="11">入库</option>
+                    <option ng-value="12">移位</option>
+                    <option ng-value="13">出库</option>
+                </select>
+            </div>
+            <div class="col s3 input-field">
+                <input type="text" id="dateStart" name="dateStart" ng-model="dateStart" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                <label for="dateStart">开始时间(始)</label>
+            </div>
+            <div class="col s3 input-field">
+                <input type="text" id="dateEnd" name="dateEnd" ng-model="dateEnd" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                <label for="dateEnd">开始时间(终)</label>
+            </div>
+        </div>
+        <div class="col s2">
+            <div class="col s12 center">
+                <a ng-click="searchMoveCarList()" class="btn-floating btn-large waves-light waves-effect red lighten-2 btn vc-center" style="margin-right: 10px">
+                    <i class="mdi mdi-magnify"></i>
+                </a>
+            </div>
+        </div>
+
+
+
+    </div>
+    <!--表格-->
+    <div class="row">
+        <div class="col s12">
+            <div class="col s12">
+                <div class="divider cyan" style="height: 2px;"></div>
+                <table class="bordered striped text_mid">
+                    <thead class="blue-grey lighten-5">
+                    <tr class="grey-text text-darken-2">
+                        <th data-field="">操作员</th>
+                        <th data-field="">车辆数</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="el in moveCarList" class="grey-text text-darken-1">
+                        <td>{{el._id.username}}</td>
+                        <td>{{el.opCount}}</td>
+                    </tr>
+                    <tr ng-if="moveCarList.length==0&&dateStart!==undefined&&dateEnd!==undefined">
+                        <td colspan="3">暂无数据</td>
+                    </tr>
+                    <tr ng-if="dateStart==undefined||dateEnd==undefined&&moveCarList.length==0">
+                        <td colspan="3"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;时间为必填项</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

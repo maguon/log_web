@@ -7,6 +7,11 @@ app.controller("instruction_car_refuel_details_controller", ["$scope", "$host", 
     $scope.from = $stateParams.from;
     var userId = _basic.getSession(_basic.USER_ID);
 
+
+    // 返回
+    $scope.return = function () {
+        $state.go($stateParams.from,{from:"instruction_car_refuel_details"}, {reload: true})
+    };
     // 通过
     $scope.resolve = function (id) {
         swal({
@@ -55,6 +60,15 @@ app.controller("instruction_car_refuel_details_controller", ["$scope", "$host", 
         _basic.get($host.api_url + "/driveRefuel?driveRefuelId=" + $scope.id).then(function (data) {
             if (data.success == true && data.result.length > 0) {
                 $scope.driveRefuel_details = data.result[0];
+                if(data.result[0].route_start==null ){
+                    $scope.driveRefuel_details.route_start='未知';
+                }
+                if(data.result[0].route_end==null ){
+                    $scope.driveRefuel_details.route_end='未知';
+                }
+                if(data.result[0].dp_route_task_id==null ){
+                    $scope.driveRefuel_details.dp_route_task_id='';
+                }
                 var lat = data.result[0].lat;
                 var lng = data.result[0].lng;
                 var marker, map = new AMap.Map("refuel_address", {

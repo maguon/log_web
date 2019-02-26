@@ -4,7 +4,7 @@
     <div class="row" style="margin: 0">
         <div id="addDamageInfoModel" class="modal modal-fixed-footer" style="width: 65%;height: 580px">
             <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-                <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
+                <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
                     <p>新增质损保险</p>
                 </div>
                 <div class="row" style="width: 80%;margin: 0 auto">
@@ -46,7 +46,7 @@
                     <div class="row col s12 valign-wrapper" style="padding: 0;">
                         <div class="col s10 input-field">
                             <input id="associated_damage" type="text" ng-model="damageNumMod">
-                            <label style="color: #00bcd4;font-weight: bold" for="associated_damage"><span style="color: red;">* </span>关联质损</label>
+                            <label class="cyan-text" style="font-weight: bold" for="associated_damage"><span style="color: red;">* </span>关联质损</label>
                         </div>
                         <div class="col s2 center flex flex-round">
                             <a style="width: 45px;height: 45px" class="btn-floating btn-large waves-light waves-effect cyan lighten-2 btn vc-center"
@@ -59,11 +59,11 @@
                     <!--关联质损信息卡片-->
                     <div class="row col s12" style="margin: 0">
                         <!--这下面加ng-repeat-->
-                        <div class="row col s12" ng-repeat="damage in damageInfoDetailsList" style="border: 2px solid #26c6da;border-radius: 5px;background-color: white;color: darkgray">
+                        <div class="row col s12 cyan_border" ng-repeat="damage in damageInfoDetailsList" style="border-radius: 5px;background-color: white;color: darkgray">
                             <!--头-->
                             <div class="col s12 card_head valign-wrapper" style="padding: 0;border-bottom: 1px solid #ccc">
                                 <div class="col s11 left-align">
-                                    <p style="font-weight: bold;font-size: 1.2rem;color: #00bcd4">质损编号：{{damage.id}}</p>
+                                    <p class="cyan-text" style="font-weight: bold;font-size: 1.2rem;">质损编号：{{damage.id}}</p>
                                 </div>
                                 <div class="col s1 right-align">
                                     <span ng-click="deleteDamageInfo(damage.id)" style="font-size: 1.8rem;cursor: pointer;color: #e88282" class="mdi mdi-delete-forever"></span>
@@ -206,7 +206,7 @@
     <div class="row">
         <div class="col s12">
             <div class="col s12">
-                <div class="divider" style="background: #00bcd4;height: 2px"></div>
+                <div class="divider cyan" style="height: 2px;"></div>
                 <table class="bordered striped text_mid">
                     <thead class="blue-grey lighten-5">
                     <tr class="grey-text text-darken-2">
@@ -233,7 +233,7 @@
                         <td class="red-text text-lighten-2" ng-if="damage.insure_status == 1">处理中</td>
                         <td ng-if="damage.insure_status == 2">已处理</td>
                         <td class="operation">
-                            <a ui-sref="add_damage_insurance_details({id:damage.id})" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
+                            <a ui-sref="add_damage_insurance_details({id:damage.id,from:'insurance_compensation'})" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
                         </td>
                     </tr>
                     <tr class="grey-text text-darken-1" ng-if="damageInsurancePaymentList.length == 0">

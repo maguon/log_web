@@ -133,7 +133,7 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
         }
     };
 
-    // 存放位置联动查询--行
+    // 存放位置联动查询--道
     $scope.changeStorageId = function (val) {
         _basic.get($host.api_url + "/storageParking?storageId=" + val).then(function (data) {
             if (data.success == true) {
@@ -147,7 +147,7 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
         });
     };
 
-    // 存放位置联动查询--列
+    // 存放位置联动查询--位
     $scope.changeStorageRow = function (val, array) {
         $scope.colArr = array[val - 1].col;
     };
@@ -222,7 +222,7 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
     $scope.move_parking = function (parkingId, row, col) {
         // console.log(parkingId, row, col);
         swal({
-                title: "该车辆确定移位到" + row + "排" + col + "列？",
+                title: "该车辆确定移位到" + row + "道" + col + "位？",
                 text: "",
                 type: "warning",
                 showCancelButton: true,
@@ -268,11 +268,12 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
     };
 
     // 仓库车辆详情
+
+
     // 返回
     $scope.return = function () {
-        // console.log($stateParams.mark);
         if ($stateParams.mark == 1) {
-            $state.go($stateParams.from, {reload: true})
+            $state.go($stateParams.from,{from:"storageCar_details"}, {reload: true})
         }
         else {
             $state.go($stateParams.from, {
@@ -304,18 +305,21 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
         $scope.vin = vin;
         _basic.get($host.record_url + "/user/" + userId + "/car/" + val + "/record").then(function (data) {
             if (data.success == true) {
-                // console.log(data);
-                $scope.operating_record = data.result[0];
-                $scope.comment = $scope.operating_record.comment;
-                $scope.storage_image = $scope.operating_record.storage_image;
-                for (var i in $scope.storage_image) {
-                    $scope.storage_image_i.push($host.file_url + '/image/' + $scope.storage_image[i].url);
-                    $scope.storage_imageBox.push({
-                        src: $host.file_url + '/image/' + $scope.storage_image[i].url,
-                        record_id: $scope.operating_record._id,
-                        time: $scope.storage_image[i].timez,
-                        user: $scope.storage_image[i].name
-                    });
+                if(data.result.length==0){
+                    $scope.operating_record=null;
+                }else{
+                    $scope.operating_record = data.result[0];
+                    $scope.comment = $scope.operating_record.comment;
+                    $scope.storage_image = $scope.operating_record.storage_image;
+                    for (var i in $scope.storage_image) {
+                        $scope.storage_image_i.push($host.file_url + '/image/' + $scope.storage_image[i].url);
+                        $scope.storage_imageBox.push({
+                            src: $host.file_url + '/image/' + $scope.storage_image[i].url,
+                            record_id: $scope.operating_record._id,
+                            time: $scope.storage_image[i].timez,
+                            user: $scope.storage_image[i].name
+                        });
+                    }
                 }
             }
             else {
@@ -338,7 +342,7 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
                 else {
                     $scope.order_date = $scope.self_car.order_date;
                 }
-                $scope.look_storageName = $scope.self_car.storage_name + $scope.self_car.area_name + $scope.self_car.row + "排" + $scope.self_car.col + "列";
+                $scope.look_storageName = $scope.self_car.storage_name + $scope.self_car.area_name + $scope.self_car.row + "道" + $scope.self_car.col + "位";
                 // 车辆id
                 $scope.look_car_id = $scope.self_car.id;
                 $scope.select_city_start = {id: $scope.self_car.route_start_id, city_name: $scope.self_car.route_start};

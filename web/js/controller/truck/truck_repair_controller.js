@@ -11,7 +11,7 @@ app.controller("truck_repair_controller", ["$scope", "$state", "$stateParams", "
 
     // 点击返回按钮返回之前页面
     $scope.return = function () {
-        $state.go($stateParams.from, {reload: true});
+        $state.go($stateParams.from,{from:'truck_repair'}, {reload: true});
     };
 
     // 判断车辆类型获取头车或挂车详细信息

@@ -53,7 +53,7 @@
         </div>
 
         <div class="row col s12" style="margin-top: 25px">
-            <div class="divider" style="background: #00bcd4;height: 2px"></div>
+            <div class="divider cyan" style="height: 2px;"></div>
             <table class="bordered striped text_mid">
                 <thead class="blue-grey lighten-5">
                 <tr class="grey-text text-darken-2">
@@ -68,6 +68,7 @@
                     <th data-field="">实际门卫费</th>
                     <th data-field="">货车牌号</th>
                     <th data-field="">送达经销商</th>
+                    <th data-field="">装车日期</th>
                     <th data-field="">领取时间</th>
                     <th data-field="">领取状态</th>
                 </tr>
@@ -85,6 +86,7 @@
                     <td>{{car.actual_guard_fee}}</td>
                     <td>{{car.truck_num}}</td>
                     <td>{{car.short_name}}</td>
+                    <td>{{car.created_on | date:'yyyy-MM-dd'}}</td>
                     <td>{{car.clean_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                     <td width="150px">{{car.status == 0 ? "未通过" : car.status == 1 ? "未领取" : "已领取"}}</td>
                 </tr>

@@ -8,7 +8,7 @@
             <div class="vc-center">
                 <h5 class="center-align cyan-text text-lighten-1">指令详情</h5>
             </div>
-            <div class="divider" style="background: #00bcd4;height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
+            <div class="divider cyan" style="height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
             <div class="row no-marBottom" ul-tabs>
                 <div id="look_msg" class="col s12 tab_box bold_txt" style="width: 90%; margin:0 5% ">
                     <div class="row vc-center" style="padding: 20px">
@@ -43,7 +43,7 @@
                             </div>
                             <div class="col s10">
                                 <div class="col s2">
-                                    <p><span>车位：</span>{{this_instruction.trail_number}}</p>
+                                    <p><span>车位：</span>{{this_instruction.truck_number}}</p>
                                 </div>
                                 <div class="col s3">
                                     <p><span>运送车辆：</span>{{this_instruction.car_count}}</p>
@@ -94,7 +94,7 @@
             </div>
             <div style="margin:0 1% 0 5.5%">
                 <h5 style="margin-top: 30px">任务执行记录</h5>
-                <div class="divider" style="width: 95%;background: #00bcd4;height: 2px;margin-top:15px"></div>
+                <div class="divider cyan" style="width: 95%;height: 2px;margin-top:15px"></div>
                 <div class="row" style="height: 200px;overflow-y: auto">
                     <p ng-repeat="el in recordList" style="line-height: 30px">
                         <span>{{el.timez | date:"yyyy-MM-dd HH:mm:ss"}}</span>

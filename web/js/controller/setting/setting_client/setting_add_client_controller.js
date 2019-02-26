@@ -6,6 +6,7 @@ app.controller("setting_add_client_controller", ["$scope", "_basic", "_config", 
     $scope.userId = _basic.getSession(_basic.USER_ID);
     $scope.shortName = "";
     $scope.entrustName = "";
+    $scope.secret = "";
     $scope.remark = "";
 
     $scope.createEntrust = function () {
@@ -13,6 +14,7 @@ app.controller("setting_add_client_controller", ["$scope", "_basic", "_config", 
             _basic.post($host.api_url + "/user/" + $scope.userId + "/entrust", {
                 shortName: $scope.shortName,
                 entrustName: $scope.entrustName,
+                secretKey:$scope.secret,
                 remark: $scope.remark
             }).then(function (data) {
                 if (data.success == true) {
@@ -25,10 +27,6 @@ app.controller("setting_add_client_controller", ["$scope", "_basic", "_config", 
                     swal(data.msg, "", "error");
                 }
             })
-                // .catch(function (e) {
-                //     swal("服务器内部错误", "", "error");
-                //     console.log(e);
-                // });
         }
         else {
             swal("请填写完整信息", "", "error");

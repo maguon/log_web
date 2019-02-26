@@ -53,8 +53,22 @@
     </li>
 
     <li class="bold side_navigator">
-        <a href="#!" ui-sref="damage_management" class="waves-effect waves-light first-N" ><i class="white-text mdi mdi-sim-alert"></i>质损管理</a>
+        <ul class="collapsible collapsible-accordion">
+            <li class="bold">
+                <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-water-pump "></i>质损管理</a>
+                <div class="collapsible-body slider_nav_box blue-grey darken-3" style="padding: 0;">
+                    <ul>
+
+                        <li><a href="#!" ui-sref="damage_management"><i class="mdi mdi-chevron-right white-text "></i>质损管理</a></li>
+                        <li><a href="#!" ui-sref="car_detection_statistics"><i class="mdi mdi-chevron-right white-text "></i>质检统计</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
     </li>
+
+
+
 
     <li class="bold side_navigator">
         <ul class="collapsible collapsible-accordion">
@@ -172,6 +186,7 @@
 <script src="/lib/highcharts.js"></script>
 <script src="/lib/parse.min.js"></script>
 <script src="/assets/custom.js"></script>
+<script src="/assets/plugins/qrcode.js"></script>
 <script src="/lib/angular/angular-ui-router.min.js"></script>
 <script src="/lib/angular/angular-cookies.min.js"></script>
 <script src="/lib/angular/angular-messages.min.js"></script>
@@ -213,6 +228,7 @@
 <script src="/js/controller/damage/damage_management_details_controller.js"></script>
 <script src="/js/controller/damage/car_wash_fee_controller.js"></script>
 <script src="/js/controller/damage/car_wash_fee_details_controller.js"></script>
+<script src="/js/controller/damage/car_detection_statistics_controller.js"></script>
 
 <!--管理员设置-->
 <script src="/js/controller/setting/setting_user_controller.js"></script>

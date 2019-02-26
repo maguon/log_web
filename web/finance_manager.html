@@ -77,6 +77,14 @@
                         <li><a href="#!" ui-sref="finance_route_fee"><i class="white-text mdi mdi-chevron-right"></i>出车款管理</a></li>
                         <li><a href="#!" ui-sref="driver_salary"><i class="white-text mdi mdi-chevron-right"></i>司机工资</a></li>
                         <li><a href="#!" ui-sref="dispatch_route_requ"><i class="white-text mdi mdi-chevron-right"></i>出车款发放</a></li>
+                        <li><a href="#!" ui-sref="setting_settlement"><i class="white-text mdi mdi-chevron-right"></i>委托方结算</a></li>
+                        <li><a href="#!" ui-sref="driver_settlement"><i class="white-text mdi mdi-chevron-right"></i>司机结算</a></li>
+                        <li><a href="#!" ui-sref="instruction_driver_mileage"><i class="mdi mdi-chevron-right white-text "></i>司机里程</a></li>
+                        <li><a href="#!" ui-sref="driver_cost"><i class="white-text mdi mdi-chevron-right"></i>司机成本</a></li>
+                        <li><a href="#!" ui-sref="car_settlement"><i class="white-text mdi mdi-chevron-right"></i>商品车结算</a></li>
+                        <li><a href="#!" ui-sref="settlement_car"><i class="white-text mdi mdi-chevron-right"></i>结算车辆导入</a></li>
+                        <li><a href="#!" ui-sref="accident_claim"><i class="white-text mdi mdi-chevron-right"></i>货车事故理赔</a></li>
+                        <li><a href="#!" ui-sref="insurance_compensation"><i class="white-text mdi mdi-chevron-right"></i>商品车理赔</a></li>
                     </ul>
                 </div>
             </li>
@@ -190,6 +198,7 @@
 <script src="/lib/highcharts.js"></script>
 <script src="/lib/parse.min.js"></script>
 <script src="/assets/custom.js"></script>
+<script src="/assets/plugins/qrcode.js"></script>
 <script src="/lib/angular/angular-ui-router.min.js"></script>
 <script src="/lib/angular/angular-cookies.min.js"></script>
 <script src="/lib/angular/angular-messages.min.js"></script>
@@ -228,7 +237,17 @@
 <script src="/js/controller/finance/driver_salary_controller.js"></script>
 <script src="/js/controller/finance/driver_salary_details_controller.js"></script>
 <script src="/js/controller/finance/dispatch_route_requ_controller.js"></script>
-
+<script src="/js/controller/setting/setting_settlement_controller.js"></script>
+<script src="/js/controller/settlement/driver_settlement_controller.js"></script>
+<script src="/js/controller/dispatch/instruction_driver_mileage_controller.js"></script>
+<script src="/js/controller/dispatch/instruction_drive_details_controller.js"></script>
+<script src="/js/controller/finance/driver_cost_controller.js"></script>
+<script src="/js/controller/settlement/settlement_car_controller.js"></script>
+<script src="/js/controller/settlement/car_settlement_controller.js"></script>
+<script src="/js/controller/truck/insurance_compensation_controller.js"></script>
+<script src="/js/controller/truck/add_damage_insurance_details_controller.js"></script>
+<script src="/js/controller/truck/accident_claim_controller.js"></script>
+<script src="/js/controller/truck/accident_claim_details_controller.js"></script>
 <!--公共数据-->
 <script src="/js/controller/car/car_query/car_query_controller.js"></script>
 <script src="/js/controller/car/car_query/car_query_details_controller.js"></script>

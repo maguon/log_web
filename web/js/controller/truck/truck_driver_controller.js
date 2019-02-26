@@ -1,19 +1,53 @@
 /**
  * Created by zcy on 2017/7/12.
  */
-app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host", function ($scope, _basic, _config, $host) {
+app.controller("truck_driver_controller", ["$scope","$rootScope","$state","$stateParams", "_basic", "_config", "$host", function ($scope,$rootScope,$state,$stateParams, _basic, _config, $host) {
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.start = 0;
     $scope.size = 21;
     // 驾驶类型
     $scope.licenseType = _config.licenseType;
 
+    // 根据选择的所属类型获取公司信息
+    $scope.searchOperateType = function () {
+        _basic.get($host.api_url + "/company?operateType=" + $scope.driverType).then(function (companyData) {
+            if (companyData.success === true) {
+                $scope.companyList = companyData.result;
+            }
+            else {
+                swal(companyData.msg, "", "error");
+            }
+        });
+    };
+
+
+
     // 搜索指定司机信息
-    $scope.searchDriver = function (obj) {
-        obj.start = obj.start + "";
-        _basic.get($host.api_url + "/drive?" + _basic.objToUrl(obj)).then(function (driveData) {
-            if (driveData.success === true) {
-                $scope.boxArray = driveData.result;
+    $scope.searchDriver = function () {
+
+        // 基本检索URL
+        var url = $host.api_url + "/drive?start=" + $scope.start + "&size=" + $scope.size;
+        // 检索条件
+        var conditionsObj = makeConditions();
+        var conditions = _basic.objToUrl(conditionsObj);
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
+
+        _basic.get(url).then(function (data) {
+
+            if (data.success == true) {
+
+                // 当前画面的检索信息
+                var pageItems = {
+                    pageId: "truck_driver",
+                    start: $scope.start,
+                    size: $scope.size,
+                    conditions: conditionsObj
+                };
+                // 将当前画面的条件
+                $rootScope.refObj = {pageArray: []};
+                $rootScope.refObj.pageArray.push(pageItems);
+                $scope.boxArray = data.result;
                 $scope.driveList = $scope.boxArray.slice(0, 20);
                 if ($scope.start > 0) {
                     $("#pre").show();
@@ -21,7 +55,7 @@ app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host
                 else {
                     $("#pre").hide();
                 }
-                if (driveData.result.length < $scope.size) {
+                if (data.result.length < $scope.size) {
                     $("#next").hide();
                 }
                 else {
@@ -29,97 +63,75 @@ app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host
                 }
             }
             else {
-                swal(driveData.msg, "", "error");
+                swal(data.msg, "", "error");
             }
         });
     };
 
-    $scope.queryParams = {
-        start:$scope.start ,
-        size:$scope.size,
-    };
+    /**
+     * 设置检索条件。
+     * @param conditions 上次检索条件
+     */
+    function setConditions(conditions) {
+        $scope.driveName = conditions.driveName;
+        $scope.driverType = conditions.operateType;
+        $scope.driverCompany = conditions.companyId;
+        $scope.workStatus = conditions.driveStatus;
+        $scope.driveTel = conditions.mobile;
+        $scope.truckNumber = conditions.truckNum;
+        $scope.drivingLicense = conditions.licenseType;
+        $scope.verificationStart = conditions.licenseDateStart;
+        $scope.verificationEnd = conditions.licenseDateEnd;
+    }
 
-    // 普通查询
-    $scope.common_search_driver = function(){
-        // 控制分页查询参数
-        $scope.queryParams.start = $scope.start;
-        $scope.searchDriver($scope.queryParams)
-    };
-    $scope.common_search_driver();
+    /**
+     * 组装检索条件。
+     */
+    function makeConditions() {
+        return {
+            driveName:$scope.driveName,
+            operateType:$scope.driverType,
+            companyId:$scope.driverCompany,
+            driveStatus:$scope.workStatus,
+            mobile: $scope.driveTel,
+            truckNum:$scope.truckNumber,
+            licenseType:$scope.drivingLicense,
+            licenseDateStart:$scope.verificationStart,
+            licenseDateEnd:$scope.verificationEnd
+        };
+    }
 
-    // 条件赋值
-    $scope.setParams = function(){
-        // 控制查询参数逻辑
-        if($scope.driveName){
-            $scope.queryParams.driveName = $scope.driveName;
+    /**
+     * 画面初期显示时，用来获取画面必要信息的初期方法。
+     */
+    function initData() {
+        // 如果是从后画面跳回来时，取得上次检索条件
+        if ($stateParams.from === "truck_driver_details" && $rootScope.refObj !== undefined && $rootScope.refObj.pageArray.length > 0) {
+            var pageItems = $rootScope.refObj.pageArray.pop();
+            if (pageItems.pageId === "truck_driver") {
+                // 设定画面翻页用数据
+                $scope.start = pageItems.start;
+                $scope.size = pageItems.size;
+                // 将上次的检索条件设定到画面
+                setConditions(pageItems.conditions);
+                $scope.driverType = pageItems.conditions.operateType;
+            }
+        } else {
+            // 初始显示时，没有前画面，所以没有基本信息
+            $rootScope.refObj = {pageArray: []};
         }
-        else{
-            $scope.queryParams.truckNum = "";
+        // 查询数据
+        $scope.searchOperateType();
+        $scope.searchDriver();
 
-        }
-        if($scope.driverType){
-            $scope.queryParams.operateType = $scope.driverType;
-        }
-        else {
-            $scope.queryParams.operateType= "";
-        }
+    }
+    initData();
 
-        if($scope.driverCompany){
-            $scope.queryParams.companyId = $scope.driverCompany;
-        }
-        else {
-            $scope.queryParams.companyId= "";
-        }
-
-        if($scope.workStatus){
-            $scope.queryParams.driveStatus = $scope.workStatus;
-        }
-        else {
-            $scope.queryParams.driveStatus= "";
-        }
-
-        if($scope.driveTel){
-            $scope.queryParams.mobile = $scope.driveTel;
-        }
-        else {
-            $scope.queryParams.mobile= "";
-        }
-
-        if($scope.truckNumber){
-            $scope.queryParams.truckNum = $scope.truckNumber;
-        }
-        else {
-            $scope.queryParams.truckNum= "";
-        }
-
-        if($scope.drivingLicense){
-            $scope.queryParams.licenseType = $scope.drivingLicense;
-        }
-        else {
-            $scope.queryParams.licenseType= "";
-
-        }
-        if($scope.verificationStart){
-            $scope.queryParams.licenseDateStart = $scope.verificationStart;
-        }
-        else {
-            $scope.queryParams.licenseDateStart= "";
-
-        }
-        if($scope.verificationEnd){
-            $scope.queryParams.licenseDateEnd = $scope.verificationEnd;
-        }
-        else {
-            $scope.queryParams.licenseDateEnd= "";
-        }
-
-    };
 
     // 点击查询司机
     $scope.showDriverInfo = function () {
         $scope.start = 0;
-        $scope.setParams();
-        $scope.searchDriver($scope.queryParams)
+        $scope.searchDriver();
     };
 
     // 停用或启用司机
@@ -150,30 +162,15 @@ app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host
         }
     };
 
-
-
     // 分页
     $scope.previous_page = function () {
         $scope.start = $scope.start - ($scope.size-1);
-        $scope.common_search_driver();
+        $scope.searchDriver();
     };
 
     $scope.next_page = function () {
         $scope.start = $scope.start + ($scope.size-1);
-        $scope.common_search_driver();
-    };
-
-    // 根据选择的所属类型获取公司信息
-    $scope.searchOperateType = function () {
-        _basic.get($host.api_url + "/company?operateType=" + $scope.driverType).then(function (companyData) {
-            if (companyData.success === true) {
-                $scope.companyList = companyData.result;
-                // console.log("companyList",$scope.companyList);
-            }
-            else {
-                swal(companyData.msg, "", "error");
-            }
-        });
+        $scope.searchDriver();
     };
 
     // 获取司机信息
@@ -181,14 +178,13 @@ app.controller("truck_driver_controller", ["$scope", "_basic", "_config", "$host
         _basic.get($host.api_url + "/truckFirst?truckType=1").then(function (truckData) {
             if (truckData.success === true) {
                 $scope.truckList = truckData.result;
-                // console.log("truckData",$scope.truckList);
             }
             else {
                 swal(truckData.msg, "", "error");
             }
         });
-        // 默认显示所有
-        // $scope.searchDriver();
     };
     $scope.queryData();
+
+    $scope.searchDriver();
 }]);

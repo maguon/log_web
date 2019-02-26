@@ -1,0 +1,90 @@
+<!--委托方结算-->
+<div class="setting_drive">
+
+    <!--查询条件-->
+    <div class="row">
+        <div class="row grey-text text-darken-1">
+            <div class="col s10">
+                <div class="col s12">
+                    <!--指令日期(始)  指令日期(终)-->
+                    <div class="input-field col s4">
+                        <input type="text" ng-model="instruct_starTime" id="instruct_start_time" name="instruct_start_time"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="instruct_start_time">指令日期(始)</label>
+                    </div>
+
+                    <div class="input-field col s4">
+                        <input type="text" ng-model="instruct_endTime" id="instruct_endTime" name="instruct_endTime"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="instruct_endTime">指令日期(终)</label>
+                    </div>
+
+                    <div class="col s4 input-field">
+                        <select material-select watch ng-model="drivderId" id="addDrivderId" style="width: 100%">
+                            <option value="" selected>请选择</option>
+                            <option ng-repeat="addDrivder in driveNameList" value={{addDrivder.id}}>{{addDrivder.drive_name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!--按钮-->
+            <div class="col s2" style="margin-top: 15px">
+                <div class="col s6 center-align">
+                    <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getdrive()">
+                        <i class="mdi mdi-magnify"></i>
+                    </a>
+                </div>
+                <div class="col s6 center-align">
+                    <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
+                        <i class="mdi mdi-cloud-download"></i>
+                    </a>
+                </div>
+            </div>
+         </div>
+        <div class="col s12">
+            <div class="divider cyan" style="height: 2px;"></div>
+            <table class=" bordered striped text_mid">
+            <thead class="blue-grey lighten-5">
+            <tr class="grey-text text-darken-2">
+                <th data-field="">司机</th>
+                <th data-field="">洗车费</th>
+                <th data-field="">门卫费</th>
+                <th data-field="">出车款</th>
+                <th data-field="">货车维修费</th>
+                <th data-field="">违章扣款</th>
+                <th data-field="">超量扣款</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="driveInfo in driveList" class="grey-text text-darken-1">
+                <td>{{driveInfo.drive_name==null?0:driveInfo.drive_name}}</td>
+                <td>{{driveInfo.actual_price==null?0:driveInfo.actual_price}}</td>
+                <td>{{driveInfo.actual_guard_fee==null?0:driveInfo.actual_guard_fee}}</td>
+                <td>{{driveInfo.grant_actual_money==null?0:driveInfo.grant_actual_money}}</td>
+                <td>{{driveInfo.repair_money==null?0:driveInfo.repair_money}}</td>
+                <td>{{driveInfo.peccancy_fine_money==null?0:driveInfo.peccancy_fine_money}}</td>
+                <td>{{driveInfo.exceed_oil_money==null?0:driveInfo.exceed_oil_money}}</td>
+            </tr>
+            <tr ng-if="driveList.length==0&&instruct_starTime!==undefined&&instruct_endTime!==undefined">
+                <td colspan="10">暂无数据</td>
+            </tr>
+            <tr ng-if="instruct_starTime==undefined||instruct_endTime==undefined&&driveList.length==0">
+                <td colspan="10"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+
+        <!--分页-->
+        <div class="row">
+            <div class="paging_box col s12">
+                <div class="right">
+                    <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="pre_btn()">
+                        上一页
+                    </a>
+                    <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_btn()">
+                        下一页
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

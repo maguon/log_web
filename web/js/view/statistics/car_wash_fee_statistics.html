@@ -12,9 +12,12 @@
                 <div class="col s5 left">
                     <p>商品车洗车费-按月统计</p>
                 </div>
-                <div class="col s6 right">
-                    <div class="col s3 left">
-                        <p class="right">选择日期区间:</p>
+                <div class="col s7 right">
+                    <div class="col s3 center-align">
+                        <select material-select watch id="car_brand" name="car_brand"    ng-model="car_brand" >
+                            <option value="" disabled selected>全部品牌</option>
+                            <option ng-repeat="el in get_carMake" ng-value="el.id">{{el.make_name}}</option>
+                        </select>
                     </div>
                     <div class="col s3">
                         <input id="chooseCarWashFeeStart_month" type="text" ng-value="startInitial" readonly>
@@ -26,7 +29,7 @@
                         <input id="chooseCarWashFeeEnd_month" type="text" ng-value="endInitial" readonly>
                     </div>
                     <div class="col s2 center">
-                        <i class="mdi mdi-magnify" ng-click="getCarWashFeeMonthCount();getReceiveCarWashFeeRankingMonth()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                        <i class="mdi mdi-magnify" ng-click="getCarWashFeeMonthCount();getReceiveCarWashFeeRankingMonth();getCarWashFeeWeekCount();getReceiveCarWashFeeRankingWeek();" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
                     </div>
                 </div>
             </div>
@@ -37,7 +40,7 @@
             <div class="col s4">
                 <div style="height:500px;margin-top:20px;background-color: white">
                     <div class="col s12 center-align" style="font-size: 1.2rem;font-weight: bold;color: #90A4AE">
-                        <p style="margin: 10px 0">经销商洗车费 <span style="color: #26c6da">TOP10</span></p>
+                        <p style="margin: 10px 0">经销商洗车费 <span class="cyan-text" >TOP10</span></p>
                     </div>
                     <!--top10排行榜-->
                     <div ng-repeat="feeInfo in carWashFeeRankingMonth" class="col s12 valign-wrapper" style="margin: 5px 0">

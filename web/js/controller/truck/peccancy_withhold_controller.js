@@ -34,9 +34,7 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
                     placeholder: selectText,
                     containerCssClass : 'select2_dropdown',
                     allowClear: true
-                }).on('change', function () {
-                    $scope.changeDrivde($scope.putPeccancyList.drive_id);
-                });
+                })
             }
             else {
                 swal(data.msg, "", "error");
@@ -44,41 +42,39 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
         });
     }
 
-
-    //货车牌号联动查询
-    $scope.changeDrivdeId = function(drivdeId){
-        _basic.get($host.api_url + "/truckFirst?driveId=" + drivdeId).then(function (data) {
-            if (data.success == true) {
-                if(data.result.length==0) {
-                    $scope.addPeccancyTruckNum = '';
+    //获取货车牌号
+    function getTruckNum(selectText) {
+        if(selectText==''||selectText==undefined){
+            _basic.get($host.api_url + "/truckBase").then(function (data) {
+                if (data.success === true) {
+                    $scope.truckNumListAllList = data.result;
+                    $('#addPeccancyTruckId').select2({
+                        placeholder: "货车牌号",
+                        containerCssClass: 'select2_dropdown',
+                        allowClear: true
+                    });
                 }
-                else{
-                    $scope.addPeccancyTruckNum = data.result[0].truck_num;
-                    $scope.addPeccancyTruckId = data.result[0].id;
+                else {
+                    swal(data.msg, "", "error");
                 }
-
-            } else {
-                swal(data.msg, "", "error")
-            }
-        });
+            })
+        }
+      else{
+            _basic.get($host.api_url + "/truckBase").then(function (data) {
+                if (data.success == true) {
+                    $scope.truckNumListList = data.result;
+                    $('#putTruckNum').select2({
+                        placeholder: selectText,
+                        containerCssClass : 'select2_dropdown',
+                        allowClear: true
+                    })
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
     }
-    $scope.changeDrivde = function(drivdeId){
-        _basic.get($host.api_url + "/truckFirst?driveId=" + drivdeId).then(function (data) {
-            if (data.success == true) {
-                if(data.result.length==0) {
-                    $scope.putPeccancyList.truck_num = '';
-                }
-                else{
-                    $scope.putPeccancyList.truck_num = data.result[0].truck_num;
-                    $scope.putPeccancyList.id = data.result[0].id;
-                }
-
-            } else {
-                swal(data.msg, "", "error")
-            }
-        });
-    }
-
 
     //查询功能
     $scope.getPeccancy = function (){
@@ -91,6 +87,9 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
         _basic.get($host.api_url + "/drivePeccancy?" + _basic.objToUrl({
             driveId:$scope.driverId,
             statStatus:$scope.peccancyStu,
+            truckType:$scope.truckType,
+            handleDateStart:$scope.getStartTime,
+            handleDateEnd:$scope.getEndTime,
             start:$scope.start.toString(),
             size:$scope.size
         })).then(function (data) {
@@ -120,7 +119,10 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
     $scope.export = function () {
         var obj = {
             driveId:$scope.driverId,
-            fineStatus:$scope.peccancyStu
+            fineStatus:$scope.peccancyStu,
+            truckType:$scope.truckType,
+            handleDateStart:$scope.getStartTime,
+            handleDateEnd:$scope.getEndTime
         };
         window.open($host.api_url + "/drivePeccancy.csv?" + _basic.objToUrl(obj));
     };
@@ -129,28 +131,36 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
     $scope.addPeccancy = function (){
         $scope.addDrivderId='';
         $scope.driveNameList =[];
-        $scope.addPeccancyTruckNum='';
+        $scope.addPeccancyTruckId='';
         $scope.addPeccancyScore='';
         $scope.addPeccancyMoney='';
         $scope.addStartTime='';
         $scope.addEndTime='';
+        $scope.addDealMoney='';
+        $scope.handleDate='';
+        $scope.addPlce='';
         $scope.newRemark='';
         getDriveNameList ();
+        getTruckNum();
         $('#addPeccancyItem').modal('open');
     }
 
 
     //点击确定 增加完成
     $scope.addPeccancyItem = function (){
-        if ($scope.addDrivderId !== undefined && $scope.addPeccancyTruckNum !== '' && $scope.addPeccancyScore !== undefined
-            &&$scope.addPeccancyMoney !== undefined &&$scope.addStartTime !== undefined&&$scope.addEndTime!==undefined) {
+        if ($scope.addDrivderId !== "" && $scope.addPeccancyTruckId !== '' && $scope.addPeccancyScore !== ''
+            &&$scope.addPeccancyMoney !== '' &&$scope.addStartTime !== ""&&$scope.addEndTime!==''&&$scope.addDealMoney!==''&&$scope.handleDate!=='') {
             _basic.post($host.api_url + "/user/" + userId + "/drivePeccancy", {
                 driveId: $scope.addDrivderId,
-                truckId: $scope.addPeccancyTruckId,
+                truckId: $scope.addPeccancyTruckId.id,
+                truckType: $scope.addPeccancyTruckId.truck_type,
                 fineScore: $scope.addPeccancyScore,
-                fineMoney: $scope.addPeccancyMoney,
+                trafficFine: $scope.addPeccancyMoney,
+                fineMoney: $scope.addDealMoney,
                 startDate: $scope.addStartTime,
                 endDate: $scope.addEndTime,
+                handleDate:$scope.handleDate,
+                address: $scope.addPlce,
                 remark: $scope.newRemark
             }).then(function (data) {
                 if (data.success === true) {
@@ -173,6 +183,7 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
     $scope.putPeccancy = function (id){
         $scope.id = id;
         $scope.driveList =[];
+        $scope.truckNumListList =[];
         $('#putPeccancyItem').modal('open');
         _basic.get($host.api_url + "/drivePeccancy?peccancyId=" +id).then(function (data) {
             if (data.success === true) {
@@ -183,8 +194,10 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
                     $scope.putPeccancyList = data.result[0];
                     $scope.putPeccancyList.start_date = moment(data.result[0].start_date).format('YYYY-MM-DD');
                     $scope.putPeccancyList.end_date =  moment(data.result[0].end_date).format('YYYY-MM-DD');
+                    $scope.putPeccancyList.handle_date = moment(data.result[0].handle_date).format('YYYY-MM-DD');
                     $scope.putPeccancyList.drive_id = data.result[0].drive_id;
                     getDriveList($scope.putPeccancyList.drive_id);
+                    getTruckNum($scope.putPeccancyList.truck_num)
                 }
             }
         })
@@ -192,32 +205,65 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
 
 
     //点击确定 修改完成
-    $scope.putPeccancyItem = function (){
-        if ( $scope.putPeccancyList.drive_id !== undefined && $scope.putPeccancyList.truck_num!== '' && $scope.putPeccancyList.fine_score !== undefined
-            &&$scope.putPeccancyList.fine_money!== undefined &&$scope.putPeccancyList.start_date !== undefined&&$scope.putPeccancyList.end_date!==undefined) {
-            _basic.put($host.api_url + "/user/" + userId + "/peccancy/"+$scope.id, {
-                driveId: $scope.putPeccancyList.drive_id,
-                truckId:$scope.putPeccancyList.id,
-                fineScore: $scope.putPeccancyList.fine_score,
-                fineMoney: $scope.putPeccancyList.fine_money,
-                startDate: $scope.putPeccancyList.start_date,
-                endDate: $scope.putPeccancyList.end_date,
-                remark: $scope.putPeccancyList.remark
-            }).then(function (data) {
-                if (data.success === true) {
-                    swal("修改成功", "", "success");
-                    $('#putPeccancyItem').modal('close');
-                    getPeccancyData();
-                }
-                else {
-                    swal(data.msg, "", "error");
-                }
-            })
+    $scope.putPeccancyItem = function () {
+        if ($scope.putPeccancyList.drive_id !== null && $scope.putPeccancyList.truck_id !== null && $scope.putPeccancyList.fine_score !== null
+            && $scope.putPeccancyList.fine_money !== null && $scope.putPeccancyList.start_date !== '' && $scope.putPeccancyList.end_date !== ''
+            && $scope.putPeccancyList.truck_type !== null
+            && $scope.putPeccancyList.traffic_fine !== null
+            && $scope.putPeccancyList.handle_date !== '') {
+            getTruckType()
         }
         else {
             swal("请填写完整信息！", "", "warning");
         }
     }
+
+    function  putPeccancyItem(){
+        _basic.put($host.api_url + "/user/" + userId + "/peccancy/"+$scope.id, {
+            driveId: $scope.putPeccancyList.drive_id,
+            truckId:$scope.putPeccancyList.truck_id,
+            fineScore: $scope.putPeccancyList.fine_score,
+            trafficFine: $scope.putPeccancyList.traffic_fine,
+            startDate: $scope.putPeccancyList.start_date,
+            endDate: $scope.putPeccancyList.end_date,
+            truckType: $scope.putPeccancyList.truck_type,
+            fineMoney: $scope.putPeccancyList.fine_money,
+            handleDate:$scope.putPeccancyList.handle_date,
+            address: $scope.putPeccancyList.address,
+            remark: $scope.putPeccancyList.remark
+        }).then(function (data) {
+            if (data.success === true) {
+                swal("修改成功", "", "success");
+                $('#putPeccancyItem').modal('close');
+                getPeccancyData();
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        })
+    }
+    function getTruckType(){
+
+        _basic.get($host.api_url + "/truckBase?truckId=" +$scope.putPeccancyList.truck_id).then(function (data) {
+            if (data.success === true) {
+                $scope.putPeccancyList.truck_type =data.result[0].truck_type;
+                putPeccancyItem();
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        })
+
+
+    }
+
+
+
+
+
+
+
+
 
     $scope.putPeccancyItem2 = function (){
         $('#putPeccancyItem').modal('close');

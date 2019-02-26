@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum=1.0, user-scalable=no" />
+    <script src="../lib/jquery.min.js"></script>
+    <link rel="shortcut icon" href="/assets/images/ico/settlemnet_icon.ico"/>
+</head>
+<body style="margin: 0px; background-color: #7EC0EE;">
+<div id="guideDiv" style="display: none;position: absolute;top: 0px;background-color: rgb(3, 29, 26);width: 100%;height: 100%;z-index: 2;">
+    <div style="background-color: #000; border: 2px solid #fff; border-bottom-right-radius: 28px;
+    color: #fff; font-size: 22px; height: 28px;text-align: center;
+    width: 28px;
+    padding-bottom: 2px;
+    margin-left: 0;
+    right: -5px;
+    top: -14px;" onclick="$('#guideDiv').css('display','none');">×</div>
+    <div style="width: 100%;text-align: right;margin-top:-20px;"><img style="padding-right: 20px;" src="../assets/images/arrow.png" /></div>
+    <div style="width: 100%;text-align: center;color: #fff;">
+        <p ><h1 style="">不能正常下载？</h1></p>
+        <p style="font-size: 20px;">由于微信的限制，请点击右上角</p>
+        <p style="font-size: 20px">请选择<span style="color: #D76632;">"在浏览器中打开"</span></p>
+    </div>
+</div>
+<div  style=" padding-top:80px;background-color: #7EC0EE;width: 100%;">
+    <div style="width: 100%">
+        <div style="padding: 0 0 0 50px;">
+
+        </div>
+
+    </div>
+</div>
+<div style="padding: 100px 0;text-align: center;vertical-align: middle; position:fixed;bottom:150px;width: 100%; height:30%">
+    <table class="mp-mobile-height-50px center" style="height:80px;margin: 0 auto;">
+        <tbody>
+        <tr>
+            <td>
+                <img style="width: 120px;height: 120px;" src="../assets/images/settlement_logo_144.png">
+            </td>
+            <td>
+                <div style="padding-left: 10px; color:white;font-size: 20px">捷益结</div>
+                <div style="padding-left: 10px; color:white;font-size: 14px">高效、安全、智能、便捷！</div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a  href="/#" id="downloadHref" disabled>
+        <button id="downloadBtn" class="mp-pointer" onclick="openGuide()" style="font-size: 20px;background-color: #7EC0EE;width: 80%;height: 40px;margin-top: 15px; color: #fff;border: 1px solid #FFF;">
+            立即下载
+        </button>
+    </a>
+</div>
+<div style="position:fixed;bottom:40px;width: 100%;color: #fff;font: 16px/1.5 'Microsoft YaHei','tahoma','arial','Hiragino Sans GB',\5b8b\4f53;">
+    <div style="text-align: center;">
+
+    </div>
+    <div style="text-align: center;">
+        <span style="padding: 0 5px;">© 洺源信息技术(大连)有限公司 版权所有</span>
+    </div>
+</div>
+
+<script src="host.js"></script>
+</body>
+
+<script language="JavaScript" type="text/javascript">
+    $.ajax({
+        type:"GET",
+        url:host.api_url+'/app?app=5&type=1&start=0&size=1',
+        async:true,
+        success:function (data) {
+            apkUrl= data.result[0].url;
+            $('#downloadHref')[0].href = apkUrl;
+            $('#downloadHref').attr("disabled",false);
+        },
+        error: function () {
+            alert('地址错误！');
+        }
+    });
+    var wechatFlag = false;
+    var iosFlag = false;
+    function IsPC() {
+        var userAgentInfo = navigator.userAgent.toLowerCase();
+        //alert(userAgentInfo);
+        var Agents = ["Android", "iPhone",
+            "SymbianOS", "Windows Phone",
+            "iPad", "iPod"];
+        var androidAgent = 'android';
+        var wechatAgent = 'micromessenger';
+        if(userAgentInfo.indexOf(wechatAgent)>0){
+            wechatFlag = true;
+        }
+        if(userAgentInfo.indexOf(androidAgent)>0){
+
+            return ;
+        }
+        var iosAgent = ['iphone','ipad','ipod']
+        for (var v = 0; v < iosAgent.length; v++) {
+            if (userAgentInfo.indexOf(iosAgent[v]) > 0) {
+                iosFlag = true;
+                alert('暂不支持IOS系统')
+                return ;
+            }
+        }
+        return ;
+    }
+    function openGuide(){
+        if(wechatFlag){
+            $('#guideDiv').css('display','block');
+        }
+    }
+    IsPC();
+</script>
+</html>

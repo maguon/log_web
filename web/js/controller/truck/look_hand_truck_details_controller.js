@@ -9,7 +9,7 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
     $scope.no_service_img=false;
     $scope.no_drive_img=false;
     $scope.return=function () {
-        $state.go($stateParams.from,{reload:true})
+        $state.go($stateParams.from,{from:'look_hand_truck_details'},{reload:true})
     };
     var viewer;
     // 车辆存照片ID;

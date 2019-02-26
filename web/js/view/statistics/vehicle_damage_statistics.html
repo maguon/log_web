@@ -14,8 +14,11 @@
                     <p>商品车质损-按月统计</p>
                 </div>
                 <div class="col s6 right">
-                    <div class="col s3 left">
-                        <p class="right">选择日期区间:</p>
+                    <div class="col s3 center-align">
+                        <select material-select watch id="car_brand" name="car_brand"    ng-model="car_brand" >
+                            <option value="" disabled selected>全部品牌</option>
+                            <option ng-repeat="el in get_carMake" ng-value="el.id">{{el.make_name}}</option>
+                        </select>
                     </div>
                     <div class="col s3">
                         <input id="chooseRepairStart" type="text" ng-value="startInitial" readonly>

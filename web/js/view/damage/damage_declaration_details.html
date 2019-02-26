@@ -1,24 +1,22 @@
-<a style="margin: 90px 0 0 20px" class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light "
-   ui-sref="damage_declaration">
-    <i class="mdi mdi-arrow-left-bold"></i>
-</a>
+
 <div class="damage_declaration_details" style="width:80%;margin: 0 auto">
     <div class="row">
-        <div class="row valign-wrapper">
-            <h5 class="col s12 cyan-text lighten-1 center-align">
-                质损申报详细
-            </h5>
+        <div class="storage_storeTitle vc-center ">
+            <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
+                <i class="mdi mdi-arrow-left-bold"></i>
+            </a>
+            <h4 class="center-align cyan-text text-lighten-1">质损申报详细</h4>
         </div>
         <ul class="tabs ui-tabs tabs-fixed-width tab-demo z-depth-1"
             style="font-size: 25px;font-weight: bold;overflow-x: hidden;margin-bottom: 25px" ul-tabs>
-            <li class="tab"><a ng-click="showDamageDetails()" style="color: #26c6da;line-height: 40px" href="javascript:void(0)">基本信息</a></li>
-            <li class="tab"><a ng-click="showDamageImages()" style="color: #26c6da;line-height: 40px" href="javascript:void(0)">照片</a></li>
+            <li class="tab"><a ng-click="showDamageDetails()" class="cyan-text"  style="line-height: 40px" href="javascript:void(0)">基本信息</a></li>
+            <li class="tab"><a ng-click="showDamageImages()" class="cyan-text"  style="line-height: 40px" href="javascript:void(0)">照片</a></li>
         </ul>
         <!--待处理-->
         <div class="damage_details_step_1" ng-if="damageStatus == 1 && !photoClick" style="font-size: 1.1rem;font-weight: bold;color: darkgray;display: inline-block">
             <div class="row col s12 valign-wrapper">
                 <div class="input-field col s4">
-                    <input disabled id="person" name="phone" type="text" ng-model="currentDamageInfo.real_name">
+                    <input disabled id="person" name="phone" type="text" ng-model="currentDamageInfo.declare_user_name">
                     <label for="person">申报人</label>
                 </div>
                 <div class="input-field col s4">
@@ -59,7 +57,7 @@
             </div>
             <div class="row col s12">
                 <div class="col s12">
-                    <p><span style="color: #26c6da">质损说明：</span></p>
+                    <p><span class="cyan-text" >质损说明：</span></p>
                 </div>
                 <div class="col s12">
                     <div class="col s12" style="padding: 0;">
@@ -80,40 +78,40 @@
         <div class="damage_details_step_2" ng-if="damageStatus == 2 && !photoClick" style="font-size: 1.1rem;font-weight: bold;color: darkgray;display: inline-block">
             <div class="row col s12 valign-wrapper">
                 <div class="col s4">
-                    <p><span style="color: #26c6da">申报人：</span>{{currentDamageInfo.real_name}}&emsp;&emsp;<span>{{currentDamageInfo.type | department}}</span></p>
+                    <p><span class="cyan-text" >申报人：</span>{{currentDamageInfo.declare_user_name}}&emsp;&emsp;<span>{{currentDamageInfo.type | department}}</span></p>
                 </div>
                 <div class="col s4">
-                    <p><span style="color: #26c6da">申报日期：</span>{{currentDamageInfo.created_on}}</p>
+                    <p><span class="cyan-text" >申报日期：</span>{{currentDamageInfo.created_on}}</p>
                 </div>
                 <div class="col s4">
-                    <p style="font-size: 1.5rem;color: #26c6da;margin: 10px 0">处理中</p>
-                </div>
-            </div>
-            <div class="row col s12">
-                <div class="col s4">
-                    <p><span style="color: #26c6da">VIN：</span>{{currentDamageInfo.vin}}</p>
-                </div>
-                <div class="col s4">
-                    <p><span style="color: #26c6da">品牌：</span>{{currentDamageInfo.make_name}}</p>
-                </div>
-                <div class="col s4">
-                    <p><span style="color: #26c6da">委托方：</span>{{currentDamageInfo.en_short_name}}</p>
+                    <p style="font-size: 1.5rem;margin: 10px 0" class="cyan-text">处理中</p>
                 </div>
             </div>
             <div class="row col s12">
                 <div class="col s4">
-                    <p><span style="color: #26c6da">货车牌号：</span>{{currentDamageInfo.truck_num}}</p>
+                    <p><span class="cyan-text" >VIN：</span>{{currentDamageInfo.vin}}</p>
                 </div>
                 <div class="col s4">
-                    <p><span style="color: #26c6da">司机：</span>{{currentDamageInfo.drive_name}}</p>
+                    <p><span class="cyan-text" >品牌：</span>{{currentDamageInfo.make_name}}</p>
                 </div>
                 <div class="col s4">
-                    <p><span style="color: #26c6da">经销商：</span>{{currentDamageInfo.re_short_name}}</p>
+                    <p><span class="cyan-text" >委托方：</span>{{currentDamageInfo.en_short_name}}</p>
+                </div>
+            </div>
+            <div class="row col s12">
+                <div class="col s4">
+                    <p><span class="cyan-text" >货车牌号：</span>{{currentDamageInfo.truck_num}}</p>
+                </div>
+                <div class="col s4">
+                    <p><span class="cyan-text" >司机：</span>{{currentDamageInfo.drive_name}}</p>
+                </div>
+                <div class="col s4">
+                    <p><span class="cyan-text">经销商：</span>{{currentDamageInfo.re_short_name}}</p>
                 </div>
             </div>
             <div class="row col s12">
                 <div class="col s12">
-                    <p><span style="color: #26c6da">质损说明：</span></p>
+                    <p><span class="cyan-text" >质损说明：</span></p>
                 </div>
                 <div class="col s12">
                     <p>{{currentDamageInfo.damage_explain}}</p>
@@ -125,10 +123,10 @@
             <div class="row col s12">
                 <div class="col s12">
                     <div class="col s4">
-                        <p><span style="color: #26c6da">申报人：</span>{{currentDamageInfo.real_name}}&emsp;&emsp;<span>{{currentDamageInfo.type | department}}</span></p>
+                        <p><span class="cyan-text" >申报人：</span>{{currentDamageInfo.declare_user_name}}&emsp;&emsp;<span>{{currentDamageInfo.type | department}}</span></p>
                     </div>
                     <div class="col s4">
-                        <p><span style="color: #26c6da">申报日期：</span>{{currentDamageInfo.created_on}}</p>
+                        <p><span class="cyan-text" >申报日期：</span>{{currentDamageInfo.created_on}}</p>
                     </div>
                     <div class="col s4">
                         <p style="font-size: 1.5rem;margin: 10px 0">已处理</p>
@@ -136,29 +134,29 @@
                 </div>
                 <div class="col s12">
                     <div class="col s4">
-                        <p><span style="color: #26c6da">VIN：</span>{{currentDamageInfo.vin}}</p>
+                        <p><span class="cyan-text" >VIN：</span>{{currentDamageInfo.vin}}</p>
                     </div>
                     <div class="col s4">
-                        <p><span style="color: #26c6da">品牌：</span>{{currentDamageInfo.make_name}}</p>
+                        <p><span class="cyan-text" >品牌：</span>{{currentDamageInfo.make_name}}</p>
                     </div>
                     <div class="col s4">
-                        <p><span style="color: #26c6da">委托方：</span>{{currentDamageInfo.en_short_name}}</p>
+                        <p><span class="cyan-text" >委托方：</span>{{currentDamageInfo.en_short_name}}</p>
                     </div>
                 </div>
                 <div class="col s12">
                     <div class="col s4">
-                        <p><span style="color: #26c6da">货车牌号：</span>{{currentDamageInfo.truck_num}}</p>
+                        <p><span class="cyan-text" >货车牌号：</span>{{currentDamageInfo.truck_num}}</p>
                     </div>
                     <div class="col s4">
-                        <p><span style="color: #26c6da">司机：</span>{{currentDamageInfo.drive_name}}</p>
+                        <p><span class="cyan-text"  >司机：</span>{{currentDamageInfo.drive_name}}</p>
                     </div>
                     <div class="col s4">
-                        <p><span style="color: #26c6da">经销商：</span>{{currentDamageInfo.re_short_name}}</p>
+                        <p><span class="cyan-text" >经销商：</span>{{currentDamageInfo.re_short_name}}</p>
                     </div>
                 </div>
                 <div class="col s12">
                     <div class="col s12">
-                        <p><span style="color: #26c6da">质损说明：</span></p>
+                        <p><span class="cyan-text">质损说明：</span></p>
                     </div>
                     <div class="col s12">
                         <p>{{currentDamageInfo.damage_explain}}</p>
@@ -167,7 +165,7 @@
             </div>
             <div class="row col s12" style="border-top: 1px solid darkgray"></div>
             <div class="row col s12">
-                <div class="row col s12" style="color: #26c6da;font-size: 1.2rem;font-weight: bold">
+                <div class="row col s12 cyan-text" style="font-size: 1.2rem;font-weight: bold">
                     <div class="col s6">
                         <p>质损类型：{{damageInfoBefore.damage_type | damageType}}</p>
                     </div>
@@ -201,7 +199,7 @@
                         <p>报销人：{{damageInfoBefore.refund_user_name}}</p>
                     </div>
                 </div>
-                <div class="row col s12" style="color: #26c6da;font-size: 1.2rem;font-weight: bold">
+                <div class="row col s12 cyan-text" style="font-size: 1.2rem;font-weight: bold">
                     <div class="col s4">
                         <p>公司承担费用：<span style="color: #e18281">{{damageInfoBefore.company_cost.toFixed(2)}}</span> 元</p>
                     </div>

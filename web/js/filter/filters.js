@@ -245,7 +245,7 @@ CommonFilter.filter("missionStatus", function () {
 
 
 
-// 调度任务状态类型过滤器
+// 调度指令状态类型过滤器
 CommonFilter.filter("taskStatus", function () {
     return function (input) {
         var taskStatus;
@@ -338,7 +338,7 @@ CommonFilter.filter("damageType", function () {
             case 4:
                 damageType = "D级";
                 break;
-            case 5:
+            case 6:
                 damageType = "F级";
                 break;
             default:

@@ -12,7 +12,7 @@
             <!--洗车费模态框-->
             <div id="carWashFeeModel" class="modal modal-fixed-footer" style="width: 52%;height: 400px">
                 <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-                    <div class="row col s12 vc-center" style="font-weight: bold;height: 80px;background-color:rgb(63,185,193)">
+                    <div class="row col s12 vc-center cyan" style="font-weight: bold;height: 80px;">
                         <div class="col s12 fz22 white-text" style="font-weight: 600">
                             <p>商品车洗车费</p>
                         </div>
@@ -53,31 +53,51 @@
             </div>
             <div class="row addDealer">
                 <div class="col s10">
-                    <div class="col s3 input-field">
-                        <select material-select watch id="receiveType" ng-model="receive_type" required>
-                            <option value="" selected>请选择</option>
-                            <option ng-repeat="el in receiveTypeList" ng-value="el.id">{{el.typeName}}</option>
-                        </select>
-                        <label class="grey-text bold" for="receiveType">经销商类型</label>
+                    <!--编号-->
+                    <div class="col input-field" style="width: 20%">
+                        <input id="index" name="index"  ng-model="s_dealer" type="text">
+                        <label for="index">编号</label>
                     </div>
-                    <div class=" input-field col s3">
+
+                    <!--城市-->
+                    <div class="col input-field " style="width: 20%">
                         <select id="start_city_list" name="state" style="width:100%" ng-change="get_dealer()" ng-model="city">
                             <option value=""></option>
                             <option value="0" >清除选择</option>
                             <option ng-repeat="el in get_city" ng-value="el.id">{{el.city_name}}</option>
                         </select>
                     </div>
-                    <div class="input-field col s3">
-                        <select material-select watch id="s_dealer" class="grey-text"   ng-model="s_dealer">
+
+                    <!--经销商-->
+                    <div class="col input-field " style="width: 20%" ng-show="get_receive.length!==0">
+                        <select  id="s_dealer" class="grey-text"   ng-model="s_dealer" style="width: 100%">
+                            <option value=""  selected></option>
+                            <option ng-repeat="el in get_receive" ng-value="el.id" >{{el.short_name}}</option>
+                        </select>
+                    </div>
+                    <div class="col input-field " style="width: 20%" ng-show="get_receive.length==0">
+                        <select material-select watch id="s_dealer1" class="grey-text"   ng-model="s_dealer">
                             <option value=""  selected>请选择</option>
                             <option ng-repeat="el in get_receive" ng-value="el.id" >{{el.short_name}}</option>
                         </select>
-                        <label for="s_dealer">经销商</label>
+                        <label for="s_dealer1">经销商</label>
                     </div>
-                    <div class="col s3 input-field">
-                        <input id="index" name="index"  ng-model="s_dealer" type="text">
-                        <label for="index">编号</label>
+                    <!--经销商类型-->
+                    <div class="col input-field" style="width: 20%">
+                        <select material-select watch id="receiveType" ng-model="receive_type" required>
+                            <option value="" selected>请选择</option>
+                            <option ng-repeat="el in receiveTypeList" ng-value="el.id">{{el.typeName}}</option>
+                        </select>
+                        <label class="grey-text bold" for="receiveType">经销商类型</label>
                     </div>
+                    <!--经营品牌-->
+                    <div class="col input-field" style="width: 20%">
+                        <select material-select watch id="car_brand" name="car_brand" ng-options="car_brand.make_name for car_brand in get_carMake"   ng-model="car_brand" >
+                            <option value="" disabled selected>请选择</option>
+                        </select>
+                        <label class="grey-text bold" for="car_brand">经营品牌</label>
+                    </div>
+
                 </div>
                 <div class="col s2">
                     <a href="" class="right btn-floating btn-large btn waves-effect cyan lighten-1 waves-light vc-center"
@@ -92,10 +112,10 @@
                 <div class="col s12 dealerBox grey lighten-3 p0">
                     <div class="col s9 valign-wrapper">
                         <div class="col s5 valign-wrapper">
-                            <div class="col s1 blue-grey-text text-lighten-2 fz40" style="margin-right: 10px">
-                                <i class="mdi mdi-domain"></i>
+                            <div class="col s1">
+                                {{el.id}}
                             </div>
-                            <div class="col s11">
+                            <div class="col s11" style="margin-left: 10px">
                                 <h6 class="blue-grey-text lighten-1 fz18" ng-bind="el.short_name"></h6>
                                 <h6 class="fz13"><span>公司名称:</span><span>{{el.receive_name}}</span></h6>
                             </div>
@@ -117,7 +137,7 @@
                         <div ng-click="view_contacts($index,el.id)" class="col s4 blue-grey lighten-4 blue-grey-text text-lighten-1 fz40 center-align pointer" style="border-right: 1px solid white">
                             <i class="mdi mdi-account"></i>
                         </div>
-                        <div class="col s4 blue-grey lighten-4 blue-grey-text text-lighten-1 fz40 center-align pointer" ui-sref="setting_dealer_details({dealer_id:el.id})" style="border-right: 1px solid white">
+                        <div class="col s4 blue-grey lighten-4 blue-grey-text text-lighten-1 fz40 center-align pointer" ui-sref="setting_dealer_details({dealer_id:el.id,from:'setting_dealer'})" style="border-right: 1px solid white">
                             <i class="mdi mdi-pencil"></i>
                         </div>
                         <div class="col s4 blue-grey lighten-4 blue-grey-text text-lighten-1 fz40 center-align pointer" ng-click="showCarWashFeeModel(el)">

@@ -35,9 +35,12 @@
 
             <!--司机-->
             <div class="col s3 input-field">
-                <input name="driver" id="driver" type="text" ng-model="driver">
-                <label for="driver">司机</label>
+                <select id="driver"  ng-model="driver"  style="width: 100%">
+                    <option value=""></option>
+                    <option ng-repeat="putDrive in driveList" ng-value='putDrive.drive_name'>{{putDrive.drive_name}}</option>
+                </select>
             </div>
+
 
             <!--货车-->
             <div class="col s3 input-field">
@@ -84,7 +87,7 @@
 
     <!-- 下部分：检索结果显示区域 -->
     <div class="row col s12" >
-        <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+        <div class="divider cyan" style="height: 2px;"></div>
         <table class=" bordered striped centered">
             <thead class="blue-grey lighten-5">
             <tr class="grey-text text-darken-2">

@@ -1,18 +1,16 @@
-<a style="margin: 90px 0 0 20px" class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light "
-   ui-sref="truck_compensate_loan">
-    <i class="mdi mdi-arrow-left-bold"></i>
-</a>
 <div class="truck_compensate_loan_details">
-    <div class="vc-center">
-        <h5 class="center-align cyan-text text-lighten-1">借款详情</h5>
+    <div class="storage_storeTitle vc-center ">
+        <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
+            <i class="mdi mdi-arrow-left-bold"></i>
+        </a>
+        <h4 class="center-align cyan-text text-lighten-1">借款详情</h4>
     </div>
-    <div class="divider" style="background: #00bcd4;height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
-
+    <div class="divider cyan" style="height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
     <!--财务借款模态框-->
     <div class="row" style="margin: 0">
         <div id="financial_loan" class="modal modal-fixed-footer" style="width: 50%;height: 380px">
             <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-                <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
+                <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
                     <p>财务借款</p>
                 </div>
                 <div class="row col s12" style="margin-top: 35px">
@@ -49,7 +47,7 @@
         <div class="col s12">
             <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
                 <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
-                    <div class="col s3 left-align" style="color: #26c6da">
+                    <div class="col s3 left-align cyan-text" >
                         <p style="margin: 0">理赔编号：{{loanInfo.accident_insure_id}}</p>
                     </div>
                     <div class="col s9 right-align" style="color: darkgray">
@@ -80,7 +78,7 @@
                     </div>
                     <div class="col s12">
                         <div class="col s12">
-                            <p style="font-size: 1.1rem;color: #26c6da;font-weight: bold">关联事故</p>
+                            <p class="cyan-text"  style="font-size: 1.1rem;font-weight: bold">关联事故</p>
                         </div>
                     </div>
 
@@ -89,13 +87,13 @@
                         <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 25px;font-size: 1.1rem;color: darkgray">
                             <div class="col s12" style="height: 55px;background-color: #dcdfe0;font-weight: bold">
                                 <div class="col s12 valign-wrapper">
-                                    <div class="col s8 left-align" style="color: #26c6da;padding: 0;">
+                                    <div class="col s8 left-align cyan-text" style="padding: 0;">
                                         <p style="margin: 0">事故编号：{{accident.id}}</p>
                                     </div>
                                     <div class="col s4 right-align">
                                         <p ng-if="accident.accident_status == 1" style="color: darkgray">未处理</p>
                                         <p ng-if="accident.accident_status == 2" style="color: #e57474">处理中</p>
-                                        <p ng-if="accident.accident_status == 3" style="color: #26c6da">已处理</p>
+                                        <p ng-if="accident.accident_status == 3" class="cyan-text">已处理</p>
                                     </div>
                                 </div>
                             </div>
@@ -174,7 +172,7 @@
                             <label for="loan_explain">借款描述</label>
                         </div>
                         <div class="col s4 offset-s4" style="margin-top: 20px" ng-if="loanStatus == 2">
-                            <a ng-click="saveLoanInfo()" style="width: 100%;background-color: #26c6da;" class="waves-light waves-effect lighten-1 btn">
+                            <a ng-click="saveLoanInfo()" style="width: 100%;" class="waves-light waves-effect lighten-1 btn cyan">
                                 保存
                             </a>
                         </div>
@@ -184,7 +182,7 @@
             <div class="col s6">
                 <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
                     <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
-                        <div class="col s12 left-align" style="color: #26c6da" ng-show="!hasRepayment">
+                        <div class="col s12 left-align cyan-text"  ng-show="!hasRepayment">
                             <p style="margin: 0">还款</p>
                         </div>
                         <div class="col s12" style="color: darkgray;font-size: 1.05rem" ng-show="hasRepayment">
@@ -206,7 +204,7 @@
                             <label for="repayment_explain">还款描述</label>
                         </div>
                         <div class="col s4 offset-s4" style="margin-top: 20px" ng-if="loanStatus == 2">
-                            <a ng-click="saveRepaymentInfo()" style="width: 100%;background-color: #26c6da;" class="waves-light waves-effect lighten-1 btn">
+                            <a ng-click="saveRepaymentInfo()" style="width: 100%;" class="waves-light waves-effect lighten-1 btn cyan">
                                 保存
                             </a>
                         </div>

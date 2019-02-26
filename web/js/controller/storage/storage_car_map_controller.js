@@ -75,7 +75,7 @@ app.controller("storage_car_map_controller", ["$state", "$rootScope", "$statePar
             }
         });
     },
-        // 存放位置联动查询--列
+        // 存放位置联动查询--位
         $scope.changeStorageRow = function (val, array) {
 
             // console.log(val);

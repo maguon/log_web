@@ -97,6 +97,9 @@ publicDirective.directive('header', function () {
                         }
                     })
                 }
+                else{
+                    swal("新密码和确认密码不一致", "", "error");
+                }
             };
             //退出登录
             $scope.logOut = function () {
@@ -137,7 +140,15 @@ publicDirective.directive('header', function () {
                 $scope.qrList = [];
                 for (var i = 0; i < user_info_obj.length; i++) {
                     if(userType == user_info_obj[i].type){
-                        $scope.qrList = user_info_obj[i].qr;
+                        $scope.qrList = [];
+                        if(user_info_obj[i].qr.length>0){
+                            for(var j=0;j<user_info_obj[i].qr.length;j++){
+                                QRCode.toDataURL($host.domain_name+user_info_obj[i].qr[j].qrSrc, function (err, url) {
+                                    $scope.qrList.push({qrSrc:url});
+                                })
+                            }
+                        }
+
                         break;
                     }
                 }
@@ -209,7 +220,28 @@ publicDirective.directive("date", function () {
         }
     }
 });
-
+/*
+ * timepicker  时间选择触发
+ * */
+publicDirective.directive("time", function () {
+    return {
+        restrict: "A",
+        link: function () {
+            $('.timepicker').pickatime({
+                default: 'now', // Set default time: 'now', '1:30AM', '16:30'
+                fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
+                twelvehour: false, // Use AM/PM or 24-hour format
+                donetext: '确定', // text for done-button
+                cleartext: '清除', // text for clear-button
+                canceltext: '取消', // Text for cancel-button
+                autoclose: true, // automatic close timepicker
+                ampmclickable: true, // make AM PM clickable
+                aftershow: function () {
+                } //Function for after opening timepicker
+            });
+        }
+    }
+});
 
 publicDirective.directive("dateFilter", ["$filter", function ($filter) {
     var dateFilter = $filter("date");
@@ -296,14 +328,7 @@ publicDirective.directive("collapsible", function () {
         }
     }
 });
-publicDirective.directive("tooltipped", function () {
-    return {
-        restrict: "A",
-        link: function () {
-            $('.tooltipped').tooltip({delay: 50});
-        }
-    }
-});
+
 /*
 *
 *

@@ -36,6 +36,7 @@ app.controller("driver_exceedOil_controller", ["$scope", "$state", "_basic", "_c
             taskPlanDateStart:$scope.driveStartTime,
             taskPlanDateEnd:$scope.driveEndTime,
             statStatus:$scope.ExceedOilStu,
+            exceedType:$scope.exceedType,
             start:$scope.start.toString(),
             size:$scope.size
         })).then(function (data) {
@@ -66,6 +67,7 @@ app.controller("driver_exceedOil_controller", ["$scope", "$state", "_basic", "_c
         var obj = {
             driveId:$scope.driverId,
             dpRouteTaskId:$scope.dispatchId,
+            exceedType:$scope.exceedType,
             taskPlanDateStart:$scope.driveStartTime,
             taskPlanDateEnd:$scope.driveEndTime,
             fineStatus:$scope.ExceedOilStu
@@ -80,6 +82,7 @@ app.controller("driver_exceedOil_controller", ["$scope", "$state", "_basic", "_c
         $scope.addTruckNum = '';
         $scope.addTime = '';
         $scope.addExceedOilScore = '';
+        $scope.addOps = '';
         $scope.addExceedOilMoney = '';
         $scope.newRemark = '';
         $('#addExceedOilItem').modal('open');
@@ -87,7 +90,7 @@ app.controller("driver_exceedOil_controller", ["$scope", "$state", "_basic", "_c
 
     //添加調度编号联动查询
     $scope.changeExceedOilDispatch =function (dispacthId) {
-        _basic.get($host.api_url + "/dpRouteTask?dpRouteTaskId=" + dispacthId).then(function (detailsData) {
+        _basic.get($host.api_url + "/dpRouteTaskList?dpRouteTaskId=" + dispacthId).then(function (detailsData) {
             if (detailsData.success === true) {
                 if(detailsData.result.length==0){
                     $scope.addExceedOilDriver = "";
@@ -108,7 +111,7 @@ app.controller("driver_exceedOil_controller", ["$scope", "$state", "_basic", "_c
 
     //修改調度编号联动查询
     $scope.changePutExceedOilDispatch = function (dispacthId){
-        _basic.get($host.api_url + "/dpRouteTask?dpRouteTaskId=" + dispacthId).then(function (detailsData) {
+        _basic.get($host.api_url + "/dpRouteTaskList?dpRouteTaskId=" + dispacthId).then(function (detailsData) {
             if (detailsData.success === true) {
                 if(detailsData.result.length==0){
                     $scope.putExceedOilList.drive_name = "";
@@ -129,8 +132,9 @@ app.controller("driver_exceedOil_controller", ["$scope", "$state", "_basic", "_c
 
     //点击确定 增加完成
     $scope.addExceedOilItem = function (){
-        if ($scope.addExceedOilDispatch !== '' && $scope.addExceedOilScore !== '' && $scope.addExceedOilMoney !== '') {
+        if ($scope.addExceedOilDispatch !== '' && $scope.addExceedOilScore !== '' && $scope.addExceedOilMoney !== ''&&  $scope.addOps !== '') {
             _basic.post($host.api_url + "/user/" + userId + "/driveExceedOil", {
+                exceedType:$scope.addOps,
                 dpRouteTaskId:  $scope.addExceedOilDispatch,
                 exceedOilQuantity: $scope.addExceedOilScore,
                 exceedOilMoney: $scope.addExceedOilMoney,
@@ -183,8 +187,9 @@ app.controller("driver_exceedOil_controller", ["$scope", "$state", "_basic", "_c
     //点击确定 修改完成
     $scope.putExceedOilItem = function (){
         if (  $scope.putExceedOilList.dp_route_task_id !== '' && $scope.putExceedOilList.exceed_oil_quantity !== ''
-            && $scope.putExceedOilList.exceed_oil_money !== '') {
+            && $scope.putExceedOilList.exceed_oil_money !== ''&&$scope.putExceedOilList.exceed_type!=='') {
             _basic.put($host.api_url + "/user/" + userId + "/exceedOil/"+$scope.id, {
+                exceedType: $scope.putExceedOilList.exceed_type,
                 dpRouteTaskId: $scope.putExceedOilList.dp_route_task_id,
                 exceedOilQuantity:$scope.putExceedOilList.exceed_oil_quantity,
                 exceedOilMoney: $scope.putExceedOilList.exceed_oil_money,

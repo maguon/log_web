@@ -2,7 +2,7 @@
     <div class="vc-center">
         <h5 class="center-align cyan-text text-lighten-1">路线设置</h5>
     </div>
-    <div class="divider" style="background: #00bcd4;height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
+    <div class="divider cyan" style="height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
     <div class="row col s12" style="width: 96%;margin: 0 auto">
         <!-- 信息修改或新增模态框 -->
         <div id="modifyModel" class="modal modal-fixed-footer" style="height: 500px">
@@ -67,7 +67,7 @@
                     <a ng-click="modifyLineInfo(endCity)" style="width: 100%;font-size: 10px;height:44px;padding: 0 10px;display: flex !important;" class="waves-effect vc-center {{endCity.flag ? 'cyan':'grey'}} waves-light btn">
                         <div>
                             <p style="margin: 0;display: block;height: 18px;line-height: 18px">{{endCity.city_name}}</p>
-                            <p ng-if="endCity.dis !== ''" style="margin: 0;display: block;height: 18px;line-height: 18px">{{endCity.dis == "" ? endCity.dis : "(" + endCity.dis + "km)"}}</p>
+                            <p ng-if="endCity.dis !== ''" style="margin: 0;display: block;height: 18px;line-height: 18px">{{ "(" + endCity.dis + "km)"}}</p>
                         </div>
                     </a>
                 </div>

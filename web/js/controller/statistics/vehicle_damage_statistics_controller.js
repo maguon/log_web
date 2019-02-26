@@ -9,6 +9,16 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
     var monthArr;
     var weekArr;
 
+    function getMakeName(){
+        // 车辆品牌
+        _basic.get($host.api_url + "/carMake").then(function (data) {
+            if (data.success == true) {
+                $scope.get_carMake = data.result;
+            }
+        });
+    }
+
+
     // 商品车质损按月统计
     var carDamageCountMonth = [
         {
@@ -152,11 +162,14 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
 
     // 按月
     function vehicleDamageMonth(start, end) {
+        if($scope.car_brand==undefined){
+            $scope.car_brand=''
+        }
         var obj = {
             monthStart: start,
             monthEnd: end
         };
-        _basic.get($host.api_url + "/damageTypeMonthStat?damageStatus=3&" + _basic.objToUrl(obj)).then(function (data) {
+        _basic.get($host.api_url + "/damageTypeMonthStat?damageStatus=3&makeId="+$scope.car_brand +'&'+ _basic.objToUrl(obj)).then(function (data) {
             if (data.success === true) {
                 // console.log("data",data);
                 data.result.reverse();
@@ -199,6 +212,9 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
 
     //通过接口获取时间
     $scope.selectDamageDate = function () {
+        if($scope.car_brand==undefined){
+            $scope.car_brand=''
+        }
         var monthStart = $("#chooseRepairStart").val();
         var monthEnd = $("#chooseRepairEnd").val();
         if (monthStart == '' || monthStart == null || monthEnd == '' || monthEnd == null) {
@@ -207,11 +223,15 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
             swal('请输入完整的时间信息', "", "error");
         }
         vehicleDamageMonth(monthStart, monthEnd);
+        vehicleDamageWeek(monthStart, monthEnd);
     };
 
     //按周
     function vehicleDamageWeek() {
-        _basic.get($host.api_url + "/damageTypeWeekStat?damageStatus=3&start=0&size=50").then(function (data) {
+        if($scope.car_brand==undefined){
+            $scope.car_brand=''
+        }
+        _basic.get($host.api_url + "/damageTypeWeekStat?damageStatus=3&start=0&size=50"+'&makeId='+$scope.car_brand).then(function (data) {
             if (data.success == true) {
                 // console.log("data",data);
                 data.result.reverse();
@@ -256,6 +276,7 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
     $scope.queryData = function () {
         vehicleDamageMonth($scope.startInitial, $scope.endInitial);
         vehicleDamageWeek();
+        getMakeName();
     };
     $scope.queryData();
 }]);

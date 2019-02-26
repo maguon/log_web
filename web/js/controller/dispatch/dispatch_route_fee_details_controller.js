@@ -33,7 +33,7 @@ app.controller("dispatch_route_fee_details_controller", ["$scope", "$stateParams
 
     // 查询当前司机下的所有关联任务信息
     $scope.getCurrentDriverMatchMissionList = function () {
-        _basic.get($host.api_url + "/dpRouteTask?driveId=" + $scope.routeFeeInfo.drive_id + "&taskStatusArr=1,2,3,4").then(function (data) {
+        _basic.get($host.api_url + "/dpRouteTaskList?driveId=" + $scope.routeFeeInfo.drive_id + "&taskStatusArr=1,2,3,4").then(function (data) {
             if (data.success === true) {
                 // console.log("missionData", data);
                 $scope.missionList = data.result;

@@ -72,7 +72,7 @@
         </div>
 
         <div class="col s12">
-            <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+            <div class="divider cyan" style="height: 2px;"></div>
             <table class=" bordered striped text_mid">
                 <thead class="blue-grey lighten-5">
                 <tr class="grey-text text-darken-2">
@@ -93,13 +93,13 @@
                     <td width="200">{{driver.operate_type | carType}}</td>
                     <td width="400">{{driver.company_name}}</td>
                     <td>{{driver.truck_num}}</td>
-                    <td width="300">{{driver.tel}}</td>
+                    <td width="300">{{driver.mobile}}</td>
                     <!--<td width="120">{{driver.drive_status | workStatus}}</td>-->
                     <td class="white-text">
                         <span ng-show="driver.license_date | ptime" class="small-tips red lighten-2">临</span>
                     </td>
                     <td width="150" class="details">
-                        <a ui-sref="truck_driver_details({id:driver.id})" class=""><i
+                        <a ui-sref="truck_driver_details({id:driver.id,from:'truck_driver'})" class=""><i
                                 class="mdi mdi-eye look_icon cyan-text lighten-1"></i></a>
                         <span class="switch" ng-click="disableDriver(driver.drive_status,driver.id)"
                               style="height: 30px;">

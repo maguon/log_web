@@ -91,6 +91,10 @@
                         <li><a href="#!" ui-sref="settlement_management"><i class="mdi mdi-chevron-right white-text "></i>交接单管理</a></li>
                         <li><a href="#!" ui-sref="not_handover"><i class="mdi mdi-chevron-right white-text "></i>未返还交接单</a></li>
                         <li><a href="#!" ui-sref="setting_settlement"><i class="mdi mdi-chevron-right white-text "></i>委托方结算</a></li>
+                        <li><a href="#!" ui-sref="car_settlement"><i class="white-text mdi mdi-chevron-right"></i>商品车结算</a></li>
+                        <li><a href="#!" ui-sref="settlement_car"><i class="white-text mdi mdi-chevron-right"></i>结算车辆导入</a></li>
+                        <li><a href="#!" ui-sref="instruction_driver_mileage"><i class="mdi mdi-chevron-right white-text "></i>司机里程</a></li>
+                        <li><a href="#!" ui-sref="driver_settlement"><i class="white-text mdi mdi-chevron-right"></i>司机结算</a></li>
                     </ul>
                 </div>
             </li>
@@ -168,6 +172,7 @@
 <script src="/lib/highcharts.js"></script>
 <script src="/lib/parse.min.js"></script>
 <script src="/assets/custom.js"></script>
+<script src="/assets/plugins/qrcode.js"></script>
 <script src="/lib/angular/angular-ui-router.min.js"></script>
 <script src="/lib/angular/angular-cookies.min.js"></script>
 <script src="/lib/angular/angular-messages.min.js"></script>
@@ -206,6 +211,12 @@
 <script src="/js/controller/settlement/settlement_management_detail_controller.js"></script>
 <script src="/js/controller/settlement/not_handover_controller.js"></script>
 <script src="/js/controller/finance/car_wash_fee_management_controller.js"></script>
+<script src="/js/controller/settlement/settlement_car_controller.js"></script>
+<script src="/js/controller/settlement/car_settlement_controller.js"></script>
+<script src="/js/controller/dispatch/instruction_driver_mileage_controller.js"></script>
+<script src="/js/controller/dispatch/instruction_drive_details_controller.js"></script>
+<script src="/js/controller/dispatch/look_instruction_list_details_controller.js"></script>
+<script src="/js/controller/settlement/driver_settlement_controller.js"></script>
 <!--管理员设置-->
 <script src="/js/controller/setting/setting_user_controller.js"></script>
 <script src="/js/controller/setting/setting_city_controller.js"></script>

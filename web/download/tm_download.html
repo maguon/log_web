@@ -65,7 +65,7 @@
 <script language="JavaScript" type="text/javascript">
     $.ajax({
         type:"GET",
-        url:host.api_url+'/app?app=2&start=0&size=1',
+        url:host.api_url+'/app?app=2&type=1&start=0&size=1',
         async:true,
         success:function (data) {
             apkUrl= data.result[0].url;

@@ -1,18 +1,16 @@
-<a style="margin: 90px 0 0 20px" class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light "
-   ui-sref="damage_management">
-    <i class="mdi mdi-arrow-left-bold"></i>
-</a>
-
 <div class="damage_management_details" style="width: 80%;margin: 0 auto">
     <div class="row">
-        <div class="vc-center">
-            <h5 class="center-align cyan-text text-lighten-1">质损详情&nbsp;-{{currentDamageInfo.id}}</h5>
+        <div class="storage_storeTitle vc-center ">
+            <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
+                <i class="mdi mdi-arrow-left-bold"></i>
+            </a>
+            <h4 class="center-align cyan-text text-lighten-1">质损详情&nbsp;-{{currentDamageInfo.id}}</h4>
         </div>
 
         <!--增加保险信息模态框-->
         <div id="carInfoModel" class="modal modal-fixed-footer" style="width: 50%;height: 480px">
             <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-                <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
+                <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
                     <p>保险赔付信息</p>
                 </div>
                 <div class="row col s12">
@@ -57,10 +55,10 @@
 
         <!--tab栏-->
         <ul class="tabs ui-tabs tabs-fixed-width tab-demo z-depth-1" style="font-size: 25px;font-weight: bold;overflow-x: hidden;margin-bottom: 25px" ul-tabs>
-            <li class="tab"><a href="#damageBasicInfo" style="color: #26c6da;line-height: 40px">基本信息</a></li>
-            <li class="tab"><a href="#damageImages" ng-click="showDamageImage()" style="color: #26c6da;line-height: 40px">照片</a></li>
-            <li class="tab"><a href="#damageHandleInfo" ng-click="showDamageHandleInfo()" style="color: #26c6da;line-height: 40px">处理信息</a></li>
-            <li class="tab"><a href="#insuranceInfo" ng-click="showInsuranceInfo()" style="color: #26c6da;line-height: 40px">理赔信息</a></li>
+            <li class="tab"><a href="#damageBasicInfo" class="cyan-text"  style="line-height: 40px">基本信息</a></li>
+            <li class="tab"><a href="#damageImages" class="cyan-text"  ng-click="showDamageImage()" style="line-height: 40px">照片</a></li>
+            <li class="tab"><a href="#damageHandleInfo" class="cyan-text"  ng-click="showDamageHandleInfo()" style="line-height: 40px">处理信息</a></li>
+            <li class="tab"><a href="#insuranceInfo" class="cyan-text"  ng-click="showInsuranceInfo()" style="line-height: 40px">理赔信息</a></li>
         </ul>
 
         <!--基本信息-->
@@ -68,19 +66,19 @@
             <!--申报人-->
             <div class="row col s12 valign-wrapper" style="font-weight: bold">
                 <div class="col s4">
-                    <p><span style="color: #26c6da">申报人：</span>{{userName}}&emsp;&emsp;<span>{{userDepartment | department}}</span></p>
+                    <p><span class="cyan-text" >申报人：</span>{{currentDamageInfo.declare_user_name}}&emsp;&emsp;<span>{{currentDamageInfo.type | department}}</span></p>
                 </div>
                 <div class="col s3">
-                    <p><span style="color: #26c6da">申报日期：</span>{{currentDamageInfo.created_on | date:'yyyy-MM-dd HH:mm'}}</p>
+                    <p><span class="cyan-text" >申报日期：</span>{{currentDamageInfo.created_on | date:'yyyy-MM-dd HH:mm'}}</p>
                 </div>
                 <div class="col s2">
-                    <p><span style="color: #26c6da">质损编号：</span>{{currentDamageInfo.id}}</p>
+                    <p><span class="cyan-text" >质损编号：</span>{{currentDamageInfo.id}}</p>
                 </div>
                 <div class="col s3" ng-if="currentDamageInfo.damage_status == 1">
                     <p style="font-size: 1.5rem;color: rgb(229,115,115);margin: 10px 0">待处理</p>
                 </div>
                 <div class="col s3" ng-if="currentDamageInfo.damage_status == 2">
-                    <p style="font-size: 1.5rem;color: #26c6da;margin: 10px 0">处理中</p>
+                    <p  class="cyan-text"  style="font-size: 1.5rem;margin: 10px 0">处理中</p>
                 </div>
                 <div class="col s3" ng-if="currentDamageInfo.damage_status == 3">
                     <p style="font-size: 1.5rem;color: darkgray;margin: 10px 0">已处理</p>
@@ -149,7 +147,7 @@
                     <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
                         <div class="col s12 valign-wrapper" style="height: 50px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
                             <div class="col s12 center-align" style="color: darkgray">
-                                <p style="margin: 0;color: #26c6da">打款信息</p>
+                                <p class="cyan-text"  style="margin: 0;">打款信息</p>
                             </div>
                         </div>
 
@@ -181,45 +179,12 @@
                                     <p>经销商：{{paymentInfo.receive_name}}</p>
                                 </div>
                                 <div class="col s2">
-                                    <p>赔款金额：<span style="color: #e77a7a;font-weight: bold">{{paymentMoney.toFixed(2)}}</span> 元</p>
+                                    <p>赔款金额：<span style="color: #e77a7a;font-weight: bold">{{paymentMoney.toFixed(2)}}</span></p>
 
                                 </div>
                             </div>
                             <div class="col s12">
                                 <p>申请打款备注：{{paymentRemark}}</p>
-                            </div>
-                            <!--财务确认后显示的已打款信息-->
-                            <div class="financeInfo" ng-show="financeIndemnityStatus == 2">
-                                <div class="col s12" style="margin: 0">
-                                    <hr>
-                                </div>
-                                <div class="col s12 valign-wrapper" style="padding: 0;">
-                                    <div class="col s8" style="padding: 0;">
-                                        <div class="col s12 left-align">
-                                            <p style="font-size: 1.2rem;color: #26c6da;font-weight: bold">已打款</p>
-                                        </div>
-                                        <div class="col s12 left-align">
-                                            <p>实际打款金额：<span style="color: #e77a7a;font-weight: bold">{{paymentInfo.actual_money.toFixed(2)}}</span> 元</p>
-                                        </div>
-                                        <div class="col s12 left-align">
-                                            <p>打款时间：{{paymentInfo.indemnity_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
-                                        </div>
-                                    </div>
-                                    <!--打款凭证照片-->
-                                    <div class="col s4 payment_voucher" style="padding: 0;">
-                                        <div class="col s12">
-                                            <div ng-click="showPaymentVoucherImage()" class="truck_car_picture col s3 vc-center p0 grey white-text">
-                                                <img ng-src="{{realImageSrc != null ? realImageSrc : '../assets/images/not_uploaded_img.png'}}" class="responsive-img">
-                                            </div>
-                                        </div>
-                                        <div class="col s12" ng-show="realImageSrc == null">
-                                            <p style="font-weight: bold;text-indent: 2.5rem">打款凭证未上传</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s12">
-                                    <p>财务打款备注：{{paymentInfo.indemnity_explain}}</p>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -266,7 +231,7 @@
                     <!--分割线-->
                     <div class="row col s12">
                         <div class="col s12">
-                            <div class="divider" style="background: #00bcd4;height: 2px"></div>
+                            <div class="divider cyan" style="height: 2px;"></div>
                         </div>
                     </div>
 
@@ -366,14 +331,14 @@
                     <!--分割线-->
                     <div class="row col s12">
                         <div class="col s12">
-                            <div class="divider" style="background: #00bcd4;height: 2px"></div>
+                            <div class="divider cyan" style="height: 2px;"></div>
                         </div>
                     </div>
                 </div>
 
                 <!--已处理状态下显示文本-->
                 <div class="handledInfo" ng-show="currentDamageStatus == 3">
-                    <div class="row col s12" style="color: #26c6da;font-size: 1.2rem;font-weight: bold">
+                    <div class="row col s12 cyan-text" style="font-size: 1.2rem;font-weight: bold">
                         <div class="col s6">
                             <p>质损类型：{{damageInfoBefore.damage_type | damageType}}</p>
                         </div>
@@ -384,7 +349,7 @@
                     <!--分割线-->
                     <div class="row col s12">
                         <div class="col s12">
-                            <div class="divider" style="background: #00bcd4;height: 2px"></div>
+                            <div class="divider cyan" style="height: 2px;"></div>
                         </div>
                     </div>
                     <div class="row col s12" style="color: darkgray;font-size: 1.1rem;font-weight: bold">
@@ -412,7 +377,7 @@
                             <p>报销人：{{damageInfoBefore.refund_user_name}}</p>
                         </div>
                     </div>
-                    <div class="row col s12" style="color: #26c6da;font-size: 1.2rem;font-weight: bold">
+                    <div class="row col s12 cyan-text" style="font-size: 1.2rem;font-weight: bold">
                         <div class="col s4">
                             <p>公司承担费用：<span style="color: #e18281">{{damageInfoBefore.company_cost.toFixed(2)}}</span> 元</p>
                         </div>
@@ -426,7 +391,7 @@
                     <!--分割线-->
                     <div class="row col s12">
                         <div class="col s12">
-                            <div class="divider" style="background: #00bcd4;height: 2px"></div>
+                            <div class="divider cyan" style="height: 2px;"></div>
                         </div>
                     </div>
                 </div>
@@ -449,7 +414,7 @@
                         <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
                             <div class="col s12 valign-wrapper" style="height: 50px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
                                 <div class="col s12 center-align" style="color: darkgray">
-                                    <p style="margin: 0;color: #26c6da">打款信息</p>
+                                    <p style="margin: 0;" class="cyan-text" >打款信息</p>
                                 </div>
                             </div>
                             <!--未完成状态下打款信息-->
@@ -525,11 +490,11 @@
                                     <div class="col s3">
                                         <p>联系电话：{{contactsTel}}</p>
                                     </div>
-                                    <div class="col s2">
+                                    <div class="col s3">
                                         <p>经销商：{{paymentInfo.receive_name}}</p>
                                     </div>
                                     <div class="col s2">
-                                        <p>赔款金额：<span style="color: #e77a7a;font-weight: bold">{{paymentMoney.toFixed(2)}}</span> 元</p>
+                                        <p>赔款金额：<span style="color: #e77a7a;font-weight: bold">{{paymentMoney.toFixed(2)}}</span></p>
 
                                     </div>
                                 </div>
@@ -544,7 +509,7 @@
                                     <div class="col s12 valign-wrapper" style="padding: 0;">
                                         <div class="col s8" style="padding: 0;">
                                             <div class="col s12 left-align">
-                                                <p style="font-size: 1.2rem;color: #26c6da;font-weight: bold">已打款</p>
+                                                <p style="font-size: 1.2rem;font-weight: bold" class="cyan-text" >已打款</p>
                                             </div>
                                             <div class="col s12 left-align">
                                                 <p>实际打款金额：<span style="color: #e77a7a;font-weight: bold">{{paymentInfo.actual_money.toFixed(2)}}</span> 元</p>
@@ -609,11 +574,11 @@
             <!--保险信息卡片-->
             <div class="row col s12" style="margin-top: 15px">
                 <!--下面加repeat-->
-                <div class="col s12" ng-repeat="damage in damageInsureCardList" style="border: 2px solid #26c6da;border-radius: 5px;background-color: white;color: darkgray;margin-top: 15px">
+                <div class="col s12 cyan_border" ng-repeat="damage in damageInsureCardList" style="border-radius: 5px;background-color: white;color: darkgray;margin-top: 15px">
                     <!--头-->
                     <div class="col s12 card_head" style="padding: 0;border-bottom: 1px solid #ccc">
                         <div class="col s6 left-align">
-                            <p style="font-weight: bold;color: #00bcd4">理赔编号：{{damage.id}}</p>
+                            <p class="cyan-text" style="font-weight: bold;">理赔编号：{{damage.id}}</p>
                         </div>
                         <div class="col s6 right-align" style="font-weight: bold">
                             <p>生成日期：{{damage.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</p>

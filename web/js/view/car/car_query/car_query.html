@@ -1,7 +1,7 @@
 <div class="car_demand">
     <div class="row main_storage_car">
         <div class="row grey-text text-darken-1 valign-wrapper">
-            <div class="col s11">
+            <div class="col s10">
                 <div class="input-field col s4">
                     <input id="last_name" type="text" ng-model="vin_code">
                     <label for="last_name">VIN</label>
@@ -68,24 +68,35 @@
                     <label for="last_name">至</label>
                 </div>
             </div>
-            <div class="col s1 center">
-                <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
-                   ng-click="searchMatchCar()">
-                    <i class="mdi mdi-magnify"></i>
-                </a>
+            <div class="col s2 center">
+                <div class="col s6 right-align">
+                    <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
+                       ng-click="searchMatchCar()">
+                        <i class="mdi mdi-magnify"></i>
+                    </a>
+                </div>
+                <div class="col s6 center-align">
+                    <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
+                        <i class="mdi mdi-cloud-download"></i>
+                    </a>
+                </div>
+
+
+
             </div>
         </div>
     </div>
     <div class="col s12">
-        <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+        <div class="divider cyan" style="height: 2px;"></div>
         <table class="bordered striped text_mid">
             <thead class="blue-grey lighten-5">
             <tr class="grey-text text-darken-2">
-                <th width="320" data-field="">VIN</th>
-                <th width="150" data-field="">制造商</th>
-                <th width="180" data-field="">发运地名称</th>
-                <th width="160" data-field="">目的地城市</th>
-                <th width="180" data-field="">委托方</th>
+                <th data-field="">VIN</th>
+                <th data-field="">制造商</th>
+                <th data-field="">发运地城市</th>
+                <th data-field="">发运地地址</th>
+                <th data-field="">目的地城市</th>
+                <th data-field="">委托方</th>
                 <th data-field="">经销商</th>
                 <th data-field="">指令时间</th>
                 <th>操作</th>
@@ -93,21 +104,22 @@
             </thead>
             <tbody>
             <tr ng-repeat="response in responseData" class="grey-text text-darken-1">
-                <td width="320">{{response.vin}}</td>
-                <td width="150">{{response.make_name}}</td>
-                <td width="180">{{response.addr_name}}</td>
-                <td width="160">{{response.route_end}}</td>
-                <td width="180">{{response.en_short_name}}</td>
+                <td>{{response.vin}}</td>
+                <td>{{response.make_name}}</td>
+                <td>{{response.route_start}}</td>
+                <td>{{response.addr_name}}</td>
+                <td>{{response.route_end}}</td>
+                <td>{{response.en_short_name}}</td>
                 <td>{{response.re_short_name}}</td>
                 <td>{{response.order_date | date:'yyyy-MM-dd'}}</td>
                 <td width="100" class="operation">
-                    <a ui-sref="car_query_details({vin:response.vin,id:response.id})" class="">
+                    <a ui-sref="car_query_details({vin:response.vin,id:response.id,from:'car_query'})" class="">
                         <i class="mdi mdi-file-outline look_icon cyan-text lighten-1  "></i>
                     </a>
                 </td>
             </tr>
             <tr class="grey-text text-darken-1" ng-if="responseData.length == 0">
-                <td colspan="8"><span style="letter-spacing: 2px">暂无数据</span></td>
+                <td colspan="9"><span style="letter-spacing: 2px">暂无数据</span></td>
             </tr>
             </tbody>
         </table>

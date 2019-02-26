@@ -30,8 +30,14 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/system_settings/setting_client/setting_client_details.html",
             controller:'setting_client_details_controller'
         })
+        .state("setting_dealer",{
+            url:"/setting_dealer",
+            params: {"from": null},
+            templateUrl: "js/view/system_settings/setting_dealer/setting_dealer.html",
+            controller:'setting_dealer_controller'
+        })
         .state("setting_dealer_details",{
-            url:"/setting_dealer_details/{dealer_id}",
+            url:"/setting_dealer_details/{dealer_id}?from",
             templateUrl: "js/view/system_settings/setting_dealer/setting_dealer_details.html",
             controller:'setting_dealer_details_controller'
         })
@@ -70,6 +76,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
         .state("truck_details",{
             url:"/truck_details",
+            params: {"from": null},
             templateUrl: "js/view/truck/truck_details.html",
             controller:'truck_details_controller'
         })
@@ -95,6 +102,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
         .state("truck_management",{
             url:"/truck_management",
+            params: {"from": null},
             templateUrl: "js/view/truck/truck_management.html",
             controller:'truck_management_controller'
         })
@@ -112,11 +120,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
         .state("accident_claim",{
             url:"/accident_claim",
+            params: {"from": null},
             templateUrl: "js/view/truck/accident_claim.html",
             controller:'accident_claim_controller'
         })
         .state("accident_claim_details",{
-            url:"/accident_claim_details/id/{id}",
+            url:"/accident_claim_details/id/{id}/from/{from}",
             templateUrl: "js/view/truck/accident_claim_details.html",
             controller:'accident_claim_details_controller'
         })
@@ -127,11 +136,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
         .state("insurance_compensation",{
             url:"/insurance_compensation",
+            params: {"from": null},
             templateUrl: "js/view/truck/insurance_compensation.html",
             controller:'insurance_compensation_controller'
         })
         .state("add_damage_insurance_details",{
-            url:"/add_damage_insurance_details/id/{id}",
+            url:"/add_damage_insurance_details/id/{id}/from/{from}",
             templateUrl: "js/view/truck/add_damage_insurance_details.html",
             controller:'add_damage_insurance_details_controller'
         })
@@ -139,11 +149,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         // 商品车信息
         .state("car_query",{
             url:"/car_query",
+            params: {"from": null},
             templateUrl: "js/view/car/car_query/car_query.html",
             controller:'car_query_controller'
         })
         .state("car_query_details",{
-            url:"/car_query_details/vin/{vin}/id/{id}",
+            url:"/car_query_details/vin/{vin}/id/{id}/from/{from}",
             templateUrl: "js/view/car/car_query/car_query_details.html",
             controller:'car_query_details_controller'
         })
@@ -154,11 +165,17 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/truck/peccancy_withhold.html",
             controller:'peccancy_withhold_controller'
         })
-        //司机超油扣款
+        //司机超量扣款
         .state("driver_exceedOil",{
             url:"/driver_exceedOil",
             templateUrl: "js/view/truck/driver_exceedOil.html",
             controller:'driver_exceedOil_controller'
+        })
+        //车辆安全检查
+        .state("security_check",{
+            url:"/security_check",
+            templateUrl: "js/view/truck/security_check.html",
+            controller:'security_check_controller'
         })
         // 保单详情
         .state("truck_guarantee_details",{
@@ -168,6 +185,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
         .state("truck_driver",{
             url:"/truck_driver",
+            params: {"from": null},
             templateUrl: "js/view/truck/truck_driver.html",
             controller:'truck_driver_controller'
         })
@@ -177,7 +195,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'add_truck_driver_controller'
         })
         .state("truck_driver_details",{
-            url:"/truck_driver_details/{id}",
+            url:"/truck_driver_details/{id}/from/{from}",
             templateUrl: "js/view/truck/truck_driver_details.html",
             controller:'truck_driver_details_controller'
         })
@@ -196,6 +214,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         // 车辆维修管理
         .state("truck_repair_list",{
             url:"/truck_repair_list",
+            params: {"from": null},
             templateUrl: "js/view/truck/truck_repair_list.html",
             controller:'truck_repair_list_controller'
         })
@@ -241,6 +260,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         // 质损
         .state("damage_declaration",{
             url:"/damage_declaration",
+            params: {"from": null},
             templateUrl: "js/view/damage/damage_declaration.html",
             controller:'damage_declaration_controller'
         })
@@ -250,7 +270,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'damage_report_controller'
         })
         .state("damage_declaration_details",{
-            url:"/damage_declaration_details/id/{id}/status/{status}",
+            url:"/damage_declaration_details/id/{id}/status/{status}/from/{from}",
             templateUrl: "js/view/damage/damage_declaration_details.html",
             controller:'damage_declaration_details_controller'
         })
@@ -261,6 +281,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
         .state("instruction_list", {
             url: "/instruction_list",
+            params: {"from": null},
             templateUrl: "js/view/dispatch/instruction_list.html",
             controller:"instruction_list_controller"
         })
@@ -271,11 +292,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
         .state("driver_information",{
             url:"/driver_information",
+            params: {"from": null},
             templateUrl: "js/view/truck/driver_information.html",
             controller:'driver_information_controller'
         })
         .state("driver_information_details",{
-            url:"/driver_information_details/driverId/{driverId}",
+            url:"/driver_information_details/driverId/{driverId}/from/{from}",
             templateUrl: "js/view/truck/driver_information_details.html",
             controller:'driver_information_details_controller'
         });

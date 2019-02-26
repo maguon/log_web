@@ -1,17 +1,16 @@
-<a style="margin: 90px 0 0 20px" class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light "
-   ui-sref="insurance_compensation">
-    <i class="mdi mdi-arrow-left-bold"></i>
-</a>
 <div class="add_damage_insurance_details">
-    <div class="vc-center">
-        <h5 class="center-align cyan-text text-lighten-1">质损保险详情</h5>
+    <div class="storage_storeTitle vc-center ">
+        <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
+            <i class="mdi mdi-arrow-left-bold"></i>
+        </a>
+        <h4 class="center-align cyan-text text-lighten-1">质损保险详情</h4>
     </div>
-    <div class="divider" style="background: #00bcd4;height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
+    <div class="divider cyan" style="height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
 
     <div class="row" style="width: 80%;margin: 0 auto">
         <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
             <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
-                <div class="col s3 left-align" style="color: #26c6da">
+                <div class="col s3 left-align cyan-text" >
                     <p style="margin: 0">理赔编号：{{currentInsurInfo.id}}</p>
                 </div>
                 <div class="col s7 right-align" style="color: darkgray">
@@ -19,7 +18,7 @@
                 </div>
                 <div class="col s2 center-align">
                     <p style="color: #e57373" ng-if="insureStatus == 1">处理中</p>
-                    <p style="color: #26c6da" ng-if="insureStatus == 2">已处理</p>
+                    <p class="cyan-text"  ng-if="insureStatus == 2">已处理</p>
                 </div>
             </div>
             <!--处理中状态下显示的输入框-->
@@ -92,7 +91,7 @@
                 <div class="col s12">
                     <div class="col s10 input-field">
                         <input id="associated_damage" type="text" ng-model="damageNum">
-                        <label style="color: #00bcd4;font-weight: bold" for="associated_damage"><span style="color: red;">* </span>关联质损</label>
+                        <label class="cyan-text" style="font-weight: bold" for="associated_damage"><span style="color: red;">* </span>关联质损</label>
                     </div>
                     <div class="col s2 center flex flex-round">
                         <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2 btn vc-center"
@@ -106,7 +105,7 @@
             <div class="row col s12" ng-show="insureStatus == 2">
                 <div class="col s12">
                     <div class="col s12 left-align">
-                        <p style="font-size: 1.2rem;color: #26c6da;font-weight: bold;margin: 0">关联质损：</p>
+                        <p class="cyan-text" style="font-size: 1.2rem;font-weight: bold;margin: 0">关联质损：</p>
                     </div>
                 </div>
             </div>
@@ -114,11 +113,11 @@
             <!--关联质损信息卡片-->
             <div class="row col s12" style="padding: 0 34px;margin: 0">
                 <!--这下面加ng-repeat-->
-                <div class="row col s12" ng-repeat="damage in damageInfoCardList" style="border: 2px solid #26c6da;border-radius: 5px;background-color: white;color: darkgray">
+                <div class="row col s12 cyan_border" ng-repeat="damage in damageInfoCardList" style="border-radius: 5px;background-color: white;color: darkgray">
                     <!--头-->
                     <div class="col s12 card_head" style="padding: 0;border-bottom: 1px solid #ccc">
                         <div class="col s11">
-                            <p style="font-weight: bold;color: #00bcd4">质损编号：{{damage.id}}</p>
+                            <p class="cyan-text" style="font-weight: bold;">质损编号：{{damage.id}}</p>
                         </div>
                         <div class="col s1 right-align">
                             <span ng-if="insureStatus == 1" ng-click="deleteDamageInfo(damage.id)" style="font-size: 1.8rem;cursor: pointer;color: #e88282" class="mdi mdi-delete-forever"></span>

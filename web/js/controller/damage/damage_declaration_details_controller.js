@@ -1,11 +1,16 @@
-app.controller("damage_declaration_details_controller", ["$scope", "$stateParams", "$host", "_basic", function ($scope, $stateParams, $host, _basic) {
+app.controller("damage_declaration_details_controller", ["$scope","$state", "$stateParams", "$host", "_basic", function ($scope,$state, $stateParams, $host, _basic) {
     var userId = _basic.getSession(_basic.USER_ID);
     var damageId = $stateParams.id;
     $scope.photoClick = false;
     $scope.driverModify = false;
     $scope.damageStatus = $stateParams.status;
     $scope.damageImageList = [];
-    // console.log("damageId",damageId);
+
+    // 返回
+    $scope.return = function () {
+        $state.go($stateParams.from,{from:"damage_declaration_details"}, {reload: true})
+    };
+
 
     // 获取当前质损信息
     $scope.getCurrentDamageInfo = function () {
@@ -17,7 +22,6 @@ app.controller("damage_declaration_details_controller", ["$scope", "$stateParams
                 $scope.driverId = data.result[0].drive_id;
                 $scope.truckNum = data.result[0].truck_num;
                 $scope.truckId = data.result[0].truck_id;
-                // console.log("currentDamageInfo",$scope.currentDamageInfo);
             }
             else {
                 swal(data.msg, "", "error");
@@ -29,7 +33,6 @@ app.controller("damage_declaration_details_controller", ["$scope", "$stateParams
     $scope.getAllDriver = function () {
         _basic.get($host.api_url + "/drive").then(function (data) {
             if (data.success === true) {
-                // console.log("driver",data);
                 $scope.driverList = data.result;
                 var driverObj = {};
                 for (var i = 0; i < data.result.length; i++) {
@@ -61,7 +64,6 @@ app.controller("damage_declaration_details_controller", ["$scope", "$stateParams
                 $scope.driverId = data.result[0].id;
                 $scope.driverName = data.result[0].drive_name;
                 $scope.truckId = data.result[0].truck_id;
-                // console.log("afterModifyDriverInfo",data.result[0]);
             }
             else {
                 swal(data.msg, "", "error");
@@ -104,7 +106,6 @@ app.controller("damage_declaration_details_controller", ["$scope", "$stateParams
                     for (var i = 0; i < $scope.damageImageList.length; i++) {
                         $scope.damageImageList[i].url = $host.file_url + '/image/' + $scope.damageImageList[i].url
                     }
-                    // console.log("imageData",$scope.damageImageList)
                 }
             }
             else {

@@ -76,72 +76,11 @@
                                 </a>
                             </div>
                         </div>
-                        <div id="newNeed" class="modal">
-                            <form name="add_need_instructForm" ng-submit="add_need_instruct(add_need_instructForm.$valid)" novalidate>
-                                <div class="col s12  cyan white-text" style="height: 50px">
-                                    <h5 class="center-align" >增加需求</h5>
-                                </div>
-                                <div class="divider a1_divider" ></div>
-                                <div class="modal-content">
-                                    <div class="container">
-                                        <div class="row" style="margin-top:80px">
-                                            <div class="col s6">
-                                                需求生成时间:<span>{{time}}</span>
-                                            </div>
-                                            <div class="col s6">
-                                                需求人: <span>{{user}}</span>
-                                            </div>
-                                            <div class="input-field col s6"  ng-class="{'has-error':add_need_instructForm.add_start_city.$invalid&&submitted}">
-                                                <select id="add_start_city"  style="width: 100%; " name="add_start_city" material-select watch ng-change="getAddressMod(add_start_city.id)" ng-model="add_start_city" ng-options="add_start_city.city_name for add_start_city in startCityList" required>
-                                                    <option value=""></option>
-                                                </select>
-                                                <!--<label for="add_start_city">起始城市</label>-->
-                                            </div>
-                                            <div class="input-field col s6" ng-class="{'has-error':add_need_instructForm.add_dispatch_car_position.$invalid&&submitted}">
-                                                <select id="add_dispatch_car_position" name="add_dispatch_car_position" material-select watch ng-model="add_dispatch_car_position" ng-options="baseAddr as baseAddr.addr_name for baseAddr in baseAddrListMod" required>
-                                                    <option value="">请选择</option>
-                                                </select>
-                                                <label for="add_dispatch_car_position">装车地点</label>
-                                            </div>
-                                            <div class="input-field col s6"  ng-class="{'has-error':add_need_instructForm.add_end_city.$invalid&&submitted}">
-                                                <select id="add_end_city" style="width: 100%; " name="add_end_city" material-select watch ng-change="getReceiveMod(add_end_city.id)" ng-model="add_end_city" ng-options="add_end_city.city_name for add_end_city in startCityList" required>
-                                                    <option value=""></option>
-                                                </select>
-                                               <!-- <label for="add_end_city">目的城市</label>-->
-                                            </div>
-                                            <div class="input-field col s6" ng-class="{'has-error':add_need_instructForm.add_dealer.$invalid&&submitted}">
-                                                <select id="add_dealer" name="add_dealer" material-select watch  ng-model="add_dealer"  ng-options="receive as receive.short_name for receive in receiveListMod" required>
-                                                    <option value="">请选择</option>
-                                                </select>
-                                                <label for="add_dealer">送达地点</label>
-                                            </div>
-                                            <div class="input-field col s6" ng-class="{'has-error':add_need_instructForm.add_car_num.$invalid&&submitted}">
-                                                <input name="add_car_num" id="add_car_num" type="text" ng-model="add_car_num"  required >
-                                                <label for="add_car_num">装载车辆:</label>
-                                            </div>
-                                            <div class="input-field col s6" ng-class="{'has-error':add_need_instructForm.add_instruct_Time.$invalid&&submitted}">
-                                                <input type="text" ng-model="add_instruct_Time" id="add_instruct_Time" name="add_instruct_Time"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                                <label for="add_instruct_Time">指令时间</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--<div class="divider" style="background: #00bcd4;height: 2px;"></div>-->
-                                <div class="modal-footer center">
-                                    <a class=" btn-floating modal-action modal-close waves-effect waves-light grey lighten-1 btn"  >
-                                        <i class="mdi mdi-close"></i>
-                                    </a>
-                                    <button class="btn btn-floating waves-light waves-effect cyan lighten-1" type="submit" name="action" style="margin-right: 10px" >
-                                        <i class="mdi mdi-check"></i>
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
                     </div>
                     <!--表-->
                     <div class="col s12">
                         <div class="col s12">
-                            <div class="divider" style="background: #00bcd4;height: 2px"></div>
+                            <div class="divider cyan" style="height: 2px;"></div>
                             <table class=" bordered striped dic_table">
                                 <thead class="blue-grey lighten-5">
                                 <tr class="grey-text text-darken-2">
@@ -188,6 +127,66 @@
                             </a>
                         </div>
                     </div>
+                </div>
+                <div id="newNeed" class="modal">
+                    <form name="add_need_instructForm" ng-submit="add_need_instruct(add_need_instructForm.$valid)" novalidate>
+                        <div class="col s12  cyan white-text" style="height: 50px">
+                            <h5 class="center-align" >增加需求</h5>
+                        </div>
+                        <div class="divider a1_divider" ></div>
+                        <div class="modal-content">
+                            <div class="container">
+                                <div class="row" style="margin-top:80px">
+                                    <div class="col s6">
+                                        需求生成时间:<span>{{time}}</span>
+                                    </div>
+                                    <div class="col s6">
+                                        需求人: <span>{{user}}</span>
+                                    </div>
+                                    <div class="input-field col s6"  ng-class="{'has-error':add_need_instructForm.add_start_city.$invalid&&submitted}">
+                                        <select id="add_start_city"  style="width: 100%; " name="add_start_city" material-select watch ng-change="getAddressMod(add_start_city.id)" ng-model="add_start_city" ng-options="add_start_city.city_name for add_start_city in startCityList" required>
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
+                                    <div class="input-field col s6" ng-class="{'has-error':add_need_instructForm.add_dispatch_car_position.$invalid&&submitted}">
+                                        <select id="add_dispatch_car_position" name="add_dispatch_car_position" material-select watch ng-model="add_dispatch_car_position" ng-options="baseAddr as baseAddr.addr_name for baseAddr in baseAddrListMod" required>
+                                            <option value="">请选择</option>
+                                        </select>
+                                        <label for="add_dispatch_car_position">装车地点</label>
+                                    </div>
+                                    <div class="input-field col s6"  ng-class="{'has-error':add_need_instructForm.add_end_city.$invalid&&submitted}">
+                                        <select id="add_end_city" style="width: 100%; " name="add_end_city" material-select watch ng-change="getReceiveMod(add_end_city.id)" ng-model="add_end_city" ng-options="add_end_city.city_name for add_end_city in startCityList" required>
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
+                                    <div class="input-field col s6" ng-class="{'has-error':add_need_instructForm.add_dealer.$invalid&&submitted}">
+                                        <select id="add_dealer"  style="width: 100%; " name="add_dealer" material-select watch  ng-model="add_dealer"  ng-options="receive as receive.short_name for receive in receiveListMod" required>
+                                            <option value=""></option>
+                                        </select>
+                                         <!-- <label for="add_dealer">送达地点</label>-->
+                                    </div>
+
+                                    <div class="input-field col s6" ng-class="{'has-error':add_need_instructForm.add_car_num.$invalid&&submitted}">
+                                        <input name="add_car_num" id="add_car_num" type="text" ng-model="add_car_num"  required >
+                                        <label for="add_car_num">装载车辆:</label>
+                                    </div>
+                                    <div class="input-field col s6" ng-class="{'has-error':add_need_instructForm.add_instruct_Time.$invalid&&submitted}">
+                                        <input type="text" ng-model="add_instruct_Time" id="add_instruct_Time" name="add_instruct_Time"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                        <label for="add_instruct_Time">指令时间</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer center">
+                            <a class=" btn-floating modal-action modal-close waves-effect waves-light grey lighten-1 btn"  >
+                                <i class="mdi mdi-close"></i>
+                            </a>
+                            <button class="btn btn-floating waves-light waves-effect cyan lighten-1" type="submit" name="action" style="margin-right: 10px" >
+                                <i class="mdi mdi-check"></i>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div id="ransferDemand" class="row tab_box" style="margin-top: 50px">
@@ -258,7 +257,7 @@
                 </div>
                 <div class="col s12">
                     <div class="col s12">
-                        <div class="divider" style="background: #00bcd4;height: 2px"></div>
+                        <div class="divider cyan" style="height: 2px;"></div>
                         <table class=" bordered striped dic_table">
                             <thead class="blue-grey lighten-5">
                             <tr class="grey-text text-darken-2">

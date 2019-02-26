@@ -40,21 +40,24 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
         })
         .state("instruction_operation", {
             url: "/instruction_operation",
+            params: {"from": null},
             templateUrl: "js/view/dispatch/instruction_operation.html",
             controller: "instruction_operation_controller"
         })
         .state("instruction_operation_details", {
-            url: "/instruction_operation_details/id/{truckId}",
+            url: "/instruction_operation_details/id/{truckId}/from/{from}",
             templateUrl: "js/view/dispatch/instruction_operation_details.html",
             controller: "instruction_operation_details_controller"
         })
         .state("instruction_list", {
             url: "/instruction_list",
+            params: {"from": null},
             templateUrl: "js/view/dispatch/instruction_list.html",
             controller: "instruction_list_controller"
         })
         .state("instruction_need", {
             url: "/instruction_need",
+            params: {"from": null},
             templateUrl: "js/view/dispatch/instruction_need.html",
             controller: "instruction_need_controller"
         })
@@ -74,23 +77,25 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             controller: "look_instruction_list_details_controller"
         })
         .state("_look_instruction_list_details", {
-            url: "/look_instruction_list_details/id/{id}/instruction_id/{instruction_id}/timeStart/{timeStart}/timeEnd/{timeEnd}/from/{from}?refer",
+            url: "/look_instruction_list_details/id/{id}/instruction_id/{instruction_id}/timeStart/{timeStart}/timeEnd/{timeEnd}/makeId/{makeId}/from/{from}?refer",
             templateUrl: "js/view/dispatch/look_instruction_list_details.html",
             controller: "look_instruction_list_details_controller"
         })
 
         .state("instruction_driver_mileage", {
             url: "/instruction_driver_mileage",
+            params: {"from": null},
             templateUrl: "js/view/dispatch/instruction_driver_mileage.html",
             controller: "instruction_driver_mileage_controller"
         })
         .state("instruction_drive_details", {
-            url: "/instruction_drive_details/id/{id}/timeStart/{timeStart}/timeEnd/{timeEnd}?refer",
+            url: "/instruction_drive_details/id/{id}/timeStart/{timeStart}/timeEnd/{timeEnd}/makeId/{makeId}/from/{from}",
             templateUrl: "js/view/dispatch/instruction_drive_details.html",
             controller: "instruction_drive_details_controller"
         })
         .state("instruction_car_refuel", {
             url: "/instruction_car_refuel",
+            params: {"from": null},
             templateUrl: "js/view/dispatch/instruction_car_refuel.html",
             controller: "instruction_car_refuel_controller"
         })
@@ -111,6 +116,7 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
         })
         .state("dispatch_order",{
             url:"/dispatch_order",
+            params: {"from": null},
             templateUrl: "js/view/dispatch/dispatch_order.html",
             controller:'dispatch_order_controller'
         })
@@ -123,21 +129,23 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
         // 公共数据
         .state("car_query",{
             url:"/car_query",
+            params: {"from": null},
             templateUrl: "js/view/car/car_query/car_query.html",
             controller:'car_query_controller'
         })
         .state("car_query_details",{
-            url:"/car_query_details/vin/{vin}/id/{id}",
+            url:"/car_query_details/vin/{vin}/id/{id}/from/{from}",
             templateUrl: "js/view/car/car_query/car_query_details.html",
             controller:'car_query_details_controller'
         })
         .state("driver_information",{
             url:"/driver_information",
+            params: {"from": null},
             templateUrl: "js/view/truck/driver_information.html",
             controller:'driver_information_controller'
         })
         .state("driver_information_details",{
-            url:"/driver_information_details/driverId/{driverId}",
+            url:"/driver_information_details/driverId/{driverId}/from/{from}",
             templateUrl: "js/view/truck/driver_information_details.html",
             controller:'driver_information_details_controller'
         })
@@ -162,6 +170,7 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
         // 车辆维修管理
         .state("truck_repair_list", {
             url: "/truck_repair_list",
+            params: {"from": null},
             templateUrl: "js/view/truck/truck_repair_list.html",
             controller: 'truck_repair_list_controller'
         })
@@ -196,6 +205,7 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
         // 质损申报
         .state("damage_declaration",{
             url:"/damage_declaration",
+            params: {"from": null},
             templateUrl: "js/view/damage/damage_declaration.html",
             controller:'damage_declaration_controller'
         })
@@ -205,7 +215,7 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             controller:'damage_report_controller'
         })
         .state("damage_declaration_details",{
-            url:"/damage_declaration_details/id/{id}/status/{status}",
+            url:"/damage_declaration_details/id/{id}/status/{status}/from/{from}",
             templateUrl: "js/view/damage/damage_declaration_details.html",
             controller:'damage_declaration_details_controller'
         });

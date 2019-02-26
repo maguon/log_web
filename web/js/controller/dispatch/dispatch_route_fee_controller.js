@@ -1,9 +1,9 @@
-app.controller("dispatch_route_fee_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
+app.controller("dispatch_route_fee_controller", ["$scope", "$host", "_basic", "_config", function ($scope, $host, _basic,_config) {
 
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.start = 0;
     $scope.size = 11;
-
+    $scope.passingCost=_config.passingCost;
     // 查询出车款列表
     $scope.getCarFinanceList = function () {
         _basic.get($host.api_url + "/dpRouteTaskLoan?" + _basic.objToUrl({
@@ -146,7 +146,7 @@ app.controller("dispatch_route_fee_controller", ["$scope", "$host", "_basic", fu
 
     // 根据选择的司机id查询关联任务信息
     $scope.searchMatchMission = function () {
-        _basic.get($host.api_url + "/dpRouteTask?driveId=" + $scope.driverIdMod + "&taskStatusArr=1,2,3,4").then(function (data) {
+        _basic.get($host.api_url + "/dpRouteTaskList?driveId=" + $scope.driverIdMod + "&taskStatusArr=1,2,3,4").then(function (data) {
             if (data.success === true) {
                 // console.log("data", data);
                 $scope.missionList = data.result;
@@ -172,9 +172,8 @@ app.controller("dispatch_route_fee_controller", ["$scope", "$host", "_basic", fu
             }
             else {
                 // 根据选择的调度id查询调度详细信息
-                _basic.get($host.api_url + "/dpRouteTask?dpRouteTaskId=" + $scope.dispatchNumMod).then(function (data) {
+                _basic.get($host.api_url + "/dpRouteTaskList?dpRouteTaskId=" + $scope.dispatchNumMod).then(function (data) {
                     if (data.success === true) {
-                        // console.log("data", data);
                         $scope.matchMissionList.push(data.result[0]);
                     }
                     else {
@@ -184,7 +183,7 @@ app.controller("dispatch_route_fee_controller", ["$scope", "$host", "_basic", fu
                     // 根据新增的任务卡片计算过路费
                     var distanceCount = 0;
                     for (var i = 0; i < $scope.matchMissionList.length; i++) {
-                        $scope.roadTollCost = (distanceCount += $scope.matchMissionList[i].distance) * 1.5
+                        $scope.roadTollCost = (distanceCount += $scope.matchMissionList[i].distance) * $scope.passingCost;
                     }
                 });
             }

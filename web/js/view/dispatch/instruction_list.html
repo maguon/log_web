@@ -12,14 +12,12 @@
                                         <label for="vin">VIN</label>
                                     </div>
                                     <div class="input-field col s2">
-                                        <select id="dispatch_car_status" material-select watch ng-model="dispatch_car_status">
-                                            <option ng-value="">请选择</option>
-                                            <option ng-value="1">自营车</option>
-                                            <option ng-value="2">外协车</option>
-                                            <option ng-value="3">供方车</option>
-                                            <option ng-value="4">承包车</option>
+                                        <select id="dispatch_car_status" material-select watch
+                                                ng-options="task_status.id as task_status.taskStatusName for task_status in missionStatusList"
+                                                ng-model="dispatch_car_status">
+                                            <option value="">请选择</option>
                                         </select>
-                                        <label for="dispatch_car_status">装车任务</label>
+                                        <label for="dispatch_car_status">任务状态</label>
                                     </div>
                                     <div class="input-field col s2">
                                         <select id="task_status" material-select watch
@@ -27,7 +25,7 @@
                                                 ng-model="task_status">
                                             <option value="">请选择</option>
                                         </select>
-                                        <label for="task_status">任务状态</label>
+                                        <label for="task_status">指令状态</label>
                                     </div>
                                     <div class="col s3">
                                         <div class="input-field col s6">
@@ -76,13 +74,6 @@
                                     </div>
                                     <div class=" col s3">
                                         <div class="input-field col s6">
-                                            <!--<select id="start_city" material-select watch ng-change="getAddres(start_city)"-->
-                                                    <!--ng-options="city.id as city.city_name for city in cityList"-->
-                                                    <!--ng-model="start_city">-->
-                                                <!--<option value="">请选择</option>-->
-                                            <!--</select>-->
-                                            <!--<label for="start_city">起始城市</label>-->
-
                                             <select id="start_city" name="state" style="width:100%" ng-change="getAddres(start_city)" ng-model="start_city">
                                                 <option value=""></option>
                                                 <option value="0" >清除选择</option>
@@ -129,7 +120,7 @@
                         </div>
                     </div>
                     <div class="col s12" style="padding: 10px 30px;">
-                        <div class="divider" style="background: #00bcd4;height: 2px"></div>
+                        <div class="divider cyan" style="height: 2px;"></div>
                         <table class=" bordered striped dic_table">
                             <thead class="blue-grey lighten-5">
                             <tr class="grey-text text-darken-2">

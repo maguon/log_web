@@ -26,16 +26,18 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
         })
         .state("car_query",{
             url:"/car_query",
+            params: {"from": null},
             templateUrl: "js/view/car/car_query/car_query.html",
             controller:'car_query_controller'
         })
         .state("car_query_details",{
-            url:"/car_query_details/vin/{vin}/id/{id}",
+            url:"/car_query_details/vin/{vin}/id/{id}/from/{from}",
             templateUrl: "js/view/car/car_query/car_query_details.html",
             controller:'car_query_details_controller'
         })
         .state("instruction_list", {
             url: "/instruction_list",
+            params: {"from": null},
             templateUrl: "js/view/dispatch/instruction_list.html",
             controller:"instruction_list_controller"
         })
@@ -45,17 +47,18 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             controller:"look_instruction_list_details_controller"
         })
         .state("_look_instruction_list_details", {
-            url: "/look_instruction_list_details/id/{id}/instruction_id/{instruction_id}/timeStart/{timeStart}/timeEnd/{timeEnd}/from/{from}?refer",
+            url: "/look_instruction_list_details/id/{id}/instruction_id/{instruction_id}/timeStart/{timeStart}/timeEnd/{timeEnd}/makeId/{makeId}/from/{from}?refer",
             templateUrl: "js/view/dispatch/look_instruction_list_details.html",
             controller:"look_instruction_list_details_controller"
         })
         .state("driver_information",{
             url:"/driver_information",
+            params: {"from": null},
             templateUrl: "js/view/truck/driver_information.html",
             controller:'driver_information_controller'
         })
         .state("driver_information_details",{
-            url:"/driver_information_details/driverId/{driverId}",
+            url:"/driver_information_details/driverId/{driverId}/from/{from}",
             templateUrl: "js/view/truck/driver_information_details.html",
             controller:'driver_information_details_controller'
         })
@@ -79,12 +82,29 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
         // 结算管理
         .state("settlement_management",{
             url:"/settlement_management",
+            params: {"from": null},
             templateUrl: "js/view/settlement/settlement_management.html",
             controller:'settlement_management_controller'
         })
+        .state("instruction_driver_mileage", {
+            url: "/instruction_driver_mileage",
+            params: {"from": null},
+            templateUrl: "js/view/dispatch/instruction_driver_mileage.html",
+            controller:"instruction_driver_mileage_controller"
+        })
+        .state("instruction_drive_details", {
+            url: "/instruction_drive_details/id/{id}/timeStart/{timeStart}/timeEnd/{timeEnd}/makeId/{makeId}/from/{from}",
+            templateUrl: "js/view/dispatch/instruction_drive_details.html",
+            controller:"instruction_drive_details_controller"
+        })
+        .state("driver_settlement",{
+            url:"/driver_settlement",
+            templateUrl: "js/view/settlement/driver_settlement.html",
+            controller:'driver_settlement_controller'
+        })
         // 结算管理详情
         .state("settlement_management_detail",{
-            url:"/settlement_management_detail/id/{id}",
+            url:"/settlement_management_detail/id/{id}/from/{from}",
             templateUrl: "js/view/settlement/settlement_management_detail.html",
             controller:'settlement_management_detail_controller'
         })
@@ -107,6 +127,16 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             url:"/setting_settlement",
             templateUrl: "js/view/system_settings/setting_settlement.html",
             controller:'setting_settlement_controller'
+        })
+        .state("settlement_car",{
+            url:"/settlement_car",
+            templateUrl: "js/view/settlement/settlement_car.html",
+            controller:'settlement_car_controller'
+        })
+        .state("car_settlement",{
+            url:"/car_settlement",
+            templateUrl: "js/view/settlement/car_settlement.html",
+            controller:'car_settlement_controller'
         })
         //管理员设置
         .state("setting_users", {
@@ -139,18 +169,19 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/system_settings/setting_client/setting_client_details.html",
             controller:'setting_client_details_controller'
         })
-        .state("setting_dealer",{
-            url:"/setting_dealer",
-            templateUrl: "js/view/system_settings/setting_dealer/setting_dealer.html",
-            controller:'setting_dealer_controller'
-        })
         .state("add_setting_dealer",{
             url:"/add_setting_dealer",
             templateUrl: "js/view/system_settings/setting_dealer/add_setting_dealer_details.html",
             controller:'add_setting_dealer_controller'
         })
+        .state("setting_dealer",{
+            url:"/setting_dealer",
+            params: {"from": null},
+            templateUrl: "js/view/system_settings/setting_dealer/setting_dealer.html",
+            controller:'setting_dealer_controller'
+        })
         .state("setting_dealer_details",{
-            url:"/setting_dealer_details/{dealer_id}",
+            url:"/setting_dealer_details/{dealer_id}?from",
             templateUrl: "js/view/system_settings/setting_dealer/setting_dealer_details.html",
             controller:'setting_dealer_details_controller'
         })

@@ -7,6 +7,19 @@
         <!-- vin 委托方 目的地城市 经销商  调度编号  司机  计划执行时间-->
         <div class="col s10">
 
+            <!--计划执行时间(始)-->
+            <div class="col s3 input-field">
+                <input id="planTimeStart" type="text" ng-model="planTimeStart"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                <label for="planTimeStart">计划执行时间（始）</label>
+            </div>
+
+            <!--计划执行时间(终)-->
+            <div class="col s3 input-field">
+                <input id="planTimeEnd" type="text" ng-model="planTimeEnd"  class="datepicker" autocomplete="off"  required   date><i class="mdi dataIcon mdi-table-large"></i>
+                <label for="planTimeEnd">计划执行时间（终）</label>
+            </div>
+
+
             <!--vin-->
             <div class="col s3 input-field">
                 <input  id="VIN" name="VIN" ng-model="VIN" type="text"   required >
@@ -53,32 +66,37 @@
                 </select>
             </div>
 
-            <!--计划执行时间(始)-->
-            <div class="col s3 input-field">
-                <input id="planTimeStart" type="text" ng-model="planTimeStart"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                <label for="planTimeStart">计划执行时间（始）</label>
-            </div>
-
-            <!--计划执行时间(终)-->
-            <div class="col s3 input-field">
-                <input id="planTimeEnd" type="text" ng-model="planTimeEnd"  class="datepicker" autocomplete="off"  required   date><i class="mdi dataIcon mdi-table-large"></i>
-                <label for="planTimeEnd">计划执行时间（终）</label>
-            </div>
-
         </div>
 
-        <!--查询按钮-->
-        <div class="col s2 center" style="margin-top:45px;">
-            <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn "   ng-click="getNotHandoverInfo()">
-                <i class="mdi mdi-magnify"></i>
-            </a>
+
+        <!--按钮-->
+        <div class="col s2" style="margin-top: 40px">
+            <div class="col s6" >
+                <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getNotHandoverInfo()">
+                    <i class="mdi mdi-magnify"></i>
+                </a>
+            </div>
+            <div class="col s6 center-align">
+                <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
+                    <i class="mdi mdi-cloud-download"></i>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row col s12 bold">
+        <div class="col s12">
+            <div class="col s12">
+                未返还车辆:{{getNum}}
+            </div>
         </div>
     </div>
 
 
     <!-- 下部分：检索结果显示区域 -->
     <div class="row col s12" >
-        <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+        <div class="divider cyan" style="height: 2px;"></div>
         <table class=" bordered striped centered">
             <thead class="blue-grey lighten-5">
             <tr class="grey-text text-darken-2">
@@ -112,9 +130,15 @@
                     <a  ng-click="notHandOverDetail(el.id)" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1  " ></i></a>
                 </td>
             </tr>
-            <tr class="grey-text text-darken-1" ng-if="notHandoverArray.length == 0">
-                <td colspan="11" style="letter-spacing: 2px;text-align: center;">暂无数据</td>
+            <tr ng-if="notHandoverArray.length==0&&planTimeStart!==undefined&&planTimeEnd!==undefined">
+                <td colspan="11">暂无数据</td>
             </tr>
+            <tr ng-if="planTimeStart==undefined||planTimeEnd==undefined&&notHandoverArray.length==0">
+                <td colspan="11"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;计划执行时间为必填项</td>
+            </tr>
+
+
+
             </tbody>
         </table>
     </div>
@@ -201,7 +225,7 @@
             <div class="row col s12">
                 <div class="col s6 valign-wrapper">
                     <div class="col s12 input-field left-align" style="padding-left: 10%">
-                        计划出库时间:{{notHandOverDetailArray.task_plan_date|date:'yyyy-MM-dd'}}
+                        计划执行时间:{{notHandOverDetailArray.task_plan_date|date:'yyyy-MM-dd'}}
                     </div>
                 </div>
                 <div class="col s6 valign-wrapper">

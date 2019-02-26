@@ -8,8 +8,9 @@ app.controller("add_setting_dealer_controller", ["$scope", "_basic", "_config", 
     $scope.lng = 121.62;
     $scope.lat = 38.92;
     $scope.receiveTypeList=_config.receiveType;
-    // 获取城市
+
     $scope.getCityList = function () {
+        // 获取城市
         _basic.get($host.api_url + "/city").then(function (data) {
             if (data.success == true) {
                 $scope.setting_city = data.result;
@@ -19,6 +20,13 @@ app.controller("add_setting_dealer_controller", ["$scope", "_basic", "_config", 
                 });
             }
         });
+        // 车辆品牌
+        _basic.get($host.api_url + "/carMake").then(function (data) {
+            if (data.success == true) {
+                $scope.get_carMake = data.result;
+            }
+        });
+
     };
 
     // 选择清除城市重置value
@@ -94,17 +102,35 @@ app.controller("add_setting_dealer_controller", ["$scope", "_basic", "_config", 
     // 新增经销商
     $scope.add_setting_dealer = function () {
             if ($scope.lng != 121.62 && $scope.lat != 38.92&&$scope.receive_type!==undefined&&$scope.short_name!==undefined&&
-                $scope.deal_name!==undefined&&$scope.setting_city_id!==null&&$scope.input_address!==undefined) {
-                var obj = {
-                    shortName: $scope.short_name,
-                    receiveName: $scope.deal_name,
-                    receiveType:$scope.receive_type,
-                    address: $scope.input_address,
-                    lng: $scope.lng,
-                    lat: $scope.lat,
-                    cityId: $scope.setting_city_id,
-                    remark: $scope.remark
-                };
+                $scope.deal_name!==undefined&&$scope.setting_city_id!==null&&$scope.setting_city_id!==undefined&&$scope.input_address!==undefined) {
+                if($scope.car_brand == undefined){
+                    var obj = {
+                        shortName: $scope.short_name,
+                        receiveName: $scope.deal_name,
+                        receiveType:$scope.receive_type,
+                        address: $scope.input_address,
+                        makeId: 0,
+                        makeName: '',
+                        lng: $scope.lng,
+                        lat: $scope.lat,
+                        cityId: $scope.setting_city_id,
+                        remark: $scope.remark
+                    };
+                }
+               else{
+                    var obj = {
+                        shortName: $scope.short_name,
+                        receiveName: $scope.deal_name,
+                        receiveType:$scope.receive_type,
+                        address: $scope.input_address,
+                        makeId: $scope.car_brand.id,
+                        makeName: $scope.car_brand.make_name,
+                        lng: $scope.lng,
+                        lat: $scope.lat,
+                        cityId: $scope.setting_city_id,
+                        remark: $scope.remark
+                    };
+                }
                 _basic.post($host.api_url + "/user/" + userId + "/receive", obj).then(function (data) {
                     if (data.success == true) {
                         swal("新增成功", "", "success");

@@ -102,7 +102,7 @@ app.controller("add_storage_car_put_in_controller", ["$scope", "$rootScope","$st
             });
 
         },
-            // 区域--行
+            // 区域--道
         $scope.get_area_count=function (id) {
             _basic.get($host.api_url + "/storageParking?areaId=" + id).then(function (data) {
                 if (data.success == true) {
@@ -112,7 +112,7 @@ app.controller("add_storage_car_put_in_controller", ["$scope", "$rootScope","$st
 
             })
         };
-        // 存放位置联动查询--列
+        // 存放位置联动查询--位
         $scope.changeStorageRow = function (val, array) {
 
             if (val) {

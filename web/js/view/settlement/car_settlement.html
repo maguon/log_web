@@ -1,0 +1,284 @@
+<div class="car_settlemnet">
+
+    <!--tab分页 已结算  未结算-->
+    <div class="modal-content grey-text text-darken-2">
+        <div class="row no-marBottom" ul-tabs style="overflow: hidden">
+            <div class="col s12">
+                <ul class="tabWrap grey lighten-4">
+                    <li class="tab col s6 alreadySettled vc-center" ng-click="alreadySettled()">已结算车辆</li>
+                    <li class="tab col s6 unsettled vc-center" ng-click="unsettled()">未结算车辆</li>
+                </ul>
+            </div>
+
+            <!--已结算车辆-->
+            <div id="alreadySettled" class="row tab_box" style="margin-top: 50px" >
+                <!--查询条件-->
+                <div class="row">
+                    <div class="col s11">
+
+
+                        <!--指令时间-->
+                        <div class="input-field col s2">
+                            <input type="text" class="datepicker" date ng-model="orderStart"><i
+                                class="mdi dataIcon mdi-table-large"></i>
+                            <label>指令时间(始)</label>
+                        </div>
+                        <div class="input-field col s2">
+                            <input type="text" class="datepicker" date ng-model="orderEnd"><i
+                                class="mdi dataIcon mdi-table-large"></i>
+                            <label>指令时间(终)</label>
+                        </div>
+
+
+                        <!--委托方-->
+                        <div class="col s2">
+                            <div class="input-field col s12">
+                                <select id="client" name="client" style="width:100%" ng-model="enstrustId" >
+                                    <option value=""></option>
+                                    <option ng-repeat="el in entrustList" ng-value="el.id" >{{el.short_name}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!--起始城市-->
+                        <div class="col s2">
+                            <div class="input-field col s12">
+                                <select id="startCity" name="state" style="width:100%" ng-model="routeStartId">
+                                    <option value=""></option>
+                                    <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <!--目的地-->
+                        <div class="col s2">
+                            <div class="input-field col s12">
+                                <select id="endCity" name="state" style="width:100%" ng-model="routeEndId" ng-change="get_dealer()">
+                                    <option value=""></option>
+                                    <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!--vin-->
+                        <div class="col s2">
+                            <div class="input-field col s12">
+                                <input type="text" ng-model="VIN" id="VIN" name="VIN" required>
+                                <label for="VIN" class="active">VIN</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s1">
+                        <div class="col s12 center">
+                            <a class=" btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="searchCarSettlment()">
+                                <i class="mdi mdi-magnify"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <!--列表-->
+                <div class="col s12">
+                    <div class="col s12">
+                        <div class="col s12 cyan white-text vc-center fz18" style="height: 60px;border-bottom: 1px solid  #4e84cb;border-top:1px solid  #fff" >
+                            <div class="col s6 left-align ">结算车辆:{{settleCarCountList.settle_car_count}}</div>
+                            <div class="col s6 right-align">金额:{{settleCarCountList.price}}元</div>
+                        </div>
+                        <div class="divider cyan" style="height: 2px;"></div>
+                        <table class="bordered striped text_mid">
+                            <thead class="blue-grey lighten-5">
+                            <tr class="grey-text text-darken-2">
+                                <th data-field="">vin</th>
+                                <th data-field="">委托方</th>
+                                <th data-field="">起始城市</th>
+                                <th data-field="">目的城市</th>
+                                <th data-field="">公里数</th>
+                                <th data-field="">价格/公里</th>
+                                <th data-field="">实际金额</th>
+                                <th data-field="">指令时间</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="carItem in carList" class="grey-text text-darken-1">
+                                <td  ng-bind="carItem.vin"></td>
+                                <td  ng-bind="carItem.e_short_name"></td>
+                                <td  ng-bind="carItem.route_start"></td>
+                                <td  ng-bind="carItem.route_end"></td>
+                                <td  ng-bind="carItem.distance"></td>
+                                <td  ng-bind="carItem.fee"></td>
+                                <td class="red-text bold" ng-bind="carItem.price"></td>
+                                <td>{{carItem.order_date | date:'yyyy-MM-dd'}}</td>
+                            </tr>
+                            <tr ng-if="carList.length == 0&&orderStart!==undefined&&orderEnd!==undefined">
+                                <td colspan="8">暂无数据</td>
+                            </tr>
+                            <tr ng-if="orderEnd==undefined||orderStart==undefined&&carList.length == 0">
+                                <td colspan="8"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!--分页-->
+                <div class="row">
+                    <div class="paging_box col s12">
+                        <div class="right">
+                            <a class="waves-light waves-effect cyan lighten-1 btn"  id="pre" ng-click="getPrePage()">上一页</a>
+                            <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="getNextPage()">下一页</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--未结算车辆-->
+            <div id="unsettled" class="row tab_box" style="margin-top: 50px">
+
+                <!--查询条件-->
+                <div class="row">
+                    <div class="col s11">
+                        <div class=" col s4">
+                            <!--指令时间-->
+                            <div class="input-field col s6">
+                                <input type="text" class="datepicker" date ng-model="orderStartCar"><i
+                                    class="mdi dataIcon mdi-table-large"></i>
+                                <label>指令时间(始)</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input type="text" class="datepicker" date ng-model="orderEndCar"><i
+                                    class="mdi dataIcon mdi-table-large"></i>
+                                <label>指令时间(终)</label>
+                            </div>
+                        </div>
+
+                        <div class=" col s4">
+                            <!--委托方-->
+                            <div class=" col s6">
+                                <div class="input-field col s12">
+                                    <select id="carClient" name="client" style="width:100%" ng-model="carClient" >
+                                        <option value=""></option>
+                                        <option ng-repeat="el in entrustList" ng-value="el.id" >{{el.short_name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!--起始城市-->
+                            <div class=" col s6">
+                                <div class="input-field col s12">
+                                    <select id="carStartCity" name="state" style="width:100%" ng-model="carStartCity">
+                                        <option value=""></option>
+                                        <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class=" col s4">
+                            <!--目的地-->
+                            <div class=" col s6">
+                                <div class="input-field col s12">
+                                    <select id="carEndCity" name="state" style="width:100%" ng-model="carEndCity" ng-change="getCarDealer()">
+                                        <option value=""></option>
+                                        <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                          <!--  &lt;!&ndash;经销商&ndash;&gt;
+                            <div class=" col s4">
+                                <div class="input-field col s12">
+                                    <select material-select watch id="carDealer" class="grey-text"   ng-model="carDealer">
+                                        <option value=""  selected>请选择</option>
+                                        <option ng-repeat="el in getReceive" ng-value="el.id" >{{el.short_name}}</option>
+                                    </select>
+                                    <label for="carDealer">经销商</label>
+                                </div>
+                            </div>
+-->
+                            <!--vin-->
+                            <div class=" col s6">
+                                <div class="input-field col s12">
+                                    <input type="text" ng-model="carVIN" id="carVIN" name="carVIN" required>
+                                    <label for="VIN" class="active">VIN</label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col s1">
+                        <div class="col s12 center">
+                            <a class=" btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="searchCar()">
+                                <i class="mdi mdi-magnify"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!--列表-->
+                <div class="col s12">
+                    <div class="col s12">
+                        <div class="col s12 cyan white-text vc-center fz18" style="height: 60px;border-bottom: 1px solid  #4e84cb;border-top:1px solid  #fff" >
+                            <div class="col s6 left-align">未结算车辆:{{notSettleCarCountList.not_settle_car_count}}</div>
+                            <div class="col s6 right-align">预计金额:{{notSettleCarCountList.plan_price}}元</div>
+                        </div>
+                        <div class="divider cyan" style="height: 2px;"></div>
+                        <table class="bordered striped text_mid">
+                            <thead class="blue-grey lighten-5">
+                            <tr class="grey-text text-darken-2">
+                                <th data-field="">vin</th>
+                                <th data-field="">委托方</th>
+                                <th data-field="">起始城市</th>
+                                <th data-field="">目的城市</th>
+                                <th data-field="">公里数</th>
+                                <th data-field="">价格/公里</th>
+                                <th data-field="">预计金额</th>
+                            <!--    <th data-field="">经销商</th>-->
+                                <th data-field="">指令时间</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="carItem in carLists" class="grey-text text-darken-1">
+                                <td  ng-bind="carItem.vin"></td>
+                                <td  ng-bind="carItem.e_short_name"></td>
+                                <td  ng-bind="carItem.route_start"></td>
+                                <td  ng-bind="carItem.route_end"></td>
+                                <td  ng-bind="carItem.distance"></td>
+                                <td  ng-bind="carItem.fee"></td>
+                                <td class="red-text bold" ng-bind="carItem.plan_price"></td>
+                              <!--  <td  ng-bind="carItem.r_short_name"></td>-->
+                                <td>{{carItem.order_date | date:'yyyy-MM-dd'}}</td>
+                            </tr>
+                            <tr ng-if="carList.length == 0&&orderStartCar!==undefined&&orderEndCar!==undefined">
+                                <td colspan="8">暂无数据</td>
+                            </tr>
+                            <tr ng-if="orderEndCar==undefined||orderStartCar==undefined&&carList.length == 0">
+                                <td colspan="8"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!--分页-->
+                <div class="row">
+                    <div class="paging_box col s12">
+                        <div class="right">
+                            <a class="waves-light waves-effect cyan lighten-1 btn"  id="preCar" ng-click="getPrePageCar()">上一页</a>
+                            <a class="waves-light waves-effect cyan lighten-1 btn" id="nextCar" ng-click="getNextPageCar()">下一页</a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>

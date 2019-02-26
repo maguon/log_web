@@ -10,7 +10,7 @@ app.controller("dispatch_order_details_controller", ["$scope", "$host", "$locati
             });
         }
         else{
-            $state.go($stateParams.from, {reload: true})
+            $state.go($stateParams.from,{from:'dispatch_order_details'}, {reload: true})
         }
     };
 
@@ -19,7 +19,7 @@ app.controller("dispatch_order_details_controller", ["$scope", "$host", "$locati
      * 获取头部card详情
      * */
     function getHeaderInfo(){
-        _basic.get($host.api_url + "/dpRouteTask?dpRouteTaskId=" + val).then(function (data) {
+        _basic.get($host.api_url + "/dpRouteTaskList?dpRouteTaskId=" + val).then(function (data) {
             if (data.success == true) {
                 $scope.dispatchOrderList = data.result[0];
 

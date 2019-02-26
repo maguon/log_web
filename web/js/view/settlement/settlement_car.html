@@ -1,0 +1,363 @@
+
+<!--增加模态框-->
+<div id="new_car" class="modal ">
+    <div class="cyan lighten-1 white-text center-align modal_title" >新增结算车辆</div>
+    <div class="modal-content" style="padding: 0px">
+        <div class="row col" style="width: 60%;margin-bottom: 40px">
+            <div class="col s12 input-field" style="height: 70px">
+                <input type="text" ng-model="VIN" id="VIN" name="VIN" required>
+                <label for="VIN" class="active"><span class="red-text">*</span>VIN</label>
+            </div>
+
+            <div class="col s6 input-field">
+                <select id="startCity" name="state" style="width:100%" ng-model="addRouteStartId">
+                    <option value=""></option>
+                    <option ng-repeat="city in cityCarList" ng-value="city.id">{{city.city_name}}</option>
+                </select>
+            </div>
+            <div class="col s6 input-field">
+                <select id="endCity" name="state" style="width:100%" ng-model="addRouteEndId">
+                    <option value=""></option>
+                    <option ng-repeat="city in cityCarList" ng-value="city.id">{{city.city_name}}</option>
+                </select>
+            </div>
+            <div class="input-field col s6">
+                <select id="client" name="client" style="width:100%" ng-model="addRnstrustId" >
+                    <option value=""></option>
+                    <option ng-repeat="el in entrustCarList" ng-value="el.id" >{{el.short_name}}</option>
+                </select>
+            </div>
+            <div class="col s6 input-field" style="height: 70px">
+                <input type="number" ng-model="price" id="price" name="price" required>
+                <label for="price" class="active"><span class="red-text">*</span>金额</label>
+            </div>
+        </div>
+        <div class="divider" style="background: #ccc;height: 1px;"></div>
+        <div class="modal-footer vc-center">
+            <button class="btn waves-light waves-effect cyan lighten-2"  ng-click="addsettlementItem()" name="action" >确定</button>
+            <a class=" modal-action modal-close waves-effect waves-light grey lighten-1 btn" style="margin-left: 10px" >取消 </a>
+        </div>
+    </div>
+</div>
+
+<!--修改模态框-->
+<div id="commodityCar" class="modal ">
+    <div class="cyan lighten-1 white-text center-align modal_title" >修改结算车辆</div>
+    <div class="modal-content" style="padding: 0px">
+        <div class="row col" style="width:94%; margin-left: 3%; height: 400px">
+            <!--上部分：查询功能-->
+            <div class="row col" style="width: 100%;position: relative">
+                <div class="input-field col s12">
+                    <input type="text" id="autocomplete-input"  placeholder="           模糊查询至少需要6位VIN"  ng-model="commodityVin" ng-change="shortSearch()"  style="margin: 0 0 20px 0"  class="autocomplete">
+                    <label for="autocomplete-input">VIN</label>
+                </div>
+                <button class=" btn btn-floating btn-small waves-effect cyan lighten-1" ng-if="carId!==undefined" ng-click="getCommodityCarData()"  style="position: absolute;top: 15px;right: 10px;">
+                    <i class="mdi white-text mdi-plus fz30"></i>
+                </button>
+                <button class=" btn btn-floating btn-small waves-effect cyan lighten-1" ng-if="carId==undefined" disabled style="position: absolute;top: 15px;right: 10px;">
+                    <i class="mdi white-text mdi-plus fz30"></i>
+                </button>
+            </div>
+
+            <!--下部分：查询结果-->
+            <div class="col s12" ng-show="flag==true">
+                <div class="row  blue-grey lighten-5" style="width:98%;border:1px solid #bdbdbd">
+                    <!-- header -->
+                    <div class="col s12  cyan-text vc-center left-align" style="height:50px;border-bottom :1px solid #bdbdbd;">
+                        <div class="col s4">
+                            VIN：{{showSettlementList.vin}}
+                        </div>
+                        <div class="col s4 right-align offset-s4 grey-text">
+                            导入时间：{{showSettlementList.created_on|date:'yyyy-MM-dd hh:mm'}}
+                        </div>
+                    </div>
+                    <!-- body -->
+                    <div class="col s12 white" style="height:200px;">
+                        <div class="col s6 input-field" style="height: 70px;margin-top: 30px">
+                            <select id="updateStartCity" name="state" style="width:100%" ng-model="showSettlementList.route_start_id">
+                                <option value=""></option>
+                                <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
+                            </select>
+                        </div>
+                        <div class="col s6 input-field" style="height: 70px;margin-top: 30px">
+                            <select id="updateEndCity" name="state" style="width:100%" ng-model="showSettlementList.route_end_id">
+                                <option value=""></option>
+                                <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
+                            </select>
+                        </div>
+                        <div class="col s6 input-field" style="height: 70px">
+                            <select id="updateClient" name="client" style="width:100%" ng-model="showSettlementList.entrust_id">
+                                <option value=""></option>
+                                <option ng-repeat="el in entrustList" ng-value="el.id" >{{el.short_name}}</option>
+                            </select>
+                        </div>
+                        <div class="col s6 input-field" style="height: 70px">
+                            <input type="number" ng-model="showSettlementList.price" id="updatePrice" name="updatePrice" required>
+                            <label for="updatePrice" class="active"><span class="red-text">*</span>金额</label>
+                        </div>
+                        <div class="divider" style="background: #ccc;height: 1px;"></div>
+                    </div>
+                  
+                </div>
+
+                <div class="col s12">
+                    <div class="col s12 input-field center-align" style="margin-top: 30px ; margin-bottom: 30px" >
+                        <a href="" class="btn waves-effect circle_button" ng-click="updateSettlementItem(showSettlementList.id)">确定</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--查询模态框-->
+<div class="modal" id="file_detail_modal">
+    <div>
+        <p class="center-align cyan-text text-lighten-1">
+            <i class="mdi mdi-file-document look_icon cyan-text lighten-1"></i>
+            <span style="color: #3d4d56;font-size: 18px;margin:20px">{{fileDetailObj.fileName }}</span>
+            <span style="font-size: 15px;color: #cccccc ;margin:20px">{{fileDetailObj.fileLength}}B</span>
+            <span style="float: right;margin-right:20px;color:black" >共<i style="color: #00b0ff;font-size: 18px;margin-right: 5px">{{fileDetailObj.fileRecord.length}}</i>条</span>
+        </p>
+    </div>
+    <h5 class="center-align cyan-text text-lighten-1"></h5>
+    <div class="col s12">
+        <div class="divider cyan" style="height: 2px;"></div>
+        <table class=" bordered striped text_mid">
+            <thead class="blue-grey lighten-5">
+            <tr class="grey-text text-darken-2">
+                <th data-field="">VIN</th>
+                <th data-field="">enstrustId</th>
+                <th data-field="">委托方</th>
+                <th data-field="">routeStartId</th>
+                <th data-field="">始发地</th>
+                <th data-field="">routeEndId</th>
+                <th data-field="">目的地</th>
+                <th data-field="">金额</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="car in fileDetailObj.fileRecord" class="grey-text text-darken-1">
+                <td  ng-bind="car.vin"></td>
+                <td  ng-bind="car.entrust_id"></td>
+                <td  ng-bind="car.e_short_name"></td>
+                <td  ng-bind="car.route_start_id"></td>
+                <td  ng-bind="car.route_start"></td>
+                <td  ng-bind="car.route_end_id"></td>
+                <td  ng-bind="car.route_end"></td>
+                <td class="red-text bold" ng-bind="car.price"></td>
+            </tr>
+            <tr>
+            <tr ng-if="fileDetailObj.fileRecord.length==0">
+                <td colspan="8">没有于导入文件对应的车辆信息</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal-content grey-text text-darken-2">
+    <div class="row no-marBottom" ul-tabs style="overflow: hidden">
+        <div class="col s12">
+            <ul class="tabWrap grey lighten-4">
+                <li class="tab col s6 importFile vc-center" ng-click="importFile()">导入结算文件</li>
+                <li class="tab col s6 lookMyselfFile vc-center" ng-click="lookMyselfFile()">查看导入结算文件</li>
+            </ul>
+        </div>
+
+        <!--导入结算文件-->
+        <div id="importFile" class="row tab_box" style="margin-top: 50px">
+
+            <!--按钮 第一行-->
+            <div class="row">
+                <form name="file_upload_form " id="file_upload_form" >
+                    <div class="col s4">
+                        <div class="row">
+                            <div class="file-field  input-field ">
+                                <a href="/assets/结算车辆导入模板.csv" target="_blank" class="btn center-align waves-effect circle_button" >下载模板格式</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s5 offset-s3">
+                        <div class="col s4">
+                            <div class="row">
+                                <div class="file-field input-field">
+                                    <div class="btn cyan lighten-2 circle_button">
+                                        <span>批量数据导入</span>
+                                        <input type="file" style="font-size: 80px;height:45px;"  name="file" accept="text/csv" onchange='angular.element(this).scope().fileChange(this)' >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s4">
+                            <div class="row">
+                                <div class="file-field cyan input-field ">
+                                    <a href="" class="right btn waves-effect circle_button" ng-click="openDataModel()">单条数据修改</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s4">
+                            <div class="row">
+                                <div class="file-field input-field ">
+                                    <a href="" class="right btn waves-effect circle_button" ng-click="new_data_list()">单条数据增加</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!--大图-->
+            <div class="row">
+                <div class="col s12">
+                    <div class="col s12 tableBox" ng-show="tableBox">
+                        <img style="width: 100%" src="/assets/images/inport_settlement.png" />
+                    </div>
+                </div>
+            </div>
+
+            <!--上传错误页-->
+            <div class="row dataBox " style="overflow: auto;" ng-show="dataBox">
+                <div class="col s12">
+                    <h6 class="red lighten-2 white-text vc-center" style="padding: 20px">错误数据<span>{{errorNumber}}</span>条，请修改后重新上传</h6>
+                    <table class="responsive-table highlight">
+                        <thead class="blue-grey lighten-4 grey-text text-darken-1">
+                        <tr>
+                            <th>序号</th>
+                            <th ng-repeat="header in tableHeader track by $index">{{header}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="row in tableContentErrorFilter track by $index">
+                            <td>{{$index+1}}</td>
+                            <td ng-repeat="item in row track by $index">{{item}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!--上传成功页-->
+            <div class="row success_data_box " style="overflow: auto; "  ng-show="success_data_box">
+                <div class="divider" style="height: 2px;"></div>
+                <div class="col s12 " style="padding: 100px 0">
+                    <p><span>{{num}}</span>/<span>{{orginData_Length}}</span></p>
+                    <div class="col s2 offset-s5 ">
+                        <p class="vc-center " ng-show="local_isSuccesss">
+                            <i class="mdi mdi-check cyan-text text-lighten-2 fz40"></i><span class="blue-grey-text fz18">本地校验成功</span>
+                        </p>
+                        <p class="vc-center " ng-show="upload_isSuccesss">
+                            <i class="mdi mdi-check cyan-text text-lighten-2 fz40" ></i><span class="blue-grey-text fz18">上传完成</span>
+                        </p>
+                        <p class="vc-center" ng-show="upload_isSuccesss">
+                            <span>错误条数:<span>{{upload_error_array_num}}</span></span>
+                            <span>正确条数:<span>{{orginData_Length-upload_error_array_num}}</span></span>
+                            <span>总条数:<span>{{orginData_Length}}</span></span>
+                        </p>
+                        <!--<a href="" class="btn btn-large waves-effect cyan lighten-2"></a>-->
+                        <p class="center-align">
+                            <button class="btn btn-large circle_button cyan lighten-2" ng-click="fileUpload()" >
+                                导入数据库
+                            </button>
+                            <a href="" style="margin-top: 10px" class="btn btn-large circle_button cyan lighten-2" ng-show="show_error" ng-click="show_error_msg()">错误数据显示</a>
+                        </p>
+                    </div>
+                </div>
+
+                <table class=" bordered striped" ng-show="error_msg">
+                    <thead class="blue-grey lighten-5">
+                    <tr class="grey-text text-darken-2">
+                        <th data-field="">错误位置</th>
+                        <th data-field="">原因</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="el in upload_error_array" class="grey-text text-darken-1">
+                        <td>第{{el.index}}条</td>
+                        <td ng-bind="el.msg"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+
+        <!--查看导入结算文件-->
+        <div id="lookMyselfFile" class="row tab_box" style="margin-top: 50px;">
+            <div class="col s10" style="margin-bottom: 20px;">
+                <!--时间查询（始）-->
+                <div class="col s6 input-field">
+                    <input type="text" ng-model="startDate" id="putStartTime" name="putStartTime"  class="datepicker" autocomplete="off"    date><i class="mdi dataIcon mdi-table-large"></i>
+                    <label for="putStartTime">时间范围(始)</label>
+                </div>
+
+                <!--时间查询（终）-->
+                <div class="col s6 input-field">
+                    <input type="text" ng-model="endDate" id="putEndTime" name="putEndTime"  class="datepicker" autocomplete="off"   date><i class="mdi dataIcon mdi-table-large"></i>
+                    <label for="putEndTime">时间范围(终)</label>
+                </div>
+
+            </div>
+            <!--查询-->
+            <div class="col s2  flex flex-round" style="margin-bottom: 20px;">
+                <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
+                   style="margin-right: 10px" ng-click="searchSettlementList()">
+                    <i class="mdi mdi-magnify"></i>
+                </a>
+            </div>
+
+            <!--查询列表页-->
+            <div class="row tableBox">
+                <div class="col s12">
+                    <div class="divider cyan" style="height: 2px;"></div>
+                    <table class=" bordered striped text_mid">
+                        <thead class="blue-grey lighten-5">
+                        <tr class="grey-text text-darken-2">
+                            <th width="300" data-field="">文件编号</th>
+                            <th width="120" data-field="">文件名</th>
+                            <th width="100" data-field="">文件大小</th>
+                            <th width="200" data-field="">导入时间</th>
+                            <th width="100" >操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="fileInfo in importedFilesList" class="grey-text text-darken-1">
+                            <td>{{fileInfo._id}}</td>
+                            <td>{{fileInfo.filename}}</td>
+                            <td >{{fileInfo.length}}B</td>
+                            <td>{{fileInfo.uploadDate | date:'yyyy-MM-dd HH:mm'}}</td>
+                            <td  class="operation">
+                                 <i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ng-click="changeDetail(fileInfo)"></i>
+                                <a class="mdi  look_icon cyan-text lighten-1 mdi-arrow-down-bold-circle fz24"  ng-click="export(fileInfo._id)"></a>
+                            </td>
+                        </tr>
+                        <tr ng-if="importedFilesList.length==0&&startDate!==undefined&&endDate!==undefined">
+                            <td colspan="5">暂无数据</td>
+                        </tr>
+                        <tr ng-if="endDate==undefined||startDate==undefined&&importedFilesList.length==0">
+                            <td colspan="5"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;时间范围为必填项</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!--分页-->
+            <div class="row tableBox">
+                <div class="col s12" style="height: 45px">
+                    <div class="right">
+                        <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="previous_page()">
+                            上一页
+                        </a>
+                        <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_page()">
+                            下一页
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

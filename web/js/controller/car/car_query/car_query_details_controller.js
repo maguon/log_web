@@ -9,6 +9,12 @@ app.controller("car_query_details_controller", ["$scope", "$stateParams", "$host
     $scope.tabSwitchLeft = true;
     $scope.tabSwitchRight = false;
 
+    // 返回
+    $scope.return = function () {
+        $state.go($stateParams.from,{from:"car_query_details"}, {reload: true})
+    };
+
+
     // 根据VIN获取相关车辆信息
     $scope.getVinCodeInfo = function () {
         _basic.get($host.api_url + "/carList?" + "carId=" + carId).then(function (carData) {

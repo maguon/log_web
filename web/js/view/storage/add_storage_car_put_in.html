@@ -91,22 +91,22 @@
                     <div class="col s3 ">
                         <div class="input-field  valign-wrapper cyan white-text" >
                             <select material-select watch id="row" name="row" class="col s12" ng-change="changeStorageRow(row,parkingArray)"  ng-model="row" required>
-                                <option value=""  selected>存放排数</option>
-                                <option ng-repeat="el in parkingArray"  ng-value="el.row" >{{el.row}}排</option>
+                                <option value=""  selected>存放道数</option>
+                                <option ng-repeat="el in parkingArray"  ng-value="el.row" >{{el.row}}道</option>
                             </select>
-                            <!--<label for="row">存放排数</label>-->
-                            <!--<span class="col s1">排</span>-->
+                            <!--<label for="row">存放道数</label>-->
+                            <!--<span class="col s1">道</span>-->
                         </div>
                     </div>
                     <div class="col s3">
                         <div class="input-field  valign-wrapper cyan white-text" >
                             <select material-select watch id="col" name="col_id" class=" col s12" ng-model="parking_id" required>
                                 <option value=""  selected>存放道位</option>
-                                <option ng-repeat="el in colArr" ng-if="el.carId==0"  ng-value="el.id" >{{el.col}}列</option>
-                                <option ng-repeat="el in colArr" ng-if="el.carId!=0" disabled  >{{el.col}}列</option>
+                                <option ng-repeat="el in colArr" ng-if="el.carId==0"  ng-value="el.id" >{{el.col}}位</option>
+                                <option ng-repeat="el in colArr" ng-if="el.carId!=0" disabled  >{{el.col}}位</option>
                             </select>
                             <!--<label for="col"></label>-->
-                            <!--<span class="col s1">列</span>-->
+                            <!--<span class="col s1">位</span>-->
                         </div>
                     </div>
 
@@ -129,7 +129,7 @@
                     </div>
                 </div>
             </div>
-            <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+            <div class="divider cyan" style="height: 2px;"></div>
             <div class="modal-footer right-align" style="padding-top: 20px">
                 <a  ng-hide="srorage_car_details.car_status==9" class="btn btn-floating red lighten-2" ng-click="delivery()">
                     <i class="mdi mdi-flag-checkered"></i>

@@ -5,83 +5,45 @@
             <div class="row col s12">
 
 
-                <div class="col s3 input-field">
+                <div class="col input-field" style="width: 20%">
                     <select  id="truckNum" style="width: 100%" ng-model="truckNum">
                         <option value=""></option>
                         <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
                     </select>
                 </div>
 
-                <div class="col s3 input-field">
+                <div class="col  input-field" style="width: 20%">
                     <select id="driver_name" style="width: 100%" ng-model="driveName">
                         <option value=""></option>
-                        <option ng-repeat="driver in driveList" ng-value="driver.id">{{driver.drive_name}}</option>
+                        <option ng-repeat="driver in driveList" ng-value="driver.drive_name">{{driver.drive_name}}</option>
                     </select>
                 </div>
-<!--
-                <div class="input-field col" style="width: 25%">
-                    <input id="truck" type="text" ng-model="truckNum">
-                    <label for="truck">货车牌号</label>
-                </div>
-                <div class="input-field col" style="width: 25%">
-                    <input id="driver" type="text" ng-model="driveName">
-                    <label for="driver">司机</label>
-                </div>-->
-                <div class="input-field col" style="width: 12.5%">
-                    <select id="transferId" name="state" style="width:100%" ng-change="getTansferAddress(transferId)" ng-model="transferId">
-                        <option value=""></option>
-                        <option value="0" >清除选择</option>
-                        <option ng-repeat="city in startCityList" ng-value="city.id">{{city.city_name}}</option>
-                    </select>
-                </div>
-                <div class="input-field col" style="width: 12.5%">
-                    <select material-select watch ng-model="transferArr">
-                        <option value="" selected>中转站地点</option>
-                        <option ng-repeat="locateAddr in transferList" ng-value="locateAddr.id">{{locateAddr.addr_name}}
-                        </option>
-                    </select>
-                </div>
-                <div class="input-field col" style="width: 25%">
+
+
+                <div class="input-field col" style="width: 20%">
                     <select material-select watch ng-model="currentStatus">
                         <option value="" selected>当前状态</option>
                         <option value="1">待运中</option>
                         <option value="2">在途</option>
                     </select>
                 </div>
-            </div>
-            <div class="row col s12">
 
-                <div class="input-field col" style="width: 25%">
+                <div class="input-field col" style="width: 20%">
                     <select id="start_city_list" name="state" style="width:100%" ng-change="getLocateAddress()" ng-model="startCityId">
                         <option value=""></option>
                         <option value="0" >清除选择</option>
                         <option ng-repeat="city in startCityList" ng-value="city.id">{{city.city_name}}</option>
                     </select>
                 </div>
-                <div class="input-field col" style="width: 25%">
-                    <select material-select watch ng-model="locateAddrId">
-                        <option value="" selected>装车地点</option>
-                        <option ng-repeat="locateAddr in locateList" ng-value="locateAddr.id">{{locateAddr.addr_name}}
-                        </option>
-                    </select>
-                </div>
-                <div class="input-field col" style="width: 25%">
+
+                <div class="input-field col" style="width: 20%">
                     <select id="end_city_list" name="state" style="width:100%" ng-change="getDistributor()" ng-model="endCityId">
                         <option value=""></option>
                         <option value="0" >清除选择</option>
                         <option ng-repeat="city in startCityList" ng-value="city.id">{{city.city_name}}</option>
                     </select>
                 </div>
-                <div class="input-field col" style="width: 25%">
-                    <select material-select watch ng-model="distributorId">
-                        <option value="" selected>经销商</option>
-                        <option ng-repeat="distributor in distributorList" ng-value="distributor.id">
-                            {{distributor.short_name}}
-                        </option>
-                    </select>
-                </div>
             </div>
-
         </div>
         <div class="row col s1 center">
             <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
@@ -94,7 +56,7 @@
     <!--table表格-->
     <div class="row col s12" style="margin-top: 15px">
         <div class="col s12">
-            <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+            <div class="divider cyan" style="height: 2px;"></div>
             <table class=" bordered striped text_mid">
                 <thead class="blue-grey lighten-5">
                 <tr class="grey-text text-darken-2">
@@ -120,7 +82,7 @@
                     </td>
                     <td>{{dispatchInfo.car_count}}</td>
                     <td class="details">
-                        <a ui-sref="instruction_operation_details({truckId:dispatchInfo.truck_id})" class="">
+                        <a ui-sref="instruction_operation_details({truckId:dispatchInfo.truck_id,from:'instruction_operation'})" class="">
                             <i class="mdi mdi-eye look_icon cyan-text lighten-1"></i>
                         </a>
                     </td>
@@ -132,5 +94,17 @@
             </table>
         </div>
     </div>
-
+    <!--分页-->
+    <div class="row">
+        <div class="paging_box col s12">
+            <div class="right">
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="pre_btn()">
+                    上一页
+                </a>
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_btn()">
+                    下一页
+                </a>
+            </div>
+        </div>
+    </div>
 </div>

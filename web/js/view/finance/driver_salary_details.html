@@ -1,26 +1,25 @@
-<a style="margin: 90px 0 0 20px" class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light "
-   ui-sref="driver_salary">
-    <i class="mdi mdi-arrow-left-bold"></i>
-</a>
-<div class="driver_salary_details">
-    <div class="vc-center">
-        <h5 class="center-align cyan-text text-lighten-1">司机工资结算</h5>
-    </div>
 
-    <div class="divider" style="background: #00bcd4;height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
+<div class="driver_salary_details">
+    <div class="storage_storeTitle vc-center ">
+        <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
+            <i class="mdi mdi-arrow-left-bold"></i>
+        </a>
+        <h4 class="center-align cyan-text text-lighten-1">司机工资结算</h4>
+    </div>
+    <div class="divider cyan" style="height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
 
     <!--调度任务详情模态框-->
     <div class="row" style="margin: 0">
         <div id="dispatchMissionModal" class="modal modal-fixed-footer" style="width: 75%;height: 650px">
             <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-                <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
+                <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
                     <p>调度任务详情</p>
                 </div>
                 <div class="row" style="width: 85%;margin: 0 auto">
-                    <div class="col s12 left-align" style="color: #26c6da;font-weight: bold;font-size: 1.2rem">
+                    <div class="col s12 left-align cyan-text" style="font-weight: bold;font-size: 1.2rem">
                         <p>调度编号：{{salaryHandleStatus == "unsettled" ? salaryInfo.id : salaryInfo.dp_route_task_id}}</p>
                     </div>
-                    <div class="col s12 left-align valign-wrapper" style="color: #26c6da;font-weight: bold;font-size: 1.2rem;padding: 30px 10px;border-bottom: 1px solid darkgray">
+                    <div class="col s12 left-align valign-wrapper cyan-text" style="font-weight: bold;font-size: 1.2rem;padding: 30px 10px;border-bottom: 1px solid darkgray">
                         <div class="col s8" style="padding: 0;">
                             <div class="col s4" style="padding: 0;">
                                 <p>{{salaryInfo.city_route_start + " - " + salaryInfo.city_route_end}}</p>
@@ -33,7 +32,7 @@
                             </div>
                         </div>
                         <div class="col s4 right-align">
-                            <p style="color: darkgray"><span style="font-size: 1.6rem;color: #26c6da" class="mdi mdi-truck"></span>&emsp;{{salaryInfo.truck_num}}&emsp;{{salaryInfo.brand_name}}</p>
+                            <p style="color: darkgray"><span style="font-size: 1.6rem;" class="mdi mdi-truck cyan-text"></span>&emsp;{{salaryInfo.truck_num}}&emsp;{{salaryInfo.brand_name}}</p>
                         </div>
                     </div>
                     <div class="col s12" style="color: darkgray;font-weight: bold;font-size: 1.1rem;padding: 0;">
@@ -81,11 +80,11 @@
     <div class="row" style="margin: 0">
         <div id="carDamageModal" class="modal modal-fixed-footer" style="width: 75%;height: 650px">
             <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-                <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
+                <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
                     <p>商品车质损详情</p>
                 </div>
                 <div class="row" style="width: 85%;margin: 0 auto">
-                    <div class="col s12 left-align" style="color: #26c6da;font-weight: bold;font-size: 1.2rem;border-bottom: 1px solid darkgray;padding: 20px 10px">
+                    <div class="col s12 left-align cyan-text" style="font-weight: bold;font-size: 1.2rem;border-bottom: 1px solid darkgray;padding: 20px 10px">
                         <p>质损编号：{{damageHandleStatus == "unsettled" ? damageInfo.id : damageInfo.damage_id}}</p>
                     </div>
                     <div class="col s12" style="color: darkgray;font-weight: bold;font-size: 1.1rem;padding: 0;">
@@ -144,11 +143,11 @@
     <div class="row" style="margin: 0">
         <div id="truckAccidentModal" class="modal modal-fixed-footer" style="width: 75%;height: 650px">
             <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-                <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
+                <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
                     <p>货车责任详情</p>
                 </div>
                 <div class="row" style="width: 85%;margin: 0 auto">
-                    <div class="col s12 left-align" style="color: #26c6da;font-weight: bold;font-size: 1.2rem;border-bottom: 1px solid darkgray;padding: 20px 10px">
+                    <div class="col s12 left-align cyan-text" style="font-weight: bold;font-size: 1.2rem;border-bottom: 1px solid darkgray;padding: 20px 10px">
                         <p>事故编号：{{accidentHandleStatus == 'unsettled' ? accidentInfo.id : accidentInfo.accident_id}}</p>
                     </div>
                     <div class="col s12" style="color: darkgray;font-weight: bold;font-size: 1.1rem;padding: 0;">
@@ -201,7 +200,7 @@
     <div class="row" style="width: 95%;margin: 0 auto">
         <!--基本信息-->
         <div class="col s12">
-            <div class="col s12" style="background-color: #f8f9fd;color: darkgray;font-weight: bold;border: 2px solid #26c6da;font-size: 1.2rem">
+            <div class="col s12 cyan_border" style="background-color: #f8f9fd;color: darkgray;font-weight: bold;font-size: 1.2rem">
                 <div class="col s12 valign-wrapper" style="padding: 0;">
                     <div class="col s1 right-align">
                         <span class="white lighten-2 center" style="width:40px;height:40px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #EFB366 !important;line-height: 41px">
@@ -209,30 +208,30 @@
                         </span>
                     </div>
                     <div class="col s3">
-                        <p style="color: #26c6da">{{salaryDetails.drive_name}}</p>
+                        <p class="cyan-text" >{{salaryDetails.drive_name}}</p>
                     </div>
                     <div class="col s3">
-                        <p><span style="font-size: 1.6rem;color: #26c6da" class="mdi mdi-hospital-building"></span>&emsp;{{salaryDetails.company_name}}</p>
+                        <p><span style="font-size: 1.6rem;" class="mdi mdi-hospital-building cyan-text"></span>&emsp;{{salaryDetails.company_name}}</p>
                     </div>
 
                     <div class="col s3" ng-show="salaryDetails.truck_id != null">
-                        <p><span style="font-size: 1.6rem;color: #26c6da" class="mdi mdi-truck"></span>&emsp;{{salaryDetails.truck_num}}&emsp;{{salaryDetails.brand_name}}&emsp;{{salaryDetails.number}}位</p>
+                        <p><span style="font-size: 1.6rem;" class="mdi mdi-truck cyan-text"></span>&emsp;{{salaryDetails.truck_num}}&emsp;{{salaryDetails.brand_name}}&emsp;{{salaryDetails.number}}位</p>
                     </div>
                     <div class="col s3" ng-show="salaryDetails.truck_id == null">
-                        <p><span style="font-size: 1.6rem;color: #26c6da" class="mdi mdi-truck"></span>&emsp;<span style="color: #e57373">暂未绑定货车</span></p>
+                        <p><span style="font-size: 1.6rem;" class="mdi mdi-truck cyan-text"></span>&emsp;<span style="color: #e57373">暂未绑定货车</span></p>
                     </div>
                     <div class="col s2">
-                        <p><span style="font-size: 1.6rem;color: #26c6da" class="mdi mdi-cellphone"></span>&emsp;{{salaryDetails.mobile}}</p>
+                        <p><span style="font-size: 1.6rem;" class="mdi mdi-cellphone cyan-text"></span>&emsp;{{salaryDetails.mobile}}</p>
                     </div>
                 </div>
 
                 <div class="col s12">
                     <div class="col s3 offset-s1">
-                        <p style="color: #26c6da">{{salaryDetails.month_date_id}}</p>
+                        <p class="cyan-text" >{{salaryDetails.month_date_id}}</p>
                     </div>
                     <div class="col s2 offset-s6 center-align">
                         <p ng-if="salaryDetails.grant_status == 1" style="color: #e57373">未结算</p>
-                        <p ng-if="salaryDetails.grant_status == 2" style="color: #26c6da">未发放</p>
+                        <p ng-if="salaryDetails.grant_status == 2" class="cyan-text" >未发放</p>
                         <p ng-if="salaryDetails.grant_status == 3" style="color: darkgray">已发放</p>
                     </div>
                 </div>
@@ -242,12 +241,12 @@
         <!--tab栏-->
         <div class="col s12" style="margin: 30px 0">
             <ul class="tabs ui-tabs tabs-fixed-width tab-demo z-depth-1" style="font-size: 25px;font-weight: bold;overflow-x: hidden;margin-bottom: 25px" ul-tabs>
-                <li class="tab"><a href="#missionSalary" style="color: #26c6da;line-height: 40px">任务工资</a></li>
-                <li class="tab"><a id="carDamagePage" href="#carDamage" ng-click="getCarDamageInfo()" style="color: #26c6da;line-height: 40px">商品车质损</a></li>
-                <li class="tab"><a id="truckAccidentPage" href="#truckAccident" ng-click="getTruckAccidentInfo()" style="color: #26c6da;line-height: 40px">货车事故</a></li>
-                <li class="tab"><a href="#driverPeccancyList" ng-click="getPeccancyList()" style="color: #26c6da;line-height: 40px">违章扣款</a></li>
-                <li class="tab"><a href="#driverExceedOil" ng-click="getExceedOilList()" style="color: #26c6da;line-height: 40px">超油扣款</a></li>
-                <li class="tab"><a id="settlementSalaryPage" href="#settlementSalary" ng-click="grantWages()" style="color: #26c6da;line-height: 40px">结算工资</a></li>
+                <li class="tab"><a href="#missionSalary" class="cyan-text"  style="line-height: 40px">任务工资</a></li>
+                <li class="tab"><a id="carDamagePage" href="#carDamage" ng-click="getCarDamageInfo()" class="cyan-text"  style="line-height: 40px">商品车质损</a></li>
+                <li class="tab"><a id="truckAccidentPage" href="#truckAccident" ng-click="getTruckAccidentInfo()" class="cyan-text"  style="line-height: 40px">货车事故</a></li>
+                <li class="tab"><a href="#driverPeccancyList" ng-click="getPeccancyList()" class="cyan-text"  style="line-height: 40px">违章扣款</a></li>
+                <li class="tab"><a href="#driverExceedOil" ng-click="getExceedOilList()"  class="cyan-text"  style="line-height: 40px">超量扣款</a></li>
+                <li class="tab"><a id="settlementSalaryPage" href="#settlementSalary" class="cyan-text"  ng-click="grantWages()" style="line-height: 40px">结算工资</a></li>
             </ul>
         </div>
 
@@ -257,11 +256,11 @@
             <div class="col s6" ng-hide="salaryDetails.grant_status == 3">
                 <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px;min-height: 380px">
                     <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
-                        <div class="col s6 left-align" style="color: #26c6da">
+                        <div class="col s6 left-align cyan-text" >
                             <p style="margin: 0">未结算任务</p>
                         </div>
                         <div class="col s6 right-align" style="color: darkgray;font-size: 1.05rem">
-                            <p style="color: #26c6da;margin: 0;font-size: 1.2rem">{{unsettledSalaryList.length}} 条</p>
+                            <p class="cyan-text"  style="margin: 0;font-size: 1.2rem">{{unsettledSalaryList.length}} 条</p>
                         </div>
                     </div>
                     <!--头-->
@@ -286,8 +285,8 @@
                             <td>{{salary.car_count}}</td>
                             <td>{{salary.task_end_date | date:'yyyy-MM-dd'}}</td>
                             <td  class="operation">
-                                <a ng-click="showDispatchMissionModal(salary,'unsettled')" style="margin-right: 10px;cursor: pointer;text-align: center;color: #26c6da"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
-                                <a ng-click="addSettledSalary(salary.id)" class="cyan-text" style="cursor: pointer;text-align: center;color: #26c6da"><i class="mdi mdi-plus-circle" style="margin: 0"></i></a>
+                                <a ng-click="showDispatchMissionModal(salary,'unsettled')" class="cyan-text" style="margin-right: 10px;cursor: pointer;text-align: center;"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
+                                <a ng-click="addSettledSalary(salary.id)" class="cyan-text" style="cursor: pointer;text-align: center;"><i class="mdi mdi-plus-circle" style="margin: 0"></i></a>
                             </td>
                         </tr>
                         <tr ng-if="unsettledSalaryList.length==0">
@@ -302,11 +301,11 @@
             <div class="col {{salaryDetails.grant_status == 3 ? 's12' : 's6'}}">
                 <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px;min-height: 380px">
                     <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
-                        <div class="col s6 left-align" style="color: #26c6da">
+                        <div class="col s6 left-align cyan-text">
                             <p style="margin: 0">结算任务</p>
                         </div>
                         <div class="col s6 right-align" style="color: darkgray;font-size: 1.05rem">
-                            <p style="color: #26c6da;margin: 0;font-size: 1.2rem">{{settledSalaryList.length}} 条</p>
+                            <p class="cyan-text"  style="margin: 0;font-size: 1.2rem">{{settledSalaryList.length}} 条</p>
                         </div>
                     </div>
                     <!--头-->
@@ -331,7 +330,7 @@
                             <td>{{salary.car_count}}</td>
                             <td>{{salary.task_end_date | date:'yyyy-MM-dd'}}</td>
                             <td  class="operation">
-                                <a ng-click="showDispatchMissionModal(salary,'settled')" style="margin-right: 10px;cursor: pointer;text-align: center;color: #26c6da"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
+                                <a ng-click="showDispatchMissionModal(salary,'settled')" class="cyan-text" style="margin-right: 10px;cursor: pointer;text-align: center;"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
                                 <a ng-hide="salaryDetails.grant_status == 3" ng-click="minusSettledSalary(salary.dp_route_task_id)" style="cursor: pointer;text-align: center;color: #e57373"><i class="mdi mdi-minus-circle" style="margin: 0"></i></a>
                             </td>
                         </tr>
@@ -346,10 +345,10 @@
             <div class="col s12 valign-wrapper" style="color: darkgray;font-size: 1.2rem;font-weight: bold;margin: 20px 0">
                 <div class="col s6">
                     <div class="col s6" style="padding: 0;">
-                        <p>重载：<span style="color: #26c6da">{{loadDistanceCount}}</span> km</p>
+                        <p>重载：<span class="cyan-text" >{{loadDistanceCount}}</span> km</p>
                     </div>
                     <div class="col s6" style="padding: 0;">
-                        <p>空载：<span style="color: #26c6da">{{noLoadDistanceCount}}</span> km</p>
+                        <p>空载：<span class="cyan-text" >{{noLoadDistanceCount}}</span> km</p>
                     </div>
                 </div>
                 <div class="col s6 input-field" ng-hide="salaryDetails.grant_status == 3">
@@ -377,11 +376,11 @@
             <div class="col s6" ng-hide="salaryDetails.grant_status == 3">
                 <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px;min-height: 380px">
                     <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
-                        <div class="col s6 left-align" style="color: #26c6da">
+                        <div class="col s6 left-align cyan-text">
                             <p style="margin: 0">未结算质损责任</p>
                         </div>
                         <div class="col s6 right-align" style="color: darkgray;font-size: 1.05rem">
-                            <p style="color: #26c6da;margin: 0;font-size: 1.2rem">{{unsettledDamageList.length}} 条</p>
+                            <p class="cyan-text"  style="margin: 0;font-size: 1.2rem">{{unsettledDamageList.length}} 条</p>
                         </div>
                     </div>
                     <!--头-->
@@ -406,8 +405,8 @@
                             <td>{{damage.under_cost}}</td>
                             <td>{{damage.created_on | date:'yyyy-MM-dd'}}</td>
                             <td  class="operation">
-                                <a ng-click="showCarDamageModal(damage,'unsettled')" style="margin-right: 10px;cursor: pointer;text-align: center;color: #26c6da"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
-                                <a ng-click="addSettledDamage(damage.id)" class="cyan-text" style="cursor: pointer;text-align: center;color: #26c6da"><i class="mdi mdi-plus-circle" style="margin: 0"></i></a>
+                                <a ng-click="showCarDamageModal(damage,'unsettled')" class="cyan-text" style="margin-right: 10px;cursor: pointer;text-align: center;"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
+                                <a ng-click="addSettledDamage(damage.id)" class="cyan-text" style="cursor: pointer;text-align: center;"><i class="mdi mdi-plus-circle" style="margin: 0"></i></a>
                             </td>
                         </tr>
                         <tr ng-if="unsettledDamageList.length==0">
@@ -422,11 +421,11 @@
             <div class="col {{salaryDetails.grant_status == 3 ? 's12' : 's6'}}">
                 <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px;min-height: 380px">
                     <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
-                        <div class="col s6 left-align" style="color: #26c6da">
+                        <div class="col s6 left-align cyan-text" >
                             <p style="margin: 0">结算质损责任</p>
                         </div>
                         <div class="col s6 right-align" style="color: darkgray;font-size: 1.05rem">
-                            <p style="color: #26c6da;margin: 0;font-size: 1.2rem">{{settledDamageList.length}} 条</p>
+                            <p class="cyan-text" style="margin: 0;font-size: 1.2rem">{{settledDamageList.length}} 条</p>
                         </div>
                     </div>
                     <!--头-->
@@ -451,7 +450,7 @@
                             <td>{{damage.under_cost}}</td>
                             <td>{{damage.created_on | date:'yyyy-MM-dd'}}</td>
                             <td  class="operation">
-                                <a ng-click="showCarDamageModal(damage,'settled')" style="margin-right: 10px;cursor: pointer;text-align: center;color: #26c6da"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
+                                <a ng-click="showCarDamageModal(damage,'settled')" class="cyan-text" style="margin-right: 10px;cursor: pointer;text-align: center;"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
                                 <a ng-hide="salaryDetails.grant_status == 3" ng-click="minusSettledDamage(damage.damage_id)" style="cursor: pointer;text-align: center;color: #e57373"><i class="mdi mdi-minus-circle" style="margin: 0"></i></a>
                             </td>
                         </tr>
@@ -481,59 +480,13 @@
             <div class="col s6" ng-hide="salaryDetails.grant_status == 3">
                 <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px;min-height: 380px">
                     <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
-                        <div class="col s6 left-align" style="color: #26c6da">
+                        <div class="col s6 left-align cyan-text" >
                             <p style="margin: 0">未结算事故责任</p>
                         </div>
                         <div class="col s6 right-align" style="color: darkgray;font-size: 1.05rem">
-                            <p style="color: #26c6da;margin: 0;font-size: 1.2rem">{{unsettledAccidentList.length}} 条</p>
+                            <p class="cyan-text"  style="margin: 0;font-size: 1.2rem">{{unsettledAccidentList.length}} 条</p>
                         </div>
                     </div>
-                    <!--头-->
-                 <!--   <div class="col s12">
-                        <div class="col s12 valign-wrapper" style="padding: 0;color: darkgray;font-weight: bold;font-size: 1rem;border-bottom: 1px solid darkgray">
-                            <div class="col s2">
-                                <p>事故编号</p>
-                            </div>
-                            <div class="col s2">
-                                <p>货车</p>
-                            </div>
-                            <div class="col s2 center-align">
-                                <p>质损程度</p>
-                            </div>
-                            <div class="col s2 center-align">
-                                <p>承担金额（元）</p>
-                            </div>
-                            <div class="col s4">
-                                <p>发生时间</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    &lt;!&ndash;未结算事故责任&ndash;&gt;
-                    <div class="col s12" ng-repeat="accident in unsettledAccidentList">
-                        <div class="col s12 valign-wrapper" style="padding: 0;color: darkgray;font-size: 0.8rem;border-bottom: 1px solid darkgray">
-                            <div class="col s2">
-                                <p>{{accident.id}}</p>
-                            </div>
-                            <div class="col s2">
-                                <p>{{accident.truck_num}}</p>
-                            </div>
-                            <div class="col s2 center-align">
-                                <p>{{accident.truck_accident_type | damageType}}</p>
-                            </div>
-                            <div class="col s2 center-align" style="padding: 0;">
-                                <p>{{accident.under_cost}}</p>
-                            </div>
-                            <div class="col s2">
-                                <p>{{accident.accident_date | date:'yyyy-MM-dd'}}</p>
-                            </div>
-                            <div class="col s2 center-align" style="font-size: 1.4rem">
-                                <a ng-click="showTruckAccidentModal(accident,'unsettled')" style="margin-right: 10px;cursor: pointer;text-align: center;color: #26c6da"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
-                                <a ng-click="addSettledAccident(accident.id)" class="cyan-text" style="cursor: pointer;text-align: center;color: #26c6da"><i class="mdi mdi-plus-circle" style="margin: 0"></i></a>
-                            </div>
-                        </div>
-                    </div>-->
-
                     <table class=" bordered striped text_mid">
                         <thead class="blue-grey lighten-5">
                         <tr class="grey-text text-darken-2">
@@ -553,8 +506,8 @@
                             <td>{{accident.under_cost}}</td>
                             <td>{{accident.accident_date | date:'yyyy-MM-dd'}}</td>
                             <td  class="operation">
-                                <a ng-click="showTruckAccidentModal(accident,'unsettled')" style="margin-right: 10px;cursor: pointer;text-align: center;color: #26c6da"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
-                                <a ng-click="addSettledAccident(accident.id)" class="cyan-text" style="cursor: pointer;text-align: center;color: #26c6da"><i class="mdi mdi-plus-circle" style="margin: 0"></i></a>
+                                <a ng-click="showTruckAccidentModal(accident,'unsettled')" class="cyan-text" style="margin-right: 10px;cursor: pointer;text-align: center;"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
+                                <a ng-click="addSettledAccident(accident.id)" class="cyan-text" style="cursor: pointer;text-align: center;"><i class="mdi mdi-plus-circle" style="margin: 0"></i></a>
                             </td>
                         </tr>
                         <tr ng-if="unsettledAccidentList.length==0">
@@ -569,59 +522,13 @@
             <div class="col {{salaryDetails.grant_status == 3 ? 's12' : 's6'}}">
                 <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px;min-height: 380px">
                     <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
-                        <div class="col s6 left-align" style="color: #26c6da">
+                        <div class="col s6 left-align cyan-text">
                             <p style="margin: 0">结算事故责任</p>
                         </div>
                         <div class="col s6 right-align" style="color: darkgray;font-size: 1.05rem">
-                            <p style="color: #26c6da;margin: 0;font-size: 1.2rem">{{settledAccidentList.length}} 条</p>
+                            <p  class="cyan-text"  style="margin: 0;font-size: 1.2rem">{{settledAccidentList.length}} 条</p>
                         </div>
                     </div>
-                    <!--头-->
-                  <!--  <div class="col s12">
-                        <div class="col s12 valign-wrapper" style="padding: 0;color: darkgray;font-weight: bold;font-size: 1rem;border-bottom: 1px solid darkgray">
-                            <div class="col s2">
-                                <p>事故编号</p>
-                            </div>
-                            <div class="col s2">
-                                <p>货车</p>
-                            </div>
-                            <div class="col s2 center-align">
-                                <p>质损程度</p>
-                            </div>
-                            <div class="col s2 center-align">
-                                <p>承担金额（元）</p>
-                            </div>
-                            <div class="col s4">
-                                <p>发生时间</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    &lt;!&ndash;结算事故责任&ndash;&gt;
-                    <div class="col s12" ng-repeat="accident in settledAccidentList">
-                        <div class="col s12 valign-wrapper" style="padding: 0;color: darkgray;font-size: 0.8rem;border-bottom: 1px solid darkgray">
-                            <div class="col s2">
-                                <p>{{accident.accident_id}}</p>
-                            </div>
-                            <div class="col s2">
-                                <p>{{accident.truck_num}}</p>
-                            </div>
-                            <div class="col s2 center-align">
-                                <p>{{accident.truck_accident_type | damageType}}</p>
-                            </div>
-                            <div class="col s2 center-align" style="padding: 0;">
-                                <p>{{accident.under_cost}}</p>
-                            </div>
-                            <div class="col s2">
-                                <p>{{accident.accident_date | date:'yyyy-MM-dd'}}</p>
-                            </div>
-                            <div class="col s2 center-align" style="font-size: 1.4rem">
-                                <a ng-click="showTruckAccidentModal(accident,'settled')" style="margin-right: 10px;cursor: pointer;text-align: center;color: #26c6da"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
-                                <a ng-hide="salaryDetails.grant_status == 3" ng-click="minusSettledAccident(accident.accident_id)" style="cursor: pointer;text-align: center;color: #e57373"><i class="mdi mdi-minus-circle" style="margin: 0"></i></a>
-                            </div>
-                        </div>
-                    </div>-->
-
                     <table class=" bordered striped text_mid">
                         <thead class="blue-grey lighten-5">
                         <tr class="grey-text text-darken-2">
@@ -641,7 +548,7 @@
                             <td>{{accident.under_cost}}</td>
                             <td>{{accident.accident_date | date:'yyyy-MM-dd'}}</td>
                             <td  class="operation">
-                                <a ng-click="showTruckAccidentModal(accident,'settled')" style="margin-right: 10px;cursor: pointer;text-align: center;color: #26c6da"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
+                                <a ng-click="showTruckAccidentModal(accident,'settled')" class="cyan-text" style="margin-right: 10px;cursor: pointer;text-align: center;"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
                                 <a ng-hide="salaryDetails.grant_status == 3" ng-click="minusSettledAccident(accident.accident_id)" style="cursor: pointer;text-align: center;color: #e57373"><i class="mdi mdi-minus-circle" style="margin: 0"></i></a>
                             </td>
                         </tr>
@@ -664,11 +571,11 @@
             <div class="col s6" ng-hide="salaryDetails.grant_status == 3">
                 <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px;min-height: 380px">
                     <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
-                        <div class="col s6 left-align" style="color: #26c6da">
+                        <div class="col s6 left-align cyan-text" >
                             <p style="margin: 0">未结算违章扣款</p>
                         </div>
                         <div class="col s6 right-align" style="color: darkgray;font-size: 1.05rem">
-                            <p style="color: #26c6da;margin: 0;font-size: 1.2rem">{{peccancyAccidentList.length}} 条</p>
+                            <p class="cyan-text"  style="margin: 0;font-size: 1.2rem">{{peccancyAccidentList.length}} 条</p>
                         </div>
                     </div>
                     <!--头-->
@@ -712,11 +619,11 @@
             <div class="col {{salaryDetails.grant_status == 3 ? 's12' : 's6'}}">
                 <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px;min-height: 380px">
                     <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
-                        <div class="col s6 left-align" style="color: #26c6da">
+                        <div class="col s6 left-align cyan-text" >
                             <p style="margin: 0">违章扣款结算</p>
                         </div>
                         <div class="col s6 right-align" style="color: darkgray;font-size: 1.05rem">
-                            <p style="color: #26c6da;margin: 0;font-size: 1.2rem">{{settledPeccancyList.length}} 条</p>
+                            <p class="cyan-text" style="margin: 0;font-size: 1.2rem">{{settledPeccancyList.length}} 条</p>
                         </div>
                     </div>
                     <!--头-->
@@ -759,28 +666,29 @@
             </div>
         </div>
 
-        <!--超油扣款-->
+        <!--超量扣款-->
         <div id="driverExceedOil" class="row col s12" style="padding: 0;">
-            <!--未结算超油扣款-->
+            <!--未结算超量扣款-->
             <div class="col s6" ng-hide="salaryDetails.grant_status == 3">
                 <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px;min-height: 380px">
                     <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
-                        <div class="col s6 left-align" style="color: #26c6da">
-                            <p style="margin: 0">未结算超油扣款</p>
+                        <div class="col s6 left-align cyan-text" >
+                            <p style="margin: 0">未结算超量扣款</p>
                         </div>
                         <div class="col s6 right-align" style="color: darkgray;font-size: 1.05rem">
-                            <p style="color: #26c6da;margin: 0;font-size: 1.2rem">{{ExceedOilAccidentList.length}} 条</p>
+                            <p class="cyan-text"  style="margin: 0;font-size: 1.2rem">{{ExceedOilAccidentList.length}} 条</p>
                         </div>
                     </div>
                     <!--头-->
                     <table class=" bordered striped text_mid">
                         <thead class="blue-grey lighten-5">
                         <tr class="grey-text text-darken-2">
-                            <th data-field="">超油结算编号</th>
+                            <th data-field="">超量结算编号</th>
                             <th data-field="">货车牌号</th>
                             <th data-field="">调度编号</th>
                             <th data-field="">计划执行时间</th>
-                            <th data-field="">超油量(L)</th>
+                            <th data-field="">超量类型</th>
+                            <th data-field="">超量数</th>
                             <th data-field="">罚款金额</th>
                             <th data-field="">状态</th>
                             <th></th>
@@ -792,6 +700,8 @@
                             <td>{{ExceedOilInfo.truck_num}}</td>
                             <td>{{ExceedOilInfo.dp_route_task_id}}</td>
                             <td>{{ExceedOilInfo.task_plan_date| date:'yyyy-MM-dd'}}</td>
+                            <td ng-if="ExceedOilInfo.exceed_type==1 ">油</td>
+                            <td ng-if="ExceedOilInfo.exceed_type!==1 ">尿素</td>
                             <td>{{ExceedOilInfo.exceed_oil_quantity }}</td>
                             <td class="red-text">{{ExceedOilInfo.exceed_oil_money}}</td>
                             <td class="red-text" ng-if="ExceedOilInfo.stat_status==1">未扣</td>
@@ -803,33 +713,34 @@
                             </td>
                         </tr>
                         <tr ng-if="ExceedOilAccidentList.length==0">
-                            <td colspan="8">暂无数据</td>
+                            <td colspan="9">暂无数据</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <!--结算超油扣款-->
+            <!--结算超量扣款-->
             <div class="col {{salaryDetails.grant_status == 3 ? 's12' : 's6'}}">
                 <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px;min-height: 380px">
                     <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
-                        <div class="col s6 left-align" style="color: #26c6da">
-                            <p style="margin: 0">结算超油扣款</p>
+                        <div class="col s6 left-align cyan-text"  >
+                            <p style="margin: 0">结算超量扣款</p>
                         </div>
                         <div class="col s6 right-align" style="color: darkgray;font-size: 1.05rem">
-                            <p style="color: #26c6da;margin: 0;font-size: 1.2rem">{{settledExceedOilList.length}} 条</p>
+                            <p class="cyan-text" style="margin: 0;font-size: 1.2rem">{{settledExceedOilList.length}} 条</p>
                         </div>
                     </div>
                     <!--头-->
                     <table class=" bordered striped text_mid">
                         <thead class="blue-grey lighten-5">
                         <tr class="grey-text text-darken-2">
-                            <th data-field="">超油结算编号</th>
+                            <th data-field="">超量结算编号</th>
                             <th data-field="">货车牌号</th>
                             <th data-field="">调度编号</th>
                             <th data-field="">计划执行时间</th>
-                            <th data-field="">超油量(L)</th>
+                            <th data-field="">超量类型</th>
+                            <th data-field="">超量数</th>
                             <th data-field="">罚款金额</th>
                             <th data-field="">状态</th>
                             <th></th>
@@ -841,6 +752,8 @@
                             <td>{{ExceedOilInfo.truck_num}}</td>
                             <td>{{ExceedOilInfo.dp_route_task_id}}</td>
                             <td>{{ExceedOilInfo.task_plan_date| date:'yyyy-MM-dd'}}</td>
+                            <td ng-if="ExceedOilInfo.exceed_type==1 ">油</td>
+                            <td ng-if="ExceedOilInfo.exceed_type!==1 ">尿素</td>
                             <td>{{ExceedOilInfo.exceed_oil_quantity }}</td>
                             <td class="red-text">{{ExceedOilInfo.exceed_oil_money}}</td>
                             <td class="red-text" ng-if="ExceedOilInfo.stat_status==1">未扣</td>
@@ -852,7 +765,7 @@
                             </td>
                         </tr>
                         <tr ng-if="settledExceedOilList.length==0">
-                            <td colspan="8">暂无数据</td>
+                            <td colspan="9">暂无数据</td>
                         </tr>
                         </tbody>
                     </table>
@@ -866,8 +779,11 @@
 
         <!--结算工资-->
         <div id="settlementSalary" class="row col s12" style="padding: 0;">
+
             <div class="col s12 valign-wrapper">
-                <div class="col s3 z-depth-1 center-align" style="border: 2px solid rgb(245,166,35);font-size: 1.2rem;font-weight: bold;background: rgb(245,166,35)">
+
+                <!--任务工资-->
+                <div class="col s3 z-depth-1 center-align" style="border: 2px solid rgb(245,166,35);font-size: 1.2rem;font-weight: bold ;background: rgb(245,166,35)">
                     <div class="col s12" style="color: #fff">
                         <p>任务工资 <span style="font-size: 1rem">(元)</span></p>
                     </div>
@@ -876,10 +792,12 @@
                     </div>
                 </div>
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
-                    <span style="color: #26c6da" class="mdi mdi-minus"></span>
+                    <span  class="mdi mdi-minus cyan-text"></span>
                 </div>
-                <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold">
-                    <div class="col s12" style="color: #26c6da">
+
+                <!--商品车质损承担-->
+                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold">
+                    <div class="col s12 cyan-text" >
                         <p>商品车质损承担 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12" style="color: #e57373">
@@ -887,55 +805,55 @@
                     </div>
                 </div>
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
-                    <span style="color: #26c6da" class="mdi mdi-minus"></span>
+                    <span  class="mdi mdi-minus cyan-text"></span>
                 </div>
-                <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold">
-                    <div class="col s12" style="color: #26c6da">
+                <!--货车事故承担-->
+                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold">
+                    <div class="col s12 cyan-text" >
                         <p>货车事故承担 <span style="font-size: 1rem">(元)</span></p>
                     </div>
-                    <div class="col s12" style="color: #e57373">
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
                         <p>{{personalAccidentPay.toFixed(2)}}</p>
                     </div>
                 </div>
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
-                    <span style="color: #26c6da" class="mdi mdi-minus"></span>
+                    <span  class="mdi mdi-minus cyan-text"></span>
                 </div>
-            </div>
-            <div class="col s12 valign-wrapper" style="margin-top: 50px">
-                <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold">
-                    <div class="col s12" style="color: #26c6da">
+                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold">
+                    <div class="col s12 cyan-text">
                         <p>违章扣款 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12" style="color: #e57373">
                         <p>{{peccancylAccidentPay.toFixed(2)}}</p>
                     </div>
                 </div>
-                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
-                    <span style="color: #26c6da" class="mdi mdi-minus"></span>
-                </div>
-                <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold">
-                    <div class="col s12" style="color: #26c6da">
-                        <p>超油扣款 <span style="font-size: 1rem">(元)</span></p>
+
+
+
+            </div>
+
+            <div class="col s12 valign-wrapper" style="margin-top: 50px">
+                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold">
+                    <div class="col s12 cyan-text">
+                        <p>超量扣款 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12" style="color: #e57373">
                         <p>{{ExceedOilAccidentPay.toFixed(2)}}</p>
                     </div>
                 </div>
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
-                    <span style="color: #26c6da" class="mdi mdi-minus"></span>
+                    <span  class="mdi mdi-minus cyan-text"></span>
                 </div>
-
-
-                <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
-                    <div class="col s12" style="color: #26c6da">
+                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
+                    <div class="col s12 cyan-text" >
                         <p>报销扣款 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12 input-field" style="color: #e57373;margin: 0">
                         <input style="font-size: 1.5rem;text-align: center;color: rgb(230,123,123);margin-bottom: 17px" type="number" id="Reimbursement" name="Reimbursement" ng-model="Reimbursement">
                     </div>
                 </div>
-                <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status == 3">
-                    <div class="col s12" style="color: #26c6da">
+                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status == 3">
+                    <div class="col s12 cyan-text" >
                         <p>报销扣款 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12 input-field" style="color: #e57373;margin: 0">
@@ -943,18 +861,39 @@
                     </div>
                 </div>
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
-                    <span style="color: #26c6da" class="mdi mdi-minus"></span>
+                    <span  class="mdi mdi-minus cyan-text"></span>
                 </div>
-                <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
-                    <div class="col s12" style="color: #26c6da">
+
+                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
+                    <div class="col s12 cyan-text" >
+                        <p>社保缴费 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <input style="font-size: 1.5rem;text-align: center;color: rgb(230,123,123);margin-bottom: 17px" type="number" id="socialSecurityFee" name="socialSecurityFee" ng-model="socialSecurityFee">
+                    </div>
+                </div>
+                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status == 3">
+                    <div class="col s12 cyan-text" >
+                        <p>社保缴费 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <p >{{socialSecurityFee.toFixed(2)}}</p>
+                    </div>
+                </div>
+
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span  class="mdi mdi-minus cyan-text"></span>
+                </div>
+                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
+                    <div class="col s12 cyan-text" >
                         <p>其他扣款 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12 input-field" style="color: #e57373;margin: 0">
                         <input style="font-size: 1.5rem;text-align: center;color: rgb(230,123,123);margin-bottom: 17px" type="number" id="other_deductions" name="other_deductions" ng-model="otherDeductions">
                     </div>
                 </div>
-                <div class="col s3 z-depth-1 center-align" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status == 3">
-                    <div class="col s12" style="color: #26c6da">
+                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status == 3">
+                    <div class="col s12 cyan-text" >
                         <p>其他扣款 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12 input-field" style="color: #e57373;margin: 0">
@@ -963,21 +902,46 @@
                 </div>
 
             </div>
+
+
+            <!--等于号-->
             <div class="col s12 valign-wrapper">
                 <div class="col s12 center-align" style="font-size: 3rem;padding: 0">
-                    <span style="color: #26c6da" class="mdi mdi-equal"></span>
+                    <span  class="mdi mdi-equal cyan-text"></span>
                 </div>
             </div>
+
+            <!--应付工资-->
             <div class="col s12 valign-wrapper">
-                <div class="col s4 offset-s4 z-depth-1 center-align cyan" style="border: 2px solid #26c6da;font-size: 1.2rem;font-weight: bold">
+                <div class="col s4 offset-s4 z-depth-1 center-align cyan cyan_border" style="font-size: 1.2rem;font-weight: bold">
                     <div class="col s12" style="color: white">
                         <p>应付工资 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12" style="color: white">
-                        <p>{{(salaryDetails.plan_salary - personalCommitmentCount - personalAccidentPay - peccancylAccidentPay- ExceedOilAccidentPay- Reimbursement-otherDeductions).toFixed(2)}}</p>
+                        <p>{{(salaryDetails.plan_salary - personalCommitmentCount - personalAccidentPay - peccancylAccidentPay- ExceedOilAccidentPay- socialSecurityFee -Reimbursement-otherDeductions).toFixed(2)}}</p>
                     </div>
                 </div>
             </div>
+
+            <div class="col s12 valign-wrapper" ng-show="salaryDetails.grant_status !== 3">
+                <div class="col s4 z-depth-1 offset-s4 center-align input-field cyan_border" style="height:100px;margin-top:30px;">
+                    <div class="col s12" style="margin-top: 20px">
+                        <p class="col s3 cyan-text" >备注:</p>
+                        <input id="beCare1"  type="text"  ng-model="remark" class="col s9"/>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col s12 valign-wrapper" ng-show="salaryDetails.grant_status == 3">
+                <div class="col s4  z-depth-1 offset-s4 center-align input-field cyan_border" style="height:100px;margin-top:30px;font-size: 1.2rem;font-weight: bold">
+                    <div class="col s12" style="margin-top: 20px">
+                        <p class="col s3 cyan-text" >备注:</p>
+                        <input   type="text"  ng-model="remark" class="col s9" readonly="readonly"/>
+                    </div>
+
+                </div>
+            </div>
+
             <!--按钮-->
             <div class="col s12" style="margin-top: 70px" ng-hide="salaryDetails.grant_status == 3">
                 <div class="col s1 offset-s4">

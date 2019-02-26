@@ -65,7 +65,7 @@ app.controller("storage_store_controller", ["$scope", "$host", "_basic", "$state
         });
     };
 
-    // 存放位置联动查询--列
+    // 存放位置联动查询--位
     $scope.changeStorageRow = function (val, array) {
         $scope.colArr = array[val - 1].col;
     };

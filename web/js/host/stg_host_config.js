@@ -7,7 +7,8 @@ hostService.factory("$host", function () {
         api_url: "http://stg.myxxjs.com:9001/api",
         file_url: "http://stg.myxxjs.com:9002/api",
         record_url: "http://stg.myxxjs.com:9004/api",
-        socket_url: "ws://stg.myxxjs.com:9005"
+        socket_url: "ws://stg.myxxjs.com:9005",
+        domain_name: "http://stg.myxxjs.com"
 
     };
     return _this;

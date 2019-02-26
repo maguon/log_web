@@ -1,6 +1,10 @@
-app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "$scope", function (_basic, _config, $host, $scope) {
+app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "$scope", "$state", "$stateParams",function (_basic, _config, $host, $scope,$state, $stateParams) {
     $scope.start = 0;
     $scope.size = 11;
+    $("#pre").hide();
+    $("#next").hide();
+    $scope.receiveList=[];
+    $scope.flag=false;
     // 委托方
     function getEntrust(){
         _basic.get($host.api_url + "/entrust").then(function (data) {
@@ -16,12 +20,6 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
                 swal(data.msg, "", "error");
             }
         });
-        // 车辆品牌
-     /*   _basic.get($host.api_url + "/carMake").then(function (data) {
-            if (data.success == true) {
-                $scope.get_carMake = data.result;
-            }
-        });*/
         //城市
         _basic.get($host.api_url + "/city").then(function (data) {
             if (data.success == true) {
@@ -39,6 +37,57 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
             }
         });
     };
+
+    //未估值车辆 已估值车辆 已估值金额
+    function getCarMsg (){
+        var obj = {
+            entrustId: $scope.entrustId,
+            orderStart: $scope.instruct_starTime,
+            orderEnd: $scope.instruct_endTime,
+            makeId: $scope.car_brand,
+            routeStartId: $scope.startCity,
+            addrId: $scope.locateId,
+            routeEndId: $scope.endCity,
+            receiveId: $scope.receiveId
+        };
+        _basic.get($host.api_url + "/entrustCarCount?"+ _basic.objToUrl(obj)).then(function (data) {
+            if (data.success == true ) {
+                if(data.result.length > 0){
+                    $scope.carMsg = data.result[0];
+                }
+               else
+                {
+                    $scope.carMsg=[];
+                }
+
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+        _basic.get($host.api_url + "/entrustCarNotCount?"+ _basic.objToUrl(obj)).then(function (data) {
+            if (data.success == true ) {
+                if(data.result.length > 0){
+                    $scope.notCarMsg = data.result[0];
+                    if( $scope.notCarMsg==null||$scope.notCarMsg==undefined||$scope.notCarMsg.entrust_car_not_count==0){
+                        $scope.flag=false;
+                    }
+                    else {
+                        $scope.flag=true;
+                    }
+                }
+                else
+                {
+                    $scope.carMsg=[];
+                }
+
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
+
 
     $scope.changeCarMake = function (entrustId){
         _basic.get($host.api_url + "/entrustMakeRel?entrustId=" + entrustId).then(function (data) {
@@ -75,12 +124,85 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
         _basic.get($host.api_url + "/receive?cityId=" + id).then(function (data) {
             if (data.success == true) {
                 $scope.receiveList = data.result;
+                $('#receiveId').select2({
+                    placeholder: '经销商',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
             }
         });
     };
 
+    //跳转到商品车结算
+    $scope.jumpSettlement = function (){
+        if($scope.instruct_starTime==undefined||$scope.instruct_endTime==undefined){
+            swal('请输入完整的指令时间', "", "error");
+            $scope.settlementList=[];
+        }
+        else{
+            _basic.get($host.api_url + "/settleCarBatch?"+_basic.objToUrl({
+                entrustId: $scope.entrustId,
+                orderStart: moment($scope.instruct_starTime.toString()).format("YYYYMMDD"),
+                orderEnd: moment( $scope.instruct_endTime.toString()).format("YYYYMMDD"),
+                makeId: $scope.car_brand,
+                routeStartId: $scope.startCity,
+                addrId: $scope.locateId,
+                routeEndId: $scope.endCity,
+                receiveId: $scope.receiveId
+            })).then(function (data) {
+                if (data.success === true) {
+                    // 跳转到 详情画面
+                    $state.go('car_settlement', {
+                        reload: true,
+                        from: 'setting_settlement'
+                    });
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
+    }
+
     // 数据导出
     $scope.export = function () {
+        if($scope.instruct_starTime==undefined||$scope.instruct_endTime==undefined){
+            swal('请输入完整的指令时间', "", "error");
+            $scope.settlementList=[];
+            $("#pre").hide();
+            $("#next").hide();
+        }
+        else {
+            var obj = {
+                entrustId: $scope.entrustId,
+                orderStart: $scope.instruct_starTime,
+                orderEnd: $scope.instruct_endTime,
+                makeId: $scope.car_brand,
+                routeStartId: $scope.startCity,
+                addrId: $scope.locateId,
+                routeEndId: $scope.endCity,
+                receiveId: $scope.receiveId
+            };
+            swal({
+                    title: "确定导出结算报表？",
+                    text: "",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "确定",
+                    cancelButtonText: "取消",
+                    closeOnConfirm: true,
+                    closeOnCancel: true
+                },
+                function () {
+
+                    window.open($host.api_url + "/entrustCar.csv?" + _basic.objToUrl(obj));
+                })
+        }
+    };
+
+    //未估值车辆导出
+    $scope.exportNotCar = function(){
         var obj = {
             entrustId: $scope.entrustId,
             orderStart: $scope.instruct_starTime,
@@ -92,7 +214,7 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
             receiveId: $scope.receiveId
         };
         swal({
-                title: "确定导出结算报表？",
+                title: "确定导出未估值车辆报表？",
                 text: "",
                 type: "warning",
                 showCancelButton: true,
@@ -100,26 +222,25 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
                 closeOnConfirm: true,
-                closeOnCancel:true
+                closeOnCancel: true
             },
             function () {
-
-                window.open($host.api_url + "/entrustCar.csv?" + _basic.objToUrl(obj));
+                window.open($host.api_url + "/entrustNotCar.csv?" + _basic.objToUrl(obj));
             })
-    };
+    }
 
     //查询功能
     $scope.getSettlement = function (){
         $scope.start = 0;
         getSettlementData();
+        getCarMsg ();
     }
 
     //获取查询数据
     function getSettlementData(){
         if($scope.instruct_starTime==undefined||$scope.instruct_endTime==undefined){
+            swal('请输入完整的指令时间', "", "error");
             $scope.settlementList=[];
-            $("#pre").hide();
-            $("#next").hide();
         }
         else{
             _basic.get($host.api_url + "/entrustCar?" + _basic.objToUrl({
@@ -169,5 +290,4 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
     };
 
     getEntrust();
-    getSettlementData();
 }])

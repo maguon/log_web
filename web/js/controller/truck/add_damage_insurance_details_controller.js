@@ -1,8 +1,12 @@
-app.controller("add_damage_insurance_details_controller", ["$scope", "$stateParams", "$host", "_basic", function ($scope, $stateParams, $host, _basic) {
+app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$stateParams", "$host", "_basic", function ($scope,$state, $stateParams, $host, _basic) {
     var userId = _basic.getSession(_basic.USER_ID);
     var damageId = $stateParams.id;
     $scope.damageNum = "";
 
+    // 返回
+    $scope.return = function () {
+        $state.go($stateParams.from,{from:"add_damage_insurance_details"}, {reload: true})
+    };
     // 获取所有保险公司
     $scope.getInsuranceCompany = function () {
         _basic.get($host.api_url + "/truckInsure").then(function (data) {

@@ -66,9 +66,8 @@
                                 <option value="0">发运地城市</option>
                                 <option ng-repeat="city in get_city" ng-value="city.id">{{city.city_name}}</option>
                             </select>
-
-
                         </div>
+
                         <div class="input-field col s2">
                             <select id="chooseEndCity" name="state" style="width:100%" ng-change="get_received(arrive_city)" ng-model="arrive_city">
                                 <option value="0">目的地城市</option>
@@ -85,7 +84,7 @@
                     </div>
                     <!-- body -->
                     <div class="col s12 white" style="height:70px;">
-                        <p class="col s12 min-width-2 left-align" style="color: #26c6da">备注:</p>
+                        <p class="col s12 min-width-2 left-align cyan-text" >备注:</p>
                         <div class="col s12 valign-wrapper" style="position: relative">
                             <p class=" col s12 p0">
                                 <textarea id="look_remark" style="height: 100px" name="remark" class="col s12" ng-model="commodityCarList.remark"></textarea>
@@ -116,13 +115,13 @@
                     </div>
                 </div>
             </div>
-            <div class="col s4 offset-s4">
+            <div class="col s5 offset-s3">
                 <div class="col s4">
                     <div class="row">
                         <div class="file-field input-field">
                             <div class="btn cyan lighten-2 circle_button">
                                 <span>批量数据导入</span>
-                                <input type="file" style="font-size: 100px"  name="file" accept="text/csv" onchange='angular.element(this).scope().fileChange(this)' >
+                                <input type="file" style="font-size: 100px;height: 45px;"  name="file" accept="text/csv" onchange='angular.element(this).scope().fileChange(this)' >
                             </div>
                         </div>
                     </div>
@@ -273,7 +272,7 @@
                                 </div>
                                 <div class=" col s4 p0">
                                     <div class="input-field col s6">
-                                        <select material-select watch id="arrive_city" name="arrive_city"  required ng-change="get_received(arrive_city.id)" ng-options="arrive_city.city_name for arrive_city in get_city"  ng-model="arrive_city" >
+                                        <select material-select watch id="arrive_city" name="arrive_city"  required ng-change="get_received(arrive_city.id)"  ng-model="arrive_city" ng-options="arrive_city.city_name for arrive_city in get_city"  >
                                             <option value="" disabled selected>请选择</option>
                                         </select>
                                         <label for="arrive_city">目的地城市</label>
@@ -299,7 +298,7 @@
                             </div>
                         </div>
 
-                        <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+                        <div class="divider cyan" style="height: 2px;"></div>
                         <div class="modal-footer right-align">
                             <button class="btn btn-floating waves-light waves-effect  cyan lighten-1" type="submit" name="action" ng-click="addCarItem()">
                                 <i class="mdi mdi-trending-neutral"></i>
@@ -335,7 +334,7 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+                        <div class="divider cyan" style="height: 2px;"></div>
                         <div class="modal-footer vc-center">
                             <a class=" modal-action modal-close waves-effect waves-light grey lighten-1 btn" style="margin-left: 10px" >
                                 <!--<i class="mdi mdi-close"></i>-->

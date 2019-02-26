@@ -18,7 +18,8 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
         .state("storage_car", {
             url:"/storage_car",
-            templateUrl: "/js/view/storage/storage_car.html",
+            params: {"from": null},
+            templateUrl: "js/view/storage/storage_car.html",
             controller:'storage_car_controller'
         })
         .state("storage_store", {
@@ -65,6 +66,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         // 调度需求
         .state("instruction_need", {
             url: "/instruction_need",
+            params: {"from": null},
             templateUrl: "js/view/dispatch/instruction_need.html",
             controller:"instruction_need_controller"
         })
@@ -125,11 +127,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
         .state("setting_dealer",{
             url:"/setting_dealer",
+            params: {"from": null},
             templateUrl: "js/view/system_settings/setting_dealer/setting_dealer.html",
             controller:'setting_dealer_controller'
         })
         .state("setting_dealer_details",{
-            url:"/setting_dealer_details/{dealer_id}",
+            url:"/setting_dealer_details/{dealer_id}?from",
             templateUrl: "js/view/system_settings/setting_dealer/setting_dealer_details.html",
             controller:'setting_dealer_details_controller'
         })
@@ -161,11 +164,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
         .state("car_query",{
             url:"/car_query",
+            params: {"from": null},
             templateUrl: "js/view/car/car_query/car_query.html",
             controller:'car_query_controller'
         })
         .state("car_query_details",{
-            url:"/car_query_details/vin/{vin}/id/{id}",
+            url:"/car_query_details/vin/{vin}/id/{id}/from/{from}",
             templateUrl: "js/view/car/car_query/car_query_details.html",
             controller:'car_query_details_controller'
         })
@@ -209,6 +213,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         // 质损申报
         .state("damage_declaration",{
             url:"/damage_declaration",
+            params: {"from": null},
             templateUrl: "js/view/damage/damage_declaration.html",
             controller:'damage_declaration_controller'
         })
@@ -218,7 +223,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'damage_report_controller'
         })
         .state("damage_declaration_details",{
-            url:"/damage_declaration_details/id/{id}/status/{status}",
+            url:"/damage_declaration_details/id/{id}/status/{status}/from/{from}",
             templateUrl: "js/view/damage/damage_declaration_details.html",
             controller:'damage_declaration_details_controller'
         })
@@ -230,6 +235,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
         .state("instruction_list", {
             url: "/instruction_list",
+            params: {"from": null},
             templateUrl: "js/view/dispatch/instruction_list.html",
             controller:"instruction_list_controller"
         })
@@ -237,6 +243,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             url: "/look_instruction_list_details/id/{id}/from/{from}",
             templateUrl: "js/view/dispatch/look_instruction_list_details.html",
             controller:"look_instruction_list_details_controller"
+        })
+        .state("move_car_statistics", {
+            url:"/move_car_statistics",
+            templateUrl: "js/view/damage/move_car_statistics.html",
+            controller:"move_car_statistics_controller"
         });
 
 }]);

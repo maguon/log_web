@@ -3,13 +3,16 @@
     <div class="row" style="margin: 0">
         <div id="wageSettlementModal" class="modal modal-fixed-footer" style="width: 75%;height: 550px">
             <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-                <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
+                <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
                     <p>工资结算</p>
                 </div>
                 <div class="row" style="width: 85%;margin: 0 auto">
-                    <div class="col s12" style="color: #26c6da;font-weight: bold;border-bottom: 1px solid darkgray;padding-bottom: 20px;margin-bottom: 20px">
-                        <div class="col s8 left-align">
+                    <div class="col s12 cyan-text" style="font-weight: bold;border-bottom: 1px solid darkgray;padding-bottom: 20px;margin-bottom: 20px">
+                        <div class="col s3 left-align">
                             <p>{{driverInfo.drive_name}}&emsp;{{driverInfo.month_date_id}}</p>
+                        </div>
+                        <div class="col s5 left-align">
+                            <p>{{settleMonth}}</p>
                         </div>
                         <div class="col s4 right-align">
                             <div class="col s6" style="padding: 0;">
@@ -24,7 +27,7 @@
                         <input type="checkbox" ng-click="selectAllCheckBox($event)" id="selectAll" name="selectAll" class="filled-in" />
                         <label for="selectAll" style="color: black">全选</label>
                     </div>
-                    <div class="col s12 center-align" style="color: darkgray;font-weight: bold;letter-spacing: 2px">
+                    <div class="col s12 center-align" style="color: darkgray;font-weight: bold;letter-spacing: 2px"  ng-hide="driverWageSettlementList.length !== 0">
                         <p>暂无关联任务</p>
                     </div>
                     <!--路线信息卡片-->
@@ -49,15 +52,15 @@
                                             <p>{{lineInfo.city_route_start + " - " + lineInfo.city_route_end}}</p>
                                         </div>
                                         <div class="col s6 right-align">
-                                            <p><span style="color: #26c6da">{{lineInfo.distance}} </span> 公里</p>
+                                            <p><span class="cyan-text">{{lineInfo.distance}} </span> 公里</p>
                                         </div>
                                     </div>
                                     <div class="col s12" style="padding: 0;margin: 8px 0">
                                         <div class="col s6 left-align">
-                                            <p>{{lineInfo.truck_num}}&emsp;{{lineInfo.brand_name}}</p>
+                                            <p>{{lineInfo.truck_num}}</p>
                                         </div>
                                         <div class="col s6 right-align">
-                                            <p>运送车辆：<span style="color: #26c6da">{{lineInfo.car_count}}</span></p>
+                                            <p>运送车辆：<span class="cyan-text">{{lineInfo.car_count}}</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -66,10 +69,10 @@
                     </div>
                     <div class="col s12 left-align valign-wrapper" style="margin: 20px 0;font-size: 1.2rem;color: darkgray;font-weight: bold">
                         <div class="col s4">
-                            <p>重载：<span style="color: #26c6da">{{loadDistanceCount}}</span> km</p>
+                            <p>重载：<span class="cyan-text">{{loadDistanceCount}}</span> km</p>
                         </div>
                         <div class="col s4">
-                            <p>空载：<span style="color: #26c6da">{{noLoadDistanceCount}}</span> km</p>
+                            <p>空载：<span class="cyan-text">{{noLoadDistanceCount}}</span> km</p>
                         </div>
                         <div class="col s4 input-field" style="margin-top: 0">
                             <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="text" id="should_pay" name="should_pay" ng-model="shouldPay">
@@ -157,7 +160,7 @@
     <div class="row">
         <div class="col s12">
             <div class="col s12">
-                <div class="divider" style="background: #00bcd4;height: 2px"></div>
+                <div class="divider cyan" style="height: 2px;"></div>
                 <table class="bordered striped text_mid">
                     <thead class="blue-grey lighten-5">
                     <tr class="grey-text text-darken-2">
@@ -167,7 +170,7 @@
                         <th width="260" data-field="">所属公司</th>
                         <th width="210" data-field="">货车牌号</th>
                         <th width="180" data-field="">品牌</th>
-                        <th width="240" data-field="">司机里程（重载/空载）</th>
+                        <th width="240" data-field="">司机里程<br>（重载/空载）</th>
                         <th width="200" data-field="">应发工资</th>
                         <th width="180" data-field="">实发工资</th>
                         <th width="180" data-field="">发放状态</th>
@@ -192,7 +195,7 @@
                             <a ng-click="showDriverWageSettlement(salary)" style="cursor: pointer;text-align: center;color: #f6ad33"><i class="mdi mdi-comment-text" style="margin: 0"></i></a>
                         </td>
                         <td class="operation fz12" ng-show="salary.grant_status == 2 || salary.grant_status == 3">
-                            <a ui-sref="driver_salary_details({id:salary.id,driveId:salary.drive_id})" class="cyan-text" style="cursor: pointer;text-align: center;color: #26c6da"><i class="mdi mdi-eye" style="margin: 0"></i></a>
+                            <a ui-sref="driver_salary_details({id:salary.id,driveId:salary.drive_id,from:'driver_salary'})" class="cyan-text " style="cursor: pointer;text-align: center;"><i class="mdi mdi-eye" style="margin: 0"></i></a>
                         </td>
                     </tr>
                     <tr class="grey-text text-darken-1" ng-if="driverSalaryList.length == 0">

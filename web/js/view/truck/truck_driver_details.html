@@ -1,20 +1,17 @@
-<a style="margin: 90px 0 0 20px" class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light "
-   ui-sref="truck_driver">
-    <i class="mdi mdi-arrow-left-bold"></i>
-</a>
 <div class="truck_driver_details" style="width:80%;margin: 0 auto">
     <div class="row">
-        <div class="row valign-wrapper">
-            <h5 class="col s12 cyan-text lighten-1 center-align">
-                司机信息
-            </h5>
+        <div class="storage_storeTitle vc-center ">
+            <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
+                <i class="mdi mdi-arrow-left-bold"></i>
+            </a>
+            <h4 class="center-align cyan-text text-lighten-1">司机信息</h4>
         </div>
         <ul class="tabs ui-tabs tabs-fixed-width tab-demo z-depth-1"
             style="font-size: 25px;font-weight: bold;overflow-x: hidden;margin-bottom: 25px" ul-tabs>
-            <li class="tab"><a ng-click="showDriverDetails()" style="color: #26c6da;line-height: 40px" href="javascript:void(0)">基本信息</a></li>
-            <li class="tab"><a ng-click="showCompanyDetails()" style="color: #26c6da;line-height: 40px" href="javascript:void(0)">所属公司</a></li>
-            <li class="tab"><a ng-click="showDriverImages()" style="color: #26c6da;line-height: 40px" href="javascript:void(0)">照片</a></li>
-            <li class="tab"><a ng-click="showDriverBand()" style="color: #26c6da;line-height: 40px" href="javascript:void(0)">绑定货车</a></li>
+            <li class="tab"><a ng-click="showDriverDetails()" class="cyan-text" style="line-height: 40px" href="javascript:void(0)">基本信息</a></li>
+            <li class="tab"><a ng-click="showCompanyDetails()"  class="cyan-text" style="line-height: 40px" href="javascript:void(0)">所属公司</a></li>
+            <li class="tab"><a ng-click="showDriverImages()"  class="cyan-text" style="line-height: 40px" href="javascript:void(0)">照片</a></li>
+            <li class="tab"><a ng-click="showDriverBand()" class="cyan-text"  style="line-height: 40px" href="javascript:void(0)">绑定货车</a></li>
         </ul>
         <div class="driver_details_step_1" ng-if="stepFirst">
             <!--<form name="truck_driver_details" ng-submit="submitForm(truck_driver_details.$valid)" novalidate>-->
@@ -81,7 +78,7 @@
             </div>
 
             <div class="col s12" style="margin-top: 20px">
-                <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+                <div class="divider cyan" style="height: 2px;"></div>
                 <p ng-repeat="truckInfo in truckInfoList">
                     <span> {{truckInfo.timez | date:'yyyy-MM-dd HH:mm'}}</span>
                     &emsp;&emsp;<span> {{truckInfo.content}}</span>

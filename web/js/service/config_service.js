@@ -20,15 +20,15 @@ baseService.factory("_config", function () {
             name: "车管部操作员",
             subType: [],
             index: 'vehicle_home.html',
-            qr: [{qrSrc: "../assets/images/qr_code/qr_tm_app.png"}]
+            qr: [{qrSrc: "/download/tm_download.html"}]
         },
 
         {
             type: 19,
             name: "车管部管理员",
-            subType: [{type: 11, name: "车管部操作员"}],
+            subType: [{type: 10, name: "司机"},{type: 11, name: "车管部操作员"}],
             index: 'vehicle_manager.html',
-            qr: [{qrSrc: "../assets/images/qr_code/qr_tm_app.png"}]
+            qr: [{qrSrc: "/download/tm_download.html"}]
         },
 
         {
@@ -36,7 +36,7 @@ baseService.factory("_config", function () {
             name: "仓储部操作人员",
             subType: [],
             index: 'storage_home.html',
-            qr: [{qrSrc: "../assets/images/qr_code/qr_storage_app.png"}]
+            qr: [{qrSrc: "/download/storage_download.html"}]
         },
 
         {
@@ -44,7 +44,7 @@ baseService.factory("_config", function () {
             name: "仓储部管理员",
             subType: [{type: 21, name: "仓储部操作人员"}],
             index: 'storage_manager.html',
-            qr: [{qrSrc: "../assets/images/qr_code/qr_storage_app.png"}]
+            qr: [{qrSrc: "/download/storage_download.html"}]
         },
 
         {
@@ -52,7 +52,7 @@ baseService.factory("_config", function () {
             name: "调度操作员",
             subType: [],
             index: 'dispatch_home.html',
-            qr: [{qrSrc: "../assets/images/qr_code/qr_dispatch_app.png"}, {qrSrc: "../assets/images/qr_code/qr_driver_app.png"}]
+            qr: [{qrSrc:"/download/dispatch_download.html"}, {qrSrc:"/download/driver_download.html" }]
         },
 
         {
@@ -60,7 +60,7 @@ baseService.factory("_config", function () {
             name: "调度管理员",
             subType: [{type: 31, name: "调度操作员"}],
             index: 'dispatch_manager.html',
-            qr: [{qrSrc: "../assets/images/qr_code/qr_dispatch_app.png"}, {qrSrc: "../assets/images/qr_code/qr_driver_app.png"}]
+            qr: [{qrSrc:"/download/dispatch_download.html"}, {qrSrc:"/download/driver_download.html" }]
         },
 
         {
@@ -68,7 +68,7 @@ baseService.factory("_config", function () {
             name: "质损操作员",
             subType: [],
             index: 'damage_home.html',
-            qr: [{qrSrc: "../assets/images/qr_code/qr_damage_app.png"}]
+            qr: [{qrSrc: "/download/qa_download.html"}]
         },
 
         {
@@ -76,7 +76,7 @@ baseService.factory("_config", function () {
             name: "质损管理员",
             subType: [{type: 41, name: "质损操作员"}],
             index: 'damage_manager.html',
-            qr: [{qrSrc: "../assets/images/qr_code/qr_damage_app.png"}]
+            qr: [{qrSrc: "/download/qa_download.html"}]
         },
 
         {
@@ -99,7 +99,7 @@ baseService.factory("_config", function () {
             name: "结算操作员",
             subType: [],
             index: 'settlement_home.html',
-            qr: []
+            qr: [{qrSrc: "/download/account_download.html"}]
         },
 
         {
@@ -107,14 +107,14 @@ baseService.factory("_config", function () {
             name: "结算管理员",
             subType: [{type: 61, name: "结算操作员"}],
             index: 'settlement_manager.html',
-            qr: []
+            qr: [{qrSrc: "/download/account_download.html"}]
         }
 
     ];
 
     _this.rel_status = 1;
 
-    // 调度任务状态
+    // 指令状态
     _this.taskStatus = [
         {
             id: 1,
@@ -145,6 +145,32 @@ baseService.factory("_config", function () {
             taskStatusName: "全部完成"
         }
     ];
+
+    // 任务状态
+    _this.missionStatus = [
+        {
+            id: 1,
+            taskStatusName: "未装车"
+        },
+        {
+            id: 3,
+            taskStatusName: "已装车"
+        },
+        {
+            id: 7,
+            taskStatusName: "已送达"
+        },
+        {
+            id: 8,
+            taskStatusName: "取消任务"
+        },
+        {
+            id: 9,
+            taskStatusName: "已完成"
+        }
+    ];
+
+
 
     // 车辆状态
     _this.car_rel_status = [
@@ -267,7 +293,7 @@ baseService.factory("_config", function () {
         {app: "2", typeName: "车管助手"},
         {app: "3", typeName: "慧调配"},
         {app: "4", typeName: "质安栈"},
-        {app: "6", typeName: "捷易结"}
+        {app: "5", typeName: "捷易结"}
     ];
     //经销商类型
     _this.receiveType = [
@@ -277,8 +303,10 @@ baseService.factory("_config", function () {
     ];
 
     // 重载衡量标准
-    _this.heavyLoad = 6;
+    _this.heavyLoad = 3;
 
+    //计算过路费根据距离修改参数
+    _this.passingCost=1.6;
 
     // 正则验证
     // 电话号

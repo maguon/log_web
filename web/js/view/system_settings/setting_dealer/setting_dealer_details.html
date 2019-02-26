@@ -1,7 +1,7 @@
 <div class="setting_dealer_details">
     <div class="row">
         <div class="row valign-wrapper " style="position: relative">
-            <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ui-sref="setting_dealer">
+            <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
                 <i class="mdi mdi-arrow-left-bold"></i>
             </a>
             <h5 class="col s12 cyan-text lighten-1  center-align">
@@ -17,8 +17,8 @@
             <div class="col s5 dealer_details grey-text">
                 <div class="col s12" ul-tabs>
                     <ul class="tabs tabs-fixed-width tab-demo z-depth-1" style="font-size: 25px;font-weight: bold;overflow-x: hidden">
-                        <li class="tab"><a href="#dealer_details" style="color: #26c6da">基本信息</a></li>
-                        <li class="tab"><a href="#operation_record" ng-click="getOperateDetails()" style="color: #26c6da">操作记录</a></li>
+                        <li class="tab"><a href="#dealer_details" class="cyan-text">基本信息</a></li>
+                        <li class="tab"><a href="#operation_record" ng-click="getOperateDetails()" class="cyan-text">操作记录</a></li>
                     </ul>
                 </div>
                 <div id="dealer_details" class="col s12" style="margin-top: 30px">
@@ -32,7 +32,7 @@
                                 <input type="text" id="deal_name" name="deal_name" autocomplete="off" ng-model="dealer_details.receive_name" required>
                                 <label class="grey-text bold" for="deal_name">公司全称</label>
                             </div>
-                            <div class="col s12 input-field mp-40">
+                            <div class="col s6 input-field mp-40">
                                 <select material-select watch id="receiveType" ng-model="dealer_details.receive_type" required>
                                     <option value="" disabled selected>请选择</option>
                                     <option ng-value="1">4S店</option>
@@ -41,10 +41,17 @@
                                 </select>
                                 <label class="grey-text bold" for="receiveType">经销商类型</label>
                             </div>
+                            <div class="col s6 input-field mp-40">
+                                <select material-select watch id="car_brand" name="car_brand"   ng-model="dealer_details.make_id">
+                                    <option ng-value='0'  selected>请选择</option>
+                                    <option ng-repeat="car_brand in get_carMake" ng-value="car_brand.id">{{car_brand.make_name}}</option>
+                                </select>
+                                <label class="grey-text bold" for="car_brand">经营品牌</label>
+                            </div>
                             <div class="col s12 input-field" style="margin-top: 25px">
-                                <select id="start_city" name="state" style="width:100%" ng-model="dealer_details.city_id">
+                                <select id="start_city" name="state" style="width:100%"  ng-model="dealer_details.city_id">
                                     <option value=""></option>
-                                    <option ng-repeat="el in setting_city" ng-value="el.id" ng-show="el.city_status==1">{{el.city_name}}</option>
+                                    <option ng-repeat="el in setting_city" ng-value="el.id">{{el.city_name}}</option>
                                 </select>
                             </div>
                             <div style="position: relative;">

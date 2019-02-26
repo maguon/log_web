@@ -11,13 +11,11 @@ app.controller("setting_client_details_controller", ["$scope", "_basic", "$state
             _basic.put($host.api_url + "/user/" + $scope.userId + "/entrust/" + entrustId, {
                 shortName: $scope.shortName,
                 entrustName: $scope.fullName,
+                secretKey:$scope.secret,
                 remark: $scope.remark
             }).then(function (data) {
                 if (data.success == true) {
                     swal("修改成功", "", "success");
-                    $scope.shortName = "";
-                    $scope.fullName = "";
-                    $scope.remark = "";
                 }
                 else {
                     swal(data.msg, "", "error");
@@ -34,9 +32,9 @@ app.controller("setting_client_details_controller", ["$scope", "_basic", "$state
     $scope.getEntrustInfo = function () {
         _basic.get($host.api_url + "/entrust?entrustId=" + entrustId).then(function (data) {
             if (data.success === true) {
-                // console.log("data:", data);
                 $scope.shortName = data.result[0].short_name;
                 $scope.fullName = data.result[0].entrust_name;
+                $scope.secret = data.result[0].secret_key;
                 $scope.remark = data.result[0].remark;
             }
             else {

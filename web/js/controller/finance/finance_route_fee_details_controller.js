@@ -1,8 +1,13 @@
-app.controller("finance_route_fee_details_controller", ["$scope", "$stateParams", "$host", "_basic", function ($scope, $stateParams, $host, _basic) {
+app.controller("finance_route_fee_details_controller", ["$scope", "$state","$stateParams", "$host", "_basic",  "_config",function ($scope, $state,$stateParams, $host, _basic,_config) {
 
     var userId = _basic.getSession(_basic.USER_ID);
     var routeFeeId = $stateParams.id;
     $scope.dpRouteTaskIds=[];
+    $scope.passingCost=_config.passingCost;
+
+    $scope.return = function(){
+        $state.go($stateParams.from,{from:"finance_route_fee_details"}, {reload: true})
+    }
     // 获取当前出车款详情信息
    function getCurrentRouteFeeInfo() {
         _basic.get($host.api_url + "/dpRouteTaskLoan?dpRouteTaskLoanId=" + routeFeeId).then(function (data) {
@@ -69,7 +74,7 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$stateParams"
                         if($scope.matchMissionList[i].protect_fee==null){
                             $scope.matchMissionList[i].protect_fee=0;
                         }
-                        $scope.routeFeeInfo.grant_passing_cost += $scope.matchMissionList[i].distance*0.8;
+                        $scope.routeFeeInfo.grant_passing_cost += $scope.matchMissionList[i].distance*$scope.passingCost;
                         $scope.routeFeeInfo.grant_protect_cost += $scope.matchMissionList[i].protect_fee;
                     }
                 }
@@ -191,6 +196,8 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$stateParams"
             grantPenaltyCost:$scope.routeFeeInfo.grant_penalty_cost,
             grantParkingCost: $scope.routeFeeInfo.grant_parking_cost,
             grantTaxiCost: $scope.routeFeeInfo.grant_taxi_cost,
+            grantHotelCost: $scope.routeFeeInfo.grant_hotel_cost,
+            grantCarCost: $scope.routeFeeInfo.grant_car_cost,
             grantExplain: $scope.routeFeeInfo.grant_explain,
             grantActualMoney: parseFloat(totalCost),
             dpRouteTaskIds:[$scope.dpRouteTaskIds]
@@ -211,10 +218,18 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$stateParams"
         $scope.repaymentMoneyMod = 0;
         $scope.profitCostMod = 0;
         $("#reimbursementCarFinanceModel").modal("open");
+        $scope.roadCostMod=$scope.routeFeeInfo.grant_passing_cost;
+        $scope.fuelCostMod=$scope.routeFeeInfo.grant_fuel_cost;
+        $scope.roadTollCostMod=$scope.routeFeeInfo.grant_protect_cost;
+        $scope.fineCostMod=$scope.routeFeeInfo.grant_penalty_cost;
+        $scope.parkingCostMod=$scope.routeFeeInfo.grant_parking_cost;
+        $scope.taxiCostMod=$scope.routeFeeInfo.grant_taxi_cost;
+        $scope.hotelCostMod=$scope.routeFeeInfo.grant_hotel_cost;
+        $scope.carCostMod=$scope.routeFeeInfo.grant_car_cost;
     };
 
     // 模态框内点击确定保存信息
-    $scope.saveReimbursementInfo = function (taxiCostMod,parkingCostMod,fineCostMod,roadCostMod,fuelCostMod,roadTollCostMod) {
+    $scope.saveReimbursementInfo = function (taxiCostMod,parkingCostMod,fineCostMod,roadCostMod,fuelCostMod,roadTollCostMod,hotelCostMod,carCostMod) {
         var refundActualMoneyCost = parseFloat($("#reimbursement_money_mod").val()).toFixed(2);
         _basic.put($host.api_url + "/user/" + userId + "/dpRouteTaskLoanRepayment/" + routeFeeId,{
             refundPassingCost: roadTollCostMod,
@@ -223,6 +238,8 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$stateParams"
             refundPenaltyCost: fineCostMod,
             refundParkingCost:parkingCostMod,
             refundTaxiCost: taxiCostMod,
+            refundHotelCost: hotelCostMod,
+            refundCarCost: carCostMod,
             repaymentMoney: $scope.repaymentMoneyMod,
             refundActualMoney: parseFloat(refundActualMoneyCost),
             profit: $scope.profitCostMod,

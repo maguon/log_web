@@ -1,10 +1,14 @@
-app.controller("commercial_vehicle_compensate_loan_details_controller", ["$scope", "$stateParams", "$host", "_basic", function ($scope, $stateParams, $host, _basic) {
+app.controller("commercial_vehicle_compensate_loan_details_controller", ["$scope","$state", "$stateParams", "$host", "_basic", function ($scope, $state, $stateParams, $host, _basic) {
 
     var userId = _basic.getSession(_basic.USER_ID);
     var loanId = $stateParams.id;
     var damageId = $stateParams.compensateId;
     $scope.hasRepayment = false;
 
+// 返回
+    $scope.return = function () {
+        $state.go($stateParams.from,{from:"commercial_vehicle_compensate_loan_details"}, {reload: true})
+    };
 
     // 获取当前借款数据
     $scope.getCurrentLoanInfo = function () {

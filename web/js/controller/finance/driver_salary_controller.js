@@ -1,4 +1,4 @@
-app.controller("driver_salary_controller", ["$scope", "$host", "$state", "_config", "_basic", function ($scope, $host, $state, _config, _basic) {
+app.controller("driver_salary_controller", ["$scope","$rootScope","$state","$stateParams", "$host", "_config", "_basic", function ($scope, $rootScope,$state,$stateParams,$host, _config, _basic) {
 
     $scope.start = 0;
     $scope.size = 11;
@@ -6,7 +6,6 @@ app.controller("driver_salary_controller", ["$scope", "$host", "$state", "_confi
     $scope.noLoadDistanceCount = 0;
     $scope.loadDistanceCount = 0;
     $scope.shouldPay = 0;
-    $scope.startMonth = moment(new Date()).format('YYYYMM');
     var heavyLoad = _config.heavyLoad;
     var userId = _basic.getSession(_basic.USER_ID);
 
@@ -16,11 +15,24 @@ app.controller("driver_salary_controller", ["$scope", "$host", "$state", "_confi
         MonthFormat: 'yymm'
     });
 
+
+    //获取上个月年月
+    function getLastMonth(){//获取上个月日期
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = date.getMonth();
+        if(month == 0){
+            year = year -1;
+            month = 12;
+        }
+        $scope.startMonth = year.toString()+month.toString();
+    }
+    getLastMonth();
+
     // 获取货车品牌信息
     $scope.getTruckBrandList = function () {
         _basic.get($host.api_url + "/brand").then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
                 $scope.brandList = data.result;
             }
             else {
@@ -40,60 +52,70 @@ app.controller("driver_salary_controller", ["$scope", "$host", "$state", "_confi
         });
     };
 
-  /*  // 获取所有公司列表
-    $scope.getCompanyList = function () {
-        _basic.get($host.api_url + "/company").then(function (data) {
-            if (data.success === true) {
-                $scope.companyList = data.result;
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
-    };*/
-
     // 获取司机工资信息
     $scope.searchDriverSalaryList = function (status) {
-        var monthStart;
         if(status === "init"){
-            monthStart = $scope.startMonth
+            $scope.monthStart = $scope.startMonth
+        }
+        else if(status === undefined){
+            $scope.monthStart = $('#start_month').val();
         }
         else{
-            monthStart = $('#start_month').val();
+            $scope.monthStart =status;
         }
-        $scope.monthVal = monthStart;
-        _basic.get($host.api_url + "/driveSalary?" + _basic.objToUrl({
-            monthDateId: monthStart,
-            driveName: $scope.driverName,
-            operateType: $scope.carType,
-            companyId: $scope.insureCompany,
-            truckNum: $scope.truckNumber,
-            truckBrandId: $scope.truckBrand,
-            grantStatus: $scope.grantStatus,
-            start:$scope.start.toString(),
-            size:$scope.size
-        })).then(function (data) {
-            if (data.success === true) {
-                $scope.boxArray = data.result;
-                $scope.driverSalaryList = $scope.boxArray.slice(0, 10);
-                if ($scope.start > 0) {
-                    $("#pre").show();
+        $scope.monthVal =  $scope.monthStart;
+        $scope.startMonth =  $scope.monthStart;
+
+        // 基本检索URL
+        var url = $host.api_url + "/driveSalary?start=" + $scope.start + "&size=" + $scope.size;
+        // 检索条件
+        var conditionsObj = makeConditions();
+        var conditions = _basic.objToUrl(conditionsObj);
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
+
+        if($scope.monthStart==""||$scope.monthStart==null){
+            $scope.driverSalaryList=[];
+            $("#next").hide();
+            swal('请填写月份进行查询!', "", "error")
+        }
+        else{
+            _basic.get(url).then(function (data) {
+
+                if (data.success == true) {
+
+                    // 当前画面的检索信息
+                    var pageItems = {
+                        pageId: "driver_salary",
+                        start: $scope.start,
+                        size: $scope.size,
+                        conditions: conditionsObj
+                    };
+                    // 将当前画面的条件
+                    $rootScope.refObj = {pageArray: []};
+                    $rootScope.refObj.pageArray.push(pageItems);
+                    $scope.boxArray = data.result;
+                    $scope.driverSalaryList = $scope.boxArray.slice(0, 10);
+                    if ($scope.start > 0) {
+                        $("#pre").show();
+                    }
+                    else {
+                        $("#pre").hide();
+                    }
+                    if (data.result.length < $scope.size) {
+                        $("#next").hide();
+                    }
+                    else {
+                        $("#next").show();
+                    }
+                    $scope.temporaryMonth = $("#start_month").val();
                 }
                 else {
-                    $("#pre").hide();
+                    swal(data.msg, "", "error");
                 }
-                if (data.result.length < $scope.size) {
-                    $("#next").hide();
-                }
-                else {
-                    $("#next").show();
-                }
-                $scope.temporaryMonth = $("#start_month").val();
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
+            });
+        }
+
     };
 
     // 点击查询
@@ -107,13 +129,13 @@ app.controller("driver_salary_controller", ["$scope", "$host", "$state", "_confi
         $scope.driverInfo = driverInfo;
         _basic.get($host.api_url + "/dpRouteTaskBase?driveId=" + driverInfo.drive_id + "&taskStatus=10&statStatus=1").then(function (data) {
             if (data.success === true) {
-                // console.log("driverData", data);
                 $scope.driverWageSettlementList = data.result;
                 $("#wageSettlementModal").modal("open");
                 $scope.selectedIdsArr = [];
                 $("[name = 'selectAll']").prop('checked' , false);
                 $scope.noLoadDistanceCount = 0;
                 $scope.loadDistanceCount = 0;
+                $scope.settleMonth=$scope.monthStart.slice(0,4)+"-"+$scope.monthStart.slice(-2);
             }
             else {
                 swal(data.msg, "", "error");
@@ -200,6 +222,7 @@ app.controller("driver_salary_controller", ["$scope", "$host", "$state", "_confi
         _basic.post($host.api_url + "/user/" + userId + "/driveSalary",{
             driveId: $scope.driverInfo.drive_id,
             truckId: truckId,
+            monthDateId:$scope.monthStart,
             loadDistance: $scope.loadDistanceCount,
             noLoadDistance: $scope.noLoadDistanceCount,
             planSalary: $scope.shouldPay,
@@ -217,7 +240,8 @@ app.controller("driver_salary_controller", ["$scope", "$host", "$state", "_confi
                     function () {
                         $state.go("driver_salary_details", {
                             id: data.id,
-                            driveId: $scope.driverInfo.drive_id
+                            driveId: $scope.driverInfo.drive_id,
+                            from:'driver_salary'
                         });
                         $("#wageSettlementModal").modal("close");
                     });
@@ -239,11 +263,64 @@ app.controller("driver_salary_controller", ["$scope", "$host", "$state", "_confi
         $scope.searchDriverSalaryList();
     };
 
+    /**
+     * 设置检索条件。
+     * @param conditions 上次检索条件
+     */
+    function setConditions(conditions) {
+        $scope.monthStart=conditions.monthDateId;
+        $scope.driverName=conditions.driveName;
+        $scope.carType=conditions.operateType;
+        $scope.insureCompany=conditions.companyId;
+        $scope.truckNumber=conditions.truckNum;
+        $scope.truckBrand=conditions.truckBrandId;
+        $scope.grantStatus=conditions.grantStatus;
+    }
+
+    /**
+     * 组装检索条件。
+     */
+    function makeConditions() {
+        return {
+            monthDateId: $scope.monthStart,
+            driveName: $scope.driverName,
+            operateType: $scope.carType,
+            companyId: $scope.insureCompany,
+            truckNum: $scope.truckNumber,
+            truckBrandId: $scope.truckBrand,
+            grantStatus: $scope.grantStatus
+        };
+    }
+
+    /**
+     * 画面初期显示时，用来获取画面必要信息的初期方法。
+     */
+    function initData() {
+        // 如果是从后画面跳回来时，取得上次检索条件
+        if ($stateParams.from === "driver_salary_details" && $rootScope.refObj !== undefined && $rootScope.refObj.pageArray.length > 0) {
+            var pageItems = $rootScope.refObj.pageArray.pop();
+            if (pageItems.pageId === "driver_salary") {
+                // 设定画面翻页用数据
+                $scope.start = pageItems.start;
+                $scope.size = pageItems.size;
+                // 将上次的检索条件设定到画面
+                setConditions(pageItems.conditions);
+                $scope.searchDriverSalaryList(pageItems.conditions.monthDateId);
+            }
+        } else {
+            // 初始显示时，没有前画面，所以没有基本信息
+            $rootScope.refObj = {pageArray: []};
+            $scope.searchDriverSalaryList('init');
+        }
+        $scope.getCompany();
+
+    }
+    initData();
+
 
     // 获取数据
     $scope.queryData = function () {
         $scope.getTruckBrandList();
-        $scope.searchDriverSalaryList("init");
     };
     $scope.queryData();
 }]);

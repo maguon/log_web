@@ -1,17 +1,12 @@
-<a style="margin: 90px 0 0 20px" class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light "
-   ui-sref="driver_information">
-    <i class="mdi mdi-arrow-left-bold"></i>
-</a>
-
 <!--货车事故详情模态框-->
 <div class="row" style="margin: 0">
     <div id="truckAccidentDetailsModal" class="modal modal-fixed-footer" style="width: 75%;height: 650px">
         <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-            <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
+            <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
                 <p>货车事故详情</p>
             </div>
             <div class="row" style="width: 85%;margin: 0 auto">
-                <div class="col s6 left-align" style="color: #26c6da;font-weight: bold;font-size: 1.2rem">
+                <div class="col s6 left-align cyan-text" style="font-weight: bold;font-size: 1.2rem">
                     <p>事故编号：{{truckAccidentDetail.id}}</p>
                 </div>
                 <div class="col s6 right-align" style="color: darkgray;font-weight: bold;font-size: 1.2rem">
@@ -93,11 +88,11 @@
 <div class="row" style="margin: 0">
     <div id="carAccidentDetailsModal" class="modal modal-fixed-footer" style="width: 75%;height: 750px">
         <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-            <div class="row col s12 vc-center" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;background-color:rgb(63,185,193)">
+            <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
                 <p>商品车质损详情</p>
             </div>
             <div class="row" style="width: 85%;margin: 0 auto">
-                <div class="col s6 left-align" style="color: #26c6da;font-weight: bold;font-size: 1.2rem">
+                <div class="col s6 left-align cyan-text" style="font-weight: bold;font-size: 1.2rem">
                     <p>质损编号：{{carAccidentDetail.id}}</p>
                 </div>
                 <div class="col s6 right-align" style="color: darkgray;font-weight: bold;font-size: 1.2rem">
@@ -243,17 +238,17 @@
     </div>
 </div>
 
-<!--超油扣款详情模态框-->
+<!--超量扣款详情模态框-->
 <div id="putExceedOilItem" class="modal">
-    <div class="cyan lighten-1 white-text center-align modal_title" >超油扣款详情</div>
+    <div class="cyan lighten-1 white-text center-align modal_title" >超量扣款详情</div>
     <div>
         <div class="modal-content">
             <div class="row col" style="width: 80%;">
-                <!--超油结算编号-->
+                <!--超量结算编号-->
                 <div class="col s12">
                     <div class="col s12 input-field" style="width: 98%;margin-left: 1%; height: 50px;border-bottom: 2px solid #ccc">
                         <div class="col s6 cyan-text fz18  bold" >
-                            超油结算编号:{{putExceedOilList.id}}
+                            超量结算编号:{{putExceedOilList.id}}
                         </div>
                         <div class="col s6 grey-text input-field bold right-align" ng-show="putExceedOilList.fine_status!==1">已扣</div>
                         <div class="col s6 grey-text input-field bold right-align" ng-show="putExceedOilList.fine_status==1">未扣</div>
@@ -272,19 +267,22 @@
                     <div class="col s6 input-field">计划执行时间:  {{putExceedOilList.task_plan_date | date:'yyyy-MM-dd'}}</div>
                 </div>
 
-                <!--超油量  超油金额-->
+                <!--超量类型 超量数-->
                 <div class="col s12" style="height: 60px;border-bottom: 1px dotted #ccc">
+                    <div class="col s6 input-field" ng-show="putExceedOilList.exceed_type==1">超量类型:油  </div>
+                    <div class="col s6 input-field" ng-show="putExceedOilList.exceed_type==2">超量类型:尿素 </div>
+                    <div class="col s6 input-field">超量数:  {{putExceedOilList.exceed_oil_quantity}}</div>
 
-                    <div class="col s6 input-field">超油量:  {{putExceedOilList.exceed_oil_quantity}}L</div>
 
-                    <div class="col s6 input-field">超油金额:  <span class="red-text fz20">{{putExceedOilList.exceed_oil_money}}</span> 元</div>
 
                 </div>
 
-                <!--备注-->
+                <!--超量金额 备注-->
                 <div class="col s12">
-                    <div class="col s12 input-field"  style="height: 60px;border-bottom: 1px dotted #ccc">备注:  {{putExceedOilList.remark}}</div>
+                    <div class="col s6 input-field">超量金额:  <span class="red-text fz20">{{putExceedOilList.exceed_oil_money}}</span> 元</div>
+                    <div class="col s6 input-field"  style="height: 60px;border-bottom: 1px dotted #ccc">备注:  {{putExceedOilList.remark}}</div>
                 </div>
+
 
                 <!--结算人-->
                 <div class="col s3 offset-s9 input-field">
@@ -301,28 +299,30 @@
 
 <!--司机信息详情-->
 <div class="driver_information_details">
-    <div class="vc-center">
-        <h5 class="center-align cyan-text text-lighten-1">司机信息详情</h5>
+    <div class="storage_storeTitle vc-center ">
+        <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
+            <i class="mdi mdi-arrow-left-bold"></i>
+        </a>
+        <h4 class="center-align cyan-text text-lighten-1">司机信息详情</h4>
     </div>
-
-    <div class="divider" style="background: #00bcd4;height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
+    <div class="divider cyan" style="height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
     <div class="row" style="width: 90%;margin: 0 auto">
         <!--tab栏-->
         <div class="col s12">
             <ul class="tabs ui-tabs tabs-fixed-width tab-demo z-depth-1" style="font-size: 25px;font-weight: bold;overflow-x: hidden;margin-bottom: 25px" ul-tabs>
-                <li class="tab"><a href="#driverBasicInfo" style="color: #26c6da;line-height: 40px">基本信息</a></li>
-                <li class="tab"><a href="#driverPic" style="color: #26c6da;line-height: 40px">照片</a></li>
-                <li class="tab"><a href="#dispatchMission" ng-click="searchDriverInfoList()" style="color: #26c6da;line-height: 40px">调度任务</a></li>
-                <li class="tab"><a href="#truckRes" ng-click="getTruckAccident()" style="color: #26c6da;line-height: 40px">货车责任</a></li>
-                <li class="tab"><a href="#carRes" ng-click="getCarResList()" style="color: #26c6da;line-height: 40px">商品车责任</a></li>
-                <li class="tab"><a href="#driverPeccancyList" ng-click="getPeccancy()" style="color: #26c6da;line-height: 40px">违章扣款</a></li>
-                <li class="tab"><a href="#driverExceedOil" ng-click="getExceedOil()" style="color: #26c6da;line-height: 40px">超油扣款</a></li>
+                <li class="tab"><a href="#driverBasicInfo" class="cyan-text" style="line-height: 40px">基本信息</a></li>
+                <li class="tab"><a href="#driverPic" class="cyan-text" style="line-height: 40px">照片</a></li>
+                <li class="tab"><a href="#dispatchMission" class="cyan-text" ng-click="searchDriverInfoList()" style="line-height: 40px">调度任务</a></li>
+                <li class="tab"><a href="#truckRes" class="cyan-text" ng-click="getTruckAccident()" style="line-height: 40px">货车责任</a></li>
+                <li class="tab"><a href="#carRes" class="cyan-text" ng-click="getCarResList()" style="line-height: 40px">商品车责任</a></li>
+                <li class="tab"><a href="#driverPeccancyList" class="cyan-text" ng-click="getPeccancy()" style="line-height: 40px">违章扣款</a></li>
+                <li class="tab"><a href="#driverExceedOil" class="cyan-text" ng-click="getExceedOil()" style="line-height: 40px">超量扣款</a></li>
             </ul>
         </div>
 
         <!--基本信息-->
         <div id="driverBasicInfo" class="row col s12">
-            <div class="col s12 z-depth-1" style="border: 2px solid #26c6da;padding: 0;margin-top: 56px">
+            <div class="col s12 z-depth-1 cyan_border" style="padding: 0;margin-top: 56px">
                 <!--个人信息-->
                 <div class="col s12 valign-wrapper" style="padding: 0;background-color: #e6e6e6;">
                     <div class="col s1 center-align">
@@ -332,19 +332,19 @@
                     </div>
                     <div class="col s11" style="color: darkgray;font-size: 1.3rem;font-weight: bold">
                         <div class="col s8">
-                            <p style="color: #26c6da"><span class="mdi mdi mdi-human-male" style="font-size: 1.6rem"></span> {{driverDetails.drive_name}}</p>
+                            <p class="cyan-text"><span class="mdi mdi mdi-human-male" style="font-size: 1.6rem"></span> {{driverDetails.drive_name}}</p>
                         </div>
                         <div class="col s4">
-                            <p><span class="mdi mdi mdi-cellphone" style="font-size: 1.6rem;color: #26c6da"></span> {{driverDetails.tel}}</p>
+                            <p><span class="mdi mdi mdi-cellphone cyan-text" style="font-size: 1.6rem;"></span> {{driverDetails.tel}}</p>
                         </div>
                         <div class="col s4">
-                            <p><span class="mdi mdi mdi-hospital-building" style="font-size: 1.6rem;color: #26c6da"></span> {{driverDetails.company_name}}</p>
+                            <p><span class="mdi mdi mdi-hospital-building cyan-text" style="font-size: 1.6rem;"></span> {{driverDetails.company_name}}</p>
                         </div>
                         <div class="col s4">
-                            <p><span style="color: #26c6da">车头：</span> {{driverDetails.truck_num}}</p>
+                            <p><span class="cyan-text">车头：</span> {{driverDetails.truck_num}}</p>
                         </div>
                         <div class="col s4">
-                            <p><span style="color: #26c6da">挂车：</span> {{driverDetails.trail_num}} {{driverDetails.number}}位</p>
+                            <p><span class="cyan-text">挂车：</span> {{driverDetails.trail_num}} {{driverDetails.number}}位</p>
                         </div>
                     </div>
                 </div>
@@ -385,7 +385,7 @@
         <div id="driverPic" class="row col s12" style="padding: 0;">
             <div class="col s12" style="margin-top: 56px">
                 <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px">
-                    <div class="col s12 valign-wrapper" style="height: 50px;background-color: #dcdfe0;color: #26c6da;font-size: 1.2rem;font-weight: bold">
+                    <div class="col s12 valign-wrapper cyan-text" style="height: 50px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
                         <div class="col s12 left-align">
                             <p style="margin: 0">照片</p>
                         </div>
@@ -395,7 +395,7 @@
                         <div class="col s12" style="font-size: 1.2rem;color: darkgray;font-weight: bold;padding: 0;">
                             <div class="col s12">
                                 <div class="col s12">
-                                    <p style="color: #26c6da">证件照片</p>
+                                    <p class="cyan-text">证件照片</p>
                                 </div>
                             </div>
                             <div id="certificates_img" class="col s12 valign-wrapper">
@@ -511,15 +511,15 @@
                     总里程:<span class="cyan-text fz32">{{driveDetail.load_distance+driveDetail.no_load_distance}}</span>公里
                 </div>
                 <div class="col s4 center-align" style="padding-top: 25px">
-                    重载里程<span class="red-text fz16">(>=5辆): </span><span class="cyan-text fz32">{{driveDetail.load_distance}}</span>公里
+                    重载里程<span class="red-text fz16">(>=3辆): </span><span class="cyan-text fz32">{{driveDetail.load_distance}}</span>公里
                 </div>
                 <div class="col s4 right-align" style="padding-top: 25px">
-                    重载里程:<span class="red-text fz16">(<5辆): </span><span class="cyan-text fz32">{{driveDetail.no_load_distance}}</span>公里
+                    重载里程:<span class="red-text fz16">(<3辆): </span><span class="cyan-text fz32">{{driveDetail.no_load_distance}}</span>公里
                 </div>
             </div>
             <!--表格-->
             <div class="col s12" style="padding: 0;">
-                <div class="divider" style="background: #00bcd4;height: 2px"></div>
+                <div class="divider cyan" style="height: 2px;"></div>
                 <table class="bordered striped text_mid">
                     <thead class="blue-grey lighten-5">
                     <tr class="grey-text text-darken-2">
@@ -545,7 +545,7 @@
                         <td>{{dispatch.route_op_name}}</td>
                         <td>{{dispatch.task_status|taskStatus}}</td>
                         <td class="operation fz12">
-                            <a ng-href="#!/dispatch_order_details/id/{{dispatch.id}}/?from=driver_information_details&driverId={{driverIdd}}" class="cyan-text" style="cursor: pointer;text-align: center;color: #26c6da">
+                            <a ng-href="#!/dispatch_order_details/id/{{dispatch.id}}/?from=driver_information_details&driverId={{driverIdd}}" class="cyan-text" style="cursor: pointer;text-align: center;">
                                 <i class="mdi mdi-eye" style="margin: 0"></i>
                             </a>
                         </td>
@@ -623,7 +623,7 @@
                 </div>
             </div>
             <div class="col s12">
-                <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+                <div class="divider cyan" style="height: 2px;"></div>
                 <table class=" bordered striped text_mid">
                     <thead class="blue-grey lighten-5">
                     <tr class="grey-text text-darken-2">
@@ -685,14 +685,14 @@
                         <div class="col s12 center"
                              style="padding: 0;font-weight: bold;color: darkgray;font-size: 1.1rem">
                             <div class="col s6 left-align">
-                                <p style="color: #26c6da">质损编号：{{car.id}}</p>
+                                <p class="cyan-text">质损编号：{{car.id}}</p>
                             </div>
                             <div class="col s6 center-align">
                                 <p>{{car.damage_type | damageType}}</p>
                             </div>
                         </div>
 
-                        <a style="top: 56%;width: 45px;height: 45px;right: 30px;background-color: #26c6da;" class="right btn-floating setting_shipments_btn btn waves-effect waves-light vc-center">
+                        <a style="top: 56%;width: 45px;height: 45px;right: 30px;" class="cyan right btn-floating setting_shipments_btn btn waves-effect waves-light vc-center">
                             <i style="font-size: 1.4rem;line-height: 44px" ng-click="showCarAccidentModal(car)" class="mdi mdi-file-document"></i>
                         </a>
                     </div>
@@ -773,7 +773,7 @@
                 </div>
             </div>
             <div class="col s12">
-                <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+                <div class="divider cyan" style="height: 2px;"></div>
                 <table class=" bordered striped text_mid">
                     <thead class="blue-grey lighten-5">
                     <tr class="grey-text text-darken-2">
@@ -823,7 +823,7 @@
             </div>
         </div>
 
-        <!--超油扣款-->
+        <!--超量扣款-->
         <div id="driverExceedOil">
             <!--查询条件-->
             <div class="row">
@@ -832,23 +832,31 @@
                         <div class="col s12">
 
                             <!--调度编号-->
-                            <div class="input-field col" style="width: 25%">
+                            <div class="input-field col" style="width: 20%;">
                                 <input id="dispatchId" name="dispatchId" ng-model="dispatchId" type="text">
                                 <label for="dispatchId">调度编号</label>
                             </div>
 
                             <!--指令日期-->
-                            <div class="input-field col" style="width: 25%">
+                            <div class="input-field col" style="width: 20%;">
                                 <input type="text"  id="driveStartTime" class="datepicker" autocomplete="off" ng-model="driveStartTime" date><i class="mdi dataIcon mdi-table-large"></i>
                                 <label for="driveStartTime">计划执行时间(始)</label>
                             </div>
-                            <div class="input-field col" style="width: 25%">
+                            <div class="input-field col" style="width: 20%;">
                                 <input type="text" id="driveEndTime" class="datepicker" autocomplete="off" ng-model="driveEndTime" date><i class="mdi dataIcon mdi-table-large"></i>
                                 <label for="driveEndTime">计划执行时间(终)</label>
                             </div>
+                            <!--超量类型-->
+                            <div class="input-field col" style="width: 20%;">
+                                <select material-select watch ng-model="exceedType" >
+                                    <option value="" selected>超量类型</option>
+                                    <option ng-value="1">油</option>
+                                    <option ng-value="2">尿素</option>
+                                </select>
+                            </div>
 
                             <!--结算状态-->
-                            <div class="input-field col" style="width: 25%">
+                            <div class="input-field col" style="width: 20%;">
                                 <select material-select watch ng-model="ExceedOilStu" id="ExceedOilStu">
                                     <option value="" selected>状态</option>
                                     <option ng-value="1">未扣</option>
@@ -870,16 +878,17 @@
                 </div>
             </div>
             <div class="col s12">
-                <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+                <div class="divider cyan" style="height: 2px;"></div>
                 <table class=" bordered striped text_mid">
                     <thead class="blue-grey lighten-5">
                     <tr class="grey-text text-darken-2">
-                        <th data-field="">超油结算编号</th>
+                        <th data-field="">超量结算编号</th>
                         <th data-field="">货车牌号</th>
                         <th data-field="">调度编号</th>
                         <th data-field="">计划执行时间</th>
-                        <th data-field="">超油量(L)</th>
-                        <th data-field="">超油金额</th>
+                        <th data-field="">超量类型</th>
+                        <th data-field="">超量数</th>
+                        <th data-field="">超量金额</th>
                         <th data-field="">状态</th>
                         <th>操作</th>
                     </tr>
@@ -890,6 +899,8 @@
                         <td >{{ExceedOilInfo.truck_num}}</td>
                         <td>{{ExceedOilInfo.dp_route_task_id}}</td>
                         <td>{{ExceedOilInfo.task_plan_date| date:'yyyy-MM-dd'}}</td>
+                        <td ng-if="ExceedOilInfo.exceed_type==1 ">油</td>
+                        <td ng-if="ExceedOilInfo.exceed_type==2 ">尿素</td>
                         <td>{{ExceedOilInfo.exceed_oil_quantity }}</td>
                         <td>{{ExceedOilInfo.exceed_oil_money }}</td>
                         <td class="red-text" ng-if="ExceedOilInfo.stat_status==1">未扣</td>
@@ -901,7 +912,7 @@
                         </td>
                     </tr>
                     <tr ng-if="ExceedOilList.length==0">
-                        <td colspan="8">暂无数据</td>
+                        <td colspan="9">暂无数据</td>
                     </tr>
                     </tbody>
                 </table>

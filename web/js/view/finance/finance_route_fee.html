@@ -2,15 +2,14 @@
     <div class="row valign-wrapper">
         <div class="col s10">
             <div class="col s12" style="padding: 0;">
-                <div class="col s3 input-field">
-                    <select id="driver_name" style="width: 100%" ng-change="clearDriverInfo()" ng-model="driverId">
+                <div class="col  input-field" style="width: 20%">
+                    <select id="driver_name" style="width: 100%" ng-model="driverId">
                         <option value=""></option>
-                        <option value="0">清除选择</option>
                         <option ng-repeat="driver in driveList" ng-value="driver.id">{{driver.drive_name + " - " + driver.mobile}}</option>
                     </select>
                     <label class="active" for="driver_name">司机</label>
                 </div>
-                <div class="col s3 input-field">
+                <div class="col  input-field" style="width: 20%">
                     <select id="grant_status" ng-model="grantStatus" material-select watch>
                         <option value="" selected>请选择</option>
                         <option value="1">已发放</option>
@@ -18,12 +17,15 @@
                     </select>
                     <label for="grant_status">发放状态</label>
                 </div>
-
-                <div class="col s3 input-field">
+                <div class="col  input-field" style="width: 20%">
+                    <input id="addExceedOilDispatch" type="text"  ng-model="dispatchId">
+                    <label for="addExceedOilDispatch"> 调度编号</label>
+                </div>
+                <div class="col  input-field" style="width: 20%">
                     <input type="text" id="grant_start_time" name="grant_start_time" ng-model="grantStartTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
                     <label for="grant_start_time">发放时间(始)</label>
                 </div>
-                <div class="col s3 input-field">
+                <div class="col  input-field" style="width: 20%">
                     <input type="text" id="grant_end_time" name="grant_end_time" ng-model="grantEndTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
                     <label for="grant_end_time">发放时间(终)</label>
                 </div>
@@ -47,7 +49,7 @@
     <div class="row">
         <div class="col s12">
             <div class="col s12">
-                <div class="divider" style="background: #00bcd4;height: 2px"></div>
+                <div class="divider cyan" style="height: 2px;"></div>
                 <table class="bordered striped text_mid">
                     <thead class="blue-grey lighten-5">
                     <tr class="grey-text text-darken-2">
@@ -75,11 +77,11 @@
                         <td>{{car.grant_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                         <td>{{car.refund_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                         <td>{{car.grant_user_name}}</td>
-                        <td style="color: #26c6da" ng-if="car.task_loan_status == 1">已发放</td>
+                        <td class="cyan-text"  ng-if="car.task_loan_status == 1">已发放</td>
                         <td ng-if="car.task_loan_status == 2">已报销</td>
                         <td ng-if="car.task_loan_status !== 2&&car.task_loan_status !== 1"></td>
                         <td class="operation fz12">
-                            <a ui-sref="finance_route_fee_details({id:car.id})" class="cyan-text" style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
+                            <a ui-sref="finance_route_fee_details({id:car.id,from:'finance_route_fee'})" class="cyan-text" style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
                         </td>
                     </tr>
                     <tr class="grey-text text-darken-1" ng-if="carFinanceList.length == 0">

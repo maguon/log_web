@@ -13,7 +13,7 @@ app.controller("look_head_truck_details_controller", ["$scope", "$state", "$stat
     $scope.Binding_drive_flag = true;
 
     $scope.return = function () {
-        $state.go($stateParams.from, {reload: true})
+        $state.go($stateParams.from,{from:'look_head_truck_details'}, {reload: true})
     };
     $scope.no_drive_img = false;
     $scope.no_service_img = false;

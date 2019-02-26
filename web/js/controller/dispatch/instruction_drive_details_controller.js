@@ -4,28 +4,48 @@
 app.controller("instruction_drive_details_controller", ["$scope", "$host", "_config", "_basic", "$state", "$stateParams", function ($scope, $host, _config, _basic, $state, $stateParams) {
     var dateIdStart = $stateParams.timeStart;
     var dateIdEnd = $stateParams.timeEnd;
+    var makeId = $stateParams.makeId;
     $scope.driveId = $stateParams.id;
     $scope.driver_mileage_startTime = dateIdStart;
     $scope.driver_mileage_endTime = dateIdEnd;
     var loadFlag = "";
     var drive_detail = function () {
         var p = new Promise(function (resolve, reject) {
+            if ($scope.car_status == '0') {
+                loadFlag ='0';
+            }
+            else if ($scope.car_status == 1) {
+                loadFlag =1;
+            }
+            else {
+                loadFlag ='';
+            }
+
             var obj = {
-                taskStatus: 10,
+                taskStatus: 9,
                 driveId: $scope.driveId,
-                dateIdStart: dateIdStart,
-                dateIdEnd: dateIdEnd
+                truckId:makeId,
+                dateIdStart: $scope.driver_mileage_startTime,
+                dateIdEnd: $scope.driver_mileage_endTime,
+                loadFlag:loadFlag
             };
-            _basic.get($host.api_url + "/driveDistanceLoad?" + _basic.objToUrl(obj)).then(function (data) {
-                if (data.success == true && data.result.length > 0) {
-                    $scope.driveDetail = data.result[0];
-                    if ($scope.driveDetail.no_load_distance == null) {
+            _basic.get($host.api_url + "/driveDistanceLoadStat?" + _basic.objToUrl(obj)).then(function (data) {
+                if (data.success == true ) {
+                    if(data.result.length ==0){
                         $scope.driveDetail.no_load_distance = 0
-                    }
-                    if ($scope.driveDetail.load_distance == null) {
                         $scope.driveDetail.load_distance = 0
                     }
-                    resolve();
+                    else {
+                        $scope.driveDetail = data.result[0];
+                        if ($scope.driveDetail.no_load_distance == null) {
+                            $scope.driveDetail.no_load_distance = 0
+                        }
+                        if ($scope.driveDetail.load_distance == null) {
+                            $scope.driveDetail.load_distance = 0
+                        }
+                        resolve();
+                    }
+
                 } else {
                     swal("异常", "", "error")
                 }
@@ -35,11 +55,16 @@ app.controller("instruction_drive_details_controller", ["$scope", "$host", "_con
     };
     drive_detail().then(function () {
         $scope.drive_instruction_list();
+
     });
 
     $scope.drive_instruction_list = function () {
-        if ($scope.car_status == 0) {
-            loadFlag =0;
+        drive_detail();
+
+
+
+        if ($scope.car_status == '0') {
+            loadFlag ='0';
         }
         else if ($scope.car_status == 1) {
             loadFlag =1;
@@ -49,12 +74,14 @@ app.controller("instruction_drive_details_controller", ["$scope", "$host", "_con
         }
 
         var obj = {
+            taskStatusArr:[9,10],
             driveId:$scope.driveId,
             loadFlag:loadFlag,
-            dateIdStart: $scope.driver_mileage_startTime,
-            dateIdEnd: $scope.driver_mileage_endTime
+            truckId:makeId,
+            dateIdStart:moment( $scope.driver_mileage_startTime).format('YYYYMMDD'),
+            dateIdEnd:moment( $scope.driver_mileage_endTime).format('YYYYMMDD')
         };
-        _basic.get($host.api_url + "/dpRouteTask?" + _basic.objToUrl(obj)).then(function (data) {
+        _basic.get($host.api_url + "/dpRouteTaskList?" + _basic.objToUrl(obj)).then(function (data) {
             if (data.success == true) {
                 $scope.instruction_list = data.result;
             }
@@ -66,7 +93,7 @@ app.controller("instruction_drive_details_controller", ["$scope", "$host", "_con
 
 
     $scope.return = function () {
-        $state.go($stateParams.refer, {reload: true})
+        $state.go($stateParams.from,{from:'instruction_drive_details'}, {reload: true})
     }
 
 }]);

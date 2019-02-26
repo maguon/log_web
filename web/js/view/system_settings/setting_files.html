@@ -38,7 +38,7 @@
         </div>
         <h5 class="center-align cyan-text text-lighten-1"></h5>
         <div class="col s12">
-            <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+            <div class="divider cyan" style="height: 2px;"></div>
             <table class=" bordered striped text_mid">
                 <thead class="blue-grey lighten-5">
                 <tr class="grey-text text-darken-2">
@@ -80,7 +80,7 @@
         </div>
     </div>
     <div class="col s12">
-        <div class="divider" style="background: #00bcd4;height: 2px;"></div>
+        <div class="divider cyan" style="height: 2px;"></div>
         <table class=" bordered striped text_mid">
             <thead class="blue-grey lighten-5">
             <tr class="grey-text text-darken-2">
@@ -101,9 +101,9 @@
                     <span>
                         <i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ng-click="changeDetail(fileInfo)"></i>
                     </span>
-                   <!-- <a target="_blank" href="http://stg.myxxjs.com:9002/api/user/64/file/{{fileInfo._id}}"  download="{{fileInfo.filename}}"><i
-                            class="mdi  look_icon cyan-text lighten-1 mdi-arrow-down-bold-circle "></i></a>-->
                     <a class="mdi  look_icon cyan-text lighten-1 mdi-arrow-down-bold-circle fz24"  ng-click="export(fileInfo._id)">
+                    </a>
+                    <a class="mdi  mdi-delete-forever red-text lighten-1 mdi-arrow-down-bold-circle fz24"  ng-click="delete(fileInfo._id)">
                     </a>
                 </td>
             </tr>

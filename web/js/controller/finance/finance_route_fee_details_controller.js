@@ -196,6 +196,8 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$state","$sta
             grantPenaltyCost:$scope.routeFeeInfo.grant_penalty_cost,
             grantParkingCost: $scope.routeFeeInfo.grant_parking_cost,
             grantTaxiCost: $scope.routeFeeInfo.grant_taxi_cost,
+            grantHotelCost: $scope.routeFeeInfo.grant_hotel_cost,
+            grantCarCost: $scope.routeFeeInfo.grant_car_cost,
             grantExplain: $scope.routeFeeInfo.grant_explain,
             grantActualMoney: parseFloat(totalCost),
             dpRouteTaskIds:[$scope.dpRouteTaskIds]
@@ -216,10 +218,18 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$state","$sta
         $scope.repaymentMoneyMod = 0;
         $scope.profitCostMod = 0;
         $("#reimbursementCarFinanceModel").modal("open");
+        $scope.roadCostMod=$scope.routeFeeInfo.grant_passing_cost;
+        $scope.fuelCostMod=$scope.routeFeeInfo.grant_fuel_cost;
+        $scope.roadTollCostMod=$scope.routeFeeInfo.grant_protect_cost;
+        $scope.fineCostMod=$scope.routeFeeInfo.grant_penalty_cost;
+        $scope.parkingCostMod=$scope.routeFeeInfo.grant_parking_cost;
+        $scope.taxiCostMod=$scope.routeFeeInfo.grant_taxi_cost;
+        $scope.hotelCostMod=$scope.routeFeeInfo.grant_hotel_cost;
+        $scope.carCostMod=$scope.routeFeeInfo.grant_car_cost;
     };
 
     // 模态框内点击确定保存信息
-    $scope.saveReimbursementInfo = function (taxiCostMod,parkingCostMod,fineCostMod,roadCostMod,fuelCostMod,roadTollCostMod) {
+    $scope.saveReimbursementInfo = function (taxiCostMod,parkingCostMod,fineCostMod,roadCostMod,fuelCostMod,roadTollCostMod,hotelCostMod,carCostMod) {
         var refundActualMoneyCost = parseFloat($("#reimbursement_money_mod").val()).toFixed(2);
         _basic.put($host.api_url + "/user/" + userId + "/dpRouteTaskLoanRepayment/" + routeFeeId,{
             refundPassingCost: roadTollCostMod,
@@ -228,6 +238,8 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$state","$sta
             refundPenaltyCost: fineCostMod,
             refundParkingCost:parkingCostMod,
             refundTaxiCost: taxiCostMod,
+            refundHotelCost: hotelCostMod,
+            refundCarCost: carCostMod,
             repaymentMoney: $scope.repaymentMoneyMod,
             refundActualMoney: parseFloat(refundActualMoneyCost),
             profit: $scope.profitCostMod,

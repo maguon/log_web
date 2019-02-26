@@ -101,6 +101,8 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host","$state", "_
         $scope.fineCost = 0;
         $scope.parkingCost = 0;
         $scope.taxiCost = 0;
+        $scope.hotelCost = 0;
+        $scope.carCost = 0;
         $scope.remark = "";
         $scope.planMoney = 0;
         $scope.bigPrice = 0;
@@ -210,6 +212,8 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host","$state", "_
             grantPenaltyCost: $scope.fineCost,
             grantParkingCost: $scope.parkingCost,
             grantTaxiCost: $scope.taxiCost,
+            grantHotelCost: $scope.hotelCost,
+            grantCarCost: $scope.carCost,
             grantExplain: $scope.remark,
             grantActualMoney: parseFloat(planMoneyCount),
             dpRouteTaskIds: [$scope.dispatchIdSmall]

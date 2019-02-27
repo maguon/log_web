@@ -44,6 +44,58 @@ app.controller("instruction_driver_mileage_controller", ["$scope","$rootScope","
             $scope.search();
         }
     }
+
+    function getDriveNameList () {
+        _basic.get($host.api_url + "/drive?driveName=").then(function (data) {
+            if (data.success == true) {
+                $scope.driveNameList = data.result;
+                $('#driveName').select2({
+                    placeholder: '司机',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
+
+    //获取货车牌号
+    function getTruckNum(selectText) {
+        if(selectText==''||selectText==undefined){
+            _basic.get($host.api_url + "/truckBase").then(function (data) {
+                if (data.success === true) {
+                    $scope.truckNumListAllList = data.result;
+                    $('#truckId').select2({
+                        placeholder: "货车牌号",
+                        containerCssClass: 'select2_dropdown',
+                        allowClear: true
+                    });
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            })
+        }
+        else{
+            _basic.get($host.api_url + "/truckBase").then(function (data) {
+                if (data.success == true) {
+                    $scope.truckNumListList = data.result;
+                    $('#truckId').select2({
+                        placeholder: selectText,
+                        containerCssClass : 'select2_dropdown',
+                        allowClear: true
+                    })
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
+    }
+
+
     // 数据导出
     $scope.export = function () {
         // 基本检索URL
@@ -64,6 +116,7 @@ app.controller("instruction_driver_mileage_controller", ["$scope","$rootScope","
         $scope.drive_name=conditions.driveName;
         $scope.driver_mileage_startTime=conditions.dateIdStart;
         $scope.driver_mileage_endTime=conditions.dateIdEnd;
+        $scope.truckId=conditions.truckId;
     }
 
     /**
@@ -73,6 +126,7 @@ app.controller("instruction_driver_mileage_controller", ["$scope","$rootScope","
         return {
             taskStatus: 9,
             driveName: $scope.drive_name,
+            truckId: $scope.truckId,
             dateIdStart: $scope.driver_mileage_startTime,
             dateIdEnd: $scope.driver_mileage_endTime
         };
@@ -117,6 +171,7 @@ app.controller("instruction_driver_mileage_controller", ["$scope","$rootScope","
             if (pageItems.pageId === "instruction_driver_mileage") {
                 // 将上次的检索条件设定到画面
                 setConditions(pageItems.conditions);
+                getTruckNum(pageItems.conditions.truckId)
             }
         } else {
             // 初始显示时，没有前画面，所以没有基本信息
@@ -127,7 +182,8 @@ app.controller("instruction_driver_mileage_controller", ["$scope","$rootScope","
 
     }
     initData();
-
+    getDriveNameList ();
+    getTruckNum()
 
 
 

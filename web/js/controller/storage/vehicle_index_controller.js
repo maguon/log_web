@@ -18,7 +18,7 @@ app.controller("vehicle_index_controller", ['$scope', "$host", "_basic", functio
     $scope.trailer = 0;
     $scope.truckRepairCount = 0;
     $scope.quarantineTruck = 0;
-    $scope.quarantineDriver = 0;
+    $scope.useCar = 0;
     $scope.accidentTreatedCount = 0;
     $scope.accidentTreatmentCount = 0;
     $scope.accidentBearCompany = 0;
@@ -26,6 +26,8 @@ app.controller("vehicle_index_controller", ['$scope', "$host", "_basic", functio
     $scope.accidentBearTotal = 0;
     $scope.insurePlanCount = 0;
     $scope.insurePlanMoney = 0;
+    $scope.totalDriver = 0;
+    $scope.haveTotalDriver = 0;
 
 
     // 获取车辆信息
@@ -124,18 +126,15 @@ app.controller("vehicle_index_controller", ['$scope', "$host", "_basic", functio
             }
         });
 
-        // 待检司机
-        _basic.get($host.api_url + "/drive?licenseDateEnd=" + searchEnd).then(function (data) {
+        // 可用车辆
+        _basic.get($host.api_url + "/truckDispatchCount?dispatchFlag=1").then(function (data) {
             if (data.success === true) {
-                if(data.result.length !== 0){
-                    $scope.quarantineDriver = data.result.length;
-                }
-                // console.log("driver", data)
+                $scope.useCar =data.result[0].on_road_count+data.result[0].ready_accept_count;
             }
             else {
                 swal(data.msg, "", "error");
             }
-        });
+        })
     };
 
     // 获取本月事故，事故承担总额和待完成保险赔付信息
@@ -191,10 +190,28 @@ app.controller("vehicle_index_controller", ['$scope', "$host", "_basic", functio
         });
     };
 
+
+
+    //获取司机总数在职司机数
+    function getDriveTotal(){
+        _basic.get($host.api_url + "/driveTruckCount").then(function (data) {
+            if (data.success === true) {
+                if(data.result.length !== 0){
+                    $scope.totalDriver = data.result[0].total_drive;
+                    $scope.haveTotalDriver = data.result[0].drive_truck_count;
+                }
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        })
+    }
+
     $scope.queryData = function () {
         $scope.getTruckCountInfo();
         $scope.getRepairCountInfo();
         $scope.getAccidentInfo();
+        getDriveTotal();
     };
     $scope.queryData();
 }]);

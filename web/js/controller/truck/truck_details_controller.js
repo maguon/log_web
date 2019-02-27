@@ -100,7 +100,7 @@ app.controller("truck_details_controller", ["$scope","$rootScope", "$state", "$s
     $scope.head_query = function () {
 
         // 基本检索URL
-        var url = $host.api_url + "/truckFirst?truckType=1&start=" + $scope.head_start + "&size=" + $scope.head_size;
+        var url = $host.api_url + "/truckFirst?start=" + $scope.head_start + "&size=" + $scope.head_size;
         // 检索条件
         var conditionsObj = makeConditions();
         var conditions = _basic.objToUrl(conditionsObj);
@@ -223,7 +223,8 @@ app.controller("truck_details_controller", ["$scope","$rootScope", "$state", "$s
             licenseDateEnd:$scope.check_operation_endTime,
             drivingDateStart:$scope.search_checkCar_startTime,
             drivingDateEnd:$scope.search_checkCar_endTime,
-            brandId:$scope.truckBrand
+            brandId:$scope.truckBrand,
+            truckType:1
         };
     }
 
@@ -274,7 +275,7 @@ app.controller("truck_details_controller", ["$scope","$rootScope", "$state", "$s
     // 挂车接口查询
     $scope.hand_query = function () {
         // 基本检索URL
-        var url = $host.api_url + "/truckTrailer?truckType=2&start=" + $scope.hand_start + "&size=" + $scope.hand_size;
+        var url = $host.api_url + "/truckTrailer?start=" + $scope.hand_start + "&size=" + $scope.hand_size;
         // 检索条件
         var conditionsObj = makeConditions2();
         var conditions = _basic.objToUrl(conditionsObj);
@@ -387,7 +388,9 @@ app.controller("truck_details_controller", ["$scope","$rootScope", "$state", "$s
             licenseDateEnd : $scope.check_operation_hand_endTime,
             drivingDateStart :$scope.search_checkCar_hand_startTime,
             drivingDateEnd : $scope.search_checkCar_hand_endTime,
-            brandId : $scope.handBrand
+            brandId : $scope.handBrand,
+            truckType:2
+
         };
     }
 

@@ -324,6 +324,21 @@
                     <div class="col s3">
                         <p>商品车费用：<span style="color: #e57373">{{routeFeeInfo.refund_car_cost}}</span> 元</p>
                     </div>
+                    <div class="col s3">
+                        <p>进门费：<span style="color: #e57373">{{routeFeeInfo.refund_enter_cost}}</span> 元</p>
+                    </div>
+                    <div class="col s3">
+                        <p>地跑费：<span style="color: #e57373">{{routeFeeInfo.refund_run_cost}}</span> 元</p>
+                    </div>
+                    <div class="col s3">
+                        <p>拖车费：<span style="color: #e57373">{{routeFeeInfo.refund_trailer_cost}}</span> 元</p>
+                    </div>
+                    <div class="col s3">
+                        <p>维修配件费：<span style="color: #e57373">{{routeFeeInfo.refund_repair_cost}}</span> 元</p>
+                    </div>
+                    <div class="col s3">
+                        <p>保养费：<span style="color: #e57373">{{routeFeeInfo.refund_care_cost}}</span> 元</p>
+                    </div>
                 </div>
                 <div class="col s12" style="color: darkgray;font-size: 1.2rem">
                     <p><span style="font-weight: bold">发放备注：</span>{{routeFeeInfo.refund_explain}}</p>
@@ -391,6 +406,30 @@
 
 
                     <div class="col s3 input-field">
+                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="enter_cost_mod" name="enterCost" ng-model="enterCostMod">
+                        <label for="enter_cost_mod"> 进门费（元）</label>
+                    </div>
+                    <div class="col s3 input-field">
+                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="run_cost_mod" name="runCost" ng-model="runCostMod">
+                        <label for="run_cost_mod">地跑费（元）</label>
+                    </div>
+                    <div class="col s3 input-field">
+                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="trailer_cost_mod" name="trailerCost" ng-model="trailerCostMod">
+                        <label for="trailer_cost_mod">拖车费（元）</label>
+                    </div>
+                    <div class="col s3 input-field">
+                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="repair_cost_mod" name="repairCost" ng-model="repairCostMod">
+                        <label for="repair_cost_mod">维修配件费（元）</label>
+                    </div>
+                    <div class="col s3 input-field">
+                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="care_cost_mod" name="careCost" ng-model="careCostMod">
+                        <label for="care_cost_mod">保养费（元）</label>
+                    </div>
+
+
+
+
+                    <div class="col s3 input-field">
                         <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="repayment_money_mod" name="repayment_money_mod" ng-model="repaymentMoneyMod">
                         <label for="repayment_money_mod">还款金额（元）</label>
                     </div>
@@ -398,7 +437,7 @@
                         <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="profit_cost_mod" name="profit_cost_mod" ng-model="profitCostMod">
                         <label for="profit_cost_mod">盈亏（元）</label>
                     </div>
-                    <div class="col s6 input-field">
+                    <div class="col s3 input-field">
                         <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="reimbursement_money_mod" name="reimbursement_money_mod" ng-value="routeFeeInfo.grant_taxi_cost +routeFeeInfo.grant_parking_cost  +routeFeeInfo.grant_penalty_cost +routeFeeInfo.grant_protect_cost +routeFeeInfo.grant_fuel_cost +routeFeeInfo.grant_passing_cost " disabled>
                         <label for="reimbursement_money_mod">实际报销金额（元）</label>
                     </div>
@@ -417,7 +456,7 @@
                         </a>
                     </div>
                     <div class="col s2">
-                        <a ng-click="saveReimbursementInfo(roadCostMod,fuelCostMod,roadTollCostMod,fineCostMod,parkingCostMod,taxiCostMod,hotelCostMod,carCostMod)" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                        <a ng-click="saveReimbursementInfo(roadCostMod,fuelCostMod,roadTollCostMod,fineCostMod,parkingCostMod,taxiCostMod,hotelCostMod,carCostMod,enterCostMod,runCostMod,trailerCostMod,repairCostMod,careCostMod)" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
                             确定
                         </a>
                     </div>

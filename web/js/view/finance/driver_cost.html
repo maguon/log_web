@@ -56,6 +56,13 @@
                 <th data-field="">打车费</th>
                 <th data-field="">住宿费</th>
                 <th data-field="">商品车费用</th>
+
+
+                <th data-field="">进门费</th>
+                <th data-field="">地跑费</th>
+                <th data-field="">拖车费</th>
+                <th data-field="">维修配件费</th>
+                <th data-field="">保养费</th>
                 <th data-field="">货车维修费</th>
                 <th data-field="">违章扣款</th>
                 <th data-field="">超量扣款</th>
@@ -66,24 +73,29 @@
                 <td>{{driveInfo.drive_name==null?0:driveInfo.drive_name}}</td>
                 <td>{{driveInfo.actual_price==null?0:driveInfo.actual_price}}</td>
                 <td>{{driveInfo.actual_guard_fee==null?0:driveInfo.actual_guard_fee}}</td>
-                <td>{{driveInfo.grant_actual_money==null?0:driveInfo.grant_actual_money}}</td>
-                <td>{{driveInfo.grant_passing_cost==null?0:driveInfo.grant_passing_cost}}</td>
-                <td>{{driveInfo.grant_fuel_cost==null?0:driveInfo.grant_fuel_cost}}</td>
-                <td>{{driveInfo.grant_protect_cost==null?0:driveInfo.grant_protect_cost}}</td>
-                <td>{{driveInfo.grant_penalty_cost==null?0:driveInfo.grant_penalty_cost}}</td>
-                <td>{{driveInfo.grant_parking_cost==null?0:driveInfo.grant_parking_cost}}</td>
-                <td>{{driveInfo.grant_taxi_cost==null?0:driveInfo.grant_taxi_cost}}</td>
-                <td>{{driveInfo.grant_hotel_cost==null?0:driveInfo.grant_hotel_cost}}</td>
-                <td>{{driveInfo.grant_car_cost==null?0:driveInfo.grant_car_cost}}</td>
+                <td>{{driveInfo.refund_actual_money==null?0:driveInfo.refund_actual_money}}</td>
+                <td>{{driveInfo.refund_passing_cost==null?0:driveInfo.refund_passing_cost}}</td>
+                <td>{{driveInfo.refund_fuel_cost==null?0:driveInfo.refund_fuel_cost}}</td>
+                <td>{{driveInfo.refund_protect_cost==null?0:driveInfo.refund_protect_cost}}</td>
+                <td>{{driveInfo.refund_penalty_cost==null?0:driveInfo.refund_penalty_cost}}</td>
+                <td>{{driveInfo.refund_parking_cost==null?0:driveInfo.refund_parking_cost}}</td>
+                <td>{{driveInfo.refund_taxi_cost==null?0:driveInfo.refund_taxi_cost}}</td>
+                <td>{{driveInfo.refund_hotel_cost==null?0:driveInfo.refund_hotel_cost}}</td>
+                <td>{{driveInfo.refund_car_cost==null?0:driveInfo.refund_car_cost}}</td>
+                <td>{{driveInfo.refund_enter_cost==null?0:driveInfo.refund_enter_cost}}</td>
+                <td>{{driveInfo.refund_run_cost==null?0:driveInfo.refund_run_cost}}</td>
+                <td>{{driveInfo.refund_trailer_cost==null?0:driveInfo.refund_trailer_cost}}</td>
+                <td>{{driveInfo.refund_repair_cost==null?0:driveInfo.refund_repair_cost}}</td>
+                <td>{{driveInfo.refund_care_cost==null?0:driveInfo.refund_care_cost}}</td>
                 <td>{{driveInfo.repair_money==null?0:driveInfo.repair_money}}</td>
                 <td>{{driveInfo.peccancy_fine_money==null?0:driveInfo.peccancy_fine_money}}</td>
                 <td>{{driveInfo.exceed_oil_money==null?0:driveInfo.exceed_oil_money}}</td>
             </tr>
             <tr ng-if="driveList.length==0&&instruct_starTime!==undefined&&instruct_endTime!==undefined">
-                <td colspan="17">暂无数据</td>
+                <td colspan="22">暂无数据</td>
             </tr>
             <tr ng-if="instruct_starTime==undefined||instruct_endTime==undefined&&driveList.length==0">
-                <td colspan="17"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
+                <td colspan="22"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
             </tr>
             </tbody>
         </table>

@@ -226,10 +226,15 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$state","$sta
         $scope.taxiCostMod=$scope.routeFeeInfo.grant_taxi_cost;
         $scope.hotelCostMod=$scope.routeFeeInfo.grant_hotel_cost;
         $scope.carCostMod=$scope.routeFeeInfo.grant_car_cost;
+        $scope.enterCostMod = 0;
+        $scope.runCostMod= 0;
+        $scope.trailerCostMod= 0;
+        $scope.repairCostMod= 0;
+        $scope.careCostMod= 0;
     };
 
     // 模态框内点击确定保存信息
-    $scope.saveReimbursementInfo = function (roadCostMod,fuelCostMod,roadTollCostMod,fineCostMod,parkingCostMod,taxiCostMod,hotelCostMod,carCostMod) {
+    $scope.saveReimbursementInfo = function (roadCostMod,fuelCostMod,roadTollCostMod,fineCostMod,parkingCostMod,taxiCostMod,hotelCostMod,carCostMod,enterCostMod,runCostMod,trailerCostMod,repairCostMod,careCostMod) {
         var refundActualMoneyCost = parseFloat($("#reimbursement_money_mod").val()).toFixed(2);
         _basic.put($host.api_url + "/user/" + userId + "/dpRouteTaskLoanRepayment/" + routeFeeId,{
             refundPassingCost:  roadCostMod,
@@ -240,6 +245,11 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$state","$sta
             refundTaxiCost: taxiCostMod,
             refundHotelCost: hotelCostMod,
             refundCarCost: carCostMod,
+            refundEnterCost:enterCostMod,
+            refundRunCost: runCostMod,
+            refundTrailerCost:trailerCostMod,
+            refundRepairCost: repairCostMod,
+            refundCareCost: careCostMod,
             repaymentMoney: $scope.repaymentMoneyMod,
             refundActualMoney: parseFloat(refundActualMoneyCost),
             profit: $scope.profitCostMod,

@@ -356,7 +356,7 @@
                     财务人员：{{routeFeeInfo.refund_user_name}}
                 </div>
                 <div class="col s6 right-align" style="color: darkgray;font-size: 1.2rem;font-weight: bold;margin-bottom: 30px">
-                    报销时间：{{routeFeeInfo.refund_date | date:'yyyy-MM-dd HH:mm:ss'}}
+                    报销时间：{{routeFeeInfo.refund_date | date:'yyyy-MM-dd'}}
                 </div>
             </div>
         </div>
@@ -421,13 +421,19 @@
                         <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="repair_cost_mod" name="repairCost" ng-model="repairCostMod">
                         <label for="repair_cost_mod">维修配件费（元）</label>
                     </div>
-                    <div class="col s3 input-field">
-                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="care_cost_mod" name="careCost" ng-model="careCostMod">
-                        <label for="care_cost_mod">保养费（元）</label>
+                    <div class="col s12 ">
+                        <div class="col s3 input-field left-align" style="margin: 0;padding: 0;">
+                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="care_cost_mod" name="careCost" ng-model="careCostMod">
+                            <label for="care_cost_mod">保养费（元）</label>
+                        </div>
+
                     </div>
 
-
-
+                    <div class="input-field col s3">
+                        <input id="costAccDate" type="text" class="datepicker" ng-model="costAccDate" date form-date><i
+                            class="mdi dataIcon mdi-table-large"></i>
+                        <label for="costAccDate">成本核算时间</label>
+                    </div>
 
                     <div class="col s3 input-field">
                         <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="repayment_money_mod" name="repayment_money_mod" ng-model="repaymentMoneyMod">
@@ -439,9 +445,11 @@
                     </div>
                     <div class="col s3 input-field">
                         <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="reimbursement_money_mod" name="reimbursement_money_mod"
-                         ng-value="roadCostMod+fuelCostMod+roadTollCostMod+fineCostMod+parkingCostMod+taxiCostMod+hotelCostMod+carCostMod+enterCostMod+runCostMod+trailerCostMod+repairCostMod+careCostMod" disabled>
+                               ng-value="roadCostMod+fuelCostMod+roadTollCostMod+fineCostMod+parkingCostMod+taxiCostMod+hotelCostMod+carCostMod+enterCostMod+runCostMod+trailerCostMod+repairCostMod+careCostMod" disabled>
                         <label for="reimbursement_money_mod">实际报销金额（元）</label>
                     </div>
+
+
                     <div class="col s12 input-field">
                         <input type="text" id="remark_mod" name="remark_mod" ng-model="remarkMod">
                         <label for="remark_mod">备注：</label>

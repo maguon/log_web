@@ -1,5 +1,4 @@
 app.controller("finance_route_fee_details_controller", ["$scope", "$state","$stateParams", "$host", "_basic",  "_config",function ($scope, $state,$stateParams, $host, _basic,_config) {
-
     var userId = _basic.getSession(_basic.USER_ID);
     var routeFeeId = $stateParams.id;
     $scope.dpRouteTaskIds=[];
@@ -50,8 +49,10 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$state","$sta
             if (data.success === true) {
                 if(data.result.length==0){
                     $scope.matchMissionList =[];
+                    $scope.costAccDate = moment(new Date()).format('YYYY-MM-DD');
                 }else {
                     $scope.matchMissionList = data.result;
+                    $scope.costAccDate = data.result[0].task_plan_date;
                 }
             }
             else {
@@ -253,7 +254,8 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$state","$sta
             repaymentMoney: $scope.repaymentMoneyMod,
             refundActualMoney: parseFloat(refundActualMoneyCost),
             profit: $scope.profitCostMod,
-            refundExplain: $scope.remarkMod
+            refundExplain: $scope.remarkMod,
+            refundDate:$scope.costAccDate
         }).then(function (data) {
             if (data.success === true) {
                 getCurrentRouteFeeInfo();

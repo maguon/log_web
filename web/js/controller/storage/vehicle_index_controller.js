@@ -28,7 +28,7 @@ app.controller("vehicle_index_controller", ['$scope', "$host", "_basic", functio
     $scope.insurePlanMoney = 0;
     $scope.totalDriver = 0;
     $scope.haveTotalDriver = 0;
-
+    $scope.onRoadCount = 0;
 
     // 获取车辆信息
     $scope.getTruckCountInfo = function () {
@@ -129,6 +129,7 @@ app.controller("vehicle_index_controller", ['$scope', "$host", "_basic", functio
         // 可用车辆
         _basic.get($host.api_url + "/truckDispatchCount?dispatchFlag=1").then(function (data) {
             if (data.success === true) {
+                $scope.onRoadCount =data.result[0].on_road_count;
                 $scope.useCar =data.result[0].on_road_count+data.result[0].ready_accept_count;
             }
             else {

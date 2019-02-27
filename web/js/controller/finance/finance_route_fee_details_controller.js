@@ -229,12 +229,12 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$state","$sta
     };
 
     // 模态框内点击确定保存信息
-    $scope.saveReimbursementInfo = function (taxiCostMod,parkingCostMod,fineCostMod,roadCostMod,fuelCostMod,roadTollCostMod,hotelCostMod,carCostMod) {
+    $scope.saveReimbursementInfo = function (roadCostMod,fuelCostMod,roadTollCostMod,fineCostMod,parkingCostMod,taxiCostMod,hotelCostMod,carCostMod) {
         var refundActualMoneyCost = parseFloat($("#reimbursement_money_mod").val()).toFixed(2);
         _basic.put($host.api_url + "/user/" + userId + "/dpRouteTaskLoanRepayment/" + routeFeeId,{
-            refundPassingCost: roadTollCostMod,
+            refundPassingCost:  roadCostMod,
             refundFuelCost: fuelCostMod,
-            refundProtectCost: roadCostMod,
+            refundProtectCost:roadTollCostMod,
             refundPenaltyCost: fineCostMod,
             refundParkingCost:parkingCostMod,
             refundTaxiCost: taxiCostMod,

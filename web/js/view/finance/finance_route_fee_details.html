@@ -438,7 +438,8 @@
                         <label for="profit_cost_mod">盈亏（元）</label>
                     </div>
                     <div class="col s3 input-field">
-                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="reimbursement_money_mod" name="reimbursement_money_mod" ng-value="routeFeeInfo.grant_taxi_cost +routeFeeInfo.grant_parking_cost  +routeFeeInfo.grant_penalty_cost +routeFeeInfo.grant_protect_cost +routeFeeInfo.grant_fuel_cost +routeFeeInfo.grant_passing_cost " disabled>
+                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="reimbursement_money_mod" name="reimbursement_money_mod"
+                         ng-value="roadCostMod+fuelCostMod+roadTollCostMod+fineCostMod+parkingCostMod+taxiCostMod+hotelCostMod+carCostMod+enterCostMod+runCostMod+trailerCostMod+repairCostMod+careCostMod" disabled>
                         <label for="reimbursement_money_mod">实际报销金额（元）</label>
                     </div>
                     <div class="col s12 input-field">

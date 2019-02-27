@@ -45,6 +45,16 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
             name: 'F级',
             data: [],
             color: '#40da49'
+        },
+        {
+            name: '买断车',
+            data: [],
+            color: '#0000ff'
+        },
+        {
+            name: '退库车',
+            data: [],
+            color: '#ffff33'
         }
     ];
 
@@ -74,6 +84,16 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
             name: 'F级',
             data: [],
             color: '#40da49'
+        },
+        {
+            name: '买断车',
+            data: [],
+            color: '#0000ff'
+        },
+        {
+            name: '退库车',
+            data: [],
+            color: '#ffff33'
         }
     ];
 
@@ -181,6 +201,8 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
                 carDamageCountMonth[2].data = [];
                 carDamageCountMonth[3].data = [];
                 carDamageCountMonth[4].data = [];
+                carDamageCountMonth[5].data = [];
+                carDamageCountMonth[6].data = [];
                 // 赋予柱状图金额数组
                 for (var i = 0; i < data.result.length; i++) {
                     if (monthArr.indexOf(data.result[i].y_month) === -1) {
@@ -200,6 +222,12 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
                     }
                     if (data.result[i].id === 6) {
                         carDamageCountMonth[4].data.push(data.result[i].damage_count);
+                    }
+                    if (data.result[i].id === 7) {
+                        carDamageCountMonth[5].data.push(data.result[i].damage_count);
+                    }
+                    if (data.result[i].id === 8) {
+                        carDamageCountMonth[6].data.push(data.result[i].damage_count);
                     }
                 }
                 showVehicleDamageHistogramMonth();
@@ -243,6 +271,8 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
                 carDamageCountWeek[2].data = [];
                 carDamageCountWeek[3].data = [];
                 carDamageCountWeek[4].data = [];
+                carDamageCountWeek[5].data = [];
+                carDamageCountWeek[6].data = [];
                 // 赋予柱状图金额数组
                 for (var i = 0; i < data.result.length; i++) {
                     if (weekArr.indexOf(data.result[i].y_week) === -1) {
@@ -262,6 +292,12 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
                     }
                     if (data.result[i].id == 6) {
                         carDamageCountWeek[4].data.push(data.result[i].damage_count);
+                    }
+                    if (data.result[i].id == 7) {
+                        carDamageCountWeek[5].data.push(data.result[i].damage_count);
+                    }
+                    if (data.result[i].id == 8) {
+                        carDamageCountWeek[6].data.push(data.result[i].damage_count);
                     }
                 }
                 showVehicleDamageHistogramWeek();

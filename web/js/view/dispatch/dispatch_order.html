@@ -98,6 +98,7 @@
                 <th data-field="">货车</th>
                 <th data-field="">计划装车数</th>
                 <th data-field="">实际装车数</th>
+                <th data-field="">运载车辆数</th>
                 <th data-field="">计划执行时间</th>
                 <th data-field="">完成时间</th>
                 <th data-field="">调度</th>
@@ -114,6 +115,7 @@
                 <td ng-bind="el.truck_num"></td>
                 <td ng-bind="el.plan_count"></td>
                 <td ng-bind="el.real_count"></td>
+                <td ng-bind="el.car_count"></td>
                 <td ng-bind="el.task_plan_date |date:'yyyy-MM-dd'"></td>
                 <td ng-bind="el.task_end_date |date:'yyyy-MM-dd hh:mm'"></td>
                 <td>{{el.route_op_name }}</td>
@@ -125,7 +127,7 @@
                 </td>
             </tr>
             <tr class="grey-text text-darken-1" ng-if="dispatchOrderArray.length == 0">
-                <td colspan="12" style="letter-spacing: 2px;text-align: center;">暂无数据</td>
+                <td colspan="13" style="letter-spacing: 2px;text-align: center;">暂无数据</td>
             </tr>
             </tbody>
         </table>

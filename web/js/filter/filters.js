@@ -341,6 +341,12 @@ CommonFilter.filter("damageType", function () {
             case 6:
                 damageType = "F级";
                 break;
+            case 7:
+                damageType = "买断车";
+                break;
+            case 8:
+                damageType = "退库车";
+                break;
             default:
                 damageType = "未知";
         }

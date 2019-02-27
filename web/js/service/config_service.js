@@ -271,7 +271,10 @@ baseService.factory("_config", function () {
         {id: 2, typeLevel: "B级"},
         {id: 3, typeLevel: "C级"},
         {id: 4, typeLevel: "D级"},
-        {id: 6, typeLevel: "F级"}
+        {id: 6, typeLevel: "F级"},
+        {id: 7, typeLevel: "买断车"},
+        {id: 8, typeLevel: "退库车"}
+
     ];
 
     // 驾驶类型

@@ -340,6 +340,9 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
         // 新增车辆信息
         $scope.addCarItem = function () {
             if ($scope.vin!==''&&$scope.car_brand.id!==undefined&&$scope.car_brand.make_name!==undefined&&$scope.start_city.id!==undefined&&$scope.base_addr!==undefined&&$scope.client!=='') {
+               if($scope.shipName==undefined){
+                   $scope.shipName=null;
+               }
                 var obj = {
                     "vin": $scope.vin,
                     "makeId": $scope.car_brand.id,
@@ -352,6 +355,7 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                     "receiveId": $scope.dealer,
                     "entrustId": $scope.client,
                     "orderDate": $scope.arrival_time,
+                    "shipName": $scope.shipName,
                     "remark": $scope.remark
                 };
                 _basic.post($host.api_url + "/user/" + userId + "/car", _basic.removeNullProps(obj)).then(function (data) {
@@ -637,6 +641,7 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
             "routeEndId": $scope.arrive_city,
             "routeEnd":$scope.putArriveCity,
             "receiveId": $scope.commodityCarList.receive_id,
+            "shipName":$scope.commodityCarList.ship_name,
             "entrustId": $scope.commodityCarList.entrust_id
         };
         // 修改仓库信息

@@ -1,3 +1,14 @@
+
+  <!--视频播放模态框-->
+  <div class="row" style="margin: 0">
+      <div id="video" class="modal modal-fixed-footer" style="width: 75%;height: 500px">
+          <video id="example_video_1" class="video-js vjs-default-skin col s12" controls autoplay="autoplay" preload="none" style="width: 100%;height: 500px;margin: 0;padding: 0"
+                 poster="http://vjs.zencdn.net/v/oceans.png">
+              <source src={{videoUrl}} type="video/mp4">
+          </video>
+      </div>
+  </div>
+
 <div class="damage_management_details" style="width: 80%;margin: 0 auto">
     <div class="row">
         <div class="storage_storeTitle vc-center ">
@@ -133,6 +144,10 @@
                     </form>
                 </div>
                 <div class="col s11" id="damage_image">
+                    <div class="truck_car_picture col s3 vc-center p0 grey white-text" ng-hide="!video">
+                        <img src="http://vjs.zencdn.net/v/oceans.png" class="responsive-img" />
+                        <i class="mdi mdi-video " style="font-size:45px;position: absolute;top:35%;right: 35%;" ng-click="openVideo()"></i>
+                    </div>
                     <div ng-repeat="damage in damageImageList" repeat-finish="damageFinish()" ng-mouseenter="show=true" ng-mouseleave="show=false" class="truck_car_picture col s3 vc-center p0 grey white-text">
                         <img ng-src="{{damage.url}}" class="responsive-img">
                         <span class="delete_img vc-center black white-text fz19" ng-click="deleteImage(damage.url)"><i class="mdi mdi-close"></i></span>

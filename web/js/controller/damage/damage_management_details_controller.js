@@ -110,6 +110,20 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
                 swal(data.msg, "", "error");
             }
         });
+
+
+        var filedId = "5b206c1953846c47541e22ca";
+        _basic.get($host.file_url+'/user/'+userId+"/file?fileId="+filedId).then(function (data) {
+            if (data.success == true) {
+                if(data.result.length !== 0){
+                    $scope.video=true;
+                    $scope.videoUrl = $host.file_url+'/user/'+userId+"/file/"+filedId+"/video.mp4";
+                }
+            }
+            else {
+                $scope.video=false;
+            }
+        });
     };
 
     // 照片上传函数
@@ -577,6 +591,16 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
             }
         });
     };
+
+    $scope.openVideo =function (){
+        $(".modal").modal();
+        $("#video").modal("open");
+        var videoJs=document.querySelector('.video-js');
+        var player = videojs(videoJs,{
+            muted: false
+        });
+        player.fluid(true);
+    }
     // 获取数据
     $scope.queryData = function () {
         $scope.getCurrentDamageInfo();

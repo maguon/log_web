@@ -65,6 +65,11 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/damage/car_wash_fee_details.html",
             controller:'car_wash_fee_details_controller'
         })
+        .state("re_damage_statistics", {
+            url:"/re_damage_statistics",
+            templateUrl: "js/view/damage/re_damage_statistics.html",
+            controller:"re_damage_statistics_controller"
+        })
 
         // 商品车信息
         .state("car_query",{

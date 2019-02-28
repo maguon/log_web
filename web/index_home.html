@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="/assets/css/font.css">
     <link rel="stylesheet" href="./assets/css/picker.css">
     <link rel="icon" href="/assets/images/ico/logo_32.ico">
+    <link rel="stylesheet" href="/assets/plugins/video/dist/video-js.css" >
 
 </head>
 <body>
@@ -179,6 +180,7 @@
 
                         <li><a href="#!" ui-sref="damage_management"><i class="mdi mdi-chevron-right white-text "></i>质损管理</a></li>
                         <li><a href="#!" ui-sref="car_detection_statistics"><i class="mdi mdi-chevron-right white-text "></i>质检统计</a></li>
+                        <li><a href="#!" ui-sref="re_damage_statistics"><i class="mdi mdi-chevron-right white-text "></i>经销商质损统计</a></li>
                     </ul>
                 </div>
             </li>
@@ -336,6 +338,7 @@
 <script src="/assets/plugins/fullcalendar-3.3.0/fullcalendar.min.js"></script>
 <script src="/assets/plugins/fullcalendar-3.3.0/locale/zh-cn.js"></script>
 <script src="/assets/plugins/select2/select2.min.js"></script>
+
 <script src="/assets/plugins/jquery.cropit.js"></script>
 <script src="/assets/plugins/jQueryViewer/js/viewer.min.js"></script>
 <script src="/assets/plugins/materialize/js/materialize.js"></script>
@@ -491,6 +494,8 @@
 <script src="/js/controller/truck/add_damage_insurance_details_controller.js"></script>
 <script src="/js/controller/damage/move_car_statistics_controller.js"></script>
 <script src="/js/controller/damage/car_detection_statistics_controller.js"></script>
+<script src="/js/controller/damage/re_damage_statistics_controller.js"></script>
+
 <!--财务管理-->
 <script src="/js/controller/finance/dispatch_route_requ_controller.js"></script>
 <script src="/js/controller/finance/truck_compensate_loan_controller.js"></script>
@@ -523,4 +528,7 @@
 <!--下载app-->
 <script src="/js/controller/download/admin_download_app_controller.js"></script>
 
+
+<!--视频播放器-->
+<script src="/assets/plugins/video/dist/video.js"></script>
 </html>

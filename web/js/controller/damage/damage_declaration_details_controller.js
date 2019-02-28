@@ -5,6 +5,7 @@ app.controller("damage_declaration_details_controller", ["$scope","$state", "$st
     $scope.driverModify = false;
     $scope.damageStatus = $stateParams.status;
     $scope.damageImageList = [];
+    $scope.video =false;
 
     // 返回
     $scope.return = function () {
@@ -97,8 +98,9 @@ app.controller("damage_declaration_details_controller", ["$scope","$state", "$st
         });
     };
 
-    // 获取当前质损照片
+    // 获取当前质损照片  和视频
     $scope.getCurrentDamageImage = function () {
+
         _basic.get($host.record_url + "/damageRecord?damageId=" + damageId).then(function (data) {
             if (data.success === true) {
                 if(data.result.length !== 0){
@@ -112,6 +114,29 @@ app.controller("damage_declaration_details_controller", ["$scope","$state", "$st
                 swal(data.msg, "", "error");
             }
         });
+
+      /*  var videoJs=document.querySelector('.video-js');
+        console.log(videoJs)
+        var player = videojs(videoJs);
+        console.log(player)
+        player.size(468, 707);
+        player.fluid(true);*/
+
+
+
+        var filedId = "5b206c1953846c47541e22ca";
+        _basic.get($host.file_url+'/user/'+userId+"/file?fileId="+filedId).then(function (data) {
+            if (data.success == true) {
+                if(data.result.length !== 0){
+                    $scope.video=true;
+                    $scope.videoUrl = $host.file_url+'/user/'+userId+"/file/"+filedId+"/video.mp4";
+                }
+            }
+            else {
+                $scope.video=false;
+            }
+        });
+
     };
 
     // 照片上传函数

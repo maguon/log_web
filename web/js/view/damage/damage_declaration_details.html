@@ -1,82 +1,127 @@
 
 <div class="damage_declaration_details" style="width:80%;margin: 0 auto">
     <div class="row">
-        <div class="storage_storeTitle vc-center ">
-            <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
-                <i class="mdi mdi-arrow-left-bold"></i>
-            </a>
-            <h4 class="center-align cyan-text text-lighten-1">质损申报详细</h4>
+    <div class="storage_storeTitle vc-center ">
+        <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
+            <i class="mdi mdi-arrow-left-bold"></i>
+        </a>
+        <h4 class="center-align cyan-text text-lighten-1">质损申报详细</h4>
+    </div>
+    <ul class="tabs ui-tabs tabs-fixed-width tab-demo z-depth-1"
+        style="font-size: 25px;font-weight: bold;overflow-x: hidden;margin-bottom: 25px" ul-tabs>
+        <li class="tab"><a ng-click="showDamageDetails()" class="cyan-text"  style="line-height: 40px" href="javascript:void(0)">基本信息</a></li>
+        <li class="tab"><a ng-click="showDamageImages()" class="cyan-text"  style="line-height: 40px" href="javascript:void(0)">照片</a></li>
+    </ul>
+    <!--待处理-->
+    <div class="damage_details_step_1" ng-if="damageStatus == 1 && !photoClick" style="font-size: 1.1rem;font-weight: bold;color: darkgray;display: inline-block">
+        <div class="row col s12 valign-wrapper">
+            <div class="input-field col s4">
+                <input disabled id="person" name="phone" type="text" ng-model="currentDamageInfo.declare_user_name">
+                <label for="person">申报人</label>
+            </div>
+            <div class="input-field col s4">
+                <input disabled id="date" name="phone" type="text" ng-model="currentDamageInfo.created_on">
+                <label for="date">申报日期</label>
+            </div>
+            <div class="col s4">
+                <p style="font-size: 1.5rem;color: rgb(230,123,123);margin: 10px 0">待处理</p>
+            </div>
         </div>
-        <ul class="tabs ui-tabs tabs-fixed-width tab-demo z-depth-1"
-            style="font-size: 25px;font-weight: bold;overflow-x: hidden;margin-bottom: 25px" ul-tabs>
-            <li class="tab"><a ng-click="showDamageDetails()" class="cyan-text"  style="line-height: 40px" href="javascript:void(0)">基本信息</a></li>
-            <li class="tab"><a ng-click="showDamageImages()" class="cyan-text"  style="line-height: 40px" href="javascript:void(0)">照片</a></li>
-        </ul>
-        <!--待处理-->
-        <div class="damage_details_step_1" ng-if="damageStatus == 1 && !photoClick" style="font-size: 1.1rem;font-weight: bold;color: darkgray;display: inline-block">
-            <div class="row col s12 valign-wrapper">
-                <div class="input-field col s4">
-                    <input disabled id="person" name="phone" type="text" ng-model="currentDamageInfo.declare_user_name">
-                    <label for="person">申报人</label>
-                </div>
-                <div class="input-field col s4">
-                    <input disabled id="date" name="phone" type="text" ng-model="currentDamageInfo.created_on">
-                    <label for="date">申报日期</label>
-                </div>
-                <div class="col s4">
-                    <p style="font-size: 1.5rem;color: rgb(230,123,123);margin: 10px 0">待处理</p>
-                </div>
+        <div class="row col s12">
+            <div class="input-field col s4">
+                <input disabled id="vin" name="phone" type="text" ng-model="currentDamageInfo.vin">
+                <label for="vin">VIN</label>
             </div>
-            <div class="row col s12">
-                <div class="input-field col s4">
-                    <input disabled id="vin" name="phone" type="text" ng-model="currentDamageInfo.vin">
-                    <label for="vin">VIN</label>
-                </div>
-                <div class="input-field col s4">
-                    <input disabled id="brand" name="phone" type="text" ng-model="currentDamageInfo.make_name">
-                    <label for="brand">品牌</label>
-                </div>
-                <div class="input-field col s4">
-                    <input disabled id="entrust" name="phone" type="text" ng-model="currentDamageInfo.en_short_name">
-                    <label for="entrust">委托方</label>
-                </div>
+            <div class="input-field col s4">
+                <input disabled id="brand" name="phone" type="text" ng-model="currentDamageInfo.make_name">
+                <label for="brand">品牌</label>
             </div>
-            <div class="row col s12">
-                <div class="input-field col s4">
-                    <input id="autocomplete-input-driver" name="phone" type="text" ng-change="hasModifyDriver()" ng-model="driverName">
-                    <label for="autocomplete-input-driver">司机</label>
-                </div>
-                <div class="input-field col s4">
-                    <input disabled id="code" name="phone" type="text" ng-model="truckNum">
-                    <label for="code">货车编号</label>
-                </div>
-                <div class="input-field col s4">
-                    <input disabled id="distributor" name="phone" type="text" ng-model="currentDamageInfo.re_short_name">
-                    <label for="distributor">经销商</label>
-                </div>
+            <div class="input-field col s4">
+                <input disabled id="entrust" name="phone" type="text" ng-model="currentDamageInfo.en_short_name">
+                <label for="entrust">委托方</label>
             </div>
-            <div class="row col s12">
-                <div class="col s12">
-                    <p><span class="cyan-text" >质损说明：</span></p>
-                </div>
-                <div class="col s12">
-                    <div class="col s12" style="padding: 0;">
+        </div>
+        <div class="row col s12">
+            <div class="input-field col s4">
+                <input id="autocomplete-input-driver" name="phone" type="text" ng-change="hasModifyDriver()" ng-model="driverName">
+                <label for="autocomplete-input-driver">司机</label>
+            </div>
+            <div class="input-field col s4">
+                <input disabled id="code" name="phone" type="text" ng-model="truckNum">
+                <label for="code">货车编号</label>
+            </div>
+            <div class="input-field col s4">
+                <input disabled id="distributor" name="phone" type="text" ng-model="currentDamageInfo.re_short_name">
+                <label for="distributor">经销商</label>
+            </div>
+        </div>
+        <div class="row col s12">
+            <div class="col s12">
+                <p><span class="cyan-text" >质损说明：</span></p>
+            </div>
+            <div class="col s12">
+                <div class="col s12" style="padding: 0;">
                     <textarea style="height: 150px" name="remark" id="remark" cols="30" rows="10"
                               ng-model="currentDamageInfo.damage_explain"></textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="row col s12">
-                <div class="col s2 offset-s5">
-                    <a ng-click="submitModifyInfo()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
-                        确定
-                    </a>
                 </div>
             </div>
         </div>
-        <!--处理中-->
-        <div class="damage_details_step_2" ng-if="damageStatus == 2 && !photoClick" style="font-size: 1.1rem;font-weight: bold;color: darkgray;display: inline-block">
-            <div class="row col s12 valign-wrapper">
+        <div class="row col s12">
+            <div class="col s2 offset-s5">
+                <a ng-click="submitModifyInfo()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                    确定
+                </a>
+            </div>
+        </div>
+    </div>
+    <!--处理中-->
+    <div class="damage_details_step_2" ng-if="damageStatus == 2 && !photoClick" style="font-size: 1.1rem;font-weight: bold;color: darkgray;display: inline-block">
+        <div class="row col s12 valign-wrapper">
+            <div class="col s4">
+                <p><span class="cyan-text" >申报人：</span>{{currentDamageInfo.declare_user_name}}&emsp;&emsp;<span>{{currentDamageInfo.type | department}}</span></p>
+            </div>
+            <div class="col s4">
+                <p><span class="cyan-text" >申报日期：</span>{{currentDamageInfo.created_on}}</p>
+            </div>
+            <div class="col s4">
+                <p style="font-size: 1.5rem;margin: 10px 0" class="cyan-text">处理中</p>
+            </div>
+        </div>
+        <div class="row col s12">
+            <div class="col s4">
+                <p><span class="cyan-text" >VIN：</span>{{currentDamageInfo.vin}}</p>
+            </div>
+            <div class="col s4">
+                <p><span class="cyan-text" >品牌：</span>{{currentDamageInfo.make_name}}</p>
+            </div>
+            <div class="col s4">
+                <p><span class="cyan-text" >委托方：</span>{{currentDamageInfo.en_short_name}}</p>
+            </div>
+        </div>
+        <div class="row col s12">
+            <div class="col s4">
+                <p><span class="cyan-text" >货车牌号：</span>{{currentDamageInfo.truck_num}}</p>
+            </div>
+            <div class="col s4">
+                <p><span class="cyan-text" >司机：</span>{{currentDamageInfo.drive_name}}</p>
+            </div>
+            <div class="col s4">
+                <p><span class="cyan-text">经销商：</span>{{currentDamageInfo.re_short_name}}</p>
+            </div>
+        </div>
+        <div class="row col s12">
+            <div class="col s12">
+                <p><span class="cyan-text" >质损说明：</span></p>
+            </div>
+            <div class="col s12">
+                <p>{{currentDamageInfo.damage_explain}}</p>
+            </div>
+        </div>
+    </div>
+    <!--已处理-->
+    <div class="damage_details_step_3" ng-if="damageStatus == 3 && !photoClick" style="font-size: 1.1rem;font-weight: bold;color: darkgray;display: inline-block">
+        <div class="row col s12">
+            <div class="col s12">
                 <div class="col s4">
                     <p><span class="cyan-text" >申报人：</span>{{currentDamageInfo.declare_user_name}}&emsp;&emsp;<span>{{currentDamageInfo.type | department}}</span></p>
                 </div>
@@ -84,10 +129,10 @@
                     <p><span class="cyan-text" >申报日期：</span>{{currentDamageInfo.created_on}}</p>
                 </div>
                 <div class="col s4">
-                    <p style="font-size: 1.5rem;margin: 10px 0" class="cyan-text">处理中</p>
+                    <p style="font-size: 1.5rem;margin: 10px 0">已处理</p>
                 </div>
             </div>
-            <div class="row col s12">
+            <div class="col s12">
                 <div class="col s4">
                     <p><span class="cyan-text" >VIN：</span>{{currentDamageInfo.vin}}</p>
                 </div>
@@ -98,144 +143,106 @@
                     <p><span class="cyan-text" >委托方：</span>{{currentDamageInfo.en_short_name}}</p>
                 </div>
             </div>
-            <div class="row col s12">
+            <div class="col s12">
                 <div class="col s4">
                     <p><span class="cyan-text" >货车牌号：</span>{{currentDamageInfo.truck_num}}</p>
                 </div>
                 <div class="col s4">
-                    <p><span class="cyan-text" >司机：</span>{{currentDamageInfo.drive_name}}</p>
+                    <p><span class="cyan-text"  >司机：</span>{{currentDamageInfo.drive_name}}</p>
                 </div>
                 <div class="col s4">
-                    <p><span class="cyan-text">经销商：</span>{{currentDamageInfo.re_short_name}}</p>
+                    <p><span class="cyan-text" >经销商：</span>{{currentDamageInfo.re_short_name}}</p>
                 </div>
             </div>
-            <div class="row col s12">
+            <div class="col s12">
                 <div class="col s12">
-                    <p><span class="cyan-text" >质损说明：</span></p>
+                    <p><span class="cyan-text">质损说明：</span></p>
                 </div>
                 <div class="col s12">
                     <p>{{currentDamageInfo.damage_explain}}</p>
                 </div>
             </div>
         </div>
-        <!--已处理-->
-        <div class="damage_details_step_3" ng-if="damageStatus == 3 && !photoClick" style="font-size: 1.1rem;font-weight: bold;color: darkgray;display: inline-block">
-            <div class="row col s12">
-                <div class="col s12">
-                    <div class="col s4">
-                        <p><span class="cyan-text" >申报人：</span>{{currentDamageInfo.declare_user_name}}&emsp;&emsp;<span>{{currentDamageInfo.type | department}}</span></p>
-                    </div>
-                    <div class="col s4">
-                        <p><span class="cyan-text" >申报日期：</span>{{currentDamageInfo.created_on}}</p>
-                    </div>
-                    <div class="col s4">
-                        <p style="font-size: 1.5rem;margin: 10px 0">已处理</p>
-                    </div>
+        <div class="row col s12" style="border-top: 1px solid darkgray"></div>
+        <div class="row col s12">
+            <div class="row col s12 cyan-text" style="font-size: 1.2rem;font-weight: bold">
+                <div class="col s6">
+                    <p>质损类型：{{damageInfoBefore.damage_type | damageType}}</p>
                 </div>
-                <div class="col s12">
-                    <div class="col s4">
-                        <p><span class="cyan-text" >VIN：</span>{{currentDamageInfo.vin}}</p>
-                    </div>
-                    <div class="col s4">
-                        <p><span class="cyan-text" >品牌：</span>{{currentDamageInfo.make_name}}</p>
-                    </div>
-                    <div class="col s4">
-                        <p><span class="cyan-text" >委托方：</span>{{currentDamageInfo.en_short_name}}</p>
-                    </div>
-                </div>
-                <div class="col s12">
-                    <div class="col s4">
-                        <p><span class="cyan-text" >货车牌号：</span>{{currentDamageInfo.truck_num}}</p>
-                    </div>
-                    <div class="col s4">
-                        <p><span class="cyan-text"  >司机：</span>{{currentDamageInfo.drive_name}}</p>
-                    </div>
-                    <div class="col s4">
-                        <p><span class="cyan-text" >经销商：</span>{{currentDamageInfo.re_short_name}}</p>
-                    </div>
-                </div>
-                <div class="col s12">
-                    <div class="col s12">
-                        <p><span class="cyan-text">质损说明：</span></p>
-                    </div>
-                    <div class="col s12">
-                        <p>{{currentDamageInfo.damage_explain}}</p>
-                    </div>
+                <div class="col s6">
+                    <p>质损环节：{{damageInfoBefore.damage_link_type | damageLinkType}}</p>
                 </div>
             </div>
-            <div class="row col s12" style="border-top: 1px solid darkgray"></div>
-            <div class="row col s12">
-                <div class="row col s12 cyan-text" style="font-size: 1.2rem;font-weight: bold">
-                    <div class="col s6">
-                        <p>质损类型：{{damageInfoBefore.damage_type | damageType}}</p>
-                    </div>
-                    <div class="col s6">
-                        <p>质损环节：{{damageInfoBefore.damage_link_type | damageLinkType}}</p>
-                    </div>
-                </div>
 
-                <div class="row col s12" style="color: darkgray;font-size: 1.1rem;font-weight: bold">
-                    <div class="col s3">
-                        <p>降价费：<span style="color: #e18281">{{damageInfoBefore.reduction_cost.toFixed(2)}}</span> 元</p>
-                    </div>
-                    <div class="col s3">
-                        <p>罚款：<span style="color: #e18281">{{damageInfoBefore.penalty_cost.toFixed(2)}}</span> 元</p>
-                    </div>
-                    <div class="col s3">
-                        <p>盈亏：<span style="color: #e18281">{{damageInfoBefore.profit.toFixed(2)}}</span> 元</p>
-                    </div>
-                    <div class="col s3">
-                        <p>运费：<span style="color: #e18281">{{damageInfoBefore.transport_cost.toFixed(2)}}</span> 元</p>
-                    </div>
+            <div class="row col s12" style="color: darkgray;font-size: 1.1rem;font-weight: bold">
+                <div class="col s3">
+                    <p>降价费：<span style="color: #e18281">{{damageInfoBefore.reduction_cost.toFixed(2)}}</span> 元</p>
                 </div>
-                <div class="row col s12" style="color: darkgray;font-size: 1.1rem;font-weight: bold">
-                    <div class="col s6">
-                        <p>维修站：{{damageInfoBefore.repair_station_name}}</p>
-                    </div>
-                    <div class="col s3">
-                        <p>维修费：<span style="color: #e18281">{{damageInfoBefore.repair_cost.toFixed(2)}}</span> 元</p>
-                    </div>
-                    <div class="col s3">
-                        <p>报销人：{{damageInfoBefore.refund_user_name}}</p>
-                    </div>
+                <div class="col s3">
+                    <p>罚款：<span style="color: #e18281">{{damageInfoBefore.penalty_cost.toFixed(2)}}</span> 元</p>
                 </div>
-                <div class="row col s12 cyan-text" style="font-size: 1.2rem;font-weight: bold">
-                    <div class="col s4">
-                        <p>公司承担费用：<span style="color: #e18281">{{damageInfoBefore.company_cost.toFixed(2)}}</span> 元</p>
-                    </div>
-                    <div class="col s4">
-                        <p>责任人：{{damageInfoBefore.under_user_name}}</p>
-                    </div>
-                    <div class="col s4">
-                        <p>责任人承担费用：<span style="color: #e18281">{{damageInfoBefore.under_cost.toFixed(2)}}</span> 元</p>
-                    </div>
+                <div class="col s3">
+                    <p>盈亏：<span style="color: #e18281">{{damageInfoBefore.profit.toFixed(2)}}</span> 元</p>
                 </div>
-
+                <div class="col s3">
+                    <p>运费：<span style="color: #e18281">{{damageInfoBefore.transport_cost.toFixed(2)}}</span> 元</p>
+                </div>
+            </div>
+            <div class="row col s12" style="color: darkgray;font-size: 1.1rem;font-weight: bold">
+                <div class="col s6">
+                    <p>维修站：{{damageInfoBefore.repair_station_name}}</p>
+                </div>
+                <div class="col s3">
+                    <p>维修费：<span style="color: #e18281">{{damageInfoBefore.repair_cost.toFixed(2)}}</span> 元</p>
+                </div>
+                <div class="col s3">
+                    <p>报销人：{{damageInfoBefore.refund_user_name}}</p>
+                </div>
+            </div>
+            <div class="row col s12 cyan-text" style="font-size: 1.2rem;font-weight: bold">
+                <div class="col s4">
+                    <p>公司承担费用：<span style="color: #e18281">{{damageInfoBefore.company_cost.toFixed(2)}}</span> 元</p>
+                </div>
+                <div class="col s4">
+                    <p>责任人：{{damageInfoBefore.under_user_name}}</p>
+                </div>
+                <div class="col s4">
+                    <p>责任人承担费用：<span style="color: #e18281">{{damageInfoBefore.under_cost.toFixed(2)}}</span> 元</p>
+                </div>
             </div>
 
         </div>
 
-        <!--显示图片-->
-        <div class="row col s12 showDamageImage center-align" ng-if="photoClick" style="margin-top: 50px">
-            <div class="col s1" ng-hide="damageStatus == 3">
-                <form name="uploadImageForm" class="uploadImageForm vc-center" style="display: inline-block">
-                    <div class="upload_btn">
-                        <div style="margin: 0;width: 80px"
-                             class="storage_car_picture col s4 vc-center p0 cyan lighten-1 white-text">
-                            <input name="image" type="file"
-                                   onchange="angular.element(this).scope().uploadDamageImage(this)" max_size="4M">
-                            <i class="mdi mdi-instagram"></i>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="col s11" id="damage_image">
-                <div ng-repeat="damage in damageImageList" repeat-finish="damageFinish()" ng-mouseenter="show=true" ng-mouseleave="show=false" class="truck_car_picture col s3 vc-center p0 grey white-text">
-                    <img ng-src="{{damage.url}}" class="responsive-img">
-                    <p style="margin-bottom: 0" class="img_date white-text center-align" ng-show="show" ng-cloak>{{damage.name}}上传于{{damage.timez | date:'yyyy-MM-dd'}}</p>
-                </div>
-            </div>
+    </div>
 
+    <!--显示图片-->
+    <div class="row col s12  center-align" ng-if="photoClick">
+        <!--视频播放-->
+        <div class="col s11 left-align offset-s1" ng-if="video">
+            <video id="example_video_1" class="video-js vjs-default-skin " controls preload="none" style="width: 51%;height: 210px">
+                <source src={{videoUrl}} type="video/mp4">
+            </video>
+        </div>
+
+        <div class="col s1" ng-hide="damageStatus == 3">
+            <form name="uploadImageForm" class="uploadImageForm vc-center" style="display: inline-block">
+                <div class="upload_btn">
+                    <div style="margin: 0;width: 80px"
+                         class="storage_car_picture col s4 vc-center p0 cyan lighten-1 white-text">
+                        <input name="image" type="file"
+                               onchange="angular.element(this).scope().uploadDamageImage(this)" max_size="4M">
+                        <i class="mdi mdi-instagram"></i>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col s11" id="damage_image">
+            <div ng-repeat="damage in damageImageList" repeat-finish="damageFinish()" ng-mouseenter="show=true" ng-mouseleave="show=false" class="truck_car_picture col s3 vc-center p0 grey white-text">
+                <img ng-src="{{damage.url}}" class="responsive-img">
+                <p style="margin-bottom: 0" class="img_date white-text center-align" ng-show="show" ng-cloak>{{damage.name}}上传于{{damage.timez | date:'yyyy-MM-dd'}}</p>
+            </div>
         </div>
     </div>
+
+</div>
 </div>

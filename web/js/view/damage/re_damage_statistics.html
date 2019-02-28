@@ -1,0 +1,153 @@
+<div class="re_damage_statistics" style="width: 85%;margin: 0 auto">
+    <div class="row valign-wrapper">
+        <h5 class="col s12 cyan-text lighten-1 center-align">
+            经销商质损统计
+        </h5>
+    </div>
+    <!--柱状图-->
+    <div style="width: 98.6%">
+        <!--商品车品牌，按月统计-->
+        <div class="row z-depth-2">
+            <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                <div class="col s4 left">
+                    <p>车辆品牌质损-按月统计</p>
+                </div>
+
+                <!--条件-->
+                <div class="col s8 right">
+                    <div class="col s3 left">
+                        <select id="truck_brand" name="truck_brand" material-select watch ng-model="truckBrand">
+                            <option value="">请选择</option>
+                            <option ng-repeat="el in carMakeList" ng-value="el.id">{{el.make_name}}</option>
+                        </select>
+                    </div>
+                    <div class="col s2 left">
+                        <p class="right">选择日期区间:</p>
+                    </div>
+                    <div class="col s2">
+                        <input id="chooseBrandStartMonth" type="text" ng-value="brandStartInitial" readonly>
+                    </div>
+                    <div class="col s1 center">
+                        <p>至</p>
+                    </div>
+                    <div class="col s2">
+                        <input id="chooseBrandEndMonth" type="text" ng-value="brandEndInitial" readonly>
+                    </div>
+                    <div class="col s2 center">
+                        <i class="mdi mdi-magnify" ng-click="queryCountBand()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--商品车品牌统计-柱状图-->
+            <div class="col s8">
+                <div id="bandStatisticsMonth" style="min-width:400px;height:500px;margin: 10px 0 10px 0"></div>
+            </div>
+
+
+            <!--top10排行榜-->
+            <div class="col s4">
+                <div style="height:500px;margin-top:10px;background-color: white">
+                    <div class="col s12 center-align" style="font-size: 1.2rem;font-weight: bold;color: #90A4AE">
+                        <p style="margin: 10px 0">车辆品牌质损 <span style="color: #ff7e7e">TOP10</span></p>
+                    </div>
+                    <div ng-repeat="bandMouthItem in bandMouthList" class="col s12 valign-wrapper" style="margin: 5px 0">
+                        <div class="col s1 right-align" style="padding: 0;">
+                            <span class="white lighten-2 center" style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">{{$index + 1}}</span>
+                        </div>
+                        <div class="col s3 center-align">
+                            <span style="color: grey;font-weight: bold">{{bandMouthItem.make_name}}</span>
+                        </div>
+                        <div class="col s5 progress" style="margin: 1rem 0;background-color: #ffdcdc;">
+                            <div class="determinate" style="width: {{bandMouthItem.percentage + '%'}};background-color: #FF7E7E;"></div>
+                        </div>
+                        <div class="col s3">
+                            <span style="color: #ff8282;font-weight: bold">{{bandMouthItem.damage_count}}</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <!--商品车经销商，按月统计-->
+        <div class="row z-depth-2">
+            <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                <div class="col s4 left">
+                    <p>车辆经销商质损-按月统计</p>
+                </div>
+
+                <!--条件-->
+                <div class="col s8 right">
+                    <div class="col s6 left">
+                        <div class="col s5 ">
+                            <select id="end_city" name="state" style="width:100%" ng-change="getRecive()" ng-model="cityId">
+                                <option value=""></option>
+                                <option value="0" >清除选择</option>
+                                <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
+                            </select>
+                        </div>
+                        <div class="col s7 ">
+                            <select material-select watch ng-model="distributor">
+                                <option value="" selected>经销商</option>
+                                <option ng-repeat="rec in receiveList" ng-value="rec.id">{{rec.short_name}}</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="col s2 left">
+                        <p class="right">选择日期区间:</p>
+                    </div>
+                    <div class="col s3 left">
+                        <div class="col s5">
+                            <input id="reciveStartMonth" type="text" ng-value="reciveStartInitial" readonly>
+                        </div>
+                        <div class="col s2 center">
+                            <p>至</p>
+                        </div>
+                        <div class="col s5">
+                            <input id="reciveEndMonth" type="text" ng-value="reciveEndInitial" readonly>
+                        </div>
+                    </div>
+
+                    <div class="col s1 center">
+                        <i class="mdi mdi-magnify" ng-click="reciveQueryCount()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--商品车品牌统计-柱状图-->
+            <div class="col s8">
+                <div id="reciveStatisticsMonth" style="min-width:400px;height:500px;margin: 10px 0 10px 0"></div>
+            </div>
+            <div class="col s4">
+                <div style="height:500px;margin-top:10px;background-color: white">
+                    <div class="col s12 center-align" style="font-size: 1.2rem;font-weight: bold;color: #90A4AE">
+                        <p style="margin: 10px 0">车辆经销商质损 <span style="color: #ff7e7e">TOP10</span></p>
+                    </div>
+
+                    <!--top10排行榜-->
+                    <div ng-repeat="reciveMouthItem in reciveMouthList" class="col s12 valign-wrapper" style="margin: 5px 0">
+                        <div class="col s1 right-align" style="padding: 0;">
+                            <span class="white lighten-2 center" style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">{{$index + 1}}</span>
+                        </div>
+                        <div class="col s3 center-align">
+                            <span style="color: grey;font-weight: bold">{{reciveMouthItem.short_name}}</span>
+                        </div>
+                        <div class="col s5 progress" style="margin: 1rem 0;background-color: #ffdcdc;">
+                            <div class="determinate" style="width: {{personMouthItem.percentage + '%'}};background-color: #FF7E7E;"></div>
+                        </div>
+                        <div class="col s3">
+                            <span style="color: #ff8282;font-weight: bold">{{reciveMouthItem.damage_count}}</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>

@@ -65,6 +65,12 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/damage/car_wash_fee_details.html",
             controller:'car_wash_fee_details_controller'
         })
+        .state("re_damage_statistics", {
+            url:"/re_damage_statistics",
+            templateUrl: "js/view/damage/re_damage_statistics.html",
+            controller:"re_damage_statistics_controller"
+        })
+
         // 管理员设置
         .state("setting_users", {
             url: "/setting_users",

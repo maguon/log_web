@@ -297,6 +297,10 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                         placeholder: '发运地城市',
                         containerCssClass : 'select2_dropdown'
                     });
+                    $('#arrive_city').select2({
+                        placeholder: '目的地城市',
+                        containerCssClass : 'select2_dropdown'
+                    });
                 }
             });
 

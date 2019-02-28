@@ -307,7 +307,7 @@ app.controller("re_damage_statistics_controller", ["$scope", "$host", "_basic", 
                     $scope.receiveMonth.push(data.result[i].y_month);
                     reciveCountMonth[0].data.push(data.result[i].car_count);
                 }
-                createCarMakeMonthChart();
+                createReciveMonthChart();
             } else{
                 swal(data.msg, "", "error");
             }
@@ -339,10 +339,10 @@ app.controller("re_damage_statistics_controller", ["$scope", "$host", "_basic", 
     $scope.queryData = function () {
         getBandCount($scope.brandStartInitial,$scope.brandEndInitial);
         getReciveCount($scope.reciveStartInitial,$scope.reciveEndInitial);
+        reciveMonthTop($scope.reciveStartInitial,$scope.reciveEndInitial);
+        bandMonthTop($scope.brandStartInitial,$scope.brandEndInitial);
         getCarMakeData();
         getCityList();
-        $scope.reciveQueryCount();
-        $scope.queryCountBand();
     };
     $scope.queryData();
 }]);

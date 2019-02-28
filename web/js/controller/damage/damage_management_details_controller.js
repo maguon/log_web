@@ -100,6 +100,10 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
             if (data.success === true) {
                 if(data.result.length !== 0){
                     $scope.damageImageList = data.result[0].damage_image;
+                    $scope.damageImagevideo = data.result[0].damage_video;
+                    if($scope.damageImagevideo){
+
+                    }
                     recordId = data.result[0]._id;
                     for (var i = 0; i < $scope.damageImageList.length; i++) {
                         $scope.damageImageList[i].url = $host.file_url + '/image/' + $scope.damageImageList[i].url

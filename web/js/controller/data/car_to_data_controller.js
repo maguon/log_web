@@ -28,6 +28,7 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
         $scope.errorNumber = 0;
         $scope.putStartCity='';
         $scope.putArriveCity='';
+        $scope.putArriveReceive='';
         $scope.update = function () {
             _basic.setCookie('url', "jiangsen");
         };
@@ -331,6 +332,10 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
             _basic.get($host.api_url + "/receive?cityId=" + id).then(function (data) {
                 if (data.success == true) {
                     $scope.get_receive = data.result;
+                    $('#dealer1').select2({
+                        placeholder: '经销商',
+                        containerCssClass : 'select2_dropdown'
+                    });
                 } else {
                     swal(data.msg, "", "error")
                 }
@@ -507,6 +512,9 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
             _basic.get($host.api_url + "/receive").then(function (data) {
                 if (data.success == true) {
                     $scope.get_receive = data.result;
+                    $('#dealer1').select2({
+                        containerCssClass: 'select2_dropdown'
+                    });
                 }
             });
 
@@ -582,9 +590,11 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                         $scope.commodityCarList =data.result[0];
                         $scope.start_addr = $scope.commodityCarList.base_addr_id;
                         $scope.select_city_start = {id: $scope.commodityCarList.route_start_id, city_name: $scope.commodityCarList.route_start};
-                        $scope.select_city_end = {id: $scope.commodityCarList.route_end_id, city_name: $scope.commodityCarList.route_end};
+                        $scope.select_city_end = {id: $scope.commodityCarList.route_end_id, city_name: $scope.commodityCarList.route_end};/*receive_name*/
+                        $scope.select_receive = {id: $scope.commodityCarList.receive_id, receive_name: $scope.commodityCarList.receive_name};
                         $scope.start_city = $scope.select_city_start.id;
                         $scope.arrive_city = $scope.select_city_end.id === null ? "0" : $scope.select_city_end.id;
+                        $scope.arrive_receive = $scope.select_receive.id;
                         if($scope.commodityCarList.order_date==null){
                             $scope.commodityCarList.order_date ='';
                         }
@@ -619,12 +629,21 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                 _basic.get($host.api_url +'/city?cityId='+$scope.arrive_city).then(function (data) {
                     if (data.success == true) {
                         $scope.putArriveCity=data.result[0].city_name;
-                        putSingleData();
+
                     }
                     else {
                         swal(data.msg, "", "error")
                     }
                 });
+                _basic.get($host.api_url + "/receive?cityId=" + $scope.arrive_receive).then(function (data) {
+                    if (data.success == true) {
+                        $scope.putArriveReceive = data.result[0].receive_name;
+                        putSingleData();
+
+                    } else {
+                        swal(data.msg, "", "error")
+                    }
+                })
             };
         };
 
@@ -640,7 +659,7 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
             "baseAddrId": $scope.start_addr,
             "routeEndId": $scope.arrive_city,
             "routeEnd":$scope.putArriveCity,
-            "receiveId": $scope.commodityCarList.receive_id,
+            "receiveId": $scope.arrive_receive,
             "shipName":$scope.commodityCarList.ship_name,
             "entrustId": $scope.commodityCarList.entrust_id
         };

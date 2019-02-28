@@ -616,8 +616,8 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                         $scope.commodityCarList =data.result[0];
                         $scope.start_addr = $scope.commodityCarList.base_addr_id;
                         $scope.select_city_start = {id: $scope.commodityCarList.route_start_id, city_name: $scope.commodityCarList.route_start};
-                        $scope.select_city_end = {id: $scope.commodityCarList.route_end_id, city_name: $scope.commodityCarList.route_end};/*receive_name*/
-                        $scope.select_receive = {id: $scope.commodityCarList.receive_id, receive_name: $scope.commodityCarList.receive_name};
+                        $scope.select_city_end = {id: $scope.commodityCarList.route_end_id, city_name: $scope.commodityCarList.route_end};
+                        $scope.select_receive = {id: $scope.commodityCarList.receive_id, receive_name: $scope.commodityCarList.re_short_name};
                         $scope.start_city = $scope.select_city_start.id;
                         $scope.arrive_city = $scope.select_city_end.id === null ? "0" : $scope.select_city_end.id;
                         $scope.arrive_receive = $scope.select_receive.id;

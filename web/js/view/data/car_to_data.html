@@ -74,8 +74,8 @@
                             </select>
                         </div>
                         <div class="input-field col s2">
-                            <select material-select watch id="dealer1" name="dealer" ng-model="arrive_receive">
-                                <option value="0" >请选择</option>
+                            <select  id="dealer1" style="width:100%" name="dealer1" ng-model="arrive_receive">
+                                <option value="" >经销商</option>
                                 <option ng-repeat="el in get_receive" ng-value="el.id" >{{el.short_name}}</option>
                             </select>
                         </div>

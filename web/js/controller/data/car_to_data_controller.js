@@ -271,16 +271,6 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
             $scope.client = "";
             $scope.dealer = "";
             $scope.remark = "";
-            // // 照片清空
-            // $scope.imgArr = [];
-            // // 车辆型号清空
-            // $scope.carModelName = "";
-            // // 存放位置清空
-            // $scope.parkingArray = "";
-            // $scope.colArr = "";
-            // // "enterTime":$scope.enter_time,
-            // $scope.parking_id = "";
-            // $scope.plan_out_time = "";
             $(".modal").modal({
                 height: 500
             });
@@ -325,7 +315,6 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
             // console.log($scope.start_city);
             _basic.get($host.api_url + "/baseAddr?cityId=" + val).then(function (data) {
                 if (data.success == true) {
-                    // console.log(data.result)
                     $scope.baseAddr = data.result;
                 }
             })
@@ -489,7 +478,7 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
 
         }
         // 城市信息获取
-        $scope.get_Msg = function () {
+        $scope.get_Msg1 = function () {
             _basic.get($host.api_url + "/city").then(function (data) {
                 if (data.success == true) {
                     $scope.get_city = data.result;
@@ -529,7 +518,7 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                 }
             })
         };
-        $scope.get_Msg();
+        $scope.get_Msg1();
 
         // 发运地城市地质联动
         $scope.get_addr = function (id) {

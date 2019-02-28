@@ -18,7 +18,6 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
         });
     }
 
-
     // 商品车质损按月统计
     var carDamageCountMonth = [
         {
@@ -57,6 +56,146 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
             color: '#ffff33'
         }
     ];
+
+    // 获取饼图数据
+    function searchCompulsory(monthStart,monthEnd) {
+        _basic.get($host.api_url + "/damageLinkTypeMonthStat?damageStatus=3&monthStart=" + monthStart + "&monthEnd=" + monthEnd).then(function (data) {
+            if (data.success === true) {
+                // 饼图初始数据
+                $scope.truckCountInfo = [
+                    ["短驳移库: 0 辆", 0],
+                    ["公路运输: 0 辆", 0],
+                    ["公司运输: 0 辆", 0],
+                    ["驾驶员漏检: 0 辆", 0],
+                    ["交通事故: 0 辆", 0],
+                    ["前端责任: 0 辆", 0],
+                    ["安盛船务责任: 0 辆", 0],
+                    ["安盛判定: 0 辆", 0],
+                    ["通用判定: 0 辆", 0],
+                    ["驾驶员违规操作: 0 辆", 0],
+                    ["长春办收发车: 0 辆", 0],
+                    ["沈阳办收发车: 0 辆", 0],
+                    ["天津办收发车: 0 辆", 0],
+                    ["PDI漏检: 0 辆", 0],
+                    ["大连现场收发车: 0 辆", 0],
+                    ["运输途中遭人为破坏: 0 辆", 0]
+
+                ];
+                // 转化饼图数据格式
+                for (var i = 0; i <data.result.length; i++) {
+                    if(data.result[i].damage_link_type === 1){
+                        $scope.truckCountInfo[0][0] = "短驳移库: " + data.result[i].damage_count + " 辆";
+                        $scope.truckCountInfo[0][1] = data.result[i].damage_count;
+                    }
+                    if(data.result[i].damage_link_type === 2){
+                        $scope.truckCountInfo[1][0] = "公路运输: " + data.result[i].damage_count + " 辆";
+                        $scope.truckCountInfo[1][1] = data.result[i].damage_count
+                    }
+                    if(data.result[i].damage_link_type === 3){
+                        $scope.truckCountInfo[2][0] = "公司运输: " + data.result[i].damage_count + " 辆";
+                        $scope.truckCountInfo[2][1] = data.result[i].damage_count
+                    }
+                    if(data.result[i].damage_link_type === 4){
+                        $scope.truckCountInfo[3][0] = "驾驶员漏检: " + data.result[i].damage_count + " 辆";
+                        $scope.truckCountInfo[3][1] = data.result[i].damage_count
+                    }
+                    if(data.result[i].damage_link_type === 5){
+                        $scope.truckCountInfo[4][0] = "交通事故: " + data.result[i].damage_count + " 辆";
+                        $scope.truckCountInfo[4][1] = data.result[i].damage_count
+                    }
+                    if(data.result[i].damage_link_type === 6){
+                        $scope.truckCountInfo[5][0] = "前端责任: " + data.result[i].damage_count + " 辆";
+                        $scope.truckCountInfo[5][1] = data.result[i].damage_count
+                    }
+                    if(data.result[i].damage_link_type === 7){
+                        $scope.truckCountInfo[6][0] = "安盛船务责任: " + data.result[i].damage_count + " 辆";
+                        $scope.truckCountInfo[6][1] = data.result[i].damage_count
+                    }
+                    if(data.result[i].damage_link_type === 8){
+                        $scope.truckCountInfo[7][0] = "安盛判定: " + data.result[i].damage_count + " 辆";
+                        $scope.truckCountInfo[7][1] = data.result[i].damage_count
+                    }
+                    if(data.result[i].damage_link_type === 9){
+                        $scope.truckCountInfo[8][0] = "通用判定: " + data.result[i].damage_count + " 辆";
+                        $scope.truckCountInfo[8][1] = data.result[i].damage_count
+                    }
+                    if(data.result[i].damage_link_type === 10){
+                        $scope.truckCountInfo[9][0] = "驾驶员违规操作: " + data.result[i].damage_count + " 辆";
+                        $scope.truckCountInfo[9][1] = data.result[i].damage_count
+                    }
+                    if(data.result[i].damage_link_type === 11){
+                        $scope.truckCountInfo[10][0] = "长春办收发车: " + data.result[i].damage_count + " 辆";
+                        $scope.truckCountInfo[10][1] = data.result[i].damage_count
+                    }
+                    if(data.result[i].damage_link_type === 12){
+                        $scope.truckCountInfo[11][0] = "沈阳办收发车: " + data.result[i].damage_count + " 辆";
+                        $scope.truckCountInfo[11][1] = data.result[i].damage_count
+                    }
+                    if(data.result[i].damage_link_type === 13){
+                        $scope.truckCountInfo[12][0] = "天津办收发车: " + data.result[i].damage_count + " 辆";
+                        $scope.truckCountInfo[12][1] = data.result[i].damage_count
+                    }
+                    if(data.result[i].damage_link_type === 14){
+                        $scope.truckCountInfo[13][0] = "PDI漏检: " + data.result[i].damage_count + " 辆";
+                        $scope.truckCountInfo[13][1] = data.result[i].damage_count
+                    }
+                    if(data.result[i].damage_link_type === 15){
+                        $scope.truckCountInfo[14][0] = "大连现场收发车: " + data.result[i].damage_count + " 辆";
+                        $scope.truckCountInfo[14][1] = data.result[i].damage_count
+                    }
+                    if(data.result[i].damage_link_type === 16){
+                        $scope.truckCountInfo[15][0] = "运输途中遭人为破坏: " + data.result[i].damage_count + " 辆";
+                        $scope.truckCountInfo[15][1] = data.result[i].damage_count
+                    }
+                }
+                $scope.showCompulsoryPie();
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+    // 显示饼图
+    $scope.showCompulsoryPie = function () {
+        $('#damageLinkType').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: ''
+            },
+            credits: {
+                enabled: "false",
+                text: '',
+                href: ''
+            },
+            tooltip: {
+                headerFormat: '',
+                pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: '质损环节占比',
+                data:  $scope.truckCountInfo
+            }]
+        });
+    };
+
+
+
 
     // 商品车质损按周统计
     var carDamageCountWeek = [
@@ -248,10 +387,10 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
         if (monthStart == '' || monthStart == null || monthEnd == '' || monthEnd == null) {
             monthStart = $scope.startInitial;
             monthEnd = $scope.endInitial;
-            swal('请输入完整的时间信息', "", "error");
         }
         vehicleDamageMonth(monthStart, monthEnd);
         vehicleDamageWeek(monthStart, monthEnd);
+        searchCompulsory(monthStart, monthEnd)
     };
 
     //按周
@@ -313,6 +452,7 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
         vehicleDamageMonth($scope.startInitial, $scope.endInitial);
         vehicleDamageWeek();
         getMakeName();
+        $scope.selectDamageDate();
     };
     $scope.queryData();
 }]);

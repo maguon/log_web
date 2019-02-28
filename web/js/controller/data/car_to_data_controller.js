@@ -425,22 +425,23 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                 }
             });
 
-            // 经销商
+          /*  // 经销商
             _basic.get($host.api_url + "/receive").then(function (data) {
                 if (data.success == true) {
                     $scope.put_receive = data.result;
                     $('#dealer1').select2({
+                        placeholder: '经销商',
                         containerCssClass: 'select2_dropdown'
                     });
                 }
-            });
+            });*/
 
         };
         $scope.get_Msg();
 
 
         // 目的地城市-经销商联动
-        $scope.get_received = function (id) {
+        $scope.get_received = function (id,text) {
             _basic.get($host.api_url + "/receive?cityId=" + id).then(function (data) {
                 if (data.success == true) {
                     $scope.get_receive = data.result;
@@ -452,6 +453,41 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                     swal(data.msg, "", "error")
                 }
             })
+            if(text==null||text==undefined){
+                _basic.get($host.api_url + "/receive?cityId=" + id).then(function (data) {
+                    if (data.success == true) {
+                        $scope.put_receive = data.result;
+                        $('#dealer1').select2({
+                            placeholder: '经销商',
+                            containerCssClass: 'select2_dropdown'
+                        });
+
+                    } else {
+                        swal(data.msg, "", "error")
+                    }
+                })
+            }
+            else{
+                _basic.get($host.api_url + "/receive?cityId=" + id).then(function (data) {
+                    if (data.success == true) {
+                        $scope.put_receive = data.result;
+                        $('#dealer1').select2({
+                            placeholder: text,
+                            containerCssClass: 'select2_dropdown'
+                        });
+
+                    } else {
+                        swal(data.msg, "", "error")
+                    }
+                })
+            }
+
+
+
+
+
+
+
         };
 
 
@@ -590,6 +626,7 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                         }
                         $scope.commodityCarList.order_date = moment($scope.commodityCarList.order_date).format('YYYY-MM-DD');
                         $scope.get_addr($scope.commodityCarList.route_start_id)
+                        $scope.get_received($scope.arrive_city,$scope.select_receive.receive_name);
                         $scope.flag=true;
                     }
                 }

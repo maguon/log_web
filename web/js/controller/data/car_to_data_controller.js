@@ -14,6 +14,7 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
         $scope.dataBox = false;
         $scope.Picture_carId = "";
         var orginDataLength = 0;
+        $scope.get_receive=[];
         // 上传数据数组
         var uploadDataArray = [];
 
@@ -254,130 +255,10 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                 }
             })
         };
-        // 单条数据录入
-        $scope.new_data_list = function () {
-            $scope.submitted = false;
-            $('.tabWrap .tab').removeClass("active");
-            $(".tab_box ").removeClass("active");
-            $(".tab_box ").hide();
-            $('.tabWrap .test1').addClass("active");
-            $("#test1").addClass("active");
-            $("#test1").show();
-            $scope.vin = "";
-            $scope.car_brand = "";
-            $scope.arrival_time = "";
-            $scope.start_city = "";
-            $scope.arrive_city = "";
-            $scope.client = "";
-            $scope.dealer = "";
-            $scope.remark = "";
-            $(".modal").modal({
-                height: 500
-            });
-            $("#new_car").modal("open");
-        };
 
-        // 信息获取
-        $scope.get_Msg = function () {
-            // 城市
-            _basic.get($host.api_url + "/city").then(function (data) {
-                if (data.success == true) {
-                    $scope.get_city = data.result;
-                    $('#start_city').select2({
-                        placeholder: '发运地城市',
-                        containerCssClass : 'select2_dropdown'
-                    });
-                    $('#arrive_city').select2({
-                        placeholder: '目的地城市',
-                        containerCssClass : 'select2_dropdown'
-                    });
-                }
-            });
 
-            // 车辆品牌
-            _basic.get($host.api_url + "/carMake").then(function (data) {
-                if (data.success == true) {
-                    $scope.get_carMake = data.result;
-                }
-            });
 
-            // 委托方
-            _basic.get($host.api_url + "/entrust").then(function (data) {
-                if (data.success == true) {
-                    $scope.get_entrust = data.result;
-                }
-            })
-        };
-        $scope.get_Msg();
-
-        // 发运地城市--地址联动
-        $scope.start_city_change = function (val) {
-            // console.log($scope.start_city);
-            _basic.get($host.api_url + "/baseAddr?cityId=" + val).then(function (data) {
-                if (data.success == true) {
-                    $scope.baseAddr = data.result;
-                }
-            })
-        };
-
-        // 目的地城市-经销商联动
-        $scope.get_received = function (id) {
-            _basic.get($host.api_url + "/receive?cityId=" + id).then(function (data) {
-                if (data.success == true) {
-                    $scope.get_receive = data.result;
-                    $('#dealer1').select2({
-                        placeholder: '经销商',
-                        containerCssClass : 'select2_dropdown'
-                    });
-                } else {
-                    swal(data.msg, "", "error")
-                }
-            })
-        };
-
-        // 新增车辆信息
-        $scope.addCarItem = function () {
-            if ($scope.vin!==''&&$scope.car_brand.id!==undefined&&$scope.car_brand.make_name!==undefined&&$scope.start_city.id!==undefined&&$scope.base_addr!==undefined&&$scope.client!=='') {
-               if($scope.shipName==undefined){
-                   $scope.shipName=null;
-               }
-                var obj = {
-                    "vin": $scope.vin,
-                    "makeId": $scope.car_brand.id,
-                    "makeName": $scope.car_brand.make_name,
-                    "routeStartId": $scope.start_city.id,
-                    "baseAddrId": $scope.base_addr.id,
-                    "routeStart": $scope.start_city.city_name,
-                    "routeEndId": $scope.arrive_city.id,
-                    "routeEnd": $scope.arrive_city.city_name,
-                    "receiveId": $scope.dealer,
-                    "entrustId": $scope.client,
-                    "orderDate": $scope.arrival_time,
-                    "shipName": $scope.shipName,
-                    "remark": $scope.remark
-                };
-                _basic.post($host.api_url + "/user/" + userId + "/car", _basic.removeNullProps(obj)).then(function (data) {
-                    if (data.success == true) {
-                        $('.tabWrap .tab').removeClass("active");
-                        $(".tab_box ").removeClass("active");
-                        $(".tab_box ").hide();
-                        $('.tabWrap .test2').addClass("active");
-                        $("#test2").addClass("active");
-                        $("#test2").show();
-                        $scope.Picture_carId = data.id;
-                    }
-                    else{
-                        swal(data.msg, "", "error")
-                    }
-                })
-            }
-            else{
-                swal("请填写完整信息！", "", "warning");
-            }
-        };
-
-        // // 图片上传
-        // 图片
+        // 图片上传
         $scope.car_imageBox = [];
         $scope.car_image_i = [];
         $scope.uploadBrandImage = function (dom) {
@@ -469,19 +350,48 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
         };
 
 
-        //单条数据修改
-        $scope.openDataModel = function () {
-            $('.modal').modal();
-            $('#commodityCar').modal('open');
-            $scope.commodityVin = '';
-            $scope.flag = false;
 
-        }
-        // 城市信息获取
-        $scope.get_Msg1 = function () {
+
+
+        // 单条数据录入
+        $scope.new_data_list = function () {
+            $scope.submitted = false;
+            $('.tabWrap .tab').removeClass("active");
+            $(".tab_box ").removeClass("active");
+            $(".tab_box ").hide();
+            $('.tabWrap .test1').addClass("active");
+            $("#test1").addClass("active");
+            $("#test1").show();
+            $scope.vin = "";
+            $scope.car_brand = "";
+            $scope.arrival_time = "";
+            $scope.start_city = "";
+            $scope.arrive_city = "";
+            $scope.client = "";
+            $scope.dealer = "";
+            $scope.remark = "";
+            $(".modal").modal({
+                height: 500
+            });
+            $("#new_car").modal("open");
+        };
+
+
+
+        // 信息获取
+        $scope.get_Msg = function () {
+            // 城市
             _basic.get($host.api_url + "/city").then(function (data) {
                 if (data.success == true) {
                     $scope.get_city = data.result;
+                    $('#start_city').select2({
+                        placeholder: '发运地城市',
+                        containerCssClass : 'select2_dropdown'
+                    });
+                    $('#arrive_city').select2({
+                        placeholder: '目的地城市',
+                        containerCssClass : 'select2_dropdown'
+                    });
                     $('#chooseStartCity').select2({
                         containerCssClass: 'select2_dropdown'
                     });
@@ -491,7 +401,21 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                 }
             });
 
-            // 车辆品牌查询
+            // 委托方
+            _basic.get($host.api_url + "/entrust").then(function (data) {
+                if (data.success == true) {
+                    $scope.get_entrust = data.result;
+                }
+            })
+
+            // 车辆品牌增加
+            _basic.get($host.api_url + "/carMake").then(function (data) {
+                if (data.success == true) {
+                    $scope.get_carMake = data.result;
+                }
+            });
+
+            // 车辆品牌修改查询
             _basic.get($host.api_url + "/carMake").then(function (data) {
                 if (data.success == true) {
                     $scope.makecarName = data.result;
@@ -504,22 +428,41 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
             // 经销商
             _basic.get($host.api_url + "/receive").then(function (data) {
                 if (data.success == true) {
-                    $scope.get_receive = data.result;
+                    $scope.put_receive = data.result;
                     $('#dealer1').select2({
                         containerCssClass: 'select2_dropdown'
                     });
                 }
             });
 
-            // 委托方
-            _basic.get($host.api_url + "/entrust").then(function (data) {
+        };
+        $scope.get_Msg();
+
+
+        // 目的地城市-经销商联动
+        $scope.get_received = function (id) {
+            _basic.get($host.api_url + "/receive?cityId=" + id).then(function (data) {
                 if (data.success == true) {
-                    $scope.get_entrust = data.result;
+                    $scope.get_receive = data.result;
+                    $('#dealer').select2({
+                        placeholder: '经销商',
+                        containerCssClass : 'select2_dropdown'
+                    });
+                } else {
+                    swal(data.msg, "", "error")
                 }
             })
         };
-        $scope.get_Msg1();
 
+
+        // 发运地城市--地址联动
+        $scope.start_city_change = function (val) {
+            _basic.get($host.api_url + "/baseAddr?cityId=" + val).then(function (data) {
+                if (data.success == true) {
+                    $scope.baseAddr = data.result;
+                }
+            })
+        };
         // 发运地城市地质联动
         $scope.get_addr = function (id) {
             $scope.selectedText = $("#chooseStartCity").find("option:selected").text();
@@ -532,6 +475,60 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                 }
             })
         };
+
+
+        // 新增车辆信息
+        $scope.addCarItem = function () {
+            if ($scope.vin!==''&&$scope.car_brand.id!==undefined&&$scope.car_brand.make_name!==undefined&&$scope.start_city.id!==undefined&&$scope.base_addr!==undefined&&$scope.client!=='') {
+               if($scope.shipName==undefined){
+                   $scope.shipName=null;
+               }
+                var obj = {
+                    "vin": $scope.vin,
+                    "makeId": $scope.car_brand.id,
+                    "makeName": $scope.car_brand.make_name,
+                    "routeStartId": $scope.start_city.id,
+                    "baseAddrId": $scope.base_addr.id,
+                    "routeStart": $scope.start_city.city_name,
+                    "routeEndId": $scope.arrive_city.id,
+                    "routeEnd": $scope.arrive_city.city_name,
+                    "receiveId": $scope.dealer,
+                    "entrustId": $scope.client,
+                    "orderDate": $scope.arrival_time,
+                    "shipName": $scope.shipName,
+                    "remark": $scope.remark
+                };
+                _basic.post($host.api_url + "/user/" + userId + "/car", _basic.removeNullProps(obj)).then(function (data) {
+                    if (data.success == true) {
+                        $('.tabWrap .tab').removeClass("active");
+                        $(".tab_box ").removeClass("active");
+                        $(".tab_box ").hide();
+                        $('.tabWrap .test2').addClass("active");
+                        $("#test2").addClass("active");
+                        $("#test2").show();
+                        $scope.Picture_carId = data.id;
+                    }
+                    else{
+                        swal(data.msg, "", "error")
+                    }
+                })
+            }
+            else{
+                swal("请填写完整信息！", "", "warning");
+            }
+        };
+
+
+        //单条数据修改
+        $scope.openDataModel = function () {
+            $('.modal').modal();
+            $('#commodityCar').modal('open');
+            $scope.commodityVin = '';
+            $scope.flag = false;
+
+        }
+
+
 
         //模糊查询
         var vinObjs ={}

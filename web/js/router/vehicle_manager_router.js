@@ -55,11 +55,6 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/system_settings/setting_client/setting_client_details.html",
             controller:'setting_client_details_controller'
         })
-        .state("setting_dealer_details",{
-            url:"/setting_dealer_details/{dealer_id}?from",
-            templateUrl: "js/view/system_settings/setting_dealer/setting_dealer_details.html",
-            controller:'setting_dealer_details_controller'
-        })
         .state("add_setting_shipments",{
             url:"/add_setting_shipments",
             templateUrl: "js/view/system_settings/setting_shipments/add_setting_shipments.html",
@@ -96,11 +91,6 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             url:"/dealer_map",
             templateUrl: "js/view/system_settings/dealer_map.html",
             controller:'dealer_map_controller'
-        })
-        .state("add_setting_dealer",{
-            url:"/add_setting_dealer",
-            templateUrl: "js/view/system_settings/setting_dealer/add_setting_dealer_details.html",
-            controller:'add_setting_dealer_controller'
         })
         .state("setting_repair",{
             url:"/setting_repair",

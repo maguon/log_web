@@ -2,8 +2,7 @@
   <!--视频播放模态框-->
   <div class="row" style="margin: 0">
       <div id="video" class="modal modal-fixed-footer" style="width: 75%;height: 500px">
-          <video id="example_video_1" class="video-js vjs-default-skin col s12" controls autoplay="autoplay" preload="none" style="width: 100%;height: 500px;margin: 0;padding: 0"
-                 poster="http://vjs.zencdn.net/v/oceans.png">
+          <video id="example_video_1" class="video-js vjs-default-skin col s12" controls autoplay="autoplay" preload="none" style="width: 100%;height: 500px;margin: 0;padding: 0">
               <source src={{videoUrl}} type="video/mp4">
           </video>
       </div>
@@ -145,7 +144,7 @@
                 </div>
                 <div class="col s11" id="damage_image">
                     <div class="truck_car_picture col s3 vc-center p0 grey white-text" ng-hide="!video">
-                        <img src="http://vjs.zencdn.net/v/oceans.png" class="responsive-img" />
+                        <img  class="responsive-img black"  style="width: 265px;height: 200px;"/>
                         <i class="mdi mdi-video " style="font-size:45px;position: absolute;top:35%;right: 43%;" ng-click="openVideo()"></i>
                     </div>
                     <div ng-repeat="damage in damageImageList" repeat-finish="damageFinish()" ng-mouseenter="show=true" ng-mouseleave="show=false" class="truck_car_picture col s3 vc-center p0 grey white-text">

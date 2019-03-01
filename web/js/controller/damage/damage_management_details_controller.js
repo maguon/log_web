@@ -101,13 +101,23 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
                 if(data.result.length !== 0){
                     $scope.damageImageList = data.result[0].damage_image;
                     $scope.damageImagevideo = data.result[0].damage_video;
-                    if($scope.damageImagevideo){
-
+                    if($scope.damageImagevideo==null){
+                        $scope.filedId =[];
+                        $scope.video=false;
+                    }
+                    else {
+                        $scope.filedId =$scope.damageImagevideo[0].url;
+                        $scope.videoUrl = $host.file_url+"/file/"+ $scope.filedId+"/video.mp4";
+                        $scope.video=true;
                     }
                     recordId = data.result[0]._id;
                     for (var i = 0; i < $scope.damageImageList.length; i++) {
                         $scope.damageImageList[i].url = $host.file_url + '/image/' + $scope.damageImageList[i].url
                     }
+                }
+                else {
+                    $scope.damageImageList=[];
+                    $scope.filedId=[];
                 }
             }
             else {
@@ -116,18 +126,6 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
         });
 
 
-        var filedId = "5b206c1953846c47541e22ca";
-        _basic.get($host.file_url+'/user/'+userId+"/file?fileId="+filedId).then(function (data) {
-            if (data.success == true) {
-                if(data.result.length !== 0){
-                    $scope.video=true;
-                    $scope.videoUrl = $host.file_url+'/user/'+userId+"/file/"+filedId+"/video.mp4";
-                }
-            }
-            else {
-                $scope.video=false;
-            }
-        });
     };
 
     // 照片上传函数

@@ -395,7 +395,7 @@ app.controller("instruction_need_controller", ["$scope","$rootScope","$state","$
                 routeEndId: $scope.add_end_city.id,
                 routeEnd: $scope.add_end_city.city_name,
                 receiveId: $scope.add_dealer.id,
-                shortName:$scope.add_dealer.city_name,
+                shortName:$scope.add_dealer.short_name,
                 preCount: $scope.add_car_num,
                 dateId: $scope.add_instruct_Time
             };

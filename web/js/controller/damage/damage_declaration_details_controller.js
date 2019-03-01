@@ -115,28 +115,6 @@ app.controller("damage_declaration_details_controller", ["$scope","$state", "$st
             }
         });
 
-      /*  var videoJs=document.querySelector('.video-js');
-        console.log(videoJs)
-        var player = videojs(videoJs);
-        console.log(player)
-        player.size(468, 707);
-        player.fluid(true);*/
-
-
-
-        var filedId = "5b206c1953846c47541e22ca";
-        _basic.get($host.file_url+'/user/'+userId+"/file?fileId="+filedId).then(function (data) {
-            if (data.success == true) {
-                if(data.result.length !== 0){
-                    $scope.video=true;
-                    $scope.videoUrl = $host.file_url+'/user/'+userId+"/file/"+filedId+"/video.mp4";
-                }
-            }
-            else {
-                $scope.video=false;
-            }
-        });
-
     };
 
     // 照片上传函数

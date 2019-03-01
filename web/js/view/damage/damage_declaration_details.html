@@ -217,12 +217,6 @@
 
     <!--显示图片-->
     <div class="row col s12  center-align" ng-if="photoClick">
-        <!--视频播放-->
-        <div class="col s11 left-align offset-s1" ng-if="video">
-            <video id="example_video_1" class="video-js vjs-default-skin " controls preload="none" style="width: 51%;height: 210px">
-                <source src={{videoUrl}} type="video/mp4">
-            </video>
-        </div>
 
         <div class="col s1" ng-hide="damageStatus == 3">
             <form name="uploadImageForm" class="uploadImageForm vc-center" style="display: inline-block">

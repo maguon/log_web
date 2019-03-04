@@ -132,6 +132,11 @@ function getCarMake(){
         });
     };
 
+  /*  $scope.changeCity = function (cityId){
+
+    }*/
+
+
     // 修改经销商
     $scope.change_setting_dealer = function () {
 
@@ -164,6 +169,9 @@ function getCarMake(){
 
 
     function putReceive(){
+        if( $scope.getCityId==null){
+            $scope.getCityId= $scope.dealer_details.city_id;
+        }
         var cleanFeeCount = $scope.dealer_details.clean_fee == null ? 0 : $scope.dealer_details.clean_fee.toFixed(2);
         var obj={
             shortName: $scope.dealer_details.short_name,

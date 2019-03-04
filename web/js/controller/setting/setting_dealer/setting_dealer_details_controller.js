@@ -142,13 +142,20 @@ function getCarMake(){
             &&$scope.dealer_details.address!=='') {
             // 车辆品牌
             $scope.dealer_details.make_id = $scope.dealer_details.make_id == '' ?0 :$scope.dealer_details.make_id;
-            _basic.get($host.api_url + "/carMake?makeId="+$scope.dealer_details.make_id).then(function (data) {
-                if (data.success == true) {
-                    $scope.dealer_details.make_name = data.result[0].make_name;
+            if($scope.dealer_details.make_id==0){
+                $scope.dealer_details.make_name='';
+                putReceive();
+            }
+            else{
+                _basic.get($host.api_url + "/carMake?makeId="+$scope.dealer_details.make_id).then(function (data) {
+                    if (data.success == true) {
+                        $scope.dealer_details.make_name = data.result[0].make_name;
 
-                    putReceive();
-                }
-            });
+                        putReceive();
+                    }
+                });
+            }
+
         }
         else{
             swal("请填写完整信息！", "", "warning");

@@ -49,7 +49,7 @@
                                 <label class="grey-text bold" for="car_brand">经营品牌</label>
                             </div>
                             <div class="col s12 input-field" style="margin-top: 25px">
-                                <select id="start_city" name="state" style="width:100%"  ng-model="dealer_details.city_id">
+                                <select id="start_city" name="state" style="width:100%"  ng-model="getCityId">
                                     <option value=""></option>
                                     <option ng-repeat="el in setting_city" ng-value="el.id">{{el.city_name}}</option>
                                 </select>

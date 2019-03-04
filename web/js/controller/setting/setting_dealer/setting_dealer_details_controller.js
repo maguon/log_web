@@ -122,7 +122,7 @@ function getCarMake(){
             if (data.success === true) {
                 $scope.dealer_details = data.result[0];
                 $scope.dealer_details.make_id = data.result[0].make_id;
-                $scope.dealer_details.city_id = data.result[0].city_id;
+                $scope.getCityId = data.result[0].city_id;
                 $scope.lng = data.result[0].lng ? data.result[0].lng : 121.62;
                 $scope.lat = data.result[0].lat ? data.result[0].lat : 38.92;
                 getCityList($scope.dealer_details.city_name)
@@ -175,7 +175,7 @@ function getCarMake(){
             address: $("#amapAddress").val(),
             lng: $scope.lng,
             lat: $scope.lat,
-            cityId: $scope.dealer_details.city_id,
+            cityId: $scope.getCityId,
             remark: $scope.dealer_details.remark
         }
         _basic.put($host.api_url + "/user/" + userId + "/receive/" + $stateParams.dealer_id, obj ).then(function (data) {

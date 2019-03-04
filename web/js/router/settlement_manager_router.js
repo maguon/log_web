@@ -184,5 +184,9 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/system_settings/setting_shipments/setting_shipments_details.html",
             controller:'setting_shipments_details_controller'
         })
-
+        .state("setting_amend_vin",{
+            url:"/setting_amend_vin",
+            templateUrl: "js/view/system_settings/setting_amend_vin.html",
+            controller:'setting_amend_vin_controller'
+        })
 }]);

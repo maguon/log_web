@@ -3,11 +3,12 @@
  */
 app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$host",function ($scope,_basic,_config,$host){
     var admin=_basic.getSession(_basic.USER_ID);
-    $scope.flag=true;
+
+    $(".car_detail").hide();
+    $(".no_car_detail").hide();
     // 查询VIN
     $scope.demand_car=function () {
         $scope.start_address = [];
-        $scope.car_details.route_start_id='';
         if($scope.demand_vin.length==17){
             var obj={
                 vin:$scope.demand_vin
@@ -20,18 +21,27 @@ app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$hos
                     }else {
                         $(".no_car_detail").hide();
                         $(".car_detail").show();
-                        $scope.car_details=data.result[0];
-                        $scope.start_addr = $scope.car_details.base_addr_id;
-                        $scope.select_city_start = {id: $scope.car_details.route_start_id, city_name: $scope.car_details.route_start};
-                        $scope.select_city_end = {id: $scope.car_details.route_end_id, city_name: $scope.car_details.route_end};
-                        $scope.start_city = $scope.select_city_start.id;
-                        $scope.arrive_city = $scope.select_city_end.id === null ? "0" : $scope.select_city_end.id;
-                        if($scope.car_details.order_date==null){
-                            $scope.car_details.order_date ='';
+                        $scope.carDetailList=data.result;
+
+                        for(var i = 0;i <  $scope.carDetailList.length;i++){
+                            $scope.order_date = moment($scope.carDetailList[i].order_date).format('YYYY-MM-DD');
+                            $(".brand_box"+i).attr("display","black");
+                            $(".flag_box"+i).attr("display","none");
+
+                          /*  $scope.get_addr($scope.carDetailList[i].route_start_id);*/
+                            /*$scope.car_details =  $scope.carDetailList[i];
+                            $scope.start_addr = $scope.car_details.base_addr_id;
+                            $scope.select_city_start = {id: $scope.car_details.route_start_id, city_name: $scope.car_details.route_start};
+                            $scope.select_city_end = {id: $scope.car_details.route_end_id, city_name: $scope.car_details.route_end};
+                            $scope.start_city = $scope.select_city_start.id;
+                            $scope.arrive_city = $scope.select_city_end.id === null ? "0" : $scope.select_city_end.id;
+                            if($scope.car_details.order_date==null){
+                                $scope.car_details.order_date ='';
+                            }
+                            $scope.car_details.order_date = moment($scope.car_details.order_date).format('YYYY-MM-DD');
+                            $scope.get_addr($scope.car_details.route_start_id);
+                            $scope.vin= $scope.car_details.vin;*/
                         }
-                        $scope.car_details.order_date = moment($scope.car_details.order_date).format('YYYY-MM-DD');
-                        $scope.get_addr($scope.car_details.route_start_id)
-                        $scope.vin= $scope.car_details.vin;
                     }
                 }
             })
@@ -39,25 +49,28 @@ app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$hos
     };
     
     // 打开修改VIN
-    $scope.open_vin_amend=function () {
-        $scope.flag=false;
+    $scope.open_vin_amend=function ($index) {
+        $(".brand_box"+$index).hide();
+        $(".flag_box"+$index).show();
     };
     // 关闭修改VIN
-    $scope.close_vin_amend=function () {
-        $scope.flag=true;
-        $scope.vin=$scope.car_details.vin;
+    $scope.close_vin_amend=function ($index) {
+        $(".brand_box"+$index).show();
+        $(".flag_box"+$index).hide();
     };
     // 修改VIN
-    $scope.amend_vin=function (id) {
-        $scope.flag=true;
+    $scope.amend_vin=function (id,$index,vin) {
+        if(vin==undefined){
+            vin=[];
+        }
         var obj={
-            "vin":$scope.vin
+            "vin":vin
         };
-        if($scope.vin.length==17){
+        if(vin.length==17){
             _basic.put($host.api_url+"/user/"+admin+"/car/"+id+"/vin",obj).then(function (data) {
                 if(data.success==true){
                     swal("修改成功","","success");
-                    $scope.demand_vin="";
+                    $scope.demand_car();
                 }else {
                     swal(data.msg,"","error");
                 }
@@ -66,6 +79,10 @@ app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$hos
             swal("请输入17位数字","","error");
             $scope.vin=$scope.car_details.vin;
         }
+
+        $(".brand_box"+$index).show();
+        $(".flag_box"+$index).hide();
+
     }
 
     // 城市信息获取
@@ -105,13 +122,22 @@ app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$hos
                 $scope.get_entrust = data.result;
             }
         })
+
+      /*  _basic.get($host.api_url + "/baseAddr").then(function (data) {
+            if (data.success == true) {
+                $scope.start_address = data.result;
+            }
+            else {
+                swal(data.msg, "", "error")
+            }
+        })*/
     };
     $scope.get_Msg();
 
     // 发运地城市地质联动
-    $scope.get_addr = function (id) {
-        $scope.selectedText = $("#chooseStartCity").find("option:selected").text();
-        _basic.get($host.api_url + "/baseAddr?cityId=" + id).then(function (data) {
+    $scope.get_addr = function () {
+       /* $scope.selectedText = $("#chooseStartCity").find("option:selected").text();*/
+        _basic.get($host.api_url + "/baseAddr").then(function (data) {
             if (data.success == true) {
                 $scope.start_address = data.result;
             }
@@ -120,8 +146,8 @@ app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$hos
             }
         })
     };
-    
 
+    $scope.get_addr();
     // 修改
     $scope.putDataItem = function (id) {
         // 如果没有选中select或是重置了初始值，则传空字符串

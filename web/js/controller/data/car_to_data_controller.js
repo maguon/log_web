@@ -424,18 +424,6 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                     swal(data.msg, "", "error");
                 }
             });
-
-          /*  // 经销商
-            _basic.get($host.api_url + "/receive").then(function (data) {
-                if (data.success == true) {
-                    $scope.put_receive = data.result;
-                    $('#dealer1').select2({
-                        placeholder: '经销商',
-                        containerCssClass: 'select2_dropdown'
-                    });
-                }
-            });*/
-
         };
         $scope.get_Msg();
 
@@ -499,12 +487,17 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                 }
             })
         };
+
+
         // 发运地城市地质联动
-        $scope.get_addr = function (id) {
-            $scope.selectedText = $("#chooseStartCity").find("option:selected").text();
+        $scope.get_addr = function (id,text) {
             _basic.get($host.api_url + "/baseAddr?cityId=" + id).then(function (data) {
                 if (data.success == true) {
                     $scope.start_address = data.result;
+                    $('#start_addr').select2({
+                        placeholder: text,
+                        containerCssClass: 'select2_dropdown'
+                    });
                 }
                 else {
                     swal(data.msg, "", "error")
@@ -560,8 +553,8 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
             $('.modal').modal();
             $('#commodityCar').modal('open');
             $scope.commodityVin = '';
+            $scope.start_addr ='';
             $scope.flag = false;
-
         }
 
 
@@ -614,7 +607,6 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                         $scope.commodityCarList = null;
                     }else {
                         $scope.commodityCarList =data.result[0];
-                        $scope.start_addr = $scope.commodityCarList.base_addr_id;
                         $scope.select_city_start = {id: $scope.commodityCarList.route_start_id, city_name: $scope.commodityCarList.route_start};
                         $scope.select_city_end = {id: $scope.commodityCarList.route_end_id, city_name: $scope.commodityCarList.route_end};
                         $scope.select_receive = {id: $scope.commodityCarList.receive_id, receive_name: $scope.commodityCarList.re_short_name};
@@ -625,7 +617,8 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                             $scope.commodityCarList.order_date ='';
                         }
                         $scope.commodityCarList.order_date = moment($scope.commodityCarList.order_date).format('YYYY-MM-DD');
-                        $scope.get_addr($scope.commodityCarList.route_start_id)
+                        /*$scope.start_addr = $scope.commodityCarList.base_addr_id;*/
+                        $scope.get_addr($scope.commodityCarList.route_start_id,$scope.commodityCarList.addr_name)
                         $scope.get_received($scope.arrive_city,$scope.select_receive.receive_name);
                         $scope.flag=true;
                     }

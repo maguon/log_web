@@ -61,11 +61,11 @@
                             </select>
                         </div>
                         <div class="input-field col s2">
-                            <select material-select watch id="start_addr" name="start_addr"  required  ng-model="start_addr" >
-                                <option value="" disabled selected>请选择</option>
+                            <select  style="width:100%" id="start_addr" name="start_addr"  required  ng-model="start_addr" >
+                                <option value="" disabled selected>发运地名称</option>
                                 <option ng-repeat="start_addr in start_address" ng-value="start_addr.id" >{{start_addr.addr_name}}</option>
                             </select>
-                            <label for="start_addr">发运地名称</label>
+                           <!-- <label for="start_addr">发运地名称</label>-->
                         </div>
                         <div class="input-field col s2">
                             <select id="chooseEndCity" name="state" style="width:100%" ng-change="get_received(arrive_city)" ng-model="arrive_city">

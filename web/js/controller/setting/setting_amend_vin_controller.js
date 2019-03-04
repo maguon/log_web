@@ -151,4 +151,29 @@ app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$hos
             }
         });
     };
+
+
+    //删除
+    $scope.deleteDataItem = function (id) {
+        swal({
+                title: "确定删除当前车辆吗？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确认",
+                cancelButtonText: "取消",
+                closeOnConfirm: true
+            },
+            function(){
+                _basic.delete($host.api_url + "/user/" + admin + "/car/" + id+'/car').then(function (data) {
+                    if (data.success === true) {
+                        $scope.demand_car();
+                    }
+                    else {
+                        swal('删除失败', "", "error");
+                    }
+                });
+            }
+        );
+    };
 }]);

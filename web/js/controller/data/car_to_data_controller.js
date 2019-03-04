@@ -380,27 +380,6 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
 
         // 信息获取
         $scope.get_Msg = function () {
-            // 城市
-            _basic.get($host.api_url + "/city").then(function (data) {
-                if (data.success == true) {
-                    $scope.get_city = data.result;
-                    $('#start_city').select2({
-                        placeholder: '发运地城市',
-                        containerCssClass : 'select2_dropdown'
-                    });
-                    $('#arrive_city').select2({
-                        placeholder: '目的地城市',
-                        containerCssClass : 'select2_dropdown'
-                    });
-                    $('#chooseStartCity').select2({
-                        containerCssClass: 'select2_dropdown'
-                    });
-                    $('#chooseEndCity').select2({
-                        containerCssClass: 'select2_dropdown'
-                    });
-                }
-            });
-
             // 委托方
             _basic.get($host.api_url + "/entrust").then(function (data) {
                 if (data.success == true) {
@@ -425,7 +404,34 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                 }
             });
         };
+
+
+
+        function getCityEvery(){
+            // 城市
+            _basic.get($host.api_url + "/city").then(function (data) {
+                if (data.success == true) {
+                    $scope.get_city = data.result;
+                    $('#start_city').select2({
+                        placeholder: '发运地城市',
+                        containerCssClass : 'select2_dropdown'
+                    });
+                    $('#arrive_city').select2({
+                        placeholder: '目的地城市',
+                        containerCssClass : 'select2_dropdown'
+                    });
+                    $('#chooseStartCity').select2({
+                        containerCssClass: 'select2_dropdown'
+                    });
+                    $('#chooseEndCity').select2({
+                        containerCssClass: 'select2_dropdown'
+                    });
+                }
+            });
+
+        }
         $scope.get_Msg();
+        getCityEvery();
 
 
         // 目的地城市-经销商联动
@@ -601,6 +607,7 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
 
         // 查询VIN
         $scope.getCommodityCarData=function () {
+            getCityEvery();
             _basic.get($host.api_url + "/carList?carId="+$scope.carId).then(function (data) {
                 if (data.success == true) {
                     if(data.result.length==0){

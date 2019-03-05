@@ -210,13 +210,13 @@ app.controller("car_settlement_controller", ["$scope", "_basic", "_config", "$ho
 
     function settleCarCount(){
         _basic.get($host.api_url + "/settleCarCount?"+ _basic.objToUrl({
-            vin: $scope.carVIN,
-            entrustId: $scope.carClient,
-            routeStartId: $scope.carStartCity,
-            routeEndId: $scope.carEndCity,
+            vin: $scope.VIN,
+            entrustId: $scope.enstrustId,
+            routeStartId: $scope.routeStartId,
+            routeEndId: $scope.routeEndId,
             receiveId: $scope.carDealer,
-            orderStart:$scope.orderStartCar,
-            orderEnd:$scope.orderEndCar,
+            orderStart:$scope.orderStart,
+            orderEnd:$scope.orderEnd,
             settleStatus:2
         })).then(function (entrustData) {
             if (entrustData.success === true) {

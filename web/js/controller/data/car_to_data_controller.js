@@ -353,29 +353,32 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
 
 
 
-        // 单条数据录入
-        $scope.new_data_list = function () {
-            $scope.submitted = false;
-            $('.tabWrap .tab').removeClass("active");
-            $(".tab_box ").removeClass("active");
-            $(".tab_box ").hide();
-            $('.tabWrap .test1').addClass("active");
-            $("#test1").addClass("active");
-            $("#test1").show();
-            $scope.vin = "";
-            $scope.car_brand = "";
-            $scope.arrival_time = "";
-            $scope.start_city = "";
-            $scope.arrive_city = "";
-            $scope.client = "";
-            $scope.dealer = "";
-            $scope.remark = "";
-            $(".modal").modal({
-                height: 500
-            });
-            $("#new_car").modal("open");
-        };
-
+    // 单条数据录入
+    $scope.new_data_list = function () {
+        $scope.submitted = false;
+        $('.tabWrap .tab').removeClass("active");
+        $(".tab_box ").removeClass("active");
+        $(".tab_box ").hide();
+        $('.tabWrap .test1').addClass("active");
+        $("#test1").addClass("active");
+        $("#test1").show();
+        $(".modal").modal({
+            height: 500
+        });
+        $("#new_car").modal("open");
+        $scope.get_Msg();
+        getCityEvery();
+        $scope.vin = "";
+        $scope.car_brand = "";
+        $scope.arrival_time = "";
+        $scope.start_city = "";
+        $scope.base_addr ='';
+        $scope.arrive_city = "";
+        $scope.client = "";
+        $scope.dealer = "";
+        $scope.remark = "";
+        $scope.get_receive=[];
+    };
 
 
         // 信息获取

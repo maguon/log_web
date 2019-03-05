@@ -76,29 +76,31 @@
             <table class=" bordered striped text_mid">
                 <thead class="blue-grey lighten-5">
                 <tr class="grey-text text-darken-2">
-                    <th width="180" data-field="">姓名</th>
-                    <th width="180" data-field="">性别</th>
-                    <th width="200" data-field="">所属类型</th>
-                    <th width="400" data-field="">所属单位</th>
-                    <th width="200" data-field="">主驾货车</th>
-                    <th width="300" data-field="">电话</th>
-                    <th width="120" data-field="">车检</th>
-                    <th width="150">操作</th>
+                    <th data-field="">姓名</th>
+                    <th data-field="">运营状态</th>
+                    <th data-field="">性别</th>
+                    <th data-field="">所属类型</th>
+                    <th data-field="">所属单位</th>
+                    <th data-field="">主驾货车</th>
+                    <th data-field="">电话</th>
+                    <th data-field="">车检</th>
+                    <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="driver in driveList" class="grey-text text-darken-1">
-                    <td width="180">{{driver.drive_name}}</td>
-                    <td width="180">{{driver.gender | gender}}</td>
-                    <td width="200">{{driver.operate_type | carType}}</td>
-                    <td width="400">{{driver.company_name}}</td>
+                    <td>{{driver.drive_name}}</td>
+                    <td>{{driver.operate_flag==1?'运营':'停运'}}</td>
+                    <td>{{driver.gender | gender}}</td>
+                    <td>{{driver.operate_type | carType}}</td>
+                    <td>{{driver.company_name}}</td>
                     <td>{{driver.truck_num}}</td>
-                    <td width="300">{{driver.mobile}}</td>
+                    <td>{{driver.mobile}}</td>
                     <!--<td width="120">{{driver.drive_status | workStatus}}</td>-->
                     <td class="white-text">
                         <span ng-show="driver.license_date | ptime" class="small-tips red lighten-2">临</span>
                     </td>
-                    <td width="150" class="details">
+                    <td class="details">
                         <a ui-sref="truck_driver_details({id:driver.id,from:'truck_driver'})" class=""><i
                                 class="mdi mdi-eye look_icon cyan-text lighten-1"></i></a>
                         <span class="switch" ng-click="disableDriver(driver.drive_status,driver.id)"
@@ -111,7 +113,7 @@
                     </td>
                 </tr>
                 <tr class="grey-text text-darken-1" ng-if="driveList.length == 0">
-                    <td colspan="8"><span style="letter-spacing: 2px">暂无数据</span></td>
+                    <td colspan="9"><span style="letter-spacing: 2px">暂无数据</span></td>
                 </tr>
                 </tbody>
             </table>

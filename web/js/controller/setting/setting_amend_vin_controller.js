@@ -77,7 +77,7 @@ app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$hos
             })
         }else {
             swal("请输入17位数字","","error");
-            $scope.vin=$scope.car_details.vin;
+            /*$scope.vin=$scope.car_details.vin;*/
         }
 
         $(".brand_box"+$index).show();

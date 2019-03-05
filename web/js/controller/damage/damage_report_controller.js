@@ -5,6 +5,7 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
 
     $scope.step_1 = true;
     $scope.step_2 = false;
+    $scope.step_3 = false;
 
     $scope.vinCheck = false;
     $scope.damageRemark = "";
@@ -160,6 +161,7 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
                     if (data.success === true) {
                         $scope.step_1 = false;
                         $scope.step_2 = true;
+                        $scope.step_3 = false;
                         damageId = data.id;
                     }
                     else {
@@ -175,6 +177,29 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
             swal("请填写VIN","","error")
         }
     };
+
+
+    $scope.nextStep2 = function () {
+        if($scope.hangStatus!==1&&$scope.hangStatus!==0){
+            swal("请填写挂起状态！","","error")
+        }
+        else{
+            _basic.put($host.api_url + "/user/" + userId + "/damage/" + damageId + "/hangStatus/" + $scope.hangStatus, {}).then(function (data) {
+                if (data.success == true) {
+                    $scope.step_1 = false;
+                    $scope.step_2 = false;
+                    $scope.step_3 = true;
+
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            })
+        }
+    }
+
+
+
 
     // 照片上传函数
     function uploadBrandImage(filename,dom_obj,callback) {

@@ -101,7 +101,7 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
                 if(data.result.length !== 0){
                     $scope.damageImageList = data.result[0].damage_image;
                     $scope.damageImagevideo = data.result[0].damage_video;
-                    if($scope.damageImagevideo==null || length ==0 ){
+                    if($scope.damageImagevideo==null || $scope.damageImagevideo.length ==0 ){
                         $scope.filedId =[];
                         $scope.video=false;
                     }

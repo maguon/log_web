@@ -601,6 +601,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/truck/driver_information_details.html",
             controller:'driver_information_details_controller'
         })
+        .state("operating_vehicles",{
+            url:"/operating_vehicles",
+            params: {"from": null},
+            templateUrl: "js/view/truck/operating_vehicles.html",
+            controller:'operating_vehicles_controller'
+        })
 
         // 质损
         .state("damage_declaration",{

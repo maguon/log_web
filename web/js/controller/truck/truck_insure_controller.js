@@ -13,6 +13,17 @@ app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "
             }
         });
     };
+    // 获取所有公司列表
+    function getCompanyList() {
+        _basic.get($host.api_url + "/company").then(function (data) {
+            if (data.success === true) {
+                $scope.companyList = data.result;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
     //車牌号
     function getTruckNumList () {
         _basic.get($host.api_url + "/truckBase").then(function (data) {
@@ -55,6 +66,7 @@ app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "
             truckType:$scope.truckType,
             endDateStart:$scope.startTimeStart,
             endDateEnd:$scope.startTimeEnd,
+            companyId: $scope.insureCompany,
             start:$scope.start.toString(),
             size:$scope.size
         })).then(function (data) {
@@ -229,6 +241,7 @@ app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "
     function queryData () {
         getInsuranceCompany();
         getTruckNumList ();
+        getCompanyList();
         $scope.searchTruckInsure();
     };
     queryData();

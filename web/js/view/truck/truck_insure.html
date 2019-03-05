@@ -222,19 +222,14 @@
                 </div>
                 <div class="col s12">
 
-                <!--    <div class="col s3 input-field" >
-                        <input type="text" name="insure_num" id="truck_num" ng-model="truckNum">
-                        <label for="truck_num">车牌号码</label>
-                    </div>
--->
-                    <div class="input-field col s3">
+                    <div class="input-field col s2">
                         <select id="truck_num" style="width: 100%" ng-model="truckNum">
                             <option value=""></option>
                             <option ng-repeat="el in truckNumList" >{{el.truck_num}}</option>
                         </select>
                     </div>
 
-                    <div class="col s3 input-field">
+                    <div class="col s2 input-field">
                         <select material-select watch id="truck_type" class="truck_type" ng-model="truckType">
                             <option value="" selected>请选择</option>
                             <option value="1">头车</option>
@@ -242,6 +237,15 @@
                         </select>
                         <label for="truck_type">车辆类型</label>
                     </div>
+
+                    <div class="col s2 input-field">
+                        <select id="insure_company" ng-model="insureCompany" material-select watch>
+                            <option value="" selected>请选择</option>
+                            <option ng-repeat="company in companyList" ng-value="company.id">{{company.company_name}}</option>
+                        </select>
+                        <label for="insure_company">所属公司</label>
+                    </div>
+
                     <div class="col s3 input-field">
                         <input type="text" ng-model="startTimeStart" id="startTime_start" name="startTime_start"  class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
                         <label for="startTime_start">保险终止时间(始)</label>
@@ -284,6 +288,7 @@
                             <th  data-field="">保险金额</th>
                             <th  data-field="">车牌号码</th>
                             <th  data-field="">车辆类型</th>
+                            <th  data-field="">所属公司</th>
                             <th  data-field="">经办人</th>
                             <th  data-field="">生效日期</th>
                             <th  data-field="">状态</th>
@@ -300,6 +305,7 @@
                             <td>{{truckInsureItem.insure_money}}</td>
                             <td>{{truckInsureItem.truck_num}}</td>
                             <td>{{truckInsureItem.truck_type == 1 ? "头车" : "挂车"}}</td>
+                            <td>{{truckInsureItem.company_name}}</td>
                             <td>{{truckInsureItem.insure_user_name}}</td>
                             <td>{{truckInsureItem.start_date | date:'yyyy-MM-dd'}}至{{truckInsureItem.end_date | date:'yyyy-MM-dd'}}</td>
                             <td  style="color: red" ng-if="truckInsureItem.expiredStatus==0">临近</td>
@@ -311,7 +317,7 @@
                             </td>
                         </tr>
                         <tr class="grey-text text-darken-1" ng-if="truckInsureList.length == 0">
-                            <td colspan="10"><span style="letter-spacing: 2px">暂无数据</span></td>
+                            <td colspan="11"><span style="letter-spacing: 2px">暂无数据</span></td>
                         </tr>
                         </tbody>
                     </table>

@@ -24,6 +24,17 @@ app.controller("truck_repair_list_controller", ['$rootScope', "$rootScope","$sta
             }
         });
     }
+    // 获取所有公司列表
+    function getCompanyList() {
+        _basic.get($host.api_url + "/company").then(function (data) {
+            if (data.success === true) {
+                $scope.companyList = data.result;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
     // 数据导出
     $scope.export = function () {
         if ($scope.repair_status == 0) {
@@ -131,7 +142,6 @@ app.controller("truck_repair_list_controller", ['$rootScope', "$rootScope","$sta
         $scope.associatedAccident = "";
         _basic.get($host.api_url + "/truckAccident?truckId=" + $scope.modTruckNum).then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
                 if(data.result.length === 0){
                     $scope.hasNotAccident = true;
                 }
@@ -208,6 +218,7 @@ app.controller("truck_repair_list_controller", ['$rootScope', "$rootScope","$sta
         $scope.recordTruckNum=conditions.truckNum;
         $scope.record_endTime_start=conditions.endDateStart;
         $scope.record_endTime_end=conditions.endDateEnd;
+        $scope.insureCompany=conditions.companyId;
     }
 
     /**
@@ -223,7 +234,8 @@ app.controller("truck_repair_list_controller", ['$rootScope', "$rootScope","$sta
             repairDateEnd: $scope.record_startTime_end,
             truckNum: $scope.recordTruckNum,
             endDateStart: $scope.record_endTime_start,
-            endDateEnd: $scope.record_endTime_end
+            endDateEnd: $scope.record_endTime_end,
+            companyId: $scope.insureCompany
         };
     }
 
@@ -256,6 +268,7 @@ app.controller("truck_repair_list_controller", ['$rootScope', "$rootScope","$sta
     $scope.queryData = function () {
         $scope.getRepairRecordList();
         getTruckNumList ();
+        getCompanyList();
     };
     $scope.queryData()
 

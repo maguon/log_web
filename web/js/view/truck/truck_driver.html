@@ -15,19 +15,27 @@
                         <option value="4" >承包</option>
                     </select>
                 </div>
-                <div class="input-field col s3">
+                <div class="input-field col s2">
                     <select material-select watch ng-model="driverCompany">
                         <option value="" selected>所属公司</option>
                         <option ng-repeat="company in companyList" ng-value="company.id">{{company.company_name}}</option>
                     </select>
                 </div>
-                <div class="input-field col s3">
+                <div class="input-field col s2">
                     <select material-select watch ng-model="workStatus">
                         <option value="" selected>司机状态</option>
                         <option value="1" >可用</option>
                         <option value="0" >停用</option>
                     </select>
                 </div>
+                <div class="input-field col s2">
+                    <select material-select watch ng-model="operateFlag">
+                        <option value="" selected>运营状态</option>
+                        <option value="1" >可用</option>
+                        <option value="0" >不可用</option>
+                    </select>
+                </div>
+
                 <div class="input-field col s3">
                     <input id="drive_tel" type="text" ng-model="driveTel">
                     <label for="drive_tel">电话</label>
@@ -90,7 +98,8 @@
                 <tbody>
                 <tr ng-repeat="driver in driveList" class="grey-text text-darken-1">
                     <td>{{driver.drive_name}}</td>
-                    <td>{{driver.operate_flag==1?'运营':'停运'}}</td>
+                    <td ng-if="driver.operate_flag==1">可用</td>
+                    <td ng-if="driver.operate_flag==0">不可用</td>
                     <td>{{driver.gender | gender}}</td>
                     <td>{{driver.operate_type | carType}}</td>
                     <td>{{driver.company_name}}</td>

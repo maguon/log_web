@@ -82,6 +82,7 @@ app.controller("truck_driver_controller", ["$scope","$rootScope","$state","$stat
         $scope.drivingLicense = conditions.licenseType;
         $scope.verificationStart = conditions.licenseDateStart;
         $scope.verificationEnd = conditions.licenseDateEnd;
+        $scope.operateFlag = conditions.operateFlag;
     }
 
     /**
@@ -97,7 +98,8 @@ app.controller("truck_driver_controller", ["$scope","$rootScope","$state","$stat
             truckNum:$scope.truckNumber,
             licenseType:$scope.drivingLicense,
             licenseDateStart:$scope.verificationStart,
-            licenseDateEnd:$scope.verificationEnd
+            licenseDateEnd:$scope.verificationEnd,
+            operateFlag:$scope. operateFlag
         };
     }
 

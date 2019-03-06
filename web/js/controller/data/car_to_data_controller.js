@@ -569,24 +569,24 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
 
 
         //模糊查询
-        var vinObjs ={}
-        $('#autocomplete-input').autocomplete({
-            data: vinObjs,
-            limit: 10,
-            onAutocomplete: function(val) {
-            },
-            minLength: 6,
-        });
         $scope.shortSearch=function () {
             if($scope.commodityVin!==""&&$scope.commodityVin!==undefined) {
-                if ($scope.commodityVin.length >= 6) {
+
+
+
+                if ($scope.commodityVin.length >= 6&&$scope.commodityVin.length<=17) {
                     _basic.get($host.api_url + "/carList?userId="+userId+"&vinCode=" + $scope.commodityVin, {}).then(function (data) {
                         if (data.success == true&& data.result.length > 0) {
                             $scope.vinMsg = data.result;
                             $scope.carId= data.result[0].id;
-                            vinObjs = {};
+                            var vinObjs = {};
                             for (var i in $scope.vinMsg) {
-                                vinObjs[$scope.vinMsg[i].vin] = null;
+                                vinObjs[$scope.vinMsg[i].vin +
+                                '   品牌:'+ $scope.vinMsg[i].make_name +
+                                '   委托方:'+ $scope.vinMsg[i].en_short_name +
+                                '   发运地:'+ $scope.vinMsg[i].addr_name+
+                                '   carId:'+ $scope.vinMsg[i].id
+                                    ] = null;
                             }
                             return vinObjs;
                         }
@@ -601,35 +601,73 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                         });
                         $('#autocomplete-input').focus();
                     })
-                } else {
+                }
+
+
+
+                else  if ($scope.commodityVin.length >17) {
+                    $scope.carId=$scope.commodityVin.split('   carId:')[1];
+                    $scope.codeVin=$scope.commodityVin.split('   品牌:')[0];
+                    _basic.get($host.api_url + "/carList?userId="+userId+"&vinCode=" + $scope.codeVin+'&carId='+$scope.carId, {}).then(function (data) {
+                        if (data.success == true&& data.result.length > 0) {
+                            $scope.vinMsg = data.result;
+                            var vinObjs = {};
+                            for (var i in $scope.vinMsg) {
+                                vinObjs[$scope.vinMsg[i].vin +
+                                '   品牌:'+ $scope.vinMsg[i].make_name +
+                                '   委托方:'+ $scope.vinMsg[i].en_short_name +
+                                '   发运地:'+ $scope.vinMsg[i].addr_name+
+                                '   carId:'+ $scope.vinMsg[i].id
+                                    ] = null;
+                            }
+                            return vinObjs;
+                        }
+
+                        else {
+                            return {};
+                        }
+                    }).then(function (vinObjs) {
+                            $('#autocomplete-input').autocomplete({
+                                data: vinObjs,
+                                minLength: 6
+                            });
+                            $('#autocomplete-input').focus();
+                        })
+                }
+
+
+
+
+
+                else {
                     $('#autocomplete-input').autocomplete({minLength: 6});
                     $scope.vinMsg = {}
                 }
+            }
+            else {
+
             }
         };
 
         // 查询VIN
         $scope.getCommodityCarData=function () {
-            getCityEvery();
             _basic.get($host.api_url + "/carList?carId="+$scope.carId).then(function (data) {
                 if (data.success == true) {
                     if(data.result.length==0){
                         $scope.commodityCarList = null;
                     }else {
                         $scope.commodityCarList =data.result[0];
-                        $scope.select_city_start = {id: $scope.commodityCarList.route_start_id, city_name: $scope.commodityCarList.route_start};
-                        $scope.select_city_end = {id: $scope.commodityCarList.route_end_id, city_name: $scope.commodityCarList.route_end};
-                        $scope.select_receive = {id: $scope.commodityCarList.receive_id, receive_name: $scope.commodityCarList.re_short_name};
-                        $scope.start_city = $scope.select_city_start.id;
-                        $scope.arrive_city = $scope.select_city_end.id === null ? "0" : $scope.select_city_end.id;
-                        $scope.arrive_receive = $scope.select_receive.id;
                         if($scope.commodityCarList.order_date==null){
                             $scope.commodityCarList.order_date ='';
                         }
-                        $scope.commodityCarList.order_date = moment($scope.commodityCarList.order_date).format('YYYY-MM-DD');
-                        /*$scope.start_addr = $scope.commodityCarList.base_addr_id;*/
-                        $scope.get_addr($scope.commodityCarList.route_start_id,$scope.commodityCarList.addr_name)
-                        $scope.get_received($scope.arrive_city,$scope.select_receive.receive_name);
+                        else {
+                            $scope.commodityCarList.order_date = moment($scope.commodityCarList.order_date).format('YYYY-MM-DD');
+                        }
+                        $scope.start_city = $scope.commodityCarList.route_start_id;
+                        $scope.arrive_city = $scope.commodityCarList.route_end_id === null ? "0" : $scope.commodityCarList.route_end_id;
+                        $scope.arrive_receive = $scope.commodityCarList.receive_id;
+                        $scope.get_addr($scope.commodityCarList.route_start_id,$scope.commodityCarList.addr_name);
+                        $scope.get_received($scope.arrive_city,$scope.commodityCarList.receive_name);
                         $scope.flag=true;
                     }
                 }

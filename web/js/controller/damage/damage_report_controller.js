@@ -53,7 +53,6 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
             $scope.vinIdCode=$scope.vinCode.split('       ')[1];
             $scope.carIdCode=$scope.vinCode.split('       ')[0];
             $scope.vinCode=$scope.vinCode.split('       ')[1];
-            console.log( $scope.vinIdCode,$scope.carIdCode,$scope.vinCode)
             _basic.get($host.api_url + "/carDamageDeclare?vin=" + $scope.vinIdCode+"&carId="+ $scope.carIdCode).then(function (data) {
                 if (data.success === true && data.result.length !== 0) {
                     $scope.vinCheck = true;

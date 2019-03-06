@@ -145,7 +145,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/truck/add_damage_insurance_details.html",
             controller:'add_damage_insurance_details_controller'
         })
-
+        .state("operating_vehicles",{
+            url:"/operating_vehicles",
+            params: {"from": null},
+            templateUrl: "js/view/truck/operating_vehicles.html",
+            controller:'operating_vehicles_controller'
+        })
         // 商品车信息
         .state("car_query",{
             url:"/car_query",

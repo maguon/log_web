@@ -65,7 +65,7 @@
                     <th data-field="">主驾</th>
                     <th data-field="">电话</th>
                     <th data-field="">所属公司</th>
-                    <th data-field="">当前城市</th>
+                    <th data-field="">当前城市或路线</th>
                     <th data-field="">操作</th>
                 </tr>
                 </thead>
@@ -75,7 +75,9 @@
                     <td  ng-bind="el.drive_name"></td>
                     <td  ng-bind="el.mobile"></td>
                     <td  ng-bind="el.company_name"></td>
-                    <td  ng-bind="el.current_city_name"></td>
+                    <td  ng-if="el.current_city_name==null&&el.task_start_name==null&&l.task_end_name==null"></td>
+                    <td  ng-if="el.current_city_name==null&&(el.task_start_name!==null||el.task_end_name!==null)">{{el.task_start_name}}-{{el.task_end_name}}</td>
+                    <td  ng-if="el.current_city_name!==null">{{el.current_city_name}}</td>
                     <td class="operation fz12">
                         <a ui-sref="look_head_truck_details({id:el.id,from:'operating_vehicles'})" class="cyan-text" style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
                     </td>

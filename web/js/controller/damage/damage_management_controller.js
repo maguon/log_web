@@ -146,6 +146,7 @@ app.controller("damage_management_controller", ["$scope","$rootScope","$state","
         $scope.distributor=conditions.receiveId;
         $scope.damage_link_type=conditions.damageLinkType;
         $scope.damage_type=conditions.damageType;
+        $scope.hangStatus=conditions.hangStatus;
     }
 
     /**
@@ -165,7 +166,8 @@ app.controller("damage_management_controller", ["$scope","$rootScope","$state","
             routeEndId:$scope.endCity,
             receiveId:$scope.distributor,
             damageLinkType:$scope.damage_link_type,
-            damageType:$scope.damage_type
+            damageType:$scope.damage_type,
+            hangStatus:$scope.hangStatus
         };
     }
 

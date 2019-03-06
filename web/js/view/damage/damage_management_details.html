@@ -119,6 +119,20 @@
                     </div>
                 </div>
                 <div class="col s12">
+                    <div class="col s4">
+                        <p>
+                            <span>挂起状态：</span>
+                            <span class="switch"  style="height: 30px;">
+                                <label>
+                                    <input type="checkbox" ng-checked="currentDamageInfo.hang_status==1"  ng-click="changeStatus(currentDamageInfo.hang_status,currentDamageInfo.id)" >
+                                    <span class="lever"></span>
+                                </label>
+                        </span>
+
+                        </p>
+                    </div>
+                </div>
+                <div class="col s12">
                     <div class="col s12">
                         <p><span>质损说明：</span>{{currentDamageInfo.damage_explain}}</p>
                     </div>

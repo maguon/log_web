@@ -94,6 +94,26 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
         });
     };
 
+
+    // 停启用
+    $scope.changeStatus = function (st, id) {
+        if (st == "1") {
+            $scope.changeSt = "0"
+        } else if (st == "0") {
+            $scope.changeSt = "1"
+        }
+
+        _basic.put($host.api_url + "/user/" + userId + "/damage/" + id + "/hangStatus/" + $scope.changeSt, {}).then(function (data) {
+            if (data.success == true) {
+                $scope.getCurrentDamageInfo();
+
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        })
+    };
+
     // 获取当前质损照片
     $scope.getCurrentDamageImage = function () {
         _basic.get($host.record_url + "/damageRecord?damageId=" + damageId).then(function (data) {

@@ -3,8 +3,11 @@ app.controller("re_damage_statistics_controller", ["$scope", "$host", "_basic", 
     $scope.brandEndInitial = moment(new Date()).format('YYYYMM');
     $scope.reciveStartInitial = moment(new Date()).format('YYYY') + "01";
     $scope.reciveEndInitial = moment(new Date()).format('YYYYMM');
+    $scope.addrStartInitial = moment(new Date()).format('YYYY') + "01";
+    $scope.addrEndInitial = moment(new Date()).format('YYYYMM');
+
     // monthPicker控件
-    $('#chooseBrandStartMonth,#chooseBrandEndMonth,#reciveStartMonth,#reciveEndMonth').MonthPicker({
+    $('#chooseBrandStartMonth,#chooseBrandEndMonth,#reciveStartMonth,#reciveEndMonth,#addrStartMonth,#addrEndMonth').MonthPicker({
         Button: false,
         MonthFormat: 'yymm'
     });
@@ -35,6 +38,10 @@ app.controller("re_damage_statistics_controller", ["$scope", "$host", "_basic", 
         _basic.get($host.api_url + "/city").then(function (data) {
             if (data.success === true) {
                 $scope.cityList = data.result;
+                $('#start_city').select2({
+                    placeholder: '起始城市',
+                    containerCssClass : 'select2_dropdown'
+                });
                 $('#end_city').select2({
                     placeholder: '目的城市',
                     containerCssClass : 'select2_dropdown',
@@ -58,6 +65,25 @@ app.controller("re_damage_statistics_controller", ["$scope", "$host", "_basic", 
             _basic.get($host.api_url + "/receive?cityId=" + $scope.cityId).then(function (data) {
                 if (data.success === true) {
                     $scope.receiveList = data.result;
+                }
+            });
+        }
+    };
+
+
+    // 发运地名称
+    $scope.getAddrData = function (id) {
+        if(id == 0 || id == "" || id == null){
+           id = null;
+            $scope.addrList = [];
+        }
+        else{
+            _basic.get($host.api_url + "/baseAddr?cityId=" + id).then(function (addrData) {
+                if (addrData.success === true) {
+                    $scope.addrList = addrData.result;
+                }
+                else {
+                    swal(addrData.msg, "", "error");
                 }
             });
         }
@@ -335,12 +361,147 @@ app.controller("re_damage_statistics_controller", ["$scope", "$host", "_basic", 
 
 
 
+    // 经销商按月统计
+    var addrCountMonth = [
+        {
+            name: '发运地发运数',
+            data: [],
+            color: '#26C6DA'
+        },
+        {
+            name: '发运地质损数',
+            data: [],
+            color: '#FF7E7E'
+        }
+
+    ];
+    // 显示经销商按月统计柱状图
+    function createAddrMonthChart() {
+        $("#addrStatisticsMonth").highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: ''
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories:$scope.addrMonth,
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: '辆'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}：</td>' +
+                '<td style="padding:0"><b>{point.y} 辆</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: addrCountMonth
+        });
+    };
+    //通过接口获取top10和车辆品牌质损
+    $scope.addrQueryCount = function () {
+        var monthStart3 = $("#addrStartMonth").val();
+        var monthEnd3 = $("#addrEndMonth").val();
+        if(monthStart3==''||monthStart3 == null||monthEnd3==''||monthEnd3 == null){
+            monthStart3= $scope.addrStartInitial;
+            monthEnd3=$scope.addrEndInitial;
+        }
+        getAddrCount(monthStart3, monthEnd3);
+        addrMonthTop(monthStart3, monthEnd3);
+    };
+    function getAddrCount(start,end){
+        var obj = {
+            monthStart:start,
+            monthEnd: end,
+            baseAddrId:$scope.addrId
+        }
+        _basic.get($host.api_url + "/carMonthStat?"+_basic.objToUrl(obj)).then(function (data) {
+            if (data.success === true){
+                data.result.reverse();
+                // X轴月份
+                $scope.addrMonth = [];
+                // 初始化金额数
+                addrCountMonth[0].data = [];
+                // 赋予柱状图金额数组
+                for (var i = 0; i < data.result.length; i++) {
+                    $scope.addrMonth.push(data.result[i].y_month);
+                    addrCountMonth[0].data.push(data.result[i].car_count);
+                }
+                createAddrMonthChart();
+            } else{
+                swal(data.msg, "", "error");
+            }
+        });
+        _basic.get($host.api_url + "/damageDaseAddrMonthStat?damageStatus=3&"+_basic.objToUrl(obj)).then(function (data) {
+            if (data.success === true){
+                data.result.reverse();
+                // X轴月份
+                $scope.addrMonth = [];
+                // 初始化金额数
+                addrCountMonth[1].data = [];
+                // 赋予柱状图金额数组
+                for (var i = 0; i < data.result.length; i++) {
+                    $scope.addrMonth.push(data.result[i].y_month);
+                    addrCountMonth[1].data.push(data.result[i].damage_count);
+                }
+                createAddrMonthChart();
+            } else{
+                swal(data.msg, "", "error");
+            }
+        });
+    }
+    function addrMonthTop(start,end) {
+        var obj = {
+            damageStatus:3,
+            monthStart:start,
+            monthEnd: end
+        };
+        _basic.get($host.api_url + "/damageDaseAddrTopMonthStat?"+_basic.objToUrl(obj)+"&start="+ $scope.start+"&size="+ $scope.size ).then(function (data) {
+            if (data.success === true){
+                if(data.result[0]==null||data.result[0]==undefined)
+                {
+                    return
+                }
+                var maxCost = parseFloat(data.result[0].damage_count);
+                for (var i = 0; i < data.result.length; i++) {
+                    var pecentage = parseInt(data.result[i].damage_count/maxCost*100);
+                    data.result[i].percentage = pecentage;
+                }
+                $scope.addrMouthList = data.result;
+            } else{
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+
     // 获取数据
     $scope.queryData = function () {
         getBandCount($scope.brandStartInitial,$scope.brandEndInitial);
+        bandMonthTop($scope.brandStartInitial,$scope.brandEndInitial);
         getReciveCount($scope.reciveStartInitial,$scope.reciveEndInitial);
         reciveMonthTop($scope.reciveStartInitial,$scope.reciveEndInitial);
-        bandMonthTop($scope.brandStartInitial,$scope.brandEndInitial);
+        getAddrCount($scope.addrStartInitial,$scope.addrEndInitial);
+        addrMonthTop($scope.addrStartInitial,$scope.addrEndInitial);
         getCarMakeData();
         getCityList();
     };

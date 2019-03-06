@@ -1,5 +1,6 @@
 <div class="damage_claim">
 
+
     <!--新增质损保险模态框-->
     <div class="row" style="margin: 0">
         <div id="addDamageInfoModel" class="modal modal-fixed-footer" style="width: 65%;height: 580px">
@@ -8,14 +9,32 @@
                     <p>新增质损保险</p>
                 </div>
                 <div class="row" style="width: 80%;margin: 0 auto">
-                    <div class="col s6 input-field">
+                    <div class="col s3 input-field">
                         <select material-select watch id="insurance_company_mod" ng-model="insuranceCompanyMod">
                             <option value="" disabled>请选择</option>
                             <option ng-repeat="company in insureCompanyList" ng-value="company.id">{{company.insure_name}}</option>
                         </select>
                         <label for="insurance_company_mod"><span style="color: red">* </span>保险公司</label>
                     </div>
-                    <div class="col s6 input-field">
+                    <!--出险城市-->
+                    <div class="col s3 input-field">
+                        <select material-select watch id="cityName" ng-model="cityName" style="width: 100%">
+                            <option value="" disabled>请选择</option>
+                            <option ng-repeat="el in cityList" ng-value="el">{{el.city_name}}</option>
+                        </select>
+                    </div>
+                    <!--责任判定-->
+                    <div class="col s3 input-field">
+                        <select material-select watch id="liabilityType" ng-model="liabilityType">
+                            <option value="" disabled>请选择</option>
+                            <option value="1">全责</option>
+                            <option value="2">免责</option>
+                            <option value="3">五五</option>
+                            <option value="4">三七</option>
+                        </select>
+                        <label for="liabilityType"><span style="color: red">* </span>责任判定</label>
+                    </div>
+                    <div class="col s3 input-field">
                         <input disabled id="handler" type="text" ng-model="handler">
                         <label for="handler">经办人</label>
                     </div>
@@ -40,6 +59,27 @@
                             <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" name="payment_money_start" id="loan_money_num" ng-disabled="hasLoanType" ng-model="loanMoneyNum">
                             <label class="{{loanMoneyNum != null ? 'active' : 'inactive'}}" for="loan_money_num">财务借款（元）</label>
                         </div>
+                    </div>
+                    <!--免赔金额-->
+                    <div class="col s3 input-field">
+                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="derateMoney" type="number" ng-model="derateMoney">
+                        <label for="derateMoney"><span style="color: red">* </span>免赔金额（元）</label>
+                    </div>
+                    <!--车辆估值-->
+                    <div class="col s3 input-field">
+                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="carValuation" type="number" ng-model="carValuation">
+                        <label for="carValuation"><span style="color: red">* </span>车辆估值（元）</label>
+                    </div>
+                    <!--发票金额-->
+                    <div class="col s3 input-field">
+                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="invoiceMoney" type="number" ng-model="invoiceMoney">
+                        <label for="invoiceMoney"><span style="color: red">* </span>发票金额（元）</label>
+                    </div>
+
+                    <!--报案日期-->
+                    <div class="input-field col s3">
+                        <input type="text" ng-model="declareDate" id="declareDate" name="declareDate"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="declareDate">报案日期(始)</label>
                     </div>
 
                     <!--关联质损输入框-->
@@ -97,7 +137,16 @@
                         </div>
                     </div>
 
-                    <div class="row col s12 input-field">
+
+
+                    <!--定损员信息-->
+                    <div class="col s6 input-field">
+                        <input id="refRemark" type="text" ng-model="refRemark">
+                        <label for="refRemark">定损员信息</label>
+                    </div>
+
+
+                    <div class="col s6 input-field">
                         <input id="payment_explain" type="text" ng-model="paymentExplain">
                         <label for="payment_explain">赔付描述</label>
                     </div>
@@ -122,65 +171,83 @@
         </div>
     </div>
 
+
     <!--事故理赔-->
     <div class="row valign-wrapper">
         <div class="col s10">
-            <div class="col s7" style="padding: 0;">
-                <div class="col s4 input-field">
-                    <input type="text" name="compensate_num" id="compensate_num" ng-model="compensateNum">
-                    <label for="compensate_num">理赔编号</label>
-                </div>
-                <div class="col s4 input-field">
-                    <input type="text" name="damage_num" id="damage_num" ng-model="damageNum">
-                    <label for="damage_num">质损编号</label>
-                </div>
-                <div class="col s4 input-field">
-                    <select material-select watch id="insurance_company" ng-model="insuranceCompany">
-                        <option value="" selected>请选择</option>
-                        <option ng-repeat="company in insureCompanyList" ng-value="company.id">{{company.insure_name}}</option>
-                    </select>
-                    <label for="insurance_company">保险公司</label>
-                </div>
-                <div class="col s4 input-field">
-                    <select material-select watch id="loan_status" ng-model="loanStatus">
-                        <option value="" selected>所有</option>
-                        <option value="0">无</option>
-                        <option value="1">有</option>
-                    </select>
-                    <label for="loan_status">财务借款</label>
-                </div>
-                <div class="col s4 input-field">
-                    <input type="number" name="payment_money_start" id="payment_money_start" ng-model="paymentMoneyStart">
-                    <label for="payment_money_start">赔付金额</label>
-                </div>
-                <div class="col s4 input-field">
-                    <input type="number" name="payment_money_end" id="payment_money_end" ng-model="paymentMoneyEnd">
-                    <label for="payment_money_end">至</label>
-                </div>
+            <div class="col s2 input-field">
+                <input type="text" name="compensate_num" id="compensate_num" ng-model="compensateNum">
+                <label for="compensate_num">理赔编号</label>
             </div>
-            <div class="col s5" style="padding: 0;">
-                <div class="col s6 input-field">
-                    <input type="text" ng-model="claimStartTimeStart" id="claim_startTime_start" name="claim_startTime_start"  class="datepicker" autocomplete="off" date>
-                    <i class="mdi dataIcon mdi-table-large"></i>
-                    <label for="claim_startTime_start">理赔生成时间(始)</label>
-                </div>
-                <div class="col s6 input-field">
-                    <input type="text" ng-model="claimStartTimeEnd" id="claim_startTime_end" name="claim_startTime_end"  class="datepicker" autocomplete="off" date>
-                    <i class="mdi dataIcon mdi-table-large"></i>
-                    <label for="claim_startTime_end">理赔生成时间(终)</label>
-                </div>
-                <div class="col s6 input-field">
-                    <select material-select watch id="handle_status" ng-model="handleStatus">
-                        <option value="" selected>请选择</option>
-                        <option value="1">处理中</option>
-                        <option value="2">已处理</option>
-                    </select>
-                    <label for="handle_status">处理状态</label>
-                </div>
-                <div class="col s6 input-field">
-                    <input type="text" name="agent_name" id="agent_name" ng-model="agentName">
-                    <label for="agent_name">经办人</label>
-                </div>
+
+            <div class="col s2 input-field">
+                <select material-select watch id="insurance_company" ng-model="insuranceCompany">
+                    <option value="" selected>请选择</option>
+                    <option ng-repeat="company in insureCompanyList" ng-value="company.id">{{company.insure_name}}</option>
+                </select>
+                <label for="insurance_company">保险公司</label>
+            </div>
+            <!--出险城市-->
+            <div class="col s2 input-field">
+                <select material-select watch id="getCityName" ng-model="getCityName" style="width: 100%">
+                    <option value="" disabled>请选择</option>
+                    <option ng-repeat="el in cityList" ng-value="el.id">{{el.city_name}}</option>
+                </select>
+            </div>
+            <div class="col s2 input-field">
+                <select material-select watch id="handle_status" ng-model="handleStatus">
+                    <option value="" selected>请选择</option>
+                    <option value="1">处理中</option>
+                    <option value="2">已处理</option>
+                </select>
+                <label for="handle_status">处理状态</label>
+            </div>
+            <!--责任判定-->
+            <div class="col s2 input-field">
+                <select material-select watch id="getLiabilityType" ng-model="getLiabilityType">
+                    <option value="" >请选择</option>
+                    <option value="1">全责</option>
+                    <option value="2">免责</option>
+                    <option value="3">五五</option>
+                    <option value="4">三七</option>
+                </select>
+                <label for="getLiabilityType">责任判定</label>
+            </div>
+            <!--报案日期-->
+            <div class="col s2 input-field">
+                <select material-select watch id="loan_status" ng-model="loanStatus">
+                    <option value="" selected>所有</option>
+                    <option value="0">无</option>
+                    <option value="1">有</option>
+                </select>
+                <label for="loan_status">财务借款</label>
+            </div>
+            <div class="col s2 input-field">
+                <input type="text" name="damage_num" id="damage_num" ng-model="damageNum">
+                <label for="damage_num">质损编号</label>
+            </div>
+            <div class="col s2 input-field">
+                <input type="number" name="payment_money_start" id="payment_money_start" ng-model="paymentMoneyStart">
+                <label for="payment_money_start">保险待赔</label>
+            </div>
+
+            <div class="col s2 input-field">
+                <input type="number" name="payment_money_end" id="payment_money_end" ng-model="paymentMoneyEnd">
+                <label for="payment_money_end">至</label>
+            </div>
+            <div class="col s2 input-field">
+                <input type="text" ng-model="claimStartTimeStart" id="claim_startTime_start" name="claim_startTime_start"  class="datepicker" autocomplete="off" date>
+                <i class="mdi dataIcon mdi-table-large"></i>
+                <label for="claim_startTime_start">理赔生成时间(始)</label>
+            </div>
+            <div class="col s2 input-field">
+                <input type="text" ng-model="claimStartTimeEnd" id="claim_startTime_end" name="claim_startTime_end"  class="datepicker" autocomplete="off" date>
+                <i class="mdi dataIcon mdi-table-large"></i>
+                <label for="claim_startTime_end">理赔生成时间(终)</label>
+            </div>
+            <div class="col s2 input-field">
+                <input type="text" name="agent_name" id="agent_name" ng-model="agentName">
+                <label for="agent_name">经办人</label>
             </div>
         </div>
         <div class="col s3">
@@ -215,6 +282,12 @@
                         <th data-field="">保险待赔</th>
                         <th data-field="">财务借款</th>
                         <th data-field="">实际赔付</th>
+                        <th data-field="">免赔金额</th>
+                        <th data-field="">车辆估值</th>
+                        <th data-field="">发票金额</th>
+                        <th data-field="">出险城市</th>
+                        <th data-field="">责任判定</th>
+                        <th data-field="">报案日期</th>
                         <th data-field="">生成时间</th>
                         <th data-field="">赔付时间</th>
                         <th data-field="">状态</th>
@@ -228,6 +301,16 @@
                         <td>{{damage.insure_plan}}</td>
                         <td>{{damage.financial_loan}}</td>
                         <td class="red-text text-lighten-2">{{damage.insure_actual}}</td>
+                        <td>{{damage.derate_money}}</td>
+                        <td>{{damage.car_valuation}}</td>
+                        <td>{{damage.invoice_money}}</td>
+                        <td>{{damage.city_name}}</td>
+                        <td ng-if="damage.liability_type==0"></td>
+                        <td ng-if="damage.liability_type==1">全责</td>
+                        <td ng-if="damage.liability_type==2">免责</td>
+                        <td ng-if="damage.liability_type==3">五五</td>
+                        <td ng-if="damage.liability_type==4">三七</td>
+                        <td>{{damage.declare_date| date:'yyyy-MM-dd'}}</td>
                         <td>{{damage.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                         <td>{{damage.completed_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                         <td class="red-text text-lighten-2" ng-if="damage.insure_status == 1">处理中</td>
@@ -237,7 +320,7 @@
                         </td>
                     </tr>
                     <tr class="grey-text text-darken-1" ng-if="damageInsurancePaymentList.length == 0">
-                        <td colspan="10"><span style="letter-spacing: 2px">暂无数据</span></td>
+                        <td colspan="15"><span style="letter-spacing: 2px">暂无数据</span></td>
                     </tr>
                     </tbody>
                 </table>

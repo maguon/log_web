@@ -8,6 +8,29 @@ app.controller("insurance_compensation_controller", ["$scope", "$rootScope","$st
     $scope.hasLoanType = true;
     $scope.damageInfoDetailsList = [];
 
+    //出险城市
+    function getCityList(){
+        _basic.get($host.api_url + "/city").then(function (cityData) {
+            if (cityData.success === true) {
+                $scope.cityList = cityData.result;
+                $('#cityName').select2({
+                    placeholder: '出险城市',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+                $('#getCityName').select2({
+                    placeholder: '出险城市',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+
+            }
+            else {
+                swal(cityData.msg, "", "error");
+            }
+        });
+    }
+
     // 获取所有保险公司
     $scope.getInsuranceCompany = function () {
         _basic.get($host.api_url + "/truckInsure").then(function (data) {
@@ -91,8 +114,18 @@ app.controller("insurance_compensation_controller", ["$scope", "$rootScope","$st
         $scope.hasLoanType = true;
         $scope.loanMoneyNum = 0;
         $scope.paymentExplain = "";
+        $scope.damageMoney ='';
+        $scope.cityName ='';
+        $scope.cityList =[];
+        $scope.liabilityType ='';
+        $scope.derateMoney ='';
+        $scope.carValuation ='';
+        $scope.invoiceMoney ='';
+        $scope.declareDate ='';
+        $scope.refRemark ='';
         $scope.damageNumMod = "";
         $scope.damageInfoDetailsList = [];
+        getCityList();
         $('#addDamageInfoModel').modal('open');
     };
 
@@ -154,12 +187,27 @@ app.controller("insurance_compensation_controller", ["$scope", "$rootScope","$st
             && $scope.insurePlanMod !== ""
             && $scope.hasLoan !== ""
             && $scope.damageInfoDetailsList.length !== 0
+            && $scope.damageMoney!==''
+            && $scope.cityName!==''
+            && $scope.liabilityType!==''
+            && $scope.derateMoney!==''
+            && $scope.carValuation!==''
+            && $scope.invoiceMoney!==''
+            && $scope.declareDate!==''
         ){
             var damageIdArr = [];
             for (var i = 0; i < $scope.damageInfoDetailsList.length; i++) {
                 damageIdArr.push($scope.damageInfoDetailsList[i].id);
             }
             _basic.post($host.api_url + "/user/" + userId + "/damageInsure",{
+                cityId: $scope.cityName.id,
+                cityName:$scope.cityName.city_name,
+                declareDate: moment($scope.declareDate).format('YYYY-MM-DD'),
+                liabilityType: $scope.liabilityType,
+                refRemark: $scope.refRemark,
+                derateMoney: $scope.derateMoney,
+                carValuation: $scope.carValuation,
+                invoiceMoney: $scope.invoiceMoney,
                 insureId: $scope.insuranceCompanyMod,
                 damageMoney:$scope.damageMoney,
                 insurePlan: $scope.insurePlanMod,
@@ -210,6 +258,8 @@ app.controller("insurance_compensation_controller", ["$scope", "$rootScope","$st
         $scope.paymentMoneyEnd=conditions.insurePlanEnd;
         $scope.handleStatus=conditions.insureStatus;
         $scope.agentName=conditions.insureUserName;
+        $scope.getCityName=conditions.cityId;
+        $scope.getLiabilityType=conditions.liabilityType;
     }
 
     /**
@@ -218,6 +268,8 @@ app.controller("insurance_compensation_controller", ["$scope", "$rootScope","$st
     function makeConditions() {
         return {
             damageInsureId: $scope.compensateNum,
+            cityId:$scope.getCityName,
+            liabilityType:$scope.getLiabilityType,
             damageId: $scope.damageNum,
             insureId: $scope.insuranceCompany,
             createdOnStart: $scope.claimStartTimeStart,
@@ -256,6 +308,7 @@ app.controller("insurance_compensation_controller", ["$scope", "$rootScope","$st
     $scope.queryData = function () {
         $scope.getInsurancePaymentList();
         $scope.getInsuranceCompany();
+        getCityList();
     };
     $scope.queryData();
 }]);

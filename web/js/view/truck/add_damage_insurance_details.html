@@ -27,12 +27,33 @@
                     <p style="margin: 6px 0">生成时间：{{currentInsurInfo.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</p>
                 </div>
                 <div class="col s12">
-                    <div class="col s6 input-field">
+                    <div class="col s4 input-field">
                         <select material-select watch id="insurance_company" ng-model="insuranceCompany">
                             <option ng-repeat="company in insuranceCompanyList" ng-value="company.id">{{company.insure_name}}</option>
                         </select>
                         <label for="insurance_company">保险公司</label>
                     </div>
+
+                    <!--出险城市-->
+                    <div class="col s4 input-field">
+                        <select material-select watch id="getCityName" ng-model="currentInsurInfo.city_id" style="width: 100%">
+                            <option value="" disabled>请选择</option>
+                            <option ng-repeat="el in cityList" ng-value="el.id">{{el.city_name}}</option>
+                        </select>
+                    </div>
+
+                    <!--责任判定-->
+                    <div class="col s3 input-field">
+                        <select material-select watch id="getLiabilityType" ng-model="currentInsurInfo.liability_type">
+                            <option  ng-value="0" >请选择</option>
+                            <option  ng-value="1">全责</option>
+                            <option  ng-value="2">免责</option>
+                            <option  ng-value="3">五五</option>
+                            <option  ng-value="4">三七</option>
+                        </select>
+                        <label for="getLiabilityType">责任判定</label>
+                    </div>
+
                     <div class="col s3 input-field">
                         <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="damageMoney" type="number" ng-model="damageMoney">
                         <label style="font-weight: bold" for="damageMoney">定损金额（元）</label>
@@ -41,18 +62,49 @@
                         <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="insurance_compensate" type="number" ng-model="insuranceCompensation">
                         <label style="font-weight: bold" for="insurance_compensate">待赔金额（元）</label>
                     </div>
-                    <div class="col s6 input-field">
+                    <div class="col s3 input-field">
                         <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="insurance_loan" type="number" ng-model="currentInsurInfo.financial_loan">
                         <label style="font-weight: bold" for="insurance_loan">财务借款（元）</label>
                     </div>
-                    <div class="col s6 input-field">
+                    <div class="col s3 input-field">
                         <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="insurance_actual" type="number" ng-model="insurancePayment">
                         <label style="font-weight: bold" for="insurance_actual">实际赔付（元）</label>
                     </div>
-                    <div class="col s12 input-field">
+
+                    <!--免赔金额-->
+                    <div class="col s3 input-field">
+                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="derateMoney" type="number" ng-model="currentInsurInfo.derate_money">
+                        <label for="derateMoney">免赔金额（元）</label>
+                    </div>
+                    <!--车辆估值-->
+                    <div class="col s3 input-field">
+                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="carValuation" type="number" ng-model="currentInsurInfo.car_valuation">
+                        <label for="carValuation">车辆估值（元）</label>
+                    </div>
+                    <!--发票金额-->
+                    <div class="col s3 input-field">
+                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="invoiceMoney" type="number" ng-model="currentInsurInfo.invoice_money">
+                        <label for="invoiceMoney">发票金额（元）</label>
+                    </div>
+
+                    <!--报案日期-->
+                    <div class="input-field col s3">
+                        <input type="text" ng-model="declareDate" id="declareDate" name="declareDate"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="declareDate">报案日期(始)</label>
+                    </div>
+
+                    <div class="col s6 input-field">
+                        <input id="refRemark" type="text" ng-model="currentInsurInfo.ref_remark">
+                        <label style="font-weight: bold" for="refRemark">定损员信息</label>
+                    </div>
+
+                    <div class="col s6 input-field">
                         <input id="insurance_explain" type="text" ng-model="currentInsurInfo.payment_explain">
                         <label style="font-weight: bold" for="insurance_explain">赔付描述</label>
                     </div>
+
+
+
                 </div>
             </div>
 

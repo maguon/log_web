@@ -12,7 +12,6 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$
         _basic.get($host.api_url + "/truckInsure").then(function (data) {
             if (data.success === true) {
                 $scope.insuranceCompanyList = data.result;
-                // console.log("insuranceCompanyList",$scope.insuranceCompanyList)
             }
             else {
                 swal(data.msg, "", "error");
@@ -20,18 +19,37 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$
         });
     };
 
+    //出险城市
+    function getCityList(){
+        _basic.get($host.api_url + "/city").then(function (cityData) {
+            if (cityData.success === true) {
+                $scope.cityList = cityData.result;
+                $('#getCityName').select2({
+                    placeholder: '出险城市',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+
+            }
+            else {
+                swal(cityData.msg, "", "error");
+            }
+        });
+    }
+
     // 根据质损id查询详细信息
     $scope.getCurrentDamageInfo = function () {
         // 保险公司及赔付信息
         _basic.get($host.api_url + "/damageInsure?damageInsureId=" + damageId).then(function (data) {
             if (data.success === true) {
-                console.log("data", data);
                 $scope.currentInsurInfo = data.result[0];
+                $scope.declareDate = moment(data.result[0].declare_date).format("YYYY-MM-DD");
                 $scope.insuranceCompany = data.result[0].insure_id;
                 $scope.damageMoney = data.result[0].damage_money;
                 $scope.insuranceCompensation = data.result[0].insure_plan;
                 $scope.insurancePayment = data.result[0].insure_actual;
                 $scope.insureStatus = data.result[0].insure_status;
+                getCityList();
             }
             else {
                 swal(data.msg, "", "error");
@@ -129,12 +147,40 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$
 
     // 保存修改后的质损信息
     $scope.saveDamageInfo = function () {
-        var damageIdArr = [];
+        $scope.damageIdArr = [];
         for (var i = 0; i < $scope.damageInfoCardList.length; i++) {
-            damageIdArr.push($scope.damageInfoCardList[i].id);
+            $scope.damageIdArr.push($scope.damageInfoCardList[i].id);
         }
-        // console.log("damageIdArr",damageIdArr);
+        if($scope.currentInsurInfo.city_id==undefined||$scope.declareDate==undefined||$scope.currentInsurInfo.liability_type==undefined||
+            $scope.currentInsurInfo.derate_money==null||$scope.currentInsurInfo.car_valuation==null||$scope.currentInsurInfo.invoice_money==null||
+        $scope.insuranceCompany==null||$scope.insuranceCompensation==null||$scope.damageMoney==null||
+        $scope.insurancePayment==null|| $scope.currentInsurInfo.financial_loan==null){
+            swal('请输入完整信息!', "", "error");
+        }
+        else {
+
+            _basic.get($host.api_url +'/city?cityId='+$scope.currentInsurInfo.city_id).then(function (data) {
+                if (data.success == true) {
+                    $scope.cityName=data.result[0].city_name;
+                    putSingleData();
+                }
+                else {
+                    swal(data.msg, "", "error")
+                }
+            });
+        }
+    };
+
+    function putSingleData(){
         _basic.put($host.api_url + "/user/" + userId + "/damageInsure/" + damageId, {
+            cityId: $scope.currentInsurInfo.city_id,
+            cityName:$scope.cityName,
+            declareDate: moment($scope.declareDate).format('YYYY-MM-DD'),
+            liabilityType:$scope.currentInsurInfo.liability_type,
+            refRemark: $scope.currentInsurInfo.ref_remark,
+            derateMoney: $scope.currentInsurInfo.derate_money,
+            carValuation:$scope.currentInsurInfo.car_valuation,
+            invoiceMoney: $scope.currentInsurInfo.invoice_money,
             insureId: $scope.insuranceCompany,
             insurePlan: $scope.insuranceCompensation,
             damageMoney: $scope.damageMoney,
@@ -142,11 +188,10 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$
             insureActual: $scope.insurancePayment,
             paymentExplain: $scope.currentInsurInfo.payment_explain,
             checkExplain: $scope.currentInsurInfo.check_explain,
-            damageIds: damageIdArr
+            damageIds: $scope.damageIdArr
         }).then(function (data) {
             if (data.success === true) {
                 swal("保存成功", "", "success");
-                // $state.go("insurance_compensation");
                 $scope.getCurrentDamageInfo();
                 $scope.getCurrentDamageCard();
             }
@@ -154,7 +199,7 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$
                 swal(data.msg, "", "error");
             }
         });
-    };
+    }
 
     // 点击完成按钮
     $scope.completeDamageList = function () {
@@ -170,7 +215,6 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$
             function(){
                 _basic.put($host.api_url + "/user/" + userId + "/damageInsure/" + damageId + "/insureStatus/2",{}).then(function (data) {
                     if (data.success === true) {
-                        console.log("data", data);
                         $scope.getCurrentDamageInfo();
                         $scope.getCurrentDamageCard();
                     }

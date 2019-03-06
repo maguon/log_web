@@ -26,6 +26,46 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
             }
         });
     }
+    function getCityEvery(id,text){
+        if(id==''||id==undefined){
+            // 城市
+            _basic.get($host.api_url + "/city").then(function (data) {
+                if (data.success == true) {
+                    $scope.get_city = data.result;
+                    $('#addCity').select2({
+                        placeholder: '城市',
+                        containerCssClass : 'select2_dropdown',
+                        allowClear: true
+                    });
+                    $('#putCity').select2({
+                        placeholder: '城市',
+                        containerCssClass : 'select2_dropdown',
+                        allowClear: true
+                    });
+                }
+            });
+        }
+      else{
+            // 城市
+            _basic.get($host.api_url + "/city?").then(function (data) {
+                if (data.success == true) {
+                    $scope.get_city = data.result;
+                    $('#addCity').select2({
+                        placeholder: '城市',
+                        containerCssClass : 'select2_dropdown',
+                        allowClear: true
+                    });
+                    $('#putCity').select2({
+                        placeholder: '城市',
+                        containerCssClass : 'select2_dropdown',
+                        allowClear: true
+                    });
+                }
+            });
+        }
+
+    }
+    //获取司机
     function getDriveList(selectText){
         _basic.get($host.api_url + "/drive").then(function (data) {
             if (data.success == true) {
@@ -76,6 +116,22 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
         }
     }
 
+    function getCityList(selectText){
+        _basic.get($host.api_url + "/city").then(function (data) {
+            if (data.success == true) {
+                $scope.cityList = data.result;
+                $('#putCity').select2({
+                    placeholder: selectText,
+                    containerCssClass : 'select2_dropdown'
+                })
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
+
+
     //查询功能
     $scope.getPeccancy = function (){
         $scope.start = 0;
@@ -88,8 +144,8 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
             driveId:$scope.driverId,
             statStatus:$scope.peccancyStu,
             truckType:$scope.truckType,
-            handleDateStart:$scope.getStartTime,
-            handleDateEnd:$scope.getEndTime,
+            startDateStart:$scope.getStartTime,
+            startDateEnd:$scope.getEndTime,
             start:$scope.start.toString(),
             size:$scope.size
         })).then(function (data) {
@@ -121,8 +177,8 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
             driveId:$scope.driverId,
             fineStatus:$scope.peccancyStu,
             truckType:$scope.truckType,
-            handleDateStart:$scope.getStartTime,
-            handleDateEnd:$scope.getEndTime
+            startDateStart:$scope.getStartTime,
+            startDateEnd:$scope.getEndTime
         };
         window.open($host.api_url + "/drivePeccancy.csv?" + _basic.objToUrl(obj));
     };
@@ -135,11 +191,14 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
         $scope.addPeccancyScore='';
         $scope.addPeccancyMoney='';
         $scope.addStartTime='';
-        $scope.addEndTime='';
         $scope.addDealMoney='';
         $scope.handleDate='';
         $scope.addPlce='';
         $scope.newRemark='';
+        $scope.addScoreMoney='';
+        $scope.addCity ='';
+        $scope.get_city =[];
+        getCityEvery();
         getDriveNameList ();
         getTruckNum();
         $('#addPeccancyItem').modal('open');
@@ -149,17 +208,20 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
     //点击确定 增加完成
     $scope.addPeccancyItem = function (){
         if ($scope.addDrivderId !== "" && $scope.addPeccancyTruckId !== '' && $scope.addPeccancyScore !== ''
-            &&$scope.addPeccancyMoney !== '' &&$scope.addStartTime !== ""&&$scope.addEndTime!==''&&$scope.addDealMoney!==''&&$scope.handleDate!=='') {
+            &&$scope.addPeccancyMoney !== '' &&$scope.addStartTime !== ""&&
+            $scope.addDealMoney!==''&&$scope.handleDate!==''&&$scope.addScoreMoney!== ""&& $scope.addCity!=='') {
             _basic.post($host.api_url + "/user/" + userId + "/drivePeccancy", {
                 driveId: $scope.addDrivderId,
                 truckId: $scope.addPeccancyTruckId.id,
                 truckType: $scope.addPeccancyTruckId.truck_type,
                 fineScore: $scope.addPeccancyScore,
+                buyScore:$scope.addScoreMoney,
                 trafficFine: $scope.addPeccancyMoney,
                 fineMoney: $scope.addDealMoney,
                 startDate: $scope.addStartTime,
-                endDate: $scope.addEndTime,
                 handleDate:$scope.handleDate,
+                cityId: $scope.addCity.id,
+                cityName: $scope.addCity.city_name,
                 address: $scope.addPlce,
                 remark: $scope.newRemark
             }).then(function (data) {
@@ -183,6 +245,7 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
     $scope.putPeccancy = function (id){
         $scope.id = id;
         $scope.driveList =[];
+        $scope.cityList =[];
         $scope.truckNumListList =[];
         $('#putPeccancyItem').modal('open');
         _basic.get($host.api_url + "/drivePeccancy?peccancyId=" +id).then(function (data) {
@@ -193,9 +256,9 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
                 else{
                     $scope.putPeccancyList = data.result[0];
                     $scope.putPeccancyList.start_date = moment(data.result[0].start_date).format('YYYY-MM-DD');
-                    $scope.putPeccancyList.end_date =  moment(data.result[0].end_date).format('YYYY-MM-DD');
                     $scope.putPeccancyList.handle_date = moment(data.result[0].handle_date).format('YYYY-MM-DD');
                     $scope.putPeccancyList.drive_id = data.result[0].drive_id;
+                    getCityList($scope.putPeccancyList.city_id);
                     getDriveList($scope.putPeccancyList.drive_id);
                     getTruckNum($scope.putPeccancyList.truck_num)
                 }
@@ -207,10 +270,9 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
     //点击确定 修改完成
     $scope.putPeccancyItem = function () {
         if ($scope.putPeccancyList.drive_id !== null && $scope.putPeccancyList.truck_id !== null && $scope.putPeccancyList.fine_score !== null
-            && $scope.putPeccancyList.fine_money !== null && $scope.putPeccancyList.start_date !== '' && $scope.putPeccancyList.end_date !== ''
-            && $scope.putPeccancyList.truck_type !== null
-            && $scope.putPeccancyList.traffic_fine !== null
-            && $scope.putPeccancyList.handle_date !== '') {
+            && $scope.putPeccancyList.fine_money !== null && $scope.putPeccancyList.start_date !== '' && $scope.putPeccancyList.handle_date !== ''
+            && $scope.putPeccancyList.truck_type !== null && $scope.putPeccancyList.traffic_fine !== null
+            && $scope.putPeccancyList.buy_score !== null&&$scope.putPeccancyList.city_id!==null) {
             getTruckType()
         }
         else {
@@ -222,13 +284,15 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
         _basic.put($host.api_url + "/user/" + userId + "/peccancy/"+$scope.id, {
             driveId: $scope.putPeccancyList.drive_id,
             truckId:$scope.putPeccancyList.truck_id,
-            fineScore: $scope.putPeccancyList.fine_score,
-            trafficFine: $scope.putPeccancyList.traffic_fine,
-            startDate: $scope.putPeccancyList.start_date,
-            endDate: $scope.putPeccancyList.end_date,
             truckType: $scope.putPeccancyList.truck_type,
+            fineScore: $scope.putPeccancyList.fine_score,
+            buyScore:$scope.putPeccancyList.buy_score,
+            trafficFine: $scope.putPeccancyList.traffic_fine,
             fineMoney: $scope.putPeccancyList.fine_money,
+            startDate: $scope.putPeccancyList.start_date,
             handleDate:$scope.putPeccancyList.handle_date,
+            cityId: $scope.putPeccancyList.city_id,
+            cityName: $scope.putPeccancyList.city_name,
             address: $scope.putPeccancyList.address,
             remark: $scope.putPeccancyList.remark
         }).then(function (data) {
@@ -247,6 +311,16 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
         _basic.get($host.api_url + "/truckBase?truckId=" +$scope.putPeccancyList.truck_id).then(function (data) {
             if (data.success === true) {
                 $scope.putPeccancyList.truck_type =data.result[0].truck_type;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        })
+
+
+        _basic.get($host.api_url + "/city?cityId=" +$scope.putPeccancyList.city_id).then(function (data) {
+            if (data.success === true) {
+                $scope.putPeccancyList.city_name =data.result[0].city_name;
                 putPeccancyItem();
             }
             else {
@@ -256,13 +330,6 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
 
 
     }
-
-
-
-
-
-
-
 
 
     $scope.putPeccancyItem2 = function (){
@@ -284,6 +351,7 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
     function queryData() {
         getDriveNameList();
         getPeccancyData();
+        getCityEvery();
     }
     queryData()
 }])

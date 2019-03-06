@@ -166,8 +166,8 @@ app.controller("vehicle_index_controller", ['$scope', "$host", "_basic", functio
             if (data.success === true) {
                 // console.log("data", data);
                 if(data.result.length !== 0){
-                    $scope.accidentBearCompany = data.result[0].company_cost.toFixed(2);
-                    $scope.accidentBearPersonal = data.result[0].under_cost.toFixed(2);
+                    $scope.accidentBearCompany = data.result[0].company_cost;
+                    $scope.accidentBearPersonal = data.result[0].under_cost;
                     $scope.accidentBearTotal = (data.result[0].company_cost + data.result[0].under_cost).toFixed(2);
                 }
             }
@@ -179,10 +179,9 @@ app.controller("vehicle_index_controller", ['$scope', "$host", "_basic", functio
         // 待完成保险赔付
         _basic.get($host.api_url + "/truckAccidentInsurePlanTotal?insureStatus=1").then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
                 if(data.result.length !== 0){
                     $scope.insurePlanCount = data.result[0].insure_plan_count;
-                    $scope.insurePlanMoney = data.result[0].insure_plan.toFixed(2)
+                    $scope.insurePlanMoney = data.result[0].insure_plan;
                 }
             }
             else {

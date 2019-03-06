@@ -16,6 +16,17 @@ app.controller("truck_management_controller", ["$scope","$rootScope","$state", "
                 }
             });
         }
+        // 获取所有公司列表
+        function getCompanyList() {
+            _basic.get($host.api_url + "/company").then(function (data) {
+                if (data.success === true) {
+                    $scope.companyList = data.result;
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        };
         //車牌号
         function getTruckNumList () {
             _basic.get($host.api_url + "/truckBase").then(function (data) {
@@ -95,6 +106,7 @@ app.controller("truck_management_controller", ["$scope","$rootScope","$state", "
         $scope.truckAccidentType=conditions.truckAccidentType;
         $scope.underUserName=conditions.underUserName;
         $scope.accidentStatus=conditions.accidentStatus;
+        $scope.insureCompany =conditions.companyId;
     }
 
     /**
@@ -111,7 +123,8 @@ app.controller("truck_management_controller", ["$scope","$rootScope","$state", "
             dpRouteTaskId:$scope.dpRouteTaskId,
             truckAccidentType:$scope.truckAccidentType,
             underUserName:$scope.underUserName,
-            accidentStatus:$scope.accidentStatus
+            accidentStatus:$scope.accidentStatus,
+            companyId:$scope.insureCompany
         };
     }
 
@@ -162,6 +175,7 @@ app.controller("truck_management_controller", ["$scope","$rootScope","$state", "
             getDriveNameList();
             getTruckNumList();
             $scope.searchTruckManagement();
+            getCompanyList();
         };
         queryData();
     }]);

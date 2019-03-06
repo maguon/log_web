@@ -57,12 +57,20 @@
                                         </select>
                                     </div>
                                 </div>
+
                                 <div class=" col s6 p0">
-                                    <div class="input-field col s6">
+                                    <div class="col s4 input-field">
+                                        <select id="insure_company" ng-model="insureCompany" material-select watch>
+                                            <option value="" selected>请选择</option>
+                                            <option ng-repeat="company in companyList" ng-value="company.id">{{company.company_name}}</option>
+                                        </select>
+                                        <label for="insure_company">所属公司</label>
+                                    </div>
+                                    <div class="input-field col s4">
                                         <input  type="text"  ng-model="underUserName">
                                         <label style="color: #000; !important" for="search_num">责任人</label>
                                     </div>
-                                    <div class="input-field col s6">
+                                    <div class="input-field col s4">
                                         <select  material-select watch ng-model="accidentStatus">
                                             <option value="">事故状态</option>
                                             <option ng-value="1">待处理</option>
@@ -99,6 +107,7 @@
                                 <th data-field="">司机</th>
                                 <th data-field="">调度编号</th>
                                 <th data-field="">发生时间</th>
+                                <th data-field="">所属公司</th>
                                 <th data-field="">事故类型</th>
                                 <th data-field="">事故地点</th>
                                 <th data-field="">责任人</th>
@@ -116,6 +125,7 @@
                                 <td ng-bind="el.drive_name"></td>
                                 <td>{{el.dp_route_task_id}}({{el.city_route_start}}-{{el.city_route_end}})</td>
                                 <td ng-bind="el.accident_date| date:'yyyy-MM-dd'"></td>
+                                <td ng-bind="el.company_name"></td>
                                 <td ng-if="el.truck_accident_type==null">&nbsp;</td>
                                 <td ng-if="el.truck_accident_type==0">&nbsp;</td>
                                 <td ng-if="el.truck_accident_type==1">一般</td>

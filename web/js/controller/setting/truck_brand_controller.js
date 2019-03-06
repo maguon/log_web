@@ -65,13 +65,14 @@ app.controller("truck_brand_controller", ["$scope", "_basic", "_config", "$host"
         $("#postLoad").modal("open");
     }
     $scope.putInfo = function (){
-        if($scope.loadItem.load_distance_oil == "" || $scope.loadItem.no_load_distance_oil == ""){
+        if($scope.loadItem.load_distance_oil == "" || $scope.loadItem.no_load_distance_oil == ""||$scope.loadItem.urea == ""){
             swal("重载油耗或空载油耗不能为空！", "", "warning");
         }
         else{
             _basic.put($host.api_url + "/user/" + userId + "/brand/" +  $scope.brandId+"/truckLoadDistanceOil",{
                 loadDistanceOil: $scope.loadItem.load_distance_oil,
-                noLoadDistanceOil: $scope.loadItem.no_load_distance_oil
+                noLoadDistanceOil: $scope.loadItem.no_load_distance_oil,
+                urea:$scope.loadItem.urea
             }).then(function (data) {
                 if (data.success === true) {
                     swal("保存成功", "", "success");

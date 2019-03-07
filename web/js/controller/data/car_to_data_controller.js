@@ -256,8 +256,6 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
             })
         };
 
-
-
         // 图片上传
         $scope.car_imageBox = [];
         $scope.car_image_i = [];
@@ -349,36 +347,32 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
 
         };
 
-
-
-
-
-    // 单条数据录入
-    $scope.new_data_list = function () {
-        $scope.submitted = false;
-        $('.tabWrap .tab').removeClass("active");
-        $(".tab_box ").removeClass("active");
-        $(".tab_box ").hide();
-        $('.tabWrap .test1').addClass("active");
-        $("#test1").addClass("active");
-        $("#test1").show();
-        $(".modal").modal({
-            height: 500
-        });
-        $("#new_car").modal("open");
-        $scope.get_Msg();
-        getCityEvery();
-        $scope.vin = "";
-        $scope.car_brand = "";
-        $scope.arrival_time = "";
-        $scope.start_city = "";
-        $scope.base_addr ='';
-        $scope.arrive_city = "";
-        $scope.client = "";
-        $scope.dealer = "";
-        $scope.remark = "";
-        $scope.get_receive=[];
-    };
+        // 单条数据录入
+        $scope.new_data_list = function () {
+            $scope.submitted = false;
+            $('.tabWrap .tab').removeClass("active");
+            $(".tab_box ").removeClass("active");
+            $(".tab_box ").hide();
+            $('.tabWrap .test1').addClass("active");
+            $("#test1").addClass("active");
+            $("#test1").show();
+            $(".modal").modal({
+                height: 500
+            });
+            $("#new_car").modal("open");
+            $scope.get_Msg();
+            getCityEvery();
+            $scope.vin = "";
+            $scope.car_brand = "";
+            $scope.arrival_time = "";
+            $scope.start_city = "";
+            $scope.base_addr ='';
+            $scope.arrive_city = "";
+            $scope.client = "";
+            $scope.dealer = "";
+            $scope.remark = "";
+            $scope.get_receive=[];
+        };
 
 
         // 信息获取
@@ -407,8 +401,6 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                 }
             });
         };
-
-
 
         function getCityEvery(){
             // 城市
@@ -478,12 +470,6 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                     }
                 })
             }
-
-
-
-
-
-
 
         };
 
@@ -578,15 +564,14 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                     _basic.get($host.api_url + "/carList?userId="+userId+"&vinCode=" + $scope.commodityVin, {}).then(function (data) {
                         if (data.success == true&& data.result.length > 0) {
                             $scope.vinMsg = data.result;
-                            $scope.carId= data.result[0].id;
                             var vinObjs = {};
                             for (var i in $scope.vinMsg) {
-                                vinObjs[$scope.vinMsg[i].vin +
-                                '   品牌:'+ $scope.vinMsg[i].make_name +
-                                '   委托方:'+ $scope.vinMsg[i].en_short_name +
-                                '   发运地:'+ $scope.vinMsg[i].addr_name+
-                                '   carId:'+ $scope.vinMsg[i].id
-                                    ] = null;
+                                vinObjs[$scope.vinMsg[i].id+
+                                '               '+$scope.vinMsg[i].vin +
+                                '               '+ $scope.vinMsg[i].make_name +
+                                '               '+ $scope.vinMsg[i].en_short_name +
+                                '               '+ $scope.vinMsg[i].addr_name
+                                  ] = null;
                             }
                             return vinObjs;
                         }
@@ -606,8 +591,8 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
 
 
                 else  if ($scope.commodityVin.length >17) {
-                    $scope.carId=$scope.commodityVin.split('   carId:')[1];
-                    $scope.codeVin=$scope.commodityVin.split('   品牌:')[0];
+                    $scope.carId=$scope.commodityVin.split('   ')[0];
+                    $scope.codeVin=$scope.commodityVin.split('   ')[5];
                     _basic.get($host.api_url + "/carList?userId="+userId+"&vinCode=" + $scope.codeVin+'&carId='+$scope.carId, {}).then(function (data) {
                         if (data.success == true&& data.result.length > 0) {
                             $scope.vinMsg = data.result;

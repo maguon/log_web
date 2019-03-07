@@ -114,23 +114,56 @@
                     <p style="margin: 6px 0">生成时间：{{currentInsurInfo.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</p>
                 </div>
                 <div class="col s12">
-                    <div class="col s4">
+                    <div class="col s3">
                         <p><span>保险公司：{{currentInsurInfo.insure_name}}</span></p>
                     </div>
-                    <div class="col s4">
+                    <!--出险城市-->
+                    <div class="col s3">
+                        <p><span>出险城市：{{currentInsurInfo.city_name}}</span></p>
+                    </div>
+                    <!--责任判定-->
+                    <div class="col s3">
+                        <p><span>责任判定：{{currentInsurInfo.liability_type==0?'无':currentInsurInfo.liability_type==1?'全责':
+                           currentInsurInfo.liability_type==2?'免责': currentInsurInfo.liability_type==3?'五五':'三七' }}</span></p>
+                    </div>
+                    <div class="col s3">
                         <p><span>经办人：{{currentInsurInfo.insure_user_name}}</span></p>
                     </div>
-                    <div class="col s4">
-                        <p><span>赔付时间：{{currentInsurInfo.completed_date | date:'yyyy-MM-dd HH:mm:ss'}}</span></p>
+
+                    <div class="col s3">
+                        <p><span>定损金额：<span style="color: #e57373">{{currentInsurInfo.damage_money.toFixed(2)}}</span> 元</span></p>
                     </div>
-                    <div class="col s4">
+                    <div class="col s3">
                         <p><span>待赔金额：<span style="color: #e57373">{{currentInsurInfo.insure_plan.toFixed(2)}}</span> 元</span></p>
                     </div>
-                    <div class="col s4">
+                    <div class="col s3">
                         <p><span>财务借款：<span style="color: #e57373">{{currentInsurInfo.financial_loan.toFixed(2)}}</span> 元</span></p>
                     </div>
-                    <div class="col s4">
+                    <div class="col s3">
                         <p><span>实际赔付：<span style="color: #e57373">{{currentInsurInfo.insure_actual.toFixed(2)}}</span> 元</span></p>
+                    </div>
+
+
+
+
+                    <div class="col s3">
+                        <p><span>免赔金额：<span style="color: #e57373">{{currentInsurInfo.derate_money.toFixed(2)}}</span> 元</span></p>
+                    </div>
+                    <div class="col s3">
+                        <p><span>车辆估值：<span style="color: #e57373">{{currentInsurInfo.car_valuation.toFixed(2)}}</span> 元</span></p>
+                    </div>
+                    <div class="col s3">
+                        <p><span>发票金额：<span style="color: #e57373">{{currentInsurInfo.invoice_money.toFixed(2)}}</span> 元</span></p>
+                    </div>
+                    <div class="col s3">
+                        <p><span>报案日期：<span style="color: #e57373">{{currentInsurInfo.declare_date| date:'yyyy-MM-dd'}}</span> 元</span></p>
+                    </div>
+
+                    <div class="col s3">
+                        <p><span>赔付时间：{{currentInsurInfo.completed_date | date:'yyyy-MM-dd HH:mm:ss'}}</span></p>
+                    </div>
+                    <div class="col s3">
+                        <p><span>定损员信息：{{currentInsurInfo.payment_explain}}</span></p>
                     </div>
                     <div class="col s12">
                         <p style="font-size: 1.2rem"><span>赔付描述：</span>{{currentInsurInfo.payment_explain}}</p>

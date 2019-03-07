@@ -557,9 +557,6 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
         //模糊查询
         $scope.shortSearch=function () {
             if($scope.commodityVin!==""&&$scope.commodityVin!==undefined) {
-
-
-
                 if ($scope.commodityVin.length >= 6&&$scope.commodityVin.length<=17) {
                     _basic.get($host.api_url + "/carList?userId="+userId+"&vinCode=" + $scope.commodityVin, {}).then(function (data) {
                         if (data.success == true&& data.result.length > 0) {
@@ -636,6 +633,8 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
 
         // 查询VIN
         $scope.getCommodityCarData=function () {
+            $scope.start_city='';
+            $scope.arrive_city='';
             _basic.get($host.api_url + "/carList?carId="+$scope.carId).then(function (data) {
                 if (data.success == true) {
                     if(data.result.length==0){

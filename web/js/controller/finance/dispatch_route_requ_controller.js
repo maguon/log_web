@@ -1,5 +1,4 @@
 app.controller("dispatch_route_requ_controller", ["$scope", "$host","$state", "_basic", "_config",  function ($scope, $host,$state, _basic,_config) {
-
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.start = 0;
     $scope.size = 11;
@@ -93,7 +92,7 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host","$state", "_
     };*/
 
     //打开申请出车款模态框(列表)
-    $scope.addRouteFee = function (dispatchIdSmall,driveIdSmall) {
+    $scope.addRouteFee = function (dispatchIdSmall,driveIdSmall,startId,endId) {
         $scope.flag = true;
         $scope.roadTollCost = 0;
         $scope.fuelCost = 0;
@@ -109,8 +108,8 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host","$state", "_
         $scope.driveIdSmall= driveIdSmall;
         $scope.dispatchIdSmall=dispatchIdSmall;
 
-        //司机 车牌号 挂车货位
-        _basic.get($host.api_url + "/drive?driveId=" + driveIdSmall).then(function (data) {
+        //司机 车牌号 挂车货位 状态 调度编号 路线 计划装车数 计划执行时间
+        _basic.get($host.api_url + "/dpRouteTask?dpRouteTaskId="+ dispatchIdSmall +"&driveId=" +   driveIdSmall).then(function (data) {
             if (data.success === true) {
                 if(data.result.length==0){
                     $scope.driveSmallList=[];
@@ -123,13 +122,13 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host","$state", "_
             }
         });
 
-        //状态 调度编号 路线 计划装车数 计划执行时间
-        _basic.get($host.api_url + "/dpRouteTaskNotLoan?dpRouteTaskId=" + dispatchIdSmall + "&taskStatusArr=8").then(function (data) {
+        //
+        _basic.get($host.api_url + "/cityRoute?routeStartId="+startId+"&routeEndId="+endId).then(function (data) {
             if (data.success === true) {
                 if(data.result.length==0){
-                    $scope.missionList = {};
+                    $scope.roadCost = 0;
                 }else {
-                    $scope.missionList = data.result[0];
+
                     $scope.roadTollCost = data.result[0].distance*$scope.passingCost;
                     if(data.result[0].protect_fee ==null||data.result[0].protect_fee ==0){
                         $scope.roadCost = 0;

@@ -16,22 +16,22 @@
                             <span>车牌号：</span>{{driveSmallList.truck_num}}
                         </div>
                         <div class="col s3 input-field grey-text center-align">
-                           <span>挂车货位：</span>{{driveSmallList.number}}
+                           <span>挂车货位：</span>{{driveSmallList.truck_number}}
                         </div>
-                        <div class="col s3 input-field cyan-text right-align">{{missionList.task_status | taskStatus}}</div>
+                        <div class="col s3 input-field cyan-text right-align">{{driveSmallList.task_status | taskStatus}}</div>
                     </div>
                     <div class="col s12 grey-text" style="height: 50px;width:100%;border-bottom: 1px solid #ccc;border-left: 1px solid #ccc;border-right: 1px solid #ccc">
                         <div class="col s3 input-field cyan-text left-align">
-                            <span>调度编号：</span>{{missionList.id}}
+                            <span>调度编号：</span>{{driveSmallList.id}}
                         </div>
                         <div class="col s3 input-field center-align">
-                            <span class="cyan-text" style="margin-right: 10px">{{missionList.city_route_start}}--{{missionList.city_route_end}}</span>{{missionList.distance}}公里
+                            <span class="cyan-text" style="margin-right: 10px">{{driveSmallList.route_start}}--{{driveSmallList.route_end}}</span>{{driveSmallList.distance}}公里
                         </div>
                         <div class="col s3 input-field center-align">
-                           <span>计划装车数量：</span>{{missionList.plan_count}}
+                           <span>计划装车数量：</span>{{driveSmallList.plan_count}}
                         </div>
                         <div class="col s3 input-field right-align">
-                           <span>计划执行时间：</span>{{missionList.task_plan_date | date:'yyyy-MM-dd'}}
+                           <span>计划执行时间：</span>{{driveSmallList.task_plan_date | date:'yyyy-MM-dd'}}
                         </div>
                     </div>
                 </div>
@@ -193,8 +193,8 @@
                             <th data-field="">里程(km)</th>
                             <th data-field="">司机</th>
                             <th data-field="">货车</th>
-                            <th data-field="">计划装车数</th>
-                            <th data-field="">计划执行时间</th>
+                          <!--  <th data-field="">计划装车数</th>
+                            <th data-field="">计划执行时间</th>-->
                             <th data-field="">状态</th>
                             <th>操作</th>
                         </tr>
@@ -202,19 +202,19 @@
                         <tbody>
                         <tr ng-repeat="car in carInstructionList" class="grey-text text-darken-1">
                             <td>{{car.id}}</td>
-                            <td>{{car.city_route_start}}-{{car.city_route_end}}</td>
+                            <td>{{car.route_start}}-{{car.route_end}}</td>
                             <td>{{car.distance}}</td>
                             <td>{{car.drive_name}}</td>
                             <td>{{car.truck_num}}</td>
-                            <td>{{car.plan_count}}</td>
-                            <td>{{car.task_plan_date | date:'yyyy-MM-dd'}}</td>
+                          <!--  <td>{{car.plan_count}}</td>
+                            <td>{{car.task_plan_date | date:'yyyy-MM-dd'}}</td>-->
                             <td>{{car.task_status | taskStatus}}</td>
                             <td class="operation fz12">
-                                <a ng-click="addRouteFee(car.id,car.drive_id)" class="btn-floating btn-small waves-light waves-effect cyan lighten-2 btn vc-center"style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-plus" style="margin: 0"></i></a>
+                                <a ng-click="addRouteFee(car.id,car.drive_id,car.route_start_id,car.route_end_id)" class="btn-floating btn-small waves-light waves-effect cyan lighten-2 btn vc-center"style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-plus" style="margin: 0"></i></a>
                             </td>
                         </tr>
                         <tr class="grey-text text-darken-1" ng-if="carInstructionList.length == 0">
-                            <td colspan="9"><span style="letter-spacing: 2px">暂无数据</span></td>
+                            <td colspan="7"><span style="letter-spacing: 2px">暂无数据</span></td>
                         </tr>
                         </tbody>
                     </table>

@@ -585,7 +585,10 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         }
         else{
             $scope.startCityName = $scope.currentLineList[$scope.currentLineList.length - 1].city_route_end;
-            $scope.startCityId = $scope.currentLineList[$scope.currentLineList.length - 1].route_end_id
+            $scope.startCityId = $scope.currentLineList[$scope.currentLineList.length - 1].route_end_id;
+            $scope.lastEndCityId = $scope.currentLineList[$scope.currentLineList.length - 1].route_end_id;
+            $scope.lastEndCity = $scope.currentLineList[$scope.currentLineList.length - 1].route_end;
+
         }
         _basic.get($host.api_url + "/city").then(function (cityData) {
             if (cityData.success === true) {
@@ -683,16 +686,60 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     // 新增路线 发布 按钮
     $scope.confirmChange = function () {
-        var routeStartId;
-        var routeStart;
         if ($scope.lineEndCityInfo != "" && $scope.lineStartDate != "") {
+            var routeStartId;
+            var routeStart;
             if($scope.startSeleCity!==null&&$scope.startSeleCity!==undefined){
                 routeStartId=$scope.startSeleCity.id;
                 routeStart=$scope.startSeleCity.city_name;
             }else {
-                 routeStartId = $scope.currentLineList.length === 0 ? $scope.dispatchInfo.current_city :  $scope.currentLineList[$scope.currentLineList.length - 1].route_end_id;
-                 routeStart = $scope.currentLineList.length === 0 ? $scope.dispatchInfo.city_name :  $scope.currentLineList[$scope.currentLineList.length - 1].city_route_end;
+                routeStartId = $scope.currentLineList.length === 0 ? $scope.dispatchInfo.current_city :  $scope.currentLineList[$scope.currentLineList.length - 1].route_end_id;
+                routeStart = $scope.currentLineList.length === 0 ? $scope.dispatchInfo.city_name :  $scope.currentLineList[$scope.currentLineList.length - 1].city_route_end;
             }
+
+            if(routeStartId !==$scope.lastEndCityId&&$scope.lastEndCityId!==undefined){
+                _basic.get($host.api_url + "/cityRoute?routeStartId="+$scope.lastEndCityId+"&routeEndId="+$scope.startCityId).then(function (data) {
+                    if (data.success == true) {
+                        $scope.blankId=data.result[0].id;
+                        $scope.blankDistance=data.result[0].distance;
+                        $scope.blankRouteId=data.result[0].route_id;
+                    }
+                });
+                swal({
+                        title: "是否需要创建空使路线？",
+                        text: "",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "确定",
+                        cancelButtonText: "取消",
+                        closeOnConfirm: true,
+                        closeOnCancel: true
+                    },
+                    function () {
+                        _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask", {
+                            truckId: $scope.dispatchInfo.truck_id,
+                            routeId:$scope.blankRouteId,
+                            truckNumber:$scope.dispatchInfo.truck_number,
+                            driveId: $scope.dispatchInfo.drive_id,
+                            routeStartId: $scope.lastEndCityId,
+                            routeStart:$scope.lastEndCity,
+                            routeEndId: routeStartId,
+                            routeEnd:routeStart,
+                            distance: $scope.blankDistance,
+                            cityRouteId: $scope.blankId,
+                            taskStatus:10,
+                            taskPlanDate: $scope.lineStartDate
+                        }).then(function (data) {
+                            if (data.success == true) {
+                                $scope.lineInfo = false;
+                                $scope.showDispatchInfo($scope.dispatchInfo);
+                            }
+                        })
+                    }
+                )
+            }
+
             _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask", {
                 truckId: $scope.dispatchInfo.truck_id,
                 routeId:$scope.lineEndCityInfo.route_id,
@@ -709,16 +756,18 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 if (data.success === true) {
                     $scope.lineInfo = false;
                     $scope.showDispatchInfo($scope.dispatchInfo);
-                    swal("新增路线成功", "", "success");
                 }
                 else {
                     swal(data.msg, "", "error");
                 }
             });
-        }
+            }
+
         else {
             swal("请填写完整信息", "", "error");
         }
+
+
     };
 
     // 新增路线取消按钮

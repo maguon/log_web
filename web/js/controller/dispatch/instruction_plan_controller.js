@@ -582,6 +582,9 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         if($scope.currentLineList&&$scope.currentLineList.length === 0){
             $scope.startCityName = $scope.dispatchInfo.city_name;
             $scope.startCityId = cityId;
+            $scope.lastEndCityId =cityId;
+            $scope.lastEndCity =$scope.dispatchInfo.city_name;
+
         }
         else{
             $scope.startCityName = $scope.currentLineList[$scope.currentLineList.length - 1].city_route_end;
@@ -706,13 +709,13 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                     }
                 });
                 swal({
-                        title: "是否需要创建空使路线？",
-                        text: "",
-                        type: "warning",
+                        title: " ",
+                        text: "您没有从"+$scope.lastEndCity+"到"+routeStart+"的空驶路线",
+                        type: "info",
                         showCancelButton: true,
                         confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "确定",
-                        cancelButtonText: "取消",
+                        cancelButtonText: "仅创建新路线",
+                        confirmButtonText: "创建空驶和新路线",
                         closeOnConfirm: true,
                         closeOnCancel: true
                     },

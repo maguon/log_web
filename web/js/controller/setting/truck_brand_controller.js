@@ -65,7 +65,7 @@ app.controller("truck_brand_controller", ["$scope", "_basic", "_config", "$host"
         $("#postLoad").modal("open");
     }
     $scope.putInfo = function (){
-        if($scope.loadItem.load_distance_oil == "" || $scope.loadItem.no_load_distance_oil == ""||$scope.loadItem.urea == ""){
+        if($scope.loadItem.load_distance_oil == null || $scope.loadItem.no_load_distance_oil == null||$scope.loadItem.urea == null){
             swal("重载油耗或空载油耗不能为空！", "", "warning");
         }
         else{

@@ -34,19 +34,22 @@
         </div>
 
         <div class="row col s12">
-            <div class="input-field col s4">
+            <div class="input-field col s3">
                 <input id="autocomplete-input-driver" name="drive_name" type="text" ng-change="hasModifyDriver()" ng-model="vinData.drive_name">
                 <label for="autocomplete-input-driver">司机</label>
             </div>
-            <div class="input-field col s4">
+            <div class="input-field col s3">
                 <input disabled id="truckNum" name="truck_num" type="text" ng-model="vinData.truck_num">
                 <label for="truckNum">货车牌号</label>
             </div>
-            <div class="input-field col s4">
+            <div class="input-field col s3">
                 <input disabled id="load_date" name="load_date" type="text" ng-model="vinData.load_date">
                 <label for="load_date">装车时间</label>
             </div>
-
+            <div class="input-field col s3">
+                <input id="shipName" type="text" ng-model="vinData.ship_name" disabled>
+                <label for="shipName">船名</label>
+            </div>
         </div>
         <div class="row col s12" style="margin-top: 80px">
             <div class="col s1">

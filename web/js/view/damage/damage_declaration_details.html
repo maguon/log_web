@@ -42,17 +42,21 @@
             </div>
         </div>
         <div class="row col s12">
-            <div class="input-field col s4">
+            <div class="input-field col s3">
                 <input id="autocomplete-input-driver" name="phone" type="text" ng-change="hasModifyDriver()" ng-model="driverName">
                 <label for="autocomplete-input-driver">司机</label>
             </div>
-            <div class="input-field col s4">
+            <div class="input-field col s3">
                 <input disabled id="code" name="phone" type="text" ng-model="truckNum">
                 <label for="code">货车编号</label>
             </div>
-            <div class="input-field col s4">
+            <div class="input-field col s3">
                 <input disabled id="distributor" name="phone" type="text" ng-model="currentDamageInfo.re_short_name">
                 <label for="distributor">经销商</label>
+            </div>
+            <div class="input-field col s3">
+                <input id="shipName" type="text" ng-model="currentDamageInfo.ship_name" disabled>
+                <label for="shipName">船名</label>
             </div>
         </div>
         <div class="row col s12">
@@ -99,14 +103,17 @@
             </div>
         </div>
         <div class="row col s12">
-            <div class="col s4">
+            <div class="col s3">
                 <p><span class="cyan-text" >货车牌号：</span>{{currentDamageInfo.truck_num}}</p>
             </div>
-            <div class="col s4">
+            <div class="col s3">
                 <p><span class="cyan-text" >司机：</span>{{currentDamageInfo.drive_name}}</p>
             </div>
-            <div class="col s4">
+            <div class="col s3">
                 <p><span class="cyan-text">经销商：</span>{{currentDamageInfo.re_short_name}}</p>
+            </div>
+            <div class="col s3">
+                <p><span class="cyan-text">船名：</span>{{currentDamageInfo.ship_name}}</p>
             </div>
         </div>
         <div class="row col s12">
@@ -144,14 +151,17 @@
                 </div>
             </div>
             <div class="col s12">
-                <div class="col s4">
+                <div class="col s3">
                     <p><span class="cyan-text" >货车牌号：</span>{{currentDamageInfo.truck_num}}</p>
                 </div>
-                <div class="col s4">
+                <div class="col s3">
                     <p><span class="cyan-text"  >司机：</span>{{currentDamageInfo.drive_name}}</p>
                 </div>
-                <div class="col s4">
+                <div class="col s3">
                     <p><span class="cyan-text" >经销商：</span>{{currentDamageInfo.re_short_name}}</p>
+                </div>
+                <div class="col s3">
+                    <p><span class="cyan-text">船名：</span>{{currentDamageInfo.ship_name}}</p>
                 </div>
             </div>
             <div class="col s12">

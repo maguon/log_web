@@ -349,10 +349,9 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
-            },
-            function () {
+                cancelButtonText: "取消"
+        }).then(function (result) {
+            if (result.value) {
                 // console.log(src);
                 var url_array=src.split("/");
                 var url=url_array[url_array.length-1];
@@ -368,9 +367,9 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
                     }
                 })
             }
-        )
-
+        })
     };
+
     // 头车过滤
     $scope.Binding_head_truck_check=function () {
         if($scope.Binding_head_truck!=null&&$scope.Binding_head_truck!=""){

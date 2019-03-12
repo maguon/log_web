@@ -267,9 +267,8 @@ app.controller("storage_car_controller", ["$scope", "$rootScope", "$stateParams"
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
-            },
+                cancelButtonText: "取消"
+        }).then(
             function () {
                 _basic.put($host.api_url + "/user/" + userId + "/carStorageRel/" + rel_id + "/relStatus/" + relSta, {
                     parkingId: p_id,
@@ -327,9 +326,8 @@ app.controller("storage_car_controller", ["$scope", "$rootScope", "$stateParams"
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
-            },
+                cancelButtonText: "取消"
+        }).then(
             function () {
                 if (parkingId != null) {
                     _basic.put($host.api_url + "/user/" + userId + "/storageParking/" + parkingId, {
@@ -394,9 +392,8 @@ app.controller("storage_car_controller", ["$scope", "$rootScope", "$stateParams"
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
-            },
+                cancelButtonText: "取消"
+        }).then(
             function () {
                 _basic.put($host.api_url + "/user/" + userId + "/carStorageRel/" + rel_id + "/relStatus/" + relSta, {
                     parkingId: p_id,

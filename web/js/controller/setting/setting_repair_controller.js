@@ -142,9 +142,8 @@ app.controller("setting_repair_controller", ["_basic", "_config", "$host", "$sco
                     showCancelButton: true,
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "确定",
-                    cancelButtonText: "取消",
-                    closeOnConfirm: true
-                },
+                    cancelButtonText: "取消"
+            }).then(
                 function (flag) {
                     if(flag){
                         _basic.put($host.api_url + "/user/" + userId + '/repairStation/' + id + "/repairStationStatus/" + status

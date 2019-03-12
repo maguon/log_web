@@ -169,9 +169,8 @@ app.controller("truck_repair_controller", ["$scope", "$state", "$stateParams", "
                     showCancelButton: true,
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "确认",
-                    cancelButtonText: "取消",
-                    closeOnConfirm: true
-                },
+                    cancelButtonText: "取消"
+                }).then(
                 function(){
                     _basic.put($host.api_url + "/user/" + userId + "/truckRepairRel/" + $scope.relId,{
                         repairStationId: $scope.repairStation,

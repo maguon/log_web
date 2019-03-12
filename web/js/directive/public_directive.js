@@ -110,17 +110,17 @@ publicDirective.directive('header', function () {
                     showCancelButton: true,
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "确认",
-                    cancelButtonText: "取消",
-                    closeOnConfirm: false
-                }, function () {
-                    _basic.removeSession(_basic.COMMON_AUTH_NAME);
-                    _basic.removeSession(_basic.USER_ID);
-                    _basic.removeSession(_basic.USER_TYPE);
-                    _basic.removeSession(_basic.USER_NAME);
-                    window.location.href = '/common_login.html';
-                });
-
-            };
+                    cancelButtonText: "取消"
+                }).then(
+                    function(){
+                        _basic.removeSession(_basic.COMMON_AUTH_NAME);
+                        _basic.removeSession(_basic.USER_ID);
+                        _basic.removeSession(_basic.USER_TYPE);
+                        _basic.removeSession(_basic.USER_NAME);
+                        window.location.href = '/common_login.html';
+                    });
+                //
+            }
             if (_basic.getSession(_basic.USER_TYPE) == str_type) {
                 var userid = _basic.getSession(_basic.USER_ID);
                 //触发侧边栏导航

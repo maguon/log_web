@@ -83,21 +83,22 @@ app.controller("dispatch_route_fee_details_controller", ["$scope", "$stateParams
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: true
-            },
-            function(){
-                _basic.delete($host.api_url + "/user/" + userId + "/dpRouteTaskLoan/" + routeFeeId + "/dpRouteTask/" + id).then(function (data) {
-                    if (data.success === true) {
-                        $scope.getMatchMissionList();
-                        swal("删除成功", "请重新填写过路费", "success");
+                cancelButtonText: "取消"
+                }).then(function (result) {
+                    if (result.value) {
+                        _basic.delete($host.api_url + "/user/" + userId + "/dpRouteTaskLoan/" + routeFeeId + "/dpRouteTask/" + id).then(function (data) {
+                            if (data.success === true) {
+                                $scope.getMatchMissionList();
+                                swal("删除成功", "请重新填写过路费", "success");
+                            }
+                            else {
+                                swal(data.msg, "", "error");
+                            }
+                        });
                     }
-                    else {
-                        swal(data.msg, "", "error");
-                    }
-                });
-            });
-    };
+                })
+            }
+
 
     // 保存当前未发放数据
     $scope.saveRouteFeeInfo = function () {

@@ -257,10 +257,9 @@ app.controller("add_head_truck_details_controller", ["$scope", "$state", "$state
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
-            },
-            function () {
+                cancelButtonText: "取消"
+        }).then(function (result) {
+            if (result.value) {
                 var url_array = src.split("/");
                 var url = url_array[url_array.length - 1];
                 _basic.delete($host.record_url + "/user/" + userId + "/record/" + record_id + "/truck/" + $scope.truck_num + "/image/" + url).then(function (data) {
@@ -275,9 +274,8 @@ app.controller("add_head_truck_details_controller", ["$scope", "$state", "$state
                     }
                 })
             }
-        )
-
-    };
+        })
+    }
     // 图片--绑定挂车
     $scope.next = function () {
         $(".ui-tabs li").addClass("disabled");

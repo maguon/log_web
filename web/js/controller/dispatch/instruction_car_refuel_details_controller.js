@@ -20,9 +20,8 @@ app.controller("instruction_car_refuel_details_controller", ["$scope", "$host", 
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: true
-            },
+                cancelButtonText: "取消"
+        }).then(
             function () {
                 _basic.put($host.api_url + "/user/" + userId + "/driveRefuel/" + id + "/checkStatus/" + 2, {}).then(function (data) {
                     if (data.success == true) {

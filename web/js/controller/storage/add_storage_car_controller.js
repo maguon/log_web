@@ -215,10 +215,9 @@ app.controller("add_storage_car_controller", ["$scope", "$rootScope","$state","$
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
-            },
-            function () {
+                cancelButtonText: "取消"
+        }).then(function (result) {
+            if (result.value) {
                 // console.log(src);
                 var url_array=src.split("/");
                 var url=url_array[url_array.length-1];
@@ -234,9 +233,9 @@ app.controller("add_storage_car_controller", ["$scope", "$rootScope","$state","$
                     }
                 })
             }
-        )
+        })
+    }
 
-    };
     // 目的地城市-经销商联动
     $scope.get_received=function (id){
         _basic.get($host.api_url+"/receive?cityId="+id).then(function (data) {

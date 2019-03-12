@@ -117,17 +117,16 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$
 
     // 删除选中的质损信息
     $scope.deleteDamageInfo = function (damageCardId) {
-        if($scope.damageInfoCardList.length > 1){
+        if($scope.damageInfoCardList.length > 1) {
             swal({
-                    title: "确定删除当前质损信息吗？",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "确认",
-                    cancelButtonText: "取消",
-                    closeOnConfirm: true
-                },
-                function(){
+                title: "确定删除当前质损信息吗？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确认",
+                cancelButtonText: "取消"
+            }).then(function (result) {
+                if (result.value) {
                     _basic.delete($host.api_url + "/user/" + userId + "/damageInsure/" + damageId + "/damage/" + damageCardId).then(function (data) {
                         if (data.success === true) {
                             // console.log("data",data);
@@ -137,13 +136,15 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$
                             swal(data.msg, "", "error");
                         }
                     });
-                });
-        }
-        else{
-            swal("至少保留一条质损信息！", "", "warning");
+                }
+            })
         }
 
-    };
+        else{
+                swal("至少保留一条质损信息！", "", "warning");
+            }
+        }
+
 
     // 保存修改后的质损信息
     $scope.saveDamageInfo = function () {
@@ -209,9 +210,8 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: true
-            },
+                cancelButtonText: "取消"
+            }).then(
             function(){
                 _basic.put($host.api_url + "/user/" + userId + "/damageInsure/" + damageId + "/insureStatus/2",{}).then(function (data) {
                     if (data.success === true) {

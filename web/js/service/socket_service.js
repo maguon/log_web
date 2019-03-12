@@ -31,9 +31,9 @@ baseService.factory('_socket',['$http','$location','$q',"$cookies","$host","_bas
                 type: "error",
                 showCancelButton: false,
                 confirmButtonColor: "#DD6B55",
-                confirmButtonText: "确定",
-                closeOnConfirm: false
-            },function(){
+                confirmButtonText: "确定"
+            }).then(
+                function(){
                 window.location.href = '/common_login.html';
             });
             //

@@ -212,10 +212,9 @@ app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
-            },
-            function(){
+                cancelButtonText: "取消"
+        }).then(function (result) {
+            if (result.value) {
                 _basic.delete($host.api_url + "/user/" + userId + "/truckInsureRel/"+id).then(function (data) {
                     if (data.success === true) {
                         getTruckInsureList ();
@@ -225,9 +224,10 @@ app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "
                         swal(data.msg, "", "error");
                     }
                 });
-            });
-
+            }
+        })
     }
+
     // 分页
     $scope.getPrePage = function () {
         $scope.start = $scope.start - ($scope.size-1);

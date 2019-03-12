@@ -178,9 +178,8 @@ app.controller("car_payment_loan_details_controller", ["$scope", "$state", "$sta
                     showCancelButton: true,
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "确认",
-                    cancelButtonText: "取消",
-                    closeOnConfirm: true
-                },
+                    cancelButtonText: "取消"
+            }).then(
                 function(){
                     _basic.put($host.api_url + "/user/" + userId + "/indemnity/" + indemnityId + "/indemnityStatus/2",{}).then(function (data) {
                         if (data.success === true) {

@@ -74,9 +74,8 @@ app.controller("look_instruction_need_details_controller", ["$scope", "$host", "
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: true
-            },
+                cancelButtonText: "取消"
+        }).then(
             function(){
                 _basic.put($host.api_url + "/user/" + userId + "/dpDemand/" + $stateParams.id + "/demandStatus/0",{}).then(function (data) {
                     if (data.success === true) {
@@ -98,9 +97,8 @@ app.controller("look_instruction_need_details_controller", ["$scope", "$host", "
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: true
-            },
+                cancelButtonText: "取消"
+        }).then(
             function(){
                 _basic.put($host.api_url + "/user/" + userId + "/dpDemand/" + $stateParams.id + "/demandStatus/2",{}).then(function (data) {
                     if (data.success === true) {

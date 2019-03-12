@@ -167,9 +167,8 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
-            },
+                cancelButtonText: "取消"
+        }).then(
             function () {
                 _basic.put($host.api_url + "/user/" + userId + "/carStorageRel/" + rel_id + "/relStatus/" + relSta, {
                     parkingId: p_id,
@@ -228,9 +227,8 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
-            },
+                cancelButtonText: "取消"
+        }).then(
             function () {
                 if (parkingId != null) {
                     _basic.put($host.api_url + "/user/" + userId + "/storageParking/" + parkingId, {
@@ -371,10 +369,9 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
-            },
-            function () {
+                cancelButtonText: "取消"
+        }).then(function (result) {
+            if (result.value) {
                 var url_array = src.split("/");
                 var url = url_array[url_array.length - 1];
                 _basic.delete($host.record_url + "/user/" + userId + "/record/" + record_id + "/image/" + url).then(function (data) {
@@ -386,9 +383,9 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
                     }
                 })
             }
-        )
+        })
+    }
 
-    };
     $scope.lookStorageCar(val, vin);
     // 修改仓库详情
     $scope.submitForm = function (isValid, id, r_id) {
@@ -462,9 +459,8 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
-            },
+                cancelButtonText: "取消"
+        }).then(
             function () {
                 _basic.put($host.api_url + "/user/" + userId + "/carStorageRel/" + rel_id + "/relStatus/" + 2, {
                     parkingId: p_id,

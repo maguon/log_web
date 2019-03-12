@@ -326,10 +326,9 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                     showCancelButton: true,
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "确定",
-                    cancelButtonText: "取消",
-                    closeOnConfirm: false
-                },
-                function () {
+                    cancelButtonText: "取消"
+                }).then(function (result) {
+                if (result.value) {
                     // console.log(src);
                     var url_array = src.split("/");
                     var url = url_array[url_array.length - 1];
@@ -339,13 +338,13 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                             $scope.car_imageBox.splice(i, 1);
                             $scope.car_image_i.splice(i, 1);
                             swal("删除成功!", "", "success");
-                            // $scope.lookStorageCar(data.result.id,data.result.vin)
                         }
                     })
-                }
-            )
 
+                }
+            })
         };
+
 
         // 单条数据录入
         $scope.new_data_list = function () {

@@ -57,22 +57,20 @@ app.controller("dispatch_route_fee_controller", ["$scope", "$host", "_basic", "_
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: true
-            },
-            function(){
+                cancelButtonText: "取消"
+        }).then(function (result) {
+            if (result.value) {
                 _basic.delete($host.api_url + "/user/" + userId + "/dpRouteTaskLoan/" + id).then(function (data) {
                     if (data.success === true) {
-                        // console.log("data", data);
                         $scope.getCarFinanceList();
                     }
                     else {
                         swal(data.msg, "", "error");
                     }
                 });
-            });
-    };
-
+            }
+        })
+    }
     // 点击查询
     $scope.searchCarFinanceList = function () {
         $scope.start = 0;
@@ -201,10 +199,9 @@ app.controller("dispatch_route_fee_controller", ["$scope", "$host", "_basic", "_
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: true
-            },
-            function(){
+                cancelButtonText: "取消"
+        }).then(function (result) {
+            if (result.value) {
                 $scope.$apply(function () {
                     $scope.matchMissionList.splice(index, 1);
                     // 重新计算过路费
@@ -218,8 +215,9 @@ app.controller("dispatch_route_fee_controller", ["$scope", "$host", "_basic", "_
                         }
                     }
                 });
-            });
-    };
+            }
+        })
+    }
 
     // 新增出车款信息
     $scope.addRouteFeeInfo = function () {
@@ -242,7 +240,6 @@ app.controller("dispatch_route_fee_controller", ["$scope", "$host", "_basic", "_
                 dpRouteTaskIds: dpRouteTaskIds
             }).then(function (data) {
                 if (data.success === true) {
-                    // console.log("data", data);
                     $("#addCarFinanceModel").modal("close");
                     swal("新增成功", "", "success");
                     $scope.searchCarFinanceList();

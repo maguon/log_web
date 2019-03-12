@@ -131,9 +131,8 @@ app.controller("add_storage_car_put_in_controller", ["$scope", "$rootScope","$st
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
-            },
+                cancelButtonText: "取消"
+        }).then(
             function () {
                 _basic.put($host.api_url+"/user/"+userId+"/car/"+$scope.id+"/carStatus/"+9,{}).then(function (data) {
                     if(data.success==true){
@@ -229,10 +228,9 @@ app.controller("add_storage_car_put_in_controller", ["$scope", "$rootScope","$st
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
-            },
-            function () {
+                cancelButtonText: "取消"
+        }).then(function (result) {
+            if (result.value) {
                 var url_array=src.split("/");
                 var url=url_array[url_array.length-1];
                 _basic.delete($host.record_url+"/user/"+userId+"/record/"+record_id+"/image/"+url).then(function (data) {
@@ -244,9 +242,9 @@ app.controller("add_storage_car_put_in_controller", ["$scope", "$rootScope","$st
                     }
                 })
             }
-        )
+        })
+    }
 
-    };
     // 返回
     $scope.return = function () {
         $state.go("add_storage_car_vin", {reload: true})

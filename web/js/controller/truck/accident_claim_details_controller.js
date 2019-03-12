@@ -114,10 +114,9 @@ app.controller("accident_claim_details_controller", ["$scope","$state", "$host",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: true
-            },
-            function(){
+                cancelButtonText: "取消"
+        }).then(function (result) {
+            if (result.value) {
                 _basic.delete($host.api_url + "/user/" + userId + "/accidentInsure/" + $scope.accidentId + "/accident/" + currentAccidentId).then(function (data) {
                     if (data.success === true) {
                         // console.log("data", data);
@@ -127,8 +126,10 @@ app.controller("accident_claim_details_controller", ["$scope","$state", "$host",
                         swal(data.msg, "", "error");
                     }
                 });
-            });
-    };
+            }
+        })
+    }
+
 
     // 保存当前修改的信息
     $scope.saveCurrentAccidentInfo = function () {
@@ -169,9 +170,8 @@ app.controller("accident_claim_details_controller", ["$scope","$state", "$host",
                     showCancelButton: true,
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "确认",
-                    cancelButtonText: "取消",
-                    closeOnConfirm: true
-                },
+                    cancelButtonText: "取消"
+                }).then(
                 function(){
                     _basic.put($host.api_url + "/user/" + userId + "/truckAccidentInsure/" + $scope.accidentId,{
                         insureId: $scope.accidentDetails.insure_id,

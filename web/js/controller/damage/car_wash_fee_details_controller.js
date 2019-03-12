@@ -39,9 +39,8 @@ app.controller("car_wash_fee_details_controller", ["$scope", "$host", "$statePar
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: true
-            },
+                cancelButtonText: "取消"
+            }).then(
             function(){
                 _basic.put($host.api_url + "/user/" + userId + "/loadTaskCleanRel/" + carId + "/status/0",{
                     actualPrice: 0,
@@ -65,9 +64,8 @@ app.controller("car_wash_fee_details_controller", ["$scope", "$host", "$statePar
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: true
-            },
+                cancelButtonText: "取消"
+        }).then(
             function(){
                 _basic.put($host.api_url + "/user/" + userId + "/loadTaskCleanRel/" + carId + "/status/2",{
                     actualPrice: $scope.totalPrice,

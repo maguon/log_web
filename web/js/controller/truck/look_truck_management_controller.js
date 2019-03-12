@@ -207,10 +207,9 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
-            },
-            function () {
+                cancelButtonText: "取消"
+        }).then(function (result) {
+            if (result.value) {
                 var url_array = src.split("/");
                 var url = url_array[url_array.length - 1];
                 _basic.delete($host.record_url + "/user/" + userId + "/record/" + $scope.id + "/truckDamageImage/" + url).then(function (data) {
@@ -229,8 +228,8 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                     }
                 })
             }
-        )
-    };
+        })
+    }
 
     // 点击图片查看大图
     var viewer;
@@ -377,10 +376,9 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: true
-            },
-            function () {
+                cancelButtonText: "取消"
+        }).then(
+            function(){
                 if ($scope.currentAccInfo.truck_accident_type == 1 || $scope.currentAccInfo.truck_accident_type == 2) {
                     _basic.put($host.api_url + "/user/" + userId + "/truckAccidentCheck/" + $scope.truckAccidentCheckId, {
                         truckAccidentId: truckAccId,
@@ -413,7 +411,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                     swal('请输入完整信息', "", "error");
                 }
             })
-    };
+    }
 
     //查询维修信息
     $scope.getRepairInfo = function () {
@@ -519,9 +517,8 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                     showCancelButton: true,
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "确认",
-                    cancelButtonText: "取消",
-                    closeOnConfirm: true
-                },
+                    cancelButtonText: "取消"
+                }).then(
                 function(){
                     _basic.put($host.api_url + "/user/" + userId + "/truckRepairRel/" + relId,{
                         repairType: 1,
@@ -631,20 +628,19 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
 
     // 删除当前信息
     $scope.deleteAccidentInfo = function (currentAccidentId) {
-        if($scope.accidentClaimList.length === 1){
+        if ($scope.accidentClaimList.length === 1) {
             swal("至少保留一条关联事故！", "", "warning");
         }
-        else{
+        else {
             swal({
-                    title: "确定删除当前事故吗？",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "确认",
-                    cancelButtonText: "取消",
-                    closeOnConfirm: true
-                },
-                function () {
+                title: "确定删除当前事故吗？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确认",
+                cancelButtonText: "取消"
+            }).then(function (result) {
+                if (result.value) {
                     _basic.delete($host.api_url + "/user/" + userId + "/accidentInsure/" + currentAccidentId + "/accident/" + truckAccId).then(function (data) {
                         if (data.success === true) {
                             $scope.getConnectedAccidentList(currentAccidentId);
@@ -653,9 +649,10 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                             swal(data.msg, "", "error");
                         }
                     });
-                });
+                }
+            })
         }
-    };
+    }
 
     // 获取数据
     $scope.queryData = function () {

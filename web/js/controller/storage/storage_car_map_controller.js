@@ -237,8 +237,8 @@ app.controller("storage_car_map_controller", ["$state", "$rootScope", "$statePar
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
+                cancelButtonText: "取消"
+
             },
             function () {
                 // console.log(src);

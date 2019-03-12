@@ -98,21 +98,19 @@ app.controller("setting_files_controller", ["$scope", "$rootScope", "$host", "_b
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
-            },
-        function (isConfirm) {
-            if (isConfirm) {
+                cancelButtonText: "取消"
+        }).then(function (result) {
+            if (result.value) {
                 _basic.delete($host.api_url + "/user/" + userId + "/upload/" +  id).then(function (data) {
                     if (data.success === true) {
-                       swal('删除成功！','','success')
+                        swal('删除成功！','','success')
                     }
                     else {
-                        swal(data.msg, "", "error");
+                        swal('删除失败！', "", "error");
                     }
                 });
             }
-    });
+        })
     }
 
 

@@ -69,16 +69,17 @@ adminDirective.directive('header', function () {
                     showCancelButton: true,
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "确认",
-                    cancelButtonText: "取消",
-                    closeOnConfirm: false
-                }, function () {
-                    _basic.removeSession(_basic.COMMON_AUTH_NAME);
-                    _basic.removeSession(_basic.USER_ID);
-                    _basic.removeSession(_basic.USER_TYPE);
-                    _basic.removeSession(_basic.USER_NAME);
-                    window.location.href = '/admin_login.html';
-                });
-            };
+                    cancelButtonText: "取消"
+                }).then(
+                    function(){
+                        _basic.removeSession(_basic.COMMON_AUTH_NAME);
+                        _basic.removeSession(_basic.USER_ID);
+                        _basic.removeSession(_basic.USER_TYPE);
+                        _basic.removeSession(_basic.USER_NAME);
+                        window.location.href = '/admin_login.html';
+                    });
+                //
+            }
             // var str_type=$element.attr("type");
             if (_basic.getSession(_basic.USER_TYPE) == "99") {
                 var userId = _basic.getSession(_basic.USER_ID);

@@ -85,9 +85,8 @@ app.controller("truck_compensate_loan_details_controller", ["$scope","$state","$
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: true
-            },
+                cancelButtonText: "取消"
+        }).then(
             function(){
                 _basic.put($host.api_url + "/user/" + userId + "/truckAccidentInsureLoan/" + loanId + "/loanStatus/0",{}).then(function (data) {
                     if (data.success === true) {
@@ -153,9 +152,8 @@ app.controller("truck_compensate_loan_details_controller", ["$scope","$state","$
                     showCancelButton: true,
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "确认",
-                    cancelButtonText: "取消",
-                    closeOnConfirm: true
-                },
+                    cancelButtonText: "取消"
+            }).then(
                 function(){
                     _basic.put($host.api_url + "/user/" + userId + "/truckAccidentInsureLoan/" + loanId + "/loanStatus/3",{}).then(function (data) {
                         if (data.success === true) {

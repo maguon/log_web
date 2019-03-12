@@ -14,13 +14,12 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: true
-            },
+                cancelButtonText: "取消"
+        }).then(
             function () {
                 _basic.put($host.api_url + "/user/" + userId + "/driveRefuel/" + id + "/checkStatus/" + 2, {}).then(function (data) {
                     if (data.success == true) {
-                        $scope.search_All();
+                        $scope.search_query();
                     }
                 })
             });
@@ -38,7 +37,7 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
                 checkReason: $scope.reject_reason_msg
             }).then(function (data) {
                 if (data.success == true) {
-                    $scope.search_All();
+                    $scope.search_query();
                     $('#modal1').modal('close');
                 }
             })

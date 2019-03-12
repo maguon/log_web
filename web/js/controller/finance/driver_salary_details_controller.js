@@ -196,9 +196,8 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: true
-            },
+                cancelButtonText: "取消"
+        }).then(
             function(){
                 _basic.delete($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/damage/" + damageId).then(function (data) {
                     if (data.success === true) {
@@ -236,9 +235,8 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: true
-            },
+                cancelButtonText: "取消"
+        }).then(
             function(){
                 _basic.delete($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/accident/" + accidentId).then(function (data) {
                     if (data.success === true) {
@@ -276,9 +274,8 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: true
-            },
+                cancelButtonText: "取消"
+        }).then(
             function(){
                 _basic.delete($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/dpRouteTask/" + taskId).then(function (data) {
                     if (data.success === true) {
@@ -316,9 +313,8 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: true
-            },
+                cancelButtonText: "取消"
+        }).then(
             function(){
                 _basic.delete($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/peccancy/" + peccancyId).then(function (data) {
                     if (data.success === true) {
@@ -356,9 +352,8 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: true
-            },
+                cancelButtonText: "取消"
+        }).then(
             function(){
                 _basic.delete($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/exceedOil/" + OilId).then(function (data) {
                     if (data.success === true) {
@@ -456,9 +451,8 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: true
-            },
+                cancelButtonText: "取消"
+        }).then(
             function(){
                 _basic.put($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/grantStatus/3",{}).then(function (data) {
                     if (data.success === true) {

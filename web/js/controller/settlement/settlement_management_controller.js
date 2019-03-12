@@ -207,15 +207,14 @@ app.controller("settlement_management_controller", ["$scope","$rootScope","$stat
         if ($scope.addEntrustId !== undefined&& $scope.addNumberId!==undefined) {
             swal({
                     title: "确定提交？",
-                    text: '<p style="color:red;font-size: 18px">提交后委托方将不可修改</p><p style="margin-top: 30px">点击确定后将跳转到交接单详情页</p>',
+                    text:'' ,
                     type:'warning',
-                    html: true,
+                    html: '<p style="color:red;font-size: 18px">提交后委托方将不可修改</p><p style="margin-top: 30px">点击确定后将跳转到交接单详情页</p>',
                     showCancelButton: true,
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "确认",
-                    cancelButtonText: "取消",
-                    closeOnConfirm: true
-                },
+                    cancelButtonText: "取消"
+            }).then(
                 function () {
                     _basic.post($host.api_url + "/user/" + userId + "/settleHandover", {
                         serialNumber: $scope.addNumberId,

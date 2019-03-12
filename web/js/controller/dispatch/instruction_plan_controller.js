@@ -692,46 +692,49 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         if ($scope.lineEndCityInfo != "" && $scope.lineStartDate != "") {
             var routeStartId;
             var routeStart;
-            if($scope.startSeleCity!==null&&$scope.startSeleCity!==undefined){
-                routeStartId=$scope.startSeleCity.id;
-                routeStart=$scope.startSeleCity.city_name;
-            }else {
-                routeStartId = $scope.currentLineList.length === 0 ? $scope.dispatchInfo.current_city :  $scope.currentLineList[$scope.currentLineList.length - 1].route_end_id;
-                routeStart = $scope.currentLineList.length === 0 ? $scope.dispatchInfo.city_name :  $scope.currentLineList[$scope.currentLineList.length - 1].city_route_end;
+            if ($scope.startSeleCity !== null && $scope.startSeleCity !== undefined) {
+                routeStartId = $scope.startSeleCity.id;
+                routeStart = $scope.startSeleCity.city_name;
+            }
+            else {
+                routeStartId = $scope.currentLineList.length === 0 ? $scope.dispatchInfo.current_city : $scope.currentLineList[$scope.currentLineList.length - 1].route_end_id;
+                routeStart = $scope.currentLineList.length === 0 ? $scope.dispatchInfo.city_name : $scope.currentLineList[$scope.currentLineList.length - 1].city_route_end;
             }
 
-            if(routeStartId !==$scope.lastEndCityId&&$scope.lastEndCityId!==undefined){
-                _basic.get($host.api_url + "/cityRoute?routeStartId="+$scope.lastEndCityId+"&routeEndId="+$scope.startCityId).then(function (data) {
+            if (routeStartId !== $scope.lastEndCityId && $scope.lastEndCityId !== undefined) {
+                _basic.get($host.api_url + "/cityRoute?routeStartId=" + $scope.lastEndCityId + "&routeEndId=" + $scope.startCityId).then(function (data) {
                     if (data.success == true) {
-                        $scope.blankId=data.result[0].id;
-                        $scope.blankDistance=data.result[0].distance;
-                        $scope.blankRouteId=data.result[0].route_id;
+                        $scope.blankId = data.result[0].id;
+                        $scope.blankDistance = data.result[0].distance;
+                        $scope.blankRouteId = data.result[0].route_id;
                     }
                 });
-                swal({
-                        title: " ",
-                        text: "您没有从"+$scope.lastEndCity+"到"+routeStart+"的空驶路线",
-                        type: "info",
-                        showCancelButton: true,
-                        confirmButtonColor: "#DD6B55",
-                        cancelButtonText: "仅创建新路线",
-                        confirmButtonText: "创建空驶和新路线",
-                        closeOnConfirm: true,
-                        closeOnCancel: true
-                    },
-                    function () {
+
+
+               swal({
+                    title: '',
+                    text: "您没有从" + $scope.lastEndCity + "到" + routeStart + "的空驶路线",
+                    type: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: '创建空驶和新路线',
+                   cancelButtonColor:'#d33',
+                    cancelButtonText: '仅创建新路线',
+                    reverseButtons: true
+                }).then( function (result) {
+                    if (result.value) {
+                        /*空使*/
                         _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask", {
                             truckId: $scope.dispatchInfo.truck_id,
-                            routeId:$scope.blankRouteId,
-                            truckNumber:$scope.dispatchInfo.truck_number,
+                            routeId: $scope.blankRouteId,
+                            truckNumber: $scope.dispatchInfo.truck_number,
                             driveId: $scope.dispatchInfo.drive_id,
                             routeStartId: $scope.lastEndCityId,
-                            routeStart:$scope.lastEndCity,
+                            routeStart: $scope.lastEndCity,
                             routeEndId: routeStartId,
-                            routeEnd:routeStart,
+                            routeEnd: routeStart,
                             distance: $scope.blankDistance,
                             cityRouteId: $scope.blankId,
-                            taskStatus:10,
+                            taskStatus: 10,
                             taskPlanDate: $scope.lineStartDate
                         }).then(function (data) {
                             if (data.success == true) {
@@ -739,38 +742,62 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                                 $scope.showDispatchInfo($scope.dispatchInfo);
                             }
                         })
-                    }
-                )
+                       /*新路线*/
+                        _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask", {
+                            truckId: $scope.dispatchInfo.truck_id,
+                            routeId: $scope.lineEndCityInfo.route_id,
+                            truckNumber: $scope.dispatchInfo.truck_number,
+                            driveId: $scope.dispatchInfo.drive_id,
+                            routeStartId: routeStartId,
+                            routeStart: routeStart,
+                            routeEndId: $scope.lineEndCityInfo.end_id,
+                            routeEnd: $scope.lineEndCityInfo.city_name,
+                            distance: $scope.lineEndCityInfo.distance,
+                            cityRouteId: $scope.lineEndCityInfo.id,
+                            taskPlanDate: $scope.lineStartDate
+                        }).then(function (data) {
+                            if (data.success === true) {
+                                $scope.lineInfo = false;
+                                $scope.showDispatchInfo($scope.dispatchInfo);
+                            }
+                            else {
+                                swal(data.msg, "", "error");
+                            }
+                        });
+
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        /*新路线*/
+                        _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask", {
+                            truckId: $scope.dispatchInfo.truck_id,
+                            routeId: $scope.lineEndCityInfo.route_id,
+                            truckNumber: $scope.dispatchInfo.truck_number,
+                            driveId: $scope.dispatchInfo.drive_id,
+                            routeStartId: routeStartId,
+                            routeStart: routeStart,
+                            routeEndId: $scope.lineEndCityInfo.end_id,
+                            routeEnd: $scope.lineEndCityInfo.city_name,
+                            distance: $scope.lineEndCityInfo.distance,
+                            cityRouteId: $scope.lineEndCityInfo.id,
+                            taskPlanDate: $scope.lineStartDate
+                        }).then(function (data) {
+                            if (data.success === true) {
+                                $scope.lineInfo = false;
+                                $scope.showDispatchInfo($scope.dispatchInfo);
+                            }
+                            else {
+                                swal(data.msg, "", "error");
+                            }
+                        });
+                }
+            })
             }
 
-            _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask", {
-                truckId: $scope.dispatchInfo.truck_id,
-                routeId:$scope.lineEndCityInfo.route_id,
-                truckNumber:$scope.dispatchInfo.truck_number,
-                driveId: $scope.dispatchInfo.drive_id,
-                routeStartId: routeStartId,
-                routeStart:routeStart,
-                routeEndId: $scope.lineEndCityInfo.end_id,
-                routeEnd:$scope.lineEndCityInfo.city_name,
-                distance: $scope.lineEndCityInfo.distance,
-                cityRouteId: $scope.lineEndCityInfo.id,
-                taskPlanDate: $scope.lineStartDate
-            }).then(function (data) {
-                if (data.success === true) {
-                    $scope.lineInfo = false;
-                    $scope.showDispatchInfo($scope.dispatchInfo);
-                }
-                else {
-                    swal(data.msg, "", "error");
-                }
-            });
+            else {
+                swal("请填写完整信息", "", "error");
             }
 
-        else {
-            swal("请填写完整信息", "", "error");
+
         }
-
-
     };
 
     // 新增路线取消按钮
@@ -790,10 +817,9 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
-            },
-            function(){
+                cancelButtonText: "取消"
+            }).then(function (result) {
+            if (result.value) {
                 _basic.delete($host.api_url + "/user/" + userId + "/dpRouteTaskTmp/" + deleteLineId).then(function (data) {
                     if (data.success === true) {
                         $scope.showDispatchInfo($scope.dispatchInfo);
@@ -803,7 +829,8 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                         swal(data.msg, "", "error");
                     }
                 });
-            });
+            }
+        })
     };
 
     // 删除当前路线
@@ -816,10 +843,9 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
-            },
-            function(){
+                cancelButtonText: "取消"
+            }).then(function (result) {
+            if (result.value) {
                 _basic.delete($host.api_url + "/user/" + userId + "/dpRouteTask/" + deleteLineId).then(function (data) {
                     if (data.success === true) {
                         $scope.showDispatchInfo($scope.dispatchInfo);
@@ -829,7 +855,8 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                         swal(data.msg, "", "error");
                     }
                 });
-            });
+            }
+            })
     };
 
     // 点击线路获取当前路线下的装车任务信息
@@ -972,9 +999,8 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
-            },
+                cancelButtonText: "取消"
+        }).then(
             function () {
                 _basic.post($host.api_url + "/user/" + userId + "/dpRouteTaskBatch", obj).then(function (data) {
                     if (data.success === true) {
@@ -1325,10 +1351,9 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
-            },
-            function () {
+                cancelButtonText: "取消"
+        }).then(function (result) {
+            if (result.value) {
                 _basic.delete($host.api_url + "/user/" + userId + "/dpRouteLoadTask/" + missionId).then(function (data) {
                     if (data.success === true) {
                         $scope.showMissionInfo(lineId,$scope.showLineDate,$scope.startLineId,$scope.clickIndex);
@@ -1338,7 +1363,8 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                         swal(data.msg, "", "error");
                     }
                 });
-            });
+            }
+        })
     };
 
 
@@ -1486,10 +1512,9 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
-            },
-            function () {
+                cancelButtonText: "取消"
+        }).then(function (result) {
+            if (result.value) {
                 _basic.delete($host.api_url + "/user/" + userId + "/dpRouteLoadTaskTmp/" + missionId).then(function (data) {
                     if (data.success === true) {
                         $scope.showMissionInfo2(lineId,$scope.showLineDate,$scope.startLineId,$scope.clickIndex);
@@ -1499,7 +1524,8 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                         swal(data.msg, "", "error");
                     }
                 });
-            });
+            }
+        })
     };
 
     // 获取数据

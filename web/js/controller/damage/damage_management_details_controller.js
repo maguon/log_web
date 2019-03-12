@@ -216,10 +216,9 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
-            },
-            function () {
+                cancelButtonText: "取消"
+        }).then(function (result) {
+            if (result.value) {
                 _basic.delete($host.record_url + "/user/" + userId + "/record/" + recordId + "/damageImage/" + realUrl).then(function (data) {
                     if (data.success === true) {
                         swal("删除成功", "", "success");
@@ -232,8 +231,9 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
                         swal(data.msg, "", "error");
                     }
                 });
-            })
-    };
+            }
+        })
+    }
 
     // 获取维修站列表
     $scope.getRepairStationList = function () {

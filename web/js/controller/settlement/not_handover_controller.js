@@ -97,16 +97,13 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
                     showCancelButton: true,
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "确定",
-                    cancelButtonText: "取消",
-                    closeOnConfirm: true,
-                    closeOnCancel: true
-                },
+                    cancelButtonText: "取消"
+            }).then(
                 function () {
                     window.open($host.api_url + "/notSettleHandover.csv?" + _basic.objToUrl(obj));
                 })
         }
-    };
-
+    }
 
     //查询
     $scope.getNotHandoverInfo = function () {

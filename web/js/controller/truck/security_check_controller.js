@@ -497,10 +497,9 @@ app.controller("security_check_controller", ["$scope", "$state", "_basic", "_con
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
-            },
-            function () {
+                cancelButtonText: "取消"
+        }).then(function (result) {
+            if (result.value) {
                 var url_array = src.split("/");
                 var url = url_array[url_array.length - 1];
                 _basic.delete($host.record_url + "/user/" + userId + "/record/" + record_id + "/truckCheckImage/" + url).then(function (data) {
@@ -514,9 +513,10 @@ app.controller("security_check_controller", ["$scope", "$state", "_basic", "_con
                     }
                 })
             }
-        )
+        })
+    }
 
-    };
+
     // 删除车检照片
     $scope.delete_put = function (record_id, src) {
         swal({
@@ -526,10 +526,9 @@ app.controller("security_check_controller", ["$scope", "$state", "_basic", "_con
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
-            },
-            function () {
+                cancelButtonText: "取消"
+        }).then(function (result) {
+            if (result.value) {
                 var url_array = src.split("/");
                 var url = url_array[url_array.length - 1];
                 _basic.delete($host.record_url + "/user/" + userId + "/record/" + record_id + "/truckCheckImage/" + url).then(function (data) {
@@ -543,9 +542,9 @@ app.controller("security_check_controller", ["$scope", "$state", "_basic", "_con
                     }
                 })
             }
-        )
+        })
+    }
 
-    };
     // 照片上传函数
     function uploadBrandImage(filename, dom_obj, callback) {
         if (filename) {

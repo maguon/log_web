@@ -39,10 +39,8 @@ app.controller("driver_cost_controller", ["$scope","$rootScope","$state","$state
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                closeOnConfirm: true,
-                closeOnCancel:true
-            },
+                cancelButtonText: "取消"
+            }).then(
             function () {
                 window.open($host.api_url + "/driveCost.csv?" + _basic.objToUrl(obj));
             })

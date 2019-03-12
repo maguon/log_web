@@ -234,9 +234,8 @@ app.controller("driver_salary_controller", ["$scope","$rootScope","$state","$sta
                         type: "success",
                         showCancelButton: false,
                         confirmButtonColor: "#86cceb",
-                        confirmButtonText: "确认",
-                        closeOnConfirm: true
-                    },
+                        confirmButtonText: "确认"
+                }).then(
                     function () {
                         $state.go("driver_salary_details", {
                             id: data.id,

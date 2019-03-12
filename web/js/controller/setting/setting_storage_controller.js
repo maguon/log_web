@@ -35,8 +35,6 @@ app.controller("setting_storage_controller", ["$scope","$state","$stateParams", 
         if (isValid) {
             var obj = {
                 storageName: $scope.newStorageName,
-                // row: Number($scope.newStorageCol),
-                // col: Number($scope.newStorageRoad),
                 remark: $scope.newStorageRemark
             };
             _basic.post($host.api_url + "/user/" + userId + "/storage", obj).then(function (data) {
@@ -85,40 +83,20 @@ app.controller("setting_storage_controller", ["$scope","$state","$stateParams", 
     // 修改仓库运营状态
     $scope.changeStorage_status = function (id, status) {
         var st;
-        // var str="";
-        //
         if (status == 0) {
-            // str="启用";
             st = 1
         } else {
-            // str="停用";
             st = 0
         }
-        // swal({
-        //         title: "是否"+str+"?",
-        //         text: "",
-        //         type: "warning",
-        //         showCancelButton: true,
-        //         confirmButtonColor: "#DD6B55",
-        //         confirmButtonText: "确定",
-        //         cancelButtonText: "取消",
-        //         closeOnConfirm: false
-        //     },
-        //     function () {
-
-                _basic.put($host.api_url + "/user/" + userId + "/storage/" + id + "/storageStatus/" + st, {}).then(function (data) {
-                    if (data.success == true) {
-                        swal("修改成功", "", "success");
-                        searchAll();
-                    } else {
-                        swal(data.msg, "", "error");
-                        searchAll();
-                    }
-                })
-            }
-        // );
-
-
-    // }
+            _basic.put($host.api_url + "/user/" + userId + "/storage/" + id + "/storageStatus/" + st, {}).then(function (data) {
+                if (data.success == true) {
+                    swal("修改成功", "", "success");
+                    searchAll();
+                } else {
+                    swal(data.msg, "", "error");
+                    searchAll();
+                }
+            })
+        }
 }]);
 

@@ -78,15 +78,13 @@ app.controller("driver_settlement_controller", ["_basic", "_config", "$host", "$
                     showCancelButton: true,
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "确定",
-                    cancelButtonText: "取消",
-                    closeOnConfirm: true,
-                    closeOnCancel: true
-                },
+                    cancelButtonText: "取消"
+            }).then(
                 function () {
                     window.open($host.api_url + "/driveSettle.csv?" + _basic.objToUrl(obj));
                 })
         }
-    };
+    }
 
     //查询功能
     $scope.getSettlement = function (){

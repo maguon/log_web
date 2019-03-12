@@ -111,10 +111,9 @@ app.controller("entrust_setting_controller", ["$scope", "_basic", "_config", "$h
                 showCancelButton: true,
                 cancelButtonText: "取消",
                 confirmButtonColor: "#DD6B55",
-                confirmButtonText: "确定",
-                closeOnConfirm: false
-            },
-            function () {
+                confirmButtonText: "确定"
+        }).then(function (result) {
+            if (result.value) {
                 _basic.delete($host.api_url + "/user/" + userId + "/entrust/" +entrust+"/make/"+makeId , {}).then(
                     function (data) {
                         if (data.success === true) {
@@ -125,7 +124,8 @@ app.controller("entrust_setting_controller", ["$scope", "_basic", "_config", "$h
                             swal(data.msg, "", "error");
                         }
                     });
-            });
+            }
+        })
     }
 
     // 分页

@@ -104,10 +104,9 @@ app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$ho
                 showCancelButton: true,
                 cancelButtonText: "取消",
                 confirmButtonColor: "#DD6B55",
-                confirmButtonText: "确定",
-                closeOnConfirm: false
-            },
-            function () {
+                confirmButtonText: "确定"
+        }).then(function (result) {
+            if (result.value) {
                 _basic.delete($host.api_url + "/user/" + $scope.userId + "/entrustContacts/" + contactId, {}).then(
                     function (data) {
                         if (data.success === true) {
@@ -119,10 +118,9 @@ app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$ho
                             swal(data.msg, "", "error");
                         }
                     });
-                // console.log("$scope.userId:", $scope.userId);
-                // console.log("contactId:", contactId)
-            });
-    };
+            }
+        })
+    }
 
     // 获取所有委托方信息
     $scope.getEntrust = function () {

@@ -271,10 +271,9 @@ app.controller("add_hand_truck_details_controller", ["$scope", "$state", "$state
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
-            },
-            function () {
+                cancelButtonText: "取消"
+        }).then(function (result) {
+            if (result.value) {
                 // console.log(src);
                 var url_array = src.split("/");
                 var url = url_array[url_array.length - 1];
@@ -290,9 +289,8 @@ app.controller("add_hand_truck_details_controller", ["$scope", "$state", "$state
                     }
                 })
             }
-        )
-
-    };
+        })
+    }
 
     // 图片--绑定头车
     $scope.next = function () {

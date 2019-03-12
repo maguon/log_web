@@ -148,10 +148,11 @@ app.controller("settlement_management_detail_controller", ["$scope","$state","$s
             if(data.success==true){
                 seachLinkCar();
                 getDetailItem();
+                swal("添加成功！", "", "success");
             }
             else {
                 $scope.carVin="";
-                swal(data.msg, "", "error");
+                swal("添加失败！", "", "error");
             }
         })
     };
@@ -165,10 +166,9 @@ app.controller("settlement_management_detail_controller", ["$scope","$state","$s
                  showCancelButton: true,
                  confirmButtonColor: "#DD6B55",
                  confirmButtonText: "确认",
-                 cancelButtonText: "取消",
-                 closeOnConfirm: true
-             },
-             function(){
+                 cancelButtonText: "取消"
+         }).then(function (result) {
+             if (result.value) {
                  _basic.delete($host.api_url + "/user/" + userId + "/settleHandover/" +settleHandoverId+ "/car/" +carId ).then(function (data) {
                      if (data.success === true) {
                          seachLinkCar();
@@ -177,9 +177,9 @@ app.controller("settlement_management_detail_controller", ["$scope","$state","$s
                          swal(data.msg, "", "error");
                      }
                  });
-             });
-     }
-
+             }
+         })
+     };
 
     // 照片上传函数
     function uploadBrandImage(filename,dom_obj,callback) {

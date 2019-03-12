@@ -183,20 +183,18 @@ app.controller("setting_dealer_controller", ["$scope","$rootScope","$state","$st
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
-            },
-            function (isConfirm) {
-                if (isConfirm) {
-                    _basic.delete($host.api_url + "/user/" + userId + "/receiveContacts/" + id).then(function (data) {
-                        if (data.success == true) {
-                            swal("删除成功!", "", "success");
-                            $scope.get_contact(con_id);
-                        }
-                    });
-                }
-            });
-    };
+                cancelButtonText: "取消"
+        }).then(function (result) {
+            if (result.value) {
+                _basic.delete($host.api_url + "/user/" + userId + "/receiveContacts/" + id).then(function (data) {
+                    if (data.success == true) {
+                        swal("删除成功!", "", "success");
+                        $scope.get_contact(con_id);
+                    }
+                });
+            }
+        })
+    }
 
     // 显示洗车费模态框
     $scope.showCarWashFeeModel = function (item) {

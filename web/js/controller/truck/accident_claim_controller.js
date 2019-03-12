@@ -216,16 +216,15 @@ app.controller("accident_claim_controller", ["$scope","$rootScope","$state","$st
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: true
-            },
-            function(){
+                cancelButtonText: "取消"
+        }).then(function (result) {
+            if (result.value) {
                 $scope.$apply(function (){
                     $scope.accidentClaimList.splice(index, 1)
                 })
-            });
-    };
-
+            }
+        })
+    }
     // 提交保险赔付列表
     $scope.submitClaimInfoList = function () {
         if($scope.insuranceCompanyMod !== ""

@@ -190,12 +190,9 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
                     showCancelButton: true,
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "确定",
-                    cancelButtonText: "取消",
-                    closeOnConfirm: true,
-                    closeOnCancel: true
-                },
+                    cancelButtonText: "取消"
+            }).then(
                 function () {
-
                     window.open($host.api_url + "/entrustCar.csv?" + _basic.objToUrl(obj));
                 })
         }
@@ -220,10 +217,9 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                closeOnConfirm: true,
-                closeOnCancel: true
-            },
+                cancelButtonText: "取消"
+        }).then(
+
             function () {
                 window.open($host.api_url + "/entrustNotCar.csv?" + _basic.objToUrl(obj));
             })

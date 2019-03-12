@@ -168,10 +168,9 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$state","$sta
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: true
-            },
-            function(){
+                cancelButtonText: "取消"
+        }).then(function (result) {
+            if (result.value) {
                 _basic.delete($host.api_url + "/user/" + userId + "/dpRouteTaskLoan/" + routeFeeId + "/dpRouteTask/" + id).then(function (data) {
                     if (data.success === true) {
                         swal("删除成功", "", "success");
@@ -182,8 +181,9 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$state","$sta
                         swal(data.msg, "", "error");
                     }
                 });
-            });
-    };
+            }
+        })
+    }
 
     // 点击保存
     $scope.grantRouteFeeInfo = function () {

@@ -58,7 +58,7 @@
         <!--详细信息-->
         <div class="col s12"  ng-show="showDetails" style="height: 60px">
             <div class="col s12 center-align">
-                <div class="col s10">
+                <div class="col s8">
                     <div class="col s3 cyan-text bold">
                         <p>调度编号：{{currentOperateInfo.id}}</p>
                     </div>
@@ -72,6 +72,56 @@
                         <p>{{currentOperateInfo.task_status | instructionsStatus}}</p>
                     </div>
                 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+                <div class="col s2 right-align" ng-show="currentOperateInfo.task_status == 2" style="margin-top:10px">
+                    <button ng-click="changeTaskStatus2()" style="height: 32px"
+                            class="btn waves-light waves-effect red lighten-1" type="button">
+                        调整为待接受
+                    </button>
+                </div>
+                <div class="col s2 right-align" ng-show="currentOperateInfo.task_status == 3" style="margin-top:10px">
+                    <button ng-click="changeTaskStatus3()" style="height: 32px"
+                            class="btn waves-light waves-effect red lighten-1" type="button">
+                        调整为已接受
+                    </button>
+                </div>-->
+                <!--调整为执行-->
+                <div class="col s2 right-align" ng-show="currentOperateInfo.task_status == 4" style="margin-top:10px">
+                    <button ng-click="changeTaskStatus4()" style="height: 32px"
+                            class="btn waves-light waves-effect red lighten-1" type="button">
+                        调整为执行
+                    </button>
+                </div>
+               <!-- <div class="col s2 right-align" ng-show="currentOperateInfo.task_status == 9" style="margin-top:10px">
+                    <button ng-click="changeTaskStatus9()" style="height: 32px"
+                            class="btn waves-light waves-effect red lighten-1" type="button">
+                        调整为在途
+                    </button>
+                </div>-->
+
+
+
+
+
+
+
+
+
+
                 <div class="col s2 right-align" ng-show="currentOperateInfo.task_status == 1" style="margin-top:10px">
                     <button ng-click="acceptInstruction()" style="height: 32px"
                             class="btn waves-light waves-effect cyan lighten-1" type="button">
@@ -192,15 +242,37 @@
                                             <i style="font-size: 1.1rem;line-height: 27px" class="mdi mdi-check"></i>
                                         </button>
                                     </div>
-                                    <!-- <div class="col s1" ng-show="mission.load_task_status !== 1&&load.car_load_status == 1 && load.exception_status == null">
-                                         <button ng-click="AbnormalOccurrence(load.car_id,mission.id)" style="width: 25px;height: 25px;line-height: 25px;background-color: rgb(229,115,115);" class="btn btn-floating waves-light waves-effect lighten-1" type="button">
-                                             <i style="font-size: 1.1rem;line-height: 27px" class="mdi mdi-exclamation"></i>
-                                         </button>
-                                     </div>-->
                                 </div>
                             </div>
                         </div>
                         <div class="col s12" ng-hide="mission.load_task_status == 7">
+
+
+
+
+
+<!--
+
+                            <div class="col s2 offset-s10 right-align" ng-show="currentOperateInfo.task_status == 3 && mission.load_task_status == 1">
+                                <button ng-click="completeLoadCar(mission.id)" style="height: 30px;font-size: 0.9rem;line-height: 2rem;margin: 10px 0"
+                                        class="btn waves-light waves-effect cyan lighten-1" type="button">
+                                    调整为未装车
+                                </button>
+                            </div>
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
                             <div class="col s2 offset-s10 right-align" ng-show="currentOperateInfo.task_status == 3 && mission.load_task_status == 1">
                                 <button ng-click="completeLoadCar(mission.id)" style="height: 30px;font-size: 0.9rem;line-height: 2rem;margin: 10px 0"
                                         class="btn waves-light waves-effect cyan lighten-1" type="button">
@@ -218,104 +290,6 @@
                 </li>
 
 
-
-
-               <!-- <li ng-repeat="mission in missionList">
-                    &lt;!&ndash;列表头&ndash;&gt;
-                    <div class="collapsible-header">
-                        <div class="col s12" style="padding: 0">
-                            <div class="col s10 p-no-pad" ng-click="cancelBubble($event)">
-                                <div class="col s3 left-align cyan-text">
-                                    <p ng-show="mission.load_task_type==1">
-                                        {{mission.addr_name}}&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;
-                                        <span ng-show="mission.transfer_flag==1">{{mission.transfer_addr_name}} <span  class="red-text">(转)</span></span>
-                                        <span ng-show="mission.transfer_flag!==1">{{mission.short_name}}</span>
-                                    <p ng-show="mission.load_task_type!==1">
-                                        {{mission.addr_name}}<span  class="red-text">(转)</span>&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;
-                                        <span ng-show="mission.transfer_flag==1">{{mission.transfer_addr_name}} <span  class="red-text">(转)</span></span>
-                                        <span ng-show="mission.transfer_flag!==1">{{mission.short_name}}</span>
-                                    </p>
-                                </div>
-                              &lt;!&ndash;  <div class="col s3">
-                                    <p>{{mission.addr_name}}&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;{{mission.city_name + " - " + mission.short_name}}</p>
-                                </div>&ndash;&gt;
-                                <div class="col s2">
-                                    <p>{{mission.plan_count}}</p>
-                                </div>
-                                <div class="col s2">
-                                    <p>{{mission.demand_route_start}}&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;{{mission.demand_route_end}}</p>
-                                </div>
-                                <div class="col s2">
-                                    <p>{{mission.load_task_status | missionStatus}}</p>
-                                </div>
-                                <div class="col s3" >&lt;!&ndash;ng-show="mission.load_task_status == 3"&ndash;&gt;
-                                    <p>{{mission.car_count}}</p>
-                                </div>
-                               &lt;!&ndash; <div class="col s3" ng-show="mission.load_task_status == 7">
-                                    <p>实际送达数：{{mission.car_count}}&emsp;异常：0</p>
-                                </div>&ndash;&gt;
-                            </div>
-                            <div class="col s2 right-align" ng-click="cancel_bubble($event)" style="height: 48px;">
-                                <button ng-click="showTruckLoadInfo(mission.id)" ng-show="currentOperateInfo.task_status == 3 || currentOperateInfo.task_status == 4 || currentOperateInfo.task_status == 9" style="height: 30px;font-size: 0.9rem;line-height: 2rem"
-                                        class="btn waves-light waves-effect cyan lighten-1" type="button">
-                                    商品车信息
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    &lt;!&ndash;列表栏&ndash;&gt;
-                    <div class="collapsible-body" style="padding: 0">
-                        <div class="col s12" style="background-color: rgb(242,242,242)" ng-hide="mission.load_task_status == 3 || mission.load_task_status == 7">
-                            <div class="col s11 input-field" style="margin:10px 0">
-                                <input id="autocomplete-input" type="text" ng-change="searchMatchVin()" ng-model="$parent.vinNum" class="autocomplete" minlength="6">
-                                <label for="autocomplete-input">请输入车辆VIN</label>
-                            </div>
-                            <div class="col s1 right-align" style="margin-top: 15px">
-                                <button ng-click="checkVinNum(mission.id)" class="btn btn-floating waves-light waves-effect cyan lighten-1"
-                                        type="button">
-                                    <i class="mdi mdi-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="col s12 fz12">
-                            &lt;!&ndash;VIN信息&ndash;&gt;
-                            <div class="col s4" ng-repeat="load in loadList">
-                                <div class="col s12 valign-wrapper white"  style="border: 1px solid #00b0ff;margin-top: 20px">
-                                    <div class="col s10" style="padding: 0" ng-class="{'abnormal':load.exception_status != null}">
-                                        <p>{{load.vin}}&emsp;（{{load.make_name}}）</p>
-                                    </div>
-                                    <div class="col s2 contactsBox fz17 red-text" ng-hide="mission.load_task_status == 3 || mission.load_task_status == 7">
-                                        <i ng-click="deleteLoadCar(load.car_id,load.id,mission.id)" style="cursor:pointer;" class="mdi mdi-close-circle"></i>
-                                    </div>
-                                    <div class="col s1" ng-show="mission.load_task_status !== 1&& load.car_load_status == 1 && load.exception_status == null">
-                                        <button ng-click="vehicleDelivery(load.id,mission.id)" style="width: 25px;height: 25px;line-height: 25px" class="btn btn-floating waves-light waves-effect cyan lighten-1" type="button">
-                                            <i style="font-size: 1.1rem;line-height: 27px" class="mdi mdi-check"></i>
-                                        </button>
-                                    </div>
-                                    &lt;!&ndash; <div class="col s1" ng-show="mission.load_task_status !== 1&&load.car_load_status == 1 && load.exception_status == null">
-                                         <button ng-click="AbnormalOccurrence(load.car_id,mission.id)" style="width: 25px;height: 25px;line-height: 25px;background-color: rgb(229,115,115);" class="btn btn-floating waves-light waves-effect lighten-1" type="button">
-                                             <i style="font-size: 1.1rem;line-height: 27px" class="mdi mdi-exclamation"></i>
-                                         </button>
-                                     </div>&ndash;&gt;
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col s12" ng-hide="mission.load_task_status == 7">
-                            <div class="col s2 offset-s10 right-align" ng-show="currentOperateInfo.task_status == 3 && mission.load_task_status == 1">
-                                <button ng-click="completeLoadCar(mission.id)" style="height: 30px;font-size: 0.9rem;line-height: 2rem;margin: 10px 0"
-                                        class="btn waves-light waves-effect cyan lighten-1" type="button">
-                                    完成装车
-                                </button>
-                            </div>
-                            <div class="col s2 offset-s10 right-align" ng-show="mission.load_task_status == 3">
-                                <button ng-click="completeSendCar(mission.id)" style="height: 30px;font-size: 0.9rem;line-height: 2rem;margin: 10px 0"
-                                        class="btn waves-light waves-effect cyan lighten-1" type="button">
-                                    完成配送
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </li>-->
             </ul>
         </div>
     </div>

@@ -125,6 +125,40 @@ app.controller("instruction_operation_details_controller", ["$scope","$state", "
         });
     };
 
+
+
+    //从已接受调整为待接受
+    $scope.changeTaskStatus2 =function(){
+
+    }
+
+
+    //从执行调整为已接受
+    $scope.changeTaskStatus3 =function(){
+
+    }
+    //从在途调整为执行
+    $scope.changeTaskStatus4 =function(){
+        _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" + $scope.currentOperateInfo.id + "/taskStatusBack/3?truckId="+$scope.currentOperateInfo.truck_id,{}).then(function (data) {
+            if (data.success === true) {
+                $scope.getCurrentOperationInfo($scope.currentOperateInfo.id)
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
+    //从完成调整为在途
+    $scope.changeTaskStatus5 =function(){
+
+    }
+
+
+
+
+
+
+
     // 点击任务获取装车信息
     $scope.showTruckLoadInfo = function (missionId) {
         _basic.get($host.api_url + "/dpRouteLoadTask/" + missionId + "/dpRouteLoadTaskDetail").then(function (loadData) {
@@ -254,13 +288,11 @@ app.controller("instruction_operation_details_controller", ["$scope","$state", "
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
-            },
-            function(){
+                cancelButtonText: "取消"
+        }).then(function (result) {
+            if (result.value) {
                 _basic.delete($host.api_url + "/user/" + userId + "/dpRouteTaskDetail/" + detailId + "?truckId=" + truckId + "&carId=" + carId).then(function (delLoadData) {
                     if (delLoadData.success === true) {
-                        // console.log("delLoadData",delLoadData);
                         $scope.showTruckLoadInfo(missionId);
                         swal("删除成功", "", "success");
                     }
@@ -268,10 +300,9 @@ app.controller("instruction_operation_details_controller", ["$scope","$state", "
                         swal(delLoadData.msg, "", "error");
                     }
                 });
-            });
-
-    };
-
+            }
+        })
+    }
     // 完成装车
     $scope.completeLoadCar = function (missionId) {
         _basic.put($host.api_url + "/user/" + userId + "/dpRouteLoadTask/" + missionId + "/loadTaskStatus/3",{}).then(function (completeData) {
@@ -295,9 +326,8 @@ app.controller("instruction_operation_details_controller", ["$scope","$state", "
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: true
-            },
+                cancelButtonText: "取消"
+        }).then(
             function(){
                 _basic.put($host.api_url + "/user/" + userId + "/dpRouteTaskDetail/" + loadId + "/carLoadStatus/2?truckId=" + truckId,{}).then(function (data) {
                     if (data.success === true) {
@@ -318,9 +348,8 @@ app.controller("instruction_operation_details_controller", ["$scope","$state", "
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                closeOnConfirm: true
-            },
+                cancelButtonText: "取消"
+        }).then(
             function(){
                 _basic.post($host.api_url + "/user/" + userId + "/carExceptionRel",{
                     carId: carId,

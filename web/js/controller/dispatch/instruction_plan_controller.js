@@ -701,6 +701,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 routeStart = $scope.currentLineList.length === 0 ? $scope.dispatchInfo.city_name : $scope.currentLineList[$scope.currentLineList.length - 1].city_route_end;
             }
 
+            /*有空使得情况下*/
             if (routeStartId !== $scope.lastEndCityId && $scope.lastEndCityId !== undefined) {
                 _basic.get($host.api_url + "/cityRoute?routeStartId=" + $scope.lastEndCityId + "&routeEndId=" + $scope.startCityId).then(function (data) {
                     if (data.success == true) {
@@ -709,8 +710,6 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                         $scope.blankRouteId = data.result[0].route_id;
                     }
                 });
-
-
                swal({
                     title: '',
                     text: "您没有从" + $scope.lastEndCity + "到" + routeStart + "的空驶路线",
@@ -787,16 +786,41 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                             else {
                                 swal(data.msg, "", "error");
                             }
-                        });
-                }
-            })
+                        })
+                    }
+                    else{
+                        return;
+                    }
+            });
             }
-
-            else {
-                swal("请填写完整信息", "", "error");
+           /*没有空使直接建新路线*/
+            else{
+                /*新路线*/
+                _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask", {
+                    truckId: $scope.dispatchInfo.truck_id,
+                    routeId: $scope.lineEndCityInfo.route_id,
+                    truckNumber: $scope.dispatchInfo.truck_number,
+                    driveId: $scope.dispatchInfo.drive_id,
+                    routeStartId: routeStartId,
+                    routeStart: routeStart,
+                    routeEndId: $scope.lineEndCityInfo.end_id,
+                    routeEnd: $scope.lineEndCityInfo.city_name,
+                    distance: $scope.lineEndCityInfo.distance,
+                    cityRouteId: $scope.lineEndCityInfo.id,
+                    taskPlanDate: $scope.lineStartDate
+                }).then(function (data) {
+                    if (data.success === true) {
+                        $scope.lineInfo = false;
+                        $scope.showDispatchInfo($scope.dispatchInfo);
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
             }
-
-
+        }
+        else {
+            swal("请填写完整信息", "", "error");
         }
     };
 

@@ -349,7 +349,7 @@ app.controller("instruction_operation_details_controller", ["$scope","$state", "
 
     }*/
 
-    //调整为车辆未送达
+    //调整为车辆未装车
     $scope.changeCarNoArr =function (missionId){
         _basic.put($host.api_url + "/user/" + userId + "/dpRouteLoadTask/" + missionId + "/loadTaskStatusBack/1",{
             carIds: carId

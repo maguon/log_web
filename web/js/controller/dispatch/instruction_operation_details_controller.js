@@ -7,6 +7,7 @@ app.controller("instruction_operation_details_controller", ["$scope","$state", "
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.showDetails = false;
     $scope.vinNum = "";
+    var carId=[];
     // 返回
     $scope.return = function () {
         $state.go($stateParams.from,{from:"instruction_operation_details"}, {reload: true})
@@ -164,6 +165,21 @@ app.controller("instruction_operation_details_controller", ["$scope","$state", "
         _basic.get($host.api_url + "/dpRouteLoadTask/" + missionId + "/dpRouteLoadTaskDetail").then(function (loadData) {
             if (loadData.success === true) {
                 $scope.loadList = loadData.result;
+                carId=[];
+                for(var i = 0;i < $scope.loadList.length;i++){
+                    carId.push($scope.loadList[i].car_id);
+                   /* if($scope.loadList[i].car_load_status == 1){
+                        $scope.changeLoadCarStatusFlag=2;
+                    }
+                    else if($scope.loadList[i].car_load_status == 2){
+                        $scope.changeLoadCarStatusFlag=3;
+
+                    }
+                    else{
+                        $scope.changeLoadCarStatusFlag=false;
+                        break;
+                    }*/
+                }
             }
             else {
                 swal(loadData.msg, "", "error");
@@ -307,9 +323,9 @@ app.controller("instruction_operation_details_controller", ["$scope","$state", "
     $scope.completeLoadCar = function (missionId) {
         _basic.put($host.api_url + "/user/" + userId + "/dpRouteLoadTask/" + missionId + "/loadTaskStatus/3",{}).then(function (completeData) {
             if (completeData.success === true) {
-                // console.log("completeData",completeData);
                 // 刷新任务状态
-                $scope.getOperationMission($scope.currentOperateInfo.id);
+               /* $scope.getOperationMission($scope.currentOperateInfo.id);*/
+                $scope.getCurrentOperationInfo($scope.currentOperateInfo.id)
                 swal("完成装车", "", "success");
             }
             else {
@@ -317,6 +333,37 @@ app.controller("instruction_operation_details_controller", ["$scope","$state", "
             }
         });
     };
+    /*//调整为未装车
+    $scope.changeLoadCarStatus =function (missionId){
+        _basic.put($host.api_url + "/user/" + userId + "/dpRouteLoadTask/" + missionId + "/loadTaskStatusBack/1",{}).then(function (completeData) {
+            if (completeData.success === true) {
+                $scope.getCurrentOperationInfo($scope.currentOperateInfo.id)
+                swal("调整为未装车成功！", "", "success");
+            }
+            else {
+                swal(completeData.msg, "", "error");
+            }
+        });
+
+
+
+    }*/
+
+    //调整为车辆未送达
+    $scope.changeCarNoArr =function (missionId){
+        _basic.put($host.api_url + "/user/" + userId + "/dpRouteLoadTask/" + missionId + "/loadTaskStatusBack/1",{
+            carIds: carId
+        }).then(function (completeData) {
+            if (completeData.success === true) {
+                $scope.getCurrentOperationInfo($scope.currentOperateInfo.id);
+                swal("调整为未装车成功！", "", "success");
+            }
+            else {
+                swal(completeData.msg, "", "error");
+            }
+        });
+    }
+
 
     // 点击确认车辆送达
     $scope.vehicleDelivery = function (loadId,missionId) {

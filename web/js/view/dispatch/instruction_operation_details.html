@@ -246,45 +246,28 @@
                             </div>
                         </div>
                         <div class="col s12" ng-hide="mission.load_task_status == 7">
-
-
-
-
-
-<!--
-
-                            <div class="col s2 offset-s10 right-align" ng-show="currentOperateInfo.task_status == 3 && mission.load_task_status == 1">
-                                <button ng-click="completeLoadCar(mission.id)" style="height: 30px;font-size: 0.9rem;line-height: 2rem;margin: 10px 0"
-                                        class="btn waves-light waves-effect cyan lighten-1" type="button">
-                                    调整为未装车
-                                </button>
-                            </div>
--->
-
-
-
-
-
-
-
-
-
-
-
-
-
                             <div class="col s2 offset-s10 right-align" ng-show="currentOperateInfo.task_status == 3 && mission.load_task_status == 1">
                                 <button ng-click="completeLoadCar(mission.id)" style="height: 30px;font-size: 0.9rem;line-height: 2rem;margin: 10px 0"
                                         class="btn waves-light waves-effect cyan lighten-1" type="button">
                                     完成装车
                                 </button>
                             </div>
-                            <div class="col s2 offset-s10 right-align" ng-show="mission.load_task_status == 3">
+                            <div class="col s2 offset-s8 right-align" ng-show="mission.load_task_status == 3">
+                                <button ng-click="changeCarNoArr(mission.id)" style="height: 30px;font-size: 0.9rem;line-height: 2rem;margin: 10px 0"
+                                        class="btn waves-light waves-effect red lighten-1" type="button">
+                                    调整为车辆未装车
+                                </button>
+                            </div>
+                            <div class="col s2 right-align" ng-show="mission.load_task_status == 3">
                                 <button ng-click="completeSendCar(mission.id)" style="height: 30px;font-size: 0.9rem;line-height: 2rem;margin: 10px 0"
                                         class="btn waves-light waves-effect cyan lighten-1" type="button">
                                     完成配送
                                 </button>
                             </div>
+
+
+
+
                         </div>
                     </div>
                 </li>

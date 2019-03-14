@@ -134,10 +134,10 @@ app.controller("instruction_operation_details_controller", ["$scope","$state", "
     }
 
 
-    //从执行调整为已接受
+   /* //从执行调整为已接受
     $scope.changeTaskStatus3 =function(){
 
-    }
+    }*/
     //从在途调整为执行
     $scope.changeTaskStatus4 =function(){
         _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" + $scope.currentOperateInfo.id + "/taskStatusBack/3?truckId="+$scope.currentOperateInfo.truck_id,{}).then(function (data) {
@@ -149,11 +149,11 @@ app.controller("instruction_operation_details_controller", ["$scope","$state", "
             }
         });
     }
-    //从完成调整为在途
+   /* //从完成调整为在途
     $scope.changeTaskStatus5 =function(){
 
     }
-
+*/
 
 
 

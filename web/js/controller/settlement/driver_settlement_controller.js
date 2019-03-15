@@ -80,8 +80,10 @@ app.controller("driver_settlement_controller", ["_basic", "_config", "$host", "$
                     confirmButtonText: "确定",
                     cancelButtonText: "取消"
             }).then(
-                function () {
-                    window.open($host.api_url + "/driveSettle.csv?" + _basic.objToUrl(obj));
+                function (result) {
+                    if (result.value) {
+                        window.open($host.api_url + "/driveSettle.csv?" + _basic.objToUrl(obj));
+                    }
                 })
         }
     }

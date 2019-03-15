@@ -41,8 +41,10 @@ app.controller("driver_cost_controller", ["$scope","$rootScope","$state","$state
                 confirmButtonText: "确定",
                 cancelButtonText: "取消"
             }).then(
-            function () {
-                window.open($host.api_url + "/driveCost.csv?" + _basic.objToUrl(obj));
+            function (result) {
+                if (result.value) {
+                    window.open($host.api_url + "/driveCost.csv?" + _basic.objToUrl(obj));
+                }
             })
 
     };

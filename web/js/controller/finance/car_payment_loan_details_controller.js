@@ -180,15 +180,17 @@ app.controller("car_payment_loan_details_controller", ["$scope", "$state", "$sta
                     confirmButtonText: "确认",
                     cancelButtonText: "取消"
             }).then(
-                function(){
-                    _basic.put($host.api_url + "/user/" + userId + "/indemnity/" + indemnityId + "/indemnityStatus/2",{}).then(function (data) {
-                        if (data.success === true) {
-                            getCurrentLoanInfo();
-                        }
-                        else {
-                            swal(data.msg, "", "error");
-                        }
-                    });
+                function(result){
+                    if (result.value) {
+                        _basic.put($host.api_url + "/user/" + userId + "/indemnity/" + indemnityId + "/indemnityStatus/2", {}).then(function (data) {
+                            if (data.success === true) {
+                                getCurrentLoanInfo();
+                            }
+                            else {
+                                swal(data.msg, "", "error");
+                            }
+                        });
+                    }
                 });
         }
         else{

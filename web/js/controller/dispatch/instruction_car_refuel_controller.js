@@ -16,12 +16,14 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
                 confirmButtonText: "确认",
                 cancelButtonText: "取消"
         }).then(
-            function () {
-                _basic.put($host.api_url + "/user/" + userId + "/driveRefuel/" + id + "/checkStatus/" + 2, {}).then(function (data) {
-                    if (data.success == true) {
-                        $scope.search_query();
-                    }
-                })
+            function (result) {
+                if (result.value) {
+                    _basic.put($host.api_url + "/user/" + userId + "/driveRefuel/" + id + "/checkStatus/" + 2, {}).then(function (data) {
+                        if (data.success == true) {
+                            $scope.search_query();
+                        }
+                    })
+                }
             });
     };
 

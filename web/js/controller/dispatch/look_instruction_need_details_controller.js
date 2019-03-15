@@ -76,16 +76,18 @@ app.controller("look_instruction_need_details_controller", ["$scope", "$host", "
                 confirmButtonText: "确认",
                 cancelButtonText: "取消"
         }).then(
-            function(){
-                _basic.put($host.api_url + "/user/" + userId + "/dpDemand/" + $stateParams.id + "/demandStatus/0",{}).then(function (data) {
-                    if (data.success === true) {
-                        swal("取消成功", "", "success");
-                        $scope.getDispatchInfo();
-                    }
-                    else {
-                        swal(data.msg, "", "error");
-                    }
-                });
+            function(result){
+                if (result.value) {
+                    _basic.put($host.api_url + "/user/" + userId + "/dpDemand/" + $stateParams.id + "/demandStatus/0", {}).then(function (data) {
+                        if (data.success === true) {
+                            swal("取消成功", "", "success");
+                            $scope.getDispatchInfo();
+                        }
+                        else {
+                            swal(data.msg, "", "error");
+                        }
+                    });
+                }
             });
     };
 
@@ -99,16 +101,18 @@ app.controller("look_instruction_need_details_controller", ["$scope", "$host", "
                 confirmButtonText: "确认",
                 cancelButtonText: "取消"
         }).then(
-            function(){
-                _basic.put($host.api_url + "/user/" + userId + "/dpDemand/" + $stateParams.id + "/demandStatus/2",{}).then(function (data) {
-                    if (data.success === true) {
-                        swal("成功", "", "success");
-                        $scope.getDispatchInfo();
-                    }
-                    else {
-                        swal(data.msg, "", "error");
-                    }
-                });
+            function(result){
+                if (result.value) {
+                    _basic.put($host.api_url + "/user/" + userId + "/dpDemand/" + $stateParams.id + "/demandStatus/2", {}).then(function (data) {
+                        if (data.success === true) {
+                            swal("成功", "", "success");
+                            $scope.getDispatchInfo();
+                        }
+                        else {
+                            swal(data.msg, "", "error");
+                        }
+                    });
+                }
             });
     };
 

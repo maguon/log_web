@@ -378,37 +378,39 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                 confirmButtonText: "确认",
                 cancelButtonText: "取消"
         }).then(
-            function(){
-                if ($scope.currentAccInfo.truck_accident_type == 1 || $scope.currentAccInfo.truck_accident_type == 2) {
-                    _basic.put($host.api_url + "/user/" + userId + "/truckAccidentCheck/" + $scope.truckAccidentCheckId, {
-                        truckAccidentId: truckAccId,
-                        truckAccidentType: $scope.currentAccInfo.truck_accident_type,
-                        underUserId: $("#fined").val(),
-                        underUserName: $("#fined").find("option:selected").text().split(" ")[0],
-                        underCost: $scope.currentAccInfo.under_cost,
-                        companyCost: $scope.currentAccInfo.company_cost,
-                        profit: $scope.currentAccInfo.profit,
-                        remark: $scope.currentAccInfo.remark
-                    }).then(function (data) {
-                        if (data.success === true) {
-                            _basic.put($host.api_url + "/user/" + userId + "/truckAccident/" + truckAccId + "/accidentStatus/3?truckAccidentCheckId=" + $scope.truckAccidentCheckId, {}).then(function (data) {
-                                if (data.success === true) {
-                                    swal("处理成功", "", "success");
-                                    $scope.accidentStatus = 3;
-                                    $scope.getCurrentAccInfo();
-                                }
-                                else {
-                                    swal(data.msg, "", "error");
-                                }
-                            });
-                        }
-                        else {
-                            swal(data.msg, "", "error");
-                        }
-                    });
-                }
-                else {
-                    swal('请输入完整信息', "", "error");
+            function(result){
+                if (result.value) {
+                    if ($scope.currentAccInfo.truck_accident_type == 1 || $scope.currentAccInfo.truck_accident_type == 2) {
+                        _basic.put($host.api_url + "/user/" + userId + "/truckAccidentCheck/" + $scope.truckAccidentCheckId, {
+                            truckAccidentId: truckAccId,
+                            truckAccidentType: $scope.currentAccInfo.truck_accident_type,
+                            underUserId: $("#fined").val(),
+                            underUserName: $("#fined").find("option:selected").text().split(" ")[0],
+                            underCost: $scope.currentAccInfo.under_cost,
+                            companyCost: $scope.currentAccInfo.company_cost,
+                            profit: $scope.currentAccInfo.profit,
+                            remark: $scope.currentAccInfo.remark
+                        }).then(function (data) {
+                            if (data.success === true) {
+                                _basic.put($host.api_url + "/user/" + userId + "/truckAccident/" + truckAccId + "/accidentStatus/3?truckAccidentCheckId=" + $scope.truckAccidentCheckId, {}).then(function (data) {
+                                    if (data.success === true) {
+                                        swal("处理成功", "", "success");
+                                        $scope.accidentStatus = 3;
+                                        $scope.getCurrentAccInfo();
+                                    }
+                                    else {
+                                        swal(data.msg, "", "error");
+                                    }
+                                });
+                            }
+                            else {
+                                swal(data.msg, "", "error");
+                            }
+                        });
+                    }
+                    else {
+                        swal('请输入完整信息', "", "error");
+                    }
                 }
             })
     }
@@ -519,25 +521,28 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                     confirmButtonText: "确认",
                     cancelButtonText: "取消"
                 }).then(
-                function(){
-                    _basic.put($host.api_url + "/user/" + userId + "/truckRepairRel/" + relId,{
-                        repairType: 1,
-                        accidentId: truckAccId,
-                        repairReason: $scope.repairReason,
-                        repairStationId: $scope.repairStationMod,
-                        repairMoney: $scope.repairMoneyMod,
-                        remark: $scope.repairExplainMod
-                    }).then(function (data) {
-                        if (data.success === true) {
-                            // console.log("data", data);
-                            $('#repairFinishMod').modal('close');
-                            $scope.getRepairInfo();
-                        }
-                        else {
-                            swal(data.msg, "", "error");
-                        }
-                    });
+                function(result){
+                    if (result.value) {
+                        _basic.put($host.api_url + "/user/" + userId + "/truckRepairRel/" + relId, {
+                            repairType: 1,
+                            accidentId: truckAccId,
+                            repairReason: $scope.repairReason,
+                            repairStationId: $scope.repairStationMod,
+                            repairMoney: $scope.repairMoneyMod,
+                            remark: $scope.repairExplainMod
+                        }).then(function (data) {
+                            if (data.success === true) {
+                                // console.log("data", data);
+                                $('#repairFinishMod').modal('close');
+                                $scope.getRepairInfo();
+                            }
+                            else {
+                                swal(data.msg, "", "error");
+                            }
+                        });
+                    }
                 });
+
         }
         else{
             swal("请填写完整信息！", "", "warning");

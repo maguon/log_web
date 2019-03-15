@@ -169,18 +169,21 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
                 confirmButtonText: "确定",
                 cancelButtonText: "取消"
         }).then(
-            function () {
-                _basic.put($host.api_url + "/user/" + userId + "/carStorageRel/" + rel_id + "/relStatus/" + relSta, {
-                    parkingId: p_id,
-                    storageId: s_id,
-                    carId: car_id
-                }).then(function (data) {
-                    if (data.success = true) {
-                        swal("出库成功!", "", "success");
-                    }
-                });
+            function (result) {
+                if (result.value) {
+                    _basic.put($host.api_url + "/user/" + userId + "/carStorageRel/" + rel_id + "/relStatus/" + relSta, {
+                        parkingId: p_id,
+                        storageId: s_id,
+                        carId: car_id
+                    }).then(function (data) {
+                        if (data.success = true) {
+                            swal("出库成功!", "", "success");
+                        }
+                    });
+                }
             }
         );
+
     };
     // 车库分区查询
     // 车位转移
@@ -229,20 +232,22 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
                 confirmButtonText: "确定",
                 cancelButtonText: "取消"
         }).then(
-            function () {
-                if (parkingId != null) {
-                    _basic.put($host.api_url + "/user/" + userId + "/storageParking/" + parkingId, {
-                        carId: $scope.move_carId
-                    }).then(function (data) {
-                        if (data.success == true) {
-                            swal("移位成功", "", "success");
-                            $scope.lookStorageCar(val, vin);
-                            $("#change_storageCar").modal("close");
-                        }
-                        else {
-                            swal(data.msg, "", "error")
-                        }
-                    })
+            function (result) {
+                if (result.value) {
+                    if (parkingId != null) {
+                        _basic.put($host.api_url + "/user/" + userId + "/storageParking/" + parkingId, {
+                            carId: $scope.move_carId
+                        }).then(function (data) {
+                            if (data.success == true) {
+                                swal("移位成功", "", "success");
+                                $scope.lookStorageCar(val, vin);
+                                $("#change_storageCar").modal("close");
+                            }
+                            else {
+                                swal(data.msg, "", "error")
+                            }
+                        })
+                    }
                 }
             })
     };
@@ -461,17 +466,19 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
                 confirmButtonText: "确定",
                 cancelButtonText: "取消"
         }).then(
-            function () {
-                _basic.put($host.api_url + "/user/" + userId + "/carStorageRel/" + rel_id + "/relStatus/" + 2, {
-                    parkingId: p_id,
-                    storageId: s_id,
-                    carId: car_id
-                }).then(function (data) {
-                    if (data.success = true) {
-                        swal("出库成功!", "", "success");
-                        $scope.self_car.rel_status = 2;
-                    }
-                });
+            function (result) {
+                if (result.value) {
+                    _basic.put($host.api_url + "/user/" + userId + "/carStorageRel/" + rel_id + "/relStatus/" + 2, {
+                        parkingId: p_id,
+                        storageId: s_id,
+                        carId: car_id
+                    }).then(function (data) {
+                        if (data.success = true) {
+                            swal("出库成功!", "", "success");
+                            $scope.self_car.rel_status = 2;
+                        }
+                    });
+                }
             });
     }
 }]);

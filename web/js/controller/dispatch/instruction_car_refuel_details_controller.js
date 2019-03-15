@@ -22,12 +22,14 @@ app.controller("instruction_car_refuel_details_controller", ["$scope", "$host", 
                 confirmButtonText: "确认",
                 cancelButtonText: "取消"
         }).then(
-            function () {
-                _basic.put($host.api_url + "/user/" + userId + "/driveRefuel/" + id + "/checkStatus/" + 2, {}).then(function (data) {
-                    if (data.success == true) {
-                        $scope.search_All();
-                    }
-                })
+            function (result) {
+                if (result.value) {
+                    _basic.put($host.api_url + "/user/" + userId + "/driveRefuel/" + id + "/checkStatus/" + 2, {}).then(function (data) {
+                        if (data.success == true) {
+                            $scope.search_All();
+                        }
+                    })
+                }
             });
     };
     // 拒绝

@@ -133,14 +133,15 @@ app.controller("add_storage_car_put_in_controller", ["$scope", "$rootScope","$st
                 confirmButtonText: "确定",
                 cancelButtonText: "取消"
         }).then(
-            function () {
+            function (result) {
+                if (result.value) {
                 _basic.put($host.api_url+"/user/"+userId+"/car/"+$scope.id+"/carStatus/"+9,{}).then(function (data) {
                     if(data.success==true){
                         $state.go("car_query", {reload: true});
                         swal("送达成功!", "", "success");
                     }
                 })
-            }
+            }}
         )
     }
     // 新增信息

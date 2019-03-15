@@ -99,8 +99,10 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
                     confirmButtonText: "确定",
                     cancelButtonText: "取消"
             }).then(
-                function () {
-                    window.open($host.api_url + "/notSettleHandover.csv?" + _basic.objToUrl(obj));
+                function (result) {
+                    if (result.value) {
+                        window.open($host.api_url + "/notSettleHandover.csv?" + _basic.objToUrl(obj));
+                    }
                 })
         }
     }

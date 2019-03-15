@@ -171,21 +171,23 @@ app.controller("truck_repair_controller", ["$scope", "$state", "$stateParams", "
                     confirmButtonText: "确认",
                     cancelButtonText: "取消"
                 }).then(
-                function(){
-                    _basic.put($host.api_url + "/user/" + userId + "/truckRepairRel/" + $scope.relId,{
-                        repairStationId: $scope.repairStation,
-                        remark: $scope.repairDescription,
-                        repairMoney: $scope.repairMoney
-                    }).then(function (data) {
-                        if (data.success === true) {
-                            // console.log("data", data);
-                            $('#repairFinishMod').modal('close');
-                            $scope.getCurrentRepairInfo();
-                        }
-                        else {
-                            swal(data.msg, "", "error");
-                        }
-                    });
+                function(result){
+                    if (result.value) {
+                        _basic.put($host.api_url + "/user/" + userId + "/truckRepairRel/" + $scope.relId, {
+                            repairStationId: $scope.repairStation,
+                            remark: $scope.repairDescription,
+                            repairMoney: $scope.repairMoney
+                        }).then(function (data) {
+                            if (data.success === true) {
+                                // console.log("data", data);
+                                $('#repairFinishMod').modal('close');
+                                $scope.getCurrentRepairInfo();
+                            }
+                            else {
+                                swal(data.msg, "", "error");
+                            }
+                        });
+                    }
                 });
         }
         else{

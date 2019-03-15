@@ -172,31 +172,33 @@ app.controller("accident_claim_details_controller", ["$scope","$state", "$host",
                     confirmButtonText: "确认",
                     cancelButtonText: "取消"
                 }).then(
-                function(){
-                    _basic.put($host.api_url + "/user/" + userId + "/truckAccidentInsure/" + $scope.accidentId,{
-                        insureId: $scope.accidentDetails.insure_id,
-                        insureType: $scope.accidentDetails.insure_type,
-                        insurePlan: $scope.accidentDetails.insure_plan,
-                        insureActual: $scope.accidentDetails.insure_actual,
-                        paymentExplain: $scope.accidentDetails.payment_explain,
-                        checkExplain: $scope.accidentDetails.check_explain,
-                        financialLoan: $scope.accidentDetails.financial_loan
-                    }).then(function (data) {
-                        if (data.success === true) {
-                            _basic.put($host.api_url + "/user/" + userId + "/truckAccidentInsure/" + $scope.accidentId + "/insureStatus/2",{}).then(function (data) {
-                                if (data.success === true) {
-                                    swal("处理成功", "", "success");
-                                    $scope.getCurrentAccidentDetails();
-                                }
-                                else {
-                                    swal(data.msg, "", "error");
-                                }
-                            });
-                        }
-                        else {
-                            swal(data.msg, "", "error");
-                        }
-                    });
+                function(result){
+                    if (result.value) {
+                        _basic.put($host.api_url + "/user/" + userId + "/truckAccidentInsure/" + $scope.accidentId, {
+                            insureId: $scope.accidentDetails.insure_id,
+                            insureType: $scope.accidentDetails.insure_type,
+                            insurePlan: $scope.accidentDetails.insure_plan,
+                            insureActual: $scope.accidentDetails.insure_actual,
+                            paymentExplain: $scope.accidentDetails.payment_explain,
+                            checkExplain: $scope.accidentDetails.check_explain,
+                            financialLoan: $scope.accidentDetails.financial_loan
+                        }).then(function (data) {
+                            if (data.success === true) {
+                                _basic.put($host.api_url + "/user/" + userId + "/truckAccidentInsure/" + $scope.accidentId + "/insureStatus/2", {}).then(function (data) {
+                                    if (data.success === true) {
+                                        swal("处理成功", "", "success");
+                                        $scope.getCurrentAccidentDetails();
+                                    }
+                                    else {
+                                        swal(data.msg, "", "error");
+                                    }
+                                });
+                            }
+                            else {
+                                swal(data.msg, "", "error");
+                            }
+                        });
+                    }
                 });
         }
     };

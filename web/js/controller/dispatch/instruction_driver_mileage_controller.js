@@ -152,8 +152,10 @@ app.controller("instruction_driver_mileage_controller", ["$scope","$rootScope","
                 confirmButtonText: "确定",
                 cancelButtonText: "取消"
         }).then(
-            function () {
-                window.open($host.api_url + "/driveDistanceLoad.csv?" + _basic.objToUrl(obj));
+            function (result) {
+                if (result.value) {
+                    window.open($host.api_url + "/driveDistanceLoad.csv?" + _basic.objToUrl(obj));
+                }
             })
     }
 

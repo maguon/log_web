@@ -87,16 +87,18 @@ app.controller("commercial_vehicle_compensate_loan_details_controller", ["$scope
                 confirmButtonText: "确认",
                 cancelButtonText: "取消"
         }).then(
-            function(){
-                _basic.put($host.api_url + "/user/" + userId + "/damageInsureLoan/" + loanId + "/loanStatus/0",{}).then(function (data) {
-                    if (data.success === true) {
-                        // console.log("data", data);
-                        $scope.getCurrentLoanInfo();
-                    }
-                    else {
-                        swal(data.msg, "", "error");
-                    }
-                });
+            function(result){
+                if (result.value) {
+                    _basic.put($host.api_url + "/user/" + userId + "/damageInsureLoan/" + loanId + "/loanStatus/0", {}).then(function (data) {
+                        if (data.success === true) {
+                            // console.log("data", data);
+                            $scope.getCurrentLoanInfo();
+                        }
+                        else {
+                            swal(data.msg, "", "error");
+                        }
+                    });
+                }
             });
     };
 
@@ -154,16 +156,18 @@ app.controller("commercial_vehicle_compensate_loan_details_controller", ["$scope
                     confirmButtonText: "确认",
                     cancelButtonText: "取消"
             }).then(
-                function(){
-                    _basic.put($host.api_url + "/user/" + userId + "/damageInsureLoan/" + loanId + "/loanStatus/3",{}).then(function (data) {
-                        if (data.success === true) {
-                            // console.log("data", data);
-                            $scope.getCurrentLoanInfo();
-                        }
-                        else {
-                            swal(data.msg, "", "error");
-                        }
-                    });
+                function(result){
+                    if (result.value) {
+                        _basic.put($host.api_url + "/user/" + userId + "/damageInsureLoan/" + loanId + "/loanStatus/3", {}).then(function (data) {
+                            if (data.success === true) {
+                                // console.log("data", data);
+                                $scope.getCurrentLoanInfo();
+                            }
+                            else {
+                                swal(data.msg, "", "error");
+                            }
+                        });
+                    }
                 });
         }
         else{

@@ -41,18 +41,20 @@ app.controller("car_wash_fee_details_controller", ["$scope", "$host", "$statePar
                 confirmButtonText: "确认",
                 cancelButtonText: "取消"
             }).then(
-            function(){
-                _basic.put($host.api_url + "/user/" + userId + "/loadTaskCleanRel/" + carId + "/status/0",{
-                    actualPrice: 0,
-                    actualGuardFee:0
-                }).then(function (data) {
-                    if (data.success === true) {
-                        $scope.getCurrentCarWashFeeInfo();
-                    }
-                    else {
-                        swal(data.msg, "", "error");
-                    }
-                });
+            function(result){
+                if (result.value) {
+                    _basic.put($host.api_url + "/user/" + userId + "/loadTaskCleanRel/" + carId + "/status/0", {
+                        actualPrice: 0,
+                        actualGuardFee: 0
+                    }).then(function (data) {
+                        if (data.success === true) {
+                            $scope.getCurrentCarWashFeeInfo();
+                        }
+                        else {
+                            swal(data.msg, "", "error");
+                        }
+                    });
+                }
             });
     };
 
@@ -66,18 +68,20 @@ app.controller("car_wash_fee_details_controller", ["$scope", "$host", "$statePar
                 confirmButtonText: "确认",
                 cancelButtonText: "取消"
         }).then(
-            function(){
-                _basic.put($host.api_url + "/user/" + userId + "/loadTaskCleanRel/" + carId + "/status/2",{
-                    actualPrice: $scope.totalPrice,
-                    actualGuardFee:$scope.guardFee
-                }).then(function (data) {
-                    if (data.success === true) {
-                        $state.go("car_wash_fee")
-                    }
-                    else {
-                        swal(data.msg, "", "error");
-                    }
-                });
+            function(result){
+                if (result.value) {
+                    _basic.put($host.api_url + "/user/" + userId + "/loadTaskCleanRel/" + carId + "/status/2", {
+                        actualPrice: $scope.totalPrice,
+                        actualGuardFee: $scope.guardFee
+                    }).then(function (data) {
+                        if (data.success === true) {
+                            $state.go("car_wash_fee")
+                        }
+                        else {
+                            swal(data.msg, "", "error");
+                        }
+                    });
+                }
             });
     };
 

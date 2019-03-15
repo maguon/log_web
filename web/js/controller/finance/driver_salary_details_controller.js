@@ -198,15 +198,17 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                 confirmButtonText: "确认",
                 cancelButtonText: "取消"
         }).then(
-            function(){
-                _basic.delete($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/damage/" + damageId).then(function (data) {
-                    if (data.success === true) {
-                        $scope.getCarDamageInfo();
-                    }
-                    else {
-                        swal(data.msg, "", "error");
-                    }
-                });
+            function(result){
+                if (result.value) {
+                    _basic.delete($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/damage/" + damageId).then(function (data) {
+                        if (data.success === true) {
+                            $scope.getCarDamageInfo();
+                        }
+                        else {
+                            swal(data.msg, "", "error");
+                        }
+                    });
+                }
             });
 
     };
@@ -237,15 +239,17 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                 confirmButtonText: "确认",
                 cancelButtonText: "取消"
         }).then(
-            function(){
-                _basic.delete($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/accident/" + accidentId).then(function (data) {
-                    if (data.success === true) {
-                        $scope.getTruckAccidentInfo();
-                    }
-                    else {
-                        swal(data.msg, "", "error");
-                    }
-                });
+            function(result){
+                if (result.value) {
+                    _basic.delete($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/accident/" + accidentId).then(function (data) {
+                        if (data.success === true) {
+                            $scope.getTruckAccidentInfo();
+                        }
+                        else {
+                            swal(data.msg, "", "error");
+                        }
+                    });
+                }
             });
 
     };
@@ -276,15 +280,17 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                 confirmButtonText: "确认",
                 cancelButtonText: "取消"
         }).then(
-            function(){
-                _basic.delete($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/dpRouteTask/" + taskId).then(function (data) {
-                    if (data.success === true) {
-                        $scope.getCurrentSalaryInfo()
-                    }
-                    else {
-                        swal(data.msg, "", "error");
-                    }
-                });
+            function(result){
+                if (result.value) {
+                    _basic.delete($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/dpRouteTask/" + taskId).then(function (data) {
+                        if (data.success === true) {
+                            $scope.getCurrentSalaryInfo()
+                        }
+                        else {
+                            swal(data.msg, "", "error");
+                        }
+                    });
+                }
             });
 
     };
@@ -315,15 +321,17 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                 confirmButtonText: "确认",
                 cancelButtonText: "取消"
         }).then(
-            function(){
-                _basic.delete($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/peccancy/" + peccancyId).then(function (data) {
-                    if (data.success === true) {
-                        $scope.getPeccancyList();
-                    }
-                    else {
-                        swal(data.msg, "", "error");
-                    }
-                });
+            function(result){
+                if (result.value) {
+                    _basic.delete($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/peccancy/" + peccancyId).then(function (data) {
+                        if (data.success === true) {
+                            $scope.getPeccancyList();
+                        }
+                        else {
+                            swal(data.msg, "", "error");
+                        }
+                    });
+                }
             });
 
     };
@@ -354,15 +362,17 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                 confirmButtonText: "确认",
                 cancelButtonText: "取消"
         }).then(
-            function(){
-                _basic.delete($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/exceedOil/" + OilId).then(function (data) {
-                    if (data.success === true) {
-                        $scope.getExceedOilList();
-                    }
-                    else {
-                        swal(data.msg, "", "error");
-                    }
-                });
+            function(result){
+                if (result.value) {
+                    _basic.delete($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/exceedOil/" + OilId).then(function (data) {
+                        if (data.success === true) {
+                            $scope.getExceedOilList();
+                        }
+                        else {
+                            swal(data.msg, "", "error");
+                        }
+                    });
+                }
             });
 
     };
@@ -453,15 +463,18 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                 confirmButtonText: "确认",
                 cancelButtonText: "取消"
         }).then(
-            function(){
-                _basic.put($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/grantStatus/3",{}).then(function (data) {
-                    if (data.success === true) {
-                        $scope.getSalaryDetails();
-                    }
-                    else{
-                        swal(data.msg, "", "error");
-                    }
-                });
+            function(result){
+                if (result.value) {
+                    _basic.put(
+                        $host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/grantStatus/3", {}).then(function (data) {
+                        if (data.success === true) {
+                            $scope.getSalaryDetails();
+                        }
+                        else {
+                            swal(data.msg, "", "error");
+                        }
+                    });
+                }
             });
     };
 

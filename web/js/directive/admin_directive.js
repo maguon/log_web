@@ -71,13 +71,16 @@ adminDirective.directive('header', function () {
                     confirmButtonText: "确认",
                     cancelButtonText: "取消"
                 }).then(
-                    function(){
+                    function(result){
+                      if (result.value) {
                         _basic.removeSession(_basic.COMMON_AUTH_NAME);
                         _basic.removeSession(_basic.USER_ID);
                         _basic.removeSession(_basic.USER_TYPE);
                         _basic.removeSession(_basic.USER_NAME);
                         window.location.href = '/admin_login.html';
+                      }
                     });
+
                 //
             }
             // var str_type=$element.attr("type");

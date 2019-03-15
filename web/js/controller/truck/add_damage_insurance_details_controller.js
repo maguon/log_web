@@ -212,16 +212,18 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$
                 confirmButtonText: "确认",
                 cancelButtonText: "取消"
             }).then(
-            function(){
-                _basic.put($host.api_url + "/user/" + userId + "/damageInsure/" + damageId + "/insureStatus/2",{}).then(function (data) {
-                    if (data.success === true) {
-                        $scope.getCurrentDamageInfo();
-                        $scope.getCurrentDamageCard();
-                    }
-                    else {
-                        swal(data.msg, "", "error");
-                    }
-                });
+            function(result){
+                if (result.value) {
+                    _basic.put($host.api_url + "/user/" + userId + "/damageInsure/" + damageId + "/insureStatus/2", {}).then(function (data) {
+                        if (data.success === true) {
+                            $scope.getCurrentDamageInfo();
+                            $scope.getCurrentDamageCard();
+                        }
+                        else {
+                            swal(data.msg, "", "error");
+                        }
+                    });
+                }
             });
     };
 

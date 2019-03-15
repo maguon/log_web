@@ -1025,18 +1025,20 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 confirmButtonText: "确认",
                 cancelButtonText: "取消"
         }).then(
-            function () {
-                _basic.post($host.api_url + "/user/" + userId + "/dpRouteTaskBatch", obj).then(function (data) {
-                    if (data.success === true) {
-                        swal("新增任务成功", "", "success");
-                        $scope.missionInfo = true;
-                        $scope.addMissionBtn = false;
-                        $scope.showDispatchInfo($scope.dispatchInfo)
-                    }
-                    else {
-                        swal(data.msg, "", "error");
-                    }
-                })
+            function (result) {
+                if (result.value) {
+                    _basic.post($host.api_url + "/user/" + userId + "/dpRouteTaskBatch", obj).then(function (data) {
+                        if (data.success === true) {
+                            swal("新增任务成功", "", "success");
+                            $scope.missionInfo = true;
+                            $scope.addMissionBtn = false;
+                            $scope.showDispatchInfo($scope.dispatchInfo)
+                        }
+                        else {
+                            swal(data.msg, "", "error");
+                        }
+                    })
+                }
             })
     }
 

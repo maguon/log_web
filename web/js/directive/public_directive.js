@@ -112,13 +112,16 @@ publicDirective.directive('header', function () {
                     confirmButtonText: "确认",
                     cancelButtonText: "取消"
                 }).then(
-                    function(){
+                    function(result){
+                        if (result.value) {
                         _basic.removeSession(_basic.COMMON_AUTH_NAME);
                         _basic.removeSession(_basic.USER_ID);
                         _basic.removeSession(_basic.USER_TYPE);
                         _basic.removeSession(_basic.USER_NAME);
                         window.location.href = '/common_login.html';
+                        }
                     });
+
                 //
             }
             if (_basic.getSession(_basic.USER_TYPE) == str_type) {

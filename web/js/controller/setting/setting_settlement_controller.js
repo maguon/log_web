@@ -192,9 +192,12 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
                     confirmButtonText: "确定",
                     cancelButtonText: "取消"
             }).then(
-                function () {
+                function (result) {
+                    if (result.value) {
                     window.open($host.api_url + "/entrustCar.csv?" + _basic.objToUrl(obj));
+                    }
                 })
+
         }
     };
 
@@ -220,8 +223,10 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
                 cancelButtonText: "取消"
         }).then(
 
-            function () {
-                window.open($host.api_url + "/entrustNotCar.csv?" + _basic.objToUrl(obj));
+            function (result) {
+                if (result.value) {
+                    window.open($host.api_url + "/entrustNotCar.csv?" + _basic.objToUrl(obj));
+                }
             })
     }
 

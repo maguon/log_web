@@ -375,15 +375,17 @@ app.controller("instruction_operation_details_controller", ["$scope","$state", "
                 confirmButtonText: "确认",
                 cancelButtonText: "取消"
         }).then(
-            function(){
-                _basic.put($host.api_url + "/user/" + userId + "/dpRouteTaskDetail/" + loadId + "/carLoadStatus/2?truckId=" + truckId,{}).then(function (data) {
-                    if (data.success === true) {
-                        $scope.showTruckLoadInfo(missionId);
-                    }
-                    else {
-                        swal(data.msg, "", "error");
-                    }
-                });
+            function(result){
+                if (result.value) {
+                    _basic.put($host.api_url + "/user/" + userId + "/dpRouteTaskDetail/" + loadId + "/carLoadStatus/2?truckId=" + truckId, {}).then(function (data) {
+                        if (data.success === true) {
+                            $scope.showTruckLoadInfo(missionId);
+                        }
+                        else {
+                            swal(data.msg, "", "error");
+                        }
+                    });
+                }
             });
     };
 
@@ -397,18 +399,20 @@ app.controller("instruction_operation_details_controller", ["$scope","$state", "
                 confirmButtonText: "确认",
                 cancelButtonText: "取消"
         }).then(
-            function(){
-                _basic.post($host.api_url + "/user/" + userId + "/carExceptionRel",{
-                    carId: carId,
-                    remark: ""
-                }).then(function (data) {
-                    if (data.success === true) {
-                        $scope.showTruckLoadInfo(missionId);
-                    }
-                    else {
-                        swal(data.msg, "", "error");
-                    }
-                });
+            function(result){
+                if (result.value) {
+                    _basic.post($host.api_url + "/user/" + userId + "/carExceptionRel", {
+                        carId: carId,
+                        remark: ""
+                    }).then(function (data) {
+                        if (data.success === true) {
+                            $scope.showTruckLoadInfo(missionId);
+                        }
+                        else {
+                            swal(data.msg, "", "error");
+                        }
+                    });
+                }
             });
     };
 

@@ -215,29 +215,31 @@ app.controller("settlement_management_controller", ["$scope","$rootScope","$stat
                     confirmButtonText: "确认",
                     cancelButtonText: "取消"
             }).then(
-                function () {
-                    _basic.post($host.api_url + "/user/" + userId + "/settleHandover", {
-                        serialNumber: $scope.addNumberId,
-                        entrustId: $scope.addEntrustId,
-                        receivedDate: $scope.addHandoverReceiveStartTime,
-                        remark: $scope.newRemark
-                    }).then(function (data) {
-                        if (data.success == true) {
-                           $scope.settleHandoverId = data.result.settleHandoverId;
-                            $('#addSettlementItem').modal('close');
-                            getSettlementData();
-                            $state.go('settlement_management_detail', {
-                                reload: true,
-                                id:$scope.settleHandoverId,
-                                from: 'settlement_management'
-                            });
+                function (result) {
+                    if (result.value) {
+                        _basic.post($host.api_url + "/user/" + userId + "/settleHandover", {
+                            serialNumber: $scope.addNumberId,
+                            entrustId: $scope.addEntrustId,
+                            receivedDate: $scope.addHandoverReceiveStartTime,
+                            remark: $scope.newRemark
+                        }).then(function (data) {
+                            if (data.success == true) {
+                                $scope.settleHandoverId = data.result.settleHandoverId;
+                                $('#addSettlementItem').modal('close');
+                                getSettlementData();
+                                $state.go('settlement_management_detail', {
+                                    reload: true,
+                                    id: $scope.settleHandoverId,
+                                    from: 'settlement_management'
+                                });
 
-                          /*  window.location.href = "/index_home.html#!/settlement_management_detail/id/"+ $scope.settleHandoverId;*/
+                                /*  window.location.href = "/index_home.html#!/settlement_management_detail/id/"+ $scope.settleHandoverId;*/
 
-                        } else {
-                            swal(data.msg, "", "error");
-                        }
-                    })
+                            } else {
+                                swal(data.msg, "", "error");
+                            }
+                        })
+                    }
                 });
         }
         else {

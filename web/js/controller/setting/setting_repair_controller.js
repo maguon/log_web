@@ -144,8 +144,8 @@ app.controller("setting_repair_controller", ["_basic", "_config", "$host", "$sco
                     confirmButtonText: "确定",
                     cancelButtonText: "取消"
             }).then(
-                function (flag) {
-                    if(flag){
+                function (result) {
+                    if (result.value) {
                         _basic.put($host.api_url + "/user/" + userId + '/repairStation/' + id + "/repairStationStatus/" + status
                             , {}).then(function (data) {
                             if (data.success !== true) {

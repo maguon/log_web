@@ -430,45 +430,55 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
 
         // 目的地城市-经销商联动
         $scope.get_received = function (id,text) {
-            _basic.get($host.api_url + "/receive?cityId=" + id).then(function (data) {
-                if (data.success == true) {
-                    $scope.get_receive = data.result;
-                    $('#dealer').select2({
-                        placeholder: '经销商',
-                        containerCssClass : 'select2_dropdown'
-                    });
-                } else {
-                    swal(data.msg, "", "error")
-                }
-            })
-            if(text==null||text==undefined){
-                _basic.get($host.api_url + "/receive?cityId=" + id).then(function (data) {
-                    if (data.success == true) {
-                        $scope.put_receive = data.result;
-                        $('#dealer1').select2({
-                            placeholder: '经销商',
-                            containerCssClass: 'select2_dropdown'
-                        });
-
-                    } else {
-                        swal(data.msg, "", "error")
-                    }
-                })
+            if(id==0){
+                $scope.put_receive=[];
+                $('#dealer1').select2({
+                    placeholder: '经销商',
+                    containerCssClass: 'select2_dropdown'
+                });
             }
             else{
                 _basic.get($host.api_url + "/receive?cityId=" + id).then(function (data) {
                     if (data.success == true) {
-                        $scope.put_receive = data.result;
-                        $('#dealer1').select2({
-                            placeholder: text,
-                            containerCssClass: 'select2_dropdown'
+                        $scope.get_receive = data.result;
+                        $('#dealer').select2({
+                            placeholder: '经销商',
+                            containerCssClass : 'select2_dropdown'
                         });
-
                     } else {
                         swal(data.msg, "", "error")
                     }
                 })
+                if(text==null||text==undefined){
+                    _basic.get($host.api_url + "/receive?cityId=" + id).then(function (data) {
+                        if (data.success == true) {
+                            $scope.put_receive = data.result;
+                            $('#dealer1').select2({
+                                placeholder: '经销商',
+                                containerCssClass: 'select2_dropdown'
+                            });
+
+                        } else {
+                            swal(data.msg, "", "error")
+                        }
+                    })
+                }
+                else{
+                    _basic.get($host.api_url + "/receive?cityId=" + id).then(function (data) {
+                        if (data.success == true) {
+                            $scope.put_receive = data.result;
+                            $('#dealer1').select2({
+                                placeholder: text,
+                                containerCssClass: 'select2_dropdown'
+                            });
+
+                        } else {
+                            swal(data.msg, "", "error")
+                        }
+                    })
+                }
             }
+
 
         };
 
@@ -485,18 +495,34 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
 
         // 发运地城市地质联动
         $scope.get_addr = function (id,text) {
-            _basic.get($host.api_url + "/baseAddr?cityId=" + id).then(function (data) {
-                if (data.success == true) {
-                    $scope.start_address = data.result;
-                    $('#start_addr').select2({
-                        placeholder: text,
-                        containerCssClass: 'select2_dropdown'
-                    });
-                }
-                else {
-                    swal(data.msg, "", "error")
-                }
-            })
+            if(text==null||text==undefined){
+                _basic.get($host.api_url + "/baseAddr?cityId=" + id).then(function (data) {
+                    if (data.success == true) {
+                        $scope.start_address = data.result;
+                        $('#start_addr').select2({
+                            placeholder: '发运地名称',
+                            containerCssClass: 'select2_dropdown'
+                        });
+                    }
+                    else {
+                        swal(data.msg, "", "error")
+                    }
+                })
+            }
+            else{
+                _basic.get($host.api_url + "/baseAddr?cityId=" + id).then(function (data) {
+                    if (data.success == true) {
+                        $scope.start_address = data.result;
+                        $('#start_addr').select2({
+                            placeholder: text,
+                            containerCssClass: 'select2_dropdown'
+                        });
+                    }
+                    else {
+                        swal(data.msg, "", "error")
+                    }
+                })
+            }
         };
 
 
@@ -547,7 +573,6 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
             $('.modal').modal();
             $('#commodityCar').modal('open');
             $scope.commodityVin = '';
-            $scope.start_addr ='';
             $scope.flag = false;
         }
 
@@ -632,8 +657,11 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
 
         // 查询VIN
         $scope.getCommodityCarData=function () {
+            $scope.start_addr ='';
             $scope.start_city='';
             $scope.arrive_city='';
+            $scope.start_address =[];
+            $scope.put_receive=[];
             _basic.get($host.api_url + "/carList?carId="+$scope.carId).then(function (data) {
                 if (data.success == true) {
                     if(data.result.length==0){
@@ -647,10 +675,11 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                             $scope.commodityCarList.order_date = moment($scope.commodityCarList.order_date).format('YYYY-MM-DD');
                         }
                         $scope.start_city = $scope.commodityCarList.route_start_id;
-                        $scope.arrive_city = $scope.commodityCarList.route_end_id === null ? "0" : $scope.commodityCarList.route_end_id;
+                        $scope.arrive_city = $scope.commodityCarList.route_end_id === null ? 0 : $scope.commodityCarList.route_end_id;
+                        $scope.start_addr = $scope.commodityCarList.base_addr_id;
                         $scope.arrive_receive = $scope.commodityCarList.receive_id;
-                        $scope.get_addr($scope.commodityCarList.route_start_id,$scope.commodityCarList.addr_name);
-                        $scope.get_received($scope.arrive_city,$scope.commodityCarList.receive_name);
+                        $scope.get_addr( $scope.start_city,$scope.commodityCarList.addr_name);
+                        $scope.get_received($scope.arrive_city,$scope.commodityCarList.re_short_name);
                         $scope.flag=true;
                     }
                 }
@@ -665,36 +694,52 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
         // 修改
         $scope.putDataItem = function (id) {
             $scope.putDataItemId = id;
-            if($scope.arrive_city==0||$scope.arrive_city==''||$scope.start_city==0||$scope.start_city==''){
+            if($scope.start_city==0||$scope.start_city==''||$scope.start_addr==0||$scope.start_addr==''||$scope.start_addr==undefined){
                 swal('请填写完整信息！',"","error")
             }
             else{
-                _basic.get($host.api_url +'/city?cityId='+$scope.start_city).then(function (data) {
-                    if (data.success == true) {
-                        $scope.putStartCity=data.result[0].city_name;
-                    }
-                    else {
-                        swal(data.msg, "", "error")
-                    }
-                });
-                _basic.get($host.api_url +'/city?cityId='+$scope.arrive_city).then(function (data) {
-                    if (data.success == true) {
-                        $scope.putArriveCity=data.result[0].city_name;
 
-                    }
-                    else {
-                        swal(data.msg, "", "error")
-                    }
-                });
-                _basic.get($host.api_url + "/receive?cityId=" + $scope.arrive_receive).then(function (data) {
+                if($scope.arrive_city==0||$scope.arrive_city==''){
+                    $scope.putArriveCity='';
+                    _basic.get($host.api_url +'/city?cityId='+$scope.start_city).then(function (data) {
+                        if (data.success == true) {
+                            $scope.putStartCity=data.result[0].city_name;
+                            putSingleData();
+                        }
+                        else {
+                            swal(data.msg, "", "error")
+                        }
+                    });
+                }
+                else {
+                    _basic.get($host.api_url +'/city?cityId='+$scope.start_city).then(function (data) {
+                        if (data.success == true) {
+                            $scope.putStartCity=data.result[0].city_name;
+                        }
+                        else {
+                            swal(data.msg, "", "error")
+                        }
+                    });
+                    _basic.get($host.api_url +'/city?cityId='+$scope.arrive_city).then(function (data) {
+                        if (data.success == true) {
+                            $scope.putArriveCity=data.result[0].city_name;
+                            putSingleData();
+                        }
+                        else {
+                            swal(data.msg, "", "error")
+                        }
+                    });
+                }
+
+              /*  _basic.get($host.api_url + "/receive?cityId=" + $scope.arrive_receive).then(function (data) {
                     if (data.success == true) {
                         $scope.putArriveReceive = data.result[0].receive_name;
-                        putSingleData();
+
 
                     } else {
                         swal(data.msg, "", "error")
                     }
-                })
+                })*/
             };
         };
 

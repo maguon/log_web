@@ -62,14 +62,13 @@
                         </div>
                         <div class="input-field col s2">
                             <select  style="width:100%" id="start_addr" name="start_addr"  required  ng-model="start_addr" >
-                                <option value="" disabled selected>发运地名称</option>
-                                <option ng-repeat="start_addr in start_address" ng-value="start_addr.id" >{{start_addr.addr_name}}</option>
+                                <option value=""></option>
+                                <option ng-repeat="el in start_address" ng-value="el.id" >{{el.addr_name}}</option>
                             </select>
-                           <!-- <label for="start_addr">发运地名称</label>-->
                         </div>
                         <div class="input-field col s2">
                             <select id="chooseEndCity" name="state" style="width:100%" ng-change="get_received(arrive_city)" ng-model="arrive_city">
-                                <option value="0">目的地城市</option>
+                                <option ng-value="0">目的地城市</option>
                                 <option ng-repeat="city in get_city" ng-value="city.id" >{{city.city_name}}</option>
                             </select>
                         </div>

@@ -137,7 +137,9 @@
                     <td>{{oil.total_oil}}/{{oil.total_urea}}</td>
                     <td  class="operation">
                         <a ng-click="showDispatchMissionModal(oil)" class="cyan-text" style="margin-right: 10px;cursor: pointer;text-align: center;"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
-                        <a ng-hide="exceedOilItem.oil_status == 2" ng-click="addOilRel(oil.id)" class="cyan-text" style="cursor: pointer;text-align: center;"><i class="mdi mdi-plus-circle" style="margin: 0"></i></a>
+                        <a ng-hide="exceedOilItem.oil_status == 2 ||exceedOilItem.settle_status == 2" ng-click="addOilRel(oil.id)" class="cyan-text" style="cursor: pointer;text-align: center;"><i class="mdi mdi-plus-circle" style="margin: 0"></i></a>
+
+
                     </td>
                 </tr>
                 <tr ng-if="unsettledSalaryList.length==0">
@@ -185,7 +187,7 @@
                     <td>{{oil.total_oil}}/{{oil.total_urea}}</td>
                     <td  class="operation">
                         <a ng-click="showDispatchMissionModal(oil)" class="cyan-text" style="margin-right: 10px;cursor: pointer;text-align: center;"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
-                        <a ng-hide="exceedOilItem.oil_status == 2" ng-click="deleteOilRel(oil.dp_route_task_oil_rel_id)" style="cursor: pointer;text-align: center;color: #e57373"><i class="mdi mdi-minus-circle" style="margin: 0"></i></a>
+                        <a ng-hide="exceedOilItem.oil_status == 2 ||exceedOilItem.settle_status == 2" ng-click="deleteOilRel(oil.dp_route_task_oil_rel_id)" style="cursor: pointer;text-align: center;color: #e57373"><i class="mdi mdi-minus-circle" style="margin: 0"></i></a>
                     </td>
                 </tr>
                 <tr ng-if="settledSalaryList.length==0">
@@ -216,27 +218,27 @@
     </div>
     <div class="col s12 valign-wrapper" style="font-weight: bold;">
         <div class="col s6 cyan-text">
-            <div class="col s6"  ng-hide="exceedOilItem.oil_status !== 2" style="padding: 0;">
+            <div class="col s6"  ng-hide="exceedOilItem.oil_status !== 2&&exceedOilItem.settle_status !== 2" style="padding: 0;">
                 <p>实际用油量：<span class="red-text" >{{exceedOilItem.actual_oil}}</span> L</p>
             </div>
-            <div class="col s6"  ng-hide="exceedOilItem.oil_status !== 2" style="padding: 0;">
+            <div class="col s6"  ng-hide="exceedOilItem.oil_status !== 2&&exceedOilItem.settle_status !== 2" style="padding: 0;">
                 <p>实际尿素量：<span class="red-text" >{{exceedOilItem.actual_urea}}</span> </p>
             </div>
-            <div class="col s6 input-field" ng-hide="exceedOilItem.oil_status == 2">
+            <div class="col s6 input-field" ng-hide="exceedOilItem.oil_status == 2 ||exceedOilItem.settle_status == 2" >
                 <input style="font-size: 2rem;color: rgb(230,123,123)" type="number" id="actual_useOil" name="actual_useOil" ng-model="exceedOilItem.actual_oil">
                 <label class="{{exceedOilItem.actual_oil != null ? 'active' : 'inactive'}}" for="actual_useOil"><span style="color: red">* </span>实际用油量</label>
             </div>
-            <div class="col s6 input-field" ng-hide="exceedOilItem.oil_status == 2">
+            <div class="col s6 input-field" ng-hide="exceedOilItem.oil_status == 2 ||exceedOilItem.settle_status == 2" >
                 <input style="font-size: 2rem;color: rgb(230,123,123)" type="number" id="actual_useUrea" name="actual_useUrea" ng-model="exceedOilItem.actual_urea">
                 <label class="{{exceedOilItem.actual_urea != null ? 'active' : 'inactive'}}" for="actual_useUrea"><span style="color: red">* </span>实际尿素量</label>
             </div>
         </div>
 
         <div class="col s6 cyan-text">
-            <div class="col s12 cyan-text left-align"  ng-hide="exceedOilItem.oil_status !== 2" style="font-weight: bold;">
+            <div class="col s12 cyan-text left-align"  ng-hide="exceedOilItem.oil_status !== 2&&exceedOilItem.settle_status !== 2" style="font-weight: bold;">
                 <p>超量金额：<span class="red-text" >{{exceedOilItem.actual_money}}</span> 元</p>
             </div>
-            <div class="col s12 input-field left-align" ng-hide="exceedOilItem.oil_status == 2">
+            <div class="col s12 input-field left-align" ng-hide="exceedOilItem.oil_status == 2 ||exceedOilItem.settle_status == 2" >
                 <input style="font-size: 2rem;color: rgb(230,123,123)" type="number" id="should_pay" name="should_pay" ng-model="exceedOilItem.actual_money">
                 <label class="{{exceedOilItem.actual_money != null ? 'active' : 'inactive'}}" for="should_pay"><span style="color: red">* </span>超量金额(元)</label>
             </div>
@@ -244,7 +246,7 @@
 
 
     </div>
-    <div class="col s12" style="margin: 20px 0" ng-hide="exceedOilItem.oil_status == 2">
+    <div class="col s12" style="margin: 20px 0" ng-hide="exceedOilItem.oil_status == 2 ||exceedOilItem.settle_status == 2">
         <div class="col s12" style="margin: 40px 0 15px 0">
             <div class="col s6 offset-s3">
                 <div class="col s5">

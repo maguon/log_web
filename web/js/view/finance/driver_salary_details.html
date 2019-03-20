@@ -684,28 +684,30 @@
                         <thead class="blue-grey lighten-5">
                         <tr class="grey-text text-darken-2">
                             <th data-field="">超量结算编号</th>
-                            <th data-field="">货车牌号</th>
-                            <th data-field="">调度编号</th>
-                            <th data-field="">计划执行时间</th>
-                            <th data-field="">超量类型</th>
-                            <th data-field="">超量数</th>
-                            <th data-field="">罚款金额</th>
-                            <th data-field="">状态</th>
+                          <!--  <th data-field="">货车牌号</th>-->
+                          <!--  <th data-field="">路线</th>
+                            <th data-field="">公里数</th>
+                            <th data-field="">空载(重载)</th>-->
+                            <th data-field="">超油量/超尿素量</th>
+                            <th data-field="">超量金额</th>
+                            <th data-field="">核油时间</th>
+                           <!-- <th data-field="">状态</th>-->
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="ExceedOilInfo in ExceedOilAccidentList" class="grey-text text-darken-1">
                             <td>{{ExceedOilInfo.id}}</td>
-                            <td>{{ExceedOilInfo.truck_num}}</td>
-                            <td>{{ExceedOilInfo.dp_route_task_id}}</td>
-                            <td>{{ExceedOilInfo.task_plan_date| date:'yyyy-MM-dd'}}</td>
-                            <td ng-if="ExceedOilInfo.exceed_type==1 ">油</td>
-                            <td ng-if="ExceedOilInfo.exceed_type!==1 ">尿素</td>
-                            <td>{{ExceedOilInfo.exceed_oil_quantity }}</td>
-                            <td class="red-text">{{ExceedOilInfo.exceed_oil_money}}</td>
-                            <td class="red-text" ng-if="ExceedOilInfo.stat_status==1">未扣</td>
-                            <td ng-if="ExceedOilInfo.stat_status!==1">已扣</td>
+                          <!--  <td>{{ExceedOilInfo.truck_num}}</td>-->
+                            <!--<td>{{ExceedOilInfo.route_start}}-{{ExceedOilInfo.route_end}}</td>
+                            <td>{{ExceedOilInfo.distance}}</td>
+                            <td ng-if="ExceedOilInfo.load_flag==0">空载</td>
+                            <td ng-if="ExceedOilInfo.load_flag==1">重载</td>-->
+                            <td>{{ExceedOilInfo.exceed_oil}}/{{ExceedOilInfo.exceed_urea}}</td>
+                            <td>{{ExceedOilInfo.actual_money}}</td>
+                            <td>{{ExceedOilInfo.oil_date| date:'yyyy-MM-dd'}}</td>
+                           <!-- <td class="red-text" ng-if="ExceedOilInfo.stat_status==1">未扣</td>
+                            <td ng-if="ExceedOilInfo.stat_status!==1">已扣</td>-->
                             <td  class="operation">
                                 <a ng-click="addExceedOilAccident(ExceedOilInfo.id)" class="cyan-text fz12">
                                     <i class="mdi mdi-plus-circle"></i>
@@ -713,7 +715,7 @@
                             </td>
                         </tr>
                         <tr ng-if="ExceedOilAccidentList.length==0">
-                            <td colspan="9">暂无数据</td>
+                            <td colspan="5">暂无数据</td>
                         </tr>
                         </tbody>
                     </table>
@@ -736,28 +738,30 @@
                         <thead class="blue-grey lighten-5">
                         <tr class="grey-text text-darken-2">
                             <th data-field="">超量结算编号</th>
-                            <th data-field="">货车牌号</th>
-                            <th data-field="">调度编号</th>
-                            <th data-field="">计划执行时间</th>
-                            <th data-field="">超量类型</th>
-                            <th data-field="">超量数</th>
-                            <th data-field="">罚款金额</th>
-                            <th data-field="">状态</th>
+                            <!--<th data-field="">货车牌号</th>-->
+                           <!-- <th data-field="">路线</th>
+                            <th data-field="">公里数</th>
+                            <th data-field="">空载(重载)</th>-->
+                            <th data-field="">超油量/超尿素量</th>
+                            <th data-field="">超量金额</th>
+                            <th data-field="">核油时间</th>
+                          <!--  <th data-field="">状态</th>-->
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="ExceedOilInfo in settledExceedOilList" class="grey-text text-darken-1">
                             <td>{{ExceedOilInfo.exceed_oil_id}}</td>
-                            <td>{{ExceedOilInfo.truck_num}}</td>
-                            <td>{{ExceedOilInfo.dp_route_task_id}}</td>
-                            <td>{{ExceedOilInfo.task_plan_date| date:'yyyy-MM-dd'}}</td>
-                            <td ng-if="ExceedOilInfo.exceed_type==1 ">油</td>
-                            <td ng-if="ExceedOilInfo.exceed_type!==1 ">尿素</td>
-                            <td>{{ExceedOilInfo.exceed_oil_quantity }}</td>
-                            <td class="red-text">{{ExceedOilInfo.exceed_oil_money}}</td>
-                            <td class="red-text" ng-if="ExceedOilInfo.stat_status==1">未扣</td>
-                            <td ng-if="ExceedOilInfo.stat_status!==1">已扣</td>
+                            <!--<td>{{ExceedOilInfo.truck_num}}</td>-->
+                           <!-- <td>{{ExceedOilInfo.route_start}}-{{ExceedOilInfo.route_end}}</td>
+                            <td>{{ExceedOilInfo.distance}}</td>
+                            <td ng-if="ExceedOilInfo.load_flag==0">空载</td>
+                            <td ng-if="ExceedOilInfo.load_flag==1">重载</td>-->
+                            <td>{{ExceedOilInfo.exceed_oil}}/{{ExceedOilInfo.exceed_urea}}</td>
+                            <td>{{ExceedOilInfo.actual_money}}</td>
+                            <td>{{ExceedOilInfo.oil_date| date:'yyyy-MM-dd'}}</td>
+                           <!-- <td class="red-text" ng-if="ExceedOilInfo.stat_status==1">未扣</td>
+                            <td ng-if="ExceedOilInfo.stat_status!==1">已扣</td>-->
                             <td  class="operation">
                                 <a ng-hide="salaryDetails.grant_status == 3" ng-click="minusExceedOilAccident(ExceedOilInfo.exceed_oil_id)" style="cursor: pointer;text-align: center;color: #e57373">
                                     <i class="mdi mdi-minus-circle" style="margin: 0"></i>
@@ -765,7 +769,7 @@
                             </td>
                         </tr>
                         <tr ng-if="settledExceedOilList.length==0">
-                            <td colspan="9">暂无数据</td>
+                            <td colspan="5">暂无数据</td>
                         </tr>
                         </tbody>
                     </table>

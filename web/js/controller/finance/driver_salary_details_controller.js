@@ -147,8 +147,9 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
 
     //获取超量扣款信息
     $scope.getExceedOilList = function (){
+
         // 未结超量扣款信息
-        _basic.get($host.api_url + "/driveExceedOil?driveId=" + driveId + "&statStatus=1").then(function (data) {
+        _basic.get($host.api_url + "/driveExceedOil?driveId=" + driveId + "&settleStatus=1").then(function (data) {
             if (data.success === true) {
                 $scope.ExceedOilAccidentList = data.result;
             }
@@ -162,7 +163,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
             if (data.success === true) {
                 $scope.ExceedOilAccidentPay = 0;
                 for (var i = 0; i < data.result.length; i++) {
-                    $scope.ExceedOilAccidentPay += data.result[i].exceed_oil_money;
+                    $scope.ExceedOilAccidentPay += data.result[i].actual_money;
                 }
                 $scope.settledExceedOilList = data.result;
             }

@@ -1,0 +1,263 @@
+<!--调度任务详情模态框-->
+<div class="row" style="margin: 0">
+    <div id="dispatchMissionModal" class="modal modal-fixed-footer" style="width: 75%;height: 650px">
+        <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+            <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
+                <p>任务详情</p>
+            </div>
+            <div class="row" style="width: 85%;margin: 0 auto">
+                <div class="col s12 left-align cyan-text" style="font-weight: bold;font-size: 1.2rem">
+                    <p>调度编号：{{salaryInfo.dp_route_task_id}}</p>
+                </div>
+                <div class="col s12 left-align valign-wrapper cyan-text" style="font-weight: bold;font-size: 1.2rem;padding: 30px 10px;border-bottom: 1px solid darkgray">
+                    <div class="col s8" style="padding: 0;">
+                        <div class="col s3" style="padding: 0;">
+                            <p>{{salaryInfo.route_start + " - " + salaryInfo.route_end}}</p>
+                        </div>
+                        <div class="col s3">
+                            <p>{{salaryInfo.distance}} 公里</p>
+                        </div>
+                        <div class="col s3">
+                            <p ng-show="salaryInfo.load_flag==0">空载</p>
+                            <p ng-show="salaryInfo.load_flag==1">重载</p>
+                        </div>
+                        <div class="col s3">
+                            <p>耗油量：{{salaryInfo.total_oil}}L</p>
+                        </div>
+                    </div>
+                    <div class="col s2">
+                        <p>尿素量：{{salaryInfo.urea}}</p>
+                    </div>
+                    <div class="col s2 right-align">
+                        <p style="color: darkgray"><span style="font-size: 1.6rem;" class="mdi mdi-truck cyan-text"></span>&emsp;{{salaryInfo.truck_num}}</p>
+                    </div>
+                </div>
+                <div class="col s12" style="color: darkgray;font-weight: bold;font-size: 1.1rem;padding: 0;">
+                    <div class="col s12 left-align" ng-repeat="line in lineList" style="padding: 20px 0;border-bottom: 1px dotted darkgray">
+                        <div class="col s4">
+                            <p>{{line.addr_name + " - " + line.short_name}}</p>
+                        </div>
+                        <div class="col s4">
+                            <p>装车数量：{{line.real_count}}</p>
+                        </div>
+                        <div class="col s4">
+                            <p>装车时间：{{line.load_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                        </div>
+                    </div>
+                    <div class="col s12 left-align" ng-show="lineList.length == 0" style="padding: 20px 0">
+                        <div class="col s12 center-align">
+                            <p style="letter-spacing: 2px">暂无装车任务</p>
+                        </div>
+                    </div>
+                </div>
+               <div class="col s12" style="border-top: 1px solid darkgray;color: darkgray;font-weight: bold;font-size: 1.1rem;padding: 34px 0">
+                   <!-- <div class="col s6 left-align">
+                       <p>调度人员：{{salaryInfo.route_op_name}}</p>
+                   </div>
+                   <div class="col s6 right-align">
+                       <p>指令时间：{{salaryInfo.task_end_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                   </div>-->
+               </div>
+            </div>
+        </div>
+
+        <div class="modal-footer valign-wrapper">
+            <div class="col s12">
+                <div class="col s2 offset-s5">
+                    <a style="width: 100%" class="modal-action modal-close waves-light waves-effect cyan lighten-1 btn">
+                        确定
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="storage_storeTitle vc-center ">
+    <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
+        <i class="mdi mdi-arrow-left-bold"></i>
+    </a>
+    <h4 class="center-align cyan-text text-lighten-1">司机超量扣款详情</h4>
+</div>
+<div class="divider cyan" style="height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
+<!--详情-->
+<div class="row" style="width: 95%;margin: 0 auto">
+    <!--基本信息-->
+    <div class="col s12" >
+        <div class="col s12 cyan_border" style="background-color: #f8f9fd;color: darkgray;font-weight: bold;font-size: 1.2rem;margin-bottom: 30px">
+            <div class="col s12 valign-wrapper" style="padding: 0;">
+                <div class="col s5 s6 left-align">
+                    <p class="cyan-text" >司机:{{exceedOilItem.drive_name}}</p>
+                </div>
+                <div class="col s6 right-align">
+                    <p class="grey-text" >核油时间:{{exceedOilItem.oil_date|date:'yyyy-MM-dd'}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--超量扣款-->
+<div id="missionSalary" class="row col s12" style="padding: 0;width: 95%;margin: 0 auto">
+    <!--未扣款任务-->
+    <div class="col s6" ng-hide="salaryDetails.grant_status == 3">
+        <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px;min-height: 380px">
+            <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
+                <div class="col s6 left-align cyan-text" >
+                    <p style="margin: 0">未扣款任务</p>
+                </div>
+                <div class="col s6 right-align" style="color: darkgray;font-size: 1.05rem">
+                    <p class="cyan-text"  style="margin: 0;font-size: 1.2rem">{{unOilRelList.length}} 条</p>
+                </div>
+            </div>
+            <!--头-->
+            <table class=" bordered striped text_mid">
+                <thead class="blue-grey lighten-5">
+                <tr class="grey-text text-darken-2">
+                    <th data-field="">调度编号</th>
+                    <th data-field="">货车</th>
+                    <th data-field="">路线</th>
+                    <th data-field="">公里数</th>
+                    <th data-field="">空载(重载)</th>
+                    <th data-field="">百公里耗油量/尿素</th>
+                    <th data-field="">总耗油量/尿素</th>
+                    <th data-field=""></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="oil in unOilRelList" class="grey-text text-darken-1">
+                    <td>{{oil.dp_route_task_id}}</td>
+                    <td>{{oil.truck_num}}</td>
+                    <td>{{oil.route_start + " - " + oil.route_end}}</td>
+                    <td>{{oil.distance}}</td>
+                    <td ng-if="oil.load_flag==0">空载</td>
+                    <td ng-if="oil.load_flag==1">重载</td>
+                    <td>{{oil.oil}}/{{oil.urea}}</td>
+                    <td>{{oil.total_oil}}/{{oil.total_urea}}</td>
+                    <td  class="operation">
+                        <a ng-click="showDispatchMissionModal(oil)" class="cyan-text" style="margin-right: 10px;cursor: pointer;text-align: center;"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
+                        <a ng-hide="exceedOilItem.oil_status == 2" ng-click="addOilRel(oil.id)" class="cyan-text" style="cursor: pointer;text-align: center;"><i class="mdi mdi-plus-circle" style="margin: 0"></i></a>
+                    </td>
+                </tr>
+                <tr ng-if="unsettledSalaryList.length==0">
+                    <td colspan="8">暂无数据</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!--扣款任务-->
+    <div class="col {{salaryDetails.grant_status == 3 ? 's12' : 's6'}}">
+        <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px;min-height: 380px">
+            <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
+                <div class="col s6 left-align cyan-text">
+                    <p style="margin: 0">扣款任务</p>
+                </div>
+                <div class="col s6 right-align" style="color: darkgray;font-size: 1.05rem">
+                    <p class="cyan-text"  style="margin: 0;font-size: 1.2rem">{{OilRelList.length}} 条</p>
+                </div>
+            </div>
+            <!--头-->
+            <table class=" bordered striped text_mid">
+                <thead class="blue-grey lighten-5">
+                <tr class="grey-text text-darken-2">
+                    <th data-field="">调度编号</th>
+                    <th data-field="">货车</th>
+                    <th data-field="">路线</th>
+                    <th data-field="">公里数</th>
+                    <th data-field="">空载(重载)</th>
+                    <th data-field="">百公里耗油量/尿素</th>
+                    <th data-field="">总耗油量/尿素</th>
+                    <th data-field=""></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="oil in OilRelList" class="grey-text text-darken-1">
+                    <td>{{oil.dp_route_task_id}}</td>
+                    <td>{{oil.truck_num}}</td>
+                    <td>{{oil.route_start + " - " + oil.route_end}}</td>
+                    <td>{{oil.distance}}</td>
+                    <td ng-if="oil.load_flag==0">空载</td>
+                    <td ng-if="oil.load_flag==1">重载</td>
+                    <td>{{oil.oil}}/{{oil.urea}}</td>
+                    <td>{{oil.total_oil}}/{{oil.total_urea}}</td>
+                    <td  class="operation">
+                        <a ng-click="showDispatchMissionModal(oil)" class="cyan-text" style="margin-right: 10px;cursor: pointer;text-align: center;"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
+                        <a ng-hide="exceedOilItem.oil_status == 2" ng-click="deleteOilRel(oil.dp_route_task_oil_rel_id)" style="cursor: pointer;text-align: center;color: #e57373"><i class="mdi mdi-minus-circle" style="margin: 0"></i></a>
+                    </td>
+                </tr>
+                <tr ng-if="settledSalaryList.length==0">
+                    <td colspan="7">暂无数据</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col s12 valign-wrapper" style="font-weight: bold;">
+        <div class="col s6 cyan-text">
+            <div class="col s6" style="padding: 0;">
+                <p>计划用油量：<span class="red-text" >{{totalOil}}</span> L</p>
+            </div>
+            <div class="col s6" style="padding: 0;">
+                <p>计划尿素量：<span class="red-text" >{{totalUrea}}</span> </p>
+            </div>
+        </div>
+        <div class="col s6 cyan-text">
+            <div class="col s6 input-field">
+                <p>超量油：<span class="red-text" >{{exceedOilItem.actual_oil-totalOil}}</span> L</p>
+            </div>
+            <div class="col s6 input-field">
+                <p>超量尿素：<span class="red-text" >{{exceedOilItem.actual_urea-totalUrea}}</span> </p>
+            </div>
+        </div>
+    </div>
+    <div class="col s12 valign-wrapper" style="font-weight: bold;">
+        <div class="col s6 cyan-text">
+            <div class="col s6"  ng-hide="exceedOilItem.oil_status !== 2" style="padding: 0;">
+                <p>实际用油量：<span class="red-text" >{{exceedOilItem.actual_oil}}</span> L</p>
+            </div>
+            <div class="col s6"  ng-hide="exceedOilItem.oil_status !== 2" style="padding: 0;">
+                <p>实际尿素量：<span class="red-text" >{{exceedOilItem.actual_urea}}</span> </p>
+            </div>
+            <div class="col s6 input-field" ng-hide="exceedOilItem.oil_status == 2">
+                <input style="font-size: 2rem;color: rgb(230,123,123)" type="number" id="actual_useOil" name="actual_useOil" ng-model="exceedOilItem.actual_oil">
+                <label class="{{exceedOilItem.actual_oil != null ? 'active' : 'inactive'}}" for="actual_useOil"><span style="color: red">* </span>实际用油量</label>
+            </div>
+            <div class="col s6 input-field" ng-hide="exceedOilItem.oil_status == 2">
+                <input style="font-size: 2rem;color: rgb(230,123,123)" type="number" id="actual_useUrea" name="actual_useUrea" ng-model="exceedOilItem.actual_urea">
+                <label class="{{exceedOilItem.actual_urea != null ? 'active' : 'inactive'}}" for="actual_useUrea"><span style="color: red">* </span>实际尿素量</label>
+            </div>
+        </div>
+
+        <div class="col s6 cyan-text">
+            <div class="col s12 cyan-text left-align"  ng-hide="exceedOilItem.oil_status !== 2" style="font-weight: bold;">
+                <p>超量金额：<span class="red-text" >{{exceedOilItem.actual_money}}</span> 元</p>
+            </div>
+            <div class="col s12 input-field left-align" ng-hide="exceedOilItem.oil_status == 2">
+                <input style="font-size: 2rem;color: rgb(230,123,123)" type="number" id="should_pay" name="should_pay" ng-model="exceedOilItem.actual_money">
+                <label class="{{exceedOilItem.actual_money != null ? 'active' : 'inactive'}}" for="should_pay"><span style="color: red">* </span>超量金额(元)</label>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="col s12" style="margin: 20px 0" ng-hide="exceedOilItem.oil_status == 2">
+        <div class="col s12" style="margin: 40px 0 15px 0">
+            <div class="col s6 offset-s3">
+                <div class="col s5">
+                    <a ng-click="putTotalInfo()" onclick="function jumpToCarDamage(){$('#carDamagePage').click()}jumpToCarDamage();" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                        保存
+                    </a>
+                </div>
+                <div class="col s5 offset-s2">
+                    <a ng-click="endOfProcessing()" style="width: 100%;background-color:#f0ad4e;" class="waves-light waves-effect lighten-1 btn">
+                        处理结束
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

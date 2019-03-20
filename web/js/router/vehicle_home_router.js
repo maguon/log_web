@@ -173,8 +173,14 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         //司机超量扣款
         .state("driver_exceedOil",{
             url:"/driver_exceedOil",
+            params: {"from": null},
             templateUrl: "js/view/truck/driver_exceedOil.html",
             controller:'driver_exceedOil_controller'
+        })
+        .state("driver_exceedOil_detail",{
+            url:"/driver_exceedOil_detail/id/{id}/driveId/{driveId}?from",
+            templateUrl: "js/view/truck/driver_exceedOil_detail.html",
+            controller:'driver_exceedOil_detail_controller'
         })
         //车辆安全检查
         .state("security_check",{

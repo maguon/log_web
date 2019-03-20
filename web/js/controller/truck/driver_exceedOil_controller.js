@@ -1,7 +1,7 @@
 /**
  * Created by star on 2018/6/12.
  */
-app.controller("driver_exceedOil_controller", ["$scope", "$state", "_basic", "_config", "$host", function ($scope, $state, _basic, _config, $host) {
+app.controller("driver_exceedOil_controller", ["$scope","$rootScope","$state","$stateParams", "_basic", "_config", "$host", function ($scope,$rootScope, $state,$stateParams, _basic, _config, $host) {
     $scope.start = 0;
     $scope.size = 11;
     var userId = _basic.getSession(_basic.USER_ID);
@@ -11,6 +11,11 @@ app.controller("driver_exceedOil_controller", ["$scope", "$state", "_basic", "_c
             if (data.success == true) {
                 $scope.driveNameList = data.result;
                 $('#driver').select2({
+                    placeholder: '司机',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+                $('#addExceedOilDriver').select2({
                     placeholder: '司机',
                     containerCssClass : 'select2_dropdown',
                     allowClear: true
@@ -26,21 +31,32 @@ app.controller("driver_exceedOil_controller", ["$scope", "$state", "_basic", "_c
     $scope.getExceedOil = function (){
         $scope.start = 0;
         getExceedOilData();
-    }
+    };
 
     //获取查询数据
     function getExceedOilData(){
-        _basic.get($host.api_url + "/driveExceedOil?" + _basic.objToUrl({
-            driveId:$scope.driverId,
-            dpRouteTaskId:$scope.dispatchId,
-            taskPlanDateStart:$scope.driveStartTime,
-            taskPlanDateEnd:$scope.driveEndTime,
-            statStatus:$scope.ExceedOilStu,
-            exceedType:$scope.exceedType,
-            start:$scope.start.toString(),
-            size:$scope.size
-        })).then(function (data) {
-            if (data.success === true) {
+        // 基本检索URL
+        var url = $host.api_url + "/driveExceedOil?start=" + $scope.start + "&size=" + $scope.size;
+        // 检索条件
+        var conditionsObj = makeConditions();
+        var conditions = _basic.objToUrl(conditionsObj);
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
+
+        _basic.get(url).then(function (data) {
+
+            if (data.success == true) {
+
+                // 当前画面的检索信息
+                var pageItems = {
+                    pageId: "driver_exceedOil",
+                    start: $scope.start,
+                    size: $scope.size,
+                    conditions: conditionsObj
+                };
+                // 将当前画面的条件
+                $rootScope.refObj = {pageArray: []};
+                $rootScope.refObj.pageArray.push(pageItems);
                 $scope.boxArray = data.result;
                 $scope.ExceedOilList = $scope.boxArray.slice(0, 10);
                 if ($scope.start > 0) {
@@ -62,88 +78,33 @@ app.controller("driver_exceedOil_controller", ["$scope", "$state", "_basic", "_c
         });
     }
 
-    // 数据导出
-    $scope.export = function () {
-        var obj = {
-            driveId:$scope.driverId,
-            dpRouteTaskId:$scope.dispatchId,
-            exceedType:$scope.exceedType,
-            taskPlanDateStart:$scope.driveStartTime,
-            taskPlanDateEnd:$scope.driveEndTime,
-            fineStatus:$scope.ExceedOilStu
-        };
-        window.open($host.api_url + "/driveExceedOil.csv?" + _basic.objToUrl(obj));
-    };
-
     //打开新增模态框
     $scope.addExceedOil = function (){
-        $scope.addExceedOilDispatch = '';
         $scope.addExceedOilDriver = '';
-        $scope.addTruckNum = '';
-        $scope.addTime = '';
-        $scope.addExceedOilScore = '';
-        $scope.addOps = '';
-        $scope.addExceedOilMoney = '';
-        $scope.newRemark = '';
+        $scope.oilDate = '';
+        $scope.driveNameList=[];
+        getDriveNameList ();
         $('#addExceedOilItem').modal('open');
     }
 
-    //添加調度编号联动查询
-    $scope.changeExceedOilDispatch =function (dispacthId) {
-        _basic.get($host.api_url + "/dpRouteTaskList?dpRouteTaskId=" + dispacthId).then(function (detailsData) {
-            if (detailsData.success === true) {
-                if(detailsData.result.length==0){
-                    $scope.addExceedOilDriver = "";
-                    $scope.addTruckNum = "";
-                    $scope.addTime = "";
-                }
-                else{
-                    $scope.addExceedOilDriver = detailsData.result[0].drive_name;
-                    $scope.addTruckNum = detailsData.result[0].truck_num;
-                    $scope.addTime = moment(detailsData.result[0].task_plan_date).format('YYYY-MM-DD');
-                }
-            }
-            else {
-                swal(detailsData.msg, "", "error");
-            }
-        })
-    }
-
-    //修改調度编号联动查询
-    $scope.changePutExceedOilDispatch = function (dispacthId){
-        _basic.get($host.api_url + "/dpRouteTaskList?dpRouteTaskId=" + dispacthId).then(function (detailsData) {
-            if (detailsData.success === true) {
-                if(detailsData.result.length==0){
-                    $scope.putExceedOilList.drive_name = "";
-                    $scope.putExceedOilList.truck_num = "";
-                    $scope.putExceedOilList.task_plan_date = "";
-                }
-                else{
-                    $scope.putExceedOilList.drive_name = detailsData.result[0].drive_name;
-                    $scope.putExceedOilList.truck_num  = detailsData.result[0].truck_num;
-                    $scope.putExceedOilList.task_plan_date = moment(detailsData.result[0].task_plan_date).format('YYYY-MM-DD');
-                }
-            }
-            else {
-                swal(detailsData.msg, "", "error");
-            }
-        })
-    }
 
     //点击确定 增加完成
     $scope.addExceedOilItem = function (){
-        if ($scope.addExceedOilDispatch !== '' && $scope.addExceedOilScore !== '' && $scope.addExceedOilMoney !== ''&&  $scope.addOps !== '') {
+        if ($scope.addExceedOilDriver !== '' && $scope.oilDate !== '') {
             _basic.post($host.api_url + "/user/" + userId + "/driveExceedOil", {
-                exceedType:$scope.addOps,
-                dpRouteTaskId:  $scope.addExceedOilDispatch,
-                exceedOilQuantity: $scope.addExceedOilScore,
-                exceedOilMoney: $scope.addExceedOilMoney,
-                remark: $scope.newRemark
+                driveId:$scope.addExceedOilDriver,
+                oilDate:  $scope.oilDate
             }).then(function (data) {
                 if (data.success === true) {
                     $('#addExceedOilItem').modal('close');
-                    swal("新增成功", "", "success");
+                   /* swal("新增成功", "", "success");*/
                     getExceedOilData();
+                    $state.go('driver_exceedOil_detail', {
+                        reload: true,
+                        id:data.id,
+                        driveId:$scope.addExceedOilDriver,
+                        from: 'driver_exceedOil'
+                    });
                 }
                 else {
                     swal(data.msg, "", "error");
@@ -155,64 +116,6 @@ app.controller("driver_exceedOil_controller", ["$scope", "$state", "_basic", "_c
         }
     }
 
-
-    //打开修改模态框
-    $scope.putExceedOil = function (id){
-        $scope.id = id;
-        $scope.driveList =[];
-        $('#putExceedOilItem').modal('open');
-        _basic.get($host.api_url + "/driveExceedOil?exceedOilId=" +id).then(function (data) {
-            if (data.success === true) {
-                if(data.result.length==0){
-                    $scope.putExceedOilList = [];
-                }
-                else{
-                    $scope.putExceedOilList = data.result[0];
-                    $scope.putExceedOilList.dp_route_task_id = data.result[0].dp_route_task_id;
-                    $scope.putExceedOilList.task_plan_date = moment(data.result[0].task_plan_date).format('YYYY-MM-DD');
-                    getStartCityAndEndCity($scope.putExceedOilList.dp_route_task_id);
-                }
-            }
-        })
-    };
-
-    function getStartCityAndEndCity(id){
-        _basic.get($host.api_url + "/dpRouteLoadTask?dpRouteTaskId=" +id).then(function (data) {
-            if (data.success == true) {
-                $scope.loadTask = data.result[0];
-            }
-        })
-    }
-
-    //点击确定 修改完成
-    $scope.putExceedOilItem = function (){
-        if (  $scope.putExceedOilList.dp_route_task_id !== '' && $scope.putExceedOilList.exceed_oil_quantity !== ''
-            && $scope.putExceedOilList.exceed_oil_money !== ''&&$scope.putExceedOilList.exceed_type!=='') {
-            _basic.put($host.api_url + "/user/" + userId + "/exceedOil/"+$scope.id, {
-                exceedType: $scope.putExceedOilList.exceed_type,
-                dpRouteTaskId: $scope.putExceedOilList.dp_route_task_id,
-                exceedOilQuantity:$scope.putExceedOilList.exceed_oil_quantity,
-                exceedOilMoney: $scope.putExceedOilList.exceed_oil_money,
-                remark: $scope.putExceedOilList.remark
-            }).then(function (data) {
-                if (data.success === true) {
-                    swal("修改成功", "", "success");
-                    $('#putExceedOilItem').modal('close');
-                    getExceedOilData();
-                }
-                else {
-                    swal(data.msg, "", "error");
-                }
-            })
-        }
-        else {
-            swal("请填写完整信息！", "", "warning");
-        }
-    }
-
-    $scope.putExceedOilItem2 = function (){
-        $('#putExceedOilItem').modal('close');
-    }
 
     // 分页
     $scope.pre_btn = function () {
@@ -225,10 +128,61 @@ app.controller("driver_exceedOil_controller", ["$scope", "$state", "_basic", "_c
         getExceedOilData();
     };
 
+    /**
+     * 设置检索条件。
+     * @param conditions 上次检索条件
+     */
+    function setConditions(conditions) {
+        $scope.driverId=conditions.driveId;
+        $scope.settleStatus=conditions.settleStatus;
+        $scope.driveStartTime=conditions.oilDateStart;
+        $scope.driveEndTime=conditions.oilDateEnd;
+    }
+
+    /**
+     * 组装检索条件。
+     */
+    function makeConditions() {
+        return {
+            driveId:$scope.driverId,
+            settleStatus:$scope.settleStatus,
+            oilDateStart:$scope.driveStartTime,
+            oilDateEnd:$scope.driveEndTime
+        };
+    }
+
+
+    /**
+     * 画面初期显示时，用来获取画面必要信息的初期方法。
+     */
+    function initData() {
+        // 如果是从后画面跳回来时，取得上次检索条件
+        if ($stateParams.from === "driver_exceedOil_detail" && $rootScope.refObj !== undefined && $rootScope.refObj.pageArray.length > 0) {
+            var pageItems = $rootScope.refObj.pageArray.pop();
+            if (pageItems.pageId === "driver_exceedOil") {
+                // 设定画面翻页用数据
+                $scope.start = pageItems.start;
+                $scope.size = pageItems.size;
+                // 将上次的检索条件设定到画面
+                setConditions(pageItems.conditions);
+            }
+        } else {
+            // 初始显示时，没有前画面，所以没有基本信息
+            $rootScope.refObj = {pageArray: []};
+        }
+        // 查询数据
+        queryData();
+
+    }
+    initData();
+
+
+
+
+
     //获取数据
     function queryData() {
         getDriveNameList();
         getExceedOilData();
     }
-    queryData();
 }])

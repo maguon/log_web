@@ -13,8 +13,13 @@
             </div>
             <div class="input-field col s6" >
                 <input type="text"  id="oilDate" class="datepicker" autocomplete="off" ng-model="oilDate" date><i class="mdi dataIcon mdi-table-large"></i>
-                <label for="oilDate">核油时间</label>
+                <label for="oilDate">核油日期</label>
             </div>
+            <div class="input-field col s12" >
+                <input type="text"  id="addRemark"  ng-model="addRemark" >
+                <label for="addRemark">备注</label>
+            </div>
+
         </div>
     </div>
 
@@ -47,13 +52,13 @@
                     <div class="col s3"  style="height: 70px">
                         <div class="input-field col s12">
                             <input type="text" ng-model="driveStartTime" id="driveStartTime" name="driveStartTime"  class="datepicker" autocomplete="off"   date><i class="mdi dataIcon mdi-table-large"></i>
-                            <label for="driveStartTime">核油时间(始)</label>
+                            <label for="driveStartTime">核油日期(始)</label>
                         </div>
                     </div>
                     <div class="col s3"  style="height: 70px">
                         <div class="input-field col s12">
                             <input type="text" ng-model="driveEndTime" id="driveEndTime" name="driveEndTime"  class="datepicker" autocomplete="off"   date><i class="mdi dataIcon mdi-table-large"></i>
-                            <label for="driveEndTime">核油时间(终)</label>
+                            <label for="driveEndTime">核油日期(终)</label>
                         </div>
                     </div>
 
@@ -95,7 +100,7 @@
             <tr class="grey-text text-darken-2">
                 <th data-field="">超量结算编号</th>
                 <th data-field="">司机</th>
-                <th data-field="">核油时间</th>
+                <th data-field="">核油日期</th>
                 <th data-field="">状态</th>
                 <th>操作</th>
             </tr>

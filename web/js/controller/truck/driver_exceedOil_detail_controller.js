@@ -12,7 +12,7 @@ app.controller("driver_exceedOil_detail_controller", ["$scope", "$state","$state
 
     // 获取任务信息
     function getOilRel() {
-        //司机  核油时间   数量
+        //司机  核油日期   数量
         _basic.get($host.api_url + "/driveExceedOil?exceedOilId="+exceedOilId).then(function (data) {
             if (data.success === true) {
                 $scope.exceedOilItem = data.result[0];
@@ -128,7 +128,8 @@ app.controller("driver_exceedOil_detail_controller", ["$scope", "$state","$state
             actualUrea:$scope.exceedOilItem.actual_urea,
             exceedOil: $scope.exceedOilItem.actual_oil-$scope.totalOil,
             exceedUrea: $scope.exceedOilItem.actual_urea- $scope.totalUrea,
-            actualMoney:$scope.exceedOilItem.actual_money
+            actualMoney:$scope.exceedOilItem.actual_money,
+            remark:$scope.exceedOilItem.remark
         }).then(function (data) {
             if (data.success === true) {
                 swal("保存成功", "", "success");
@@ -159,7 +160,8 @@ app.controller("driver_exceedOil_detail_controller", ["$scope", "$state","$state
                         actualUrea:$scope.exceedOilItem.actual_urea,
                         exceedOil: $scope.exceedOilItem.actual_oil-$scope.totalOil,
                         exceedUrea: $scope.exceedOilItem.actual_urea- $scope.totalUrea,
-                        actualMoney:$scope.exceedOilItem.actual_money
+                        actualMoney:$scope.exceedOilItem.actual_money,
+                        remark:$scope.exceedOilItem.remark
                     }).then(function (data) {
                         if (data.success === true) {
                             swal("处理成功", "", "success");

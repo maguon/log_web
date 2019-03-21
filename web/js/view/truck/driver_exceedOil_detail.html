@@ -91,7 +91,7 @@
                     <p class="cyan-text" >司机:{{exceedOilItem.drive_name}}</p>
                 </div>
                 <div class="col s6 right-align">
-                    <p class="grey-text" >核油时间:{{exceedOilItem.oil_date|date:'yyyy-MM-dd'}}</p>
+                    <p class="grey-text" >核油日期:{{exceedOilItem.oil_date|date:'yyyy-MM-dd'}}</p>
                 </div>
             </div>
         </div>
@@ -246,6 +246,24 @@
 
 
     </div>
+
+    <!--备注-->
+    <div class="col s12 valign-wrapper" style="font-weight: bold; ">
+        <div class="col s12 cyan-text">
+            <div class="col s12"  ng-hide="exceedOilItem.oil_status !== 2&&exceedOilItem.settle_status !== 2" style="padding: 0;">
+                <p>备注：{{exceedOilItem.remark}}</p>
+            </div>
+            <div class="col s12 input-field" ng-hide="exceedOilItem.oil_status == 2 ||exceedOilItem.settle_status == 2"style="font-weight: normal;font-size: 15px;color: black" >
+                <input type="text" id="remark" name="remark" ng-model="exceedOilItem.remark">
+                <label class="{{exceedOilItem.remark != null ? 'active' : 'inactive'}}" for="remark">备注</label>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
     <div class="col s12" style="margin: 20px 0" ng-hide="exceedOilItem.oil_status == 2 ||exceedOilItem.settle_status == 2">
         <div class="col s12" style="margin: 40px 0 15px 0">
             <div class="col s6 offset-s3">

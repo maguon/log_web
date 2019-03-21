@@ -94,6 +94,7 @@ app.controller("driver_exceedOil_controller", ["$scope","$rootScope","$state","$
     $scope.addExceedOil = function (){
         $scope.addExceedOilDriver = '';
         $scope.oilDate = '';
+        $scope.addRemark='';
         $scope.driveNameList=[];
         getDriveNameList ();
         $('#addExceedOilItem').modal('open');
@@ -105,7 +106,8 @@ app.controller("driver_exceedOil_controller", ["$scope","$rootScope","$state","$
         if ($scope.addExceedOilDriver !== '' && $scope.oilDate !== '') {
             _basic.post($host.api_url + "/user/" + userId + "/driveExceedOil", {
                 driveId:$scope.addExceedOilDriver,
-                oilDate:  $scope.oilDate
+                oilDate:  $scope.oilDate,
+                remark:$scope.addRemark
             }).then(function (data) {
                 if (data.success === true) {
                     $('#addExceedOilItem').modal('close');

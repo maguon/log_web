@@ -1,11 +1,11 @@
-app.controller("driver_exceedOil_detail_controller", ["$scope", "$state","$stateParams", "_basic", "_config", "$host", function ($scope, $state,$stateParams, _basic, _config, $host) {
+app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stateParams", "_basic", "_config", "$host", function ($scope, $state,$stateParams, _basic, _config, $host) {
     var userId = _basic.getSession(_basic.USER_ID);
     var exceedOilId = $stateParams.id;
     var driveId = $stateParams.driveId;
 
     // 返回
     $scope.return = function () {
-        $state.go($stateParams.from,{from:"driver_exceedOil_detail"}, {reload: true})
+        $state.go($stateParams.from,{from:"driver_exceed_oil_detail"}, {reload: true})
     };
 
 
@@ -44,7 +44,7 @@ app.controller("driver_exceedOil_detail_controller", ["$scope", "$state","$state
                 $scope.OilRelList = data.result;
                 for (var i = 0; i < $scope.OilRelList.length; i++) {
                     $scope.totalOil = $scope.totalOil+$scope.OilRelList[i].total_oil;
-                    $scope.totalUrea = $scope.totalUrea+$scope.OilRelList[i].urea;
+                    $scope.totalUrea = $scope.totalUrea+$scope.OilRelList[i].total_urea;
 
                 }
 

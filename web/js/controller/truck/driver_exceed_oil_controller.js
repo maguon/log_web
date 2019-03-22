@@ -1,7 +1,7 @@
 /**
  * Created by star on 2018/6/12.
  */
-app.controller("driver_exceedOil_controller", ["$scope","$rootScope","$state","$stateParams", "_basic", "_config", "$host", function ($scope,$rootScope, $state,$stateParams, _basic, _config, $host) {
+app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","$stateParams", "_basic", "_config", "$host", function ($scope,$rootScope, $state,$stateParams, _basic, _config, $host) {
     $scope.start = 0;
     $scope.size = 11;
     var userId = _basic.getSession(_basic.USER_ID);
@@ -49,7 +49,7 @@ app.controller("driver_exceedOil_controller", ["$scope","$rootScope","$state","$
 
                 // 当前画面的检索信息
                 var pageItems = {
-                    pageId: "driver_exceedOil",
+                    pageId: "driver_exceed_oil",
                     start: $scope.start,
                     size: $scope.size,
                     conditions: conditionsObj
@@ -113,11 +113,11 @@ app.controller("driver_exceedOil_controller", ["$scope","$rootScope","$state","$
                     $('#addExceedOilItem').modal('close');
                    /* swal("新增成功", "", "success");*/
                     getExceedOilData();
-                    $state.go('driver_exceedOil_detail', {
+                    $state.go('driver_exceed_oil_detail', {
                         reload: true,
                         id:data.id,
                         driveId:$scope.addExceedOilDriver,
-                        from: 'driver_exceedOil'
+                        from: 'driver_exceed_oil'
                     });
                 }
                 else {
@@ -171,9 +171,9 @@ app.controller("driver_exceedOil_controller", ["$scope","$rootScope","$state","$
      */
     function initData() {
         // 如果是从后画面跳回来时，取得上次检索条件
-        if ($stateParams.from === "driver_exceedOil_detail" && $rootScope.refObj !== undefined && $rootScope.refObj.pageArray.length > 0) {
+        if ($stateParams.from === "driver_exceed_oil_detail" && $rootScope.refObj !== undefined && $rootScope.refObj.pageArray.length > 0) {
             var pageItems = $rootScope.refObj.pageArray.pop();
-            if (pageItems.pageId === "driver_exceedOil") {
+            if (pageItems.pageId === "driver_exceed_oil") {
                 // 设定画面翻页用数据
                 $scope.start = pageItems.start;
                 $scope.size = pageItems.size;

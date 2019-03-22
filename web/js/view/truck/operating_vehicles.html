@@ -4,26 +4,22 @@
 
     <!--查询条件-->
     <div class="row">
-        <div class="col s11">
-            <!--div class="input-field col " style="width: 20%">
-                <select id="search_truck_type" material-select ng-change="get_company(search_truck_type)" watch ng-model="search_truck_type">
-                    <option ng-value="">请选择</option>
-                    <option ng-value="1">自营车</option>
-                    <option ng-value="2">外协车</option>
-                    <option ng-value="3">供方车</option>
-                    <option ng-value="4">承包车</option>
-                </select>
-                <label for="search_truck_type">所属类型</label>
-            </div>-->
-            <div class="input-field col s3" >
+        <div class="col s10">
+            <div class="input-field col " style="width: 20%" >
                 <select id="search_company" material-select watch ng-model="search_company">
                     <option value="">所属公司</option>
                     <option ng-repeat="el in company" ng-value="el.id">{{el.company_name}}</option>
                 </select>
                 <label for="search_company">请选择</label>
             </div>
-
-            <div class="input-field col s3" >
+            <div class="input-field col " style="width: 20%" >
+                <select id="truck_brand" ng-model="truckBrand" material-select watch>
+                    <option value="" selected>请选择</option>
+                    <option ng-repeat="brand in brandList" ng-value="brand.id">{{brand.brand_name}}</option>
+                </select>
+                <label for="truck_brand">货车品牌</label>
+            </div>
+            <div class="input-field col " style="width: 20%" >
                 <select id="search_num" style="width: 100%" ng-model="search_num">
                     <option value="">牌号</option>
                     <option ng-repeat="el in truckNumList" ng-value="el.id" >{{el.truck_num}}</option>
@@ -31,12 +27,12 @@
             </div>
 
 
-            <div class="input-field col s3" >
+             <div class="input-field col " style="width: 20%" >
                 <input name="search_driver" id="search_driver" type="text" ng-model="search_driver" >
                 <label for="search_driver">关联司机</label>
             </div>
 
-            <div class="input-field col s3" >
+            <div class="input-field col " style="width: 20%" >
                 <select material-select watch id="dispatchFlag" style="width: 100%" ng-model="dispatchFlag">
                     <option value="">请选择</option>
                     <option value="1">可用</option>
@@ -45,10 +41,15 @@
                 <label for="dispatchFlag">运营状态</label>
             </div>
         </div>
-        <div class="col s1">
-            <div class="col s12 center">
+        <div class="col s2">
+            <div class="col s6 center">
                 <a class=" btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="searchOperatingVehicles()">
                     <i class="mdi mdi-magnify"></i>
+                </a>
+            </div>
+            <div class="col s6 center-align">
+                <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
+                    <i class="mdi mdi-cloud-download"></i>
                 </a>
             </div>
         </div>
@@ -62,6 +63,7 @@
                 <thead class="blue-grey lighten-5">
                 <tr class="grey-text text-darken-2">
                     <th data-field="">车牌号</th>
+                    <th data-field="">货车品牌</th>
                     <th data-field="">主驾</th>
                     <th data-field="">电话</th>
                     <th data-field="">所属公司</th>
@@ -71,7 +73,8 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="el in responseData" class="grey-text text-darken-1">
-                    <td  ng-bind="el.truck_num"></td>
+                    <td>{{el.truck_num}}</td>
+                    <td>{{el.brand_name}}</td>
                     <td  ng-bind="el.drive_name"></td>
                     <td  ng-bind="el.mobile"></td>
                     <td  ng-bind="el.company_name"></td>
@@ -83,7 +86,7 @@
                     </td>
                 </tr>
                 <tr ng-if="responseData.length == 0">
-                    <td colspan="6">暂无数据</td>
+                    <td colspan="7">暂无数据</td>
                 </tr>
 
                 </tbody>

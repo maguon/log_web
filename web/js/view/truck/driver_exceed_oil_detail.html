@@ -201,28 +201,28 @@
     <div class="col s12 valign-wrapper" style="font-weight: bold;">
         <div class="col s6 cyan-text">
             <div class="col s6" style="padding: 0;">
-                <p>计划用油量：<span class="red-text" >{{totalOil}}</span> L</p>
+                <p>计划用油量：<span class="red-text" >{{totalOil |number:2}}</span> L</p>
             </div>
             <div class="col s6" style="padding: 0;">
-                <p>计划尿素量：<span class="red-text" >{{totalUrea}}</span> </p>
+                <p>计划尿素量：<span class="red-text" >{{totalUrea|number:2}}</span> </p>
             </div>
         </div>
         <div class="col s6 cyan-text">
             <div class="col s6 input-field">
-                <p>超量油：<span class="red-text" >{{exceedOilItem.actual_oil-totalOil}}</span> L</p>
+                <p>超量油：<span class="red-text" >{{exceedOilItem.actual_oil-totalOil|number:2}}</span> L</p>
             </div>
             <div class="col s6 input-field">
-                <p>超量尿素：<span class="red-text" >{{exceedOilItem.actual_urea-totalUrea}}</span> </p>
+                <p>超量尿素：<span class="red-text" >{{exceedOilItem.actual_urea-totalUrea|number:2}}</span> </p>
             </div>
         </div>
     </div>
     <div class="col s12 valign-wrapper" style="font-weight: bold;">
         <div class="col s6 cyan-text">
             <div class="col s6"  ng-hide="exceedOilItem.oil_status !== 2&&exceedOilItem.settle_status !== 2" style="padding: 0;">
-                <p>实际用油量：<span class="red-text" >{{exceedOilItem.actual_oil}}</span> L</p>
+                <p>实际用油量：<span class="red-text" >{{exceedOilItem.actual_oil|number:2}}</span> L</p>
             </div>
             <div class="col s6"  ng-hide="exceedOilItem.oil_status !== 2&&exceedOilItem.settle_status !== 2" style="padding: 0;">
-                <p>实际尿素量：<span class="red-text" >{{exceedOilItem.actual_urea}}</span> </p>
+                <p>实际尿素量：<span class="red-text" >{{exceedOilItem.actual_urea|number:2}}</span> </p>
             </div>
             <div class="col s6 input-field" ng-hide="exceedOilItem.oil_status == 2 ||exceedOilItem.settle_status == 2" >
                 <input style="font-size: 2rem;color: rgb(230,123,123)" type="number" id="actual_useOil" name="actual_useOil" ng-model="exceedOilItem.actual_oil">
@@ -236,7 +236,7 @@
 
         <div class="col s6 cyan-text">
             <div class="col s12 cyan-text left-align"  ng-hide="exceedOilItem.oil_status !== 2&&exceedOilItem.settle_status !== 2" style="font-weight: bold;">
-                <p>超量金额：<span class="red-text" >{{exceedOilItem.actual_money}}</span> 元</p>
+                <p>超量金额：<span class="red-text" >{{exceedOilItem.actual_money|number:2}}</span> 元</p>
             </div>
             <div class="col s12 input-field left-align" ng-hide="exceedOilItem.oil_status == 2 ||exceedOilItem.settle_status == 2" >
                 <input style="font-size: 2rem;color: rgb(230,123,123)" type="number" id="should_pay" name="should_pay" ng-model="exceedOilItem.actual_money">

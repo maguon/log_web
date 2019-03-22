@@ -19,6 +19,7 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
                 $scope.overOil=$scope.exceedOilItem.actual_oil - $scope.totalOil;
                 $scope.overUrea=$scope.exceedOilItem.actual_urea - $scope.totalUrea;
 
+
             }
             else {
                 swal(data.msg, "", "error");

@@ -14,7 +14,17 @@ app.controller("operating_vehicles_controller", ['$scope', "$host", '_basic', '$
         });
 
     };
-
+    // 获取货车品牌信息
+    function getTruckBrandList() {
+        _basic.get($host.api_url + "/brand").then(function (data) {
+            if (data.success === true) {
+                $scope.brandList = data.result;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
     //車牌号
     function getTruckNumList () {
         _basic.get($host.api_url + "/truckFirst?truckType=1").then(function (data) {
@@ -83,7 +93,16 @@ app.controller("operating_vehicles_controller", ['$scope', "$host", '_basic', '$
         getOperatingVehiclesList();
     };
 
-
+    $scope.export = function (){
+        // 基本检索URL
+        var url = $host.api_url + "/truckOperate.csv?" ;
+        // 检索条件
+        var conditionsObj = makeConditions();
+        var conditions = _basic.objToUrl(conditionsObj);
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
+        window.open(url);
+    }
 
 
     /**
@@ -95,6 +114,7 @@ app.controller("operating_vehicles_controller", ['$scope', "$host", '_basic', '$
         $scope.search_driver=conditions.driveName;
         $scope.search_company=conditions.companyId;
         $scope.dispatchFlag=conditions.dispatchFlag;
+        $scope.truckBrand=conditions.brandId;
     }
 
     /**
@@ -106,6 +126,7 @@ app.controller("operating_vehicles_controller", ['$scope', "$host", '_basic', '$
             truckType:1,
             driveName:$scope.search_driver,
             companyId:$scope.search_company,
+            brandId:$scope.truckBrand,
             dispatchFlag:$scope.dispatchFlag
         };
     }
@@ -144,6 +165,7 @@ app.controller("operating_vehicles_controller", ['$scope', "$host", '_basic', '$
         $scope.searchOperatingVehicles();
         getTruckNumList ();
         get_company();
+        getTruckBrandList();
     }
     initData();
 

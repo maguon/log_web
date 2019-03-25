@@ -200,23 +200,20 @@ app.controller("instruction_operation_details_controller", ["$scope","$state", "
 
     // 根据输入的VIN进行模糊查询
     $scope.searchMatchVin = function (routeId,addrId,loadTaskType) {
-        var vinObjs = {};
-        $('#autocomplete-input').autocomplete({
-            data: vinObjs,
-            // limit: 5, // The max amount of results that can be shown at once. Default: Infinity.
-            minLength: 6
-        });
-
-        if ($scope.vinNum != undefined) {
-            if ($scope.vinNum.length >= 6) {
-
+        if ($scope.vinNum!==""&&$scope.vinNum != undefined) {
+            if ($scope.vinNum.length >= 6&&$scope.vinNum.length<=17) {
                 if(loadTaskType==1){
                     _basic.get($host.api_url + "/carList?vinCode=" + $scope.vinNum + "&carStatusArr=1,2&start=0&size=5").then(function (data) {
                         if (data.success == true && data.result.length > 0) {
                             $scope.vin_msg = data.result;
-                            /* vinObjs = {};*/
+                            var vinObjs = {};
                             for (var i in $scope.vin_msg) {
-                                vinObjs[$scope.vin_msg[i].vin] = null;
+                                vinObjs[$scope.vin_msg[i].id+
+                                '               '+$scope.vin_msg[i].vin +
+                                '               '+ $scope.vin_msg[i].make_name +
+                                '               '+ $scope.vin_msg[i].en_short_name +
+                                '               '+ $scope.vin_msg[i].addr_name
+                                    ] = null;
                             }
                             return vinObjs;
                         } else {
@@ -234,8 +231,14 @@ app.controller("instruction_operation_details_controller", ["$scope","$state", "
                     _basic.get($host.api_url + "/carList?vinCode=" + $scope.vinNum +'&currentCityId='+routeId +'&currentAddrId='+ addrId+ "&carStatusArr=1,2&start=0&size=5").then(function (data) {
                         if (data.success == true && data.result.length > 0) {
                             $scope.vin_msg = data.result;
+                            var vinObjs = {};
                             for (var i in $scope.vin_msg) {
-                                vinObjs[$scope.vin_msg[i].vin] = null;
+                                vinObjs[$scope.vin_msg[i].id+
+                                '               '+$scope.vin_msg[i].vin +
+                                '               '+ $scope.vin_msg[i].make_name +
+                                '               '+ $scope.vin_msg[i].en_short_name +
+                                '               '+ $scope.vin_msg[i].addr_name
+                                    ] = null;
                             }
                             return vinObjs;
                         } else {
@@ -249,7 +252,63 @@ app.controller("instruction_operation_details_controller", ["$scope","$state", "
                         $('.autocomplete').focus();
                     })
                 }
-            }else {
+            }
+
+            else if($scope.vinNum.length >17){
+                $scope.carId=$scope.vinNum.split('   ')[0];
+                $scope.codeVin=$scope.vinNum.split('   ')[5];
+                if(loadTaskType==1){
+                    _basic.get($host.api_url + "/carList?userId="+userId+"&vinCode=" + $scope.codeVin +'&carId='+$scope.carId +"&carStatusArr=1,2&start=0&size=5").then(function (data) {
+                        if (data.success == true && data.result.length > 0) {
+                            $scope.vin_msg = data.result;
+                            var vinObjs = {};
+                            for (var i in $scope.vin_msg) {
+                                vinObjs[$scope.vin_msg[i].vin +
+                                '   品牌:'+ $scope.vin_msg[i].make_name +
+                                '   委托方:'+ $scope.vin_msg[i].en_short_name +
+                                '   发运地:'+ $scope.vin_msg[i].addr_name+
+                                '   carId:'+ $scope.vin_msg[i].id
+                                    ] = null;
+                            }
+                            return vinObjs;
+                        } else {
+                            return {};
+                        }
+                    }).then(function (vinObjs) {
+                        $('.autocomplete').autocomplete({
+                            data: vinObjs,
+                            minLength: 6
+                        });
+                        $('.autocomplete').focus();
+                    })
+                }
+                else{
+                    _basic.get($host.api_url + "/carList?userId="+userId+"&vinCode=" + $scope.codeVin +'&carId='+$scope.carId+'&currentCityId='+routeId +'&currentAddrId='+ addrId+ "&carStatusArr=1,2&start=0&size=5").then(function (data) {
+                        if (data.success == true && data.result.length > 0) {
+                            $scope.vin_msg = data.result;
+                            var vinObjs = {};
+                            for (var i in $scope.vin_msg) {
+                                vinObjs[$scope.vin_msg[i].vin +
+                                '   品牌:'+ $scope.vin_msg[i].make_name +
+                                '   委托方:'+ $scope.vin_msg[i].en_short_name +
+                                '   发运地:'+ $scope.vin_msg[i].addr_name+
+                                '   carId:'+ $scope.vin_msg[i].id
+                                    ] = null;
+                            }
+                            return vinObjs;
+                        } else {
+                            return {};
+                        }
+                    }).then(function (vinObjs) {
+                        $('.autocomplete').autocomplete({
+                            data: vinObjs,
+                            minLength: 6
+                        });
+                        $('.autocomplete').focus();
+                    })
+                }
+            }
+            else {
                 $('.autocomplete').autocomplete({minLength: 6});
                 $scope.vin_msg = {}
             }
@@ -259,7 +318,7 @@ app.controller("instruction_operation_details_controller", ["$scope","$state", "
     // 查询输入的VIN是否存在
     $scope.checkVinNum = function (missionId) {
         if($scope.vinNum != ""){
-            _basic.get($host.api_url + "/carList?vin=" + $scope.vinNum + "&carStatusArr=1,2").then(function (checkData) {
+            _basic.get($host.api_url + "/carList?carId="+$scope.carId + "&carStatusArr=1,2").then(function (checkData) {
                 if (checkData.success === true) {
                     if(checkData.result.length === 0){
                         swal("查无此VIN信息或商品车不是待装车状态，不能进行装车", "", "error");
@@ -282,7 +341,7 @@ app.controller("instruction_operation_details_controller", ["$scope","$state", "
     $scope.addLoadCar = function (carId,missionId) {
         _basic.post($host.api_url + "/user/" + userId + "/dpRouteLoadTask/" + missionId + "/dpRouteLoadTaskDetail?truckId=" + truckId,{
             carId:carId,
-            vin:$scope.vinNum,
+            vin:$scope.codeVin,
             dpRouteTaskId: $scope.currentOperateInfo.id
         }).then(function (addLoadData) {
             if (addLoadData.success === true) {

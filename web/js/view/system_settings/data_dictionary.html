@@ -1,4 +1,4 @@
-<div class="container">
+<div class="data_dictionary" style="width: 80%;margin-left: 10%">
     <ul class="tabs tabs-fixed-width tab-demo z-depth-1" style="font-size: 25px;font-weight: bold;overflow-x: hidden">
         <li class="tab"><a ng-click="getCity()" class="cyan-text"  href="javascript:void(0)">城市</a></li>
         <li class="tab"><a ng-click="getDispatchName()" class="cyan-text"  href="javascript:void(0)">发运地名称</a></li>
@@ -13,9 +13,10 @@
     <table class="dic_table striped z-depth-1" border="1">
         <thead>
         <tr style="background-color: #c8c8c8;color: white;font-size: 16px">
-            <th width="150px" data-field="id">{{clickStatus === "city" ? "城市编号" : clickStatus === "entrust" ? "委托方编号" : clickStatus === "receive" ? "经销商编号" :clickStatus === "dispatch" ? "发运地编号": "制造商编号"}}</th>
-            <th ng-if="flag" width="250px" data-field="id">{{clickStatus === "city" ? "城市简称" : clickStatus === "entrust" ? "委托方简称" : "经销商简称"}}</th>
-            <th data-field="name">{{clickStatus === "city" ? "城市名称" : clickStatus === "entrust" ? "委托方名称" : clickStatus === "receive" ? "经销商名称" :clickStatus === "dispatch" ? "发运地名称": "车辆制造商"}}</th>
+            <th width="150" data-field="id">{{clickStatus === "city" ? "城市编号" : clickStatus === "entrust" ? "委托方编号" : clickStatus === "receive" ? "经销商编号" :clickStatus === "dispatch" ? "发运地编号": "制造商编号"}}</th>
+            <th ng-if="city_details">品牌</th>
+            <th width="250" ng-if="flag" data-field="id">{{clickStatus === "city" ? "城市简称" : clickStatus === "entrust" ? "委托方简称" : "经销商简称"}}</th>
+            <th data-field="name" width="300">{{clickStatus === "city" ? "城市名称" : clickStatus === "entrust" ? "委托方名称" : clickStatus === "receive" ? "经销商名称" :clickStatus === "dispatch" ? "发运地名称": "车辆制造商"}}</th>
             <th ng-if="city_details">城市编号</th>
             <th ng-if="city_details">所在城市</th>
         </tr>
@@ -23,14 +24,15 @@
 
         <tbody>
         <tr ng-repeat="dataInfo in listInfo" style="color: #9a9a9a">
-            <td>{{dataInfo.id}}</td>
-            <td ng-if="flag">{{dataInfo.short_name}}</td>
-            <td>{{clickStatus === "city" ? dataInfo.city_name : clickStatus === "entrust" ? dataInfo.entrust_name :clickStatus === "receive" ?  dataInfo.receive_name :clickStatus === "dispatch" ?dataInfo.addr_name:dataInfo.make_name}}</td>
+            <td width="150">{{dataInfo.id}}</td>
+            <td ng-if="city_details">{{dataInfo.make_name}}</td>
+            <td width="250" ng-if="flag">{{dataInfo.short_name}}</td>
+            <td width="300">{{clickStatus === "city" ? dataInfo.city_name : clickStatus === "entrust" ? dataInfo.entrust_name :clickStatus === "receive" ?  dataInfo.receive_name :clickStatus === "dispatch" ?dataInfo.addr_name:dataInfo.make_name}}</td>
             <td ng-if="city_details">{{dataInfo.city_id}}</td>
             <td ng-if="city_details">{{dataInfo.city_name}}</td>
         </tr>
         <tr class="grey-text text-darken-1" ng-if="listInfo.length == 0">
-            <td colspan="5"><span style="letter-spacing: 2px">暂无数据</span></td>
+            <td colspan="6"><span style="letter-spacing: 2px">暂无数据</span></td>
         </tr>
         </tbody>
     </table>

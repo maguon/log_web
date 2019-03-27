@@ -44,12 +44,13 @@ app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "
     $scope.export = function () {
         var obj = {
             active:1,
-            relId:$scope.InsureNum,
-            insureId:$scope.truckInsureName,
+            insureNum:$scope.InsureNum,
+            insureId:$scope.truckInsureId,
             insureType:$scope.truckInsureType,
             insureUserId:$scope.insureUserName,
             truckNum:$scope.truckNum,
             truckType:$scope.truckType,
+            companyId: $scope.insureCompany,
             endDateStart:$scope.startTimeStart,
             endDateEnd:$scope.startTimeEnd
         };
@@ -58,6 +59,7 @@ app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "
     // 获取筛选列表
     function getTruckInsureList () {
         _basic.get($host.api_url + "/truckInsureRel?" + _basic.objToUrl({
+            active:1,
             insureNum:$scope.InsureNum,
             insureId:$scope.truckInsureId,
             insureType:$scope.truckInsureType,

@@ -168,17 +168,6 @@ app.controller("instruction_operation_details_controller", ["$scope","$state", "
                 carId=[];
                 for(var i = 0;i < $scope.loadList.length;i++){
                     carId.push($scope.loadList[i].car_id);
-                   /* if($scope.loadList[i].car_load_status == 1){
-                        $scope.changeLoadCarStatusFlag=2;
-                    }
-                    else if($scope.loadList[i].car_load_status == 2){
-                        $scope.changeLoadCarStatusFlag=3;
-
-                    }
-                    else{
-                        $scope.changeLoadCarStatusFlag=false;
-                        break;
-                    }*/
                 }
             }
             else {
@@ -186,17 +175,6 @@ app.controller("instruction_operation_details_controller", ["$scope","$state", "
             }
         });
     };
-
-  /*  // 阻止点击冒泡
-    $scope.cancelBubble = function (ev) {
-        ev.stopPropagation();
-    };
-
-    $scope.cancel_bubble = function (ev) {
-        if($scope.currentOperateInfo.task_status === 1 || $scope.currentOperateInfo.task_status === 2){
-            ev.stopPropagation();
-        }
-    };*/
 
     // 根据输入的VIN进行模糊查询
     $scope.searchMatchVin = function (routeId,addrId,loadTaskType) {

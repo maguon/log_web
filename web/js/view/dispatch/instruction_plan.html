@@ -653,16 +653,6 @@
 
                                             <!--装车任务-->
                                             <div class="load_mission load_mission{{$index}}" style="font-weight: normal">
-                                               <!-- &lt;!&ndash;增加装车任务&ndash;&gt;
-                                                <div class="row col s12" ng-show="addMissionBtn">
-                                                    <div class="col s3 right-align right" style="padding:15px 0">
-                                                        <button ng-click="addMission()" style="width:100%;height: 30px;line-height: 33px"
-                                                                class="btn waves-light waves-effect cyan lighten-1 fz12" type="button">
-                                                            增加装车任务
-                                                        </button>
-                                                    </div>
-                                                </div>
--->
                                                 <!--装车填写信息-->
                                                 <div class="col s12 black-text fz14" style="background-color: #e0e0e0;border: 1px solid darkgray;width: 95%;margin: 20px 2.5%">
                                                     <div class="col s12 input-field">
@@ -713,9 +703,9 @@
                                                             <label for="verification_time4" class="active">计划装车日期</label>
                                                         </div>
                                                         <div class="col s4 input-field">
-                                                            <input id="verification_time3" type="text" class="timepicker" ng-model="$parent.lineStartTime" time>
+                                                            <input id="verification_time_{{currentLine.id}}" type="text"  ng-model="$parent.lineStartTime" time>
                                                             <i class="mdi dataIcon mdi-clock"></i>
-                                                            <label for="verification_time3">计划装车时间</label>
+                                                            <label for="verification_time_{{currentLine.id}}">计划装车时间</label>
                                                         </div>
                                                         <div class="col s4 input-field">
                                                             <select material-select watch id="whetherTransfer" ng-change="checkWhetherTransfer(whetherTransfer)" ng-model="whetherTransfer">
@@ -738,11 +728,6 @@
                                                         </div>
                                                         <div class="col s12" style="margin-top: 30px">
                                                             <div class="col s6 offset-s3" style="padding: 0;">
-                                                               <!-- <div class="col s5">
-                                                                    <a ng-click="closeMissionInfo()" style="width: 100%;background-color: #a0a8b1;" class="waves-light waves-effect lighten-1 btn">
-                                                                        取消
-                                                                    </a>
-                                                                </div>-->
                                                                 <div class="col s5 offset-s3">
                                                                     <a ng-click="submitMissionInfo(currentLine.id,sendCityId,locateId,whetherTransfer,transferCityId,transferName,$index)" style="width: 100%;" class="cyan waves-light waves-effect lighten-1 btn">
                                                                         确认
@@ -776,9 +761,9 @@
                                                             <label for="verification_time1" class="active">计划装车日期</label>
                                                         </div>
                                                         <div class="col s4 input-field">
-                                                            <input id="verification_time" type="text" class="timepicker" ng-model="$parent.lineStartTime2" time>
+                                                            <input id="verification_time1_{{currentLine.id}}" type="text" ng-model="$parent.lineStartTime2" time>
                                                             <i class="mdi dataIcon mdi-clock"></i>
-                                                            <label for="verification_time">计划装车时间</label>
+                                                            <label for="verification_time1_{{currentLine.id}}">计划装车时间</label>
                                                         </div>
                                                         <div class="col s4 input-field">
                                                             <select material-select watch id="whetherTransfer2" ng-change="checkWhetherTransfer(whetherTransfer2)" ng-model="whetherTransfer2">
@@ -989,11 +974,6 @@
                                                                 <i style="font-size: 1.5rem;width: 100%;margin-top: 30px" ng-click="showCarModel(sendCityId.id,locateId)"
                                                                    class="mdi mdi-file-document cyan-text col"></i>
                                                             </div>
-                                                           <!-- <select class="col s10" id="chooseDistributor9" name="chooseDistributor" ng-options="addr.date_id + ' ' + addr.short_name + '&emsp;' + addr.plan_count + '/' + addr.pre_count for addr in addrList" ng-model="$parent.receiveInfo">
-                                                                <option value="">经销商</option>
-                                                            </select>-->
-                                                          <!--  <i style="font-size: 1.5rem;" ng-click="showCarModel(sendCityId.id,locateId)"
-                                                               class="mdi mdi-file-document cyan-text vc-center col s2"></i>-->
                                                         </div>
                                                         <div class="col s4 input-field">
                                                             <input id="load_num9" type="number" name="load_num" ng-model="$parent.distributeNum" style="margin: 0;">
@@ -1006,9 +986,9 @@
                                                             <label for="verification_time8" class="active">计划装车日期</label>
                                                         </div>
                                                         <div class="col s4 input-field">
-                                                            <input id="verification_time9" type="text" class="timepicker" ng-model="$parent.lineStartTime" time>
+                                                            <input id="verification_time_{{temporaryLine.id}}" type="text"  ng-model="$parent.lineStartTime" time>
                                                             <i class="mdi dataIcon mdi-clock"></i>
-                                                            <label for="verification_time9">计划装车时间</label>
+                                                            <label for="verification_time_{{temporaryLine.id}}">计划装车时间</label>
                                                         </div>
                                                         <div class="col s4 input-field">
                                                             <select material-select watch id="whetherTransfer1" ng-change="checkWhetherTransfer(whetherTransfer)" ng-model="whetherTransfer">
@@ -1064,9 +1044,9 @@
                                                             <label for="verification_time7" class="active">计划装车日期</label>
                                                         </div>
                                                         <div class="col s4 input-field">
-                                                            <input id="verification_time0" type="text" class="timepicker" ng-model="$parent.lineStartTime2" time>
+                                                            <input id="verification_time1_{{temporaryLine.id}}" type="text"  ng-model="$parent.lineStartTime2" time>
                                                             <i class="mdi dataIcon mdi-clock"></i>
-                                                            <label for="verification_time0">计划装车时间</label>
+                                                            <label for="verification_time1_{{temporaryLine.id}}">计划装车时间</label>
                                                         </div>
                                                         <div class="col s4 input-field">
                                                             <select material-select watch id="whetherTransfer7" ng-change="checkWhetherTransfer(whetherTransfer2)" ng-model="whetherTransfer2">
@@ -1110,14 +1090,6 @@
                                                 <div class="col s12" style="width: 95%;margin: 20px 2.5%;padding: 0;">
                                                     <div class="col s12" style="padding: 0;margin-bottom: 25px;font-size: 1.1rem;color: darkgray">
                                                         <div class="col s12 valign-wrapper" style="height: 42px;background-color: #dcdfe0;font-weight: bold">
-                                                           <!-- <div class="col s12 valign-wrapper">
-                                                                <div class="col s6 left-align" style="color: darkgray;padding: 0;">
-                                                                    <p></p>
-                                                                </div>
-                                                                <div class="col s6 right-align">
-                                                                    <p>指令调度：{{opName}}</p>
-                                                                </div>
-                                                            </div>-->
                                                         </div>
                                                         <div class="col s12 wash_fee_details less_mar" style="padding: 0;">
                                                             <div class="col s12" style="border-bottom: 1px solid darkgray;color: darkgray;font-weight: bold;font-size: 1rem;padding: 0;" ng-repeat="nowMission in missionList2">

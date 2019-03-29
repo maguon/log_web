@@ -910,7 +910,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         $scope.missionInfo = false;
         $scope.addMissionBtn = true;
         getBaseAddr();
-
+        $scope.setTimePicker(showLineId);
         //获取出发城市
         _basic.get($host.api_url + "/dpRouteTaskList?dpRouteTaskId=" + showLineId).then(function (data) {
             if (data.success == true) {
@@ -941,6 +941,33 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     };
 
+    $scope.setTimePicker = function(loadTaskId){
+        $('#verification_time_'+loadTaskId).pickatime({
+            default: 'now', // Set default time: 'now', '1:30AM', '16:30'
+            fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
+            twelvehour: false, // Use AM/PM or 24-hour format
+            donetext: '确定', // text for done-button
+            cleartext: '清除', // text for clear-button
+            canceltext: '取消', // Text for cancel-button
+            autoclose: true, // automatic close timepicker
+            ampmclickable: true, // make AM PM clickable
+            aftershow: function () {
+            } //Function for after opening timepicker
+        });
+        $('#verification_time1_'+loadTaskId).pickatime({
+            default: 'now', // Set default time: 'now', '1:30AM', '16:30'
+            fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
+            twelvehour: false, // Use AM/PM or 24-hour format
+            donetext: '确定', // text for done-button
+            cleartext: '清除', // text for clear-button
+            canceltext: '取消', // Text for cancel-button
+            autoclose: true, // automatic close timepicker
+            ampmclickable: true, // make AM PM clickable
+            aftershow: function () {
+            } //Function for after opening timepicker
+        });
+    }
+
     // 点击线路获取当前路线下的装车任务信息
     $scope.showMissionInfo2 = function (showLineId,showLineDate,startLineId,index) {
         $scope.locateId = "";
@@ -968,6 +995,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         $scope.missionInfo = false;
         $scope.addMissionBtn = true;
         getBaseAddr();
+        $scope.setTimePicker(showLineId);
 
      /*   //获取出发城市
         _basic.get($host.api_url + "/dpRouteTask?dpRouteTaskId=" + showLineId).then(function (data) {

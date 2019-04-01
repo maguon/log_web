@@ -35,6 +35,7 @@
 </div>
 
 
+
 <!--中转车辆详情  模态框中的模态框-->
 <div id="carTDetailModel" class="modal modal-fixed-footer" style="width: 72%;overflow: auto">
     <div class="modal-content center fz20" style="font-weight: 500;padding: 0;">
@@ -70,6 +71,7 @@
         </button>
     </div>
 </div>
+
 
 
 <!--生成临时路线模态框-->
@@ -132,203 +134,210 @@
 </div>
 
 
+
+<!--点击直达路线模态框-->
+<div id="carInfoModel" class="modal modal-fixed-footer" style="width: 72%;overflow: auto">
+    <div class="modal-content center fz20" style="font-weight: 500;padding: 0;">
+        <div class="row col s12 vc-center cyan" style="font-weight: bold;height: 80px;">
+            <div class="col s3 fz22 white-text" style="font-weight: 600">
+                <p>{{currentModelInfo.date_id}}</p>
+            </div>
+            <div class="col s6 vc-center">
+                <h6 class="white-text fz22" style="font-weight:600">{{currentModelInfo.city_route_start}}&emsp;<span style="font-size: 1.7rem" class="mdi mdi-arrow-right"></span><span>&emsp;{{currentModelInfo.city_route_end}}</span></h6>
+            </div>
+            <div class="col s3 fz22 white-text" style="font-weight: 600">
+                <p>{{currentDistance == "notSet" ? "里程未设置" : currentDistance + " 公里"}}</p>
+            </div>
+        </div>
+        <div class="row col s12 vc-center" style="width: 94%;margin-left: 3%">
+            <div class="col s12" style="height: 50px;line-height: 50px;border: 1px solid #ccc;background:#dcdfe0 ">
+                <div class="col s6 left-align">
+                    <p>发运车商品总数：<span class="cyan-text" style="font-size: 1.8rem">{{currentModelInfo.pre_count}}</span> </p>
+                </div>
+                <div class="col s6 right-align">
+                    <p>已安排商品车数：<span style="color: rgb(229,115,115);font-size: 1.8rem">{{transportationCountList}}</span> </p>
+                </div>
+            </div>
+        </div>
+        <!--模态框内信息卡片-->
+        <div class="row col s12" style="width: 94%;margin-left: 3%">
+            <div class="col s6" ng-repeat="transport in transportationList" >
+                <div class="card-panel white "  style="padding: 0">
+                    <div class="row white-text setting_shipments_title vc-center" ng-class="{'dis_bgc':transport.demand_status != 1}"
+                         style="padding: 8px;height: 50px;margin-bottom: 12px;background-color:rgb(77,208,225);">
+                        <div class="col s12 center fz17">
+                            <p class="col s11"><span >{{transport.addr_name}}</span>&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;<span>{{transport.short_name}}</span></p>
+                            <p class="col s1 right-align vc-center">
+                                <i style="font-size: 1.3rem;" ng-click="showCarDetailModel(transport)"  class="mdi mdi-file-document white-text"></i>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row fz15" ng-class="{'dis_txt':transport.demand_status != 1}">
+                        <div class="col s7" style="margin-bottom: 12px" >
+                            <p>发运车商品总数：<span style="color: rgb(229,115,115)" ng-class="{'dis_txt':transport.demand_status != 1}">{{transport.pre_count}}</span>&nbsp;</p>
+                        </div>
+                        <div class="col s5" style="margin-bottom: 12px">
+                            <p>已安排：<span style="color: rgb(229,115,115)" ng-class="{'dis_txt':transport.demand_status != 1}">{{transport.plan_count}}</span>&nbsp;</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer vc-center">
+        <button class="modal-action modal-close btn waves-light waves-effect cyan lighten-1" type="button" style="margin-left: 56px" >
+            确定
+        </button>
+    </div>
+</div>
+
+
+
+<!--点击中转路线模态框-->
+<div id="showCarTransferInfoModel" class="modal modal-fixed-footer" style="width: 72%">
+    <div class="modal-content center fz20" style="font-weight: 500;padding: 0;">
+        <div class="row col s12 vc-center cyan" style="font-weight: bold;height: 80px;">
+            <div class="col s3 fz22 white-text" style="font-weight: 600">
+                <p>{{currentTransferModelInfo.date_id}}</p>
+            </div>
+            <div class="col s6 vc-center">
+                <h6 class="white-text fz22" style="font-weight:600">{{currentTransferModelInfo.transfer_city_name}}&emsp;<span style="font-size: 1.7rem" class="mdi mdi-arrow-right"></span><span>&emsp;{{currentTransferModelInfo.route_end_name}}</span></h6>
+            </div>
+            <div class="col s3 fz22 white-text" style="font-weight: 600">
+                <p>{{currentTransferDistance == "notSet" ? "里程未设置" : currentTransferDistance + " 公里"}}</p>
+            </div>
+        </div>
+        <div class="row  no-marBottom"  style="width: 94%;margin-left: 3%;margin-bottom: 10px">
+            <div class="col s12" ul-tabs style="overflow: hidden">
+                <ul class="tabWrap white lighten-4">
+                    <li class="tab col s6 arrivedStu vc-center" ng-click="arrivedStu()">已到达</li>
+                    <li class="tab col s6 arriveStu vc-center" ng-click="arriveStu()">即将到达</li>
+                </ul>
+            </div>
+        </div>
+        <div id="arrivedStu" class="row tab_box" style="width: 92%;margin-left: 4%">
+            <div class="col s12 vc-center card-panel" style="width: 98%;margin-left:1%;height: 40px;line-height: 40px;background:#dcdfe0">
+                <div class="col s6 left-align">
+                    <p>已到达中转站商品车总数 ：<span class="cyan-text" style="font-size: 1.8rem">{{arrivedCarCount}}</span></p>
+                </div>
+                <div class="col s6 right-align">
+                    <p>已安排商品车数：<span style="color: rgb(229,115,115);font-size: 1.8rem">{{arriveTransportPlanCount}}</span></p>
+                </div>
+            </div>
+            <div class="col s6" ng-repeat="transport in transportationTransportListStatus7" >
+                <div class="card-panel white" style="padding: 0">
+                    <div class="row white-text setting_shipments_title vc-center"  style="padding: 8px;height: 50px;margin-bottom: 20px;background-color:rgb(77,208,225);">
+                        <div class="col s12 center fz17">
+                            <p class="col s11"><span >{{transport.transfer_addr_name}}</span>&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;<span>{{transport.short_name}}</span></p>
+                            <p class="col s1 right-align vc-center">
+                                <i style="font-size: 1.3rem;" ng-click="showCarTDetailModel(transport)"  class="mdi mdi-file-document white-text"></i>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row fz15">
+                        <div class="col s4" style="margin-bottom: 12px" >
+                            <p>始发站：{{transport.addr_name}}</p>
+                        </div>
+                        <div class="col s5" style="margin-bottom: 12px" >
+                            <p>发运商品车总数：<span class="cyan-text">{{transport.arrive_count}}</span>&nbsp</p>
+                        </div>
+                        <div class="col s3" style="margin-bottom: 12px">
+                            <p>已安排：<span style="color: rgb(229,115,115)">{{transport.plan_count}}</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="arriveStu" class="row tab_box" style="width: 92%;margin-left: 4%">
+            <div class="col s12 vc-center card-panel" style="width: 98%;margin-left: 1%;height: 40px;line-height: 40px;background:#dcdfe0">
+                <div class="col s12 left-align">
+                    <p>即将到达中转站商品车总数：<span class="cyan-text" style="font-size: 1.8rem">{{haveArrivedCarCount}}</span></p>
+                </div>
+            </div>
+            <div class="col s6" ng-repeat="transport in transportationTransportListStatus3">
+                <div class="card-panel white"  style="padding: 0">
+                    <div class="row white-text setting_shipments_title vc-center" style="padding: 8px;height: 50px;margin-bottom: 20px;background-color:rgb(77,208,225);">
+                        <div class="col s12 center fz17">
+                            <p class="col s11"><span >{{transport.transfer_addr_name}}</span>&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;<span>{{transport.short_name}}</span></p>
+                            <p class="col s1 right-align vc-center">
+                                <i style="font-size: 1.3rem;" ng-click="showCarTDetailModel(transport)"  class="mdi mdi-file-document white-text"></i>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row fz15">
+                        <div class="col s6 left-align" style="margin-bottom: 12px;" >
+                            <p>始发站：{{transport.addr_name}}</p>
+                        </div>
+                        <div class="col s6 right-align" style="margin-bottom: 12px;" >
+                            <p>发运商品车总数：<span class="cyan-text">{{transport.real_count}}</span></p>
+                        </div>
+                        <div class="col s12 left-align" style="margin-bottom: 12px;">
+                            <p>在途时间：{{transport.load_date| date:'yyyy-MM-dd  HH:mm'}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer vc-center">
+        <button class="modal-action modal-close btn waves-light waves-effect cyan lighten-1" type="button" style="margin-left: 56px" >
+            确定
+        </button>
+    </div>
+</div>
+
+
+
+<!--修改车辆位置模态框-->
+<div class="row" style="margin: 0">
+    <div id="modifyCarPositionMod" class="modal modal-fixed-footer" style="width: 56%;height: 450px">
+        <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+            <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
+                <p>设置车辆当前位置</p>
+            </div>
+            <div class="row" style="width: 85%;margin: 0 auto">
+                <div class="col s8 offset-s2">
+                    <div class="col s12 left-align" style="padding: 0;color: darkgray;font-weight: bold">
+                        <div class="col s6" style="padding: 0">
+                            <p><span  style="font-size: 1.6rem" class="mdi mdi-truck cyan-text"></span> {{transportDetails.truck_num}}</p>
+                        </div>
+                        <div class="col s6" style="padding: 0">
+                            <p><span  style="font-size: 1.6rem" class="mdi mdi-account cyan-text"></span> {{transportDetails.drive_name}}</p>
+                        </div>
+                    </div>
+                    <div class="col s12" style="padding: 0;margin-top: 34px">
+                        <select id="car_position" name="car_position" style="width:100%" ng-model="positionCityId">
+                            <option value=""></option>
+                            <option ng-repeat="city in allCityList" ng-value="city.id">{{city.city_name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer valign-wrapper">
+            <div class="col s12">
+                <div class="col s2 offset-s3">
+                    <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                        取消
+                    </a>
+                </div>
+                <div class="col s2 offset-s2">
+                    <a ng-click="modifyCarPosition()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                        重置
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <div class="instruction_plan">
     <div class="row">
-        <!--点击直达路线模态框-->
-        <div id="carInfoModel" class="modal modal-fixed-footer" style="width: 72%;overflow: auto">
-            <div class="modal-content center fz20" style="font-weight: 500;padding: 0;">
-                <div class="row col s12 vc-center cyan" style="font-weight: bold;height: 80px;">
-                    <div class="col s3 fz22 white-text" style="font-weight: 600">
-                        <p>{{currentModelInfo.date_id}}</p>
-                    </div>
-                    <div class="col s6 vc-center">
-                        <h6 class="white-text fz22" style="font-weight:600">{{currentModelInfo.city_route_start}}&emsp;<span style="font-size: 1.7rem" class="mdi mdi-arrow-right"></span><span>&emsp;{{currentModelInfo.city_route_end}}</span></h6>
-                    </div>
-                    <div class="col s3 fz22 white-text" style="font-weight: 600">
-                        <p>{{currentDistance == "notSet" ? "里程未设置" : currentDistance + " 公里"}}</p>
-                    </div>
-                </div>
-                <div class="row col s12 vc-center" style="width: 94%;margin-left: 3%">
-                    <div class="col s12" style="height: 50px;line-height: 50px;border: 1px solid #ccc;background:#dcdfe0 ">
-                        <div class="col s6 left-align">
-                            <p>发运车商品总数：<span class="cyan-text" style="font-size: 1.8rem">{{currentModelInfo.pre_count}}</span> </p>
-                        </div>
-                        <div class="col s6 right-align">
-                            <p>已安排商品车数：<span style="color: rgb(229,115,115);font-size: 1.8rem">{{transportationCountList}}</span> </p>
-                        </div>
-                    </div>
-                </div>
-                <!--模态框内信息卡片-->
-                <div class="row col s12" style="width: 94%;margin-left: 3%">
-                    <div class="col s6" ng-repeat="transport in transportationList" >
-                        <div class="card-panel white "  style="padding: 0">
-                            <div class="row white-text setting_shipments_title vc-center" ng-class="{'dis_bgc':transport.demand_status != 1}"
-                                 style="padding: 8px;height: 50px;margin-bottom: 12px;background-color:rgb(77,208,225);">
-                                <div class="col s12 center fz17">
-                                    <p class="col s11"><span >{{transport.addr_name}}</span>&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;<span>{{transport.short_name}}</span></p>
-                                    <p class="col s1 right-align vc-center">
-                                        <i style="font-size: 1.3rem;" ng-click="showCarDetailModel(transport)"  class="mdi mdi-file-document white-text"></i>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="row fz15" ng-class="{'dis_txt':transport.demand_status != 1}">
-                                <div class="col s7" style="margin-bottom: 12px" >
-                                    <p>发运车商品总数：<span style="color: rgb(229,115,115)" ng-class="{'dis_txt':transport.demand_status != 1}">{{transport.pre_count}}</span>&nbsp;</p>
-                                </div>
-                                <div class="col s5" style="margin-bottom: 12px">
-                                    <p>已安排：<span style="color: rgb(229,115,115)" ng-class="{'dis_txt':transport.demand_status != 1}">{{transport.plan_count}}</span>&nbsp;</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="modal-footer vc-center">
-                <button class="modal-action modal-close btn waves-light waves-effect cyan lighten-1" type="button" style="margin-left: 56px" >
-                    确定
-                </button>
-            </div>
-        </div>
-
-        <!--点击中转路线模态框-->
-        <div id="showCarTransferInfoModel" class="modal modal-fixed-footer" style="width: 72%">
-            <div class="modal-content center fz20" style="font-weight: 500;padding: 0;">
-                <div class="row col s12 vc-center cyan" style="font-weight: bold;height: 80px;">
-                    <div class="col s3 fz22 white-text" style="font-weight: 600">
-                        <p>{{currentTransferModelInfo.date_id}}</p>
-                    </div>
-                    <div class="col s6 vc-center">
-                        <h6 class="white-text fz22" style="font-weight:600">{{currentTransferModelInfo.transfer_city_name}}&emsp;<span style="font-size: 1.7rem" class="mdi mdi-arrow-right"></span><span>&emsp;{{currentTransferModelInfo.route_end_name}}</span></h6>
-                    </div>
-                    <div class="col s3 fz22 white-text" style="font-weight: 600">
-                        <p>{{currentTransferDistance == "notSet" ? "里程未设置" : currentTransferDistance + " 公里"}}</p>
-                    </div>
-                </div>
-                <div class="row  no-marBottom"  style="width: 94%;margin-left: 3%;margin-bottom: 10px">
-                    <div class="col s12" ul-tabs style="overflow: hidden">
-                        <ul class="tabWrap white lighten-4">
-                            <li class="tab col s6 arrivedStu vc-center" ng-click="arrivedStu()">已到达</li>
-                            <li class="tab col s6 arriveStu vc-center" ng-click="arriveStu()">即将到达</li>
-                        </ul>
-                    </div>
-                </div>
-                <div id="arrivedStu" class="row tab_box" style="width: 92%;margin-left: 4%">
-                    <div class="col s12 vc-center card-panel" style="width: 98%;margin-left:1%;height: 40px;line-height: 40px;background:#dcdfe0">
-                        <div class="col s6 left-align">
-                            <p>已到达中转站商品车总数 ：<span class="cyan-text" style="font-size: 1.8rem">{{arrivedCarCount}}</span></p>
-                        </div>
-                        <div class="col s6 right-align">
-                            <p>已安排商品车数：<span style="color: rgb(229,115,115);font-size: 1.8rem">{{arriveTransportPlanCount}}</span></p>
-                        </div>
-                    </div>
-                    <div class="col s6" ng-repeat="transport in transportationTransportListStatus7" >
-                        <div class="card-panel white" style="padding: 0">
-                            <div class="row white-text setting_shipments_title vc-center"  style="padding: 8px;height: 50px;margin-bottom: 20px;background-color:rgb(77,208,225);">
-                                <div class="col s12 center fz17">
-                                    <p class="col s11"><span >{{transport.transfer_addr_name}}</span>&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;<span>{{transport.short_name}}</span></p>
-                                    <p class="col s1 right-align vc-center">
-                                        <i style="font-size: 1.3rem;" ng-click="showCarTDetailModel(transport)"  class="mdi mdi-file-document white-text"></i>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="row fz15">
-                                <div class="col s4" style="margin-bottom: 12px" >
-                                    <p>始发站：{{transport.addr_name}}</p>
-                                </div>
-                                <div class="col s5" style="margin-bottom: 12px" >
-                                    <p>发运商品车总数：<span class="cyan-text">{{transport.arrive_count}}</span>&nbsp</p>
-                                </div>
-                                <div class="col s3" style="margin-bottom: 12px">
-                                    <p>已安排：<span style="color: rgb(229,115,115)">{{transport.plan_count}}</span></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="arriveStu" class="row tab_box" style="width: 92%;margin-left: 4%">
-                    <div class="col s12 vc-center card-panel" style="width: 98%;margin-left: 1%;height: 40px;line-height: 40px;background:#dcdfe0">
-                        <div class="col s12 left-align">
-                            <p>即将到达中转站商品车总数：<span class="cyan-text" style="font-size: 1.8rem">{{haveArrivedCarCount}}</span></p>
-                        </div>
-                    </div>
-                    <div class="col s6" ng-repeat="transport in transportationTransportListStatus3">
-                        <div class="card-panel white"  style="padding: 0">
-                            <div class="row white-text setting_shipments_title vc-center" style="padding: 8px;height: 50px;margin-bottom: 20px;background-color:rgb(77,208,225);">
-                                <div class="col s12 center fz17">
-                                    <p class="col s11"><span >{{transport.transfer_addr_name}}</span>&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;<span>{{transport.short_name}}</span></p>
-                                    <p class="col s1 right-align vc-center">
-                                        <i style="font-size: 1.3rem;" ng-click="showCarTDetailModel(transport)"  class="mdi mdi-file-document white-text"></i>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="row fz15">
-                                <div class="col s6 left-align" style="margin-bottom: 12px;" >
-                                    <p>始发站：{{transport.addr_name}}</p>
-                                </div>
-                                <div class="col s6 right-align" style="margin-bottom: 12px;" >
-                                    <p>发运商品车总数：<span class="cyan-text">{{transport.real_count}}</span></p>
-                                </div>
-                                <div class="col s12 left-align" style="margin-bottom: 12px;">
-                                    <p>在途时间：{{transport.load_date| date:'yyyy-MM-dd  HH:mm'}}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer vc-center">
-                <button class="modal-action modal-close btn waves-light waves-effect cyan lighten-1" type="button" style="margin-left: 56px" >
-                    确定
-                </button>
-            </div>
-        </div>
-
-        <!--修改车辆位置模态框-->
-        <div class="row" style="margin: 0">
-            <div id="modifyCarPositionMod" class="modal modal-fixed-footer" style="width: 56%;height: 450px">
-                <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-                    <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
-                        <p>设置车辆当前位置</p>
-                    </div>
-                    <div class="row" style="width: 85%;margin: 0 auto">
-                        <div class="col s8 offset-s2">
-                            <div class="col s12 left-align" style="padding: 0;color: darkgray;font-weight: bold">
-                                <div class="col s6" style="padding: 0">
-                                    <p><span  style="font-size: 1.6rem" class="mdi mdi-truck cyan-text"></span> {{transportDetails.truck_num}}</p>
-                                </div>
-                                <div class="col s6" style="padding: 0">
-                                    <p><span  style="font-size: 1.6rem" class="mdi mdi-account cyan-text"></span> {{transportDetails.drive_name}}</p>
-                                </div>
-                            </div>
-                            <div class="col s12" style="padding: 0;margin-top: 34px">
-                                <select id="car_position" name="car_position" style="width:100%" ng-model="positionCityId">
-                                    <option value=""></option>
-                                    <option ng-repeat="city in allCityList" ng-value="city.id">{{city.city_name}}</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-footer valign-wrapper">
-                    <div class="col s12">
-                        <div class="col s2 offset-s3">
-                            <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
-                                取消
-                            </a>
-                        </div>
-                        <div class="col s2 offset-s2">
-                            <a ng-click="modifyCarPosition()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
-                                重置
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!--左栏发运商品车信息卡片-->
         <div class="row col" ul-tabs style="width: 20%">
             <ul class="tabs tabs-fixed-width tab-demo z-depth-1" style="font-size: 25px;font-weight: bold;overflow-x: hidden">

@@ -75,11 +75,11 @@
 
 
 <!--生成临时路线模态框-->
-<div id="temporaryLineMod" class="modal modal-fixed-footer" style="width: 56%;height: 190px">
+<div id="temporaryLineMod" class="modal modal-fixed-footer" style="width: 56%;height:230px">
     <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
         <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
             <p>创建临时路线</p>
-        </div>已用/车位
+        </div>
         <div class="row" style="width: 85%;margin: 0 auto">
             <!--生成路线-->
             <div class="col s12 black-text fz14 center-align" style="padding: 0;">
@@ -572,7 +572,7 @@
                                     </div>
                                     <div class="col s1 mdi mdi-arrow-right" style="margin-top: 10px"></div>
                                     <div class="col s6">
-                                        <select watch material-select id="chooseEndCity" name="state" style="width:100%" ng-options="city.city_name + ' ' + city.distance + ' km'   for city in cityList" ng-model="lineEndCityInfo">
+                                        <select watch material-select id="chooseEndCity" name="state" style="width:100%" ng-options="city.city_name + ' ' + city.distance+ ' km'   for city in cityList" ng-model="lineEndCityInfo">
                                             <option value=""></option>
                                         </select>
                                     </div>

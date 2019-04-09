@@ -669,6 +669,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 routeEndId: $scope.endCityInfoMod.end_id,
                 routeEnd:$scope.endCityInfoMod.city_name,
                 distance: $scope.endCityInfoMod.distance,
+                oilDistance:$scope.endCityInfoMod.distance,
                 taskPlanDate: $scope.lineStartDate
             }).then(function (data) {
                 if (data.success === true) {
@@ -704,94 +705,141 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             /*有空使得情况下*/
             if (routeStartId !== $scope.lastEndCityId && $scope.lastEndCityId !== undefined) {
                 _basic.get($host.api_url + "/cityRoute?routeStartId=" + $scope.lastEndCityId + "&routeEndId=" + $scope.startCityId).then(function (data) {
-                    if (data.success == true) {
+                    if (data.success == true&&data.result.length>0) {
                         $scope.blankId = data.result[0].id;
                         $scope.blankDistance = data.result[0].distance;
+                        $scope.blankOilDistance = data.result[0].oil_distance;
                         $scope.blankRouteId = data.result[0].route_id;
-                    }
-                });
-               swal({
-                    title: '',
-                    text: "您没有从" + $scope.lastEndCity + "到" + routeStart + "的空驶路线",
-                    type: 'question',
-                    showCancelButton: true,
-                    confirmButtonText: '创建空驶和新路线',
-                   cancelButtonColor:'#d33',
-                    cancelButtonText: '仅创建新路线',
-                    reverseButtons: true
-                }).then( function (result) {
-                    if (result.value) {
-                        /*空使*/
-                        _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask", {
-                            truckId: $scope.dispatchInfo.truck_id,
-                            routeId: $scope.blankRouteId,
-                            truckNumber: $scope.dispatchInfo.truck_number,
-                            driveId: $scope.dispatchInfo.drive_id,
-                            routeStartId: $scope.lastEndCityId,
-                            routeStart: $scope.lastEndCity,
-                            routeEndId: routeStartId,
-                            routeEnd: routeStart,
-                            distance: $scope.blankDistance,
-                            cityRouteId: $scope.blankId,
-                            taskStatus: 10,
-                            taskPlanDate: $scope.lineStartDate
-                        }).then(function (data) {
-                            if (data.success == true) {
-                                $scope.lineInfo = false;
-                                $scope.showDispatchInfo($scope.dispatchInfo);
+                        swal({
+                            title: '',
+                            text: "您没有从" + $scope.lastEndCity + "到" + routeStart + "的空驶路线",
+                            type: 'question',
+                            showCancelButton: true,
+                            confirmButtonText: '创建空驶和新路线',
+                            cancelButtonColor:'#d33',
+                            cancelButtonText: '仅创建新路线',
+                            reverseButtons: true
+                        }).then( function (result) {
+                            if (result.value) {
+                                /*空使*/
+                                _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask", {
+                                    truckId: $scope.dispatchInfo.truck_id,
+                                    routeId: $scope.blankRouteId,
+                                    truckNumber: $scope.dispatchInfo.truck_number,
+                                    driveId: $scope.dispatchInfo.drive_id,
+                                    routeStartId: $scope.lastEndCityId,
+                                    routeStart: $scope.lastEndCity,
+                                    routeEndId: routeStartId,
+                                    routeEnd: routeStart,
+                                    distance: $scope.blankDistance,
+                                    oilDistance:$scope.blankOilDistance,
+                                    cityRouteId: $scope.blankId,
+                                    taskStatus: 10,
+                                    taskPlanDate: $scope.lineStartDate
+                                }).then(function (data) {
+                                    if (data.success == true) {
+                                        $scope.lineInfo = false;
+                                        $scope.showDispatchInfo($scope.dispatchInfo);
+                                    }
+                                })
+                                /*新路线*/
+                                _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask", {
+                                    truckId: $scope.dispatchInfo.truck_id,
+                                    routeId: $scope.lineEndCityInfo.route_id,
+                                    truckNumber: $scope.dispatchInfo.truck_number,
+                                    driveId: $scope.dispatchInfo.drive_id,
+                                    routeStartId: routeStartId,
+                                    routeStart: routeStart,
+                                    routeEndId: $scope.lineEndCityInfo.end_id,
+                                    routeEnd: $scope.lineEndCityInfo.city_name,
+                                    distance: $scope.lineEndCityInfo.distance,
+                                    oilDistance:$scope.lineEndCityInfo.distance,
+                                    cityRouteId: $scope.lineEndCityInfo.id,
+                                    taskPlanDate: $scope.lineStartDate
+                                }).then(function (data) {
+                                    if (data.success === true) {
+                                        $scope.lineInfo = false;
+                                        $scope.showDispatchInfo($scope.dispatchInfo);
+                                    }
+                                    else {
+                                        swal(data.msg, "", "error");
+                                    }
+                                });
+
                             }
-                        })
-                       /*新路线*/
-                        _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask", {
-                            truckId: $scope.dispatchInfo.truck_id,
-                            routeId: $scope.lineEndCityInfo.route_id,
-                            truckNumber: $scope.dispatchInfo.truck_number,
-                            driveId: $scope.dispatchInfo.drive_id,
-                            routeStartId: routeStartId,
-                            routeStart: routeStart,
-                            routeEndId: $scope.lineEndCityInfo.end_id,
-                            routeEnd: $scope.lineEndCityInfo.city_name,
-                            distance: $scope.lineEndCityInfo.distance,
-                            cityRouteId: $scope.lineEndCityInfo.id,
-                            taskPlanDate: $scope.lineStartDate
-                        }).then(function (data) {
-                            if (data.success === true) {
-                                $scope.lineInfo = false;
-                                $scope.showDispatchInfo($scope.dispatchInfo);
+                            else if (result.dismiss === Swal.DismissReason.cancel) {
+                                /*新路线*/
+                                _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask", {
+                                    truckId: $scope.dispatchInfo.truck_id,
+                                    routeId: $scope.lineEndCityInfo.route_id,
+                                    truckNumber: $scope.dispatchInfo.truck_number,
+                                    driveId: $scope.dispatchInfo.drive_id,
+                                    routeStartId: routeStartId,
+                                    routeStart: routeStart,
+                                    routeEndId: $scope.lineEndCityInfo.end_id,
+                                    routeEnd: $scope.lineEndCityInfo.city_name,
+                                    distance: $scope.lineEndCityInfo.distance,
+                                    oilDistance:$scope.lineEndCityInfo.distance,
+                                    cityRouteId: $scope.lineEndCityInfo.id,
+                                    taskPlanDate: $scope.lineStartDate
+                                }).then(function (data) {
+                                    if (data.success === true) {
+                                        $scope.lineInfo = false;
+                                        $scope.showDispatchInfo($scope.dispatchInfo);
+                                    }
+                                    else {
+                                        swal(data.msg, "", "error");
+                                    }
+                                })
                             }
-                            else {
-                                swal(data.msg, "", "error");
+                            else{
+                                return;
                             }
                         });
 
-                } else if (result.dismiss === Swal.DismissReason.cancel) {
-                        /*新路线*/
-                        _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask", {
-                            truckId: $scope.dispatchInfo.truck_id,
-                            routeId: $scope.lineEndCityInfo.route_id,
-                            truckNumber: $scope.dispatchInfo.truck_number,
-                            driveId: $scope.dispatchInfo.drive_id,
-                            routeStartId: routeStartId,
-                            routeStart: routeStart,
-                            routeEndId: $scope.lineEndCityInfo.end_id,
-                            routeEnd: $scope.lineEndCityInfo.city_name,
-                            distance: $scope.lineEndCityInfo.distance,
-                            cityRouteId: $scope.lineEndCityInfo.id,
-                            taskPlanDate: $scope.lineStartDate
-                        }).then(function (data) {
-                            if (data.success === true) {
-                                $scope.lineInfo = false;
-                                $scope.showDispatchInfo($scope.dispatchInfo);
-                            }
-                            else {
-                                swal(data.msg, "", "error");
-                            }
-                        })
                     }
-                    else{
-                        return;
+                    else {
+                        swal({
+                            title: '',
+                            text: "您还未设置从" + $scope.lastEndCity + "到" + routeStart + "的路线,所以不能创建空使路线",
+                            type: 'question',
+                            showCancelButton: true,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: '创建新路线',
+                            cancelButtonText: '取消'
+                        }).then( function (result) {
+                            if (result.value) {
+                                /*新路线*/
+                                _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask", {
+                                    truckId: $scope.dispatchInfo.truck_id,
+                                    routeId: $scope.lineEndCityInfo.route_id,
+                                    truckNumber: $scope.dispatchInfo.truck_number,
+                                    driveId: $scope.dispatchInfo.drive_id,
+                                    routeStartId: routeStartId,
+                                    routeStart: routeStart,
+                                    routeEndId: $scope.lineEndCityInfo.end_id,
+                                    routeEnd: $scope.lineEndCityInfo.city_name,
+                                    distance: $scope.lineEndCityInfo.distance,
+                                    oilDistance:$scope.lineEndCityInfo.distance,
+                                    cityRouteId: $scope.lineEndCityInfo.id,
+                                    taskPlanDate: $scope.lineStartDate
+                                }).then(function (data) {
+                                    if (data.success === true) {
+                                        $scope.lineInfo = false;
+                                        $scope.showDispatchInfo($scope.dispatchInfo);
+                                    }
+                                    else {
+                                        swal(data.msg, "", "error");
+                                    }
+                                });
+
+                            }
+                            else{
+                                return;
+                            }
+                        });
                     }
-            });
+                });
             }
            /*没有空使直接建新路线*/
             else{
@@ -806,6 +854,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                     routeEndId: $scope.lineEndCityInfo.end_id,
                     routeEnd: $scope.lineEndCityInfo.city_name,
                     distance: $scope.lineEndCityInfo.distance,
+                    oilDistance:$scope.lineEndCityInfo.distance,
                     cityRouteId: $scope.lineEndCityInfo.id,
                     taskPlanDate: $scope.lineStartDate
                 }).then(function (data) {
@@ -1042,6 +1091,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             routeEndId:temporaryLine.route_end_id,
             routeEnd:temporaryLine.route_end,
             distance:temporaryLine.distance,
+            oilDistance:temporaryLine.distance,
             taskPlanDate: moment(temporaryLine.task_plan_date.toString()).format("YYYY-MM-DD"),
             currentCity:$scope.dispatchInfo.current_city
         };

@@ -3,6 +3,7 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
     $scope.size = 11;
     $("#pre").hide();
     $("#next").hide();
+    var userId = _basic.getSession(_basic.USER_ID);
     // 调度指令状态
     $scope.taskStatusList =_config.taskStatus;
 
@@ -169,7 +170,82 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
     }
     initData();
 
+    /*
+    * 修改结算
+    * */
+    $scope.putSettle = function (obj){
+        if(obj.task_status!==10){
+            $(".modal").modal();
+            $("#putSettle").modal("close");
+            swal("全部完成状态下可修改！", "", "warning");
+        }
+        else{
+            $(".modal").modal();
+            $("#putSettle").modal("open");
+        }
+        $scope.putSettleItem=obj;
 
+    }
+    $scope.putSettleData =function(){
+        if($scope.putSettleItem.distance == null || $scope.putSettleItem.distance === ""
+            || $scope.putSettleItem.car_count == null || $scope.putSettleItem.car_count === ""
+            || $scope.putSettleItem.load_flag == null || $scope.putSettleItem.load_flag === ""){
+            swal("里程或运载车辆数或载重类型不能为空！", "", "warning");
+        }
+        else{
+            _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" +$scope.putSettleItem.id +'/dpRouteLoadFlag',{
+                distance: $scope.putSettleItem.distance,
+                carCount: $scope.putSettleItem.car_count,
+                loadFlag: $scope.putSettleItem.load_flag
+            }).then(function (data) {
+                if (data.success === true) {
+                    swal("保存成功", "", "success");
+                    $("#putSettle").modal("close");
+                    seachOrderInfo();
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
+    }
+
+    /*
+    * 修改油耗
+    * */
+    $scope.putOil = function (obj){
+        if(obj.task_status!==10){
+            $(".modal").modal();
+            $("#putOil").modal("close");
+            swal("全部完成状态下可修改！", "", "warning");
+        }
+        else{
+            $(".modal").modal();
+            $("#putOil").modal("open");
+        }
+        $scope.putOilItem=obj;
+    }
+    $scope.putOilData =function(){
+        if($scope.putOilItem.oil_distance == null || $scope.putOilItem.oil_distance === ""
+            || $scope.putOilItem.oil_load_flag == null || $scope.putOilItem.oil_load_flag === ""){
+            swal("里程或载重类型不能为空！", "", "warning");
+        }
+        else{
+            _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" +$scope.putOilItem.id +'/dpRouteOilLoadFlag',{
+                oilDistance: $scope.putOilItem.oil_distance,
+                oilLoadFlag: $scope.putOilItem.oil_load_flag
+            }).then(function (data) {
+                if (data.success === true) {
+                    swal("保存成功", "", "success");
+                    $("#putOil").modal("close");
+                    seachOrderInfo();
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
+    }
 
 
     /**

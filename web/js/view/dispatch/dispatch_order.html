@@ -1,3 +1,75 @@
+<!--修改结算-->
+<div id="putSettle" class="modal">
+    <div class="cyan lighten-1 white-text center-align modal_title" >修改结算</div>
+    <div class="modal-content">
+        <div class="row col" style="width: 80%;">
+            <!--里程   运载车辆数   载重类型-->
+            <div class="col s12" style="height: 70px">
+                <div class="col s4 input-field">
+                    <input type="number" name="settleDistance" id="settleDistance" ng-model="putSettleItem.distance" >
+                    <label for="settleDistance"><span style="color: red">* </span>里程</label>
+                </div>
+
+                <div class="col s4 input-field">
+                    <input type="text" name="settleCarCount" id="settleCarCount" ng-model="putSettleItem.car_count" >
+                    <label for="settleCarCount"><span style="color: red">* </span>运载车辆数</label>
+                </div>
+
+                <div class="col s4 input-field">
+                    <select id="car_status" name="car_status" material-select watch ng-model="putSettleItem.load_flag" style="width: 100%">
+                        <option ng-value="">所有</option>
+                        <option ng-value="1">重载</option>
+                        <option ng-value="0">空载</option>
+                    </select>
+                    <label for="car_status"><span style="color: red">* </span>载重类型</label>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="divider" style="background: #ccc;height: 1px;"></div>
+    <div class="modal-footer vc-center">
+        <a class=" modal-action modal-close waves-effect waves-light grey lighten-1 btn"  >取消 </a>
+        <button class="btn waves-light waves-effect cyan lighten-2"  ng-click="putSettleData()" name="action" style="margin-left: 10px">确定</button>
+    </div>
+</div>
+
+
+<!--修改油耗-->
+<div id="putOil" class="modal">
+    <div class="cyan lighten-1 white-text center-align modal_title" >修改油耗</div>
+    <div class="modal-content">
+        <div class="row col" style="width: 80%;">
+            <!--里程    载重类型-->
+            <div class="col s12" style="height: 70px">
+
+                <div class="col s6 input-field">
+                    <input type="number" name="oilDistance" id="oilDistance" ng-model="putOilItem.oil_distance" >
+                    <label for="oilDistance"><span style="color: red">* </span>油耗里程</label>
+                </div>
+
+                <div class="col s6 input-field">
+                    <select id="oil_load_flag" name="oil_load_flag" material-select watch ng-model="putOilItem.oil_load_flag" style="width: 100%">
+                        <option ng-value="">所有</option>
+                        <option ng-value="1">重载</option>
+                        <option ng-value="0">空载</option>
+                    </select>
+                    <label for="oil_load_flag"><span style="color: red">* </span>载重类型</label>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="divider" style="background: #ccc;height: 1px;"></div>
+    <div class="modal-footer vc-center">
+        <a class=" modal-action modal-close waves-effect waves-light grey lighten-1 btn"  >取消 </a>
+        <button class="btn waves-light waves-effect cyan lighten-2"  ng-click="putOilData()" name="action" style="margin-left: 10px">确定</button>
+    </div>
+</div>
+
+
 <!--调度 -- 指令管理  -->
 <div class="dispatch_order">
 
@@ -94,6 +166,7 @@
                 <th data-field="">调度编号</th>
                 <th data-field="">路线</th>
                 <th data-field="">里程(km)</th>
+                <th data-field="">油耗里程(km)</th>
                 <th data-field="">司机</th>
                 <th data-field="">货车</th>
                 <th data-field="">计划装车数</th>
@@ -111,6 +184,7 @@
                 <td ng-bind="el.id"></td>
                 <td>{{el.city_route_start}}-{{el.city_route_end}}</td>
                 <td ng-bind="el.distance"></td>
+                <td ng-bind="el.oil_distance"></td>
                 <td ng-bind="el.drive_name"></td>
                 <td ng-bind="el.truck_num"></td>
                 <td ng-bind="el.plan_count"></td>
@@ -123,11 +197,17 @@
 
                 <!-- 显示画面按钮 -->
                 <td class="operation">
+                    <a ng-click="putSettle(el)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
+                        <i class="mdi mdi-cash-usd cyan-text lighten-1" style="margin: 0"></i>
+                    </a>
+                    <a ng-click="putOil(el)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
+                        <i class="mdi mdi-water-pump cyan-text lighten-1" style="margin: 0"></i>
+                    </a>
                     <a  ui-sref="dispatch_order_details({id:el.id,from:'dispatch_order'})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1  " ></i></a>
                 </td>
             </tr>
             <tr class="grey-text text-darken-1" ng-if="dispatchOrderArray.length == 0">
-                <td colspan="13" style="letter-spacing: 2px;text-align: center;">暂无数据</td>
+                <td colspan="14" style="letter-spacing: 2px;text-align: center;">暂无数据</td>
             </tr>
             </tbody>
         </table>

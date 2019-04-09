@@ -36,12 +36,18 @@
                 <div style="padding: 1rem">
                     <div class="col s12 p0">
                         <div ng-repeat="el in city_model" class="col s2" style=" padding:1rem;">
+
+                           <!--开启-->
                             <div class="col s12 city_model_panel z-depth-1 center-align"
-                                 ng-class="{'no_amend_model':el.model_status==0}">
-                                <!--<input type="text" class="city_model_name cyan-text text-lighten-1 city_model_name{{$index}}"-->
-                                <!--ng-model="el.city_name" readonly="readonly">-->
-                                <p class="cyan-text" style="margin: 9px 0;">{{el.id + " - " + el.city_name}}</p>
-                                <div class="amend_city_model_box{{$index}} col s3"
+                                 ng-class="{'no_amend_model':el.model_status==0}" ng-show="el.city_oil_flag==1">
+                                <div class="col s9 cyan-text" style="margin: 9px 0;padding: 0px;">{{el.id + " - " + el.city_name}}</div>
+                                <div class="col s3">
+                                    <i class="mdi cyan-text text-lighten-1 mdi-check-circle fz25" style="cursor: pointer"
+                                       ng-click="openCity(el.id,el.city_oil_flag,$index)">
+                                    </i>
+                                </div>
+
+                               <!-- <div class="amend_city_model_box{{$index}} col s3"
                                      style="display: none;cursor: pointer">
                                     <i class="mdi red-text text-darken-2 mdi-close col s6 "
                                        ng-click="close_city_model($index)"></i>
@@ -50,16 +56,22 @@
                                 </div>
                                 <i class="mdi grey-text mdi-pencil mdi-pencil{{$index}} col s1"
                                    ng-if="el.model_status==1" style="cursor: pointer"
-                                   ng-click="amend_city_model($index,$event)"></i>
+                                   ng-click="amend_city_model($index,$event)"></i>-->
+
+                            </div>
+
+                            <!--不开启-->
+                            <div class="col s12 city_model_panel z-depth-1  lighten-2  center-align"
+                                 ng-class="{'no_amend_model':el.model_status==0}"  ng-show="el.city_oil_flag==0">
+                                <div class="col s9 cyan-text" style="margin: 9px 0;padding: 0px;">{{el.id + " - " + el.city_name}}</div>
                                 <div class="col s3">
-                                    <!--<div class="switch">-->
-                                    <!--<label>-->
-                                    <!--<input type="checkbox" ng-checked="el.city_status==1"-->
-                                    <!--ng-click="amend_city_model_status(el.id,el.model_status,el.make_id)">-->
-                                    <!--<span class="lever"></span>-->
-                                    <!--</label>-->
+                                    <i class="mdi cyan-text text-lighten-1 mdi-check-circle-outline fz25" style="cursor: pointer"
+                                       ng-click="openCity(el.id,el.city_oil_flag,$index)">
+                                    </i>
                                 </div>
                             </div>
+
+
                         </div>
                     </div>
                 </div>

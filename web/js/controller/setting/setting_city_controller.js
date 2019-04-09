@@ -53,7 +53,7 @@ app.controller("setting_city_controller", ["$scope", "$host", "_basic", function
         if (status == 1) {
             status = 0
             swal({
-                title: "确定修改此状态吗?",
+                title: "确定取消此经销商油补城市吗?",
                 text: "",
                 type: "warning",
                 showCancelButton: true,
@@ -77,14 +77,30 @@ app.controller("setting_city_controller", ["$scope", "$host", "_basic", function
                 })
         } else {
             status = 1
-            _basic.put($host.api_url + "/user/" + userId + '/city/' + id + "/cityOilFlag/" + status
-                , {}).then(function (data) {
-                if (data.success !== true) {
-                    swal(data.msg, "", "error");
-                }else{
-                    $scope.getCity()
-                }
-            })
+            swal({
+                title: "确定添加此经销商油补城市吗?",
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消"
+            }).then(
+                function (result) {
+                    if (result.value) {
+                        _basic.put($host.api_url + "/user/" + userId + '/city/' + id + "/cityOilFlag/" + status
+                            , {}).then(function (data) {
+                            if (data.success !== true) {
+                                swal(data.msg, "", "error");
+                            }else{
+                                $scope.getCity()
+                            }
+                        })
+                    }else {
+                        event.target.checked =!event.target.checked;
+                    }
+                })
+
         }
     }
 

@@ -73,6 +73,9 @@
     </div>
 </div>
 
+<!--添加实际用油量  实际尿素量-->
+
+
 
 <div class="storage_storeTitle vc-center ">
     <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
@@ -82,7 +85,7 @@
 </div>
 <div class="divider cyan" style="height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
 <!--详情-->
-<div class="row" style="width: 95%;margin: 0 auto">
+<div class="row" style="width: 100%;margin: 0 auto">
     <!--基本信息-->
     <div class="col s12" >
         <div class="col s12 cyan_border" style="background-color: #f8f9fd;color: darkgray;font-weight: bold;font-size: 1.2rem;margin-bottom: 30px">
@@ -99,7 +102,7 @@
 </div>
 
 <!--超量扣款-->
-<div id="missionSalary" class="row col s12" style="padding: 0;width: 95%;margin: 0 auto">
+<div id="missionSalary" class="row col s12" style="padding: 0;width: 100%;margin: 0 auto">
     <!--未扣款任务-->
     <div class="col s6" ng-hide="salaryDetails.grant_status == 3">
         <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px;min-height: 380px">
@@ -118,7 +121,9 @@
                     <th data-field="">调度编号</th>
                     <th data-field="">货车</th>
                     <th data-field="">路线</th>
-                    <th data-field="">公里数</th>
+                    <th data-field="">计划执行时间</th>
+                    <th data-field="">里程</th>
+                    <th data-field="">油耗里程</th>
                     <th data-field="">空载(重载)</th>
                     <th data-field="">百公里耗油量/尿素</th>
                     <th data-field="">总耗油量/尿素</th>
@@ -130,9 +135,11 @@
                     <td>{{oil.dp_route_task_id}}</td>
                     <td>{{oil.truck_num}}</td>
                     <td>{{oil.route_start + " - " + oil.route_end}}</td>
+                    <td>{{oil.task_plan_date|date:'yyyy-MM-dd'}}</td>
                     <td>{{oil.distance}}</td>
-                    <td ng-if="oil.load_flag==0">空载</td>
-                    <td ng-if="oil.load_flag==1">重载</td>
+                    <td>{{oil.oil_distance}}</td>
+                    <td ng-if="oil.oil_load_flag==0">空载</td>
+                    <td ng-if="oil.oil_load_flag==1">重载</td>
                     <td>{{oil.oil}}/{{oil.urea}}</td>
                     <td>{{oil.total_oil}}/{{oil.total_urea}}</td>
                     <td  class="operation">
@@ -143,7 +150,7 @@
                     </td>
                 </tr>
                 <tr ng-if="unsettledSalaryList.length==0">
-                    <td colspan="8">暂无数据</td>
+                    <td colspan="10">暂无数据</td>
                 </tr>
                 </tbody>
             </table>
@@ -168,7 +175,9 @@
                     <th data-field="">调度编号</th>
                     <th data-field="">货车</th>
                     <th data-field="">路线</th>
-                    <th data-field="">公里数</th>
+                    <th data-field="">计划执行时间</th>
+                    <th data-field="">里程</th>
+                    <th data-field="">油耗里程</th>
                     <th data-field="">空载(重载)</th>
                     <th data-field="">百公里耗油量/尿素</th>
                     <th data-field="">总耗油量/尿素</th>
@@ -180,9 +189,11 @@
                     <td>{{oil.dp_route_task_id}}</td>
                     <td>{{oil.truck_num}}</td>
                     <td>{{oil.route_start + " - " + oil.route_end}}</td>
+                    <td>{{oil.task_plan_date|date:'yyyy-MM-dd'}}</td>
                     <td>{{oil.distance}}</td>
-                    <td ng-if="oil.load_flag==0">空载</td>
-                    <td ng-if="oil.load_flag==1">重载</td>
+                    <td>{{oil.oil_distance}}</td>
+                    <td ng-if="oil.oil_load_flag==0">空载</td>
+                    <td ng-if="oil.oil_load_flag==1">重载</td>
                     <td>{{oil.oil}}/{{oil.urea}}</td>
                     <td>{{oil.total_oil}}/{{oil.total_urea}}</td>
                     <td  class="operation">

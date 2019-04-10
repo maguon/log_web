@@ -74,8 +74,52 @@
 </div>
 
 <!--添加实际用油量  实际尿素量-->
+<div id="addActData" class="modal" style="height:450px ">
+    <div class="cyan lighten-1 white-text center-align modal_title" >新增实际加油量/尿素量</div>
+    <div class="modal-content">
+        <div class="row col" style="width: 80%;height: 270px">
+
+            <!--尿素 油-->
+            <div class="col s6 input-field">
+                <input id="addOil" type="number"  ng-model="addOil">
+                <label for="addOil">实际加油量(L)</label>
+            </div>
+            <div class="col s6 input-field">
+                <input id="addUrea" type="number"  ng-model="addUrea">
+                <label for="addUrea">实际加尿素量</label>
+            </div>
 
 
+            <!--时间   地点  -->
+
+            <div class="col s12"  style="height: 70px">
+                <div class="input-field col s6">
+                    <select  material-select watch id='truckId' name="truckId"  ng-model="truckId">
+                        <option value="" selected disabled>请选择</option>
+                        <option ng-repeat="el in result" ng-value="el.truck_id">{{el.truck_num}}</option>
+                    </select>
+                    <label for="truckId">货车牌号</label>
+                </div>
+                <div class="input-field col s6">
+                    <input type="text" ng-model="addTime" id="addTime" name="addTime"  class="datepicker" autocomplete="off"    date><i class="mdi dataIcon mdi-table-large"></i>
+                    <label for="addTime">加油时间</label>
+                </div>
+            </div>
+            <div class="col s12"  style="height: 70px">
+                <div class="input-field col s12">
+                    <input type="text" ng-model="addPlce" id="addPlce" name="addPlce">
+                    <label for="addPlce">加油地点</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divider" style="background: #ccc;height: 1px;"></div>
+    <div class="modal-footer vc-center">
+        <a class=" modal-action modal-close waves-effect waves-light grey lighten-1 btn"  >取消 </a>
+        <button class="btn waves-light waves-effect cyan lighten-2"  ng-click="addDataItem()" name="action" style="margin-left: 10px">确定</button>
+    </div>
+</div>
 
 <div class="storage_storeTitle vc-center ">
     <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
@@ -209,6 +253,49 @@
         </div>
     </div>
 
+
+    <!--实际量添加按钮-->
+    <div class="row col s3 offset-s9 right-align" ng-hide="exceedOilItem.oil_status == 2 ||exceedOilItem.settle_status == 2">
+        <a ng-click="addActData()" class="cyan-text fz12" style="cursor: pointer">
+            <i class="mdi mdi-plus-circle fz35"></i>
+        </a>
+    </div>
+
+    <div class="row col s12" ng-hide="dataList.length==0||exceedOilItem.oil_status == 2 ||exceedOilItem.settle_status == 2">
+        <div class="divider cyan" style="height: 2px;"></div>
+        <!--头-->
+        <table class=" bordered striped text_mid">
+            <thead class="blue-grey lighten-5">
+            <tr class="grey-text text-darken-2">
+                <th data-field="">货车</th>
+                <th data-field="">加油量</th>
+                <th data-field="">加尿素量</th>
+                <th data-field="">时间</th>
+                <th data-field="">地点</th>
+                <th data-field="">操作</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="oil in dataList" class="grey-text text-darken-1">
+                <td>{{oil.truck_num}}</td>
+                <td>{{oil.oil}}</td>
+                <td>{{oil.urea}}</td>
+                <td>{{oil.oil_date|date:'yyyy-MM-dd'}}</td>
+                <td>{{oil.oil_address}}</td>
+                <td>
+                    <span style="font-size: 1.4rem;color: #e88282;cursor: pointer" ng-click="delete(oil.id)" class="mdi mdi-delete-forever"></span>
+                </td>
+            </tr>
+            <tr ng-if="dataList.length==0">
+                <td colspan=6">暂无数据</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <!--计划实际油量尿素 金额-->
     <div class="col s12 valign-wrapper" style="font-weight: bold;">
         <div class="col s6 cyan-text">
             <div class="col s6" style="padding: 0;">
@@ -220,29 +307,22 @@
         </div>
         <div class="col s6 cyan-text">
             <div class="col s6 input-field">
-                <p>超量油：<span class="red-text" >{{exceedOilItem.actual_oil-totalOil|number:2}}</span> L</p>
+                <p>超量油：<span class="red-text" >{{totalOilActal-totalOil|number:2}}</span> L</p>
             </div>
             <div class="col s6 input-field">
-                <p>超量尿素：<span class="red-text" >{{exceedOilItem.actual_urea-totalUrea|number:2}}</span> </p>
+                <p>超量尿素：<span class="red-text" >{{totalUreaActal-totalUrea|number:2}}</span> </p>
             </div>
         </div>
     </div>
     <div class="col s12 valign-wrapper" style="font-weight: bold;">
         <div class="col s6 cyan-text">
-            <div class="col s6"  ng-hide="exceedOilItem.oil_status !== 2&&exceedOilItem.settle_status !== 2" style="padding: 0;">
-                <p>实际用油量：<span class="red-text" >{{exceedOilItem.actual_oil|number:2}}</span> L</p>
+            <div class="col s6" style="padding: 0;">
+                <p>实际用油量：<span class="red-text" >{{totalOilActal |number:2}}</span> L</p>
             </div>
-            <div class="col s6"  ng-hide="exceedOilItem.oil_status !== 2&&exceedOilItem.settle_status !== 2" style="padding: 0;">
-                <p>实际尿素量：<span class="red-text" >{{exceedOilItem.actual_urea|number:2}}</span> </p>
+            <div class="col s6" style="padding: 0;">
+                <p>实际尿素量：<span class="red-text" >{{totalUreaActal|number:2}}</span> </p>
             </div>
-            <div class="col s6 input-field" ng-hide="exceedOilItem.oil_status == 2 ||exceedOilItem.settle_status == 2" >
-                <input style="font-size: 2rem;color: rgb(230,123,123)" type="number" id="actual_useOil" name="actual_useOil" ng-model="exceedOilItem.actual_oil">
-                <label class="{{exceedOilItem.actual_oil != null ? 'active' : 'inactive'}}" for="actual_useOil"><span style="color: red">* </span>实际用油量</label>
-            </div>
-            <div class="col s6 input-field" ng-hide="exceedOilItem.oil_status == 2 ||exceedOilItem.settle_status == 2" >
-                <input style="font-size: 2rem;color: rgb(230,123,123)" type="number" id="actual_useUrea" name="actual_useUrea" ng-model="exceedOilItem.actual_urea">
-                <label class="{{exceedOilItem.actual_urea != null ? 'active' : 'inactive'}}" for="actual_useUrea"><span style="color: red">* </span>实际尿素量</label>
-            </div>
+
         </div>
 
         <div class="col s6 cyan-text">

@@ -27,6 +27,27 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
         });
 
 
+
+        _basic.get($host.api_url + "/driveExceedOilRel?exceedOilId="+exceedOilId).then(function (data) {
+            if (data.success === true) {
+                $scope.totalOilActal=0;
+                $scope.totalUreaActal =0;
+                $scope.dataList = data.result;
+                for (var i = 0; i < $scope.dataList.length; i++) {
+                    $scope.totalOilActal = $scope.totalOilActal+$scope.dataList[i].oil;
+                    $scope.totalUreaActal = $scope.totalUreaActal+$scope.dataList[i].urea;
+
+                }
+
+
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+
+
+
         // 未扣款任务
         _basic.get($host.api_url + "/dpRouteTaskOilRel?settleStatus=1&driveId=" + driveId ).then(function (data) {
             if (data.success === true) {
@@ -49,6 +70,7 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
 
                 }
 
+
             }
             else {
                 swal(data.msg, "", "error");
@@ -56,6 +78,30 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
         });
     };
 
+    /*
+    * 去重
+    * */
+    function unique(){
+        _basic.get($host.api_url + "/driveDpRouteTaskOilRel?driveExceedOilId="+exceedOilId).then(function (data) {
+            if (data.success === true) {
+                $scope.truckList=data.result;
+                $scope.result = [];
+                var obj = {};
+                for(var i =0; i<$scope.truckList.length; i++){
+                    if(!obj[$scope.truckList[i].truck_id]){
+                        $scope.result.push($scope.truckList[i]);
+                        obj[$scope.truckList[i].truck_id] = true;
+                    }
+                 }
+                return  $scope.result;
+
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+
+    }
 
 
     //添加未扣款任务到扣款任务
@@ -67,6 +113,7 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
             if (data.success === true) {
                 swal("操作成功", "", "success");
                 getOilRel();
+                unique();
             }
             else {
                 swal(data.msg, "", "error");
@@ -91,6 +138,7 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
                     _basic.delete($host.api_url + "/user/" + userId + "/dpRouteTaskOilRel/" + id + "/driveExceedOil/" + exceedOilId).then(function (data) {
                         if (data.success === true) {
                             getOilRel();
+                            unique();
                         }
                         else {
                             swal(data.msg, "", "error");
@@ -125,10 +173,10 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
         _basic.put($host.api_url + "/user/" + userId + "/exceedOil/" + exceedOilId,{
             planOil: $scope.totalOil,
             planUrea: $scope.totalUrea,
-            actualOil: $scope.exceedOilItem.actual_oil,
-            actualUrea:$scope.exceedOilItem.actual_urea,
-            exceedOil: $scope.exceedOilItem.actual_oil-$scope.totalOil,
-            exceedUrea: $scope.exceedOilItem.actual_urea- $scope.totalUrea,
+            actualOil: $scope.totalOilActal,
+            actualUrea: $scope.totalUreaActal,
+            exceedOil: $scope.totalOilActal-$scope.totalOil,
+            exceedUrea: $scope.totalUreaActal- $scope.totalUrea,
             actualMoney:$scope.exceedOilItem.actual_money,
             remark:$scope.exceedOilItem.remark
         }).then(function (data) {
@@ -157,10 +205,10 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
                     _basic.put($host.api_url + "/user/" + userId + "/exceedOil/" + exceedOilId,{
                         planOil: $scope.totalOil,
                         planUrea: $scope.totalUrea,
-                        actualOil: $scope.exceedOilItem.actual_oil,
-                        actualUrea:$scope.exceedOilItem.actual_urea,
-                        exceedOil: $scope.exceedOilItem.actual_oil-$scope.totalOil,
-                        exceedUrea: $scope.exceedOilItem.actual_urea- $scope.totalUrea,
+                        actualOil: $scope.totalOilActal,
+                        actualUrea:$scope.totalUreaActal,
+                        exceedOil: $scope.totalOilActal-$scope.totalOil,
+                        exceedUrea: $scope.totalUreaActal- $scope.totalUrea,
                         actualMoney:$scope.exceedOilItem.actual_money,
                         remark:$scope.exceedOilItem.remark
                     }).then(function (data) {
@@ -186,7 +234,66 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
             });
     }
 
+    $scope.addActData =function (){
+        $scope.addOil ='';
+        $scope.addUrea ='';
+        $scope.addTime ='';
+        $scope.addPlce ='';
+        $scope.truckId ='';
+        $(".modal").modal();
+        $("#addActData").modal("open");
+    }
+    $scope.addDataItem = function (){
+        if ($scope.addTime !== '' && $scope.addPlce !== ''&&$scope.truckId!=='') {
+            _basic.post($host.api_url + "/user/" + userId + "/driveExceedOilRel", {
+                "exceedOilId": exceedOilId,
+                "driveId": driveId,
+                "truckId": $scope.truckId,
+                "oilDate":  $scope.addTime,
+                "oilAddress":  $scope.addPlce,
+                "oil":  $scope.addOil,
+                "urea": $scope.addUrea
+            }).then(function (data) {
+                if (data.success == true) {
+                    $('#addActData').modal('close');
+                    swal("新增成功", "", "success");
+                    getOilRel();
+                } else {
+                    swal(data.msg, "", "error");
+                }
+            })
+        }
+        else {
+            swal("请填写完整信息！", "", "warning");
+        }
+    }
+
+    $scope.delete =function (id) {
+        swal({
+            title: "确认删除该条加油(尿素)信息？",
+            text: "",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确定",
+            cancelButtonText: "取消"
+        }).then(function (result) {
+            if (result.value) {
+                _basic.delete($host.api_url + "/user/" + userId + "/driveExceedOilRel/" + id).then(function (data) {
+                    if (data.success == true) {
+                        getOilRel();
+                        swal("删除成功!", "", "success");
+                    } else {
+                        swal(data.msg, "", "error")
+                    }
+                })
+            }
+        })
+    }
+
+
 
     getOilRel();
+    unique();
 
 }]);

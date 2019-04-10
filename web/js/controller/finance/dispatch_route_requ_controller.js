@@ -24,6 +24,26 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host","$state", "_
             }
         });
     };
+    /*
+   * 获取起始城市 目的城市*
+   * */
+    function getCity(){
+        _basic.get($host.api_url + "/city").then(function (data) {
+            if (data.success == true) {
+                $scope.cityList = data.result;
+                $('#startCity').select2({
+                    placeholder: '起始城市',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+                $('#endCity').select2({
+                    placeholder: '目的城市',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+        });
+    }
 
     // 查询调度列表
     function getCarInstructionList() {
@@ -32,6 +52,8 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host","$state", "_
             dpRouteTaskId: $scope.instructionNum,
             driveId: $scope.driverId,
             truckNum: $scope.truckNum,
+            routeStartId:$scope.routeStartId,
+            routeEndId:$scope.routeEndId,
             start:$scope.start.toString(),
             size:$scope.size
         })).then(function (data) {
@@ -222,12 +244,12 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host","$state", "_
             if (data.success === true) {
                 $("#addCarFinanceModel").modal("close");
                 getCarInstructionList();
-                $state.go('finance_route_fee_details', {
+               /* $state.go('finance_route_fee_details', {
                     reload: true,
                     id:data.id,
                     dpId:$scope.dispatchIdSmall,
                     from: 'dispatch_route_requ'
-                });
+                });*/
             }
             else {
                 swal(data.msg, "", "error");
@@ -252,6 +274,7 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host","$state", "_
     $scope.queryData = function () {
         getCarInstructionList();
         getDriverList();
+        getCity();
     };
     $scope.queryData();
 

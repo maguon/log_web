@@ -150,11 +150,11 @@
         <div class="row valign-wrapper">
             <div class="col s10">
                 <div class="col s12 valign-wrapper" style="padding: 0;">
-                    <div class="col s4 input-field">
+                    <div class="col input-field" style="width: 20%">
                         <input type="text" id="instructionNum" name="instructionNum" ng-model="instructionNum">
                         <label for="instructionNum">调度编号:</label>
                     </div>
-                    <div class="col s4 input-field">
+                    <div class="col input-field" style="width: 20%">
                         <select id="driver_name" style="width: 100%" ng-change="clearDriverInfo()" ng-model="driverId">
                             <option value=""></option>
                             <option value="0">清除选择</option>
@@ -162,10 +162,25 @@
                         </select>
                         <label class="active" for="driver_name">司机</label>
                     </div>
-                    <div class="col s4 input-field">
+                    <div class="col input-field" style="width: 20%">
                         <input type="text" id="truck_num" name="truck_num" ng-model="truckNum">
                         <label for="truck_num">货车牌号</label>
                     </div>
+
+                    <div class="col input-field" style="width: 20%">
+                        <select id="startCity" name="state" style="width:100%" ng-model="routeStartId">
+                            <option value=""></option>
+                            <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
+                        </select>
+                    </div>
+                    <div class="col input-field" style="width: 20%">
+                        <select id="endCity" name="state" style="width:100%" ng-model="routeEndId">
+                            <option value=""></option>
+                            <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
+                        </select>
+                    </div>
+
+
                 </div>
                 <div class="col s12 valign-wrapper cyan-text fz20 bold" style="padding: 0;margin-top: 30px;margin-left: 10px">
                     未发放出车款的调度任务
@@ -189,6 +204,7 @@
                         <thead class="blue-grey lighten-5">
                         <tr class="grey-text text-darken-2">
                             <th data-field="">调度编号</th>
+                            <th data-field="">计划执行时间</th>
                             <th data-field="">路线</th>
                             <th data-field="">里程(km)</th>
                             <th data-field="">司机</th>
@@ -202,6 +218,7 @@
                         <tbody>
                         <tr ng-repeat="car in carInstructionList" class="grey-text text-darken-1">
                             <td>{{car.id}}</td>
+                            <td>{{car.task_plan_date|date:'yyyy-MM-dd'}}</td>
                             <td>{{car.route_start}}-{{car.route_end}}</td>
                             <td>{{car.distance}}</td>
                             <td>{{car.drive_name}}</td>
@@ -214,7 +231,7 @@
                             </td>
                         </tr>
                         <tr class="grey-text text-darken-1" ng-if="carInstructionList.length == 0">
-                            <td colspan="7"><span style="letter-spacing: 2px">暂无数据</span></td>
+                            <td colspan="8"><span style="letter-spacing: 2px">暂无数据</span></td>
                         </tr>
                         </tbody>
                     </table>

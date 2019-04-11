@@ -528,43 +528,49 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
 
         // 新增车辆信息
         $scope.addCarItem = function () {
-            if ($scope.vin!==''&&$scope.car_brand.id!==undefined&&$scope.car_brand.make_name!==undefined&&$scope.start_city.id!==undefined&&$scope.base_addr!==undefined&&$scope.client!=='') {
-               if($scope.shipName==undefined){
-                   $scope.shipName=null;
-               }
-                var obj = {
-                    "vin": $scope.vin,
-                    "makeId": $scope.car_brand.id,
-                    "makeName": $scope.car_brand.make_name,
-                    "routeStartId": $scope.start_city.id,
-                    "baseAddrId": $scope.base_addr.id,
-                    "routeStart": $scope.start_city.city_name,
-                    "routeEndId": $scope.arrive_city.id,
-                    "routeEnd": $scope.arrive_city.city_name,
-                    "receiveId": $scope.dealer,
-                    "entrustId": $scope.client,
-                    "orderDate": $scope.arrival_time,
-                    "shipName": $scope.shipName,
-                    "remark": $scope.remark
-                };
-                _basic.post($host.api_url + "/user/" + userId + "/car", _basic.removeNullProps(obj)).then(function (data) {
-                    if (data.success == true) {
-                        $('.tabWrap .tab').removeClass("active");
-                        $(".tab_box ").removeClass("active");
-                        $(".tab_box ").hide();
-                        $('.tabWrap .test2').addClass("active");
-                        $("#test2").addClass("active");
-                        $("#test2").show();
-                        $scope.Picture_carId = data.id;
-                    }
-                    else{
-                        swal(data.msg, "", "error")
-                    }
-                })
+            if($scope.vin==undefined){
+                swal("请填写17位VIN！", "", "warning");
             }
-            else{
-                swal("请填写完整信息！", "", "warning");
+            else {
+                if ($scope.vin!==''&&$scope.car_brand.id!==undefined&&$scope.car_brand.make_name!==undefined&&$scope.start_city.id!==undefined&&$scope.base_addr!==undefined&&$scope.client!=='') {
+                    if($scope.shipName==undefined){
+                        $scope.shipName=null;
+                    }
+                    var obj = {
+                        "vin": $scope.vin,
+                        "makeId": $scope.car_brand.id,
+                        "makeName": $scope.car_brand.make_name,
+                        "routeStartId": $scope.start_city.id,
+                        "baseAddrId": $scope.base_addr.id,
+                        "routeStart": $scope.start_city.city_name,
+                        "routeEndId": $scope.arrive_city.id,
+                        "routeEnd": $scope.arrive_city.city_name,
+                        "receiveId": $scope.dealer,
+                        "entrustId": $scope.client,
+                        "orderDate": $scope.arrival_time,
+                        "shipName": $scope.shipName,
+                        "remark": $scope.remark
+                    };
+                    _basic.post($host.api_url + "/user/" + userId + "/car", _basic.removeNullProps(obj)).then(function (data) {
+                        if (data.success == true) {
+                            $('.tabWrap .tab').removeClass("active");
+                            $(".tab_box ").removeClass("active");
+                            $(".tab_box ").hide();
+                            $('.tabWrap .test2').addClass("active");
+                            $("#test2").addClass("active");
+                            $("#test2").show();
+                            $scope.Picture_carId = data.id;
+                        }
+                        else{
+                            swal(data.msg, "", "error")
+                        }
+                    })
+                }
+                else{
+                    swal("请填写完整信息或17位VIN！", "", "warning");
+                }
             }
+
         };
 
 

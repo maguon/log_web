@@ -145,6 +145,11 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/settlement/car_settlement.html",
             controller:'car_settlement_controller'
         })
+        .state("fuel_record", {
+            url: "/fuel_record",
+            templateUrl: "js/view/data/fuel_record.html",
+            controller:'fuel_record_controller'
+        })
         // 数据统计
         .state("insurance_statistics", {
             url:"/insurance_statistics",

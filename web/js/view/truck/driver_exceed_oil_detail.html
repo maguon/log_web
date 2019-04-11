@@ -261,7 +261,7 @@
         </a>
     </div>
 
-    <div class="row col s12" ng-hide="dataList.length==0||exceedOilItem.oil_status == 2 ||exceedOilItem.settle_status == 2">
+    <div class="row col s12" ng-hide="dataList.length==0">
         <div class="divider cyan" style="height: 2px;"></div>
         <!--头-->
         <table class=" bordered striped text_mid">
@@ -272,7 +272,7 @@
                 <th data-field="">加尿素量</th>
                 <th data-field="">时间</th>
                 <th data-field="">地点</th>
-                <th data-field="">操作</th>
+                <th data-field=""  ng-hide="exceedOilItem.oil_status == 2 ||exceedOilItem.settle_status == 2">操作</th>
 
             </tr>
             </thead>
@@ -283,7 +283,7 @@
                 <td>{{oil.urea}}</td>
                 <td>{{oil.oil_date|date:'yyyy-MM-dd'}}</td>
                 <td>{{oil.oil_address}}</td>
-                <td>
+                <td ng-hide="exceedOilItem.oil_status == 2 ||exceedOilItem.settle_status == 2">
                     <span style="font-size: 1.4rem;color: #e88282;cursor: pointer" ng-click="delete(oil.id)" class="mdi mdi-delete-forever"></span>
                 </td>
             </tr>

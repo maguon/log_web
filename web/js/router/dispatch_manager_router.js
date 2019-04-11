@@ -241,6 +241,11 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/system_settings/dealer_map.html",
             controller:'dealer_map_controller'
         })
+        .state("fuel_record", {
+            url: "/fuel_record",
+            templateUrl: "js/view/data/fuel_record.html",
+            controller:'fuel_record_controller'
+        })
         // 数据统计
         .state("chauffeur_mileage_statistics", {
             url:"/chauffeur_mileage_statistics",

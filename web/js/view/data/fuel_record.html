@@ -1,0 +1,87 @@
+<div class="car_demand">
+    <div class="row main_storage_car">
+        <div class="row grey-text text-darken-1 valign-wrapper">
+            <div class="col s10">
+
+                <!--司机-->
+                <div class="col s3 input-field">
+                    <select material-select watch ng-model="getDrivderId" id="getDrivderId" style="width: 100%" >
+                        <option value="" selected>请选择</option>
+                        <option ng-repeat="getDrivder in driveNameList" value={{getDrivder.id}}>{{getDrivder.drive_name}}</option>
+                    </select>
+                </div>
+
+                <!--车牌号-->
+                <div class="col s3 input-field">
+                    <select  material-select watch ng-model="getTruckId" id="getTruckId"  style="width: 100%">
+                        <option value="" selected>请选择</option>
+                        <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem">{{truckNumItem.truck_num}}({{truckNumItem.truck_type == 1 ? "头车" : "挂车"}})</option>
+                    </select>
+                </div>
+
+                <!--加油时间（始）加油时间（终）-->
+                <div class="input-field col s3">
+                    <input type="text" ng-model="getStartTime" id="getStartTime" name="getStartTime"  class="datepicker" autocomplete="off"    date><i class="mdi dataIcon mdi-table-large"></i>
+                    <label for="getStartTime">加油时间(始)</label>
+                </div>
+
+                <div class="input-field col s3">
+                    <input type="text" ng-model="handleDate" id="handleDate" name="handleDate"  class="datepicker" autocomplete="off"    date><i class="mdi dataIcon mdi-table-large"></i>
+                    <label for="handleDate">加油时间(终)</label>
+                </div>
+
+            </div>
+            <div class="col s2 center">
+                <div class="col s12 center-align">
+                    <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
+                       ng-click="searchItem()">
+                        <i class="mdi mdi-magnify"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col s12">
+        <div class="divider cyan" style="height: 2px;"></div>
+        <table class="bordered striped text_mid">
+            <thead class="blue-grey lighten-5">
+            <tr class="grey-text text-darken-2">
+                <th data-field="">编号</th>
+                <th data-field="">司机</th>
+                <th data-field="">货车牌号</th>
+                <th data-field="">加油时间</th>
+                <th data-field="">加油量(l)</th>
+                <th data-field="">加尿素量</th>
+                <th data-field="">地点</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="response in responseData" class="grey-text text-darken-1">
+                <td>{{response.id}}</td>
+                <td>{{response.drive_name}}</td>
+                <td>{{response.truck_num}}</td>
+                <td>{{response.oil_date|date:'yyyy-MM-dd'}}</td>
+                <td>{{response.oil}}</td>
+                <td>{{response.urea}}</td>
+                <td>{{response.oil_address}}</td>
+
+            </tr>
+            <tr class="grey-text text-darken-1" ng-if="responseData.length == 0">
+                <td colspan="7"><span style="letter-spacing: 2px">暂无数据</span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="paging_box col s12" style="height: 45px">
+        <div class="right">
+            <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="previous_page()">
+                上一页
+            </a>
+            <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_page()">
+                下一页
+            </a>
+        </div>
+    </div>
+</div>

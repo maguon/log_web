@@ -1,6 +1,12 @@
-<div class="row homeWrap">
-    <div class="row ">
-        <div class="col  s6 m4 l3 homeWrapList ">
+<!--仓储主控-->
+<div class="row">
+
+
+    <!--仓储总车位  库存总车辆  今日入库  今日出库-->
+    <div class="row">
+
+        <!--仓储总车位-->
+        <div class="col  s3 homeWrapList">
             <div class="red lighten-2 valign-wrapper z-depth-2">
                 <div class="col s3 offset-s1 ">
                     <div class=" s_index_icon red lighten-4 vc-center left ">
@@ -11,28 +17,30 @@
                     <div class=" white-text text-lighten-2 left-align">
                         仓储总车位
                     </div>
-                    <h5 ng-bind="storage_allStorage " class="right-align">00</h5>
+                    <h5 ng-bind="totalSeats" class="right-align"></h5>
                 </div>
             </div>
         </div>
-        <div class="col s6 m4 l3 homeWrapList ">
+
+        <!--库存总车辆-->
+        <div class="col s3 homeWrapList ">
             <div class="red lighten-2 valign-wrapper z-depth-2">
                 <div class="col s3 offset-s1 ">
                     <div class=" s_index_icon red lighten-4 vc-center left">
                         <i class="mdi mdi-car red-text text-lighten-2"></i>
                     </div>
-
                 </div>
                 <div class="col s7 white-text  pull-s1 text-lighten-2 ">
                     <div class=" white-text text-lighten-2 left-align">
                         库存总车辆
                     </div>
-                    <h5 ng-bind="storage_index_count.sumBalance" class="right-align"></h5>
+                    <h5 ng-bind="storageTotalData.sumBalance" class="right-align"></h5>
                 </div>
-
             </div>
         </div>
-        <div class="col s6 m4 l3 homeWrapList ">
+
+        <!--今日入库-->
+        <div class="col s3 homeWrapList ">
             <div class="red lighten-2 valign-wrapper z-depth-2">
                 <div class="col s3 offset-s1 ">
                     <div class=" s_index_icon red lighten-4 vc-center left">
@@ -44,11 +52,13 @@
                     <div class="white-text text-lighten-2 left-align">
                         今日入库
                     </div>
-                    <h5 ng-bind="storage_index_count.sumImports" class="right-align"></h5>
+                    <h5 ng-bind="storageTotalData.sumImports" class="right-align"></h5>
                 </div>
             </div>
         </div>
-        <div class="col s6 m4 l3 homeWrapList ">
+
+        <!--今日出库-->
+        <div class="col s3 homeWrapList ">
             <div class="red lighten-2 valign-wrapper z-depth-2">
                 <div class="col s3 offset-s1 ">
                     <div class=" s_index_icon red lighten-4 vc-center left">
@@ -60,14 +70,20 @@
                     <div class=" white-text text-lighten-2 left-align">
                         今日出库
                     </div>
-                    <h5 ng-bind="storage_index_count.sumExports" class="right-align"></h5>
+                    <h5 ng-bind="storageTotalData.sumExports" class="right-align"></h5>
                 </div>
             </div>
         </div>
 
+
     </div>
+
+
+    <!--所有仓库列表-->
     <div class="row">
-        <div class="col s3 storage_detailsList "  ng-if="el.storage_status==1" ng-repeat="el in storage_index_list">
+
+        <!--状态为1的仓库（使用中）-->
+        <div class="col s3 storage_detailsList "  ng-if="el.storage_status==1" ng-repeat="el in storageTotalList">
             <div  class="storage_details white z-depth-2">
                 <div class="s_d_data light-blue-text text-accent-3 valign-wrapper">
                     <div class="col s6 vc-center">
@@ -81,35 +97,33 @@
                         <p class="left-align"><span class="grey-text"><i class="mdi mdi-checkbox-blank-circle cyan-text text-lighten-2 "></i>已用车位:</span><span class="cyan-text text-lighten-2" ng-bind="el.balance"></span></p>
                     </div>
                 </div>
-                <div class="s_d_data_today valign-wrapper">
-                    <div class="col s4 vc-center  cyan-text text-lighten-2">
-                        <i style="display: block" class="mdi mdi-login"></i>
-                        <!--<span style="display: block" ng-bind="el.imports"></span>-->
+
+                <!--ICON-->
+                <div class="s_d_data_today valign-wrapper text-lighten-2">
+                    <div class="col s4 vc-center  cyan-text">
+                        <i class="mdi mdi-login"></i>
                     </div>
-                    <div class="col s4 vc-center  cyan-text text-lighten-2">
-                        <i style="display: block" class="mdi  mdi-arrow-down-bold-circle-outline"></i>
-                        <!--<span ng-bind="el.balance"></span>-->
+                    <div class="col s4 vc-center  cyan-text">
+                        <i class="mdi  mdi-arrow-down-bold-circle-outline"></i>
                     </div>
-                    <div class="col s4 vc-center red-text text-lighten-2 text-lighten-2">
-                        <i style="display: block" class="mdi mdi-logout"></i>
-                        <!--<span ng-bind="el.exports"></span>-->
+                    <div class="col s4 vc-center red-text ">
+                        <i class="mdi mdi-logout"></i>
                     </div>
                 </div>
-                <div class="s_d_data_today_number valign-wrapper">
-                    <div class="col s4 vc-center  cyan-text text-lighten-2">
 
-                        <span style="display: block" ng-bind="el.imports"></span>
+                <!--获取数据 入出库 已用车位-->
+                <div class="s_d_data_today_number valign-wrapper text-lighten-2">
+                    <div class="col s4 vc-center  cyan-text">
+                        <span ng-bind="el.imports"></span>
                     </div>
-                    <div class="col s4 vc-center  cyan-text text-lighten-2">
-
+                    <div class="col s4 vc-center  cyan-text">
                         <span ng-bind="el.balance"></span>
                     </div>
-                    <div class="col s4 vc-center red-text text-lighten-2 text-lighten-2">
-
+                    <div class="col s4 vc-center red-text">
                         <span ng-bind="el.exports"></span>
                     </div>
                 </div>
-                <a href="" ui-sref="storage_car_map({id:el.storage_id,form:'storage_index'})" class="s_d_details-btn  btn valign-wrapper" >查看详情</a>
+                <a ui-sref="storage_car_map({id:el.storage_id,form:'storage_index'})" class="s_d_details-btn  btn valign-wrapper" >查看详情</a>
             </div>
         </div>
     </div>

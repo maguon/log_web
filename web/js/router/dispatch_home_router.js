@@ -168,7 +168,11 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/system_settings/dealer_map.html",
             controller:'dealer_map_controller'
         })
-
+        .state("fuel_record", {
+            url: "/fuel_record",
+            templateUrl: "js/view/data/fuel_record.html",
+            controller:'fuel_record_controller'
+        })
         // 维修
         .state("truck_repair", {
             url: "/truck_repair/id/{id}/type/{type}/status/{status}?from",

@@ -130,7 +130,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/data/imported_files_details.html",
             controller:'imported_files_details_controller'
         })
-
+        .state("fuel_record", {
+            url: "/fuel_record",
+            templateUrl: "js/view/data/fuel_record.html",
+            controller:'fuel_record_controller'
+        })
 
         // 仓库设置
         .state("setting_users", {

@@ -7,15 +7,19 @@ app.controller("vehicle_index_controller", ['$scope', "$host", "_basic", functio
     var searchEnd = moment(new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)).format('YYYYMMDD');
 
     // 变量初始值
-    $scope.type_1_count = 0;
-    $scope.type_2_count = 0;
-    $scope.type_3_count = 0;
-    $scope.type_4_count = 0;
-    $scope.driver_type_1_count = 0;
-    $scope.driver_type_2_count = 0;
-    $scope.driver_type_3_count = 0;
-    $scope.driver_type_4_count = 0;
-    $scope.trailer = 0;
+
+    //自营头车数
+    $scope.headCarCount = 0;
+
+    //自营挂车数
+    $scope.trailerCarCount = 0;
+
+    //司机总数
+    $scope.totalDriver = 0;
+
+    //在职司机总数
+    $scope.haveTotalDriver = 0;
+
     $scope.truckRepairCount = 0;
     $scope.quarantineTruck = 0;
     $scope.useCar = 0;
@@ -26,32 +30,20 @@ app.controller("vehicle_index_controller", ['$scope', "$host", "_basic", functio
     $scope.accidentBearTotal = 0;
     $scope.insurePlanCount = 0;
     $scope.insurePlanMoney = 0;
-    $scope.totalDriver = 0;
-    $scope.haveTotalDriver = 0;
     $scope.onRoadCount = 0;
 
     // 获取车辆信息
     $scope.getTruckCountInfo = function () {
-        // 所属类型信息
+        // 所属类型信息1自营车
         _basic.get($host.api_url + "/operateTypeCount?truckType=1").then(function (data) {
             if (data.success === true) {
                 if(data.result.length !== 0){
                     for (var i = 0; i < data.result.length; i++) {
                         if (data.result[i].operate_type === 1) {
-                            $scope.type_1_count = data.result[i].truck_count
-                        }
-                        if (data.result[i].operate_type === 2) {
-                            $scope.type_2_count = data.result[i].truck_count
-                        }
-                        if (data.result[i].operate_type === 3) {
-                            $scope.type_3_count = data.result[i].truck_count
-                        }
-                        if (data.result[i].operate_type === 4) {
-                            $scope.type_4_count = data.result[i].truck_count
+                            $scope.headCarCount = data.result[i].truck_count
                         }
                     }
                 }
-                // console.log("truckData", data);
             }
             else {
                 swal(data.msg, "", "error");
@@ -62,41 +54,26 @@ app.controller("vehicle_index_controller", ['$scope', "$host", "_basic", functio
         _basic.get($host.api_url + "/truckCount?truckType=2&operateType=1").then(function (data) {
             if (data.success === true) {
                 if(data.result.length !== 0){
-                    $scope.trailer = data.result[0].truck_count;
+                    $scope.trailerCarCount = data.result[0].truck_count;
                 }
-                // console.log("data", data);
             }
             else {
                 swal(data.msg, "", "error");
             }
         });
 
-        // 在职司机数量
-        _basic.get($host.api_url + "/driveOperateTypeCount?driveStatus=1").then(function (data) {
+        //司机总数  在职司机总数
+        _basic.get($host.api_url + "/driveTruckCount").then(function (data) {
             if (data.success === true) {
                 if(data.result.length !== 0){
-                    $scope.driverTotal = 0;
-                    for (var i = 0; i < data.result.length; i++) {
-                        if (data.result[i].operate_type === 1) {
-                            $scope.driver_type_1_count = data.result[i].drive_count
-                        }
-                        if (data.result[i].operate_type === 2) {
-                            $scope.driver_type_2_count = data.result[i].drive_count
-                        }
-                        if (data.result[i].operate_type === 3) {
-                            $scope.driver_type_3_count = data.result[i].drive_count
-                        }
-                        if (data.result[i].operate_type === 4) {
-                            $scope.driver_type_4_count = data.result[i].drive_count
-                        }
-                        $scope.driverTotal = $scope.driverTotal + data.result[i].drive_count;
-                    }
+                    $scope.totalDriver = data.result[0].total_drive;
+                    $scope.haveTotalDriver = data.result[0].drive_truck_count+data.result[0].vice_drive_count;
                 }
             }
             else {
                 swal(data.msg, "", "error");
             }
-        });
+        })
     };
 
     // 获取维修车辆数量，待检车辆和待检司机信息
@@ -190,28 +167,10 @@ app.controller("vehicle_index_controller", ['$scope', "$host", "_basic", functio
         });
     };
 
-
-
-    //获取司机总数在职司机数
-    function getDriveTotal(){
-        _basic.get($host.api_url + "/driveTruckCount").then(function (data) {
-            if (data.success === true) {
-                if(data.result.length !== 0){
-                    $scope.totalDriver = data.result[0].total_drive;
-                    $scope.haveTotalDriver = data.result[0].drive_truck_count+data.result[0].vice_drive_count;
-                }
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        })
-    }
-
     $scope.queryData = function () {
         $scope.getTruckCountInfo();
         $scope.getRepairCountInfo();
         $scope.getAccidentInfo();
-        getDriveTotal();
     };
     $scope.queryData();
 }]);

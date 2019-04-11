@@ -1,244 +1,192 @@
-<div class="vehicleHomeWrap">
-    <div class="vehicle_content" style="width: 95%;margin: 0 auto">
-        <div class="row">
-            <!--<div class="col s6">
-                <div class="">
-                    <div class="" style="background-color: #21B1E3;height: 155px;border-radius: 12px;margin-top: 10px">
-                        <div class="col s3 center" style="margin-top: 42px">
-                            <span class="white lighten-2 center" style="width:70px;height:70px;display:inline-block;border-radius: 100%;font-size: 2.5rem;color: #21B1E3;line-height: 70px">自</span>
-                        </div>
-                        <div class="col s5 center" style="margin-top: 32px">
-                            <span class="white-text" style="font-size: 1.2rem;font-weight: bold">自营车</span>
-                        </div>
-                        <div class="col s4 center" style="margin-top: 65px;padding: 0">
-                            <p class="white-text"><span class="white-text" style="font-size: 2.5rem;letter-spacing: 1px">{{type_1_count}}</span> 辆</p>
-                        </div>
-                    </div>
+<!--车管主控-->
+ <div class="row" style="width: 95%;margin: 0 auto">
+
+
+    <!--上-->
+     <div class="row">
+         <!--自营头车-->
+        <div class="col s4">
+            <div class="card-panel" style="background-color: #C786D3;height: 333px;border-radius: 12px">
+                <div class="col s12 center" style="margin-top: 18px">
+                    <span class="white lighten-2 center" style="width:70px;height:70px;display:inline-block;border-radius: 100%;font-size: 2.5rem;color: #78909C;line-height: 70px">头</span>
                 </div>
-                <div class="col s6">
-                    <div class="" style="background-color: #89C052;height: 155px;border-radius: 12px;margin-top: 10px">
-                        <div class="col s3 center" style="margin-top: 42px">
-                            <span class="white lighten-2 center" style="width:70px;height:70px;display:inline-block;border-radius: 100%;font-size: 2.5rem;color: #89C052;line-height: 70px">协</span>
-                        </div>
-                        <div class="col s5 center" style="margin-top: 32px">
-                            <span class="white-text" style="font-size: 1.2rem;font-weight: bold;letter-spacing: 1px">外协车</span>
-                        </div>
-                        <div class="col s4 center" style="margin-top: 65px;padding: 0">
-                            <p class="white-text"><span class="white-text" style="font-size: 2.5rem;letter-spacing: 1px">{{type_2_count}}</span> 辆</p>
-                        </div>
-                    </div>
+                <div class="col s12 center" style="margin-top: 50px">
+                    <span class="white-text center" style="font-size: 1.3rem;font-weight: bold;letter-spacing: 2px">自营头车</span>
                 </div>
-                <div class="col s6">
-                    <div class="" style="background-color: #EFB366;height: 155px;border-radius: 12px;margin-top: 22px">
-                        <div class="col s3 center" style="margin-top: 42px">
-                            <span class="white lighten-2 center" style="width:70px;height:70px;display:inline-block;border-radius: 100%;font-size: 2.5rem;color: #EFB366;line-height: 70px">供</span>
-                        </div>
-                        <div class="col s5 center" style="margin-top: 32px">
-                            <span class="white-text" style="font-size: 1.2rem;font-weight: bold;letter-spacing: 1px">供方车</span>
-                        </div>
-                        <div class="col s4 center" style="margin-top: 65px">
-                            <p class="white-text"><span class="white-text" style="font-size: 2.5rem;letter-spacing: 1px">{{type_3_count}}</span> 辆</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s6">
-                    <div class="" style="background-color: #C786D3;height: 155px;border-radius: 12px;margin-top: 22px">
-                        <div class="col s3 center" style="margin-top: 42px">
-                            <span class="white lighten-2 center" style="width:70px;height:70px;display:inline-block;border-radius: 100%;font-size: 2.5rem;color: #C786D3;line-height: 70px">包</span>
-                        </div>
-                        <div class="col s5 center" style="margin-top: 32px">
-                            <span class="white-text" style="font-size: 1.2rem;font-weight: bold;letter-spacing: 1px">承包车</span>
-                        </div>
-                        <div class="col s4 center" style="margin-top: 65px">
-                            <p class="white-text"><span class="white-text" style="font-size: 2.5rem;letter-spacing: 1px">{{type_4_count}}</span> 辆</p>
-                        </div>
-                    </div>
-                </div>
-            </div>-->
-            <div class="col s4">
-                <div class="col s12">
-                    <div class="card-panel" style="background-color: #C786D3;height: 333px;border-radius: 12px">
-                        <div class="col s12 center" style="margin-top: 18px">
-                            <span class="white lighten-2 center" style="width:70px;height:70px;display:inline-block;border-radius: 100%;font-size: 2.5rem;color: #78909C;line-height: 70px">头</span>
-                        </div>
-                        <div class="col s12 center" style="margin-top: 50px">
-                            <span class="white-text center" style="font-size: 1.3rem;font-weight: bold;letter-spacing: 2px">自营头车</span>
-                        </div>
-                        <div class="col s12 center" style="margin-top: 40px">
-                            <p class="white-text"><span class="white-text" style="font-size: 2.5rem;letter-spacing: 2px">{{type_1_count}}</span> 辆</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col s8">
-                <div class="col s6">
-                    <div class="card-panel" style="background-color: #78909C;height: 333px;border-radius: 12px">
-                        <div class="col s12 center" style="margin-top: 18px">
-                            <span class="white lighten-2 center" style="width:70px;height:70px;display:inline-block;border-radius: 100%;font-size: 2.5rem;color: #78909C;line-height: 70px">挂</span>
-                        </div>
-                        <div class="col s12 center" style="margin-top: 50px">
-                            <span class="white-text center" style="font-size: 1.3rem;font-weight: bold;letter-spacing: 2px">自营挂车</span>
-                        </div>
-                        <div class="col s12 center" style="margin-top: 40px">
-                            <p class="white-text"><span class="white-text" style="font-size: 2.5rem;letter-spacing: 2px">{{trailer}}</span> 辆</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s6">
-                    <div class="card-panel" style="background-color: rgb(38,198,218);height: 333px;border-radius: 12px;padding: 10px">
-                        <div class="col s12 center" style="margin-top: 18px">
-                            <span class="white lighten-2 center" style="width:70px;height:70px;display:inline-block;border-radius: 100%;font-size: 2.5rem;color: rgb(38,198,218);line-height: 70px">司</span>
-                        </div>
-                        <div class="col s12 center" style="margin-top: 50px">
-                            <span class="white-text center" style="font-size: 1.3rem;font-weight: bold;letter-spacing: 2px">司机总数<span style="font-size: 2.2rem">{{totalDriver}}</span> 人</span>
-                        </div>
-                        <div class="col s12 center" style="margin-top: 40px">
-                            <p class="white-text">在职司机总数<span class="white-text" style="font-size: 2.5rem;letter-spacing: 2px">{{haveTotalDriver}}</span> 人</p>
-                        </div>
-                        <!--<div class="col s12 center" style="margin-top: -30px">
-                            <div class="col s6">
-                                <p class="white-text" style="font-size: 1.2rem;font-weight: bold">自营: <span style="font-size: 2.2rem">{{driver_type_1_count}}</span> 人</p>
-                            </div>
-                            <div class="col s6">
-                                <p class="white-text" style="font-size: 1.2rem;font-weight: bold">外协: <span style="font-size: 2.2rem">{{driver_type_2_count}}</span> 人</p>
-                            </div>
-                        </div>
-                        <div class="col s12 center">
-                            <div class="col s6">
-                                <p class="white-text" style="font-size: 1.2rem;font-weight: bold">供方: <span style="font-size: 2.2rem">{{driver_type_3_count}}</span> 人</p>
-                            </div>
-                            <div class="col s6">
-                                <p class="white-text" style="font-size: 1.2rem;font-weight: bold">承包: <span style="font-size: 2.2rem">{{driver_type_4_count}}</span> 人</p>
-                            </div>
-                        </div>-->
-                    </div>
+                <div class="col s12 center" style="margin-top: 40px">
+                    <p class="white-text"><span style="font-size: 2.5rem;letter-spacing: 2px">{{headCarCount}}</span> 辆</p>
                 </div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col s12">
-                <div class="card-panel" style="width:98.7%;margin: 0 auto;background-color: white;height: 150px;border:3px solid #21B1E3;border-radius: 12px">
-                    <div class="row col s4" style="border-right: 1px solid #ccc">
-                        <div class="col s3">
-                            <img style="margin-top: 7px" src="../assets/images/quarantine_driver.png" alt="#">
-                        </div>
-                        <div class="col s5" style="color: rgb(147,147,151);font-size: 1.4rem">
-                            <p>在途/可用车辆</p>
-                        </div>
-                        <div class="col s4">
-                            <span style="display:block;font-size: 3rem;color: #e57474;margin-top: 35px">{{onRoadCount}}/{{useCar}}</span>
-                        </div>
-                    </div>
 
-                    <div class="row col s4" style="border-right: 1px solid #ccc">
-                        <div class="col s3">
-                            <img style="margin-top: 7px" src="../assets/images/repair_truck.png" alt="#">
-                        </div>
-                        <div class="col s5" style="color: rgb(147,147,151);font-size: 1.6rem">
-                            <p>维修数量</p>
-                        </div>
-                        <div class="col s4">
-                            <span style="display:block;font-size: 3rem;color: #e57474;margin-top: 35px">{{truckRepairCount}}</span>
-                        </div>
-                    </div>
-
-                    <div class="row col s4" >
-                        <div class="col s3">
-                            <img style="margin-top: 7px" src="../assets/images/quarantine_truck.png" alt="#">
-                        </div>
-                        <div class="col s5" style="color: rgb(147,147,151);font-size: 1.6rem">
-                            <p>待检车辆</p>
-                        </div>
-                        <div class="col s4">
-                            <span style="display:block;font-size: 3rem;color: #e57474;margin-top: 35px">{{quarantineTruck}}</span>
-                        </div>
-                    </div>
+         <!--自营挂车-->
+        <div class="col s4">
+            <div class="card-panel" style="background-color: #78909C;height: 333px;border-radius: 12px">
+                <div class="col s12 center" style="margin-top: 18px">
+                    <span class="white lighten-2 center" style="width:70px;height:70px;display:inline-block;border-radius: 100%;font-size: 2.5rem;color: #78909C;line-height: 70px">挂</span>
+                </div>
+                <div class="col s12 center" style="margin-top: 50px">
+                    <span class="white-text center" style="font-size: 1.3rem;font-weight: bold;letter-spacing: 2px">自营挂车</span>
+                </div>
+                <div class="col s12 center" style="margin-top: 40px">
+                    <p class="white-text"><span style="font-size: 2.5rem;letter-spacing: 2px">{{trailerCarCount}}</span> 辆</p>
                 </div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col s12">
-                <div class="col s4" style="font-weight: bold;color: darkgray">
-                    <div class="center-align" style="background-color: white;height: 245px;margin-top: 10px;box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.14), 0 2px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)">
-                        <div class="col s12" style="font-size: 1.5rem;letter-spacing: 2px">
-                            <p style="margin: 15px 0">未完成事故</p>
-                        </div>
-                        <div class="col s12" style="font-size: 2.6rem;letter-spacing: 2px;">
-                            <p style="margin:0;padding-bottom: 15px;border-bottom: 1px solid #ccc;color: #e57474">{{accidentTotal}}</p>
-                        </div>
-                        <div class="col s12" style="font-size: 1.2rem;letter-spacing: 2px;">
-                            <div class="col s6" style="border-right: 1px solid #ccc">
-                                <div class="col s12">
-                                    <p style="margin: 15px 0">待接受处理</p>
-                                </div>
-                                <div class="col s12">
-                                    <p class="cyan-text" style="margin: 0;font-size: 1.5rem;">{{accidentTreatedCount}}</p>
-                                </div>
+
+         <!--司机总数-->
+        <div class="col s4">
+            <div class="card-panel cyan" style="height: 333px;border-radius: 12px;padding: 10px">
+                <div class="col s12 center" style="margin-top: 18px">
+                    <span class="white lighten-2 center" style="width:70px;height:70px;display:inline-block;border-radius: 100%;font-size: 2.5rem;color: rgb(38,198,218);line-height: 70px">司</span>
+                </div>
+                <div class="col s12 center" style="margin-top: 50px">
+                    <span class="white-text center" style="font-size: 1.3rem;font-weight: bold;letter-spacing: 2px">司机总数<span style="font-size: 2.2rem">{{totalDriver}}</span> 人</span>
+                </div>
+                <div class="col s12 center" style="margin-top: 40px">
+                    <p class="white-text">在职司机总数<span style="font-size: 2.5rem;letter-spacing: 2px">{{haveTotalDriver}}</span> 人</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+     <!--中-->
+     <div class="row">
+
+        <div class="col s12 card-panel" style="width:98.7%;margin: 0 auto;background-color: white;height: 150px;border:3px solid #21B1E3;border-radius: 12px">
+
+
+            <div class="row col s4" style="border-right: 1px solid #ccc">
+                <div class="col s3">
+                    <img style="margin-top: 7px" src="../assets/images/quarantine_driver.png" alt="#">
+                </div>
+                <div class="col s5" style="color: rgb(147,147,151);font-size: 1.4rem">
+                    <p>在途/可用车辆</p>
+                </div>
+                <div class="col s4">
+                    <span style="display:block;font-size: 3rem;color: #e57474;margin-top: 35px">{{onRoadCount}}/{{useCar}}</span>
+                </div>
+            </div>
+
+
+            <div class="row col s4" style="border-right: 1px solid #ccc">
+                <div class="col s3">
+                    <img style="margin-top: 7px" src="../assets/images/repair_truck.png" alt="#">
+                </div>
+                <div class="col s5" style="color: rgb(147,147,151);font-size: 1.6rem">
+                    <p>维修数量</p>
+                </div>
+                <div class="col s4">
+                    <span style="display:block;font-size: 3rem;color: #e57474;margin-top: 35px">{{truckRepairCount}}</span>
+                </div>
+            </div>
+
+
+
+
+            <div class="row col s4" >
+                <div class="col s3">
+                    <img style="margin-top: 7px" src="../assets/images/quarantine_truck.png" alt="#">
+                </div>
+                <div class="col s5" style="color: rgb(147,147,151);font-size: 1.6rem">
+                    <p>待检车辆</p>
+                </div>
+                <div class="col s4">
+                    <span style="display:block;font-size: 3rem;color: #e57474;margin-top: 35px">{{quarantineTruck}}</span>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+     <!--下-->
+    <div class="row">
+        <div class="col s12">
+            <div class="col s4" style="font-weight: bold;color: darkgray">
+                <div class="center-align" style="background-color: white;height: 245px;margin-top: 10px;box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.14), 0 2px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)">
+                    <div class="col s12" style="font-size: 1.5rem;letter-spacing: 2px">
+                        <p style="margin: 15px 0">未完成事故</p>
+                    </div>
+                    <div class="col s12" style="font-size: 2.6rem;letter-spacing: 2px;">
+                        <p style="margin:0;padding-bottom: 15px;border-bottom: 1px solid #ccc;color: #e57474">{{accidentTotal}}</p>
+                    </div>
+                    <div class="col s12" style="font-size: 1.2rem;letter-spacing: 2px;">
+                        <div class="col s6" style="border-right: 1px solid #ccc">
+                            <div class="col s12">
+                                <p style="margin: 15px 0">待接受处理</p>
                             </div>
-                            <div class="col s6">
-                                <div class="col s12">
-                                    <p style="margin: 15px 0">处理中</p>
-                                </div>
-                                <div class="col s12">
-                                    <p class="cyan-text" style="margin: 0;font-size: 1.5rem;">{{accidentTreatmentCount}}</p>
-                                </div>
+                            <div class="col s12">
+                                <p class="cyan-text" style="margin: 0;font-size: 1.5rem;">{{accidentTreatedCount}}</p>
+                            </div>
+                        </div>
+                        <div class="col s6">
+                            <div class="col s12">
+                                <p style="margin: 15px 0">处理中</p>
+                            </div>
+                            <div class="col s12">
+                                <p class="cyan-text" style="margin: 0;font-size: 1.5rem;">{{accidentTreatmentCount}}</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col s4" style="font-weight: bold;color: darkgray">
-                    <div class="center-align" style="background-color: white;height: 245px;margin-top: 10px;box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.14), 0 2px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)">
-                        <div class="col s12" style="font-size: 1.5rem;letter-spacing: 2px">
-                            <p style="margin: 15px 0">事故承担总额</p>
-                        </div>
-                        <div class="col s12" style="font-size: 2.6rem;letter-spacing: 2px;">
-                            <p style="margin:0;padding-bottom: 15px;border-bottom: 1px solid #ccc;color: #e57474">{{accidentBearTotal}}</p>
-                        </div>
-                        <div class="col s12" style="font-size: 1.2rem;letter-spacing: 2px;">
-                            <div class="col s6" style="border-right: 1px solid #ccc">
-                                <div class="col s12">
-                                    <p style="margin: 15px 0">企业承担</p>
-                                </div>
-                                <div class="col s12">
-                                    <p class="cyan-text" style="margin: 0;font-size: 1.5rem;">{{accidentBearCompany|number:2}}</p>
-                                </div>
+            </div>
+            <div class="col s4" style="font-weight: bold;color: darkgray">
+                <div class="center-align" style="background-color: white;height: 245px;margin-top: 10px;box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.14), 0 2px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)">
+                    <div class="col s12" style="font-size: 1.5rem;letter-spacing: 2px">
+                        <p style="margin: 15px 0">事故承担总额</p>
+                    </div>
+                    <div class="col s12" style="font-size: 2.6rem;letter-spacing: 2px;">
+                        <p style="margin:0;padding-bottom: 15px;border-bottom: 1px solid #ccc;color: #e57474">{{accidentBearTotal}}</p>
+                    </div>
+                    <div class="col s12" style="font-size: 1.2rem;letter-spacing: 2px;">
+                        <div class="col s6" style="border-right: 1px solid #ccc">
+                            <div class="col s12">
+                                <p style="margin: 15px 0">企业承担</p>
                             </div>
-                            <div class="col s6">
-                                <div class="col s12">
-                                    <p style="margin: 15px 0">个人承担</p>
-                                </div>
-                                <div class="col s12">
-                                    <p style="margin: 0;font-size: 1.5rem;" class="cyan-text" >{{accidentBearPersonal|number:2}}</p>
-                                </div>
+                            <div class="col s12">
+                                <p class="cyan-text" style="margin: 0;font-size: 1.5rem;">{{accidentBearCompany|number:2}}</p>
+                            </div>
+                        </div>
+                        <div class="col s6">
+                            <div class="col s12">
+                                <p style="margin: 15px 0">个人承担</p>
+                            </div>
+                            <div class="col s12">
+                                <p style="margin: 0;font-size: 1.5rem;" class="cyan-text" >{{accidentBearPersonal|number:2}}</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col s4" style="font-weight: bold;color: darkgray">
-                    <div class="center-align" style="background-color: white;height: 245px;margin-top: 10px;box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.14), 0 2px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)">
-                        <div class="col s12">
-                            <div class="col s12" style="font-size: 1.5rem;letter-spacing: 2px;border-bottom: 1px solid #ccc">
-                                <p style="margin: 51px 0">待完成保险赔付</p>
+            </div>
+            <div class="col s4" style="font-weight: bold;color: darkgray">
+                <div class="center-align" style="background-color: white;height: 245px;margin-top: 10px;box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.14), 0 2px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)">
+                    <div class="col s12">
+                        <div class="col s12" style="font-size: 1.5rem;letter-spacing: 2px;border-bottom: 1px solid #ccc">
+                            <p style="margin: 51px 0">待完成保险赔付</p>
+                        </div>
+                    </div>
+                    <div class="col s12" style="font-size: 1.2rem;letter-spacing: 2px;">
+                        <div class="col s6" style="border-right: 1px solid #ccc">
+                            <div class="col s12">
+                                <p style="margin: 15px 0">待赔付笔数</p>
+                            </div>
+                            <div class="col s12">
+                                <p style="margin: 0;font-size: 1.5rem;" class="cyan-text" >{{insurePlanCount}}</p>
                             </div>
                         </div>
-                        <div class="col s12" style="font-size: 1.2rem;letter-spacing: 2px;">
-                            <div class="col s6" style="border-right: 1px solid #ccc">
-                                <div class="col s12">
-                                    <p style="margin: 15px 0">待赔付笔数</p>
-                                </div>
-                                <div class="col s12">
-                                    <p style="margin: 0;font-size: 1.5rem;" class="cyan-text" >{{insurePlanCount}}</p>
-                                </div>
+                        <div class="col s6">
+                            <div class="col s12">
+                                <p style="margin: 15px 0">待赔付金额</p>
                             </div>
-                            <div class="col s6">
-                                <div class="col s12">
-                                    <p style="margin: 15px 0">待赔付金额</p>
-                                </div>
-                                <div class="col s12">
-                                    <p style="margin: 0;font-size: 1.5rem;" class="cyan-text" >{{insurePlanMoney|number:2}}</p>
-                                </div>
+                            <div class="col s12">
+                                <p style="margin: 0;font-size: 1.5rem;" class="cyan-text" >{{insurePlanMoney|number:2}}</p>
                             </div>
                         </div>
                     </div>

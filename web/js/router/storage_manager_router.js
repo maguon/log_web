@@ -178,7 +178,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/storage/add_storage_car_put_in.html",
             controller:'add_storage_car_put_in_controller'
         })
-
+        .state("fuel_record", {
+            url: "/fuel_record",
+            templateUrl: "js/view/data/fuel_record.html",
+            controller:'fuel_record_controller'
+        })
         // 数据统计
         .state("statistics", {
             url:"/storage_statistics",

@@ -6,8 +6,12 @@
                 <label for="instruction_number">洗车编号</label>
             </div>
             <div class="col s4 input-field">
-                <input id="driver" type="text" ng-model="driver">
-                <label for="driver">司机</label>
+                <select material-select watch ng-model="driver" id="driveName" style="width: 100%" >
+                    <option value="" selected>请选择</option>
+                    <option ng-repeat="el in driveNameList" value={{el.drive_name}}>{{el.drive_name}}</option>
+                </select>
+              <!--  <input id="driver" type="text" ng-model="driver">
+                <label for="driver">司机</label>-->
             </div>
             <div class="col s4" style="padding: 0;">
                 <div class="col s6 input-field">
@@ -95,7 +99,7 @@
                     </td>
                 </tr>
                 <tr class="grey-text text-darken-1" ng-if="carWashFeeList.length == 0">
-                    <td colspan="12"><span style="letter-spacing: 2px">暂无数据</span></td>
+                    <td colspan="14"><span style="letter-spacing: 2px">暂无数据</span></td>
                 </tr>
                 </tbody>
             </table>

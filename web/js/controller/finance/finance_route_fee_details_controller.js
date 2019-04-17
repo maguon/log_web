@@ -86,7 +86,7 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$state","$sta
         });
     };
 
-    //获取洗车费
+  /*  //获取洗车费
     function washCarFee(){
         $scope.bigPrice =0;
         //洗车费
@@ -125,7 +125,7 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$state","$sta
             }
         })
     }
-
+*/
 
     // 新增关联任务
     $scope.createMatchMissionCard = function (dispatchNum) {
@@ -145,7 +145,7 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$state","$sta
                 }).then(function (data) {
                     if (data.success === true) {
                         swal("新增成功", "", "success");
-                        washCarFee();
+                       /* washCarFee();*/
                         getMatchMissionList();
                     }
                     else {
@@ -174,7 +174,7 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$state","$sta
                 _basic.delete($host.api_url + "/user/" + userId + "/dpRouteTaskLoan/" + routeFeeId + "/dpRouteTask/" + id).then(function (data) {
                     if (data.success === true) {
                         swal("删除成功", "", "success");
-                        washCarFee();
+                       /* washCarFee();*/
                         getMatchMissionList();
                     }
                     else {
@@ -271,7 +271,7 @@ app.controller("finance_route_fee_details_controller", ["$scope", "$state","$sta
     // 获取数据
     $scope.queryData = function () {
        getCurrentRouteFeeInfo();
-       washCarFee();
+      /* washCarFee();*/
         getMatchMissionCar();
     };
     $scope.queryData();

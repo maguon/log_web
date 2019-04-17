@@ -163,11 +163,11 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host","$state", "_
                 swal(data.msg, "", "error");
             }
         });
-        washCarFee();
+      /*  washCarFee();*/
         $("#addCarFinanceModel").modal("open");
 
     };
-    //获取洗车费
+   /* //获取洗车费
     function washCarFee(){
         $scope.bigPrice =0;
         if(  $scope.dispatchIdSmall==''||  $scope.dispatchIdSmall==null||  $scope.dispatchIdSmall==undefined){
@@ -187,7 +187,8 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host","$state", "_
                 }
             });
         }
-    }
+    }*/
+/*
 
     //洗车费修改
     $scope.putWashCost = function (id,totalPrice,guardFee){
@@ -205,11 +206,12 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host","$state", "_
             }
         })
     }
+*/
 
 
     //出车款发放
     $scope.addRouteFeeInfo = function(){
-        //出车款状态修改
+       /* //出车款状态修改
         if( $scope.responseData.length==0){
         }else{
             _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" + $scope.dispatchIdSmall+'/status/2',{}).then(function (data) {
@@ -218,7 +220,7 @@ app.controller("dispatch_route_requ_controller", ["$scope", "$host","$state", "_
                     swal(data.msg, " ", "error");
                 }
             })
-        }
+        }*/
 
         var planMoneyCount = parseFloat($("#planMoney").html()).toFixed(2);
         if ($scope.truckId==  "") {

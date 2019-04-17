@@ -71,8 +71,8 @@
                         <label class="{{carCost != null ? 'active' : 'inactive'}}" for="carCost">商品车费用（元）</label>
                     </div>
                 </div>
-
-                <!--洗车费-->
+<!--
+                &lt;!&ndash;洗车费&ndash;&gt;
                 <div class="col s12 fz15">
                     <div class="col s12  blue-grey lighten-5" style="height: 50px;border: 1px solid #ccc">
                         <div class="col s4 input-field cyan-text left-align">洗车费 </div>
@@ -109,7 +109,7 @@
                             </div>
 
                     </div>
-                </div>
+                </div>-->
 
                 <!--备注-->
                 <div class="col s12 input-field">
@@ -120,9 +120,9 @@
                 <!--总额计算-->
                 <div class="col s12" style="color: darkgray;font-size: 1.1rem;font-weight: bold;margin-top: 20px">
                     <div  class="col s4 left-align">出车款：<span id="Money" style="color: #e57474">{{roadTollCost + fuelCost + roadCost + fineCost + parkingCost + taxiCost}}</span> 元</div>
-                    <div  class="col s4 center-align">洗车费：<span id="Wash" style="color: #e57474">{{bigPrice}}</span> 元</div>
-                    <div  class="col s4 right-align">总额：<span id="planMoney" style="color: #e57474">{{roadTollCost + fuelCost + roadCost + fineCost + parkingCost + taxiCost + bigPrice}}</span> 元</div>
-                </div>
+                    <!--<div  class="col s4 center-align">洗车费：<span id="Wash" style="color: #e57474">{{bigPrice}}</span> 元</div>
+                    --> <div  class="col s4 right-align">总额：<span id="planMoney" style="color: #e57474">{{roadTollCost + fuelCost + roadCost + fineCost + parkingCost + taxiCost}}</span> 元</div>
+               </div>
 
                 <!--按钮-->
 

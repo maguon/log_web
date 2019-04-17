@@ -137,7 +137,7 @@
                 </div>
             </div>
 
-            <!--洗车费-->
+          <!--  &lt;!&ndash;洗车费&ndash;&gt;
             <div class="row col s12"  style="width: 98%;margin-left:1%;">
                 <div class="col s12 valign-wrapper" style="height: 55px;background-color: #dcdfe0;font-weight: bold;font-size: 1.2rem">
                     <div class="col s4  cyan-text left-align"><p>洗车费</p> </div>
@@ -174,7 +174,7 @@
                         <div class="center-align" style="margin-top: 15px"><span style="letter-spacing: 2px;">暂无洗车费</span></div>
                     </div>
                 </div>
-            </div>
+            </div>-->
 
             <!--备注-->
             <div class="col s12 input-field" style="width: 98%;margin-left:1%;">
@@ -185,9 +185,9 @@
             <!--总额计算-->
             <div class="col s12" style="height:50px;width: 98%;margin-left:1%;color: darkgray;font-size: 1.1rem;font-weight: bold;margin-top: 20px;">
                 <div  class="col s4 left-align">出车款：<span id="Money" style="color: #e57474">{{routeFeeInfo.grant_passing_cost +routeFeeInfo.grant_fuel_cost + routeFeeInfo.grant_protect_cost + routeFeeInfo.grant_penalty_cost + routeFeeInfo.grant_parking_cost + routeFeeInfo.grant_taxi_cost}}</span> 元</div>
-                <div  class="col s4 center-align">洗车费：<span id="Wash" style="color: #e57474">{{bigPrice}}</span> 元</div>
-                <div  class="col s4 right-align">总额：<span id="totalCost" style="color: #e57474">{{bigPrice+routeFeeInfo.grant_passing_cost +routeFeeInfo.grant_fuel_cost + routeFeeInfo.grant_protect_cost + routeFeeInfo.grant_penalty_cost + routeFeeInfo.grant_parking_cost + routeFeeInfo.grant_taxi_cost}}</span> 元</div>
-            </div>
+               <!-- <div  class="col s4 center-align">洗车费：<span id="Wash" style="color: #e57474">{{bigPrice}}</span> 元</div>
+                -->  <div  class="col s4 right-align">总额：<span id="totalCost" style="color: #e57474">{{routeFeeInfo.grant_passing_cost +routeFeeInfo.grant_fuel_cost + routeFeeInfo.grant_protect_cost + routeFeeInfo.grant_penalty_cost + routeFeeInfo.grant_parking_cost + routeFeeInfo.grant_taxi_cost}}</span> 元</div>
+          </div>
 
             <!--发放人 发放时间-->
             <div class="row col s12 grey-text bold" style="height: 50px;width: 96%;margin-left:2%;padding-top: 30px;margin-bottom:30px;border-top:2px solid #ccc ">
@@ -243,7 +243,7 @@
                 </div>
             </div>
 
-            <!--洗车费-->
+            <!--&lt;!&ndash;洗车费&ndash;&gt;
             <div class="row col s12"  style="width: 98%;margin-left:1%;">
                 <div class="col s12 valign-wrapper" style="height: 55px;background-color: #dcdfe0;font-weight: bold;font-size: 1.2rem">
                     <div class="col s4  cyan-text left-align"><p>洗车费</p> </div>
@@ -263,7 +263,7 @@
 
                 </div>
             </div>
-
+-->
             <!--备注-->
             <div class="row col s12  grey-text bold" style="width: 98%;margin-left:1%;">
                 <div  class="col s12 left-align">备注：{{routeFeeInfo.grant_explain}}</div>
@@ -272,8 +272,8 @@
             <!--总额计算-->
             <div class="col s12" style="height:50px;width: 98%;margin-left:1%;color: darkgray;font-size: 1.1rem;font-weight: bold;margin-top: 20px;">
                 <div  class="col s4 left-align">出车款：<span id="hasMoney" style="color: #e57474">{{routeFeeInfo.grant_passing_cost +routeFeeInfo.grant_fuel_cost + routeFeeInfo.grant_protect_cost + routeFeeInfo.grant_penalty_cost + routeFeeInfo.grant_parking_cost + routeFeeInfo.grant_taxi_cost}}</span> 元</div>
-                <div  class="col s4 center-align">洗车费：<span id="hasWash" style="color: #e57474">{{bigPrice}}</span> 元</div>
-                <div  class="col s4 right-align">总额：<span id="actMoney" style="color: #e57474">{{routeFeeInfo.grant_passing_cost +routeFeeInfo.grant_fuel_cost + routeFeeInfo.grant_protect_cost + routeFeeInfo.grant_penalty_cost + routeFeeInfo.grant_parking_cost + routeFeeInfo.grant_taxi_cost+ bigPrice}}</span> 元</div>
+               <!-- <div  class="col s4 center-align">洗车费：<span id="hasWash" style="color: #e57474">{{bigPrice}}</span> 元</div>
+                --><div  class="col s4 right-align">总额：<span id="actMoney" style="color: #e57474">{{routeFeeInfo.grant_passing_cost +routeFeeInfo.grant_fuel_cost + routeFeeInfo.grant_protect_cost + routeFeeInfo.grant_penalty_cost + routeFeeInfo.grant_parking_cost + routeFeeInfo.grant_taxi_cost}}</span> 元</div>
             </div>
 
             <!--发放人 发放时间-->

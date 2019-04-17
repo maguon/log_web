@@ -75,7 +75,8 @@ app.controller("car_wash_fee_details_controller", ["$scope", "$host", "$statePar
                         actualGuardFee: $scope.guardFee
                     }).then(function (data) {
                         if (data.success === true) {
-                            $state.go("car_wash_fee")
+                            $scope.getCurrentCarWashFeeInfo();
+                           /* $state.go("car_wash_fee")*/
                         }
                         else {
                             swal(data.msg, "", "error");

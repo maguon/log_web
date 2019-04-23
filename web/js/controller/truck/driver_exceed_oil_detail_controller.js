@@ -2,6 +2,8 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
     var userId = _basic.getSession(_basic.USER_ID);
     var exceedOilId = $stateParams.id;
     var driveId = $stateParams.driveId;
+    $scope.truckId='';
+    $scope.addTruckId ='';
 
     // 返回
     $scope.return = function () {
@@ -16,10 +18,11 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
         _basic.get($host.api_url + "/driveExceedOil?exceedOilId="+exceedOilId).then(function (data) {
             if (data.success === true) {
                 $scope.exceedOilItem = data.result[0];
+                $scope.exceedOilItem.drive_name= data.result[0].drive_name;
                 $scope.overOil=$scope.exceedOilItem.actual_oil - $scope.totalOil;
                 $scope.overUrea=$scope.exceedOilItem.actual_urea - $scope.totalUrea;
-
-
+                $scope.driveId= data.result[0].drive_id;
+                getDriveId($scope.driveId);
             }
             else {
                 swal(data.msg, "", "error");
@@ -45,8 +48,6 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
                 swal(data.msg, "", "error");
             }
         });
-
-
 
         // 未扣款任务
         _basic.get($host.api_url + "/dpRouteTaskOilRel?settleStatus=1&driveId=" + driveId ).then(function (data) {
@@ -78,29 +79,35 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
         });
     };
 
-    /*
-    * 去重
-    * */
-    function unique(){
-        _basic.get($host.api_url + "/driveDpRouteTaskOilRel?driveExceedOilId="+exceedOilId).then(function (data) {
+    //获取selectText
+    function  getDriveId(driveId){
+        _basic.get($host.api_url + "/drive?driveId="+driveId).then(function (data) {
             if (data.success === true) {
-                $scope.truckList=data.result;
-                $scope.result = [];
-                var obj = {};
-                for(var i =0; i<$scope.truckList.length; i++){
-                    if(!obj[$scope.truckList[i].truck_id]){
-                        $scope.result.push($scope.truckList[i]);
-                        obj[$scope.truckList[i].truck_id] = true;
-                    }
-                 }
-                return  $scope.result;
-
+                $scope.selectText = data.result[0].truck_num;
+                $scope.truckId = data.result[0].truck_id;
             }
             else {
                 swal(data.msg, "", "error");
             }
-        });
+        })
+    }
 
+
+    //获取货车牌号
+    function getTruckNum(selectText) {
+            _basic.get($host.api_url + "/truckBase").then(function (data) {
+                if (data.success == true) {
+                    $scope.truckNumListAllList = data.result;
+                    $('#truckId').select2({
+                        placeholder: selectText,
+                        containerCssClass : 'select2_dropdown',
+                        allowClear: true
+                    })
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
     }
 
 
@@ -113,14 +120,13 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
             if (data.success === true) {
                 swal("操作成功", "", "success");
                 getOilRel();
-                unique();
+
             }
             else {
                 swal(data.msg, "", "error");
             }
         });
     };
-
 
 
     // 移除当前扣款任务到未扣款任务
@@ -138,7 +144,7 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
                     _basic.delete($host.api_url + "/user/" + userId + "/dpRouteTaskOilRel/" + id + "/driveExceedOil/" + exceedOilId).then(function (data) {
                         if (data.success === true) {
                             getOilRel();
-                            unique();
+
                         }
                         else {
                             swal(data.msg, "", "error");
@@ -148,8 +154,6 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
             });
 
     };
-
-
 
     // 任务详情
     $scope.showDispatchMissionModal = function (salaryInfo) {
@@ -165,8 +169,6 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
         });
         $("#dispatchMissionModal").modal("open");
     };
-
-
 
     //添加实际用油量  实际尿素量   实际金额
     $scope.putTotalInfo = function (){
@@ -189,7 +191,6 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
             }
         });
     };
-
 
     $scope.endOfProcessing =function (){
         swal({
@@ -242,9 +243,10 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
         $scope.truckId ='';
         $(".modal").modal();
         $("#addActData").modal("open");
+        getTruckNum($scope.selectText);
     }
     $scope.addDataItem = function (){
-        if ($scope.addTime !== '' && $scope.addPlce !== ''&&$scope.truckId!=='') {
+        if ($scope.addTime !== '' && $scope.addPlce !== ''&&$scope.truckId!==''&&$scope.truckId!==undefined) {
             _basic.post($host.api_url + "/user/" + userId + "/driveExceedOilRel", {
                 "exceedOilId": exceedOilId,
                 "driveId": driveId,
@@ -291,9 +293,7 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
         })
     }
 
-
-
     getOilRel();
-    unique();
+
 
 }]);

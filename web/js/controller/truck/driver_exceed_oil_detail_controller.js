@@ -95,6 +95,22 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
 
     //获取货车牌号
     function getTruckNum(selectText) {
+        if(selectText==''||selectText==undefined){
+            _basic.get($host.api_url + "/truckBase").then(function (data) {
+                if (data.success == true) {
+                    $scope.truckNumListAllList = data.result;
+                    $('#truckId').select2({
+                        placeholder: "货车牌号",
+                        containerCssClass: 'select2_dropdown',
+                        allowClear: true
+                    });
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            })
+        }
+        else{
             _basic.get($host.api_url + "/truckBase").then(function (data) {
                 if (data.success == true) {
                     $scope.truckNumListAllList = data.result;
@@ -108,6 +124,23 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
                     swal(data.msg, "", "error");
                 }
             });
+        }
+
+
+
+          /*  _basic.get($host.api_url + "/truckBase").then(function (data) {
+                if (data.success == true) {
+                    $scope.truckNumListAllList = data.result;
+                    $('#truckId').select2({
+                        placeholder: selectText,
+                        containerCssClass : 'select2_dropdown',
+                        allowClear: true
+                    })
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });*/
     }
 
 

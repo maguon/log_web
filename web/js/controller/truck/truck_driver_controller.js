@@ -68,6 +68,19 @@ app.controller("truck_driver_controller", ["$scope","$rootScope","$state","$stat
         });
     };
 
+
+    // 数据导出
+    $scope.export = function () {
+        // 基本检索URL
+        var url = $host.api_url + "/drive.csv?" ;
+        // 检索条件
+        var conditionsObj = makeConditions();
+        var conditions = _basic.objToUrl(conditionsObj);
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
+        window.open(url);
+    };
+
     /**
      * 设置检索条件。
      * @param conditions 上次检索条件

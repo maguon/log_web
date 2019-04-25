@@ -135,7 +135,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
             if (data.success === true) {
                 $scope.peccancylAccidentPay = 0;
                 for (var i = 0; i < data.result.length; i++) {
-                    $scope.peccancylAccidentPay += data.result[i].fine_money
+                    $scope.peccancylAccidentPay += data.result[i].under_money
                 }
                 $scope.settledPeccancyList = data.result;
             }

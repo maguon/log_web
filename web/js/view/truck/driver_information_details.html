@@ -209,7 +209,7 @@
 
                     <div class="col s6 input-field">扣罚分数:  {{putPeccancyList.fine_score}}</div>
 
-                    <div class="col s6 input-field">扣罚金额:  <span class="red-text fz20">{{putPeccancyList.fine_money}}</span> 元</div>
+                    <div class="col s6 input-field">扣罚金额:  <span class="red-text fz20">{{putPeccancyList.under_money}}</span> 元</div>
 
                 </div>
 
@@ -791,7 +791,7 @@
                         <td>{{peccancyInfo.id}}</td>
                         <td >{{peccancyInfo.truck_num}}</td>
                         <td>{{peccancyInfo.fine_score}}</td>
-                        <td>{{peccancyInfo.fine_money}}</td>
+                        <td>{{peccancyInfo.under_money}}</td>
                         <td>{{peccancyInfo.start_date | date:'yyyy-MM-dd'}}--{{peccancyInfo.end_date | date:'yyyy-MM-dd'}}</td>
                         <td class="red-text" ng-if="peccancyInfo.stat_status==1">未扣</td>
                         <td ng-if="peccancyInfo.stat_status!==1">已扣</td>

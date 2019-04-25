@@ -597,7 +597,7 @@
                             <td>{{peccancyInfo.id}}</td>
                             <td >{{peccancyInfo.truck_num}}</td>
                             <td>{{peccancyInfo.fine_score}}</td>
-                            <td class="red-text">{{peccancyInfo.fine_money |number:2}}</td>
+                            <td class="red-text">{{peccancyInfo.under_money |number:2}}</td>
                             <td>{{peccancyInfo.start_date | date:'yyyy-MM-dd'}}至{{peccancyInfo.end_date | date:'yyyy-MM-dd'}}</td>
                             <td class="red-text" ng-if="peccancyInfo.stat_status==1">未扣</td>
                             <td ng-if="peccancyInfo.stat_status!==1">已扣</td>
@@ -644,7 +644,7 @@
                             <td>{{peccancyInfo.peccancy_id}}</td>
                             <td >{{peccancyInfo.truck_num}}</td>
                             <td>{{peccancyInfo.fine_score}}</td>
-                            <td class="red-text">{{peccancyInfo.fine_money |number:2}}</td>
+                            <td class="red-text">{{peccancyInfo.under_money |number:2}}</td>
                             <td>{{peccancyInfo.start_date | date:'yyyy-MM-dd'}}至{{peccancyInfo.end_date | date:'yyyy-MM-dd'}}</td>
                             <td class="red-text" ng-if="peccancyInfo.stat_status==1">未扣</td>
                             <td ng-if="peccancyInfo.stat_status!==1">已扣</td>

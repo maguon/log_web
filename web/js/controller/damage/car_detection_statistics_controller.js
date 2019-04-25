@@ -42,6 +42,22 @@ app.controller("car_detection_statistics_controller", ["$scope", "$host", "_basi
         }
 
     }
+    /*导出*/
+    $scope.export = function(){
+        var obj ={
+            op:10,
+            userId: $scope.manager,
+            startDate:$scope.dateStart,
+            endDate:$scope.dateEnd
+        };
+        if($scope.dateStart==undefined||$scope.dateEnd==undefined){
+            swal('请输入完整的时间范围', "", "error");
+        }
+        else {
+            window.open($host.record_url + "/opRecord.csv?"+_basic.objToUrl(obj));
+        }
+    }
+
 
     getManagerList();
 

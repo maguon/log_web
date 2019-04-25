@@ -19,7 +19,8 @@
                             <select material-select watch id="record_truck_type_mod" class="truck_type" ng-change="isCheckAssociatedAccident()" ng-model="modRecordTruckType">
                                 <option value="" selected disabled>请选择</option>
                                 <option ng-disabled="hasNotAccident" value="1">事故维修</option>
-                                <option value="2">非事故维修</option>
+                                <option value="2">公司维修</option>
+                                <option value="3">在外临时维修</option>
                             </select>
                             <label for="record_truck_type_mod"><span style="color: red">* </span>维修类型</label>
                         </div>
@@ -111,7 +112,8 @@
                     <select material-select watch id="record_repair_type" class="truck_type" ng-model="recordRepairType">
                         <option ng-value="" selected>请选择</option>
                         <option ng-value="1">事故维修</option>
-                        <option ng-value="2">非事故维修</option>
+                        <option ng-value="2">公司维修</option>
+                        <option ng-value="3">在外临时维修</option>
                     </select>
                     <label for="record_repair_type">维修类型</label>
                 </div>
@@ -169,7 +171,7 @@
                             <td>{{repair.truck_num}}</td>
                             <td>{{repair.company_name}}</td>
                             <td>{{repair.truck_type == 1 ? "头车" : "挂车"}}</td>
-                            <td>{{repair.repair_type == 1 ? "事故维修" : "非事故维修"}}</td>
+                            <td>{{repair.repair_type == 1 ? "事故维修" :repair.repair_type == 2 ?'公司维修':'在外临时维修'}}</td>
                             <td>{{repair.repair_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                             <td>{{repair.end_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                             <td>{{repair.repair_reason}}</td>

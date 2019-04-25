@@ -121,7 +121,8 @@
                             <select material-select watch id="record_truck_type" class="truck_type" ng-change="isCheckAssociatedAccident(repairingItem)" ng-model="repairingItem.repair_type">
                                 <option value="" selected disabled>请选择</option>
                                 <option ng-disabled="hasNotAccident" value="1">事故维修</option>
-                                <option value="2">非事故维修</option>
+                                <option value="2">公司维修</option>
+                                <option value="3">在外临时维修</option>
                             </select>
                             <label for="record_truck_type">维修类型</label>
                         </div>
@@ -182,7 +183,7 @@
                                         <span style="font-size: 1.6rem" class="mdi mdi-file-document cyan-text"></span>
                                     </div>
                                     <div class="col s8" style="padding: 0;">
-                                        <span style="font-size: 1.2rem;font-weight: bold;color: #e57474">{{repaired.repair_type == 1 ? "事故维修" : "非事故维修"}}</span>
+                                        <span style="font-size: 1.2rem;font-weight: bold;color: #e57474">{{repaired.repair_type == 1 ? "事故维修" :repaired.repair_type == 2 ?'公司维修':'在外临时维修'}}</span>
                                     </div>
                                 </div>
                             </div>

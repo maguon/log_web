@@ -347,11 +347,9 @@ app.controller("driver_information_details_controller", ["$scope","$state", "$ho
     $scope.getExceedOilList = function (){
         _basic.get($host.api_url + "/driveExceedOil?" + _basic.objToUrl({
             driveId:driverId,
-            dpRouteTaskId:$scope.dispatchId,
-            taskPlanDateStart:$scope.driveStartTime,
-            taskPlanDateEnd:$scope.driveEndTime,
-            exceedType:$scope.exceedType,
-            fineStatus:$scope.ExceedOilStu,
+            settleStatus:$scope.settleStatus,
+            oilDateStart:$scope.driveStartTime,
+            oilDateEnd:$scope.driveEndTime,
             start:$scope.start.toString(),
             size:$scope.size
         })).then(function (data) {

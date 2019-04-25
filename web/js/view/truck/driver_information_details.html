@@ -250,49 +250,40 @@
                         <div class="col s6 cyan-text fz18  bold" >
                             超量结算编号:{{putExceedOilList.id}}
                         </div>
-                        <div class="col s6 grey-text input-field bold right-align" ng-show="putExceedOilList.fine_status!==1">已扣</div>
-                        <div class="col s6 grey-text input-field bold right-align" ng-show="putExceedOilList.fine_status==1">未扣</div>
+                        <div class="col s6 grey-text input-field bold right-align" ng-show="putExceedOilList.settle_status!==1">已扣</div>
+                        <div class="col s6 red-text input-field bold right-align" ng-show="putExceedOilList.settle_status==1">未扣</div>
                     </div>
                 </div>
 
-                <!--调度编号 司机-->
-                <div class="col s12" style="height: 60px;margin-top: 20px;border-bottom: 1px dotted #ccc">
-                    <div class="col s6 input-field">调度编号:  {{putExceedOilList.dp_route_task_id}}</div>
-                    <div class="col s6 input-field">司机:  {{putExceedOilList.drive_name}}</div>
-                </div>
 
                 <!-- 货车牌号 计划执行时间 -->
                 <div class="col s12" style="height: 60px;margin-top: 20px;border-bottom: 1px dotted #ccc">
-                    <div class="col s6 input-field">货车牌号:  {{putExceedOilList.truck_num}}</div>
-                    <div class="col s6 input-field">计划执行时间:  {{putExceedOilList.task_plan_date | date:'yyyy-MM-dd'}}</div>
+                    <div class="col s6 input-field">核油时间:  {{putExceedOilList.oil_date| date:'yyyy-MM-dd'}}</div>
+                    <div class="col s6 input-field">超量金额:  <span class="red-text fz20">{{putExceedOilList.actual_money}}</span> 元</div>
                 </div>
 
                 <!--超量类型 超量数-->
                 <div class="col s12" style="height: 60px;border-bottom: 1px dotted #ccc">
-                    <div class="col s6 input-field" ng-show="putExceedOilList.exceed_type==1">超量类型:油  </div>
-                    <div class="col s6 input-field" ng-show="putExceedOilList.exceed_type==2">超量类型:尿素 </div>
-                    <div class="col s6 input-field">超量数:  {{putExceedOilList.exceed_oil_quantity}}</div>
+                    <div class="col s6 input-field">计划用油量:  <span class="red-text fz20">{{putExceedOilList.plan_oil}}</span> </div>
+                    <div class="col s6 input-field">实际用油量:  <span class="red-text fz20">{{putExceedOilList.actual_oil}}</span></div>
+                </div>
 
-
-
+                <div class="col s12" style="height: 60px;border-bottom: 1px dotted #ccc">
+                    <div class="col s6 input-field">计划尿素量:  <span class="red-text fz20">{{putExceedOilList.plan_urea}}</span> </div>
+                    <div class="col s6 input-field">实际尿素量:  <span class="red-text fz20">{{putExceedOilList.actual_urea}}</span></div>
                 </div>
 
                 <!--超量金额 备注-->
-                <div class="col s12">
-                    <div class="col s6 input-field">超量金额:  <span class="red-text fz20">{{putExceedOilList.exceed_oil_money}}</span> 元</div>
-                    <div class="col s6 input-field"  style="height: 60px;border-bottom: 1px dotted #ccc">备注:  {{putExceedOilList.remark}}</div>
-                </div>
-
-
-                <!--结算人-->
-                <div class="col s3 offset-s9 input-field">
-                    结算人:  {{putExceedOilList.op_user_name}}
+                <div class="col s12"  style="height: 60px;border-bottom: 1px dotted #ccc">
+                    <div class="col s6 input-field">
+                    备注:  {{putExceedOilList.remark}}
+                    </div>
                 </div>
             </div>
         </div>
         <div class="divider" style="background: #ccc;height: 1px;"></div>
-        <div class="modal-footer right-align">
-            <button class="btn waves-light waves-effect lighten-2"  name="action" ng-click="putExceedOilItem2()"  style="margin-right: 50px">确定 </button>
+        <div class="modal-footer vc-center">
+            <button class="btn waves-light waves-effect lighten-2"  name="action" ng-click="putExceedOilItem2()">确定 </button>
         </div>
     </div>
 </div>
@@ -831,36 +822,21 @@
                     <div class="col s11" style="margin-top: 20px">
                         <div class="col s12">
 
-                            <!--调度编号-->
-                            <div class="input-field col" style="width: 20%;">
-                                <input id="dispatchId" name="dispatchId" ng-model="dispatchId" type="text">
-                                <label for="dispatchId">调度编号</label>
-                            </div>
-
                             <!--指令日期-->
-                            <div class="input-field col" style="width: 20%;">
-                                <input type="text"  id="driveStartTime" class="datepicker" autocomplete="off" ng-model="driveStartTime" date><i class="mdi dataIcon mdi-table-large"></i>
-                                <label for="driveStartTime">计划执行时间(始)</label>
+                            <div class="col s4 input-field">
+                                <input type="text" ng-model="driveStartTime" id="driveStartTime" name="driveStartTime"  class="datepicker" autocomplete="off"   date><i class="mdi dataIcon mdi-table-large"></i>
+                                <label for="driveStartTime">核油日期(始)</label>
                             </div>
-                            <div class="input-field col" style="width: 20%;">
-                                <input type="text" id="driveEndTime" class="datepicker" autocomplete="off" ng-model="driveEndTime" date><i class="mdi dataIcon mdi-table-large"></i>
-                                <label for="driveEndTime">计划执行时间(终)</label>
-                            </div>
-                            <!--超量类型-->
-                            <div class="input-field col" style="width: 20%;">
-                                <select material-select watch ng-model="exceedType" >
-                                    <option value="" selected>超量类型</option>
-                                    <option ng-value="1">油</option>
-                                    <option ng-value="2">尿素</option>
-                                </select>
+                            <div class="col s4 input-field">
+                                <input type="text" ng-model="driveEndTime" id="driveEndTime" name="driveEndTime"  class="datepicker" autocomplete="off"   date><i class="mdi dataIcon mdi-table-large"></i>
+                                <label for="driveEndTime">核油日期(终)</label>
                             </div>
 
-                            <!--结算状态-->
-                            <div class="input-field col" style="width: 20%;">
-                                <select material-select watch ng-model="ExceedOilStu" id="ExceedOilStu">
-                                    <option value="" selected>状态</option>
-                                    <option ng-value="1">未扣</option>
-                                    <option ng-value="2">已扣</option>
+                            <div class="col s4 input-field">
+                                <select id="settleStatus" name="settleStatus" material-select watch ng-model="settleStatus" style="width: 100%">
+                                    <option value="">扣款状态</option>
+                                    <option value="1">未扣</option>
+                                    <option value="2">已扣</option>
                                 </select>
                             </div>
                         </div>
@@ -883,12 +859,8 @@
                     <thead class="blue-grey lighten-5">
                     <tr class="grey-text text-darken-2">
                         <th data-field="">超量结算编号</th>
-                        <th data-field="">货车牌号</th>
-                        <th data-field="">调度编号</th>
-                        <th data-field="">计划执行时间</th>
-                        <th data-field="">超量类型</th>
-                        <th data-field="">超量数</th>
-                        <th data-field="">超量金额</th>
+                        <th data-field="">司机</th>
+                        <th data-field="">核油日期</th>
                         <th data-field="">状态</th>
                         <th>操作</th>
                     </tr>
@@ -896,15 +868,10 @@
                     <tbody>
                     <tr ng-repeat="ExceedOilInfo in ExceedOilList" class="grey-text text-darken-1">
                         <td>{{ExceedOilInfo.id}}</td>
-                        <td >{{ExceedOilInfo.truck_num}}</td>
-                        <td>{{ExceedOilInfo.dp_route_task_id}}</td>
-                        <td>{{ExceedOilInfo.task_plan_date| date:'yyyy-MM-dd'}}</td>
-                        <td ng-if="ExceedOilInfo.exceed_type==1 ">油</td>
-                        <td ng-if="ExceedOilInfo.exceed_type==2 ">尿素</td>
-                        <td>{{ExceedOilInfo.exceed_oil_quantity }}</td>
-                        <td>{{ExceedOilInfo.exceed_oil_money }}</td>
-                        <td class="red-text" ng-if="ExceedOilInfo.stat_status==1">未扣</td>
-                        <td ng-if="ExceedOilInfo.stat_status!==1">已扣</td>
+                        <td>{{ExceedOilInfo.drive_name}}</td>
+                        <td>{{ExceedOilInfo.oil_date| date:'yyyy-MM-dd'}}</td>
+                        <td class="red-text" ng-if="ExceedOilInfo.settle_status==1">未扣</td>
+                        <td ng-if="ExceedOilInfo.settle_status!==1">已扣</td>
                         <td  class="operation">
                             <a ng-click="putExceedOil(ExceedOilInfo.id)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
                                 <i class="mdi mdi-file-document" style="margin: 0"></i>
@@ -912,7 +879,7 @@
                         </td>
                     </tr>
                     <tr ng-if="ExceedOilList.length==0">
-                        <td colspan="9">暂无数据</td>
+                        <td colspan="6">暂无数据</td>
                     </tr>
                     </tbody>
                 </table>

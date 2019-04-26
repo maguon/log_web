@@ -20,8 +20,12 @@
                 <label for="insure_company">所属公司</label>
             </div>
             <div class="col s3 input-field">
-                <input type="text" id="driver_name" name="driver_name" ng-model="driverName">
-                <label for="driver_name">司机</label>
+                <select id="driver" name="driver" material-select watch ng-model="driverName" style="width: 100%">
+                    <option value="">请选择</option>
+                    <option ng-repeat="driver in driveNameList" ng-value='driver.drive_name'>{{driver.drive_name}}</option>
+                </select>
+               <!-- <input type="text" id="driver_name" name="driver_name" ng-model="driverName">
+                <label for="driver_name">司机</label>-->
             </div>
             <div class="col s3 input-field">
                 <input type="text" id="main_drive" name="main_drive" ng-model="mainDrive">

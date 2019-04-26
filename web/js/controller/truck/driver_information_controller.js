@@ -14,7 +14,22 @@ app.controller("driver_information_controller", ["$scope","$rootScope","$state",
             }
         });
     };
-
+    //司机
+    function getDriveNameList () {
+        _basic.get($host.api_url + "/drive").then(function (data) {
+            if (data.success == true) {
+                $scope.driveNameList = data.result;
+                $('#driver').select2({
+                    placeholder: '司机',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
     // 获取司机信息
     $scope.getDriverInfoList = function () {
         // 基本检索URL
@@ -123,6 +138,7 @@ app.controller("driver_information_controller", ["$scope","$rootScope","$state",
         }
         // 查询数据
         $scope.getDriverInfoList();
+        getDriveNameList ()
 
     }
     initData();
@@ -131,6 +147,7 @@ app.controller("driver_information_controller", ["$scope","$rootScope","$state",
     $scope.queryData = function () {
         $scope.getCompanyList();
         $scope.getDriverInfoList();
+
     };
     $scope.queryData();
 }]);

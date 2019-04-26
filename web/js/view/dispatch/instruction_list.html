@@ -59,14 +59,34 @@
                                     </div>
                                 </div>
                                 <div class="col s12" style="margin-top: 10px">
-                                    <div class="input-field col s2">
+
+                                    <!--货车牌号-->
+                                    <div class="col s2 input-field">
+                                        <select  material-select watch ng-model="truck_num"  id="truckId" style="width: 100%">
+                                            <option value="">请选择</option>
+                                            <option ng-repeat="truckNumItem in truckNumListAll" ng-value="truckNumItem.truck_num">{{truckNumItem.truck_num}}</option>
+                                        </select>
+                                    </div>
+
+
+
+                                   <!-- <div class="input-field col s2">
                                         <input name="truck_num" id="truck_num" type="text" ng-model="truck_num">
                                         <label for="truck_num">货车牌号</label>
-                                    </div>
+                                    </div>-->
                                     <div class="input-field col s2">
+                                        <select id="driver" name="driver" material-select watch ng-model="driver" style="width: 100%">
+                                            <option value="">请选择</option>
+                                            <option ng-repeat="driver in driveNameList" ng-value='driver.drive_name'>{{driver.drive_name}}</option>
+                                        </select>
+
+
+
+                                      <!--
                                         <input name="driver" id="driver" type="text" ng-model="driver">
-                                        <label for="driver">司机</label>
+                                        <label for="driver">司机</label>-->
                                     </div>
+
                                     <div class="input-field col s2">
                                         <input name="dispatch_num" id="dispatch_num" type="text"
                                                ng-model="dispatch_num">

@@ -8,19 +8,57 @@ app.controller("instruction_list_controller", ["$scope","$rootScope","$state","$
     $scope.taskStatusList = _config.taskStatus;
     // 任务状态
     $scope.missionStatusList = _config.missionStatus;
-    _basic.get($host.api_url + "/city").then(function (data) {
-        if (data.success == true) {
-            $scope.cityList = data.result;
-            $('#start_city').select2({
-                placeholder: '起始城市',
-                containerCssClass : 'select2_dropdown'
-            });
-            $('#end_city').select2({
-                placeholder: '目的城市',
-                containerCssClass : 'select2_dropdown'
-            });
-        }
-    });
+
+    //获取起始城市  目的城市
+    function getCity(){
+        _basic.get($host.api_url + "/city").then(function (data) {
+            if (data.success == true) {
+                $scope.cityList = data.result;
+                $('#start_city').select2({
+                    placeholder: '起始城市',
+                    containerCssClass : 'select2_dropdown'
+                });
+                $('#end_city').select2({
+                    placeholder: '目的城市',
+                    containerCssClass : 'select2_dropdown'
+                });
+            }
+        });
+    }
+
+    //获取货车牌号
+    function getTruckNum() {
+        _basic.get($host.api_url + "/truckBase").then(function (data) {
+            if (data.success === true) {
+                $scope.truckNumListAll = data.result;
+                $('#truckId').select2({
+                    placeholder: "货车牌号",
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        })
+    }
+
+    //司机
+    function getDriveNameList () {
+        _basic.get($host.api_url + "/drive").then(function (data) {
+            if (data.success == true) {
+                $scope.driveNameList = data.result;
+                $('#driver').select2({
+                    placeholder: '司机',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
 
     // 获取装车地点
     $scope.getAddres = function () {
@@ -178,6 +216,10 @@ app.controller("instruction_list_controller", ["$scope","$rootScope","$state","$
         }
         $scope.getRecive();
         $scope.getAddres();
+        getCity();
+        getDriveNameList ();
+        getTruckNum();
+
     }
     initData();
 

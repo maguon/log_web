@@ -1,4 +1,4 @@
-app.controller("driver_salary_details_controller", ["$scope", "$host","$state", "$stateParams", "_config", "_basic", function ($scope, $host, $state,$stateParams, _config, _basic) {
+app.controller("driver_salary_details_controller", ["$scope", "$host","$state", "$stateParams", "_config", "_basic","$filter", function ($scope, $host, $state,$stateParams, _config, _basic,$filter) {
 
     var userId = _basic.getSession(_basic.USER_ID);
     var salaryId = $stateParams.id;
@@ -12,10 +12,12 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
     };
 
     // 获取当前司机基本信息
-    $scope.getSalaryDetails = function () {
+    function getSalaryDetails() {
         _basic.get($host.api_url + "/driveSalary?driveSalaryId=" + salaryId).then(function (data) {
             if (data.success === true) {
                 $scope.salaryDetails = data.result[0];
+                $scope.salaryDetails.plan_salary=data.result[0].plan_salary;
+                $scope.planSalary=data.result[0].plan_salary;
                 $scope.socialSecurityFee = data.result[0].social_security_fee;
                 if(data.result[0].other_fee != null){
                     $scope.otherDeductions = data.result[0].other_fee;
@@ -30,7 +32,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
     };
 
     // 获取当前司机结算任务
-    $scope.getCurrentSalaryInfo = function () {
+     function getCurrentSalaryInfo () {
         // 未结算任务
         _basic.get($host.api_url + "/dpRouteTaskBase?driveId=" + driveId + "&taskStatus=10&statStatus=1").then(function (data) {
             if (data.success === true) {
@@ -55,6 +57,8 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                         $scope.loadDistanceCount += data.result[i].distance
                     }
                 }
+
+
                 $scope.settledSalaryList = data.result;
             }
             else {
@@ -256,14 +260,20 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
     };
 
     // 将未结算任务添加到结算任务
-    $scope.addSettledSalary = function (taskId) {
+    $scope.addSettledSalary = function (taskId,car_count,truck_number,distance) {
+       var  distanceMoney= $filter('mileageSalary')(car_count+'-'+truck_number);
+        var distanceTotalMoney =distanceMoney*distance;
         _basic.post($host.api_url + "/user/" + userId + "/driveSalaryTaskRel",{
             driveSalaryId: salaryId,
-            dpRouteTaskId: taskId
+            dpRouteTaskId: taskId,
+            distanceMoney: distanceMoney,
+            distanceTotalMoney: distanceTotalMoney
         }).then(function (data) {
             if (data.success === true) {
+                $scope.driveSalaryTaskRel=  data.id;
                 swal("操作成功", "", "success");
-                $scope.getCurrentSalaryInfo()
+                getCurrentSalaryInfo();
+                getChangeSalary();
             }
             else {
                 swal(data.msg, "", "error");
@@ -271,8 +281,24 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
         });
     };
 
+    //工资变化
+    function getChangeSalary(){
+        // 未结算任务
+        _basic.get($host.api_url + "/driveSalaryTaskRel?driveSalaryRelId=" + $scope.driveSalaryTaskRel).then(function (data) {
+            if (data.success === true) {
+                $scope.salaryDetails.plan_salary += data.result[0].distance_total_money;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+
+    }
+
+
     // 移除结算任务到未结算任务
     $scope.minusSettledSalary = function (taskId) {
+        $scope.taskId=taskId;
         swal({
                 title: "确定移除当前结算任务？",
                 type: "warning",
@@ -285,7 +311,8 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                 if (result.value) {
                     _basic.delete($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/dpRouteTask/" + taskId).then(function (data) {
                         if (data.success === true) {
-                            $scope.getCurrentSalaryInfo()
+                            getCurrentSalaryInfo();
+                            getChangeSalary2();
                         }
                         else {
                             swal(data.msg, "", "error");
@@ -293,8 +320,24 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                     });
                 }
             });
-
     };
+
+    //工资变化
+    function getChangeSalary2(){
+        // 未结算任务
+        _basic.get($host.api_url + "/dpRouteTaskBase?dpRouteTaskId=" +  $scope.taskId).then(function (data) {
+            if (data.success === true) {
+                var  distanceMoney= $filter('mileageSalary')(data.result[0].car_count+'-'+data.result[0].truck_number);
+                var distanceTotalMoney =distanceMoney*data.result[0].distance;
+                $scope.salaryDetails.plan_salary -= distanceTotalMoney;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+
+    }
+
 
     // 将未结算违约扣款添加到结算扣款
     $scope.addPeccancyAccident = function (peccancyInfoId) {
@@ -469,7 +512,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                     _basic.put(
                         $host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/grantStatus/3", {}).then(function (data) {
                         if (data.success === true) {
-                            $scope.getSalaryDetails();
+                            getSalaryDetails();
                         }
                         else {
                             swal(data.msg, "", "error");
@@ -481,8 +524,8 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
 
     // 获取数据
     $scope.queryData = function () {
-        $scope.getSalaryDetails();
-        $scope.getCurrentSalaryInfo();
+        getSalaryDetails();
+        getCurrentSalaryInfo();
     };
     $scope.queryData();
 }]);

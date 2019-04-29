@@ -14,13 +14,32 @@ app.controller("driver_salary_controller", ["$scope","$rootScope","$state","$sta
         Button: false,
         MonthFormat: 'yymm'
     });
-
+    //司机
+    function getDriveNameList () {
+        _basic.get($host.api_url + "/drive").then(function (data) {
+            if (data.success == true) {
+                $scope.driveNameList = data.result;
+                $('#driverName').select2({
+                    placeholder: '司机',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
 
     //获取上个月年月
     function getLastMonth(){//获取上个月日期
         var date = new Date();
         var year = date.getFullYear();
         var month = date.getMonth();
+        if(month<10){
+            month ='0'+month;
+        }
+
         if(month == 0){
             year = year -1;
             month = 12;
@@ -136,13 +155,25 @@ app.controller("driver_salary_controller", ["$scope","$rootScope","$state","$sta
                 $scope.noLoadDistanceCount = 0;
                 $scope.loadDistanceCount = 0;
                 $scope.settleMonth=$scope.monthStart.slice(0,4)+"-"+$scope.monthStart.slice(-2);
+                getNotCompletedTaskStatusCount();
+
+
             }
             else {
                 swal(data.msg, "", "error");
             }
         });
     };
-
+    function  getNotCompletedTaskStatusCount (){
+        _basic.get($host.api_url + "/notCompletedTaskStatusCount?driveId=" +  $scope.driverInfo.drive_id + "&taskStatus=10&statStatus=1").then(function (data) {
+            if (data.success === true) {
+                $scope.notCompletedTaskStatusCount = data.result[0].task_status_count;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
     // 全选
     $scope.selectAllCheckBox = function (event) {
         var selAllBtn = event.target;
@@ -320,6 +351,7 @@ app.controller("driver_salary_controller", ["$scope","$rootScope","$state","$sta
     // 获取数据
     $scope.queryData = function () {
         $scope.getTruckBrandList();
+        getDriveNameList ();
     };
     $scope.queryData();
 }]);

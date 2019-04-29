@@ -16,22 +16,22 @@
                         </div>
                         <div class="col s4 right-align">
                             <div class="col s6" style="padding: 0;">
-                                <p>未结任务：{{driverWageSettlementList.length}}</p>
+                                <p>未结任务：{{notCompletedTaskStatusCount}}<!--{{driverWageSettlementList.length}}--></p>
                             </div>
-                            <div class="col s6" style="padding: 0;">
+                           <!-- <div class="col s6" style="padding: 0;">
                                 <p>已选任务：{{selectedIdsArr.length}}</p>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
-                    <div class="col s12 left-align" style="margin-left: 4px" ng-hide="driverWageSettlementList.length == 0">
+                   <!-- <div class="col s12 left-align" style="margin-left: 4px" ng-hide="driverWageSettlementList.length == 0">
                         <input type="checkbox" ng-click="selectAllCheckBox($event)" id="selectAll" name="selectAll" class="filled-in" />
                         <label for="selectAll" style="color: black">全选</label>
-                    </div>
+                    </div>-->
                     <div class="col s12 center-align" style="color: darkgray;font-weight: bold;letter-spacing: 2px"  ng-hide="driverWageSettlementList.length !== 0">
                         <p>暂无关联任务</p>
                     </div>
                     <!--路线信息卡片-->
-                    <div class="col s12" style="padding: 0;">
+                   <!-- <div class="col s12" style="padding: 0;">
                         <div class="col s4" ng-repeat="lineInfo in driverWageSettlementList">
                             <div class="card-panel white" style="padding: 0;cursor: pointer;font-size: 1rem">
                                 <div class="row cyan lighten-2 white-text setting_shipments_title valign-wrapper" style="padding: 8px 5px;height: 43px;margin-bottom: 0">
@@ -66,15 +66,15 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col s12 left-align valign-wrapper" style="margin: 20px 0;font-size: 1.2rem;color: darkgray;font-weight: bold">
-                        <div class="col s4">
+                    </div>-->
+                    <div class="col s12 left-align valign-wrapper" style="margin-top: 220px;font-size: 1.2rem;color: darkgray;font-weight: bold">
+                        <!--<div class="col s4">
                             <p>重载：<span class="cyan-text">{{loadDistanceCount}}</span> km</p>
                         </div>
                         <div class="col s4">
                             <p>空载：<span class="cyan-text">{{noLoadDistanceCount}}</span> km</p>
-                        </div>
-                        <div class="col s4 input-field" style="margin-top: 0">
+                        </div>-->
+                        <div class="col s3 input-field offset-s9" style="margin-top: 0">
                             <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="text" id="should_pay" name="should_pay" ng-model="shouldPay">
                             <label for="should_pay"><span style="color: red">* </span>应发工资</label>
                         </div>
@@ -106,8 +106,10 @@
                 <label class="active" for="start_month">月份</label>
             </div>
             <div class="col s3 input-field">
-                <input type="text" id="driver_name" name="driver_name" ng-model="driverName">
-                <label for="driver_name">司机</label>
+                <select material-select watch ng-model="driverName" id="driverName" style="width: 100%" >
+                    <option value="" selected>司机</option>
+                    <option ng-repeat="driver in driveNameList" value={{driver.drive_name}}>{{driver.drive_name}}</option>
+                </select>
             </div>
             <div class="col s3 input-field">
                 <select id="car_type" ng-change="getCompany()" ng-model="carType"  material-select watch>

@@ -449,3 +449,57 @@ CommonFilter.filter("licenseType", function () {
         return licenseType;
     }
 });
+
+//里程奖励标准
+CommonFilter.filter("mileageSalary", function () {
+    return function (input) {
+        var mileageSalary;
+        var truck_number = input.split("-")[1];
+        var  car_count = input.split("-")[0];
+        if(truck_number==6){
+
+            if(car_count<=4){
+                mileageSalary=0.7
+            }
+            else if(car_count==5){
+                mileageSalary =0.8
+            }
+            else {
+                mileageSalary =0.9
+            }
+        }
+        else if(truck_number==8){
+            if(car_count<=4){
+                mileageSalary=0.6
+            }
+            else if(car_count==5){
+                mileageSalary =0.7
+            }
+            else if(car_count==6){
+                mileageSalary =0.8
+            }
+            else if(car_count==7){
+                mileageSalary =0.9
+            }
+            else if(car_count==8){
+                mileageSalary =1.0
+            }
+
+            else if(car_count==9){
+                mileageSalary =1.1
+            }
+            else if(car_count==10){
+                mileageSalary =1.2
+            }
+            else if(car_count>=11){
+                mileageSalary =1.3
+            }
+        }
+        else {
+            mileageSalary =0
+        }
+
+        return mileageSalary;
+    }
+});
+

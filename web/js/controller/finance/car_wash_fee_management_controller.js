@@ -20,7 +20,22 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
             }
         });
     };
-
+    //司机
+    function getDriveNameList () {
+        _basic.get($host.api_url + "/drive").then(function (data) {
+            if (data.success == true) {
+                $scope.driveNameList = data.result;
+                $('#getDrivderId').select2({
+                    placeholder: '司机',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
     // 根据城市id获取经销商
     $scope.getRecive = function () {
         if($scope.cityId == 0 || $scope.cityId == "" || $scope.cityId == null){
@@ -92,6 +107,7 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
     $scope.queryData = function () {
         $scope.getCityList();
         getCarWashFeeList();
+        getDriveNameList ();
     };
     $scope.queryData();
 }]);

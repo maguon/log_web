@@ -64,6 +64,8 @@
                     <th data-field="">洗车编号</th>
                     <th data-field="">调度编号</th>
                     <th data-field="">司机</th>
+                    <th data-field="">电话</th>
+                    <th data-field="">品牌</th>
                     <th data-field="">洗车数</th>
                     <th data-field="">计划洗车费</th>
                     <th data-field="">实际洗车费</th>
@@ -82,6 +84,8 @@
                     <td>{{car.id}}</td>
                     <td>{{car.dp_route_task_id}}</td>
                     <td>{{car.drive_name}}</td>
+                    <td>{{car.mobile}}</td>
+                    <td>{{car.make_name}}</td>
                     <td>{{car.car_count}}</td>
                     <td>{{car.total_price}}</td>
                     <td>{{car.actual_price}}</td>
@@ -99,7 +103,7 @@
                     </td>
                 </tr>
                 <tr class="grey-text text-darken-1" ng-if="carWashFeeList.length == 0">
-                    <td colspan="14"><span style="letter-spacing: 2px">暂无数据</span></td>
+                    <td colspan="16"><span style="letter-spacing: 2px">暂无数据</span></td>
                 </tr>
                 </tbody>
             </table>

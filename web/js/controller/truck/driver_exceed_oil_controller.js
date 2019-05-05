@@ -5,6 +5,37 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
     $scope.start = 0;
     $scope.size = 11;
     var userId = _basic.getSession(_basic.USER_ID);
+
+    //获取货车牌号
+    function getTruckId() {
+        _basic.get($host.api_url + "/truckBase").then(function (data) {
+            if (data.success === true) {
+                $scope.truckNumListAll = data.result;
+                $('#truckNum').select2({
+                    placeholder: '货车牌号',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
+                $('#addTruckNum').select2({
+                    placeholder: '货车牌号',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+        _basic.get($host.api_url + "/company").then(function (data) {
+            if (data.success === true) {
+                $scope.company = data.result;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
+
     //司机
     function getDriveNameList () {
         _basic.get($host.api_url + "/drive").then(function (data) {
@@ -96,8 +127,15 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
         $scope.oilDate = '';
         $scope.addRemark='';
         $scope.driveNameList=[];
+        $scope.truckNumListAll=[];
+        $scope.addTruckNum ='';
         getDriveNameList ();
+        getTruckId();
         $('#addExceedOilItem').modal('open');
+    }
+
+    $scope.changeDrive =function (driver){
+
     }
 
 
@@ -106,12 +144,12 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
         if ($scope.addExceedOilDriver !== '' && $scope.oilDate !== '') {
             _basic.post($host.api_url + "/user/" + userId + "/driveExceedOil", {
                 driveId:$scope.addExceedOilDriver,
-                oilDate:  $scope.oilDate,
+                truckId:$scope.addTruckNum,
+                oilDate:$scope.oilDate,
                 remark:$scope.addRemark
             }).then(function (data) {
                 if (data.success === true) {
                     $('#addExceedOilItem').modal('close');
-                   /* swal("新增成功", "", "success");*/
                     getExceedOilData();
                     $state.go('driver_exceed_oil_detail', {
                         reload: true,
@@ -151,6 +189,8 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
         $scope.settleStatus=conditions.settleStatus;
         $scope.driveStartTime=conditions.oilDateStart;
         $scope.driveEndTime=conditions.oilDateEnd;
+        $scope.search_company=conditions.companyId;
+        $scope.truckNum=conditions.truckId;
     }
 
     /**
@@ -161,7 +201,9 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
             driveId:$scope.driverId,
             settleStatus:$scope.settleStatus,
             oilDateStart:$scope.driveStartTime,
-            oilDateEnd:$scope.driveEndTime
+            oilDateEnd:$scope.driveEndTime,
+            companyId:$scope.search_company,
+            truckId:$scope.truckNum
         };
     }
 
@@ -198,5 +240,6 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
     function queryData() {
         getDriveNameList();
         getExceedOilData();
+        getTruckId();
     }
 }])

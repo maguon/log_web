@@ -1,38 +1,26 @@
 <div class="instruction_car_refuel">
     <div class="row col s12 valign-wrapper">
         <div class="col s10">
-            <div class="input-field col s4">
-                <input id="truck" type="text" ng-model="truckNum">
-                <label for="truck">车牌号</label>
-            </div>
-            <div class="input-field col s4">
-                <input id="driver" type="text" ng-model="driveName">
-                <label for="driver">司机</label>
-            </div>
-            <div class="input-field col s4">
-                <select material-select watch id="Refueling_belongs" ng-model="oilingStatus">
-                    <option value="" selected>请选择</option>
-                    <option value="1">内部加油</option>
-                    <option value="2">外部加油</option>
+            <div class="col s3 input-field">
+                <select material-select watch ng-model="driveName" id="driverName" style="width: 100%" >
+                    <option value="" selected>司机</option>
+                    <option ng-repeat="driver in driveNameList" ng-value=driver.id>{{driver.drive_name}}</option>
                 </select>
-                <label for="Refueling_belongs">加油所属</label>
             </div>
-            <div class="input-field col s4">
+            <div class="input-field col s3">
+                <select  id="truckNumber" style="width: 100%" ng-model="truckNum">
+                    <option value=""></option>
+                    <option ng-repeat="truckNumItem in truckNumListAll" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
+                </select>
+            </div>
+
+            <div class="input-field col s3">
                 <input type="text" ng-model="refueling_startTime" id="refueling_startTime" name="refueling_startTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
                 <label for="refueling_startTime">加油时间（始）</label>
             </div>
-            <div class="input-field col s4">
+            <div class="input-field col s3">
                 <input type="text" ng-model="refueling_endTime" id="refueling_endTime" name="refueling_endTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
                 <label for="refueling_endTime">终止时间</label>
-            </div>
-            <div class="input-field col s4">
-                <select material-select watch id="audit_status" name="audit_status" ng-model="currentStatus">
-                    <option value="" selected>请选择</option>
-                    <option value="1">待审核</option>
-                    <option value="2">已通过</option>
-                    <option value="3">已拒绝</option>
-                </select>
-                <label for="audit_status">审核状态</label>
             </div>
         </div>
         <div class="col s2 center">
@@ -49,48 +37,25 @@
             <table class=" bordered striped text_mid">
                 <thead class="blue-grey lighten-5">
                 <tr class="grey-text text-darken-2">
-                    <th width="280">申报时间</th>
-                    <th>车牌号</th>
-                    <th>司机</th>
-                    <th>加油时间</th>
-                    <th>加油所属</th>
-                    <th>加油量（升）</th>
-                    <th>加油金额</th>
-                    <th>操作</th>
+                    <th data-field="">司机</th>
+                    <th data-field="">货车牌号</th>
+                    <th data-field="">加油量</th>
+                    <th data-field="">加尿素量</th>
+                    <th data-field="">时间</th>
+                    <th data-field="">地点</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="el in car_refuel" class="grey-text text-darken-1">
-                    <td>{{el.created_on | date:'yyyy-MM-dd'}}</td>
-                    <td>{{el.truck_num}}</td>
                     <td>{{el.drive_name}}</td>
-                    <td>{{el.refuel_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                    <td ng-if="el.refuel_address_type==1">内部加油</td>
-                    <td ng-if="el.refuel_address_type==2">外部加油</td>
-                    <td>{{el.refuel_volume}}</td>
-                    <td>{{el.refuel_money}}</td>
-                    <td class="details vc-center" >
-                        <div class="col s12">
-                            <div class="col s4 right-align" style="padding: 0;">
-                                <a style="width: 35px;height: 35px;font-size: 0.9rem;line-height: 36px" class="btn btn-floating" ng-click="resolve(el.id)" ng-if="el.check_status==1" >
-                                    通过
-                                </a>
-                            </div>
-                            <div class="col s4">
-                                <a style="width: 35px;height: 35px;font-size: 0.9rem;line-height: 36px;margin-left: 15px" class="btn btn-floating red lighten-2" ng-click="reject(el.id)" ng-if="el.check_status==1" >
-                                    拒绝
-                                </a>
-                            </div>
-                            <div class="col s4">
-                                <a style="margin-left: 10px" ui-sref="instruction_car_refuel_details({id:el.id,from:'instruction_car_refuel'})" class="right-align">
-                                    <i class="mdi mdi-file-outline cyan-text lighten-1 fz21"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </td>
+                    <td>{{el.truck_num}}</td>
+                    <td>{{el.oil}}</td>
+                    <td>{{el.urea}}</td>
+                    <td>{{el.oil_date|date:'yyyy-MM-dd'}}</td>
+                    <td>{{el.oil_address}}</td>
                 </tr>
                 <tr class="grey-text text-darken-1" ng-if="car_refuel.length == 0">
-                    <td colspan="8"><span style="letter-spacing: 2px">暂无数据</span></td>
+                    <td colspan="6"><span style="letter-spacing: 2px">暂无数据</span></td>
                 </tr>
                 </tbody>
             </table>
@@ -110,32 +75,4 @@
             </div>
         </div>
     </div>
-
-
-</div>
-<div id="modal1" class="modal modal-fixed-footer" style="width: 65%;height: 290px">
-    <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-        <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
-            <h5 class="center-align" >拒绝原因</h5>
-        </div>
-
-        <div class="row col s12" style="margin-top:80px;width: 90%">
-            <div class="input-field col s12">
-                <input type="text" id="textarea1" ng-model="reject_reason_msg" class="materialize-textarea" maxlength="100">
-                <label for="textarea1"><span style="color: red">* </span>拒绝原因（100字以内）</label>
-            </div>
-        </div>
-
-        <div class="divider cyan" style="height: 2px;"></div>
-
-    </div>
-    <div class="row col s12 modal-footer right-align">
-        <a  class="btn-floating modal-action modal-close waves-effect waves-light grey lighten-1 btn"  >
-            <i class="mdi mdi-close"></i>
-        </a>
-        <button class="btn btn-floating waves-light waves-effect cyan lighten-1" ng-click="reject_reason()" style="margin-right: 10px" >
-            <i class="mdi mdi-check"></i>
-        </button>
-    </div>
-
 </div>

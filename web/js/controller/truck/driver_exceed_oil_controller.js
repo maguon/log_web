@@ -5,6 +5,49 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
     $scope.start = 0;
     $scope.size = 11;
     var userId = _basic.getSession(_basic.USER_ID);
+    $scope.dataTotal=[];
+    // monthPicker控件
+    $('#start_month').MonthPicker({
+        Button: false,
+        MonthFormat: 'yymm'
+    });
+    //获取上个月年月
+    function getLastMonth(){//获取上个月日期
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = date.getMonth();
+        if(month<10){
+            month ='0'+month;
+        }
+
+        if(month == 0){
+            year = year -1;
+            month = 12;
+        }
+        $scope.startMonth = year.toString()+month.toString();
+        $scope.addStartMonth = year.toString()+month.toString();
+    }
+    getLastMonth();
+
+    // 跳转
+    $scope.single = function () {
+        $('ul.tabWrap li').removeClass("active");
+        $(".tab_box").removeClass("active");
+        $(".tab_box").hide();
+        $('ul.tabWrap li.single ').addClass("active");
+        $("#single").addClass("active");
+        $("#single").show();
+    };
+    $scope.month = function () {
+        $('ul.tabWrap li').removeClass("active");
+        $(".tab_box").removeClass("active");
+        $(".tab_box").hide();
+        $('ul.tabWrap li.month ').addClass("active");
+        $("#month").addClass("active");
+        $("#month").show();
+        $scope.getExceedOilMonth();
+    };
+    $scope.single();
 
     //获取货车牌号
     function getTruckId() {
@@ -17,6 +60,16 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
                     allowClear: true
                 });
                 $('#addTruckNum').select2({
+                    placeholder: '货车牌号',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
+                $('#truckNumber').select2({
+                    placeholder: '货车牌号',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
+                $('#addTruckNumMonth').select2({
                     placeholder: '货车牌号',
                     containerCssClass: 'select2_dropdown',
                     allowClear: true
@@ -51,6 +104,18 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
                     containerCssClass : 'select2_dropdown',
                     allowClear: true
                 });
+                $('#driverName').select2({
+                    placeholder: '司机',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+                $('#addExceedOilDriverMonth').select2({
+                    placeholder: '司机',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+
+
             }
             else {
                 swal(data.msg, "", "error");
@@ -130,18 +195,24 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
         $scope.truckNumListAll=[];
         $scope.addTruckNum ='';
         getDriveNameList ();
-        getTruckId();
         $('#addExceedOilItem').modal('open');
     }
 
-    $scope.changeDrive =function (driver){
-
+    $scope.changeDriver = function (driver){
+        _basic.get($host.api_url + "/drive?driveId="+driver).then(function (data) {
+            if (data.success == true) {
+                $scope.addTruckNum = data.result[0].truck_id;
+                getTruckId();
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
     }
-
 
     //点击确定 增加完成
     $scope.addExceedOilItem = function (){
-        if ($scope.addExceedOilDriver !== '' && $scope.oilDate !== '') {
+        if ($scope.addExceedOilDriver !== '' && $scope.oilDate !== ''&&$scope.addTruckNum!=='') {
             _basic.post($host.api_url + "/user/" + userId + "/driveExceedOil", {
                 driveId:$scope.addExceedOilDriver,
                 truckId:$scope.addTruckNum,
@@ -154,6 +225,7 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
                     $state.go('driver_exceed_oil_detail', {
                         reload: true,
                         id:data.id,
+                        truckId:$scope.addTruckNum,
                         driveId:$scope.addExceedOilDriver,
                         from: 'driver_exceed_oil'
                     });
@@ -169,15 +241,182 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
     }
 
 
+    //打开新增模态框
+    $scope.addExceedOilMonth = function (){
+        $scope.addTruckNumMonth = '';
+        $scope.addExceedOilDriverMonth = '';
+        $scope.addStartMonth='';
+        $scope.driveNameList=[];
+        $scope.truckNumListAll=[];
+        $scope.addRemarkMonth ='';
+        getDriveNameList ();
+        $('#addExceedOilItemMonth').modal('open');
+        $('#add_start_month').MonthPicker({
+            Button: false,
+            MonthFormat: 'yymm'
+        });
+        getLastMonth();
+
+    }
+    $scope.changeDriverMonth = function (driver){
+        _basic.get($host.api_url + "/drive?driveId="+driver).then(function (data) {
+            if (data.success == true) {
+                $scope.addTruckNumMonth = data.result[0].truck_id;
+                getTruckId();
+                getDataTotal();
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
+    $scope.changeTruck =function (){
+        getDataTotal();
+    }
+
+    //查询按月份的总计划实际超量
+    function getDataTotal(){
+        $scope.addStartMonth = $('#add_start_month').val();
+        if ($scope.addExceedOilDriverMonth !== '' && $scope.addStartMonth !== '' && $scope.addTruckNumMonth !== '') {
+            var obj = {
+                yMonth: $scope.addStartMonth,
+                driveId: $scope.addExceedOilDriverMonth,
+                truckId: $scope.addTruckNumMonth,
+                oilStatus:2
+            };
+            //司机  核油日期
+            _basic.get($host.api_url + "/driveExceedOil?" + _basic.objToUrl(obj)).then(function (data) {
+                if (data.success === true && data.result.length >= 0) {
+                    if (data.result.length == 0) {
+                        $scope.dataTotal = [];
+                        swal('该司机下无任务,新增失败!', '', 'error');
+                    }
+                    else {
+                        $scope.dataTotal = data.result;
+                    }
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+            //统计
+            _basic.get($host.api_url + "/driveExceedOilTotal?" + _basic.objToUrl(obj)).then(function (data) {
+                if (data.success === true && data.result.length >= 0) {
+                    if (data.result.length == 0) {
+                        $scope.dataTotal = [];
+                    }
+                    else {
+                        $scope.dataTotalStatistics = data.result[0];
+                    }
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+
+        }
+        else {
+            swal("请填写完整信息！", "", "warning");
+        }
+    }
+
+    //点击确定 增加完成
+    $scope.addExceedOilItemMonth = function () {
+        if($scope.dataTotalStatistics.actual_money==''){
+            swal("请填写超量金额！", "", "warning");
+        }
+        else{
+            _basic.post($host.api_url + "/user/" + userId + "/driveExceedOilDate", {
+                monthDateId: $scope.addStartMonth,
+                driveId: $scope.addExceedOilDriverMonth,
+                truckId: $scope.addTruckNumMonth,
+                planOilTotal: $scope.dataTotalStatistics.plan_oil,
+                planUreaTotal: $scope.dataTotalStatistics.plan_urea,
+                actualOilTotal: $scope.dataTotalStatistics.actual_oil,
+                actualUreaTotal: $scope.dataTotalStatistics.actual_urea,
+                actualMoney:$scope.dataTotalStatistics.actual_money,
+                remark:$scope.addRemarkMonth
+            }).then(function (data) {
+                if (data.success === true) {
+                    $('#addExceedOilItemMonth').modal('close');
+                    getExceedOilDataMonth();
+                  /*  $state.go('driver_exceed_oil_month_detail', {
+                        reload: true,
+                        id: data.id,
+                        truckId: $scope.addTruckNumMonth,
+                        driveId: $scope.addExceedOilDriverMonth,
+                        from: 'driver_exceed_oil'
+                    });*/
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+
+            })
+        }
+
+    }
+
+
+
+    $scope.getExceedOilMonth =function (){
+        $scope.start = 0;
+        getExceedOilDataMonth();
+    }
+    function getExceedOilDataMonth(){
+        if($scope.driverName==undefined){
+            $scope.driverName='';
+        }
+        if($scope.truckNumber==undefined){
+            $scope.truckNumber='';
+        }
+        $scope.startMonth = $('#start_month').val();
+        var obj={
+            monthDateId:$scope.startMonth,
+            driveId:$scope.driverName,
+            truckId:$scope.truckNumber
+        }
+
+        //司机  核油日期
+        _basic.get($host.api_url + "/driveExceedOilDate?"+_basic.objToUrl(obj)).then(function (data) {
+            if (data.success === true) {
+                $scope.boxArrayMonth = data.result;
+                $scope.ExceedOilListMonth = $scope.boxArrayMonth.slice(0, 10);
+                if ($scope.start > 0) {
+                    $("#preM").show();
+                }
+                else {
+                    $("#preM").hide();
+                }
+                if (data.result.length < $scope.size) {
+                    $("#nextM").hide();
+                }
+                else {
+                    $("#nextM").show();
+                    }
+
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
+
+
+
+
+
     // 分页
     $scope.pre_btn = function () {
         $scope.start = $scope.start - ($scope.size-1);
         getExceedOilData();
+        getExceedOilDataMonth()
     };
 
     $scope.next_btn = function () {
         $scope.start = $scope.start + ($scope.size-1);
         getExceedOilData();
+        getExceedOilDataMonth()
     };
 
     /**
@@ -191,6 +430,7 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
         $scope.driveEndTime=conditions.oilDateEnd;
         $scope.search_company=conditions.companyId;
         $scope.truckNum=conditions.truckId;
+        $scope.dealStatus=conditions.oilStatus;
     }
 
     /**
@@ -203,7 +443,8 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
             oilDateStart:$scope.driveStartTime,
             oilDateEnd:$scope.driveEndTime,
             companyId:$scope.search_company,
-            truckId:$scope.truckNum
+            truckId:$scope.truckNum,
+            oilStatus:$scope.dealStatus
         };
     }
 
@@ -221,6 +462,7 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
                 $scope.size = pageItems.size;
                 // 将上次的检索条件设定到画面
                 setConditions(pageItems.conditions);
+                $scope.single();
             }
         } else {
             // 初始显示时，没有前画面，所以没有基本信息

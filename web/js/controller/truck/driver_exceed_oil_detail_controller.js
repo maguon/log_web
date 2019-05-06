@@ -2,27 +2,33 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
     var userId = _basic.getSession(_basic.USER_ID);
     var exceedOilId = $stateParams.id;
     var driveId = $stateParams.driveId;
-    $scope.truckId='';
-    $scope.addTruckId ='';
-
+    var truckId = $stateParams.truckId;
     // 返回
     $scope.return = function () {
         $state.go($stateParams.from,{from:"driver_exceed_oil_detail"}, {reload: true})
     };
 
-
-
     // 获取任务信息
     function getOilRel() {
-        //司机  核油日期   数量
-        _basic.get($host.api_url + "/driveExceedOil?exceedOilId="+exceedOilId).then(function (data) {
-            if (data.success === true) {
-                $scope.exceedOilItem = data.result[0];
-                $scope.exceedOilItem.drive_name= data.result[0].drive_name;
-                $scope.overOil=$scope.exceedOilItem.actual_oil - $scope.totalOil;
-                $scope.overUrea=$scope.exceedOilItem.actual_urea - $scope.totalUrea;
-                $scope.driveId= data.result[0].drive_id;
-                getDriveId($scope.driveId);
+        var obj={
+            exceedOilId:exceedOilId,
+            driveId:driveId,
+            truckId:truckId
+        }
+        //司机  核油日期
+        _basic.get($host.api_url + "/driveExceedOil?"+_basic.objToUrl(obj)).then(function (data) {
+            if (data.success === true&&data.result.length>=0) {
+                if(data.result.length==0){
+                    $scope.exceedOilItem =[];
+                }
+                else {
+                    $scope.exceedOilItem = data.result[0];
+                    $scope.exceedOilItem.drive_name= data.result[0].drive_name;
+                    $scope.overOil=$scope.exceedOilItem.actual_oil - $scope.totalOil;
+                    $scope.overUrea=$scope.exceedOilItem.actual_urea - $scope.totalUrea;
+                    $scope.driveId= data.result[0].drive_id;
+                    getDriveId($scope.driveId);
+                }
             }
             else {
                 swal(data.msg, "", "error");
@@ -31,18 +37,23 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
 
 
 
-        _basic.get($host.api_url + "/driveExceedOilRel?exceedOilId="+exceedOilId).then(function (data) {
-            if (data.success === true) {
-                $scope.totalOilActal=0;
-                $scope.totalUreaActal =0;
-                $scope.dataList = data.result;
-                for (var i = 0; i < $scope.dataList.length; i++) {
-                    $scope.totalOilActal = $scope.totalOilActal+$scope.dataList[i].oil;
-                    $scope.totalUreaActal = $scope.totalUreaActal+$scope.dataList[i].urea;
-
+        _basic.get($host.api_url + "/driveExceedOilRel?"+_basic.objToUrl(obj)).then(function (data) {
+            if (data.success === true&&data.result.length>=0) {
+                if(data.result.length==0){
+                    $scope.dataList =[];
+                    $scope.totalOilActal=0;
+                    $scope.totalUreaActal =0;
                 }
+                else {
+                    $scope.totalOilActal=0;
+                    $scope.totalUreaActal =0;
+                    $scope.dataList = data.result;
+                    for (var i = 0; i < $scope.dataList.length; i++) {
+                        $scope.totalOilActal = $scope.totalOilActal+$scope.dataList[i].oil;
+                        $scope.totalUreaActal = $scope.totalUreaActal+$scope.dataList[i].urea;
 
-
+                    }
+                }
             }
             else {
                 swal(data.msg, "", "error");
@@ -50,7 +61,7 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
         });
 
         // 未扣款任务
-        _basic.get($host.api_url + "/dpRouteTaskOilRel?settleStatus=1&driveId=" + driveId ).then(function (data) {
+        _basic.get($host.api_url + "/dpRouteTaskOilRel?settleStatus=1&driveId=" + driveId+'&truckId='+truckId).then(function (data) {
             if (data.success === true) {
                 $scope.unOilRelList = data.result;
             }
@@ -125,22 +136,6 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
                 }
             });
         }
-
-
-
-          /*  _basic.get($host.api_url + "/truckBase").then(function (data) {
-                if (data.success == true) {
-                    $scope.truckNumListAllList = data.result;
-                    $('#truckId').select2({
-                        placeholder: selectText,
-                        containerCssClass : 'select2_dropdown',
-                        allowClear: true
-                    })
-                }
-                else {
-                    swal(data.msg, "", "error");
-                }
-            });*/
     }
 
 
@@ -273,17 +268,16 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
         $scope.addUrea ='';
         $scope.addTime ='';
         $scope.addPlce ='';
-        $scope.truckId ='';
         $(".modal").modal();
         $("#addActData").modal("open");
         getTruckNum($scope.selectText);
     }
     $scope.addDataItem = function (){
-        if ($scope.addTime !== '' && $scope.addPlce !== ''&&$scope.truckId!==''&&$scope.truckId!==undefined) {
+        if ($scope.addTime !== '' && $scope.addPlce !== ''&&$scope.truckId!==undefined) {
             _basic.post($host.api_url + "/user/" + userId + "/driveExceedOilRel", {
                 "exceedOilId": exceedOilId,
                 "driveId": driveId,
-                "truckId": $scope.truckId,
+                "truckId": truckId,
                 "oilDate":  $scope.addTime,
                 "oilAddress":  $scope.addPlce,
                 "oil":  $scope.addOil,

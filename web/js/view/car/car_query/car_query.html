@@ -93,10 +93,10 @@
             <tr class="grey-text text-darken-2">
                 <th data-field="">VIN</th>
                 <th data-field="">制造商</th>
+                <th data-field="">委托方</th>
                 <th data-field="">发运地城市</th>
                 <th data-field="">发运地地址</th>
                 <th data-field="">目的地城市</th>
-                <th data-field="">委托方</th>
                 <th data-field="">经销商</th>
                 <th data-field="">指令时间</th>
                 <th>操作</th>
@@ -106,10 +106,10 @@
             <tr ng-repeat="response in responseData" class="grey-text text-darken-1">
                 <td>{{response.vin}}</td>
                 <td>{{response.make_name}}</td>
+                <td>{{response.en_short_name}}</td>
                 <td>{{response.route_start}}</td>
                 <td>{{response.addr_name}}</td>
                 <td>{{response.route_end}}</td>
-                <td>{{response.en_short_name}}</td>
                 <td>{{response.re_short_name}}</td>
                 <td>{{response.order_date | date:'yyyy-MM-dd'}}</td>
                 <td width="100" class="operation">

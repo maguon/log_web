@@ -16,6 +16,8 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
         _basic.get($host.api_url + "/driveSalary?driveSalaryId=" + salaryId).then(function (data) {
             if (data.success === true) {
                 $scope.salaryDetails = data.result[0];
+                $scope.salaryDetails.month_date_id = data.result[0].month_date_id;
+                $scope.salaryDetails.truck_id = data.result[0].truck_id;
                 $scope.salaryDetails.plan_salary=data.result[0].plan_salary;
                 $scope.planSalary=data.result[0].plan_salary;
                 $scope.socialSecurityFee = data.result[0].social_security_fee;
@@ -151,11 +153,15 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
 
     //获取超量扣款信息
     $scope.getExceedOilList = function (){
-
+        var obj={
+            monthDateId: $scope.salaryDetails.month_date_id,
+            driveId:driveId,
+            truckId: $scope.salaryDetails.truck_id
+        }
         // 未结超量扣款信息
-        _basic.get($host.api_url + "/driveExceedOil?driveId=" + driveId + "&settleStatus=1").then(function (data) {
+        _basic.get($host.api_url + "/driveExceedOilDate?settleStatus=1&"+_basic.objToUrl(obj)).then(function (data) {
             if (data.success === true) {
-                $scope.ExceedOilAccidentList = data.result;
+                $scope.OilRelList = data.result;
             }
             else {
                 swal(data.msg, "", "error");
@@ -163,13 +169,13 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
         });
 
         // 已结算超量扣款信息
-        _basic.get($host.api_url + "/driveSalaryExceedOilRel?driveSalaryId=" + salaryId).then(function (data) {
+        _basic.get($host.api_url + "/driveExceedOilDate?settleStatus=2&"+_basic.objToUrl(obj)).then(function (data) {
             if (data.success === true) {
+                $scope.exceedOilRelList = data.result;
                 $scope.ExceedOilAccidentPay = 0;
                 for (var i = 0; i < data.result.length; i++) {
                     $scope.ExceedOilAccidentPay += data.result[i].actual_money;
                 }
-                $scope.settledExceedOilList = data.result;
             }
             else {
                 swal(data.msg, "", "error");
@@ -384,7 +390,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
     $scope.addExceedOilAccident = function (OilId) {
         _basic.post($host.api_url + "/user/" + userId + "/driveSalaryExceedOilRel",{
             driveSalaryId: salaryId,
-            exceedOilId: OilId
+            exceedOilDateId: OilId
         }).then(function (data) {
             if (data.success === true) {
                 swal("操作成功", "", "success");
@@ -408,7 +414,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
         }).then(
             function(result){
                 if (result.value) {
-                    _basic.delete($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/exceedOil/" + OilId).then(function (data) {
+                    _basic.delete($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/exceedOilDate/" + OilId).then(function (data) {
                         if (data.success === true) {
                             $scope.getExceedOilList();
                         }

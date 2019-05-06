@@ -80,7 +80,7 @@ app.controller("car_refueling_statistics_controller", ["$scope", "$host", "_basi
         if (end === undefined) {
             end = $scope.endInitial
         }
-        _basic.get($host.api_url + "/driveOilMonthStat?settleStatus=2&monthStart=" + start + "&monthEnd=" + end).then(function (data) {
+        _basic.get($host.api_url + "/driveOilMonthStat?oilStatus=2&monthStart=" + start + "&monthEnd=" + end).then(function (data) {
             if (data.success === true) {
                 data.result.reverse();
                 // 货车加油X轴月份
@@ -104,7 +104,7 @@ app.controller("car_refueling_statistics_controller", ["$scope", "$host", "_basi
         });
 
 
-        _basic.get($host.api_url + "/driveUreaMonthStat?settleStatus=2&monthStart=" + start + "&monthEnd=" + end).then(function (data) {
+        _basic.get($host.api_url + "/driveUreaMonthStat?oilStatus=2&monthStart=" + start + "&monthEnd=" + end).then(function (data) {
             if (data.success === true) {
                 data.result.reverse();
                 // 货车加油X轴月份
@@ -127,7 +127,7 @@ app.controller("car_refueling_statistics_controller", ["$scope", "$host", "_basi
         });
 
 
-        _basic.get($host.api_url + "/driveOilMoneyMonthStat?settleStatus=2&monthStart=" + start + "&monthEnd=" + end).then(function (data) {
+        _basic.get($host.api_url + "/driveOilMoneyMonthStat?monthStart=" + start + "&monthEnd=" + end).then(function (data) {
             if (data.success === true) {
                 data.result.reverse();
                 // 货车加油X轴月份
@@ -153,7 +153,7 @@ app.controller("car_refueling_statistics_controller", ["$scope", "$host", "_basi
 
     // 获取货车加油按周统计信息
     $scope.getTruckRefuelingWeekInfo = function () {
-        _basic.get($host.api_url + "/driveOilWeekStat?settleStatus=2&start=0&size=10").then(function (data) {
+        _basic.get($host.api_url + "/driveOilWeekStat?oilStatus=2&start=0&size=10").then(function (data) {
             if (data.success === true) {
                 data.result.reverse();
                 // 货车加油X轴周数
@@ -177,7 +177,7 @@ app.controller("car_refueling_statistics_controller", ["$scope", "$host", "_basi
                 swal(data.msg, "", "error");
             }
         });
-        _basic.get($host.api_url + "/driveUreaWeekStat?settleStatus=2&start=0&size=10").then(function (data) {
+        _basic.get($host.api_url + "/driveUreaWeekStat?oilStatus=2&start=0&size=10").then(function (data) {
             if (data.success === true) {
                 data.result.reverse();
                 // 货车加油X轴周数
@@ -202,7 +202,7 @@ app.controller("car_refueling_statistics_controller", ["$scope", "$host", "_basi
                 swal(data.msg, "", "error");
             }
         });
-        _basic.get($host.api_url + "/driveOilMoneyWeekStat?settleStatus=2&start=0&size=10").then(function (data) {
+        _basic.get($host.api_url + "/driveOilMoneyWeekStat?start=0&size=10").then(function (data) {
             if (data.success === true) {
                 data.result.reverse();
                 // 货车加油X轴周数

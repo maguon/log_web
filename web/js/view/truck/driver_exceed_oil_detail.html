@@ -80,30 +80,30 @@
         <div class="row col" style="width: 80%;height: 270px">
 
             <!--尿素 油-->
-            <div class="col s6 input-field">
+            <div class="col s4 input-field">
                 <input id="addOil" type="number"  ng-model="addOil">
                 <label for="addOil">实际加油量(L)</label>
             </div>
-            <div class="col s6 input-field">
+            <div class="col s4 input-field">
                 <input id="addUrea" type="number"  ng-model="addUrea">
                 <label for="addUrea">实际加尿素量</label>
             </div>
-
+            <div class="input-field col s4">
+                <input type="text" ng-model="addTime" id="addTime" name="addTime"  class="datepicker" autocomplete="off"    date><i class="mdi dataIcon mdi-table-large"></i>
+                <label for="addTime">加油时间</label>
+            </div>
 
             <!--时间   地点  -->
 
-            <div class="col s12"  style="height: 70px">
+          <!--  <div class="col s12"  style="height: 70px">
                 <div class="input-field col s6">
                     <select  material-select watch ng-model="truckId" id='truckId'   style="width: 100%">
                         <option value="" selected disabled>请选择</option>
                         <option ng-repeat="el in truckNumListAllList" ng-value="el.id">{{el.truck_num}}</option>
                     </select>
                 </div>
-                <div class="input-field col s6">
-                    <input type="text" ng-model="addTime" id="addTime" name="addTime"  class="datepicker" autocomplete="off"    date><i class="mdi dataIcon mdi-table-large"></i>
-                    <label for="addTime">加油时间</label>
-                </div>
-            </div>
+
+            </div>-->
             <div class="col s12"  style="height: 70px">
                 <div class="input-field col s12">
                     <input type="text" ng-model="addPlce" id="addPlce" name="addPlce">
@@ -133,8 +133,11 @@
     <div class="col s12" >
         <div class="col s12 cyan_border" style="background-color: #f8f9fd;color: darkgray;font-weight: bold;font-size: 1.2rem;margin-bottom: 30px">
             <div class="col s12 valign-wrapper" style="padding: 0;">
-                <div class="col s5 s6 left-align">
+                <div class="col s2 left-align">
                     <p class="cyan-text" >司机:{{exceedOilItem.drive_name}}</p>
+                </div>
+                <div class="col s4 left-align">
+                    <p class="cyan-text" >货车牌号:{{exceedOilItem.truck_num}}</p>
                 </div>
                 <div class="col s6 right-align">
                     <p class="grey-text" >核油日期:{{exceedOilItem.oil_date|date:'yyyy-MM-dd'}}</p>
@@ -162,7 +165,6 @@
                 <thead class="blue-grey lighten-5">
                 <tr class="grey-text text-darken-2">
                     <th data-field="">调度编号</th>
-                    <th data-field="">货车</th>
                     <th data-field="">路线</th>
                     <th data-field="">计划执行时间</th>
                     <th data-field="">里程</th>
@@ -176,7 +178,6 @@
                 <tbody>
                 <tr ng-repeat="oil in unOilRelList" class="grey-text text-darken-1">
                     <td>{{oil.dp_route_task_id}}</td>
-                    <td>{{oil.truck_num}}</td>
                     <td>{{oil.route_start + " - " + oil.route_end}}</td>
                     <td>{{oil.task_plan_date|date:'yyyy-MM-dd'}}</td>
                     <td>{{oil.distance}}</td>
@@ -193,7 +194,7 @@
                     </td>
                 </tr>
                 <tr ng-if="unsettledSalaryList.length==0">
-                    <td colspan="10">暂无数据</td>
+                    <td colspan="9">暂无数据</td>
                 </tr>
                 </tbody>
             </table>
@@ -216,7 +217,6 @@
                 <thead class="blue-grey lighten-5">
                 <tr class="grey-text text-darken-2">
                     <th data-field="">调度编号</th>
-                    <th data-field="">货车</th>
                     <th data-field="">路线</th>
                     <th data-field="">计划执行时间</th>
                     <th data-field="">里程</th>
@@ -230,7 +230,6 @@
                 <tbody>
                 <tr ng-repeat="oil in OilRelList" class="grey-text text-darken-1">
                     <td>{{oil.dp_route_task_id}}</td>
-                    <td>{{oil.truck_num}}</td>
                     <td>{{oil.route_start + " - " + oil.route_end}}</td>
                     <td>{{oil.task_plan_date|date:'yyyy-MM-dd'}}</td>
                     <td>{{oil.distance}}</td>
@@ -245,7 +244,7 @@
                     </td>
                 </tr>
                 <tr ng-if="settledSalaryList.length==0">
-                    <td colspan="7">暂无数据</td>
+                    <td colspan="9">暂无数据</td>
                 </tr>
                 </tbody>
             </table>
@@ -266,7 +265,6 @@
         <table class=" bordered striped text_mid">
             <thead class="blue-grey lighten-5">
             <tr class="grey-text text-darken-2">
-                <th data-field="">货车</th>
                 <th data-field="">加油量</th>
                 <th data-field="">加尿素量</th>
                 <th data-field="">时间</th>
@@ -277,7 +275,6 @@
             </thead>
             <tbody>
             <tr ng-repeat="oil in dataList" class="grey-text text-darken-1">
-                <td>{{oil.truck_num}}</td>
                 <td>{{oil.oil}}</td>
                 <td>{{oil.urea}}</td>
                 <td>{{oil.oil_date|date:'yyyy-MM-dd'}}</td>
@@ -287,7 +284,7 @@
                 </td>
             </tr>
             <tr ng-if="dataList.length==0">
-                <td colspan=6">暂无数据</td>
+                <td colspan=5">暂无数据</td>
             </tr>
             </tbody>
         </table>
@@ -296,7 +293,7 @@
 
     <!--计划实际油量尿素 金额-->
     <div class="col s12 valign-wrapper" style="font-weight: bold;">
-        <div class="col s6 cyan-text">
+        <div class="col s4 cyan-text">
             <div class="col s6" style="padding: 0;">
                 <p>计划用油量：<span class="red-text" >{{totalOil |number:2}}</span> L</p>
             </div>
@@ -304,7 +301,7 @@
                 <p>计划尿素量：<span class="red-text" >{{totalUrea|number:2}}</span> </p>
             </div>
         </div>
-        <div class="col s6 cyan-text">
+        <div class="col s4 cyan-text">
             <div class="col s6 input-field">
                 <p>超量油：<span class="red-text" >{{totalOilActal-totalOil|number:2}}</span> L</p>
             </div>
@@ -312,8 +309,17 @@
                 <p>超量尿素：<span class="red-text" >{{totalUreaActal-totalUrea|number:2}}</span> </p>
             </div>
         </div>
+        <div class="col s4 cyan-text">
+            <div class="col s6" style="padding: 0;">
+                <p>实际用油量：<span class="red-text" >{{totalOilActal |number:2}}</span> L</p>
+            </div>
+            <div class="col s6" style="padding: 0;">
+                <p>实际尿素量：<span class="red-text" >{{totalUreaActal|number:2}}</span> </p>
+            </div>
+
+        </div>
     </div>
-    <div class="col s12 valign-wrapper" style="font-weight: bold;">
+   <!-- <div class="col s12 valign-wrapper" style="font-weight: bold;">
         <div class="col s6 cyan-text">
             <div class="col s6" style="padding: 0;">
                 <p>实际用油量：<span class="red-text" >{{totalOilActal |number:2}}</span> L</p>
@@ -335,7 +341,7 @@
         </div>
 
 
-    </div>
+    </div>-->
 
     <!--备注-->
     <div class="col s12 valign-wrapper" style="font-weight: bold; ">

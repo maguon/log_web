@@ -340,13 +340,6 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
                 if (data.success === true) {
                     $('#addExceedOilItemMonth').modal('close');
                     getExceedOilDataMonth();
-                  /*  $state.go('driver_exceed_oil_month_detail', {
-                        reload: true,
-                        id: data.id,
-                        truckId: $scope.addTruckNumMonth,
-                        driveId: $scope.addExceedOilDriverMonth,
-                        from: 'driver_exceed_oil'
-                    });*/
                 }
                 else {
                     swal(data.msg, "", "error");
@@ -357,29 +350,41 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
 
     }
 
-
-
     $scope.getExceedOilMonth =function (){
         $scope.start = 0;
         getExceedOilDataMonth();
     }
     function getExceedOilDataMonth(){
-        if($scope.driverName==undefined){
-            $scope.driverName='';
+        // 基本检索URL
+        var url = $host.api_url + "/driveExceedOilDate?start=" + $scope.start + "&size=" + $scope.size;
+        // 检索条件
+        if($('#start_month').val()!==''){
+            $scope.startMonth = $('#start_month').val();
         }
-        if($scope.truckNumber==undefined){
-            $scope.truckNumber='';
-        }
-        $scope.startMonth = $('#start_month').val();
-        var obj={
+
+        var conditionsObj = {
             monthDateId:$scope.startMonth,
             driveId:$scope.driverName,
             truckId:$scope.truckNumber
-        }
+        };
+        var conditions = _basic.objToUrl(conditionsObj);
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
 
-        //司机  核油日期
-        _basic.get($host.api_url + "/driveExceedOilDate?"+_basic.objToUrl(obj)).then(function (data) {
-            if (data.success === true) {
+        _basic.get(url).then(function (data) {
+
+            if (data.success == true) {
+                // 当前画面的检索信息
+                var pageItems = {
+                    pageId: "driver_exceed_oil",
+                    start: $scope.start,
+                    size: $scope.size,
+                    conditions: conditionsObj
+                };
+                // 将当前画面的条件
+                $rootScope.refObj = {pageArrayMonth: []};
+                $rootScope.refObj.pageArrayMonth.push(pageItems);
+
                 $scope.boxArrayMonth = data.result;
                 $scope.ExceedOilListMonth = $scope.boxArrayMonth.slice(0, 10);
                 if ($scope.start > 0) {
@@ -448,11 +453,17 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
         };
     }
 
+    function setConditionsMonth(conditions) {
+        $scope.startMonth=conditions.monthDateId;
+        $scope.driverName=conditions.driveId;
+        $scope.truckNumber=conditions.truckId;
+     }
 
     /**
      * 画面初期显示时，用来获取画面必要信息的初期方法。
      */
     function initData() {
+
         // 如果是从后画面跳回来时，取得上次检索条件
         if ($stateParams.from === "driver_exceed_oil_detail" && $rootScope.refObj !== undefined && $rootScope.refObj.pageArray.length > 0) {
             var pageItems = $rootScope.refObj.pageArray.pop();
@@ -464,7 +475,21 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
                 setConditions(pageItems.conditions);
                 $scope.single();
             }
-        } else {
+        }
+        // 如果是从后画面跳回来时，取得上次检索条件
+       else if ($stateParams.from === "driver_exceed_oil_month_detail" && $rootScope.refObj !== undefined && $rootScope.refObj.pageArrayMonth.length > 0) {
+            var pageItems = $rootScope.refObj.pageArrayMonth.pop();
+            if (pageItems.pageId === "driver_exceed_oil") {
+                // 设定画面翻页用数据
+                $scope.start = pageItems.start;
+                $scope.size = pageItems.size;
+                // 将上次的检索条件设定到画面
+                setConditionsMonth(pageItems.conditions);
+                $scope.month();
+            }
+        }
+
+        else {
             // 初始显示时，没有前画面，所以没有基本信息
             $rootScope.refObj = {pageArray: []};
         }

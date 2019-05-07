@@ -80,19 +80,19 @@
         <div class="row col" style="width: 80%;height: 270px">
 
             <!--尿素 油-->
-            <div class="col s3 input-field">
+            <div class="input-field col" style="width: 20%">
                 <input id="addOil" type="number"  ng-model="addOil">
                 <label for="addOil">实际加油量(L)</label>
             </div>
-            <div class="col s3 input-field">
+            <div class="input-field col" style="width: 20%">
                 <input id="addUrea" type="number"  ng-model="addUrea">
                 <label for="addUrea">实际加尿素量</label>
             </div>
-            <div class="input-field col s3">
+            <div class="input-field col" style="width: 20%">
                 <input type="text" ng-model="addTime" id="addTime" name="addTime"  class="datepicker" autocomplete="off"    date><i class="mdi dataIcon mdi-table-large"></i>
                 <label for="addTime">加油时间</label>
             </div>
-            <div class="input-field col s3">
+            <div class="input-field col" style="width: 20%">
                 <select  material-select watch ng-model="addType">
                     <option value="" selected disabled>请选择</option>
                     <option value="1">内部</option>
@@ -100,12 +100,16 @@
                 </select>
                 <label>加油方式</label>
             </div>
-            <div class="col s12"  style="height: 70px">
-                <div class="input-field col s12">
-                    <input type="text" ng-model="addPlce" id="addPlce" name="addPlce">
-                    <label for="addPlce">加油地点</label>
-                </div>
+            <div class="input-field col" style="width: 20%">
+                <input id="actalMoney" type="number"  ng-model="actalMoney">
+                <label for="actalMoney">金额</label>
             </div>
+
+            <div class="input-field col s12" style="height: 70px">
+                <input type="text" ng-model="addPlce" id="addPlce" name="addPlce">
+                <label for="addPlce">加油地点</label>
+            </div>
+
         </div>
     </div>
 
@@ -264,6 +268,7 @@
                 <th data-field="">加油量</th>
                 <th data-field="">加尿素量</th>
                 <th data-field="">加油方式</th>
+                <th data-field="">金额</th>
                 <th data-field="">时间</th>
                 <th data-field="">地点</th>
                 <th data-field=""  ng-hide="exceedOilItem.oil_status == 2 ||exceedOilItem.settle_status == 2">操作</th>
@@ -276,6 +281,7 @@
                 <td>{{oil.urea}}</td>
                 <td ng-if="oil.oil_address_type==1">内部</td>
                 <td ng-if="oil.oil_address_type==2">外部</td>
+                <td>{{oil.oil_money}}</td>
                 <td>{{oil.oil_date|date:'yyyy-MM-dd'}}</td>
                 <td>{{oil.oil_address}}</td>
                 <td ng-hide="exceedOilItem.oil_status == 2 ||exceedOilItem.settle_status == 2">
@@ -283,7 +289,7 @@
                 </td>
             </tr>
             <tr ng-if="dataList.length==0">
-                <td colspan=6">暂无数据</td>
+                <td colspan=7">暂无数据</td>
             </tr>
             </tbody>
         </table>

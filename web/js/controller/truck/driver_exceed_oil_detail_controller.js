@@ -269,12 +269,13 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
         $scope.addTime ='';
         $scope.addPlce ='';
         $scope.addType='';
+        $scope.actalMoney ='';
         $(".modal").modal();
         $("#addActData").modal("open");
         getTruckNum($scope.selectText);
     }
     $scope.addDataItem = function (){
-        if ($scope.addTime !== '' && $scope.addPlce !== ''&&$scope.truckId!==undefined&& $scope.addType!=='') {
+        if ($scope.addTime !== '' && $scope.addPlce !== ''&&$scope.truckId!==undefined&& $scope.addType!==''&&$scope.actalMoney!=='') {
             _basic.post($host.api_url + "/user/" + userId + "/driveExceedOilRel", {
                 "exceedOilId": exceedOilId,
                 "driveId": driveId,
@@ -282,6 +283,7 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
                 "oilDate":  $scope.addTime,
                 'oilAddressType':$scope.addType,
                 "oilAddress":  $scope.addPlce,
+                'oilMoney': $scope.actalMoney,
                 "oil":  $scope.addOil,
                 "urea": $scope.addUrea
             }).then(function (data) {

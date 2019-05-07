@@ -67,6 +67,8 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
             status: $scope.receive_status,
             cleanDateStart: $scope.receiveTimeStart,
             cleanDateEnd: $scope.receiveTimeEnd,
+            loadDateStart:$scope.loadDateStart,
+            loadDateEnd:$scope.loadDateEnd,
             start:$scope.start.toString(),
             size:$scope.size
         })).then(function (data) {
@@ -91,7 +93,26 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
             }
         });
     };
+    // 数据导出
+    $scope.export = function () {
+        // 基本检索URL
+        var url = $host.api_url + "/dpRouteLoadTaskCleanRel.csv?" ;
 
+        var conditions = _basic.objToUrl({
+            loadTaskCleanRelId: $scope.instructionNum,
+            driveName: $scope.driver,
+            routeEndId: $scope.destinationCity,
+            receiveId: $scope.distributor,
+            status: $scope.receive_status,
+            cleanDateStart: $scope.receiveTimeStart,
+            cleanDateEnd: $scope.receiveTimeEnd,
+            loadDateStart:$scope.loadDateStart,
+            loadDateEnd:$scope.loadDateEnd
+        });
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
+        window.open(url);
+    };
     // 分页
     $scope.previous_page = function () {
         $scope.start = $scope.start - ($scope.size-1);

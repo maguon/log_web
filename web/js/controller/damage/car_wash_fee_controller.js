@@ -100,7 +100,17 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
             }
         });
     };
-
+    // 数据导出
+    $scope.export = function () {
+        // 基本检索URL
+        var url = $host.api_url + "/dpRouteLoadTaskCleanRel.csv?" ;
+        // 检索条件
+        var conditionsObj = makeConditions();
+        var conditions = _basic.objToUrl(conditionsObj);
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
+        window.open(url);
+    };
 
     /**
      * 设置检索条件。
@@ -114,6 +124,8 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
         $scope.receive_status=conditions.status;
         $scope.receiveTimeStart=conditions.cleanDateStart;
         $scope.receiveTimeEnd=conditions.cleanDateEnd;
+        $scope.loadDateStart=conditions.loadDateStart;
+        $scope.loadDateEnd=conditions.loadDateEnd;
     }
 
     /**
@@ -127,7 +139,9 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
             receiveId: $scope.distributor,
             status: $scope.receive_status,
             cleanDateStart: $scope.receiveTimeStart,
-            cleanDateEnd: $scope.receiveTimeEnd
+            cleanDateEnd: $scope.receiveTimeEnd,
+            loadDateStart:$scope.loadDateStart,
+            loadDateEnd:$scope.loadDateEnd
         };
     }
 

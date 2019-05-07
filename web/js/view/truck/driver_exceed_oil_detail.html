@@ -80,30 +80,26 @@
         <div class="row col" style="width: 80%;height: 270px">
 
             <!--尿素 油-->
-            <div class="col s4 input-field">
+            <div class="col s3 input-field">
                 <input id="addOil" type="number"  ng-model="addOil">
                 <label for="addOil">实际加油量(L)</label>
             </div>
-            <div class="col s4 input-field">
+            <div class="col s3 input-field">
                 <input id="addUrea" type="number"  ng-model="addUrea">
                 <label for="addUrea">实际加尿素量</label>
             </div>
-            <div class="input-field col s4">
+            <div class="input-field col s3">
                 <input type="text" ng-model="addTime" id="addTime" name="addTime"  class="datepicker" autocomplete="off"    date><i class="mdi dataIcon mdi-table-large"></i>
                 <label for="addTime">加油时间</label>
             </div>
-
-            <!--时间   地点  -->
-
-          <!--  <div class="col s12"  style="height: 70px">
-                <div class="input-field col s6">
-                    <select  material-select watch ng-model="truckId" id='truckId'   style="width: 100%">
-                        <option value="" selected disabled>请选择</option>
-                        <option ng-repeat="el in truckNumListAllList" ng-value="el.id">{{el.truck_num}}</option>
-                    </select>
-                </div>
-
-            </div>-->
+            <div class="input-field col s3">
+                <select  material-select watch ng-model="addType">
+                    <option value="" selected disabled>请选择</option>
+                    <option value="1">内部</option>
+                    <option value="2">外部</option>
+                </select>
+                <label>加油方式</label>
+            </div>
             <div class="col s12"  style="height: 70px">
                 <div class="input-field col s12">
                     <input type="text" ng-model="addPlce" id="addPlce" name="addPlce">
@@ -267,6 +263,7 @@
             <tr class="grey-text text-darken-2">
                 <th data-field="">加油量</th>
                 <th data-field="">加尿素量</th>
+                <th data-field="">加油方式</th>
                 <th data-field="">时间</th>
                 <th data-field="">地点</th>
                 <th data-field=""  ng-hide="exceedOilItem.oil_status == 2 ||exceedOilItem.settle_status == 2">操作</th>
@@ -277,6 +274,8 @@
             <tr ng-repeat="oil in dataList" class="grey-text text-darken-1">
                 <td>{{oil.oil}}</td>
                 <td>{{oil.urea}}</td>
+                <td ng-if="oil.oil_address_type==1">内部</td>
+                <td ng-if="oil.oil_address_type==2">外部</td>
                 <td>{{oil.oil_date|date:'yyyy-MM-dd'}}</td>
                 <td>{{oil.oil_address}}</td>
                 <td ng-hide="exceedOilItem.oil_status == 2 ||exceedOilItem.settle_status == 2">
@@ -284,7 +283,7 @@
                 </td>
             </tr>
             <tr ng-if="dataList.length==0">
-                <td colspan=5">暂无数据</td>
+                <td colspan=6">暂无数据</td>
             </tr>
             </tbody>
         </table>
@@ -319,29 +318,6 @@
 
         </div>
     </div>
-   <!-- <div class="col s12 valign-wrapper" style="font-weight: bold;">
-        <div class="col s6 cyan-text">
-            <div class="col s6" style="padding: 0;">
-                <p>实际用油量：<span class="red-text" >{{totalOilActal |number:2}}</span> L</p>
-            </div>
-            <div class="col s6" style="padding: 0;">
-                <p>实际尿素量：<span class="red-text" >{{totalUreaActal|number:2}}</span> </p>
-            </div>
-
-        </div>
-
-        <div class="col s6 cyan-text">
-            <div class="col s12 cyan-text left-align"  ng-hide="exceedOilItem.oil_status !== 2&&exceedOilItem.settle_status !== 2" style="font-weight: bold;">
-                <p>超量金额：<span class="red-text" >{{exceedOilItem.actual_money|number:2}}</span> 元</p>
-            </div>
-            <div class="col s12 input-field left-align" ng-hide="exceedOilItem.oil_status == 2 ||exceedOilItem.settle_status == 2" >
-                <input style="font-size: 2rem;color: rgb(230,123,123)" type="number" id="should_pay" name="should_pay" ng-model="exceedOilItem.actual_money">
-                <label class="{{exceedOilItem.actual_money != null ? 'active' : 'inactive'}}" for="should_pay"><span style="color: red">* </span>超量金额(元)</label>
-            </div>
-        </div>
-
-
-    </div>-->
 
     <!--备注-->
     <div class="col s12 valign-wrapper" style="font-weight: bold; ">

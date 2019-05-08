@@ -45,15 +45,18 @@
         <div class="row col" style="width: 80%;height: 300px;">
             <div class="col s12">
                 <div class="input-field col s4" >
-                    <input id="add_start_month" type="text" ng-model="addStartMonth" />
-                    <label class="active" for="add_start_month">月份</label>
+                    <input id="add_start_month" type="text" ng-model="addStartMonth" disabled />
+                    <label for="add_start_month">月份</label>
                 </div>
                 <!--司机 -->
                 <div class="col s4 input-field" style="height: 70px">
-                    <select id="addExceedOilDriverMonth"  ng-change="changeDriverMonth(addExceedOilDriverMonth)"  ng-model="addExceedOilDriverMonth" style="width: 100%" >
+                    <input id="addExceedOilDriverNameMonth" type="text" ng-model="addExceedOilDriverNameMonth" disabled />
+                    <label for="addExceedOilDriverNameMonth">司机</label>
+
+                   <!-- <select id="addExceedOilDriverMonth"  ng-change="changeDriverMonth(addExceedOilDriverMonth)"  ng-model="addExceedOilDriverMonth" style="width: 100%" >
                         <option value="">请选择</option>
                         <option ng-repeat="driver in driveNameList" ng-value='driver.id'>{{driver.drive_name}}&nbsp;({{driver.company_name}})</option>
-                    </select>
+                    </select>-->
                 </div>
 
                 <!--货车牌号-->
@@ -250,17 +253,24 @@
         <div class="row grey-text text-darken-1">
             <div class="col s10" style="margin-top: 20px">
                 <div class="col s12">
-                    <div class="col s4 input-field">
+                    <div class="col s3 input-field">
                         <input id="start_month" type="text" ng-value="startMonth">
                         <label class="active" for="start_month">月份</label>
                     </div>
-                    <div class="col s4 input-field">
+                    <div class="input-field col s3">
+                        <select id="truck_company" name="truck_company" material-select watch ng-model="companyId" required>
+                            <option value="">请选择</option>
+                            <option ng-repeat="el in companyList" ng-value="el.id">{{el.company_name}}</option>
+                        </select>
+                        <label for="truck_company">所属公司</label>
+                    </div>
+                    <div class="col s3 input-field">
                         <select material-select watch ng-model="driverName" id="driverName" style="width: 100%" >
                             <option value="" selected>司机</option>
                             <option ng-repeat="driver in driveNameList" ng-value=driver.id>{{driver.drive_name}}</option>
                         </select>
                     </div>
-                    <div class="input-field col s4">
+                    <div class="input-field col s3">
                         <select  id="truckNumber" style="width: 100%" ng-model="truckNumber">
                             <option value=""></option>
                             <option ng-repeat="truckNumItem in truckNumListAll" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
@@ -277,9 +287,10 @@
                         <i class="mdi mdi-magnify"></i>
                     </a>
                 </div>
+
                 <div class="col s6 center-align">
-                    <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2  btn vc-center"  ng-click="addExceedOilMonth()">
-                        <i class="mdi mdi-plus"></i>
+                    <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="exportMonth()">
+                        <i class="mdi mdi-cloud-download"></i>
                     </a>
                 </div>
             </div>
@@ -298,6 +309,7 @@
                     <th data-field="">超油量</th>
                     <th data-field="">超尿素量</th>
                     <th data-field="">超量金额</th>
+                    <th data-field="">工资扣款</th>
                     <th>操作</th>
                 </tr>
                 </thead>
@@ -306,20 +318,26 @@
                     <td>{{ExceedOilInfo.id}}</td>
                     <td>{{ExceedOilInfo.drive_name}}</td>
                     <td>{{ExceedOilInfo.truck_num}}</td>
-                    <td>{{ExceedOilInfo.month_date_id}}</td>
-                    <td>{{ExceedOilInfo.plan_oil_total}}/{{ExceedOilInfo.actual_oil_total}}</td>
-                    <td>{{ExceedOilInfo.plan_urea_total}}/{{ExceedOilInfo.actual_urea_total}}</td>
-                    <td>{{ExceedOilInfo.actual_oil_total-ExceedOilInfo.plan_oil_total}}</td>
-                    <td>{{ExceedOilInfo.actual_urea_total-ExceedOilInfo.plan_urea_total}}</td>
+                    <td>{{ExceedOilInfo.y_month}}</td>
+                    <td>{{ExceedOilInfo.plan_oil}}/{{ExceedOilInfo.actual_oil}}</td>
+                    <td>{{ExceedOilInfo.plan_urea}}/{{ExceedOilInfo.actual_urea}}</td>
+                    <td>{{ExceedOilInfo.actual_oil-ExceedOilInfo.plan_oil}}</td>
+                    <td>{{ExceedOilInfo.actual_urea-ExceedOilInfo.plan_urea}}</td>
                     <td>{{ExceedOilInfo.actual_money}}</td>
+                    <td ng-if="ExceedOilInfo.settle_status==null"></td>
+                    <td ng-if="ExceedOilInfo.settle_status==1" class="red-text">未扣</td>
+                    <td ng-if="ExceedOilInfo.settle_status==2">已扣</td>
                     <td  class="operation">
-                        <a ui-sref="driver_exceed_oil_month_detail({id:ExceedOilInfo.id,driveId:ExceedOilInfo.drive_id,truckId:ExceedOilInfo.truck_id,from:'driver_exceed_oil'})" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
+                        <a ng-show="ExceedOilInfo.id!==null"  ui-sref="driver_exceed_oil_month_detail({id:ExceedOilInfo.id,driveId:ExceedOilInfo.drive_id,truckId:ExceedOilInfo.truck_id,from:'driver_exceed_oil'})" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
                             <i class="mdi mdi-file-document" style="margin: 0"></i>
+                        </a>
+                        <a ng-show="ExceedOilInfo.id==null" class="btn-floating btn-small waves-light waves-effect cyan lighten-2  btn vc-center"  ng-click="addExceedOilMonth(ExceedOilInfo)">
+                            <i class="mdi mdi-plus"></i>
                         </a>
                     </td>
                 </tr>
                 <tr ng-if="ExceedOilListMonth.length==0">
-                    <td colspan="10">暂无数据</td>
+                    <td colspan="11">暂无数据</td>
                 </tr>
                 </tbody>
             </table>

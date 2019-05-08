@@ -49,7 +49,6 @@
                     <th data-field="">计划/实际尿素量</th>
                     <th data-field="">超油量</th>
                     <th data-field="">超尿素量</th>
-                    <th data-field="">超量金额</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -60,10 +59,9 @@
                     <td>{{oil.plan_urea}}/{{oil.actual_urea}}</td>
                     <td>{{oil.exceed_oil}}</td>
                     <td>{{oil.exceed_urea}}</td>
-                    <td>{{oil.actual_money}}</td>
                 </tr>
                 <tr ng-if="OilRelList.length==0">
-                    <td colspan="7">暂无数据</td>
+                    <td colspan="6">暂无数据</td>
                 </tr>
                 </tbody>
             </table>

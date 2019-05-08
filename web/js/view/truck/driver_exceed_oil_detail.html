@@ -280,8 +280,8 @@
                 <td>{{oil.oil}}</td>
                 <td>{{oil.urea}}</td>
                 <td ng-if="oil.oil_address_type==1">内部</td>
-                <td ng-if="oil.oil_address_type==2">外部</td>
-                <td>{{oil.oil_money}}</td>
+                <td ng-if="oil.oil_address_type!==1">外部</td>
+                <td>{{oil.oil_money==null?0:oil.oil_money}}</td>
                 <td>{{oil.oil_date|date:'yyyy-MM-dd'}}</td>
                 <td>{{oil.oil_address}}</td>
                 <td ng-hide="exceedOilItem.oil_status == 2 ||exceedOilItem.settle_status == 2">

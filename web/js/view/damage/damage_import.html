@@ -1,0 +1,110 @@
+<div class="modal-content grey-text text-darken-2">
+
+        <!--导入质损文件-->
+        <div id="importFile">
+
+            <!--按钮 第一行-->
+            <div class="row">
+                <form name="file_upload_form " id="file_upload_form" >
+                    <div class="col s4">
+                        <div class="row">
+                            <div class="file-field  input-field ">
+                                <a href="/assets/质损导入模板.csv" target="_blank" class="btn center-align waves-effect circle_button" >下载模板格式</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s5 offset-s3">
+                        <div class="col s4"></div>
+                        <div class="col s4"></div>
+                        <div class="col s4">
+                            <div class="row">
+                                <div class="file-field input-field">
+                                    <div class="btn cyan lighten-2 circle_button">
+                                        <span>批量数据导入</span>
+                                        <input type="file" style="font-size: 80px;height:45px;"  name="file" accept="text/csv" onchange='angular.element(this).scope().fileChange(this)' >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!--大图-->
+            <div class="row">
+                <div class="col s12">
+                    <div class="col s12 tableBox" ng-show="tableBox">
+                        <img style="width: 100%" src="/assets/images/inport_settlement.png" />
+                    </div>
+                </div>
+            </div>
+
+            <!--上传错误页-->
+            <div class="row dataBox " style="overflow: auto;" ng-show="dataBox">
+                <div class="col s12">
+                    <h6 class="red lighten-2 white-text vc-center" style="padding: 20px">错误数据<span>{{errorNumber}}</span>条，请修改后重新上传</h6>
+                    <table class="responsive-table highlight">
+                        <thead class="blue-grey lighten-4 grey-text text-darken-1">
+                        <tr>
+                            <th>序号</th>
+                            <th ng-repeat="header in tableHeader track by $index">{{header}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="row in tableContentErrorFilter track by $index">
+                            <td>{{$index+1}}</td>
+                            <td ng-repeat="item in row track by $index">{{item}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!--上传成功页-->
+            <div class="row success_data_box " style="overflow: auto; "  ng-show="success_data_box">
+                <div class="divider" style="height: 2px;"></div>
+                <div class="col s12 " style="padding: 100px 0">
+                    <p><span>{{num}}</span>/<span>{{orginData_Length}}</span></p>
+                    <div class="col s2 offset-s5 ">
+                        <p class="vc-center " ng-show="local_isSuccesss">
+                            <i class="mdi mdi-check cyan-text text-lighten-2 fz40"></i><span class="blue-grey-text fz18">本地校验成功</span>
+                        </p>
+                        <p class="vc-center " ng-show="upload_isSuccesss">
+                            <i class="mdi mdi-check cyan-text text-lighten-2 fz40" ></i><span class="blue-grey-text fz18">上传完成</span>
+                        </p>
+                        <p class="vc-center" ng-show="upload_isSuccesss">
+                            <span>错误条数:<span>{{upload_error_array_num}}</span></span>
+                            <span>正确条数:<span>{{orginData_Length-upload_error_array_num}}</span></span>
+                            <span>总条数:<span>{{orginData_Length}}</span></span>
+                        </p>
+                        <!--<a href="" class="btn btn-large waves-effect cyan lighten-2"></a>-->
+                        <p class="center-align">
+                            <button class="btn btn-large circle_button cyan lighten-2" ng-click="fileUpload()" >
+                                导入数据库
+                            </button>
+                            <a href="" style="margin-top: 10px" class="btn btn-large circle_button cyan lighten-2" ng-show="show_error" ng-click="show_error_msg()">错误数据显示</a>
+                        </p>
+                    </div>
+                </div>
+
+                <table class=" bordered striped" ng-show="error_msg">
+                    <thead class="blue-grey lighten-5">
+                    <tr class="grey-text text-darken-2">
+                        <th data-field="">错误位置</th>
+                        <th data-field="">原因</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="el in upload_error_array" class="grey-text text-darken-1">
+                        <td>第{{el.index}}条</td>
+                        <td ng-bind="el.msg"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+
+
+</div>

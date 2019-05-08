@@ -70,7 +70,12 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/damage/re_damage_statistics.html",
             controller:"re_damage_statistics_controller"
         })
-
+        .state("damage_import",{
+            url:"/damage_import",
+            params: {"from": null},
+            templateUrl: "js/view/damage/damage_import.html",
+            controller:'damage_import_controller'
+        })
         // 管理员设置
         .state("setting_users", {
             url: "/setting_users",

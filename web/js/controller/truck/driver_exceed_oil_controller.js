@@ -261,11 +261,8 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
         $scope.driveNameList=[];
         $scope.truckNumListAll=[];
         $scope.addRemarkMonth ='';
-        $scope.addTruckNumMonth=el.truck_id;
-        getTruckId();
-        getDataTotal();
 
-        /*basic.get($host.api_url + "/drive?driveId="+el.drive_id).then(function (data) {
+        _basic.get($host.api_url + "/drive?driveId="+el.drive_id).then(function (data) {
             if (data.success == true) {
                 $scope.addTruckNumMonth = data.result[0].truck_id;
                 getTruckId();
@@ -274,7 +271,7 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
             else {
                 swal(data.msg, "", "error");
             }
-        });*/
+        });
 
         $('#addExceedOilItemMonth').modal('open');
 
@@ -297,7 +294,6 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
                 if (data.success === true && data.result.length >= 0) {
                     if (data.result.length == 0) {
                         $scope.dataTotal = [];
-                        swal('该司机下无任务,新增失败!', '', 'error');
                     }
                     else {
                         $scope.dataTotal = data.result;

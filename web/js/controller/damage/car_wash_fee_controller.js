@@ -126,6 +126,7 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
         $scope.receiveTimeEnd=conditions.cleanDateEnd;
         $scope.loadDateStart=conditions.loadDateStart;
         $scope.loadDateEnd=conditions.loadDateEnd;
+        $scope.dp_number=conditions.dpRouteTaskId;
     }
 
     /**
@@ -141,7 +142,8 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
             cleanDateStart: $scope.receiveTimeStart,
             cleanDateEnd: $scope.receiveTimeEnd,
             loadDateStart:$scope.loadDateStart,
-            loadDateEnd:$scope.loadDateEnd
+            loadDateEnd:$scope.loadDateEnd,
+            dpRouteTaskId:$scope.dp_number
         };
     }
 

@@ -18,10 +18,12 @@ app.controller("car_wash_fee_details_controller", ["$scope", "$host", "$statePar
                 if(data.result[0].status === 1){
                     $scope.totalPrice = data.result[0].total_price;
                     $scope.guardFee  =data.result[0].guard_fee;
+                    $scope.remark = data.result[0].remark;
                 }
                 else{
                     $scope.totalPrice = data.result[0].actual_price;
                     $scope.guardFee  =data.result[0].actual_guard_fee;
+                    $scope.remark = data.result[0].remark;
                 }
 
             }
@@ -45,7 +47,8 @@ app.controller("car_wash_fee_details_controller", ["$scope", "$host", "$statePar
                 if (result.value) {
                     _basic.put($host.api_url + "/user/" + userId + "/loadTaskCleanRel/" + carId + "/status/0", {
                         actualPrice: 0,
-                        actualGuardFee: 0
+                        actualGuardFee: 0,
+                        remark: $scope.remark
                     }).then(function (data) {
                         if (data.success === true) {
                             $scope.getCurrentCarWashFeeInfo();
@@ -72,7 +75,8 @@ app.controller("car_wash_fee_details_controller", ["$scope", "$host", "$statePar
                 if (result.value) {
                     _basic.put($host.api_url + "/user/" + userId + "/loadTaskCleanRel/" + carId + "/status/2", {
                         actualPrice: $scope.totalPrice,
-                        actualGuardFee: $scope.guardFee
+                        actualGuardFee: $scope.guardFee,
+                        remark: $scope.remark
                     }).then(function (data) {
                         if (data.success === true) {
                             $scope.getCurrentCarWashFeeInfo();

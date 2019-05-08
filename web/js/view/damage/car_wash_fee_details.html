@@ -52,6 +52,11 @@
                 <input style="font-size: 1.8rem;text-align: right;color: rgb(230,123,123)" id="guard_fee" type="number" ng-model="guardFee">
                 <label class="{{guardFee != null ? 'active' : 'inactive'}}" for="guard_fee">门卫费（元）</label>
             </div>
+
+            <div class="col s12 input-field">
+                <input id="remark" type="text" ng-model="remark">
+                <label for="remark">备注</label>
+            </div>
         </div>
 
         <div class="row col s12" ng-if="currentStatus == 1" style="margin-top: 80px">

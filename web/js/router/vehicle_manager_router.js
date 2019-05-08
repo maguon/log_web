@@ -195,9 +195,14 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'driver_exceed_oil_controller'
         })
         .state("driver_exceed_oil_detail",{
-            url:"/driver_exceed_oil_detail/id/{id}/driveId/{driveId}?from",
+            url:"/driver_exceed_oil_detail/id/{id}/driveId/{driveId}/truckId/{truckId}?from",
             templateUrl: "js/view/truck/driver_exceed_oil_detail.html",
             controller:'driver_exceed_oil_detail_controller'
+        })
+        .state("driver_exceed_oil_month_detail",{
+            url:"/driver_exceed_oil_month_detail/id/{id}/driveId/{driveId}/truckId/{truckId}?from",
+            templateUrl: "js/view/truck/driver_exceed_oil_month_detail.html",
+            controller:'driver_exceed_oil_month_detail_controller'
         })
 
         //车辆安全检查

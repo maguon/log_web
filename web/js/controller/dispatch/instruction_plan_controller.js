@@ -932,6 +932,77 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             })
     };
 
+    // 倒板
+    $scope.invertedBoard =function (id){
+        $scope.reverseId =id;
+        event.stopPropagation();
+        $scope.addReverseMoney='';
+        $('#reverseMoney').modal('open');
+    }
+
+    $scope.changeReverse =function(){
+        swal({
+            title: "确定设置为导板吗？",
+            text: "",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确认",
+            cancelButtonText: "取消"
+        }).then (function (result) {
+            if(result) {
+                _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" + $scope.reverseId+'/dpRouteReverseFlag',{
+                    "reverseFlag": 1,
+                    "reverseMoney":$scope.addReverseMoney
+                }).then(function (data) {
+                    if (data.success === true) {
+                        $scope.showDispatchInfo($scope.dispatchInfo);
+                        swal("设置成功", "", "success");
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
+                }
+            })
+
+    }
+
+    $scope.notInvertedBoard =function(id){
+        $scope.notReverseId =id;
+        event.stopPropagation();
+        $scope.notReverseMoney='';
+        $('#notReverseMoney').modal('open');
+
+    }
+    $scope.changeNotReverse =function(){
+        swal({
+            title: "确定取消导板吗？",
+            text: "",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确认",
+            cancelButtonText: "取消"
+        }).then(function (result) {
+            if (result.value) {
+                _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" + $scope.notReverseId+'/dpRouteReverseFlag',{
+                    "reverseFlag": 0,
+                    "reverseMoney":0
+                }).then(function (data) {
+                    if (data.success === true) {
+                        $scope.showDispatchInfo($scope.dispatchInfo);
+                        swal("取消成功", "", "success");
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
+            }
+        })
+    }
+
+
     // 点击线路获取当前路线下的装车任务信息
     $scope.showMissionInfo = function (showLineId,showLineDate,startLineId,index) {
         $scope.locateId = "";

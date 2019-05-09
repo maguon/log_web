@@ -24,7 +24,8 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
         _basic.get($host.api_url + "/drive?driveName=").then(function (data) {
             if (data.success == true) {
                 $scope.driveNameList = data.result;
-                $('#driveName').select2({
+
+                $('#getDrivderId').select2({
                     placeholder: '司机',
                     containerCssClass : 'select2_dropdown',
                     allowClear: true

@@ -941,31 +941,35 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     }
 
     $scope.changeReverse =function(){
-        swal({
-            title: "确定设置为倒板吗？",
-            text: "",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "确认",
-            cancelButtonText: "取消"
-        }).then (function (result) {
-            if(result) {
-                _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" + $scope.reverseId+'/dpRouteReverseFlag',{
-                    "reverseFlag": 1,
-                    "reverseMoney":$scope.addReverseMoney
-                }).then(function (data) {
-                    if (data.success === true) {
-                        $scope.showDispatchInfo($scope.dispatchInfo);
-                        swal("设置成功", "", "success");
-                    }
-                    else {
-                        swal(data.msg, "", "error");
-                    }
-                });
+        if($scope.addReverseMoney==0||$scope.addReverseMoney==''||$scope.addReverseMoney==undefined){
+            swal('金额不能为空', "", "error");
+        }
+        else {
+            swal({
+                title: "确定设置为倒板吗？",
+                text: "",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确认",
+                cancelButtonText: "取消"
+            }).then (function (result) {
+                if(result) {
+                    _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" + $scope.reverseId+'/dpRouteReverseFlag',{
+                        "reverseFlag": 1,
+                        "reverseMoney":$scope.addReverseMoney
+                    }).then(function (data) {
+                        if (data.success === true) {
+                            $scope.showDispatchInfo($scope.dispatchInfo);
+                            swal("设置成功", "", "success");
+                        }
+                        else {
+                            swal(data.msg, "", "error");
+                        }
+                    });
                 }
             })
-
+        }
     }
 
     $scope.notInvertedBoard =function(id){

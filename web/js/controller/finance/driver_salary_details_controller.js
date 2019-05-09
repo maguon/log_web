@@ -266,9 +266,15 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
     };
 
     // 将未结算任务添加到结算任务
-    $scope.addSettledSalary = function (taskId,car_count,truck_number,distance) {
-       var  distanceMoney= $filter('mileageSalary')(car_count+'-'+truck_number);
-        var distanceTotalMoney =distanceMoney*distance;
+    $scope.addSettledSalary = function (taskId,car_count,truck_number,distance,flag,money) {
+        var  distanceMoney= $filter('mileageSalary')(car_count+'-'+truck_number);
+        var distanceTotalMoney =0;
+        if(flag==1){
+            distanceTotalMoney= money;
+        }
+        else {
+            distanceTotalMoney =distanceMoney*distance;
+        }
         _basic.post($host.api_url + "/user/" + userId + "/driveSalaryTaskRel",{
             driveSalaryId: salaryId,
             dpRouteTaskId: taskId,
@@ -333,8 +339,16 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
         // 未结算任务
         _basic.get($host.api_url + "/dpRouteTaskBase?dpRouteTaskId=" +  $scope.taskId).then(function (data) {
             if (data.success === true) {
-                var  distanceMoney= $filter('mileageSalary')(data.result[0].car_count+'-'+data.result[0].truck_number);
-                var distanceTotalMoney =distanceMoney*data.result[0].distance;
+                var distanceTotalMoney;
+                var distanceMoney= $filter('mileageSalary')(data.result[0].car_count+'-'+data.result[0].truck_number);
+                if(data.result[0].reverse_flag==1){
+                    distanceTotalMoney=data.result[0].reverse_money;
+                }
+                else {
+                    distanceTotalMoney =distanceMoney*data.result[0].distance;
+                }
+
+
                 $scope.salaryDetails.plan_salary -= distanceTotalMoney;
             }
             else {

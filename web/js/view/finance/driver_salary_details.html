@@ -274,6 +274,7 @@
                             <th data-field="">运送车辆</th>
                             <th data-field="">单价</th>
                             <th data-field="">重载/空载</th>
+                            <th data-field="">倒板</th>
                             <th data-field="">完成时间</th>
                             <th></th>
                         </tr>
@@ -288,14 +289,16 @@
                             <td>{{salary.car_count+ "-" +salary.truck_number | mileageSalary}}</td>
                             <td ng-if="salary.load_flag==0" >空载</td>
                             <td ng-if="salary.load_flag==1" >重载</td>
+                            <td ng-if="salary.reverse_flag==0" >未倒板</td>
+                            <td ng-if="salary.reverse_flag==1" >倒板</td>
                             <td>{{salary.task_end_date | date:'yyyy-MM-dd'}}</td>
                             <td  class="operation">
                                 <a ng-click="showDispatchMissionModal(salary,'unsettled')" class="cyan-text" style="margin-right: 10px;cursor: pointer;text-align: center;"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
-                                <a ng-click="addSettledSalary(salary.id,salary.car_count,salary.truck_number,salary.distance)" class="cyan-text" style="cursor: pointer;text-align: center;"><i class="mdi mdi-plus-circle" style="margin: 0"></i></a>
+                                <a ng-click="addSettledSalary(salary.id,salary.car_count,salary.truck_number,salary.distance,salary.reverse_flag,salary.reverse_money)" class="cyan-text" style="cursor: pointer;text-align: center;"><i class="mdi mdi-plus-circle" style="margin: 0"></i></a>
                             </td>
                         </tr>
                         <tr ng-if="unsettledSalaryList.length==0">
-                            <td colspan="9">暂无数据</td>
+                            <td colspan="10">暂无数据</td>
                         </tr>
                         </tbody>
                     </table>
@@ -325,6 +328,7 @@
                             <th data-field="">单价</th>
                             <th data-field="">总价</th>
                             <th data-field="">重载/空载</th>
+                            <th data-field="">倒板</th>
                             <th data-field="">完成时间</th>
                             <th></th>
                         </tr>
@@ -340,6 +344,8 @@
                             <td>{{salary.distance_total_money}}</td>
                             <td ng-if="salary.load_flag==0" >空载</td>
                             <td ng-if="salary.load_flag==1" >重载</td>
+                            <td ng-if="salary.reverse_flag==0" >未倒板</td>
+                            <td ng-if="salary.reverse_flag==1" >倒板</td>
                             <td>{{salary.task_end_date | date:'yyyy-MM-dd'}}</td>
                             <td  class="operation">
                                 <a ng-click="showDispatchMissionModal(salary,'settled')" class="cyan-text" style="margin-right: 10px;cursor: pointer;text-align: center;"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
@@ -347,7 +353,7 @@
                             </td>
                         </tr>
                         <tr ng-if="settledSalaryList.length==0">
-                            <td colspan="10">暂无数据</td>
+                            <td colspan="11">暂无数据</td>
                         </tr>
                         </tbody>
                     </table>

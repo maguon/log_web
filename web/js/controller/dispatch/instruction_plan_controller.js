@@ -942,7 +942,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     $scope.changeReverse =function(){
         swal({
-            title: "确定设置为导板吗？",
+            title: "确定设置为倒板吗？",
             text: "",
             type: 'warning',
             showCancelButton: true,
@@ -977,7 +977,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     }
     $scope.changeNotReverse =function(){
         swal({
-            title: "确定取消导板吗？",
+            title: "确定取消倒板吗？",
             text: "",
             type: "warning",
             showCancelButton: true,

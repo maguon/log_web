@@ -708,7 +708,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                     if (data.success == true&&data.result.length>0) {
                         $scope.blankId = data.result[0].id;
                         $scope.blankDistance = data.result[0].distance;
-                        $scope.blankOilDistance = data.result[0].oil_distance;
+                        $scope.blankOilDistance = data.result[0].distance;
                         $scope.blankRouteId = data.result[0].route_id;
                         swal({
                             title: '',
@@ -732,7 +732,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                                     routeEndId: routeStartId,
                                     routeEnd: routeStart,
                                     distance: $scope.blankDistance,
-                                    oilDistance:$scope.blankOilDistance,
+                                    oilDistance:$scope.blankDistance,
                                     cityRouteId: $scope.blankId,
                                     taskStatus: 10,
                                     taskPlanDate: $scope.lineStartDate

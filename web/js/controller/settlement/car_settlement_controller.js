@@ -221,6 +221,8 @@ app.controller("car_settlement_controller", ["$scope", "_basic", "_config", "$ho
         })).then(function (entrustData) {
             if (entrustData.success === true) {
                 $scope.settleCarCountList = entrustData.result[0];
+                $scope.settleCarCountList.price = entrustData.result[0].price+entrustData.result[0].price_2+entrustData.result[0].price_3
+                    +entrustData.result[0].price_4+entrustData.result[0].price_5;
             }
             else {
                 swal(entrustData.msg, "", "error");

@@ -36,6 +36,24 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
             }
         });
     }
+
+    //获取货车牌号
+    function getTruckNum() {
+        _basic.get($host.api_url + "/truckBase").then(function (data) {
+            if (data.success === true) {
+                $scope.truckNumListAllList = data.result;
+                $('#truckNum').select2({
+                    placeholder: '货车牌号',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        })
+    }
+
     // 根据城市id获取经销商
     $scope.getRecive = function () {
         if($scope.cityId == 0 || $scope.cityId == "" || $scope.cityId == null){
@@ -128,6 +146,7 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
         $scope.loadDateStart=conditions.loadDateStart;
         $scope.loadDateEnd=conditions.loadDateEnd;
         $scope.dp_number=conditions.dpRouteTaskId;
+        $scope.truckNum=conditions.truckId;
     }
 
     /**
@@ -144,7 +163,8 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
             cleanDateEnd: $scope.receiveTimeEnd,
             loadDateStart:$scope.loadDateStart,
             loadDateEnd:$scope.loadDateEnd,
-            dpRouteTaskId:$scope.dp_number
+            dpRouteTaskId:$scope.dp_number,
+            truckId:$scope.truckNum
         };
     }
 
@@ -194,6 +214,7 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
         $scope.getCityList();
         getCarWashFeeList();
         getDriveNameList ();
+        getTruckNum();
     };
     $scope.queryData();
 }]);

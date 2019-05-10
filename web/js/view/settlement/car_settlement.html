@@ -110,7 +110,7 @@
                                 <td  ng-bind="carItem.route_end"></td>
                                 <td  ng-bind="carItem.distance"></td>
                                 <td  ng-bind="carItem.fee"></td>
-                                <td class="red-text bold" ng-bind="carItem.price"></td>
+                                <td class="red-text bold" ng-bind="carItem.price+carItem.price_2+carItem.price_3+carItem.price_4+carItem.price_5"></td>
                                 <td>{{carItem.order_date | date:'yyyy-MM-dd'}}</td>
                             </tr>
                             <tr ng-if="carList.length == 0&&orderStart!==undefined&&orderEnd!==undefined">

@@ -114,8 +114,10 @@
 
             <!--货车-->
             <div class="col s3 input-field">
-                <input name="truck_num" id="truck_num" type="text" ng-model="truckNum">
-                <label for="truck_num">货车</label>
+                <select  material-select watch ng-model="truckNum"  id="truckNum" style="width: 100%">
+                    <option value="" selected disabled>请选择</option>
+                    <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem.truck_num">{{truckNumItem.truck_num}}({{truckNumItem.truck_type == 1 ? "头车" : "挂车"}})</option>
+                </select>
             </div>
 
             <!--起始城市-->

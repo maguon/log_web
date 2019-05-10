@@ -16,13 +16,20 @@
                 </select>
             </div>
             <div class="col input-field" style="width: 20%">
+                <select  material-select watch ng-model="truckNum"  id="truckNum" style="width: 100%"  ng-change="changeTruck(addTruckId)">
+                    <option value="" selected disabled>请选择</option>
+                    <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}({{truckNumItem.truck_type == 1 ? "头车" : "挂车"}})</option>
+                </select>
+            </div>
+
+            <div class="col input-field" style="width: 10%">
                 <select id="end_city" name="state" style="width:100%" ng-change="getRecive()" ng-model="cityId">
                     <option value=""></option>
                     <option value="0" >清除选择</option>
                     <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
                 </select>
             </div>
-            <div class="col input-field" style="width: 20%">
+            <div class="col input-field" style="width: 10%">
                 <select material-select watch ng-model="distributor" style="width:100%">
                     <option value="" selected>经销商</option>
                     <option ng-repeat="rec in receiveList" ng-value="rec.id">{{rec.short_name}}</option>

@@ -45,7 +45,22 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
             }
         });
     }
-
+    //获取货车牌号
+    function getTruckNum() {
+        _basic.get($host.api_url + "/truckBase").then(function (data) {
+            if (data.success === true) {
+                $scope.truckNumListAllList = data.result;
+                $('#truckNum').select2({
+                    placeholder: '货车牌号',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        })
+    }
 
     /**
      * 点击查询按钮
@@ -128,7 +143,8 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
         $scope.truckNum=conditions.truckNum;
         $scope.startCity=conditions.routeStartId;
         $scope.endCity=conditions.routeEndId;
-    }
+
+}
 
     /**
      * 组装检索条件。
@@ -271,6 +287,7 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
     function getData (){
         getCity();
         getDriveName();
+        getTruckNum();
     }
     getData();
 }])

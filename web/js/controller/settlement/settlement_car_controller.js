@@ -63,7 +63,9 @@ app.controller("settlement_car_controller", ["$scope","$rootScope","$state","$st
             {name: 'entrustId', type: 'number', length: 3, require: true},
             {name: 'routeStartId', type: 'number', length: 3},
             {name: 'routeEndId', type: 'number', length: 3, require: true},
-            {name: 'price', type: 'number', require: true}];
+            {name: 'price', type: 'number', require: true},
+            {name: 'seq', type: 'number', require: true}
+        ];
         // 头部条件判断
         $scope.titleFilter = function (headerArray) {
             if (colObjs.length != headerArray.length) {

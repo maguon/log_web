@@ -1,4 +1,35 @@
-<div class="truck_driver">
+<!--添加模态框-->
+<div id="bankItem" class="modal">
+    <div class="cyan lighten-1 white-text center-align modal_title" >司机银行账户</div>
+    <!-- Body -->
+    <div class="modal-content" style="max-height: 430px;">
+        <div  class="handleInfoInput" style="width:100%;">
+            <div class="row col s12" style="margin-right: 20px;">
+                <div class="col s4 valign-wrapper input-field">
+                    <input id="bank_number" ng-model="bankList.bank_number" type="text">
+                    <label for="bank_number">账号</label>
+                </div>
+
+                <div class="col s4 valign-wrapper input-field">
+                    <input id="bank_name" ng-model="bankList.bank_name" type="text">
+                    <label for="bank_name">开户行</label>
+                </div>
+
+                <div class="col s4 valign-wrapper input-field">
+                    <input id="bank_user_name" ng-model="bankList.bank_user_name" type="text">
+                    <label for="bank_user_name">户名</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer right-align">
+        <button class="btn waves-light waves-effect cyan lighten-2 modal-close" style="margin-right: 20px;margin-bottom: 20px" ng-click="putBankNumber()">确定</button>
+    </div>
+
+</div>
+
+    <div class="truck_driver">
     <div class="row main_storage_car">
         <div class="row valign-wrapper">
             <div class="col s10">
@@ -115,6 +146,7 @@
                         <span ng-show="driver.license_date | ptime" class="small-tips red lighten-2">临</span>
                     </td>
                     <td class="details">
+
                         <a ui-sref="truck_driver_details({id:driver.id,from:'truck_driver'})" class=""><i
                                 class="mdi mdi-eye look_icon cyan-text lighten-1"></i></a>
                         <span class="switch" ng-click="disableDriver(driver.drive_status,driver.id)"
@@ -124,6 +156,8 @@
                                   <span class="lever"></span>
                                 </label>
                         </span>
+                        <a ng-click="openBankNumber(driver.id)" class=""><i
+                                class="mdi mdi-bank look_icon cyan-text lighten-1"></i></a>
                     </td>
                 </tr>
                 <tr class="grey-text text-darken-1" ng-if="driveList.length == 0">

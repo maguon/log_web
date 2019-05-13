@@ -177,6 +177,42 @@ app.controller("truck_driver_controller", ["$scope","$rootScope","$state","$stat
         }
     };
 
+
+    //银行
+    $scope.openBankNumber = function (bank){
+        $scope.bank = bank;
+        _basic.get($host.api_url + "/drive?driveId=" + bank).then(function (data) {
+            if (data.success === true) {
+                $scope.bankList = data.result[0];
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+        $(".modal").modal();
+        $("#bankItem").modal("open");
+
+    }
+
+    $scope.putBankNumber = function (){
+        if($scope.bankList.bank_number!==null&&$scope.bankList.bank_name!==null&&$scope.bankList.bank_user_name!==null){
+            _basic.put($host.api_url + "/user/" + userId + "/drive/"+ $scope.bank+'/driveBankNumber', {
+                "bankNumber":$scope.bankList.bank_number,
+                "bankName": $scope.bankList.bank_name,
+                "bankUserName": $scope.bankList.bank_user_name
+            }).then(function (data) {
+                if (data.success == true) {
+                    $scope.searchDriver();
+                    swal("新增成功", "", "success");
+                }
+            });
+        }
+        else {
+            swal('请输入完整信息', "", "error");
+        }
+    }
+
+
     // 分页
     $scope.previous_page = function () {
         $scope.start = $scope.start - ($scope.size-1);

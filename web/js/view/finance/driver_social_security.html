@@ -1,23 +1,29 @@
-<!--社保增加模态框-->
+<!--出勤增加模态框-->
 <div id="new_driver_social_security" class="modal">
-    <div class="cyan lighten-1 white-text center-align modal_title" >新增社保</div>
+    <div class="cyan lighten-1 white-text center-align modal_title" >新增出勤</div>
     <div class="modal-content" style="padding-bottom: 0px">
         <div class="row col s12">
             <div class="row">
-                <!--司机 电话 社保 月份-->
-                <div class="input-field col s4">
+                <!--司机  货车牌号 电话 出勤 月份-->
+                <div class="col s3 input-field">
                     <input id="add_start_month" type="text" ng-model="addStartMonth" />
                     <label for="add_start_month">月份</label>
                 </div>
-                <div class="input-field col s4">
-                    <select material-select watch ng-model="addDrivderId" id="addDrivderId" style="width: 100%" >
+                <div class="col s3 input-field">
+                    <select material-select watch ng-model="addDrivderId" id="addDrivderId"  ng-change="changeDriver(addDrivderId.id)" style="width: 100%" >
                         <option value="" selected>请选择</option>
                         <option ng-repeat="addDrivder in driveNameList" ng-value=addDrivder>{{addDrivder.drive_name}}&nbsp;&nbsp;({{addDrivder.mobile}})</option>
                     </select>
                 </div>
-                <div class="input-field col s4">
-                    <input type="number" id="addSocialMoney" name="addSocialMoney" ng-model="addSocialMoney">
-                    <label for="addSocialMoney">社保金额</label>
+                <div class="col s3 input-field">
+                    <select ng-model="truckNum" id="truckNum"  style="width: 100%">
+                        <option value="" selected>请选择</option>
+                        <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
+                    </select>
+                </div>
+                <div class="col s3 input-field">
+                    <input type="number" id="addWorkCount" name="addWorkCount" ng-model="addWorkCount">
+                    <label for="addWorkCount">出勤天数</label>
                 </div>
             </div>
             <div class="divider" style="background: #ccc;height: 1px;margin: 20px 0"></div>
@@ -39,24 +45,28 @@
     </div>
 </div>
 
-<!--社保修改模态框-->
+<!--出勤修改模态框-->
 <div id="put_driver_social_security" class="modal">
-    <div class="cyan lighten-1 white-text center-align modal_title" >社保信息</div>
+    <div class="cyan lighten-1 white-text center-align modal_title" >出勤信息</div>
     <div class="modal-content">
         <div class="row col s12">
             <div class="row">
-                <!--司机 电话 社保 月份-->
-                <div class="input-field col s4">
+                <!--司机  货车牌号 电话 出勤 月份-->
+                <div class="input-field col s3">
                     <input id="put_start_month" type="text" ng-model="socialSecurity.y_month" disabled/>
                     <label for="put_start_month">月份</label>
                 </div>
-                <div class="input-field col s4">
+                <div class="input-field col s3">
                     <input id="putDrivderId" type="text" ng-model="socialSecurity.total" disabled/>
                     <label for="putDrivderId">司机</label>
                 </div>
-                <div class="input-field col s4">
-                    <input type="number" id="putSocialMoney" name="putSocialMoney" ng-model="socialSecurity.social_security_fee">
-                    <label for="putSocialMoney">社保金额</label>
+                <div class="input-field col s3">
+                    <input id="putTruckNum" type="text" ng-model="socialSecurity.truck_num" disabled/>
+                    <label for="putTruckNum">货车牌号</label>
+                </div>
+                <div class="input-field col s3">
+                    <input type="number" id="putWorkCount" name="putWorkCount" ng-model="socialSecurity.work_count">
+                    <label for="putWorkCount">出勤天数</label>
                 </div>
             </div>
             <div class="divider" style="background: #ccc;height: 1px;margin: 20px 0"></div>
@@ -83,8 +93,8 @@
     <div class="row no-marBottom" ul-tabs style="overflow: hidden">
         <div class="col s12">
             <ul class="tabWrap grey lighten-4">
-                <li class="tab col s6 importFile vc-center" ng-click="importFile()">导入司机社保文件</li>
-                <li class="tab col s6 lookMyselfFile vc-center" ng-click="lookMyselfFile()">查看司机社保</li>
+                <li class="tab col s6 importFile vc-center" ng-click="importFile()">导入司机出勤文件</li>
+                <li class="tab col s6 lookMyselfFile vc-center" ng-click="lookMyselfFile()">查看司机出勤</li>
             </ul>
         </div>
 
@@ -95,7 +105,7 @@
                     <div class="col s4">
                         <div class="row">
                             <div class="file-field  input-field ">
-                                <a href="/assets/司机社保导入模板.csv" target="_blank" class="btn waves-effect circle_button" >下载模板格式</a>
+                                <a href="/assets/司机出勤导入模板.csv" target="_blank" class="btn waves-effect circle_button" >下载模板格式</a>
                             </div>
                         </div>
                     </div>
@@ -230,7 +240,7 @@
                             <th data-field="">司机</th>
                             <th data-field="">电话</th>
                             <th data-field="">月份</th>
-                            <th data-field="">社保金额</th>
+                            <th data-field="">出勤天数</th>
                             <th data-field=""></th>
                         </tr>
                         </thead>
@@ -240,7 +250,7 @@
                             <td>{{fileInfo.drive_name}}</td>
                             <td>{{fileInfo.mobile}}</td>
                             <td>{{fileInfo.y_month}}</td>
-                            <td class="red-text" >{{fileInfo.social_security_fee}}</td>
+                            <td class="red-text" >{{fileInfo.work_count}}</td>
                             <td class="operation">
                                 <a ng-click="putSecurity(fileInfo.id)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
                                     <i class="mdi mdi-file-document" style="margin: 0"></i>

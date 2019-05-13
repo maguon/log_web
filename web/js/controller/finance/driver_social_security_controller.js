@@ -69,9 +69,10 @@ app.controller("driver_social_security_controller", ["$scope", "$state", "$state
     // 过滤条件数据
     var colObjs = [
         {name: '司机姓名', type: 'string',require: true},
+        {name: '货车牌号', type: 'string',require: true},
         {name: '电话', type: 'number', require: true},
         {name: '月份', type: 'number', require: true},
-        {name: '金额', type: 'number', require: true}];
+        {name: '出勤天数', type: 'number', require: true}];
     // 头部条件判断
     $scope.titleFilter = function (headerArray) {
         if (colObjs.length != headerArray.length) {
@@ -125,7 +126,7 @@ app.controller("driver_social_security_controller", ["$scope", "$state", "$state
     };
 
     $scope.fileUpload = function () {
-        _basic.formPost($("#file_upload_form"), $host.api_url + '/user/' + userId + '/driveSocialSecurityFile' , function (data) {
+        _basic.formPost($("#file_upload_form"), $host.api_url + '/user/' + userId + '/driveWorkFile' , function (data) {
             if (data.success == true) {
                 $scope.$apply(function () {
                     $scope.upload_error_array_num =data.result.failedCase;
@@ -239,14 +240,48 @@ app.controller("driver_social_security_controller", ["$scope", "$state", "$state
             }
         });
     }
+    $scope.changeDriver = function (driver) {
+        _basic.get($host.api_url + "/drive?driveId=" + driver).then(function (data) {
+            if (data.success == true) {
+                if(data.result[0].truck_id!==undefined||data.result[0].truck_id!==null||data.result[0].truck_id!==''){
+                    $scope.truckNum = data.result[0].truck_id;
+                    getTruckNum();
+                }
+               else {
+                    $scope.truckNum = data.result[0].truck_id='';
+                }
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
+    //获取货车牌号
+    function getTruckNum() {
+        _basic.get($host.api_url + "/truckBase").then(function (data) {
+            if (data.success === true) {
+                $scope.truckNumListAllList = data.result;
+                $('#truckNum').select2({
+                    placeholder: '货车牌号',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        })
+    }
 
 
     // 单条数据录入
     $scope.new_data_list = function () {
         $scope.addDrivderId = null;
-        driveNameList=[];
+        $scope.driveNameList=[];
+        $scope.truckNumListAllList=[];
+        $scope.truckNum='';
+        $scope.addWorkCount='';
         getDriveNameList();
-        $scope.addSocialMoney = "";
         // monthPicker控件
         $('#add_start_month').MonthPicker({
             Button: false,
@@ -262,34 +297,52 @@ app.controller("driver_social_security_controller", ["$scope", "$state", "$state
 
     // 新增车辆信息
     $scope.addCarItem = function () {
-            if ($scope.addDrivderId!==''&&$scope.addSocialMoney!==''&&$scope.addStartMonth!=='') {
-                var obj = {
-                    "driveId": $scope.addDrivderId.id,
-                    "driveName": $scope.addDrivderId.drive_name,
-                    "mobile": $scope.addDrivderId.mobile,
-                    "socialSecurityFee": $scope.addSocialMoney,
-                    "yMonth": $scope.addStartMonth
-                };
-                _basic.post($host.api_url + "/user/" + userId + "/driveSocialSecurity", obj).then(function (data) {
-                    if (data.success == true) {
-                        $("#new_driver_social_security").modal("close");
-                        swal("新增成功！", "", "success");
-                    }
-                    else{
-                        swal(data.msg, "", "error")
-                    }
-                })
-            }
-            else{
-                swal("请输入完整信息！", "", "warning");
-            }
+        if($scope.truckNum!==''){
+            _basic.get($host.api_url + "/truckBase?truckId=" + $scope.truckNum).then(function (data) {
+                if (data.success == true) {
+                    $scope.truckNumberName = data.result[0].truck_num;
+                    addItem();
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
+        else{
+            swal("请输入完整信息！", "", "warning");
+        }
     };
 
+    function addItem(){
+        if ($scope.addDrivderId!==''&&$scope.addStartMonth!==''&&$scope.addWorkCount!=='') {
+            var obj = {
+                "driveId": $scope.addDrivderId.id,
+                "driveName": $scope.addDrivderId.drive_name,
+                "truckId": $scope.truckNum,
+                "truckNum": $scope.truckNumberName,
+                "mobile": $scope.addDrivderId.mobile,
+                "workCount": $scope.addWorkCount,
+                "yMonth": $scope.addStartMonth
+            };
+            _basic.post($host.api_url + "/user/" + userId + "/driveWork", obj).then(function (data) {
+                if (data.success == true) {
+                    $("#new_driver_social_security").modal("close");
+                    swal("新增成功！", "", "success");
+                }
+                else{
+                    swal(data.msg, "", "error")
+                }
+            })
+        }
+        else{
+            swal("请输入完整信息！", "", "warning");
+        }
+    }
 
     //修改
     $scope.putSecurity = function(id){
         $scope.driveSocialSecurityId =id;
-        _basic.get($host.api_url + "/driveSocialSecurity?driveSocialSecurityId="+id).then(function (data) {
+        _basic.get($host.api_url + "/driveWork?driveWorkId="+id).then(function (data) {
             if (data.success == true) {
                 $scope.socialSecurity = data.result[0];
                 $scope.socialSecurity.total=data.result[0].drive_name+"    "+data.result[0].mobile;
@@ -301,8 +354,8 @@ app.controller("driver_social_security_controller", ["$scope", "$state", "$state
         $("#put_driver_social_security").modal("open");
     }
     $scope.putCarItem =function (){
-        _basic.put($host.api_url + "/user/" + userId + "/driveSocialSecurity/" + $scope.driveSocialSecurityId, {
-            socialSecurityFee:$scope.socialSecurity.social_security_fee
+        _basic.put($host.api_url + "/user/" + userId + "/driveWork/" + $scope.driveSocialSecurityId, {
+            workCount:$scope.socialSecurity.work_count
         }).then(function (data) {
             if (data.success == true) {
                 swal("修改成功", "", "success");
@@ -324,7 +377,7 @@ app.controller("driver_social_security_controller", ["$scope", "$state", "$state
     function getData(){
         $scope.startMonth = $('#start_month').val();
         // 基本检索URL
-        var url = $host.api_url + "/driveSocialSecurity?start=" + $scope.start + "&size=" + $scope.size;
+        var url = $host.api_url + "/driveWork?start=" + $scope.start + "&size=" + $scope.size;
         // 检索条件
         var conditions = _basic.objToUrl({
             driveId:$scope.driveName,
@@ -370,4 +423,5 @@ app.controller("driver_social_security_controller", ["$scope", "$state", "$state
 
 
     getDriveNameList ();
+    getTruckNum();
 }])

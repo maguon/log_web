@@ -47,6 +47,7 @@ app.controller("setting_line_controller", ["$scope", "$host", "_basic", function
                         if ($scope.endCityList[i].id == $scope.selectedCityId && data.result[j].route_start_id == data.result[j].route_end_id && $scope.selectedCityId == data.result[j].route_start_id) {
                             $scope.endCityList[i].dis = data.result[j].distance;
                             $scope.endCityList[i].protect_fee = data.result[j].protect_fee;
+                            $scope.endCityList[i].reverse_money = data.result[j].reverse_money;
                             $scope.endCityList[i].routeId = data.result[j].id;
                             $scope.endCityList[i].flag = true;
                             break;
@@ -54,6 +55,7 @@ app.controller("setting_line_controller", ["$scope", "$host", "_basic", function
                         else if (($scope.endCityList[i].id == data.result[j].route_start_id || $scope.endCityList[i].id == data.result[j].route_end_id) && ($scope.selectedCityId != $scope.endCityList[i].id)) {
                             $scope.endCityList[i].dis = data.result[j].distance;
                             $scope.endCityList[i].protect_fee = data.result[j].protect_fee;
+                            $scope.endCityList[i].reverse_money = data.result[j].reverse_money;
                             $scope.endCityList[i].routeId = data.result[j].id;
                             $scope.endCityList[i].flag = true;
                             break;
@@ -61,6 +63,7 @@ app.controller("setting_line_controller", ["$scope", "$host", "_basic", function
                         else {
                             $scope.endCityList[i].dis = "";
                             $scope.endCityList[i].protect_fee = '';
+                            $scope.endCityList[i].reverse_money ='';
                             $scope.endCityList[i].routeId = 0;
                             $scope.endCityList[i].flag = false;
                         }
@@ -75,10 +78,10 @@ app.controller("setting_line_controller", ["$scope", "$host", "_basic", function
 
     // 点击打开模态框
     $scope.modifyLineInfo = function (lineInfo) {
-         //console.log("currentLineInfo", lineInfo);
         $scope.endCity = lineInfo.city_name;
         $scope.distance = lineInfo.dis;
         $scope.applyProtectCost = lineInfo.protect_fee;
+        $scope.reverseCost= lineInfo.reverse_money;
         $scope.modifyFlag = lineInfo.flag;
         $scope.routeId = lineInfo.routeId;
         $scope.endCityId = lineInfo.id;
@@ -97,7 +100,8 @@ app.controller("setting_line_controller", ["$scope", "$host", "_basic", function
             if($scope.distance !== null){
                 _basic.put($host.api_url + "/user/" + userId + "/cityRoute/" + $scope.routeId,{
                     distance:parseFloat($scope.distance),
-                    protectFee: parseFloat($scope.applyProtectCost)
+                    protectFee: parseFloat($scope.applyProtectCost),
+                    reverseMoney:parseFloat($scope.reverseCost)
                 }).then(function (modifyData) {
                     if (modifyData.success === true) {
                         swal("修改成功", "", "success");
@@ -121,7 +125,8 @@ app.controller("setting_line_controller", ["$scope", "$host", "_basic", function
                     routeEndId: $scope.endCityId,
                     routeEnd: $scope.endCity,
                     distance: $scope.distance,
-                    protectFee:$scope.applyProtectCost
+                    protectFee:$scope.applyProtectCost,
+                    reverseMoney:$scope.reverseCost
                 }).then(function (data) {
                     if (data.success === true) {
                         swal("修改成功", "", "success");

@@ -163,7 +163,7 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
 
     //修改所属公司
     $scope.putCompanyId = function(){
-        _basic.get($host.api_url + "/company?companyId="+$scope.truckTrailer.company_id).then(function (data) {
+        _basic.get($host.api_url + "/company?companyId="+$scope.truckTrailer.output_company_id).then(function (data) {
             if (data.success == true&&data.result.length>0) {
                 $scope.companyName = data.result[0].company_name;
                 putCompany($scope.companyName)
@@ -175,7 +175,8 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
     function putCompany(companyName){
         _basic.put($host.api_url + "/user/" + userId + "/truck/" + id+'/truckCompany?truckNum='+$scope.truckTrailer.truck_num, {
             "companyId": $scope.truckTrailer.company_id,
-            "companyName": companyName
+            "outputCompanyId": $scope.truckTrailer.output_company_id,
+            "outputCompanyName": companyName
         }).then(function (data) {
             if (data.success == true) {
                 swal("修改成功", "", "success")

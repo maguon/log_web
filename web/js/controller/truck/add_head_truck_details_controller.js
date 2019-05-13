@@ -84,6 +84,8 @@ app.controller("add_head_truck_details_controller", ["$scope", "$state", "$state
             driveId: $scope.main_driver,
             companyId: $scope.truck_company,
             truckType: 1,
+            outputCompanyId:$scope.outputCompany.id,
+            outputCompanyName:$scope.outputCompany.company_name,
             drivingDate: $scope.drive_time,
             licenseDate: $scope.service_time,
             remark: $scope.textarea
@@ -132,19 +134,6 @@ app.controller("add_head_truck_details_controller", ["$scope", "$state", "$state
                             // // console.log(data,truck_id);
                             var imageId = data.imageId;
                             callback(imageId);
-                            // _basic.post($host.record_url + "/car/" + $scope.truck_id + "/vin/" + $scope.vin + "/storageImage", {
-                            //     "username": _basic.getSession(_basic.USER_NAME),
-                            //     "userId": userId,
-                            //     "userType": _basic.getSession(_basic.USER_TYPE),
-                            //     "url": imageId
-                            // }).then(function (data) {
-                            //     if (data.success == true) {
-                            //         $scope._id=data.result._id;
-                            //         var nowDate=moment(new Date()).format("YYYY-MM-DD HH:mm");
-                            //         $scope.storage_image_i.push($host.file_url + '/image/' +imageId);
-                            //         $scope.storage_imageBox.push({src: $host.file_url + '/image/' + imageId,record_id:$scope._id,time:nowDate,user:_basic.getSession(_basic.USER_NAME)});
-                            //     }
-                            // });
                         } else {
                             swal('上传图片失败', "", "error");
                         }
@@ -170,10 +159,8 @@ app.controller("add_head_truck_details_controller", ["$scope", "$state", "$state
 
     // 行驶证
     $scope.uploadBrandImage_drive = function (dom) {
-        // console.log(dom)
         var dom_obj = $(dom);
         var filename = $(dom).val();
-        // console.log(dom_obj);
         uploadBrandImage(filename, dom_obj, function (imageId) {
             var nowDate = moment(new Date()).format("YYYY-MM-DD HH:mm");
             $scope.$apply(function () {

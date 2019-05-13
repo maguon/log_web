@@ -24,11 +24,11 @@
                                 </div>
                                 <div class="input-field col s4 " ng-class="{'has-error':add_truck_form.truck_hand_type.$invalid&&submitted }">
                                     <select id="truck_hand_type" name="truck_hand_type"  ng-change="getCompany()" material-select watch ng-model="truck_hand_type" required>
-                                        <option ng-value="">请选择</option>
+                                        <option ng-value="" disabled>请选择</option>
                                         <option ng-value="1">自营车</option>
-                                        <option ng-value="2">外协车</option>
+                                      <!--  <option ng-value="2">外协车</option>
                                         <option ng-value="3">供方车</option>
-                                        <option ng-value="4">承包车</option>
+                                        <option ng-value="4">承包车</option>-->
                                     </select>
                                     <label for="truck_hand_type"><span style="color: red;margin-right: 5px">*</span>所属类型</label>
                                 </div>
@@ -41,6 +41,13 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="input-field col s4"  ng-class="{'has-error':add_truck_form.truck_make.$invalid&&submitted }">
+                                    <select id="outputCompany" name="outputCompany" material-select watch ng-model="outputCompany" required>
+                                        <option value="">请选择</option>
+                                        <option ng-repeat="el in company" ng-value="el">{{el.company_name}}</option>
+                                    </select>
+                                    <label for="outputCompany"><span style="color: red;margin-right: 5px">*</span>产值公司</label>
+                                </div>
                                 <div class="input-field col s4" ng-class="{'has-error':add_truck_form.truck_make.$invalid&&submitted }">
                                     <select id="truck_make" name="truck_make" material-select watch ng-model="truck_make" required>
                                         <option value="">请选择</option>
@@ -52,17 +59,17 @@
                                     <input name="hand_have_num" id="hand_have_num" type="number" ng-model="hand_have_num" ng-pattern="/^[1-9]?\d$/"  required >
                                     <label for="hand_have_num"><span style="color: red;margin-right: 5px">*</span>挂车货位（最多两位数）</label>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="input-field col s4">
                                     <input name="hand_vin" id="hand_vin" type="text" ng-model="hand_vin" >
                                     <label for="hand_vin">识别代码</label>
                                 </div>
-                            </div>
-                            <div class="row">
-                            <div class="col s6 input-field" ng-class="{'has-error':add_truck_form.drive_time.$invalid&&submitted }">
+                            <div class="col s4 input-field" ng-class="{'has-error':add_truck_form.drive_time.$invalid&&submitted }">
                                 <input type="text" name="drive_time" id="drive_time" class="datepicker" autocomplete="off" ng-model="drive_hand_time" required   date><i class="mdi dataIcon mdi-table-large"></i>
                                 <label for="drive_time"><span style="color: red;margin-right: 5px">*</span>行驶证检证日期</label>
                             </div>
-                            <div class="col s6 input-field" ng-class="{'has-error':add_truck_form.service_time.$invalid&&submitted }">
+                            <div class="col s4 input-field" ng-class="{'has-error':add_truck_form.service_time.$invalid&&submitted }">
                                 <input type="text" name="service_time" id="service_time" class="datepicker" autocomplete="off" ng-model="service_hand_time" required date><i class="mdi dataIcon mdi-table-large"></i>
                                 <label for="service_time"><span style="color: red;margin-right: 5px">*</span>营运证检证日期</label>
                             </div>

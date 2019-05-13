@@ -19,55 +19,62 @@
                 <div id="test1" class="test col s12" style="margin-top: 50px">
                     <form name="add_truck_form"  ng-submit="submit_Form(add_truck_form.$valid)" novalidate>
                             <div class="row">
-                                <div class="input-field col s4 " ng-class="{'has-error':add_truck_form.truck_num.$invalid&&submitted }">
+                                <div class="input-field col s3">
                                     <input name="truck_num" id="truck_num" autocomplete="off" type="text" ng-model="truck_num"  required>
                                     <label for="truck_num"><span style="color: red;margin-right: 5px">*</span>车牌牌号</label>
                                 </div>
-                                <div class="input-field col s4 " ng-class="{'has-error':add_truck_form.truck_type.$invalid&&submitted }">
+                                <div class="input-field col s3">
                                     <select id="truck_type" name="truck_type" ng-change="getCompany()" material-select watch ng-model="truck_type" required>
-                                        <option ng-value="">请选择</option>
+                                        <option ng-value="" disabled>请选择</option>
                                         <option ng-value="1">自营车</option>
-                                        <option ng-value="2">外协车</option>
-                                        <option ng-value="3">供方车</option>
-                                        <option ng-value="4">承包车</option>
                                     </select>
                                     <label for="truck_type"><span style="color: red;margin-right: 5px">*</span>所属类型</label>
                                 </div>
-                                <div class="input-field col s4"  ng-class="{'has-error':add_truck_form.truck_make.$invalid&&submitted }">
+
+                                <div class="input-field col s3" >
                                     <select id="truck_company" name="truck_company" material-select watch ng-model="truck_company" required>
                                         <option value="">请选择</option>
                                         <option ng-repeat="el in company" ng-value="el.id">{{el.company_name}}</option>
                                     </select>
                                     <label for="truck_company"><span style="color: red;margin-right: 5px">*</span>所属公司</label>
                                 </div>
+
+                                <div class="input-field col s3">
+                                    <select id="outputCompany" name="outputCompany" material-select watch ng-model="outputCompany" required>
+                                        <option value="">请选择</option>
+                                        <option ng-repeat="el in company" ng-value="el">{{el.company_name}}</option>
+                                    </select>
+                                    <label for="outputCompany"><span style="color: red;margin-right: 5px">*</span>产值公司</label>
+                                </div>
+
                             </div>
                             <div class="row">
-                                <div class="input-field col s2" ng-class="{'has-error':add_truck_form.truck_make.$invalid&&submitted }">
+                                <div class="input-field col s3">
                                     <select id="truck_make" name="truck_make" material-select watch ng-model="truck_make" required>
                                         <option value="">请选择</option>
                                         <option ng-repeat="el in brand" ng-value="el.id">{{el.brand_name}}</option>
                                     </select>
                                     <label for="truck_make"><span style="color: red;margin-right: 5px">*</span>车辆品牌</label>
                                 </div>
-                                <div class="input-field col s2">
+                                <div class="input-field col s3">
                                     <input name="horsepower" id="horsepower" type="number" ng-model="horsepower" autocomplete="off" >
                                     <label for="horsepower">马力</label>
                                 </div>
-                                <div class="input-field col s4 " >
+                                <div class="input-field col s3" >
                                     <input name="vin" id="vin" type="text" ng-model="vin" autocomplete="off" >
                                     <label for="vin">识别代码</label>
                                 </div>
-                                <div class="input-field col s4 " ng-class="{'has-error':add_truck_form.phone_num.$invalid&&submitted }">
+                                <div class="input-field col s3">
                                     <input name="phone_num" id="phone_num"  autocomplete="off" type="text" ng-model="phone_num"  ng-pattern="mobileRegx"  >
                                     <label for="phone_num">联系电话</label>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col s6 input-field" ng-class="{'has-error':add_truck_form.drive_time.$invalid&&submitted }">
+                                <div class="col s6 input-field">
                                     <input type="text" name="drive_time" id="drive_time" class="datepicker" autocomplete="off" ng-model="drive_time" required   date><i class="mdi dataIcon mdi-table-large"></i>
                                     <label for="drive_time"><span style="color: red;margin-right: 5px">*</span>行驶证检证日期</label>
                                 </div>
-                                <div class="col s6 input-field" ng-class="{'has-error':add_truck_form.service_time.$invalid&&submitted }">
+                                <div class="col s6 input-field">
                                     <input type="text" name="service_time" id="service_time" class="datepicker" autocomplete="off" ng-model="service_time" required   date><i class="mdi dataIcon mdi-table-large"></i>
                                     <label for="service_time"><span style="color: red;margin-right: 5px">*</span>营运证检证日期</label>
                                 </div>
@@ -97,8 +104,6 @@
                                     </div>
                                     <div ng-repeat="el in drive_img" class="drive_img_box col s4 vc-center p0 grey white-text">
                                         <img ng-src="{{el.img}}" class="responsive-img">
-                                        <!--<b class="delete_img vc-center black fz18" ng-click="delete_img(el.img)"><i class="mdi mdi-close"></i></b>-->
-                                        <!--<p class="img_date white-text center-align" ng-show="show" ng-cloak>{{el.user}}上传于{{el.time|date:'yyyy-MM-dd HH:mm:ss'}}</p>-->
                                     </div>
                                 </form>
                             </div>
@@ -115,8 +120,6 @@
                                     </div>
                                     <div ng-repeat="el in service_img" class="drive_img_box col s4 vc-center p0 grey white-text">
                                         <img ng-src="{{el.img}}" class="responsive-img">
-                                        <!--<b class="delete_img vc-center black fz18" ng-click="delete_img(el.img)"><i class="mdi mdi-close"></i></b>-->
-                                        <!--<p class="img_date white-text center-align" ng-show="show" ng-cloak>{{el.user}}上传于{{el.time|date:'yyyy-MM-dd HH:mm:ss'}}</p>-->
                                     </div>
                                 </form>
                             </div>
@@ -163,7 +166,7 @@
 
                         <div class="row">
                             <div  class="col s4 " style="padding: 10px;height: 40px;margin-top: 20px">
-                                <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':el.trail_num}">
+                                <div class="row trailer_panel" style="padding: 7px" >
                                     <div class="col s6 "  ng-click="clear_trailer()">
                                         <input type="radio" name="filled-in" class="filled-in"  id="filled-in-box" />
                                         <label for="filled-in-box" class="black-text" style="font-size: 18px" >暂不关联</label>
@@ -173,7 +176,7 @@
 
                             </div>
                             <div ng-repeat="el in hand_truck_msg track by $index" class="col s4 " style="padding: 10px;height: 40px;margin-top: 20px">
-                                <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':el.first_num}">
+                                <div class="row trailer_panel" style="padding: 7px" >
                                     <div class="col s4 " ng-if="!el.first_num" ng-click="check_trailer(el.id,el.truck_num,el.number)">
                                         <input type="radio" name="filled-in" class="filled-in"  id="filled-in-box{{$index}}" />
                                         <label for="filled-in-box{{$index}}" class="black-text" style="font-size: 18px" >{{el.truck_num}}</label>
@@ -221,7 +224,7 @@
                             </div>
                             <div class="row" ng-if="Binding_driver_flag">
                                 <div ng-repeat="el in drive track by $index" class="col s4 " style="padding: 10px;height: 40px;margin-top: 20px">
-                                    <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':el.truck_num||el.vice}">
+                                    <div class="row trailer_panel" style="padding: 7px">
                                         <div class="col s6 " ng-if="!el.truck_num&&!el.vice" ng-click="check_driver(el.id,el.drive_name)">
                                             <input type="radio" name="filled-in" class="filled-in"  id="filled-in_driver-box{{$index}}" />
                                             <label for="filled-in_driver-box{{$index}}" class="black-text" style="font-size: 18px" >{{el.drive_name}}</label>
@@ -251,7 +254,7 @@
                             </div>
                             <div class="row" ng-if="Binding_copilot_flag">
                                 <div ng-repeat="el in copilot track by $index" class="col s4 " style="padding: 10px;height: 40px;margin-top: 20px">
-                                    <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':el.truck_num||el.vice}">
+                                    <div class="row trailer_panel" style="padding: 7px" >
                                         <div class="col s6 " ng-if="!el.truck_num&&!el.vice" ng-click="check_copilot(el.id,el.drive_name)">
                                             <input type="radio" name="filled-in" class="filled-in"  id="filled-in_copilot-box{{$index}}" />
                                             <label for="filled-in_copilot-box{{$index}}" class="black-text" style="font-size: 18px" >{{el.drive_name}}</label>

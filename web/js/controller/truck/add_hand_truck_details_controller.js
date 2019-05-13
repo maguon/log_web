@@ -66,22 +66,19 @@ app.controller("add_hand_truck_details_controller", ["$scope", "$state", "$state
     $scope.submit_Form = function (inValid) {
         $scope.submitted = true;
         var obj = {
-            "truckNum": $scope.truck_hand_num,
-            "brandId": $scope.truck_make,
-            // "truckTel": $scope.phone_num,
-            "theCode": $scope.hand_vin,
-            "driveId": $scope.main_driver,
-            // "copilot": "string",
-            "companyId": $scope.truck_hand_company,
-            "truckType": 2,
-            "relId": $scope.check_hand_truck,
-            "number": $scope.hand_have_num,
-            "drivingDate": $scope.drive_hand_time,
-            "licenseDate": $scope.service_hand_time,
-            // "twoDate": "string",
-            // "drivingImage": "string",
-            // "licenseImage": "string",
-            "remark": $scope.hand_textarea
+            truckNum: $scope.truck_hand_num,
+            brandId: $scope.truck_make,
+            theCode: $scope.hand_vin,
+            driveId: $scope.main_driver,
+            companyId: $scope.truck_hand_company,
+            truckType: 2,
+            outputCompanyId:$scope.outputCompany.id,
+            outputCompanyName:$scope.outputCompany.company_name,
+            relId: $scope.check_hand_truck,
+            number: $scope.hand_have_num,
+            drivingDate: $scope.drive_hand_time,
+            licenseDate: $scope.service_hand_time,
+            remark: $scope.hand_textarea
         };
         if (inValid) {
             _basic.post($host.api_url + "/user/" + userId + "/truckTrailer", obj).then(function (data) {

@@ -144,6 +144,7 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
             "truckTel": $scope.truckTrailer.truck_tel,
             "theCode": $scope.truckTrailer.the_code,
             "truckType":2,
+            operateType:1,
             "number":$scope.truckTrailer.number,
             "drivingDate":$scope.truckTrailer.driving_date,
             "licenseDate":$scope.truckTrailer.license_date,

@@ -84,6 +84,7 @@ app.controller("add_head_truck_details_controller", ["$scope", "$state", "$state
             driveId: $scope.main_driver,
             companyId: $scope.truck_company,
             truckType: 1,
+            operateType: $scope.truck_type,
             outputCompanyId:$scope.outputCompany.id,
             outputCompanyName:$scope.outputCompany.company_name,
             drivingDate: $scope.drive_time,

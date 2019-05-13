@@ -72,6 +72,7 @@ app.controller("add_hand_truck_details_controller", ["$scope", "$state", "$state
             driveId: $scope.main_driver,
             companyId: $scope.truck_hand_company,
             truckType: 2,
+            operateType: $scope.truck_hand_type,
             outputCompanyId:$scope.outputCompany.id,
             outputCompanyName:$scope.outputCompany.company_name,
             relId: $scope.check_hand_truck,

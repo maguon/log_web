@@ -229,6 +229,7 @@ app.controller("look_head_truck_details_controller", ["$scope", "$state", "$stat
             "truckTel": $scope.truckFirst.truck_tel,
             "theCode": $scope.truckFirst.the_code,
             "truckType": 1,
+            operateType:1,
             "drivingDate": $scope.truckFirst.driving_date,
             "licenseDate": $scope.truckFirst.license_date,
             "remark": $scope.truckFirst.remark,

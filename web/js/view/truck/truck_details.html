@@ -140,6 +140,7 @@
                                     <th data-field="">车辆电话</th>
                                     <th data-field="">所属类型</th>
                                     <th data-field="">所属单位</th>
+                                    <th data-field="">产值公司</th>
                                     <th data-field="">车辆状态</th>
                                     <th data-field="">车检</th>
                                     <th width="300">操作</th>
@@ -154,6 +155,7 @@
                                     <td ng-bind="el.truck_tel">无</td>
                                     <td>{{el.operate_type | carType}}</td>
                                     <td ng-bind="el.company_name">无</td>
+                                    <td ng-bind="el.company_name"></td>
                                     <td>{{el.truck_status | workStatus}}</td>
                                     <td class="white-text">
                                         <span ng-show="el.driving_date|ptime" class="small-tips red lighten-2">临</span>
@@ -297,6 +299,7 @@
                                 <th data-field="">关联车头</th>
                                 <th data-field="">所属类型</th>
                                 <th data-field="">所属单位</th>
+                                <th data-field="">产值公司</th>
                                 <th data-field="">车辆状态</th>
                                 <th data-field="">车检</th>
                                 <th width="300">操作</th>
@@ -309,6 +312,7 @@
                                 <td ng-bind="el.first_num">2</td>
                                 <td>{{el.operate_type | carType}}</td>
                                 <td ng-bind="el.company_name">1</td>
+                                <td ng-bind="el."></td>
                                 <td ng-if="el.truck_status==1">正常</td>
                                 <td ng-if="el.truck_status==0">维修</td>
                                 <td class="white-text">

@@ -576,6 +576,16 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/truck/driver_exceed_oil_month_detail.html",
             controller:'driver_exceed_oil_month_detail_controller'
         })
+
+        //etc
+        .state("import_etc",{
+            url:"/import_etc",
+            params: {"from": null},
+            templateUrl: "js/view/truck/import_etc.html",
+            controller:'import_etc_controller'
+        })
+
+
         //车辆安全检查
         .state("security_check",{
             url:"/security_check",
@@ -775,7 +785,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/finance/driver_cost.html",
             controller:'driver_cost_controller'
         })
-
+        .state("driver_social_security",{
+            url:"/driver_social_security",
+            params: {"from": null},
+            templateUrl: "js/view/finance/driver_social_security.html",
+            controller:'driver_social_security_controller'
+        })
 
         // 结算管理
         .state("settlement_index",{

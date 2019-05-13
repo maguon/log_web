@@ -162,7 +162,7 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
         if(addSingMoney==null||addSingMoney==''){
             addSingMoney=0;
         }
-        $scope.addTotalMoney=addSingMoney*dispatchNum+addGuardMoney;
+        $scope.addTotalMoney=addSingMoney*dispatchNum;
     }
     $scope.changeDispatchNum=function (addSingMoney,addGuardMoney,dispatchNum){
         if(dispatchNum==null){
@@ -174,7 +174,7 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
         if(addSingMoney==null||addSingMoney==''){
             addSingMoney=0;
         }
-        $scope.addTotalMoney=addSingMoney*dispatchNum+addGuardMoney;
+        $scope.addTotalMoney=addSingMoney*dispatchNum;
     }
     $scope.changeGuardMoney=function (addSingMoney,addGuardMoney,dispatchNum){
         if(dispatchNum==null){
@@ -186,7 +186,7 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
         if(addSingMoney==null||addSingMoney==''){
             addSingMoney=0;
         }
-        $scope.addTotalMoney=addSingMoney*dispatchNum+addGuardMoney;
+        $scope.addTotalMoney=addSingMoney*dispatchNum;
     }
     $scope.addDataItem =function () {
         if ($scope.dispatchNum.car_count==0) {

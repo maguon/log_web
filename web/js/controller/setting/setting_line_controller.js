@@ -80,7 +80,7 @@ app.controller("setting_line_controller", ["$scope", "$host", "_basic", function
     $scope.modifyLineInfo = function (lineInfo) {
         $scope.endCity = lineInfo.city_name;
         $scope.distance = lineInfo.dis;
-        $scope.applyProtectCost = lineInfo.protect_fee;
+       /* $scope.applyProtectCost = lineInfo.protect_fee;*/
         $scope.reverseCost= lineInfo.reverse_money;
         $scope.modifyFlag = lineInfo.flag;
         $scope.routeId = lineInfo.routeId;
@@ -100,7 +100,7 @@ app.controller("setting_line_controller", ["$scope", "$host", "_basic", function
             if($scope.distance !== null){
                 _basic.put($host.api_url + "/user/" + userId + "/cityRoute/" + $scope.routeId,{
                     distance:parseFloat($scope.distance),
-                    protectFee: parseFloat($scope.applyProtectCost),
+                   /* protectFee: parseFloat($scope.applyProtectCost),*/
                     reverseMoney:parseFloat($scope.reverseCost)
                 }).then(function (modifyData) {
                     if (modifyData.success === true) {
@@ -119,13 +119,16 @@ app.controller("setting_line_controller", ["$scope", "$host", "_basic", function
         }
         else{
             if($scope.distance !== ""){
+                if($scope.reverseCost==''){
+                    $scope.reverseCost=0;
+                }
                 _basic.post($host.api_url + "/user/" + userId + "/cityRoute",{
                     routeStartId: $scope.selectedCityId,
                     routeStart: $scope.startCity,
                     routeEndId: $scope.endCityId,
                     routeEnd: $scope.endCity,
                     distance: $scope.distance,
-                    protectFee:$scope.applyProtectCost,
+                   /* protectFee:$scope.applyProtectCost,*/
                     reverseMoney:$scope.reverseCost
                 }).then(function (data) {
                     if (data.success === true) {

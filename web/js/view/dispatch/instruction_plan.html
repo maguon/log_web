@@ -1,5 +1,5 @@
 <!--倒板-->
-<div id="reverseMoney" class="modal">
+<!--<div id="reverseMoney" class="modal">
     <div class="cyan lighten-1 white-text center-align modal_title" >设置倒板</diV>
     <div class="modal-content center" style="padding: 0;">
         <div class="row col s12 input-field" style="width: 80%;margin-left: 10%;margin-top: 50px">
@@ -9,7 +9,7 @@
             </div>
         </div>
 
-        <!--确定按钮-->
+        &lt;!&ndash;确定按钮&ndash;&gt;
         <div class="modal-footer vc-center">
             <button class="modal-action modal-close btn waves-light waves-effect cyan lighten-1" type="button" ng-click="changeReverse()">确定</button>
         </div>
@@ -25,12 +25,12 @@
             </div>
         </div>
 
-        <!--确定按钮-->
+        &lt;!&ndash;确定按钮&ndash;&gt;
         <div class="modal-footer vc-center">
             <button class="modal-action modal-close btn waves-light waves-effect cyan lighten-1" type="button"  ng-click="changeNotReverse()">确定</button>
         </div>
     </div>
-</div>
+</div>-->
 
 
 <!--点击直达路线模态框-->
@@ -709,14 +709,14 @@
 
                                             <div class="col s2" style="margin-top: 5px">
                                                 <div class="col s6 center-align" style="padding: 0 5px" ng-show="currentLine.reverse_flag!==1">
-                                                    <a ng-click="invertedBoard(currentLine.id,$event)" style="width: 38px;height: 38px;padding-left: 5px">
+                                                    <a ng-click="invertedBoard(currentLine,$event)" style="width: 38px;height: 38px;padding-left: 5px">
                                                          <span class="cyan lighten-2 center white-text" style="width:38px;height:38px;
                                                         display:inline-block;border-radius: 100%;font-size: 1.5rem;line-height: 38px;margin-top:5px ">板</span>
                                                     </a>
                                                 </div>
                                                 <div class="col s6 center-align" style="padding: 0 5px" ng-show="currentLine.reverse_flag==1">
 
-                                                    <a ng-click="notInvertedBoard(currentLine.id,$event)" style="width: 38px;height: 38px;padding-left: 5px">
+                                                    <a ng-click="notInvertedBoard(currentLine,$event)" style="width: 38px;height: 38px;padding-left: 5px">
                                                         <span class="blue-grey lighten-2 center white-text" style="width:38px;height:38px;
                                                         display:inline-block;border-radius: 100%;font-size: 1.5rem;line-height: 38px;margin-top:5px ">板</span>
                                                     </a>

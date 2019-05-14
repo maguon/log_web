@@ -933,21 +933,34 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     };
 
     // 倒板
-    $scope.invertedBoard =function (id){
-        $scope.reverseId =id;
+    $scope.invertedBoard =function (el){
+        $scope.reverse =el;
         event.stopPropagation();
-        $scope.addReverseMoney='';
-        $('#reverseMoney').modal('open');
+        // 装车任务信息
+        _basic.get($host.api_url + "/cityRoute?routeStartId="+$scope.reverse.route_start_id+"&routeEndId="+$scope.reverse.route_end_id).then(function (missionData) {
+            if (missionData.success === true) {
+                if(missionData.result.length !== 0){
+                    $scope.addReverseMoney = missionData.result[0].reverse_money;
+                    $scope.changeReverse();
+                }
+                else{
+                    $scope.addReverseMoney=0;
+                }
+            }
+            else {
+                swal(missionData.msg, "", "error");
+            }
+        });
     }
 
     $scope.changeReverse =function(){
         if($scope.addReverseMoney==0||$scope.addReverseMoney==''||$scope.addReverseMoney==undefined){
-            swal('金额不能为空', "", "error");
+            swal('请在路线中添加倒板费!', "", "error");
         }
         else {
             swal({
                 title: "确定设置为倒板吗？",
-                text: "",
+                text: "金额为"+ $scope.addReverseMoney+'元',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
@@ -955,7 +968,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 cancelButtonText: "取消"
             }).then (function (result) {
                 if(result) {
-                    _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" + $scope.reverseId+'/dpRouteReverseFlag',{
+                    _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" + $scope.reverse.id+'/dpRouteReverseFlag',{
                         "reverseFlag": 1,
                         "reverseMoney":$scope.addReverseMoney
                     }).then(function (data) {
@@ -972,12 +985,10 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         }
     }
 
-    $scope.notInvertedBoard =function(id){
-        $scope.notReverseId =id;
+    $scope.notInvertedBoard =function(el){
+        $scope.notReverse =el;
         event.stopPropagation();
-        $scope.notReverseMoney='';
-        $('#notReverseMoney').modal('open');
-
+        $scope.changeNotReverse();
     }
     $scope.changeNotReverse =function(){
         swal({
@@ -990,7 +1001,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             cancelButtonText: "取消"
         }).then(function (result) {
             if (result.value) {
-                _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" + $scope.notReverseId+'/dpRouteReverseFlag',{
+                _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" + $scope.notReverse.id+'/dpRouteReverseFlag',{
                     "reverseFlag": 0,
                     "reverseMoney":0
                 }).then(function (data) {

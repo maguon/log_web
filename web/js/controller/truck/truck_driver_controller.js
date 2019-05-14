@@ -203,7 +203,8 @@ app.controller("truck_driver_controller", ["$scope","$rootScope","$state","$stat
             }).then(function (data) {
                 if (data.success == true) {
                     $scope.searchDriver();
-                    swal("新增成功", "", "success");
+                    $("#bankItem").modal("close");
+                    swal("修改成功", "", "success");
                 }
             });
         }

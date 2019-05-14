@@ -1,5 +1,5 @@
 app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stateParams", "$host", "_basic", function ($scope,$rootScope,$state,$stateParams, $host, _basic) {
-
+    var userId = _basic.getSession(_basic.USER_ID);
     $scope.receive_status = "1";
     $scope.start = 0;
     $scope.size = 11;
@@ -68,6 +68,65 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
             });
         }
     };
+
+
+    //通过
+    $scope.carHave = function(id){
+        swal({
+            title: "确定领取吗？",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确认",
+            cancelButtonText: "取消"
+        }).then(
+            function(result){
+                if (result.value) {
+                    _basic.put($host.api_url + "/user/" + userId + "/loadTaskCleanRel/" + id + "/status/2", {
+                        actualPrice: $scope.totalPrice,
+                        actualGuardFee: $scope.guardFee,
+                        remark: $scope.remark
+                    }).then(function (data) {
+                        if (data.success === true) {
+                            getCarWashFeeList();
+                        }
+                        else {
+                            swal(data.msg, "", "error");
+                        }
+                    });
+                }
+            });
+    }
+
+    //拒绝
+    $scope.carNotHave = function(id){
+        swal({
+            title: "确定驳回吗？",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确认",
+            cancelButtonText: "取消"
+        }).then(
+            function(result){
+                if (result.value) {
+                    _basic.put($host.api_url + "/user/" + userId + "/loadTaskCleanRel/" + id + "/status/0", {
+                        actualPrice: 0,
+                        actualGuardFee: 0,
+                        remark: $scope.remark
+                    }).then(function (data) {
+                        if (data.success === true) {
+                            getCarWashFeeList();
+                        }
+                        else {
+                            swal(data.msg, "", "error");
+                        }
+                    });
+                }
+            });
+
+    }
+
 
     // 获取洗车费列表
     $scope.getCarWashFeeList = function () {

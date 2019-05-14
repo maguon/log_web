@@ -1,41 +1,54 @@
 <div class="car_wash_fee">
     <div class="row main_storage_car">
         <div class="col s10">
-            <div class="col input-field" style="width: 20%">
+            <div class="col s3 input-field">
                 <input id="instruction_number" type="text" ng-model="instructionNum">
                 <label for="instruction_number">洗车编号</label>
             </div>
-            <div class="col input-field" style="width: 20%">
+            <div class="col s3 input-field">
                 <input id="dp_number" type="text" ng-model="dp_number">
                 <label for="dp_number">调度编号</label>
             </div>
-            <div class="col input-field" style="width: 20%">
+            <div class="col s3 input-field">
+                <input id="load_time_start" type="text" class="datepicker" ng-model="loadDateStart" date style="width:100%"><i
+                    class="mdi dataIcon mdi-table-large"></i>
+                <label for="load_time_start">装车时间</label>
+            </div>
+            <div class="col s3 input-field">
+                <input id="load_time_end" type="text" class="datepicker" ng-model="loadDateEnd" date style="width:100%"><i
+                    class="mdi dataIcon mdi-table-large"></i>
+                <label for="load_time_end">至</label>
+            </div>
+            <div class="col s3 input-field">
                 <select material-select watch ng-model="driver" id="getDrivderId" style="width: 100%" >
                     <option value="" selected>司机</option>
                     <option ng-repeat="el in driveNameList" ng-value="el.drive_name">{{el.drive_name}}</option>
                 </select>
             </div>
-            <div class="col input-field" style="width: 20%">
+            <div class="col s3 input-field">
                 <select  material-select watch ng-model="truckNum"  id="truckNum" style="width: 100%"  ng-change="changeTruck(addTruckId)">
                     <option value="" selected disabled>请选择</option>
                     <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}({{truckNumItem.truck_type == 1 ? "头车" : "挂车"}})</option>
                 </select>
             </div>
 
-            <div class="col input-field" style="width: 10%">
-                <select id="end_city" name="state" style="width:100%" ng-change="getRecive()" ng-model="cityId">
-                    <option value=""></option>
-                    <option value="0" >清除选择</option>
-                    <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
-                </select>
+            <div class="col s3 input-field">
+                <div class="col s6">
+                    <select id="end_city" name="state" style="width:100%" ng-change="getRecive()" ng-model="cityId">
+                        <option value=""></option>
+                        <option value="0" >清除选择</option>
+                        <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
+                    </select>
+                </div>
+                <div class="col s6">
+                    <select material-select watch ng-model="distributor" style="width:100%">
+                        <option value="" selected>经销商</option>
+                        <option ng-repeat="rec in receiveList" ng-value="rec.id">{{rec.short_name}}</option>
+                    </select>
+                </div>
             </div>
-            <div class="col input-field" style="width: 10%">
-                <select material-select watch ng-model="distributor" style="width:100%">
-                    <option value="" selected>经销商</option>
-                    <option ng-repeat="rec in receiveList" ng-value="rec.id">{{rec.short_name}}</option>
-                </select>
-            </div>
-            <div class="col input-field" style="width: 20%">
+
+            <!--<div class="col input-field" style="width: 20%">
                 <input id="receive_time_start" type="text" class="datepicker" ng-model="receiveTimeStart" date style="width:100%"><i
                     class="mdi dataIcon mdi-table-large"></i>
                 <label for="receive_time_start">领取时间</label>
@@ -44,18 +57,9 @@
                 <input id="receive_time_end" type="text" class="datepicker" ng-model="receiveTimeEnd" date style="width:100%"><i
                     class="mdi dataIcon mdi-table-large"></i>
                 <label for="receive_time_end">至</label>
-            </div>
-            <div class="col input-field" style="width: 20%">
-                <input id="load_time_start" type="text" class="datepicker" ng-model="loadDateStart" date style="width:100%"><i
-                    class="mdi dataIcon mdi-table-large"></i>
-                <label for="load_time_start">装车时间</label>
-            </div>
-            <div class="col input-field" style="width: 20%">
-                <input id="load_time_end" type="text" class="datepicker" ng-model="loadDateEnd" date style="width:100%"><i
-                    class="mdi dataIcon mdi-table-large"></i>
-                <label for="load_time_end">至</label>
-            </div>
-            <div class="col input-field" style="width: 20%">
+            </div>-->
+
+            <div class="col s3 input-field">
                 <select material-select watch ng-model="receive_status" style="width:100%">
                     <option value="" selected>领取状态</option>
                     <option value="0">未通过</option>
@@ -91,14 +95,18 @@
                     <th data-field="">品牌</th>
                     <th data-field="">洗车数</th>
                     <th data-field="">计划洗车费</th>
-                    <th data-field="">实际洗车费</th>
-                    <th data-field="">计划门卫费</th>
-                    <th data-field="">实际门卫费</th>
+                   <!-- <th data-field="">实际洗车费</th>-->
+                   <!-- <th data-field="">计划门卫费</th>-->
+                   <!-- <th data-field="">实际门卫费</th>-->
                     <th data-field="">货车牌号</th>
                     <th data-field="">送达经销商</th>
                     <th data-field="">装车日期</th>
-                    <th data-field="">领取时间</th>
-                    <th data-field="">领取状态</th>
+
+                    <th data-field="">银行账号</th>
+                    <th data-field="">户名</th>
+                    <th data-field="">开户行</th>
+                   <!-- <th data-field="">领取时间</th>
+                    <th data-field="">领取状态</th>-->
                     <th>操作</th>
                 </tr>
                 </thead>
@@ -111,22 +119,44 @@
                     <td>{{car.make_name}}</td>
                     <td>{{car.car_count}}</td>
                     <td>{{car.total_price}}</td>
-                    <td>{{car.actual_price}}</td>
-                    <td>{{car.guard_fee}}</td>
-                    <td>{{car.actual_guard_fee}}</td>
+                   <!-- <td>{{car.actual_price}}</td>-->
+                    <!--<td>{{car.guard_fee}}</td>-->
+                   <!-- <td>{{car.actual_guard_fee}}</td>-->
                     <td>{{car.truck_num}}</td>
                     <td>{{car.short_name}}</td>
                     <td>{{car.created_on | date:'yyyy-MM-dd'}}</td>
-                    <td>{{car.clean_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                    <td>{{car.status == 0 ? "未通过" : car.status == 1 ? "未领取" : "已领取"}}</td>
+
+                    <td>{{car.bank_number}}</td>
+                    <td>{{car.bank_name}}</td>
+                    <td>{{car.bank_user_name}}</td>
+
+                    <!--<td>{{car.clean_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td>{{car.status == 0 ? "未通过" : car.status == 1 ? "未领取" : "已领取"}}</td>-->
                     <td class="details">
-                        <a ui-sref="car_wash_fee_details({id:car.id,from:'car_wash_fee'})" style="font-size: 1.5rem">
+                       <!-- <a ui-sref="car_wash_fee_details({id:car.id,from:'car_wash_fee'})" style="font-size: 1.5rem">
                             <i class="mdi mdi-file-document look_icon cyan-text lighten-1"></i>
+                        </a>-->
+                        <a ng-show="car.status == 0" style="font-size: 1.5rem">
+                            <i class="mdi  mdi-window-close look_icon grey-text lighten-1"></i>
                         </a>
+
+                        <a ng-show="car.status == 2" style="font-size: 1.5rem">
+                            <i class="mdi  mdi-check look_icon grey-text lighten-1"></i>
+                        </a>
+                        <a ng-show="car.status == 1" ng-click="carNotHave(car.id)" style="font-size: 1.5rem;cursor: pointer">
+                            <i class="mdi mdi-window-close look_icon red-text lighten-1"></i>
+                        </a>
+                        <a ng-show="car.status == 1" ng-click="carHave(car.id)" style="font-size: 1.5rem;cursor: pointer">
+                            <i class="mdi  mdi-check look_icon cyan-text lighten-1"></i>
+                        </a>
+
+
+
+
                     </td>
                 </tr>
                 <tr class="grey-text text-darken-1" ng-if="carWashFeeList.length == 0">
-                    <td colspan="16"><span style="letter-spacing: 2px">暂无数据</span></td>
+                    <td colspan="14"><span style="letter-spacing: 2px">暂无数据</span></td>
                 </tr>
                 </tbody>
             </table>

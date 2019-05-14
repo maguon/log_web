@@ -1,0 +1,142 @@
+<div class="truck_driver_details" style="width:80%;margin: 0 auto">
+    <div class="row">
+        <div class="storage_storeTitle vc-center ">
+            <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
+                <i class="mdi mdi-arrow-left-bold"></i>
+            </a>
+            <h4 class="center-align cyan-text text-lighten-1">司机信息</h4>
+        </div>
+        <ul class="tabs ui-tabs tabs-fixed-width tab-demo z-depth-1"
+            style="font-size: 25px;font-weight: bold;overflow-x: hidden;margin-bottom: 25px" ul-tabs>
+            <li class="tab"><a ng-click="showDriverDetails()" class="cyan-text" style="line-height: 40px" href="javascript:void(0)">基本信息</a></li>
+            <li class="tab"><a ng-click="showDriverBand()" class="cyan-text"  style="line-height: 40px" href="javascript:void(0)">绑定货车</a></li>
+        </ul>
+        <div class="driver_details_step_1" ng-if="stepFirst">
+            <!--<form name="truck_driver_details" ng-submit="submitForm(truck_driver_details.$valid)" novalidate>-->
+            <div class="row">
+                <div class="input-field col s4"
+                     ng-class="{'has-error':truck_driver_details.drive_name.$invalid&&submitted }">
+                    <input id="drive_name" name="drive_name" type="text" ng-model="driverInfo.drive_name" required>
+                    <label for="drive_name"><span style="color: red">* </span>司机姓名</label>
+                </div>
+                <div class="input-field col s4" ng-class="{'has-error':truck_driver_details.sex.$invalid&&submitted }">
+                    <select id="sex" name="sex" material-select watch ng-model="driverInfo.gender" required>
+                        <option value="" selected>请选择</option>
+                        <option value="0">女</option>
+                        <option value="1">男</option>
+                    </select>
+                    <label><span style="color: red">* </span>性别</label>
+                </div>
+                <div class="input-field col s4"
+                     ng-class="{'has-error':truck_driver_details.phone.$invalid&&submitted }" >
+                    <input id="phone" name="phone" type="text" ng-model="driverInfo.mobile" required disabled>
+                    <label for="phone"><span style="color: red">* </span>联系电话</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s4"
+                     ng-class="{'has-error':truck_driver_details.id_card.$invalid&&submitted }">
+                    <input id="id_card" name="id_card" type="text" ng-model="driverInfo.id_number" required>
+                    <label for="id_card"><span style="color: red">* </span>身份证</label>
+                </div>
+                <div class="input-field col s4"
+                     ng-class="{'has-error':truck_driver_details.license.$invalid&&submitted }">
+                    <select id="license" name="license" material-select watch ng-model="driverInfo.license_type" required>
+                        <option value="" selected>请选择</option>
+                        <option ng-repeat="license in licenseType" ng-value="license.id">{{license.typeName}}</option>
+                    </select>
+                    <label><span style="color: red">* </span>驾驶类型</label>
+                </div>
+                <div class="input-field col s4"
+                     ng-class="{'has-error':truck_driver_details.endTime.$invalid&&submitted }">
+                    <input id="endTime" name="endTime" type="text" class="datepicker" date ng-model="driverInfo.license_date"
+                           required>
+                    <i class="mdi dataIcon mdi-table-large"></i>
+                    <label for="endTime"><span style="color: red">* </span>驾驶证到期时间</label>
+                </div>
+            </div>
+            <div class="row col s12">
+                <div class="col s1">
+                    备注：
+                </div>
+                <div class="col s11">
+                    <textarea style="height: 150px" name="remark" id="remark" cols="30" rows="10"
+                              ng-model="driverInfo.remark"></textarea>
+                </div>
+            </div>
+
+            <div class="col s12" style="margin-top: 20px">
+                <div class="divider cyan" style="height: 2px;"></div>
+                <p ng-repeat="truckInfo in truckInfoList">
+                    <span> {{truckInfo.timez | date:'yyyy-MM-dd HH:mm'}}</span>
+                    &emsp;&emsp;<span> {{truckInfo.content}}</span>
+                    &emsp;&emsp;<span>操作员： {{truckInfo.name}}</span>
+                </p>
+            </div>
+            <div class="row col s12">
+                <div class="subBtn" style="width: 300px ;margin: 0 auto;margin-top: 100px">
+                    <button style="width: 300px;font-size: 1.3rem" class="btn btn-large waves-effect waves-light"
+                            ng-click="submitInfo()">提交
+                    </button>
+                </div>
+            </div>
+            <!--</form>-->
+        </div>
+        <div class="driver_details_step_3" ng-if="stepThird">
+            <div class="row">
+                <div class="input-field col s4" ng-show="bindTruckInput">
+                    <input id="Binding_trailer" name="Binding_trailer"
+                           ng-change="updateTruckList()" class="Binding_trailer"
+                           ng-model="driverInfo.truck_num" type="text"  autocomplete="off">
+                    <label for="Binding_trailer">绑定货车</label>
+                </div>
+                <div class="input-field col s4" ng-show="bindMainTxt">
+                    <input id="Binding_trailer_txt" name="Binding_trailer" class="Binding_trailer"
+                           ng-value="driverInfo.drive_name == null ? '' : driverInfo.truck_num" type="text"  autocomplete="off" disabled>
+                    <label class="active" for="Binding_trailer">绑定主驾</label>
+                </div>
+                <div class="input-field col s4" ng-show="bindViceTxt">
+                    <input id="Binding_trailer_txt2" name="Binding_trailer" class="Binding_trailer"
+                           ng-value="driverInfo.vice == null ? '' : driverInfo.vice" type="text"  autocomplete="off" disabled>
+                    <label class="active" for="Binding_trailer">绑定副驾</label>
+                </div>
+                <div class="col s4">
+                    <button ng-if="bindBtn" style="width: 150px;height: 38px;line-height: 3px;font-size: 1rem;margin-top: 11px;margin-left: 10px"
+                            class="right btn btn-large waves-effect waves-light"
+                            ng-click="bundling()">
+                        绑定主驾
+                    </button>
+                    <button ng-if="unbindBtn" style="width: 150px;height: 38px;line-height: 3px;font-size: 1rem;margin-top: 11px"
+                            class="right btn btn-large waves-effect waves-light"
+                            ng-click="unBundling()">
+                        解绑主驾
+                    </button>
+                    <button ng-if="bindBtnCopilot" style="width: 150px;height: 38px;line-height: 3px;font-size: 1rem;margin-top: 11px;margin-left: 10px"
+                            class="right btn btn-large waves-effect waves-light"
+                            ng-click="bundlingCopilot()">
+                        绑定副驾
+                    </button>
+                    <button ng-if="unbindBtnCopilot" style="width: 150px;height: 38px;line-height: 3px;font-size: 1rem;margin-top: 11px"
+                            class="right btn btn-large waves-effect waves-light"
+                            ng-click="unBundlingCopilot()">
+                        解绑副驾
+                    </button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div ng-show="showTruckList" ng-repeat="truck in newTruckList" class="col s4" style="padding: 10px;height: 40px;margin-top: 20px">
+                    <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':truck.drive_name && truck.vice_drive_name}">
+                        <div class="col s4" ng-click="check_trailer(truck.id)" style="padding: 0;">
+                            <input ng-if="!truck.drive_name || !truck.vice_drive_name" type="radio" name="filled-in" class="filled-in"  id="filled-in-box{{$index}}" />
+                            <label for="filled-in-box{{$index}}" class="black-text" style="font-size: 15px" >{{truck.truck_num}}</label>
+                        </div>
+                        <div class="col s8" style="padding: 0;">
+                            <span style="margin-left: 10px">主：{{truck.drive_name == null ? "未关联" : truck.drive_name}}&emsp;副：{{truck.vice_drive_name == null ? "未关联" : truck.vice_drive_name}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

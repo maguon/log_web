@@ -1,0 +1,85 @@
+<div >
+    <div class="" >
+        <div class="modal-content grey-text text-darken-2">
+            <div class="storage_storeTitle vc-center">
+                <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
+                    <i class="mdi mdi-arrow-left-bold"></i>
+                </a>
+                <h4 class="center-align cyan-text text-lighten-1">添加外协挂车</h4>
+            </div>
+            <div class="row"  >
+                <div class="col s12" style="overflow-x: hidden">
+                    <ul class="ui-tabs tabs" ul-tabs>
+                        <li class="tab col s6 test1"><a  href="#test1">基本信息</a></li>
+                        <li class="tab col s6 test3 disabled"><a  href="#test3">绑定头车</a></li>
+                    </ul>
+                </div>
+                <div id="test1" class="test col s12">
+                    <form name="add_truck_form"  ng-submit="submit_Form(add_truck_form.$valid)" novalidate>
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <input name="truck_hand_num" id="truck_hand_num" type="text" ng-model="truck_hand_num"  required>
+                                <label for="truck_hand_num"><span style="color: red;margin-right: 5px">*</span>车牌牌号</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input name="hand_have_num" id="hand_have_num" type="number" ng-model="hand_have_num" ng-pattern="/^[1-9]?\d$/"  required >
+                                <label for="hand_have_num"><span style="color: red;margin-right: 5px">*</span>挂车货位（最多两位数）</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input name="hand_textarea" id="hand_textarea" type="text" ng-model="hand_textarea" >
+                                <label for="hand_textarea">备注:</label>
+                            </div>
+                        </div>
+                        <div class="row vc-center" >
+                            <button class="btn" type="submit" name="action">下一步</button>
+                        </div>
+                    </form>
+                </div>
+                <div id="test3" class="test col s12">
+                    <div class="row">
+                        <div class="input-field col s4">
+                            <input id="Binding_trailer" name="Binding_trailer" ng-keyup="Binding_trailer_check()" class="Binding_trailer" ng-model="Binding_trailer" type="text"  autocomplete="off">
+                            <label for="Binding_trailer">关联头车</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div  class="col s4 " style="padding: 10px;height: 40px;margin-top: 20px">
+                            <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':el.trail_num}">
+                                <div class="col s6 "  ng-click="clear_trailer()">
+                                    <input type="radio" name="filled-in" class="filled-in"  id="filled-in-box" />
+                                    <label for="filled-in-box" class="black-text" style="font-size: 18px" >暂不关联</label>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div ng-repeat="el in head_car_msg track by $index" class="col s4 " style="padding: 10px;height: 40px;margin-top: 20px">
+                            <div class="row trailer_panel" style="padding: 7px" ng-class="{'grey lighten-3':el.trail_num}">
+                                <div class="col s6 " ng-if="!el.trail_num" ng-click="check_trailer(el.id)">
+                                    <input type="radio" name="filled-in" class="filled-in"  id="filled-in-box{{$index}}" />
+                                    <label for="filled-in-box{{$index}}" class="black-text" style="font-size: 18px" >{{el.truck_num}}</label>
+                                </div>
+                                <div class="col s6 black-text" ng-if="el.trail_num"  style="font-size: 18px">
+                                    {{el.truck_num}}
+                                </div>
+                                <div class=" col s6">
+                                    <span ng-hide="el.trail_num" style="margin-left: 10px">未关联挂车</span>
+                                    <span ng-show="el.trail_num" style="margin-left: 10px">关联挂车: <span>{{el.trail_num}}</span></span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row vc-center" style="margin-top: 50px" >
+                        <a  class="btn waves-effect" style="margin-right: 20px" ng-click="binding_first()">完成</a>
+                        <a  class="btn waves-effect" ng-click="binding_add_insure()"  >完成并增加保单</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>

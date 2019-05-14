@@ -213,6 +213,46 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/data/imported_files_details.html",
             controller:'imported_files_details_controller'
         })
+        .state("outsourcing_vehicles",{
+            url:"/outsourcing_vehicles",
+            params: {"from": null},
+            templateUrl: "js/view/dispatch/outsourcing_vehicles.html",
+            controller:'outsourcing_vehicles_controller'
+        })
+        .state("add_driver_detail",{
+            url:"/add_driver_detail?from",
+            templateUrl: "js/view/dispatch/add_driver_detail.html",
+            controller:'add_driver_detail_controller'
+        })
+        .state("add_hand_detail",{
+            url:"/add_hand_detail?from",
+            templateUrl: "js/view/dispatch/add_hand_detail.html",
+            controller:'add_hand_detail_controller'
+        })
+        .state("add_head_detail",{
+            url:"/add_head_detail?from",
+            templateUrl: "js/view/dispatch/add_head_detail.html",
+            controller:'add_head_detail_controller'
+        })
+
+
+        .state("look_driver_detail",{
+            url:"/look_driver_detail/id/{id}/?from",
+            templateUrl: "js/view/dispatch/look_driver_detail.html",
+            controller:'look_driver_detail_controller'
+        })
+        .state("look_hand_detail",{
+            url:"/look_hand_detail/id/{id}/?from",
+            templateUrl: "js/view/dispatch/look_hand_detail.html",
+            controller:'look_hand_detail_controller'
+        })
+        .state("look_head_detail",{
+            url:"/look_head_detail/id/{id}/?from",
+            templateUrl: "js/view/dispatch/look_head_detail.html",
+            controller:'look_head_detail_controller'
+        })
+
+
         // 公共数据
         .state("car_query",{
             url:"/car_query",

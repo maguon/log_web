@@ -543,6 +543,7 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
     }
     function putCompany(companyName){
         _basic.put($host.api_url + "/user/" + userId + "/drive/" + driverId+'/driveCompany', {
+            operateType:$scope.driverInfo.operate_type,
             companyId: $scope.driverInfo.company_id,
             companyName: companyName
         }).then(function (data) {

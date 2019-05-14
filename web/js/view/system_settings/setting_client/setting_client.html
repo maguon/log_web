@@ -1,3 +1,35 @@
+
+<div id="carParkingFee" class="modal modal-fixed-footer" style="width: 52%;height: 400px">
+    <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+        <div class="row col s12 vc-center cyan" style="font-weight: bold;height: 80px;">
+            <div class="col s12 fz22 white-text" style="font-weight: 600">
+                <p>商品车停车费</p>
+            </div>
+        </div>
+        <div class="row col s12">
+            <div class="col s4 offset-s4 input-field valign-wrapper">
+                <div class="col s11 input-field">
+                    <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" ng-model="carParkingFeeItem" id="car_Pinking_fee" name="car_Pinking_fee">
+                    <label for="car_Pinking_fee">停车费金额</label>
+                </div>
+                <div class="col s1 left-align" style="padding: 0;">
+                    元
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer vc-center">
+        <button class="btn modal-action modal-close waves-light waves-effect grey lighten-1" type="button">
+            取消
+        </button>
+        <button ng-click="changePinkingFee()" class="btn waves-light waves-effect cyan lighten-1" type="button" style="margin-left: 56px" >
+            确定
+        </button>
+    </div>
+</div>
+
+
+
 <div class="setting_client">
     <div class="row">
         <div class="row valign-wrapper">
@@ -37,14 +69,20 @@
 
                     </div>-->
                     <div class=" col s2 p0">
+                        <div ng-click="carParkingFee(entrust.id,$index)"
+                             class="col s4 blue-grey lighten-4 blue-grey-text text-lighten-1 fz40 center-align"
+                             style="border-right: 1px solid white;cursor: pointer">
+                            <i class="mdi mdi-car"></i>
+                        </div>
+
                         <div ng-click="view_contacts(entrust.id,$index)"
-                             class="col s6 blue-grey lighten-4 blue-grey-text text-lighten-1 fz40 center-align"
+                             class="col s4 blue-grey lighten-4 blue-grey-text text-lighten-1 fz40 center-align"
                              style="border-right: 1px solid white;cursor: pointer">
                             <i class="mdi mdi-account"></i>
                         </div>
                         <div ui-sref="setting_client_details({id:entrust.id})"
                              style="cursor: pointer"
-                             class="col s6 blue-grey lighten-4 blue-grey-text text-lighten-1 fz40 center-align">
+                             class="col s4 blue-grey lighten-4 blue-grey-text text-lighten-1 fz40 center-align">
                             <i class="mdi mdi-pencil"></i>
                         </div>
                     </div>

@@ -8,6 +8,7 @@ app.controller("add_setting_dealer_controller", ["$scope", "_basic", "_config", 
     $scope.lng = 121.62;
     $scope.lat = 38.92;
     $scope.receiveTypeList=_config.receiveType;
+    $scope.receive_flag =0;
 
     $scope.getCityList = function () {
         // 获取城市
@@ -108,6 +109,7 @@ app.controller("add_setting_dealer_controller", ["$scope", "_basic", "_config", 
                         shortName: $scope.short_name,
                         receiveName: $scope.deal_name,
                         receiveType:$scope.receive_type,
+                        receiveFlag:$scope.receive_flag,
                         address: $scope.input_address,
                         makeId: 0,
                         makeName: '',
@@ -122,6 +124,7 @@ app.controller("add_setting_dealer_controller", ["$scope", "_basic", "_config", 
                         shortName: $scope.short_name,
                         receiveName: $scope.deal_name,
                         receiveType:$scope.receive_type,
+                        receiveFlag:$scope.receive_flag,
                         address: $scope.input_address,
                         makeId: $scope.car_brand.id,
                         makeName: $scope.car_brand.make_name,
@@ -137,6 +140,7 @@ app.controller("add_setting_dealer_controller", ["$scope", "_basic", "_config", 
                         $scope.short_name = "";
                         $scope.deal_name = "";
                         $scope.receive_type = '';
+                        $scope.receive_flag =0;
                         $scope.input_address = "";
                         $scope.setting_city_id = "";
                         $scope.remark = "";

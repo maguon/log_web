@@ -200,15 +200,15 @@ app.controller("setting_dealer_controller", ["$scope","$rootScope","$state","$st
     $scope.showCarWashFeeModel = function (item) {
         $scope.currentReceiveId = item.id;
         $scope.carWashFeeCount = item.clean_fee;
-        $scope.guardFeeCount = item.guard_fee;
+      /*  $scope.guardFeeCount = item.guard_fee;*/
         $('#carWashFeeModel').modal('open');
     };
 
     // 修改洗车费金额
     $scope.changeWashFee = function () {
         _basic.put($host.api_url + "/user/" + userId + "/receive/" + $scope.currentReceiveId + "/cleanFee",{
-            cleanFee:($scope.carWashFeeCount).toFixed(2),
-            guardFee:( $scope.guardFeeCount).toFixed(2)
+            cleanFee:($scope.carWashFeeCount).toFixed(2)
+           /* guardFee:( $scope.guardFeeCount).toFixed(2)*/
         }).then(function (data) {
             if (data.success === true) {
                 swal("修改成功", "", "success");

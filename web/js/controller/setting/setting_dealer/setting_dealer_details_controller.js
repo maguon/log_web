@@ -177,6 +177,7 @@ function getCarMake(){
             shortName: $scope.dealer_details.short_name,
             receiveName: $scope.dealer_details.receive_name,
             receiveType:$scope.dealer_details.receive_type,
+            receiveFlag:$scope.dealer_details.receive_flag,
             makeId:$scope.dealer_details.make_id,
             makeName: $scope.dealer_details.make_name,
             cleanFee: parseFloat(cleanFeeCount),

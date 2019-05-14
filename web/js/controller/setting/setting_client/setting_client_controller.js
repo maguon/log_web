@@ -11,7 +11,6 @@ app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$ho
     $scope.getContactsInfo = function (currentId) {
         _basic.get($host.api_url + "/entrust/" + currentId + "/contacts").then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
                 $scope.contactList = data.result;
             }
             else {
@@ -46,7 +45,6 @@ app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$ho
                 currentClick.attr("flag", "true");
             }
         }
-        // $scope.currentIndex = $index;
     };
 
     // 增加联系人
@@ -62,13 +60,45 @@ app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$ho
         $scope.add_contacts = false;
     };
 
+    $scope.carParkingFee = function(id){
+        $scope.entrustId =id;
+        _basic.get($host.api_url + "/entrust?entrustId="+id).then(function (data) {
+            if (data.success === true) {
+                $scope.carParkingFeeItem = data.result[0].car_parking_fee;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        })
+        $(".modal").modal();
+        $("#carParkingFee").modal("open");
+    }
+    $scope.changePinkingFee = function (){
+        if($scope.carParkingFeeItem!==''){
+            var obj = {
+                carParkingFee: $scope.carParkingFeeItem
+            };
+            _basic.put($host.api_url + "/user/" + $scope.userId + "/entrust/" +  $scope.entrustId  + '/entrustCarParkingFee', obj).then(function (data) {
+                if (data.success === true) {
+                    $scope.getEntrust();
+                    $("#carParkingFee").modal("close");
+                    swal("修改成功", "", "success");
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
+        else {
+            swal("请填写完整信息！", "", "warning");
+        }
+    }
+
+
+
+
     // 保存新增信息
     $scope.addContacts = function (isValid, entrustId) {
-        // console.log("isValid:", isValid);
-        // console.log("entrustId:", entrustId);
-        // console.log("userName:", $scope.userNames);
-        // console.log("dutys:", $scope.dutys);
-        // console.log("phones", $scope.phones);
         $scope.submitted = true;
         if (isValid) {
             _basic.post($host.api_url + "/user/" + $scope.userId + "/entrust/" + entrustId + "/contacts", {
@@ -79,10 +109,6 @@ app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$ho
                 if (data.success === true) {
                     swal("新增成功", "", "success");
                     $scope.add_contacts = false;
-                    // 初始化输入框
-                    // $scope.userNames = undefined;
-                    // $scope.dutys = undefined;
-                    // $scope.phones = undefined;
                     $scope.getContactsInfo(entrustId);
                     $scope.submitted = false;
                 }
@@ -96,8 +122,6 @@ app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$ho
 
     // 删除联系人信息
     $scope.delete_contact = function (contactId, entrustId) {
-        // console.log("contactId:", contactId);
-        // console.log("listId:", entrustId);
         swal({
                 title: "确定删除吗？",
                 type: "warning",
@@ -110,7 +134,6 @@ app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$ho
                 _basic.delete($host.api_url + "/user/" + $scope.userId + "/entrustContacts/" + contactId, {}).then(
                     function (data) {
                         if (data.success === true) {
-                            // console.log("data", data);
                             swal("删除成功", "", "success");
                             $scope.getContactsInfo(entrustId);
                         }
@@ -126,7 +149,6 @@ app.controller("setting_client_controller", ["$scope", "_basic", "_config", "$ho
     $scope.getEntrust = function () {
         _basic.get($host.api_url + "/entrust").then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
                 $scope.entrustList = data.result;
             }
             else {

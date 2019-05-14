@@ -14,14 +14,37 @@
                 <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
                     <div class="row col s12 vc-center cyan" style="font-weight: bold;height: 80px;">
                         <div class="col s12 fz22 white-text" style="font-weight: 600">
-                            <p>商品车洗车费</p>
+                            <p>洗车费</p>
                         </div>
                     </div>
-                    <div class="row col s12">
-                        <div class="col s4 offset-s4 input-field valign-wrapper">
+                    <div class="row col s12"  style="margin:0;padding: 0">
+                        <div class="col s4 offset-s4 input-field valign-wrapper"  style="padding: 0;margin-top: 1px">
                             <div class="col s11 input-field">
                                 <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" ng-model="carWashFeeCount" id="car_wash_fee" name="car_wash_fee">
-                                <label class="{{carWashFeeCount != null ? 'active' : 'inactive'}}" for="car_wash_fee">洗车费金额</label>
+                                <label class="{{carWashFeeCount != null ? 'active' : 'inactive'}}" for="car_wash_fee">小车洗车费金额</label>
+                            </div>
+                            <div class="col s1 left-align" style="padding: 0;">
+                                元
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row col s12" style="margin:0;padding: 0">
+                        <div class="col s4 offset-s4  input-field valign-wrapper"  style="padding: 0;margin-top: 0px">
+                            <div class="col s11 input-field">
+                                <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" ng-model="bigCleanFee" id="bigCleanFee" name="bigCleanFee">
+                                <label class="{{bigCleanFee != null ? 'active' : 'inactive'}}" for="bigCleanFee">大车洗车费金额</label>
+                            </div>
+                            <div class="col s1 left-align" style="padding: 0;">
+                                元
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col s12"  style="margin:0;padding: 0">
+                        <div class="col s4  offset-s4  input-field valign-wrapper"  style="padding: 0;margin-top: 0px">
+                            <div class="col s11 input-field">
+                                <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" ng-model="trailerFee" id="trailerFee" name="trailerFee">
+                                <label class="{{carWashFeeCount != null ? 'active' : 'inactive'}}" for="trailerFee">拖车费金额</label>
                             </div>
                             <div class="col s1 left-align" style="padding: 0;">
                                 元

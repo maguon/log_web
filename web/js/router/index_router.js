@@ -192,6 +192,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
 
         // 仓库设置
+
+        .state("setting_vin_match", {
+            url: "/setting_vin_match",
+            templateUrl: "js/view/system_settings/setting_vin_match.html",
+            controller:'setting_vin_match_controller'
+        })
         .state("setting_users", {
             url: "/setting_users",
             templateUrl: "js/view/system_settings/user_manager.html",

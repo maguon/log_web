@@ -15,7 +15,11 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "/js/view/user/user_info.html",
             controller: 'user_info_controller'
         })
-
+        .state("setting_vin_match", {
+            url: "/setting_vin_match",
+            templateUrl: "js/view/system_settings/setting_vin_match.html",
+            controller:'setting_vin_match_controller'
+        })
         .state("truck_brand", {
             url: "/truck_brand",
             templateUrl: "js/view/system_settings/truck_brand.html",

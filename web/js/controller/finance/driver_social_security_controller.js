@@ -72,7 +72,8 @@ app.controller("driver_social_security_controller", ["$scope", "$state", "$state
         {name: '货车牌号', type: 'string',require: true},
         {name: '电话', type: 'number', require: true},
         {name: '月份', type: 'number', require: true},
-        {name: '出勤天数', type: 'number', require: true}];
+        {name: '出勤天数', type: 'number', require: true},
+        {name: '住宿费', type: 'number', require: true}];
     // 头部条件判断
     $scope.titleFilter = function (headerArray) {
         if (colObjs.length != headerArray.length) {
@@ -281,6 +282,7 @@ app.controller("driver_social_security_controller", ["$scope", "$state", "$state
         $scope.truckNumListAllList=[];
         $scope.truckNum='';
         $scope.addWorkCount='';
+        $scope.addHotelFee ='';
         getDriveNameList();
         // monthPicker控件
         $('#add_start_month').MonthPicker({
@@ -314,7 +316,7 @@ app.controller("driver_social_security_controller", ["$scope", "$state", "$state
     };
 
     function addItem(){
-        if ($scope.addDrivderId!==''&&$scope.addStartMonth!==''&&$scope.addWorkCount!=='') {
+        if ($scope.addDrivderId!==''&&$scope.addStartMonth!==''&&$scope.addWorkCount!==''&&$scope.addHotelFee !=='') {
             var obj = {
                 "driveId": $scope.addDrivderId.id,
                 "driveName": $scope.addDrivderId.drive_name,
@@ -322,6 +324,7 @@ app.controller("driver_social_security_controller", ["$scope", "$state", "$state
                 "truckNum": $scope.truckNumberName,
                 "mobile": $scope.addDrivderId.mobile,
                 "workCount": $scope.addWorkCount,
+                 "hotelFee":$scope.addHotelFee,
                 "yMonth": $scope.addStartMonth
             };
             _basic.post($host.api_url + "/user/" + userId + "/driveWork", obj).then(function (data) {
@@ -355,7 +358,8 @@ app.controller("driver_social_security_controller", ["$scope", "$state", "$state
     }
     $scope.putCarItem =function (){
         _basic.put($host.api_url + "/user/" + userId + "/driveWork/" + $scope.driveSocialSecurityId, {
-            workCount:$scope.socialSecurity.work_count
+            workCount:$scope.socialSecurity.work_count,
+            hotelFee:$scope.socialSecurity.hotel_fee
         }).then(function (data) {
             if (data.success == true) {
                 swal("修改成功", "", "success");

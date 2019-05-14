@@ -146,6 +146,12 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/dispatch/outsourcing_vehicles.html",
             controller:'outsourcing_vehicles_controller'
         })
+        .state("driver_attendance",{
+            url:"/driver_attendance",
+            params: {"from": null},
+            templateUrl: "js/view/dispatch/driver_attendance.html",
+            controller:'driver_attendance_controller'
+        })
         .state("add_driver_detail",{
             url:"/add_driver_detail?from",
             templateUrl: "js/view/dispatch/add_driver_detail.html",

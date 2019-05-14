@@ -176,10 +176,11 @@ app.controller("truck_repair_controller", ["$scope", "$state", "$stateParams", "
                         _basic.put($host.api_url + "/user/" + userId + "/truckRepairRel/" + $scope.relId, {
                             repairStationId: $scope.repairStation,
                             remark: $scope.repairDescription,
-                            repairMoney: $scope.repairMoney
+                            repairMoney: $scope.repairMoney,
+                            partsMoney: $scope.partsMoney,
+                            maintainMoney: $scope.maintainMoney
                         }).then(function (data) {
                             if (data.success === true) {
-                                // console.log("data", data);
                                 $('#repairFinishMod').modal('close');
                                 $scope.getCurrentRepairInfo();
                             }

@@ -121,6 +121,14 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
 
 
+        .state("driver_attendance",{
+            url:"/driver_attendance",
+            params: {"from": null},
+            templateUrl: "js/view/dispatch/driver_attendance.html",
+            controller:'driver_attendance_controller'
+        })
+
+
 
 
         .state("add_driver_detail",{

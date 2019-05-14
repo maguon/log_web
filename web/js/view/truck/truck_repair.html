@@ -30,6 +30,18 @@
                         </div>
                     </div>
                 </div>
+                <div class="row col s12" style="margin-top: 15px">
+                    <div class="col s8 offset-s2">
+                        <div class="col s6 input-field">
+                            <input style="font-size: 1.8rem;text-align: right;color: rgb(230,123,123)" type="number" name="partsMoney" id="partsMoney" ng-model="partsMoney">
+                            <label for="partsMoney"><span style="color: red">* </span>配件金额</label>
+                        </div>
+                        <div class="col s6 input-field">
+                            <input style="font-size: 1.8rem;text-align: right;color: rgb(230,123,123)" type="number" name="maintainMoney" id="maintainMoney" ng-model="maintainMoney">
+                            <label for="maintainMoney"><span style="color: red">* </span>保养金额</label>
+                        </div>
+                    </div>
+                </div>
                 <div class="row col s12" style="margin-top: 10px">
                     <div class="col s12">
                         <div class="col s8 offset-s2 input-field">
@@ -201,6 +213,8 @@
                             <div class="row" style="margin-bottom: 0">
                                 <div class="col s4 offset-s8 right-align">
                                     <p style="font-size: 1.2rem;font-weight: bold;color: darkgray;margin: 0">维修金额：<span style="color: #e57474">{{repaired.repair_money}} </span>元</p>
+                                    <p style="font-size: 1.2rem;font-weight: bold;color: darkgray;margin: 0">配件金额：<span style="color: #e57474">{{repaired.parts_money}} </span>元</p>
+                                    <p style="font-size: 1.2rem;font-weight: bold;color: darkgray;margin: 0">保养金额：<span style="color: #e57474">{{repaired.maintain_money}} </span>元</p>
                                 </div>
                             </div>
                         </div>

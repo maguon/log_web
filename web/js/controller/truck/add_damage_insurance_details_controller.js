@@ -155,7 +155,7 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$
         if($scope.currentInsurInfo.city_id==undefined||$scope.declareDate==undefined||$scope.currentInsurInfo.liability_type==undefined||
             $scope.currentInsurInfo.derate_money==null||$scope.currentInsurInfo.car_valuation==null||$scope.currentInsurInfo.invoice_money==null||
         $scope.insuranceCompany==null||$scope.insuranceCompensation==null||$scope.damageMoney==null||
-        $scope.insurancePayment==null|| $scope.currentInsurInfo.financial_loan==null){
+        $scope.insurancePayment==null){
             swal('请输入完整信息!', "", "error");
         }
         else {
@@ -185,7 +185,7 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$
             insureId: $scope.insuranceCompany,
             insurePlan: $scope.insuranceCompensation,
             damageMoney: $scope.damageMoney,
-            financialLoan: $scope.currentInsurInfo.financial_loan,
+           /* financialLoan: $scope.currentInsurInfo.financial_loan,*/
             insureActual: $scope.insurancePayment,
             paymentExplain: $scope.currentInsurInfo.payment_explain,
             checkExplain: $scope.currentInsurInfo.check_explain,

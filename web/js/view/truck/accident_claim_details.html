@@ -70,19 +70,20 @@
                         <div class="col s4">
                             <p>待赔金额：<span style="color: #e57676">{{accidentDetails.insure_plan.toFixed(2)}}</span> 元</p>
                         </div>
-                        <div class="col s4">
+                       <!-- <div class="col s4">
                             <p>财务借款：<span style="color: #e57676">{{accidentDetails.financial_loan.toFixed(2)}}</span> 元</p>
-                        </div>
+                        </div>-->
                         <div class="col s4">
                             <p>实际赔付：<span style="color: #e57676">{{accidentDetails.insure_actual.toFixed(2)}}</span> 元</p>
                         </div>
                     </div>
 
-                    <!--财务预借金额-->
+                  <!--  &lt;!&ndash;财务预借金额&ndash;&gt;
                     <div class="col s12 input-field" style="height: 80px;margin-bottom: 20px;background-color: #dcdfe0;" ng-if="actualLoanInfo.length == 0">
                         <input style="margin-top: 20px;font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="text" name="loan_lend_money" id="loan_lend_money" ng-model="accidentDetails.financial_loan">
                         <label class="{{accidentDetails.financial_loan != null ? 'active' : 'inactive'}}" style="margin-top: 20px" for="loan_lend_money">财务预借金额（元）</label>
-                    </div>
+                    </div>-->
+<!--
 
                     <div class="col s12 valign-wrapper" style="height: 80px;margin-bottom: 20px;background-color: #dcdfe0;color: darkgray;font-weight: bold;font-size: 1.2rem" ng-if="actualLoanInfo.length != 0">
                         <div class="col s4">
@@ -95,6 +96,7 @@
                             <p>财务借款时间：{{actualLoanInfo[0].loan_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
                         </div>
                     </div>
+-->
 
                     <!--赔付描述-->
                     <div ng-if="accidentDetails.insure_status == 1" class="col s12 input-field">

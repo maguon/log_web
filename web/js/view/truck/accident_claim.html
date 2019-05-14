@@ -10,14 +10,14 @@
                 <div class="row col s12" style="margin-top: 35px">
                     <div style="width: 90%;margin: 0 auto">
                         <div class="col s12">
-                            <div class="col s6 input-field">
+                            <div class="col s4 input-field">
                                 <select material-select watch id="insurance_company_modal" ng-model="insuranceCompanyMod">
                                     <option value="" selected>请选择</option>
                                     <option ng-repeat="company in insureCompanyList" ng-value="company.id">{{company.insure_name}}</option>
                                 </select>
                                 <label for="insurance_company_modal"><span style="color: red">* </span>保险公司</label>
                             </div>
-                            <div class="col s6 input-field">
+                            <div class="col s4 input-field">
                                 <select material-select watch id="insurance_type_modal" ng-model="insuranceTypeMod">
                                     <option value="" selected>请选择</option>
                                     <option ng-value="1">交强险</option>
@@ -26,11 +26,11 @@
                                 </select>
                                 <label for="insurance_type_modal"><span style="color: red">* </span>险种</label>
                             </div>
-                            <div class="col s6 input-field">
+                            <div class="col s4 input-field">
                                 <input type="number" name="payment_money_start" id="payment_money_modal" ng-model="paymentMoneyMod">
                                 <label for="payment_money_modal"><span style="color: red">* </span>待赔金额（元）</label>
                             </div>
-                            <div class="col s6" style="padding: 0;">
+                           <!-- <div class="col s6" style="padding: 0;">
                                 <div class="col s6 input-field">
                                     <select material-select watch id="has_loan" ng-change="checkHasLoan()" ng-model="hasLoan">
                                         <option value="" selected>请选择</option>
@@ -43,7 +43,7 @@
                                     <input type="number" name="payment_money_start" id="loan_money_num" ng-disabled="hasLoanType" ng-model="loanMoneyNum">
                                     <label for="loan_money_num">财务借款（元）</label>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="col s12 valign-wrapper" style="padding: 0;">
                                 <div class="col s10 input-field">
                                     <input type="text" name="payment_money_start" id="relation_accident" ng-model="relationAccidentNum">
@@ -164,15 +164,15 @@
                     </select>
                     <label for="insurance_company">保险公司</label>
                 </div>
-                <div class="col s4 input-field">
+               <!-- <div class="col s4 input-field">
                     <select material-select watch id="financial_loan" ng-model="financialLoan">
                         <option value="" selected>所有</option>
                         <option value="0">无</option>
                         <option value="1">有</option>
                     </select>
                     <label for="financial_loan">财务借款</label>
-                </div>
-                <div class="col s4 valign-wrapper" style="padding: 0;">
+                </div>-->
+                <div class="col s8 valign-wrapper" style="padding: 0;">
                     <div class="col s6 input-field">
                         <input type="number" name="payment_money_start" id="payment_money_start" ng-model="paymentMoneyStart">
                         <label for="payment_money_start">待赔金额</label>
@@ -246,7 +246,7 @@
                         <th width="150" data-field="">险种</th>
                         <th width="200" data-field="">保险公司</th>
                         <th width="200" data-field="">保险待赔</th>
-                        <th width="200" data-field="">财务借款</th>
+                       <!-- <th width="200" data-field="">财务借款</th>-->
                         <th width="200" data-field="">实际赔付</th>
                         <th width="300" data-field="">生成时间</th>
                         <th width="300" data-field="">赔付时间</th>
@@ -260,7 +260,7 @@
                         <td>{{damage.insure_type | insuranceType}}</td>
                         <td>{{damage.insure_name}}</td>
                         <td>{{damage.insure_plan}}</td>
-                        <td>{{damage.financial_loan}}</td>
+                       <!-- <td>{{damage.financial_loan}}</td>-->
                         <td class="red-text text-lighten-2">{{damage.insure_actual}}</td>
                         <td>{{damage.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                         <td>{{damage.completed_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
@@ -271,7 +271,7 @@
                         </td>
                     </tr>
                     <tr class="grey-text text-darken-1" ng-if="damageClaimList.length == 0">
-                        <td colspan="10"><span style="letter-spacing: 2px">暂无数据</span></td>
+                        <td colspan="9"><span style="letter-spacing: 2px">暂无数据</span></td>
                     </tr>
                     </tbody>
                 </table>

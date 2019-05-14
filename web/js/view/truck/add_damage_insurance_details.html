@@ -62,11 +62,11 @@
                         <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="insurance_compensate" type="number" ng-model="insuranceCompensation">
                         <label style="font-weight: bold" for="insurance_compensate">待赔金额（元）</label>
                     </div>
-                    <div class="col s3 input-field">
+                   <!-- <div class="col s3 input-field">
                         <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="insurance_loan" type="number" ng-model="currentInsurInfo.financial_loan">
                         <label style="font-weight: bold" for="insurance_loan">财务借款（元）</label>
-                    </div>
-                    <div class="col s3 input-field">
+                    </div>-->
+                    <div class="col s6 input-field">
                         <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="insurance_actual" type="number" ng-model="insurancePayment">
                         <label style="font-weight: bold" for="insurance_actual">实际赔付（元）</label>
                     </div>
@@ -136,10 +136,10 @@
                     <div class="col s3">
                         <p><span>待赔金额：<span style="color: #e57373">{{currentInsurInfo.insure_plan.toFixed(2)}}</span> 元</span></p>
                     </div>
-                    <div class="col s3">
+                   <!-- <div class="col s3">
                         <p><span>财务借款：<span style="color: #e57373">{{currentInsurInfo.financial_loan.toFixed(2)}}</span> 元</span></p>
-                    </div>
-                    <div class="col s3">
+                    </div>-->
+                    <div class="col s6">
                         <p><span>实际赔付：<span style="color: #e57373">{{currentInsurInfo.insure_actual.toFixed(2)}}</span> 元</span></p>
                     </div>
 

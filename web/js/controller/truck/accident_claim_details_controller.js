@@ -143,8 +143,8 @@ app.controller("accident_claim_details_controller", ["$scope","$state", "$host",
                 insurePlan: $scope.accidentDetails.insure_plan,
                 insureActual: $scope.accidentDetails.insure_actual,
                 paymentExplain: $scope.accidentDetails.payment_explain,
-                checkExplain: $scope.accidentDetails.check_explain,
-                financialLoan: $scope.accidentDetails.financial_loan
+                checkExplain: $scope.accidentDetails.check_explain
+             /*   financialLoan: $scope.accidentDetails.financial_loan*/
             }).then(function (data) {
                 if (data.success === true) {
                     // console.log("data", data);
@@ -180,8 +180,8 @@ app.controller("accident_claim_details_controller", ["$scope","$state", "$host",
                             insurePlan: $scope.accidentDetails.insure_plan,
                             insureActual: $scope.accidentDetails.insure_actual,
                             paymentExplain: $scope.accidentDetails.payment_explain,
-                            checkExplain: $scope.accidentDetails.check_explain,
-                            financialLoan: $scope.accidentDetails.financial_loan
+                            checkExplain: $scope.accidentDetails.check_explain
+                          /*  financialLoan: $scope.accidentDetails.financial_loan*/
                         }).then(function (data) {
                             if (data.success === true) {
                                 _basic.put($host.api_url + "/user/" + userId + "/truckAccidentInsure/" + $scope.accidentId + "/insureStatus/2", {}).then(function (data) {

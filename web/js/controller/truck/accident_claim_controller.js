@@ -175,7 +175,7 @@ app.controller("accident_claim_controller", ["$scope","$rootScope","$state","$st
         $('#addAccidentClaimModal').modal('open');
     };
 
-    // 判断是否允许输入财务借款
+   /* // 判断是否允许输入财务借款
     $scope.checkHasLoan = function () {
         if($scope.hasLoan == 1){
             $scope.hasLoanType = false;
@@ -184,7 +184,7 @@ app.controller("accident_claim_controller", ["$scope","$rootScope","$state","$st
             $scope.loanMoneyNum = "";
             $scope.hasLoanType = true;
         }
-    };
+    };*/
 
     // 根据事故编号查询事故详细信息
     $scope.searchAccidentInfo = function () {
@@ -241,7 +241,7 @@ app.controller("accident_claim_controller", ["$scope","$rootScope","$state","$st
         if($scope.insuranceCompanyMod !== ""
             && $scope.insuranceTypeMod !== ""
             && $scope.paymentMoneyMod !== ""
-            && $scope.hasLoan !== ""
+           /* && $scope.hasLoan !== ""*/
             && $scope.accidentClaimList.length !== 0
             && $scope.paymentDescription !== ""
         ){
@@ -254,8 +254,8 @@ app.controller("accident_claim_controller", ["$scope","$rootScope","$state","$st
                 insureId: $scope.insuranceCompanyMod,
                 insureType: $scope.insuranceTypeMod,
                 insurePlan: $scope.paymentMoneyMod,
-                financialLoanStatus: $scope.hasLoan,
-                financialLoan: financialLoanCount,
+               /* financialLoanStatus: $scope.hasLoan,
+                financialLoan: financialLoanCount,*/
                 paymentExplain: $scope.paymentDescription,
                 accidentIds: accidentIdArr
             }).then(function (data) {

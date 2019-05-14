@@ -5,7 +5,7 @@ app.controller("insurance_compensation_controller", ["$scope", "$rootScope","$st
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.handler = _basic.getSession(_basic.USER_NAME);
     $scope.handleStatus = "1";
-    $scope.hasLoanType = true;
+   /* $scope.hasLoanType = true;*/
     $scope.damageInfoDetailsList = [];
 
     //出险城市
@@ -110,9 +110,9 @@ app.controller("insurance_compensation_controller", ["$scope", "$rootScope","$st
     $scope.addClaimInfo = function () {
         $scope.insuranceCompanyMod = "";
         $scope.insurePlanMod = "";
-        $scope.hasLoan = "";
-        $scope.hasLoanType = true;
-        $scope.loanMoneyNum = 0;
+      /*  $scope.hasLoan = "";*/
+      /*  $scope.hasLoanType = true;*/
+       /* $scope.loanMoneyNum = 0;*/
         $scope.paymentExplain = "";
         $scope.damageMoney ='';
         $scope.cityName ='';
@@ -129,7 +129,7 @@ app.controller("insurance_compensation_controller", ["$scope", "$rootScope","$st
         $('#addDamageInfoModel').modal('open');
     };
 
-    // 判断是否允许输入财务借款
+   /* // 判断是否允许输入财务借款
     $scope.checkHasLoan = function () {
         if($scope.hasLoan == 1){
             $scope.hasLoanType = false;
@@ -138,7 +138,7 @@ app.controller("insurance_compensation_controller", ["$scope", "$rootScope","$st
             $scope.loanMoneyNum = 0;
             $scope.hasLoanType = true;
         }
-    };
+    };*/
 
     // 根据质损编号查询质损详细信息
     $scope.searchDamageDetails = function () {
@@ -185,7 +185,7 @@ app.controller("insurance_compensation_controller", ["$scope", "$rootScope","$st
     $scope.addDamageRecord =  function () {
         if($scope.insuranceCompanyMod !== ""
             && $scope.insurePlanMod !== ""
-            && $scope.hasLoan !== ""
+          /*  && $scope.hasLoan !== ""*/
             && $scope.damageInfoDetailsList.length !== 0
             && $scope.damageMoney!==''
             && $scope.cityName!==''
@@ -211,8 +211,8 @@ app.controller("insurance_compensation_controller", ["$scope", "$rootScope","$st
                 insureId: $scope.insuranceCompanyMod,
                 damageMoney:$scope.damageMoney,
                 insurePlan: $scope.insurePlanMod,
-                financialLoanStatus: $scope.hasLoan,
-                financialLoan: $scope.loanMoneyNum,
+                /*financialLoanStatus: $scope.hasLoan,
+                financialLoan: $scope.loanMoneyNum,*/
                 paymentExplain: $scope.paymentExplain,
                 damageIds: damageIdArr
             }).then(function (data) {
@@ -230,6 +230,8 @@ app.controller("insurance_compensation_controller", ["$scope", "$rootScope","$st
             swal("保险公司或关联质损不能为空！", "", "error");
         }
     };
+
+
 
     // 分页
     $scope.previous_page = function () {

@@ -771,7 +771,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/finance/finance_index.html",
             controller:'finance_index_controller'
         })
-        .state("truck_compensate_loan",{
+       /* .state("truck_compensate_loan",{
             url:"/truck_compensate_loan",
             params: {"from": null},
             templateUrl: "js/view/finance/truck_compensate_loan.html",
@@ -781,7 +781,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             url:"/truck_compensate_loan_details/id/{id}/compensateId/{compensateId}/from/{from}",
             templateUrl: "js/view/finance/truck_compensate_loan_details.html",
             controller:'truck_compensate_loan_details_controller'
-        })
+        })*/
         .state("car_payment_loan",{
             url:"/car_payment_loan",
             params: {"from": null},
@@ -793,7 +793,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/finance/car_payment_loan_details.html",
             controller:'car_payment_loan_details_controller'
         })
-        .state("commercial_vehicle_compensate_loan",{
+      /*  .state("commercial_vehicle_compensate_loan",{
             url:"/commercial_vehicle_compensate_loan",
             params: {"from": null},
             templateUrl: "js/view/finance/commercial_vehicle_compensate_loan.html",
@@ -803,7 +803,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             url:"/commercial_vehicle_compensate_loan_details/id/{id}/compensateId/{compensateId}/from/{from}",
             templateUrl: "js/view/finance/commercial_vehicle_compensate_loan_details.html",
             controller:'commercial_vehicle_compensate_loan_details_controller'
-        })
+        })*/
         .state("finance_route_fee",{
             url:"/finance_route_fee",
             params: {"from": null},

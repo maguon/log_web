@@ -19,7 +19,7 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
         })
 
         // 财务
-        .state("truck_compensate_loan",{
+      /*  .state("truck_compensate_loan",{
             url:"/truck_compensate_loan",
             params: {"from": null},
             templateUrl: "js/view/finance/truck_compensate_loan.html",
@@ -29,7 +29,7 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             url:"/truck_compensate_loan_details/id/{id}/compensateId/{compensateId}/from/{from}",
             templateUrl: "js/view/finance/truck_compensate_loan_details.html",
             controller:'truck_compensate_loan_details_controller'
-        })
+        })*/
         .state("car_payment_loan",{
             url:"/car_payment_loan",
             params: {"from": null},
@@ -41,7 +41,7 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/finance/car_payment_loan_details.html",
             controller:'car_payment_loan_details_controller'
         })
-        .state("commercial_vehicle_compensate_loan",{
+      /*  .state("commercial_vehicle_compensate_loan",{
             url:"/commercial_vehicle_compensate_loan",
             params: {"from": null},
             templateUrl: "js/view/finance/commercial_vehicle_compensate_loan.html",
@@ -51,7 +51,7 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             url:"/commercial_vehicle_compensate_loan_details/id/{id}/compensateId/{compensateId}/from/{from}",
             templateUrl: "js/view/finance/commercial_vehicle_compensate_loan_details.html",
             controller:'commercial_vehicle_compensate_loan_details_controller'
-        })
+        })*/
         .state("car_wash_fee",{
             url:"/car_wash_fee",
             params: {"from": null},

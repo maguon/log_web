@@ -62,146 +62,261 @@
 
 
     <!--维修记录-->
-    <div id="repairRecord">
-        <div class="row valign-wrapper">
-            <div class="col s9">
 
-                <div class="input-field col" style="width: 20%">
-                    <select id="record_truck_name" style="width: 100%" ng-model="recordTruckNum">
-                        <option value=""></option>
-                        <option ng-repeat="el in truckNumList" >{{el.truck_num}}</option>
-                    </select>
-                </div>
-                <div class="input-field col" style="width: 20%">
-                    <select id="insure_company" style="padding: 0;width: 100%" ng-model="insureCompany" material-select watch>
-                        <option value="" selected>请选择</option>
-                        <option ng-repeat="company in companyList" ng-value="company.id">{{company.company_name}}</option>
-                    </select>
-                    <label for="insure_company">所属公司</label>
-                </div>
-
-                <div class="input-field col" style="width: 20%">
-                    <select material-select watch id="record_truck_type" class="truck_type" ng-model="recordTruckType">
-                        <option ng-value="" selected>请选择</option>
-                        <option ng-value="1">头车</option>
-                        <option ng-value="2">挂车</option>
-                    </select>
-                    <label for="record_truck_type">车辆类型</label>
-                </div>
-                <div class="input-field col" style="width: 20%">
-                    <input type="text" ng-model="record_startTime_start" id="record_startTime_start" name="repair_startTime_start"  class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
-                    <label for="record_startTime_start">维修开始时间(始)</label>
-                </div>
-                <div class="input-field col" style="width: 20%">
-                    <input type="text" ng-model="record_startTime_end" id="record_startTime_end" name="repair_startTime_start"  class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
-                    <label for="record_startTime_end">维修开始时间(终)</label>
-                </div>
-                <div class="input-field col" style="width: 20%">
-                        <input type="text" name="truck_name" id="repair_num" ng-model="repairNum">
-                        <label for="repair_num">维修编号</label>
-                    </div>
-                <div class="input-field col" style="width: 20%">
-                    <select material-select watch id="repair_status" name="repair_status" class="repair_status" ng-model="repair_status">
-                        <option value="" selected>请选择</option>
-                        <option value="0">正在维修</option>
-                        <option value="1">维修结束</option>
-                    </select>
-                    <label for="repair_status">维修状态</label>
-                </div>
-                <div class="input-field col" style="width: 20%">
-                    <select material-select watch id="record_repair_type" class="truck_type" ng-model="recordRepairType">
-                        <option ng-value="" selected>请选择</option>
-                        <option ng-value="1">事故维修</option>
-                        <option ng-value="2">公司维修</option>
-                        <option ng-value="3">在外临时维修</option>
-                    </select>
-                    <label for="record_repair_type">维修类型</label>
-                </div>
-                <div class="input-field col" style="width: 20%">
-                    <input type="text" ng-model="record_endTime_start" id="record_endTime_start" name="repair_startTime_start" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
-                    <label for="record_endTime_start">维修结束时间(始)</label>
-                </div>
-                <div class="input-field col" style="width: 20%">
-                    <input type="text" ng-model="record_endTime_end" id="record_endTime_end" name="repair_startTime_start" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
-                    <label for="record_endTime_end">维修结束时间(终)</label>
-                </div>
-            </div>
-            <div class="col s3">
-                <div class="col s4 center">
-                    <a ng-click="searchRepairRecordList()" class="btn-floating btn-large waves-light waves-effect red lighten-2 btn vc-center" style="margin-right: 10px">
-                        <i class="mdi mdi-magnify"></i>
-                    </a>
-                </div>
-                <div class="col s4 center">
-                    <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="margin-right: 10px;background-color: #fea353;" ng-click="export()">
-                        <i class="mdi mdi-cloud-download"></i>
-                    </a>
-                </div>
-                <div class="col s4 center">
-                    <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2 btn vc-center" style="margin-right: 10px" ng-click="addRepairInfo()">
-                        <i class="mdi mdi-plus"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <!--表格-->
-        <div class="row">
+    <div class="modal-content grey-text text-darken-2">
+        <div class="row no-marBottom" ul-tabs style="overflow: hidden">
             <div class="col s12">
-                <div class="col s12">
-                    <div class="divider cyan" style="height: 2px;"></div>
-                    <table class="bordered striped text_mid">
+                <ul class="tabWrap grey lighten-4">
+                    <li class="tab col s6 importFile vc-center" ng-click="importFile()">导入货车维修文件</li>
+                    <li class="tab col s6 repairRecord vc-center" ng-click="repairRecord()">查看货车维修</li>
+                </ul>
+            </div>
+
+            <!--导入ETC文件-->
+            <div id="importFile" class="row tab_box" style="margin-top: 50px">
+                <div class="row">
+                    <form name="file_upload_form " id="file_upload_form" >
+                        <div class="col s4">
+                            <div class="row">
+                                <div class="file-field  input-field ">
+                                    <a href="/assets/货车维修导入模板.csv" target="_blank" class="btn waves-effect circle_button" >下载模板格式</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s5 offset-s3">
+                            <div class="col s4"></div>
+                            <div class="col s4"></div>
+                            <div class="col s4">
+                                <div class="row">
+                                    <div class="file-field input-field">
+                                        <div class="btn cyan lighten-2 circle_button">
+                                            <span>批量数据导入</span>
+                                            <input type="file" style="font-size: 100px;height: 45px;"  name="file" accept="text/csv" onchange='angular.element(this).scope().fileChange(this)' >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="col s12 tableBox" ng-show="tableBox">
+                            <img style="width: 100%" src="/assets/images/import_social.png" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row dataBox " style="overflow: auto;" ng-show="dataBox">
+                    <div class="col s12">
+                        <h6 class="red lighten-2 white-text vc-center" style="padding: 20px">错误数据<span>{{errorNumber}}</span>条，请修改后重新上传</h6>
+                        <table class="responsive-table highlight">
+                            <thead class="blue-grey lighten-4 grey-text text-darken-1">
+                            <tr>
+                                <th>序号</th>
+                                <th ng-repeat="header in tableHeader track by $index">{{header}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="row in tableContentErrorFilter track by $index">
+                                <td>{{$index+1}}</td>
+                                <td ng-repeat="item in row track by $index">{{item}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row success_data_box " style="overflow: auto; "  ng-show="success_data_box">
+                    <div class="divider" style="height: 2px;"></div>
+                    <div class="col s12 " style="padding: 100px 0">
+                        <div class="progress" >
+                            <div class="determinate" ng-style="obj"></div>
+                        </div>
+                        <p><span>{{num}}</span>/<span>{{orginData_Length}}</span></p>
+                        <div class="col s2 offset-s5 ">
+                            <p class="vc-center " ng-show="local_isSuccesss">
+                                <i class="mdi mdi-check cyan-text text-lighten-2 fz40"></i><span class="blue-grey-text fz18">本地校验成功</span>
+                            </p>
+                            <p class="vc-center " ng-show="upload_isSuccesss">
+                                <i class="mdi mdi-check cyan-text text-lighten-2 fz40" ></i><span class="blue-grey-text fz18">上传完成</span>
+                            </p>
+                            <p class="vc-center" ng-show="upload_isSuccesss">
+                                <span>错误条数:<span>{{upload_error_array_num}}</span></span>
+                                <span>正确条数:<span>{{orginData_Length-upload_error_array_num}}</span></span>
+                                <span>总条数:<span>{{orginData_Length}}</span></span>
+                            </p>
+                            <!--<a href="" class="btn btn-large waves-effect cyan lighten-2"></a>-->
+                            <p class="center-align">
+                                <button class="btn btn-large circle_button cyan lighten-2" ng-click="fileUpload()" >
+                                    导入数据库
+                                </button>
+                                <a href="" style="margin-top: 10px" class="btn btn-large circle_button cyan lighten-2" ng-show="show_error" ng-click="show_error_msg()">错误数据显示</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <table class=" bordered striped" ng-show="error_msg">
                         <thead class="blue-grey lighten-5">
                         <tr class="grey-text text-darken-2">
-                            <th data-field="">维修编号</th>
-                            <th data-field="">车牌号</th>
-                            <th data-field="">所属公司</th>
-                            <th data-field="">车辆类型</th>
-                            <th data-field="">维修类型</th>
-                            <th data-field="">起始时间</th>
-                            <th data-field="">结束时间</th>
-                            <th data-field="">维修原因</th>
-                            <th data-field="">维修状态</th>
-                            <th data-field="">维修金额</th>
-                            <th>操作</th>
+                            <th data-field="">错误位置</th>
+                            <th data-field="">原因</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="repair in repairRecordList" class="grey-text text-darken-1">
-                            <td>{{repair.id}}</td>
-                            <td>{{repair.truck_num}}</td>
-                            <td>{{repair.company_name}}</td>
-                            <td>{{repair.truck_type == 1 ? "头车" : "挂车"}}</td>
-                            <td>{{repair.repair_type == 1 ? "事故维修" :repair.repair_type == 2 ?'公司维修':'在外临时维修'}}</td>
-                            <td>{{repair.repair_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                            <td>{{repair.end_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                            <td>{{repair.repair_reason}}</td>
-                            <td class="red-text text-lighten-2" ng-if="repair.repair_status == 0">正在维修</td>
-                            <td class="cyan-text text-lighten-2" ng-if="repair.repair_status == 1">维修完成</td>
-                            <td>{{repair.repair_money}}</td>
-                            <td class="operation">
-                                <a ui-sref="truck_repair({id:repair.truck_id,type:repair.truck_type,status:'',from:'truck_repair_list'})" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-eye" style="margin: 0"></i></a>
-                            </td>
-                        </tr>
-                        <tr class="grey-text text-darken-1" ng-if="repairRecordList.length == 0">
-                            <td colspan="11"><span style="letter-spacing: 2px">暂无数据</span></td>
+                        <tr ng-repeat="el in upload_error_array" class="grey-text text-darken-1">
+                            <td>第{{el.index}}条</td>
+                            <td ng-bind="el.msg"></td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-        </div>
-        <!--分页-->
-        <div class="row">
-            <div class="paging_box col s12">
-                <div class="right">
-                    <a class="waves-light waves-effect cyan lighten-1 btn" id="record_pre" ng-click="record_pre_btn()">
-                        上一页
-                    </a>
-                    <a class="waves-light waves-effect cyan lighten-1 btn" id="record_next" ng-click="record_next_btn()">
-                        下一页
-                    </a>
+
+
+
+            <div id="repairRecord"  class="row tab_box">
+                <div class="row">
+                    <div class="col s9">
+                        <div class="input-field col" style="width: 20%">
+                            <select id="record_truck_name" style="width: 100%" ng-model="recordTruckNum">
+                                <option value=""></option>
+                                <option ng-repeat="el in truckNumList" >{{el.truck_num}}</option>
+                            </select>
+                        </div>
+                        <div class="input-field col" style="width: 20%">
+                            <select id="insure_company" style="padding: 0;width: 100%" ng-model="insureCompany" material-select watch>
+                                <option value="" selected>请选择</option>
+                                <option ng-repeat="company in companyList" ng-value="company.id">{{company.company_name}}</option>
+                            </select>
+                            <label for="insure_company">所属公司</label>
+                        </div>
+
+                        <div class="input-field col" style="width: 20%">
+                            <select material-select watch id="record_truck_type" class="truck_type" ng-model="recordTruckType">
+                                <option ng-value="" selected>请选择</option>
+                                <option ng-value="1">头车</option>
+                                <option ng-value="2">挂车</option>
+                            </select>
+                            <label for="record_truck_type">车辆类型</label>
+                        </div>
+                        <div class="input-field col" style="width: 20%">
+                            <input type="text" ng-model="record_startTime_start" id="record_startTime_start" name="repair_startTime_start"  class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                            <label for="record_startTime_start">维修开始时间(始)</label>
+                        </div>
+                        <div class="input-field col" style="width: 20%">
+                            <input type="text" ng-model="record_startTime_end" id="record_startTime_end" name="repair_startTime_start"  class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                            <label for="record_startTime_end">维修开始时间(终)</label>
+                        </div>
+                        <div class="input-field col" style="width: 20%">
+                                <input type="text" name="truck_name" id="repair_num" ng-model="repairNum">
+                                <label for="repair_num">维修编号</label>
+                            </div>
+                        <div class="input-field col" style="width: 20%">
+                            <select material-select watch id="repair_status" name="repair_status" class="repair_status" ng-model="repair_status">
+                                <option value="" selected>请选择</option>
+                                <option value="0">正在维修</option>
+                                <option value="1">维修结束</option>
+                            </select>
+                            <label for="repair_status">维修状态</label>
+                        </div>
+                        <div class="input-field col" style="width: 20%">
+                            <select material-select watch id="record_repair_type" class="truck_type" ng-model="recordRepairType">
+                                <option ng-value="" selected>请选择</option>
+                                <option ng-value="1">事故维修</option>
+                                <option ng-value="2">公司维修</option>
+                                <option ng-value="3">在外临时维修</option>
+                            </select>
+                            <label for="record_repair_type">维修类型</label>
+                        </div>
+                        <div class="input-field col" style="width: 20%">
+                            <input type="text" ng-model="record_endTime_start" id="record_endTime_start" name="repair_startTime_start" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                            <label for="record_endTime_start">维修结束时间(始)</label>
+                        </div>
+                        <div class="input-field col" style="width: 20%">
+                            <input type="text" ng-model="record_endTime_end" id="record_endTime_end" name="repair_startTime_start" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                            <label for="record_endTime_end">维修结束时间(终)</label>
+                        </div>
+                    </div>
+                    <div class="col s3" style="margin-top: 40px">
+                        <div class="col s4 center">
+                            <a ng-click="searchRepairRecordList()" class="btn-floating btn-large waves-light waves-effect red lighten-2 btn vc-center" style="margin-right: 10px">
+                                <i class="mdi mdi-magnify"></i>
+                            </a>
+                        </div>
+                        <div class="col s4 center">
+                            <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="margin-right: 10px;background-color: #fea353;" ng-click="export()">
+                                <i class="mdi mdi-cloud-download"></i>
+                            </a>
+                        </div>
+                        <div class="col s4 center">
+                            <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2 btn vc-center" style="margin-right: 10px" ng-click="addRepairInfo()">
+                                <i class="mdi mdi-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!--表格-->
+                <div class="row">
+                    <div class="col s12">
+                        <div class="col s12">
+                            <div class="divider cyan" style="height: 2px;"></div>
+                            <table class="bordered striped text_mid">
+                                <thead class="blue-grey lighten-5">
+                                <tr class="grey-text text-darken-2">
+                                    <th data-field="">维修编号</th>
+                                    <th data-field="">车牌号</th>
+                                    <th data-field="">所属公司</th>
+                                    <th data-field="">车辆类型</th>
+                                    <th data-field="">维修类型</th>
+                                    <th data-field="">起始时间</th>
+                                    <th data-field="">结束时间</th>
+                                    <th data-field="">维修原因</th>
+                                    <th data-field="">维修状态</th>
+                                    <th data-field="">维修金额</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="repair in repairRecordList" class="grey-text text-darken-1">
+                                    <td>{{repair.id}}</td>
+                                    <td>{{repair.truck_num}}</td>
+                                    <td>{{repair.company_name}}</td>
+                                    <td>{{repair.truck_type == 1 ? "头车" : "挂车"}}</td>
+                                    <td>{{repair.repair_type == 1 ? "事故维修" :repair.repair_type == 2 ?'公司维修':'在外临时维修'}}</td>
+                                    <td>{{repair.repair_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                    <td>{{repair.end_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                    <td>{{repair.repair_reason}}</td>
+                                    <td class="red-text text-lighten-2" ng-if="repair.repair_status == 0">正在维修</td>
+                                    <td class="cyan-text text-lighten-2" ng-if="repair.repair_status == 1">维修完成</td>
+                                    <td>{{repair.repair_money}}</td>
+                                    <td class="operation">
+                                        <a ui-sref="truck_repair({id:repair.truck_id,type:repair.truck_type,status:'',from:'truck_repair_list'})" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-eye" style="margin: 0"></i></a>
+                                    </td>
+                                </tr>
+                                <tr class="grey-text text-darken-1" ng-if="repairRecordList.length == 0">
+                                    <td colspan="11"><span style="letter-spacing: 2px">暂无数据</span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!--分页-->
+                <div class="row">
+                    <div class="paging_box col s12">
+                        <div class="right">
+                            <a class="waves-light waves-effect cyan lighten-1 btn" id="record_pre" ng-click="record_pre_btn()">
+                                上一页
+                            </a>
+                            <a class="waves-light waves-effect cyan lighten-1 btn" id="record_next" ng-click="record_next_btn()">
+                                下一页
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+
         </div>
     </div>
 </div>

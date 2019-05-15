@@ -24,7 +24,7 @@
                     <!--添加-->
                     <div class="col s12 valign-wrapper" style="margin-bottom: 15px;margin-top: 15px">
                         <div class="col s12 input-field">
-                            <select id="dispatch_num_mod" ng-model="dispatchNum" material-select watch ng-change="changeDispatchNum(addSingMoney,addGuardMoney,dispatchNum.car_count)">
+                            <select id="dispatch_num_mod" ng-model="dispatchNum" material-select watch ng-change="changeDispatchNum(addSingMoney,dispatchNum.car_count)">
                                 <option value="">请选择</option>
                                 <option ng-repeat="el in addWashFeeBox" ng-value="el">{{el.id+'&emsp;'+el.dp_route_task_id + '&emsp;' + el.route_start+'('+ el.addr_name+')'+  ' - ' + el.route_end +'('+ el.short_name+')'+ '&emsp;' + (el.task_plan_date | date:'yyyy-MM-dd')  +"&emsp;&emsp;&emsp;"+el.car_count}}</option>
                             </select>
@@ -32,15 +32,11 @@
                     </div>
                     <!--任务信息卡片-->
                     <div class="col s12 fz14 valign-wrapper cyan-text" style="font-size: 1.2rem;">
-                        <div class="col s4 input-field red-text left-align">
-                            <input id="addSingMoney" type="number"  ng-model="addSingMoney" ng-change="changeSingleMoney(addSingMoney,addGuardMoney,dispatchNum.car_count)">
+                        <div class="col s6  input-field red-text left-align">
+                            <input id="addSingMoney" type="number"  ng-model="addSingMoney" ng-change="changeSingleMoney(addSingMoney,dispatchNum.car_count)">
                             <label for="addSingMoney">每台补价</label>
                         </div>
-                        <div class="col s4 input-field red-text left-align">
-                            <input id="addGuardMoney" type="number"  ng-model="addGuardMoney" ng-change="changeGuardMoney(addSingMoney,addGuardMoney,dispatchNum.car_count)">
-                            <label for="addGuardMoney">门卫费</label>
-                        </div>
-                        <div class="col s4 input-field red-text right-align">
+                        <div class="col s6 input-field red-text right-align">
                             <input id="addTotalMoney" type="number"  ng-model="addTotalMoney" disabled>
                             <label for="addTotalMoney">总补价</label>
                         </div>
@@ -164,7 +160,7 @@
                     <th data-field="">洗车数</th>
                     <th data-field="">计划洗车费</th>
                     <!-- <th data-field="">实际洗车费</th>-->
-                    <!-- <th data-field="">计划门卫费</th>-->
+                     <th data-field="">拖车费</th>
                     <!-- <th data-field="">实际门卫费</th>-->
                     <th data-field="">货车牌号</th>
                     <th data-field="">送达经销商</th>
@@ -188,7 +184,7 @@
                     <td>{{car.car_count}}</td>
                     <td>{{car.total_price}}</td>
                     <!-- <td>{{car.actual_price}}</td>-->
-                    <!--<td>{{car.guard_fee}}</td>-->
+                    <td>{{car.total_trailer_fee}}</td>
                     <!-- <td>{{car.actual_guard_fee}}</td>-->
                     <td>{{car.truck_num}}</td>
                     <td>{{car.short_name}}</td>
@@ -205,7 +201,7 @@
                     </td>
                 </tr>
                 <tr class="grey-text text-darken-1" ng-if="carWashFeeList.length == 0">
-                    <td colspan="14"><span style="letter-spacing: 2px">暂无数据</span></td>
+                    <td colspan="15"><span style="letter-spacing: 2px">暂无数据</span></td>
                 </tr>
                 </tbody>
             </table>

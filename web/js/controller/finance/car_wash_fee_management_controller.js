@@ -149,39 +149,20 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
         });
         $scope.addSingMoney ='';
         $scope.addTotalMoney ='';
-        $scope.addGuardMoney='';
         $('#addSingleMoney').modal('open');
     }
-    $scope.changeSingleMoney =function (addSingMoney,addGuardMoney,dispatchNum){
+    $scope.changeSingleMoney =function (addSingMoney,dispatchNum){
         if(dispatchNum==null){
             dispatchNum=0;
-        }
-        if(addGuardMoney==''||addGuardMoney==null){
-            addGuardMoney=0;
         }
         if(addSingMoney==null||addSingMoney==''){
             addSingMoney=0;
         }
         $scope.addTotalMoney=addSingMoney*dispatchNum;
     }
-    $scope.changeDispatchNum=function (addSingMoney,addGuardMoney,dispatchNum){
+    $scope.changeDispatchNum=function (addSingMoney,dispatchNum){
         if(dispatchNum==null){
             dispatchNum=0;
-        }
-        if(addGuardMoney==''||addGuardMoney==null){
-            addGuardMoney=0;
-        }
-        if(addSingMoney==null||addSingMoney==''){
-            addSingMoney=0;
-        }
-        $scope.addTotalMoney=addSingMoney*dispatchNum;
-    }
-    $scope.changeGuardMoney=function (addSingMoney,addGuardMoney,dispatchNum){
-        if(dispatchNum==null){
-            dispatchNum=0;
-        }
-        if(addGuardMoney==''||addGuardMoney==null){
-            addGuardMoney=0;
         }
         if(addSingMoney==null||addSingMoney==''){
             addSingMoney=0;
@@ -202,7 +183,6 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
                 "receiveId": $scope.dispatchNum.receive_id,
                 "singlePrice": $scope.addSingMoney,
                 "totalPrice": $scope.addTotalMoney,
-                "guardFee": $scope.addGuardMoney,
                 "carCount": $scope.dispatchNum.car_count,
                 "type": 1
             }).then(function (data) {

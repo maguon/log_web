@@ -161,7 +161,7 @@
                     <th data-field="">计划洗车费</th>
                     <!-- <th data-field="">实际洗车费</th>-->
                      <th data-field="">拖车费</th>
-                    <!-- <th data-field="">实际门卫费</th>-->
+                     <th data-field="">停车费</th>
                     <th data-field="">货车牌号</th>
                     <th data-field="">送达经销商</th>
                     <th data-field="">装车日期</th>
@@ -185,7 +185,8 @@
                     <td>{{car.total_price}}</td>
                     <!-- <td>{{car.actual_price}}</td>-->
                     <td>{{car.total_trailer_fee}}</td>
-                    <!-- <td>{{car.actual_guard_fee}}</td>-->
+
+                     <td>{{car.car_parking_fee}}</td>
                     <td>{{car.truck_num}}</td>
                     <td>{{car.short_name}}</td>
                     <td>{{car.created_on | date:'yyyy-MM-dd'}}</td>
@@ -201,7 +202,7 @@
                     </td>
                 </tr>
                 <tr class="grey-text text-darken-1" ng-if="carWashFeeList.length == 0">
-                    <td colspan="15"><span style="letter-spacing: 2px">暂无数据</span></td>
+                    <td colspan="16"><span style="letter-spacing: 2px">暂无数据</span></td>
                 </tr>
                 </tbody>
             </table>

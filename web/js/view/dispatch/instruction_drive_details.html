@@ -30,11 +30,11 @@
                         <div class="col s8 ">
                             <div class="col s6 input-field">
                                 <input type="text" ng-model="driver_mileage_startTime" id="driver_mileage_startTime" name="driver_mileage_startTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                <label for="driver_mileage_startTime">指令完成时间(始)</label>
+                                <label for="driver_mileage_startTime">计划执行时间(始)</label>
                             </div>
                             <div class="col s6 input-field">
                                 <input type="text" ng-model="driver_mileage_endTime" id="driver_mileage_endTime" name="driver_mileage_endTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                <label for="driver_mileage_endTime">指令完成时间(终)</label>
+                                <label for="driver_mileage_endTime">计划执行时间(终)</label>
                             </div>
                         </div>
 
@@ -74,12 +74,11 @@
                     <table class="bordered striped text_mid">
                         <thead class="blue-grey lighten-5">
                         <tr class="grey-text text-darken-2">
-                            <th data-field="">指令编号</th>
-                            <th data-field="">指令完成时间</th>
-                            <th data-field="">起始城市</th>
-                            <th data-field="">目的城市</th>
-                           <!-- <th data-field="">货车牌号</th>-->
-                            <th data-field="">装载车辆</th>
+                            <th data-field="">调度编号</th>
+                            <th data-field="">计划执行时间</th>
+                            <th data-field="">路线</th>
+                            <th data-field="">起始库-经销商</th>
+                            <th data-field="">实际装载车辆</th>
                             <th data-field="">公里数</th>
                             <th>操作</th>
                         </tr>
@@ -87,11 +86,10 @@
                         <tbody>
                         <tr ng-repeat="el in instruction_list" class="grey-text text-darken-1">
                             <td ng-bind="el.id">1</td>
-                            <td ng-bind="el.date_id">2</td>
-                            <td ng-bind="el.city_route_start">无</td>
-                            <td ng-bind="el.city_route_end">
-                           <!-- <td ng-bind="el.truck_num">-->
-                            <td ng-bind="el.car_count"></td>
+                            <td>{{el.task_plan_date| date:'yyyy-MM-dd'}}</td>
+                            <td>{{el.route_start}}-{{el.route_end}}</td>
+                            <td>{{el.addr_name}}-{{el.short_name}}</td>
+                            <td ng-bind="el.real_count"></td>
                             <td ng-bind="el.distance"></td>
                             <td class="operation">
                                 <a href="#" ui-sref="_look_instruction_list_details({instruction_id:el.id,id:driveId,timeStart:driver_mileage_startTime,timeEnd:driver_mileage_endTime,makeId:driveDetail.truck_id,refer:'instruction_driver_mileage',from:'instruction_drive_details'})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ></i></a>

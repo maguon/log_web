@@ -2,19 +2,19 @@
 <div id="addActData" class="modal" style="height:450px ">
     <div class="cyan lighten-1 white-text center-align modal_title" >新增实际加油量/尿素量</div>
     <div class="modal-content">
-        <div class="row col" style="width: 80%;height: 270px">
+        <div class="row col s12" style="width: 80%;height: 270px">
 
             <!--司机 -->
-            <div class="col s6 input-field" style="height: 70px">
-                <select id="addExceedOilDriver"  ng-change="changeDriver(addExceedOilDriver)"  ng-model="addExceedOilDriver" style="width: 100%">
+            <div class="col s6 input-field">
+                <select id="addExceedOilDriver"  ng-model="addExceedOilDriver"  ng-change="changeDriver(addExceedOilDriver)" style="width: 100%">
                     <option value="">请选择</option>
                     <option ng-repeat="driver in driveNameList" ng-value='driver.id'>{{driver.drive_name}}&nbsp;({{driver.company_name}})</option>
                 </select>
             </div>
             <!--货车牌号-->
-            <div class="input-field col s6" style="height: 70px">
-                <select material-select watch id="addTruckNum" style="width: 100%" ng-model="addTruckNum">
-                    <option value=""></option>
+            <div class="input-field col s6">
+                <select ng-model="addTruckNum" id="addTruckNum" style="width: 100%" ng-change="changeTruckNum(addTruckNum)">
+                    <option value="" selected>货车牌号</option>
                     <option ng-repeat="el in truckNumListAll" ng-value="el.id">{{el.truck_num}}</option>
                 </select>
             </div>
@@ -56,7 +56,7 @@
                 </select>
                 <label>加油方式</label>
             </div>
-            <div class="input-field col s12" style="height: 70px">
+            <div class="input-field col s12">
                 <input type="text" ng-model="addPlce" id="addPlce" name="addPlce">
                 <label for="addPlce">加油地点</label>
             </div>

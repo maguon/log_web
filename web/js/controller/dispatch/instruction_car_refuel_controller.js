@@ -4,6 +4,7 @@
 app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$state","$stateParams",  "$host", "_basic", function ($scope,$rootScope,$state,$stateParams, $host, _basic) {
     $scope.start = 0;
     $scope.size = 11;
+    $scope.addTruckNum='';
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.num = 0;
     $scope.flag=false;
@@ -42,8 +43,6 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
         $("#instructionCarRefuel").addClass("active");
         $("#instructionCarRefuel").show();
     };
-    $scope.importFile();
-
     // 过滤条件数据
     var colObjs = [
         {name: '车号', type: 'string',require: true},
@@ -107,7 +106,6 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
             }
         }
     };
-
     $scope.fileUpload = function () {
         _basic.formPost($("#file_upload_form"), $host.api_url + '/user/' + userId + '/driveExceedOilRelFile' , function (data) {
             if (data.success == true) {
@@ -125,13 +123,10 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
             }
         });
     };
-
-
     // 展示上传的错误数据
     $scope.show_error_msg = function () {
         $scope.error_msg = !$scope.error_msg;
     };
-
     $scope.fileChange = function (file) {
         // 表头原始数据
         $scope.tableHeadeArray = [];
@@ -200,19 +195,24 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
         })
     };
 
-
-
-
     //获取货车牌号
-    function getTruckId() {
+    function getTruckId(text) {
         _basic.get($host.api_url + "/truckBase").then(function (data) {
             if (data.success === true) {
                 $scope.truckNumListAll = data.result;
-                $('#addTruckNum').select2({
-                    placeholder: '货车牌号',
-                    containerCssClass: 'select2_dropdown',
-                    allowClear: true
-                });
+                if(text==''&&text==undefined){
+                    $('#addTruckNum').select2({
+                        placeholder: '货车牌号',
+                        containerCssClass: 'select2_dropdown',
+                        allowClear: true
+                    });
+                }
+               else {
+                    $('#addTruckNum').select2({
+                        placeholder:text,
+                        containerCssClass: 'select2_dropdown'
+                    });
+                }
                 $('#truckNumber').select2({
                     placeholder: '货车牌号',
                     containerCssClass: 'select2_dropdown',
@@ -224,6 +224,17 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
             }
         })
     }
+    $scope.changeDriver = function (driver){
+        _basic.get($host.api_url + "/drive?driveId="+driver).then(function (data) {
+            if (data.success == true) {
+                $scope.addTruckId= data.result[0].truck_id;
+                getTruckId(data.result[0].truck_num);
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
     //司机
     function getDriveNameList () {
         _basic.get($host.api_url + "/drive").then(function (data) {
@@ -245,8 +256,6 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
             }
         });
     }
-
-
     // 单条数据录入
     $scope.new_data_list =function (){
         $scope.addOil ='';
@@ -262,18 +271,6 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
         $(".modal").modal();
         $("#addActData").modal("open");
     }
-
-    $scope.changeDriver = function (driver){
-        _basic.get($host.api_url + "/drive?driveId="+driver).then(function (data) {
-            if (data.success == true) {
-                $scope.addTruckNum = data.result[0].truck_id;
-                getTruckId();
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
-    };
     $scope.changeAddOil = function (el1,el2){
         $scope.oilMoney =el1*el2;
     }
@@ -287,12 +284,15 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
         $scope.ureaMoney=el1*el2;
     }
 
+    $scope.changeTruckNum = function (id){
+        $scope.addTruckId=id;
+    }
     $scope.addDataItem = function (){
-        if ($scope.addExceedOilDriver!==''&&$scope.addTime !== '' && $scope.addPlce !== ''&&$scope.addTruckNum!==undefined&& $scope.addType!==''&&$scope.oilMoney!=='') {
+        if ($scope.addExceedOilDriver!==''&&$scope.addTime !== '' && $scope.addPlce !== ''&&$scope.addTruckId!==undefined&& $scope.addType!==''&&$scope.oilMoney!=='') {
             _basic.post($host.api_url + "/user/" + userId + "/driveExceedOilRel", {
                 "exceedOilId": 0,
                 "driveId":$scope.addExceedOilDriver,
-                "truckId": $scope.addTruckNum,
+                "truckId": $scope.addTruckId,
                 "oilDate":  $scope.addTime,
                 'oilAddressType':$scope.addType,
                 "oilAddress":  $scope.addPlce,
@@ -315,12 +315,11 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
             swal("请填写完整信息！", "", "warning");
         }
     }
-
-
-
-
-
-
+    // 头车搜索事件-条件查询
+    $scope.search_condition = function () {
+        $scope.start = 0;
+        $scope.search_query();
+    };
     // 搜索请求
     $scope.search_query = function () {
         // 基本检索URL
@@ -355,7 +354,6 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
             }
         })
     };
-
     /**
      * 组装检索条件。
      */
@@ -367,30 +365,19 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
             oilDateEnd:$scope.refueling_endTime
         }
     }
-
-
-
-    // 头车搜索事件-条件查询
-    $scope.search_condition = function () {
-        $scope.start = 0;
-        $scope.search_query();
-    };
-
-    // 分页
     // 上一页
     $scope.pre_btn = function () {
         $scope.start = $scope.start - ($scope.size - 1);
         $scope.search_query();
     };
-
     // 下一页
     $scope.next_btn = function () {
         $scope.start = $scope.start + ($scope.size - 1);
         $scope.search_query();
     };
 
-
-    $scope.search_query();
+    $scope.importFile();
     getDriveNameList ();
     getTruckId();
+    $scope.search_query();
 }]);

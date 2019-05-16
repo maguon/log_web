@@ -242,9 +242,11 @@
 
             <div class="col s12" ng-repeat="carInfo in vinList" ng-if="!(vinList.length == 0)" style="border-bottom: 1px dotted #ccc;margin-top: 15px">
                 <i class="col s2 center-align mdi mdi-car fz22"></i>
-                <div class="col s6 left-align">{{carInfo.vin}}</div>
+                <div class="col s4 left-align">{{carInfo.vin}}</div>
                 <div class="col s2">{{carInfo.make_name}}</div>
                 <div class="col s2">{{carInfo.ship_name}}</div>
+                <div class="col s2 center-align" ng-show="vinInfo.car_status==9">已完成</div>
+                <div class="col s2 center-align" ng-show="vinInfo.car_status!==9">未完成</div>
             </div>
 
             <div class="col s12 center" ng-if="vinList.length == 0">暂无车辆信息 </div>
@@ -276,9 +278,11 @@
 
             <div class="col s12" ng-repeat="vinInfo in vinTList" ng-if="!(vinTList.length == 0)" style="border-bottom: 1px dotted #ccc;margin-top: 15px">
                 <i class="col s2 center-align mdi mdi-car fz22"></i>
-                <div class="col s6 left-align">{{vinInfo.vin}}</div>
+                <div class="col s4 left-align">{{vinInfo.vin}}</div>
                 <div class="col s2 center-align">{{vinInfo.make_name}} </div>
                 <div class="col s2 center-align">{{vinInfo.ship_name}}</div>
+                <div class="col s2 center-align" ng-show="vinInfo.car_status==9">已完成</div>
+                <div class="col s2 center-align" ng-show="vinInfo.car_status!==9">未完成</div>
             </div>
 
             <div class="col s12 center" ng-if="vinTList.length == 0">暂无车辆信息</div>

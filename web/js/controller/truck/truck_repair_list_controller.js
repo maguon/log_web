@@ -58,7 +58,7 @@ app.controller("truck_repair_list_controller", ['$rootScope', "$rootScope","$sta
 
     // 过滤条件数据
     var colObjs = [
-        {name: '货车', type: 'string',require: true},
+        {name: '车号', type: 'string',require: true},
         {name: '司机', type: 'string',require: true},
         {name: '维修类型', type: 'string', require: true},
         {name: '维修开始时间', type: 'string', require: true},
@@ -66,8 +66,8 @@ app.controller("truck_repair_list_controller", ['$rootScope', "$rootScope","$sta
         {name: '配件费', type: 'number', require: true},
         {name: '维修费', type: 'number', require: true},
         {name: '保养费', type: 'number', require: true},
-        {name: '维修原因', type: 'string', require: true},
-        {name: '维修描述', type: 'string', require: true}];
+        {name: '维修内容', type: 'string', require: true},
+        {name: '备注', type: 'string', require: true}];
     // 头部条件判断
     $scope.titleFilter = function (headerArray) {
         if (colObjs.length != headerArray.length) {

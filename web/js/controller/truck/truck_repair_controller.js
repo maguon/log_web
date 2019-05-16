@@ -145,12 +145,12 @@ app.controller("truck_repair_controller", ["$scope", "$state", "$stateParams", "
     // 获取维修站信息并打开维修结束模态框
     $scope.finishRepairInfo = function (relId) {
         $scope.relId = relId;
-        // $scope.$scope.repairStation = "";
         $scope.repairDescription = "";
         $scope.repairMoney = 0;
+        $scope.partsMoney = 0;
+        $scope.maintainMoney = 0;
         _basic.get($host.api_url + "/repairStation?repairSationStatus=1").then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
                 $scope.repairStationList = data.result;
             }
             else {
@@ -162,7 +162,7 @@ app.controller("truck_repair_controller", ["$scope", "$state", "$stateParams", "
 
     // 模态框内确认维修结束
     $scope.completeRepairInfo = function () {
-        if($scope.relId !== "" && $scope.repairStation != null && $scope.repairMoney !== 0){
+        if($scope.relId !== "" && $scope.repairStation != null && $scope.repairMoney !==""&&$scope.partsMoney!==''&&$scope.maintainMoney!==''){
             swal({
                     title: "确定结束维修吗？",
                     type: "warning",

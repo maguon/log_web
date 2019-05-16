@@ -276,15 +276,21 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
     }
     $scope.changeAddOil = function (el1,el2){
         $scope.oilMoney =el1*el2;
+        $scope.putList.oil_money =el1*el2;
+
     }
     $scope.changeAddUrea = function (el1,el2){
         $scope.ureaMoney=el1*el2;
+        $scope.putList.urea_money=el1*el2;
+
     }
     $scope.changeOilSinglePrice = function (el1,el2){
         $scope.oilMoney=el1*el2;
+        $scope.putList.oil_money =el1*el2;
     }
     $scope.changeUreaSinglePrice = function (el1,el2){
         $scope.ureaMoney=el1*el2;
+        $scope.putList.urea_money=el1*el2;
     }
 
     $scope.changeTruckNum = function (id){
@@ -318,6 +324,57 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
             swal("请填写完整信息！", "", "warning");
         }
     }
+
+
+
+    $scope.putSystem = function (id){
+        $scope.relId= id;
+        _basic.get($host.api_url + "/driveExceedOilRel?relId="+id).then(function (data) {
+            if (data.success == true) {
+                $scope.putList = data.result[0];
+                $scope.putList.oil_date = moment(data.result[0].oil_date).format('YYYY-MM-DD');
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+
+        $(".modal").modal();
+        $("#putActData").modal("open");
+    }
+
+    $scope.putDataItem =function (){
+        if($scope.putList.oil !== "" &&  $scope.putList.urea!== ''
+            &&  $scope.putList.oil_single_price!== ''&&   $scope.putList.urea_single_price!== ''
+            &&   $scope.putList.oil_date!== ''&& $scope.putList.oil_address_type!==null){
+            _basic.put($host.api_url + "/user/" + userId + "/driveExceedOilRel/" +$scope.relId,{
+                "oilDate":  $scope.putList.oil_date,
+                "oilAddressType": $scope.putList.oil_address_type,
+                "oilAddress":  $scope.putList.oil_address,
+                "oil":  $scope.putList.oil,
+                "urea":  $scope.putList.urea,
+                "oilSinglePrice":  $scope.putList.oil_single_price,
+                "ureaSinglePrice":  $scope.putList.urea_single_price,
+                "oilMoney":$scope.putList.oil_money,
+                "ureaMoney": $scope.putList.urea_money
+            }).then(function (data) {
+                if (data.success === true) {
+                    $scope.search_query();
+                    $('#putActData').modal('close');
+                    swal("修改成功", "", "success");
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
+        else{
+            swal("请填写完整信息！", "", "warning");
+        }
+    }
+
+
+
     // 头车搜索事件-条件查询
     $scope.search_condition = function () {
         $scope.start = 0;

@@ -71,6 +71,78 @@
     </div>
 </div>
 
+
+<!--添加实际用油量  实际尿素量-->
+<div id="putActData" class="modal" style="height:450px ">
+    <div class="cyan lighten-1 white-text center-align modal_title" >修改实际加油量/尿素量</div>
+    <div class="modal-content">
+        <div class="row col s12" style="width: 80%;height: 270px">
+
+            <!--司机 -->
+            <div class="col s6 input-field">
+                <input id="putDriver" type="text"  ng-model="putList.drive_name"  disabled/>
+                <label for="putDriver">司机</label>
+
+            </div>
+            <!--货车牌号-->
+            <div class="input-field col s6">
+                <input id="putTruckNum" type="text"  ng-model="putList.truck_num" disabled/>
+                <label for="putTruckNum">货车牌号</label>
+            </div>
+
+            <!--尿素 油-->
+            <div class="input-field col s3">
+                <input id="putOil" type="number"  ng-model="putList.oil" ng-change="changeAddOil(putList.oil_single_price,putList.oil)" >
+                <label for="putOil">实际加油量(L)</label>
+            </div>
+            <div class="input-field col s3">
+                <input id="putUrea" type="number"  ng-model="putList.urea" ng-change="changeAddUrea(putList.urea_single_price,putList.urea)">
+                <label for="putUrea">实际加尿素量</label>
+            </div>
+            <div class="input-field col s3">
+                <input id="putOilSinglePrice" type="number"  ng-model="putList.oil_single_price" ng-change="changeOilSinglePrice(putList.oil_single_price,putList.oil)" >
+                <label for="putOilSinglePrice">加油单价</label>
+            </div>
+            <div class="input-field col s3">
+                <input id="putUreaSinglePrice" type="number"  ng-model="putList.urea_single_price" ng-change="changeUreaSinglePrice(putList.urea_single_price,putList.urea)">
+                <label for="putUreaSinglePrice">加尿素单价</label>
+            </div>
+            <div class="input-field col s3">
+                <input id="putOilMoney" type="number"  ng-model="putList.oil_money" disabled>
+                <label for="putOilMoney">加油金额</label>
+            </div>
+            <div class="input-field col s3">
+                <input id="putOreaMoney" type="number"  ng-model="putList.urea_money" disabled>
+                <label for="putOreaMoney">加尿素金额</label>
+            </div>
+            <div class="input-field col s3">
+                <input type="text" ng-model="putList.oil_date" id="putTime" name="putTime"  class="datepicker" autocomplete="off"    date><i class="mdi dataIcon mdi-table-large"></i>
+                <label for="putTime">加油时间</label>
+            </div>
+            <div class="input-field col s3">
+                <select  material-select watch ng-model="putList.oil_address_type">
+                    <option value="" selected disabled>请选择</option>
+                    <option ng-value="1">内部</option>
+                    <option ng-value="2">外部</option>
+                </select>
+                <label>加油方式</label>
+            </div>
+            <div class="input-field col s12">
+                <input type="text" ng-model="putList.oil_address" id="putPlce">
+                <label for="putPlce">加油地点</label>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="divider" style="background: #ccc;height: 1px;"></div>
+    <div class="modal-footer vc-center">
+        <a class=" modal-action modal-close waves-effect waves-light grey lighten-1 btn"  >取消 </a>
+        <button class="btn waves-light waves-effect cyan lighten-2"  ng-click="putDataItem()" name="action" style="margin-left: 10px">确定</button>
+    </div>
+</div>
+
+
 <div class="modal-content grey-text text-darken-2">
     <div class="row no-marBottom" ul-tabs style="overflow: hidden">
         <div class="col s12">
@@ -117,7 +189,7 @@
             <div class="row">
                 <div class="col s12">
                     <div class="col s12 tableBox" ng-show="tableBox">
-                        <img style="width: 100%" src="/assets/images/import_social.png" />
+                        <img style="width: 100%" src="/assets/images/import_oil.png" />
                     </div>
                 </div>
             </div>
@@ -236,6 +308,7 @@
                             <th data-field="">加尿素总价</th>
                             <th data-field="">时间</th>
                             <th data-field="">地点</th>
+                            <th data-field=""></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -244,13 +317,17 @@
                             <td>{{el.truck_num}}</td>
                             <td>{{el.oil}}</td>
                             <td>{{el.urea}}</td>
-
                             <td>{{el.oil_single_price}}</td>
                             <td>{{el.urea_single_price}}</td>
                             <td>{{el.oil_money}}</td>
                             <td>{{el.urea_money}}</td>
                             <td>{{el.oil_date|date:'yyyy-MM-dd'}}</td>
                             <td>{{el.oil_address}}</td>
+                            <td class="operation vc-center">
+                                <a  ng-click="putSystem(el.id)" class="cyan-text fz12" style="cursor: pointer;display: inline-block;width: 37px;height: 37px;">
+                                    <i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-file-document"></i>
+                                </a>
+                            </td>
                         </tr>
                         <tr class="grey-text text-darken-1" ng-if="car_refuel.length == 0">
                             <td colspan="10"><span style="letter-spacing: 2px">暂无数据</span></td>

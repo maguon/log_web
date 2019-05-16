@@ -1,0 +1,177 @@
+<div class="dispatchHomeWrap">
+    <div class="dispatch_content" style="width: 95%;margin: 0 auto">
+        <div class="row">
+            <div class="col s12" style="margin-top: 50px">
+                <div class="col s3">
+                    <div class="col s12" style="background-color: rgb(193,115,206);font-size: 1.5rem;font-weight: 500;color: white">
+                        <div class="valign-wrapper">
+                            <div class="col s2 right-align" style="padding: 0;">
+                                <span style="font-size: 2.2rem" class="mdi mdi-calendar-blank"></span>
+                            </div>
+                            <div class="col s10" style="letter-spacing: 2px">
+                                <p>未安排需求</p>
+                            </div>
+                        </div>
+                        <div class="col s5 offset-s7 center-align">
+                            <p style="font-size: 38px;margin: 15px 0">{{unscheduledDemand}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col s3">
+                    <div class="col s12" style="background-color: rgb(255,181,72);font-size: 1.5rem;font-weight: 500;color: white">
+                        <div class="valign-wrapper">
+                            <div class="col s2 right-align" style="padding: 0;">
+                                <span style="font-size: 2.2rem" class="mdi mdi-car"></span>
+                            </div>
+                            <div class="col s10" style="letter-spacing: 2px">
+                                <p>未安排商品车</p>
+                            </div>
+                        </div>
+                        <div class="col s5 offset-s7 center-align">
+                            <p style="font-size: 38px;margin: 15px 0">{{notScheduledVehicle}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col s3">
+                    <div class="col s12" style="background-color: rgb(150,202,84);font-size: 1.5rem;font-weight: 500;color: white">
+                        <div class="valign-wrapper">
+                            <div class="col s2 right-align" style="padding: 0;">
+                                <span style="font-size: 2.2rem" class="mdi mdi-car"></span>
+                            </div>
+                            <div class="col s10" style="letter-spacing: 2px">
+                                <p>已安排商品车</p>
+                            </div>
+                        </div>
+                        <div class="col s5 offset-s7 center-align">
+                            <p style="font-size: 38px;margin: 15px 0">{{scheduledVehicles}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col s3">
+                    <div class="col s12" style="background-color: rgb(233,126,126);font-size: 1.5rem;font-weight: 500;color: white">
+                        <div class="valign-wrapper">
+                            <div class="col s2 right-align" style="padding: 0;">
+                                <span style="font-size: 2.2rem" class="mdi mdi-car"></span>
+                            </div>
+                            <div class="col s10" style="letter-spacing: 2px">
+                                <p>今日送达商品车</p>
+                            </div>
+                        </div>
+                        <div class="col s5 offset-s7 center-align">
+                            <p style="font-size: 38px;margin: 15px 0">{{todayCommodityCar}}</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 180px">
+            <div class="col s12">
+                <div class="col s3">
+                    <div class="col s12" style="background-color: rgb(42,205,223);height: 237px;font-size: 1.5rem;color: white">
+                        <div class="col s10 offset-s1 valign-wrapper" style="margin-top: 32px">
+                            <div class="col s3 right-align">
+                                <span class="center" style="background-color: white;width:60px;height:60px;display:inline-block;border-radius: 100%;font-size: 2.5rem;line-height: 60px">
+                                    <span style="color:rgb(42,205,233);font-size: 2.1rem" class="mdi mdi-clipboard-alert"></span>
+                                </span>
+                            </div>
+                            <div class="col s9 center-align">
+                                <p>未完成指令</p>
+                            </div>
+                        </div>
+
+                        <div class="col s12 center-align">
+                            <p style="font-size: 38px;font-weight: 500;margin: 34px 0">{{notCompleteCount}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col s6">
+                    <div class="col s6 " style="margin:0">
+                        <div class="valign-wrapper card-panel white" style="border-top: 3px solid rgb(42,205,223);margin-top: 0;padding: 15px">
+                            <div class="col s3 center">
+                                <span class="center" style="background-color: rgb(42,205,233);width:60px;height:60px;display:inline-block;border-radius: 100%;font-size: 2.5rem;line-height: 60px">
+                                    <span style="color:white;font-size: 2.1rem" class="mdi mdi-clipboard-text"></span>
+                                </span>
+                            </div>
+                            <div class="col s6" style="color:grey;font-size: 21px;font-weight: 600">
+                                <p>未接受</p>
+                            </div>
+                            <div class="col s3">
+                                <p style="color: rgb(231,127,131);font-size: 38px;font-weight: 500;margin: 10px 0">{{status_1_count}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s6 " style="margin:0">
+                        <div class="valign-wrapper card-panel white" style="border-top: 3px solid rgb(42,205,233);margin-top: 0;padding: 15px">
+                            <div class="col s3 center">
+                                <span class="center" style="background-color: rgb(42,205,233);width:60px;height:60px;display:inline-block;border-radius: 100%;font-size: 2.5rem;line-height: 60px">
+                                    <span style="color:white;font-size: 2.1rem" class="mdi mdi-clipboard-text"></span>
+                                </span>
+                            </div>
+                            <div class="col s6" style="color:grey;font-size: 21px;font-weight: 600">
+                                <p>已接受</p>
+                            </div>
+                            <div class="col s3">
+                                <p style="color: rgb(231,127,131);font-size: 38px;font-weight: 500;margin: 10px 0">{{status_2_count}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s6 " style="margin:0">
+                        <div class="valign-wrapper card-panel white" style="border-top: 3px solid rgb(42,205,223);margin-top: 0;padding: 15px">
+                            <div class="col s3 center">
+                                <span class="center" style="background-color: rgb(42,205,233);width:60px;height:60px;display:inline-block;border-radius: 100%;font-size: 2.5rem;line-height: 60px">
+                                    <span style="color:white;font-size: 2.1rem" class="mdi mdi-clipboard-text"></span>
+                                </span>
+                            </div>
+                            <div class="col s6" style="color:grey;font-size: 21px;font-weight: 600">
+                                <p>执行中</p>
+                            </div>
+                            <div class="col s3">
+                                <p style="color: rgb(231,127,131);font-size: 38px;font-weight: 500;margin: 10px 0">{{status_3_count}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s6 " style="margin:0">
+                        <div class="valign-wrapper card-panel white" style="border-top: 3px solid rgb(42,205,223);margin-top: 0;padding: 15px">
+                            <div class="col s3 center">
+                                <span class="center" style="background-color: rgb(42,205,233);width:60px;height:60px;display:inline-block;border-radius: 100%;font-size: 2.5rem;line-height: 60px">
+                                    <span style="color:white;font-size: 2.1rem" class="mdi mdi-clipboard-text"></span>
+                                </span>
+                            </div>
+                            <div class="col s6" style="color:grey;font-size: 21px;font-weight: 600">
+                                <p>在途</p>
+                            </div>
+                            <div class="col s3">
+                                <p style="color: rgb(231,127,131);font-size: 38px;font-weight: 500;margin: 10px 0">{{status_4_count}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col s3">
+                    <div class="col s12" style="background-color: rgb(42,205,223);height: 237px;font-size: 1.5rem;color: white">
+                        <div class="col s10 offset-s1 valign-wrapper" style="margin-top: 32px">
+                            <div class="col s3 right-align">
+                                <span class="center" style="background-color: white;width:60px;height:60px;display:inline-block;border-radius: 100%;font-size: 2.5rem;line-height: 60px">
+                                    <span style="color:rgb(42,205,233);font-size: 2.1rem" class="mdi mdi-clipboard-check"></span>
+                                </span>
+                            </div>
+                            <div class="col s9 center-align">
+                                <p>今日完成指令</p>
+                            </div>
+                        </div>
+
+                        <div class="col s12 center-align">
+                            <p style="font-size: 38px;font-weight: 500;margin: 34px 0">{{todayCompleteInstructions}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

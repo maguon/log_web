@@ -85,7 +85,15 @@
                     <input id="urea" type="number" name="urea" ng-model="loadItem.urea" style="margin: 0;">
                     <label for="urea">尿素</label>
                 </div>
+                <div class="col s6 input-field">
+                    <input id="loadReverse" type="number"  ng-model="loadItem.load_reverse_oil" style="margin: 0;">
+                    <label for="loadReverse" class="active">重载倒板(升/百公里)</label>
+                </div>
 
+                <div class="col s6 input-field">
+                    <input id="notLoadReverse" type="number" ng-model="loadItem.no_load_reverse_oil" style="margin: 0;">
+                    <label for="notLoadReverse" class="active">空载倒板(升/百公里)</label>
+                </div>
             </div>
         </div>
     </div>

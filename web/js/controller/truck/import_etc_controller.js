@@ -121,6 +121,8 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
                     $scope.num=data.result.successedInsert;
                     $scope.local_isSuccesss = false;
                     $scope.upload_isSuccesss = true;
+                    $("#buttonImport").attr("disabled",true);
+                    swal('正确:'+$scope.num+'错误:'+$scope.upload_error_array_num,"", "success")
                 });
 
             }

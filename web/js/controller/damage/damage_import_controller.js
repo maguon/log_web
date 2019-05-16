@@ -101,6 +101,8 @@ app.controller("damage_import_controller", ["$scope","$rootScope","$state","$sta
                     $scope.num=data.result.successedInsert;
                     $scope.local_isSuccesss = false;
                     $scope.upload_isSuccesss = true;
+                    $("#buttonImport").attr("disabled",true);
+                    swal('正确:'+$scope.num+'错误:'+$scope.upload_error_array_num,"", "success")
                 });
 
             }

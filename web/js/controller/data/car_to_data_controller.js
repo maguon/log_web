@@ -124,6 +124,8 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                     if (uploadDataArray.length > 0) {
                         socketUpload($scope.file_id);
                         orginDataLength = $scope.tableContentFilter.length;
+                        $("#buttonImport").attr("disabled",true);
+                        swal('正确:'+$scope.num+'错误:'+$scope.upload_error_array_num,"", "success")
                     }
                 }
             });

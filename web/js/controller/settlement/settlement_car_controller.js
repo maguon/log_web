@@ -135,6 +135,8 @@ app.controller("settlement_car_controller", ["$scope","$rootScope","$state","$st
                         $scope.num=$scope.orginData_Length;
                         $scope.local_isSuccesss = false;
                         $scope.upload_isSuccesss = true;
+                        $("#buttonImport").attr("disabled",true);
+                        swal('正确:'+$scope.num+'错误:'+$scope.upload_error_array_num,"", "success")
                     });
 
                 }

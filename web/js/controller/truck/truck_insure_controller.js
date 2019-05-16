@@ -129,6 +129,7 @@ app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "
             $scope.addtruckInsureType="";
             $scope.addInsureNum="";
             $scope.addinsureMoney="";
+            $scope.addTaxCost="";
             $scope.startDate="";
            $scope.endDate="";
            $scope.addInsureExplain="";
@@ -136,13 +137,15 @@ app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "
     }
     $scope.createTruckInsureItem=function() {
         if ($scope.addSystemType !== undefined && $scope.addtruckInsureName !== undefined && $scope.addtruckInsureType!== undefined &&
-            $scope.addInsureNum!== undefined&&$scope.addinsureMoney!== undefined&&$scope.startDate!== undefined&& $scope.endDate!== undefined) {
+            $scope.addInsureNum!== undefined&&$scope.addinsureMoney!== undefined&&$scope.addTaxCost!==undefined&&$scope.startDate!== undefined&& $scope.endDate!== undefined) {
             _basic.post($host.api_url + "/user/" + userId + "/truckInsureRel", {
                 truckId: $scope.addSystemType,
                 insureId:$scope.addtruckInsureName,
                 insureType: $scope.addtruckInsureType,
                 insureNum: $scope.addInsureNum,
                 insureMoney: $scope.addinsureMoney,
+                taxMoney: $scope.addTaxCost,
+                totalMoney:$scope.addTaxCost +$scope.addinsureMoney,
                 startDate: $scope.startDate,
                 endDate: $scope.endDate,
                 insureExplain: $scope.addInsureExplain
@@ -182,13 +185,15 @@ app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "
     $scope.updateTruckInsureItem = function (id) {
         if($scope.showTruckInsureList.truck_id!== "" &&$scope.showTruckInsureList.insure_id!==""
             &&$scope.showTruckInsureList.insure_type!== ""&& $scope.showTruckInsureList.insure_num!== ""
-            &&$scope.showTruckInsureList.insure_money!== "" &&$scope.showTruckInsureList.start_date!== "" &&$scope.showTruckInsureList.end_date!== ""){
+            &&$scope.showTruckInsureList.insure_money!== ""  &&$scope.showTruckInsureList.tax_money!== ""&&$scope.showTruckInsureList.start_date!== "" &&$scope.showTruckInsureList.end_date!== ""){
             var obj = {
              truckId:  $scope.showTruckInsureList.truck_id,
              insureId:  $scope.showTruckInsureList.insure_id,
              insureType: $scope.showTruckInsureList.insure_type,
              insureNum:  $scope.showTruckInsureList.insure_num,
              insureMoney:  $scope.showTruckInsureList.insure_money,
+             taxMoney: $scope.showTruckInsureList.tax_money,
+             totalMoney:$scope.showTruckInsureList.tax_money+ $scope.showTruckInsureList.insure_money,
              startDate:  $scope.showTruckInsureList.start_date,
              endDate: $scope.showTruckInsureList.end_date,
              insureExplain: $scope.showTruckInsureList.insure_explain

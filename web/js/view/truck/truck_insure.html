@@ -38,10 +38,17 @@
                                 </div>
                             </div>
                             <div class=" col s6 p0">
-                                <div class="col s12">
+                                <div class="col s6">
                                     <div class="col s11 input-field">
                                         <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="under_cost" type="number"  ng-change="under_cost" ng-model="addinsureMoney">
                                         <label for="under_cost"><span style="color: red">* </span>保险金额</label>
+                                    </div>
+                                    <div class="col s1 right-align" style="padding: 0;margin-top: 28px">元</div>
+                                </div>
+                                <div class="col s6">
+                                    <div class="col s11 input-field">
+                                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="tax_cost" type="number"   ng-model="addTaxCost">
+                                        <label for="tax_cost"><span style="color: red">* </span>税金额</label>
                                     </div>
                                     <div class="col s1 right-align" style="padding: 0;margin-top: 28px">元</div>
                                 </div>
@@ -133,10 +140,17 @@
                                 </div>
                             </div>
                             <div class=" col s6 p0">
-                                <div class="col s12">
+                                <div class="col s6">
                                     <div class="col s11 input-field">
-                                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)"  type="number"  ng-model="showTruckInsureList.insure_money">
-                                        <label for="under_cost"><span style="color: red">* </span>保险金额</label>
+                                        <input id="insure_money" style="font-size: 2rem;text-align: right;color: rgb(230,123,123)"  type="number"  ng-model="showTruckInsureList.insure_money">
+                                        <label for="insure_money"><span style="color: red">* </span>保险金额</label>
+                                    </div>
+                                    <div class="col s1 right-align" style="padding: 0;margin-top: 28px">元</div>
+                                </div>
+                                <div class="col s6">
+                                    <div class="col s11 input-field">
+                                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="tax_money"  style="font-size: 2rem;text-align: right;color: rgb(230,123,123)"  type="number"   ng-model="showTruckInsureList.tax_money">
+                                        <label for="tax_money"><span style="color: red">* </span>税金额</label>
                                     </div>
                                     <div class="col s1 right-align" style="padding: 0;margin-top: 28px">元</div>
                                 </div>
@@ -286,6 +300,8 @@
                             <th  data-field="">保险公司</th>
                             <th  data-field="">险种</th>
                             <th  data-field="">保险金额</th>
+                            <th  data-field="">税金额</th>
+                            <th  data-field="">总金额</th>
                             <th  data-field="">车牌号码</th>
                             <th  data-field="">车辆类型</th>
                             <th  data-field="">所属公司</th>
@@ -303,6 +319,8 @@
                             <td  ng-if="truckInsureItem.insure_type == 2">商业险</td>
                             <td  ng-if="truckInsureItem.insure_type == 3">货运险</td>
                             <td>{{truckInsureItem.insure_money}}</td>
+                            <td>{{truckInsureItem.tax_money}}</td>
+                            <td>{{truckInsureItem.total_money}}</td>
                             <td>{{truckInsureItem.truck_num}}</td>
                             <td>{{truckInsureItem.truck_type == 1 ? "头车" : "挂车"}}</td>
                             <td>{{truckInsureItem.company_name}}</td>
@@ -317,7 +335,7 @@
                             </td>
                         </tr>
                         <tr class="grey-text text-darken-1" ng-if="truckInsureList.length == 0">
-                            <td colspan="11"><span style="letter-spacing: 2px">暂无数据</span></td>
+                            <td colspan="13"><span style="letter-spacing: 2px">暂无数据</span></td>
                         </tr>
                         </tbody>
                     </table>

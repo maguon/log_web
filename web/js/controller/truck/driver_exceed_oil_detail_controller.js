@@ -104,40 +104,6 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
     }
 
 
-    //获取货车牌号
-    function getTruckNum(selectText) {
-        if(selectText==''||selectText==undefined){
-            _basic.get($host.api_url + "/truckBase").then(function (data) {
-                if (data.success == true) {
-                    $scope.truckNumListAllList = data.result;
-                    $('#truckId').select2({
-                        placeholder: "货车牌号",
-                        containerCssClass: 'select2_dropdown',
-                        allowClear: true
-                    });
-                }
-                else {
-                    swal(data.msg, "", "error");
-                }
-            })
-        }
-        else{
-            _basic.get($host.api_url + "/truckBase").then(function (data) {
-                if (data.success == true) {
-                    $scope.truckNumListAllList = data.result;
-                    $('#truckId').select2({
-                        placeholder: selectText,
-                        containerCssClass : 'select2_dropdown',
-                        allowClear: true
-                    })
-                }
-                else {
-                    swal(data.msg, "", "error");
-                }
-            });
-        }
-    }
-
 
     //添加未扣款任务到扣款任务
     $scope.addOilRel =function(id){
@@ -269,13 +235,29 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
         $scope.addTime ='';
         $scope.addPlce ='';
         $scope.addType='';
-        $scope.actalMoney ='';
+        $scope.oilMoney ='';
+        $scope.ureaMoney='';
+        $scope.oilSinglePrice='';
+        $scope.ureaSinglePrice='';
         $(".modal").modal();
         $("#addActData").modal("open");
-        getTruckNum($scope.selectText);
     }
+
+    $scope.changeAddOil = function (el1,el2){
+        $scope.oilMoney =el1*el2;
+    }
+    $scope.changeAddUrea = function (el1,el2){
+        $scope.ureaMoney=el1*el2;
+    }
+    $scope.changeOilSinglePrice = function (el1,el2){
+        $scope.oilMoney=el1*el2;
+    }
+    $scope.changeUreaSinglePrice = function (el1,el2){
+        $scope.ureaMoney=el1*el2;
+    }
+
     $scope.addDataItem = function (){
-        if ($scope.addTime !== '' && $scope.addPlce !== ''&&$scope.truckId!==undefined&& $scope.addType!==''&&$scope.actalMoney!=='') {
+        if ($scope.addTime !== '' && $scope.addPlce !== ''&&$scope.truckId!==undefined&& $scope.addType!==''&&$scope.oilMoney!=='') {
             _basic.post($host.api_url + "/user/" + userId + "/driveExceedOilRel", {
                 "exceedOilId": exceedOilId,
                 "driveId": driveId,
@@ -283,8 +265,11 @@ app.controller("driver_exceed_oil_detail_controller", ["$scope", "$state","$stat
                 "oilDate":  $scope.addTime,
                 'oilAddressType':$scope.addType,
                 "oilAddress":  $scope.addPlce,
-                'oilMoney': $scope.actalMoney,
+                'oilMoney': $scope.oilMoney,
                 "oil":  $scope.addOil,
+                "oilSinglePrice":$scope.oilSinglePrice,
+                "ureaSinglePrice": $scope.ureaSinglePrice,
+                "ureaMoney": $scope.ureaMoney,
                 "urea": $scope.addUrea
             }).then(function (data) {
                 if (data.success == true) {

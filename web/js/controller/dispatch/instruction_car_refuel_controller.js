@@ -4,8 +4,322 @@
 app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$state","$stateParams",  "$host", "_basic", function ($scope,$rootScope,$state,$stateParams, $host, _basic) {
     $scope.start = 0;
     $scope.size = 11;
-   /* $scope.currentStatus = "1";*/
-   /* var userId = _basic.getSession(_basic.USER_ID);*/
+    var userId = _basic.getSession(_basic.USER_ID);
+    $scope.num = 0;
+    $scope.flag=false;
+    $scope.tableBox = true;
+    $scope.success_data_box = false;
+    $scope.dataBox = false;
+    $scope.local_isSuccesss = false;
+    $scope.upload_isSuccesss = false;
+    $scope.show_error = false;
+    $scope.error_msg = false;
+    $scope.rightNumber = 0;
+    $scope.errorNumber = 0;
+    $scope.tableHeader = [];
+    $scope.fileType = "";
+    // 表头原始数据
+    $scope.tableHeadeArray = [];
+    // 主体原始错误数据
+    $scope.tableContentErrorFilter = [];
+    // 主体原始成功数据
+    $scope.tableContentFilter = [];
+    $scope.ImportedFilesList = [];
+    // 跳转
+    $scope.importFile = function () {
+        $('ul.tabWrap li').removeClass("active");
+        $(".tab_box").removeClass("active");
+        $(".tab_box").hide();
+        $('ul.tabWrap li.importFile ').addClass("active");
+        $("#importFile").addClass("active");
+        $("#importFile").show();
+    };
+    $scope.instructionCarRefuel = function () {
+        $('ul.tabWrap li').removeClass("active");
+        $(".tab_box").removeClass("active");
+        $(".tab_box").hide();
+        $('ul.tabWrap li.instructionCarRefuel ').addClass("active");
+        $("#instructionCarRefuel").addClass("active");
+        $("#instructionCarRefuel").show();
+    };
+    $scope.importFile();
+
+    // 过滤条件数据
+    var colObjs = [
+        {name: '车号', type: 'string',require: true},
+        {name: '司机', type: 'string',require: true},
+        {name: '时间', type: 'string', require: true},
+        {name: '地点', type: 'string', require: true},
+        {name: '加油升数', type: 'number', require: true},
+        {name: '加油单价', type: 'number', require: true},
+        {name: '加油金额', type: 'number', require: true},
+        {name: '加尿素量', type: 'number', require: true},
+        {name: '尿素单价', type: 'number', require: true},
+        {name: '尿素金额', type: 'number', require: true}];
+    // 头部条件判断
+    $scope.titleFilter = function (headerArray) {
+        if (colObjs.length != headerArray.length) {
+            return false;
+        } else {
+            for (var i in headerArray) {
+                if (colObjs[i].name != headerArray[i]) {
+                    return false
+                }
+            }
+        }
+    };
+    // 主体条件判断
+    $scope.ContentFilter = function (contentArray) {
+
+        for (var i = 0; i < contentArray.length; i++) {
+            var flag = true;
+            var isNumber;
+            for (var j = 0; j < colObjs.length; j++) {
+                if (colObjs[j].require) {
+                    if (contentArray[i][j] == null && contentArray[i][j].length == 0) {
+                        $scope.errorNumber = $scope.errorNumber + 1;
+                        $scope.tableContentErrorFilter.push(contentArray[i]);
+                        flag = false;
+                        break;
+                    }
+                }
+                if (contentArray[i][j] == '' || isNaN(contentArray[i][j])) {
+                    isNumber = "string"
+                } else {
+                    isNumber = "number"
+                }
+                if (colObjs[j].type != isNumber && contentArray[i][j] != '' &&colObjs[j].require ) {
+                    $scope.errorNumber = $scope.errorNumber + 1;
+                    $scope.tableContentErrorFilter.push(contentArray[i]);
+                    flag = false;
+                    break;
+                }
+                if (colObjs[j].type=='string'&&(colObjs[j].length && colObjs[j].length != contentArray[i][j].length)) {
+                    $scope.errorNumber = $scope.errorNumber + 1;
+                    $scope.tableContentErrorFilter.push(contentArray[i]);
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag == true) {
+                $scope.rightNumber = $scope.rightNumber + 1;
+                $scope.tableContentFilter.push(contentArray[i]);
+            }
+        }
+    };
+
+    $scope.fileUpload = function () {
+        _basic.formPost($("#file_upload_form"), $host.api_url + '/user/' + userId + '/driveExceedOilRelFile' , function (data) {
+            if (data.success == true) {
+                $scope.$apply(function () {
+                    $scope.upload_error_array_num =data.result.failedCase;
+                    $scope.orginData_Length=data.result.failedCase+data.result.successedInsert;
+                    $scope.num=data.result.successedInsert;
+                    $scope.local_isSuccesss = false;
+                    $scope.upload_isSuccesss = true;
+                });
+
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+
+    // 展示上传的错误数据
+    $scope.show_error_msg = function () {
+        $scope.error_msg = !$scope.error_msg;
+    };
+
+    $scope.fileChange = function (file) {
+        // 表头原始数据
+        $scope.tableHeadeArray = [];
+        // 主体原始错误数据
+        $scope.tableContentErrorFilter = [];
+        // 主体原始成功数据
+        $scope.tableContentFilter = [];
+        $scope.rightNumber = 0;
+        $scope.errorNumber = 0;
+        $(file).parse({
+            config: {
+                complete: function (result) {
+                    $scope.$apply(function () {
+                        if(result==null ||result.data==null ||result.data.length ==0){
+                            swal("文件类型错误");
+                        } else {
+                            $scope.tableHeadeArray = result.data[0];
+                            $scope.tableBox = false;
+                            // 表头校验
+                            if ($scope.titleFilter($scope.tableHeadeArray) != false) {
+                                // 主体内容校验
+                                var content_filter_array = result.data.slice(1, result.data.length);
+                                var con_line = [];
+                                // excel换行过滤
+                                for (var i = 0; i < content_filter_array.length; i++) {
+                                    if (content_filter_array[i].length == 1 && content_filter_array[i][0] == "") {
+                                        break;
+                                    } else {
+                                        con_line.push(content_filter_array[i]);
+                                    }
+                                }
+                                $scope.ContentFilter(con_line);
+                                if ($scope.tableContentErrorFilter.length == 0) {
+                                    $scope.success_data_box = true;
+                                    $scope.dataBox = false;
+                                    swal("正确条数" + $scope.tableContentFilter.length);
+                                    // 总条数
+                                    $scope.orginData_Length = $scope.tableContentFilter.length;
+                                    $scope.local_isSuccesss = true;
+                                } else {
+                                    $scope.success_data_box = false;
+                                    $scope.dataBox = true;
+                                    swal("错误条数" + $scope.tableContentErrorFilter.length);
+                                }
+                                $scope.tableHeader = result.data[0];
+                            }
+                            else {
+                                swal("表头格式错误", "", "error");
+                                $scope.tableBox = true;
+                            }
+
+                        }
+
+                    });
+
+                }
+            },
+            before: function (file, inputElem) {
+                $scope.fileType = file.type;
+            },
+            error: function (err, file, inputElem, reason) {
+                console.log(err)
+            },
+            complete: function (val) {
+            }
+        })
+    };
+
+
+
+
+    //获取货车牌号
+    function getTruckId() {
+        _basic.get($host.api_url + "/truckBase").then(function (data) {
+            if (data.success === true) {
+                $scope.truckNumListAll = data.result;
+                $('#addTruckNum').select2({
+                    placeholder: '货车牌号',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
+                $('#truckNumber').select2({
+                    placeholder: '货车牌号',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        })
+    }
+    //司机
+    function getDriveNameList () {
+        _basic.get($host.api_url + "/drive").then(function (data) {
+            if (data.success == true) {
+                $scope.driveNameList = data.result;
+                $('#driverName').select2({
+                    placeholder: '司机',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+                $('#addExceedOilDriver').select2({
+                    placeholder: '司机',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
+
+
+    // 单条数据录入
+    $scope.new_data_list =function (){
+        $scope.addOil ='';
+        $scope.addUrea ='';
+        $scope.addTime ='';
+        $scope.addPlce ='';
+        $scope.addType='';
+        $scope.oilMoney ='';
+        $scope.ureaMoney='';
+        $scope.oilSinglePrice='';
+        $scope.ureaSinglePrice='';
+        getDriveNameList ();
+        $(".modal").modal();
+        $("#addActData").modal("open");
+    }
+
+    $scope.changeDriver = function (driver){
+        _basic.get($host.api_url + "/drive?driveId="+driver).then(function (data) {
+            if (data.success == true) {
+                $scope.addTruckNum = data.result[0].truck_id;
+                getTruckId();
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+    $scope.changeAddOil = function (el1,el2){
+        $scope.oilMoney =el1*el2;
+    }
+    $scope.changeAddUrea = function (el1,el2){
+        $scope.ureaMoney=el1*el2;
+    }
+    $scope.changeOilSinglePrice = function (el1,el2){
+        $scope.oilMoney=el1*el2;
+    }
+    $scope.changeUreaSinglePrice = function (el1,el2){
+        $scope.ureaMoney=el1*el2;
+    }
+
+    $scope.addDataItem = function (){
+        if ($scope.addExceedOilDriver!==''&&$scope.addTime !== '' && $scope.addPlce !== ''&&$scope.addTruckNum!==undefined&& $scope.addType!==''&&$scope.oilMoney!=='') {
+            _basic.post($host.api_url + "/user/" + userId + "/driveExceedOilRel", {
+                "exceedOilId": 0,
+                "driveId":$scope.addExceedOilDriver,
+                "truckId": $scope.addTruckNum,
+                "oilDate":  $scope.addTime,
+                'oilAddressType':$scope.addType,
+                "oilAddress":  $scope.addPlce,
+                'oilMoney': $scope.oilMoney,
+                "oil":  $scope.addOil,
+                "oilSinglePrice":$scope.oilSinglePrice,
+                "ureaSinglePrice": $scope.ureaSinglePrice,
+                "ureaMoney": $scope.ureaMoney,
+                "urea": $scope.addUrea
+            }).then(function (data) {
+                if (data.success == true) {
+                    $('#addActData').modal('close');
+                    swal("新增成功", "", "success");
+                } else {
+                    swal(data.msg, "", "error");
+                }
+            })
+        }
+        else {
+            swal("请填写完整信息！", "", "warning");
+        }
+    }
+
+
+
+
+
 
     // 搜索请求
     $scope.search_query = function () {
@@ -55,41 +369,6 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
     }
 
 
-    //获取货车牌号
-    function getTruckId() {
-        _basic.get($host.api_url + "/truckBase").then(function (data) {
-            if (data.success === true) {
-                $scope.truckNumListAll = data.result;
-                $('#truckNumber').select2({
-                    placeholder: '货车牌号',
-                    containerCssClass: 'select2_dropdown',
-                    allowClear: true
-                });
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
-    }
-
-    //司机
-    function getDriveNameList () {
-        _basic.get($host.api_url + "/drive").then(function (data) {
-            if (data.success == true) {
-                $scope.driveNameList = data.result;
-                $('#driverName').select2({
-                    placeholder: '司机',
-                    containerCssClass : 'select2_dropdown',
-                    allowClear: true
-                });
-
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
-    }
-
 
     // 头车搜索事件-条件查询
     $scope.search_condition = function () {
@@ -111,8 +390,7 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
     };
 
 
-
-    getTruckId();
-    getDriveNameList ();
     $scope.search_query();
+    getDriveNameList ();
+    getTruckId();
 }]);

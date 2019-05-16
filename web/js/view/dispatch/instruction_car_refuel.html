@@ -1,77 +1,277 @@
-<div class="instruction_car_refuel">
-    <div class="row col s12 valign-wrapper">
-        <div class="col s10">
-            <div class="col s3 input-field">
-                <select material-select watch ng-model="driveName" id="driverName" style="width: 100%" >
-                    <option value="" selected>司机</option>
-                    <option ng-repeat="driver in driveNameList" ng-value=driver.id>{{driver.drive_name}}</option>
+<!--添加实际用油量  实际尿素量-->
+<div id="addActData" class="modal" style="height:450px ">
+    <div class="cyan lighten-1 white-text center-align modal_title" >新增实际加油量/尿素量</div>
+    <div class="modal-content">
+        <div class="row col" style="width: 80%;height: 270px">
+
+            <!--司机 -->
+            <div class="col s6 input-field" style="height: 70px">
+                <select id="addExceedOilDriver"  ng-change="changeDriver(addExceedOilDriver)"  ng-model="addExceedOilDriver" style="width: 100%">
+                    <option value="">请选择</option>
+                    <option ng-repeat="driver in driveNameList" ng-value='driver.id'>{{driver.drive_name}}&nbsp;({{driver.company_name}})</option>
                 </select>
             </div>
-            <div class="input-field col s3">
-                <select  id="truckNumber" style="width: 100%" ng-model="truckNum">
+            <!--货车牌号-->
+            <div class="input-field col s6" style="height: 70px">
+                <select material-select watch id="addTruckNum" style="width: 100%" ng-model="addTruckNum">
                     <option value=""></option>
-                    <option ng-repeat="truckNumItem in truckNumListAll" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
+                    <option ng-repeat="el in truckNumListAll" ng-value="el.id">{{el.truck_num}}</option>
                 </select>
             </div>
 
+            <!--尿素 油-->
             <div class="input-field col s3">
-                <input type="text" ng-model="refueling_startTime" id="refueling_startTime" name="refueling_startTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                <label for="refueling_startTime">加油时间（始）</label>
+                <input id="addOil" type="number"  ng-model="addOil" ng-change="changeAddOil(oilSinglePrice,addOil)" >
+                <label for="addOil">实际加油量(L)</label>
             </div>
             <div class="input-field col s3">
-                <input type="text" ng-model="refueling_endTime" id="refueling_endTime" name="refueling_endTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                <label for="refueling_endTime">终止时间</label>
+                <input id="addUrea" type="number"  ng-model="addUrea" ng-change="changeAddUrea(ureaSinglePrice,addUrea)">
+                <label for="addUrea">实际加尿素量</label>
             </div>
-        </div>
-        <div class="col s2 center">
-            <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn  "
-               style="margin-right: 10px" ng-click="search_condition()">
-                <i class="mdi mdi-magnify"></i>
-            </a>
+            <div class="input-field col s3">
+                <input id="oilSinglePrice" type="number"  ng-model="oilSinglePrice" ng-change="changeOilSinglePrice(oilSinglePrice,addOil)" >
+                <label for="oilSinglePrice">加油单价</label>
+            </div>
+            <div class="input-field col s3">
+                <input id="ureaSinglePrice" type="number"  ng-model="ureaSinglePrice" ng-change="changeUreaSinglePrice(ureaSinglePrice,addUrea)">
+                <label for="ureaSinglePrice">加尿素单价</label>
+            </div>
+            <div class="input-field col s3">
+                <input id="oilMoney" type="number"  ng-model="oilMoney" disabled>
+                <label for="oilMoney">加油金额</label>
+            </div>
+            <div class="input-field col s3">
+                <input id="ureaMoney" type="number"  ng-model="ureaMoney" disabled>
+                <label for="ureaMoney">加尿素金额</label>
+            </div>
+            <div class="input-field col s3">
+                <input type="text" ng-model="addTime" id="addTime" name="addTime"  class="datepicker" autocomplete="off"    date><i class="mdi dataIcon mdi-table-large"></i>
+                <label for="addTime">加油时间</label>
+            </div>
+            <div class="input-field col s3">
+                <select  material-select watch ng-model="addType">
+                    <option value="" selected disabled>请选择</option>
+                    <option value="1">内部</option>
+                    <option value="2">外部</option>
+                </select>
+                <label>加油方式</label>
+            </div>
+            <div class="input-field col s12" style="height: 70px">
+                <input type="text" ng-model="addPlce" id="addPlce" name="addPlce">
+                <label for="addPlce">加油地点</label>
+            </div>
+
         </div>
     </div>
 
-    <div class="row col s12">
-        <div class="col s12" style="margin-top: 15px">
-            <div class="divider cyan" style="height: 2px;"></div>
-            <table class=" bordered striped text_mid">
-                <thead class="blue-grey lighten-5">
-                <tr class="grey-text text-darken-2">
-                    <th data-field="">司机</th>
-                    <th data-field="">货车牌号</th>
-                    <th data-field="">加油量</th>
-                    <th data-field="">加尿素量</th>
-                    <th data-field="">时间</th>
-                    <th data-field="">地点</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="el in car_refuel" class="grey-text text-darken-1">
-                    <td>{{el.drive_name}}</td>
-                    <td>{{el.truck_num}}</td>
-                    <td>{{el.oil}}</td>
-                    <td>{{el.urea}}</td>
-                    <td>{{el.oil_date|date:'yyyy-MM-dd'}}</td>
-                    <td>{{el.oil_address}}</td>
-                </tr>
-                <tr class="grey-text text-darken-1" ng-if="car_refuel.length == 0">
-                    <td colspan="6"><span style="letter-spacing: 2px">暂无数据</span></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="divider" style="background: #ccc;height: 1px;"></div>
+    <div class="modal-footer vc-center">
+        <a class=" modal-action modal-close waves-effect waves-light grey lighten-1 btn"  >取消 </a>
+        <button class="btn waves-light waves-effect cyan lighten-2"  ng-click="addDataItem()" name="action" style="margin-left: 10px">确定</button>
     </div>
+</div>
 
-    <!--分页-->
-    <div class="row col s12">
-        <div class="paging_box col s12">
-            <div class="right">
-                <a class="waves-light waves-effect cyan lighten-1 btn" ng-show="pre" id="pre" ng-click="pre_btn()">
-                    上一页
-                </a>
-                <a class="waves-light waves-effect cyan lighten-1 btn" ng-show="next" id="next" ng-click="next_btn()">
-                    下一页
-                </a>
+<div class="modal-content grey-text text-darken-2">
+    <div class="row no-marBottom" ul-tabs style="overflow: hidden">
+        <div class="col s12">
+            <ul class="tabWrap grey lighten-4">
+                <li class="tab col s6 importFile vc-center" ng-click="importFile()">导入货车加油文件</li>
+                <li class="tab col s6 instructionCarRefuel vc-center" ng-click="instructionCarRefuel()">查看货车加油</li>
+            </ul>
+        </div>
+
+        <!--导入ETC文件-->
+        <div id="importFile" class="row tab_box" style="margin-top: 50px">
+            <div class="row">
+                <form name="file_upload_form " id="file_upload_form" >
+                    <div class="col s4">
+                        <div class="row">
+                            <div class="file-field  input-field ">
+                                <a href="/assets/货车加油导入模板.csv" target="_blank" class="btn waves-effect circle_button" >下载模板格式</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s5 offset-s3">
+                        <div class="col s4"></div>
+                        <div class="col s4">
+                            <div class="row">
+                                <div class="file-field input-field">
+                                    <div class="btn cyan lighten-2 circle_button">
+                                        <span>批量数据导入</span>
+                                        <input type="file" style="font-size: 100px;height: 45px;"  name="file" accept="text/csv" onchange='angular.element(this).scope().fileChange(this)' >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s4">
+                            <div class="row">
+                                <div class="file-field cyan input-field ">
+                                    <a href="" class="right btn waves-effect circle_button" ng-click="new_data_list()">单条数据增加</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="col s12 tableBox" ng-show="tableBox">
+                        <img style="width: 100%" src="/assets/images/import_social.png" />
+                    </div>
+                </div>
+            </div>
+            <div class="row dataBox " style="overflow: auto;" ng-show="dataBox">
+                <div class="col s12">
+                    <h6 class="red lighten-2 white-text vc-center" style="padding: 20px">错误数据<span>{{errorNumber}}</span>条，请修改后重新上传</h6>
+                    <table class="responsive-table highlight">
+                        <thead class="blue-grey lighten-4 grey-text text-darken-1">
+                        <tr>
+                            <th>序号</th>
+                            <th ng-repeat="header in tableHeader track by $index">{{header}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="row in tableContentErrorFilter track by $index">
+                            <td>{{$index+1}}</td>
+                            <td ng-repeat="item in row track by $index">{{item}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row success_data_box " style="overflow: auto; "  ng-show="success_data_box">
+                <div class="divider" style="height: 2px;"></div>
+                <div class="col s12 " style="padding: 100px 0">
+                    <div class="progress" >
+                        <div class="determinate" ng-style="obj"></div>
+                    </div>
+                    <p><span>{{num}}</span>/<span>{{orginData_Length}}</span></p>
+                    <div class="col s2 offset-s5 ">
+                        <p class="vc-center " ng-show="local_isSuccesss">
+                            <i class="mdi mdi-check cyan-text text-lighten-2 fz40"></i><span class="blue-grey-text fz18">本地校验成功</span>
+                        </p>
+                        <p class="vc-center " ng-show="upload_isSuccesss">
+                            <i class="mdi mdi-check cyan-text text-lighten-2 fz40" ></i><span class="blue-grey-text fz18">上传完成</span>
+                        </p>
+                        <p class="vc-center" ng-show="upload_isSuccesss">
+                            <span>错误条数:<span>{{upload_error_array_num}}</span></span>
+                            <span>正确条数:<span>{{orginData_Length-upload_error_array_num}}</span></span>
+                            <span>总条数:<span>{{orginData_Length}}</span></span>
+                        </p>
+                        <!--<a href="" class="btn btn-large waves-effect cyan lighten-2"></a>-->
+                        <p class="center-align">
+                            <button class="btn btn-large circle_button cyan lighten-2" ng-click="fileUpload()" >
+                                导入数据库
+                            </button>
+                            <a href="" style="margin-top: 10px" class="btn btn-large circle_button cyan lighten-2" ng-show="show_error" ng-click="show_error_msg()">错误数据显示</a>
+                        </p>
+                    </div>
+                </div>
+
+                <table class=" bordered striped" ng-show="error_msg">
+                    <thead class="blue-grey lighten-5">
+                    <tr class="grey-text text-darken-2">
+                        <th data-field="">错误位置</th>
+                        <th data-field="">原因</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="el in upload_error_array" class="grey-text text-darken-1">
+                        <td>第{{el.index}}条</td>
+                        <td ng-bind="el.msg"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <div class="row tab_box instruction_car_refuel" id="instructionCarRefuel">
+            <div class="row col s12 valign-wrapper">
+                <div class="col s10">
+                    <div class="col s3 input-field">
+                        <select material-select watch ng-model="driveName" id="driverName" style="width: 100%" >
+                            <option value="" selected>司机</option>
+                            <option ng-repeat="driver in driveNameList" ng-value=driver.id>{{driver.drive_name}}</option>
+                        </select>
+                    </div>
+                    <div class="input-field col s3">
+                        <select  id="truckNumber" style="width: 100%" ng-model="truckNum">
+                            <option value=""></option>
+                            <option ng-repeat="truckNumItem in truckNumListAll" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
+                        </select>
+                    </div>
+
+                    <div class="input-field col s3">
+                        <input type="text" ng-model="refueling_startTime" id="refueling_startTime" name="refueling_startTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="refueling_startTime">加油时间（始）</label>
+                    </div>
+                    <div class="input-field col s3">
+                        <input type="text" ng-model="refueling_endTime" id="refueling_endTime" name="refueling_endTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="refueling_endTime">终止时间</label>
+                    </div>
+                </div>
+                <div class="col s2 center" style="margin-top: 15px">
+                    <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn  "
+                       style="margin-right: 10px" ng-click="search_condition()">
+                        <i class="mdi mdi-magnify"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="row col s12">
+                <div class="col s12" style="margin-top: 15px">
+                    <div class="divider cyan" style="height: 2px;"></div>
+                    <table class=" bordered striped text_mid">
+                        <thead class="blue-grey lighten-5">
+                        <tr class="grey-text text-darken-2">
+                            <th data-field="">司机</th>
+                            <th data-field="">货车牌号</th>
+                            <th data-field="">加油量</th>
+                            <th data-field="">加尿素量</th>
+                            <th data-field="">加油单价</th>
+                            <th data-field="">加尿素单价</th>
+                            <th data-field="">加油总价</th>
+                            <th data-field="">加尿素总价</th>
+                            <th data-field="">时间</th>
+                            <th data-field="">地点</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="el in car_refuel" class="grey-text text-darken-1">
+                            <td>{{el.drive_name}}</td>
+                            <td>{{el.truck_num}}</td>
+                            <td>{{el.oil}}</td>
+                            <td>{{el.urea}}</td>
+
+                            <td>{{el.oil_single_price}}</td>
+                            <td>{{el.urea_single_price}}</td>
+                            <td>{{el.oil_money}}</td>
+                            <td>{{el.urea_money}}</td>
+                            <td>{{el.oil_date|date:'yyyy-MM-dd'}}</td>
+                            <td>{{el.oil_address}}</td>
+                        </tr>
+                        <tr class="grey-text text-darken-1" ng-if="car_refuel.length == 0">
+                            <td colspan="10"><span style="letter-spacing: 2px">暂无数据</span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!--分页-->
+            <div class="row col s12">
+                <div class="paging_box col s12">
+                    <div class="right">
+                        <a class="waves-light waves-effect cyan lighten-1 btn" ng-show="pre" id="pre" ng-click="pre_btn()">
+                            上一页
+                        </a>
+                        <a class="waves-light waves-effect cyan lighten-1 btn" ng-show="next" id="next" ng-click="next_btn()">
+                            下一页
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

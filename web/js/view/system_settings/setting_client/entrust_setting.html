@@ -38,8 +38,72 @@
 </div>
 
 
-<div>
-    <div style="width: 90%;margin: 0 auto">
+
+<!--修改模态框-->
+<div id="putItem" class="modal">
+    <div class="cyan lighten-1 white-text center-align modal_title" >修改委托方</div>
+    <div  class="modal-content" style="padding: 12px">
+        <div  class="row" style="padding: 0;margin: 0">
+            <div class="col s12" style="width: 100%;padding: 0;margin: 0;">
+                    <!--委托方-->
+                    <div class="col s4 input-field">
+                        <input id="putShortName" name="putShortName"  ng-model="putList.short_name" type="text" disabled>
+                        <label for="putShortName">委托方</label>
+                    </div>
+
+                    <!--起始城市-->
+                    <div class="input-field col s4">
+                        <input id="putRouteStart" name="putRouteStart"  ng-model="putList.route_start" type="text" disabled>
+                        <label for="putRouteStart">起始城市</label>
+                    </div>
+
+                    <!--目的城市-->
+                    <div class="input-field col s4">
+                        <input type="text" id="putRouteEnd" name="putRouteEnd" ng-model="putList.route_end" disabled>
+                        <label for="putRouteEnd">目的城市</label>
+                    </div>
+                    <!--品牌-->
+                    <div class="col s4 input-field">
+                        <input type="text" id="putMakeName" name="putMakeName" ng-model="putList.make_name" disabled>
+                        <label for="putMakeName">品牌</label>
+                    </div>
+                    <!--公里数-->
+                    <div class="input-field col s4">
+                        <input id="putDistance" name="putDistance"  ng-model="putList.distance" type="text">
+                        <label for="putDistance">公里数</label>
+                    </div>
+                    <!--单价-->
+                    <div class="input-field col s4">
+                        <input id="putFee" name="putFee"  ng-model="putList.fee" type="text">
+                        <label for="putFee">价格</label>
+                    </div>
+
+
+                    <div class="divider" style="background: #ccc;height: 1px;"></div>
+                    <div class="modal-footer vc-center">
+                        <a class="modal-action modal-close waves-effect grey waves-light lighten-1 btn" style="margin-right: 10px;">取消</a>
+                        <button class="btn waves-light waves-effect lighten-2"  name="action" ng-click="putItem()">确定 </button>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal-content grey-text text-darken-2">
+    <div class="row no-marBottom" ul-tabs style="overflow: hidden">
+        <div class="col s12">
+            <ul class="tabWrap grey lighten-4">
+                <li class="tab col s6 settingEntrust vc-center" ng-click="settingEntrust()">委托方设置</li>
+                <li class="tab col s6 lookMyselfFile vc-center" ng-click="lookMyselfFile()">委托方查询</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div  id="settingEntrust" class="row tab_box">
+    <div style="width: 90%;margin: 50px auto">
         <div class="row card" style="height: 100px">
             <div class="col s12 m12">
                 <div class="col s12" >
@@ -86,3 +150,110 @@
     </div>
 </div>
 
+
+<div id="lookMyselfFile" class="row tab_box" style="margin-top: 50px;">
+    <div class="col s10" style="margin-bottom: 20px;">
+        <!--委托方   品牌  起始城市  目的城市   公里数  单价 -->
+        <div class="col s12" style="height: 70px">
+            <div class="col s6 input-field">
+                <select  id="getClient" name="getClient"  ng-model="getClient" style="width: 100%" ng-change="changeClient(getClient)">
+                    <option value="" disabled selected>请选择</option>
+                    <option ng-repeat="el in get_entrust" ng-value="el.id" >{{el.short_name}}</option>
+                </select>
+            </div>
+
+            <div class="col s6 input-field">
+                <select  id="getCarBrand" material-select watch ng-model="getCarBrand" name="getCarBrand" style="width: 100%">
+                    <option value="" disabled selected>请选择</option>
+                    <option ng-repeat="el in getCarMakeList | unique:'make_id'" ng-value="el.make_id">{{el.make_name}}</option>
+                </select>
+                <label for="getCarBrand">品牌</label>
+            </div>
+
+           <!-- <div class="col s6 input-field"  ng-if="getCarMakeList.length==0">
+                <input id="getCarBrand1" ng-model="getCarBrand" type="text" disabled>
+                <label for="getCarBrand1">品牌</label>
+            </div>-->
+
+         <!--   <div class="col s2 input-field">
+                <select id="startCity" name="startCity" material-select watch ng-model="startCity" style="width: 100%">
+                    <option value="">请选择</option>
+                    <option ng-repeat="startCity in cityList" value={{startCity.id}}>{{startCity.city_name}}</option>
+                </select>
+            </div>
+
+            <div class="col s2 input-field">
+                <select id="endCity" name="endCity" material-select watch ng-model="endCity" style="width: 100%">
+                    <option value="">请选择</option>
+                    <option ng-repeat="endCity in cityList" value={{endCity.id}}>{{endCity.city_name}}</option>
+                </select>
+            </div>
+
+            <div class="col s2 input-field">
+                <input id="distance" ng-model="distance"  type="text">
+                <label for="distance" class="active" >公里数</label>
+            </div>
+
+            <div class="col s2 input-field">
+                <input id="fee" ng-model="fee" type="text" >
+                <label for="fee" class="active" >单价</label>
+            </div>-->
+
+        </div>
+    </div>
+    <!--查询-->
+    <div class="col s2  flex flex-round" style="margin-top: 5px;">
+        <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
+           style="margin-right: 10px" ng-click="searchList()">
+            <i class="mdi mdi-magnify"></i>
+        </a>
+    </div>
+
+    <!--查询列表页-->
+    <div class="row tableBox">
+        <div class="col s12">
+            <div class="divider cyan" style="height: 2px;"></div>
+            <table class=" bordered striped text_mid">
+                <thead class="blue-grey lighten-5">
+                <tr class="grey-text text-darken-2">
+                    <th data-field="">委托方</th>
+                    <th data-field="">品牌</th>
+                    <th data-field="">路线</th>
+                    <th data-field="">公里数</th>
+                    <th data-field="">单价</th>
+                    <th data-field="">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="fileInfo in importedFilesList" class="grey-text text-darken-1">
+                    <td>{{fileInfo.short_name}}</td>
+                    <td>{{fileInfo.make_name}}</td>
+                    <td>{{fileInfo.route_start}}-{{fileInfo.route_end}}</td>
+                    <td>{{fileInfo.distance}}</td>
+                    <td class="red-text" >{{fileInfo.fee}}</td>
+                    <td class="operation vc-center">
+                        <a  ng-click="readData(fileInfo.entrust_id,fileInfo.city_route_id,fileInfo.make_id)" class="cyan-text fz12" style="cursor: pointer;display: inline-block;width: 37px;height: 37px;">  <i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-file-document"></i></a>
+                    </td>
+                </tr>
+                <tr ng-if="importedFilesList.length==0">
+                    <td colspan="6">暂无数据</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!--分页-->
+    <div class="row tableBox">
+        <div class="col s12" style="height: 45px">
+            <div class="right">
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="pre1" ng-click="previousPage()">
+                    上一页
+                </a>
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="next1" ng-click="nextPage()">
+                    下一页
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

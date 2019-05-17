@@ -2,6 +2,31 @@ app.controller("entrust_setting_controller", ["$scope", "_basic", "_config", "$h
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.start = 0;
     $scope.size = 11;
+    $scope.start1 = 0;
+    $scope.size1 = 11;
+    // 跳转
+    $scope.settingEntrust = function () {
+        $('ul.tabWrap li').removeClass("active");
+        $(".tab_box").removeClass("active");
+        $(".tab_box").hide();
+        $('ul.tabWrap li.settingEntrust ').addClass("active");
+        $("#settingEntrust").addClass("active");
+        $("#settingEntrust").show();
+    };
+    $scope.lookMyselfFile = function () {
+        $('ul.tabWrap li').removeClass("active");
+        $(".tab_box").removeClass("active");
+        $(".tab_box").hide();
+        $('ul.tabWrap li.lookMyselfFile ').addClass("active");
+        $("#lookMyselfFile").addClass("active");
+        $("#lookMyselfFile").show();
+    };
+    $scope.settingEntrust  ();
+
+    $("#pre").hide();
+    $("#next").hide();
+    $("#pre1").hide();
+    $("#next1").hide();
 
     // 委托方
     function getEntrust(){
@@ -9,6 +34,11 @@ app.controller("entrust_setting_controller", ["$scope", "_basic", "_config", "$h
             if (data.success == true) {
                 $scope.get_entrust = data.result;
                 $('#client').select2({
+                    placeholder: '委托方',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
+                $('#getClient').select2({
                     placeholder: '委托方',
                     containerCssClass: 'select2_dropdown',
                     allowClear: true
@@ -29,6 +59,35 @@ app.controller("entrust_setting_controller", ["$scope", "_basic", "_config", "$h
         });
 
     }
+
+    $scope.changeClient =function (clientId){
+        // 车辆品牌
+        _basic.get($host.api_url + "/entrustCityRouteRel?entrustId="+clientId).then(function (data) {
+            if (data.success == true) {
+                $scope.getCarMakeList = data.result;
+            }
+        });
+    }
+
+  /*  // 获取城市列表
+    function getCityList() {
+        _basic.get($host.api_url + "/city").then(function (data) {
+            if (data.success === true) {
+                $scope.cityList = data.result;
+                $('#startCity').select2({
+                    placeholder: '起始城市',
+                    containerCssClass : 'select2_dropdown'
+                });
+                $('#endCity').select2({
+                    placeholder: '目的城市',
+                    containerCssClass : 'select2_dropdown'
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };*/
 
     //点击查询按钮
     $scope.getEntrustSetting = function (){
@@ -65,6 +124,41 @@ app.controller("entrust_setting_controller", ["$scope", "_basic", "_config", "$h
         });
     };
 
+
+    $scope.searchList = function (){
+        $scope.start1 = 0;
+        searchEntrust();
+    };
+
+
+    function searchEntrust() {
+        var obj = {
+            entrustId:$scope.getClient,
+            makeId:$scope.getCarBrand,
+            start:$scope.start1.toString(),
+            size:$scope.size1
+        };
+        _basic.get($host.api_url + "/entrustCityRouteRel?"+ _basic.objToUrl(obj)).then(function (data) {
+            if (data.success === true) {
+                $scope.boxArray1 = data.result;
+                $scope.importedFilesList = $scope.boxArray1.slice(0, 10);
+                if ($scope.start1 > 0) {
+                    $("#pre1").show();
+                }
+                else {
+                    $("#pre1").hide();
+                }
+                if (data.result.length < $scope.size) {
+                    $("#next1").hide();
+                }
+                else {
+                    $("#next1").show();
+                }
+            } else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
 
     // 关联品牌模态框
     $scope.entrustMakeRel = function (id) {
@@ -128,6 +222,43 @@ app.controller("entrust_setting_controller", ["$scope", "_basic", "_config", "$h
         })
     }
 
+
+    $scope.readData = function (entrust_id,city_route_id,make_id){
+        $scope.put_entrust_id = entrust_id;
+        $scope.city_route_id =city_route_id;
+        $scope.make_id = make_id;
+        _basic.get($host.api_url + "/entrustCityRouteRel?entrustId="+entrust_id+'&cityRouteId='+city_route_id+'&makeId='+make_id).then(function (data) {
+            if (data.success == true) {
+                $scope.putList = data.result[0];
+            }
+        });
+
+        $(".modal").modal();
+        $("#putItem").modal("open");
+    }
+
+    $scope.putItem = function (){
+        if($scope.putList.distance!==''&&$scope.putList.fee!==''){
+            var obj={
+                "distance":$scope.putList.distance,
+                "fee": $scope.putList.fee
+            }
+            _basic.put($host.api_url + "/user/" + userId + "/entrust/"+  $scope.put_entrust_id+"/cityRoute/"+ $scope.city_route_id+'/make/'+ $scope.make_id , obj).then(function (data) {
+                if (data.success == true) {
+                    searchEntrust();
+                    $("#putItem").modal("close");
+                    swal("修改成功", "", "success");
+
+                } else {
+                    swal(data.msg, "", "error");
+                }
+            })
+        }
+        else {
+            swal("请填写完整信息", "", "error");
+        }
+    }
+
     // 分页
     $scope.previousPage = function () {
         $scope.start = $scope.start - ($scope.size-1);
@@ -138,9 +269,19 @@ app.controller("entrust_setting_controller", ["$scope", "_basic", "_config", "$h
         getEntrustSetting();
     };
 
-
+    // 分页
+    $scope.previousPage = function () {
+        $scope.start1 = $scope.start1 - ($scope.size1-1);
+        searchEntrust();
+    };
+    $scope.nextPage = function () {
+        $scope.start1 = $scope.start1 + ($scope.size1-1);
+        searchEntrust();
+    };
     getEntrust();
+    searchEntrust();
     getEntrustSetting();
     getCarMake();
+  /*  getCityList();*/
 
 }]);

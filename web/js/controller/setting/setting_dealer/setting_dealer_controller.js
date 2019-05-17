@@ -202,6 +202,8 @@ app.controller("setting_dealer_controller", ["$scope","$rootScope","$state","$st
         $scope.carWashFeeCount = item.clean_fee;
         $scope.bigCleanFee = item.big_clean_fee;
         $scope.trailerFee = item.trailer_fee;
+        $scope.runFee = item.run_fee;
+        $scope.leadFee = item.lead_fee;
       /*  $scope.guardFeeCount = item.guard_fee;*/
         $('#carWashFeeModel').modal('open');
     };
@@ -211,8 +213,9 @@ app.controller("setting_dealer_controller", ["$scope","$rootScope","$state","$st
         _basic.put($host.api_url + "/user/" + userId + "/receive/" + $scope.currentReceiveId + "/cleanFee",{
             cleanFee:($scope.carWashFeeCount).toFixed(2),
             bigCleanFee: ($scope.bigCleanFee).toFixed(2),
-            trailerFee: ($scope.trailerFee).toFixed(2)
-           /* guardFee:( $scope.guardFeeCount).toFixed(2)*/
+            trailerFee: ($scope.trailerFee).toFixed(2),
+            runFee: ($scope.runFee).toFixed(2),
+            leadFee: ($scope.leadFee).toFixed(2)
         }).then(function (data) {
             if (data.success === true) {
                 swal("修改成功", "", "success");

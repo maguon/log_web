@@ -65,6 +65,17 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/system_settings/setting_shipments/setting_shipments_details.html",
             controller:'setting_shipments_details_controller'
         })
+        .state("instruction_car_refuel", {
+            url: "/instruction_car_refuel",
+            params: {"from": null},
+            templateUrl: "js/view/dispatch/instruction_car_refuel.html",
+            controller:"instruction_car_refuel_controller"
+        })
+        .state("instruction_car_refuel_details", {
+            url: "/instruction_car_refuel_details/id/{id}/from/{from}",
+            templateUrl: "js/view/dispatch/instruction_car_refuel_details.html",
+            controller:"instruction_car_refuel_details_controller"
+        })
         // 质损
         .state("damage_declaration",{
             url:"/damage_declaration",

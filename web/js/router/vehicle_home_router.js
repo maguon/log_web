@@ -67,7 +67,17 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/system_settings/dealer_map.html",
             controller:'dealer_map_controller'
         })
-
+        .state("instruction_car_refuel", {
+            url: "/instruction_car_refuel",
+            params: {"from": null},
+            templateUrl: "js/view/dispatch/instruction_car_refuel.html",
+            controller:"instruction_car_refuel_controller"
+        })
+        .state("instruction_car_refuel_details", {
+            url: "/instruction_car_refuel_details/id/{id}/from/{from}",
+            templateUrl: "js/view/dispatch/instruction_car_refuel_details.html",
+            controller:"instruction_car_refuel_details_controller"
+        })
         // 车管
         .state("truck_company",{
             url:"/truck_company",

@@ -28,7 +28,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                 $scope.accidentDateDetail = moment($scope.accidentDate).format("YYYY-MM-DD");
                 $scope.lineStartTime = moment($scope.accidentDate).format("HH:mm");
                 $scope.truckNum = data.result[0].truck_num;
-                $scope.truckType = data.result[0].truck_type;
+              /*  $scope.truckType = data.result[0].truck_type;*/
                 $scope.driveName = data.result[0].drive_name;
                 $scope.accidentStatus = data.result[0].accident_status;
                 $scope.address = data.result[0].address;
@@ -578,8 +578,8 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
         $scope.modRecordTruckType = "";
         $scope.modTruckNum = "";
         $scope.insurePlan = "";
-        $scope.truckType = "";
-        $scope.financialLoan = "";
+        /*$scope.truckType = "";*/
+      /*  $scope.financialLoan = "";*/
         $scope.finanlReason = "";
         $scope.hasLoanType = true;
         $('#addInfoModel').modal('open');
@@ -590,7 +590,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
         })
     };
 
-    // 判断是否允许输入财务借款
+  /*  // 判断是否允许输入财务借款
     $scope.checkHasLoan = function () {
         if ($scope.truckType == 1) {
             $scope.hasLoanType = false;
@@ -600,19 +600,19 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
             $scope.hasLoanType = true;
         }
     };
-
+*/
     // 提交新增的记录
     $scope.addRepairRecord = function () {
-        if ($scope.modTruckNum !== undefined && $scope.insurePlan !== undefined && $scope.modRecordTruckType !== undefined) {
-            if ($scope.financialLoan == "" || $scope.financialLoan == null) {
+        if ($scope.modTruckNum !== '' && $scope.insurePlan !== '' ) {
+           /* if ($scope.financialLoan == "" || $scope.financialLoan == null) {
                 $scope.financialLoan = 0;
-            }
+            }*/
             _basic.post($host.api_url + "/user/" + userId + "/truckAccidentInsureBase", {
                 insureId: $scope.modRecordTruckType,
                 insureType: $scope.modTruckNum,
                 insurePlan: $scope.insurePlan,
-                financialLoanStatus: $scope.truckType,
-                financialLoan: $scope.financialLoan,
+              /*  financialLoanStatus: $scope.truckType,*/
+             /*   financialLoan: $scope.financialLoan,*/
                 paymentExplain: $scope.finanlReason,
                 accidentId: $scope.vId
             }).then(function (data) {

@@ -260,6 +260,7 @@ app.controller("look_head_truck_details_controller", ["$scope", "$state", "$stat
     }
     function putCompany(companyName){
         _basic.put($host.api_url + "/user/" + userId + "/truck/" + id+'/truckCompany?truckNum='+$scope.truckFirst.truck_num, {
+            "operateType": 1,
             "companyId": $scope.truckFirst.company_id,
             "outputCompanyId": $scope.truckFirst.output_company_id,
             "outputCompanyName": companyName

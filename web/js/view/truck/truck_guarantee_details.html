@@ -48,8 +48,8 @@
                                     <div class="input-field col s6" ng-class="{'has-error':insurance_Form.insurance_list.$invalid&&submitted}">
                                         <select name="insurance_list" id="insurance_list" ng-model="insurance_list" material-select watch required>
                                             <option value="">请选择</option>
-                                            <option ng-value="1">商业险</option>
-                                            <option ng-value="2">交强险</option>
+                                            <option ng-value="1">交强险</option>
+                                            <option ng-value="2">商业险</option>
                                             <option ng-value="3">货运险</option>
                                         </select>
                                         <label class="grey-text" for="insurance_list"><span class="red-text text-lighten-2">*</span>保险种类</label>
@@ -93,8 +93,9 @@
                         <div class="card white z-depth-2 ">
                             <div class="card-content grey-text">
                                 <span class="col s12 card-title">
-                                    <span ng-if="el.insure_type==2">交强险</span>
-                                    <span ng-if="el.insure_type==1">商业险</span>
+                                    <span ng-if="el.insure_type==1">交强险</span>
+                                    <span ng-if="el.insure_type==2">商业险</span>
+                                    <span ng-if="el.insure_type==3">货运险</span>
                                     <span  style="margin-left: 25px;font-weight: normal">{{el.insure_num}}</span>
                                 </span>
                                 <div class="divider col s12" style="height: 1px; color: black;margin-bottom: 20px"></div>
@@ -113,6 +114,4 @@
             </div>
         </div>
     </div>
-</div>
-
 </div>

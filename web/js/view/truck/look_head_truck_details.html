@@ -101,17 +101,14 @@
             </form>
         </div>
         <div id="test5" class="test col s12">
-            <div class="input-field col s3" ng-class="{'has-error':look_truck_form.truck_type.$invalid&&submitted }" style="margin-top:50px">
+            <div class="input-field col s3"  style="margin-top:50px">
                 <select id="truck_type" name="truck_type" ng-change="getCompany()" material-select watch ng-model="truckFirst.operate_type" required>
                     <option ng-value="" disabled>请选择</option>
                     <option ng-value="1">自营车</option>
-                   <!-- <option ng-value="2">外协车</option>
-                    <option ng-value="3">供方车</option>
-                    <option ng-value="4">承包车</option>-->
                 </select>
                 <label for="truck_type"><span style="color: red;margin-right: 5px">*</span>所属类型</label>
             </div>
-            <div class="input-field col s3" ng-class="{'has-error':look_truck_form.truck_make.$invalid&&submitted}"style="margin-top:50px">
+            <div class="input-field col s3" style="margin-top:50px">
                 <select id="truck_company" name="truck_company" material-select watch ng-model="truckFirst.company_id" required>
                     <option value="">请选择</option>
                     <option ng-repeat="el in company" ng-value="el.id">{{el.company_name}}</option>
@@ -119,7 +116,7 @@
                 <label for="truck_company"><span style="color: red;margin-right: 5px">*</span>所属公司</label>
             </div>
 
-            <div class="input-field col s3"  ng-class="{'has-error':add_truck_form.truck_company.$invalid&&submitted }" style="margin-top:50px">
+            <div class="input-field col s3"  style="margin-top:50px">
                 <select id="outputCompany" name="outputCompany" material-select watch ng-model="truckFirst.output_company_id" required>
                     <option value="">请选择</option>
                     <option ng-repeat="el in company" ng-value="el.id">{{el.company_name}}</option>

@@ -68,7 +68,7 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/damage/car_wash_fee_details.html",
             controller:'car_wash_fee_details_controller'
         })
-        .state("finance_route_fee",{
+      /*  .state("finance_route_fee",{
             url:"/finance_route_fee",
             params: {"from": null},
             templateUrl: "js/view/finance/finance_route_fee.html",
@@ -78,7 +78,7 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             url:"/finance_route_fee_details/id/{id}/from/{from}",
             templateUrl: "js/view/finance/finance_route_fee_details.html",
             controller:'finance_route_fee_details_controller'
-        })
+        })*/
         .state("driver_salary",{
             url:"/driver_salary",
             params: {"from": null},
@@ -101,11 +101,11 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/truck/driver_information_details.html",
             controller:'driver_information_details_controller'
         })
-        .state("dispatch_route_requ",{
+      /*  .state("dispatch_route_requ",{
             url:"/dispatch_route_requ",
             templateUrl: "js/view/finance/dispatch_route_requ.html",
             controller:'dispatch_route_requ_controller'
-        })
+        })*/
         .state("dealer_map",{
             url:"/dealer_map",
             templateUrl: "js/view/system_settings/dealer_map.html",

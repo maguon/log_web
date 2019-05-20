@@ -154,7 +154,9 @@
                             <i class="mdi  mdi-check look_icon cyan-text lighten-1"></i>
                         </a>
 
-
+                        <a  style="font-size: 1.5rem" ng-click="openDetail(car.id)">
+                            <i class="mdi mdi-file-document look_icon cyan-text lighten-1"></i>
+                        </a>
 
 
                     </td>
@@ -173,6 +175,53 @@
                 </a>
                 <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_page()">
                     下一页
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="openDetailModal" class="modal" style="height: 400px">
+    <div class="modal-content">
+        <h4 class="center-align">费用详情</h4>
+        <div class="divider"></div>
+            <div class="container" style="padding: 20px 0 0">
+                <div class="row col s12">
+                    <!--大车洗车费  小车洗车费  拖车费 停车费   地跑费  带路费-->
+                    <div class="col s4 input-field">
+                        <input id="bigWashFee" ng-model="bigWashFee"  type="number">
+                        <label for="bigWashFee" class="active" >大车洗车费</label>
+                    </div>
+
+                    <div class="col s4 input-field">
+                        <input id="smallWashFee" ng-model="smallWashFee"  type="number">
+                        <label for="smallWashFee" class="active" >小车洗车费</label>
+                    </div>
+                    <div class="col s4 input-field">
+                        <input id="total_trailer_fee" ng-model="showList.total_trailer_fee"  type="number">
+                        <label for="total_trailer_fee" class="active" >拖车费</label>
+                    </div>
+                    <div class="col s4 input-field">
+                        <input id="car_parking_fee" ng-model="showList.car_parking_fee"  type="number">
+                        <label for="car_parking_fee" class="active" >停车费</label>
+                    </div>
+                    <div class="col s4 input-field">
+                        <input id="total_run_fee" ng-model="showList.total_run_fee"  type="number">
+                        <label for="total_run_fee" class="active" >地跑费</label>
+                    </div>
+                    <div class="col s4 input-field">
+                        <input id="lead_fee" ng-model="showList.lead_fee"  type="number">
+                        <label for="lead_fee" class="active" >带路费</label>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="divider"></div>
+    <div class="modal-footer row">
+        <div class="col s12 center-align" style="margin-top: 15px">
+            <div class="col s2 offset-s5">
+                <a style="width: 100%" class="modal-action modal-close waves-light waves-effect cyan lighten-1 btn">
+                    关闭
                 </a>
             </div>
         </div>

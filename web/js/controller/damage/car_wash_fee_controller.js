@@ -3,7 +3,8 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
     $scope.receive_status = "1";
     $scope.start = 0;
     $scope.size = 11;
-
+    $scope.smallWashFee =0;
+    $scope.bigWashFee =0;
     // 获取目的城市列表
     $scope.getCityList = function () {
         _basic.get($host.api_url + "/city").then(function (data) {
@@ -178,6 +179,7 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
             }
         });
     };
+
     // 数据导出
     $scope.export = function () {
         // 基本检索URL
@@ -189,6 +191,22 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
         url = conditions.length > 0 ? url + "&" + conditions : url;
         window.open(url);
     };
+
+    //详情
+    $scope.openDetail = function (id){
+        _basic.get($host.api_url + "/dpRouteLoadTaskCleanRel?loadTaskCleanRelId=" + id).then(function (data) {
+            if (data.success == true) {
+                $scope.showList = data.result[0];
+                $scope.smallWashFee = data.result[0].small_single_price*data.result[0].small_car_count;
+                $scope.bigWashFee =data.result[0].big_single_price*data.result[0].big_car_count;
+            } else {
+                swal(data.msg, "", "error");
+            }
+        })
+        $(".modal").modal();
+        $("#openDetailModal").modal("open");
+    }
+
 
     /**
      * 设置检索条件。

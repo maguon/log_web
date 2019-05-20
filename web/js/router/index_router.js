@@ -97,11 +97,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/dispatch/dispatch_route_fee_details.html",
             controller:'dispatch_route_fee_details_controller'
         })
-        .state("dispatch_route_requ",{
+        /*.state("dispatch_route_requ",{
             url:"/dispatch_route_requ",
             templateUrl: "js/view/finance/dispatch_route_requ.html",
             controller:'dispatch_route_requ_controller'
-        })
+        })*/
         .state("dispatch_order",{
             url:"/dispatch_order",
             params: {"from": null},
@@ -824,7 +824,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/finance/commercial_vehicle_compensate_loan_details.html",
             controller:'commercial_vehicle_compensate_loan_details_controller'
         })*/
-        .state("finance_route_fee",{
+       /* .state("finance_route_fee",{
             url:"/finance_route_fee",
             params: {"from": null},
             templateUrl: "js/view/finance/finance_route_fee.html",
@@ -834,7 +834,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             url:"/finance_route_fee_details/id/{id}/from/{from}",
             templateUrl: "js/view/finance/finance_route_fee_details.html",
             controller:'finance_route_fee_details_controller'
-        })
+        })*/
         .state("driver_salary",{
             url:"/driver_salary",
             params: {"from": null},

@@ -172,11 +172,11 @@ app.controller("truck_details_controller", ["$scope","$rootScope", "$state", "$s
         _basic.put($host.api_url + "/user/" + userId + "/truck/" + id + "/truckStatus/" + status + "/first", {}).then(function (data) {
             if (data.success == true) {
                 swal("修改成功", "", "success");
-                $scope.search_head_truck();
+                $scope.head_query();
             }
             else {
                 swal(data.msg, "", "error");
-                $scope.search_head_truck();
+                $scope.head_query();
             }
         })
 
@@ -346,12 +346,12 @@ app.controller("truck_details_controller", ["$scope","$rootScope", "$state", "$s
         _basic.put($host.api_url + "/user/" + userId + "/truck/" + id + "/truckStatus/" + status + "/trailer", {}).then(function (data) {
             if (data.success == true) {
                 swal("修改成功", "", "success");
-                $scope.search_hand_truck();
+                $scope.hand_query();
 
             }
             else {
                 swal(data.msg, "", "error");
-                $scope.search_hand_truck();
+                $scope.hand_query();
             }
         })
     };

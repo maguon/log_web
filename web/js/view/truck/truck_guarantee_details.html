@@ -61,8 +61,18 @@
                                         <label class="grey-text" for="insurance_num"><span class="red-text text-lighten-2">*</span>保单编号</label>
                                     </div>
                                     <div class="input-field col s6" ng-class="{'has-error':insurance_Form.insurance_money.$invalid&&submitted}">
-                                        <input ng-pattern="pwdReg" id="insurance_money" name="insurance_money" ng-model="insurance_money" autocomplete="off" type="text"  required>
+                                        <input id="insurance_money"  ng-model="insurance_money" type="number"  required ng-change="changeInsMoney(taxMoney,insurance_money)">
                                         <label class="grey-text" for="insurance_money"><span class="red-text text-lighten-2">*</span>保险金额(元)</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <input  id="taxMoney" name="taxMoney" ng-model="taxMoney"  type="number"  required ng-change="changeTaxMoney(taxMoney,insurance_money)">
+                                        <label class="grey-text" for="taxMoney"><span class="red-text text-lighten-2">*</span>税金额(元)</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <input id="totalMoney" name="totalMoney" ng-model="totalMoney"  type="number" disabled required>
+                                        <label class="grey-text" for="totalMoney"><span class="red-text text-lighten-2">*</span>总金额(元)</label>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -104,7 +114,7 @@
                                         <div class="col s6">担保日期:<span>{{el.insure_date|date:'yyyy-MM-dd'}}</span></div>
                                         <div class="col s12 p0" style="margin-top: 10px">
                                             <div class="col s6">生效期:<span>{{el.start_date|date:'yyyy-MM-dd'}}</span>到<span>{{el.end_date|date:'yyyy-MM-dd'}}</span></div>
-                                            <div class="col s6">￥<span class="red-text text-lighten-2">{{el.insure_money}}</span>元</div>
+                                            <div class="col s6">￥<span class="red-text text-lighten-2">{{el.total_money}}</span>元</div>
                                         </div>
                                 </div>
                             </div>

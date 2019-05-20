@@ -6,6 +6,7 @@ app.controller("truck_guarantee_details_controller", ["$scope", "$state", "$stat
     $scope.nowDate = moment(new Date()).format("YYYY-MM-DD");
     $scope.truck_guarantee_id = $stateParams.id;
     $scope.truck_type = $stateParams.type;
+    $scope.totalMoney=0;
     $scope.return = function () {
         $state.go($stateParams.from, {reload: true});
     };
@@ -63,6 +64,13 @@ app.controller("truck_guarantee_details_controller", ["$scope", "$state", "$stat
     };
     get_guarantee();
 
+    $scope.changeInsMoney = function (el1,el2){
+        $scope.totalMoney=el1+el2;
+    }
+    $scope.changeTaxMoney = function (el1,el2){
+        $scope.totalMoney=el1+el2;
+    }
+
     $scope.insuranceForm = function (isValid) {
         $scope.submitted = true;
 
@@ -73,6 +81,8 @@ app.controller("truck_guarantee_details_controller", ["$scope", "$state", "$stat
                 "insureType": $scope.insurance_list,
                 "insureNum": $scope.insurance_num,
                 "insureMoney": $scope.insurance_money,
+                "taxMoney":  $scope.taxMoney,
+                "totalMoney": $scope.totalMoney,
                 "startDate": $scope.effective_date_start,
                 "endDate": $scope.effective_date_end
             };

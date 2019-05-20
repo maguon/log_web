@@ -60,14 +60,14 @@ app.controller("truck_repair_list_controller", ['$rootScope', "$rootScope","$sta
     var colObjs = [
         {name: '车号', type: 'string',require: true},
         {name: '司机', type: 'string',require: true},
-        {name: '维修类型', type: 'string', require: true},
+        {name: '维修类型', type: 'number', require: true},
         {name: '维修开始时间', type: 'string', require: true},
         {name: '维修结束时间', type: 'string', require: true},
         {name: '配件费', type: 'number', require: true},
         {name: '维修费', type: 'number', require: true},
         {name: '保养费', type: 'number', require: true},
         {name: '维修内容', type: 'string', require: true},
-        {name: '备注', type: 'string', require: true}];
+        {name: '备注', type: 'string', require: false}];
     // 头部条件判断
     $scope.titleFilter = function (headerArray) {
         if (colObjs.length != headerArray.length) {

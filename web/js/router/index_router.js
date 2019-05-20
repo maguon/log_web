@@ -119,6 +119,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/dispatch/outsourcing_vehicles.html",
             controller:'outsourcing_vehicles_controller'
         })
+        .state("cost_application",{
+            url:"/cost_application",
+            params: {"from": null},
+            templateUrl: "js/view/dispatch/cost_application.html",
+            controller:'cost_application_controller'
+        })
 
 
         .state("driver_attendance",{
@@ -851,6 +857,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             params: {"from": null},
             templateUrl: "js/view/finance/driver_social_security.html",
             controller:'driver_social_security_controller'
+        })
+        .state("route_fee",{
+            url:"/route_fee",
+            params: {"from": null},
+            templateUrl: "js/view/finance/route_fee.html",
+            controller:'route_fee_controller'
         })
 
         // 结算管理

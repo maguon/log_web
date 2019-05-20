@@ -1,0 +1,130 @@
+<div class="car_wash_fee">
+    <div class="row main_storage_car">
+        <!--查询条件-->
+        <div class="row">
+            <div class="row grey-text text-darken-1">
+                <div class="col s10">
+                    <div class="col s12">
+                        <!--司机-->
+                        <div class="input-field col" style="width: 20%">
+                            <select material-select watch ng-model="drivderId" id="driveName" style="width: 100%">
+                                <option value="" selected>请选择</option>
+                                <option ng-repeat="addDrivder in driveNameList" value={{addDrivder.id}}>{{addDrivder.drive_name}}</option>
+                            </select>
+                        </div>
+                        <!--货车牌号-->
+                        <div class="input-field col" style="width: 20%">
+                            <select  id="truckNum" style="width: 100%" ng-model="truckNum">
+                                <option value=""></option>
+                                <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
+                            </select>
+                        </div>
+                        <div class="input-field col" style="width: 20%">
+                            <select  id="getStatus" style="width: 100%" ng-model="getStatus" material-select watch>
+                                <option value="">请选择</option>
+                                <option value="0">驳回</option>
+                                <option value="1">未发放</option>
+                                <option value="2">已发放</option>
+                            </select>
+                            <label for="getStatus">状态</label>
+                        </div>
+
+                        <!--申请时间(始)  申请时间(终)-->
+                        <div class="input-field col" style="width: 20%">
+                            <input type="text" ng-model="instruct_starTime" id="instruct_start_time" name="instruct_start_time"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
+                            <label for="instruct_start_time">申请时间(始)</label>
+                        </div>
+
+                        <div class="input-field col" style="width: 20%">
+                            <input type="text" ng-model="instruct_endTime" id="instruct_endTime" name="instruct_endTime"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
+                            <label for="instruct_endTime">申请时间(终)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!--按钮-->
+                <div class="col s2" style="margin-top: 20px">
+                    <div class="col s6" >
+                        <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getCost()">
+                            <i class="mdi mdi-magnify"></i>
+                        </a>
+                    </div>
+
+                    <div class="col s6 center-align">
+                        <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
+                            <i class="mdi mdi-cloud-download"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s12">
+            <div class="divider cyan" style="height: 2px;"></div>
+            <table class=" bordered striped text_mid">
+                <thead class="blue-grey lighten-5">
+                <tr class="grey-text text-darken-2">
+                    <th data-field="">司机</th>
+                    <th data-field="">货车牌号</th>
+                    <th data-field="">停留天数</th>
+                    <th data-field="">单价</th>
+                    <th data-field="">申请总额</th>
+                    <th data-field="">申请时间</th>
+                    <th data-field="">状态</th>
+                    <th data-field="">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="costInfo in costList" class="grey-text text-darken-1">
+                    <td>{{costInfo.drive_name}}</td>
+                    <td>{{costInfo.truck_num}}</td>
+                    <td>{{costInfo.day_count}}</td>
+                    <td>{{costInfo.single_price}}</td>
+                    <td >{{costInfo.total_price}}</td>
+                    <td >{{costInfo.created_on|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td >{{costInfo.status == 0 ? "驳回" : currentStatus == 1 ? "未发放" : "已发放" }}</td>
+
+                    <td class="details">
+                        <!-- <a ui-sref="car_wash_fee_details({id:car.id,from:'car_wash_fee'})" style="font-size: 1.5rem">
+                             <i class="mdi mdi-file-document look_icon cyan-text lighten-1"></i>
+                         </a>-->
+                        <a ng-show="costInfo.status == 0" style="font-size: 1.5rem">
+                            <i class="mdi  mdi-window-close look_icon grey-text lighten-1"></i>
+                        </a>
+
+                        <a ng-show="costInfo.status == 2" style="font-size: 1.5rem">
+                            <i class="mdi  mdi-check look_icon grey-text lighten-1"></i>
+                        </a>
+                        <a ng-show="costInfo.status == 1" ng-click="carNotHave(costInfo.id)" style="font-size: 1.5rem;cursor: pointer">
+                            <i class="mdi mdi-window-close look_icon red-text lighten-1"></i>
+                        </a>
+                        <a ng-show="costInfo.status == 1" ng-click="carHave(costInfo.id)" style="font-size: 1.5rem;cursor: pointer">
+                            <i class="mdi  mdi-check look_icon cyan-text lighten-1"></i>
+                        </a>
+
+
+
+
+                    </td>
+                </tr>
+                <tr ng-if="costList.length==0">
+                    <td colspan="8">暂无数据</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!--分页-->
+        <div class="row">
+            <div class="paging_box col s12">
+                <div class="right">
+                    <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="pre_btn()">
+                        上一页
+                    </a>
+                    <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_btn()">
+                        下一页
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

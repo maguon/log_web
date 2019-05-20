@@ -129,6 +129,12 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/dispatch/dispatch_order_details.html",
             controller:'dispatch_order_details_controller'
         })
+        .state("cost_application",{
+            url:"/cost_application",
+            params: {"from": null},
+            templateUrl: "js/view/dispatch/cost_application.html",
+            controller:'cost_application_controller'
+        })
         .state("car_to_data", {
             url: "/car_to_data",  //路由路径
             templateUrl: "js/view/data/car_to_data.html",  //路由填充的模板

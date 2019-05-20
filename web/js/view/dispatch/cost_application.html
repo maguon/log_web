@@ -1,0 +1,222 @@
+<!--费用申请-->
+<div class="cost_application">
+
+    <!--查询条件-->
+    <div class="row">
+        <div class="row grey-text text-darken-1">
+            <div class="col s10">
+                <div class="col s12">
+                    <!--司机-->
+                    <div class="input-field col" style="width: 20%">
+                        <select material-select watch ng-model="drivderId" id="driveName" style="width: 100%">
+                            <option value="" selected>请选择</option>
+                            <option ng-repeat="addDrivder in driveNameList" value={{addDrivder.id}}>{{addDrivder.drive_name}}</option>
+                        </select>
+                    </div>
+                    <!--货车牌号-->
+                    <div class="input-field col" style="width: 20%">
+                        <select  id="truckNum" style="width: 100%" ng-model="truckNum">
+                            <option value=""></option>
+                            <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
+                        </select>
+                    </div>
+                    <div class="input-field col" style="width: 20%">
+                        <select  id="getStatus" style="width: 100%" ng-model="getStatus" material-select watch>
+                            <option value="">请选择</option>
+                            <option value="0">驳回</option>
+                            <option value="1">未发放</option>
+                            <option value="2">已发放</option>
+                        </select>
+                        <label for="getStatus">状态</label>
+                    </div>
+
+                    <!--申请时间(始)  申请时间(终)-->
+                    <div class="input-field col" style="width: 20%">
+                        <input type="text" ng-model="instruct_starTime" id="instruct_start_time" name="instruct_start_time"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="instruct_start_time">申请时间(始)</label>
+                    </div>
+
+                    <div class="input-field col" style="width: 20%">
+                        <input type="text" ng-model="instruct_endTime" id="instruct_endTime" name="instruct_endTime"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="instruct_endTime">申请时间(终)</label>
+                    </div>
+                </div>
+            </div>
+
+            <!--按钮-->
+            <div class="col s2" style="margin-top: 20px">
+                <div class="col s4" >
+                    <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getCost()">
+                        <i class="mdi mdi-magnify"></i>
+                    </a>
+                </div>
+
+                <div class="col s4 right-align">
+                    <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2  btn vc-center"  ng-click="addCost()">
+                        <i class="mdi mdi-plus"></i>
+                    </a>
+                </div>
+
+                <div class="col s4 center-align">
+                    <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
+                        <i class="mdi mdi-cloud-download"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col s12">
+        <div class="divider cyan" style="height: 2px;"></div>
+        <table class=" bordered striped text_mid">
+            <thead class="blue-grey lighten-5">
+            <tr class="grey-text text-darken-2">
+                <th data-field="">司机</th>
+                <th data-field="">货车牌号</th>
+                <th data-field="">停留天数</th>
+                <th data-field="">单价</th>
+                <th data-field="">申请总额</th>
+                <th data-field="">申请时间</th>
+                <th data-field="">状态</th>
+                <th data-field="">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="costInfo in costList" class="grey-text text-darken-1">
+                <td>{{costInfo.drive_name}}</td>
+                <td>{{costInfo.truck_num}}</td>
+                <td>{{costInfo.day_count}}</td>
+                <td>{{costInfo.single_price}}</td>
+                <td >{{costInfo.total_price}}</td>
+                <td >{{costInfo.created_on|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                <td >{{costInfo.status == 0 ? "驳回" : currentStatus == 1 ? "未发放" : "已发放" }}</td>
+                <td  class="operation">
+                    <a ng-click="putCost(costInfo.id)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
+                        <i class="mdi mdi-file-document" style="margin: 0"></i>
+                    </a>
+                </td>
+            </tr>
+            <tr ng-if="costList.length==0">
+                <td colspan="8">暂无数据</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!--分页-->
+    <div class="row">
+        <div class="paging_box col s12">
+            <div class="right">
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="pre_btn()">
+                    上一页
+                </a>
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_btn()">
+                    下一页
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<!--添加模态框-->
+<div id="add_cost" class="row modal modal-fixed-footer">
+    <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+        <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
+            <p>添加费用申请</p>
+        </div>
+        <div class="row col s12" style="margin-top: 35px;width: 80%;margin-left: 10%">
+            <!--司机  货车牌号 天数 单价 总价 备注 -->
+                <div class="col s3 input-field">
+                    <select material-select watch ng-model="addDrivderId" id="addDrivderId" style="width: 100%" ng-change="changeDriver(addDrivderId.id)">
+                        <option value="" selected>请选择</option>
+                        <option ng-repeat="el in driveNameList" ng-value='el'>{{el.drive_name}}</option>
+                    </select>
+                </div>
+
+                <div class="col s3 input-field">
+                    <select  material-select watch ng-model="addTruckId" id="addTruckId"  style="width: 100%">
+                        <option value="" selected>货车牌号</option>
+                        <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem">{{truckNumItem.truck_num}}</option>
+                    </select>
+                </div>
+
+                <div class="col s3 input-field">
+                    <input type="number" ng-model="addDate" id="addDate" name="addDate">
+                    <label for="addDate">天数</label>
+                </div>
+
+
+                <div class="col s3 input-field">
+                    <input type="number" ng-model="addSingle" id="addSingle" name="addSingle">
+                    <label for="addSingle">单价</label>
+                </div>
+        </div>
+    </div>
+
+    <div class="modal-footer valign-wrapper">
+        <div class="col s12">
+            <div class="col s2 offset-s4">
+                <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                    取消
+                </a>
+            </div>
+            <div class="col s2">
+                <a ng-click="finishCost()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                    确定
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--修改模态框-->
+<div id="put_cost" class="row modal modal-fixed-footer">
+    <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+        <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
+            <p>修改费用申请</p>
+        </div>
+        <div class="row col s12" style="margin-top: 35px;width: 80%;margin-left: 10%">
+            <!--司机  货车牌号 天数 单价 总价 备注 -->
+            <div class="col s3 input-field">
+                <input id="putDriverName" type="text" ng-model="putList.drive_name" disabled />
+                <label for="putDriverName">司机</label>
+            </div>
+
+            <div class="col s3 input-field">
+                <input id="putTruckNum" type="text" ng-model="putList.truck_num" disabled />
+                <label for="putTruckNum">货车牌号</label>
+            </div>
+
+            <div class="col s3 input-field">
+                <input type="number" id="putDate" ng-model="putList.day_count">
+                <label for="putDate">天数</label>
+            </div>
+
+
+            <div class="col s3 input-field">
+                <input type="number" id="putSingle" ng-model="putList.single_price">
+                <label for="putSingle">单价</label>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal-footer valign-wrapper">
+        <div class="col s12">
+            <div class="col s2 offset-s4">
+                <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                    取消
+                </a>
+            </div>
+            <div class="col s2">
+                <a ng-click="finishCost()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                    确定
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

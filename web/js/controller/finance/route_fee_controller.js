@@ -129,18 +129,22 @@ app.controller("route_fee_controller", ["$scope", "$state","$stateParams", "$hos
             });
         };
 
-
-        // 数据导出
-        $scope.export = function () {
+        $scope.export = function (){
             // 基本检索URL
-            var url = $host.api_url + "/dpRouteLoadTaskCleanRel.csv?" ;
+            var url = $host.api_url + "/dpRouteTaskFee.csv?" ;
             // 检索条件
-            var conditionsObj = makeConditions();
+            var conditionsObj = {
+                driveId: $scope.drivderId,
+                truckId: $scope.truckNum,
+                createdOnStart:$scope.instruct_starTime,
+                createdOnEnd:$scope.instruct_endTime,
+                status:$scope.getStatus
+            };
             var conditions = _basic.objToUrl(conditionsObj);
             // 检索URL
             url = conditions.length > 0 ? url + "&" + conditions : url;
             window.open(url);
-        };
+        }
 
 
         getDriveNameList ();

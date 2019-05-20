@@ -265,6 +265,7 @@
                                 <tr class="grey-text text-darken-2">
                                     <th data-field="">维修编号</th>
                                     <th data-field="">车牌号</th>
+                                    <th data-field="">司机</th>
                                     <th data-field="">所属公司</th>
                                     <th data-field="">车辆类型</th>
                                     <th data-field="">维修类型</th>
@@ -280,6 +281,7 @@
                                 <tr ng-repeat="repair in repairRecordList" class="grey-text text-darken-1">
                                     <td>{{repair.id}}</td>
                                     <td>{{repair.truck_num}}</td>
+                                    <td>{{repair.drive_name}}</td>
                                     <td>{{repair.company_name}}</td>
                                     <td>{{repair.truck_type == 1 ? "头车" : "挂车"}}</td>
                                     <td>{{repair.repair_type == 1 ? "事故维修" :repair.repair_type == 2 ?'公司维修':'在外临时维修'}}</td>
@@ -294,7 +296,7 @@
                                     </td>
                                 </tr>
                                 <tr class="grey-text text-darken-1" ng-if="repairRecordList.length == 0">
-                                    <td colspan="11"><span style="letter-spacing: 2px">暂无数据</span></td>
+                                    <td colspan="12"><span style="letter-spacing: 2px">暂无数据</span></td>
                                 </tr>
                                 </tbody>
                             </table>

@@ -104,7 +104,7 @@
             </div>
 
             <!--司机-->
-            <div class="col s3 input-field">
+            <div class="col input-field" style="width: 12.5%">
                 <select id="driver"  ng-model="driver"  style="width: 100%">
                     <option value=""></option>
                     <option ng-repeat="putDrive in driveList" ng-value='putDrive.drive_name'>{{putDrive.drive_name}}</option>
@@ -113,12 +113,23 @@
 
 
             <!--货车-->
-            <div class="col s3 input-field">
+            <div class="col input-field" style="width: 12.5%">
                 <select  material-select watch ng-model="truckNum"  id="truckNum" style="width: 100%">
                     <option value="" selected disabled>请选择</option>
                     <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem.truck_num">{{truckNumItem.truck_num}}({{truckNumItem.truck_type == 1 ? "头车" : "挂车"}})</option>
                 </select>
             </div>
+
+            <!--倒板-->
+            <div class="col s3 input-field">
+                <select material-select watch id='reverse_flag' ng-model="reverseFlag" style="width: 100%">
+                    <option value="" selected disabled >请选择</option>
+                    <option ng-value="0">否</option>
+                    <option ng-value="1">是</option>
+                </select>
+                <label for="reverse_flag">倒板</label>
+            </div>
+
 
             <!--起始城市-->
             <div class="col s3 input-field">
@@ -176,6 +187,7 @@
                 <th data-field="">完成时间</th>
                 <th data-field="">调度</th>
                 <th data-field="">状态</th>
+                <th data-field="">倒板</th>
                 <th>操作</th>
             </tr>
             </thead>
@@ -194,7 +206,8 @@
                 <td ng-bind="el.task_end_date |date:'yyyy-MM-dd hh:mm'"></td>
                 <td>{{el.route_op_name }}</td>
                 <td>{{el.task_status | instructionsStatus}}</td>
-
+                <td ng-if="el.reverse_flag==0">否</td>
+                <td ng-if="el.reverse_flag==1">是</td>
                 <!-- 显示画面按钮 -->
                 <td class="operation">
                     <a ng-click="putSettle(el)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
@@ -207,7 +220,7 @@
                 </td>
             </tr>
             <tr class="grey-text text-darken-1" ng-if="dispatchOrderArray.length == 0">
-                <td colspan="14" style="letter-spacing: 2px;text-align: center;">暂无数据</td>
+                <td colspan="15" style="letter-spacing: 2px;text-align: center;">暂无数据</td>
             </tr>
             </tbody>
         </table>

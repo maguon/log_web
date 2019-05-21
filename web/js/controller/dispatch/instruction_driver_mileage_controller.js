@@ -117,6 +117,7 @@ app.controller("instruction_driver_mileage_controller", ["$scope","$rootScope","
         $scope.driver_mileage_startTime=conditions.taskPlanDateStart;
         $scope.driver_mileage_endTime=conditions.taskPlanDateEnd;
         $scope.truckId=conditions.truckId;
+        $scope.truck_type=conditions.operateType;
     }
 
     /**
@@ -128,7 +129,8 @@ app.controller("instruction_driver_mileage_controller", ["$scope","$rootScope","
             driveName: $scope.drive_name,
             truckId: $scope.truckId,
             taskPlanDateStart: $scope.driver_mileage_startTime,
-            taskPlanDateEnd: $scope.driver_mileage_endTime
+            taskPlanDateEnd: $scope.driver_mileage_endTime,
+            operateType:$scope.truck_type
         };
     }
 

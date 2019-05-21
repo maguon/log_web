@@ -73,7 +73,7 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
     // 下载csv
     $scope.downloadCsvFile = function () {
         // 基本检索URL
-        var url = $host.api_url + "/dpRouteTask.csv?" ;
+        var url = $host.api_url + "/dpRouteTask.csv?"+'reverseFlag='+$scope.reverseFlag;
         // 检索条件
         var conditionsObj = makeConditions();
         var conditions = _basic.objToUrl(conditionsObj);
@@ -88,7 +88,7 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
      * */
     function seachOrderInfo(){
         // 基本检索URL
-        var url = $host.api_url + "/dpRouteTaskList?start=" + $scope.start + "&size=" + $scope.size;
+        var url = $host.api_url + "/dpRouteTaskList?start=" + $scope.start + "&size=" + $scope.size+'&reverseFlag='+$scope.reverseFlag;
         // 检索条件
         var conditionsObj = makeConditions();
         var conditions = _basic.objToUrl(conditionsObj);
@@ -143,8 +143,9 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
         $scope.truckNum=conditions.truckNum;
         $scope.startCity=conditions.routeStartId;
         $scope.endCity=conditions.routeEndId;
+        $scope.reverseFlag =conditions.reverseFlag;
 
-}
+    }
 
     /**
      * 组装检索条件。
@@ -158,7 +159,8 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
             driveName:$scope.driver,
             truckNum:$scope.truckNum,
             routeStartId:$scope.startCity,
-            routeEndId:$scope.endCity
+            routeEndId:$scope.endCity,
+            reverseFlag: $scope.reverseFlag
         };
     }
 

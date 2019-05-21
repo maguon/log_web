@@ -7,27 +7,33 @@
                         <div class="row  grey-text text-darken-1">
                             <div class="col s10">
                                 <div class="col s12">
-                                    <div class="col s3 input-field">
+                                    <div class="col input-field" style="width: 20%">
                                         <select material-select watch ng-model="drive_name" id="driveName" style="width: 100%" >
                                             <option value="" selected>请选择</option>
                                             <option ng-repeat="el in driveNameList" value={{el.drive_name}}>{{el.drive_name}}</option>
                                         </select>
                                     </div>
-                                    <div class="col s3 input-field">
+                                    <div class="col input-field" style="width: 20%">
                                         <select  material-select watch ng-model="truckId" id="truckId"  style="width: 100%">
                                             <option value="" selected>请选择</option>
                                             <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
                                         </select>
                                     </div>
-                                    <div class="col s6">
-                                        <div class="input-field col s6">
-                                            <input type="text" ng-model="driver_mileage_startTime" id="driver_mileage_startTime" name="driver_mileage_startTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                            <label for="driver_mileage_startTime">计划执行时间(始)</label>
-                                        </div>
-                                        <div class="input-field col s6">
-                                            <input type="text" ng-model="driver_mileage_endTime" id="driver_mileage_endTime" name="driver_mileage_endTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                            <label for="driver_mileage_endTime">计划执行时间(终)</label>
-                                        </div>
+                                    <div class="col input-field" style="width: 20%">
+                                        <select material-select watch id="truck_type" class="truck_type" ng-model="truck_type">
+                                            <option value=""  selected>请选择</option>
+                                            <option value="1">自营</option>
+                                            <option value="2">外协</option>
+                                        </select>
+                                        <label for="truck_type">所属类型</label>
+                                    </div>
+                                    <div class="col input-field" style="width: 20%">
+                                        <input type="text" ng-model="driver_mileage_startTime" id="driver_mileage_startTime" name="driver_mileage_startTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                        <label for="driver_mileage_startTime">计划执行时间(始)</label>
+                                    </div>
+                                    <div class="col input-field" style="width: 20%">
+                                        <input type="text" ng-model="driver_mileage_endTime" id="driver_mileage_endTime" name="driver_mileage_endTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                        <label for="driver_mileage_endTime">计划执行时间(终)</label>
                                     </div>
                                 </div>
                             </div>
@@ -53,6 +59,7 @@
                                 <tr class="grey-text text-darken-2">
                                     <th data-field="">司机</th>
                                     <th data-field="">货车牌号</th>
+                                    <th data-field="">类型</th>
                                     <th data-field="">完成任务数</th>
                                     <th data-field="">总计里程</th>
                                     <th data-field="">重载公里数</th>
@@ -64,7 +71,8 @@
                             <tbody>
                                 <tr ng-repeat="el in driveDistanceCount" class="grey-text text-darken-1">
                                     <td ng-bind="el.drive_name">1</td>
-                                    <td ng-bind="el.truck_num">
+                                    <td ng-bind="el.truck_num"></td>
+                                    <td>{{el.operate_type==1?'自营':'外协'}}</td>
                                     <td ng-bind="el.complete_count">2</td>
                                     <td ng-bind="el.load_distance+el.no_load_distance|nullTo"></td>
                                     <td ng-bind="el.load_distance|nullTo"></td>
@@ -76,7 +84,7 @@
                                     </td>
                                 </tr>
                                 <tr class="grey-text text-darken-1" ng-if="driveDistanceCount.length == 0">
-                                    <td colspan="8"><span style="letter-spacing: 2px">暂无数据</span></td>
+                                    <td colspan="9"><span style="letter-spacing: 2px">暂无数据</span></td>
                                 </tr>
                             </tbody>
                         </table>

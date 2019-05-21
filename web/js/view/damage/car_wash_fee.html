@@ -93,13 +93,13 @@
                     <th data-field="">司机</th>
                     <th data-field="">电话</th>
                     <th data-field="">品牌</th>
-                    <th data-field="">洗车数</th>
-                    <th data-field="">计划洗车费</th>
+                    <th data-field="">装车数</th>
+                    <th data-field="">洗车费</th>
                    <!-- <th data-field="">实际洗车费</th>-->
                     <th data-field="">拖车费</th>
-                    <th data-field="">停车费</th>
-                   <!-- <th data-field="">计划门卫费</th>-->
-                   <!-- <th data-field="">实际门卫费</th>-->
+                    <th data-field="">提车费</th>
+                    <th data-field="">地跑费</th>
+                    <th data-field="">带路费</th>
                     <th data-field="">货车牌号</th>
                     <th data-field="">送达经销商</th>
                     <th data-field="">装车日期</th>
@@ -124,8 +124,8 @@
                    <!-- <td>{{car.actual_price}}</td>-->
                     <td>{{car.total_trailer_fee}}</td>
                     <td>{{car.car_parking_fee}}</td>
-                    <!--<td>{{car.guard_fee}}</td>-->
-                   <!-- <td>{{car.actual_guard_fee}}</td>-->
+                    <td>{{car.total_run_fee}}</td>
+                    <td>{{car.lead_fee}}</td>
                     <td>{{car.truck_num}}</td>
                     <td>{{car.short_name}}</td>
                     <td>{{car.created_on | date:'yyyy-MM-dd'}}</td>
@@ -162,7 +162,7 @@
                     </td>
                 </tr>
                 <tr class="grey-text text-darken-1" ng-if="carWashFeeList.length == 0">
-                    <td colspan="16"><span style="letter-spacing: 2px">暂无数据</span></td>
+                    <td colspan="18"><span style="letter-spacing: 2px">暂无数据</span></td>
                 </tr>
                 </tbody>
             </table>
@@ -187,7 +187,7 @@
         <div class="divider"></div>
             <div class="container" style="padding: 20px 0 0">
                 <div class="row col s12">
-                    <!--大车洗车费  小车洗车费  拖车费 停车费   地跑费  带路费-->
+                    <!--大车洗车费  小车洗车费  拖车费 提车费   地跑费  带路费-->
                     <div class="col s4 input-field">
                         <input id="bigWashFee" ng-model="bigWashFee"  type="number">
                         <label for="bigWashFee" class="active" >大车洗车费</label>
@@ -203,7 +203,7 @@
                     </div>
                     <div class="col s4 input-field">
                         <input id="car_parking_fee" ng-model="showList.car_parking_fee"  type="number">
-                        <label for="car_parking_fee" class="active" >停车费</label>
+                        <label for="car_parking_fee" class="active" >提车费</label>
                     </div>
                     <div class="col s4 input-field">
                         <input id="total_run_fee" ng-model="showList.total_run_fee"  type="number">

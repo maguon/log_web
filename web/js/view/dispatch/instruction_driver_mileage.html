@@ -62,11 +62,8 @@
                                     <th data-field="">类型</th>
                                     <th data-field="">完成任务数</th>
                                     <th data-field="">倒板数</th>
-                                    <th data-field="">重载油量公里数</th>
-                                    <th data-field="">空载油量公里数</th>
-                                    <th data-field="">总计里程</th>
-                                    <th data-field="">重载公里数</th>
-                                    <th data-field="">空载公里数</th>
+                                    <th data-field="">油耗重载/空载</th>
+                                    <th data-field="">结算重载/空载/总</th>
                                     <th data-field="">重载率(%)</th>
                                     <th>操作</th>
                                 </tr>
@@ -78,11 +75,8 @@
                                     <td>{{el.operate_type==1?'自营':'外协'}}</td>
                                     <td ng-bind="el.complete_count">2</td>
                                     <td ng-bind="el.reverse_count">2</td>
-                                    <td ng-bind="el.load_oil_distance">2</td>
-                                    <td ng-bind="el.no_oil_distance">2</td>
-                                    <td ng-bind="el.load_distance+el.no_load_distance|nullTo"></td>
-                                    <td ng-bind="el.load_distance|nullTo"></td>
-                                    <td ng-bind="el.no_load_distance|nullTo"></td>
+                                    <td>{{el.load_oil_distance}}/{{el.no_oil_distance}}</td>
+                                    <td>{{el.load_distance+el.no_load_distance|nullTo}}/{{el.load_distance|nullTo}}/{{el.no_load_distance|nullTo}}</td>
                                     <td ng-bind="(el.load_distance*100|nullTo)/(el.load_distance+el.no_load_distance|nullTo) | number:2"></td>
                                     <td class="operation">
                                         <a href="#" ui-sref="instruction_drive_details({id:el.drive_id,timeStart:driver_mileage_startTime,timeEnd:driver_mileage_endTime,makeId:el.truck_id,from:'instruction_driver_mileage',})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ></i></a>
@@ -90,7 +84,7 @@
                                     </td>
                                 </tr>
                                 <tr class="grey-text text-darken-1" ng-if="driveDistanceCount.length == 0">
-                                    <td colspan="12"><span style="letter-spacing: 2px">暂无数据</span></td>
+                                    <td colspan="9"><span style="letter-spacing: 2px">暂无数据</span></td>
                                 </tr>
                             </tbody>
                         </table>

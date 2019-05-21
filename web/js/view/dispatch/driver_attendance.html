@@ -1,71 +1,294 @@
-<div class="row tab_box" style="margin-top: 50px;">
-    <div class="col s10" style="margin-bottom: 20px;">
-        <!--司机-->
-        <div class="col s12" style="height: 70px">
-            <div class="col s6 input-field">
-                <input id="start_month" type="text" ng-value="startMonth">
-                <label class="active" for="start_month">月份</label>
+<!--出勤增加模态框-->
+<div id="new_driver_social_security" class="modal">
+    <div class="cyan lighten-1 white-text center-align modal_title" >新增出勤</div>
+    <div class="modal-content" style="padding-bottom: 0px">
+        <div class="row col s12">
+            <div class="row">
+                <!--司机  货车牌号 电话 出勤 月份-->
+                <div class="col  input-field" style="width: 20%">
+                    <input id="add_start_month" type="text" ng-model="addStartMonth" />
+                    <label for="add_start_month">月份</label>
+                </div>
+                <div class="col  input-field" style="width: 20%">
+                    <select material-select watch ng-model="addDrivderId" id="addDrivderId"  ng-change="changeDriver(addDrivderId.id)" style="width: 100%" >
+                        <option value="" selected>请选择</option>
+                        <option ng-repeat="addDrivder in driveNameList" ng-value=addDrivder>{{addDrivder.drive_name}}&nbsp;&nbsp;({{addDrivder.mobile}})</option>
+                    </select>
+                </div>
+                <div class="col  input-field" style="width: 20%">
+                    <select ng-model="truckNum" id="truckNum"  style="width: 100%">
+                        <option value="" selected>请选择</option>
+                        <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
+                    </select>
+                </div>
+                <div class="col  input-field" style="width: 20%">
+                    <input type="number" id="addWorkCount" name="addWorkCount" ng-model="addWorkCount">
+                    <label for="addWorkCount">出勤天数</label>
+                </div>
+                <div class="col  input-field" style="width: 20%">
+                    <input type="number" id="addHotelFee" name="addHotelFee" ng-model="addHotelFee">
+                    <label for="addHotelFee">住宿费</label>
+                </div>
             </div>
-            <div class="col s6 input-field">
-                <select material-select watch ng-model="driveName" id="driveName" style="width: 100%" >
-                    <option value="" selected>请选择</option>
-                    <option ng-repeat="addDrivder in driveNameList" ng-value='addDrivder.id'>{{addDrivder.drive_name}}</option>
-                </select>
+            <div class="divider" style="background: #ccc;height: 1px;margin: 20px 0"></div>
+            <div class="modal-footer center-align">
+                <div class="col s12">
+                    <div class="col s2 offset-s4">
+                        <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                            取消
+                        </a>
+                    </div>
+                    <div class="col s2">
+                        <a ng-click="addCarItem()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                            确定
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <!--查询-->
-    <div class="col s2  flex flex-round" style="margin-top: 5px;">
-        <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
-           style="margin-right: 10px" ng-click="searchList()">
-            <i class="mdi mdi-magnify"></i>
-        </a>
-    </div>
+</div>
 
-    <!--查询列表页-->
-    <div class="row tableBox">
+<!--出勤修改模态框-->
+<div id="put_driver_social_security" class="modal">
+    <div class="cyan lighten-1 white-text center-align modal_title" >出勤信息</div>
+    <div class="modal-content">
+        <div class="row col s12">
+            <div class="row">
+                <!--司机  货车牌号 电话 出勤 月份-->
+                <div class="input-field col" style="width: 20%">
+                    <input id="put_start_month" type="text" ng-model="socialSecurity.y_month" disabled/>
+                    <label for="put_start_month">月份</label>
+                </div>
+                <div class="input-field col" style="width: 20%">
+                    <input id="putDrivderId" type="text" ng-model="socialSecurity.total" disabled/>
+                    <label for="putDrivderId">司机</label>
+                </div>
+                <div class="input-field col" style="width: 20%">
+                    <input id="putTruckNum" type="text" ng-model="socialSecurity.truck_num" disabled/>
+                    <label for="putTruckNum">货车牌号</label>
+                </div>
+                <div class="input-field col" style="width: 20%">
+                    <input type="number" id="putWorkCount" name="putWorkCount" ng-model="socialSecurity.work_count">
+                    <label for="putWorkCount">出勤天数</label>
+                </div>
+                <div class="input-field col" style="width: 20%">
+                    <input type="number" id="putHotelFee" name="putHotelFee" ng-model="socialSecurity.hotel_fee">
+                    <label for="putHotelFee">住宿费</label>
+                </div>
+            </div>
+            <div class="divider" style="background: #ccc;height: 1px;margin: 20px 0"></div>
+            <div class="modal-footer center-align">
+                <div class="col s12">
+                    <div class="col s2 offset-s4">
+                        <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                            取消
+                        </a>
+                    </div>
+                    <div class="col s2">
+                        <a ng-click="putCarItem()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                            确定
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal-content grey-text text-darken-2">
+    <div class="row no-marBottom" ul-tabs style="overflow: hidden">
         <div class="col s12">
-            <div class="divider cyan" style="height: 2px;"></div>
-            <table class=" bordered striped text_mid">
-                <thead class="blue-grey lighten-5">
-                <tr class="grey-text text-darken-2">
-                    <th data-field="">编号</th>
-                    <th data-field="">司机</th>
-                    <th data-field="">货车牌号</th>
-                    <th data-field="">电话</th>
-                    <th data-field="">月份</th>
-                    <th data-field="">出勤天数</th>
-                    <th data-field="">住宿费</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="fileInfo in securityList" class="grey-text text-darken-1">
-                    <td>{{fileInfo.id}}</td>
-                    <td>{{fileInfo.drive_name}}</td>
-                    <td>{{fileInfo.truck_num}}</td>
-                    <td>{{fileInfo.mobile}}</td>
-                    <td>{{fileInfo.y_month}}</td>
-                    <td class="red-text" >{{fileInfo.work_count}}</td>
-                    <td class="red-text" >{{fileInfo.hotel_fee}}</td>
-                </tr>
-                <tr ng-if="securityList.length==0">
-                    <td colspan="7">暂无数据</td>
-                </tr>
-                </tbody>
-            </table>
+            <ul class="tabWrap grey lighten-4">
+                <li class="tab col s6 importFile vc-center" ng-click="importFile()">导入司机出勤文件</li>
+                <li class="tab col s6 lookMyselfFile vc-center" ng-click="lookMyselfFile()">查看司机出勤</li>
+            </ul>
         </div>
-    </div>
 
-    <!--分页-->
-    <div class="row tableBox">
-        <div class="col s12" style="height: 45px">
-            <div class="right">
-                <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="previous_page()">
-                    上一页
+        <!--导入ETC文件-->
+        <div id="importFile" class="row tab_box" style="margin-top: 50px">
+            <div class="row">
+                <form name="file_upload_form " id="file_upload_form" >
+                    <div class="col s4">
+                        <div class="row">
+                            <div class="file-field  input-field ">
+                                <a href="/assets/司机出勤导入模板.csv" target="_blank" class="btn waves-effect circle_button" >下载模板格式</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s5 offset-s3">
+                        <div class="col s4"></div>
+                        <div class="col s4">
+                            <div class="row">
+                                <div class="file-field input-field">
+                                    <div class="btn cyan lighten-2 circle_button">
+                                        <span>批量数据导入</span>
+                                        <input type="file" style="font-size: 100px;height: 45px;"  name="file" accept="text/csv" onchange='angular.element(this).scope().fileChange(this)' >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s4">
+                            <div class="row">
+                                <div class="file-field cyan input-field ">
+                                    <a href="" class="right btn waves-effect circle_button" ng-click="new_data_list()">单条数据增加</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="col s12 tableBox" ng-show="tableBox">
+                        <img style="width: 100%" src="/assets/images/import_social.png" />
+                    </div>
+                </div>
+            </div>
+            <div class="row dataBox " style="overflow: auto;" ng-show="dataBox">
+                <div class="col s12">
+                    <h6 class="red lighten-2 white-text vc-center" style="padding: 20px">错误数据<span>{{errorNumber}}</span>条，请修改后重新上传</h6>
+                    <table class="responsive-table highlight">
+                        <thead class="blue-grey lighten-4 grey-text text-darken-1">
+                        <tr>
+                            <th>序号</th>
+                            <th ng-repeat="header in tableHeader track by $index">{{header}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="row in tableContentErrorFilter track by $index">
+                            <td>{{$index+1}}</td>
+                            <td ng-repeat="item in row track by $index">{{item}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row success_data_box " style="overflow: auto; "  ng-show="success_data_box">
+                <div class="divider" style="height: 2px;"></div>
+                <div class="col s12 " style="padding: 100px 0">
+                    <div class="progress" >
+                        <div class="determinate" ng-style="obj"></div>
+                    </div>
+                    <p><span>{{num}}</span>/<span>{{orginData_Length}}</span></p>
+                    <div class="col s2 offset-s5 ">
+                        <p class="vc-center " ng-show="local_isSuccesss">
+                            <i class="mdi mdi-check cyan-text text-lighten-2 fz40"></i><span class="blue-grey-text fz18">本地校验成功</span>
+                        </p>
+                        <p class="vc-center " ng-show="upload_isSuccesss">
+                            <i class="mdi mdi-check cyan-text text-lighten-2 fz40" ></i><span class="blue-grey-text fz18">上传完成</span>
+                        </p>
+                        <p class="vc-center" ng-show="upload_isSuccesss">
+                            <span>错误条数:<span>{{upload_error_array_num}}</span></span>
+                            <span>正确条数:<span>{{orginData_Length-upload_error_array_num}}</span></span>
+                            <span>总条数:<span>{{orginData_Length}}</span></span>
+                        </p>
+                        <!--<a href="" class="btn btn-large waves-effect cyan lighten-2"></a>-->
+                        <p class="center-align">
+                            <button class="btn btn-large circle_button cyan lighten-2" ng-click="fileUpload()" id="buttonImport">
+                                导入数据库
+                            </button>
+                            <a href="" style="margin-top: 10px" class="btn btn-large circle_button cyan lighten-2" ng-show="show_error" ng-click="show_error_msg()">错误数据显示</a>
+                        </p>
+                    </div>
+                </div>
+
+                <table class=" bordered striped" ng-show="error_msg">
+                    <thead class="blue-grey lighten-5">
+                    <tr class="grey-text text-darken-2">
+                        <th data-field="">错误位置</th>
+                        <th data-field="">原因</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="el in upload_error_array" class="grey-text text-darken-1">
+                        <td>第{{el.index}}条</td>
+                        <td ng-bind="el.msg"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!--查看导入ETC文件-->
+        <div id="lookMyselfFile" class="row tab_box" style="margin-top: 50px;">
+            <div class="col s10" style="margin-bottom: 20px;">
+                <!--司机-->
+                <div class="col s12" style="height: 70px">
+                    <div class="col s6 input-field">
+                        <input id="start_month" type="text" ng-value="startMonth">
+                        <label class="active" for="start_month">月份</label>
+                    </div>
+                    <div class="col s6 input-field">
+                        <select material-select watch ng-model="driveName" id="driveName" style="width: 100%" >
+                            <option value="" selected>请选择</option>
+                            <option ng-repeat="addDrivder in driveNameList" ng-value='addDrivder.id'>{{addDrivder.drive_name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!--查询-->
+            <div class="col s2  flex flex-round" style="margin-top: 5px;">
+                <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
+                   style="margin-right: 10px" ng-click="searchList()">
+                    <i class="mdi mdi-magnify"></i>
                 </a>
-                <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_page()">
-                    下一页
-                </a>
+            </div>
+
+            <!--查询列表页-->
+            <div class="row tableBox">
+                <div class="col s12">
+                    <div class="divider cyan" style="height: 2px;"></div>
+                    <table class=" bordered striped text_mid">
+                        <thead class="blue-grey lighten-5">
+                        <tr class="grey-text text-darken-2">
+                            <th data-field="">编号</th>
+                            <th data-field="">司机</th>
+                            <th data-field="">货车牌号</th>
+                            <th data-field="">电话</th>
+                            <th data-field="">月份</th>
+                            <th data-field="">出勤天数</th>
+                            <th data-field="">住宿费</th>
+                            <th data-field=""></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="fileInfo in securityList" class="grey-text text-darken-1">
+                            <td>{{fileInfo.id}}</td>
+                            <td>{{fileInfo.drive_name}}</td>
+                            <td>{{fileInfo.truck_num}}</td>
+                            <td>{{fileInfo.mobile}}</td>
+                            <td>{{fileInfo.y_month}}</td>
+                            <td class="red-text" >{{fileInfo.work_count}}</td>
+                            <td class="red-text" >{{fileInfo.hotel_fee}}</td>
+                            <td class="operation">
+                                <a ng-click="putSecurity(fileInfo.id)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
+                                    <i class="mdi mdi-file-document" style="margin: 0"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr ng-if="securityList.length==0">
+                            <td colspan="8">暂无数据</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!--分页-->
+            <div class="row tableBox">
+                <div class="col s12" style="height: 45px">
+                    <div class="right">
+                        <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="previous_page()">
+                            上一页
+                        </a>
+                        <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_page()">
+                            下一页
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -864,6 +864,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/finance/route_fee.html",
             controller:'route_fee_controller'
         })
+        .state("truck_depreciation",{
+            url:"/truck_depreciation",
+            params: {"from": null},
+            templateUrl: "js/view/finance/truck_depreciation.html",
+            controller:'truck_depreciation_controller'
+        })
 
         // 结算管理
         .state("settlement_index",{

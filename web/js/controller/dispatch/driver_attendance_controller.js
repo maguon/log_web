@@ -243,6 +243,8 @@ app.controller("driver_attendance_controller", ["$scope","$rootScope", "$state",
         });
     }
     $scope.changeDriver = function (driver) {
+        $scope.truckNumListAllList=[];
+        $scope.truckNum='';
         _basic.get($host.api_url + "/drive?driveId=" + driver).then(function (data) {
             if (data.success == true) {
                 if(data.result[0].truck_id!==undefined||data.result[0].truck_id!==null||data.result[0].truck_id!==''){

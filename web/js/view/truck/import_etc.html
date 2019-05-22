@@ -68,7 +68,6 @@
                     </div>
                     <div class="col s5 offset-s3">
                         <div class="col s4"> </div>
-                        <div class="col s4"></div>
                         <div class="col s4">
                             <div class="row">
                                 <div class="file-field input-field">
@@ -76,6 +75,13 @@
                                         <span>批量数据导入</span>
                                         <input type="file" style="font-size: 80px;height:45px;"  name="file" accept="text/csv" onchange='angular.element(this).scope().fileChange(this)' >
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s4">
+                            <div class="row">
+                                <div class="file-field cyan input-field ">
+                                    <a href="" class="right btn waves-effect circle_button" ng-click="new_data_list()">单条数据增加</a>
                                 </div>
                             </div>
                         </div>
@@ -242,6 +248,62 @@
                         </a>
                         <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_page()">
                             下一页
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--增加模态框-->
+<div id="new_driver_social_security" class="modal">
+    <div class="cyan lighten-1 white-text center-align modal_title" >新增ETC</div>
+    <div class="modal-content" style="padding-bottom: 0px">
+        <div class="row col s12">
+            <div class="row">
+                <!--货车牌号 费用 时间 描述 -->
+                 <div class="col s3 input-field">
+                   <select material-select watch ng-model="addDrivderId" id="addDrivderId"  ng-change="changeDriver(addDrivderId.id)" style="width: 100%" >
+                       <option value="" selected>请选择</option>
+                       <option ng-repeat="addDrivder in driveNameList" ng-value=addDrivder>{{addDrivder.drive_name}}</option>
+                   </select>
+               </div>
+                <div class="col s3 input-field">
+                    <select ng-model="truckNum" id="truckNum"  style="width: 100%">
+                        <option value="" selected>请选择</option>
+                        <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
+                    </select>
+                </div>
+                <div class="col s3 input-field">
+                    <input type="number" id="addCount" name="addCount" ng-model="addCount">
+                    <label for="addCount">费用</label>
+                </div>
+                <div class="col s3 input-field">
+                    <input type="text" ng-model="happenTime" id="happenTime" name="happenTime"  class="datepicker" autocomplete="off" required   date>
+                    <i class="mdi dataIcon mdi-table-large"></i>
+                    <label for="happenTime">时间</label>
+                </div>
+                <div class="col s12 input-field">
+                    <input type="text" id="remark" name="remark" ng-model="remark">
+                    <label for="remark">描述</label>
+                </div>
+
+            </div>
+            <div class="divider" style="background: #ccc;height: 1px;margin: 20px 0"></div>
+            <div class="modal-footer center-align">
+                <div class="col s12">
+                    <div class="col s2 offset-s4">
+                        <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                            取消
+                        </a>
+                    </div>
+                    <div class="col s2">
+                        <a ng-click="addCarItem()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                            确定
                         </a>
                     </div>
                 </div>

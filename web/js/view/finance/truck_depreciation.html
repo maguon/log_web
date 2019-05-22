@@ -5,23 +5,23 @@
         <div class="row col s12">
             <div class="row">
                 <!--司机  货车牌号 电话 折损 月份-->
-                <div class="col s3 input-field">
+                <div class="col s4 input-field">
                     <input id="add_start_month" type="text" ng-model="addStartMonth" />
                     <label for="add_start_month">月份</label>
                 </div>
-                <div class="col s3 input-field">
+               <!-- <div class="col s3 input-field">
                     <select material-select watch ng-model="addDrivderId" id="addDrivderId"  ng-change="changeDriver(addDrivderId.id)" style="width: 100%" >
                         <option value="" selected>请选择</option>
                         <option ng-repeat="addDrivder in driveNameList" ng-value=addDrivder>{{addDrivder.drive_name}}</option>
                     </select>
-                </div>
-                <div class="col s3 input-field">
+                </div>-->
+                <div class="col s4 input-field">
                     <select ng-model="truckNum" id="truckNum"  style="width: 100%">
                         <option value="" selected>请选择</option>
                         <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
                     </select>
                 </div>
-                <div class="col s3 input-field">
+                <div class="col s4 input-field">
                     <input type="number" id="addWorkCount" name="addWorkCount" ng-model="addWorkCount">
                     <label for="addWorkCount">折损费</label>
                 </div>
@@ -52,19 +52,19 @@
         <div class="row col s12">
             <div class="row">
                 <!--司机  货车牌号 电话 折损 月份-->
-                <div class="input-field col s3">
+                <div class="input-field col s4">
                     <input id="put_start_month" type="text" ng-model="socialSecurity.y_month" disabled/>
                     <label for="put_start_month">月份</label>
                 </div>
-                <div class="input-field col s3">
+               <!-- <div class="input-field col s3">
                     <input id="putDrivderId" type="text" ng-model="socialSecurity.drive_name" disabled/>
                     <label for="putDrivderId">司机</label>
-                </div>
-                <div class="input-field col s3">
+                </div>-->
+                <div class="input-field col s4">
                     <input id="putTruckNum" type="text" ng-model="socialSecurity.truck_num" disabled/>
                     <label for="putTruckNum">货车牌号</label>
                 </div>
-                <div class="input-field col s3">
+                <div class="input-field col s4">
                     <input type="number" id="depreciationFee" name="depreciationFee" ng-model="socialSecurity.depreciation_fee">
                     <label for="depreciationFee">折损费</label>
                 </div>
@@ -135,7 +135,7 @@
             <div class="row">
                 <div class="col s12">
                     <div class="col s12 tableBox" ng-show="tableBox">
-                        <img style="width: 100%" src="/assets/images/import_social.png" />
+                        <img style="width: 100%" src="/assets/images/import_depreciation.png" />
                     </div>
                 </div>
             </div>
@@ -236,17 +236,17 @@
                         <thead class="blue-grey lighten-5">
                         <tr class="grey-text text-darken-2">
                             <th data-field="">编号</th>
-                            <th data-field="">司机</th>
+                           <!-- <th data-field="">司机</th>-->
                             <th data-field="">货车牌号</th>
                             <th data-field="">月份</th>
                             <th data-field="">折损费</th>
-                            <th data-field=""></th>
+                            <th data-field="">操作</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="fileInfo in securityList" class="grey-text text-darken-1">
                             <td>{{fileInfo.id}}</td>
-                            <td>{{fileInfo.drive_name}}</td>
+                            <!--<td>{{fileInfo.drive_name}}</td>-->
                             <td>{{fileInfo.truck_num}}</td>
                             <td>{{fileInfo.y_month}}</td>
                             <td class="red-text" >{{fileInfo.depreciation_fee}}</td>
@@ -257,7 +257,7 @@
                             </td>
                         </tr>
                         <tr ng-if="securityList.length==0">
-                            <td colspan="6">暂无数据</td>
+                            <td colspan="5">暂无数据</td>
                         </tr>
                         </tbody>
                     </table>

@@ -68,7 +68,6 @@ app.controller("truck_depreciation_controller", ["$scope","$rootScope","$state",
     getLastMonth();
     // 过滤条件数据
     var colObjs = [
-        {name: '司机', type: 'string',require: true},
         {name: '货车牌号', type: 'string',require: true},
         {name: '月份', type: 'number', require: true},
         {name: '折旧费', type: 'number', require: true}];
@@ -224,11 +223,11 @@ app.controller("truck_depreciation_controller", ["$scope","$rootScope","$state",
         _basic.get($host.api_url + "/drive?driveName=").then(function (data) {
             if (data.success == true) {
                 $scope.driveNameList = data.result;
-                $('#addDrivderId').select2({
+               /* $('#addDrivderId').select2({
                     placeholder: '司机',
                     containerCssClass : 'select2_dropdown',
                     allowClear: true
-                });
+                });*/
                 $('#driveName').select2({
                     placeholder: '司机',
                     containerCssClass : 'select2_dropdown',
@@ -241,7 +240,7 @@ app.controller("truck_depreciation_controller", ["$scope","$rootScope","$state",
             }
         });
     }
-    $scope.changeDriver = function (driver) {
+  /*  $scope.changeDriver = function (driver) {
         _basic.get($host.api_url + "/drive?driveId=" + driver).then(function (data) {
             if (data.success == true) {
                 if(data.result[0].truck_id!==undefined||data.result[0].truck_id!==null||data.result[0].truck_id!==''){
@@ -256,7 +255,7 @@ app.controller("truck_depreciation_controller", ["$scope","$rootScope","$state",
                 swal(data.msg, "", "error");
             }
         });
-    }
+    }*/
     //获取货车牌号
     function getTruckNum() {
         _basic.get($host.api_url + "/truckBase").then(function (data) {
@@ -277,12 +276,13 @@ app.controller("truck_depreciation_controller", ["$scope","$rootScope","$state",
 
     // 单条数据录入
     $scope.new_data_list = function () {
-        $scope.addDrivderId = null;
-        $scope.driveNameList=[];
+       /* $scope.addDrivderId = null;*/
+      /*  $scope.driveNameList=[];*/
         $scope.truckNumListAllList=[];
         $scope.truckNum='';
         $scope.addWorkCount='';
         getDriveNameList();
+        getTruckNum();
         // monthPicker控件
         $('#add_start_month').MonthPicker({
             Button: false,
@@ -315,10 +315,10 @@ app.controller("truck_depreciation_controller", ["$scope","$rootScope","$state",
     };
 
     function addItem(){
-        if ($scope.addDrivderId!==''&&$scope.addStartMonth!==''&&$scope.addWorkCount!=='') {
+        if (/*$scope.addDrivderId!==''&&*/$scope.addStartMonth!==''&&$scope.addWorkCount!=='') {
             var obj = {
-                "driveId": $scope.addDrivderId.id,
-                "driveName": $scope.addDrivderId.drive_name,
+              /*  "driveId": $scope.addDrivderId.id,
+                "driveName": $scope.addDrivderId.drive_name,*/
                 "truckId": $scope.truckNum,
                 "truckNum": $scope.truckNumberName,
                 "depreciationFee": $scope.addWorkCount,

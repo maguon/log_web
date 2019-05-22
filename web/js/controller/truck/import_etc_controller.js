@@ -214,6 +214,11 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
                     containerCssClass : 'select2_dropdown',
                     allowClear: true
                 });
+                $('#addDrivderId').select2({
+                    placeholder: '司机',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
             }
             else {
                 swal(data.msg, "", "error");
@@ -227,6 +232,11 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
             if (data.success === true) {
                 $scope.truckNumListAllList = data.result;
                 $('#truckId').select2({
+                    placeholder: "货车牌号",
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
+                $('#truckNum').select2({
                     placeholder: "货车牌号",
                     containerCssClass: 'select2_dropdown',
                     allowClear: true
@@ -283,6 +293,86 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
         $scope.start=0;
         getETCList();
     };
+
+      $scope.changeDriver = function (driver) {
+          $scope.truckNumListAllList=[];
+          $scope.truckNum='';
+           _basic.get($host.api_url + "/drive?driveId=" + driver).then(function (data) {
+               if (data.success == true) {
+                   if(data.result[0].truck_id!==undefined||data.result[0].truck_id!==null||data.result[0].truck_id!==''){
+                       $scope.truckNum = data.result[0].truck_id;
+                       getTruckNum();
+                   }
+                   else {
+                       $scope.truckNum = data.result[0].truck_id='';
+                   }
+               }
+               else {
+                   swal(data.msg, "", "error");
+               }
+           });
+       }
+    // 单条数据录入
+    $scope.new_data_list = function () {
+        $scope.addDrivderId = null;
+        $scope.driveNameList=[];
+        $scope.truckNumListAllList=[];
+        $scope.truckNum='';
+        $scope.addCount='';
+        $scope.happenTime='';
+        $scope.remark='';
+        getDriveNameList();
+        $(".modal").modal({
+            height: 500
+        });
+        $("#new_driver_social_security").modal("open");
+    };
+
+    // 新增车辆信息
+    $scope.addCarItem = function () {
+        if($scope.truckNum!==''){
+            _basic.get($host.api_url + "/truckBase?truckId=" + $scope.truckNum).then(function (data) {
+                if (data.success == true) {
+                    $scope.truckNumberName = data.result[0].truck_num;
+                    addItem();
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
+        else{
+            swal("请输入完整信息！", "", "warning");
+        }
+    };
+
+    function addItem(){
+
+        if ($scope.addDrivderId!==''&&$scope.truckNum!==''&&$scope.addCount!==''&&$scope.happenTime!=='') {
+            var obj = {
+                "driveId": $scope.addDrivderId.id,
+                "driveName": $scope.addDrivderId.drive_name,
+                "truckId": $scope.truckNum,
+                "truckNum": $scope.truckNumberName,
+                "etcFee": $scope.addCount,
+                "etcDate": $scope.happenTime,
+                "remark":   $scope.remark
+            };
+            _basic.post($host.api_url + "/user/" + userId + "/truckEtc", obj).then(function (data) {
+                if (data.success == true) {
+                    $("#new_driver_social_security").modal("close");
+                    swal("新增成功！", "", "success");
+                }
+                else{
+                    swal(data.msg, "", "error")
+                }
+            })
+        }
+        else{
+            swal("请输入完整信息！", "", "warning");
+        }
+    }
+
 
     // 分页
     $scope.previous_page = function () {

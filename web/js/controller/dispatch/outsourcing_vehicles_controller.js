@@ -7,7 +7,7 @@ app.controller("outsourcing_vehicles_controller", ["$scope","$rootScope", "$stat
     $scope.hand_start = 0;
     $scope.hand_size = 11;
     $scope.start = 0;
-    $scope.size = 21;
+    $scope.size = 11;
     // 头车挂车跳转
     $scope.header_car = function () {
         $('ul.tabWrap li').removeClass("active");
@@ -422,7 +422,7 @@ app.controller("outsourcing_vehicles_controller", ["$scope","$rootScope", "$stat
                 $rootScope.refObj3 = {pageArray: []};
                 $rootScope.refObj3.pageArray.push(pageItems);
                 $scope.boxArray = data.result;
-                $scope.driveList = $scope.boxArray.slice(0, 20);
+                $scope.driveList = $scope.boxArray.slice(0, 10);
                 if ($scope.start > 0) {
                     $("#pre").show();
                 }
@@ -553,12 +553,12 @@ app.controller("outsourcing_vehicles_controller", ["$scope","$rootScope", "$stat
     // 分页
     $scope.previous_page = function () {
         $scope.start = $scope.start - ($scope.size-1);
-        $scope.searchDriver();
+        searchDriver();
     };
 
     $scope.next_page = function () {
         $scope.start = $scope.start + ($scope.size-1);
-        $scope.searchDriver();
+        searchDriver();
     };
 
 

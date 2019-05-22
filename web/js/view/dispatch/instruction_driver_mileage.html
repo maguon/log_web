@@ -75,7 +75,7 @@
                                     <td>{{el.operate_type==1?'自营':'外协'}}</td>
                                     <td ng-bind="el.complete_count">2</td>
                                     <td ng-bind="el.reverse_count">2</td>
-                                    <td>{{el.no_oil_distance}}/{{el.load_oil_distance}}</td>
+                                    <td>{{el.no_oil_distance==null?0:el.no_oil_distance}}/{{el.load_oil_distance==null?0:el.load_oil_distance}}</td>
                                     <td>{{el.no_load_distance|nullTo}}/{{el.load_distance|nullTo}}/{{el.load_distance+el.no_load_distance|nullTo}}</td>
                                     <td ng-bind="(el.load_distance*100|nullTo)/(el.load_distance+el.no_load_distance|nullTo) | number:2"></td>
                                     <td class="operation">

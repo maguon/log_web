@@ -218,6 +218,7 @@
                             <th data-field="">货车牌号</th>
                             <th data-field="">通行费</th>
                             <th data-field="">交易时间</th>
+                            <th data-field="">描述</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -227,12 +228,13 @@
                             <td>{{fileInfo.truck_num}}</td>
                             <td class="red-text" >{{fileInfo.etc_fee}}</td>
                             <td>{{fileInfo.date_id}}</td>
+                            <td>{{fileInfo.remark}}</td>
                         </tr>
                         <tr ng-if="importedFilesList.length==0&&startDate!==undefined&&endDate!==undefined">
                             <td colspan="5">暂无数据</td>
                         </tr>
                         <tr ng-if="endDate==undefined||startDate==undefined&&importedFilesList.length==0">
-                            <td colspan="5"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;时间范围为必填项</td>
+                            <td colspan="6"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;时间范围为必填项</td>
                         </tr>
                         </tbody>
                     </table>

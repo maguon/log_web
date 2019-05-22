@@ -65,9 +65,10 @@
                 <tr class="grey-text text-darken-2">
                     <th data-field="">司机</th>
                     <th data-field="">货车牌号</th>
+                    <th data-field="">商品车加油费</th>
                     <th data-field="">停留天数</th>
-                    <th data-field="">单价</th>
-                    <th data-field="">申请总额</th>
+                    <th data-field="">停车单价</th>
+                    <th data-field="">货车停车费</th>
                     <th data-field="">申请时间</th>
                     <th data-field="">状态</th>
                     <th data-field="">操作</th>
@@ -77,11 +78,12 @@
                 <tr ng-repeat="costInfo in costList" class="grey-text text-darken-1">
                     <td>{{costInfo.drive_name}}</td>
                     <td>{{costInfo.truck_num}}</td>
+                    <td>{{costInfo.car_oil_fee}}</td>
                     <td>{{costInfo.day_count}}</td>
                     <td>{{costInfo.single_price}}</td>
                     <td >{{costInfo.total_price}}</td>
                     <td >{{costInfo.created_on|date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                    <td >{{costInfo.status == 0 ? "驳回" : currentStatus == 1 ? "未发放" : "已发放" }}</td>
+                    <td >{{costInfo.status == 0 ? "驳回" :costInfo.status == 1 ? "未发放" : "已发放" }}</td>
 
                     <td class="details">
                         <!-- <a ui-sref="car_wash_fee_details({id:car.id,from:'car_wash_fee'})" style="font-size: 1.5rem">
@@ -107,7 +109,7 @@
                     </td>
                 </tr>
                 <tr ng-if="costList.length==0">
-                    <td colspan="8">暂无数据</td>
+                    <td colspan="9">暂无数据</td>
                 </tr>
                 </tbody>
             </table>

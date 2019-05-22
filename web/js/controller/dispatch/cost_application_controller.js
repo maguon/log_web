@@ -134,6 +134,7 @@ app.controller("cost_application_controller", ["$scope", "$state","$stateParams"
         $scope.addPeccancyTruckId = "";
         $scope.addDate = "";
         $scope.addSingle = "";
+        $scope.carOilFee ='';
         $scope.driveNameList=[];
         $scope.truckNumListAllList=[];
         getDriveNameList();
@@ -143,7 +144,7 @@ app.controller("cost_application_controller", ["$scope", "$state","$stateParams"
 
 
     // 提交新增信息
-    $scope.finishCost = function () {
+    $scope.addCostItem = function () {
         if( $scope.addTruckId!==undefined&& $scope.addTruckId!==''){
             $scope.addTruck = $scope.addTruckId.id;
             $scope.addTruckNumber= $scope.addTruckId.truck_num;
@@ -160,7 +161,8 @@ app.controller("cost_application_controller", ["$scope", "$state","$stateParams"
                 "truckNum": $scope.addTruckNumber,
                 "dayCount": $scope.addDate,
                 "singlePrice": $scope.addSingle,
-                "totalPrice":  totalP
+                "totalPrice":  totalP,
+                "carOilFee":$scope.carOilFee
             }).then(function (data) {
                 if (data.success == true) {
                     $('#add_cost').modal('close');
@@ -189,12 +191,13 @@ app.controller("cost_application_controller", ["$scope", "$state","$stateParams"
     }
 
     $scope.finishCost = function (){
-        if($scope.putList.day_count !== "" &&  $scope.putList.single_price!== ''){
+        if($scope.putList.day_count !== "" &&  $scope.putList.single_price!== ''&&$scope.putList.car_oil_fee!==''){
           var  totalPut =$scope.putList.day_count*$scope.putList.single_price;
             _basic.put($host.api_url + "/user/" + userId + "/dpRouteTaskFee/"+$scope.dpRouteTaskFeeId,{
                 "dayCount": $scope.putList.day_count,
                 "singlePrice": $scope.putList.single_price,
-                "totalPrice":  totalPut
+                "totalPrice":  totalPut,
+                "carOilFee":$scope.putList.car_oil_fee
             }).then(function (data) {
                 if (data.success === true) {
                     $('#put_cost').modal('close');

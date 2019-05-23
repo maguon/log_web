@@ -262,6 +262,8 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
                 driveId:  $scope.driveName,
                 etcDateStart: $scope.startDate,
                 etcDatenEnd: $scope.endDate,
+                createdOnStart:$scope.createdOnStart,
+                createdOnEnd:$scope.createdOnEnd,
                 start:$scope.start,
                 size:$scope.size
             })).then(function (data) {
@@ -293,6 +295,8 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
                 driveId:  $scope.driveName,
                 etcDateStart: $scope.startDate,
                 etcDatenEnd: $scope.endDate,
+                createdOnStart:$scope.createdOnStart,
+                createdOnEnd:$scope.createdOnEnd,
                 start:$scope.start,
                 size:$scope.size
             })).then(function (data) {

@@ -279,11 +279,13 @@ app.controller("truck_repair_list_controller", ['$rootScope', "$rootScope","$sta
     $scope.getRepairRecordList = function () {
         // 基本检索URL
         var url = $host.api_url + "/truckRepairRel?start=" + $scope.record_repair_start + "&size=" + $scope.record_repair_size;
+        var urlCount = $host.api_url + "/truckRepairRelCount?start=" + $scope.start + "&size=" + $scope.size;
         // 检索条件
         var conditionsObj = makeConditions();
         var conditions = _basic.objToUrl(conditionsObj);
         // 检索URL
         url = conditions.length > 0 ? url + "&" + conditions : url;
+        urlCount = conditions.length > 0 ? urlCount + "&" + conditions : urlCount;
 
         _basic.get(url).then(function (data) {
 
@@ -317,6 +319,12 @@ app.controller("truck_repair_list_controller", ['$rootScope', "$rootScope","$sta
                 swal(data.msg, "", "error");
             }
         });
+        _basic.get(urlCount).then(function (data) {
+            if (data.success === true) {
+                $scope.boxArrayFee = data.result[0];
+            }
+
+        })
     };
 
     // 搜索维修记录

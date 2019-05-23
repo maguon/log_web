@@ -171,30 +171,40 @@
                 <!--司机   货车牌号  -->
                 <div class="col s12" style="height: 70px">
 
-                    <div class="col s3 input-field">
+                    <div class="col s2 input-field">
                         <select material-select watch ng-model="driveName" id="driveName" style="width: 100%" >
                             <option value="" selected>请选择</option>
                             <option ng-repeat="addDrivder in driveNameList" ng-value='addDrivder.id'>{{addDrivder.drive_name}}</option>
                         </select>
                     </div>
 
-                    <div class="col s3 input-field">
+                    <div class="col s2 input-field">
                         <select  material-select watch ng-model="truckId" id="truckId"  style="width: 100%">
                             <option value="" selected>请选择</option>
                             <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}({{truckNumItem.truck_type == 1 ? "头车" : "挂车"}})</option>
                         </select>
                     </div>
                     <!--时间查询（始）-->
-                    <div class="col s3 input-field">
+                    <div class="col s2 input-field">
                         <input type="text" ng-model="startDate" id="putStartTime" name="putStartTime"  class="datepicker" autocomplete="off"    date><i class="mdi dataIcon mdi-table-large"></i>
-                        <label for="putStartTime">时间范围(始)</label>
+                        <label for="putStartTime">交易时间(始)</label>
                     </div>
 
                     <!--时间查询（终）-->
-                    <div class="col s3 input-field">
+                    <div class="col s2 input-field">
                         <input type="text" ng-model="endDate" id="putEndTime" name="putEndTime"  class="datepicker" autocomplete="off"   date><i class="mdi dataIcon mdi-table-large"></i>
-                        <label for="putEndTime">时间范围(终)</label>
+                        <label for="putEndTime">交易时间(终)</label>
                     </div>
+
+                    <div class="col s2 input-field">
+                        <input type="text" ng-model="createdOnStart" id="createdOnStart" name="createdOnStart"  class="datepicker" autocomplete="off"   date><i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="createdOnStart">创建范围(始)</label>
+                    </div>
+                    <div class="col s2 input-field">
+                        <input type="text" ng-model="createdOnEnd" id="createdOnEnd" name="createdOnEnd"  class="datepicker" autocomplete="off"   date><i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="createdOnEnd">创建范围(终)</label>
+                    </div>
+
 
                 </div>
             </div>
@@ -224,6 +234,7 @@
                             <th data-field="">货车牌号</th>
                             <th data-field="">通行费</th>
                             <th data-field="">交易时间</th>
+                            <th data-field="">创建时间</th>
                             <th data-field="">描述</th>
                         </tr>
                         </thead>
@@ -234,13 +245,14 @@
                             <td>{{fileInfo.truck_num}}</td>
                             <td class="red-text" >{{fileInfo.etc_fee}}</td>
                             <td>{{fileInfo.date_id}}</td>
+                            <td>{{fileInfo.created_on | date:'yyyyMMdd'}}</td>
                             <td>{{fileInfo.remark}}</td>
                         </tr>
                         <tr ng-if="importedFilesList.length==0&&startDate!==undefined&&endDate!==undefined">
-                            <td colspan="6">暂无数据</td>
+                            <td colspan="7">暂无数据</td>
                         </tr>
                         <tr ng-if="endDate==undefined||startDate==undefined&&importedFilesList.length==0">
-                            <td colspan="6"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;时间范围为必填项</td>
+                            <td colspan="7"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;交易时间为必填项</td>
                         </tr>
                         </tbody>
                     </table>

@@ -46,54 +46,50 @@
             <tr class="grey-text text-darken-2">
                 <th data-field="">司机</th>
                 <th data-field="">洗车费</th>
-                <th data-field="">门卫费</th>
-                <!--<th data-field="">出车款</th>-->
-                <th data-field="">过路费</th>
-                <th data-field="">燃料费</th>
-                <th data-field="">保道费</th>
-                <th data-field="">罚款费</th>
-                <th data-field="">停车费</th>
-                <th data-field="">打车费</th>
-                <th data-field="">住宿费</th>
-                <th data-field="">商品车费用</th>
-                <th data-field="">进门费</th>
-                <th data-field="">地跑费</th>
                 <th data-field="">拖车费</th>
-                <th data-field="">维修配件费</th>
+                <th data-field="">商品车提车费</th>
+                <th data-field="">地跑费</th>
+                <th data-field="">带路费</th>
+                <th data-field="">货车停车费</th>
+                <th data-field="">商品车加油费</th>
+                <th data-field="">货车油费</th>
+                <th data-field="">货车尿素费</th>
+                <th data-field="">违章司机承担</th>
+                <th data-field="">违章公司承担</th>
+                <th data-field="">过路费</th>
+                <th data-field="">配件费</th>
+                <th data-field="">维修费</th>
                 <th data-field="">保养费</th>
-                <th data-field="">货车维修费</th>
-               <!-- <th data-field="">违章扣款</th>
-                <th data-field="">超量扣款</th>-->
+                <th data-field="">货车事故个人承担</th>
+                <th data-field="">货车事故公司承担</th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="driveInfo in driveList" class="grey-text text-darken-1">
                 <td>{{driveInfo.drive_name==null?0:driveInfo.drive_name}}</td>
-                <td>{{driveInfo.actual_price==null?0:driveInfo.actual_price}}</td>
-                <td>{{driveInfo.actual_guard_fee==null?0:driveInfo.actual_guard_fee}}</td>
-                <!--<td>{{driveInfo.refund_actual_money==null?0:driveInfo.refund_actual_money}}</td>-->
-                <td>{{driveInfo.refund_passing_cost==null?0:driveInfo.refund_passing_cost}}</td>
-                <td>{{driveInfo.refund_fuel_cost==null?0:driveInfo.refund_fuel_cost}}</td>
-                <td>{{driveInfo.refund_protect_cost==null?0:driveInfo.refund_protect_cost}}</td>
-                <td>{{driveInfo.refund_penalty_cost==null?0:driveInfo.refund_penalty_cost}}</td>
-                <td>{{driveInfo.refund_parking_cost==null?0:driveInfo.refund_parking_cost}}</td>
-                <td>{{driveInfo.refund_taxi_cost==null?0:driveInfo.refund_taxi_cost}}</td>
-                <td>{{driveInfo.refund_hotel_cost==null?0:driveInfo.refund_hotel_cost}}</td>
-                <td>{{driveInfo.refund_car_cost==null?0:driveInfo.refund_car_cost}}</td>
-                <td>{{driveInfo.refund_enter_cost==null?0:driveInfo.refund_enter_cost}}</td>
-                <td>{{driveInfo.refund_run_cost==null?0:driveInfo.refund_run_cost}}</td>
-                <td>{{driveInfo.refund_trailer_cost==null?0:driveInfo.refund_trailer_cost}}</td>
-                <td>{{driveInfo.refund_repair_cost==null?0:driveInfo.refund_repair_cost}}</td>
-                <td>{{driveInfo.refund_care_cost==null?0:driveInfo.refund_care_cost}}</td>
-                <td>{{driveInfo.repair_money==null?0:driveInfo.repair_money}}</td>
-               <!-- <td>{{driveInfo.peccancy_fine_money==null?0:driveInfo.peccancy_fine_money}}</td>
-                <td>{{driveInfo.exceed_oil_money==null?0:driveInfo.exceed_oil_money}}</td>-->
+                <td>{{driveInfo.total_clean_fee==null?0:driveInfo.total_clean_fee}}</td>
+                <td>{{driveInfo.total_trailer_fee==null?0:driveInfo.total_trailer_fee}}</td>
+                <td>{{driveInfo.car_parking_fee==null?0:driveInfo.car_parking_fee}}</td>
+                <td>{{driveInfo.total_run_fee==null?0:driveInfo.total_run_fee}}</td>
+                <td>{{driveInfo.lead_fee==null?0:driveInfo.lead_fee}}</td>
+                <td>{{driveInfo.truck_parking_fee==null?0:driveInfo.truck_parking_fee}}</td>
+                <td>{{driveInfo.car_oil_fee==null?0:driveInfo.car_oil_fee}}</td>
+                <td>{{driveInfo.oil_fee==null?0:driveInfo.oil_fee}}</td>
+                <td>{{driveInfo.urea_fee==null?0:driveInfo.urea_fee}}</td>
+                <td>{{driveInfo.peccancy_under_fee==null?0:driveInfo.peccancy_under_fee}}</td>
+                <td>{{driveInfo.peccancy_company_fee==null?0:driveInfo.peccancy_company_fee}}</td>
+                <td>{{driveInfo.etc_fee==null?0:driveInfo.etc_fee}}</td>
+                <td>{{driveInfo.parts_fee==null?0:driveInfo.parts_fee}}</td>
+                <td>{{driveInfo.repair_fee==null?0:driveInfo.repair_fee}}</td>
+                <td>{{driveInfo.maintain_fee==null?0:driveInfo.maintain_fee}}</td>
+                <td>{{driveInfo.accident_under_fee==null?0:driveInfo.accident_under_fee}}</td>
+                <td>{{driveInfo.accident_company_fee==null?0:driveInfo.accident_company_fee}}</td>
             </tr>
             <tr ng-if="driveList.length==0&&instruct_starTime!==undefined&&instruct_endTime!==undefined">
-                <td colspan="20">暂无数据</td>
+                <td colspan="18">暂无数据</td>
             </tr>
             <tr ng-if="instruct_starTime==undefined||instruct_endTime==undefined&&driveList.length==0">
-                <td colspan="20"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
+                <td colspan="18"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
             </tr>
             </tbody>
         </table>

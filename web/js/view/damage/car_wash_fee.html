@@ -140,13 +140,7 @@
                        <!-- <a ui-sref="car_wash_fee_details({id:car.id,from:'car_wash_fee'})" style="font-size: 1.5rem">
                             <i class="mdi mdi-file-document look_icon cyan-text lighten-1"></i>
                         </a>-->
-                        <a ng-show="car.status == 0" style="font-size: 1.5rem">
-                            <i class="mdi  mdi-window-close look_icon grey-text lighten-1"></i>
-                        </a>
 
-                        <a ng-show="car.status == 2" style="font-size: 1.5rem">
-                            <i class="mdi  mdi-check look_icon grey-text lighten-1"></i>
-                        </a>
                         <a ng-show="car.status == 1" ng-click="carNotHave(car.id)" style="font-size: 1.5rem;cursor: pointer">
                             <i class="mdi mdi-window-close look_icon red-text lighten-1"></i>
                         </a>
@@ -181,38 +175,49 @@
     </div>
 </div>
 
-<div id="openDetailModal" class="modal" style="height: 400px">
+<div id="openDetailModal" class="modal">
     <div class="modal-content">
         <h4 class="center-align">费用详情</h4>
         <div class="divider"></div>
             <div class="container" style="padding: 20px 0 0">
+                <div class="row col s12  left-align bold">费用总价</div>
                 <div class="row col s12">
-                    <!--大车洗车费  小车洗车费  拖车费 提车费   地跑费  带路费-->
-                    <div class="col s4 input-field">
-                        <input id="bigWashFee" ng-model="bigWashFee"  type="number">
-                        <label for="bigWashFee" class="active" >大车洗车费</label>
-                    </div>
+                <!--大车洗车费  小车洗车费  拖车费 提车费   地跑费  带路费  -->
+                <div class="col s2 input-field">
+                    <input id="bigWashFee" ng-model="bigWashFee"  type="number">
+                    <label for="bigWashFee" class="active" >大车洗车费</label>
+                </div>
 
-                    <div class="col s4 input-field">
-                        <input id="smallWashFee" ng-model="smallWashFee"  type="number">
-                        <label for="smallWashFee" class="active" >小车洗车费</label>
-                    </div>
-                    <div class="col s4 input-field">
-                        <input id="total_trailer_fee" ng-model="showList.total_trailer_fee"  type="number">
-                        <label for="total_trailer_fee" class="active" >拖车费</label>
-                    </div>
-                    <div class="col s4 input-field">
-                        <input id="car_parking_fee" ng-model="showList.car_parking_fee"  type="number">
-                        <label for="car_parking_fee" class="active" >提车费</label>
-                    </div>
-                    <div class="col s4 input-field">
-                        <input id="total_run_fee" ng-model="showList.total_run_fee"  type="number">
-                        <label for="total_run_fee" class="active" >地跑费</label>
-                    </div>
-                    <div class="col s4 input-field">
-                        <input id="lead_fee" ng-model="showList.lead_fee"  type="number">
-                        <label for="lead_fee" class="active" >带路费</label>
-                    </div>
+                <div class="col s2 input-field">
+                    <input id="smallWashFee" ng-model="smallWashFee"  type="number">
+                    <label for="smallWashFee" class="active" >小车洗车费</label>
+                </div>
+                <div class="col s2 input-field">
+                    <input id="total_trailer_fee" ng-model="showList.total_trailer_fee"  type="number">
+                    <label for="total_trailer_fee" class="active" >拖车费</label>
+                </div>
+                <div class="col s2 input-field">
+                    <input id="car_parking_fee" ng-model="showList.car_parking_fee"  type="number">
+                    <label for="car_parking_fee" class="active" >提车费</label>
+                </div>
+                <div class="col s2 input-field">
+                    <input id="total_run_fee" ng-model="showList.total_run_fee"  type="number">
+                    <label for="total_run_fee" class="active" >地跑费</label>
+                </div>
+                <div class="col s2 input-field">
+                    <input id="lead_fee" ng-model="showList.lead_fee"  type="number">
+                    <label for="lead_fee" class="active" >带路费</label>
+                </div>
+            </div>
+
+                <div class="row col s12  left-align bold">费用单价</div>
+                <div class="row col s12 cyan-text fz13">
+                    <div class="col input-field" style="width: 20%">大车洗车费单价:<span class="red-text fz22">{{showList.big_single_price}}</span></div>
+                    <div class="col input-field" style="width: 20%">小车洗车费单价:<span class="red-text fz22">{{showList.small_single_price}}</span></div>
+                    <div class="col input-field" style="width: 20%">拖车费单价:<span class="red-text fz22">{{showList.trailer_fee}}</span></div>
+                    <div class="col input-field" style="width: 20%">地跑费单价:<span class="red-text fz22">{{showList.run_fee}}</span></div>
+                    <div class="col input-field" style="width: 20%">带路费单价:<span class="red-text fz22">{{showList.lead_fee}}</span></div>
+
                 </div>
             </div>
     </div>

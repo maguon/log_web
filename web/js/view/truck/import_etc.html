@@ -206,9 +206,15 @@
                 </a>
             </div>
 
+
             <!--查询列表页-->
             <div class="row tableBox">
-                <div class="col s12">
+            <div class="col s12">
+                <div class="col s12 cyan white-text vc-center fz18" style="height: 60px;border-bottom: 1px solid  #4e84cb;border-top:1px solid  #fff" ng-if="importedFilesList.length!==0">
+                    <div class="col s12 left-align bold">
+                        总通行费:{{boxArrayEtc}}元
+                    </div>
+                </div>
                     <div class="divider cyan" style="height: 2px;"></div>
                     <table class=" bordered striped text_mid">
                         <thead class="blue-grey lighten-5">
@@ -231,7 +237,7 @@
                             <td>{{fileInfo.remark}}</td>
                         </tr>
                         <tr ng-if="importedFilesList.length==0&&startDate!==undefined&&endDate!==undefined">
-                            <td colspan="5">暂无数据</td>
+                            <td colspan="6">暂无数据</td>
                         </tr>
                         <tr ng-if="endDate==undefined||startDate==undefined&&importedFilesList.length==0">
                             <td colspan="6"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;时间范围为必填项</td>

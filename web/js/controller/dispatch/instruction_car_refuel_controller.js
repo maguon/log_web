@@ -5,6 +5,7 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
     $scope.start = 0;
     $scope.size = 11;
     $scope.addTruckNum='';
+    $scope.car_refuel=[];
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.num = 0;
     $scope.flag=false;
@@ -384,11 +385,14 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
     $scope.search_query = function () {
         // 基本检索URL
         var url = $host.api_url + "/driveExceedOilRel?start=" + $scope.start + "&size=" + $scope.size;
+        // 基本检索URL
+        var urlCount = $host.api_url + "/driveExceedOilRelCount?start=" + $scope.start + "&size=" + $scope.size;
         // 检索条件
         var conditionsObj = makeConditions();
         var conditions = _basic.objToUrl(conditionsObj);
         // 检索URL
         url = conditions.length > 0 ? url + "&" + conditions : url;
+        urlCount = conditions.length > 0 ? urlCount + "&" + conditions : urlCount;
 
         _basic.get(url).then(function (data) {
 
@@ -412,6 +416,13 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
             else {
                 swal(data.msg, "", "error")
             }
+        })
+
+        _basic.get(urlCount).then(function (data) {
+            if (data.success === true) {
+                $scope.boxArrayFee = data.result[0];
+            }
+
         })
     };
     /**

@@ -1,6 +1,7 @@
 app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_basic", "_config", "$host", function ($scope, $state, $stateParams, _basic, _config, $host) {
     var userId = _basic.getSession(_basic.USER_ID);
     var userType = _basic.getSession(_basic.USER_TYPE);
+    $scope.importedFilesList=[];
     $scope.size = 11;
     $scope.start = 0;
     $scope.num = 0;
@@ -285,6 +286,22 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
                     swal(data.msg, "", "error");
                 }
             });
+
+
+            _basic.get($host.api_url + "/truckEtcFeeCount?"+ _basic.objToUrl({
+                truckId:  $scope.truckId,
+                driveId:  $scope.driveName,
+                etcDateStart: $scope.startDate,
+                etcDatenEnd: $scope.endDate,
+                start:$scope.start,
+                size:$scope.size
+            })).then(function (data) {
+                if (data.success === true) {
+
+                    $scope.boxArrayEtc = data.result[0].etc_fee;
+                }
+
+            })
         }
     };
 

@@ -18,6 +18,32 @@ app.controller("driver_cost_controller", ["$scope","$rootScope","$state","$state
             }
         });
     }
+    //获取所属公司信息
+    function company() {
+        _basic.get($host.api_url + "/company?").then(function (companyData) {
+            if (companyData.success === true) {
+                $scope.companyList = companyData.result;
+            }
+            else {
+                swal(companyData.msg, "", "error");
+            }
+        });
+    };
+    function getTruckNum() {
+        _basic.get($host.api_url + "/truckBase").then(function (data) {
+            if (data.success === true) {
+                $scope.truckNumListAllList = data.result;
+                $('#truckNum').select2({
+                    placeholder: '货车牌号',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        })
+    }
 
     //查询功能
     $scope.getdrive = function (){
@@ -28,6 +54,8 @@ app.controller("driver_cost_controller", ["$scope","$rootScope","$state","$state
     // 数据导出
     $scope.export = function () {
         var obj = {
+            companyId: $scope.driverCompany,
+            truckId:$scope.addTruckId,
             dateIdStart: moment($scope.instruct_starTime).format("YYYYMMDD"),
             dateIdEnd: moment($scope.instruct_endTime).format("YYYYMMDD"),
             driveId: $scope.drivderId
@@ -58,6 +86,8 @@ app.controller("driver_cost_controller", ["$scope","$rootScope","$state","$state
         }
         else{
             _basic.get($host.api_url + "/driveCost?" + _basic.objToUrl({
+                companyId: $scope.driverCompany,
+                truckId:$scope.addTruckId,
                 dateIdStart:moment($scope.instruct_starTime).format("YYYYMMDD"),
                 dateIdEnd:moment($scope.instruct_endTime).format("YYYYMMDD"),
                 driveId: $scope.drivderId,
@@ -98,4 +128,6 @@ app.controller("driver_cost_controller", ["$scope","$rootScope","$state","$state
     };
     getdriveData();
     getDriveNameList ();
+    company();
+    getTruckNum();
 }])

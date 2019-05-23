@@ -127,6 +127,22 @@ app.controller("route_fee_controller", ["$scope", "$state","$stateParams", "$hos
                     swal(data.msg, "", "error");
                 }
             });
+
+            _basic.get($host.api_url+ '/dpRouteTaskFeeCount?' + _basic.objToUrl({
+                driveId: $scope.drivderId,
+                truckId: $scope.truckNum,
+                createdOnStart:$scope.instruct_starTime,
+                createdOnEnd:$scope.instruct_endTime,
+                status:$scope.getStatus,
+                start:$scope.start,
+                size:$scope.size
+            })).then(function (data) {
+                if (data.success === true) {
+                    $scope.boxArrayFee = data.result[0];
+                }
+
+            })
+
         };
 
         $scope.export = function (){

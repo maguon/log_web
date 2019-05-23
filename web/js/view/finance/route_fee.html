@@ -59,6 +59,14 @@
             </div>
         </div>
         <div class="col s12">
+            <div class="col s12 cyan white-text vc-center fz18" style="height: 60px;border-bottom: 1px solid  #4e84cb;border-top:1px solid  #fff" ng-if="costList.length!==0">
+                <div class="col s6 left-align bold">
+                    总加油金额:{{boxArrayFee.car_oil_fee}}元
+                </div>
+                <div class="col s6 right-align bold">
+                    总停车金额:{{boxArrayFee.truck_parking_fee}}元
+                </div>
+            </div>
             <div class="divider cyan" style="height: 2px;"></div>
             <table class=" bordered striped text_mid">
                 <thead class="blue-grey lighten-5">
@@ -86,9 +94,6 @@
                     <td >{{costInfo.status == 0 ? "驳回" :costInfo.status == 1 ? "未发放" : "已发放" }}</td>
 
                     <td class="details">
-                        <!-- <a ui-sref="car_wash_fee_details({id:car.id,from:'car_wash_fee'})" style="font-size: 1.5rem">
-                             <i class="mdi mdi-file-document look_icon cyan-text lighten-1"></i>
-                         </a>-->
                         <a ng-show="costInfo.status == 0" style="font-size: 1.5rem">
                             <i class="mdi  mdi-window-close look_icon grey-text lighten-1"></i>
                         </a>
@@ -102,10 +107,6 @@
                         <a ng-show="costInfo.status == 1" ng-click="carHave(costInfo.id)" style="font-size: 1.5rem;cursor: pointer">
                             <i class="mdi  mdi-check look_icon cyan-text lighten-1"></i>
                         </a>
-
-
-
-
                     </td>
                 </tr>
                 <tr ng-if="costList.length==0">

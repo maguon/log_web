@@ -22,7 +22,7 @@
             <div class="col s3 input-field">
                 <select material-select watch ng-model="driver" id="getDrivderId" style="width: 100%" >
                     <option value="" selected>司机</option>
-                    <option ng-repeat="el in driveNameList" ng-value="el.drive_name">{{el.drive_name}}</option>
+                    <option ng-repeat="el in driveNameList" ng-value="el.id">{{el.drive_name}}</option>
                 </select>
             </div>
             <div class="col s3 input-field">
@@ -84,6 +84,23 @@
         </div>
 
         <div class="row col s12" style="margin-top: 25px">
+            <div class="col s12 cyan white-text vc-center fz18" style="height: 60px;border-bottom: 1px solid  #4e84cb;border-top:1px solid  #fff" ng-if="carWashFeeList.length!==0">
+                <div class="col left-align bold" style="width: 20%">
+                    总洗车金额:{{boxArrayFee.total_clean_fee}}元
+                </div>
+                <div class="col center-align bold" style="width: 20%">
+                    总拖车金额:{{boxArrayFee.total_trailer_fee}}元
+                </div>
+                <div class="col center-align bold" style="width: 20%">
+                    总提车金额:{{boxArrayFee.car_parking_fee}}元
+                </div>
+                <div class="col center-align bold" style="width: 20%">
+                    总地跑金额:{{boxArrayFee.total_run_fee}}元
+                </div>
+                <div class="col right-align bold" style="width: 20%">
+                    总带路金额:{{boxArrayFee.lead_fee}}元
+                </div>
+            </div>
             <div class="divider cyan" style="height: 2px;"></div>
             <table class="bordered striped text_mid">
                 <thead class="blue-grey lighten-5">

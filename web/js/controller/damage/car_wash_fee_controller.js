@@ -139,11 +139,13 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
    function getCarWashFeeList() {
        // 基本检索URL
        var url = $host.api_url + "/dpRouteLoadTaskCleanRel?start=" + $scope.start + "&size=" + $scope.size;
+       var urlCount = $host.api_url + "/dpRouteLoadTaskCleanRelCount?start=" + $scope.start + "&size=" + $scope.size;
        // 检索条件
        var conditionsObj = makeConditions();
        var conditions = _basic.objToUrl(conditionsObj);
        // 检索URL
        url = conditions.length > 0 ? url + "&" + conditions : url;
+       urlCount = conditions.length > 0 ? urlCount + "&" + conditions : urlCount;
 
        _basic.get(url).then(function (data) {
 
@@ -178,6 +180,12 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
                 swal(data.msg, "", "error");
             }
         });
+       _basic.get(urlCount).then(function (data) {
+           if (data.success === true) {
+               $scope.boxArrayFee = data.result[0];
+           }
+
+       })
     };
 
     // 数据导出
@@ -214,7 +222,7 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
      */
     function setConditions(conditions) {
         $scope.instructionNum=conditions.loadTaskCleanRelId;
-        $scope.driver=conditions.driveName;
+        $scope.driver=conditions.driveId;
         $scope.cityId=conditions.routeEndId;
         $scope.distributor=conditions.receiveId;
         $scope.receive_status=conditions.status;
@@ -232,7 +240,7 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
     function makeConditions() {
         return {
             loadTaskCleanRelId: $scope.instructionNum,
-            driveName: $scope.driver,
+            driveId: $scope.driver,
             routeEndId: $scope.cityId,
             receiveId: $scope.distributor,
             status: $scope.receive_status,

@@ -79,7 +79,7 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
     function getCarWashFeeList() {
         _basic.get($host.api_url + "/dpRouteLoadTaskCleanRel?" + _basic.objToUrl({
             loadTaskCleanRelId: $scope.instructionNum,
-            driveName: $scope.driver,
+            driveId: $scope.driver,
             routeEndId: $scope.destinationCity,
             receiveId: $scope.distributor,
             status: $scope.receive_status,
@@ -112,6 +112,26 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
                 swal(data.msg, "", "error");
             }
         });
+        _basic.get($host.api_url+ '/dpRouteLoadTaskCleanRelCount?' + _basic.objToUrl({
+            loadTaskCleanRelId: $scope.instructionNum,
+            driveId: $scope.driver,
+            routeEndId: $scope.destinationCity,
+            receiveId: $scope.distributor,
+            status: $scope.receive_status,
+            cleanDateStart: $scope.receiveTimeStart,
+            cleanDateEnd: $scope.receiveTimeEnd,
+            loadDateStart:$scope.loadDateStart,
+            loadDateEnd:$scope.loadDateEnd,
+            dpRouteTaskId:$scope.dp_number,
+            truckId:$scope.truckNum,
+            start:$scope.start.toString(),
+            size:$scope.size
+        })).then(function (data) {
+            if (data.success === true) {
+                $scope.boxArrayFee = data.result[0];
+            }
+
+        })
     };
     // 数据导出
     $scope.export = function () {

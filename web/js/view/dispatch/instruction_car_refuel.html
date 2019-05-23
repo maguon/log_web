@@ -294,6 +294,14 @@
 
             <div class="row col s12">
                 <div class="col s12" style="margin-top: 15px">
+                    <div class="col s12 cyan white-text vc-center fz18" style="height: 60px;border-bottom: 1px solid  #4e84cb;border-top:1px solid  #fff" ng-if="importedFilesList.length!==0">
+                        <div class="col s6 left-align bold">
+                            总加油金额:{{boxArrayFee.oil_money}}元
+                        </div>
+                        <div class="col s6 right-align bold">
+                            总加尿素金额:{{boxArrayFee.urea_money}}元
+                        </div>
+                    </div>
                     <div class="divider cyan" style="height: 2px;"></div>
                     <table class=" bordered striped text_mid">
                         <thead class="blue-grey lighten-5">
@@ -330,7 +338,7 @@
                             </td>
                         </tr>
                         <tr class="grey-text text-darken-1" ng-if="car_refuel.length == 0">
-                            <td colspan="10"><span style="letter-spacing: 2px">暂无数据</span></td>
+                            <td colspan="11"><span style="letter-spacing: 2px">暂无数据</span></td>
                         </tr>
                         </tbody>
                     </table>

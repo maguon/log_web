@@ -112,7 +112,6 @@
                     <th data-field="">品牌</th>
                     <th data-field="">装车数</th>
                     <th data-field="">洗车费</th>
-                   <!-- <th data-field="">实际洗车费</th>-->
                     <th data-field="">拖车费</th>
                     <th data-field="">提车费</th>
                     <th data-field="">地跑费</th>
@@ -120,12 +119,9 @@
                     <th data-field="">货车牌号</th>
                     <th data-field="">送达经销商</th>
                     <th data-field="">装车日期</th>
-
                     <th data-field="">银行账号</th>
                     <th data-field="">户名</th>
                     <th data-field="">开户行</th>
-                   <!-- <th data-field="">领取时间</th>
-                    <th data-field="">领取状态</th>-->
                     <th>操作</th>
                 </tr>
                 </thead>
@@ -138,7 +134,6 @@
                     <td>{{car.make_name}}</td>
                     <td>{{car.car_count}}</td>
                     <td>{{car.total_price}}</td>
-                   <!-- <td>{{car.actual_price}}</td>-->
                     <td>{{car.total_trailer_fee}}</td>
                     <td>{{car.car_parking_fee}}</td>
                     <td>{{car.total_run_fee}}</td>
@@ -146,18 +141,10 @@
                     <td>{{car.truck_num}}</td>
                     <td>{{car.short_name}}</td>
                     <td>{{car.created_on | date:'yyyy-MM-dd'}}</td>
-
                     <td>{{car.bank_number}}</td>
                     <td>{{car.bank_name}}</td>
                     <td>{{car.bank_user_name}}</td>
-
-                    <!--<td>{{car.clean_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                    <td>{{car.status == 0 ? "未通过" : car.status == 1 ? "未领取" : "已领取"}}</td>-->
                     <td class="details">
-                       <!-- <a ui-sref="car_wash_fee_details({id:car.id,from:'car_wash_fee'})" style="font-size: 1.5rem">
-                            <i class="mdi mdi-file-document look_icon cyan-text lighten-1"></i>
-                        </a>-->
-
                         <a ng-show="car.status == 1" ng-click="carNotHave(car.id)" style="font-size: 1.5rem;cursor: pointer">
                             <i class="mdi mdi-window-close look_icon red-text lighten-1"></i>
                         </a>
@@ -168,8 +155,6 @@
                         <a  style="font-size: 1.5rem" ng-click="openDetail(car.id)">
                             <i class="mdi mdi-file-document look_icon cyan-text lighten-1"></i>
                         </a>
-
-
                     </td>
                 </tr>
                 <tr class="grey-text text-darken-1" ng-if="carWashFeeList.length == 0">

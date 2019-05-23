@@ -2,10 +2,7 @@
     <div class="row main_storage_car">
         <div class="row grey-text text-darken-1 valign-wrapper">
             <div class="col s10">
-                <div class="input-field col s4">
-                    <input id="last_name" type="text" ng-model="vin_code">
-                    <label for="last_name">VIN</label>
-                </div>
+
                 <div class="input-field col s2">
                     <select id="start_city_list" name="state" style="width:100%" ng-change="getAddrData()" ng-model="addrCity">
                         <option value=""></option>
@@ -14,7 +11,7 @@
                     </select>
                 </div>
                 <div class="input-field col s2">
-                    <select material-select watch ng-model="addrId">
+                    <select material-select watch ng-model="addrId"  id="addrId" style="width:100%">
                         <option value="" selected>发运地名称</option>
                         <option ng-repeat="addr in addrList" ng-value="addr.id">{{addr.addr_name}}</option>
                     </select>
@@ -28,7 +25,7 @@
                     </select>
                 </div>
                 <div class="input-field col s2">
-                    <select material-select watch ng-model="receiveId">
+                    <select material-select watch ng-model="receiveId" id="receiveId" style="width:100%">
                         <option value="" selected>经销商</option>
                         <option ng-repeat="receive in receiveList" value={{receive.id}}>{{receive.short_name}}</option>
                     </select>
@@ -45,27 +42,30 @@
                         <option ng-repeat="entrust in entrustList" value={{entrust.id}}>{{entrust.short_name}}</option>
                     </select>
                 </div>
+                <div class="input-field col s4">
+                    <input id="VIN" type="text" ng-model="vin_code">
+                    <label for="VIN">VIN</label>
+                </div>
+                <div class="input-field col s2">
+                    <input type="text" class="datepicker" date ng-model="instructionsStart" id="instructionsStart"><i
+                        class="mdi dataIcon mdi-table-large"></i>
+                    <label for="instructionsStart">指令时间</label>
+                </div>
+                <div class="input-field col s2">
+                    <input type="text" class="datepicker" date ng-model="instructionsEnd" id="instructionsEnd"><i
+                        class="mdi dataIcon mdi-table-large"></i>
+                    <label for="instructionsEnd">至</label>
+                </div>
 
                 <div class="input-field col s2">
-                    <input type="text" class="datepicker" date ng-model="instructionsStart"><i
+                    <input type="text" class="datepicker" date ng-model="createdStart" id="createdStart"><i
                         class="mdi dataIcon mdi-table-large"></i>
-                    <label for="last_name">指令时间</label>
+                    <label for="createdStart">录入时间</label>
                 </div>
                 <div class="input-field col s2">
-                    <input type="text" class="datepicker" date ng-model="instructionsEnd"><i
+                    <input type="text" class="datepicker" date ng-model="createdEnd" id="createdEnd"><i
                         class="mdi dataIcon mdi-table-large"></i>
-                    <label for="last_name">至</label>
-                </div>
-
-                <div class="input-field col s2">
-                    <input type="text" class="datepicker" date ng-model="createdStart"><i
-                        class="mdi dataIcon mdi-table-large"></i>
-                    <label for="last_name">录入时间</label>
-                </div>
-                <div class="input-field col s2">
-                    <input type="text" class="datepicker" date ng-model="createdEnd"><i
-                        class="mdi dataIcon mdi-table-large"></i>
-                    <label for="last_name">至</label>
+                    <label for="createdEnd">至</label>
                 </div>
             </div>
             <div class="col s2 center">

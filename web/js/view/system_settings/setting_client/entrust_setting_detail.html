@@ -11,7 +11,7 @@
     <div class="divider cyan" style="height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
     <div class="row col s12" style="width: 96%;margin: 0 auto">
         <!-- 信息修改或新增模态框 -->
-        <div id="modifyModel" class="modal modal-fixed-footer" style="height: 500px">
+        <div id="modifyModel" class="modal modal-fixed-footer">
             <div class="row no-marBottom" style="font-weight: bold" ul-tabs>
                 <div class="col s12 p0">
                     <ul class="tabWrap grey lighten-4 fz20">
@@ -39,27 +39,37 @@
                                 </a>
                             </div>
 
+                            <div class="row col s12" style="margin-top: 30px">
                             <!--品牌-->
-                            <div class="input-field col s12">
+                            <div class="input-field col s3">
                                 <select material-select watch id="car_brand" name="car_brand" ng-options="car_brand.make_name for car_brand in get_carMake"   ng-model="car_brand" >
                                     <option value="" disabled selected>请选择</option>
                                 </select>
                                 <label for="car_brand">品牌</label>
                             </div>
-                            <div class="col s12 input-field">
+                            <div class="col s3 input-field">
                                 <input  id="distance" ng-model="distance" type="number" name="distance"  required >
                                 <label for="distance"><span style="color: red">*</span>公里数(公里)</label>
                             </div>
-                            <div class="col s12 input-field">
+                            <div class="col s3 input-field">
                                 <input  id="price" ng-model="price" type="number"  name="price" required >
                                 <label for="price"><span style="color: red">*</span>价格(元)/公里</label>
+                            </div>
+                            <div class="col s3 input-field">
+                                <select material-select watch id="car_type" name="car_type" ng-model="car_type" >
+                                    <option value="" disabled selected>请选择</option>
+                                    <option ng-value="1">大</option>
+                                    <option ng-value="0">小</option>
+                                </select>
+                                <label for="car_brand">车型</label>
                             </div>
                             <div class="col s12 right-align input-field">
                                 总价：<span class="red-text bold fz20"> {{price*distance|number:2}}</span>元
                             </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col s12 vc-center" style="padding-top:10px;border-top: 1px solid #ccc">
+                    <div class="col s12 vc-center" style="padding-top:10px;border-top: 1px solid #ccc;margin-top: 60px">
                         <a class=" modal-action modal-close waves-effect waves-light grey lighten-1 btn">
                             <i class="mdi mdi-close"></i>
                         </a>

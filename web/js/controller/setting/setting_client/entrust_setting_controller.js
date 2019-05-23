@@ -230,6 +230,12 @@ app.controller("entrust_setting_controller", ["$scope", "_basic", "_config", "$h
         _basic.get($host.api_url + "/entrustCityRouteRel?entrustId="+entrust_id+'&cityRouteId='+city_route_id+'&makeId='+make_id).then(function (data) {
             if (data.success == true) {
                 $scope.putList = data.result[0];
+                if($scope.putList.size_type==0) {
+                    $scope.putList.size_type = '小'
+                }
+                else {
+                    $scope.putList.size_type = '大'
+                }
             }
         });
 

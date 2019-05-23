@@ -26,7 +26,10 @@ app.controller("car_query_controller", ["$scope", "$rootScope","$state","$stateP
             _basic.get($host.api_url + "/baseAddr?cityId=" + $scope.addrCity).then(function (addrData) {
                 if (addrData.success === true) {
                     $scope.addrList = addrData.result;
-                    // console.log("发运地:", addrData);
+                    $('#addrId').select2({
+                        placeholder: '发运地',
+                        containerCssClass : 'select2_dropdown'
+                    });
                 }
                 else {
                     swal(addrData.msg, "", "error");
@@ -78,6 +81,11 @@ app.controller("car_query_controller", ["$scope", "$rootScope","$state","$stateP
             _basic.get($host.api_url + "/receive?cityId=" + $scope.destinationId).then(function (receiveData) {
                 if (receiveData.success === true) {
                     $scope.receiveList = receiveData.result;
+                    $('#receiveId').select2({
+                        placeholder: '经销商',
+                        containerCssClass : 'select2_dropdown'
+                    });
+
                 }
                 else {
                     swal(receiveData.msg, "", "error");

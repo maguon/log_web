@@ -150,6 +150,7 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
             $scope.endCity = lineInfo.city_name;
             $scope.distance = lineInfo.dis;
             $scope.price = lineInfo.fee;
+            $scope.car_type = lineInfo.size_type;
             $scope.modifyFlag = lineInfo.flag;
             $scope.routeId = lineInfo.routeId;
             $scope.endCityId = lineInfo.id;
@@ -181,6 +182,7 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
     function entrustCityRouteRel(){
         $scope.car_brand =null;
         $scope.price =null;
+        $scope.car_type =null;
         $scope.distance =null;
         _basic.get($host.api_url + "/entrustCityRouteRel?entrustId="+$scope.entrustItem.id+"&cityRouteId=" +$scope.cityRouteId).then(function (data) {
             if (data.success === true) {
@@ -203,6 +205,7 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
                     cityRouteId:$scope.cityRouteId,
                     makeId:$scope.car_brand.make_id,
                     makeName:$scope.car_brand.make_name,
+                    sizeType:$scope.car_type,
                     distance:$scope.distance,
                     fee: $scope.price
                 }).then(function (data) {

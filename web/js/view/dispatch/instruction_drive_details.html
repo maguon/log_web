@@ -27,7 +27,7 @@
                     </div>
                     <div class="divider cyan" style="height: 2px;"></div>
                     <div class="row grey lighten-3 valign-wrapper" style="padding:0 20px">
-                        <div class="col s8 ">
+                        <div class="col s6 ">
                             <div class="col s6 input-field">
                                 <input type="text" ng-model="driver_mileage_startTime" id="driver_mileage_startTime" name="driver_mileage_startTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
                                 <label for="driver_mileage_startTime">计划执行时间(始)</label>
@@ -46,6 +46,16 @@
                                     <option ng-value="0">空载</option>
                                 </select>
                                 <label for="car_status">载重类型</label>
+                            </div>
+                        </div>
+
+                        <div class="col s3">
+                            <div class="input-field col s12">
+                                <select id="loadTaskStatus" name="loadTaskStatus" material-select watch    ng-model="loadTaskStatus">
+                                    <option ng-value="">所有</option>
+                                    <option ng-value="7">到达</option>
+                                </select>
+                                <label for="loadTaskStatus">状态</label>
                             </div>
                         </div>
 

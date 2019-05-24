@@ -99,6 +99,8 @@
                                 <th data-field="">公里数</th>
                                 <th data-field="">价格/公里</th>
                                 <th data-field="">实际金额</th>
+                                <th data-field="">当前公里数</th>
+                                <th data-field="">当前单价</th>
                                 <th data-field="">指令时间</th>
                             </tr>
                             </thead>
@@ -111,13 +113,15 @@
                                 <td  ng-bind="carItem.distance"></td>
                                 <td  ng-bind="carItem.fee"></td>
                                 <td class="red-text bold" ng-bind="carItem.price+carItem.price_2+carItem.price_3+carItem.price_4+carItem.price_5"></td>
+                                <td  ng-bind="carItem.current_distance"></td>
+                                <td  ng-bind="carItem.current_fee"></td>
                                 <td>{{carItem.order_date | date:'yyyy-MM-dd'}}</td>
                             </tr>
                             <tr ng-if="carList.length == 0&&orderStart!==undefined&&orderEnd!==undefined">
-                                <td colspan="8">暂无数据</td>
+                                <td colspan="10">暂无数据</td>
                             </tr>
                             <tr ng-if="orderEnd==undefined||orderStart==undefined&&carList.length == 0">
-                                <td colspan="8"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
+                                <td colspan="10"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
                             </tr>
 
                             </tbody>
@@ -190,17 +194,7 @@
                                 </div>
                             </div>
 
-                          <!--  &lt;!&ndash;经销商&ndash;&gt;
-                            <div class=" col s4">
-                                <div class="input-field col s12">
-                                    <select material-select watch id="carDealer" class="grey-text"   ng-model="carDealer">
-                                        <option value=""  selected>请选择</option>
-                                        <option ng-repeat="el in getReceive" ng-value="el.id" >{{el.short_name}}</option>
-                                    </select>
-                                    <label for="carDealer">经销商</label>
-                                </div>
-                            </div>
--->
+
                             <!--vin-->
                             <div class=" col s6">
                                 <div class="input-field col s12">
@@ -239,8 +233,6 @@
                                 <th data-field="">价格/公里</th>
                                 <th data-field="">预计金额</th>
                                 <th data-field="">指令时间</th>
-                                <th data-field="">当前公里数</th>
-                                <th data-field="">当前单价</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -253,14 +245,12 @@
                                 <td  ng-bind="carItem.fee"></td>
                                 <td class="red-text bold" ng-bind="carItem.plan_price"></td>
                                 <td>{{carItem.order_date | date:'yyyy-MM-dd'}}</td>
-                                <td  ng-bind="carItem.current_distance"></td>
-                                <td  ng-bind="carItem.current_fee"></td>
                             </tr>
                             <tr ng-if="carList.length == 0&&orderStartCar!==undefined&&orderEndCar!==undefined">
-                                <td colspan="10">暂无数据</td>
+                                <td colspan="8">暂无数据</td>
                             </tr>
                             <tr ng-if="orderEndCar==undefined||orderStartCar==undefined&&carList.length == 0">
-                                <td colspan="10"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
+                                <td colspan="8"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
                             </tr>
 
                             </tbody>

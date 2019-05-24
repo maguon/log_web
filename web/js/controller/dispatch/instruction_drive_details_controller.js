@@ -78,7 +78,7 @@ app.controller("instruction_drive_details_controller", ["$scope", "$host", "_con
             driveId:$scope.driveId,
             loadFlag:loadFlag,
             truckId:makeId,
-            loadTaskStatus:$scope.loadTaskStatus,
+            loadTaskStatus:7,
             taskPlanDateStart:$scope.driver_mileage_startTime,
             taskPlanDateEnd:$scope.driver_mileage_endTime
         };

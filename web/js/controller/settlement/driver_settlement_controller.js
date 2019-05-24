@@ -88,6 +88,40 @@ app.controller("driver_settlement_controller", ["_basic", "_config", "$host", "$
         }
     }
 
+
+    // 数据导出
+    $scope.exportDatail = function () {
+        if($scope.instruct_starTime==undefined||$scope.instruct_endTime==undefined){
+            swal('请输入完整的查询时间', "", "error");
+        }
+        else {
+            var obj = {
+                taskPlanDateStart:  moment($scope.instruct_starTime).format('YYYYMMDD'),
+                taskPlanDateEnd:  moment($scope.instruct_endTime).format('YYYYMMDD'),
+                driveId: $scope.drivderId,
+                companyId: $scope.searchCompany,
+                operateType: $scope.operateType,
+                truckId: $scope.truckNum
+
+            };
+            swal({
+                title: "确定导出司机结算表详情？",
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消"
+            }).then(
+                function (result) {
+                    if (result.value) {
+                        window.open($host.api_url + "/driveSettleDetail.csv?" + _basic.objToUrl(obj));
+                    }
+                })
+        }
+    }
+
+
     //查询功能
     $scope.getSettlement = function (){
         $scope.start = 0;

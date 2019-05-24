@@ -238,8 +238,9 @@
                                 <th data-field="">公里数</th>
                                 <th data-field="">价格/公里</th>
                                 <th data-field="">预计金额</th>
-                            <!--    <th data-field="">经销商</th>-->
                                 <th data-field="">指令时间</th>
+                                <th data-field="">当前公里数</th>
+                                <th data-field="">当前单价</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -251,14 +252,15 @@
                                 <td  ng-bind="carItem.distance"></td>
                                 <td  ng-bind="carItem.fee"></td>
                                 <td class="red-text bold" ng-bind="carItem.plan_price"></td>
-                              <!--  <td  ng-bind="carItem.r_short_name"></td>-->
                                 <td>{{carItem.order_date | date:'yyyy-MM-dd'}}</td>
+                                <td  ng-bind="carItem.current_distance"></td>
+                                <td  ng-bind="carItem.current_fee"></td>
                             </tr>
                             <tr ng-if="carList.length == 0&&orderStartCar!==undefined&&orderEndCar!==undefined">
-                                <td colspan="8">暂无数据</td>
+                                <td colspan="10">暂无数据</td>
                             </tr>
                             <tr ng-if="orderEndCar==undefined||orderStartCar==undefined&&carList.length == 0">
-                                <td colspan="8"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
+                                <td colspan="10"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
                             </tr>
 
                             </tbody>

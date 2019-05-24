@@ -27,7 +27,7 @@
                     </div>
                     <div class="divider cyan" style="height: 2px;"></div>
                     <div class="row grey lighten-3 valign-wrapper" style="padding:0 20px">
-                        <div class="col s6 ">
+                        <div class="col s8 ">
                             <div class="col s6 input-field">
                                 <input type="text" ng-model="driver_mileage_startTime" id="driver_mileage_startTime" name="driver_mileage_startTime"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
                                 <label for="driver_mileage_startTime">计划执行时间(始)</label>
@@ -38,7 +38,7 @@
                             </div>
                         </div>
 
-                        <div class="col s3">
+                        <div class="col s4">
                             <div class="input-field col s12">
                                 <select id="car_status" name="car_status" material-select watch    ng-model="car_status">
                                     <option ng-value="">所有</option>
@@ -49,7 +49,7 @@
                             </div>
                         </div>
 
-                        <div class="col s3">
+                      <!--  <div class="col s3">
                             <div class="input-field col s12">
                                 <select id="loadTaskStatus" name="loadTaskStatus" material-select watch    ng-model="loadTaskStatus">
                                     <option ng-value="">所有</option>
@@ -57,7 +57,7 @@
                                 </select>
                                 <label for="loadTaskStatus">状态</label>
                             </div>
-                        </div>
+                        </div>-->
 
                         <div class="col s1 fz30" style="color: darkgray">
                             <i class="mdi mdi-magnify" style="cursor: pointer" ng-click="drive_instruction_list()"></i>
@@ -87,8 +87,9 @@
                             <th data-field="">调度编号</th>
                             <th data-field="">计划执行时间</th>
                             <th data-field="">路线</th>
+                            <th data-field="">运载车辆数</th>
                             <th data-field="">起始库-经销商</th>
-                            <th data-field="">实际装载车辆</th>
+                            <th data-field="">装载车辆</th>
                             <th data-field="">公里数</th>
                             <th>操作</th>
                         </tr>
@@ -98,6 +99,7 @@
                             <td ng-bind="el.id">1</td>
                             <td>{{el.task_plan_date| date:'yyyy-MM-dd'}}</td>
                             <td>{{el.route_start}}-{{el.route_end}}</td>
+                            <td>{{el.car_count}}</td>
                             <td>{{el.addr_name}}-{{el.short_name}}</td>
                             <td ng-bind="el.real_count"></td>
                             <td ng-bind="el.distance"></td>

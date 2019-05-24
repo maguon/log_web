@@ -76,8 +76,8 @@
                 <th data-field="">配件费</th>
                 <th data-field="">维修费</th>
                 <th data-field="">保养费</th>
-                <th data-field="">货车事故个人</th>
-                <th data-field="">货车事故公司</th>
+                <th data-field="">货车事故个人/公司</th>
+                <th data-field="">质损个人/公司</th>
             </tr>
             </thead>
             <tbody>
@@ -99,8 +99,9 @@
                 <td>{{driveInfo.parts_fee==null?0:driveInfo.parts_fee}}</td>
                 <td>{{driveInfo.repair_fee==null?0:driveInfo.repair_fee}}</td>
                 <td>{{driveInfo.maintain_fee==null?0:driveInfo.maintain_fee}}</td>
-                <td>{{driveInfo.accident_under_fee==null?0:driveInfo.accident_under_fee}}</td>
-                <td>{{driveInfo.accident_company_fee==null?0:driveInfo.accident_company_fee}}</td>
+                <td>{{driveInfo.accident_under_fee==null?0:driveInfo.accident_under_fee}}/{{driveInfo.accident_company_fee==null?0:driveInfo.accident_company_fee}}</td>
+                <td>{{driveInfo.damage_under_fee==null?0:driveInfo.damage_under_fee}}/{{driveInfo.damage_company_fee==null?0:driveInfo.damage_company_fee}}</td>
+
             </tr>
             <tr ng-if="driveList.length==0&&instruct_starTime!==undefined&&instruct_endTime!==undefined">
                 <td colspan="19">暂无数据</td>

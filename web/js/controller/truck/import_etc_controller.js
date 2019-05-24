@@ -253,8 +253,9 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
 
     //查询按钮相关
     function getETCList () {
-        if ($scope.startDate == null || $scope.endDate == null || $scope.startDate == "" || $scope.endDate == "") {
-            swal('请输入完整的查询时间', "", "error");
+        if (( $scope.createdOnStart == undefined && $scope.createdOnEnd == undefined&&$scope.startDate == undefined && $scope.endDate == undefined)||
+            ( $scope.createdOnStart == '' && $scope.createdOnEnd == ''&&$scope.startDate == '' && $scope.endDate == '')){
+            swal('请输入完整的时间范围', "", "error");
         }
         else{
             _basic.get($host.api_url + "/truckEtc?"+ _basic.objToUrl({

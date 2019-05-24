@@ -248,12 +248,12 @@
                             <td>{{fileInfo.created_on | date:'yyyyMMdd'}}</td>
                             <td>{{fileInfo.remark}}</td>
                         </tr>
-                        <tr ng-if="importedFilesList.length==0&&startDate!==undefined&&endDate!==undefined">
+                       <!-- <tr ng-if="importedFilesList.length==0&&(createdOnStart!==undefined&&createdOnEnd!==undefined)||(startDate!==undefined&&endDate!==undefined)">
                             <td colspan="7">暂无数据</td>
                         </tr>
-                        <tr ng-if="endDate==undefined||startDate==undefined&&importedFilesList.length==0">
-                            <td colspan="7"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;交易时间为必填项</td>
-                        </tr>
+                        <tr ng-if="(createdOnStart==undefined||createdOnEnd==undefined)||(startDate==undefined||endDate==undefined)&&importedFilesList.length==0">
+                            <td colspan="7"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;创建时间为必填项</td>
+                        </tr>-->
                         </tbody>
                     </table>
                 </div>

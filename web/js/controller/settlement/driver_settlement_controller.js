@@ -63,8 +63,8 @@ app.controller("driver_settlement_controller", ["_basic", "_config", "$host", "$
         }
         else {
             var obj = {
-                orderStart: $scope.instruct_starTime,
-                orderEnd: $scope.instruct_endTime,
+                taskPlanDateStart:  moment($scope.instruct_starTime).format('YYYYMMDD'),
+                taskPlanDateEnd:  moment($scope.instruct_endTime).format('YYYYMMDD'),
                 driveId: $scope.drivderId,
                 companyId: $scope.searchCompany,
                 operateType: $scope.operateType,
@@ -102,8 +102,8 @@ app.controller("driver_settlement_controller", ["_basic", "_config", "$host", "$
         }
         else{
             _basic.get($host.api_url + "/driveSettle?" + _basic.objToUrl({
-                dateIdStart: $scope.instruct_starTime,
-                dateIdEnd: $scope.instruct_endTime,
+                taskPlanDateStart:  moment($scope.instruct_starTime).format('YYYYMMDD'),
+                taskPlanDateEnd:  moment($scope.instruct_endTime).format('YYYYMMDD'),
                 driveId: $scope.drivderId,
                 companyId: $scope.searchCompany,
                 operateType: $scope.operateType,

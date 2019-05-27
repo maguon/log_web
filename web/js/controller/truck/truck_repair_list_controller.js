@@ -9,7 +9,9 @@ app.controller("truck_repair_list_controller", ['$rootScope', "$rootScope","$sta
     $scope.hasNotAccident = true;
     $scope.forbidSelect = true;
     $scope.num=0;
-
+    $("#record_pre").hide();
+    $("#record_next").hide();
+    $scope.repairRecordList=[];
     $scope.flag=false;
     $scope.tableBox = true;
     $scope.success_data_box = false;
@@ -219,19 +221,6 @@ app.controller("truck_repair_list_controller", ['$rootScope', "$rootScope","$sta
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     //車牌号
     function getTruckNumList () {
         _basic.get($host.api_url + "/truckBase").then(function (data) {
@@ -261,72 +250,94 @@ app.controller("truck_repair_list_controller", ['$rootScope', "$rootScope","$sta
     };
     // 数据导出
     $scope.export = function () {
-        if ($scope.repair_status == 0) {
-            $scope.repair_status_tx = "0";
+        if (( $scope.createdOnStart == undefined && $scope.createdOnEnd == undefined&&$scope.record_startTime_start == undefined &&
+            $scope.record_startTime_end == undefined&&$scope.record_endTime_start == undefined &&
+            $scope.record_endTime_end == undefined)||
+            ( $scope.createdOnStart == '' && $scope.createdOnEnd == ''&&$scope.record_startTime_start == '' &&
+                $scope.record_startTime_end == ''&&$scope.record_endTime_start == '' &&
+                $scope.record_endTime_end == '')){
+            swal('请输入完整的时间范围', "", "error");
         }
-        else {
-            $scope.repair_status_tx = $scope.repair_status;
+        else{
+            if ($scope.repair_status == 0) {
+                $scope.repair_status_tx = "0";
+            }
+            else {
+                $scope.repair_status_tx = $scope.repair_status;
+            }
+            // 基本检索URL
+            var url = $host.api_url + "/truckRepair.csv?" ;
+            // 检索条件
+            var conditionsObj = makeConditions();
+            var conditions = _basic.objToUrl(conditionsObj);
+            // 检索URL
+            url = conditions.length > 0 ? url + "&" + conditions : url;
+            window.open(url);
         }
-        // 基本检索URL
-        var url = $host.api_url + "/truckRepair.csv?" ;
-        // 检索条件
-        var conditionsObj = makeConditions();
-        var conditions = _basic.objToUrl(conditionsObj);
-        // 检索URL
-        url = conditions.length > 0 ? url + "&" + conditions : url;
-        window.open(url);
+
     };
 
     // 获取维修记录列表
     $scope.getRepairRecordList = function () {
-        // 基本检索URL
-        var url = $host.api_url + "/truckRepairRel?start=" + $scope.record_repair_start + "&size=" + $scope.record_repair_size;
-        var urlCount = $host.api_url + "/truckRepairRelCount?start=" + $scope.start + "&size=" + $scope.size;
-        // 检索条件
-        var conditionsObj = makeConditions();
-        var conditions = _basic.objToUrl(conditionsObj);
-        // 检索URL
-        url = conditions.length > 0 ? url + "&" + conditions : url;
-        urlCount = conditions.length > 0 ? urlCount + "&" + conditions : urlCount;
+        if (( $scope.createdOnStart == undefined && $scope.createdOnEnd == undefined&&$scope.record_startTime_start == undefined &&
+            $scope.record_startTime_end == undefined&&$scope.record_endTime_start == undefined &&
+            $scope.record_endTime_end == undefined)||
+            ( $scope.createdOnStart == '' && $scope.createdOnEnd == ''&&$scope.record_startTime_start == '' &&
+                $scope.record_startTime_end == ''&&$scope.record_endTime_start == '' &&
+                $scope.record_endTime_end == '')){
+            swal('请输入完整的时间范围', "", "error");
+        }
+        else {
 
-        _basic.get(url).then(function (data) {
+            // 基本检索URL
+            var url = $host.api_url + "/truckRepairRel?start=" + $scope.record_repair_start + "&size=" + $scope.record_repair_size;
+            var urlCount = $host.api_url + "/truckRepairRelCount?start=" + $scope.start + "&size=" + $scope.size;
+            // 检索条件
+            var conditionsObj = makeConditions();
+            var conditions = _basic.objToUrl(conditionsObj);
+            // 检索URL
+            url = conditions.length > 0 ? url + "&" + conditions : url;
+            urlCount = conditions.length > 0 ? urlCount + "&" + conditions : urlCount;
 
-            if (data.success == true) {
+            _basic.get(url).then(function (data) {
 
-                // 当前画面的检索信息
-                var pageItems = {
-                    pageId: "truck_repair_list",
-                    start: $scope.record_repair_start ,
-                    size: $scope.record_repair_size,
-                    conditions: conditionsObj
-                };
-                // 将当前画面的条件
-                $rootScope.refObj = {pageArray: []};
-                $rootScope.refObj.pageArray.push(pageItems);
-                if ($scope.record_repair_start > 0) {
-                    $("#record_pre").show();
+                if (data.success == true) {
+
+                    // 当前画面的检索信息
+                    var pageItems = {
+                        pageId: "truck_repair_list",
+                        start: $scope.record_repair_start,
+                        size: $scope.record_repair_size,
+                        conditions: conditionsObj
+                    };
+                    // 将当前画面的条件
+                    $rootScope.refObj = {pageArray: []};
+                    $rootScope.refObj.pageArray.push(pageItems);
+                    if ($scope.record_repair_start > 0) {
+                        $("#record_pre").show();
+                    }
+                    else {
+                        $("#record_pre").hide();
+                    }
+                    if (data.result.length < $scope.record_repair_size) {
+                        $("#record_next").hide();
+                    }
+                    else {
+                        $("#record_next").show();
+                    }
+                    $scope.repairRecordList = data.result;
                 }
                 else {
-                    $("#record_pre").hide();
+                    swal(data.msg, "", "error");
                 }
-                if (data.result.length < $scope.record_repair_size) {
-                    $("#record_next").hide();
+            });
+            _basic.get(urlCount).then(function (data) {
+                if (data.success === true) {
+                    $scope.boxArrayFee = data.result[0];
                 }
-                else {
-                    $("#record_next").show();
-                }
-                $scope.repairRecordList = data.result;
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
-        _basic.get(urlCount).then(function (data) {
-            if (data.success === true) {
-                $scope.boxArrayFee = data.result[0];
-            }
 
-        })
+            })
+        }
     };
 
     // 搜索维修记录
@@ -451,6 +462,8 @@ app.controller("truck_repair_list_controller", ['$rootScope', "$rootScope","$sta
         $scope.record_endTime_start=conditions.endDateStart;
         $scope.record_endTime_end=conditions.endDateEnd;
         $scope.insureCompany=conditions.companyId;
+        $scope.createdOnStart=conditions.createdOnStart;
+        $scope.createdOnEnd=conditions.createdOnEnd;
     }
 
     /**
@@ -467,7 +480,9 @@ app.controller("truck_repair_list_controller", ['$rootScope', "$rootScope","$sta
             truckNum: $scope.recordTruckNum,
             endDateStart: $scope.record_endTime_start,
             endDateEnd: $scope.record_endTime_end,
-            companyId: $scope.insureCompany
+            companyId: $scope.insureCompany,
+            createdOnStart:$scope.createdOnStart,
+            createdOnEnd:$scope.createdOnEnd
         };
     }
 
@@ -484,21 +499,22 @@ app.controller("truck_repair_list_controller", ['$rootScope', "$rootScope","$sta
                 $scope.record_repair_size = pageItems.size;
                 // 将上次的检索条件设定到画面
                 setConditions(pageItems.conditions);
+                // 查询数据
+                $scope.getRepairRecordList();
+                $scope.repairRecord();
 
             }
         } else {
             // 初始显示时，没有前画面，所以没有基本信息
             $rootScope.refObj = {pageArray: []};
         }
-        // 查询数据
-        $scope.getRepairRecordList();
 
     }
     initData();
 
     // 获取数据
     $scope.queryData = function () {
-        $scope.getRepairRecordList();
+       /* $scope.getRepairRecordList();*/
         getTruckNumList ();
         getCompanyList();
     };

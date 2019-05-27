@@ -385,47 +385,53 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
     };
     // 搜索请求
     $scope.search_query = function () {
-        // 基本检索URL
-        var url = $host.api_url + "/driveExceedOilRel?start=" + $scope.start + "&size=" + $scope.size;
-        // 基本检索URL
-        var urlCount = $host.api_url + "/driveExceedOilRelCount?start=" + $scope.start + "&size=" + $scope.size;
-        // 检索条件
-        var conditionsObj = makeConditions();
-        var conditions = _basic.objToUrl(conditionsObj);
-        // 检索URL
-        url = conditions.length > 0 ? url + "&" + conditions : url;
-        urlCount = conditions.length > 0 ? urlCount + "&" + conditions : urlCount;
+        if (( $scope.createdOnStart == undefined && $scope.createdOnEnd == undefined&&$scope.refueling_startTime == undefined && $scope.refueling_endTime == undefined)||
+            ( $scope.createdOnStart == '' && $scope.createdOnEnd == ''&&$scope.refueling_startTime == '' && $scope.refueling_endTime == '')){
+            swal('请输入完整的时间范围', "", "error");
+        }
+        else {
+            // 基本检索URL
+            var url = $host.api_url + "/driveExceedOilRel?start=" + $scope.start + "&size=" + $scope.size;
+            // 基本检索URL
+            var urlCount = $host.api_url + "/driveExceedOilRelCount?start=" + $scope.start + "&size=" + $scope.size;
+            // 检索条件
+            var conditionsObj = makeConditions();
+            var conditions = _basic.objToUrl(conditionsObj);
+            // 检索URL
+            url = conditions.length > 0 ? url + "&" + conditions : url;
+            urlCount = conditions.length > 0 ? urlCount + "&" + conditions : urlCount;
 
-        _basic.get(url).then(function (data) {
+            _basic.get(url).then(function (data) {
 
-            if (data.success == true) {
-                $scope.car_refuel_obj = data.result;
-                $scope.car_refuel = $scope.car_refuel_obj.slice(0, 10);
-                if ($scope.start > 0) {
-                    $scope.pre = true;
+                if (data.success == true) {
+                    $scope.car_refuel_obj = data.result;
+                    $scope.car_refuel = $scope.car_refuel_obj.slice(0, 10);
+                    if ($scope.start > 0) {
+                        $scope.pre = true;
+                    }
+                    else {
+                        $scope.pre = false;
+                    }
+                    if ($scope.car_refuel_obj.length < $scope.size) {
+                        $scope.next = false;
+                    }
+                    else {
+                        $scope.next = true;
+                    }
+
                 }
                 else {
-                    $scope.pre = false;
+                    swal(data.msg, "", "error")
                 }
-                if ($scope.car_refuel_obj.length < $scope.size) {
-                    $scope.next = false;
-                }
-                else {
-                    $scope.next = true;
+            })
+
+            _basic.get(urlCount).then(function (data) {
+                if (data.success === true) {
+                    $scope.boxArrayFee = data.result[0];
                 }
 
-            }
-            else {
-                swal(data.msg, "", "error")
-            }
-        })
-
-        _basic.get(urlCount).then(function (data) {
-            if (data.success === true) {
-                $scope.boxArrayFee = data.result[0];
-            }
-
-        })
+            })
+        }
     };
     /**
      * 组装检索条件。
@@ -435,7 +441,9 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
             driveId:$scope.driveName,
             truckId:$scope.truckNum,
             oilDateStart: $scope.refueling_startTime,
-            oilDateEnd:$scope.refueling_endTime
+            oilDateEnd:$scope.refueling_endTime,
+            createdOnStart:$scope.createdOnStart,
+            createdOnEnd:$scope.createdOnEnd
         }
     }
     // 上一页
@@ -452,5 +460,5 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
     $scope.importFile();
     getDriveNameList ();
     getTruckId();
-    $scope.search_query();
+  /*  $scope.search_query();*/
 }]);

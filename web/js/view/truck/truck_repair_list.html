@@ -177,13 +177,13 @@
             <div id="repairRecord"  class="row tab_box">
                 <div class="row">
                     <div class="col s9">
-                        <div class="input-field col" style="width: 20%">
+                        <div class="input-field col s2">
                             <select id="record_truck_name" style="width: 100%" ng-model="recordTruckNum">
                                 <option value=""></option>
                                 <option ng-repeat="el in truckNumList" >{{el.truck_num}}</option>
                             </select>
                         </div>
-                        <div class="input-field col" style="width: 20%">
+                        <div class="input-field col s2">
                             <select id="insure_company" style="padding: 0;width: 100%" ng-model="insureCompany" material-select watch>
                                 <option value="" selected>请选择</option>
                                 <option ng-repeat="company in companyList" ng-value="company.id">{{company.company_name}}</option>
@@ -191,7 +191,7 @@
                             <label for="insure_company">所属公司</label>
                         </div>
 
-                        <div class="input-field col" style="width: 20%">
+                        <div class="input-field col s2">
                             <select material-select watch id="record_truck_type" class="truck_type" ng-model="recordTruckType">
                                 <option ng-value="" selected>请选择</option>
                                 <option ng-value="1">头车</option>
@@ -199,19 +199,12 @@
                             </select>
                             <label for="record_truck_type">车辆类型</label>
                         </div>
-                        <div class="input-field col" style="width: 20%">
-                            <input type="text" ng-model="record_startTime_start" id="record_startTime_start" name="repair_startTime_start"  class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
-                            <label for="record_startTime_start">维修开始时间(始)</label>
-                        </div>
-                        <div class="input-field col" style="width: 20%">
-                            <input type="text" ng-model="record_startTime_end" id="record_startTime_end" name="repair_startTime_start"  class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
-                            <label for="record_startTime_end">维修开始时间(终)</label>
-                        </div>
-                        <div class="input-field col" style="width: 20%">
+
+                        <div class="input-field col s2">
                                 <input type="text" name="truck_name" id="repair_num" ng-model="repairNum">
                                 <label for="repair_num">维修编号</label>
                             </div>
-                        <div class="input-field col" style="width: 20%">
+                        <div class="input-field col s2">
                             <select material-select watch id="repair_status" name="repair_status" class="repair_status" ng-model="repair_status">
                                 <option value="" selected>请选择</option>
                                 <option value="0">正在维修</option>
@@ -219,7 +212,7 @@
                             </select>
                             <label for="repair_status">维修状态</label>
                         </div>
-                        <div class="input-field col" style="width: 20%">
+                        <div class="input-field col s2">
                             <select material-select watch id="record_repair_type" class="truck_type" ng-model="recordRepairType">
                                 <option ng-value="" selected>请选择</option>
                                 <option ng-value="1">事故维修</option>
@@ -228,14 +221,32 @@
                             </select>
                             <label for="record_repair_type">维修类型</label>
                         </div>
-                        <div class="input-field col" style="width: 20%">
+                        <div class="input-field col s2">
+                            <input type="text" ng-model="record_startTime_start" id="record_startTime_start" name="repair_startTime_start"  class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                            <label for="record_startTime_start">维修开始时间(始)</label>
+                        </div>
+                        <div class="input-field col s2">
+                            <input type="text" ng-model="record_startTime_end" id="record_startTime_end" name="repair_startTime_start"  class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                            <label for="record_startTime_end">维修开始时间(终)</label>
+                        </div>
+                        <div class="input-field col s2">
                             <input type="text" ng-model="record_endTime_start" id="record_endTime_start" name="repair_startTime_start" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
                             <label for="record_endTime_start">维修结束时间(始)</label>
                         </div>
-                        <div class="input-field col" style="width: 20%">
+                        <div class="input-field col s2">
                             <input type="text" ng-model="record_endTime_end" id="record_endTime_end" name="repair_startTime_start" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
                             <label for="record_endTime_end">维修结束时间(终)</label>
                         </div>
+
+                        <div class="col s2 input-field">
+                            <input type="text" ng-model="createdOnStart" id="createdOnStart" name="createdOnStart"  class="datepicker" autocomplete="off"   date><i class="mdi dataIcon mdi-table-large"></i>
+                            <label for="createdOnStart">创建范围(始)</label>
+                        </div>
+                        <div class="col s2 input-field">
+                            <input type="text" ng-model="createdOnEnd" id="createdOnEnd" name="createdOnEnd"  class="datepicker" autocomplete="off"   date><i class="mdi dataIcon mdi-table-large"></i>
+                            <label for="createdOnEnd">创建范围(终)</label>
+                        </div>
+
                     </div>
                     <div class="col s3" style="margin-top: 40px">
                         <div class="col s4 center">
@@ -282,6 +293,7 @@
                                     <th data-field="">维修类型</th>
                                     <th data-field="">起始时间</th>
                                     <th data-field="">结束时间</th>
+                                    <th data-field="">创建时间</th>
                                     <th data-field="">维修原因</th>
                                     <th data-field="">维修状态</th>
                                     <th data-field="">维修金额</th>
@@ -298,6 +310,7 @@
                                     <td>{{repair.repair_type == 1 ? "事故维修" :repair.repair_type == 2 ?'公司维修':'在外临时维修'}}</td>
                                     <td>{{repair.repair_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                     <td>{{repair.end_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                    <td>{{repair.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                     <td>{{repair.repair_reason}}</td>
                                     <td class="red-text text-lighten-2" ng-if="repair.repair_status == 0">正在维修</td>
                                     <td class="cyan-text text-lighten-2" ng-if="repair.repair_status == 1">维修完成</td>
@@ -306,9 +319,9 @@
                                         <a ui-sref="truck_repair({id:repair.truck_id,type:repair.truck_type,status:'',from:'truck_repair_list'})" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-eye" style="margin: 0"></i></a>
                                     </td>
                                 </tr>
-                                <tr class="grey-text text-darken-1" ng-if="repairRecordList.length == 0">
+                              <!--  <tr class="grey-text text-darken-1" ng-if="repairRecordList.length == 0">
                                     <td colspan="12"><span style="letter-spacing: 2px">暂无数据</span></td>
-                                </tr>
+                                </tr>-->
                                 </tbody>
                             </table>
                         </div>

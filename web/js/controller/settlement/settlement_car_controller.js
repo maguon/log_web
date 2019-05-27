@@ -119,6 +119,7 @@ app.controller("settlement_car_controller", ["$scope","$rootScope","$state","$st
         };
 
         $scope.fileUpload = function () {
+            $("#buttonImport").attr("disabled",true);
             _basic.formPost($("#file_upload_form"), $host.file_url + '/user/' + userId + '/file?fileType=2&&userType=' + userType, function (data) {
                 if (data.success == true) {
                     $scope.file_id = data.result.id;
@@ -135,12 +136,13 @@ app.controller("settlement_car_controller", ["$scope","$rootScope","$state","$st
                         $scope.num=$scope.orginData_Length;
                         $scope.local_isSuccesss = false;
                         $scope.upload_isSuccesss = true;
-                        $("#buttonImport").attr("disabled",true);
+                        $("#buttonImport").attr("disabled",false);
                         swal('正确:'+$scope.num+'错误:'+$scope.upload_error_array_num,"", "success")
                     });
 
                 }
                 else {
+                    $("#buttonImport").attr("disabled",false);
                     swal(data.msg, "", "error");
                 }
             });

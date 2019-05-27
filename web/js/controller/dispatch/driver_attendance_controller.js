@@ -126,6 +126,7 @@ app.controller("driver_attendance_controller", ["$scope","$rootScope", "$state",
     };
 
     $scope.fileUpload = function () {
+        $("#buttonImport").attr("disabled",true);
         _basic.formPost($("#file_upload_form"), $host.api_url + '/user/' + userId + '/driveWorkFile' , function (data) {
             if (data.success == true) {
                 $scope.$apply(function () {
@@ -134,12 +135,13 @@ app.controller("driver_attendance_controller", ["$scope","$rootScope", "$state",
                     $scope.num=data.result.successedInsert;
                     $scope.local_isSuccesss = false;
                     $scope.upload_isSuccesss = true;
-                    $("#buttonImport").attr("disabled",true);
+                    $("#buttonImport").attr("disabled",false);
                     swal('正确:'+$scope.num+'错误:'+$scope.upload_error_array_num,"", "success")
                 });
 
             }
             else {
+                $("#buttonImport").attr("disabled",false);
                 swal(data.msg, "", "error");
             }
         });

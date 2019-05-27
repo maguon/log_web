@@ -84,6 +84,7 @@ app.controller("damage_import_controller", ["$scope","$rootScope","$state","$sta
     };
 
     $scope.fileUpload = function () {
+        $("#buttonImport").attr("disabled",false);
         _basic.formPost($("#file_upload_form"), $host.file_url + '/user/' + userId + '/file?fileType=2&&userType=' + userType, function (data) {
             if (data.success == true) {
                 $scope.file_id = data.result.id;
@@ -101,12 +102,13 @@ app.controller("damage_import_controller", ["$scope","$rootScope","$state","$sta
                     $scope.num=data.result.successedInsert;
                     $scope.local_isSuccesss = false;
                     $scope.upload_isSuccesss = true;
-                    $("#buttonImport").attr("disabled",true);
+                    $("#buttonImport").attr("disabled",false);
                     swal('正确:'+$scope.num+'错误:'+$scope.upload_error_array_num,"", "success")
                 });
 
             }
             else {
+                $("#buttonImport").attr("disabled",false);
                 swal(data.msg, "", "error");
             }
         });

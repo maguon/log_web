@@ -144,7 +144,7 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
             "truckTel": $scope.truckTrailer.truck_tel,
             "theCode": $scope.truckTrailer.the_code,
             "truckType":2,
-            operateType:1,
+           /* operateType:1,*/
             "number":$scope.truckTrailer.number,
             "drivingDate":$scope.truckTrailer.driving_date,
             "licenseDate":$scope.truckTrailer.license_date,
@@ -175,7 +175,7 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
     }
     function putCompany(companyName){
         _basic.put($host.api_url + "/user/" + userId + "/truck/" + id+'/truckCompany?truckNum='+$scope.truckTrailer.truck_num, {
-            "operateType": 1,
+            "operateType":$scope.truckTrailer.operate_type,
             "companyId": $scope.truckTrailer.company_id,
             "outputCompanyId": $scope.truckTrailer.output_company_id,
             "outputCompanyName": companyName

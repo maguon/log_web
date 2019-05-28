@@ -135,6 +135,12 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/dispatch/cost_application.html",
             controller:'cost_application_controller'
         })
+        .state("reissue_premium", {
+            url: "/reissue_premium",
+            params: {"from": null},
+            templateUrl: "js/view/dispatch/reissue_premium.html",
+            controller:"reissue_premium_controller"
+        })
         .state("car_to_data", {
             url: "/car_to_data",  //路由路径
             templateUrl: "js/view/data/car_to_data.html",  //路由填充的模板

@@ -52,6 +52,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/dispatch/look_instruction_need_transfer_detail.html",
             controller:"look_instruction_need_transfer_detail_controller"
         })
+        .state("reissue_premium", {
+            url: "/reissue_premium",
+            params: {"from": null},
+            templateUrl: "js/view/dispatch/reissue_premium.html",
+            controller:"reissue_premium_controller"
+        })
 
 
         .state("look_instruction_list_details", {
@@ -639,7 +645,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'driver_exceed_oil_detail_controller'
         })
         .state("driver_exceed_oil_month_detail",{
-            url:"/driver_exceed_oil_month_detail/id/{id}/driveId/{driveId}/truckId/{truckId}?from",
+            url:"/driver_exceed_oil_month_detail/driveId/{driveId}/truckId/{truckId}/dateId/{dateId}?from",
             templateUrl: "js/view/truck/driver_exceed_oil_month_detail.html",
             controller:'driver_exceed_oil_month_detail_controller'
         })

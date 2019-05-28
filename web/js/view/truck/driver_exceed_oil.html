@@ -1,360 +1,131 @@
-<!--单次添加模态框-->
-<div id="addExceedOilItem" class="modal">
-    <div class="cyan lighten-1 white-text center-align modal_title" >新增超量扣款</div>
-    <div class="modal-content">
-        <div class="row col" style="width: 80%;height: 300px;">
-
-            <!--司机 -->
-            <div class="col s4 input-field" style="height: 70px">
-                <select id="addExceedOilDriver"  ng-change="changeDriver(addExceedOilDriver)"  ng-model="addExceedOilDriver" style="width: 100%">
-                    <option value="">请选择</option>
-                    <option ng-repeat="driver in driveNameList" ng-value='driver.id'>{{driver.drive_name}}&nbsp;({{driver.company_name}})</option>
-                </select>
-            </div>
-            <!--货车牌号-->
-            <div class="input-field col s4">
-                <select  id="addTruckNum" style="width: 100%" ng-model="addTruckNum">
-                    <option value=""></option>
-                    <option ng-repeat="truckNumItem in truckNumListAll" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
-                </select>
-            </div>
-
-            <div class="input-field col s4" >
-                <input type="text"  id="oilDate" class="datepicker" autocomplete="off" ng-model="oilDate" date><i class="mdi dataIcon mdi-table-large"></i>
-                <label for="oilDate">核油日期</label>
-            </div>
-            <div class="input-field col s12" >
-                <input type="text"  id="addRemark"  ng-model="addRemark" >
-                <label for="addRemark">备注</label>
-            </div>
-
-        </div>
-    </div>
-
-    <div class="divider" style="background: #ccc;height: 1px;"></div>
-    <div class="modal-footer vc-center">
-        <a class=" modal-action modal-close waves-effect waves-light grey lighten-1 btn"  >取消 </a>
-        <button class="btn waves-light waves-effect cyan lighten-2"  ng-click="addExceedOilItem()" name="action" style="margin-left: 10px">确定</button>
-    </div>
-</div>
-
-<!--月结添加模态框-->
-<div id="addExceedOilItemMonth" class="modal">
-    <div class="cyan lighten-1 white-text center-align modal_title" >新增月结超量扣款</div>
-    <div class="modal-content">
-        <div class="row col" style="width: 80%;height: 300px;">
-            <div class="col s12">
-                <div class="input-field col s4" >
-                    <input id="add_start_month" type="text" ng-model="addStartMonth" disabled />
-                    <label for="add_start_month">月份</label>
-                </div>
-                <!--司机 -->
-                <div class="col s4 input-field" style="height: 70px">
-                    <input id="addExceedOilDriverNameMonth" type="text" ng-model="addExceedOilDriverNameMonth" disabled />
-                    <label for="addExceedOilDriverNameMonth">司机</label>
-
-                   <!-- <select id="addExceedOilDriverMonth"  ng-change="changeDriverMonth(addExceedOilDriverMonth)"  ng-model="addExceedOilDriverMonth" style="width: 100%" >
-                        <option value="">请选择</option>
-                        <option ng-repeat="driver in driveNameList" ng-value='driver.id'>{{driver.drive_name}}&nbsp;({{driver.company_name}})</option>
-                    </select>-->
-                </div>
-
-                <!--货车牌号-->
-                <div class="input-field col s4">
-                    <select  id="addTruckNumMonth" ng-change="changeTruck()" style="width: 100%" ng-model="addTruckNumMonth" >
-                        <option value=""></option>
-                        <option ng-repeat="truckNumItem in truckNumListAll" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
-                    </select>
-                </div>
-
-            </div>
-
-
-            <div class="col s12 cyan-text" ng-hide="dataTotal.length==0" style="margin-bottom: 30px">
-                <div class="col s12 black-text" style="margin-bottom: 25px">共有{{dataTotal.length}}条超量结算信息</div>
-                <div class="col s3">
-                    计划用油量：<span class="red-text" >{{dataTotalStatistics.plan_oil |number:2}}</span> L
-                </div>
-                <div class="col s3">
-                    计划尿素量：<span class="red-text" >{{dataTotalStatistics.plan_urea|number:2}}</span>
-                </div>
-                <div class="col s3">
-                    实际用油量：<span class="red-text" >{{dataTotalStatistics.actual_oil |number:2}}</span> L
-                </div>
-                <div class="col s3">
-                    实际尿素量：<span class="red-text" >{{dataTotalStatistics.actual_urea|number:2}}</span>
-                </div>
-            </div>
-            <div class="col s12">
-                <div class="col s12 input-field" ng-hide="dataTotal.length==0">
-                    <input style="font-size: 2rem;color: rgb(230,123,123)" type="number" id="should_pay" name="should_pay" ng-model="dataTotalStatistics.actual_money">
-                    <label for="should_pay">超量金额(元)</label>
-                </div>
-            </div>
-            <div class="col s12">
-                <div class="input-field col s12" >
-                    <input type="text"  id="addRemarkMonth"  ng-model="addRemarkMonth" >
-                    <label for="addRemarkMonth">备注</label>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="divider" style="background: #ccc;height: 1px;"></div>
-    <div class="modal-footer vc-center">
-        <a class=" modal-action modal-close waves-effect waves-light grey lighten-1 btn"  >取消 </a>
-        <button class="btn waves-light waves-effect cyan lighten-2"  ng-click="addExceedOilItemMonth()" name="action" style="margin-left: 10px">确定</button>
-    </div>
-</div>
-
-
 <!--查询司机超量扣款情况-->
-<div>
-    <div class="modal-content grey-text text-darken-2">
-        <div class="row no-marBottom" ul-tabs style="overflow: hidden">
+<div class="modal-content grey-text text-darken-2">
+    <div class="row no-marBottom"  style="overflow: hidden">
+        <div class="col s12">
+            <!--查询条件-->
+            <div class="row grey-text text-darken-1">
+                <div class="col s10" style="margin-top: 20px">
+                    <div class="col s12">
+                        <div class="input-field col s2">
+                            <input id="start_month" type="text" ng-value="startMonth">
+                            <label class="active" for="start_month">月份</label>
+                        </div>
+                        <div class="input-field col s2">
+                            <select id="truck_type" name="truck_type" ng-change="getCompany()" material-select watch ng-model="operateType" required>
+                                <option ng-value="" disabled>请选择</option>
+                                <option ng-value="1">自营车</option>
+                                <option ng-value="2">外协车</option>
+                            </select>
+                            <label for="truck_type">所属类型</label>
+                        </div>
+                        <div class="input-field col s2">
+                            <select id="truck_company" name="truck_company" material-select watch ng-model="companyId" required>
+                                <option value="">请选择</option>
+                                <option ng-repeat="el in companyList" ng-value="el.id">{{el.company_name}}</option>
+                            </select>
+                            <label for="truck_company">所属公司</label>
+                        </div>
+                        <div class="input-field col s2">
+                            <select material-select watch ng-model="driverName" id="driverName" style="width: 100%" >
+                                <option value="" selected>司机</option>
+                                <option ng-repeat="driver in driveNameList" ng-value=driver.id>{{driver.drive_name}}</option>
+                            </select>
+                        </div>
+                        <div class="input-field col s2">
+                            <select  id="truckNumber" style="width: 100%" ng-model="truckNumber">
+                                <option value=""></option>
+                                <option ng-repeat="truckNumItem in truckNumListAll" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
+                            </select>
+                        </div>
+
+                        <div class="input-field col s2">
+                            <select material-select watch ng-model="dealStatus" id="dealStatus">
+                                <option value="" selected>状态</option>
+                                <option ng-value="1">未处理</option>
+                                <option ng-value="2">处理中</option>
+                                <option ng-value="3">已处理</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--按钮-->
+                <div class="col s2" style="margin-top: 30px">
+                    <div class="col s6 center-align">
+                        <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getExceedOilMonth()">
+                            <i class="mdi mdi-magnify"></i>
+                        </a>
+                    </div>
+
+                    <div class="col s6 center-align">
+                        <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="exportMonth()">
+                            <i class="mdi mdi-cloud-download"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
             <div class="col s12">
-                <ul class="tabWrap grey lighten-4">
-                    <li class="tab col s6 single vc-center" ng-click="single()">单次</li>
-                    <li class="tab col s6 month vc-center" ng-click="month()">月结</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div id="single" class="tab_box">
-        <!--查询条件-->
-        <div class="row grey-text text-darken-1">
-            <div class="col s10" style="margin-top: 20px">
-                <div class="col s12">
-                    <div class="input-field col s2">
-                        <select id="search_company" material-select watch ng-model="search_company">
-                            <option value="">所属公司</option>
-                            <option ng-repeat="el in company" ng-value="el.id">{{el.company_name}}</option>
-                        </select>
-                        <label for="search_company">请选择</label>
-                    </div>
-                    <!--货车牌号-->
-                    <div class="input-field col s2">
-                        <select  id="truckNum" style="width: 100%" ng-model="truckNum">
-                            <option value=""></option>
-                            <option ng-repeat="truckNumItem in truckNumListAll" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
-                        </select>
-                    </div>
-                    <!--司机-->
-                    <div class="input-field col s2">
-                        <select id="driver" name="driver" material-select watch ng-model="driverId" style="width: 100%">
-                            <option value="">请选择</option>
-                            <option ng-repeat="driver in driveNameList" value={{driver.id}}>{{driver.drive_name}}</option>
-                        </select>
-                    </div>
-                    <!--指令日期-->
-                    <div class="input-field col s2">
-                        <input type="text" ng-model="driveStartTime" id="driveStartTime" name="driveStartTime"  class="datepicker" autocomplete="off"   date><i class="mdi dataIcon mdi-table-large"></i>
-                        <label for="driveStartTime">核油日期(始)</label>
-                    </div>
-                    <div class="input-field col s2">
-                        <input type="text" ng-model="driveEndTime" id="driveEndTime" name="driveEndTime"  class="datepicker" autocomplete="off"   date><i class="mdi dataIcon mdi-table-large"></i>
-                        <label for="driveEndTime">核油日期(终)</label>
-                    </div>
-
-                    <!--  <div class="input-field col s3">
-                          <select id="settleStatus" name="settleStatus" material-select watch ng-model="settleStatus" style="width: 100%">
-                              <option value="">扣款状态</option>
-                              <option value="1">未扣</option>
-                              <option value="2">已扣</option>
-                          </select>
-                      </div>-->
-                    <div class="input-field col s2">
-                        <select id="dealStatus" name="dealStatus" material-select watch ng-model="dealStatus" style="width: 100%">
-                            <option value="">处理状态</option>
-                            <option value="1">处理中</option>
-                            <option value="2">已处理</option>
-                        </select>
-                    </div>
-                </div>
+                <div class="divider cyan" style="height: 2px;"></div>
+                <table class=" bordered striped text_mid">
+                    <thead class="blue-grey lighten-5">
+                    <tr class="grey-text text-darken-2">
+                        <th data-field="">月份</th>
+                        <th data-field="">司机</th>
+                        <th data-field="">货车牌号</th>
+                        <th data-field="">所属类型</th>
+                        <th data-field="">所属公司</th>
+                        <th data-field="">计划/实际用油量</th>
+                        <th data-field="">计划/实际尿素量</th>
+                        <th data-field="">结余油量/尿素量</th>
+                        <th data-field="">本月油补/尿素补</th>
+                        <th data-field="">超油量</th>
+                        <th data-field="">超尿素量</th>
+                        <th data-field="">状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="ExceedOilInfo in ExceedOilListMonth" class="grey-text text-darken-1">
+                        <td>{{ExceedOilInfo.month_date_id}}</td>
+                        <td>{{ExceedOilInfo.drive_name}}</td>
+                        <td>{{ExceedOilInfo.truck_num}}</td>
+                        <td>{{ExceedOilInfo.operate_type==1?'自营':'外协'}}</td>
+                        <td>{{ExceedOilInfo.company_name}}</td>
+                        <td>{{ExceedOilInfo.plan_oil_total}}/{{ExceedOilInfo.actual_oil_total}}</td>
+                        <td>{{ExceedOilInfo.plan_urea_total}}/{{ExceedOilInfo.actual_urea_total}}</td>
+                        <td>{{ExceedOilInfo.surplus_oil}}/{{ExceedOilInfo.surplus_urea}}</td>
+                        <td>{{ExceedOilInfo.subsidy_oil}}/{{ExceedOilInfo.subsidy_urea}}</td>
+                        <td>{{ExceedOilInfo.exceed_oil}}</td>
+                        <td>{{ExceedOilInfo.exceed_urea}}</td>
+                        <td>{{ExceedOilInfo.check_status==2?'处理中':ExceedOilInfo.check_status==3?'已处理':'未处理'}}</td>
+                        <td  class="operation">
+                            <a  ui-sref="driver_exceed_oil_month_detail({driveId:ExceedOilInfo.drive_id,truckId:ExceedOilInfo.truck_id,from:'driver_exceed_oil',dateId:ExceedOilInfo.y_month})" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
+                                <i class="mdi mdi-file-document" style="margin: 0"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr ng-if="ExceedOilListMonth.length==0">
+                        <td colspan="13">暂无数据</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
 
-            <!--按钮-->
-            <div class="col s2" style="margin-top: 20px">
-                <div class="col s4 center-align">
-                    <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getExceedOil()">
-                        <i class="mdi mdi-magnify"></i>
-                    </a>
-                </div>
-                <div class="col s4 center-align">
-                    <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
-                        <i class="mdi mdi-cloud-download"></i>
-                    </a>
-                </div>
-                <div class="col s4 center-align">
-                    <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2  btn vc-center"  ng-click="addExceedOil()">
-                        <i class="mdi mdi-plus"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col s12">
-            <div class="divider cyan" style="height: 2px;"></div>
-            <table class=" bordered striped text_mid">
-                <thead class="blue-grey lighten-5">
-                <tr class="grey-text text-darken-2">
-                    <th data-field="">超量结算编号</th>
-                    <th data-field="">所属公司</th>
-                    <th data-field="">司机</th>
-                    <th data-field="">货车牌号</th>
-                    <th data-field="">核油日期</th>
-                    <!--<th data-field="">扣款状态</th>-->
-                    <th data-field="">处理状态</th>
-                    <th>操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="ExceedOilInfo in ExceedOilList" class="grey-text text-darken-1">
-                    <td>{{ExceedOilInfo.id}}</td>
-                    <td>{{ExceedOilInfo.company_name}}</td>
-                    <td>{{ExceedOilInfo.drive_name}}</td>
-                    <td>{{ExceedOilInfo.truck_num}}</td>
-                    <td>{{ExceedOilInfo.oil_date| date:'yyyy-MM-dd'}}</td>
-                   <!-- <td class="red-text" ng-if="ExceedOilInfo.settle_status==1">未扣</td>
-                    <td ng-if="ExceedOilInfo.settle_status!==1">已扣</td>-->
-                    <td class="red-text" ng-if="ExceedOilInfo.oil_status==1">处理中</td>
-                    <td ng-if="ExceedOilInfo.oil_status!==1">已处理</td>
-                    <td  class="operation">
-                        <a ui-sref="driver_exceed_oil_detail({id:ExceedOilInfo.id,driveId:ExceedOilInfo.drive_id,truckId:ExceedOilInfo.truck_id,from:'driver_exceed_oil'})" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
-                            <i class="mdi mdi-file-document" style="margin: 0"></i>
+            <!--分页-->
+            <div class="row">
+                <div class="paging_box col s12">
+                    <div class="right">
+                        <a class="waves-light waves-effect cyan lighten-1 btn" id="preM" ng-click="pre_btn()">
+                            上一页
                         </a>
-                    </td>
-                </tr>
-                <tr ng-if="ExceedOilList.length==0">
-                    <td colspan="7">暂无数据</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!--分页-->
-        <div class="row">
-            <div class="paging_box col s12">
-                <div class="right">
-                    <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="pre_btn()">
-                        上一页
-                    </a>
-                    <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_btn()">
-                        下一页
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div id="month" class="tab_box">
-        <!--查询条件-->
-        <div class="row grey-text text-darken-1">
-            <div class="col s10" style="margin-top: 20px">
-                <div class="col s12">
-                    <div class="col s3 input-field">
-                        <input id="start_month" type="text" ng-value="startMonth">
-                        <label class="active" for="start_month">月份</label>
-                    </div>
-                    <div class="input-field col s3">
-                        <select id="truck_company" name="truck_company" material-select watch ng-model="companyId" required>
-                            <option value="">请选择</option>
-                            <option ng-repeat="el in companyList" ng-value="el.id">{{el.company_name}}</option>
-                        </select>
-                        <label for="truck_company">所属公司</label>
-                    </div>
-                    <div class="col s3 input-field">
-                        <select material-select watch ng-model="driverName" id="driverName" style="width: 100%" >
-                            <option value="" selected>司机</option>
-                            <option ng-repeat="driver in driveNameList" ng-value=driver.id>{{driver.drive_name}}</option>
-                        </select>
-                    </div>
-                    <div class="input-field col s3">
-                        <select  id="truckNumber" style="width: 100%" ng-model="truckNumber">
-                            <option value=""></option>
-                            <option ng-repeat="truckNumItem in truckNumListAll" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
-                        </select>
-                    </div>
-                </div>
-
-            </div>
-
-            <!--按钮-->
-            <div class="col s2" style="margin-top: 30px">
-                <div class="col s6 center-align">
-                    <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getExceedOilMonth()">
-                        <i class="mdi mdi-magnify"></i>
-                    </a>
-                </div>
-
-                <div class="col s6 center-align">
-                    <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="exportMonth()">
-                        <i class="mdi mdi-cloud-download"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col s12">
-            <div class="divider cyan" style="height: 2px;"></div>
-            <table class=" bordered striped text_mid">
-                <thead class="blue-grey lighten-5">
-                <tr class="grey-text text-darken-2">
-                    <th data-field="">月结超量结算编号</th>
-                    <th data-field="">司机</th>
-                    <th data-field="">货车牌号</th>
-                    <th data-field="">月份</th>
-                    <th data-field="">计划/实际用油量</th>
-                    <th data-field="">计划/实际尿素量</th>
-                    <th data-field="">超油量</th>
-                    <th data-field="">超尿素量</th>
-                    <th data-field="">超量金额</th>
-                    <th data-field="">工资扣款</th>
-                    <th>操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="ExceedOilInfo in ExceedOilListMonth" class="grey-text text-darken-1">
-                    <td>{{ExceedOilInfo.id}}</td>
-                    <td>{{ExceedOilInfo.drive_name}}</td>
-                    <td>{{ExceedOilInfo.truck_num}}</td>
-                    <td>{{ExceedOilInfo.y_month}}</td>
-                    <td>{{ExceedOilInfo.plan_oil}}/{{ExceedOilInfo.actual_oil}}</td>
-                    <td>{{ExceedOilInfo.plan_urea}}/{{ExceedOilInfo.actual_urea}}</td>
-                    <td>{{ExceedOilInfo.actual_oil-ExceedOilInfo.plan_oil}}</td>
-                    <td>{{ExceedOilInfo.actual_urea-ExceedOilInfo.plan_urea}}</td>
-                    <td>{{ExceedOilInfo.actual_money}}</td>
-                    <td ng-if="ExceedOilInfo.settle_status==null"></td>
-                    <td ng-if="ExceedOilInfo.settle_status==1" class="red-text">未扣</td>
-                    <td ng-if="ExceedOilInfo.settle_status==2">已扣</td>
-                    <td  class="operation">
-                        <a ng-show="ExceedOilInfo.id!==null"  ui-sref="driver_exceed_oil_month_detail({id:ExceedOilInfo.id,driveId:ExceedOilInfo.drive_id,truckId:ExceedOilInfo.truck_id,from:'driver_exceed_oil'})" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
-                            <i class="mdi mdi-file-document" style="margin: 0"></i>
+                        <a class="waves-light waves-effect cyan lighten-1 btn" id="nextM" ng-click="next_btn()">
+                            下一页
                         </a>
-                        <a ng-show="ExceedOilInfo.id==null" class="btn-floating btn-small waves-light waves-effect cyan lighten-2  btn vc-center"  ng-click="addExceedOilMonth(ExceedOilInfo)">
-                            <i class="mdi mdi-plus"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr ng-if="ExceedOilListMonth.length==0">
-                    <td colspan="11">暂无数据</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!--分页-->
-        <div class="row">
-            <div class="paging_box col s12">
-                <div class="right">
-                    <a class="waves-light waves-effect cyan lighten-1 btn" id="preM" ng-click="pre_btn()">
-                        上一页
-                    </a>
-                    <a class="waves-light waves-effect cyan lighten-1 btn" id="nextM" ng-click="next_btn()">
-                        下一页
-                    </a>
+                    </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

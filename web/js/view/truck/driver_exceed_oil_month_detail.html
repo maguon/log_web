@@ -28,12 +28,63 @@
 <!--超量扣款-->
 <div id="missionSalary" class="row col s12" style="padding: 0;width: 100%;margin: 0 auto">
 
-    <!--扣款任务-->
-    <div class="col s12">
+    <!--未扣款任务-->
+    <div class="col s6">
+        <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px;min-height: 380px">
+            <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
+                <div class="col s6 left-align cyan-text" >
+                    <p style="margin: 0">任务</p>
+                </div>
+                <div class="col s6 right-align" style="color: darkgray;font-size: 1.05rem">
+                    <p class="cyan-text"  style="margin: 0;font-size: 1.2rem">{{unOilRelList.length}} 条</p>
+                </div>
+            </div>
+            <!--头-->
+            <table class=" bordered striped text_mid">
+                <thead class="blue-grey lighten-5">
+                <tr class="grey-text text-darken-2">
+                    <th data-field="">调度编号</th>
+                    <th data-field="">路线</th>
+                    <th data-field="">计划执行时间</th>
+                    <th data-field="">里程</th>
+                    <th data-field="">油耗里程</th>
+                    <th data-field="">运载车辆数</th>
+                    <th data-field="">倒板</th>
+                    <th data-field="">空(重)</th>
+                    <th data-field="">百公里耗油量/尿素</th>
+                    <th data-field="">总耗油量/尿素</th>
+                 <!--   <th data-field=""></th>-->
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="oil in unOilRelList" class="grey-text text-darken-1">
+                    <td>{{oil.dp_route_task_id}}</td>
+                    <td>{{oil.route_start + " - " + oil.route_end}}</td>
+                    <td>{{oil.task_plan_date|date:'yyyy-MM-dd'}}</td>
+                    <td>{{oil.distance}}</td>
+                    <td>{{oil.oil_distance}}</td>
+                    <td>{{oil.car_count==null?0:oil.car_count}}</td>
+                    <td ng-if="oil.reverse_flag!==1">否</td>
+                    <td ng-if="oil.reverse_flag==1">是</td>
+                    <td ng-if="oil.oil_load_flag==0">空</td>
+                    <td ng-if="oil.oil_load_flag==1">重</td>
+                    <td>{{oil.oil}}/{{oil.urea}}</td>
+                    <td>{{oil.total_oil}}/{{oil.total_urea}}</td>
+                </tr>
+                <tr ng-if="unsettledSalaryList.length==0">
+                    <td colspan="10">暂无数据</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!--加油任务-->
+    <div class="col s6">
         <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px;min-height: 380px">
             <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
                 <div class="col s6 left-align cyan-text">
-                    <p style="margin: 0">任务详情</p>
+                    <p style="margin: 0">加油</p>
                 </div>
                 <div class="col s6 right-align" style="color: darkgray;font-size: 1.05rem">
                     <p class="cyan-text"  style="margin: 0;font-size: 1.2rem">{{OilRelList.length}} 条</p>
@@ -44,85 +95,180 @@
                 <thead class="blue-grey lighten-5">
                 <tr class="grey-text text-darken-2">
                     <th data-field="">超量结算编号</th>
-                    <th data-field="">核油时间</th>
-                    <th data-field="">计划/实际用油量</th>
-                    <th data-field="">计划/实际尿素量</th>
-                    <th data-field="">超油量</th>
-                    <th data-field="">超尿素量</th>
+                    <th data-field="">加油量</th>
+                    <th data-field="">加尿素量</th>
+                    <th data-field="">加油单价</th>
+                    <th data-field="">加尿素单价</th>
+                    <th data-field="">加油总价</th>
+                    <th data-field="">加尿素总价</th>
+                    <th data-field="">加油时间</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="oil in OilRelList" class="grey-text text-darken-1">
-                    <td>{{oil.id}}</td>
-                    <td>{{oil.date_id}}</td>
-                    <td>{{oil.plan_oil}}/{{oil.actual_oil}}</td>
-                    <td>{{oil.plan_urea}}/{{oil.actual_urea}}</td>
-                    <td>{{oil.exceed_oil}}</td>
-                    <td>{{oil.exceed_urea}}</td>
+                <tr ng-repeat="el in OilRelList" class="grey-text text-darken-1">
+                    <td>{{el.id}}</td>
+                    <td>{{el.oil}}</td>
+                    <td>{{el.urea}}</td>
+                    <td>{{el.oil_single_price}}</td>
+                    <td>{{el.urea_single_price}}</td>
+                    <td>{{el.oil_money}}</td>
+                    <td>{{el.urea_money}}</td>
+                    <td>{{el.oil_date|date:'yyyy-MM-dd'}}</td>
                 </tr>
                 <tr ng-if="OilRelList.length==0">
-                    <td colspan="6">暂无数据</td>
+                    <td colspan="8">暂无数据</td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
 
-
     <!--计划实际油量尿素 金额-->
     <div class="col s12 valign-wrapper" style="font-weight: bold;">
-        <div class="col s6 cyan-text">
-            <div class="col s6" style="padding: 0;">
-                <p>计划用油量：<span class="red-text" >{{totalOil |number:2}}</span> L</p>
+        <div class="col s6 pull-s6 cyan-text">
+            <div class="col s3" style="padding: 0;">
+              计划用油量：<span class="red-text" >{{totalOil |number:2}}</span> L
             </div>
-            <div class="col s6" style="padding: 0;">
-                <p>计划尿素量：<span class="red-text" >{{totalUrea|number:2}}</span> </p>
+            <div class="col s3" style="padding: 0;">
+               (原计划用油量：<span class="red-text" >{{exceedOilItem.plan_oil_total|number:2}}</span>)
+            </div>
+            <div class="col s3" style="padding: 0;">
+              计划尿素量：<span class="red-text" >{{totalUrea |number:2}}</span> L
+            </div>
+            <div class="col s3" style="padding: 0;">
+               (原计划尿素量：<span class="red-text" >{{exceedOilItem.plan_urea_total|number:2}}</span>)
             </div>
         </div>
-        <div class="col s6 cyan-text">
+    </div>
+
+    <div class="col s12 valign-wrapper" style="font-weight: bold;">
+        <div class="col s6 pull-s6 cyan-text">
+            <div class="col s3" style="padding: 0;">
+               实际用油量：<span class="red-text" >{{totalOilActal |number:2}}</span> L
+            </div>
+            <div class="col s3" style="padding: 0;">
+                (原实际用油量：<span class="red-text" >{{exceedOilItem.actual_oil_total |number:2}}</span> L)
+            </div>
+            <div class="col s3" style="padding: 0;">
+                实际尿素量：<span class="red-text" >{{totalUreaActal|number:2}}</span>
+            </div>
+            <div class="col s3" style="padding: 0;">
+               (实际尿素量：<span class="red-text" >{{exceedOilItem.actual_urea_total|number:2}}</span>)
+            </div>
+        </div>
+    </div>
+
+    <div class="col s12 valign-wrapper" style="font-weight: bold;">
+        <div class="col s6 cyan-text" ng-show="exceedOilItem.check_status==3">
             <div class="col s6" style="padding: 0;">
-                <p>超量油：<span class="red-text" >{{totalOilActal-totalOil|number:2}}</span> L</p>
+                <p>结余油量：<span class="red-text" >{{exceedOilItem.surplus_oil|number:2}}</span> L</p>
             </div>
             <div class="col s6" style="padding: 0;">
-                <p>超量尿素：<span class="red-text" >{{totalUreaActal-totalUrea|number:2}}</span> </p>
+                <p>结余尿素：<span class="red-text" >{{exceedOilItem.surplus_urea|number:2}}</span> </p>
             </div>
+        </div>
+        <div class="col s6 cyan-text" ng-show="exceedOilItem.check_status!==3">
+            <div class="col s5 input-field" style="padding: 0;">
+                <input style="color: rgb(230,123,123)" type="number" id="surplus_oil" ng-model="exceedOilItem.surplus_oil">
+                <label class="{{exceedOilItem.surplus_oil != null ? 'active' : 'inactive'}}" for="surplus_oil">结余油量(L)</label>
+            </div>
+            <div class="col s6 offset-s1 input-field" style="padding: 0;">
+                <input style="color: rgb(230,123,123)" type="number" id="surplus_urea" ng-model="exceedOilItem.surplus_urea">
+                <label class="{{exceedOilItem.surplus_urea != null ? 'active' : 'inactive'}}" for="surplus_oil">结余尿素</label>
+            </div>
+        </div>
+
+        <div class="col s6 grey-text center-align">
+            超量油=实际用油量-计划用油量-结余油量+本月油补
+        </div>
+    </div>
+
+
+    <div class="col s12 valign-wrapper" style="font-weight: bold;">
+        <div class="col s6 cyan-text" ng-show="exceedOilItem.check_status==3">
+            <div class="col s6" style="padding: 0;">
+                <p>本月油补：<span class="red-text" >{{exceedOilItem.subsidy_oil|number:2}}</span> L</p>
+            </div>
+            <div class="col s6" style="padding: 0;">
+                <p>本月尿素补：<span class="red-text" >{{exceedOilItem.subsidy_urea|number:2}}</span> </p>
+            </div>
+        </div>
+        <div class="col s6 cyan-text" ng-show="exceedOilItem.check_status!==3">
+            <div class="col s5 input-field left-align" style="padding: 0;">
+                <input style="color: rgb(230,123,123)" type="number" id="subsidy_oil" ng-model="exceedOilItem.subsidy_oil">
+                <label class="{{exceedOilItem.subsidy_oil != null ? 'active' : 'inactive'}}" for="subsidy_oil">本月油补(L)</label>
+            </div>
+            <div class="col s6 offset-s1 input-field" style="padding: 0;">
+                <input style="color: rgb(230,123,123)" type="number" id="subsidy_urea" ng-model="exceedOilItem.subsidy_urea">
+                <label class="{{exceedOilItem.subsidy_urea != null ? 'active' : 'inactive'}}" for="subsidy_urea">本月尿素补</label>
+            </div>
+        </div>
+        <div class="col s6 grey-text center-align">
+            超量尿素=实际尿素量-计划尿素量-结余尿素+本月尿素补
         </div>
 
     </div>
 
     <div class="col s12 valign-wrapper" style="font-weight: bold;">
         <div class="col s6 cyan-text">
-            <div class="col s6" style="padding: 0;">
-                <p>实际用油量：<span class="red-text" >{{totalOilActal |number:2}}</span> L</p>
+            <div class="col s3" style="padding: 0;">
+               超量油：<span class="red-text" >{{totalOilActal-totalOil+exceedOilItem.subsidy_oil-exceedOilItem.surplus_oil|number:2}}</span> L
             </div>
-            <div class="col s6" style="padding: 0;">
-                <p>实际尿素量：<span class="red-text" >{{totalUreaActal|number:2}}</span> </p>
+            <div class="col s3" style="padding: 0;">
+                (原超量油：<span class="red-text" >{{exceedOilItem.exceed_oil|number:2}}</span> L)
             </div>
-        </div>
-        <div class="col s6 cyan-text">
-            <div class="col s6"  ng-hide="exceedOilItem.settle_status !== 2" style="padding: 0;">
-                <p>超量金额：<span class="red-text" >{{exceedOilItem.actual_money|number:2}}</span> 元</p>
+            <div class="col s3" style="padding: 0;">
+               超量尿素：<span class="red-text" >{{totalUreaActal-totalUrea+exceedOilItem.subsidy_urea-exceedOilItem.surplus_urea|number:2}}</span>
             </div>
-            <div class="col s4   input-field" ng-hide="exceedOilItem.settle_status == 2" style="padding: 0;">
-                <input style="font-size: 2rem;color: rgb(230,123,123)" type="number" id="should_pay" name="should_pay" ng-model="exceedOilItem.actual_money">
-                <label class="{{exceedOilItem.actual_money != null ? 'active' : 'inactive'}}" for="should_pay"><span style="color: red">* </span>超量金额(元)</label>
-            </div>
-            <div class="col s3 offset-s2 white-text" ng-hide="exceedOilItem.settle_status== 2" style="margin-top: 30px">
-                <button class="btn waves-effect waves-light col s12 cyan" ng-click="updateActualMoney()">修改超量金额</button>
+            <div class="col s3" style="padding: 0;">
+                (原超量尿素：<span class="red-text" >{{exceedOilItem.exceed_urea|number:2}}</span>)
             </div>
         </div>
 
+        <div class="col s6 cyan-text">
+            <div class="col s12 input-field" style="padding: 0;" ng-show="exceedOilItem.check_status == 2">
+                <input style="font-size: 2rem;color: rgb(230,123,123)" type="number" id="should_pay" name="should_pay" ng-model="exceedOilItem.actual_money">
+                <label class="{{exceedOilItem.actual_money != null ? 'active' : 'inactive'}}" for="should_pay">超量金额(元)</label>
+            </div>
+            <div class="col s12  input-field" ng-show="exceedOilItem.check_status == 3" style="padding: 0;">
+                <p>超量金额：<span class="red-text" >{{exceedOilItem.actual_money|number:2}}</span> 元</p>
+            </div>
+        </div>
     </div>
     <!--备注-->
     <div class="col s12 valign-wrapper" style="font-weight: bold; ">
         <div class="col s12 cyan-text">
-            <div class="col s12" style="padding: 0;">
+            <div class="col s12" style="padding: 0;" ng-show="exceedOilItem.check_status==3">
                 <p>备注：{{exceedOilItem.remark}}</p>
+            </div>
+            <div class="col s12 input-field grey-text" style="padding: 0;" ng-show="exceedOilItem.check_status!==3">
+                <input   type="text" id="remark" name="remark" ng-model="exceedOilItem.remark">
+                <label class="{{exceedOilItem.remark != null ? 'active' : 'inactive'}}" for="remark">备注</label>
             </div>
         </div>
 
 
     </div>
 
-
+    <div class="col s12" style="margin: 40px 0 15px 0" ng-if="exceedOilItem.check_status == 2">
+        <div class="col s6 offset-s3">
+            <div class="col s5">
+                <a ng-click="saveCurrentInfo()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                    保存
+                </a>
+            </div>
+            <div class="col s5 offset-s2">
+                <a ng-click="endOfProcessing()" style="width: 100%;background-color:#f0ad4e;" class="waves-light waves-effect lighten-1 btn">
+                    处理结束
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col s12" style="margin: 40px 0 15px 0" ng-if="exceedOilItem.check_status !== 2&&exceedOilItem.check_status !== 3">
+        <div class="col s4 offset-s4">
+            <a ng-click="startDealInfo()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                开始处理
+            </a>
+        </div>
+    </div>
 </div>

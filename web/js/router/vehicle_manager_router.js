@@ -211,7 +211,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'driver_exceed_oil_detail_controller'
         })
         .state("driver_exceed_oil_month_detail",{
-            url:"/driver_exceed_oil_month_detail/id/{id}/driveId/{driveId}/truckId/{truckId}?from",
+            url:"/driver_exceed_oil_month_detail/driveId/{driveId}/truckId/{truckId}/dateId/{dateId}?from",
             templateUrl: "js/view/truck/driver_exceed_oil_month_detail.html",
             controller:'driver_exceed_oil_month_detail_controller'
         })

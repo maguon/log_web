@@ -138,11 +138,11 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
     // 数据导出
     $scope.export = function () {
         // 基本检索URL
-        var url = $host.api_url + "/dpRouteLoadTaskCleanRel.csv?" ;
+        var url = $host.api_url + "/dpRouteLoadTaskProtect.csv?" ;
 
         var conditions = _basic.objToUrl({
             loadTaskCleanRelId: $scope.instructionNum,
-            driveName: $scope.driver,
+            driveId: $scope.driver,
             routeEndId: $scope.destinationCity,
             receiveId: $scope.distributor,
             status: $scope.receive_status,

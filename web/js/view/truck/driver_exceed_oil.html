@@ -11,8 +11,8 @@
                             <label class="active" for="start_month">月份</label>
                         </div>
                         <div class="input-field col s2">
-                            <select id="truck_type" name="truck_type" ng-change="getCompany()" material-select watch ng-model="operateType" required>
-                                <option ng-value="" disabled>请选择</option>
+                            <select id="truck_type" name="truck_type" ng-change="getCompany()" material-select watch ng-model="operateType">
+                                <option ng-value="">请选择</option>
                                 <option ng-value="1">自营车</option>
                                 <option ng-value="2">外协车</option>
                             </select>
@@ -87,7 +87,7 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="ExceedOilInfo in ExceedOilListMonth" class="grey-text text-darken-1">
-                        <td>{{ExceedOilInfo.month_date_id}}</td>
+                        <td>{{ExceedOilInfo.y_month}}</td>
                         <td>{{ExceedOilInfo.drive_name}}</td>
                         <td>{{ExceedOilInfo.truck_num}}</td>
                         <td>{{ExceedOilInfo.operate_type==1?'自营':'外协'}}</td>

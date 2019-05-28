@@ -31,22 +31,25 @@
                         </div>
                     </div>
                     <!--任务信息卡片-->
-                    <div class="col s12 fz14 valign-wrapper cyan-text" style="font-size: 1.2rem;">
-                        <div class="col s3 input-field red-text left-align">
+                    <div class="col s12 fz14 valign-wrapper cyan-text" style="font-size: 1.2rem;" >
+                        <div class="col  input-field red-text left-align" style="width: 20%">
                             <input id="addTrailerFee" type="number"  ng-model="addTrailerFee">
-                            <label for="addTrailerFee">拖车费补发</label>
+                            <label for="addTrailerFee">拖车费/每台</label>
                         </div>
-                        <div class="col s3 input-field red-text right-align">
+                        <div class="col  input-field red-text right-align" style="width: 20%">
                             <input id="addCarParkingFee" type="number"  ng-model="addCarParkingFee">
-                            <label for="addCarParkingFee">提车费补发</label>
+                            <label for="addCarParkingFee">提车费/每台</label>
                         </div>
-                        <div class="col s3 input-field red-text right-align">
+                        <div class="col  input-field red-text right-align" style="width: 20%">
                             <input id="addRunFee" type="number"  ng-model="addRunFee">
-                            <label for="addRunFee">地跑费补发</label>
+                            <label for="addRunFee">地跑费/每台</label>
                         </div>
-                        <div class="col s3 input-field red-text right-align">
+                        <div class="col  input-field red-text right-align" style="width: 20%">
                             <input id="addLeadFee" type="number"  ng-model="addLeadFee">
-                            <label for="addLeadFee">带路费补发</label>
+                            <label for="addLeadFee">带路费/每板</label>
+                        </div>
+                        <div class="col input-field right-align" style="width: 20%">
+                            合计金额:<span class="red-text">{{dispatchNum.car_count==isNaN?0:((addRunFee*dispatchNum.car_count+addCarParkingFee*dispatchNum.car_count+addTrailerFee*dispatchNum.car_count)+addLeadFee)}}</span>
                         </div>
                     </div>
                 </div>
@@ -170,13 +173,13 @@
                     <th data-field="">货车牌号</th>
                     <th data-field="">品牌</th>
                     <th data-field="">装车数</th>
-                    <th data-field="">保道费</th>
                     <th data-field="">拖车费</th>
                     <th data-field="">提车费</th>
                     <th data-field="">地跑费</th>
                     <th data-field="">带路费</th>
                     <th data-field="">送达经销商</th>
                     <th data-field="">装车日期</th>
+                    <th data-field="">状态</th>
                     <th>操作</th>
                 </tr>
                 </thead>
@@ -189,13 +192,13 @@
                     <td>{{car.truck_num}}</td>
                     <td>{{car.make_name}}</td>
                     <td>{{car.car_count}}</td>
-                    <td>{{car.total_price}}</td>
                     <td>{{car.total_trailer_fee}}</td>
                     <td>{{car.car_parking_fee}}</td>
                     <td>{{car.total_run_fee}}</td>
                     <td>{{car.lead_fee}}</td>
                     <td>{{car.short_name}}</td>
                     <td>{{car.created_on | date:'yyyy-MM-dd'}}</td>
+                    <td>{{car.status==0?'未通过':car.status==1?'未领取':'已领取'}}</td>
                     <td>
                         <a  class="btn-floating btn-small waves-light waves-effect cyan lighten-2  btn vc-center" ng-click="addSingleMoney(car)">
                             <i class="mdi mdi-plus"></i>
@@ -204,7 +207,7 @@
                     </td>
                 </tr>
                 <tr class="grey-text text-darken-1" ng-if="carWashFeeList.length == 0">
-                    <td colspan="15"><span style="letter-spacing: 2px">暂无数据</span></td>
+                    <td colspan="16"><span style="letter-spacing: 2px">暂无数据</span></td>
                 </tr>
                 </tbody>
             </table>

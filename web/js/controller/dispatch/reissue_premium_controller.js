@@ -169,8 +169,10 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
                 swal(data.msg, "", "error");
             }
         });
-        $scope.addSingMoney ='';
-        $scope.addTotalMoney ='';
+        $scope.addTrailerFee ='';
+        $scope.addCarParkingFee ='';
+        $scope.addRunFee ='';
+        $scope.addLeadFee ='';
         $('#addSingleMoney').modal('open');
     }
 
@@ -189,6 +191,13 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
                 "singlePrice": $scope.addSingMoney,
                 "totalPrice": $scope.addTotalMoney,
                 "carCount": $scope.dispatchNum.car_count,
+                "trailerFee":  $scope.addTrailerFee,
+                "totalTrailerFee": $scope.addTrailerFee*$scope.dispatchNum.car_count,
+                "carParkingFee":  $scope.addCarParkingFee*$scope.dispatchNum.car_count,
+               /* "totalCarParkingFee": $scope.addCarParkingFee*$scope.dispatchNum.car_count,*/
+                "runFee":  $scope.addRunFee,
+                "totalRunFee": $scope.addRunFee*$scope.dispatchNum.car_count,
+                "leadFee":  $scope.addLeadFee,
                 "type": 1
             }).then(function (data) {
                 if (data.success === true) {

@@ -25,10 +25,9 @@ app.controller("driver_exceed_oil_month_detail_controller", ["$scope", "$state",
     $scope.return = function () {
         $state.go($stateParams.from,{from:"driver_exceed_oil_month_detail"}, {reload: true})
     };
-
     // 获取任务信息
     function getOilRel() {
-        var url=$host.api_url + "/driveExceedOilDate?yMonth="+dateId+'&'+_basic.objToUrl(obj);
+        var url=$host.api_url + "/driveExceedOilDate?yMonth="+dateId+'&taskPlanDateStart='+firstDay+'&taskPlanDateEnd='+lastDay+'&'+_basic.objToUrl(obj);
 
         //司机  核油日期
         _basic.get(url).then(function (data) {

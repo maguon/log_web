@@ -94,8 +94,23 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
             $scope.startMonth = $('#start_month').val();
         }
 
+
+        //获取当月第一天和最后一天
+        var year =  $scope.startMonth.toString().slice(0,4);
+        var month = $scope.startMonth.toString().slice(4,6);
+        $scope.firstDay=new Date(year,month-1,1);//这个月的第一天
+        var currentMonth=$scope.firstDay.getMonth(); //取得月份数
+        var nextMonthFirstDay=new Date($scope.firstDay.getFullYear(),currentMonth+1,1);//加1获取下个月第一天
+        var dis=nextMonthFirstDay.getTime()-24*60*60*1000;//减去一天就是这个月的最后一天
+        $scope.lastDay=new Date(dis);
+        $scope.firstDay= moment($scope.firstDay).format("YYYY-MM-DD");//格式化 //这个格式化方法要用你们自己的，也可以用本文已经贴出来的下面的Format
+        $scope.lastDay= moment($scope.lastDay).format("YYYY-MM-DD");//格式化
+
+
         var conditionsObj = {
             yMonth:$scope.startMonth,
+            taskPlanDateStart:$scope.firstDay,
+            taskPlanDateEnd:$scope.lastDay,
             driveId:$scope.driverName,
             truckId:$scope.truckNumber,
             companyId:$scope.companyId,
@@ -149,6 +164,8 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
         // 检索条件
         var conditions = _basic.objToUrl({
             yMonth:$scope.startMonth,
+            taskPlanDateStart:$scope.firstDay,
+            taskPlanDateEnd:$scope.lastDay,
             driveId:$scope.driverName,
             truckId:$scope.truckNumber,
             companyId:$scope.companyId,

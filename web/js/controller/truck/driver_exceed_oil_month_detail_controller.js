@@ -13,8 +13,8 @@ app.controller("driver_exceed_oil_month_detail_controller", ["$scope", "$state",
     var nextMonthFirstDay=new Date(firstDay.getFullYear(),currentMonth+1,1);//加1获取下个月第一天
     var dis=nextMonthFirstDay.getTime()-24*60*60*1000;//减去一天就是这个月的最后一天
     var lastDay=new Date(dis);
-    firstDay= moment(firstDay).format("YYYY-MM-DD");//格式化 //这个格式化方法要用你们自己的，也可以用本文已经贴出来的下面的Format
-    lastDay= moment(lastDay).format("YYYY-MM-DD");//格式化
+    firstDay= moment(firstDay).format("YYYYMMDD");//格式化 //这个格式化方法要用你们自己的，也可以用本文已经贴出来的下面的Format
+    lastDay= moment(lastDay).format("YYYYMMDD");//格式化
 
 
     var obj={

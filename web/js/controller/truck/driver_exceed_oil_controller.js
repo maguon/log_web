@@ -84,16 +84,15 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
 
     $scope.getExceedOilMonth =function (){
         $scope.start = 0;
+        // 检索条件
+        if($('#start_month').val()!==''){
+            $scope.startMonth = $('#start_month').val();
+        }
         getExceedOilDataMonth();
     }
     function getExceedOilDataMonth(){
         // 基本检索URL
         var url = $host.api_url + "/driveExceedOilDate?start=" + $scope.start + "&size=" + $scope.size;
-        // 检索条件
-        if($('#start_month').val()!==''){
-            $scope.startMonth = $('#start_month').val();
-        }
-
 
         //获取当月第一天和最后一天
         var year =  $scope.startMonth.toString().slice(0,4);

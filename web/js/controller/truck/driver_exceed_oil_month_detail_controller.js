@@ -3,6 +3,7 @@
 app.controller("driver_exceed_oil_month_detail_controller", ["$scope", "$state","$stateParams", "_basic", "_config", "$host", function ($scope, $state,$stateParams, _basic, _config, $host) {
     var userId = _basic.getSession(_basic.USER_ID);
     var dateId = $stateParams.dateId;
+    $scope.monthDateId=$stateParams.dateId;
     var driveId = $stateParams.driveId;
     var truckId = $stateParams.truckId;
     //获取当月第一天和最后一天
@@ -102,21 +103,6 @@ app.controller("driver_exceed_oil_month_detail_controller", ["$scope", "$state",
 
     }
 
-/*
-    $scope.updateActualMoney = function(){
-        //添加实际用油量  实际尿素量   实际金额
-        _basic.put($host.api_url + "/user/" + userId + "/exceedOilDateId/" + $scope.exceedOilItem.id+"/actualMoney/",{
-            actualMoney:$scope.exceedOilItem.actual_money
-        }).then(function (data) {
-            if (data.success === true) {
-                swal("保存成功", "", "success");
-                getOilRel();
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
-    }*/
 
     $scope.saveCurrentInfo = function (){
 

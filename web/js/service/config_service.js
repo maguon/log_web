@@ -315,6 +315,9 @@ baseService.factory("_config", function () {
     // 重载衡量标准
     _this.heavyLoad = 3;
 
+    //进门费参数
+    _this.enter =4;
+
     //计算过路费根据距离修改参数
     _this.passingCost=1.6;
 

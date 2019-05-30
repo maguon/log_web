@@ -252,12 +252,12 @@
 
         <!--任务工资-->
         <div id="missionSalary" class="row col s12" style="padding: 0;">
-            <!--未结算任务-->
-            <div class="col s6" ng-hide="salaryDetails.grant_status == 3">
+            <!--未发放任务-->
+            <div class="col s12">
                 <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px;min-height: 380px">
                     <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
                         <div class="col s6 left-align cyan-text" >
-                            <p style="margin: 0">未结算任务</p>
+                            <p style="margin: 0">未发放任务</p>
                         </div>
                         <div class="col s6 right-align" style="color: darkgray;font-size: 1.05rem">
                             <p class="cyan-text"  style="margin: 0;font-size: 1.2rem">{{unsettledSalaryList.length}} 条</p>
@@ -275,6 +275,7 @@
                             <th data-field="">单价</th>
                             <th data-field="">重载/空载</th>
                             <th data-field="">倒板</th>
+                            <th data-field="">倒板工资</th>
                             <th data-field="">完成时间</th>
                             <th></th>
                         </tr>
@@ -289,28 +290,28 @@
                             <td>{{salary.car_count+ "-" +salary.truck_number | mileageSalary}}</td>
                             <td ng-if="salary.load_flag==0" >空载</td>
                             <td ng-if="salary.load_flag==1" >重载</td>
-                            <td ng-if="salary.reverse_flag==0" >未倒板</td>
-                            <td ng-if="salary.reverse_flag==1" >倒板</td>
+                            <td ng-if="salary.reverse_flag==0" >否</td>
+                            <td ng-if="salary.reverse_flag==1" >是</td>
+                            <td>{{salary.reverse_money}}</td>
                             <td>{{salary.task_end_date | date:'yyyy-MM-dd'}}</td>
                             <td  class="operation">
                                 <a ng-click="showDispatchMissionModal(salary,'unsettled')" class="cyan-text" style="margin-right: 10px;cursor: pointer;text-align: center;"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
-                                <a ng-click="addSettledSalary(salary.id,salary.car_count,salary.truck_number,salary.distance,salary.reverse_flag,salary.reverse_money)" class="cyan-text" style="cursor: pointer;text-align: center;"><i class="mdi mdi-plus-circle" style="margin: 0"></i></a>
                             </td>
                         </tr>
                         <tr ng-if="unsettledSalaryList.length==0">
-                            <td colspan="10">暂无数据</td>
+                            <td colspan="11">暂无数据</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <!--结算任务-->
-            <div class="col {{salaryDetails.grant_status == 3 ? 's12' : 's6'}}">
+            <!--已发放任务-->
+            <div class="col s12" ng-hide="salaryDetails.grant_status !== 3">
                 <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px;min-height: 380px">
                     <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
                         <div class="col s6 left-align cyan-text">
-                            <p style="margin: 0">结算任务</p>
+                            <p style="margin: 0">已发放任务</p>
                         </div>
                         <div class="col s6 right-align" style="color: darkgray;font-size: 1.05rem">
                             <p class="cyan-text"  style="margin: 0;font-size: 1.2rem">{{settledSalaryList.length}} 条</p>
@@ -329,6 +330,7 @@
                             <th data-field="">总价</th>
                             <th data-field="">重载/空载</th>
                             <th data-field="">倒板</th>
+                            <th data-field="">倒板工资</th>
                             <th data-field="">完成时间</th>
                             <th></th>
                         </tr>
@@ -344,8 +346,9 @@
                             <td>{{salary.distance_total_money}}</td>
                             <td ng-if="salary.load_flag==0" >空载</td>
                             <td ng-if="salary.load_flag==1" >重载</td>
-                            <td ng-if="salary.reverse_flag==0" >未倒板</td>
-                            <td ng-if="salary.reverse_flag==1" >倒板</td>
+                            <td ng-if="salary.reverse_flag==0" >否</td>
+                            <td ng-if="salary.reverse_flag==1" >是</td>
+                            <td>{{salary.reverse_money}}</td>
                             <td>{{salary.task_end_date | date:'yyyy-MM-dd'}}</td>
                             <td  class="operation">
                                 <a ng-click="showDispatchMissionModal(salary,'settled')" class="cyan-text" style="margin-right: 10px;cursor: pointer;text-align: center;"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
@@ -361,23 +364,29 @@
             </div>
 
             <div class="col s12 valign-wrapper" style="color: darkgray;font-size: 1.2rem;font-weight: bold;margin: 20px 0">
-                <div class="col s6">
-                    <div class="col s6" style="padding: 0;">
-                        <p>重载：<span class="cyan-text" >{{loadDistanceCount}}</span> km</p>
+                <div class="col s12">
+                    <div class="col s3" style="padding: 0;">
+                        <p>里程工资：<span class="cyan-text" >{{settledSalaryList.distance_salary}}</span> 元</p>
                     </div>
-                    <div class="col s6" style="padding: 0;">
-                        <p>空载：<span class="cyan-text" >{{noLoadDistanceCount}}</span> km</p>
+                    <div class="col s3" style="padding: 0;">
+                        <p>交车打车进门费：<span class="cyan-text" >{{settledSalaryList.storage_car_count*enter}}</span> 元</p>
+                    </div>
+                    <div class="col s3" style="padding: 0;">
+                        <p>倒板工资：<span class="cyan-text" >{{settledSalaryList.reverse_salary}}</span> 元</p>
+                    </div>
+                    <div class="col s3" style="padding: 0;">
+                        <p>应发工资：<span class="cyan-text" >{{settledSalaryList.distance_salary+settledSalaryList.reverse_salary+settledSalaryList.storage_car_count*enter}}</span> 元</p>
                     </div>
                 </div>
-                <div class="col s6 input-field" ng-hide="salaryDetails.grant_status == 3">
+              <!--  <div class="col s3 input-field" ng-hide="salaryDetails.grant_status == 3">
                     <input style="font-size: 2rem;color: rgb(230,123,123)" type="number" id="should_pay" name="should_pay" ng-model="salaryDetails.plan_salary">
                     <label class="{{salaryDetails.plan_salary != null ? 'active' : 'inactive'}}" for="should_pay"><span style="color: red">* </span>应发工资</label>
-                </div>
-                <div class="col s6" ng-show="salaryDetails.grant_status == 3">
+                </div>-->
+               <!-- <div class="col s3">
                     <div class="col s6 center-align" style="padding: 0;">
                         <p>应发工资：<span style="color: #e57373">{{salaryDetails.plan_salary}}</span></p>
                     </div>
-                </div>
+                </div>-->
             </div>
             <div class="col s12" style="margin: 20px 0" ng-hide="salaryDetails.grant_status == 3">
                 <div class="col s2 offset-s5">

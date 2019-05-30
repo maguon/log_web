@@ -125,7 +125,7 @@ app.controller("truck_depreciation_controller", ["$scope","$rootScope","$state",
 
     $scope.fileUpload = function () {
         $("#buttonImport").attr("disabled",true);
-        _basic.formPost($("#file_upload_form"), $host.api_url + '/user/' + userId + '/truckDepreciationFile' , function (data) {
+        _basic.formPost($("#file_upload_form"), $host.api_url + '/user/' + userId + '/depreciationFeeFile' , function (data) {
             if (data.success == true) {
                 $scope.$apply(function () {
                     $scope.upload_error_array_num =data.result.failedCase;
@@ -268,6 +268,11 @@ app.controller("truck_depreciation_controller", ["$scope","$rootScope","$state",
                     containerCssClass: 'select2_dropdown',
                     allowClear: true
                 });
+                $('#truckNumber').select2({
+                    placeholder: '货车牌号',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
             }
             else {
                 swal(data.msg, "", "error");
@@ -317,22 +322,24 @@ app.controller("truck_depreciation_controller", ["$scope","$rootScope","$state",
     };
 
     function addItem(){
-        if (/*$scope.addDrivderId!==''&&*/$scope.addStartMonth!==''&&$scope.addWorkCount!=='') {
+        if($('#add_start_month').val()!==''){
+            $scope.addStartMonth = $('#add_start_month').val();
+        }
+        if ($scope.addStartMonth!==''&&$scope.addWorkCount!=='') {
             var obj = {
-              /*  "driveId": $scope.addDrivderId.id,
-                "driveName": $scope.addDrivderId.drive_name,*/
-                "truckId": $scope.truckNum,
+               /* "truckId": $scope.truckNum,
                 "truckNum": $scope.truckNumberName,
                 "depreciationFee": $scope.addWorkCount,
-                "yMonth": $scope.addStartMonth
+                "yMonth": $scope.addStartMonth*/
+                "depreciationFee": $scope.addWorkCount
             };
-            _basic.post($host.api_url + "/user/" + userId + "/truckDepreciation", obj).then(function (data) {
+            _basic.put($host.api_url + "/user/" + userId + "/truck/"+$scope.truckNum+'/yMonth/'+$scope.addStartMonth, obj).then(function (data) {
                 if (data.success == true) {
                     $("#new_driver_social_security").modal("close");
                     swal("新增成功！", "", "success");
                 }
                 else{
-                    swal(data.msg, "", "error")
+                    swal("新增失败!", "", "error")
                 }
             })
         }
@@ -344,9 +351,12 @@ app.controller("truck_depreciation_controller", ["$scope","$rootScope","$state",
     //修改
     $scope.putSecurity = function(id){
         $scope.driveSocialSecurityId =id;
-        _basic.get($host.api_url + "/truckDepreciation?truckDepreciationId="+id).then(function (data) {
+        _basic.get($host.api_url + "/driveTruckMonthValue?driveTruckMonthValueId="+id).then(function (data) {
             if (data.success == true) {
                 $scope.socialSecurity = data.result[0];
+                if($scope.socialSecurity.insure_fee==null){
+                    $scope.socialSecurity.insure_fee=0;
+                }
 
             } else {
                 swal(data.msg, "", "error");
@@ -355,8 +365,9 @@ app.controller("truck_depreciation_controller", ["$scope","$rootScope","$state",
         $("#put_driver_social_security").modal("open");
     }
     $scope.putCarItem =function (){
-        _basic.put($host.api_url + "/user/" + userId + "/truckDepreciation/" + $scope.driveSocialSecurityId, {
-            depreciationFee:$scope.socialSecurity.depreciation_fee
+        _basic.put($host.api_url + "/user/" + userId + "/driveTruckMonthValue/" + $scope.driveSocialSecurityId, {
+            depreciationFee:$scope.socialSecurity.depreciation_fee,
+            insureFee:$scope.socialSecurity.insure_fee
         }).then(function (data) {
             if (data.success == true) {
                 swal("修改成功", "", "success");
@@ -378,11 +389,12 @@ app.controller("truck_depreciation_controller", ["$scope","$rootScope","$state",
     function getData(){
         $scope.startMonth = $('#start_month').val();
         // 基本检索URL
-        var url = $host.api_url + "/truckDepreciation?start=" + $scope.start + "&size=" + $scope.size;
+        var url = $host.api_url + "/driveTruckMonthValue?start=" + $scope.start + "&size=" + $scope.size;
         // 检索条件
         var conditions = _basic.objToUrl({
             driveId:$scope.driveName,
-            yMonth:$scope.startMonth
+            yMonth:$scope.startMonth,
+            truckId:$scope.truckNumber
         });
         // 检索URL
         url = conditions.length > 0 ? url + "&" + conditions : url;

@@ -3,7 +3,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
     var userId = _basic.getSession(_basic.USER_ID);
     var salaryId = $stateParams.id;
     var driveId = $stateParams.driveId;
-    var heavyLoad = _config.heavyLoad;
+    $scope.enter = _config.enter;
     $scope.otherDeductions = 0;
     $scope.Reimbursement = 0;
     // 返回
@@ -17,6 +17,19 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
             if (data.success === true) {
                 $scope.salaryDetails = data.result[0];
                 $scope.salaryDetails.month_date_id = data.result[0].month_date_id;
+
+                //获取当月第一天和最后一天
+                var year =  data.result[0].month_date_id.toString().slice(0,4);
+                var month = data.result[0].month_date_id.toString().slice(4,6);
+                $scope.firstDay=new Date(year,month-1,1);//这个月的第一天
+                var currentMonth=$scope.firstDay.getMonth(); //取得月份数
+                var nextMonthFirstDay=new Date($scope.firstDay.getFullYear(),currentMonth+1,1);//加1获取下个月第一天
+                var dis=nextMonthFirstDay.getTime()-24*60*60*1000;//减去一天就是这个月的最后一天
+                $scope.lastDay=new Date(dis);
+                $scope.firstDay= moment($scope.firstDay).format("YYYYMMDD");//格式化 //这个格式化方法要用你们自己的，也可以用本文已经贴出来的下面的Format
+                $scope.lastDay= moment($scope.lastDay).format("YYYYMMDD");//格式化
+
+
                 $scope.salaryDetails.truck_id = data.result[0].truck_id;
                 $scope.salaryDetails.plan_salary=data.result[0].plan_salary;
                 $scope.planSalary=data.result[0].plan_salary;
@@ -26,6 +39,8 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                     $scope.Reimbursement = data.result[0].refund_fee;
                     $scope.remark = data.result[0].remark;
                 }
+
+                getCurrentSalaryInfo ()
             }
             else {
                 swal(data.msg, "", "error");
@@ -35,33 +50,28 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
 
     // 获取当前司机结算任务
      function getCurrentSalaryInfo () {
-        // 未结算任务
-        _basic.get($host.api_url + "/dpRouteTaskBase?driveId=" + driveId + "&taskStatus=10&statStatus=1").then(function (data) {
+         var obj={
+             driveId:driveId,
+             taskStatusArr:[9,10],
+             taskPlanDateStart:$scope.firstDay,
+             taskPlanDateEnd: $scope.lastDay
+         }
+        // 未任务
+        _basic.get($host.api_url + "/dpRouteTaskBase?"+_basic.objToUrl(obj)).then(function (data) {
             if (data.success === true) {
                 $scope.unsettledSalaryList = data.result;
+
+
             }
             else {
                 swal(data.msg, "", "error");
             }
         });
 
-        // 已结算任务
-        _basic.get($host.api_url + "/driveSalaryTaskRel?driveSalaryId=" + salaryId).then(function (data) {
+        // 已任务
+        _basic.get($host.api_url + "/driveSettle?taskPlanDateStart="+ $scope.firstDay+"&taskPlanDateEnd="+ $scope.lastDay+"&driveId=" + driveId).then(function (data) {
             if (data.success === true) {
-                $scope.noLoadDistanceCount = 0;
-                $scope.loadDistanceCount = 0;
-                // 计算重载和空载里程
-                for (var i = 0; i < data.result.length; i++) {
-                    if(data.result[i].car_count <= heavyLoad){
-                        $scope.noLoadDistanceCount += data.result[i].distance
-                    }
-                    else{
-                        $scope.loadDistanceCount += data.result[i].distance
-                    }
-                }
-
-
-                $scope.settledSalaryList = data.result;
+                $scope.settledSalaryList = data.result[0];
             }
             else {
                 swal(data.msg, "", "error");
@@ -265,7 +275,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
 
     };
 
-    // 将未结算任务添加到结算任务
+   /* // 将未结算任务添加到结算任务
     $scope.addSettledSalary = function (taskId,car_count,truck_number,distance,flag,money) {
         var  distanceMoney= $filter('mileageSalary')(car_count+'-'+truck_number);
         var distanceTotalMoney =0;
@@ -291,7 +301,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                 swal(data.msg, "", "error");
             }
         });
-    };
+    };*/
 
     //工资变化
     function getChangeSalary(){
@@ -308,7 +318,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
     }
 
 
-    // 移除结算任务到未结算任务
+/*    // 移除结算任务到未结算任务
     $scope.minusSettledSalary = function (taskId) {
         $scope.taskId=taskId;
         swal({
@@ -332,7 +342,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                     });
                 }
             });
-    };
+    };*/
 
     //工资变化
     function getChangeSalary2(){
@@ -545,7 +555,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
     // 获取数据
     $scope.queryData = function () {
         getSalaryDetails();
-        getCurrentSalaryInfo();
+       /* getCurrentSalaryInfo();*/
     };
     $scope.queryData();
 }]);

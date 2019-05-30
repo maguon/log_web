@@ -1,0 +1,168 @@
+<div class="driver_information">
+
+    <div class="row valign-wrapper">
+        <div class="col s10 valign-wrapper">
+            <div class="col s4 input-field">
+                <input id="start_month" type="text" ng-value="startMonth">
+                <label class="active" for="start_month">月份</label>
+            </div>
+            <div class="col s4 input-field">
+                <select id="driver" name="driver" material-select watch ng-model="driverName" style="width: 100%">
+                    <option value="">请选择</option>
+                    <option ng-repeat="driver in driveNameList" ng-value='driver.id'>{{driver.drive_name}}</option>
+                </select>
+            </div>
+            <div class="col s4 input-field">
+                <select  id="truckId" style="width: 100%" ng-model="truckNumber">
+                    <option value=""></option>
+                    <option ng-repeat="truckNumItem in truckNumListAll" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
+                </select>
+            </div>
+
+           <!-- <div class="col s3 input-field">
+                <select id="car_type" ng-model="carType" material-select watch>
+                    <option value="" selected>请选择</option>
+                    <option value="1">自营</option>
+                    <option value="2">外协</option>
+                </select>
+                <label for="car_type">所属类型</label>
+            </div>
+            <div class="col s3 input-field">
+                <select id="insure_company" ng-model="insureCompany" material-select watch>
+                    <option value="" selected>请选择</option>
+                    <option ng-repeat="company in companyList" ng-value="company.id">{{company.company_name}}</option>
+                </select>
+                <label for="insure_company">所属公司</label>
+            </div>-->
+
+
+        </div>
+        <div class="col s2">
+            <div class="col s12 center">
+                <a ng-click="searchDriverInfoList()" class="btn-floating btn-large waves-light waves-effect red lighten-2 btn vc-center" style="margin-right:30px">
+                    <i class="mdi mdi-magnify"></i>
+                </a>
+                <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
+                    <i class="mdi mdi-cloud-download"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!--表格-->
+    <div class="row">
+        <div style="overflow-x: scroll">
+         <!--   <div class="cyan" style="height: 2px;"></div>-->
+            <table class="bordered striped text_mid" style="border-top: 2px solid rgb(38,198,218)">
+                <thead class="blue-grey lighten-5">
+                <tr class="grey-text text-darken-2" style="word-break:keep-all">
+                    <th>月份</th>
+                    <th>司机姓名</th>
+                    <th>货车牌号</th>
+                    <th>货车品牌</th>
+                    <th>板车位数</th>
+                    <th>所属类型</th>
+                    <th>所属公司</th>
+                    <th>产值公司</th>
+                    <th>倒板数</th>
+                    <th>重载里程</th>
+                    <th>空载里程</th>
+                    <th>总里程</th>
+                    <th>重载率</th>
+                    <th>重车油耗</th>
+                    <th>空车油耗</th>
+                    <th>运送台数经销商</th>
+                    <th>运送台数库</th>
+                    <th>产值收入</th>
+                    <th>货车保险费</th>
+                    <th>折旧费</th>
+                    <th>应发里程工资</th>
+                    <th>质损个人</th>
+                    <th>质损单位</th>
+                    <th>洗车费</th>
+                    <th>出勤天数</th>
+                    <th>住宿费</th>
+                    <th>进门费</th>
+                    <th>拖车费</th>
+                    <th>提车费</th>
+                    <th>地跑费</th>
+                    <th>带路费</th>
+                    <th>过路费</th>
+                    <th>油费</th>
+                    <th>尿素费</th>
+                    <th>违章罚款个人</th>
+                    <th>违章罚款公司</th>
+                    <th>维修费</th>
+                    <th>配件费</th>
+                    <th>保养费</th>
+                    <th>商品车加油</th>
+                    <th>货车停车费</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="driver in driverInfoList" class="grey-text text-darken-1" style="word-break:keep-all">
+                    <td>{{driver.y_month}}</td>
+                    <td>{{driver.drive_name}}</td>
+                    <td>{{driver.truck_num}}</td>
+                    <td>{{driver.brand_name}}</td>
+                    <td>{{driver.truck_number}}</td>
+                    <td>{{driver.operate_type==1?'自营':'外协'}}</td>
+                    <td>{{driver.company_name}}</td>
+                    <td>{{driver.output_company_name}}</td>
+                    <td>{{driver.reverse_count}}</td>
+                    <td>{{driver.load_distance}}</td>
+                    <td>{{driver.no_load_distance}}</td>
+                    <td>{{driver.distance}}</td>
+                    <td>{{driver.load_ratio}}</td>
+                    <td>{{driver.load_distance_oil}}</td>
+                    <td>{{driver.no_load_distance_oil}}</td>
+                    <td>{{driver.receive_car_count}}</td>
+                    <td>{{driver.storage_car_count}}</td>
+                    <td>{{driver.output}}</td>
+                    <td>{{driver.insure_fee}}</td>
+                    <td>{{driver.depreciation_fee}}</td>
+                    <td>{{driver.distance_salary}}</td>
+                    <td>{{driver.damage_under_fee }}</td>
+                    <td>{{driver.damage_company_fee }}</td>
+                    <td>{{driver.clean_fee}}</td>
+                    <td>{{driver.work_count }}</td>
+                    <td>{{driver.hotel_fee}}</td>
+                    <td>{{driver.enter_fee}}</td>
+                    <td>{{driver.trailer_fee }}</td>
+                    <td>{{driver.car_parking_fee }}</td>
+                    <td>{{driver.run_fee }}</td>
+                    <td>{{driver.lead_fee }}</td>
+                    <td>{{driver.etc_fee}}</td>
+                    <td>{{driver.oil_fee}}</td>
+                    <td>{{driver.urea_fee}}</td>
+                    <td>{{driver.peccancy_under_fee }}</td>
+                    <td>{{driver.peccancy_company_fee }}</td>
+                    <td>{{driver.repair_fee }}</td>
+                    <td>{{driver.parts_fee}}</td>
+                    <td>{{driver.maintain_fee }}</td>
+                    <td>{{driver.car_oil_fee }}</td>
+                    <td>{{driver.truck_parking_fee}}</td>
+
+                </tr>
+                <tr class="grey-text text-darken-1" ng-show="driverInfoList.length == 0">
+                    <td colspan="41"><span style="letter-spacing: 2px">暂无数据</span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!--分页-->
+    <div class="row">
+        <div class="paging_box col s12">
+            <div class="right">
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="pre_btn()">
+                    上一页
+                </a>
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_btn()">
+                    下一页
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

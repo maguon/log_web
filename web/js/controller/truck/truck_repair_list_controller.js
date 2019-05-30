@@ -237,6 +237,23 @@ app.controller("truck_repair_list_controller", ['$rootScope', "$rootScope","$sta
             }
         });
     }
+
+    function getDriverId(){
+        _basic.get($host.api_url + "/drive").then(function (data) {
+            if (data.success == true) {
+                $scope.driveNameList = data.result;
+                $('#addDrivderId').select2({
+                    placeholder: '司机',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
+
     // 获取所有公司列表
     function getCompanyList() {
         _basic.get($host.api_url + "/company").then(function (data) {
@@ -372,6 +389,8 @@ app.controller("truck_repair_list_controller", ['$rootScope', "$rootScope","$sta
             }
         });
         $scope.modTruckNum = "";
+        $scope.addDrivderId ='';
+        $scope.driveNameList =[];
         $scope.modRecordTruckType = "";
         $scope.associatedAccident = "";
         $scope.repairReason = "";
@@ -382,8 +401,27 @@ app.controller("truck_repair_list_controller", ['$rootScope', "$rootScope","$sta
 
     // 根据选择的车牌号获取关联事故列表
     $scope.searchMatchAccident = function () {
+        if($scope.modTruckNum.drive_id==0){
+            $scope.addDrivderId='';
+            $scope.driveNameList=[];
+            $scope.driveName='';
+
+        }
+        else {
+            $scope.addDrivderId=$scope.modTruckNum.drive_id;
+            $scope.driveNameList=[];
+            getDriverId();
+            _basic.get($host.api_url + "/drive?driveId="+$scope.addDrivderId).then(function (data) {
+                if (data.success == true) {
+                    $scope.driveName = data.result[0].drive_name;
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
         $scope.associatedAccident = "";
-        _basic.get($host.api_url + "/truckAccident?truckId=" + $scope.modTruckNum).then(function (data) {
+        _basic.get($host.api_url + "/truckAccident?truckId=" + $scope.modTruckNum.id).then(function (data) {
             if (data.success === true) {
                 if(data.result.length === 0){
                     $scope.hasNotAccident = true;
@@ -412,30 +450,51 @@ app.controller("truck_repair_list_controller", ['$rootScope', "$rootScope","$sta
 
     // 提交新增的维修记录
     $scope.addRepairRecord = function () {
-        var paramObj;
-        var condition;
+        $scope.paramObj='';
+        $scope.condition='';
         // 根据不同的事故状态传不同的参数走不同的判断条件
         if($scope.forbidSelect){
-            paramObj = {
-                repairType: $scope.modRecordTruckType,
-                repairReason: $scope.repairReason
-            };
-            condition = ($scope.modTruckNum !== "" && $scope.modRecordTruckType !== "" && $scope.repairReason !== "");
+            if($scope.addDrivderId==''){
+                $scope.paramObj = {
+                    repairType: $scope.modRecordTruckType,
+                    repairReason: $scope.repairReason
+                };
+            }
+            else {
+                $scope.paramObj = {
+                    repairType: $scope.modRecordTruckType,
+                    repairReason: $scope.repairReason,
+                    driveId:$scope.addDrivderId,
+                    driveName:$scope.driveName
+                };
+            }
+            $scope.condition = ($scope.modTruckNum !== "" && $scope.modRecordTruckType !== "" && $scope.repairReason !== "");
         }
-        else{
-            paramObj = {
-                repairType: $scope.modRecordTruckType,
-                accidentId: $scope.associatedAccident,
-                repairReason: $scope.repairReason
-            };
-            condition = ($scope.modTruckNum !== "" && $scope.modRecordTruckType !== "" && $scope.repairReason !== "" && $scope.associatedAccident !== "");
+        else {
+            if ($scope.addDrivderId == '') {
+                $scope.paramObj = {
+                    repairType: $scope.modRecordTruckType,
+                    accidentId: $scope.associatedAccident,
+                    repairReason: $scope.repairReason
+                };
+            }
+            else {
+                $scope.paramObj = {
+                    repairType: $scope.modRecordTruckType,
+                    accidentId: $scope.associatedAccident,
+                    repairReason: $scope.repairReason,
+                    driveId:$scope.addDrivderId,
+                    driveName:$scope.driveName
+                };
+            }
+            $scope.condition = ($scope.modTruckNum !== "" && $scope.modRecordTruckType !== "" && $scope.repairReason !== "" && $scope.associatedAccident !== "");
         }
-        if(condition){
-            _basic.post($host.api_url + "/user/" + userId + "/truck/" + $scope.modTruckNum + "/truckRepairRel",paramObj).then(function (data) {
+        if($scope.condition){
+            _basic.post($host.api_url + "/user/" + userId + "/truck/" + $scope.modTruckNum.id + "/truckRepairRel",$scope.paramObj).then(function (data) {
                 if (data.success === true) {
                     swal("新增成功", "", "success");
                     $('#addRepairInfoModel').modal('close');
-                    $scope.searchRepairRecordList();
+                   /* $scope.searchRepairRecordList();*/
                 }
                 else {
                     swal(data.msg, "", "error");

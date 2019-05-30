@@ -69,9 +69,13 @@
         <!--调度编号 接受/未接受-->
         <div class="card-content bold cyan-text grey lighten-3" style="height:65px;">
             <div class="row col s12">
-                <div class="col s6 left-align">
+                <div class="col s2 left-align">
                     调度编号:{{dispatchOrderList.id}}
                 </div>
+                <div class="col s4 left-align">
+                    倒板:{{dispatchOrderList.reverse_flag==1?'是':'否'}}
+                </div>
+
                 <div class="col s6 right-align red-text" ng-if="dispatchOrderList.task_status==1">{{dispatchOrderList.task_status | instructionsStatus}}</div>
                 <div class="col s6 right-align" ng-if="dispatchOrderList.task_status!==1">{{dispatchOrderList.task_status | instructionsStatus}}</div>
             </div>

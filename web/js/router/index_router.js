@@ -876,6 +876,13 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/finance/truck_depreciation.html",
             controller:'truck_depreciation_controller'
         })
+        .state("single_value",{
+            url:"/single_value",
+            params: {"from": null},
+            templateUrl: "js/view/finance/single_value.html",
+            controller:'single_value_controller'
+        })
+
 
         // 结算管理
         .state("settlement_index",{

@@ -68,6 +68,12 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/car/car_statistics.html",
             controller:'car_statistics_controller'
         })*/
+        .state("single_value",{
+            url:"/single_value",
+            params: {"from": null},
+            templateUrl: "js/view/finance/single_value.html",
+            controller:'single_value_controller'
+        })
 
         //数据统计
         .state("settlement_statistics", {

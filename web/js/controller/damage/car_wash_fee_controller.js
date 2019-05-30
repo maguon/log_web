@@ -38,6 +38,16 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
         });
     }
 
+    // 所属类型--公司联动
+    $scope.getCompany=function () {
+        _basic.get($host.api_url+"/company?operateType="+$scope.operateType).then(function (data) {
+            if(data.success==true){
+                $scope.companyList=data.result;
+            }else {
+                swal(data.msg,"","error")
+            }
+        });
+    };
     //获取货车牌号
     function getTruckNum() {
         _basic.get($host.api_url + "/truckBase").then(function (data) {
@@ -232,6 +242,8 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
         $scope.loadDateEnd=conditions.loadDateEnd;
         $scope.dp_number=conditions.dpRouteTaskId;
         $scope.truckNum=conditions.truckId;
+        $scope.companyId=conditions.companyId;
+        $scope.operateType=conditions.operateType;
     }
 
     /**
@@ -249,7 +261,9 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
             loadDateStart:$scope.loadDateStart,
             loadDateEnd:$scope.loadDateEnd,
             dpRouteTaskId:$scope.dp_number,
-            truckId:$scope.truckNum
+            truckId:$scope.truckNum,
+            companyId:$scope.companyId,
+            operateType:$scope.operateType
         };
     }
 

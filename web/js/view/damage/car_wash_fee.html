@@ -1,38 +1,46 @@
 <div class="car_wash_fee">
     <div class="row main_storage_car">
         <div class="col s10">
-            <div class="col s3 input-field">
+            <div class="col s4 input-field">
                 <input id="instruction_number" type="text" ng-model="instructionNum">
                 <label for="instruction_number">洗车编号</label>
             </div>
-            <div class="col s3 input-field">
+            <div class="col s2 input-field">
                 <input id="dp_number" type="text" ng-model="dp_number">
                 <label for="dp_number">调度编号</label>
             </div>
-            <div class="col s3 input-field">
+            <div class="col s2 input-field">
                 <input id="load_time_start" type="text" class="datepicker" ng-model="loadDateStart" date style="width:100%"><i
                     class="mdi dataIcon mdi-table-large"></i>
                 <label for="load_time_start">装车时间</label>
             </div>
-            <div class="col s3 input-field">
+            <div class="col s2 input-field">
                 <input id="load_time_end" type="text" class="datepicker" ng-model="loadDateEnd" date style="width:100%"><i
                     class="mdi dataIcon mdi-table-large"></i>
                 <label for="load_time_end">至</label>
             </div>
-            <div class="col s3 input-field">
+
+            <div class="col s2 input-field">
+                <select material-select watch ng-model="receive_status" style="width:100%">
+                    <option value="" selected>领取状态</option>
+                    <option value="0">未通过</option>
+                    <option value="1">未领取</option>
+                    <option value="2">已领取</option>
+                </select>
+            </div>
+            <div class="col s2 input-field">
                 <select material-select watch ng-model="driver" id="getDrivderId" style="width: 100%" >
                     <option value="" selected>司机</option>
                     <option ng-repeat="el in driveNameList" ng-value="el.id">{{el.drive_name}}</option>
                 </select>
             </div>
-            <div class="col s3 input-field">
+            <div class="col s2 input-field">
                 <select  material-select watch ng-model="truckNum"  id="truckNum" style="width: 100%"  ng-change="changeTruck(addTruckId)">
                     <option value="" selected disabled>请选择</option>
                     <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}({{truckNumItem.truck_type == 1 ? "头车" : "挂车"}})</option>
                 </select>
             </div>
-
-            <div class="col s3 input-field">
+            <div class="col s4 input-field">
                 <div class="col s6">
                     <select id="end_city" name="state" style="width:100%" ng-change="getRecive()" ng-model="cityId">
                         <option value=""></option>
@@ -48,6 +56,24 @@
                 </div>
             </div>
 
+
+            <div class="input-field col s2">
+                <select id="truck_type" name="truck_type" ng-change="getCompany()" material-select watch ng-model="operateType">
+                    <option ng-value="">请选择</option>
+                    <option ng-value="1">自营车</option>
+                    <option ng-value="2">外协车</option>
+                </select>
+                <label for="truck_type">所属类型</label>
+            </div>
+            <div class="input-field col s2">
+                <select id="truck_company" name="truck_company" material-select watch ng-model="companyId" required>
+                    <option value="">请选择</option>
+                    <option ng-repeat="el in companyList" ng-value="el.id">{{el.company_name}}</option>
+                </select>
+                <label for="truck_company">所属公司</label>
+            </div>
+
+
             <!--<div class="col input-field" style="width: 20%">
                 <input id="receive_time_start" type="text" class="datepicker" ng-model="receiveTimeStart" date style="width:100%"><i
                     class="mdi dataIcon mdi-table-large"></i>
@@ -59,7 +85,7 @@
                 <label for="receive_time_end">至</label>
             </div>-->
 
-            <div class="col s3 input-field">
+         <!--   <div class="col s3 input-field">
                 <select material-select watch ng-model="receive_status" style="width:100%">
                     <option value="" selected>领取状态</option>
                     <option value="0">未通过</option>
@@ -67,7 +93,7 @@
                     <option value="2">已领取</option>
                 </select>
             </div>
-
+-->
         </div>
         <div class="col s2 vc-center" style="height: 125px;">
             <div class="col s6 center-align">

@@ -803,7 +803,7 @@
                         <p>任务工资 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12" style="color: #fff">
-                        <p>{{salaryDetails.plan_salary.toFixed(2)}}</p>
+                        <p>{{settledSalaryList.distance_salary+settledSalaryList.reverse_salary+settledSalaryList.storage_car_count*enter.toFixed(2)}}</p>
                     </div>
                 </div>
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
@@ -847,7 +847,7 @@
 
             </div>
 
-            <div class="col s12 valign-wrapper" style="margin-top: 50px">
+            <div class="col s12 valign-wrapper" style="margin-top: 50px"           >
                 <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold">
                     <div class="col s12 cyan-text">
                         <p>超量扣款 <span style="font-size: 1rem">(元)</span></p>
@@ -933,7 +933,7 @@
                         <p>应付工资 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12" style="color: white">
-                        <p>{{(salaryDetails.plan_salary - personalCommitmentCount - personalAccidentPay - peccancylAccidentPay- ExceedOilAccidentPay- socialSecurityFee -Reimbursement-otherDeductions).toFixed(2)}}</p>
+                        <p>{{(settledSalaryList.distance_salary+settledSalaryList.reverse_salary+settledSalaryList.storage_car_count*enter - personalCommitmentCount - personalAccidentPay - peccancylAccidentPay- ExceedOilAccidentPay- socialSecurityFee -Reimbursement-otherDeductions).toFixed(2)}}</p>
                     </div>
                 </div>
             </div>

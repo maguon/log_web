@@ -20,6 +20,16 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
             }
         });
     };
+    // 所属类型--公司联动
+    $scope.getCompany=function () {
+        _basic.get($host.api_url+"/company?operateType="+$scope.operateType).then(function (data) {
+            if(data.success==true){
+                $scope.companyList=data.result;
+            }else {
+                swal(data.msg,"","error")
+            }
+        });
+    };
     //司机
     function getDriveNameList () {
         _basic.get($host.api_url + "/drive").then(function (data) {
@@ -89,6 +99,8 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
             loadDateEnd:$scope.loadDateEnd,
             dpRouteTaskId:$scope.dp_number,
             truckId:$scope.truckNum,
+            companyId:$scope.companyId,
+            operateType:$scope.operateType,
             start:$scope.start.toString(),
             size:$scope.size
         })).then(function (data) {
@@ -140,7 +152,7 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
 
         var conditions = _basic.objToUrl({
             loadTaskCleanRelId: $scope.instructionNum,
-            driveName: $scope.driver,
+            driveId: $scope.driver,
             routeEndId: $scope.destinationCity,
             receiveId: $scope.distributor,
             status: $scope.receive_status,
@@ -148,7 +160,10 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
             cleanDateEnd: $scope.receiveTimeEnd,
             loadDateStart:$scope.loadDateStart,
             loadDateEnd:$scope.loadDateEnd,
-            dpRouteTaskId:$scope.dp_number
+            dpRouteTaskId:$scope.dp_number,
+            truckId:$scope.truckNum,
+            companyId:$scope.companyId,
+            operateType:$scope.operateType
         });
         // 检索URL
         url = conditions.length > 0 ? url + "&" + conditions : url;

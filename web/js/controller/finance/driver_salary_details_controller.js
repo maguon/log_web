@@ -69,7 +69,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
         });
 
         // 已任务
-        _basic.get($host.api_url + "/driveSettle?taskPlanDateStart="+ $scope.firstDay+"&taskPlanDateEnd="+ $scope.lastDay+"&driveId=" + driveId).then(function (data) {
+        _basic.get($host.api_url + "/driveSettle?taskPlanDateStart="+ $scope.firstDay+"&taskPlanDateEnd="+ $scope.lastDay+"&driveId=" + driveId+'&truckId='+ $scope.salaryDetails.truck_id).then(function (data) {
             if (data.success === true) {
                 $scope.settledSalaryList = data.result[0];
             }

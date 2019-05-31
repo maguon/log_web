@@ -19,21 +19,21 @@
                 </select>
             </div>
 
-           <!-- <div class="col s3 input-field">
-                <select id="car_type" ng-model="carType" material-select watch>
+            <div class="col s3 input-field">
+                <select id="car_type" ng-model="carType" material-select watch  ng-change="getCompany()">
                     <option value="" selected>请选择</option>
-                    <option value="1">自营</option>
-                    <option value="2">外协</option>
+                    <option ng-value="1">自营</option>
+                    <option ng-value="2">外协</option>
                 </select>
                 <label for="car_type">所属类型</label>
             </div>
             <div class="col s3 input-field">
                 <select id="insure_company" ng-model="insureCompany" material-select watch>
                     <option value="" selected>请选择</option>
-                    <option ng-repeat="company in companyList" ng-value="company.id">{{company.company_name}}</option>
+                    <option ng-repeat="company in company" ng-value="company.id">{{company.company_name}}</option>
                 </select>
                 <label for="insure_company">所属公司</label>
-            </div>-->
+            </div>
 
 
         </div>
@@ -65,6 +65,7 @@
                     <th>所属公司</th>
                     <th>产值公司</th>
                     <th>倒板数</th>
+                    <th>倒板工资</th>
                     <th>重载里程</th>
                     <th>空载里程</th>
                     <th>总里程</th>
@@ -110,6 +111,7 @@
                     <td>{{driver.company_name}}</td>
                     <td>{{driver.output_company_name}}</td>
                     <td>{{driver.reverse_count}}</td>
+                    <td>{{driver.reverse_salary}}</td>
                     <td>{{driver.load_distance}}</td>
                     <td>{{driver.no_load_distance}}</td>
                     <td>{{driver.distance}}</td>
@@ -145,14 +147,14 @@
 
                 </tr>
                 <tr class="grey-text text-darken-1" ng-show="driverInfoList.length == 0">
-                    <td colspan="41"><span style="letter-spacing: 2px">暂无数据</span></td>
+                    <td colspan="42"><span style="letter-spacing: 2px">暂无数据</span></td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
 
-    <!--分页-->
+   <!-- &lt;!&ndash;分页&ndash;&gt;
     <div class="row">
         <div class="paging_box col s12">
             <div class="right">
@@ -164,5 +166,5 @@
                 </a>
             </div>
         </div>
-    </div>
+    </div>-->
 </div>

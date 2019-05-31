@@ -1,8 +1,8 @@
 app.controller("single_value_controller", ["$scope","$rootScope", "$state", "$stateParams", "_basic", "_config", "$host", function ($scope,$rootScope, $state, $stateParams, _basic, _config, $host) {
 
 
-    $scope.start = 0;
-    $scope.size = 11;
+    /*$scope.start = 0;
+    $scope.size = 11;*/
 
     // monthPicker控件
     $('#start_month').MonthPicker({
@@ -26,17 +26,16 @@ app.controller("single_value_controller", ["$scope","$rootScope", "$state", "$st
     }
     getLastMonth();
 
-   /* // 获取所有公司列表
-    $scope.getCompanyList = function () {
-        _basic.get($host.api_url + "/company").then(function (data) {
-            if (data.success === true) {
-                $scope.companyList = data.result;
-            }
-            else {
-                swal(data.msg, "", "error");
+    // 获取所有公司列表
+    $scope.getCompany = function () {
+        _basic.get($host.api_url+"/company?operateType="+$scope.carType).then(function (data) {
+            if(data.success==true){
+                $scope.company=data.result;
+            }else {
+                swal(data.msg,"","error")
             }
         });
-    };*/
+    };
     //司机
     function getDriveNameList () {
         _basic.get($host.api_url + "/drive").then(function (data) {
@@ -79,25 +78,13 @@ app.controller("single_value_controller", ["$scope","$rootScope", "$state", "$st
             yMonth:$scope.startMonth,
             driveId:$scope.driverName,
             truckId:$scope.truckNumber,
-            start:$scope.start,
-            size: $scope.size
+            operateType:$scope.carType,
+            companyId:$scope.insureCompany
         };
             _basic.get($host.api_url + "/driveTruckMonthValue?"+_basic.objToUrl(obj)).then(function (data) {
                 if (data.success === true) {
-                    $scope.boxArray = data.result;
-                    $scope.driverInfoList = $scope.boxArray.slice(0, 10);
-                    if ($scope.start > 0) {
-                        $("#pre").show();
-                    }
-                    else {
-                        $("#pre").hide();
-                    }
-                    if (data.result.length < $scope.size) {
-                        $("#next").hide();
-                    }
-                    else {
-                        $("#next").show();
-                    }
+                    $scope.driverInfoList =data.result;
+
 
                 }
                 else {
@@ -118,8 +105,8 @@ app.controller("single_value_controller", ["$scope","$rootScope", "$state", "$st
             yMonth:$scope.startMonth,
             driveId:$scope.driverName,
             truckId:$scope.truckNumber,
-            start:$scope.start,
-            size: $scope.size
+            operateType:$scope.carType,
+            companyId:$scope.insureCompany
         };
         var conditions = _basic.objToUrl(obj);
         // 检索URL
@@ -134,7 +121,7 @@ app.controller("single_value_controller", ["$scope","$rootScope", "$state", "$st
         $scope.getDriverInfoList();
     };
 
-    // 分页
+  /*  // 分页
     $scope.pre_btn = function () {
         $scope.start = $scope.start - ($scope.size-1);
         $scope.getDriverInfoList();
@@ -143,7 +130,7 @@ app.controller("single_value_controller", ["$scope","$rootScope", "$state", "$st
     $scope.next_btn = function () {
         $scope.start = $scope.start + ($scope.size-1);
         $scope.getDriverInfoList();
-    };
+    };*/
 
 
 

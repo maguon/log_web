@@ -313,13 +313,13 @@
                         <p>里程工资：<span class="cyan-text" >{{settledSalaryList.distance_salary}}</span> 元</p>
                     </div>
                     <div class="col s3" style="padding: 0;">
-                        <p>交车打车进门费：<span class="cyan-text" >{{settledSalaryList.storage_car_count*enter}}</span> 元</p>
+                        <p>交车打车进门费：<span class="cyan-text" >{{settledSalaryList.not_storage_car_count*enter}}</span> 元</p>
                     </div>
                     <div class="col s3" style="padding: 0;">
                         <p>倒板工资：<span class="cyan-text" >{{settledSalaryList.reverse_salary==null?0:settledSalaryList.reverse_salary}}</span> 元</p>
                     </div>
                     <div class="col s3" style="padding: 0;">
-                        <p>应发工资：<span class="cyan-text" >{{settledSalaryList.distance_salary+settledSalaryList.reverse_salary+settledSalaryList.storage_car_count*enter}}</span> 元</p>
+                        <p>应发工资：<span class="cyan-text" >{{settledSalaryList.distance_salary+settledSalaryList.reverse_salary+settledSalaryList.not_storage_car_count *enter}}</span> 元</p>
                     </div>
                 </div>
 
@@ -739,7 +739,7 @@
                         <p>任务工资 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12" style="color: #fff">
-                        <p>{{settledSalaryList.distance_salary+settledSalaryList.reverse_salary+settledSalaryList.storage_car_count*enter.toFixed(2)}}</p>
+                        <p>{{settledSalaryList.distance_salary+settledSalaryList.reverse_salary+settledSalaryList.not_storage_car_count *enter.toFixed(2)}}</p>
                     </div>
                 </div>
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
@@ -869,7 +869,7 @@
                         <p>应付工资 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12" style="color: white">
-                        <p>{{(settledSalaryList.distance_salary+settledSalaryList.reverse_salary+settledSalaryList.storage_car_count*enter - personalCommitmentCount - personalAccidentPay - peccancylAccidentPay- ExceedOilAccidentPay- socialSecurityFee -Reimbursement-otherDeductions).toFixed(2)}}</p>
+                        <p>{{(settledSalaryList.distance_salary+settledSalaryList.reverse_salary+settledSalaryList.not_storage_car_count *enter - personalCommitmentCount - personalAccidentPay - peccancylAccidentPay- ExceedOilAccidentPay- socialSecurityFee -Reimbursement-otherDeductions).toFixed(2)}}</p>
                     </div>
                 </div>
             </div>

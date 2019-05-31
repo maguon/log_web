@@ -69,9 +69,32 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
         });
 
         // 已任务
-        _basic.get($host.api_url + "/driveSettle?taskPlanDateStart="+ $scope.firstDay+"&taskPlanDateEnd="+ $scope.lastDay+"&driveId=" + driveId+'&truckId='+ $scope.salaryDetails.truck_id).then(function (data) {
+         var url='';
+         if($scope.salaryDetails.truck_id==null){
+           url= $host.api_url + "/driveSettle?taskPlanDateStart="+ $scope.firstDay+"&taskPlanDateEnd="+ $scope.lastDay+"&driveId=" + driveId;
+         }
+         else {
+             url=$host.api_url + "/driveSettle?taskPlanDateStart="+ $scope.firstDay+"&taskPlanDateEnd="+ $scope.lastDay+"&driveId=" + driveId+'&truckId='+ $scope.salaryDetails.truck_id
+         }
+        _basic.get(url).then(function (data) {
             if (data.success === true) {
-                $scope.settledSalaryList = data.result[0];
+                if(data.result.length==0){
+                    $scope.settledSalaryList=[];
+                    $scope.settledSalaryList.distance_salary=0;
+                    $scope.settledSalaryList.reverse_salary=0;
+                    $scope.settledSalaryList.not_storage_car_count=0;
+
+                }
+                else {
+                    $scope.settledSalaryList = data.result[0];
+                    if( $scope.settledSalaryList.distance_salary==null){
+                        $scope.settledSalaryList.distance_salary=0;
+                    }
+                    if( $scope.settledSalaryList.reverse_salary==null){
+                        $scope.settledSalaryList.reverse_salary=0;
+                    }
+                }
+
             }
             else {
                 swal(data.msg, "", "error");

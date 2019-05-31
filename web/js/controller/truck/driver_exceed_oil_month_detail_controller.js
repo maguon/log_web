@@ -67,7 +67,7 @@ app.controller("driver_exceed_oil_month_detail_controller", ["$scope", "$state",
         $scope.OilRelList=[];
         $scope.totalOilActal=0;
         $scope.totalUreaActal =0;
-        _basic.get($host.api_url + "/driveExceedOilRel?oilDateStart="+firstDay+'&oilDateEnd='+lastDay+_basic.objToUrl(obj)).then(function (data) {
+        _basic.get($host.api_url + "/driveExceedOilRel?oilDateStart="+firstDay+'&oilDateEnd='+lastDay+'&'+_basic.objToUrl(obj)).then(function (data) {
             if (data.success === true) {
                 $scope.OilRelList = data.result;
                 for(var i =0;i< $scope.OilRelList.length;i++){

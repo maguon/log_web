@@ -247,6 +247,7 @@ app.controller("setting_dealer_controller", ["$scope","$rootScope","$state","$st
         $scope.city=conditions.cityId;
         $scope.car_brand.id=conditions.makeId;
         $scope.car_brand.make_name=conditions.makeName;
+        $scope.receive_flag = conditions.receiveFlag;
     }
 
     /**
@@ -258,6 +259,7 @@ app.controller("setting_dealer_controller", ["$scope","$rootScope","$state","$st
                 receiveId: $scope.s_dealer,
                 receiveType:$scope.receive_type,
                 cityId: $scope.city,
+                receiveFlag:$scope.receive_flag,
                 makeId: '',
                 makeName: ''
             }
@@ -266,6 +268,7 @@ app.controller("setting_dealer_controller", ["$scope","$rootScope","$state","$st
                 receiveId: $scope.s_dealer,
                 receiveType:$scope.receive_type,
                 cityId: $scope.city,
+                receiveFlag:$scope.receive_flag,
                 makeId: $scope.car_brand.id,
                 makeName: $scope.car_brand.make_name
             }

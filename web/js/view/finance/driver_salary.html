@@ -176,7 +176,7 @@
                         <th data-field="">交车打车进门费</th>
                         <th data-field="">倒板工资</th>
                        <!-- <th width="240" data-field="">司机里程<br>（重载/空载）</th>-->
-                        <th data-field="">应发工资</th>
+                     <!--   <th data-field="">应发工资</th>-->
                        <!-- <th width="180" data-field="">实发工资</th>-->
                         <th data-field="">发放状态</th>
                         <th>操作</th>
@@ -195,7 +195,7 @@
                         <td>{{salary.plan_enter_fee==''?0:salary.plan_enter_fee}}</td>
                         <td>{{salary.plan_reverse_salary==''?0:salary.plan_reverse_salary}}</td>
                      <!--   <td>{{(salary.no_load_distance == null ? 0 : salary.no_load_distance) + " / " + (salary.load_distance == null ? 0 : salary.load_distance)}}</td>-->
-                        <td>{{salary.plan_salary}}</td>
+                      <!--  <td>{{salary.plan_salary}}</td>-->
                        <!-- <td style="color: #e57373">{{salary.actual_salary}}</td>-->
                         <td style="color: #e57373" ng-if="salary.grant_status == null || salary.grant_status == 1">未结算</td>
                         <td style="color: #f6ad33" ng-if="salary.grant_status == 2">未发放</td>
@@ -208,7 +208,7 @@
                         </td>
                     </tr>
                     <tr class="grey-text text-darken-1" ng-if="driverSalaryList.length == 0">
-                        <td colspan="12"><span style="letter-spacing: 2px">暂无数据</span></td>
+                        <td colspan="11"><span style="letter-spacing: 2px">暂无数据</span></td>
                     </tr>
                     </tbody>
                 </table>

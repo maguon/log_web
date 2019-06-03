@@ -156,8 +156,8 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
             yMonth:$scope.salaryDetails.month_date_id,
             taskPlanDateStart: $scope.firstDay,
             taskPlanDateEnd:$scope.lastDay,
-            driveId:driveId,
-            checkStatus:3
+            driveId:driveId
+          /*  checkStatus:3*/
         }
         // 未结超量扣款信息
         _basic.get($host.api_url + "/driveExceedOilDate?"+_basic.objToUrl(obj)).then(function (data) {

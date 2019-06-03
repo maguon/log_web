@@ -166,17 +166,20 @@
                 <table class="bordered striped text_mid">
                     <thead class="blue-grey lighten-5">
                     <tr class="grey-text text-darken-2">
-                        <th width="190" data-field="">月份</th>
-                        <th width="220" data-field="">姓名</th>
-                        <th width="200" data-field="">所属类型</th>
-                        <th width="260" data-field="">所属公司</th>
-                        <th width="210" data-field="">货车牌号</th>
-                        <th width="180" data-field="">品牌</th>
-                        <th width="240" data-field="">司机里程<br>（重载/空载）</th>
-                        <th width="200" data-field="">应发工资</th>
-                        <th width="180" data-field="">实发工资</th>
-                        <th width="180" data-field="">发放状态</th>
-                        <th width="150">操作</th>
+                        <th data-field="">月份</th>
+                        <th data-field="">姓名</th>
+                        <th data-field="">所属类型</th>
+                        <th data-field="">所属公司</th>
+                        <th data-field="">货车牌号</th>
+                        <th data-field="">品牌</th>
+                        <th data-field="">里程工资</th>
+                        <th data-field="">交车打车进门费</th>
+                        <th data-field="">倒板工资</th>
+                       <!-- <th width="240" data-field="">司机里程<br>（重载/空载）</th>-->
+                        <th data-field="">应发工资</th>
+                       <!-- <th width="180" data-field="">实发工资</th>-->
+                        <th data-field="">发放状态</th>
+                        <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -187,9 +190,13 @@
                         <td>{{salary.company_name}}</td>
                         <td>{{salary.truck_num}}</td>
                         <td>{{salary.brand_name}}</td>
-                        <td>{{(salary.no_load_distance == null ? 0 : salary.no_load_distance) + " / " + (salary.load_distance == null ? 0 : salary.load_distance)}}</td>
+
+                        <td>{{salary.distance_salary==''?0:salary.distance_salary}}</td>
+                        <td>{{salary.enter_fee==''?0:salary.enter_fee}}</td>
+                        <td>{{salary.reverse_salary==''?0:salary.reverse_salary}}</td>
+                     <!--   <td>{{(salary.no_load_distance == null ? 0 : salary.no_load_distance) + " / " + (salary.load_distance == null ? 0 : salary.load_distance)}}</td>-->
                         <td>{{salary.plan_salary}}</td>
-                        <td style="color: #e57373">{{salary.actual_salary}}</td>
+                       <!-- <td style="color: #e57373">{{salary.actual_salary}}</td>-->
                         <td style="color: #e57373" ng-if="salary.grant_status == null || salary.grant_status == 1">未结算</td>
                         <td style="color: #f6ad33" ng-if="salary.grant_status == 2">未发放</td>
                         <td style="color: darkgray" ng-if="salary.grant_status == 3">已发放</td>
@@ -197,11 +204,11 @@
                             <a ng-click="showDriverWageSettlement(salary)" style="cursor: pointer;text-align: center;color: #f6ad33"><i class="mdi mdi-comment-text" style="margin: 0"></i></a>
                         </td>
                         <td class="operation fz12" ng-show="salary.grant_status == 2 || salary.grant_status == 3">
-                            <a ui-sref="driver_salary_details({id:salary.id,driveId:salary.drive_id,from:'driver_salary'})" class="cyan-text " style="cursor: pointer;text-align: center;"><i class="mdi mdi-eye" style="margin: 0"></i></a>
+                            <a ui-sref="driver_salary_details({id:salary.id,driveId:salary.drive_id,monthId:salary.month_date_id == null ? monthVal : salary.month_date_id,from:'driver_salary'})" class="cyan-text " style="cursor: pointer;text-align: center;"><i class="mdi mdi-eye" style="margin: 0"></i></a>
                         </td>
                     </tr>
                     <tr class="grey-text text-darken-1" ng-if="driverSalaryList.length == 0">
-                        <td colspan="11"><span style="letter-spacing: 2px">暂无数据</span></td>
+                        <td colspan="12"><span style="letter-spacing: 2px">暂无数据</span></td>
                     </tr>
                     </tbody>
                 </table>

@@ -92,7 +92,7 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             controller:'driver_salary_controller'
         })
         .state("driver_salary_details",{
-            url:"/driver_salary_details/id/{id}/driveId/{driveId}/from/{from}",
+            url:"/driver_salary_details/id/{id}/driveId/{driveId}/monthId/{monthId}/from/{from}",
             templateUrl: "js/view/finance/driver_salary_details.html",
             controller:'driver_salary_details_controller'
         })

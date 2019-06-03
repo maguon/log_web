@@ -115,8 +115,6 @@ app.controller("truck_management_controller", ["$scope","$rootScope","$state", "
         $scope.driveName=conditions.driveName;
         $scope.check_operation_startTime=conditions.accidentDateStart;
         $scope.check_operation_endTime=conditions.accidentDateEnd;
-        $scope.deal_startTime =conditions.endDateStart;
-        $scope.deal_endTime =conditions.endDateEnd;
         $scope.truckNum=conditions.truckNum;
         $scope.dpRouteTaskId=conditions.dpRouteTaskId;
         $scope.truckAccidentType=conditions.truckAccidentType;
@@ -135,8 +133,6 @@ app.controller("truck_management_controller", ["$scope","$rootScope","$state", "
             driveName:$scope.driveName,
             accidentDateStart: $scope.check_operation_startTime,
             accidentDateEnd: $scope.check_operation_endTime,
-            endDateStart: $scope.deal_startTime,
-            endDateEnd:$scope.deal_endTime,
             truckNum:$scope.truckNum,
             dpRouteTaskId:$scope.dpRouteTaskId,
             truckAccidentType:$scope.truckAccidentType,

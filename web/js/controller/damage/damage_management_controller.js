@@ -147,12 +147,28 @@ app.controller("damage_management_controller", ["$scope","$rootScope","$state","
         $scope.damage_link_type=conditions.damageLinkType;
         $scope.damage_type=conditions.damageType;
         $scope.hangStatus=conditions.hangStatus;
+        $scope.deal_startTime =conditions.endDateStart;
+        $scope.deal_endTime =conditions.endDateEnd;
     }
 
     /**
      * 组装检索条件。
      */
     function makeConditions() {
+        var endStart='';
+        var endEnd='';
+        if($scope.deal_startTime==undefined){
+            endStart=''
+        }
+        else {
+            endStart=moment($scope.deal_startTime).format('YYYYMMDD')
+        }
+        if($scope.deal_endTime==undefined){
+            endEnd=''
+        }
+        else {
+            endEnd=moment($scope.deal_endTime).format('YYYYMMDD')
+        }
         return {
             damageId:$scope.damageNum,
             damageStatus:$scope.processingStatus,
@@ -167,6 +183,8 @@ app.controller("damage_management_controller", ["$scope","$rootScope","$state","
             receiveId:$scope.distributor,
             damageLinkType:$scope.damage_link_type,
             damageType:$scope.damage_type,
+            endDateStart: endStart,
+            endDateEnd:endEnd,
             hangStatus:$scope.hangStatus
         };
     }

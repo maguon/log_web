@@ -2,12 +2,12 @@
     <div class="row main_storage_car">
         <div class="col s12 valign-wrapper">
             <div class="col s10" style="padding: 0;">
-                <div class="col s3" style="padding: 0">
-                    <div class="col input-field s6">
+                <div class="col s6" style="padding: 0">
+                    <div class="col input-field s4">
                         <input id="damage_number" type="text" ng-model="damageNum">
                         <label for="damage_number">质损编号</label>
                     </div>
-                    <div class="input-field col s6">
+                    <div class="input-field col s8">
                         <input type="text" id="autocomplete-input" name="vin" ng-change="shortSearch()" ng-model="vinCode" autocomplete="off" class="autocomplete" minlength="6">
                         <!-- <input id="VinCode" type="text" ng-model="vinCode">-->
                         <label for="autocomplete-input">VIN(至少6位)</label>
@@ -34,6 +34,22 @@
                         <option ng-repeat="receive in receiveList" ng-value="receive.id">{{receive.short_name}}</option>
                     </select>
                 </div>
+                <div class="col s6" style="padding: 0">
+                    <div class="col input-field s4">
+                        <select material-select watch id="titleName" name="state" style="width:100%" ng-model="titleName">
+                            <option value="">责任人职务</option>
+                            <option ng-repeat="el in user_info_obj" ng-value="el.type">{{el.name}}</option>
+                        </select>
+                    </div>
+                    <div class="col input-field s4">
+                        <input id="responsibility_person" type="text" ng-model="responsibilityPerson">
+                        <label for="responsibility_person">责任人</label>
+                    </div>
+                    <div class="col input-field s4">
+                        <input id="report_person" type="text" ng-model="reportPerson">
+                        <label for="report_person">申报人</label>
+                    </div>
+                </div>
                 <div class="col s3" style="padding: 0">
                     <div class="col s6 input-field">
                         <select material-select watch ng-model="processingStatus">
@@ -52,34 +68,7 @@
                     </div>
                 </div>
 
-                <div class="col s3" style="padding: 0">
-                    <div class="col input-field s6">
-                        <input id="report_time_start" type="text" class="datepicker" ng-model="reportTimeStart" date><i
-                            class="mdi dataIcon mdi-table-large"></i>
-                        <label for="report_time_start">申报时间</label>
-                    </div>
-                    <div class="col input-field s6">
-                        <input id="report_time_end" type="text" class="datepicker" ng-model="reportTimeEnd" date><i
-                            class="mdi dataIcon mdi-table-large"></i>
-                        <label for="report_time_end">至</label>
-                    </div>
-                </div>
-                <div class="col s6" style="padding: 0">
-                    <div class="col input-field s4">
-                        <select material-select watch id="titleName" name="state" style="width:100%" ng-model="titleName">
-                            <option value="">责任人职务</option>
-                            <option ng-repeat="el in user_info_obj" ng-value="el.type">{{el.name}}</option>
-                        </select>
-                    </div>
-                    <div class="col input-field s4">
-                        <input id="responsibility_person" type="text" ng-model="responsibilityPerson">
-                        <label for="responsibility_person">责任人</label>
-                    </div>
-                    <div class="col input-field s4">
-                        <input id="report_person" type="text" ng-model="reportPerson">
-                        <label for="report_person">申报人</label>
-                    </div>
-                </div>
+
                 <div class="col s3" style="padding: 0">
                 <div class="col s6 input-field">
                     <select id="damageLinkType" material-select watch ng-model="damage_link_type">
@@ -93,6 +82,30 @@
                         <option ng-repeat="damage in damageType" ng-value="damage.id">{{damage.typeLevel}}</option>
                     </select>
                 </div>
+                </div>
+
+                <div class="col s6" style="padding: 0">
+                    <div class="col input-field s6">
+                        <input id="report_time_start" type="text" class="datepicker" ng-model="reportTimeStart" date><i
+                            class="mdi dataIcon mdi-table-large"></i>
+                        <label for="report_time_start">申报时间</label>
+                    </div>
+                    <div class="col input-field s6">
+                        <input id="report_time_end" type="text" class="datepicker" ng-model="reportTimeEnd" date><i
+                            class="mdi dataIcon mdi-table-large"></i>
+                        <label for="report_time_end">至</label>
+                    </div>
+                </div>
+
+                <div class="input-field col s3">
+                    <input type="text" ng-model="deal_startTime" id="deal_startTime" class="datepicker"  date><i
+                        class="mdi dataIcon mdi-table-large"></i>
+                    <label style="color: #000; !important" for="deal_startTime">处理结束时间(始)</label>
+                </div>
+                <div class="input-field col s3">
+                    <input type="text" ng-model="deal_endTime" id="deal_endTime"  class="datepicker" date><i
+                        class="mdi dataIcon mdi-table-large"></i>
+                    <label style="color: #000; !important"  for="deal_endTime">处理结束时间(终)</label>
                 </div>
             </div>
 
@@ -119,6 +132,7 @@
                 <tr class="grey-text text-darken-2">
                     <th data-field="">质损编号</th>
                     <th data-field="">申报时间</th>
+                    <th data-field="">处理结束时间</th>
                     <th data-field="">VIN</th>
                     <th data-field="">品牌</th>
                     <th data-field="">质损说明</th>
@@ -131,7 +145,8 @@
                 <tbody>
                 <tr ng-repeat="damage in damageMamagementList" class="grey-text text-darken-1">
                     <td>{{damage.id}}</td>
-                    <td>{{damage.created_on | date:'yyyy-MM-dd HH:mm'}}</td>
+                    <td>{{damage.created_on | date:'yyyyMMdd HH:mm'}}</td>
+                    <td>{{damage.check_end_date }}</td>
                     <td>{{damage.vin}}</td>
                     <td>{{damage.make_name}}</td>
                     <td class="unnecessary" style="max-width: 150px;">{{damage.damage_explain}}</td>
@@ -145,7 +160,7 @@
                     </td>
                 </tr>
                 <tr class="grey-text text-darken-1" ng-if="damageMamagementList.length == 0">
-                    <td colspan="9"><span style="letter-spacing: 2px">暂无数据</span></td>
+                    <td colspan="10"><span style="letter-spacing: 2px">暂无数据</span></td>
                 </tr>
                 </tbody>
             </table>

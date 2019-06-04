@@ -86,7 +86,7 @@ app.controller("truck_driver_controller", ["$scope","$rootScope","$state","$stat
      * @param conditions 上次检索条件
      */
     function setConditions(conditions) {
-        $scope.driveName = conditions.driveName;
+        $scope.driveName = conditions.driveId;
         $scope.driverType = conditions.operateType;
         $scope.driverCompany = conditions.companyId;
         $scope.workStatus = conditions.driveStatus;
@@ -103,7 +103,7 @@ app.controller("truck_driver_controller", ["$scope","$rootScope","$state","$stat
      */
     function makeConditions() {
         return {
-            driveName:$scope.driveName,
+            driveId:$scope.driveName,
             operateType:$scope.driverType,
             companyId:$scope.driverCompany,
             driveStatus:$scope.workStatus,
@@ -227,7 +227,7 @@ app.controller("truck_driver_controller", ["$scope","$rootScope","$state","$stat
 
     // 获取司机信息
     $scope.queryData = function () {
-        _basic.get($host.api_url + "/truckFirst?truckType=1").then(function (truckData) {
+     /*   _basic.get($host.api_url + "/truckFirst?truckType=1").then(function (truckData) {
             if (truckData.success === true) {
                 $scope.truckList = truckData.result;
             }
@@ -235,6 +235,23 @@ app.controller("truck_driver_controller", ["$scope","$rootScope","$state","$stat
                 swal(truckData.msg, "", "error");
             }
         });
+*/
+
+        _basic.get($host.api_url + "/drive").then(function (data) {
+            if (data.success == true) {
+                $scope.driveNameList = data.result;
+                $('#driveName').select2({
+                    placeholder: '司机',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+
+
     };
     $scope.queryData();
 

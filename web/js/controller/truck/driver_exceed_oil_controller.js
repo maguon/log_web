@@ -92,7 +92,7 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
     }
     function getExceedOilDataMonth(){
         // 基本检索URL
-        var url = $host.api_url + "/driveExceedOilDate?start=" + $scope.start + "&size=" + $scope.size;
+        var url = $host.api_url + "/driveExceedOilDate?";
 
         //获取当月第一天和最后一天
         var year =  $scope.startMonth.toString().slice(0,4);
@@ -114,7 +114,9 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
             truckId:$scope.truckNumber,
             companyId:$scope.companyId,
             operateType:$scope.operateType,
-            checkStatus:$scope.dealStatus
+            checkStatus:$scope.dealStatus,
+            start:$scope.start,
+            size:$scope.size
         };
         var conditions = _basic.objToUrl(conditionsObj);
         // 检索URL

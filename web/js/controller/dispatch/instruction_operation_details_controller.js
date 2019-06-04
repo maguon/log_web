@@ -206,7 +206,7 @@ app.controller("instruction_operation_details_controller", ["$scope","$state", "
                     })
                 }
                 else{
-                    _basic.get($host.api_url + "/carList?vinCode=" + $scope.vinNum +'&currentCityId='+routeId +'&currentAddrId='+ addrId+ "&carStatusArr=1,2&start=0&size=5").then(function (data) {
+                    _basic.get($host.api_url + "/carList?vinCode=" + $scope.vinNum +'&newCurrentCityId='+routeId +'&newCurrentAddrId='+ addrId+ "&carStatusArr=1,2&start=0&size=5").then(function (data) {
                         if (data.success == true && data.result.length > 0) {
                             $scope.vin_msg = data.result;
                             var vinObjs = {};
@@ -261,7 +261,7 @@ app.controller("instruction_operation_details_controller", ["$scope","$state", "
                     })
                 }
                 else{
-                    _basic.get($host.api_url + "/carList?userId="+userId+"&vinCode=" + $scope.codeVin +'&carId='+$scope.carId+'&currentCityId='+routeId +'&currentAddrId='+ addrId+ "&carStatusArr=1,2&start=0&size=5").then(function (data) {
+                    _basic.get($host.api_url + "/carList?userId="+userId+"&vinCode=" + $scope.codeVin +'&carId='+$scope.carId+'&newCurrentCityId='+routeId +'&newCurrentAddrId='+ addrId+ "&carStatusArr=1,2&start=0&size=5").then(function (data) {
                         if (data.success == true && data.result.length > 0) {
                             $scope.vin_msg = data.result;
                             var vinObjs = {};

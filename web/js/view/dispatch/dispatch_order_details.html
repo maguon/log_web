@@ -464,10 +464,9 @@
                             <div class="col s3 right-align cyan-text" ng-if="el.status==2">已领取</div>
                         </div>
                     </div>
-                    <div class="card-content bold  white grey-text lighten-3" style="border: 1px solid #ccc;height:150px;">
+                    <div class="card-content bold  white grey-text lighten-3" style="border: 1px solid #ccc;height:200px;">
 
                         <div class="row col s12">
-
                             <div class="col s4 left-align">
                                 小车数:{{el.small_car_count}}
                             </div>
@@ -477,6 +476,8 @@
                             <div class="col s4 right-align">
                                 小车洗车费:<span class="red-text fz18">{{el.small_car_count*el.small_single_price}}</span>
                             </div>
+                        </div>
+                        <div class="row col s12">
                             <div class="col s4 left-align">
                                 大车数:{{el.big_car_count}}
                             </div>
@@ -486,10 +487,10 @@
                             <div class="col s4 right-align">
                                 大车洗车费:<span class="red-text fz18">{{el.big_car_count*el.big_single_price}}</span>
                             </div>
-
-
+                        </div>
+                        <div class="row col s12">
                             <div class="col s3 left-align">
-                                拖车费:{{el.total_trailer_fee}}
+                                拖车费:<span class="red-text fz18">{{el.total_trailer_fee}}</span>
                             </div>
                             <div class="col s3 center">
                                 提车费:<span class="red-text fz18">{{el.car_parking_fee}}</span>
@@ -501,15 +502,15 @@
                                 带路费:<span class="red-text fz18">{{el.lead_fee}}</span>
                             </div>
 
-
-
+                        </div>
+                        <div class="row col s12">
                             <div class="col s6 left-align">
                                 现场调度:{{el.field_op_name}}
                             </div>
                             <div class="col s6 right-align" ng-if="el.status==2">
                                 领取时间:{{el.clean_date |date:'yyyy-MM-dd hh:mm'}}
                             </div>
-
+                        </div>
                         </div>
                     </div>
                 </div>

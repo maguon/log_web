@@ -129,8 +129,8 @@
             <!--按键切换  装车任务   出车款 洗车费-->
             <ul class="tabWrap grey lighten-3">
                 <li class="tab col s4 lookOrderTask  vc-center"  ng-click="lookOrderTask()">装车任务</li>
-                <li class="tab col s4 lookOutFee   vc-center"  ng-click="lookOutFee()">出车款</li>
-              <!--  <li class="tab col s3 lookWashFee vc-center"  ng-click="lookWashFee()">洗车费</li>-->
+               <!-- <li class="tab col s4 lookOutFee   vc-center"  ng-click="lookOutFee()">洗车费</li>-->
+                <li class="tab col s4 lookWashFee vc-center"  ng-click="lookWashFee()">洗车费</li>
                 <li class="tab col s4 lookRecord  vc-center"  ng-click="lookRecord()">执行记录</li>
             </ul>
         </div>
@@ -225,9 +225,9 @@
         </div>
 
         <!--出车款-->
-        <div id="lookOutFee" class="row col s12 tab_box card" style="width: 80%; margin:0 10% ;border-bottom: 1px solid #ccc;padding: 0px;">
+       <!-- <div id="lookOutFee" class="row col s12 tab_box card" style="width: 80%; margin:0 10% ;border-bottom: 1px solid #ccc;padding: 0px;">
             <div class="row col s12" ng-if="outFeeInfo!==undefined" style="padding: 0px">
-                <!--出车款编号 报销状态-->
+                &lt;!&ndash;出车款编号 报销状态&ndash;&gt;
                 <div class="card-content bold white lighten-3" style="height:65px" >
                     <div class="row col s12">
                         <div class="col s6 left-align">出车款编号:{{outFeeInfo.id}}</div>
@@ -236,7 +236,7 @@
                     </div>
                 </div>
 
-                <!--关联其他调度任务-->
+                &lt;!&ndash;关联其他调度任务&ndash;&gt;
                 <div class="row card-content bold grey lighten-3 " ng-if="relateTaskList.length!==0"  style="width:100%;height: 65px;margin-bottom:10px">
                     <div class="row col s12">
                         <div class="col s6 left-align fz18">关联其他调度任务</div>
@@ -244,12 +244,12 @@
                     </div>
                 </div>
 
-                <!--关联其他调度任务的列表-->
+                &lt;!&ndash;关联其他调度任务的列表&ndash;&gt;
                 <div class="card-content bold white grey-text lighten-3" ng-if="relateTaskList.length!==0"  ng-repeat="el in relateTaskList" style="width: 96%;margin:0 2%;" >
                     <div class="col s12" style="border-bottom: 1px solid #ccc;">
                         <div class="col s6">
                             <div class="col s4 left-align">调度编号:{{el.dp_route_task_id}}</div>
-                            <div class="col s5">{{el.city_route_start}}--{{el.city_route_end}}&nbsp;&nbsp;{{el.distance}}公里</div>
+                            <div class="col s5">{{el.city_route_start}}&#45;&#45;{{el.city_route_end}}&nbsp;&nbsp;{{el.distance}}公里</div>
                             <div class="col s3">装车数量:{{el.plan_count}}</div>
                         </div>
                         <div class="col s6">
@@ -260,7 +260,7 @@
                     </div>
                 </div>
 
-                <!--出车款发放 发放时间-->
+                &lt;!&ndash;出车款发放 发放时间&ndash;&gt;
                 <div class="row card-content bold grey lighten-3" style="width:100%;height:65px;margin-top: 25px">
                     <div class="row col s12">
                         <div class="col s6 left-align fz18">出车款发放</div>
@@ -270,8 +270,8 @@
 
                 </div>
 
-                <!--各种费用及备注-->
-                <!--出车款信息-->
+                &lt;!&ndash;各种费用及备注&ndash;&gt;
+                &lt;!&ndash;出车款信息&ndash;&gt;
                 <div class="col s12 center-align"  ng-if="outFeeInfo.task_loan_status!==1" style="width:96%;margin-left: 2%;font-size: 1.2rem;color: darkgray;font-weight: bold;padding: 0;">
                     <div class="col s4">
                         <p>过路费：<span style="color: #e57373">{{outFeeInfo.refund_passing_cost}}</span> 元</p>
@@ -293,7 +293,7 @@
                     </div>
                 </div>
 
-                <!--洗车费-->
+                &lt;!&ndash;洗车费&ndash;&gt;
                 <div class="row col s12"  style="width: 98%;margin-left:1%;">
                     <div class="col s12 valign-wrapper" style="height: 55px;background-color: #dcdfe0;font-weight: bold;font-size: 1.2rem">
                         <div class="col s4  cyan-text left-align"><p>洗车费</p> </div>
@@ -314,20 +314,20 @@
                     </div>
                 </div>
 
-                <!--备注-->
+                &lt;!&ndash;备注&ndash;&gt;
                 <div class="row col s12  grey-text bold" style="width: 98%;margin-left:1%;">
                     <div  class="col s6 left-align">备注：{{outFeeInfo.grant_explain}}</div>
                     <div class="col s6 right-align">发放人:{{outFeeInfo.grant_user_name}}</div>
                 </div>
 
-                <!--总额计算-->
+                &lt;!&ndash;总额计算&ndash;&gt;
                 <div class="col s12" style="height:50px;width: 98%;margin-left:1%;margin-bottom:30px;color: darkgray;font-size: 1.1rem;font-weight: bold;margin-top: 20px;">
                     <div  class="col s4 left-align">出车款：<span id="hasMoney" style="color: #e57474">{{outFeeInfo.grant_passing_cost + outFeeInfo.grant_fuel_cost + outFeeInfo.grant_protect_cost + outFeeInfo.grant_penalty_cost + outFeeInfo.grant_parking_cost + outFeeInfo.grant_taxi_cost}}</span> 元</div>
                     <div  class="col s4 center-align">洗车费：<span id="hasWash" style="color: #e57474">{{bigPrice}}</span> 元</div>
                     <div  class="col s4 right-align">总额：<span id="actMoney" style="color: #e57474">{{outFeeInfo.grant_passing_cost + outFeeInfo.grant_fuel_cost + outFeeInfo.grant_protect_cost + outFeeInfo.grant_penalty_cost + outFeeInfo.grant_parking_cost + outFeeInfo.grant_taxi_cost+ bigPrice}}</span> 元</div>
                 </div>
 
-                <!--财务报销详情-->
+                &lt;!&ndash;财务报销详情&ndash;&gt;
                 <div class="row col s12" style="margin-top: 12px;" ng-show="outFeeInfo.task_loan_status == 2">
                     <div class="col s12 z-depth-2" style="padding: 0;">
                         <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;color: darkgray;font-size: 1.2rem;font-weight: bold">
@@ -383,7 +383,7 @@
                     </div>
                 </div>
 
-               <!-- &lt;!&ndash;财务发放详情 发放时间&ndash;&gt;
+               &lt;!&ndash; &lt;!&ndash;财务发放详情 发放时间&ndash;&gt;
                 <div class="card-content bold" style="height: 65px;" ng-if="outFeeInfo.task_loan_status == 2">
                     <div class="row col s12 grey lighten-3" style="margin-bottom: 5px">
                         <div class="col s6 left-align fz18">财务发放详情</div>
@@ -434,19 +434,19 @@
                         <div class="col s4">盈亏:<span class="red-text fz18">{{outFeeInfo.profit|number:2}}</span>元</div>
                         <div class="col s12 right-align">财务人员:{{outFeeInfo.refund_user_name}}</div>
                     </div>
-                </div>-->
+                </div>&ndash;&gt;
 
             </div>
-            <!--暂无数据-->
+            &lt;!&ndash;暂无数据&ndash;&gt;
             <div class="row col s12" ng-if="outFeeInfo==undefined" style="width: 90%; margin-left:5%; margin-top:10px;">
                 <div style="height:200px;line-height: 200px;text-align: center">
                     <i class="mdi  mdi-alert-circle-outline red-text fz30"></i>
                     <span class="bold grey-text fz22">暂无数据</span>
                 </div>
             </div>
-        </div>
+        </div>-->
 
-     <!--   &lt;!&ndash;洗车费&ndash;&gt;
+        <!--洗车费-->
         <div id="lookWashFee" class="col s12 tab_box card" style="width: 80%; margin:0 10% ">
 
             <div class="card-content bold white lighten-3" ng-if="washFeeList.length!==0" style="width: 70%; margin:0 15%">
@@ -457,26 +457,52 @@
                         <div class="row col s12">
 
                             <div class="col s6 fz16 cyan-text left-align">
-                                {{el.addr_name}}&#45;&#45;{{el.short_name}}
+                                {{el.addr_name}}--{{el.short_name}}
                             </div>
                             <div class="col s3"></div>
                             <div class="col s3 right-align red-text" ng-if="el.status==1">未领取</div>
                             <div class="col s3 right-align cyan-text" ng-if="el.status==2">已领取</div>
                         </div>
                     </div>
-                    <div class="card-content bold  white grey-text lighten-3" style="border: 1px solid #ccc;height:90px;">
+                    <div class="card-content bold  white grey-text lighten-3" style="border: 1px solid #ccc;height:150px;">
 
                         <div class="row col s12">
 
                             <div class="col s4 left-align">
-                                商品车数:{{el.car_count}}
+                                小车数:{{el.small_car_count}}
                             </div>
                             <div class="col s4 center">
-                                洗车单价:<span class="red-text fz18">{{el.single_price}}</span>
+                                小车洗车单价:<span class="red-text fz18">{{el.small_single_price}}</span>
                             </div>
                             <div class="col s4 right-align">
-                                洗车费:<span class="red-text fz18">{{el.total_price}}</span>
+                                小车洗车费:<span class="red-text fz18">{{el.small_car_count*el.small_single_price}}</span>
                             </div>
+                            <div class="col s4 left-align">
+                                大车数:{{el.big_car_count}}
+                            </div>
+                            <div class="col s4 center">
+                                大车洗车单价:<span class="red-text fz18">{{el.big_single_price}}</span>
+                            </div>
+                            <div class="col s4 right-align">
+                                大车洗车费:<span class="red-text fz18">{{el.big_car_count*el.big_single_price}}</span>
+                            </div>
+
+
+                            <div class="col s3 left-align">
+                                拖车费:{{el.total_trailer_fee}}
+                            </div>
+                            <div class="col s3 center">
+                                提车费:<span class="red-text fz18">{{el.car_parking_fee}}</span>
+                            </div>
+                            <div class="col s3 center">
+                                地跑费:<span class="red-text fz18">{{el.total_run_fee}}</span>
+                            </div>
+                            <div class="col s3 right-align">
+                                带路费:<span class="red-text fz18">{{el.lead_fee}}</span>
+                            </div>
+
+
+
                             <div class="col s6 left-align">
                                 现场调度:{{el.field_op_name}}
                             </div>
@@ -498,7 +524,6 @@
             </div>
 
         </div>
--->
         <!--执行记录-->
         <div id="lookRecord" class="col s12 tab_box card" style="width: 80%; margin:0 10%;padding-bottom: 20px">
             <div class="card-content bold white  grey-text lighten-3" style="width: 80%; margin:0 10%;">

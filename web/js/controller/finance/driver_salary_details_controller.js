@@ -164,7 +164,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
     $scope.getExceedOilList = function (){
         $scope.exceedOilTotalMoney=0;
         var obj={
-            yMonth:$scope.salaryDetails.month_date_id,
+            yMonth:monthId,
             taskPlanDateStart: $scope.firstDay,
             taskPlanDateEnd:$scope.lastDay,
             driveId:driveId,

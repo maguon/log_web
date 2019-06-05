@@ -112,7 +112,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
     $scope.getCarDamageInfo = function () {
         $scope.damageTotalMoney=0;
         // 未结算质损
-        _basic.get($host.api_url + "/damage?driveId=" + driveId+'&endDateStart='+$scope.firstDay +'&endDateEnd='+$scope.lastDay+'&damageStuts=3').then(function (data) {
+        _basic.get($host.api_url + "/damage?underUserId=" + driveId+'&endDateStart='+$scope.firstDay +'&endDateEnd='+$scope.lastDay+'&damageStuts=3').then(function (data) {
             if (data.success === true) {
                 $scope.unsettledDamageList = data.result;
                 for (var i = 0; i < data.result.length; i++) {
@@ -129,7 +129,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
     $scope.getTruckAccidentInfo = function () {
         $scope.accidentTotalMoney=0;
         // 未结算事故责任
-        _basic.get($host.api_url + "/truckAccident?driveId=" + driveId +'&endDateStart='+$scope.firstDay +'&endDateEnd='+$scope.lastDay+'&accidentStatus=3').then(function (data) {
+        _basic.get($host.api_url + "/truckAccident?underUserId=" + driveId +'&endDateStart='+$scope.firstDay +'&endDateEnd='+$scope.lastDay+'&accidentStatus=3').then(function (data) {
             if (data.success === true) {
                 $scope.unsettledAccidentList = data.result;
                 for (var i = 0; i < data.result.length; i++) {

@@ -214,10 +214,10 @@
                         <p><span style="font-size: 1.6rem;" class="mdi mdi-hospital-building cyan-text"></span>&emsp;{{salaryDetails.company_name}}</p>
                     </div>
 
-                    <div class="col s3" ng-show="salaryDetails.truck_id != null">
+                    <div class="col s3" ng-show="salaryDetails.truck_num !== null">
                         <p><span style="font-size: 1.6rem;" class="mdi mdi-truck cyan-text"></span>&emsp;{{salaryDetails.truck_num}}&emsp;{{salaryDetails.brand_name}}&emsp;{{salaryDetails.number}}位</p>
                     </div>
-                    <div class="col s3" ng-show="salaryDetails.truck_id == null">
+                    <div class="col s3" ng-show="salaryDetails.truck_num == null">
                         <p><span style="font-size: 1.6rem;" class="mdi mdi-truck cyan-text"></span>&emsp;<span style="color: #e57373">暂未绑定货车</span></p>
                     </div>
                     <div class="col s2">
@@ -230,7 +230,7 @@
                         <p class="cyan-text" >{{salaryDetails.month_date_id}}</p>
                     </div>
                     <div class="col s2 offset-s6 center-align">
-                        <p ng-if="salaryDetails.grant_status == 1" style="color: #e57373">未结算</p>
+                        <p ng-if="salaryDetails.grant_status!== 2&&salaryDetails.grant_status !== 3" style="color: #e57373">未结算</p>
                         <p ng-if="salaryDetails.grant_status == 2" class="cyan-text" >未发放</p>
                         <p ng-if="salaryDetails.grant_status == 3" style="color: darkgray">已发放</p>
                     </div>

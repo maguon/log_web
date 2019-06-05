@@ -848,7 +848,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'driver_salary_controller'
         })
         .state("driver_salary_details",{
-            url:"/driver_salary_details/id/{id}/driveId/{driveId}/monthId/{monthId}/from/{from}",
+            url:"/driver_salary_details/driveId/{driveId}/monthId/{monthId}/from/{from}?id",
             templateUrl: "js/view/finance/driver_salary_details.html",
             controller:'driver_salary_details_controller'
         })

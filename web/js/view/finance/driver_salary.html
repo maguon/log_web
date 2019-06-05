@@ -207,7 +207,7 @@
 
                         </td>
                         <td class="operation fz12" ng-show="salary.grant_status == 2 || salary.grant_status == 3">
-                            <a ui-sref="driver_salary_details({id:salary.id,driveId:salary.drive_id,monthId:salary.month_date_id == null ? monthVal : salary.month_date_id,from:'driver_salary'})" class="cyan-text " style="cursor: pointer;text-align: center;"><i class="mdi mdi-eye" style="margin: 0"></i></a>
+                            <a ui-sref="driver_salary_details({driveId:salary.drive_id,monthId:salary.month_date_id == null ? monthVal : salary.month_date_id,from:'driver_salary',id:salary.id})" class="cyan-text " style="cursor: pointer;text-align: center;"><i class="mdi mdi-eye" style="margin: 0"></i></a>
                         </td>
                     </tr>
                     <tr class="grey-text text-darken-1" ng-if="driverSalaryList.length == 0">

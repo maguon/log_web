@@ -6,6 +6,9 @@ app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$hos
 
     $(".car_detail").hide();
     $(".no_car_detail").hide();
+
+
+
     // 查询VIN
     $scope.demand_car = function () {
         $scope.start_address = [];
@@ -24,23 +27,16 @@ app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$hos
                         $scope.carDetailList = data.result;
 
                         for (var i = 0; i < $scope.carDetailList.length; i++) {
-                            $scope.order_date = moment($scope.carDetailList[i].order_date).format('YYYY-MM-DD');
+                            if($scope.carDetailList[i].order_date==null){
+                                $scope.carDetailList[i].order_date='';
+                            }
+                            else{
+                                $scope.order_date = moment($scope.carDetailList[i].order_date).format('YYYY-MM-DD');
+                            }
+
                             $(".brand_box" + i).attr("display", "black");
                             $(".flag_box" + i).attr("display", "none");
 
-                            /*  $scope.get_addr($scope.carDetailList[i].route_start_id);*/
-                            /*$scope.car_details =  $scope.carDetailList[i];
-                            $scope.start_addr = $scope.car_details.base_addr_id;
-                            $scope.select_city_start = {id: $scope.car_details.route_start_id, city_name: $scope.car_details.route_start};
-                            $scope.select_city_end = {id: $scope.car_details.route_end_id, city_name: $scope.car_details.route_end};
-                            $scope.start_city = $scope.select_city_start.id;
-                            $scope.arrive_city = $scope.select_city_end.id === null ? "0" : $scope.select_city_end.id;
-                            if($scope.car_details.order_date==null){
-                                $scope.car_details.order_date ='';
-                            }
-                            $scope.car_details.order_date = moment($scope.car_details.order_date).format('YYYY-MM-DD');
-                            $scope.get_addr($scope.car_details.route_start_id);
-                            $scope.vin= $scope.car_details.vin;*/
                         }
                     }
                 }
@@ -53,11 +49,16 @@ app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$hos
         $(".brand_box" + $index).hide();
         $(".flag_box" + $index).show();
     };
+
+
     // 关闭修改VIN
     $scope.close_vin_amend = function ($index) {
         $(".brand_box" + $index).show();
         $(".flag_box" + $index).hide();
     };
+
+
+
     // 修改VIN
     $scope.amend_vin = function (id, $index, vin) {
         if (vin == undefined) {
@@ -77,7 +78,6 @@ app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$hos
             })
         } else {
             swal("请输入17位数字", "", "error");
-            /*$scope.vin=$scope.car_details.vin;*/
         }
 
         $(".brand_box" + $index).show();
@@ -85,97 +85,33 @@ app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$hos
 
     }
 
-    // 城市信息获取
-    $scope.get_Msg = function () {
-        _basic.get($host.api_url + "/city").then(function (data) {
-            if (data.success == true) {
-                $scope.get_city = data.result;
-                $('#chooseStartCity').select2({
-                    containerCssClass: 'select2_dropdown'
-                });
-                $('#chooseEndCity').select2({
-                    containerCssClass: 'select2_dropdown'
-                });
-            }
-        });
 
-        // 车辆品牌查询
-        _basic.get($host.api_url + "/carMake").then(function (data) {
-            if (data.success == true) {
-                $scope.makecarName = data.result;
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
-
-        // 经销商
-        _basic.get($host.api_url + "/receive").then(function (data) {
-            if (data.success == true) {
-                $scope.get_receive = data.result;
-            }
-        });
-
-        // 委托方
-        _basic.get($host.api_url + "/entrust").then(function (data) {
-            if (data.success == true) {
-                $scope.get_entrust = data.result;
-            }
-        })
-
-        /*  _basic.get($host.api_url + "/baseAddr").then(function (data) {
-              if (data.success == true) {
-                  $scope.start_address = data.result;
-              }
-              else {
-                  swal(data.msg, "", "error")
-              }
-          })*/
-    };
-    $scope.get_Msg();
-
-    // 发运地城市地质联动
-    $scope.get_addr = function () {
-        /* $scope.selectedText = $("#chooseStartCity").find("option:selected").text();*/
-        _basic.get($host.api_url + "/baseAddr").then(function (data) {
-            if (data.success == true) {
-                $scope.start_address = data.result;
-            }
-            else {
-                swal(data.msg, "", "error")
-            }
-        })
-    };
-
-    $scope.get_addr();
     // 修改
     $scope.putDataItem = function (id) {
-        // 如果没有选中select或是重置了初始值，则传空字符串
-        var arrive_city = $scope.arrive_city == 0 ? "" : $scope.arrive_city;
-        var obj = {
-            "vin": $scope.vin,
-            "makeId": $scope.car_details.make_id,
-            "makeName": $("#look_makecarName").find("option:selected").text(),
-            "orderDate": $scope.car_details.order_date,
-            "remark": $scope.car_details.remark,
-            "routeStartId": $scope.start_city,
-            "baseAddrId": $scope.start_addr,
-            "routeEndId": arrive_city,
-            "receiveId": $scope.car_details.receive_id,
-            "entrustId": $scope.car_details.entrust_id
-        };
-        // 修改仓库信息
-        _basic.put($host.api_url + "/user/" + admin + "/car/" + id, _basic.removeNullProps(obj)).then(function (data) {
-            if (data.success == true) {
-                $scope.demand_vin = "";
-                $(".car_detail").hide();
-                swal("修改成功", "", "success");
-
+        $(".modal").modal();
+        $("#putDataItem").modal("open");
+        $scope.start_addr ='';
+        $scope.start_city='';
+        $scope.arrive_city='';
+        $scope.start_address =[];
+        $scope.put_receive=[];
+        _basic.get($host.api_url + "/car?carId="+id).then(function (data) {
+            $scope.commodityCarList=data.result[0];
+            if($scope.commodityCarList.order_date==null){
+                $scope.commodityCarList.order_date ='';
             }
             else {
-                swal(data.msg, "", "error")
+                $scope.commodityCarList.order_date = moment($scope.commodityCarList.order_date).format('YYYY-MM-DD');
             }
-        });
+            $scope.start_city = $scope.commodityCarList.route_start_id;
+            $scope.arrive_city = $scope.commodityCarList.route_end_id === null ? 0 : $scope.commodityCarList.route_end_id;
+            $scope.start_addr = $scope.commodityCarList.base_addr_id;
+            $scope.arrive_receive = $scope.commodityCarList.receive_id;
+            $scope.get_addr( $scope.start_city,$scope.commodityCarList.addr_name);
+            $scope.get_received($scope.arrive_city,$scope.commodityCarList.re_short_name);
+        })
+
+
     };
 
 
@@ -201,5 +137,214 @@ app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$hos
             }
         })
     }
+
+
+
+    // 修改
+    $scope.putBankNumber = function (id) {
+        $scope.putDataItemId = id;
+        if($scope.start_city==0||$scope.start_city==''||
+            $scope.start_addr==0||$scope.start_addr==''||
+            $scope.start_addr==undefined
+        ||$scope.arrive_receive==null||$scope.commodityCarList.order_date==''
+        ||$scope.arrive_city==0||$scope.arrive_city==''){
+            swal('请填写完整信息！',"","error")
+        }
+        else{
+            _basic.get($host.api_url +'/city?cityId='+$scope.start_city).then(function (data) {
+                if (data.success == true) {
+                    $scope.putStartCity=data.result[0].city_name;
+                }
+                else {
+                    swal(data.msg, "", "error")
+                }
+            });
+            _basic.get($host.api_url +'/city?cityId='+$scope.arrive_city).then(function (data) {
+                if (data.success == true) {
+                    $scope.putArriveCity=data.result[0].city_name;
+                    putSingleData();
+                }
+                else {
+                    swal(data.msg, "", "error")
+                }
+            });
+        };
+    };
+
+
+    function putSingleData(){
+        var obj = {
+            "makeId": $scope.commodityCarList.make_id,
+            "makeName": $("#look_makecarName").find("option:selected").text(),
+            "orderDate": $scope.commodityCarList.order_date,
+            "remark": $scope.commodityCarList.remark,
+            "routeStartId": $scope.start_city,
+            "routeStart":$scope.putStartCity,
+            "baseAddrId": $scope.start_addr,
+            "routeEndId": $scope.arrive_city,
+            "routeEnd":$scope.putArriveCity,
+            "receiveId": $scope.arrive_receive,
+            "entrustId": $scope.commodityCarList.entrust_id
+        };
+        // 修改仓库信息
+        _basic.put($host.api_url + "/user/" + admin + "/car/" +  $scope.putDataItemId+'/completedCar', _basic.removeNullProps(obj)).then(function (data) {
+            if (data.success == true) {
+                $('#putDataItem').modal('close');
+                swal("修改成功", "", "success");
+                $scope.demand_car();
+
+            }
+            else {
+                swal(data.msg, "", "error")
+            }
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+
+    // 信息获取
+    $scope.get_Msg = function () {
+        // 委托方
+        _basic.get($host.api_url + "/entrust").then(function (data) {
+            if (data.success == true) {
+                $scope.get_entrust = data.result;
+            }
+        })
+
+        // 车辆品牌增加
+        _basic.get($host.api_url + "/carMake").then(function (data) {
+            if (data.success == true) {
+                $scope.get_carMake = data.result;
+            }
+        });
+
+        // 车辆品牌修改查询
+        _basic.get($host.api_url + "/carMake").then(function (data) {
+            if (data.success == true) {
+                $scope.makecarName = data.result;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+
+
+    function getCityEvery(){
+        // 城市
+        _basic.get($host.api_url + "/city").then(function (data) {
+            if (data.success == true) {
+                $scope.get_city = data.result;
+                $('#chooseStartCity').select2({
+                    containerCssClass: 'select2_dropdown'
+                });
+                $('#chooseEndCity').select2({
+                    containerCssClass: 'select2_dropdown'
+                });
+            }
+        });
+
+    }
+    $scope.get_Msg();
+    getCityEvery();
+
+
+    // 目的地城市-经销商联动
+    $scope.get_received = function (id,text) {
+        if(id==0){
+            $scope.put_receive=[];
+            $('#dealer1').select2({
+                placeholder: '经销商',
+                containerCssClass: 'select2_dropdown'
+            });
+        }
+        else{
+            if(text==null||text==undefined){
+                _basic.get($host.api_url + "/receive?cityId=" + id).then(function (data) {
+                    if (data.success == true) {
+                        $scope.put_receive = data.result;
+                        $('#dealer1').select2({
+                            placeholder: '经销商',
+                            containerCssClass: 'select2_dropdown'
+                        });
+
+                    } else {
+                        swal(data.msg, "", "error")
+                    }
+                })
+            }
+            else{
+                _basic.get($host.api_url + "/receive?cityId=" + id).then(function (data) {
+                    if (data.success == true) {
+                        $scope.put_receive = data.result;
+                        $('#dealer1').select2({
+                            placeholder: text,
+                            containerCssClass: 'select2_dropdown'
+                        });
+
+                    } else {
+                        swal(data.msg, "", "error")
+                    }
+                })
+            }
+        }
+
+
+    };
+
+
+    // 发运地城市--地址联动
+    $scope.start_city_change = function (val) {
+        _basic.get($host.api_url + "/baseAddr?cityId=" + val).then(function (data) {
+            if (data.success == true) {
+                $scope.baseAddr = data.result;
+            }
+        })
+    };
+
+
+    // 发运地城市地质联动
+    $scope.get_addr = function (id,text) {
+        if(text==null||text==undefined){
+            _basic.get($host.api_url + "/baseAddr?cityId=" + id).then(function (data) {
+                if (data.success == true) {
+                    $scope.start_address = data.result;
+                    $('#start_addr').select2({
+                        placeholder: '发运地名称',
+                        containerCssClass: 'select2_dropdown'
+                    });
+                }
+                else {
+                    swal(data.msg, "", "error")
+                }
+            })
+        }
+        else{
+            _basic.get($host.api_url + "/baseAddr?cityId=" + id).then(function (data) {
+                if (data.success == true) {
+                    $scope.start_address = data.result;
+                    $('#start_addr').select2({
+                        placeholder: text,
+                        containerCssClass: 'select2_dropdown'
+                    });
+                }
+                else {
+                    swal(data.msg, "", "error")
+                }
+            })
+        }
+    };
+
+
+
 
 }])

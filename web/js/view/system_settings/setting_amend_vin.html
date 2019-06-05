@@ -45,74 +45,58 @@
                                 <!-- body -->
                                 <div class="col s12 white disabled" style="height:70px;">
                                     <div class="input-field col s4">
-                                        <select material-select watch  id="look_makecarName"  name="look_makecarName"  ng-model="carItem.make_id" disabled required>
-                                            <option value="" disabled selected>请选择</option>
-                                            <option ng-repeat="el in makecarName" ng-value="el.id" >{{el.make_name}}</option>
-                                        </select>
-                                        <label for="look_makecarName" ><span style="color: red">*</span>制造商</label>
+                                        <input type="text" id="get_makecarName" disabled  ng-model="carItem.make_name" >
+                                        <label for="get_makecarName">制造商</label>
                                     </div>
                                     <div class="input-field col s4 ">
-                                        <select material-select watch id="client1" name="client" disabled  ng-model="carItem.entrust_id" >
-                                            <option value="" disabled selected>请选择</option>
-                                            <option ng-repeat="el in get_entrust" ng-value="el.id" >{{el.short_name}}</option>
-                                        </select>
-                                        <label for="client1">委托方</label>
+                                        <input type="text" id="entrust_id" disabled  ng-model="carItem.en_short_name" >
+                                        <label for="entrust_id">委托方</label>
                                     </div>
                                     <div class="input-field col s4">
-                                        <input type="text" id="last_name" class="datepicker " disabled date ng-model="order_date"><i
+                                        <input type="text" id="order_name" class="datepicker " disabled date ng-model="order_date"><i
                                             class="mdi dataIcon mdi-table-large"></i>
-                                        <label for="last_name">指令时间</label>
+                                        <label for="order_name">指令时间</label>
                                     </div>
                                 </div>
                                 <!-- body -->
                                 <div class="col s12 white" style="height:70px;">
                                     <div class="input-field col s4">
-                                        <input type="text" id="chooseStartCity" disabled  ng-model="carItem.route_start" >
+                                        <input type="text" id="getStartCity" disabled  ng-model="carItem.route_start" >
                                         <label for="chooseStartCity">发运地城市</label>
-                                      <!--  <select disabled material-select watch  id="chooseStartCity" name="state" style="width:100%"  ng-model="carItem.route_start_id">
-                                            <option value="0">发运地城市</option>
-                                            <option ng-repeat="city in get_city" ng-value="city.id">{{city.city_name}}</option>
-                                        </select>-->
                                     </div>
                                     <div class="input-field col s4">
-                                        <input type="text" id="start_addr" disabled  ng-model="carItem.addr_name" >
+                                        <input type="text" id="get_addr" disabled  ng-model="carItem.addr_name" >
                                         <label for="start_addr">发运地名称</label>
-                                        <!--<select  disabled material-select watch id="start_addr" name="start_addr"    ng-model="carItem.addr_name" >
-                                            <option value="" disabled selected>请选择</option>
-                                            <option ng-repeat="start_addr in start_address" ng-value="start_addr.id" >{{start_addr.addr_name}}</option>
-                                        </select>
-                                        <label for="start_addr">发运地名称</label>-->
                                     </div>
                                     <div class="input-field col s2">
-                                        <input type="text" id="chooseEndCity" disabled  ng-model="carItem.route_end" >
-                                        <label for="chooseEndCity">目的地城市</label>
-                                        <!--<select disabled  material-select watch  id="chooseEndCity" name="state" style="width:100%"  ng-model="carItem.route_end_id">
-                                            <option value="0">目的地城市</option>
-                                            <option ng-repeat="city in get_city" ng-value="city.id" >{{city.city_name}}</option>
-                                        </select>-->
+                                        <input type="text" id="getEndCity" disabled  ng-model="carItem.route_end" >
+                                        <label for="chooseEndCity" class="active">目的地城市</label>
                                     </div>
                                     <div class="input-field col s2">
                                         <input type="text" id="dealer" disabled  ng-model="carItem.re_short_name" >
-                                        <label for="dealer">经销商</label>
-                                       <!-- <select disabled material-select watch id="dealer1" name="dealer" ng-model="carItem.receive_id">
-                                            <option value="" disabled selected>请选择</option>
-                                            <option ng-repeat="el in get_receive" ng-value="el.id" >{{el.short_name}}</option>
-                                        </select>
-                                        <label for="dealer1">经销商</label>-->
+                                        <label for="dealer" class="active">经销商</label>
                                     </div>
                                 </div>
                                 <!-- body -->
                                 <div class="col s12 white" disabled style="height:170px;">
-                                    <p class="col s12 min-width-2 left-align cyan-text" >备注:</p>
-                                    <div class="col s12 valign-wrapper" disabled style="position: relative">
+                                    <p class="col s12 min-width-2 left-align cyan-text" >备注:<span class="grey-text">{{carItem.remark}}</span> </p>
+                                   <!-- <div class="col s12 valign-wrapper" disabled style="position: relative">
                                         <p class=" col s12 p0">
-                                            <textarea id="look_remark" style="height: 50px" name="remark" class="col s12" ng-model="carItem.remark"></textarea>
+                                            <textarea id="get_remark" style="height: 50px" name="remark" class="col s12" ng-model="carItem.remark"></textarea>
                                         </p>
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
-                            <div class="col s12">
-                                <div class="col s12 input-field center-align" style="margin-top: 30px ; margin-bottom: 30px" >
+                            <div class="col s12" ng-show="carItem.car_status==9">
+                                <div class="col s6 input-field center-align" style="margin-top: 30px ; margin-bottom: 30px">
+                                    <a href="" class="btn waves-effect circle_button cyan" ng-click="putDataItem(carItem.id)">修改</a>
+                                </div>
+                                <div  class="col s6 input-field center-align" style="margin-top: 30px ; margin-bottom: 30px" >
+                                    <a href="" class="btn waves-effect circle_button red" ng-click="deleteDataItem(carItem.id)">删除</a>
+                                </div>
+                            </div>
+                            <div class="col s12" ng-show="carItem.car_status!==9">
+                                <div  class="col s12 input-field center-align" style="margin-top: 30px ; margin-bottom: 30px" >
                                     <a href="" class="btn waves-effect circle_button red" ng-click="deleteDataItem(carItem.id)">删除</a>
                                 </div>
                             </div>
@@ -124,3 +108,113 @@
             </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--修改模态框-->
+<div id="putDataItem" class="modal">
+    <div class="cyan lighten-1 white-text center-align modal_title" >修改车辆信息</div>
+    <!-- Body -->
+    <div class="modal-content">
+        <div  class="handleInfoInput" style="width:100%;">
+            <div class="row  blue-grey lighten-5" style="width:98%;border:1px solid #bdbdbd">
+                <!-- header -->
+                <div class="col s12  cyan-text vc-center left-align" style="height:50px;border-bottom :1px solid #bdbdbd">
+                    <div class="col s4">
+                        VIN：{{commodityCarList.vin}}
+                    </div>
+                    <div class="col s4 right-align offset-s4 grey-text">
+                        导入时间：{{commodityCarList.created_on|date:'yyyy-MM-dd hh:mm'}}
+                    </div>
+                </div>
+                <!-- body -->
+                <div class="col s12 white" style="height:70px;">
+                    <div class="input-field col s4">
+                        <select material-select watch  id="look_makecarName"  name="look_makecarName"  ng-model="commodityCarList.make_id" required>
+                            <option value="" disabled selected>请选择</option>
+                            <option ng-repeat="el in makecarName" ng-value="el.id" >{{el.make_name}}</option>
+                        </select>
+                        <label for="look_makecarName" ><span style="color: red">*</span>制造商</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <select material-select watch id="client1" name="client"  ng-model="commodityCarList.entrust_id" >
+                            <option value="" disabled selected>请选择</option>
+                            <option ng-repeat="el in get_entrust" ng-value="el.id" >{{el.short_name}}</option>
+                        </select>
+                        <label for="client1">委托方</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input type="text" id="last_name" class="datepicker" date ng-model="commodityCarList.order_date"><i
+                            class="mdi dataIcon mdi-table-large"></i>
+                        <label for="last_name">指令时间</label>
+                    </div>
+                </div>
+                <!-- body -->
+                <div class="col s12 white" style="height:70px;">
+                    <div class="input-field col s4">
+                        <select id="chooseStartCity" name="state" style="width:100%" ng-change="get_addr(start_city)" ng-model="start_city">
+                            <option value="0">发运地城市</option>
+                            <option ng-repeat="city in get_city" ng-value="city.id">{{city.city_name}}</option>
+                        </select>
+                    </div>
+                    <div class="input-field col s4">
+                        <select  style="width:100%" id="start_addr" name="start_addr"  required  ng-model="start_addr" >
+                            <option value=""></option>
+                            <option ng-repeat="el in start_address" ng-value="el.id" >{{el.addr_name}}</option>
+                        </select>
+                    </div>
+                    <div class="input-field col s2">
+                        <select id="chooseEndCity" name="state" style="width:100%" ng-change="get_received(arrive_city)" ng-model="arrive_city">
+                            <option ng-value="0">目的地城市</option>
+                            <option ng-repeat="city in get_city" ng-value="city.id" >{{city.city_name}}</option>
+                        </select>
+                    </div>
+                    <div class="input-field col s2">
+                        <select  id="dealer1" style="width:100%" name="dealer1" ng-model="arrive_receive">
+                            <option value=""></option>
+                            <option ng-repeat="el in put_receive" ng-value="el.id" >{{el.short_name}}</option>
+                        </select>
+                    </div>
+                  <!--  <div class="input-field col s2">
+                        <input  id="putShipName" name="putShipName"  ng-model="commodityCarList.ship_name" type="text" >
+                        <label for="putShipName">船名</label>
+                    </div>-->
+                </div>
+                <!-- body -->
+                <div class="col s12 white" style="height:70px;">
+                    <p class="col s12 min-width-2 left-align cyan-text" >备注:</p>
+                    <div class="col s12 valign-wrapper" style="position: relative">
+                        <p class=" col s12 p0">
+                            <textarea id="look_remark" style="height:60px" name="remark" class="col s12" ng-model="commodityCarList.remark"></textarea>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col s12 white" style="height:50px;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="modal-footer center-align">
+        <button class="btn  waves-light waves-effect  cyan lighten-1" type="submit" name="action" ng-click="putBankNumber(commodityCarList.id)">
+            确定
+        </button>
+        <a  class="modal-action  modal-close waves-effect  grey lighten-1waves-light   btn" style="margin-right: 10px" >
+            取消
+        </a>
+    </div>
+
+</div>
+
+

@@ -184,6 +184,7 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
         });
         $scope.addSingMoney ='';
         $scope.addTotalMoney ='';
+        $scope.remark ='';
         $('#addSingleMoney').modal('open');
     }
     $scope.changeSingleMoney =function (addSingMoney,dispatchNum){
@@ -211,15 +212,18 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
         }
         else {
             _basic.post($host.api_url + "/user/" + userId + "/dpRouteLoadTaskCleanRel", {
+
                 "dpRouteTaskId": $scope.dispatchNum.dp_route_task_id,
                 "dpRouteLoadTaskId": $scope.dispatchNum.id,
                 "driveId":$scope.dispatchNum.drive_id,
                 "truckId":$scope.dispatchNum.truck_id,
                 "receiveId": $scope.dispatchNum.receive_id,
-                "singlePrice": $scope.addSingMoney,
+                "smallSinglePrice": $scope.addSingMoney,
                 "totalPrice": $scope.addTotalMoney,
                 "carCount": $scope.dispatchNum.car_count,
-                "type": 1
+                "smallCarCount": $scope.dispatchNum.car_count,
+                "type": 1,
+                remark:$scope.remark
             }).then(function (data) {
                 if (data.success === true) {
                     $('#addSingleMoney').modal('close');

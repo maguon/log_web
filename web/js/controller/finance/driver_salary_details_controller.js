@@ -8,6 +8,21 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
     $scope.otherDeductions = 0;
     $scope.Reimbursement = 0;
 
+
+    //获取当月第一天和最后一天
+    var year =  monthId.toString().slice(0,4);
+    var month = monthId.toString().slice(4,6);
+    $scope.firstDay=new Date(year,month-1,1);//这个月的第一天
+    var currentMonth=$scope.firstDay.getMonth(); //取得月份数
+    var nextMonthFirstDay=new Date($scope.firstDay.getFullYear(),currentMonth+1,1);//加1获取下个月第一天
+    var dis=nextMonthFirstDay.getTime()-24*60*60*1000;//减去一天就是这个月的最后一天
+    $scope.lastDay=new Date(dis);
+    $scope.firstDay= moment($scope.firstDay).format("YYYYMMDD");//格式化 //这个格式化方法要用你们自己的，也可以用本文已经贴出来的下面的Format
+    $scope.lastDay= moment($scope.lastDay).format("YYYYMMDD");//格式化
+
+
+
+
     // 返回
     $scope.return = function () {
         $state.go($stateParams.from,{from:"driver_salary_details"}, {reload: true})
@@ -15,21 +30,17 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
 
     // 获取当前司机基本信息
     function getSalaryDetails() {
-        _basic.get($host.api_url + "/driveSalary?driveSalaryId=" + salaryId+'&monthDateId='+monthId).then(function (data) {
+        var url;
+        if(salaryId==''){
+            url = $host.api_url + "/driveSalary?driveId="+driveId+'&monthDateId='+monthId;
+        }
+      else{
+            url = $host.api_url + "/driveSalary?driveSalaryId=" + salaryId+'&monthDateId='+monthId+'&driveId'+driveId;
+        }
+        _basic.get(url).then(function (data) {
             if (data.success === true) {
                 $scope.salaryDetails = data.result[0];
                 $scope.salaryDetails.month_date_id = data.result[0].month_date_id;
-
-                //获取当月第一天和最后一天
-                var year =  data.result[0].month_date_id.toString().slice(0,4);
-                var month = data.result[0].month_date_id.toString().slice(4,6);
-                $scope.firstDay=new Date(year,month-1,1);//这个月的第一天
-                var currentMonth=$scope.firstDay.getMonth(); //取得月份数
-                var nextMonthFirstDay=new Date($scope.firstDay.getFullYear(),currentMonth+1,1);//加1获取下个月第一天
-                var dis=nextMonthFirstDay.getTime()-24*60*60*1000;//减去一天就是这个月的最后一天
-                $scope.lastDay=new Date(dis);
-                $scope.firstDay= moment($scope.firstDay).format("YYYYMMDD");//格式化 //这个格式化方法要用你们自己的，也可以用本文已经贴出来的下面的Format
-                $scope.lastDay= moment($scope.lastDay).format("YYYYMMDD");//格式化
 
                 $scope.salaryDetails.truck_id = data.result[0].truck_id;
                 $scope.salaryDetails.plan_salary=data.result[0].plan_salary;

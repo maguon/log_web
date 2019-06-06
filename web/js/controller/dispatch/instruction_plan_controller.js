@@ -721,50 +721,61 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                             reverseButtons: true
                         }).then( function (result) {
                             if (result.value) {
-                                /*空使*/
-                                _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask", {
-                                    truckId: $scope.dispatchInfo.truck_id,
-                                    routeId: $scope.blankRouteId,
-                                    truckNumber: $scope.dispatchInfo.truck_number,
-                                    driveId: $scope.dispatchInfo.drive_id,
-                                    routeStartId: $scope.lastEndCityId,
-                                    routeStart: $scope.lastEndCity,
-                                    routeEndId: routeStartId,
-                                    routeEnd: routeStart,
-                                    distance: $scope.blankDistance,
-                                    oilDistance:$scope.blankDistance,
-                                    cityRouteId: $scope.blankId,
-                                    taskStatus: 10,
-                                    taskPlanDate: $scope.lineStartDate
-                                }).then(function (data) {
-                                    if (data.success == true) {
-                                        $scope.lineInfo = false;
-                                        $scope.showDispatchInfo($scope.dispatchInfo);
-                                    }
-                                })
-                                /*新路线*/
-                                _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask", {
-                                    truckId: $scope.dispatchInfo.truck_id,
-                                    routeId: $scope.lineEndCityInfo.route_id,
-                                    truckNumber: $scope.dispatchInfo.truck_number,
-                                    driveId: $scope.dispatchInfo.drive_id,
-                                    routeStartId: routeStartId,
-                                    routeStart: routeStart,
-                                    routeEndId: $scope.lineEndCityInfo.end_id,
-                                    routeEnd: $scope.lineEndCityInfo.city_name,
-                                    distance: $scope.lineEndCityInfo.distance,
-                                    oilDistance:$scope.lineEndCityInfo.distance,
-                                    cityRouteId: $scope.lineEndCityInfo.id,
-                                    taskPlanDate: $scope.lineStartDate
-                                }).then(function (data) {
-                                    if (data.success === true) {
-                                        $scope.lineInfo = false;
-                                        $scope.showDispatchInfo($scope.dispatchInfo);
-                                    }
-                                    else {
-                                        swal(data.msg, "", "error");
-                                    }
-                                });
+                                if( $scope.lastEndCityId==0||$scope.lastEndCity==''){
+                                    swal('空驶起始地为空,请先设置位置!', "", "error");
+                                }
+                                else {
+
+                                    /*空使*/
+                                    _basic.post($host.api_url + "/user/" + userId + "/emptyDpRouteTask", {
+                                        truckId: $scope.dispatchInfo.truck_id,
+                                        routeId: $scope.blankRouteId,
+                                        truckNumber: $scope.dispatchInfo.truck_number,
+                                        driveId: $scope.dispatchInfo.drive_id,
+                                        routeStartId: $scope.lastEndCityId,
+                                        routeStart: $scope.lastEndCity,
+                                        routeEndId: routeStartId,
+                                        routeEnd: routeStart,
+                                        distance: $scope.blankDistance,
+                                        oilDistance:$scope.blankDistance,
+                                        cityRouteId: $scope.blankId,
+                                        taskStatus: 10,
+                                        taskPlanDate: $scope.lineStartDate
+                                    }).then(function (data) {
+                                        if (data.success == true) {
+                                            $scope.lineInfo = false;
+                                            $scope.showDispatchInfo($scope.dispatchInfo);
+                                        }
+                                    })
+                                    /*新路线*/
+                                    _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask", {
+                                        truckId: $scope.dispatchInfo.truck_id,
+                                        routeId: $scope.lineEndCityInfo.route_id,
+                                        truckNumber: $scope.dispatchInfo.truck_number,
+                                        driveId: $scope.dispatchInfo.drive_id,
+                                        routeStartId: routeStartId,
+                                        routeStart: routeStart,
+                                        routeEndId: $scope.lineEndCityInfo.end_id,
+                                        routeEnd: $scope.lineEndCityInfo.city_name,
+                                        distance: $scope.lineEndCityInfo.distance,
+                                        oilDistance:$scope.lineEndCityInfo.distance,
+                                        cityRouteId: $scope.lineEndCityInfo.id,
+                                        taskPlanDate: $scope.lineStartDate
+                                    }).then(function (data) {
+                                        if (data.success === true) {
+                                            $scope.lineInfo = false;
+                                            $scope.showDispatchInfo($scope.dispatchInfo);
+                                        }
+                                        else {
+                                            swal(data.msg, "", "error");
+                                        }
+                                    });
+
+
+
+                                }
+
+
 
                             }
                             else if (result.dismiss === Swal.DismissReason.cancel) {

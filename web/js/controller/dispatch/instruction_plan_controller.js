@@ -547,9 +547,10 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     // 修改车辆位置
     $scope.modifyCarPosition = function () {
-        if($scope.positionCityId != "" && $scope.positionCityId != undefined){
+        if($scope.positionCityId !== "" && $scope.positionCityId !== undefined&& $scope.transportDetails.car_count!==''){
             _basic.put($host.api_url + "/user/" + userId + "/truck/" + $scope.transportDetails.truck_id + "/dispatch",{
-                currentCity: $scope.positionCityId
+                currentCity: $scope.positionCityId,
+                carCount: $scope.transportDetails.car_count
             }).then(function (data) {
                 if (data.success === true) {
                     $('#modifyCarPositionMod').modal('close');

@@ -349,6 +349,13 @@
                             <option ng-repeat="city in allCityList" ng-value="city.id">{{city.city_name}}</option>
                         </select>
                     </div>
+
+                    <!--车辆数-->
+                    <div class="col s12 input-field"  style="padding: 0;">
+                        <input id="carCount" type="number" ng-model="transportDetails.car_count">
+                        <label for="carCount" class="active">车辆数</label>
+
+                    </div>
                 </div>
             </div>
         </div>

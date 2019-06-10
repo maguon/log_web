@@ -453,7 +453,8 @@ app.controller("truck_details_controller", ["$scope","$rootScope", "$state", "$s
     $scope.savePositionInfo = function () {
         if($scope.currentCityId != "" && $scope.currentCityId != undefined){
             _basic.put($host.api_url + "/user/" + userId + "/truck/" + $scope.truck_id + "/dispatch",{
-                currentCity:$scope.currentCityId
+                currentCity:$scope.currentCityId,
+                carCount:0
             }).then(function (data) {
                 if (data.success === true) {
                     $('#carPositionModel').modal('close');

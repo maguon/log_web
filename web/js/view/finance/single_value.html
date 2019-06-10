@@ -97,6 +97,7 @@
                     <th>配件费</th>
                     <th>保养费</th>
                     <th>商品车加油</th>
+                    <th>商品车停车</th>
                     <th>货车停车费</th>
                 </tr>
                 </thead>
@@ -143,11 +144,12 @@
                     <td>{{driver.parts_fee}}</td>
                     <td>{{driver.maintain_fee }}</td>
                     <td>{{driver.car_oil_fee }}</td>
+                    <td>{{driver.car_parking_total_fee }}</td>
                     <td>{{driver.truck_parking_fee}}</td>
 
                 </tr>
                 <tr class="grey-text text-darken-1" ng-show="driverInfoList.length == 0">
-                    <td colspan="42"><span style="letter-spacing: 2px">暂无数据</span></td>
+                    <td colspan="43"><span style="letter-spacing: 2px">暂无数据</span></td>
                 </tr>
                 </tbody>
             </table>

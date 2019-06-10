@@ -73,9 +73,12 @@
                 <th data-field="">司机</th>
                 <th data-field="">货车牌号</th>
                 <th data-field="">商品车加油费</th>
-                <th data-field="">停留天数</th>
-                <th data-field="">停车单价</th>
+                <th data-field="">货车停留天数</th>
+                <th data-field="">货车停车单价</th>
                 <th data-field="">货车停车费</th>
+                <th data-field="">商品车停留天数</th>
+                <th data-field="">商品车停车单价</th>
+                <th data-field="">商品车停车费</th>
                 <th data-field="">申请时间</th>
                 <th data-field="">状态</th>
                 <th data-field="">操作</th>
@@ -89,6 +92,9 @@
                 <td>{{costInfo.day_count}}</td>
                 <td>{{costInfo.single_price}}</td>
                 <td >{{costInfo.total_price}}</td>
+                <td>{{costInfo.car_day_count}}</td>
+                <td>{{costInfo.car_single_price}}</td>
+                <td >{{costInfo.car_total_price}}</td>
                 <td >{{costInfo.created_on|date:'yyyy-MM-dd HH:mm:ss'}}</td>
                 <td >{{costInfo.status == 0 ? "驳回" :costInfo.status == 1 ? "未发放" : "已发放" }}</td>
                 <td  class="operation">
@@ -98,7 +104,7 @@
                 </td>
             </tr>
             <tr ng-if="costList.length==0">
-                <td colspan="9">暂无数据</td>
+                <td colspan="12">暂无数据</td>
             </tr>
             </tbody>
         </table>
@@ -128,39 +134,66 @@
         <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
             <p>添加费用申请</p>
         </div>
-        <div class="row col s12" style="margin-top: 35px;width: 80%;margin-left: 10%">
+        <div class="row col s12" style="width: 80%;margin-left: 10%">
             <!--司机  货车牌号 天数 单价 总价 备注 -->
-                <div class="col s6 input-field">
+            <div class="row col s12"  style="margin: 0;padding: 0;">
+                <div class="col s4 input-field">
+                    <input type="number" ng-model="dpRouteTaskId" id="dpRouteTaskId" name="dpRouteTaskId">
+                    <label for="dpRouteTaskId"  class="active">调度编号</label>
+                </div>
+                <div class="col s4 input-field">
                     <select material-select watch ng-model="addDrivderId" id="addDrivderId" style="width: 100%" ng-change="changeDriver(addDrivderId.id)">
                         <option value="" selected>请选择</option>
                         <option ng-repeat="el in driveNameList" ng-value='el'>{{el.drive_name}}</option>
                     </select>
                 </div>
 
-                <div class="col s6 input-field">
+                <div class="col s4 input-field">
                     <select  material-select watch ng-model="addTruckId" id="addTruckId"  style="width: 100%">
                         <option value="" selected>货车牌号</option>
                         <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem">{{truckNumItem.truck_num}}</option>
                     </select>
                 </div>
+            </div>
 
+            <div class="row col s12" style="margin: 0;padding: 0;">
                 <div class="col s4 input-field">
                     <input type="number" ng-model="addDate" id="addDate" name="addDate">
-                    <label for="addDate"  class="active">停留天数</label>
+                    <label for="addDate"  class="active">货车停留天数</label>
                 </div>
 
                 <div class="col s4 input-field">
                     <input type="number" ng-model="addSingle" id="addSingle" name="addSingle">
-                    <label for="addSingle"  class="active">停车单价</label>
+                    <label for="addSingle"  class="active">货车停车单价</label>
                     </div>
                 <div class="col s4 input-field right-align"  style="margin-top: 30px;border-bottom: 1px solid #9e9e9e">
                     <span class="red-text">{{addSingle*addDate}}</span>
                     <label class="active">货车停车费</label>
                 </div>
+            </div>
+            <div class="row col s12"  style="margin: 0;padding: 0;">
+                <div class="col s4 input-field">
+                    <input type="number" ng-model="carDayCount" id="carDayCount" name="carDayCount">
+                    <label for="carDayCount"  class="active">商品车天数</label>
+                </div>
+
+                <div class="col s4 input-field">
+                    <input type="number" ng-model="carSinglePrice" id="carSinglePrice" name="carSinglePrice">
+                    <label for="carSinglePrice"  class="active">商品车停车单价</label>
+                </div>
+                <div class="col s4 input-field right-align"  style="margin-top: 30px;border-bottom: 1px solid #9e9e9e">
+                    <span class="red-text">{{carSinglePrice*carDayCount}}</span>
+                    <label class="active">商品车停车费</label>
+                </div>
                 <div class="col s12 input-field">
                     <input type="number" ng-model="carOilFee" id="carOilFee" name="carOilFee">
                     <label for="carOilFee"  class="active">商品车加油费</label>
                 </div>
+                <div class="col s12 input-field">
+                    <input type="text" ng-model="remark" id="remark" name="remark">
+                    <label for="remark"  class="active">备注</label>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -188,38 +221,70 @@
         <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
             <p>修改费用申请</p>
         </div>
-        <div class="row col s12" style="margin-top: 35px;width: 80%;margin-left: 10%">
+        <div class="row col s12" style="width: 80%;margin-left: 10%">
             <!--司机  货车牌号 天数 单价 总价 备注 -->
-            <div class="col s6 input-field">
-                <input id="putDriverName" type="text" ng-model="putList.drive_name" disabled />
-                <label for="putDriverName">司机</label>
+            <div class="row col s12"  style="margin: 0;padding: 0;">
+                <div class="col s4 input-field">
+                    <input type="number" ng-model="putList.id" id="putRouteTaskId" name="putRouteTaskId" disabled>
+                    <label for="putRouteTaskId"  class="active">调度编号</label>
+                </div>
+                <div class="col s4 input-field">
+                    <input id="putDriverName" type="text" ng-model="putList.drive_name" disabled />
+                    <label for="putDriverName">司机</label>
+                </div>
+
+                <div class="col s4 input-field">
+                    <input id="putTruckNum" type="text" ng-model="putList.truck_num" disabled />
+                    <label for="putTruckNum">货车牌号</label>
+                </div>
             </div>
 
-            <div class="col s6 input-field">
-                <input id="putTruckNum" type="text" ng-model="putList.truck_num" disabled />
-                <label for="putTruckNum">货车牌号</label>
-            </div>
-
-            <div class="col s4 input-field">
-                <input type="number" id="putDate" ng-model="putList.day_count">
-                <label for="putDate">停留天数</label>
-            </div>
+            <div class="row col s12" style="margin: 0;padding: 0;">
+                <div class="col s4 input-field">
+                    <input type="number" id="putDate" ng-model="putList.day_count">
+                    <label for="putDate">停留天数</label>
+                </div>
 
 
-            <div class="col s4 input-field">
-                <input type="number" id="putSingle" ng-model="putList.single_price">
-                <label for="putSingle">停车单价</label>
+                <div class="col s4 input-field">
+                    <input type="number" id="putSingle" ng-model="putList.single_price">
+                    <label for="putSingle">停车单价</label>
+                </div>
+
+
+                <div class="col s4 input-field right-align"  style="margin-top: 30px;border-bottom: 1px solid #9e9e9e">
+                    <span class="red-text">{{putList.single_price*putList.day_count}}</span>
+                    <label class="active">货车停车费</label>
+                </div>
+
+            </div>
+
+            <div class="row col s12" style="margin: 0;padding: 0;">
+                <div class="col s4 input-field">
+                    <input type="number" ng-model="putList.car_day_count" id="putCarDayCount" name="putCarDayCount">
+                    <label for="putCarDayCount"  class="active">商品车天数</label>
+                </div>
+
+                <div class="col s4 input-field">
+                    <input type="number" ng-model="putList.car_single_price" id="putCarSinglePrice" name="putCarSinglePrice">
+                    <label for="putCarSinglePrice"  class="active">商品车停车单价</label>
+                </div>
+                <div class="col s4 input-field right-align"  style="margin-top: 30px;border-bottom: 1px solid #9e9e9e">
+                    <span class="red-text">{{putList.car_day_count*putList.car_single_price}}</span>
+                    <label class="active">商品车停车费</label>
+                </div>
+
+                <div class="col s12 input-field">
+                    <input type="number" ng-model="putList.car_oil_fee" id="poutOilFee" name="poutOilFee">
+                    <label for="poutOilFee"  class="active">商品车加油费</label>
+                </div>
+                <div class="col s12 input-field">
+                    <input type="text" ng-model="putList.remark" id="putRemark" name="putRemark">
+                    <label for="putRemark"  class="active">备注</label>
+                </div>
             </div>
 
 
-            <div class="col s4 input-field right-align"  style="margin-top: 30px;border-bottom: 1px solid #9e9e9e">
-                <span class="red-text">{{putList.single_price*putList.day_count}}</span>
-                <label class="active">货车停车费</label>
-            </div>
-            <div class="col s12 input-field">
-                <input type="number" ng-model="putList.car_oil_fee" id="poutOilFee" name="poutOilFee">
-                <label for="poutOilFee"  class="active">商品车加油费</label>
-            </div>
 
         </div>
     </div>

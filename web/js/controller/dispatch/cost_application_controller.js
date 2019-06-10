@@ -129,6 +129,9 @@ app.controller("cost_application_controller", ["$scope", "$state","$stateParams"
     }
     //添加
     $scope.addCost = function (){
+        $scope.dpRouteTaskId = '';
+        $scope.carDayCount ='';
+        $scope.carSinglePrice ='';
         $scope.addDrivderId = '';
         $scope.addTruckId = '';
         $scope.addPeccancyTruckId = "";
@@ -149,7 +152,8 @@ app.controller("cost_application_controller", ["$scope", "$state","$stateParams"
             $scope.addTruck = $scope.addTruckId.id;
             $scope.addTruckNumber= $scope.addTruckId.truck_num;
         }
-        if($scope.addDate==''|| $scope.addSingle==''||$scope.addDrivderId== ''||$scope.addTruck==''){
+        if($scope.addDate==''|| $scope.addSingle==''||$scope.addDrivderId== ''||$scope.addTruck==''|| $scope.dpRouteTaskId==''
+            ||$scope.carDayCount ==''||$scope.carSinglePrice ==''){
             swal('请输入完整信息!', "", "error")
         }
         else {
@@ -159,10 +163,15 @@ app.controller("cost_application_controller", ["$scope", "$state","$stateParams"
                 "driveName": $scope.addDrivderId.drive_name,
                 "truckId":  $scope.addTruck,
                 "truckNum": $scope.addTruckNumber,
+                "dpRouteTaskId": $scope.dpRouteTaskId,
                 "dayCount": $scope.addDate,
                 "singlePrice": $scope.addSingle,
                 "totalPrice":  totalP,
-                "carOilFee":$scope.carOilFee
+                carDayCount: $scope.carDayCount,
+                carSinglePrice: $scope.carSinglePrice,
+                carTotalPrice: $scope.carDayCount*$scope.carSinglePrice,
+                "carOilFee":$scope.carOilFee,
+                remark:$scope.remark
             }).then(function (data) {
                 if (data.success == true) {
                     $('#add_cost').modal('close');
@@ -191,13 +200,18 @@ app.controller("cost_application_controller", ["$scope", "$state","$stateParams"
     }
 
     $scope.finishCost = function (){
-        if($scope.putList.day_count !== "" &&  $scope.putList.single_price!== ''&&$scope.putList.car_oil_fee!==''){
+        if($scope.putList.day_count !== "" &&  $scope.putList.single_price!== ''&&$scope.putList.car_oil_fee!==''
+        &&$scope.putList.car_day_count !== "" &&  $scope.putList.car_single_price!== ''){
           var  totalPut =$scope.putList.day_count*$scope.putList.single_price;
             _basic.put($host.api_url + "/user/" + userId + "/dpRouteTaskFee/"+$scope.dpRouteTaskFeeId,{
                 "dayCount": $scope.putList.day_count,
                 "singlePrice": $scope.putList.single_price,
                 "totalPrice":  totalPut,
-                "carOilFee":$scope.putList.car_oil_fee
+                "carOilFee":$scope.putList.car_oil_fee,
+                carDayCount: $scope.putList.car_day_count,
+                carSinglePrice: $scope.putList.car_single_price,
+                carTotalPrice: $scope.putList.car_single_price*$scope.putList.car_day_count,
+                remark:$scope.putList.remark
             }).then(function (data) {
                 if (data.success === true) {
                     $('#put_cost').modal('close');

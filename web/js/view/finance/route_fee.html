@@ -64,7 +64,7 @@
                     总加油金额:{{boxArrayFee.car_oil_fee}}元
                 </div>
                 <div class="col s6 right-align bold">
-                    总停车金额:{{boxArrayFee.truck_parking_fee}}元
+                    货车总停车金额:{{boxArrayFee.truck_parking_fee}}元
                 </div>
             </div>
             <div class="divider cyan" style="height: 2px;"></div>
@@ -74,9 +74,12 @@
                     <th data-field="">司机</th>
                     <th data-field="">货车牌号</th>
                     <th data-field="">商品车加油费</th>
-                    <th data-field="">停留天数</th>
-                    <th data-field="">停车单价</th>
+                    <th data-field="">货车停留天数</th>
+                    <th data-field="">货车停车单价</th>
                     <th data-field="">货车停车费</th>
+                    <th data-field="">商品车停留天数</th>
+                    <th data-field="">商品车停车单价</th>
+                    <th data-field="">商品车停车费</th>
                     <th data-field="">申请时间</th>
                     <th data-field="">状态</th>
                     <th data-field="">操作</th>
@@ -90,6 +93,9 @@
                     <td>{{costInfo.day_count}}</td>
                     <td>{{costInfo.single_price}}</td>
                     <td >{{costInfo.total_price}}</td>
+                    <td>{{costInfo.car_day_count}}</td>
+                    <td>{{costInfo.car_single_price}}</td>
+                    <td >{{costInfo.car_total_price}}</td>
                     <td >{{costInfo.created_on|date:'yyyy-MM-dd HH:mm:ss'}}</td>
                     <td >{{costInfo.status == 0 ? "驳回" :costInfo.status == 1 ? "未发放" : "已发放" }}</td>
 
@@ -110,7 +116,7 @@
                     </td>
                 </tr>
                 <tr ng-if="costList.length==0">
-                    <td colspan="9">暂无数据</td>
+                    <td colspan="12">暂无数据</td>
                 </tr>
                 </tbody>
             </table>

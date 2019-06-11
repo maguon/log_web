@@ -44,13 +44,12 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                 $scope.user_id = data.result[0].user_id;
              /*   $scope.salaryDetails.truck_id = data.result[0].truck_id;*/
                /* $scope.salaryDetails.plan_salary=data.result[0].plan_salary;
-                $scope.planSalary=data.result[0].plan_salary;
-                $scope.socialSecurityFee = data.result[0].social_security_fee;*/
-                if(data.result[0].other_fee !== null){
-                    $scope.otherDeductions = data.result[0].other_fee;
-                    $scope.Reimbursement = data.result[0].refund_fee;
-                    $scope.remark = data.result[0].remark;
-                }
+                $scope.planSalary=data.result[0].plan_salary;*/
+                $scope.socialSecurityFee = data.result[0].social_security_fee==null?0: data.result[0].social_security_fee;
+                $scope.otherDeductions = data.result[0].other_fee==null?0: data.result[0].other_fee;
+                $scope.Reimbursement = data.result[0].refund_fee==null?0: data.result[0].refund_fee;
+                $scope.remark = data.result[0].remark;
+
 
                 getCurrentSalaryInfo ()
             }
@@ -208,7 +207,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
         $scope.getExceedOilList();
     };
 
-    // 保存应发工资信息
+  /*  // 保存应发工资信息
     $scope.saveWagesPaidInfo = function () {
         _basic.put($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId,{
             loadDistance: $scope.loadDistanceCount,
@@ -221,7 +220,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                 swal(data.msg, "", "error");
             }
         });
-    };
+    };*/
 
     // 任务工资详情
     $scope.showDispatchMissionModal = function (salaryInfo,status) {
@@ -242,27 +241,66 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
         $("#dispatchMissionModal").modal("open");
     };
 
+
+
+
+
     // 保存结算工资信息
     $scope.saveSettlementSalary = function () {
-        var grantCount = $scope.salaryDetails.plan_salary - $scope.damageTotalMoney - $scope.accidentTotalMoney - $scope.peccancyTotalMoney - $scope.exceedOilTotalMoney-$scope.Reimbursement- $scope.socialSecurityFee-$scope.otherDeductions;
-        _basic.put($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/driveActualSalary",{
-            refundFee:$scope.Reimbursement,
-            socialSecurityFee:$scope.socialSecurityFee,
-            otherFee: $scope.otherDeductions,
-            actualSalary: grantCount,
-            remark: $scope.remark
-        }).then(function (data) {
-            if (data.success === true) {
-                swal("保存成功", "", "success");
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
+        var grantCount =$scope.settledSalaryList.distance_salary+$scope.settledSalaryList.reverse_salary+$scope.settledSalaryList.not_storage_car_count *$scope.enter.toFixed(2) - $scope.damageTotalMoney - $scope.accidentTotalMoney - $scope.peccancyTotalMoney - $scope.exceedOilTotalMoney-$scope.Reimbursement- $scope.socialSecurityFee-$scope.otherDeductions;
+        if(salaryId==undefined){
+            _basic.post($host.api_url + "/user/" + userId + "/driveSalary",{
+                "monthDateId": monthId,
+                "driveId": driveId,
+                "distanceSalary": $scope.settledSalaryList.distance_salary,
+                "reverseSalary": $scope.settledSalaryList.reverse_salary,
+                "enterFee": $scope.settledSalaryList.not_storage_car_count *$scope.enter.toFixed(2),
+                "planSalary": $scope.settledSalaryList.distance_salary+$scope.settledSalaryList.reverse_salary+$scope.settledSalaryList.not_storage_car_count *$scope.enter.toFixed(2),
+                "damageUnderFee": $scope.damageTotalMoney,
+                "accidentFee": $scope.accidentTotalMoney,
+                "peccancyUnderFee":$scope.peccancyTotalMoney,
+                "exceedOilFee": $scope.exceedOilTotalMoney,
+                "refundFee":$scope.Reimbursement,
+                "socialSecurityFee": $scope.socialSecurityFee,
+                "otherFee": $scope.otherDeductions,
+                "actualSalary": grantCount,
+                "remark": $scope.remark
+            }).then(function (data) {
+                if (data.success === true) {
+                    swal("保存成功", "", "success");
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+
+        }
+        else {
+            _basic.put($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/driveActualSalary",{
+                refundFee:$scope.Reimbursement,
+                socialSecurityFee:$scope.socialSecurityFee,
+                otherFee: $scope.otherDeductions,
+                actualSalary: grantCount,
+                remark: $scope.remark
+            }).then(function (data) {
+                if (data.success === true) {
+                    swal("保存成功", "", "success");
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
+
     };
+
+
+
 
     // 发放结算工资
     $scope.grantSettlementSalary = function () {
+        var grantCount =$scope.settledSalaryList.distance_salary+$scope.settledSalaryList.reverse_salary+$scope.settledSalaryList.not_storage_car_count *$scope.enter.toFixed(2) - $scope.damageTotalMoney - $scope.accidentTotalMoney - $scope.peccancyTotalMoney - $scope.exceedOilTotalMoney-$scope.Reimbursement- $scope.socialSecurityFee-$scope.otherDeductions;
+
         swal({
                 title: "确定发放结算工资吗？",
                 type: "warning",
@@ -273,6 +311,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
         }).then(
             function(result){
                 if (result.value) {
+                    $scope.saveSettlementSalary();
                     _basic.put(
                         $host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/grantStatus/3", {}).then(function (data) {
                         if (data.success === true) {
@@ -285,6 +324,10 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                 }
             });
     };
+
+
+
+
 
     // 获取数据
     $scope.queryData = function () {

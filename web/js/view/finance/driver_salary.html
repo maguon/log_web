@@ -197,7 +197,7 @@
                      <!--   <td>{{(salary.no_load_distance == null ? 0 : salary.no_load_distance) + " / " + (salary.load_distance == null ? 0 : salary.load_distance)}}</td>-->
                       <!--  <td>{{salary.plan_salary}}</td>-->
                        <!-- <td style="color: #e57373">{{salary.actual_salary}}</td>-->
-                        <td style="color: #e57373" ng-if="salary.grant_status == null || salary.grant_status == 1">未结算</td>
+                        <td style="color: #e57373" ng-if="salary.grant_status !== 2&&salary.grant_status !== 3">未结算</td>
                         <td style="color: #f6ad33" ng-if="salary.grant_status == 2">未发放</td>
                         <td style="color: darkgray" ng-if="salary.grant_status == 3">已发放</td>
                         <td class="operation fz12" ng-show="salary.grant_status == null || salary.grant_status == 1">

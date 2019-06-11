@@ -37,10 +37,13 @@
                     </div>
                     <div class="col s12" style="color: darkgray;font-weight: bold;font-size: 1.1rem;padding: 0;">
                         <div class="col s12 left-align" ng-repeat="line in lineList" style="padding: 20px 0;border-bottom: 1px dotted darkgray">
-                            <div class="col s4">
+                            <div class="col s3">
                                 <p>{{line.addr_name + " - " + line.short_name}}</p>
                             </div>
-                            <div class="col s4">
+                            <div class="col s2">
+                                <p>{{line.receive_flag==1?'到库':'非到库'}}</p>
+                            </div>
+                            <div class="col s3">
                                 <p>装车数量：{{line.real_count}}</p>
                             </div>
                             <div class="col s4">
@@ -682,7 +685,7 @@
             </div>
 
             <!--按钮-->
-          <!--  <div class="col s12" style="margin-top: 70px" ng-hide="salaryDetails.grant_status == 3">
+            <div class="col s12" style="margin-top: 70px" ng-hide="salaryDetails.grant_status == 3">
                 <div class="col s1 offset-s4">
                     <a ng-click="saveSettlementSalary()" style="width: 100%" class="waves-light waves-effect cyan lighten-2 btn">
                         保存
@@ -693,7 +696,7 @@
                         发放
                     </a>
                 </div>
-            </div>-->
+            </div>
         </div>
     </div>
 </div>

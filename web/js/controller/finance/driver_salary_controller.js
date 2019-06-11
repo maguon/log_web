@@ -282,6 +282,22 @@ app.controller("driver_salary_controller", ["$scope","$rootScope","$state","$sta
         });
     };
 
+
+    // 数据导出
+    $scope.export = function () {
+        // 基本检索URL
+        var url = $host.api_url + "/driveSalary.csv?" ;
+        // 检索条件
+        var conditionsObj = makeConditions();
+        var conditions = _basic.objToUrl(conditionsObj);
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
+        window.open(url);
+        window.open(url);
+    };
+
+
+
     // 分页
     $scope.pre_btn = function () {
         $scope.start = $scope.start - ($scope.size-1);

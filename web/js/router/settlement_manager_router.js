@@ -200,4 +200,9 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/system_settings/setting_amend_vin.html",
             controller:'setting_amend_vin_controller'
         })
+        .state("data_dictionary",{
+            url:"/data_dictionary",
+            templateUrl: "js/view/system_settings/data_dictionary.html",
+            controller:'data_dictionary_controller'
+        })
 }]);

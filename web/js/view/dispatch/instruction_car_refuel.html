@@ -316,6 +316,7 @@
                     <table class=" bordered striped text_mid">
                         <thead class="blue-grey lighten-5">
                         <tr class="grey-text text-darken-2">
+                            <th data-field="">编号</th>
                             <th data-field="">司机</th>
                             <th data-field="">货车牌号</th>
                             <th data-field="">加油量</th>
@@ -332,6 +333,7 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="el in car_refuel" class="grey-text text-darken-1">
+                            <td>{{el.id}}</td>
                             <td>{{el.drive_name}}</td>
                             <td>{{el.truck_num}}</td>
                             <td>{{el.oil}}</td>

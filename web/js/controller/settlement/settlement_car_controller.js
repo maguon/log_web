@@ -132,12 +132,27 @@ app.controller("settlement_car_controller", ["$scope","$rootScope","$state","$st
             _basic.formPost($("#file_upload_form"), $host.api_url + '/user/' + userId + '/settleCarFile?uploadId='+id , function (data) {
                 if (data.success == true) {
                     $scope.$apply(function () {
+
+                        $scope.upload_error_array_num =data.result.failedCase;
+                        $scope.orginData_Length=data.result.failedCase+data.result.successedInsert;
+                        $scope.num=data.result.successedInsert;
+                        $scope.local_isSuccesss = false;
+                        $scope.upload_isSuccesss = true;
+                        $("#file_upload_form").disabled=true;
+                        $("#buttonImport").attr("disabled",false);
+                        swal('正确:'+$scope.num+'错误:'+$scope.upload_error_array_num,"", "success")
+
+
+
+
+
+                       /*
                         $scope.upload_error_array_num = 0;
                         $scope.num=$scope.orginData_Length;
                         $scope.local_isSuccesss = false;
                         $scope.upload_isSuccesss = true;
                         $("#buttonImport").attr("disabled",false);
-                        swal('正确:'+$scope.num+'错误:'+$scope.upload_error_array_num,"", "success")
+                        swal('正确:'+$scope.num+'错误:'+$scope.upload_error_array_num,"", "success")*/
                     });
 
                 }

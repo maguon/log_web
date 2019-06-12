@@ -102,14 +102,13 @@
 <!--修改模态框-->
 <div id="putPeccancyItem" class="modal">
     <div class="cyan lighten-1 white-text center-align modal_title" >违章扣款详情</div>
-    <div ng-show="putPeccancyList.stat_status==1">
+    <div >
         <div class="modal-content">
             <div class="row col" style="width: 80%;">
 
                 <!--违章结算编号-->
                 <div class="col s12" style="width: 95%;margin-left: 2.5%; height: 50px;padding-bottom:10px;border-bottom: 2px solid #ccc">
                     <div class="col s6 input-field cyan-text fz18  bold" style="padding: 0;margin: 0;">违章结算编号:{{putPeccancyList.id}}</div>
-                    <div class="col s6 red-text  input-field bold right-align"> 未扣</div>
                 </div>
 
                 <!--司机   货车牌号  -->
@@ -213,34 +212,33 @@
             <button class="btn waves-light waves-effect lighten-2"  name="action" ng-click="putPeccancyItem()">确定 </button>
         </div>
     </div>
-    <div ng-show="putPeccancyList.stat_status!==1">
+   <!-- <div ng-show="putPeccancyList.stat_status!==1">
         <div class="modal-content">
             <div class="row col" style="width: 80%;">
-                <!--违章结算编号-->
+                &lt;!&ndash;违章结算编号&ndash;&gt;
 
                 <div class="col s12 input-field" style="width: 98%;margin-left: 1%; height: 50px;border-bottom: 2px solid #ccc">
                     <div class="col s6 cyan-text fz18  bold"  style="padding: 0;margin: 0">
                         违章结算编号:{{putPeccancyList.id}}
                     </div>
-                    <div class="col s6 grey-text input-field bold right-align">已扣</div>
                 </div>
 
-                <!--司机   货车牌号  -->
+                &lt;!&ndash;司机   货车牌号  &ndash;&gt;
                 <div class="col s12" style="height: 60px;margin-top: 20px;border-bottom: 1px dotted #ccc">
                     <div class="col s6 input-field">司机:  {{putPeccancyList.drive_name}}</div>
                     <div class="col s6 input-field">货车牌号:  {{putPeccancyList.truck_num}}({{putPeccancyList.truck_type == 1 ? "头车" : "挂车"}})</div>
                 </div>
-                <!--时间范围-->
+                &lt;!&ndash;时间范围&ndash;&gt;
                 <div class="col s12"  style="height: 60px;border-bottom: 1px dotted #ccc">
                     <div class="input-field col s6">时间范围(始):  {{putPeccancyList.start_date}}</div>
                     <div class="input-field col s6">时间范围(终):  {{putPeccancyList.end_date}}</div>
                 </div>
-                <!--处理时间  扣分-->
+                &lt;!&ndash;处理时间  扣分&ndash;&gt;
                 <div class="col s12" style="height: 60px;border-bottom: 1px dotted #ccc">
                     <div class="col s6 input-field">处理时间:  {{putPeccancyList.handle_date | date:'yyyy-MM-dd' }}</div>
                     <div class="col s6 input-field">扣分:  {{putPeccancyList.fine_score}}</div>
                 </div>
-                <!--交通罚款  处理金额-->
+                &lt;!&ndash;交通罚款  处理金额&ndash;&gt;
                 <div class="col s12" style="height: 60px;border-bottom: 1px dotted #ccc">
                     <div class="col s6 input-field">交通罚款:<span class="red-text fz20">{{putPeccancyList.traffic_fine}}</span> 元</div>
                     <div class="col s6 input-field">处理金额:  <span class="red-text fz20">{{putPeccancyList.fine_money}}</span> 元</div>
@@ -249,15 +247,15 @@
                     <div class="col s6 input-field">个人承担:<span class="red-text fz20">{{putPeccancyList.under_money}}</span> 元</div>
                     <div class="col s6 input-field">公司承担:  <span class="red-text fz20">{{putPeccancyList.company_money}}</span> 元</div>
                 </div>
-                <!--违章地点-->
+                &lt;!&ndash;违章地点&ndash;&gt;
                 <div class="col s12" style="height: 60px;border-bottom: 1px dotted #ccc">
                     <div class="col s12 input-field">违章地点:  {{putPeccancyList.address}}</div>
                 </div>
-                <!--备注-->
+                &lt;!&ndash;备注&ndash;&gt;
                 <div class="col s12" style="height: 60px;border-bottom: 1px dotted #ccc">
                     <div class="col s12 input-field">备注:  {{putPeccancyList.remark}}</div>
                 </div>
-                <!--操作人-->
+                &lt;!&ndash;操作人&ndash;&gt;
                 <div class="col s3 offset-s9 input-field">
                     操作人:  {{putPeccancyList.op_user_name}}
                 </div>
@@ -272,170 +270,278 @@
         <div class="modal-footer right-align">
             <button class="btn waves-light waves-effect lighten-2"  name="action" ng-click="putPeccancyItem2()"  style="margin-right: 50px">确定 </button>
         </div>
-    </div>
+    </div>-->
 </div>
 
-<!--查询司机违章扣款情况-->
-<div>
-    <!--查询条件-->
-    <div class="row">
-        <div class="row grey-text text-darken-1">
-            <div class="col s10">
-                <div class="col s12">
 
-                    <!--司机-->
-                    <div class="input-field col" style="width: 20%">
-                        <select id="driver" name="driver" material-select watch ng-model="driverId" style="width: 100%">
-                            <option value="">请选择</option>
-                            <option ng-repeat="driver in driveNameList" value={{driver.id}}>{{driver.drive_name}}</option>
-                        </select>
-                    </div>
-
-                    <!--货车类型-->
-                    <div class="input-field col" style="width: 20%">
-                        <select material-select watch ng-model="truckType" id="truckType" ng-change="changtruckType(truckType)">
-                            <option value="" selected>货车类型</option>
-                            <option ng-value="1">头车</option>
-                            <option ng-value="2">挂车</option>
-                        </select>
-                    </div>
-
-                    <!--货车牌号-->
-                    <div class="input-field col" style="width: 20%">
-                        <select  material-select watch ng-model="truckId" id="truckId"  style="width: 100%">
-                            <option value="" selected>货车牌号</option>
-                            <option ng-repeat="truckNumItem in truckNum" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
-                        </select>
-                    </div>
-
-                    <div class="input-field col" style="width: 20%">
-                        <input type="text" id="grant_start_time" name="grant_start_time" ng-model="getStartTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
-                        <label for="grant_start_time">违章时间(始)</label>
-                    </div>
-                    <div class="input-field col" style="width: 20%">
-                        <input type="text" id="grant_end_time" name="grant_end_time" ng-model="getEndTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
-                        <label for="grant_end_time">违章时间(终)</label>
-                    </div>
-
-
-                    <!--结算状态-->
-                    <div class="input-field col" style="width: 20%">
-                        <select material-select watch ng-model="peccancyStu" id="peccancyStu">
-                            <option value="" selected>结算状态</option>
-                            <option ng-value="1">未扣</option>
-                            <option ng-value="2">已扣</option>
-                        </select>
-                    </div>
-
-                    <div class="input-field col" style="width: 20%">
-                        <input type="text" id="deal_start_time" name="deal_start_time" ng-model="dealStartTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
-                        <label for="deal_start_time">处理时间(始)</label>
-                    </div>
-                    <div class="input-field col" style="width: 20%">
-                        <input type="text" id="deal_end_time" name="deal_end_time" ng-model="dealEndTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
-                        <label for="deal_end_time">处理时间(终)</label>
-                    </div>
-                    <div class="input-field col" style="width: 20%">
-                        <input type="text" id="creat_start_time" name="creat_start_time" ng-model="creatStartTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
-                        <label for="creat_start_time">创建时间(始)</label>
-                    </div>
-                    <div class="input-field col" style="width: 20%">
-                        <input type="text" id="creat_end_time" name="creat_end_time" ng-model="creatEndTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
-                        <label for="creat_end_time">创建时间(终)</label>
-                    </div>
-
-
-
-                </div>
-
-            </div>
-
-            <!--按钮-->
-            <div class="col s2" style="margin-top: 15px">
-                <div class="col s4" >
-                    <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getPeccancy()">
-                        <i class="mdi mdi-magnify"></i>
-                    </a>
-                </div>
-                <div class="col s4 center-align">
-                    <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
-                        <i class="mdi mdi-cloud-download"></i>
-                    </a>
-                </div>
-                <div class="col s4 right-align">
-                    <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2  btn vc-center"  ng-click="addPeccancy()">
-                        <i class="mdi mdi-plus"></i>
-                    </a>
-                </div>
-            </div>
+<div class="modal-content grey-text text-darken-2">
+    <div class="row no-marBottom" ul-tabs style="overflow: hidden">
+        <div class="col s12">
+            <ul class="tabWrap grey lighten-4">
+                <li class="tab col s6 lookMyselfFile vc-center" ng-click="lookMyselfFile()">查看违章</li>
+                <li class="tab col s6 importFile vc-center" ng-click="importFile()">导入违章文件</li>
+            </ul>
         </div>
-    </div>
-    <div class="col s12">
-        <div class="divider cyan" style="height: 2px;"></div>
-        <table class=" bordered striped text_mid">
-            <thead class="blue-grey lighten-5">
-            <tr class="grey-text text-darken-2">
-                <th data-field="">违章结算编号</th>
-                <th data-field="">司机</th>
-                <th data-field="">货车牌号</th>
-                <th data-field="">货车类型</th>
-                <th data-field="">扣分</th>
-                <th data-field="">买分金额</th>
-                <th data-field="">交通罚款</th>
-                <th data-field="">处理金额</th>
-                <th data-field="">违章时间</th>
-                <th data-field="">处理时间</th>
-                <th data-field="">违章城市</th>
-                <th data-field="">违章地点</th>
-                <th data-field="">操作人</th>
-                <th data-field="">状态</th>
-                <th>操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="peccancyInfo in peccancyList" class="grey-text text-darken-1">
-                <td>{{peccancyInfo.id}}</td>
-                <td>{{peccancyInfo.drive_name}}</td>
-                <td >{{peccancyInfo.truck_num}}</td>
-                <td >{{peccancyInfo.truck_type == 1 ? "头" : "挂"}}</td>
-                <!--扣分-->
-                <td>{{peccancyInfo.fine_score}}</td>
-                <td>{{peccancyInfo.buy_score}}</td>
-                <!--交通罚款-->
-                <td>{{peccancyInfo.traffic_fine}}</td>
-                <!--处理金额-->
-                <td>{{peccancyInfo.fine_money}}</td>
-                <td>{{peccancyInfo.start_date | date:'yyyy-MM-dd'}}</td>
-                <td>{{peccancyInfo.handle_date | date:'yyyy-MM-dd'}}</td>
-                <!--违章地点-->
-                <td>{{peccancyInfo.city_name}}</td>
-                <td>{{peccancyInfo.address}}</td>
-                <td>{{peccancyInfo.op_user_name}}</td>
-                <td class="red-text" ng-if="peccancyInfo.stat_status==1">未扣</td>
-                <td ng-if="peccancyInfo.stat_status!==1">已扣</td>
-                <td  class="operation">
-                    <a ng-click="putPeccancy(peccancyInfo.id)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
-                        <i class="mdi mdi-file-document" style="margin: 0"></i>
-                    </a>
-                </td>
-            </tr>
-            <tr ng-if="peccancyList.length==0">
-                <td colspan="15">暂无数据</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
 
-    <!--分页-->
-    <div class="row">
-        <div class="paging_box col s12">
-            <div class="right">
-                <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="pre_btn()">
-                    上一页
-                </a>
-                <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_btn()">
-                    下一页
-                </a>
+        <!--导入违章文件-->
+        <div id="importFile" class="row tab_box" style="margin-top: 50px">
+
+            <!--按钮 第一行-->
+            <div class="row">
+                <form name="file_upload_form " id="file_upload_form" >
+                    <div class="col s4">
+                        <div class="row">
+                            <div class="file-field  input-field ">
+                                <a href="/assets/违章扣款导入模板.csv" target="_blank" class="btn center-align waves-effect circle_button" >下载模板格式</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s5 offset-s3">
+                        <div class="col s4"> </div>
+                        <div class="col s4"> </div>
+                        <div class="col s4">
+                             <div class="row">
+                                  <div class="file-field input-field">
+                                      <div class="btn cyan lighten-2 circle_button">
+                                          <span>批量数据导入</span>
+                                          <input type="file" style="font-size: 80px;height:45px;"  name="file" accept="text/csv" onchange='angular.element(this).scope().fileChange(this)' >
+                                      </div>
+                                  </div>
+                              </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!--大图-->
+            <div class="row">
+                <div class="col s12">
+                    <div class="col s12 tableBox" ng-show="tableBox">
+                        <img style="width: 100%" src="/assets/images/import_peccancy.png" />
+                    </div>
+                </div>
+            </div>
+
+            <!--上传错误页-->
+            <div class="row dataBox " style="overflow: auto;" ng-show="dataBox">
+                <div class="col s12">
+                    <h6 class="red lighten-2 white-text vc-center" style="padding: 20px">错误数据<span>{{errorNumber}}</span>条，请修改后重新上传</h6>
+                    <table class="responsive-table highlight">
+                        <thead class="blue-grey lighten-4 grey-text text-darken-1">
+                        <tr>
+                            <th>序号</th>
+                            <th ng-repeat="header in tableHeader track by $index">{{header}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="row in tableContentErrorFilter track by $index">
+                            <td>{{$index+1}}</td>
+                            <td ng-repeat="item in row track by $index">{{item}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!--上传成功页-->
+            <div class="row success_data_box " style="overflow: auto; "  ng-show="success_data_box">
+                <div class="divider" style="height: 2px;"></div>
+                <div class="col s12 " style="padding: 100px 0">
+                    <p><span>{{num}}</span>/<span>{{orginData_Length}}</span></p>
+                    <div class="col s2 offset-s5 ">
+                        <p class="vc-center " ng-show="local_isSuccesss">
+                            <i class="mdi mdi-check cyan-text text-lighten-2 fz40"></i><span class="blue-grey-text fz18">本地校验成功</span>
+                        </p>
+                        <p class="vc-center " ng-show="upload_isSuccesss">
+                            <i class="mdi mdi-check cyan-text text-lighten-2 fz40" ></i><span class="blue-grey-text fz18">上传完成</span>
+                        </p>
+                        <p class="vc-center" ng-show="upload_isSuccesss">
+                            <span>错误条数:<span>{{upload_error_array_num}}</span></span>
+                            <span>正确条数:<span>{{orginData_Length-upload_error_array_num}}</span></span>
+                            <span>总条数:<span>{{orginData_Length}}</span></span>
+                        </p>
+                        <!--<a href="" class="btn btn-large waves-effect cyan lighten-2"></a>-->
+                        <p class="center-align">
+                            <button class="btn btn-large circle_button cyan lighten-2" ng-click="fileUpload()"  id="buttonImport">
+                                导入数据库
+                            </button>
+                            <a href="" style="margin-top: 10px" class="btn btn-large circle_button cyan lighten-2" ng-show="show_error" ng-click="show_error_msg()">错误数据显示</a>
+                        </p>
+                    </div>
+                </div>
+
+                <table class=" bordered striped" ng-show="error_msg">
+                    <thead class="blue-grey lighten-5">
+                    <tr class="grey-text text-darken-2">
+                        <th data-field="">错误位置</th>
+                        <th data-field="">原因</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="el in upload_error_array" class="grey-text text-darken-1">
+                        <td>第{{el.index}}条</td>
+                        <td ng-bind="el.msg"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+
+        <!--查看导入违章文件-->
+        <div id="lookMyselfFile" class="row tab_box" style="margin-top: 50px;">
+            <!--查询司机违章扣款情况-->
+
+            <!--查询条件-->
+            <div class="row">
+                <div class="row grey-text text-darken-1">
+                    <div class="col s10">
+                        <div class="col s12">
+
+                            <!--司机-->
+                            <div class="input-field col" style="width: 40%">
+                                <select id="driver" name="driver" material-select watch ng-model="driverId" style="width: 100%">
+                                    <option value="">请选择</option>
+                                    <option ng-repeat="driver in driveNameList" value={{driver.id}}>{{driver.drive_name}}</option>
+                                </select>
+                            </div>
+
+                            <!--货车类型-->
+                            <div class="input-field col" style="width: 20%">
+                                <select material-select watch ng-model="truckType" id="truckType" ng-change="changtruckType(truckType)">
+                                    <option value="" selected>货车类型</option>
+                                    <option ng-value="1">头车</option>
+                                    <option ng-value="2">挂车</option>
+                                </select>
+                            </div>
+
+                            <!--货车牌号-->
+                            <div class="input-field col" style="width: 20%">
+                                <select  material-select watch ng-model="truckId" id="truckId"  style="width: 100%">
+                                    <option value="" selected>货车牌号</option>
+                                    <option ng-repeat="truckNumItem in truckNum" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
+                                </select>
+                            </div>
+
+                            <div class="input-field col" style="width: 20%">
+                                <input type="text" id="grant_start_time" name="grant_start_time" ng-model="getStartTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                                <label for="grant_start_time">违章时间(始)</label>
+                            </div>
+                            <div class="input-field col" style="width: 20%">
+                                <input type="text" id="grant_end_time" name="grant_end_time" ng-model="getEndTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                                <label for="grant_end_time">违章时间(终)</label>
+                            </div>
+
+
+                            <div class="input-field col" style="width: 20%">
+                                <input type="text" id="deal_start_time" name="deal_start_time" ng-model="dealStartTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                                <label for="deal_start_time">处理时间(始)</label>
+                            </div>
+                            <div class="input-field col" style="width: 20%">
+                                <input type="text" id="deal_end_time" name="deal_end_time" ng-model="dealEndTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                                <label for="deal_end_time">处理时间(终)</label>
+                            </div>
+                            <div class="input-field col" style="width: 20%">
+                                <input type="text" id="creat_start_time" name="creat_start_time" ng-model="creatStartTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                                <label for="creat_start_time">创建时间(始)</label>
+                            </div>
+                            <div class="input-field col" style="width: 20%">
+                                <input type="text" id="creat_end_time" name="creat_end_time" ng-model="creatEndTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                                <label for="creat_end_time">创建时间(终)</label>
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+
+                    <!--按钮-->
+                    <div class="col s2" style="margin-top: 35px">
+                        <div class="col s4" >
+                            <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getPeccancy()">
+                                <i class="mdi mdi-magnify"></i>
+                            </a>
+                        </div>
+                        <div class="col s4 center-align">
+                            <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
+                                <i class="mdi mdi-cloud-download"></i>
+                            </a>
+                        </div>
+                        <div class="col s4 right-align">
+                            <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2  btn vc-center"  ng-click="addPeccancy()">
+                                <i class="mdi mdi-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12">
+                <div class="divider cyan" style="height: 2px;"></div>
+                <table class=" bordered striped text_mid">
+                    <thead class="blue-grey lighten-5">
+                    <tr class="grey-text text-darken-2">
+                        <th data-field="">违章结算编号</th>
+                        <th data-field="">司机</th>
+                        <th data-field="">货车牌号</th>
+                        <th data-field="">货车类型</th>
+                        <th data-field="">扣分</th>
+                        <th data-field="">买分金额</th>
+                        <th data-field="">交通罚款</th>
+                        <th data-field="">处理金额</th>
+                        <th data-field="">违章时间</th>
+                        <th data-field="">处理时间</th>
+                        <th data-field="">违章城市</th>
+                        <th data-field="">违章地点</th>
+                        <th data-field="">操作人</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="peccancyInfo in peccancyList" class="grey-text text-darken-1">
+                        <td>{{peccancyInfo.id}}</td>
+                        <td>{{peccancyInfo.drive_name}}</td>
+                        <td >{{peccancyInfo.truck_num}}</td>
+                        <td >{{peccancyInfo.truck_type == 1 ? "头" : "挂"}}</td>
+                        <!--扣分-->
+                        <td>{{peccancyInfo.fine_score}}</td>
+                        <td>{{peccancyInfo.buy_score}}</td>
+                        <!--交通罚款-->
+                        <td>{{peccancyInfo.traffic_fine}}</td>
+                        <!--处理金额-->
+                        <td>{{peccancyInfo.fine_money}}</td>
+                        <td>{{peccancyInfo.start_date | date:'yyyy-MM-dd'}}</td>
+                        <td>{{peccancyInfo.handle_date | date:'yyyy-MM-dd'}}</td>
+                        <!--违章地点-->
+                        <td>{{peccancyInfo.city_name}}</td>
+                        <td>{{peccancyInfo.address}}</td>
+                        <td>{{peccancyInfo.op_user_name}}</td>
+                        <td  class="operation">
+                            <a ng-click="putPeccancy(peccancyInfo.id)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
+                                <i class="mdi mdi-file-document" style="margin: 0"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr ng-if="peccancyList.length==0">
+                        <td colspan="14">暂无数据</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!--分页-->
+            <div class="row">
+                <div class="paging_box col s12">
+                    <div class="right">
+                        <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="pre_btn()">
+                            上一页
+                        </a>
+                        <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_btn()">
+                            下一页
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

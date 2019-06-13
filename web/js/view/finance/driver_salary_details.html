@@ -444,7 +444,7 @@
                             <th data-field="">扣罚分数</th>
                             <th data-field="">扣罚金额</th>
                             <th data-field="">发生时间</th>
-                            <th data-field="">状态</th>
+                           <!-- <th data-field="">状态</th>-->
                         </tr>
                         </thead>
                         <tbody>
@@ -453,12 +453,12 @@
                             <td>{{peccancyInfo.truck_num}}</td>
                             <td>{{peccancyInfo.fine_score}}</td>
                             <td class="red-text">{{peccancyInfo.under_money |number:2}}</td>
-                            <td>{{peccancyInfo.start_date | date:'yyyy-MM-dd'}}至{{peccancyInfo.end_date | date:'yyyy-MM-dd'}}</td>
-                            <td class="red-text" ng-if="peccancyInfo.stat_status==1">未扣</td>
-                            <td ng-if="peccancyInfo.stat_status!==1">已扣</td>
+                            <td>{{peccancyInfo.start_date | date:'yyyy-MM-dd'}}<!--至{{peccancyInfo.end_date | date:'yyyy-MM-dd'}}--></td>
+                          <!--  <td class="red-text" ng-if="peccancyInfo.stat_status==1">未扣</td>
+                            <td ng-if="peccancyInfo.stat_status!==1">已扣</td>-->
                         </tr>
                         <tr ng-if="peccancyAccidentList.length==0">
-                            <td colspan="7">暂无数据</td>
+                            <td colspan="6">暂无数据</td>
                         </tr>
                         </tbody>
                     </table>

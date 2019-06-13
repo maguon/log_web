@@ -86,6 +86,8 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
                 receiveId: $scope.receiveId,
                 dpRouteTaskId: $scope.instructionNum,
                 driveId: $scope.driverIdMod,
+                taskPlanDateStart: $scope.planTimeStart,
+                taskPlanDateEnd: $scope.planTimeEnd,
                 receivedDateStart: $scope.planTimeStart,
                 receivedDateEnd: $scope.planTimeEnd
 

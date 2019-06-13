@@ -42,9 +42,6 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
             if (data.success === true) {
                 $scope.salaryDetails = data.result[0];
                 $scope.user_id = data.result[0].user_id;
-             /*   $scope.salaryDetails.truck_id = data.result[0].truck_id;*/
-               /* $scope.salaryDetails.plan_salary=data.result[0].plan_salary;
-                $scope.planSalary=data.result[0].plan_salary;*/
                 $scope.socialSecurityFee = data.result[0].social_security_fee==null?0: data.result[0].social_security_fee;
                 $scope.otherDeductions = data.result[0].other_fee==null?0: data.result[0].other_fee;
                 $scope.Reimbursement = data.result[0].refund_fee==null?0: data.result[0].refund_fee;
@@ -207,20 +204,6 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
         $scope.getExceedOilList();
     };
 
-  /*  // 保存应发工资信息
-    $scope.saveWagesPaidInfo = function () {
-        _basic.put($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId,{
-            loadDistance: $scope.loadDistanceCount,
-            noLoadDistance: $scope.noLoadDistanceCount,
-            planSalary: $scope.salaryDetails.plan_salary
-        }).then(function (data) {
-            if (data.success === true) {
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
-    };*/
 
     // 任务工资详情
     $scope.showDispatchMissionModal = function (salaryInfo,status) {
@@ -299,8 +282,6 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
 
     // 发放结算工资
     $scope.grantSettlementSalary = function () {
-        var grantCount =$scope.settledSalaryList.distance_salary+$scope.settledSalaryList.reverse_salary+$scope.settledSalaryList.not_storage_car_count *$scope.enter.toFixed(2) - $scope.damageTotalMoney - $scope.accidentTotalMoney - $scope.peccancyTotalMoney - $scope.exceedOilTotalMoney-$scope.Reimbursement- $scope.socialSecurityFee-$scope.otherDeductions;
-
         swal({
                 title: "确定发放结算工资吗？",
                 type: "warning",

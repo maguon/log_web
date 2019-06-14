@@ -179,6 +179,7 @@ app.controller("car_query_controller", ["$scope", "$rootScope","$state","$stateP
         $scope.destinationId=conditions.routeEndId;
         $scope.createdStart=conditions.createdStart;
         $scope.createdEnd=conditions.createdEnd;
+        $scope.carStatus=conditions.carStatus;
     }
 
     /**
@@ -196,7 +197,8 @@ app.controller("car_query_controller", ["$scope", "$rootScope","$state","$stateP
             receiveId: $scope.receiveId,
             routeEndId:$scope.destinationId,
             createdStart:$scope.createdStart,
-            createdEnd:$scope.createdEnd
+            createdEnd:$scope.createdEnd,
+            carStatus:$scope.carStatus
         };
     }
 

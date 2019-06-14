@@ -9,71 +9,6 @@
             <div class="divider cyan lighten-2"></div>
         </div>
         <div style="width: 85%;margin: 0 auto">
-            <!--洗车费模态框-->
-            <div id="carWashFeeModel" class="modal modal-fixed-footer" style="width: 52%;height: 400px">
-                <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-                    <div class="row col s12 vc-center cyan" style="font-weight: bold;height: 80px;">
-                        <div class="col s12 fz22 white-text" style="font-weight: 600">
-                            <p>洗车费</p>
-                        </div>
-                    </div>
-                    <div class="row col s12" style="width: 80%;margin-left: 10%">
-                        <div class="col s4 input-field valign-wrapper">
-                            <div class="col s11 input-field">
-                                <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" ng-model="carWashFeeCount" id="car_wash_fee" name="car_wash_fee">
-                                <label class="{{carWashFeeCount != null ? 'active' : 'inactive'}}" for="car_wash_fee">小车洗车费金额</label>
-                            </div>
-                            <div class="col s1 left-align" style="padding: 0;">
-                                元
-                            </div>
-                        </div>
-                        <div class="col s4 input-field valign-wrapper">
-                            <div class="col s11 input-field">
-                                <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" ng-model="bigCleanFee" id="bigCleanFee" name="bigCleanFee">
-                                <label class="{{bigCleanFee != null ? 'active' : 'inactive'}}" for="bigCleanFee">大车洗车费金额</label>
-                            </div>
-                            <div class="col s1 left-align" style="padding: 0;">
-                                元
-                            </div>
-                        </div>
-                        <div class="col s4 input-field valign-wrapper">
-                            <div class="col s11 input-field">
-                                <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" ng-model="trailerFee" id="trailerFee" name="trailerFee">
-                                <label class="{{trailerFee != null ? 'active' : 'inactive'}}" for="trailerFee">拖车费金额</label>
-                            </div>
-                            <div class="col s1 left-align" style="padding: 0;">
-                                元
-                            </div>
-                        </div>
-                        <div class="col s6 input-field valign-wrapper">
-                            <div class="col s11 input-field">
-                                <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" ng-model="runFee" id="runFee" name="runFee">
-                                <label class="{{runFee != null ? 'active' : 'inactive'}}" for="runFee">地跑费金额</label>
-                            </div>
-                            <div class="col s1 left-align" style="padding: 0;">
-                                元
-                            </div>
-                        </div>
-                        <div class="col s6 input-field valign-wrapper">
-                            <div class="col s11 input-field">
-                                <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" ng-model="leadFee" id="leadFee" name="leadFee">
-                                <label class="{{leadFee != null ? 'active' : 'inactive'}}" for="leadFee">带路费金额</label>
-                            </div>
-                            <div class="col s1 left-align" style="padding: 0;">
-                                元
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                <div class="modal-footer vc-center">
-                    <button class="btn modal-action modal-close waves-light waves-effect grey lighten-1" type="button">
-                        取消
-                    </button>
-                    <button ng-click="changeWashFee()" class="btn waves-light waves-effect cyan lighten-1" type="button" style="margin-left: 56px" >
-                        确定
-                    </button>
-                </div>
-            </div>
             <div class="row addDealer">
                 <div class="col s10">
                     <!--编号-->
@@ -124,8 +59,8 @@
                     <div class="col input-field s2">
                         <select material-select watch id="receiveFlag" ng-model="receive_flag" required>
                             <option value="">请选择</option>
-                            <option ng-value="0">否</option>
-                            <option ng-value="1">是</option>
+                            <option ng-value=0>否</option>
+                            <option ng-value=1>是</option>
                         </select>
                         <label class="grey-text bold" for="receiveFlag">是否为库</label>
                     </div>
@@ -239,5 +174,72 @@
             </div>
 
         </div>
+    </div>
+</div>
+
+
+<!--洗车费模态框-->
+<div id="carWashFeeModel" class="modal modal-fixed-footer" style="width: 52%;height: 400px">
+    <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+        <div class="row col s12 vc-center cyan" style="font-weight: bold;height: 80px;">
+            <div class="col s12 fz22 white-text" style="font-weight: 600">
+                <p>洗车费</p>
+            </div>
+        </div>
+        <div class="row col s12" style="width: 80%;margin-left: 10%">
+            <div class="col s4 input-field valign-wrapper">
+                <div class="col s11 input-field">
+                    <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" ng-model="carWashFeeCount" id="car_wash_fee" name="car_wash_fee">
+                    <label class="{{carWashFeeCount != null ? 'active' : 'inactive'}}" for="car_wash_fee">小车洗车费金额</label>
+                </div>
+                <div class="col s1 left-align" style="padding: 0;">
+                    元
+                </div>
+            </div>
+            <div class="col s4 input-field valign-wrapper">
+                <div class="col s11 input-field">
+                    <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" ng-model="bigCleanFee" id="bigCleanFee" name="bigCleanFee">
+                    <label class="{{bigCleanFee != null ? 'active' : 'inactive'}}" for="bigCleanFee">大车洗车费金额</label>
+                </div>
+                <div class="col s1 left-align" style="padding: 0;">
+                    元
+                </div>
+            </div>
+            <div class="col s4 input-field valign-wrapper">
+                <div class="col s11 input-field">
+                    <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" ng-model="trailerFee" id="trailerFee" name="trailerFee">
+                    <label class="{{trailerFee != null ? 'active' : 'inactive'}}" for="trailerFee">拖车费金额</label>
+                </div>
+                <div class="col s1 left-align" style="padding: 0;">
+                    元
+                </div>
+            </div>
+            <div class="col s6 input-field valign-wrapper">
+                <div class="col s11 input-field">
+                    <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" ng-model="runFee" id="runFee" name="runFee">
+                    <label class="{{runFee != null ? 'active' : 'inactive'}}" for="runFee">地跑费金额</label>
+                </div>
+                <div class="col s1 left-align" style="padding: 0;">
+                    元
+                </div>
+            </div>
+            <div class="col s6 input-field valign-wrapper">
+                <div class="col s11 input-field">
+                    <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" ng-model="leadFee" id="leadFee" name="leadFee">
+                    <label class="{{leadFee != null ? 'active' : 'inactive'}}" for="leadFee">带路费金额</label>
+                </div>
+                <div class="col s1 left-align" style="padding: 0;">
+                    元
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer vc-center">
+        <button class="btn modal-action modal-close waves-light waves-effect grey lighten-1" type="button">
+            取消
+        </button>
+        <button ng-click="changeWashFee()" class="btn waves-light waves-effect cyan lighten-1" type="button" style="margin-left: 56px" >
+            确定
+        </button>
     </div>
 </div>

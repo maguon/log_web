@@ -62,10 +62,14 @@ app.controller("setting_dealer_controller", ["$scope","$rootScope","$state","$st
     };
 
     $scope.search_all_dealer = function () {
-
-
         // 基本检索URL
-        var url = $host.api_url + "/receive?start=" + $scope.start + "&size=" + $scope.size;
+        if($scope.receive_flag==undefined){
+            var url = $host.api_url + "/receive?start=" + $scope.start + "&size=" + $scope.size;
+        }
+        else {
+            var url = $host.api_url + "/receive?receiveFlag="+ $scope.receive_flag +"&start=" + $scope.start + "&size=" + $scope.size;
+                }
+
         // 检索条件
         var conditionsObj = makeConditions();
         var conditions = _basic.objToUrl(conditionsObj);
@@ -259,7 +263,7 @@ app.controller("setting_dealer_controller", ["$scope","$rootScope","$state","$st
                 receiveId: $scope.s_dealer,
                 receiveType:$scope.receive_type,
                 cityId: $scope.city,
-                receiveFlag:$scope.receive_flag,
+               /* receiveFlag:$scope.receive_flag,*/
                 makeId: '',
                 makeName: ''
             }
@@ -268,7 +272,7 @@ app.controller("setting_dealer_controller", ["$scope","$rootScope","$state","$st
                 receiveId: $scope.s_dealer,
                 receiveType:$scope.receive_type,
                 cityId: $scope.city,
-                receiveFlag:$scope.receive_flag,
+               /* receiveFlag:$scope.receive_flag,*/
                 makeId: $scope.car_brand.id,
                 makeName: $scope.car_brand.make_name
             }

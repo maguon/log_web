@@ -42,7 +42,7 @@
                         <option ng-repeat="entrust in entrustList" value={{entrust.id}}>{{entrust.short_name}}</option>
                     </select>
                 </div>
-                <div class="input-field col s4">
+                <div class="input-field col s2">
                     <input id="VIN" type="text" ng-model="vin_code">
                     <label for="VIN">VIN</label>
                 </div>
@@ -67,6 +67,17 @@
                         class="mdi dataIcon mdi-table-large"></i>
                     <label for="createdEnd">至</label>
                 </div>
+                <div class="input-field col s2">
+                    <select material-select watch ng-model="carStatus" id="dealStatus">
+                        <option value="" selected>状态</option>
+                        <option ng-value=1>待发运</option>
+                        <option ng-value=2>中转</option>
+                        <option ng-value=3>已装车</option>
+                        <option ng-value=9>已完成</option>
+                    </select>
+                </div>
+
+
             </div>
             <div class="col s2 center">
                 <div class="col s6 right-align">

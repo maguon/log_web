@@ -248,6 +248,32 @@ CommonFilter.filter("missionStatus", function () {
 
 
 
+//商品车状态
+CommonFilter.filter("carStatus", function () {
+    return function (input) {
+        var missionStatus;
+        switch (input) {
+            case 1:
+                missionStatus = "待发运";
+                break;
+            case 2:
+                missionStatus = "中转";
+                break;
+            case 3:
+                missionStatus = "已装车";
+                break;
+            case 9:
+                missionStatus = "已完成";
+                break;
+            default:
+                missionStatus = "未知";
+        }
+        return missionStatus;
+    }
+});
+
+
+
 // 调度指令状态类型过滤器
 CommonFilter.filter("taskStatus", function () {
     return function (input) {

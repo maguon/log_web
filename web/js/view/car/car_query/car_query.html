@@ -113,7 +113,7 @@
                 <td>{{response.route_end}}</td>
                 <td>{{response.re_short_name}}</td>
                 <td>{{response.order_date | date:'yyyy-MM-dd'}}</td>
-                <td>{{response.car_status | taskStatus}}</td>
+                <td>{{response.car_status | carStatus}}</td>
                 <td width="100" class="operation">
                     <a ui-sref="car_query_details({vin:response.vin,id:response.id,from:'car_query'})" class="">
                         <i class="mdi mdi-file-outline look_icon cyan-text lighten-1  "></i>

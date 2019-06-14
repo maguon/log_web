@@ -99,6 +99,7 @@
                 <th data-field="">目的地城市</th>
                 <th data-field="">经销商</th>
                 <th data-field="">指令时间</th>
+                <th data-field="">状态</th>
                 <th>操作</th>
             </tr>
             </thead>
@@ -112,6 +113,7 @@
                 <td>{{response.route_end}}</td>
                 <td>{{response.re_short_name}}</td>
                 <td>{{response.order_date | date:'yyyy-MM-dd'}}</td>
+                <td>{{response.car_status | taskStatus}}</td>
                 <td width="100" class="operation">
                     <a ui-sref="car_query_details({vin:response.vin,id:response.id,from:'car_query'})" class="">
                         <i class="mdi mdi-file-outline look_icon cyan-text lighten-1  "></i>
@@ -119,7 +121,7 @@
                 </td>
             </tr>
             <tr class="grey-text text-darken-1" ng-if="responseData.length == 0">
-                <td colspan="9"><span style="letter-spacing: 2px">暂无数据</span></td>
+                <td colspan="10"><span style="letter-spacing: 2px">暂无数据</span></td>
             </tr>
             </tbody>
         </table>

@@ -85,30 +85,10 @@
                     <!--质损信息-->
                     <div class="col s12 bold_txt" style="color: darkgray;font-size: 1.1rem">
                         <div class="col s6">
-                            <p ng-if="damageInfoCardList.damage_type==1"><span>质损类型：</span>A</p>
-                            <p ng-if="damageInfoCardList.damage_type==2"><span>质损类型：</span>B</p>
-                            <p ng-if="damageInfoCardList.damage_type==3"><span>质损类型：</span>C</p>
-                            <p ng-if="damageInfoCardList.damage_type==4"><span>质损类型：</span>D</p>
-                            <p ng-if="damageInfoCardList.damage_type==5"><span>质损类型：</span>E</p>
-                            <p ng-if="damageInfoCardList.damage_type==6"><span>质损类型：</span>F</p>
+                            <p><span>质损类型：</span>{{damageInfoCardList.damage_type |damageType}}</p>
                         </div>
                         <div class="col s6">
-                            <p ng-if="damageInfoCardList.damage_link_type==1"><span>质损环节：</span>短驳移库</p>
-                            <p ng-if="damageInfoCardList.damage_link_type==2"><span>质损环节：</span>公路运输</p>
-                            <p ng-if="damageInfoCardList.damage_link_type==3"><span>质损环节：</span>公司运输</p>
-                            <p ng-if="damageInfoCardList.damage_link_type==4"><span>质损环节：</span>驾驶员漏检</p>
-                            <p ng-if="damageInfoCardList.damage_link_type==5"><span>质损环节：</span>交通事故</p>
-                            <p ng-if="damageInfoCardList.damage_link_type==6"><span>质损环节：</span>前端责任</p>
-                            <p ng-if="damageInfoCardList.damage_link_type==7"><span>质损环节：</span>安盛船务责任</p>
-                            <p ng-if="damageInfoCardList.damage_link_type==8"><span>质损环节：</span>安盛判定</p>
-                            <p ng-if="damageInfoCardList.damage_link_type==9"><span>质损环节：</span>通用判定</p>
-                            <p ng-if="damageInfoCardList.damage_link_type==10"><span>质损环节：</span>驾驶员违规操作</p>
-                            <p ng-if="damageInfoCardList.damage_link_type==11"><span>质损环节：</span>长春办收发车</p>
-                            <p ng-if="damageInfoCardList.damage_link_type==12"><span>质损环节：</span>沈阳办收发车</p>
-                            <p ng-if="damageInfoCardList.damage_link_type==13"><span>质损环节：</span>天津办收发车</p>
-                            <p ng-if="damageInfoCardList.damage_link_type==14"><span>质损环节：</span>PDI漏检</p>
-                            <p ng-if="damageInfoCardList.damage_link_type==15"><span>质损环节：</span>大连现场收发车</p>
-                            <p ng-if="damageInfoCardList.damage_link_type==16"><span>质损环节：</span>运输途中遭人为破坏</p>
+                            <p><span>质损环节：</span>{{damageInfoCardList.damage_link_type|damageLinkType}}</p>
                         </div>
                         <div  class="col s12" style="height:1px;border-bottom: 1px dotted #ccc;width:98%;margin-left: 1%"></div>
                         <div class="col s3">
@@ -189,19 +169,19 @@
                 </div>
             </div>
             <!--按钮-->
-            <div class="col s2 offset-s4" style="margin-top: 20px" ng-show="!hasRepayment">
+            <div class="col s2 offset-s4" style="margin-top: 20px"  ng-if="indemnityStatus !== 2">
                 <a ng-click="updateLoanInfo()" style="width: 100%;" class="waves-light waves-effect lighten-1 btn cyan">
                     打款
                 </a>
             </div>
-            <div class="col s2 offset-s4" style="margin-top: 20px" ng-show="hasRepayment">
+         <!--   <div class="col s2 offset-s4" style="margin-top: 20px" ng-show="hasRepayment">
                 <a ng-click="savePaymentInfo()" style="width: 100%;" class="waves-light waves-effect lighten-1 btn cyan">保存
                 </a>
             </div>
             <div class="col s2 offset-s2" style="margin-top: 20px" ng-show="hasRepayment">
                 <a ng-click="finishPayment()" style="width: 100%;background-color: #f0ad4e;" class="waves-light waves-effect lighten-1 btn">处理结束
                 </a>
-            </div>
+            </div>-->
         </div>
         <!--打款处理信息已打款-->
         <div class="col s12" ng-if="indemnityStatus == 2">

@@ -3,7 +3,7 @@ app.controller("car_payment_loan_details_controller", ["$scope", "$state", "$sta
     var indemnityId = $stateParams.id;
     var paymentId = $stateParams.paymentId;
     $scope.hasEnlargeImage = false;
-    $scope.hasRepayment = false;
+   /* $scope.hasRepayment = false;*/
 
     // 返回
     $scope.return = function () {
@@ -13,9 +13,9 @@ app.controller("car_payment_loan_details_controller", ["$scope", "$state", "$sta
     function getCurrentLoanInfo() {
         _basic.get($host.api_url + "/damageCheckIndemnity?damageId=" + paymentId).then(function (data) {
             if (data.success === true) {
-                if(data.result[0].actual_money !== null && data.result[0].indemnity_explain !== null){
+               /* if(data.result[0].actual_money !== null && data.result[0].indemnity_explain !== null){
                     $scope.hasRepayment = true;
-                }
+                }*/
                 $scope.loanInfo = data.result[0];
                 $scope.indemnityStatus = data.result[0].indemnity_status;
                 $scope.urlImg = $host.file_url + '/image/' + data.result[0].voucher_image;
@@ -100,9 +100,9 @@ app.controller("car_payment_loan_details_controller", ["$scope", "$state", "$sta
             _basic.put($host.api_url+"/user/"+userId+"/damageCheckIndemnity/"+indemnityId+"/image",obj).then(function (data) {
                 if(data.success==true){
                     swal("上传成功", "", "success");
-                    if ($scope.voucher_img.length!=0) {
+                    /*if ($scope.voucher_img.length!=0) {
                         viewer.destroy();
-                    }
+                    }*/
                 }else {
                     swal(data.msg,"","error")
                 }
@@ -128,22 +128,44 @@ app.controller("car_payment_loan_details_controller", ["$scope", "$state", "$sta
             swal("打款金额或打款描述不能为空！", "", "warning");
         }
         else{
-            _basic.put($host.api_url + "/user/" + userId + "/indemnity/" + indemnityId,{
-                actualMoney: $scope.loanInfo.actual_money,
-                indemnityExplain: $scope.loanInfo.indemnity_explain
-            }).then(function (data) {
-                if (data.success === true) {
-                    swal("保存成功", "", "success");
-                     getCurrentLoanInfo();
-                }
-                else {
-                    swal(data.msg, "", "error");
-                }
-            });
+            swal({
+                title: "确定完结吗？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确认",
+                cancelButtonText: "取消"
+            }).then(
+                function(result){
+                    if (result.value) {
+                        _basic.put($host.api_url + "/user/" + userId + "/indemnity/" + indemnityId + "/indemnityStatus/2", {}).then(function (data) {
+                            if (data.success === true) {
+                                getCurrentLoanInfo();
+                            }
+                            else {
+                                swal(data.msg, "", "error");
+                            }
+                        });
+                        _basic.put($host.api_url + "/user/" + userId + "/indemnity/" + indemnityId,{
+                            actualMoney: $scope.loanInfo.actual_money,
+                            indemnityExplain: $scope.loanInfo.indemnity_explain
+                        }).then(function (data) {
+                            if (data.success === true) {
+                                getCurrentLoanInfo();
+                            }
+                            else {
+                                swal(data.msg, "", "error");
+                            }
+                        });
+                    }
+                });
+
+
+
         }
     };
     // 点击打款保存按钮
-    $scope.savePaymentInfo = function () {
+  /*  $scope.savePaymentInfo = function () {
         if($scope.loanInfo.actual_money == null || $scope.loanInfo.actual_money === "" || $scope.loanInfo.indemnity_explain == null || $scope.loanInfo.indemnity_explain === ""){
             swal("打款金额或打款描述不能为空！", "", "warning");
         }
@@ -171,7 +193,7 @@ app.controller("car_payment_loan_details_controller", ["$scope", "$state", "$sta
     };
     // 点击完结修改状态
     $scope.finishPayment = function () {
-        if($scope.hasRepayment){
+      /!*  if($scope.hasRepayment){*!/
             swal({
                     title: "确定完结吗？",
                     type: "warning",
@@ -192,11 +214,11 @@ app.controller("car_payment_loan_details_controller", ["$scope", "$state", "$sta
                         });
                     }
                 });
-        }
+      /!*  }
         else{
             swal("请先填写还款信息并保存！", "", "warning");
-        }
-    };
+        }*!/
+    };*/
     $scope.queryData = function () {
         getCurrentLoanInfo();
         getCurrentDamageInfo();

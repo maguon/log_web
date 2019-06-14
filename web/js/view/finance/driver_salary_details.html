@@ -623,6 +623,97 @@
                     </div>
                 </div>
 
+
+
+
+
+
+
+                <!--伙食费   个人借款   暂扣款   上月欠款-->
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span  class="mdi mdi-minus cyan-text"></span>
+                </div>
+                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
+                    <div class="col s12 cyan-text" >
+                        <p>伙食费 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <input style="font-size: 1.5rem;text-align: center;color: rgb(230,123,123);margin-bottom: 17px" type="number" id="foodFee" name="foodFee" ng-model="foodFee">
+                    </div>
+                </div>
+                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status == 3">
+                    <div class="col s12 cyan-text" >
+                        <p>伙食费 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <p >{{foodFee.toFixed(2)}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s12 valign-wrapper" style="margin-top: 50px"           >
+                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
+                    <div class="col s12 cyan-text" >
+                        <p>个人借款 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <input style="font-size: 1.5rem;text-align: center;color: rgb(230,123,123);margin-bottom: 17px" type="number" id="single_deductions" name="single_deductions" ng-model="singleFee">
+                    </div>
+                </div>
+                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status == 3">
+                    <div class="col s12 cyan-text" >
+                        <p>个人借款 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <p >{{singleFee.toFixed(2)}}</p>
+                    </div>
+                </div>
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span  class="mdi mdi-minus cyan-text"></span>
+                </div>
+                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
+                    <div class="col s12 cyan-text" >
+                        <p>暂扣款 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <input style="font-size: 1.5rem;text-align: center;color: rgb(230,123,123);margin-bottom: 17px" type="number" id="just_deductions" name="just_deductions" ng-model="justFee">
+                    </div>
+                </div>
+                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status == 3">
+                    <div class="col s12 cyan-text" >
+                        <p>暂扣款 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <p >{{justFee.toFixed(2)}}</p>
+                    </div>
+                </div>
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span  class="mdi mdi-minus cyan-text"></span>
+                </div>
+                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
+                    <div class="col s12 cyan-text" >
+                        <p>上月欠款 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <input style="font-size: 1.5rem;text-align: center;color: rgb(230,123,123);margin-bottom: 17px" type="number" id="last_deductions" name="last_deductions" ng-model="lastFee">
+                    </div>
+                </div>
+                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status == 3">
+                    <div class="col s12 cyan-text" >
+                        <p>上月欠款 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <p >{{lastFee.toFixed(2)}}</p>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
                     <span  class="mdi mdi-minus cyan-text"></span>
                 </div>
@@ -660,7 +751,7 @@
                         <p>应付工资 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12" style="color: white">
-                        <p>{{(settledSalaryList.distance_salary+settledSalaryList.reverse_salary+settledSalaryList.not_storage_car_count *enter - accidentTotalMoney - peccancyTotalMoney - exceedOilTotalMoney- damageTotalMoney- socialSecurityFee -Reimbursement-otherDeductions).toFixed(2)}}</p>
+                        <p>{{(settledSalaryList.distance_salary+settledSalaryList.reverse_salary+settledSalaryList.not_storage_car_count *enter - accidentTotalMoney - peccancyTotalMoney - exceedOilTotalMoney- damageTotalMoney- socialSecurityFee -Reimbursement-otherDeductions-lastFee-justFee-singleFee-foodFee).toFixed(2)}}</p>
                     </div>
                 </div>
             </div>
@@ -687,12 +778,12 @@
             <!--按钮-->
             <div class="col s12" style="margin-top: 70px" ng-hide="salaryDetails.grant_status == 3">
                 <div class="col s1 offset-s4">
-                    <a ng-click="saveSettlementSalary()" style="width: 100%" class="waves-light waves-effect cyan lighten-2 btn">
+                    <a ng-click="saveSettlementSalary(salaryDetails.id)" style="width: 100%" class="waves-light waves-effect cyan lighten-2 btn">
                         保存
                     </a>
                 </div>
                 <div class="col s1 offset-s2">
-                    <a ng-click="grantSettlementSalary()" style="width: 100%;background: rgb(245,166,35)" class="waves-light waves-effect lighten-1 btn" >
+                    <a ng-click="grantSettlementSalary(salaryDetails.id)" style="width: 100%;background: rgb(245,166,35)" class="waves-light waves-effect lighten-1 btn" >
                         发放
                     </a>
                 </div>

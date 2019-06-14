@@ -7,6 +7,14 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
     var driveId = $stateParams.driveId;
     $scope.enter = _config.enter;
     $scope.otherDeductions = 0;
+
+    $scope.foodFee = 0;
+    $scope.singleFee = 0;
+    $scope.justFee = 0;
+    $scope.lastFee = 0;
+
+
+
     $scope.Reimbursement = 0;
     $scope.user_id='';
 
@@ -44,6 +52,14 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                 $scope.user_id = data.result[0].user_id;
                 $scope.socialSecurityFee = data.result[0].social_security_fee==null?0: data.result[0].social_security_fee;
                 $scope.otherDeductions = data.result[0].other_fee==null?0: data.result[0].other_fee;
+                $scope.foodFee  = data.result[0].food_fee==null?0: data.result[0].food_fee;
+                $scope.singleFee = data.result[0].loan_fee==null?0: data.result[0].loan_fee;
+                $scope.justFee = data.result[0].withhold==null?0: data.result[0].withhold;
+                $scope.lastFee = data.result[0].arrears==null?0: data.result[0].arrears;
+
+
+
+
                 $scope.Reimbursement = data.result[0].refund_fee==null?0: data.result[0].refund_fee;
                 $scope.remark = data.result[0].remark;
 
@@ -229,9 +245,10 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
 
 
     // 保存结算工资信息
-    $scope.saveSettlementSalary = function () {
-        var grantCount =$scope.settledSalaryList.distance_salary+$scope.settledSalaryList.reverse_salary+$scope.settledSalaryList.not_storage_car_count *$scope.enter.toFixed(2) - $scope.damageTotalMoney - $scope.accidentTotalMoney - $scope.peccancyTotalMoney - $scope.exceedOilTotalMoney-$scope.Reimbursement- $scope.socialSecurityFee-$scope.otherDeductions;
-        if(salaryId==undefined){
+    $scope.saveSettlementSalary = function (id) {
+        var grantCount =$scope.settledSalaryList.distance_salary+$scope.settledSalaryList.reverse_salary+$scope.settledSalaryList.not_storage_car_count *$scope.enter.toFixed(2) - $scope.damageTotalMoney - $scope.accidentTotalMoney - $scope.peccancyTotalMoney - $scope.exceedOilTotalMoney-$scope.Reimbursement- $scope.socialSecurityFee
+            -$scope.otherDeductions-$scope.foodFee-$scope.singleFee-$scope.justFee-$scope.lastFee;
+        if(id==undefined){
             _basic.post($host.api_url + "/user/" + userId + "/driveSalary",{
                 "monthDateId": monthId,
                 "driveId": driveId,
@@ -246,10 +263,16 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                 "refundFee":$scope.Reimbursement,
                 "socialSecurityFee": $scope.socialSecurityFee,
                 "otherFee": $scope.otherDeductions,
+                foodFee:$scope.foodFee,
+                loadFee:$scope.singleFee,
+                withhold:$scope.justFee,
+                arrears:$scope.lastFee,
                 "actualSalary": grantCount,
                 "remark": $scope.remark
             }).then(function (data) {
                 if (data.success === true) {
+                    $scope.addId= data.id;
+                    getSalaryDetails()
                     swal("保存成功", "", "success");
                 }
                 else {
@@ -259,14 +282,19 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
 
         }
         else {
-            _basic.put($host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/driveActualSalary",{
+            _basic.put($host.api_url + "/user/" + userId + "/driveSalary/" + id + "/driveActualSalary",{
                 refundFee:$scope.Reimbursement,
                 socialSecurityFee:$scope.socialSecurityFee,
                 otherFee: $scope.otherDeductions,
+                foodFee:$scope.foodFee,
+                loadFee:$scope.singleFee,
+                withhold:$scope.justFee,
+                arrears:$scope.lastFee,
                 actualSalary: grantCount,
                 remark: $scope.remark
             }).then(function (data) {
                 if (data.success === true) {
+                    getSalaryDetails()
                     swal("保存成功", "", "success");
                 }
                 else {
@@ -281,7 +309,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
 
 
     // 发放结算工资
-    $scope.grantSettlementSalary = function () {
+    $scope.grantSettlementSalary = function (id) {
         swal({
                 title: "确定发放结算工资吗？",
                 type: "warning",
@@ -292,27 +320,80 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
         }).then(
             function(result){
                 if (result.value) {
-                    $scope.saveSettlementSalary();
-                    _basic.put(
-                        $host.api_url + "/user/" + userId + "/driveSalary/" + salaryId + "/grantStatus/3", {}).then(function (data) {
-                        if (data.success === true) {
-                            getSalaryDetails();
-                        }
-                        else {
-                            swal(data.msg, "", "error");
-                        }
-                    });
+                    var grantCount =$scope.settledSalaryList.distance_salary+$scope.settledSalaryList.reverse_salary+$scope.settledSalaryList.not_storage_car_count *$scope.enter.toFixed(2) - $scope.damageTotalMoney - $scope.accidentTotalMoney - $scope.peccancyTotalMoney - $scope.exceedOilTotalMoney-$scope.Reimbursement- $scope.socialSecurityFee
+                        -$scope.otherDeductions-$scope.foodFee-$scope.singleFee-$scope.justFee-$scope.lastFee;
+                    if(id==undefined){
+                        _basic.post($host.api_url + "/user/" + userId + "/driveSalary",{
+                            "monthDateId": monthId,
+                            "driveId": driveId,
+                            "distanceSalary": $scope.settledSalaryList.distance_salary,
+                            "reverseSalary": $scope.settledSalaryList.reverse_salary,
+                            "enterFee": $scope.settledSalaryList.not_storage_car_count *$scope.enter.toFixed(2),
+                            "planSalary": $scope.settledSalaryList.distance_salary+$scope.settledSalaryList.reverse_salary+$scope.settledSalaryList.not_storage_car_count *$scope.enter.toFixed(2),
+                            "damageUnderFee": $scope.damageTotalMoney,
+                            "accidentFee": $scope.accidentTotalMoney,
+                            "peccancyUnderFee":$scope.peccancyTotalMoney,
+                            "exceedOilFee": $scope.exceedOilTotalMoney,
+                            "refundFee":$scope.Reimbursement,
+                            "socialSecurityFee": $scope.socialSecurityFee,
+                            "otherFee": $scope.otherDeductions,
+                            foodFee:$scope.foodFee,
+                            loadFee:$scope.singleFee,
+                            withhold:$scope.justFee,
+                            arrears:$scope.lastFee,
+                            "actualSalary": grantCount,
+                            "remark": $scope.remark
+                        }).then(function (data) {
+                            if (data.success === true) {
+                                $scope.addId= data.id;
+                                putStatus()
+                                swal("保存成功", "", "success");
+                            }
+                            else {
+                                swal(data.msg, "", "error");
+                            }
+                        });
+
+                    }
+                    else {
+                        _basic.put($host.api_url + "/user/" + userId + "/driveSalary/" + id + "/driveActualSalary",{
+                            refundFee:$scope.Reimbursement,
+                            socialSecurityFee:$scope.socialSecurityFee,
+                            otherFee: $scope.otherDeductions,
+                            foodFee:$scope.foodFee,
+                            loadFee:$scope.singleFee,
+                            withhold:$scope.justFee,
+                            arrears:$scope.lastFee,
+                            actualSalary: grantCount,
+                            remark: $scope.remark
+                        }).then(function (data) {
+                            if (data.success === true) {
+                                $scope.addId=id;
+                                putStatus();
+                                swal("保存成功", "", "success");
+                            }
+                            else {
+                                swal(data.msg, "", "error");
+                            }
+                        });
+                    }
                 }
             });
     };
 
 
+    function putStatus(){
+        _basic.put(
+            $host.api_url + "/user/" + userId + "/driveSalary/" + $scope.addId + "/grantStatus/3", {}).then(function (data) {
+            if (data.success === true) {
+                $scope.salaryDetails.grant_status=3;
+            }
+            else {
+                swal('发放失败', "", "error");
+            }
+        });
+    }
 
 
-
-    // 获取数据
-    $scope.queryData = function () {
-        getSalaryDetails();
-    };
-    $scope.queryData();
+    getSalaryDetails();
 }]);

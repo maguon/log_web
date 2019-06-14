@@ -525,7 +525,7 @@
             <div class="col s12 valign-wrapper">
 
                 <!--任务工资-->
-                <div class="col s3 z-depth-1 center-align" style="border: 2px solid rgb(245,166,35);font-size: 1.2rem;font-weight: bold ;background: rgb(245,166,35)">
+                <div class="col s2 z-depth-1 center-align" style="border: 2px solid rgb(245,166,35);font-weight: bold ;background: rgb(245,166,35)">
                     <div class="col s12" style="color: #fff">
                         <p>任务工资 <span style="font-size: 1rem">(元)</span></p>
                     </div>
@@ -538,9 +538,9 @@
                 </div>
 
                 <!--商品车质损承担-->
-                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold">
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold">
                     <div class="col s12 cyan-text" >
-                        <p>商品车质损承担 <span style="font-size: 1rem">(元)</span></p>
+                        <p>商品车质损 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12" style="color: #e57373">
                         <p>{{damageTotalMoney.toFixed(2)}}</p>
@@ -550,7 +550,7 @@
                     <span  class="mdi mdi-minus cyan-text"></span>
                 </div>
                 <!--货车事故承担-->
-                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold">
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold">
                     <div class="col s12 cyan-text" >
                         <p>货车事故承担 <span style="font-size: 1rem">(元)</span></p>
                     </div>
@@ -561,7 +561,7 @@
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
                     <span  class="mdi mdi-minus cyan-text"></span>
                 </div>
-                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold">
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold">
                     <div class="col s12 cyan-text">
                         <p>违章扣款 <span style="font-size: 1rem">(元)</span></p>
                     </div>
@@ -569,13 +569,10 @@
                         <p>{{peccancyTotalMoney.toFixed(2)}}</p>
                     </div>
                 </div>
-
-
-
-            </div>
-
-            <div class="col s12 valign-wrapper" style="margin-top: 50px"           >
-                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold">
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span  class="mdi mdi-minus cyan-text"></span>
+                </div>
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold">
                     <div class="col s12 cyan-text">
                         <p>超量扣款 <span style="font-size: 1rem">(元)</span></p>
                     </div>
@@ -586,7 +583,7 @@
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
                     <span  class="mdi mdi-minus cyan-text"></span>
                 </div>
-                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
                     <div class="col s12 cyan-text" >
                         <p>报销扣款 <span style="font-size: 1rem">(元)</span></p>
                     </div>
@@ -594,7 +591,7 @@
                         <input style="font-size: 1.5rem;text-align: center;color: rgb(230,123,123);margin-bottom: 17px" type="number" id="Reimbursement" name="Reimbursement" ng-model="Reimbursement">
                     </div>
                 </div>
-                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status == 3">
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold" ng-show="salaryDetails.grant_status == 3">
                     <div class="col s12 cyan-text" >
                         <p>报销扣款 <span style="font-size: 1rem">(元)</span></p>
                     </div>
@@ -602,11 +599,11 @@
                         <p >{{Reimbursement.toFixed(2)}}</p>
                     </div>
                 </div>
-                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
-                    <span  class="mdi mdi-minus cyan-text"></span>
-                </div>
 
-                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
+            </div>
+
+            <div class="col s12 valign-wrapper" style="margin-top: 50px"           >
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
                     <div class="col s12 cyan-text" >
                         <p>社保缴费 <span style="font-size: 1rem">(元)</span></p>
                     </div>
@@ -614,7 +611,7 @@
                         <input style="font-size: 1.5rem;text-align: center;color: rgb(230,123,123);margin-bottom: 17px" type="number" id="socialSecurityFee" name="socialSecurityFee" ng-model="socialSecurityFee">
                     </div>
                 </div>
-                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status == 3">
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold" ng-show="salaryDetails.grant_status == 3">
                     <div class="col s12 cyan-text" >
                         <p>社保缴费 <span style="font-size: 1rem">(元)</span></p>
                     </div>
@@ -633,7 +630,7 @@
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
                     <span  class="mdi mdi-minus cyan-text"></span>
                 </div>
-                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
                     <div class="col s12 cyan-text" >
                         <p>伙食费 <span style="font-size: 1rem">(元)</span></p>
                     </div>
@@ -641,7 +638,7 @@
                         <input style="font-size: 1.5rem;text-align: center;color: rgb(230,123,123);margin-bottom: 17px" type="number" id="foodFee" name="foodFee" ng-model="foodFee">
                     </div>
                 </div>
-                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status == 3">
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold" ng-show="salaryDetails.grant_status == 3">
                     <div class="col s12 cyan-text" >
                         <p>伙食费 <span style="font-size: 1rem">(元)</span></p>
                     </div>
@@ -649,10 +646,13 @@
                         <p >{{foodFee.toFixed(2)}}</p>
                     </div>
                 </div>
-            </div>
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span  class="mdi mdi-minus cyan-text"></span>
+                </div>
+           <!-- </div>-->
 
-            <div class="col s12 valign-wrapper" style="margin-top: 50px"           >
-                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
+          <!--  <div class="col s12 valign-wrapper" style="margin-top: 50px"           >-->
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
                     <div class="col s12 cyan-text" >
                         <p>个人借款 <span style="font-size: 1rem">(元)</span></p>
                     </div>
@@ -660,7 +660,7 @@
                         <input style="font-size: 1.5rem;text-align: center;color: rgb(230,123,123);margin-bottom: 17px" type="number" id="single_deductions" name="single_deductions" ng-model="singleFee">
                     </div>
                 </div>
-                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status == 3">
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold" ng-show="salaryDetails.grant_status == 3">
                     <div class="col s12 cyan-text" >
                         <p>个人借款 <span style="font-size: 1rem">(元)</span></p>
                     </div>
@@ -671,7 +671,7 @@
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
                     <span  class="mdi mdi-minus cyan-text"></span>
                 </div>
-                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
                     <div class="col s12 cyan-text" >
                         <p>暂扣款 <span style="font-size: 1rem">(元)</span></p>
                     </div>
@@ -679,7 +679,7 @@
                         <input style="font-size: 1.5rem;text-align: center;color: rgb(230,123,123);margin-bottom: 17px" type="number" id="just_deductions" name="just_deductions" ng-model="justFee">
                     </div>
                 </div>
-                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status == 3">
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold" ng-show="salaryDetails.grant_status == 3">
                     <div class="col s12 cyan-text" >
                         <p>暂扣款 <span style="font-size: 1rem">(元)</span></p>
                     </div>
@@ -690,7 +690,7 @@
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
                     <span  class="mdi mdi-minus cyan-text"></span>
                 </div>
-                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
                     <div class="col s12 cyan-text" >
                         <p>上月欠款 <span style="font-size: 1rem">(元)</span></p>
                     </div>
@@ -698,7 +698,7 @@
                         <input style="font-size: 1.5rem;text-align: center;color: rgb(230,123,123);margin-bottom: 17px" type="number" id="last_deductions" name="last_deductions" ng-model="lastFee">
                     </div>
                 </div>
-                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status == 3">
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold" ng-show="salaryDetails.grant_status == 3">
                     <div class="col s12 cyan-text" >
                         <p>上月欠款 <span style="font-size: 1rem">(元)</span></p>
                     </div>
@@ -717,7 +717,7 @@
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
                     <span  class="mdi mdi-minus cyan-text"></span>
                 </div>
-                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
                     <div class="col s12 cyan-text" >
                         <p>其他扣款 <span style="font-size: 1rem">(元)</span></p>
                     </div>
@@ -725,7 +725,7 @@
                         <input style="font-size: 1.5rem;text-align: center;color: rgb(230,123,123);margin-bottom: 17px" type="number" id="other_deductions" name="other_deductions" ng-model="otherDeductions">
                     </div>
                 </div>
-                <div class="col s3 z-depth-1 center-align cyan_border" style="font-size: 1.2rem;font-weight: bold" ng-show="salaryDetails.grant_status == 3">
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold" ng-show="salaryDetails.grant_status == 3">
                     <div class="col s12 cyan-text" >
                         <p>其他扣款 <span style="font-size: 1rem">(元)</span></p>
                     </div>

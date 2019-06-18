@@ -10,8 +10,6 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
 
 
-
-
         .state("instruction_plan", {
             url: "/instruction_plan",
             templateUrl: "js/view/dispatch/instruction_plan.html",
@@ -49,6 +47,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             url: "/look_instruction_need_transfer_detail/id/{id}/from/{from}",
             templateUrl: "js/view/dispatch/look_instruction_need_transfer_detail.html",
             controller:"look_instruction_need_transfer_detail_controller"
+        })
+        .state("reissue_premium", {
+            url: "/reissue_premium",
+            params: {"from": null},
+            templateUrl: "js/view/dispatch/reissue_premium.html",
+            controller:"reissue_premium_controller"
         })
 
 
@@ -95,11 +99,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/dispatch/dispatch_route_fee_details.html",
             controller:'dispatch_route_fee_details_controller'
         })
-        .state("dispatch_route_requ",{
+        /*.state("dispatch_route_requ",{
             url:"/dispatch_route_requ",
             templateUrl: "js/view/finance/dispatch_route_requ.html",
             controller:'dispatch_route_requ_controller'
-        })
+        })*/
         .state("dispatch_order",{
             url:"/dispatch_order",
             params: {"from": null},
@@ -117,6 +121,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/dispatch/outsourcing_vehicles.html",
             controller:'outsourcing_vehicles_controller'
         })
+        .state("cost_application",{
+            url:"/cost_application",
+            params: {"from": null},
+            templateUrl: "js/view/dispatch/cost_application.html",
+            controller:'cost_application_controller'
+        })
 
 
         .state("driver_attendance",{
@@ -125,6 +135,8 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/dispatch/driver_attendance.html",
             controller:'driver_attendance_controller'
         })
+
+
 
 
         .state("add_driver_detail",{
@@ -143,6 +155,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'add_head_detail_controller'
         })
 
+
         .state("look_driver_detail",{
             url:"/look_driver_detail/id/{id}/?from",
             templateUrl: "js/view/dispatch/look_driver_detail.html",
@@ -158,6 +171,9 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/dispatch/look_head_detail.html",
             controller:'look_head_detail_controller'
         })
+
+
+
 
 
 
@@ -190,11 +206,6 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/system_settings/setting_vin_match.html",
             controller:'setting_vin_match_controller'
         })
-        .state("setting_users", {
-            url: "/setting_users",
-            templateUrl: "js/view/system_settings/user_manager.html",
-            controller:'setting_user_controller'
-        })
         .state("setting_storage", {
             url:"/setting_storage",
             templateUrl: "js/view/system_settings/system_storage.html",
@@ -209,11 +220,6 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             url:"/setting_car_brand",
             templateUrl: "js/view/system_settings/setting_car_brand.html",
             controller:'storage_car_brand_controller'
-        })
-        .state("setting_amend_vin",{
-            url:"/setting_amend_vin",
-            templateUrl: "js/view/system_settings/setting_amend_vin.html",
-            controller:'setting_amend_vin_controller'
         })
         .state("setting_city",{
             url:"/setting_city",
@@ -316,6 +322,17 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             url:"/dealer_map",
             templateUrl: "js/view/system_settings/dealer_map.html",
             controller:'dealer_map_controller'
+        })
+      /*  // 仓储
+        .state("storage_index", {  //路由状态
+            url: "/storage_index",  //路由路径
+            templateUrl: "js/view/storage/storage_index.html",  //路由填充的模板
+            controller:'storage_index_controller'
+        })*/
+        .state("vehicle_index", {
+            url: "/vehicle_index",
+            templateUrl: "js/view/storage/vehicle_index.html",
+            controller:'vehicle_index_controller'
         })
         .state("calendar", {
             url:"/calendar",
@@ -494,6 +511,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/car/car_query/car_query_details.html",
             controller:'car_query_details_controller'
         })
+        /* .state("car_statistics",{
+             url:"/car_statistics",
+             templateUrl: "js/view/car/car_statistics.html",
+             controller:'car_statistics_controller'
+         })*/
 
         // 车管
         .state("truck_details",{
@@ -609,7 +631,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'driver_exceed_oil_detail_controller'
         })
         .state("driver_exceed_oil_month_detail",{
-            url:"/driver_exceed_oil_month_detail/id/{id}/driveId/{driveId}/truckId/{truckId}?from",
+            url:"/driver_exceed_oil_month_detail/driveId/{driveId}/truckId/{truckId}/dateId/{dateId}?from",
             templateUrl: "js/view/truck/driver_exceed_oil_month_detail.html",
             controller:'driver_exceed_oil_month_detail_controller'
         })
@@ -687,7 +709,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/damage/damage_declaration_details.html",
             controller:'damage_declaration_details_controller'
         })
-
+      /*  .state("damage_index",{
+            url:"/damage_index",
+            templateUrl: "js/view/damage/damage_index.html",
+            controller:'damage_index_controller'
+        })*/
         .state("damage_management",{
             url:"/damage_management",
             params: {"from": null},
@@ -751,7 +777,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'add_damage_insurance_details_controller'
         })
 
-
+      /*  // 财务
+        .state("finance_index",{
+            url:"/finance_index",
+            templateUrl: "js/view/finance/finance_index.html",
+            controller:'finance_index_controller'
+        })*/
 
         .state("car_payment_loan",{
             url:"/car_payment_loan",
@@ -765,17 +796,6 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'car_payment_loan_details_controller'
         })
 
-        .state("finance_route_fee",{
-            url:"/finance_route_fee",
-            params: {"from": null},
-            templateUrl: "js/view/finance/finance_route_fee.html",
-            controller:'finance_route_fee_controller'
-        })
-        .state("finance_route_fee_details",{
-            url:"/finance_route_fee_details/id/{id}/from/{from}",
-            templateUrl: "js/view/finance/finance_route_fee_details.html",
-            controller:'finance_route_fee_details_controller'
-        })
         .state("driver_salary",{
             url:"/driver_salary",
             params: {"from": null},
@@ -783,7 +803,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'driver_salary_controller'
         })
         .state("driver_salary_details",{
-            url:"/driver_salary_details/id/{id}/driveId/{driveId}/from/{from}",
+            url:"/driver_salary_details/driveId/{driveId}/monthId/{monthId}/from/{from}?id",
             templateUrl: "js/view/finance/driver_salary_details.html",
             controller:'driver_salary_details_controller'
         })
@@ -799,8 +819,32 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/finance/driver_social_security.html",
             controller:'driver_social_security_controller'
         })
+        .state("route_fee",{
+            url:"/route_fee",
+            params: {"from": null},
+            templateUrl: "js/view/finance/route_fee.html",
+            controller:'route_fee_controller'
+        })
+        .state("truck_depreciation",{
+            url:"/truck_depreciation",
+            params: {"from": null},
+            templateUrl: "js/view/finance/truck_depreciation.html",
+            controller:'truck_depreciation_controller'
+        })
+        .state("single_value",{
+            url:"/single_value",
+            params: {"from": null},
+            templateUrl: "js/view/finance/single_value.html",
+            controller:'single_value_controller'
+        })
 
 
+        // 结算管理
+      /*  .state("settlement_index",{
+            url:"/settlement_index",
+            templateUrl: "js/view/settlement/settlement_index.html",
+            controller:'settlement_index_controller'
+        })*/
         .state("settlement_management",{
             url:"/settlement_management",
             params: {"from": null},
@@ -833,4 +877,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/settlement/car_settlement.html",
             controller:'car_settlement_controller'
         })
+
+
+
 }]);

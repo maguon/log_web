@@ -67,6 +67,7 @@
                         <li><a href="#!" ui-sref="security_check"><i class="white-text mdi mdi-chevron-right"></i>车辆安全检查</a></li>
                         <li><a href="#!" ui-sref="operating_vehicles"><i class="white-text mdi mdi-chevron-right"></i>运营车辆</a></li>
                         <li><a href="#!" ui-sref="import_etc"><i class="mdi mdi-chevron-right white-text "></i>车辆ETC</a></li>
+                        <li><a href="#!" ui-sref="instruction_car_refuel"><i class="mdi mdi-chevron-right white-text "></i>车辆加油管理</a></li>
                     </ul>
                 </div>
             </li>
@@ -85,10 +86,11 @@
                         <li><a href="#!" ui-sref="instruction_operation"><i class="mdi mdi-chevron-right white-text "></i>指令操作</a></li>
                         <li><a href="#!" ui-sref="dispatch_order"><i class="mdi mdi-chevron-right white-text "></i>指令管理</a></li>
                         <li><a href="#!" ui-sref="instruction_need"><i class="mdi mdi-chevron-right white-text "></i>调度需求</a></li>
-                        <li><a href="#!" ui-sref="instruction_driver_mileage"><i class="mdi mdi-chevron-right white-text "></i>司机里程</a></li>
-                        <li><a href="#!" ui-sref="instruction_car_refuel"><i class="mdi mdi-chevron-right white-text "></i>车辆加油管理</a></li>
+                        <!--          <li><a href="#!" ui-sref="instruction_driver_mileage"><i class="mdi mdi-chevron-right white-text "></i>司机里程</a></li>-->
                         <li><a href="#!" ui-sref="outsourcing_vehicles"><i class="white-text mdi mdi-chevron-right"></i>外协车辆</a></li>
                         <li><a href="#!" ui-sref="driver_attendance"><i class="white-text mdi mdi-chevron-right"></i>司机出勤</a></li>
+                        <li><a href="#!" ui-sref="cost_application"><i class="white-text mdi mdi-chevron-right"></i>费用申请</a></li>
+                        <li><a href="#!" ui-sref="reissue_premium"><i class="white-text mdi mdi-chevron-right"></i>保道费</a></li>
                     </ul>
                 </div>
             </li>
@@ -199,9 +201,11 @@
                 <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-cash-usd"></i>财务管理</a>
                 <div class="collapsible-body slider_nav_box blue-grey darken-3" style="padding: 0;">
                     <ul>
+                        <!-- <li><a href="#!" ui-sref="truck_compensate_loan"><i class="white-text mdi mdi-chevron-right"></i>货车理赔借款管理</a></li>-->
                         <li><a href="#!" ui-sref="car_payment_loan"><i class="white-text mdi mdi-chevron-right"></i>商品车赔款打款管理</a></li>
-                        <li><a href="#!" ui-sref="finance_route_fee"><i class="white-text mdi mdi-chevron-right"></i>出车款管理</a></li>
-                        <li><a href="#!" ui-sref="dispatch_route_requ"><i class="white-text mdi mdi-chevron-right"></i>出车款发放</a></li>
+                        <!-- <li><a href="#!" ui-sref="commercial_vehicle_compensate_loan"><i class="white-text mdi mdi-chevron-right"></i>商品车理赔借款管理</a></li>-->
+                        <!-- <li><a href="#!" ui-sref="finance_route_fee"><i class="white-text mdi mdi-chevron-right"></i>出车款管理</a></li>-->
+                        <!--  <li><a href="#!" ui-sref="dispatch_route_requ"><i class="white-text mdi mdi-chevron-right"></i>出车款发放</a></li>-->
                         <li><a href="#!" ui-sref="car_wash_fee"><i class="white-text mdi mdi-chevron-right"></i>洗车费用</a></li>
                         <li><a href="#!" ui-sref="car_wash_fee_management"><i class="white-text mdi mdi-chevron-right"></i>洗车费管理</a></li>
                         <li><a href="#!" ui-sref="driver_salary"><i class="white-text mdi mdi-chevron-right"></i>司机工资</a></li>
@@ -210,6 +214,9 @@
                         <li><a href="#!" ui-sref="instruction_driver_mileage"><i class="mdi mdi-chevron-right white-text "></i>司机里程</a></li>
                         <li><a href="#!" ui-sref="driver_cost"><i class="white-text mdi mdi-chevron-right"></i>司机成本</a></li>
                         <li><a href="#!" ui-sref="driver_social_security"><i class="white-text mdi mdi-chevron-right"></i>司机出勤</a></li>
+                        <li><a href="#!" ui-sref="route_fee"><i class="white-text mdi mdi-chevron-right"></i>出车款</a></li>
+                        <li><a href="#!" ui-sref="truck_depreciation"><i class="white-text mdi mdi-chevron-right"></i>货车折旧</a></li>
+                        <li><a href="#!" ui-sref="single_value"><i class="white-text mdi mdi-chevron-right"></i>单车核算</a></li>
                     </ul>
                 </div>
             </li>
@@ -257,6 +264,7 @@
                 <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-account-settings-variant "></i>管理员设置</a>
                 <div class="collapsible-body blue-grey darken-3" style="padding: 0;">
                     <ul>
+
                         <li><a href="#!" ui-sref="setting_storage"><i class="mdi mdi-chevron-right white-text "></i>仓库设置</a></li>
                         <li><a href="#!" ui-sref="setting_car_brand"><i class="mdi mdi-chevron-right white-text "></i>车辆设置</a></li>
                         <li><a href="#!" ui-sref="truck_insurance"  ><i class="white-text mdi mdi-chevron-right"></i>保险公司</a></li>
@@ -385,9 +393,7 @@
 <!--管理员设置-->
 <script src="/js/controller/setting/setting_storage_controller.js"></script>
 <script src="/js/controller/setting/add_setting_storage_controller.js"></script>
-<script src="/js/controller/setting/setting_user_controller.js"></script>
 <script src="/js/controller/setting/setting_car_brand_controller.js"></script>
-<script src="/js/controller/setting/setting_amend_vin_controller.js"></script>
 <script src="/js/controller/setting/setting_city_controller.js"></script>
 <script src="/js/controller/setting/setting_line_controller.js"></script>
 <script src="/js/controller/setting/truck_brand_controller.js"></script>
@@ -450,6 +456,7 @@
 <script src="/js/controller/car/car_query/car_query_details_controller.js"></script>
 <script src="/js/controller/data/fuel_record_controller.js"></script>
 
+<!--<script src="/js/controller/car/car_statistics_controller.js"></script>-->
 
 <!--指令调度-->
 <script src="/js/controller/dispatch/instruction_list_controller.js"></script>
@@ -473,11 +480,14 @@
 <script src="/js/controller/dispatch/look_hand_detail_controller.js"></script>
 <script src="/js/controller/dispatch/look_head_detail_controller.js"></script>
 <script src="/js/controller/dispatch/driver_attendance_controller.js"></script>
+<script src="/js/controller/dispatch/cost_application_controller.js"></script>
+<script src="/js/controller/dispatch/reissue_premium_controller.js"></script>
+
 
 <!--出车款-->
 <script src="/js/controller/dispatch/dispatch_order_controller.js"></script>
 <script src="/js/controller/dispatch/dispatch_order_details_controller.js"></script>
-
+<!--<script src="/js/controller/dispatch/dispatch_route_fee_controller.js"></script>
 <!--质损-->
 <script src="/js/controller/damage/damage_declaration_controller.js"></script>
 <script src="/js/controller/damage/damage_report_controller.js"></script>
@@ -495,20 +505,31 @@
 <script src="/js/controller/damage/damage_import_controller.js"></script>
 
 <!--财务管理-->
-<script src="/js/controller/finance/dispatch_route_requ_controller.js"></script>
+<!--<script src="/js/controller/finance/dispatch_route_requ_controller.js"></script>-->
+<!--<script src="/js/controller/finance/truck_compensate_loan_controller.js"></script>
+<script src="/js/controller/finance/truck_compensate_loan_details_controller.js"></script>-->
 <script src="/js/controller/finance/car_payment_loan_controller.js"></script>
 <script src="/js/controller/finance/car_payment_loan_details_controller.js"></script>
-<script src="/js/controller/finance/finance_route_fee_controller.js"></script>
-<script src="/js/controller/finance/finance_route_fee_details_controller.js"></script>
+<!--<script src="/js/controller/finance/commercial_vehicle_compensate_loan_controller.js"></script>
+<script src="/js/controller/finance/commercial_vehicle_compensate_loan_details_controller.js"></script>-->
+<!--<script src="/js/controller/finance/finance_route_fee_controller.js"></script>
+<script src="/js/controller/finance/finance_route_fee_details_controller.js"></script>-->
 <script src="/js/controller/finance/driver_salary_controller.js"></script>
 <script src="/js/controller/finance/driver_salary_details_controller.js"></script>
 <script src="/js/controller/finance/driver_cost_controller.js"></script>
 <script src="/js/controller/finance/driver_social_security_controller.js"></script>
+<script src="/js/controller/finance/route_fee_controller.js"></script>
+<script src="/js/controller/finance/truck_depreciation_controller.js"></script>
+<script src="/js/controller/finance/single_value_controller.js"></script>
+
+
+
 <!--其他-->
 <script src="/js/controller/data/car_to_data_controller.js"></script>
 <script src="/js/controller/data/imported_files_controller.js"></script>
 <script src="/js/controller/data/imported_files_details_controller.js"></script>
 <script src="/js/controller/index_controller.js"></script>
+
 <!--结算管理-->
 <script src="/js/controller/settlement/settlement_management_controller.js"></script>
 <script src="/js/controller/settlement/settlement_management_detail_controller.js"></script>

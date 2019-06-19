@@ -50,6 +50,9 @@ app.controller("driver_exceed_oil_month_detail_controller", ["$scope", "$state",
                     if($scope.exceedOilItem.subsidy_urea==null){
                         $scope.exceedOilItem.subsidy_urea=0;
                     }
+                    if($scope.exceedOilItem.actual_money==null){
+                        $scope.exceedOilItem.actual_money=0;
+                    }
                     $scope.exceedOilItem.drive_name= data.result[0].drive_name;
                     dpRouteTaskOilRel(firstDay,lastDay);
                     driveExceedOilRel(firstDay,lastDay)
@@ -216,8 +219,8 @@ app.controller("driver_exceed_oil_month_detail_controller", ["$scope", "$state",
     function putItem(id){
         _basic.put($host.api_url + "/user/" + userId + "/exceedOilDate/" + id+'/checkStatus/2',{}).then(function (data) {
             if (data.success === true) {
-                swal('处理中', "", "success");
                 getOilRel();
+                swal('处理中', "", "success");
             }
             else {
                 swal(data.msg, "", "error");

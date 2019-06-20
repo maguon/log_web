@@ -223,11 +223,12 @@ app.controller("entrust_setting_controller", ["$scope", "_basic", "_config", "$h
     }
 
 
-    $scope.readData = function (entrust_id,city_route_id,make_id){
+    $scope.readData = function (entrust_id,route_start_id,route_end_id,make_id){
         $scope.put_entrust_id = entrust_id;
-        $scope.city_route_id =city_route_id;
+        $scope.routeStartId =route_start_id;
+        $scope.routeEndId =route_end_id;
         $scope.make_id = make_id;
-        _basic.get($host.api_url + "/entrustCityRouteRel?entrustId="+entrust_id+'&cityRouteId='+city_route_id+'&makeId='+make_id).then(function (data) {
+        _basic.get($host.api_url + "/entrustCityRouteRel?entrustId="+entrust_id+'&makeId='+make_id+'&routeStartId='+route_start_id+'&routeEndId='+route_end_id ).then(function (data) {
             if (data.success == true) {
                 $scope.putList = data.result[0];
                 if($scope.putList.size_type==0) {
@@ -249,7 +250,7 @@ app.controller("entrust_setting_controller", ["$scope", "_basic", "_config", "$h
                 "distance":$scope.putList.distance,
                 "fee": $scope.putList.fee
             }
-            _basic.put($host.api_url + "/user/" + userId + "/entrust/"+  $scope.put_entrust_id+"/cityRoute/"+ $scope.city_route_id+'/make/'+ $scope.make_id , obj).then(function (data) {
+            _basic.put($host.api_url + "/user/" + userId + "/entrust/"+  $scope.put_entrust_id+'/make/'+ $scope.make_id +"/routeStart/"+  $scope.routeStartId +'/routeEnd/'+   $scope.routeEndId, obj).then(function (data) {
                 if (data.success == true) {
                     searchEntrust();
                     $("#putItem").modal("close");

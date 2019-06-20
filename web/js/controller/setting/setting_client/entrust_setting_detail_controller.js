@@ -155,6 +155,7 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
             $scope.routeId = lineInfo.routeId;
             $scope.endCityId = lineInfo.id;
             getcityRoute();
+          /*  entrustCityRouteRel();*/
             if($scope.modifyFlag!==1){
                 if($scope.hasChosen){
                     $('#modifyModel').modal('open');
@@ -184,7 +185,7 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
         $scope.price =null;
         $scope.car_type =null;
         $scope.distance =null;
-        _basic.get($host.api_url + "/entrustCityRouteRel?entrustId="+$scope.entrustItem.id+"&cityRouteId=" +$scope.cityRouteId).then(function (data) {
+        _basic.get($host.api_url + "/entrustCityRouteRel?entrustId="+$scope.entrustItem.id+"&routeStartId=" + $scope.selectedCityId+'&routeEndId='+ $scope.endCityId).then(function (data) {
             if (data.success === true) {
                 if(data.result.length==0){
                     $scope.carBandList=[];
@@ -202,6 +203,8 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
             if($scope.makeId !== null&&$scope.distance !== null&&$scope.fee !== null){
                 _basic.post($host.api_url + "/user/" + userId + "/entrustCityRouteRel",{
                     entrustId: $scope.entrustItem.id,
+                    routeStartId: $scope.selectedCityId,
+                    routeEndId:$scope.endCityId,
                     cityRouteId:$scope.cityRouteId,
                     makeId:$scope.car_brand.make_id,
                     makeName:$scope.car_brand.make_name,

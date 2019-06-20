@@ -155,16 +155,16 @@ app.controller("damage_management_controller", ["$scope","$rootScope","$state","
      * 组装检索条件。
      */
     function makeConditions() {
-        var endStart='';
-        var endEnd='';
+        var endStart=null;
+        var endEnd=null;
         if($scope.deal_startTime==undefined){
-            endStart=''
+            endStart=null
         }
         else {
             endStart=moment($scope.deal_startTime).format('YYYYMMDD')
         }
         if($scope.deal_endTime==undefined){
-            endEnd=''
+            endEnd=null
         }
         else {
             endEnd=moment($scope.deal_endTime).format('YYYYMMDD')

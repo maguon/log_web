@@ -147,6 +147,7 @@
                     <th data-field="">银行账号</th>
                     <th data-field="">户名</th>
                     <th data-field="">开户行</th>
+                    <th data-field="">领取状态</th>
                     <th>操作</th>
                 </tr>
                 </thead>
@@ -170,6 +171,7 @@
                     <td>{{car.bank_number}}</td>
                     <td>{{car.bank_name}}</td>
                     <td>{{car.bank_user_name}}</td>
+                    <td>{{car.status==0?'未通过':car.status==1?'未领取':'已领取'}}</td>
                     <td class="details">
                         <a ng-show="car.status == 1" ng-click="carNotHave(car.id)" style="font-size: 1.5rem;cursor: pointer">
                             <i class="mdi mdi-window-close look_icon red-text lighten-1"></i>
@@ -184,7 +186,7 @@
                     </td>
                 </tr>
                 <tr class="grey-text text-darken-1" ng-if="carWashFeeList.length == 0">
-                    <td colspan="19"><span style="letter-spacing: 2px">暂无数据</span></td>
+                    <td colspan="20"><span style="letter-spacing: 2px">暂无数据</span></td>
                 </tr>
                 </tbody>
             </table>

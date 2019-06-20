@@ -611,9 +611,9 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
     }
 
 
-    $scope.putPeccancyItem2 = function (){
+  /*  $scope.putPeccancyItem2 = function (){
         $('#putPeccancyItem').modal('close');
-    }
+    }*/
 
     // 分页
     $scope.pre_btn = function () {

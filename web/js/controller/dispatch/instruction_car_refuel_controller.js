@@ -206,7 +206,7 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
         _basic.get($host.api_url + "/truckBase").then(function (data) {
             if (data.success === true) {
                 $scope.truckNumListAll = data.result;
-                if(text==''&&text==undefined){
+                if(text==''||text==undefined){
                     $('#addTruckNum').select2({
                         placeholder: '货车牌号',
                         containerCssClass: 'select2_dropdown',
@@ -266,6 +266,9 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
     $scope.new_data_list =function (){
         $scope.addOil ='';
         $scope.addUrea ='';
+        $scope.addExceedOilDriver ='';
+        $scope.truckNumListAll=[];
+        $scope.addTruckId='';
         $scope.addTime ='';
         $scope.addPlce ='';
         $scope.addType='';
@@ -274,6 +277,7 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
         $scope.oilSinglePrice='';
         $scope.ureaSinglePrice='';
         getDriveNameList ();
+        getTruckId();
         $(".modal").modal();
         $("#addActData").modal("open");
     }
@@ -300,7 +304,7 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
         $scope.addTruckId=id;
     }
     $scope.addDataItem = function (){
-        if ($scope.addExceedOilDriver!==''&&$scope.addTime !== '' && $scope.addPlce !== ''&&$scope.addTruckId!==undefined&& $scope.addType!==''&&$scope.oilMoney!=='') {
+        if ($scope.addExceedOilDriver!==''&&$scope.addTime !== '' && $scope.addPlce !== ''&&$scope.addTruckId!==null&& $scope.addType!==''&&$scope.oilMoney!=='') {
             _basic.post($host.api_url + "/user/" + userId + "/driveExceedOilRel", {
                 "exceedOilId": 0,
                 "driveId":$scope.addExceedOilDriver,

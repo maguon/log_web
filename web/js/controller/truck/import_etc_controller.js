@@ -318,6 +318,33 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
         getETCList();
     };
 
+
+    $scope.export = function () {
+
+        if (($scope.createdOnStart == undefined && $scope.createdOnEnd == undefined && $scope.startDate == undefined && $scope.endDate == undefined) ||
+            ($scope.createdOnStart == '' && $scope.createdOnEnd == '' && $scope.startDate == '' && $scope.endDate == '')) {
+            swal('请输入完整的时间范围', "", "error");
+        }
+        else {
+
+            // 基本检索URL
+            var url = $host.api_url + "/truckEtc.csv?";
+            // 检索条件
+
+            var conditions = _basic.objToUrl({
+                truckId: $scope.truckId,
+                driveId: $scope.driveName,
+                etcDateStart: $scope.startDate,
+                etcDatenEnd: $scope.endDate,
+                createdOnStart: $scope.createdOnStart,
+                createdOnEnd: $scope.createdOnEnd
+            });
+            // 检索URL
+            url = conditions.length > 0 ? url + "&" + conditions : url;
+            window.open(url);
+        }
+
+    }
       $scope.changeDriver = function (driver) {
           $scope.truckNumListAllList=[];
           $scope.truckNum='';

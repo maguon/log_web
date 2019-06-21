@@ -131,12 +131,13 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
     };
 
     // 如果手动修改了司机信息，司机id变为0
-    $scope.hasModifyDriver = function () {
-        if($scope.AccurateDriverInfo !== undefined) {
+    $scope.hasModifyDriver = function (name) {
+        if($scope.AccurateDriverInfo !== undefined&&name=='') {
             $scope.AccurateDriverInfo.id = 0;
             $scope.AccurateDriverInfo.truck_id = 0;
             $scope.AccurateDriverInfo.truck_num = "";
             $scope.AccurateDriverInfo.drive_name = "";
+            $scope.vinData.truck_num ='';
         }
     };
 

@@ -2,8 +2,8 @@
  * Created by star on 2018/6/12.
  */
 app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","$stateParams", "_basic", "_config", "$host", function ($scope,$rootScope, $state,$stateParams, _basic, _config, $host) {
-    $scope.start = 0;
-    $scope.size = 11;
+    /*$scope.start = 0;
+    $scope.size = 11;*/
     $scope.dataTotal=[];
     // monthPicker控件
     $('#start_month').MonthPicker({
@@ -83,7 +83,7 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
 
 
     $scope.getExceedOilMonth =function (){
-        $scope.start = 0;
+        /*$scope.start = 0;*/
         // 检索条件
         if($('#start_month').val()!==''){
             $scope.startMonth = $('#start_month').val();
@@ -114,9 +114,9 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
             truckId:$scope.truckNumber,
             companyId:$scope.companyId,
             operateType:$scope.operateType,
-            checkStatus:$scope.dealStatus,
-            start:$scope.start,
-            size:$scope.size
+            checkStatus:$scope.dealStatus
+         /*   start:$scope.start,
+            size:$scope.size*/
         };
         var conditions = _basic.objToUrl(conditionsObj);
         // 检索URL
@@ -128,8 +128,8 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
                 // 当前画面的检索信息
                 var pageItems = {
                     pageId: "driver_exceed_oil",
-                    start: $scope.start,
-                    size: $scope.size,
+                   /* start: $scope.start,
+                    size: $scope.size,*/
                     conditions: conditionsObj
                 };
                 // 将当前画面的条件
@@ -138,7 +138,7 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
 
                 $scope.boxArrayMonth = data.result;
                 $scope.ExceedOilListMonth = $scope.boxArrayMonth.slice(0, 10);
-                if ($scope.start > 0) {
+               /* if ($scope.start > 0) {
                     $("#preM").show();
                 }
                 else {
@@ -149,7 +149,7 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
                 }
                 else {
                     $("#nextM").show();
-                    }
+                    }*/
 
             }
             else {
@@ -196,7 +196,7 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
 
 
 
-    // 分页
+   /* // 分页
     $scope.pre_btn = function () {
         $scope.start = $scope.start - ($scope.size-1);
         getExceedOilDataMonth()
@@ -205,7 +205,7 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
     $scope.next_btn = function () {
         $scope.start = $scope.start + ($scope.size-1);
         getExceedOilDataMonth()
-    };
+    };*/
 
 
     function setConditionsMonth(conditions) {
@@ -224,9 +224,9 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
         if ($stateParams.from === "driver_exceed_oil_month_detail" && $rootScope.refObj !== undefined && $rootScope.refObj.pageArrayMonth.length > 0) {
             var pageItems = $rootScope.refObj.pageArrayMonth.pop();
             if (pageItems.pageId === "driver_exceed_oil") {
-                // 设定画面翻页用数据
+              /*  // 设定画面翻页用数据
                 $scope.start = pageItems.start;
-                $scope.size = pageItems.size;
+                $scope.size = pageItems.size;*/
                 // 将上次的检索条件设定到画面
                 setConditionsMonth(pageItems.conditions);
             }

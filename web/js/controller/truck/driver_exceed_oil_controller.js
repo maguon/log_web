@@ -136,8 +136,8 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
                 $rootScope.refObj = {pageArrayMonth: []};
                 $rootScope.refObj.pageArrayMonth.push(pageItems);
 
-                $scope.boxArrayMonth = data.result;
-                $scope.ExceedOilListMonth = $scope.boxArrayMonth.slice(0, 10);
+
+                $scope.ExceedOilListMonth =  data.result;
                /* if ($scope.start > 0) {
                     $("#preM").show();
                 }

@@ -14,7 +14,7 @@
             <div id="alreadySettled" class="row tab_box" style="margin-top: 50px" >
                 <!--查询条件-->
                 <div class="row">
-                    <div class="col s11">
+                    <div class="col s10">
 
 
                         <!--指令时间-->
@@ -69,10 +69,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col s1">
-                        <div class="col s12 center">
+                    <div class="col s2" style="margin-top: 5px">
+                        <div class="col s6 center">
                             <a class=" btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="searchCarSettlment()">
                                 <i class="mdi mdi-magnify"></i>
+                            </a>
+                        </div>
+                        <div class="col s6 center-align">
+                            <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="alreadySettledExport()">
+                                <i class="mdi mdi-cloud-download"></i>
                             </a>
                         </div>
                     </div>
@@ -146,7 +151,7 @@
 
                 <!--查询条件-->
                 <div class="row">
-                    <div class="col s11">
+                    <div class="col s10">
                         <div class=" col s4">
                             <!--指令时间-->
                             <div class="input-field col s6">
@@ -205,10 +210,15 @@
                         </div>
 
                     </div>
-                    <div class="col s1">
-                        <div class="col s12 center">
+                    <div class="col s2"  style="margin-top: 5px">
+                        <div class="col s6 center">
                             <a class=" btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="searchCar()">
                                 <i class="mdi mdi-magnify"></i>
+                            </a>
+                        </div>
+                        <div class="col s6 center-align">
+                            <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="unsettledExport()">
+                                <i class="mdi mdi-cloud-download"></i>
                             </a>
                         </div>
                     </div>

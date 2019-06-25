@@ -251,4 +251,54 @@ app.controller("car_settlement_controller", ["$scope", "_basic", "_config", "$ho
 
     getCity();
 
+    $scope. unsettledExport = function () {
+        if ($scope.orderStartCar == null || $scope.orderEndCar == null || $scope.orderStartCar == "" || $scope.orderEndCar == "") {
+            swal('请输入完整的查询时间', "", "error");
+        }
+        else {
+            // 基本检索URL
+            var url = $host.api_url + "/notSettleCar.csv?" ;
+            // 检索条件
+            var conditions = _basic.objToUrl({
+                settleStatus:1,
+                vin: $scope.carVIN,
+                entrustId: $scope.carClient,
+                routeStartId: $scope.carStartCity,
+                routeEndId: $scope.carEndCity,
+                receiveId: $scope.carDealer,
+                orderStart:$scope.orderStartCar,
+                orderEnd:$scope.orderEndCar,
+            });
+            // 检索URL
+            url = conditions.length > 0 ? url + "&" + conditions : url;
+            window.open(url);
+        }
+
+    }
+
+    $scope.alreadySettledExport = function () {
+        if ($scope.orderStart == null || $scope.orderEnd == null || $scope.orderStart == "" || $scope.orderEnd == "") {
+            swal('请输入完整的查询时间', "", "error");
+        }
+        else{
+            // 基本检索URL
+            var url = $host.api_url + "/settleCar.csv?" ;
+            // 检索条件
+            var conditions = _basic.objToUrl({
+                settleStatus:2,
+                vin: $scope.VIN,
+                entrustId:$scope.enstrustId,
+                routeStartId:$scope.routeStartId,
+                routeEndId:$scope.routeEndId,
+                orderStart:$scope.orderStart,
+                orderEnd:$scope.orderEnd
+            });
+            // 检索URL
+            url = conditions.length > 0 ? url + "&" + conditions : url;
+            window.open(url);
+        }
+
+    }
+
+
 }]);

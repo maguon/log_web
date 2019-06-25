@@ -213,11 +213,11 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/statistics/transport_planning_statistics.html",
             controller:"transport_planning_statistics_controller"
         })
-        .state("setting_settlement",{
+       /* .state("setting_settlement",{
             url:"/setting_settlement",
             templateUrl: "js/view/system_settings/setting_settlement.html",
             controller:'setting_settlement_controller'
-        })
+        })*/
         .state("driver_settlement",{
             url:"/driver_settlement",
             templateUrl: "js/view/settlement/driver_settlement.html",

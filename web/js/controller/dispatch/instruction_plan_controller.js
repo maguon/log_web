@@ -659,6 +659,12 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     // 新增路线 保存  按钮
     $scope.keepLineInfo =function (){
+        if($scope.dispatchInfo.operate_type==1){
+            $scope.operateTypeKeep=0
+        }
+        else {
+            $scope.operateTypeKeep=1
+        }
         if ($scope.startCityInfoMod !== null && $scope.lineStartDate != ""&&$scope.endCityInfoMod!==null) {
             _basic.post($host.api_url + "/user/" + userId + "/dpRouteTaskTmp", {
                 truckId: $scope.dispatchInfo.truck_id,
@@ -671,7 +677,8 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 routeEnd:$scope.endCityInfoMod.city_name,
                 distance: $scope.endCityInfoMod.distance,
                 oilDistance:$scope.endCityInfoMod.distance,
-                taskPlanDate: $scope.lineStartDate
+                taskPlanDate: $scope.lineStartDate,
+                outerFlag:$scope.operateTypeKeep
             }).then(function (data) {
                 if (data.success === true) {
                     $scope.lineInfo = false;
@@ -691,6 +698,12 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     // 新增路线 发布 按钮
     $scope.confirmChange = function () {
+        if($scope.dispatchInfo.operate_type==1){
+            $scope.operateType=0
+        }
+        else {
+            $scope.operateType=1
+        }
         if ($scope.lineEndCityInfo != "" && $scope.lineStartDate != "") {
             var routeStartId;
             var routeStart;
@@ -741,7 +754,8 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                                         oilDistance:$scope.blankDistance,
                                         cityRouteId: $scope.blankId,
                                         taskStatus: 10,
-                                        taskPlanDate: $scope.lineStartDate
+                                        taskPlanDate: $scope.lineStartDate,
+                                        outerFlag:$scope.operateType
                                     }).then(function (data) {
                                         if (data.success == true) {
                                             $scope.lineInfo = false;
@@ -761,7 +775,8 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                                         distance: $scope.lineEndCityInfo.distance,
                                         oilDistance:$scope.lineEndCityInfo.distance,
                                         cityRouteId: $scope.lineEndCityInfo.id,
-                                        taskPlanDate: $scope.lineStartDate
+                                        taskPlanDate: $scope.lineStartDate,
+                                        outerFlag:$scope.operateType
                                     }).then(function (data) {
                                         if (data.success === true) {
                                             $scope.lineInfo = false;
@@ -793,7 +808,8 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                                     distance: $scope.lineEndCityInfo.distance,
                                     oilDistance:$scope.lineEndCityInfo.distance,
                                     cityRouteId: $scope.lineEndCityInfo.id,
-                                    taskPlanDate: $scope.lineStartDate
+                                    taskPlanDate: $scope.lineStartDate,
+                                    outerFlag:$scope.operateType
                                 }).then(function (data) {
                                     if (data.success === true) {
                                         $scope.lineInfo = false;
@@ -834,7 +850,8 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                                     distance: $scope.lineEndCityInfo.distance,
                                     oilDistance:$scope.lineEndCityInfo.distance,
                                     cityRouteId: $scope.lineEndCityInfo.id,
-                                    taskPlanDate: $scope.lineStartDate
+                                    taskPlanDate: $scope.lineStartDate,
+                                    outerFlag:$scope.operateType
                                 }).then(function (data) {
                                     if (data.success === true) {
                                         $scope.lineInfo = false;
@@ -868,7 +885,8 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                     distance: $scope.lineEndCityInfo.distance,
                     oilDistance:$scope.lineEndCityInfo.distance,
                     cityRouteId: $scope.lineEndCityInfo.id,
-                    taskPlanDate: $scope.lineStartDate
+                    taskPlanDate: $scope.lineStartDate,
+                    outerFlag:$scope.operateType
                 }).then(function (data) {
                     if (data.success === true) {
                         $scope.lineInfo = false;
@@ -1177,7 +1195,12 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     //发布临时路线
     $scope.releaseTmporaryLine =function(temporaryLine,event){
         event.stopPropagation();
-
+        if($scope.dispatchInfo.operate_type==1){
+            $scope.releaseOperatType=0
+        }
+        else {
+            $scope.releaseOperatType=1
+        }
         var obj={
             dpRouteTaskTmpId:temporaryLine.id,
             truckId:$scope.dispatchInfo.truck_id,
@@ -1191,7 +1214,8 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             distance:temporaryLine.distance,
             oilDistance:temporaryLine.distance,
             taskPlanDate: moment(temporaryLine.task_plan_date.toString()).format("YYYY-MM-DD"),
-            currentCity:$scope.dispatchInfo.current_city
+            currentCity:$scope.dispatchInfo.current_city,
+            outerFlag:$scope.releaseOperatType
         };
         swal({
                 title: "确定发布此临时任务吗？",

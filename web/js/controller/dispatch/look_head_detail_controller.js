@@ -26,7 +26,6 @@ app.controller("look_head_detail_controller", ["$scope","$rootScope", "$state", 
         });
 
 
-
         function truck_msg() {
             var p = new Promise(function (resolve, reject) {
                 resolve();
@@ -155,7 +154,7 @@ app.controller("look_head_detail_controller", ["$scope","$rootScope", "$state", 
                 "brandId": $scope.truckFirst.brand_id,
                 "truckType": 1,
                 operateType:2,
-                companyId:0,
+                companyId: $scope.truckFirst.company_id,
                 "remark": $scope.truckFirst.remark
 
             };

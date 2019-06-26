@@ -14,6 +14,8 @@ app.controller("add_head_detail_controller", ["$scope","$rootScope", "$state", "
     $scope.mobileRegx = _config.mobileRegx;
     // 车辆存照片ID;
     var truck_id;
+
+
     // 所属类型--公司联动
     _basic.get($host.api_url + "/company?operateType=2").then(function (data) {
         if (data.success == true) {
@@ -72,8 +74,9 @@ app.controller("add_head_detail_controller", ["$scope","$rootScope", "$state", "
             truckNum: $scope.truck_num.replace(/\s+/g,""),
             brandId: $scope.truck_make,
             operateType:2,
+            companyId:$scope.companyId,
             truckType: 1,
-            companyId:0,
+          /*  companyId:0,*/
             remark: $scope.addHeadModTextarea
         };
         if (inValid) {

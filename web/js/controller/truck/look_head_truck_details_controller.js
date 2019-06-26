@@ -249,14 +249,20 @@ app.controller("look_head_truck_details_controller", ["$scope", "$state", "$stat
 
     //修改所属公司
     $scope.putCompanyId = function(){
-        _basic.get($host.api_url + "/company?companyId="+$scope.truckFirst.output_company_id).then(function (data) {
-            if (data.success == true&&data.result.length>0) {
-                $scope.companyName = data.result[0].company_name;
-                putCompany($scope.companyName)
-            } else {
-                swal(data.msg, "", "error")
-            }
-        });
+        if($scope.truckFirst.output_company_id==null){
+            $scope.companyName='';
+        }
+        else {
+            _basic.get($host.api_url + "/company?companyId="+$scope.truckFirst.output_company_id).then(function (data) {
+                if (data.success == true&&data.result.length>0) {
+                    $scope.companyName = data.result[0].company_name;
+                } else {
+                    swal(data.msg, "", "error")
+                }
+            });
+        }
+        putCompany($scope.companyName)
+
     }
     function putCompany(companyName){
         _basic.put($host.api_url + "/user/" + userId + "/truck/" + id+'/truckCompany?truckNum='+$scope.truckFirst.truck_num, {

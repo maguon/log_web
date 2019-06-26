@@ -267,7 +267,7 @@ app.controller("car_settlement_controller", ["$scope", "_basic", "_config", "$ho
                 routeEndId: $scope.carEndCity,
                 receiveId: $scope.carDealer,
                 orderStart:$scope.orderStartCar,
-                orderEnd:$scope.orderEndCar,
+                orderEnd:$scope.orderEndCar
             });
             // 检索URL
             url = conditions.length > 0 ? url + "&" + conditions : url;

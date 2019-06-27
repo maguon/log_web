@@ -39,53 +39,64 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
     };
 
     //未估值车辆 已估值车辆 已估值金额
-    function getCarMsg (){
-        var obj = {
-            entrustId: $scope.entrustId,
-            orderStart: $scope.instruct_starTime,
-            orderEnd: $scope.instruct_endTime,
-            makeId: $scope.car_brand,
-            routeStartId: $scope.startCity,
-            addrId: $scope.locateId,
-            routeEndId: $scope.endCity,
-            receiveId: $scope.receiveId
-        };
-        _basic.get($host.api_url + "/entrustCarCount?"+ _basic.objToUrl(obj)).then(function (data) {
-            if (data.success == true ) {
-                if(data.result.length > 0){
-                    $scope.carMsg = data.result[0];
-                }
-               else
-                {
-                    $scope.carMsg=[];
-                }
+    function getCarMsg () {
+        if ($scope.instruct_starTime == undefined || $scope.instruct_endTime == undefined) {
+            swal('请输入完整的指令时间', "", "error");
+            $scope.settlementList = [];
+            $scope.carMsg ='';
+            $scope.notCarMsg='';
+            $("#pre").hide();
+            $("#next").hide();
 
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
-        _basic.get($host.api_url + "/entrustCarNotCount?"+ _basic.objToUrl(obj)).then(function (data) {
-            if (data.success == true ) {
-                if(data.result.length > 0){
-                    $scope.notCarMsg = data.result[0];
-                    if( $scope.notCarMsg==null||$scope.notCarMsg==undefined||$scope.notCarMsg.entrust_car_not_count==0){
-                        $scope.flag=false;
+        }
+        else {
+
+
+            var obj = {
+                entrustId: $scope.entrustId,
+                orderStart: $scope.instruct_starTime,
+                orderEnd: $scope.instruct_endTime,
+                makeId: $scope.car_brand,
+                routeStartId: $scope.startCity,
+                addrId: $scope.locateId,
+                routeEndId: $scope.endCity,
+                receiveId: $scope.receiveId
+            };
+            _basic.get($host.api_url + "/entrustCarCount?" + _basic.objToUrl(obj)).then(function (data) {
+                if (data.success == true) {
+                    if (data.result.length > 0) {
+                        $scope.carMsg = data.result[0];
                     }
                     else {
-                        $scope.flag=true;
+                        $scope.carMsg = [];
                     }
-                }
-                else
-                {
-                    $scope.carMsg=[];
-                }
 
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+            _basic.get($host.api_url + "/entrustCarNotCount?" + _basic.objToUrl(obj)).then(function (data) {
+                if (data.success == true) {
+                    if (data.result.length > 0) {
+                        $scope.notCarMsg = data.result[0];
+                        if ($scope.notCarMsg == null || $scope.notCarMsg == undefined || $scope.notCarMsg.entrust_car_not_count == 0) {
+                            $scope.flag = false;
+                        }
+                        else {
+                            $scope.flag = true;
+                        }
+                    }
+                    else {
+                        $scope.carMsg = [];
+                    }
+
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
     }
 
 
@@ -138,6 +149,10 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
         if($scope.instruct_starTime==undefined||$scope.instruct_endTime==undefined){
             swal('请输入完整的指令时间', "", "error");
             $scope.settlementList=[];
+
+            $("#pre").hide();
+            $("#next").hide();
+
         }
         else{
             _basic.get($host.api_url + "/settleCarBatch?"+_basic.objToUrl({

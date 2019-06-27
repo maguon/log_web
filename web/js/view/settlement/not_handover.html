@@ -134,7 +134,7 @@
                 <th data-field="">委托方</th>
                 <th data-field="">调度编号</th>
                 <th data-field="">路线</th>
-               <!-- <th data-field="">发运地</th>-->
+                <th data-field="">发运地</th>
                 <th data-field="">经销商</th>
                 <th data-field="">司机</th>
                 <th data-field="">货车牌号</th>
@@ -150,7 +150,7 @@
                 <td ng-bind="el.e_short_name"></td>
                 <td ng-bind="el.dp_route_task_id"></td>
                 <td>{{el.route_start}}--{{el.route_end}}</td>
-               <!-- <td>{{el.route_start}}</td>-->
+                <td>{{el.addr_name}}</td>
                 <td ng-bind="el.r_short_name"></td>
                 <td ng-bind="el.drive_name"></td>
                 <td>{{el.truck_num }}</td>
@@ -162,10 +162,10 @@
                 </td>
             </tr>
             <tr ng-if="notHandoverArray.length==0&&planTimeStart!==undefined&&planTimeEnd!==undefined">
-                <td colspan="11">暂无数据</td>
+                <td colspan="12">暂无数据</td>
             </tr>
             <tr ng-if="planTimeStart==undefined||planTimeEnd==undefined&&notHandoverArray.length==0">
-                <td colspan="11"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;计划执行时间为必填项</td>
+                <td colspan="12"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;计划执行时间为必填项</td>
             </tr>
 
 

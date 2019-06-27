@@ -126,13 +126,9 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
                 receiveId: $scope.receiveId,
                 dpRouteTaskId: $scope.instructionNum,
                 driveId: $scope.driverIdMod,
-
-
                 makeId: $scope.car_brand,
                 routeStartId: $scope.startCity,
                 baseAddrId: $scope.locateId,
-
-
                 taskPlanDateStart: $scope.planTimeStart,
                 taskPlanDateEnd: $scope.planTimeEnd,
                 receivedDateStart: $scope.planTimeStart,
@@ -179,15 +175,9 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
                 driveId: $scope.driverIdMod,
                 taskPlanDateStart: $scope.planTimeStart,
                 taskPlanDateEnd: $scope.planTimeEnd,
-
-
-
-                    makeId: $scope.car_brand,
-                    routeStartId: $scope.startCity,
-                    baseAddrId: $scope.locateId,
-
-
-
+                makeId: $scope.car_brand,
+                routeStartId: $scope.startCity,
+                baseAddrId: $scope.locateId,
                 start: $scope.start.toString(),
                 size: $scope.size
             })).then(function (data) {

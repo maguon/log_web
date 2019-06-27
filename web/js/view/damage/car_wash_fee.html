@@ -129,25 +129,27 @@
             <table class="bordered striped text_mid">
                 <thead class="blue-grey lighten-5">
                 <tr class="grey-text text-darken-2">
-                    <th data-field="">洗车编号</th>
+                    <th data-field="">编号</th>
                     <th data-field="">调度编号</th>
                     <th data-field="">司机</th>
                     <th data-field="">电话</th>
                     <th data-field="">品牌</th>
                     <th data-field="">装车数</th>
                     <th data-field="">洗车费</th>
+                    <th data-field="">实际洗车费</th>
                     <th data-field="">拖车费</th>
                     <th data-field="">提车费</th>
                     <th data-field="">地跑费</th>
                     <th data-field="">带路费</th>
                     <th data-field="">货车牌号</th>
-                    <th data-field="">是否补发</th>
-                    <th data-field="">送达经销商</th>
+                    <th data-field="">补发</th>
+                    <th data-field="">经销商</th>
                     <th data-field="">装车日期</th>
                     <th data-field="">银行账号</th>
                     <th data-field="">户名</th>
                     <th data-field="">开户行</th>
                     <th data-field="">领取状态</th>
+                    <th data-field="">月结</th>
                     <th>操作</th>
                 </tr>
                 </thead>
@@ -160,6 +162,7 @@
                     <td>{{car.make_name}}</td>
                     <td>{{car.car_count}}</td>
                     <td>{{car.total_price}}</td>
+                    <td>{{car.actual_price}}</td>
                     <td>{{car.total_trailer_fee}}</td>
                     <td>{{car.car_parking_fee}}</td>
                     <td>{{car.total_run_fee}}</td>
@@ -172,6 +175,7 @@
                     <td>{{car.bank_name}}</td>
                     <td>{{car.bank_user_name}}</td>
                     <td>{{car.status==0?'未通过':car.status==1?'未领取':'已领取'}}</td>
+                    <td>{{car.month_flag==1?'是':'否'}}</td>
                     <td class="details">
                         <a ng-show="car.status == 1" ng-click="carNotHave(car.id)" style="font-size: 1.5rem;cursor: pointer">
                             <i class="mdi mdi-window-close look_icon red-text lighten-1"></i>
@@ -186,7 +190,7 @@
                     </td>
                 </tr>
                 <tr class="grey-text text-darken-1" ng-if="carWashFeeList.length == 0">
-                    <td colspan="20"><span style="letter-spacing: 2px">暂无数据</span></td>
+                    <td colspan="22"><span style="letter-spacing: 2px">暂无数据</span></td>
                 </tr>
                 </tbody>
             </table>

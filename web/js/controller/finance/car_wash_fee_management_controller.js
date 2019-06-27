@@ -212,13 +212,14 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
         }
         else {
             _basic.post($host.api_url + "/user/" + userId + "/dpRouteLoadTaskCleanRel", {
-
                 "dpRouteTaskId": $scope.dispatchNum.dp_route_task_id,
                 "dpRouteLoadTaskId": $scope.dispatchNum.id,
                 "driveId":$scope.dispatchNum.drive_id,
                 "truckId":$scope.dispatchNum.truck_id,
                 "receiveId": $scope.dispatchNum.receive_id,
                 "smallSinglePrice": $scope.addSingMoney,
+                'monthFlag':$scope.dispatchNum.month_flag,
+                actualPrice:$scope.addTotalMoney,
                 "totalPrice": $scope.addTotalMoney,
                 "carCount": $scope.dispatchNum.car_count,
                 "smallCarCount": $scope.dispatchNum.car_count,

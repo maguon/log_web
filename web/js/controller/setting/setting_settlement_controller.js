@@ -148,7 +148,8 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
                 routeStartId: $scope.startCity,
                 addrId: $scope.locateId,
                 routeEndId: $scope.endCity,
-                receiveId: $scope.receiveId
+                receiveId: $scope.receiveId,
+                vin:$scope.vin
             })).then(function (data) {
                 if (data.success === true) {
                     // 跳转到 详情画面
@@ -181,7 +182,8 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
                 routeStartId: $scope.startCity,
                 addrId: $scope.locateId,
                 routeEndId: $scope.endCity,
-                receiveId: $scope.receiveId
+                receiveId: $scope.receiveId,
+                vin:$scope.vin
             };
             swal({
                     title: "确定导出结算报表？",
@@ -253,6 +255,7 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
                 addrId: $scope.locateId,
                 routeEndId: $scope.endCity,
                 receiveId: $scope.receiveId,
+                vin:$scope.vin,
                 start:$scope.start.toString(),
                 size:$scope.size
             })).then(function (data) {

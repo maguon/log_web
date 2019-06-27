@@ -6,37 +6,80 @@
 
         <!-- vin 委托方 目的地城市 经销商  调度编号  司机  计划执行时间-->
         <div class="col s10">
+            <!--vin-->
+            <div class="col s4 input-field">
+                <input  id="VIN" name="VIN" ng-model="VIN" type="text"   required >
+                <label for="VIN">VIN</label>
+            </div>
+            <!--调度编号-->
+            <div class="col s2 input-field">
+                <input id="instruction_number" type="text" ng-model="instructionNum">
+                <label for="instruction_number">调度编号</label>
+            </div>
+
+            <!--司机-->
+            <div class="col s2 input-field">
+                <select id="driver_name_mod" style="width: 100%" ng-model="driverIdMod">
+                    <option value=""></option>
+                    <option ng-repeat="driver in driveList" ng-value="driver.id">{{driver.drive_name }}</option>
+                </select>
+            </div>
 
             <!--计划执行时间(始)-->
-            <div class="col s3 input-field">
+            <div class="col s2 input-field">
                 <input id="planTimeStart" type="text" ng-model="planTimeStart"  class="datepicker" autocomplete="off" required   date><i class="mdi dataIcon mdi-table-large"></i>
                 <label for="planTimeStart">计划执行时间（始）</label>
             </div>
 
             <!--计划执行时间(终)-->
-            <div class="col s3 input-field">
+            <div class="col s2 input-field">
                 <input id="planTimeEnd" type="text" ng-model="planTimeEnd"  class="datepicker" autocomplete="off"  required   date><i class="mdi dataIcon mdi-table-large"></i>
                 <label for="planTimeEnd">计划执行时间（终）</label>
             </div>
 
 
-            <!--vin-->
-            <div class="col s3 input-field">
-                <input  id="VIN" name="VIN" ng-model="VIN" type="text"   required >
-                <label for="VIN">VIN</label>
-            </div>
+
 
             <!--委托方-->
-            <div class="input-field col s3">
-                <select material-select watch id="client" name="client"  ng-model="client"  required>
+            <div class="input-field col s2">
+                <select material-select watch id="client" name="client"  ng-model="client"  ng-change="changeCarMake(client)"  required>
                     <option value="" disabled selected>请选择</option>
                     <option ng-repeat="el in get_entrust" ng-value="el.id" >{{el.short_name}}</option>
                 </select>
                 <label for="client">委托方</label>
             </div>
 
+            <!--品牌-->
+            <div class="input-field col s2">
+                <select  id="car_brand" name="car_brand" material-select watch ng-model="car_brand">
+                    <option value="">请选择</option>
+                    <option ng-repeat="el in entrustMakeRelList" ng-value="el.make_id">{{el.make_name}}</option>
+                </select>
+                <label for="car_brand">品牌</label>
+            </div>
+
+
+            <!--起始城市-->
+            <div class="input-field col s2">
+                <select id="startCity" name="startCity" style="width:100%" ng-change="getAddrData()" ng-model="startCity">
+                    <option value="">请选择</option>
+                    <option ng-repeat="startCity in get_city" value={{startCity.id}}>{{startCity.city_name}}</option>
+                </select>
+            </div>
+
+
+            <div class="col s2 input-field">
+                <select id="chooseLocate" name="chooseLocate" ng-model="locateId" watch material-select>
+                    <option value="" selected>装车地点</option>
+                    <option ng-repeat="locateCity in locateList" ng-value="locateCity.id">{{locateCity.addr_name}}</option>
+                </select>
+            </div>
+
+
+
+
             <!--目的地城市-->
-            <div class="input-field col s3">
+            <div class="input-field col s2">
                 <select id="chooseEndCity" name="state" style="width:100%" ng-change="get_received(arrive_city)" ng-model="arrive_city">
                     <option value=""></option>
                     <option ng-repeat="city in get_city" ng-value="city.id" >{{city.city_name}}</option>
@@ -44,26 +87,12 @@
             </div>
 
             <!--经销商-->
-            <div class="input-field col s3">
+            <div class="input-field col s2">
                 <select material-select watch id="dealer" name="dealer" ng-model="receiveId">
                     <option value="" disabled selected>请选择</option>
                     <option ng-repeat="el in get_receive" ng-value="el.id" >{{el.short_name}}</option>
                 </select>
                 <label for="dealer">经销商</label>
-            </div>
-
-            <!--调度编号-->
-            <div class="col s3 input-field">
-                <input id="instruction_number" type="text" ng-model="instructionNum">
-                <label for="instruction_number">调度编号</label>
-            </div>
-
-            <!--司机-->
-            <div class="col s3 input-field">
-                <select id="driver_name_mod" style="width: 100%" ng-model="driverIdMod">
-                    <option value=""></option>
-                    <option ng-repeat="driver in driveList" ng-value="driver.id">{{driver.drive_name + " - " + driver.mobile}}</option>
-                </select>
             </div>
 
         </div>
@@ -105,6 +134,7 @@
                 <th data-field="">委托方</th>
                 <th data-field="">调度编号</th>
                 <th data-field="">路线</th>
+               <!-- <th data-field="">发运地</th>-->
                 <th data-field="">经销商</th>
                 <th data-field="">司机</th>
                 <th data-field="">货车牌号</th>
@@ -120,6 +150,7 @@
                 <td ng-bind="el.e_short_name"></td>
                 <td ng-bind="el.dp_route_task_id"></td>
                 <td>{{el.route_start}}--{{el.route_end}}</td>
+               <!-- <td>{{el.route_start}}</td>-->
                 <td ng-bind="el.r_short_name"></td>
                 <td ng-bind="el.drive_name"></td>
                 <td>{{el.truck_num }}</td>

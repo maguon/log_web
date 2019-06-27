@@ -15,6 +15,11 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
         _basic.get($host.api_url + "/city").then(function (data) {
             if (data.success == true) {
                 $scope.get_city = data.result;
+                $('#startCity').select2({
+                    placeholder: '始发城市',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
                 $('#chooseEndCity').select2({
                     placeholder: '目的地城市',
                     containerCssClass: 'select2_dropdown',
@@ -32,7 +37,7 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
                     }
                 }
                 $('#driver_name_mod').select2({
-                    placeholder: '请选择司机',
+                    placeholder: '司机',
                     containerCssClass : 'select2_dropdown',
                     allowClear: true
                 });
@@ -72,6 +77,41 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
             }
         })
     };
+
+
+    $scope.changeCarMake = function (entrustId){
+        _basic.get($host.api_url + "/entrustMakeRel?entrustId=" + entrustId).then(function (data) {
+            if (data.success == true && data.result.length >= 0) {
+                $scope.entrustMakeRelList = data.result;
+
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
+
+
+    // 发运地名称
+    $scope.getAddrData = function () {
+        if($scope.startCity == 0 || $scope.startCity == "" || $scope.startCity == null){
+            $scope.startCity = null;
+            $scope.locateList = [];
+        }
+        else{
+            _basic.get($host.api_url + "/baseAddr?cityId=" + $scope.startCity).then(function (data) {
+                if (data.success === true) {
+                    $scope.locateList = data.result;
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
+    };
+
+
+
     // 数据导出
     $scope.export = function () {
         if ($scope.planTimeStart == undefined || $scope.planTimeEnd == undefined) {
@@ -86,6 +126,13 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
                 receiveId: $scope.receiveId,
                 dpRouteTaskId: $scope.instructionNum,
                 driveId: $scope.driverIdMod,
+
+
+                makeId: $scope.car_brand,
+                routeStartId: $scope.startCity,
+                baseAddrId: $scope.locateId,
+
+
                 taskPlanDateStart: $scope.planTimeStart,
                 taskPlanDateEnd: $scope.planTimeEnd,
                 receivedDateStart: $scope.planTimeStart,
@@ -132,6 +179,15 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
                 driveId: $scope.driverIdMod,
                 taskPlanDateStart: $scope.planTimeStart,
                 taskPlanDateEnd: $scope.planTimeEnd,
+
+
+
+                    makeId: $scope.car_brand,
+                    routeStartId: $scope.startCity,
+                    baseAddrId: $scope.locateId,
+
+
+
                 start: $scope.start.toString(),
                 size: $scope.size
             })).then(function (data) {

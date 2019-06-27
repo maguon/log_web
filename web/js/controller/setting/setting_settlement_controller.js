@@ -124,7 +124,7 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
                     $scope.locateList = data.result;
                 }
                 else {
-                    swal(addrData.msg, "", "error");
+                    swal(data.msg, "", "error");
                 }
             });
         }

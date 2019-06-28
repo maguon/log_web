@@ -116,9 +116,23 @@
 
     <div class="row col s12 bold">
         <div class="col s12">
-            <div class="col s12">
+            <div class="col s1">
                 未返还车辆:{{getNum}}
             </div>
+            <div class="col s11">
+                <div class="col s11">
+                    <div class="chip" ng-repeat="el in ArrayList">
+                        {{el.vin}}
+                        <i class="close  mdi mdi-window-close look_icon grey-text lighten-1" style="cursor: pointer"  ng-click="deleteSingle(el,ArrayList)"></i>
+                    </div>
+                </div>
+                <div class="col s1 right-align" ng-show="ArrayList.length!==0">
+                    <a class="btn-floating btn-small waves-light waves-effect cyan lighten-2  btn vc-center" ng-click="addArr()">
+                        <i class="mdi mdi-check"></i>
+                    </a>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -130,7 +144,7 @@
             <thead class="blue-grey lighten-5">
             <tr class="grey-text text-darken-2">
                 <th data-field="">VIN</th>
-                <th data-field="">车型</th>
+                <th data-field="">品牌</th>
                 <th data-field="">委托方</th>
                 <th data-field="">调度编号</th>
                 <th data-field="">路线</th>
@@ -159,6 +173,9 @@
                 <!-- 显示画面按钮 -->
                 <td class="operation">
                     <a  ng-click="notHandOverDetail(el.id)" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1  " ></i></a>
+                    <a  ng-click="getArr(el)" style="font-size: 1.5rem;cursor: pointer">
+                        <i class="mdi mdi-plus look_icon cyan-text lighten-1"></i>
+                    </a>
                 </td>
             </tr>
             <tr ng-if="notHandoverArray.length==0&&planTimeStart!==undefined&&planTimeEnd!==undefined">
@@ -271,5 +288,80 @@
 
     <div class="modal-footer right-align">
         <button class="btn waves-light waves-effect cyan lighten-2 modal-close" style="margin-right: 20px;margin-bottom: 20px">确定</button>
+    </div>
+</div>
+
+
+
+
+
+
+<div id="addSettlementItem" class="modal">
+    <div class="cyan lighten-1 white-text center-align modal_title" >显示交接单</div>
+    <div class="modal-content">
+        <div class="row col" style="width: 80%;">
+            <div class="col s12" style="height: 55px">
+                <div class="col s6 input-field">
+                    <input type="number" ng-model="addNumberId" id="addNumberId" name="addNumberId"  required>
+                    <label for="addNumberId" class="active">序号</label>
+                </div>
+                <div class="col s6 input-field">
+                    <input type="text" ng-model="addHandoverReceiveStartTime" id="addHandoverReceiveStartTime" name="addHandoverReceiveStartTime"  class="datepicker" autocomplete="off" date>
+                    <i class="mdi dataIcon mdi-table-large"></i>
+                    <label for="addHandoverReceiveStartTime">交接单收到日期</label>
+                </div>
+            </div>
+            <div class="col s12 cyan-text"  style="height: 250px;margin-top: 10px">
+                <div class="col s6 input-field">
+                 <!--   委托方:{{ArrayList[0].e_short_name}}-->
+
+                    <input type="text" ng-model="ArrayList[0].e_short_name" id="addEntrustId" name="addEntrustId"  required disabled >
+                    <label for="addEntrustId" class="active">委托方</label>
+                </div>
+                <div class="col s6 input-field">
+                  <!--  品牌:{{ArrayList[0].make_name}}-->
+                    <input type="text" id="make_name" ng-model="ArrayList[0].make_name" name="make_name"  disabled>
+                    <label for="make_name">品牌</label>
+                </div>
+                <div class="col s6 input-field">
+                  <!--  起始城市:{{ArrayList[0].route_start}}-->
+                    <input type="text" id="route_start" ng-model="ArrayList[0].route_start" name="route_start"  disabled>
+                    <label for="route_start">起始城市</label>
+                </div>
+
+                <div class="col s6 input-field">
+                <!--    发运地:{{ArrayList[0].addr_name}}-->
+                    <input type="text" id="addr_name" ng-model="ArrayList[0].addr_name" name="addr_name"  disabled>
+                    <label for="addr_name">发运地</label>
+                </div>
+                <div class="col s6 input-field">
+                  <!--  目的城市:{{ArrayList[0].route_end}}-->
+                    <input type="text" id="route_end" ng-model="ArrayList[0].route_end" name="route_end"  disabled>
+                    <label for="route_end">目的城市</label>
+                </div>
+                <div class="col s6 input-field">
+                   <!-- 经销商:{{ArrayList[0].r_short_name}}-->
+                    <input type="text" id="r_short_name" ng-model="ArrayList[0].r_short_name" name="r_short_name"  disabled>
+                    <label for="r_short_name">经销商</label>
+                </div>
+                <div class="col s6" ng-repeat="list in  ArrayList" style="margin-top: 20px">
+                    车辆VIN:{{list.vin}}
+                    <!--<input type="text" id="r_short_name" ng-model="ArrayList[0].r_short_name" name="r_short_name"  disabled>
+                    <label for="r_short_name">经销商</label>-->
+                </div>
+            </div>
+            <div class="col s12"  style="height: 55px;margin-top: 10px">
+                <div class="col s12 input-field">
+                    <input id="addRemark" name="remark"  ng-model="newRemark" type="text">
+                    <label for="addRemark">备注:</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divider" style="background: #ccc;height: 1px;"></div>
+    <div class="modal-footer vc-center">
+        <a class=" modal-action modal-close waves-effect waves-light grey lighten-1 btn"  >取消 </a>
+        <button class="btn waves-light waves-effect cyan lighten-2"  ng-click="addSettlementItem()" name="action" style="margin-left: 10px">确定</button>
     </div>
 </div>

@@ -311,7 +311,7 @@
                     <label for="addHandoverReceiveStartTime">交接单收到日期</label>
                 </div>
             </div>
-            <div class="col s12 cyan-text"  style="height: 250px;margin-top: 10px">
+            <div class="col s12 cyan-text"  style="height: 180px;margin-top: 10px">
                 <div class="col s6 input-field">
                  <!--   委托方:{{ArrayList[0].e_short_name}}-->
 
@@ -344,11 +344,6 @@
                     <input type="text" id="r_short_name" ng-model="ArrayList[0].r_short_name" name="r_short_name"  disabled>
                     <label for="r_short_name">经销商</label>
                 </div>
-                <div class="col s6" ng-repeat="list in  ArrayList" style="margin-top: 20px">
-                    车辆VIN:{{list.vin}}
-                    <!--<input type="text" id="r_short_name" ng-model="ArrayList[0].r_short_name" name="r_short_name"  disabled>
-                    <label for="r_short_name">经销商</label>-->
-                </div>
             </div>
             <div class="col s12"  style="height: 55px;margin-top: 10px">
                 <div class="col s12 input-field">
@@ -356,6 +351,14 @@
                     <label for="addRemark">备注:</label>
                 </div>
             </div>
+
+
+            <div class="col s6 center-align" ng-repeat="list in  ArrayList" style="margin-top: 20px">
+                车辆VIN:{{list.vin}}
+                <!--<input type="text" id="r_short_name" ng-model="ArrayList[0].r_short_name" name="r_short_name"  disabled>
+                <label for="r_short_name">经销商</label>-->
+            </div>
+
         </div>
     </div>
 

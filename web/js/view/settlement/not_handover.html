@@ -4,7 +4,7 @@
     <!--查询条件-->
     <div class="row col s12">
 
-        <!-- vin 委托方 目的地城市 经销商  调度编号  司机  计划执行时间-->
+        <!-- vin  调度编号 委托方 目的地城市 经销商    司机  计划执行时间-->
         <div class="col s10">
             <!--vin-->
             <div class="col s4 input-field">
@@ -184,9 +184,6 @@
             <tr ng-if="planTimeStart==undefined||planTimeEnd==undefined&&notHandoverArray.length==0">
                 <td colspan="12"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;计划执行时间为必填项</td>
             </tr>
-
-
-
             </tbody>
         </table>
     </div>
@@ -292,10 +289,6 @@
 </div>
 
 
-
-
-
-
 <div id="addSettlementItem" class="modal">
     <div class="cyan lighten-1 white-text center-align modal_title" >显示交接单</div>
     <div class="modal-content">
@@ -313,34 +306,27 @@
             </div>
             <div class="col s12 cyan-text"  style="height: 180px;margin-top: 10px">
                 <div class="col s6 input-field">
-                 <!--   委托方:{{ArrayList[0].e_short_name}}-->
-
                     <input type="text" ng-model="ArrayList[0].e_short_name" id="addEntrustId" name="addEntrustId"  required disabled >
                     <label for="addEntrustId" class="active">委托方</label>
                 </div>
                 <div class="col s6 input-field">
-                  <!--  品牌:{{ArrayList[0].make_name}}-->
                     <input type="text" id="make_name" ng-model="ArrayList[0].make_name" name="make_name"  disabled>
                     <label for="make_name">品牌</label>
                 </div>
                 <div class="col s6 input-field">
-                  <!--  起始城市:{{ArrayList[0].route_start}}-->
                     <input type="text" id="route_start" ng-model="ArrayList[0].route_start" name="route_start"  disabled>
                     <label for="route_start">起始城市</label>
                 </div>
 
                 <div class="col s6 input-field">
-                <!--    发运地:{{ArrayList[0].addr_name}}-->
                     <input type="text" id="addr_name" ng-model="ArrayList[0].addr_name" name="addr_name"  disabled>
                     <label for="addr_name">发运地</label>
                 </div>
                 <div class="col s6 input-field">
-                  <!--  目的城市:{{ArrayList[0].route_end}}-->
                     <input type="text" id="route_end" ng-model="ArrayList[0].route_end" name="route_end"  disabled>
                     <label for="route_end">目的城市</label>
                 </div>
                 <div class="col s6 input-field">
-                   <!-- 经销商:{{ArrayList[0].r_short_name}}-->
                     <input type="text" id="r_short_name" ng-model="ArrayList[0].r_short_name" name="r_short_name"  disabled>
                     <label for="r_short_name">经销商</label>
                 </div>
@@ -351,13 +337,7 @@
                     <label for="addRemark">备注:</label>
                 </div>
             </div>
-
-
-            <div class="col s6 center-align" ng-repeat="list in  ArrayList" style="margin-top: 20px">
-                车辆VIN:{{list.vin}}
-                <!--<input type="text" id="r_short_name" ng-model="ArrayList[0].r_short_name" name="r_short_name"  disabled>
-                <label for="r_short_name">经销商</label>-->
-            </div>
+            <div class="col s6 center-align" ng-repeat="list in  ArrayList" style="margin-top: 20px">车辆VIN:{{list.vin}}</div>
 
         </div>
     </div>

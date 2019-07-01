@@ -234,14 +234,14 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
             ){
                 for (var i = 0; i < $scope.ArrayList.length; i++) {
                     if ($scope.ArrayList[i].vin === el.vin) {
-                        swal('不能重复添加相同车辆!',"", "error");
+                        swal('不能重复添加相同VIN!',"", "error");
                         return;
                     }
                 }
                 $scope.ArrayList.push(el);
             }
             else{
-                swal('添加失败',"", "error");
+                swal('请保持与现有的VIN品牌、委托方、起始城市、发运地、经销商一致',"", "error");
             }
         }
         else{

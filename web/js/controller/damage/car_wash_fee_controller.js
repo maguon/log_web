@@ -153,6 +153,12 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
 
 
    function getCarWashFeeList() {
+       $scope.selectedIdsArr = [];
+       $scope.checkedWash=0;
+       $scope.checkedTotalTrailerFee=0;
+       $scope.checkedCarParkingFee=0;
+       $scope.checkedTotalRunFee=0;
+       $scope.checkedLeadFee=0;
        // 基本检索URL
        var url = $host.api_url + "/dpRouteLoadTaskCleanRel?start=" + $scope.start + "&size=" + $scope.size;
        var urlCount = $host.api_url + "/dpRouteLoadTaskCleanRelCount?start=" + $scope.start + "&size=" + $scope.size;

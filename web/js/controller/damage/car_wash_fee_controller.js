@@ -232,6 +232,57 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
     }
 
 
+
+
+    // 全选
+    $scope.selectAllCheckBox = function (event) {
+        $scope.checkedWash=0;
+        $scope.checkedTotalTrailerFee=0;
+        $scope.checkedCarParkingFee=0;
+        $scope.checkedTotalRunFee=0;
+        $scope.checkedLeadFee=0;
+        var selAllBtn = event.target;
+        $scope.selectedIdsArr = [];
+        if (selAllBtn.checked) {
+            $("[name = 'select']").prop('checked', true);
+            for (var i = 0; i < $scope.carWashFeeList.length; i++) {
+                $scope.selectedIdsArr.push($scope.carWashFeeList[i].id);
+                $scope.checkedWash+= $scope.carWashFeeList[i].actual_price;
+                $scope.checkedTotalTrailerFee+= $scope.carWashFeeList[i].total_trailer_fee;
+                $scope.checkedCarParkingFee+= $scope.carWashFeeList[i].car_parking_fee;
+                $scope.checkedTotalRunFee+= $scope.carWashFeeList[i].total_run_fee;
+                $scope.checkedLeadFee+=$scope.carWashFeeList[i].lead_fee;
+            }
+        }
+        else {
+            $("[name = 'select']").prop('checked', false);
+            $scope.selectedIdsArr = [];
+            $scope.checkedWash=0;
+            $scope.checkedTotalTrailerFee=0;
+            $scope.checkedCarParkingFee=0;
+            $scope.checkedTotalRunFee=0;
+            $scope.checkedLeadFee=0;
+        }
+    };
+
+    // 检测所有分选按钮是否被选中
+    $scope.checkIsAllSel = function () {
+        var selectAll = false;
+        $("[name = 'select']").each(function () {
+            if(!$(this).is(':checked')){
+                selectAll = true;
+            }
+        });
+
+        // 如果全部checkBox被选中，则改变全选按钮状态
+        if(selectAll){
+            $("[name = 'selectAll']").prop('checked' , false);
+        }
+        else{
+            $("[name = 'selectAll']").prop('checked' , true);
+        }
+    };
+
     //点击单个按钮
     $scope.checkSelMission = function (event, car, index) {
         var currentSel = event.target;
@@ -254,10 +305,9 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
             $scope.checkedLeadFee-= car.lead_fee;
 
         }
-        console.log(  $scope.selectedIdsArr)
     };
 
-    //点击批量按钮
+//点击批量按钮
     $scope.batchDeal = function (){
         $(".modal").modal();
         $("#openBatchDeal").modal("open");
@@ -288,8 +338,9 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
                                 $scope.checkedWash=0;
                                 $scope.checkedTotalTrailerFee=0;
                                 $scope.checkedCarParkingFee=0;
-                                $scope.checkedTotalRunFee+=0;
+                                $scope.checkedTotalRunFee=0;
                                 $scope.checkedLeadFee=0;
+                                $("[name = 'selectAll']").prop('checked', false);
                                 $("#openBatchDeal").modal("close");
                                 getCarWashFeeList();
                             }
@@ -348,22 +399,24 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
 
     // 分页
     $scope.previous_page = function () {
+        $("[name = 'selectAll']").prop('checked', false);
         $scope.selectedIdsArr=[];
         $scope.checkedWash=0;
         $scope.checkedTotalTrailerFee=0;
         $scope.checkedCarParkingFee=0;
-        $scope.checkedTotalRunFee+=0;
+        $scope.checkedTotalRunFee=0;
         $scope.checkedLeadFee=0;
         $scope.start = $scope.start - ($scope.size-1);
         getCarWashFeeList();
     };
 
     $scope.next_page = function () {
+        $("[name = 'selectAll']").prop('checked', false);
         $scope.selectedIdsArr=[];
         $scope.checkedWash=0;
         $scope.checkedTotalTrailerFee=0;
         $scope.checkedCarParkingFee=0;
-        $scope.checkedTotalRunFee+=0;
+        $scope.checkedTotalRunFee=0;
         $scope.checkedLeadFee=0;
         $scope.start = $scope.start + ($scope.size-1);
         getCarWashFeeList();

@@ -149,10 +149,9 @@
             <table class="bordered striped text_mid">
                 <thead class="blue-grey lighten-5">
                 <tr class="grey-text text-darken-2">
-                    <th data-field="" ng-show="carWashFeeList[0].status==1">
-                        <button ng-click="batchDeal()" style="padding:0;width:50px;height: 35px;line-height: 35px" class="btn waves-light waves-effect lighten-1 fz15" type="button">
-                            批量
-                        </button>
+                    <th data-field="" ng-show="carWashFeeList[0].status==1" >
+                        <input type="checkbox" ng-click="selectAllCheckBox($event)" id="selectAll" name="selectAll" class="filled-in" />
+                        <label for="selectAll" style="color: black">全选</label>
                     </th>
                     <th data-field="">编号</th>
                     <th data-field="">调度编号</th>
@@ -175,14 +174,19 @@
                     <th data-field="">开户行</th>
                     <th data-field="">领取状态</th>
                     <th data-field="">月结</th>
-                    <th>操作</th>
+                    <th data-field="" ng-show="carWashFeeList[0].status==1">
+                        <button ng-click="batchDeal()" style="padding:0;width:50px;height: 35px;line-height: 35px" class="btn waves-light waves-effect lighten-1 fz15" type="button">
+                            批量
+                        </button>
+                    </th>
+                    <th  ng-show="carWashFeeList[0].status!==1">操作</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr class="grey-text text-darken-1" ng-repeat="car in carWashFeeList">
                     <td ng-show="car.status==1">
                          <span class="switch"  >
-                              <input ng-click="checkSelMission($event,car,$index)" type="checkbox" id="{{car.id}}" name="select" class="filled-in"/>
+                              <input ng-click="checkIsAllSel();checkSelMission($event,car,$index)" type="checkbox" id="{{car.id}}" name="select" class="filled-in"/>
                               <label for="{{car.id}}" style="margin-top: 9px"></label>
                         </span>
                     </td>

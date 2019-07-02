@@ -264,35 +264,43 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
     }
     //确定批量
     $scope.createList = function (){
-         swal({
-           title: "确定批量领取吗？",
-           type: "warning",
-           showCancelButton: true,
-           confirmButtonColor: "#DD6B55",
-           confirmButtonText: "确认",
-           cancelButtonText: "取消"
-       }).then(
-           function(result){
-               if (result.value) {
-                   _basic.put($host.api_url + "/user/" + userId + "/status/2/cleanRelAll", {
-                       "cleanRelIds": $scope.selectedIdsArr
-                   }).then(function (data) {
-                       if (data.success === true) {
-                           $scope.selectedIdsArr=[];
-                           $scope.checkedWash=0;
-                           $scope.checkedTotalTrailerFee=0;
-                           $scope.checkedCarParkingFee=0;
-                           $scope.checkedTotalRunFee+=0;
-                           $scope.checkedLeadFee=0;
-                           $("#openBatchDeal").modal("close");
-                           getCarWashFeeList();
-                       }
-                       else {
-                           swal(data.msg, "", "error");
-                       }
-                   });
-               }
-           });
+        if($scope.selectedIdsArr.length==0){
+            $("#openBatchDeal").modal("close");
+            swal('请至少选择一条数据', "", "error");
+
+        }
+        else {
+            swal({
+                title: "确定批量领取吗？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确认",
+                cancelButtonText: "取消"
+            }).then(
+                function(result){
+                    if (result.value) {
+                        _basic.put($host.api_url + "/user/" + userId + "/status/2/cleanRelAll", {
+                            "cleanRelIds": $scope.selectedIdsArr
+                        }).then(function (data) {
+                            if (data.success === true) {
+                                $scope.selectedIdsArr=[];
+                                $scope.checkedWash=0;
+                                $scope.checkedTotalTrailerFee=0;
+                                $scope.checkedCarParkingFee=0;
+                                $scope.checkedTotalRunFee+=0;
+                                $scope.checkedLeadFee=0;
+                                $("#openBatchDeal").modal("close");
+                                getCarWashFeeList();
+                            }
+                            else {
+                                swal(data.msg, "", "error");
+                            }
+                        });
+                    }
+                });
+        }
+
     }
 
 

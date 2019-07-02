@@ -149,7 +149,7 @@
             <table class="bordered striped text_mid">
                 <thead class="blue-grey lighten-5">
                 <tr class="grey-text text-darken-2">
-                    <th data-field="">
+                    <th data-field="" ng-show="carWashFeeList[0].status==1">
                         <button ng-click="batchDeal()" style="padding:0;width:50px;height: 35px;line-height: 35px" class="btn waves-light waves-effect lighten-1 fz15" type="button">
                             批量
                         </button>
@@ -180,7 +180,7 @@
                 </thead>
                 <tbody>
                 <tr class="grey-text text-darken-1" ng-repeat="car in carWashFeeList">
-                    <td>
+                    <td ng-show="car.status==1">
                          <span class="switch"  >
                               <input ng-click="checkSelMission($event,car,$index)" type="checkbox" id="{{car.id}}" name="select" class="filled-in"/>
                               <label for="{{car.id}}" style="margin-top: 9px"></label>
@@ -221,7 +221,8 @@
                     </td>
                 </tr>
                 <tr class="grey-text text-darken-1" ng-if="carWashFeeList.length == 0">
-                    <td colspan="22"><span style="letter-spacing: 2px">暂无数据</span></td>
+                    <td colspan="22" ng-show="car.status==1"><span style="letter-spacing: 2px">暂无数据</span></td>
+                    <td colspan="21" ng-show="car.status!==1"><span style="letter-spacing: 2px">暂无数据</span></td>
                 </tr>
                 </tbody>
             </table>

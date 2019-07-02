@@ -1,6 +1,12 @@
 app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stateParams", "$host", "_basic", function ($scope,$rootScope,$state,$stateParams, $host, _basic) {
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.receive_status = "1";
+    $scope.selectedIdsArr = [];
+    $scope.checkedWash=0;
+    $scope.checkedTotalTrailerFee=0;
+    $scope.checkedCarParkingFee=0;
+    $scope.checkedTotalRunFee=0;
+    $scope.checkedLeadFee=0;
     $scope.start = 0;
     $scope.size = 11;
     $scope.smallWashFee =0;
@@ -226,6 +232,70 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
     }
 
 
+    //点击单个按钮
+    $scope.checkSelMission = function (event, car, index) {
+        var currentSel = event.target;
+        if(currentSel.checked){
+            $scope.selectedIdsArr.push(car.id);
+            $scope.checkedWash+= car.actual_price;
+            $scope.checkedTotalTrailerFee+= car.total_trailer_fee;
+            $scope.checkedCarParkingFee+= car.car_parking_fee;
+            $scope.checkedTotalRunFee+= car.total_run_fee;
+            $scope.checkedLeadFee+= car.lead_fee;
+        }
+        else{
+            // 获取取消选中的checkbox在id数组中的下标
+            var noSelIndex = $scope.selectedIdsArr.indexOf(car.id);
+            $scope.selectedIdsArr.splice(noSelIndex, 1);
+            $scope.checkedWash-= car.actual_price;
+            $scope.checkedTotalTrailerFee-= car.total_trailer_fee;
+            $scope.checkedCarParkingFee-= car.car_parking_fee;
+            $scope.checkedTotalRunFee-= car.total_run_fee;
+            $scope.checkedLeadFee-= car.lead_fee;
+
+        }
+        console.log(  $scope.selectedIdsArr)
+    };
+
+    //点击批量按钮
+    $scope.batchDeal = function (){
+        $(".modal").modal();
+        $("#openBatchDeal").modal("open");
+    }
+    //确定批量
+    $scope.createList = function (){
+         swal({
+           title: "确定批量领取吗？",
+           type: "warning",
+           showCancelButton: true,
+           confirmButtonColor: "#DD6B55",
+           confirmButtonText: "确认",
+           cancelButtonText: "取消"
+       }).then(
+           function(result){
+               if (result.value) {
+                   _basic.put($host.api_url + "/user/" + userId + "/status/2/cleanRelAll", {
+                       "cleanRelIds": $scope.selectedIdsArr
+                   }).then(function (data) {
+                       if (data.success === true) {
+                           $scope.selectedIdsArr=[];
+                           $scope.checkedWash=0;
+                           $scope.checkedTotalTrailerFee=0;
+                           $scope.checkedCarParkingFee=0;
+                           $scope.checkedTotalRunFee+=0;
+                           $scope.checkedLeadFee=0;
+                           $("#openBatchDeal").modal("close");
+                           getCarWashFeeList();
+                       }
+                       else {
+                           swal(data.msg, "", "error");
+                       }
+                   });
+               }
+           });
+    }
+
+
     /**
      * 设置检索条件。
      * @param conditions 上次检索条件
@@ -270,11 +340,23 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
 
     // 分页
     $scope.previous_page = function () {
+        $scope.selectedIdsArr=[];
+        $scope.checkedWash=0;
+        $scope.checkedTotalTrailerFee=0;
+        $scope.checkedCarParkingFee=0;
+        $scope.checkedTotalRunFee+=0;
+        $scope.checkedLeadFee=0;
         $scope.start = $scope.start - ($scope.size-1);
         getCarWashFeeList();
     };
 
     $scope.next_page = function () {
+        $scope.selectedIdsArr=[];
+        $scope.checkedWash=0;
+        $scope.checkedTotalTrailerFee=0;
+        $scope.checkedCarParkingFee=0;
+        $scope.checkedTotalRunFee+=0;
+        $scope.checkedLeadFee=0;
         $scope.start = $scope.start + ($scope.size-1);
         getCarWashFeeList();
     };

@@ -125,10 +125,35 @@
                     总带路金额:{{boxArrayFee.lead_fee}}元
                 </div>
             </div>
+
+
+            <div class="col s12 cyan white-text vc-center fz18" style="height: 60px;border-bottom: 1px solid  #4e84cb;border-top:1px solid  #fff" ng-if="selectedIdsArr.length!==0">
+                <div class="col left-align bold" style="width: 20%">
+                    总洗车金额:{{checkedWash}}元
+                </div>
+                <div class="col center-align bold" style="width: 20%">
+                    总拖车金额:{{checkedTotalTrailerFee}}元
+                </div>
+                <div class="col center-align bold" style="width: 20%">
+                    总提车金额:{{checkedCarParkingFee}}元
+                </div>
+                <div class="col center-align bold" style="width: 20%">
+                    总地跑金额:{{checkedTotalRunFee}}元
+                </div>
+                <div class="col right-align bold" style="width: 20%">
+                    总带路金额:{{checkedLeadFee}}元
+                </div>
+            </div>
+
             <div class="divider cyan" style="height: 2px;"></div>
             <table class="bordered striped text_mid">
                 <thead class="blue-grey lighten-5">
                 <tr class="grey-text text-darken-2">
+                    <th data-field="">
+                        <button ng-click="batchDeal()" style="padding:0;width:50px;height: 35px;line-height: 35px" class="btn waves-light waves-effect lighten-1 fz15" type="button">
+                            批量
+                        </button>
+                    </th>
                     <th data-field="">编号</th>
                     <th data-field="">调度编号</th>
                     <th data-field="">司机</th>
@@ -155,6 +180,12 @@
                 </thead>
                 <tbody>
                 <tr class="grey-text text-darken-1" ng-repeat="car in carWashFeeList">
+                    <td>
+                         <span class="switch"  >
+                              <input ng-click="checkSelMission($event,car,$index)" type="checkbox" id="{{car.id}}" name="select" class="filled-in"/>
+                              <label for="{{car.id}}" style="margin-top: 9px"></label>
+                        </span>
+                    </td>
                     <td>{{car.id}}</td>
                     <td>{{car.dp_route_task_id}}</td>
                     <td>{{car.drive_name}}</td>
@@ -250,3 +281,41 @@
         </div>
     </div>
 </div>
+
+
+<div id="openBatchDeal" class="modal">
+    <div class="modal-content  center" style="font-weight: 500;padding: 0">
+        <div class="row col s12 vc-center cyan fz20" style="color: white;letter-spacing:1px;font-weight: bold;height:70px;">
+            <p>批量详情</p>
+        </div>
+        <div class="container" style="padding: 20px 0 0">
+            <div class="row col s12  left-align bold">批量费用总价</div>
+            <div class="row col s12 cyan-text">
+                <!--总洗车费金额  总拖车费金额  总提车费金额 总提车费金额   总带路费金额 -->
+                <div class="col input-field" style="width: 20%">总洗车费:<span class="red-text fz22">{{checkedWash}}</span></div>
+                <div class="col input-field" style="width: 20%">总拖车费:<span class="red-text fz22">{{checkedTotalTrailerFee}}</span></div>
+                <div class="col input-field" style="width: 20%">总提车费:<span class="red-text fz22">{{checkedCarParkingFee}}</span></div>
+                <div class="col input-field" style="width: 20%">总地跑费:<span class="red-text fz22">{{checkedTotalRunFee}}</span></div>
+                <div class="col input-field" style="width: 20%">总带路费:<span class="red-text fz22">{{checkedLeadFee}}</span></div>
+
+            </div>
+        </div>
+    </div>
+    <div class="divider"></div>
+    <div class="modal-footer row">
+        <div class="col s12 center-align" style="margin-top: 15px">
+            <div class="col s2 offset-s4">
+                <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                    关闭
+                </a>
+            </div>
+            <div class="col s2">
+                <a ng-click="createList()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                    确定
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+

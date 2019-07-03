@@ -1,7 +1,7 @@
 app.controller("driver_attendance_controller", ["$scope","$rootScope", "$state", "$stateParams", "_basic", "_config", "$host", function ($scope,$rootScope, $state, $stateParams, _basic, _config, $host) {
     var userId = _basic.getSession(_basic.USER_ID);
-    $scope.size = 11;
     $scope.start = 0;
+    $scope.size = 11;
     $scope.num = 0;
     $scope.flag=false;
     $scope.tableBox = true;
@@ -385,17 +385,13 @@ app.controller("driver_attendance_controller", ["$scope","$rootScope", "$state",
     //获取查询数据
     function getData(){
         $scope.startMonth = $('#start_month').val();
-        // 基本检索URL
-        var url = $host.api_url + "/driveWork?start=" + $scope.start + "&size=" + $scope.size;
         // 检索条件
-        var conditions = _basic.objToUrl({
+        var conditions ={
             driveId:$scope.driveName,
-            yMonth:$scope.startMonth
-        });
-        // 检索URL
-        url = conditions.length > 0 ? url + "&" + conditions : url;
-
-        _basic.get(url).then(function (data) {
+            yMonth:$scope.startMonth,
+            size:$scope.size
+        };
+        _basic.get($host.api_url+"/driveWork?start="+$scope.start+'&'+ _basic.objToUrl(conditions)).then(function (data) {
 
             if (data.success == true) {
                 $scope.boxArray = data.result;
@@ -419,12 +415,12 @@ app.controller("driver_attendance_controller", ["$scope","$rootScope", "$state",
         });
     }
     // 分页
-    $scope.pre_btn = function () {
+    $scope.previous_page = function () {
         $scope.start = $scope.start - ($scope.size-1);
         getData();
     };
 
-    $scope.next_btn = function () {
+    $scope.next_page = function () {
         $scope.start = $scope.start + ($scope.size-1);
         getData();
     };

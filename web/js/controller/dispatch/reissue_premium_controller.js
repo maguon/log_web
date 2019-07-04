@@ -188,13 +188,11 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
                 "driveId":$scope.dispatchNum.drive_id,
                 "truckId":$scope.dispatchNum.truck_id,
                 "receiveId": $scope.dispatchNum.receive_id,
-                "singlePrice": $scope.addSingMoney,
-                "totalPrice": $scope.addTotalMoney,
+                monthFlag:$scope.dispatchNum.month_flag,
                 "carCount": $scope.dispatchNum.car_count,
                 "trailerFee":  $scope.addTrailerFee,
                 "totalTrailerFee": $scope.addTrailerFee*$scope.dispatchNum.car_count,
                 "carParkingFee":  $scope.addCarParkingFee*$scope.dispatchNum.car_count,
-               /* "totalCarParkingFee": $scope.addCarParkingFee*$scope.dispatchNum.car_count,*/
                 "runFee":  $scope.addRunFee,
                 "totalRunFee": $scope.addRunFee*$scope.dispatchNum.car_count,
                 "leadFee":  $scope.addLeadFee,
@@ -211,6 +209,86 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
             })
         }
     }
+
+
+
+    //添加
+    $scope.addFeeItem = function (){
+        $scope.dpId='';
+        $scope.carItem=null;
+        $scope.dispatchNum=undefined;
+        $scope.remarkItem='';
+        $scope.addTrailerFee ='';
+        $scope.addCarParkingFee ='';
+        $scope.addRunFee ='';
+        $scope.addLeadFee ='';
+        $(".no_car_detail").hide();
+        $(".car_detail").hide();
+        $('#addFeeItem').modal('open');
+    };
+    //查找详细信息
+    $scope.getDetail = function (){
+        _basic.get($host.api_url + "/dpRouteLoadTask?dpRouteTaskId=" +$scope.dpId).then(function (data) {
+            if (data.success = true) {
+                if (data.result.length == 0) {
+                    $(".no_car_detail").show();
+                    $(".car_detail").hide();
+                } else {
+                    $(".no_car_detail").hide();
+                    $(".car_detail").show();
+                    $scope.addWashFeeBox = data.result;
+                    $scope.carItem = data.result[0];
+                }
+            }
+        })
+    }
+
+    $scope.addFee  = function(){
+        if($scope.dispatchNum==undefined){
+            swal('车辆或者补价不能为空', "", "error");
+        }
+        else{
+            if ($scope.dispatchNum.car_count==0||$scope.addTrailerFee==''||$scope.addCarParkingFee==''||
+                $scope.addRunFee==''||$scope.addLeadFee==''||$scope.dispatchNum.car_count==null) {
+                swal('车辆或者补价不能为空', "", "error");
+            }
+            else {
+                _basic.post($host.api_url + "/user/" + userId + "/dpRouteLoadTaskCleanRel", {
+                    "dpRouteTaskId": $scope.dispatchNum.dp_route_task_id,
+                    "dpRouteLoadTaskId": $scope.dispatchNum.id,
+                    "driveId":$scope.dispatchNum.drive_id,
+                    "truckId":$scope.dispatchNum.truck_id,
+                    "receiveId": $scope.dispatchNum.receive_id,
+                    monthFlag:$scope.dispatchNum.month_flag,
+                    "carCount": $scope.dispatchNum.car_count,
+                    "trailerFee":  $scope.addTrailerFee,
+                    "totalTrailerFee": $scope.addTrailerFee*$scope.dispatchNum.car_count,
+                    "carParkingFee":  $scope.addCarParkingFee*$scope.dispatchNum.car_count,
+                    "runFee":  $scope.addRunFee,
+                    "totalRunFee": $scope.addRunFee*$scope.dispatchNum.car_count,
+                    "leadFee":  $scope.addLeadFee,
+                    "type": 1,
+                    remark:$scope.remarkItem
+                }).then(function (data) {
+                    if (data.success === true) {
+                        $('#addFeeItem').modal('close');
+                        swal("操作成功", "", "success");
+                        getCarWashFeeList();
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                })
+            }
+        }
+
+    }
+
+
+
+
+
+
 
     // 分页
     $scope.previous_page = function () {

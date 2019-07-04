@@ -4,7 +4,8 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
     $scope.receive_status = "1";
     $scope.start = 0;
     $scope.size = 11;
-
+    $(".car_detail").hide();
+    $(".no_car_detail").hide();
     // 获取目的城市列表
     $scope.getCityList = function () {
         _basic.get($host.api_url + "/city").then(function (data) {
@@ -228,6 +229,66 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
             }).then(function (data) {
                 if (data.success === true) {
                     $('#addSingleMoney').modal('close');
+                    swal("操作成功", "", "success");
+                    getCarWashFeeList();
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            })
+        }
+    }
+
+
+    //添加
+    $scope.addFeeItem = function (){
+        $scope.dpId='';
+        $scope.carItem=null;
+        $scope.addSingMoneyItem=undefined;
+        $scope.remarkItem='';
+        $(".no_car_detail").hide();
+        $(".car_detail").hide();
+        $('#addFeeItem').modal('open');
+    };
+    //查找详细信息
+    $scope.getDetail = function (){
+        _basic.get($host.api_url + "/dpRouteLoadTask?dpRouteTaskId=" +$scope.dpId).then(function (data) {
+            if (data.success = true) {
+                if (data.result.length == 0) {
+                    $(".no_car_detail").show();
+                    $(".car_detail").hide();
+                } else {
+                    $(".no_car_detail").hide();
+                    $(".car_detail").show();
+                    $scope.addWashFeeBox = data.result;
+                    $scope.carItem = data.result[0];
+                    }
+                }
+        })
+    }
+
+    $scope.addFee  = function(){
+        if ($scope.dispatchNum.car_count==0||$scope.addSingMoneyItem==undefined||$scope.dispatchNum.car_count==null) {
+            swal('车辆或者补价不能为空', "", "error");
+        }
+        else {
+            _basic.post($host.api_url + "/user/" + userId + "/dpRouteLoadTaskCleanRel", {
+                "dpRouteTaskId": $scope.dispatchNum.dp_route_task_id,
+                "dpRouteLoadTaskId": $scope.dispatchNum.id,
+                "driveId":$scope.dispatchNum.drive_id,
+                "truckId":$scope.dispatchNum.truck_id,
+                "receiveId": $scope.dispatchNum.receive_id,
+                "smallSinglePrice": $scope.addSingMoneyItem,
+                'monthFlag':$scope.dispatchNum.month_flag,
+                actualPrice:$scope.addTotalMoney,
+                "totalPrice": $scope.addTotalMoney,
+                "carCount": $scope.dispatchNum.car_count,
+                "smallCarCount": $scope.dispatchNum.car_count,
+                "type": 1,
+                remark:$scope.remarkItem
+            }).then(function (data) {
+                if (data.success === true) {
+                    $('#addFeeItem').modal('close');
                     swal("操作成功", "", "success");
                     getCarWashFeeList();
                 }

@@ -268,35 +268,41 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
     }
 
     $scope.addFee  = function(){
-        if ($scope.dispatchNum.car_count==0||$scope.addSingMoneyItem==undefined||$scope.dispatchNum.car_count==null) {
+        if($scope.dispatchNum==undefined){
             swal('车辆或者补价不能为空', "", "error");
         }
-        else {
-            _basic.post($host.api_url + "/user/" + userId + "/dpRouteLoadTaskCleanRel", {
-                "dpRouteTaskId": $scope.dispatchNum.dp_route_task_id,
-                "dpRouteLoadTaskId": $scope.dispatchNum.id,
-                "driveId":$scope.dispatchNum.drive_id,
-                "truckId":$scope.dispatchNum.truck_id,
-                "receiveId": $scope.dispatchNum.receive_id,
-                "smallSinglePrice": $scope.addSingMoneyItem,
-                'monthFlag':$scope.dispatchNum.month_flag,
-                actualPrice:$scope.addTotalMoney,
-                "totalPrice": $scope.addTotalMoney,
-                "carCount": $scope.dispatchNum.car_count,
-                "smallCarCount": $scope.dispatchNum.car_count,
-                "type": 1,
-                remark:$scope.remarkItem
-            }).then(function (data) {
-                if (data.success === true) {
-                    $('#addFeeItem').modal('close');
-                    swal("操作成功", "", "success");
-                    getCarWashFeeList();
-                }
-                else {
-                    swal(data.msg, "", "error");
-                }
-            })
+        else{
+            if ($scope.dispatchNum.car_count==0||$scope.addSingMoneyItem==undefined||$scope.dispatchNum.car_count==null) {
+                swal('车辆或者补价不能为空', "", "error");
+            }
+            else {
+                _basic.post($host.api_url + "/user/" + userId + "/dpRouteLoadTaskCleanRel", {
+                    "dpRouteTaskId": $scope.dispatchNum.dp_route_task_id,
+                    "dpRouteLoadTaskId": $scope.dispatchNum.id,
+                    "driveId":$scope.dispatchNum.drive_id,
+                    "truckId":$scope.dispatchNum.truck_id,
+                    "receiveId": $scope.dispatchNum.receive_id,
+                    "smallSinglePrice": $scope.addSingMoneyItem,
+                    'monthFlag':$scope.dispatchNum.month_flag,
+                    actualPrice:$scope.addTotalMoney,
+                    "totalPrice": $scope.addTotalMoney,
+                    "carCount": $scope.dispatchNum.car_count,
+                    "smallCarCount": $scope.dispatchNum.car_count,
+                    "type": 1,
+                    remark:$scope.remarkItem
+                }).then(function (data) {
+                    if (data.success === true) {
+                        $('#addFeeItem').modal('close');
+                        swal("操作成功", "", "success");
+                        getCarWashFeeList();
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                })
+            }
         }
+
     }
 
     // 分页

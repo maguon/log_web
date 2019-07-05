@@ -579,6 +579,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     $scope.showCreateLine = function (cityId) {
         $scope.lineEndCityInfo = "";
         $scope.lineStartDate = "";
+        $scope.reverseFlag ='';
         // 线路的起始城市根据当前线路的最后一条的结束城市为准
         if($scope.currentLineList&&$scope.currentLineList.length === 0){
             $scope.startCityName = $scope.dispatchInfo.city_name;
@@ -657,6 +658,18 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         }
     }
 
+    $scope.changeReverseF = function (el){
+        if(el.reverse_money==0){
+            $scope.reverseFlag=0;
+        }
+        else{
+            $scope.reverseFlag=1;
+        }
+
+    }
+
+
+
     // 新增路线 保存  按钮
     $scope.keepLineInfo =function (){
         if($scope.dispatchInfo.operate_type==1){
@@ -678,6 +691,8 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 distance: $scope.endCityInfoMod.distance,
                 oilDistance:$scope.endCityInfoMod.distance,
                 taskPlanDate: $scope.lineStartDate,
+                reverseFlag:$scope.reverseFlag,
+                reverseMoney: $scope.reverseFlag==0?0:$scope.lineEndCityInfo.reverse_money,
                 outerFlag:$scope.operateTypeKeep
             }).then(function (data) {
                 if (data.success === true) {
@@ -698,11 +713,11 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     // 新增路线 发布 按钮
     $scope.confirmChange = function () {
-        if($scope.dispatchInfo.operate_type==1){
-            $scope.operateType=0
+        if ($scope.dispatchInfo.operate_type == 1) {
+            $scope.operateType = 0
         }
         else {
-            $scope.operateType=1
+            $scope.operateType = 1
         }
         if ($scope.lineEndCityInfo != "" && $scope.lineStartDate != "") {
             var routeStartId;
@@ -719,7 +734,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             /*有空使得情况下*/
             if (routeStartId !== $scope.lastEndCityId && $scope.lastEndCityId !== undefined) {
                 _basic.get($host.api_url + "/cityRoute?routeStartId=" + $scope.lastEndCityId + "&routeEndId=" + $scope.startCityId).then(function (data) {
-                    if (data.success == true&&data.result.length>0) {
+                    if (data.success == true && data.result.length > 0) {
                         $scope.blankId = data.result[0].id;
                         $scope.blankDistance = data.result[0].distance;
                         $scope.blankOilDistance = data.result[0].distance;
@@ -730,16 +745,15 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                             type: 'question',
                             showCancelButton: true,
                             confirmButtonText: '创建空驶和新路线',
-                            cancelButtonColor:'#d33',
+                            cancelButtonColor: '#d33',
                             cancelButtonText: '仅创建新路线',
                             reverseButtons: true
-                        }).then( function (result) {
+                        }).then(function (result) {
                             if (result.value) {
-                                if( $scope.lastEndCityId==0||$scope.lastEndCity==''){
+                                if ($scope.lastEndCityId == 0 || $scope.lastEndCity == '') {
                                     swal('空驶起始地为空,请先设置位置!', "", "error");
                                 }
                                 else {
-
                                     /*空使*/
                                     _basic.post($host.api_url + "/user/" + userId + "/emptyDpRouteTask", {
                                         truckId: $scope.dispatchInfo.truck_id,
@@ -751,11 +765,13 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                                         routeEndId: routeStartId,
                                         routeEnd: routeStart,
                                         distance: $scope.blankDistance,
-                                        oilDistance:$scope.blankDistance,
+                                        oilDistance: $scope.blankDistance,
                                         cityRouteId: $scope.blankId,
                                         taskStatus: 10,
                                         taskPlanDate: $scope.lineStartDate,
-                                        outerFlag:$scope.operateType
+                                        reverseFlag: $scope.reverseFlag,
+                                        reverseMoney: $scope.reverseFlag == 0 ? 0 : $scope.lineEndCityInfo.reverse_money,
+                                        outerFlag: $scope.operateType
                                     }).then(function (data) {
                                         if (data.success == true) {
                                             $scope.lineInfo = false;
@@ -773,10 +789,12 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                                         routeEndId: $scope.lineEndCityInfo.end_id,
                                         routeEnd: $scope.lineEndCityInfo.city_name,
                                         distance: $scope.lineEndCityInfo.distance,
-                                        oilDistance:$scope.lineEndCityInfo.distance,
+                                        oilDistance: $scope.lineEndCityInfo.distance,
                                         cityRouteId: $scope.lineEndCityInfo.id,
                                         taskPlanDate: $scope.lineStartDate,
-                                        outerFlag:$scope.operateType
+                                        reverseFlag: $scope.reverseFlag,
+                                        reverseMoney: $scope.reverseFlag == 0 ? 0 : $scope.lineEndCityInfo.reverse_money,
+                                        outerFlag: $scope.operateType
                                     }).then(function (data) {
                                         if (data.success === true) {
                                             $scope.lineInfo = false;
@@ -788,9 +806,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                                     });
 
 
-
                                 }
-
 
 
                             }
@@ -806,10 +822,12 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                                     routeEndId: $scope.lineEndCityInfo.end_id,
                                     routeEnd: $scope.lineEndCityInfo.city_name,
                                     distance: $scope.lineEndCityInfo.distance,
-                                    oilDistance:$scope.lineEndCityInfo.distance,
+                                    oilDistance: $scope.lineEndCityInfo.distance,
                                     cityRouteId: $scope.lineEndCityInfo.id,
                                     taskPlanDate: $scope.lineStartDate,
-                                    outerFlag:$scope.operateType
+                                    reverseFlag: $scope.reverseFlag,
+                                    reverseMoney: $scope.reverseFlag == 0 ? 0 : $scope.lineEndCityInfo.reverse_money,
+                                    outerFlag: $scope.operateType
                                 }).then(function (data) {
                                     if (data.success === true) {
                                         $scope.lineInfo = false;
@@ -820,7 +838,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                                     }
                                 })
                             }
-                            else{
+                            else {
                                 return;
                             }
                         });
@@ -835,7 +853,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                             confirmButtonColor: "#DD6B55",
                             confirmButtonText: '创建新路线',
                             cancelButtonText: '取消'
-                        }).then( function (result) {
+                        }).then(function (result) {
                             if (result.value) {
                                 /*新路线*/
                                 _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask", {
@@ -848,10 +866,12 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                                     routeEndId: $scope.lineEndCityInfo.end_id,
                                     routeEnd: $scope.lineEndCityInfo.city_name,
                                     distance: $scope.lineEndCityInfo.distance,
-                                    oilDistance:$scope.lineEndCityInfo.distance,
+                                    oilDistance: $scope.lineEndCityInfo.distance,
                                     cityRouteId: $scope.lineEndCityInfo.id,
                                     taskPlanDate: $scope.lineStartDate,
-                                    outerFlag:$scope.operateType
+                                    reverseFlag: $scope.reverseFlag,
+                                    reverseMoney: $scope.reverseFlag == 0 ? 0 : $scope.lineEndCityInfo.reverse_money,
+                                    outerFlag: $scope.operateType
                                 }).then(function (data) {
                                     if (data.success === true) {
                                         $scope.lineInfo = false;
@@ -863,15 +883,15 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                                 });
 
                             }
-                            else{
+                            else {
                                 return;
                             }
                         });
                     }
                 });
             }
-           /*没有空使直接建新路线*/
-            else{
+            /*没有空使直接建新路线*/
+            else {
                 /*新路线*/
                 _basic.post($host.api_url + "/user/" + userId + "/dpRouteTask", {
                     truckId: $scope.dispatchInfo.truck_id,
@@ -883,10 +903,12 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                     routeEndId: $scope.lineEndCityInfo.end_id,
                     routeEnd: $scope.lineEndCityInfo.city_name,
                     distance: $scope.lineEndCityInfo.distance,
-                    oilDistance:$scope.lineEndCityInfo.distance,
+                    oilDistance: $scope.lineEndCityInfo.distance,
                     cityRouteId: $scope.lineEndCityInfo.id,
                     taskPlanDate: $scope.lineStartDate,
-                    outerFlag:$scope.operateType
+                    reverseFlag: $scope.reverseFlag,
+                    reverseMoney: $scope.reverseFlag == 0 ? 0 : $scope.lineEndCityInfo.reverse_money,
+                    outerFlag: $scope.operateType
                 }).then(function (data) {
                     if (data.success === true) {
                         $scope.lineInfo = false;
@@ -901,8 +923,8 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         else {
             swal("请填写完整信息", "", "error");
         }
-    };
-
+        ;
+    }
     // 新增路线取消按钮
     $scope.hideLineInfo = function () {
         $scope.lineInfo = false;
@@ -1214,6 +1236,8 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             distance:temporaryLine.distance,
             oilDistance:temporaryLine.distance,
             taskPlanDate: moment(temporaryLine.task_plan_date.toString()).format("YYYY-MM-DD"),
+            reverseFlag:   $scope.reverseFlag,
+            reverseMoney:  $scope.reverseFlag==0?0:$scope.lineEndCityInfo.reverse_money,
             currentCity:$scope.dispatchInfo.current_city,
             outerFlag:$scope.releaseOperatType
         };

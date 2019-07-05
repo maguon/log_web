@@ -282,17 +282,34 @@
                     </div>
 
                     <div class="col s6 center-align">
-                        <select id="chooseEndCityMod"  name="state" style="width:100%;display: block;background: #fafafa;border: 1px solid #fafafa;border-bottom: 1px solid #000" ng-model="endCityInfoMod" ng-options="city.city_name + ' ' + city.distance + ' km'   for city in addCityList" >
+                        <select id="chooseEndCityMod"  name="state" style="width:100%;display: block;background: #fafafa;border: 1px solid #fafafa;border-bottom: 1px solid #000" ng-options="city.city_name + ' ' + city.distance + ' km'+ ' ' + city.reverse_money + ' 元'  for city in addCityList" ng-change="changeReverseF(endCityInfoMod)"  ng-model="endCityInfoMod">
                             <option value="">目的城市</option>
                         </select>
                     </div>
                 </div>
-                <div class="col s6">
-                    <div class="col s5 right-align" style="padding-top:17px">
+
+                <div class="col s2" style="padding: 0;">
+                    <div class="col s6 right-align" style="padding-top:17px">
+                        <p>倒板：</p>
+                    </div>
+                    <div class="col s6" style="padding: 0">
+                        <div class="col s12 input-field" style="margin: 0;padding: 0">
+                            <select  material-select watch ng-model="reverseFlag" id="reverseFl">
+                                <option value="" selected disabled>请选择</option>
+                                <option ng-value="0">否</option>
+                                <option ng-value="1">是</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col s4">
+                    <div class="col s6 right-align" style="padding-top:17px">
                         <p>计划执行时间：</p>
                     </div>
-                    <div class="col s7" style="padding: 0">
-                        <div class="col s7 input-field" style="margin: 0;padding: 0">
+                    <div class="col s6" style="padding: 0">
+                        <div class="col s12 input-field" style="margin: 0;padding: 0">
                             <input id="verification_timeM" type="text" class="datepicker" ng-model="lineStartDate" date>
                             <i class="mdi dataIcon mdi-table-large"></i>
                             <label for="verification_timeM">指令时间</label>
@@ -615,26 +632,41 @@
                                     </div>
                                     <div class="col s1 mdi mdi-arrow-right" style="margin-top: 10px"></div>
                                     <div class="col s6">
-                                        <select watch material-select id="chooseEndCity" name="state" style="width:100%" ng-options="city.city_name + ' ' + city.distance+ ' km'   for city in cityList" ng-model="lineEndCityInfo">
+                                        <select watch material-select id="chooseEndCity" name="state" style="width:100%" ng-options="city.city_name + ' ' + city.distance+ ' km'  + ' ' + city.reverse_money+ ' 元'  for city in cityList" ng-change="changeReverseF(lineEndCityInfo)" ng-model="lineEndCityInfo">
                                             <option value=""></option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col s5">
-                                    <div class="col s5 right-align">
+
+                                <div class="col s2" style="padding: 0;">
+                                    <div class="col s6 right-align">
+                                        <p>倒板：</p>
+                                    </div>
+                                    <div class="col s6" style="padding: 0">
+                                        <div class="col s12 input-field" style="margin: 0;padding: 0">
+                                            <select  material-select watch ng-model="reverseFlag" id="reverseF">
+                                                <option value="" selected disabled>请选择</option>
+                                                <option ng-value="0">否</option>
+                                                <option ng-value="1">是</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col s4" style="padding: 0;">
+                                    <div class="col s6 right-align">
                                         <p>计划执行时间：</p>
                                     </div>
-                                    <div class="col s7" style="padding: 0">
-                                        <div class="col s7 input-field" style="margin: 0;padding: 0">
+                                    <div class="col s6" style="padding: 0">
+                                        <div class="col s12 input-field" style="margin: 0;padding: 0">
                                             <input id="verification_time2" type="text" class="datepicker" ng-model="lineStartDate" date>
                                             <i class="mdi dataIcon mdi-table-large"></i>
-                                         <!--   <label for="verification_time2">指令时间</label>-->
                                         </div>
                                     </div>
                                 </div>
 
                                 <!--取消  保存   发布-->
-                                <div class="col s3" style="padding-right: 27px">
+                                <div class="col s2" style="padding-right: 27px">
 
                                     <!--取消-->
                                     <div class="col s6 right-align" style="padding: 10px 5px">
@@ -958,6 +990,7 @@
                                                         <p style="margin: 0">{{temporaryLine.city_route_start}}&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;{{temporaryLine.city_route_end}}</p>
                                                     </div>
                                                 </div>
+
                                                 <div class="col s6">
                                                     <div class="col s6 right-align" style="padding: 0">
                                                         <p style="margin: 0">计划执行时间：</p>

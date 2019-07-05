@@ -631,6 +631,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     //打开生成临时路线模态框
     $scope.showCreateTemporaryLine = function(){
         $scope.reverseFlag ='';
+        $scope.lineStartDate = '';
         $("#temporaryLineMod").modal("open");
         getBaseAddr();
     }

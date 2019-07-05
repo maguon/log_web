@@ -694,7 +694,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 oilDistance:$scope.endCityInfoMod.distance,
                 taskPlanDate: $scope.lineStartDate,
                 reverseFlag:$scope.reverseFlag,
-                reverseMoney: $scope.reverseFlag==0?0:$scope.lineEndCityInfo.reverse_money,
+                reverseMoney: $scope.reverseFlag==0?0:$scope.endCityInfoMod.reverse_money,
                 outerFlag:$scope.operateTypeKeep
             }).then(function (data) {
                 if (data.success === true) {
@@ -771,8 +771,8 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                                         cityRouteId: $scope.blankId,
                                         taskStatus: 10,
                                         taskPlanDate: $scope.lineStartDate,
-                                        reverseFlag: $scope.reverseFlag,
-                                        reverseMoney: $scope.reverseFlag == 0 ? 0 : $scope.lineEndCityInfo.reverse_money,
+                                        reverseFlag:0,
+                                        reverseMoney: 0,
                                         outerFlag: $scope.operateType
                                     }).then(function (data) {
                                         if (data.success == true) {
@@ -1238,8 +1238,8 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             distance:temporaryLine.distance,
             oilDistance:temporaryLine.distance,
             taskPlanDate: moment(temporaryLine.task_plan_date.toString()).format("YYYY-MM-DD"),
-            reverseFlag:   $scope.reverseFlag,
-            reverseMoney:  $scope.reverseFlag==0?0:$scope.lineEndCityInfo.reverse_money,
+            reverseFlag:   temporaryLine.reverse_flag,
+            reverseMoney:  temporaryLine.reverse_money==''||0?0:temporaryLine.reverse_money,
             currentCity:$scope.dispatchInfo.current_city,
             outerFlag:$scope.releaseOperatType
         };

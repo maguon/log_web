@@ -661,13 +661,17 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     }
 
     $scope.changeReverseF = function (el){
-        if(el.reverse_money==0||el.reverse_money==''||el.reverse_money==null){
+        if(el==null){
             $scope.reverseFlag=0;
         }
         else{
-            $scope.reverseFlag=1;
+            if(el.reverse_money==0||el.reverse_money==''||el.reverse_money==null){
+                $scope.reverseFlag=0;
+            }
+            else{
+                $scope.reverseFlag=1;
+            }
         }
-
     }
 
 

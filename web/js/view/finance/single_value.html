@@ -49,112 +49,171 @@
         </div>
     </div>
 
-    <!--表格-->
-    <div class="row">
-        <div style="overflow-x: scroll">
-         <!--   <div class="cyan" style="height: 2px;"></div>-->
-            <table class="bordered striped text_mid" style="border-top: 2px solid rgb(38,198,218)">
-                <thead class="blue-grey lighten-5">
-                <tr class="grey-text text-darken-2" style="word-break:keep-all">
-                    <th>月份</th>
-                    <th>司机姓名</th>
-                    <th>货车牌号</th>
-                    <th>货车品牌</th>
-                    <th>板车位数</th>
-                    <th>所属类型</th>
-                    <th>所属公司</th>
-                    <th>产值公司</th>
-                    <th>倒板数</th>
-                    <th>倒板工资</th>
-                    <th>重载里程</th>
-                    <th>空载里程</th>
-                    <th>总里程</th>
-                    <th>重载率</th>
-                    <th>重车油耗</th>
-                    <th>空车油耗</th>
-                    <th>运送台数经销商</th>
-                    <th>运送台数库</th>
-                    <th>产值收入</th>
-                    <th>货车保险费</th>
-                    <th>折旧费</th>
-                    <th>应发里程工资</th>
-                    <th>质损个人</th>
-                    <th>质损单位</th>
-                    <th>洗车费</th>
-                    <th>出勤天数</th>
-                    <th>住宿费</th>
-                    <th>进门费</th>
-                    <th>拖车费</th>
-                    <th>提车费</th>
-                    <th>地跑费</th>
-                    <th>带路费</th>
-                    <th>过路费</th>
-                    <th>油费</th>
-                    <th>尿素费</th>
-                    <th>违章罚款个人</th>
-                    <th>违章罚款公司</th>
-                    <th>维修费</th>
-                    <th>配件费</th>
-                    <th>保养费</th>
-                    <th>商品车加油</th>
-                    <th>商品车停车</th>
-                    <th>货车停车费</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="driver in driverInfoList" class="grey-text text-darken-1" style="word-break:keep-all">
-                    <td>{{driver.y_month}}</td>
-                    <td>{{driver.drive_name}}</td>
-                    <td>{{driver.truck_num}}</td>
-                    <td>{{driver.brand_name}}</td>
-                    <td>{{driver.truck_number}}</td>
-                    <td>{{driver.operate_type==1?'自营':'外协'}}</td>
-                    <td>{{driver.company_name}}</td>
-                    <td>{{driver.output_company_name}}</td>
-                    <td>{{driver.reverse_count}}</td>
-                    <td>{{driver.reverse_salary}}</td>
-                    <td>{{driver.load_distance}}</td>
-                    <td>{{driver.no_load_distance}}</td>
-                    <td>{{driver.distance}}</td>
-                    <td>{{(driver.load_distance/driver.distance).toFixed(2)}}</td>
-                    <td>{{driver.load_oil_distance}}</td>
-                    <td>{{driver.no_oil_distance}}</td>
-                    <td>{{driver.receive_car_count}}</td>
-                    <td>{{driver.storage_car_count}}</td>
-                    <td>{{driver.output}}</td>
-                    <td>{{driver.insure_fee}}</td>
-                    <td>{{driver.depreciation_fee}}</td>
-                    <td>{{driver.distance_salary}}</td>
-                    <td>{{driver.damage_under_fee }}</td>
-                    <td>{{driver.damage_company_fee }}</td>
-                    <td>{{driver.clean_fee}}</td>
-                    <td>{{driver.work_count }}</td>
-                    <td>{{driver.hotel_fee}}</td>
-                    <td>{{driver.enter_fee}}</td>
-                    <td>{{driver.trailer_fee }}</td>
-                    <td>{{driver.car_parking_fee }}</td>
-                    <td>{{driver.run_fee }}</td>
-                    <td>{{driver.lead_fee }}</td>
-                    <td>{{driver.etc_fee}}</td>
-                    <td>{{driver.oil_fee}}</td>
-                    <td>{{driver.urea_fee}}</td>
-                    <td>{{driver.peccancy_under_fee }}</td>
-                    <td>{{driver.peccancy_company_fee }}</td>
-                    <td>{{driver.repair_fee }}</td>
-                    <td>{{driver.parts_fee}}</td>
-                    <td>{{driver.maintain_fee }}</td>
-                    <td>{{driver.car_oil_fee }}</td>
-                    <td>{{driver.car_parking_total_fee }}</td>
-                    <td>{{driver.truck_parking_fee}}</td>
 
-                </tr>
-                <tr class="grey-text text-darken-1" ng-show="driverInfoList.length == 0">
-                    <td colspan="43"><span style="letter-spacing: 2px">暂无数据</span></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+
+
+
+
+    <div class="row" style="height: 450px;width:100%;overflow-x: scroll" ng-show="driverInfoList.length !== 0">
+        <table width="80%" border="2"  class="bordered striped text_mid tb_table"  style="border-top: 2px solid rgb(38,198,218); ">
+        <thead style=" width: calc( 100% - 1em )" class="blue-grey lighten-5">
+        <tr style="text-align: center;display:table;width:100%;table-layout:fixed;" class="grey-text text-darken-2">
+            <th width="200" class="center-align">月份</th>
+            <th width="200" class="center-align">司机姓名</th>
+            <th width="200" class="center-align">货车牌号</th>
+            <th width="200" class="center-align">货车品牌</th>
+            <th width="200" class="center-align">板车位数</th>
+            <th width="200" class="center-align">所属类型</th>
+            <th width="200" class="center-align">所属公司</th>
+            <th width="200" class="center-align">产值公司</th>
+            <th width="200" class="center-align">倒板数</th>
+            <th width="200" class="center-align">倒板工资</th>
+            <th width="200" class="center-align">重载里程</th>
+            <th width="200" class="center-align">空载里程</th>
+            <th width="200" class="center-align">总里程</th>
+            <th width="200" class="center-align">重载率</th>
+            <th width="200" class="center-align">重车油耗</th>
+            <th width="200" class="center-align">空车油耗</th>
+            <th width="200" class="center-align">运送台数经销商</th>
+            <th width="200" class="center-align">运送台数库</th>
+            <th width="200" class="center-align">产值收入</th>
+            <th width="200" class="center-align">货车保险费</th>
+            <th width="200" class="center-align">折旧费</th>
+            <th width="200" class="center-align">应发里程工资</th>
+            <th width="200" class="center-align">质损个人</th>
+            <th width="200" class="center-align">质损单位</th>
+            <th width="200" class="center-align">洗车费</th>
+            <th width="200" class="center-align">出勤天数</th>
+            <th width="200" class="center-align">住宿费</th>
+            <th width="200" class="center-align">进门费</th>
+            <th width="200" class="center-align">拖车费</th>
+            <th width="200" class="center-align">提车费</th>
+            <th width="200" class="center-align">地跑费</th>
+            <th width="200" class="center-align">带路费</th>
+            <th width="200" class="center-align">过路费</th>
+            <th width="200" class="center-align">油费</th>
+            <th width="200" class="center-align">尿素费</th>
+            <th width="200" class="center-align">违章罚款个人</th>
+            <th width="200" class="center-align">违章罚款公司</th>
+            <th width="200" class="center-align">维修费</th>
+            <th width="200" class="center-align">配件费</th>
+            <th width="200" class="center-align">保养费</th>
+            <th width="200" class="center-align">商品车加油</th>
+            <th width="200" class="center-align">商品车停车</th>
+            <th width="200" class="center-align">货车停车费</th>
+
+        </tr>
+        </thead>
+        <tbody style=" display:block;height:370px;overflow-y:scroll;">
+
+       <tr style="text-align: center;display:table;width:100%;table-layout:fixed;" class="grey-text text-darken-1"  ng-repeat="driver in driverInfoList" >
+           <td width="200" class="center-align">{{driver.y_month}}</td>
+           <td width="200" class="center-align">{{driver.drive_name}}</td>
+           <td width="200" class="center-align">{{driver.truck_num}}</td>
+           <td width="200" class="center-align">{{driver.brand_name}}</td>
+           <td width="200" class="center-align">{{driver.truck_number}}</td>
+           <td width="200" class="center-align">{{driver.operate_type==1?'自营':'外协'}}</td>
+           <td width="200" class="center-align">{{driver.company_name}}</td>
+           <td width="200" class="center-align">{{driver.output_company_name}}</td>
+           <td width="200" class="center-align">{{driver.reverse_count}}</td>
+           <td width="200" class="center-align">{{driver.reverse_salary}}</td>
+           <td width="200" class="center-align">{{driver.load_distance}}</td>
+           <td width="200" class="center-align">{{driver.no_load_distance}}</td>
+           <td width="200" class="center-align">{{driver.distance}}</td>
+           <td width="200" class="center-align">{{(driver.load_distance/driver.distance).toFixed(2)}}</td>
+           <td width="200" class="center-align">{{driver.load_oil_distance}}</td>
+           <td width="200" class="center-align">{{driver.no_oil_distance}}</td>
+           <td width="200" class="center-align">{{driver.receive_car_count}}</td>
+           <td width="200" class="center-align">{{driver.storage_car_count}}</td>
+           <td width="200" class="center-align">{{driver.output}}</td>
+           <td width="200" class="center-align">{{driver.insure_fee}}</td>
+           <td width="200" class="center-align">{{driver.depreciation_fee}}</td>
+           <td width="200" class="center-align">{{driver.distance_salary}}</td>
+           <td width="200" class="center-align">{{driver.damage_under_fee }}</td>
+           <td width="200" class="center-align">{{driver.damage_company_fee }}</td>
+           <td width="200" class="center-align">{{driver.clean_fee}}</td>
+           <td width="200" class="center-align">{{driver.work_count }}</td>
+           <td width="200" class="center-align">{{driver.hotel_fee}}</td>
+           <td width="200" class="center-align">{{driver.enter_fee}}</td>
+           <td width="200" class="center-align">{{driver.trailer_fee }}</td>
+           <td width="200" class="center-align">{{driver.car_parking_fee }}</td>
+           <td width="200" class="center-align">{{driver.run_fee }}</td>
+           <td width="200" class="center-align">{{driver.lead_fee }}</td>
+           <td width="200" class="center-align">{{driver.etc_fee}}</td>
+           <td width="200" class="center-align">{{driver.oil_fee}}</td>
+           <td width="200" class="center-align">{{driver.urea_fee}}</td>
+           <td width="200" class="center-align">{{driver.peccancy_under_fee }}</td>
+           <td width="200" class="center-align">{{driver.peccancy_company_fee }}</td>
+           <td width="200" class="center-align">{{driver.repair_fee }}</td>
+           <td width="200" class="center-align">{{driver.parts_fee}}</td>
+           <td width="200" class="center-align">{{driver.maintain_fee }}</td>
+           <td width="200" class="center-align">{{driver.car_oil_fee }}</td>
+           <td width="200" class="center-align">{{driver.car_parking_total_fee }}</td>
+           <td width="200" class="center-align">{{driver.truck_parking_fee}}</td>
+       </tr>
+        </tbody>
+    </table>
     </div>
+
+    <div class="row" style="height:125px;width:100%;overflow-x: auto" ng-show="driverInfoList.length == 0">
+        <table class="bordered striped text_mid" style="border-top: 2px solid rgb(38,198,218);">
+            <thead class="blue-grey lighten-5">
+            <tr class="grey-text text-darken-2" style="word-break:keep-all">
+                <th>月份</th>
+                <th>司机姓名</th>
+                <th>货车牌号</th>
+                <th>货车品牌</th>
+                <th>板车位数</th>
+                <th>所属类型</th>
+                <th>所属公司</th>
+                <th>产值公司</th>
+                <th>倒板数</th>
+                <th>倒板工资</th>
+                <th>重载里程</th>
+                <th>空载里程</th>
+                <th>总里程</th>
+                <th>重载率</th>
+                <th>重车油耗</th>
+                <th>空车油耗</th>
+                <th>运送台数经销商</th>
+                <th>运送台数库</th>
+                <th>产值收入</th>
+                <th>货车保险费</th>
+                <th>折旧费</th>
+                <th>应发里程工资</th>
+                <th>质损个人</th>
+                <th>质损单位</th>
+                <th>洗车费</th>
+                <th>出勤天数</th>
+                <th>住宿费</th>
+                <th>进门费</th>
+                <th>拖车费</th>
+                <th>提车费</th>
+                <th>地跑费</th>
+                <th>带路费</th>
+                <th>过路费</th>
+                <th>油费</th>
+                <th>尿素费</th>
+                <th>违章罚款个人</th>
+                <th>违章罚款公司</th>
+                <th>维修费</th>
+                <th>配件费</th>
+                <th>保养费</th>
+                <th>商品车加油</th>
+                <th>商品车停车</th>
+                <th>货车停车费</th>
+            </tr>
+            </thead>
+
+            <tbody style="height: 20px;width: 100%;overflow-y: scroll" >
+            <tr class="grey-text text-darken-1">
+                <td colspan="43"><span style="letter-spacing: 2px">暂无数据</span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
 
    <!-- &lt;!&ndash;分页&ndash;&gt;
     <div class="row">

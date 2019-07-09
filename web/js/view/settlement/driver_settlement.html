@@ -92,6 +92,7 @@
                 <th data-field="">里程工资</th>
                 <th data-field="">倒板工资</th>
                 <th data-field="">产值</th>
+                <th data-field="">二级产值</th>
             </tr>
             </thead>
             <tbody>
@@ -105,12 +106,13 @@
                 <td>{{settlementInfo.distance_salary}}</td>
                 <td>{{settlementInfo.reverse_salary}}</td>
                 <td>{{settlementInfo.output}}</td>
+                <td>{{settlementInfo.two_output}}</td>
             </tr>
             <tr ng-if="settlementList.length==0&&instruct_starTime!==undefined&&instruct_endTime!==undefined">
-                <td colspan="9">暂无数据</td>
+                <td colspan="10">暂无数据</td>
             </tr>
             <tr ng-if="instruct_starTime==undefined||instruct_endTime==undefined&&settlementList.length==0">
-                <td colspan="9"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;计划执行时间为必填项</td>
+                <td colspan="10"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;计划执行时间为必填项</td>
             </tr>
             </tbody>
         </table>

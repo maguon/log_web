@@ -196,4 +196,9 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/system_settings/data_dictionary.html",
             controller:'data_dictionary_controller'
         })
+        .state("setting_settlement_outsourcing",{
+            url:"/setting_settlement_outsourcing",
+            templateUrl: "js/view/system_settings/setting_settlement_outsourcing.html",
+            controller:'setting_settlement_outsourcing_controller'
+        })
 }]);

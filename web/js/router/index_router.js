@@ -932,6 +932,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/settlement/car_settlement.html",
             controller:'car_settlement_controller'
         })
+        .state("settlement_outsourcing",{
+            url:"/settlement_outsourcing",
+            templateUrl: "js/view/settlement/settlement_outsourcing.html",
+            controller:'settlement_outsourcing_controller'
+        })
 
 
         // 下载app

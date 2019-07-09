@@ -31,31 +31,24 @@
 
 
                             <div class="col s3 m3 l2" style="margin:5px 0;" ng-repeat="carBand in carBandList">
-                                <a  style="width: 100%;font-size: 10px;height:44px;border:1px solid #00b0ff;padding: 0 10px;display: flex !important;" class="waves-effect vc-center  cyan white-text  waves-light btn">
+                                <a  style="width: 100%;font-size: 10px;height:50px;border:1px solid #00b0ff;padding: 0 10px;display: flex !important;" class="waves-effect vc-center  cyan white-text  waves-light btn">
                                     <div>
-                                        <p style="margin: 0;display: block;height: 18px;line-height: 18px">{{carBand.make_name}}</p>
+                                        <p style="margin: 0;display: block;height: 18px;line-height: 18px">{{carBand.make_name}}({{carBand.size_type==0?'小':'大'}})</p>
                                         <p ng-if="carBand.dis !== ''" style="margin: 0;display: block;height: 18px;line-height: 18px">{{carBand.distance == "" ? carBand.distance :carBand.distance+'公里' +'x'+  carBand.fee+'元'}}</p>
+                                        <p ng-if="carBand.dis !== ''" style="margin: 0;display: block;height: 18px;line-height: 18px">{{carBand.two_distance == "" ? carBand.two_distance :carBand.two_distance+'公里' +'x'+  carBand.two_fee+'元'}}</p>
                                     </div>
                                 </a>
                             </div>
 
                             <div class="row col s12" style="margin-top: 30px">
                             <!--品牌-->
-                            <div class="input-field col s3">
+                            <div class="input-field col s6">
                                 <select material-select watch id="car_brand" name="car_brand" ng-options="car_brand.make_name for car_brand in get_carMake"   ng-model="car_brand" >
                                     <option value="" disabled selected>请选择</option>
                                 </select>
                                 <label for="car_brand">品牌</label>
                             </div>
-                            <div class="col s3 input-field">
-                                <input  id="distance" ng-model="distance" type="number" name="distance"  required >
-                                <label for="distance"><span style="color: red">*</span>公里数(公里)</label>
-                            </div>
-                            <div class="col s3 input-field">
-                                <input  id="price" ng-model="price" type="number"  name="price" required >
-                                <label for="price"><span style="color: red">*</span>价格(元)/公里</label>
-                            </div>
-                            <div class="col s3 input-field">
+                            <div class="col s6 input-field">
                                 <select material-select watch id="car_type" name="car_type" ng-model="car_type" >
                                     <option value="" disabled selected>请选择</option>
                                     <option ng-value="1">大</option>
@@ -63,8 +56,33 @@
                                 </select>
                                 <label for="car_brand">车型</label>
                             </div>
-                            <div class="col s12 right-align input-field">
+                            <div class="col s4 input-field">
+                                <input  id="distance" ng-model="distance" type="number" name="distance"  required >
+                                <label for="distance"><span style="color: red">*</span>公里数(公里)</label>
+                            </div>
+                            <div class="col s4 input-field">
+                                <input  id="price" ng-model="price" type="number"  name="price" required >
+                                <label for="price"><span style="color: red">*</span>价格(元)/公里</label>
+                            </div>
+                            <div class="col s4 right-align" style="padding-top:20px ">
                                 总价：<span class="red-text bold fz20"> {{price*distance|number:2}}</span>元
+                            </div>
+
+                            <div class="col s12" style="margin-bottom: 10px">
+                                二级
+                            </div>
+
+
+                            <div class="col s4 input-field" style="margin: 0">
+                                <input  id="distance1" ng-model="distance1" type="number" name="distance"  required >
+                                <label for="distance1">公里数(公里)</label>
+                            </div>
+                            <div class="col s4 input-field" style="margin: 0">
+                                <input  id="price1" ng-model="price1" type="number"  name="price" required >
+                                <label for="price1">价格(元)/公里</label>
+                            </div>
+                            <div class="col s4 right-align" style="padding-top:20px ">
+                                二级总价：<span class="red-text bold fz20"> {{price1*distance1|number:2}}</span>元
                             </div>
                             </div>
                         </div>

@@ -44,45 +44,68 @@
     <div class="cyan lighten-1 white-text center-align modal_title" >修改委托方</div>
     <div  class="modal-content" style="padding: 12px">
         <div  class="row" style="padding: 0;margin: 0">
-            <div class="col s12" style="width: 100%;padding: 0;margin: 0;">
+            <div class="col s12" style="width: 80%;margin-left: 10%">
                     <!--委托方-->
-                    <div class="col s4 input-field">
+                    <div class="col input-field" style="width: 20%">
                         <input id="putShortName" name="putShortName"  ng-model="putList.short_name" type="text" disabled>
                         <label for="putShortName">委托方</label>
                     </div>
                     <!--品牌-->
-                    <div class="col s4 input-field">
+                    <div class="col input-field" style="width: 20%">
                         <input type="text" id="putMakeName" name="putMakeName" ng-model="putList.make_name" disabled>
                         <label for="putMakeName">品牌</label>
                     </div>
                     <!--车型-->
-                    <div class="col s4 input-field">
+                    <div class="col input-field" style="width: 20%">
                         <input type="text" id="size_type" name="size_type" ng-model="putList.size_type" disabled>
                         <label for="size_type">车型</label>
                     </div>
 
                     <!--起始城市-->
-                    <div class="input-field col s3">
+                    <div class="col input-field" style="width: 20%">
                         <input id="putRouteStart" name="putRouteStart"  ng-model="putList.route_start" type="text" disabled>
                         <label for="putRouteStart">起始城市</label>
                     </div>
 
                     <!--目的城市-->
-                    <div class="input-field col s3">
+                    <div class="col input-field" style="width: 20%">
                         <input type="text" id="putRouteEnd" name="putRouteEnd" ng-model="putList.route_end" disabled>
                         <label for="putRouteEnd">目的城市</label>
                     </div>
 
                     <!--公里数-->
-                    <div class="input-field col s3">
+                    <div class="input-field col s4">
                         <input id="putDistance" name="putDistance"  ng-model="putList.distance" type="text">
                         <label for="putDistance">公里数</label>
                     </div>
                     <!--单价-->
-                    <div class="input-field col s3">
+                    <div class="input-field col s4">
                         <input id="putFee" name="putFee"  ng-model="putList.fee" type="text">
                         <label for="putFee">价格</label>
                     </div>
+
+                    <div class="col s4 right-align" style="padding-top:20px ">
+                        总价：<span class="red-text bold fz20"> {{putList.fee*putList.distance|number:2}}</span>元
+                    </div>
+
+                    <div class="col s12" style="margin-bottom: 10px">
+                        二级
+                    </div>
+
+
+                    <div class="col s4 input-field" style="margin: 0">
+                        <input  id="distance1" ng-model="putList.two_distance" type="number" name="distance"  required >
+                        <label for="distance1">公里数(公里)</label>
+                    </div>
+                    <div class="col s4 input-field" style="margin: 0">
+                        <input  id="price1" ng-model="putList.two_fee" type="number"  name="price" required >
+                        <label for="price1">价格(元)/公里</label>
+                    </div>
+                    <div class="col s4 right-align" style="padding-top:20px ">
+                        二级总价：<span class="red-text bold fz20"> {{putList.two_distance*putList.two_fee|number:2}}</span>元
+                    </div>
+
+
 
 
                     <div class="divider" style="background: #ccc;height: 1px;"></div>
@@ -161,20 +184,39 @@
     <div class="col s10" style="margin-bottom: 20px;">
         <!--委托方   品牌  起始城市  目的城市   公里数  单价 -->
         <div class="col s12" style="height: 70px">
-            <div class="col s6 input-field">
+
+            <div class="col s3 input-field">
                 <select  id="getClient" name="getClient"  ng-model="getClient" style="width: 100%" ng-change="changeClient(getClient)">
                     <option value="" disabled selected>请选择</option>
                     <option ng-repeat="el in get_entrust" ng-value="el.id" >{{el.short_name}}</option>
                 </select>
             </div>
 
-            <div class="col s6 input-field">
+            <div class="col s3 input-field">
                 <select  id="getCarBrand" material-select watch ng-model="getCarBrand" name="getCarBrand" style="width: 100%">
                     <option value="" disabled selected>请选择</option>
                     <option ng-repeat="el in getCarMakeList | unique:'make_id'" ng-value="el.make_id">{{el.make_name}}</option>
                 </select>
                 <label for="getCarBrand">品牌</label>
             </div>
+
+            <div class="col s3 input-field">
+                <select material-select watch id='startCity1' ng-model="startCity1" style="width: 100%">
+                    <option value=""  ></option>
+                    <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
+                </select>
+            </div>
+
+            <!--目的城市-->
+            <div class="col s3 input-field">
+                <select material-select watch id="endCity1" ng-model="endCity1" style="width: 100%">
+                    <option value=""  ></option>
+                    <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
+                </select>
+            </div>
+
+
+
         </div>
     </div>
     <!--查询-->
@@ -198,6 +240,8 @@
                     <th data-field="">路线</th>
                     <th data-field="">公里数</th>
                     <th data-field="">单价</th>
+                    <th data-field="">二级公里数</th>
+                    <th data-field="">二级单价</th>
                     <th data-field="">操作</th>
                 </tr>
                 </thead>
@@ -209,12 +253,14 @@
                     <td>{{fileInfo.route_start}}-{{fileInfo.route_end}}</td>
                     <td>{{fileInfo.distance}}</td>
                     <td class="red-text" >{{fileInfo.fee}}</td>
+                    <td>{{fileInfo.two_distance}}</td>
+                    <td class="red-text" >{{fileInfo.two_fee}}</td>
                     <td class="operation vc-center">
                         <a  ng-click="readData(fileInfo.entrust_id,fileInfo.route_start_id,fileInfo.route_end_id,fileInfo.make_id)" class="cyan-text fz12" style="cursor: pointer;display: inline-block;width: 37px;height: 37px;">  <i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-file-document"></i></a>
                     </td>
                 </tr>
                 <tr ng-if="importedFilesList.length==0">
-                    <td colspan="7">暂无数据</td>
+                    <td colspan="9">暂无数据</td>
                 </tr>
                 </tbody>
             </table>

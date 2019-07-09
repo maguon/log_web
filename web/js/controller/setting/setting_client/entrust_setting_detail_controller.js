@@ -44,6 +44,8 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
                         city_name: data.result[i].city_name,
                         dis: "",
                         fee:'',
+                        twoDis:'',
+                        twoFee:'',
                         routeId:0,
                         flag: 1
                     };
@@ -73,6 +75,8 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
                         if ($scope.endCityList[i].id == $scope.selectedCityId && data.result[j].route_start_id == data.result[j].route_end_id && $scope.selectedCityId == data.result[j].route_start_id) {
                             $scope.endCityList[i].dis = "";
                             $scope.endCityList[i].fee = '';
+                            $scope.endCityList[i].two_distance = "";
+                            $scope.endCityList[i].two_fee = '';
                             $scope.endCityList[i].routeId = 0;
                             $scope.endCityList[i].flag = 2;
                             break;
@@ -80,6 +84,8 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
                         else if (($scope.endCityList[i].id == data.result[j].route_start_id || $scope.endCityList[i].id == data.result[j].route_end_id) && ($scope.selectedCityId != $scope.endCityList[i].id)) {
                             $scope.endCityList[i].dis = "";
                             $scope.endCityList[i].fee = '';
+                            $scope.endCityList[i].two_distance = "";
+                            $scope.endCityList[i].two_fee = '';
                             $scope.endCityList[i].routeId = 0;
                             $scope.endCityList[i].flag = 2;
                             break;
@@ -87,6 +93,8 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
                         else {
                             $scope.endCityList[i].dis = "";
                             $scope.endCityList[i].fee = '';
+                            $scope.endCityList[i].two_distance = "";
+                            $scope.endCityList[i].two_fee = '';
                             $scope.endCityList[i].routeId = 0;
                             $scope.endCityList[i].flag = 1;
                         }
@@ -102,36 +110,6 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
 
     };
 
-   /* function getEntrustCityRouteRel(){
-        _basic.get($host.api_url + "/entrustCityRouteRel?routeStartId=" +  $scope.selectedCityId+"&entrustId="+$scope.entrustItem.id).then(function (data) {
-            if (data.success === true) {
-                for (var i = 0; i < $scope.endCityList.length; i++) {
-                    for (var j = 0; j < data.result.length; j++) {
-                        if ($scope.endCityList[i].id == $scope.selectedCityId && data.result[j].route_start_id == data.result[j].route_end_id && $scope.selectedCityId == data.result[j].route_start_id) {
-                            $scope.endCityList[i].dis = data.result[j].distance;
-                            $scope.endCityList[i].fee = data.result[j].fee;
-                            $scope.endCityList[i].routeId = data.result[j].id;
-                            $scope.endCityList[i].flag = 0;
-                            break;
-                        }
-                        else if (($scope.endCityList[i].id == data.result[j].route_start_id || $scope.endCityList[i].id == data.result[j].route_end_id) && ($scope.selectedCityId != $scope.endCityList[i].id)) {
-                            $scope.endCityList[i].dis = data.result[j].distance;
-                            $scope.endCityList[i].fee = data.result[j].fee;
-                            $scope.endCityList[i].routeId = data.result[j].id;
-                            $scope.endCityList[i].flag = 0;
-                            break;
-                        }
-                        else {
-                            $scope.endCityList[i].dis = "";
-                            $scope.endCityList[i].fee = '';
-                            $scope.endCityList[i].routeId = 0;
-                        }
-                    }
-                }
-            }
-
-        })
-    }*/
 
     $scope.changeClient = function (entrustId){
         $state.go('entrust_setting_detail', {
@@ -150,12 +128,13 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
             $scope.endCity = lineInfo.city_name;
             $scope.distance = lineInfo.dis;
             $scope.price = lineInfo.fee;
+            $scope.price1 =lineInfo.two_fee;
+            $scope.distance1 =lineInfo.two_distance;
             $scope.car_type = lineInfo.size_type;
             $scope.modifyFlag = lineInfo.flag;
             $scope.routeId = lineInfo.routeId;
             $scope.endCityId = lineInfo.id;
             getcityRoute();
-          /*  entrustCityRouteRel();*/
             if($scope.modifyFlag!==1){
                 if($scope.hasChosen){
                     $('#modifyModel').modal('open');
@@ -185,6 +164,9 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
         $scope.price =null;
         $scope.car_type =null;
         $scope.distance =null;
+        $scope.price1 =null;
+        $scope.distance1 =null;
+
         _basic.get($host.api_url + "/entrustCityRouteRel?entrustId="+$scope.entrustItem.id+"&routeStartId=" + $scope.selectedCityId+'&routeEndId='+ $scope.endCityId).then(function (data) {
             if (data.success === true) {
                 if(data.result.length==0){
@@ -210,7 +192,9 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
                     makeName:$scope.car_brand.make_name,
                     sizeType:$scope.car_type,
                     distance:$scope.distance,
-                    fee: $scope.price
+                    fee: $scope.price,
+                    twoFee:  $scope.price1,
+                    twoDistance:  $scope.distance1
                 }).then(function (data) {
                     if (data.success === true) {
                         swal("操作成功", "", "success");

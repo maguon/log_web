@@ -49,6 +49,25 @@ app.controller("entrust_setting_controller", ["$scope", "_basic", "_config", "$h
             }
         })
     };
+    //查询城市
+    function getCity() {
+        _basic.get($host.api_url + "/city").then(function (data) {
+            if (data.success == true) {
+                $scope.cityList = data.result;
+                $('#startCity1').select2({
+                    placeholder: '起始城市',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+                $('#endCity1').select2({
+                    placeholder: '目的城市',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+        });
+
+    }
 
     function getCarMake(){
         // 车辆品牌
@@ -135,6 +154,8 @@ app.controller("entrust_setting_controller", ["$scope", "_basic", "_config", "$h
         var obj = {
             entrustId:$scope.getClient,
             makeId:$scope.getCarBrand,
+            routeStartId:$scope.startCity1,
+            routeEndId:$scope.endCity1,
             start:$scope.start1.toString(),
             size:$scope.size1
         };
@@ -248,7 +269,9 @@ app.controller("entrust_setting_controller", ["$scope", "_basic", "_config", "$h
         if($scope.putList.distance!==''&&$scope.putList.fee!==''){
             var obj={
                 "distance":$scope.putList.distance,
-                "fee": $scope.putList.fee
+                "fee": $scope.putList.fee,
+                "twoDistance": $scope.putList.two_distance,
+                "twoFee":  $scope. putList.two_fee
             }
             _basic.put($host.api_url + "/user/" + userId + "/entrust/"+  $scope.put_entrust_id+'/make/'+ $scope.make_id +"/routeStart/"+  $scope.routeStartId +'/routeEnd/'+   $scope.routeEndId, obj).then(function (data) {
                 if (data.success == true) {
@@ -289,6 +312,7 @@ app.controller("entrust_setting_controller", ["$scope", "_basic", "_config", "$h
     searchEntrust();
     getEntrustSetting();
     getCarMake();
+    getCity();
   /*  getCityList();*/
 
 }]);

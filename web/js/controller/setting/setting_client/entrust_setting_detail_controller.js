@@ -182,7 +182,13 @@ app.controller("entrust_setting_detail_controller", ["$scope",'$state', "_basic"
 
     // 修改或设置里程数
     $scope.distanceModify = function () {
-            if($scope.makeId !== null&&$scope.distance !== null&&$scope.fee !== null){
+        if($scope.distance1==undefined){
+            $scope.distance1=0;
+        }
+        if($scope. price1==undefined){
+            $scope.price1=0;
+        }
+            if($scope.car_brand !== null&&$scope.distance !== null&&$scope.price !== null){
                 _basic.post($host.api_url + "/user/" + userId + "/entrustCityRouteRel",{
                     entrustId: $scope.entrustItem.id,
                     routeStartId: $scope.selectedCityId,

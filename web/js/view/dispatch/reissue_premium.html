@@ -124,19 +124,19 @@
                                 <div class="col s12 fz14 valign-wrapper cyan-text" style="font-size: 1.2rem;" >
                                     <div class="col  input-field red-text left-align" style="width: 20%">
                                         <input id="addTrailerFee1" type="number"  ng-model="addTrailerFee">
-                                        <label for="addTrailerFee1">拖车费/每台</label>
+                                        <label for="addTrailerFee1" class="active">拖车费/每台</label>
                                     </div>
                                     <div class="col  input-field red-text right-align" style="width: 20%">
                                         <input id="addCarParkingFee1" type="number"  ng-model="addCarParkingFee">
-                                        <label for="addCarParkingFee1">提车费/每台</label>
+                                        <label for="addCarParkingFee1" class="active">提车费/每台</label>
                                     </div>
                                     <div class="col  input-field red-text right-align" style="width: 20%">
                                         <input id="addRunFee1" type="number"  ng-model="addRunFee">
-                                        <label for="addRunFee1">地跑费/每台</label>
+                                        <label for="addRunFee1" class="active">地跑费/每台</label>
                                     </div>
                                     <div class="col  input-field red-text right-align" style="width: 20%">
                                         <input id="addLeadFee1" type="number"  ng-model="addLeadFee">
-                                        <label for="addLeadFee1">带路费/每板</label>
+                                        <label for="addLeadFee1" class="active">带路费/每板</label>
                                     </div>
                                     <div class="col input-field right-align" style="width: 20%">
                                         合计金额:<span class="red-text">{{dispatchNum.car_count==isNaN?0:((addRunFee*dispatchNum.car_count+addCarParkingFee*dispatchNum.car_count+addTrailerFee*dispatchNum.car_count)+addLeadFee)}}</span>

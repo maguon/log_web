@@ -450,6 +450,21 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
             createdOnEnd:$scope.createdOnEnd
         }
     }
+
+
+    $scope.export = function (){
+        // 基本检索URL
+        var url = $host.api_url + "/driveExceedOilRel.csv?" ;
+        // 检索条件
+        var conditionsObj = makeConditions();
+        var conditions = _basic.objToUrl(conditionsObj);
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
+        window.open(url);
+    }
+
+
+
     // 上一页
     $scope.pre_btn = function () {
         $scope.start = $scope.start - ($scope.size - 1);

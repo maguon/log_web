@@ -120,6 +120,7 @@
                 <tr class="grey-text text-darken-2">
                     <th data-field="">VIN</th>
                     <th data-field="">品牌</th>
+                    <th data-field="">外协公司</th>
                     <th data-field="">司机</th>
                     <th data-field="">车牌号</th>
                     <th data-field="">委托方</th>
@@ -136,6 +137,7 @@
                 <tr ng-repeat="settlementInfo in settlementList" class="grey-text text-darken-1">
                     <td>{{settlementInfo.vin}}</td>
                     <td>{{settlementInfo.make_name}}</td>
+                    <td>{{settlementInfo.company_name}}</td>
                     <td>{{settlementInfo.drive_name}}</td>
                     <td>{{settlementInfo.truck_num}}</td>
                     <td>{{settlementInfo.e_short_name}}</td>
@@ -149,10 +151,10 @@
                     <td ng-if="settlementInfo.fee==null||settlementInfo.distance==null"></td>
                 </tr>
                 <tr ng-if="settlementList.length==0&&instruct_starTime!==undefined&&instruct_endTime!==undefined">
-                    <td colspan="12">暂无数据</td>
+                    <td colspan="13">暂无数据</td>
                 </tr>
                 <tr ng-if="instruct_starTime==undefined||instruct_endTime==undefined&&settlementList.length==0">
-                    <td colspan="12"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
+                    <td colspan="13"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
                 </tr>
                 </tbody>
             </table>

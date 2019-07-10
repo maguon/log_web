@@ -303,7 +303,7 @@
                     <td>{{car.total_run_fee}}</td>
                     <td>{{car.lead_fee}}</td>
                     <td>{{car.short_name}}</td>
-                    <td>{{car.created_on | date:'yyyy-MM-dd'}}</td>
+                    <td>{{car.load_date | date:'yyyy-MM-dd'}}</td>
                     <td>{{car.status==0?'未通过':car.status==1?'未领取':'已领取'}}</td>
                     <td>
                         <a  class="btn-floating btn-small waves-light waves-effect cyan lighten-2  btn vc-center" ng-click="addSingleMoney(car)">

@@ -81,6 +81,9 @@
                     <th data-field="">商品车停车单价</th>
                     <th data-field="">商品车停车费</th>
                     <th data-field="">申请时间</th>
+                    <th data-field="">银行账号</th>
+                    <th data-field="">户名</th>
+                    <th data-field="">开户行</th>
                     <th data-field="">状态</th>
                     <th data-field="">操作</th>
                 </tr>
@@ -97,6 +100,9 @@
                     <td>{{costInfo.car_single_price}}</td>
                     <td >{{costInfo.car_total_price}}</td>
                     <td >{{costInfo.created_on|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td>{{costInfo.bank_number}}</td>
+                    <td>{{costInfo.bank_name}}</td>
+                    <td>{{costInfo.bank_user_name}}</td>
                     <td >{{costInfo.status == 0 ? "驳回" :costInfo.status == 1 ? "未发放" : "已发放" }}</td>
 
                     <td class="details">
@@ -116,7 +122,7 @@
                     </td>
                 </tr>
                 <tr ng-if="costList.length==0">
-                    <td colspan="12">暂无数据</td>
+                    <td colspan="15">暂无数据</td>
                 </tr>
                 </tbody>
             </table>

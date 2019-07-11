@@ -178,7 +178,6 @@ baseService.factory("_config", function () {
     ];
 
 
-
     // 车辆状态
     _this.car_rel_status = [
         {
@@ -330,5 +329,16 @@ baseService.factory("_config", function () {
     _this.pwdRegx = "[a-zA-Z0-9]*";
     // 身份证
     _this.CarNoRegx = "/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/";
+
+
+    //领取状态
+    _this.receiveStatus = [
+        {id: "0", status_name: "未通过"},
+        {id: "1", status_name: "未领取"},
+        {id: "2", status_name: "已领取"}
+    ];
+
+
+
     return _this
 });

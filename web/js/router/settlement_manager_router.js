@@ -215,5 +215,9 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/settlement/settlement_outsourcing.html",
             controller:'settlement_outsourcing_controller'
         })
-
+        .state("setting_settlement_outsourcing_detail",{
+            url:"/setting_settlement_outsourcing_detail/id/{id}/from/{from}",
+            templateUrl: "js/view/system_settings/setting_settlement_outsourcing_detail.html",
+            controller:'setting_settlement_outsourcing_detail_controller'
+        })
 }]);

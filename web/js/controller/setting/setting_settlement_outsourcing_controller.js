@@ -46,6 +46,30 @@ app.controller("setting_settlement_outsourcing_controller", ["$scope", "$state",
         });
     };
 
+    function getCompany(){
+        _basic.get($host.api_url + "/company?operateType=2").then(function (companyData) {
+            if (companyData.success === true) {
+                $scope.companyList = companyData.result;
+                $('#companyId').select2({
+                    placeholder: '外协公司',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+                $('#getClient').select2({
+                    placeholder: '外协公司',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+
+
+            }
+            else {
+                swal(companyData.msg, "", "error");
+            }
+        });
+    }
+
+
     //查询城市
     function getCity() {
         _basic.get($host.api_url + "/city").then(function (data) {
@@ -91,50 +115,42 @@ app.controller("setting_settlement_outsourcing_controller", ["$scope", "$state",
         });
     };
 
-    // 根据选择的城市获取线路，并设置线路公里数
-    $scope.searchCityLine = function (currentCityInfo,index) {
-        $scope.startCityIndex = index;
-        for (var i = 0; i <$scope.startCityList.length; i++) {
-            $scope.startCityList[i].flag = true;
-        }
-        $scope.startCityList[index].flag=false;
-        $scope.startCity = currentCityInfo.city_name;
-        $scope.selectedCityId = currentCityInfo.id;
-        _basic.get($host.api_url + "/cityRoute?routeStartId=" + currentCityInfo.id).then(function (data) {
-            if (data.success === true) {
-                $scope.hasChosen = true;
-                for (var i = 0; i < $scope.endCityList.length; i++) {
-                    for (var j = 0; j < data.result.length; j++) {
-                        if ($scope.endCityList[i].id == $scope.selectedCityId && data.result[j].route_start_id == data.result[j].route_end_id && $scope.selectedCityId == data.result[j].route_start_id) {
-                            $scope.endCityList[i].dis = "";
-                            $scope.endCityList[i].fee = '';
-                            $scope.endCityList[i].routeId = 0;
-                            $scope.endCityList[i].flag = 2;
-                            break;
-                        }
-                        else if (($scope.endCityList[i].id == data.result[j].route_start_id || $scope.endCityList[i].id == data.result[j].route_end_id) && ($scope.selectedCityId != $scope.endCityList[i].id)) {
-                            $scope.endCityList[i].dis = "";
-                            $scope.endCityList[i].fee = '';
-                            $scope.endCityList[i].routeId = 0;
-                            $scope.endCityList[i].flag = 2;
-                            break;
-                        }
-                        else {
-                            $scope.endCityList[i].dis = "";
-                            $scope.endCityList[i].fee = '';
-                            $scope.endCityList[i].routeId = 0;
-                            $scope.endCityList[i].flag = 1;
-                        }
-                    }
-                }
 
-            }
-            else {
+
+    $scope.getOutsourcingSetting = function (){
+        $scope.start = 0;
+        searchOutsourcingSetting();
+    }
+
+    function searchOutsourcingSetting(){
+        var obj = {
+            companyId:$scope.companyId,
+            operateType:2,
+            start:$scope.start.toString(),
+            size:$scope.size
+        };
+
+        _basic.get($host.api_url + "/companyRoute?"+ _basic.objToUrl(obj)).then(function (data) {
+            if (data.success === true) {
+                $scope.entrustSettingArray = data.result;
+                if ($scope.start > 0) {
+                    $("#pre").show();
+                }
+                else {
+                    $("#pre").hide();
+                }
+                if (data.result.length < $scope.size) {
+                    $("#next").hide();
+                }
+                else {
+                    $("#next").show();
+                }
+            } else {
                 swal(data.msg, "", "error");
             }
         });
+    }
 
-    };
 
 
     // 点击打开模态框
@@ -149,7 +165,6 @@ app.controller("setting_settlement_outsourcing_controller", ["$scope", "$state",
             $scope.modifyFlag = lineInfo.flag;
             $scope.routeId = lineInfo.routeId;
             $scope.endCityId = lineInfo.id;
-            getcityRoute();
             if($scope.modifyFlag!==1){
                 if($scope.hasChosen){
                     $('#modifyModel').modal('open');
@@ -164,33 +179,6 @@ app.controller("setting_settlement_outsourcing_controller", ["$scope", "$state",
         }
     };
 
-    function getcityRoute(){
-        _basic.get($host.api_url + "/cityRoute?routeStartId=" +$scope.selectedCityId+'&routeEndId='+$scope.endCityId).then(function (data) {
-            if (data.success === true&&data.result.length>0) {
-                $scope.cityRouteId=data.result[0].route_id;
-                entrustCityRouteRel();
-            }
-        });
-
-    }
-
-    function entrustCityRouteRel(){
-        $scope.car_brand =null;
-        $scope.price =null;
-        $scope.car_type =null;
-        $scope.distance =null;
-        _basic.get($host.api_url + "/settleOuterTruck?routeStartId=" + $scope.selectedCityId+'&routeEndId='+ $scope.endCityId).then(function (data) {
-            if (data.success === true) {
-                if(data.result.length==0){
-                    $scope.carBandList=[];
-                }
-                else{
-                    $scope.carBandList=data.result;
-                }
-
-            }
-        });
-    }
 
     // 修改或设置里程数
     $scope.distanceModify = function () {
@@ -207,7 +195,6 @@ app.controller("setting_settlement_outsourcing_controller", ["$scope", "$state",
             }).then(function (data) {
                 if (data.success === true) {
                     swal("操作成功", "", "success");
-                    entrustCityRouteRel();
                     $scope.searchCityLine($scope.startCityList[$scope.startCityIndex],$scope.startCityIndex)
                 }
                 else {
@@ -228,6 +215,7 @@ app.controller("setting_settlement_outsourcing_controller", ["$scope", "$state",
 
     function searchEntrust() {
         var obj = {
+            companyId:$scope.getClient,
             routeStartId:$scope.startCity1,
             routeEndId:$scope.endCity1,
             makeId:$scope.getCarBrand,
@@ -258,12 +246,13 @@ app.controller("setting_settlement_outsourcing_controller", ["$scope", "$state",
 
 
 
-    $scope.readData = function (route_start_id,route_end_id,make_id){
+    $scope.readData = function (route_start_id,route_end_id,make_id,company_id){
 
         $scope.routeStartId =route_start_id;
         $scope.routeEndId =route_end_id;
         $scope.make_id = make_id;
-        _basic.get($host.api_url + "/settleOuterTruck?makeId="+make_id+'&routeStartId='+route_start_id+'&routeEndId='+route_end_id).then(function (data) {
+        $scope.company_id=company_id;
+        _basic.get($host.api_url + "/settleOuterTruck?makeId="+make_id+'&routeStartId='+route_start_id+'&routeEndId='+route_end_id+'&companyId='+ company_id).then(function (data) {
             if (data.success == true) {
                 $scope.putList = data.result[0];
             }
@@ -279,7 +268,7 @@ app.controller("setting_settlement_outsourcing_controller", ["$scope", "$state",
                 "distance":$scope.putList.distance,
                 "fee": $scope.putList.fee
             }
-            _basic.put($host.api_url + "/user/" + userId+'/make/'+ $scope.make_id +"/routeStart/"+  $scope.routeStartId +'/routeEnd/'+$scope.routeEndId, obj).then(function (data) {
+            _basic.put($host.api_url + "/user/" + userId+'/company/'+ $scope.company_id+'/make/'+ $scope.make_id +"/routeStart/"+  $scope.routeStartId +'/routeEnd/'+$scope.routeEndId, obj).then(function (data) {
                 if (data.success == true) {
                     searchEntrust();
                     $("#putItem").modal("close");
@@ -306,9 +295,10 @@ app.controller("setting_settlement_outsourcing_controller", ["$scope", "$state",
         searchEntrust();
     };
 
-
+    getCompany();
     getCityList();
     getEntrust();
     searchEntrust();
+    searchOutsourcingSetting();
 }])
 

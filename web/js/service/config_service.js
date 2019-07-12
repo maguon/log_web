@@ -339,6 +339,31 @@ baseService.factory("_config", function () {
     ];
 
 
+    //公司所属类型
+    _this.operateType = [
+        {id: "1", operate_type: "自营"},
+        {id: "2", operate_type: "外协"}
+    ];
+
+
+    //补发状态
+    _this.supplementStatus = [
+        {id: "0", status: "否"},
+        {id: "1", status: "是"}
+    ];
+
+
+    //车辆类型
+    _this.truckType = [
+        {id: "1", truck_type: "头车"},
+        {id: "2", truck_type: "挂车"}
+    ];
+
+    //是否月结
+    _this.monthFlag = [
+        {id: "0", month_flag: "否"},
+        {id: "1", month_flag: "是"}
+    ];
 
     return _this
 });

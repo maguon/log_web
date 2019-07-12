@@ -1,88 +1,31 @@
-<!-- 信息修改或新增模态框 -->
-<div class="row" style="margin: 0">
-    <div id="modifyModel" class="modal modal-fixed-footer" style="width: 75%;height: 550px">
-        <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-            <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
-                <p>线路设置</p>
-            </div>
-        </div>
-
-        <div class="row col s12" id="chip" style="width: 80%;margin-left: 10%">
-            <div class="col grey-text text-darken-1 valign-wrapper" style="padding: 0;width: 80%;margin-left: 10%;margin-bottom: 10px">
-                <div class="col s12">
-                    <div class="col s12" style="height: 30%;margin-top: 80px;">
-                        <h6 class="cyan-text fz25" style="font-weight:500">{{startCity}}&emsp;
-                            <span class="mdi mdi-swap-horizontal">&emsp;{{endCity}}</span>
-                        </h6>
-                    </div>
-                    <div class="col s3 m3 l2" style="margin:5px 0;" ng-repeat="carBand in carBandList">
-                        <a  style="width: 100%;font-size: 10px;height:44px;border:1px solid #00b0ff;padding: 0 10px;display: flex !important;" class="waves-effect vc-center  cyan white-text  waves-light btn">
-                            <div>
-                                <p style="margin: 0;display: block;height: 18px;line-height: 18px">{{carBand.make_name}}</p>
-                                <p ng-if="carBand.dis !== ''" style="margin: 0;display: block;height: 18px;line-height: 18px">{{carBand.distance == "" ? carBand.distance :carBand.distance+'公里' +'x'+  carBand.fee+'元'}}</p>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="row col s12" style="margin-top: 30px">
-                        <!--品牌-->
-                        <div class="input-field col s4">
-                            <select material-select watch id="car_brand" name="car_brand" ng-options="car_brand.make_name for car_brand in get_carMake"   ng-model="car_brand" >
-                                <option value="" disabled selected>请选择</option>
-                            </select>
-                            <label for="car_brand">品牌</label>
-                        </div>
-                        <div class="col s4 input-field">
-                            <input  id="distance" ng-model="distance" type="number" name="distance"  required >
-                            <label for="distance"><span style="color: red">*</span>公里数(公里)</label>
-                        </div>
-                        <div class="col s4 input-field">
-                            <input  id="price" ng-model="price" type="number"  name="price" required >
-                            <label for="price"><span style="color: red">*</span>价格(元)/公里</label>
-                        </div>
-                        <div class="col s12 right-align input-field">
-                            总价：<span class="red-text bold fz20"> {{price*distance|number:2}}</span>元
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col s12 vc-center" style="padding-top:10px;border-top: 1px solid #ccc;margin-top: 60px">
-            <a class=" modal-action modal-close waves-effect waves-light grey lighten-1 btn">
-                <i class="mdi mdi-close"></i>
-            </a>
-            <button ng-click="distanceModify()" class="btn waves-light waves-effect cyan lighten-1" type="button" style="margin-left: 56px" >
-                <i class="mdi mdi-check"></i>
-            </button>
-        </div>
-
-     </div>
-</div>
-
-
-
 
 <!--修改模态框-->
 <div id="putItem" class="modal">
     <div class="cyan lighten-1 white-text center-align modal_title" >修改外协结算</div>
-    <div  class="modal-content" style="padding: 12px">
-        <div  class="row" style="padding: 0;margin: 0">
+    <div  class="modal-content">
+        <div  class="row padding margin">
             <div class="col s12" style="width: 100%;padding: 0;margin: 0;">
+
+                <!--外协公司-->
+                <div class="col s3 input-field">
+                    <input type="text" id="company" name="company" ng-model="putList.company_name" disabled>
+                    <label for="company">外协公司</label>
+                </div>
+
                 <!--品牌-->
-                <div class="col s4 input-field">
+                <div class="col s3 input-field">
                     <input type="text" id="putMakeName" name="putMakeName" ng-model="putList.make_name" disabled>
                     <label for="putMakeName">品牌</label>
                 </div>
 
                 <!--起始城市-->
-                <div class="input-field col s4">
+                <div class="input-field col s3">
                     <input id="putRouteStart" name="putRouteStart"  ng-model="putList.route_start" type="text" disabled>
                     <label for="putRouteStart">起始城市</label>
                 </div>
 
                 <!--目的城市-->
-                <div class="input-field col s4">
+                <div class="input-field col s3">
                     <input type="text" id="putRouteEnd" name="putRouteEnd" ng-model="putList.route_end" disabled>
                     <label for="putRouteEnd">目的城市</label>
                 </div>
@@ -92,32 +35,26 @@
                     <input id="putDistance" name="putDistance"  ng-model="putList.distance" type="text">
                     <label for="putDistance">公里数</label>
                 </div>
+
+
                 <!--单价-->
                 <div class="input-field col s6">
                     <input id="putFee" name="putFee"  ng-model="putList.fee" type="text">
                     <label for="putFee">价格</label>
                 </div>
 
-
-                <div class="divider" style="background: #ccc;height: 1px;"></div>
-                <div class="modal-footer vc-center">
-                    <a class="modal-action modal-close waves-effect grey waves-light lighten-1 btn" style="margin-right: 10px;">取消</a>
-                    <button class="btn waves-light waves-effect lighten-2"  name="action" ng-click="putItem()">确定 </button>
-                </div>
             </div>
+        </div>
+
+        <div class="divider cyan mp-30"></div>
+
+
+        <div class="modal-footer vc-center">
+            <a class="modal-action modal-close waves-effect grey waves-light lighten-1 btn" style="margin-right: 10px;">取消</a>
+            <button class="btn waves-light waves-effect lighten-2"  name="action" ng-click="putItem()">确定 </button>
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -133,33 +70,50 @@
 </div>
 
 
+
 <div  id="settingEntrust" class="row tab_box">
-    <div class="row col s12" style="width: 96%;margin: 30px auto">
-        <div class="col s6" style="margin-bottom: 30px">
-            <div class="col s12 z-depth-1" style="height: 45px;"></div>
-            <div class="col s12 z-depth-2 white" style="min-height: 600px">
-                <div class="col s3 m3 l2" style="margin:10px 0;" ng-repeat="startCity in startCityList">
-                    <a ng-click="searchCityLine(startCity,$index)" style="width: 100%;font-size: 10px;height:44px;border:1px solid #00b0ff;padding: 0 10px;display: flex !important;" class="waves-effect vc-center   {{startCity.flag? 'white cyan-text':'cyan white-text'}}  waves-light btn">
-                        <div>
-                            <p style="margin: 0;display: block;height: 18px;line-height: 18px">{{startCity.city_name}}</p>
-                        </div>
-                    </a>
+    <div style="width: 90%;margin: 50px auto">
+        <div class="row card" style="height: 100px">
+            <div class="col s12 m12">
+                <div class="col s12" >
+                    <!--外协公司-->
+                    <div class="input-field col s10" style="margin-top: 30px">
+                        <select  material-select watch id="companyId" name="companyId"  ng-model="companyId">
+                            <option value="" disabled selected>请选择</option>
+                            <option ng-repeat="el in companyList" ng-value="el.id" >{{el.company_name}}</option>
+                        </select>
+                    </div>
+                    <!--查询按钮-->
+                    <div class="col s1 right" style="margin-top: 20px">
+                        <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
+                           style="margin-right: 10px" ng-click="getOutsourcingSetting()">
+                            <i class="mdi mdi-magnify"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col s6" style="margin-bottom: 30px">
-            <div class="col s12 z-depth-1 bold" style="height: 45px;line-height: 45px">
-                <div class="col s6 cyan-text">{{startCity == undefined ? "暂无" : startCity}}</div>
-            </div>
-            <div class="col s12 z-depth-2" style="background-color: white;min-height: 600px">
-                <div class="col s3 m3 l2" style="margin:10px 0" ng-repeat="endCity in endCityList">
-                    <a ng-click="modifyLineInfo(endCity,endCity.flag,$event)" style="width: 100%;font-size: 10px;height:44px;border:1px solid #00b0ff;padding: 0 10px;display: flex !important;" class="waves-effect vc-center {{endCity.flag==1?'grey':'white  cyan-text'}} waves-light btn">
-                        <div id="endCity">
-                            <p style="margin: 0;display: block;height: 18px;line-height: 18px">{{endCity.city_name}}</p>
-                        </div>
-                    </a>
+    </div>
+    <div style="width:90%;margin:40px auto;background: white">
+        <ul class="collapsible card row"  data-collapsible="accordion" collapsible style="border-bottom: 1px solid #4dd0e1;">
+            <li ng-repeat="el in entrustSettingArray" class="cyan-text text-darken-1 col s12" style="border-bottom: 1px solid #ccc;height: 60px;line-height:60px;">
+                <div ng-bind="el.id" class="col s1 center-align"></div>
+                <div class="col s1 right-align"><i class="mdi mdi-home fz20" ></i></div>
+                <div ng-bind="el.company_name" class="grey-text col s7 left-align"></div>
+                <div class="grey-text col s2 left-align">已设置线路:{{el.company_count}}</div>
+                <div  class="operation table_operation vc-center center-align col s1">
+                    <span><a  ui-sref="setting_settlement_outsourcing_detail({id:el.id, from:'setting_settlement_outsourcing'})"><i class="mdi mdi-pencil cyan-text text-lighten-1"></i></a></span>
                 </div>
-            </div>
+            <li class="grey-text text-darken-1" ng-if="repairStationArray.length == 0" style="border-bottom: 1px solid #ccc;height: 100px;line-height: 100px;text-align: center">
+                <div colspan="4"><span style="letter-spacing: 2px">暂无数据</span></div>
+            </li>
+            </li>
+        </ul>
+    </div>
+    <div class="paging_box col s12" style="width:90%;margin:0 auto">
+        <div class="right">
+            <a class="waves-light waves-effect cyan lighten-1 btn"  id="pre"   ng-click="previousPage()"> 上一页</a>
+            <a class="waves-light waves-effect cyan lighten-1 btn" id="next"  ng-click="nextPage()"> 下一页 </a>
         </div>
     </div>
 </div>
@@ -169,7 +123,17 @@
     <div class="col s10" style="margin-bottom: 20px;">
         <!--委托方   品牌  起始城市  目的城市   公里数  单价 -->
         <div class="col s12" style="height: 70px">
-            <div class="col s4 input-field">
+
+
+            <div class="col s3 input-field">
+                <select  id="getClient" name="getClient"  ng-model="getClient" style="width: 100%">
+                    <option value="" disabled selected>请选择</option>
+                    <option ng-repeat="el in companyList" ng-value="el.id" >{{el.company_name}}</option>
+                </select>
+            </div>
+
+
+            <div class="col s3 input-field">
                 <select material-select watch id='startCity1' ng-model="startCity1" style="width: 100%">
                     <option value=""  ></option>
                     <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
@@ -177,14 +141,14 @@
             </div>
 
             <!--目的城市-->
-            <div class="col s4 input-field">
+            <div class="col s3 input-field">
                 <select material-select watch id="endCity1" ng-model="endCity1" style="width: 100%">
                     <option value=""  ></option>
                     <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
                 </select>
             </div>
 
-            <div class="col s4 input-field">
+            <div class="col s3 input-field">
                 <select  id="getCarBrand" material-select watch ng-model="getCarBrand" name="getCarBrand" style="width: 100%">
                     <option value="" disabled selected>请选择</option>
                     <option ng-repeat="el in get_carMake | unique:'id'" ng-value="el.id">{{el.make_name}}</option>
@@ -208,6 +172,7 @@
             <table class=" bordered striped text_mid">
                 <thead class="blue-grey lighten-5">
                 <tr class="grey-text text-darken-2">
+                    <th data-field="">外协公司</th>
                     <th data-field="">品牌</th>
                     <th data-field="">路线</th>
                     <th data-field="">公里数</th>
@@ -217,16 +182,17 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="fileInfo in importedFilesList" class="grey-text text-darken-1">
+                    <td>{{fileInfo.company_name}}</td>
                     <td>{{fileInfo.make_name}}</td>
                     <td>{{fileInfo.route_start}}-{{fileInfo.route_end}}</td>
                     <td>{{fileInfo.distance}}</td>
                     <td class="red-text" >{{fileInfo.fee}}</td>
                     <td class="operation vc-center">
-                        <a  ng-click="readData(fileInfo.route_start_id,fileInfo.route_end_id,fileInfo.make_id)" class="cyan-text fz12" style="cursor: pointer;display: inline-block;width: 37px;height: 37px;">  <i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-file-document"></i></a>
+                        <a  ng-click="readData(fileInfo.route_start_id,fileInfo.route_end_id,fileInfo.make_id,fileInfo.company_id)" class="cyan-text fz12" style="cursor: pointer;display: inline-block;width: 37px;height: 37px;">  <i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-file-document"></i></a>
                     </td>
                 </tr>
                 <tr ng-if="importedFilesList.length==0">
-                    <td colspan="5">暂无数据</td>
+                    <td colspan="6">暂无数据</td>
                 </tr>
                 </tbody>
             </table>

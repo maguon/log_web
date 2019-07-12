@@ -4,10 +4,6 @@ app.controller("setting_settlement_outsourcing_controller", ["$scope", "$state",
     $scope.selectedCityId = 0;
     $scope.startCityList = [];
     $scope.endCityList = [];
-
-
-    $scope.start = 0;
-    $scope.size = 11;
     $scope.start1 = 0;
     $scope.size1 = 11;
     // 跳转
@@ -30,8 +26,6 @@ app.controller("setting_settlement_outsourcing_controller", ["$scope", "$state",
     };
     $scope.settingEntrust();
 
-    $("#pre").hide();
-    $("#next").hide();
     $("#pre1").hide();
     $("#next1").hide();
 
@@ -125,59 +119,18 @@ app.controller("setting_settlement_outsourcing_controller", ["$scope", "$state",
     function searchOutsourcingSetting(){
         var obj = {
             companyId:$scope.companyId,
-            operateType:2,
-            start:$scope.start.toString(),
-            size:$scope.size
+            operateType:2
         };
 
         _basic.get($host.api_url + "/companyRoute?"+ _basic.objToUrl(obj)).then(function (data) {
             if (data.success === true) {
                 $scope.entrustSettingArray = data.result;
-                if ($scope.start > 0) {
-                    $("#pre").show();
-                }
-                else {
-                    $("#pre").hide();
-                }
-                if (data.result.length < $scope.size) {
-                    $("#next").hide();
-                }
-                else {
-                    $("#next").show();
-                }
             } else {
                 swal(data.msg, "", "error");
             }
         });
     }
 
-
-
-    // 点击打开模态框
-    $scope.modifyLineInfo = function (lineInfo,flag,ev) {
-        if(flag==1){
-            ev.stopPropagation();
-        }else{
-            $scope.endCity = lineInfo.city_name;
-            $scope.distance = lineInfo.dis;
-            $scope.price = lineInfo.fee;
-            $scope.car_type = lineInfo.size_type;
-            $scope.modifyFlag = lineInfo.flag;
-            $scope.routeId = lineInfo.routeId;
-            $scope.endCityId = lineInfo.id;
-            if($scope.modifyFlag!==1){
-                if($scope.hasChosen){
-                    $('#modifyModel').modal('open');
-                }
-                else{
-                    swal("请先选择起始城市！", "", "warning");
-                }
-            }
-            else{
-                $('#modifyModel').modal('close');
-            }
-        }
-    };
 
 
     // 修改或设置里程数
@@ -232,7 +185,7 @@ app.controller("setting_settlement_outsourcing_controller", ["$scope", "$state",
                 else {
                     $("#pre1").hide();
                 }
-                if (data.result.length < $scope.size) {
+                if (data.result.length < $scope.size1) {
                     $("#next1").hide();
                 }
                 else {

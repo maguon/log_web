@@ -1,5 +1,7 @@
 app.controller("setting_settlement_outsourcing_detail_controller", ["$scope", "$state", "$stateParams", "_basic", "_config", "$host", function ($scope, $state, $stateParams, _basic, _config, $host) {
         var userId = _basic.getSession(_basic.USER_ID);
+        var id=$stateParams.id;
+        $scope.id=$stateParams.id;
         $scope.hasChosen = false;
         $scope.selectedCityId = 0;
         $scope.startCityList = [];
@@ -41,6 +43,15 @@ app.controller("setting_settlement_outsourcing_detail_controller", ["$scope", "$
                 $scope.get_carMake = data.result;
             }
         });
+        _basic.get($host.api_url + "/companyRoute?operateType=2&companyId="+id).then(function (companyData) {
+            if (companyData.success === true) {
+                $scope.companyItem = companyData.result[0];
+            }
+            else {
+                swal(companyData.msg, "", "error");
+            }
+        });
+
     };
     function getCompany(){
         _basic.get($host.api_url + "/company?operateType=2").then(function (companyData) {
@@ -63,6 +74,16 @@ app.controller("setting_settlement_outsourcing_detail_controller", ["$scope", "$
                 swal(companyData.msg, "", "error");
             }
         });
+        _basic.get($host.api_url + "/companyRoute?operateType=2").then(function (companyData) {
+            if (companyData.success === true) {
+                $scope.companyArr = companyData.result;
+            }
+            else {
+                swal(companyData.msg, "", "error");
+            }
+        });
+
+
     }
     //查询城市
     function getCity() {
@@ -163,7 +184,6 @@ app.controller("setting_settlement_outsourcing_detail_controller", ["$scope", "$
                 $scope.endCity = lineInfo.city_name;
                 $scope.distance = lineInfo.dis;
                 $scope.price = lineInfo.fee;
-                $scope.car_type = lineInfo.size_type;
                 $scope.modifyFlag = lineInfo.flag;
                 $scope.routeId = lineInfo.routeId;
                 $scope.endCityId = lineInfo.id;
@@ -200,7 +220,7 @@ app.controller("setting_settlement_outsourcing_detail_controller", ["$scope", "$
             $scope.price =null;
             $scope.car_type =null;
             $scope.distance =null;
-            _basic.get($host.api_url + "/settleOuterTruck?routeStartId=" + $scope.selectedCityId+'&routeEndId='+ $scope.endCityId).then(function (data) {
+            _basic.get($host.api_url + "/settleOuterTruck?routeStartId=" + $scope.selectedCityId+'&routeEndId='+ $scope.endCityId+'&companyId='+id).then(function (data) {
                 if (data.success === true) {
                     if(data.result.length==0){
                         $scope.carBandList=[];
@@ -217,7 +237,7 @@ app.controller("setting_settlement_outsourcing_detail_controller", ["$scope", "$
         $scope.distanceModify = function () {
             if($scope.makeId !== null&&$scope.distance !== null&&$scope.fee !== null){
                 _basic.post($host.api_url + "/user/" + userId + '/settleOuterTruck',{
-                    companyId:$scope.companyId,
+                    companyId:id,
                     makeId:$scope.car_brand.id,
                     makeName:$scope.car_brand.make_name,
                     routeStartId: $scope.selectedCityId,
@@ -318,7 +338,19 @@ app.controller("setting_settlement_outsourcing_detail_controller", ["$scope", "$
         }
 
 
-        // 分页
+    $scope.changeClient = function (entrustId){
+        $state.go('setting_settlement_outsourcing_detail', {
+            reload: true,
+            id:entrustId,
+            from: 'setting_settlement_outsourcing'
+        });
+
+
+    }
+
+
+
+    // 分页
         $scope.previousPage = function () {
             $scope.start1 = $scope.start1 - ($scope.size1-1);
             searchEntrust();

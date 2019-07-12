@@ -26,25 +26,18 @@
 
                     <div class="row col s12" style="margin-top: 30px">
 
-                        <!--外协公司-->
-                        <div class="input-field col s3 padding">
-                            <select  material-select watch id="companyId" name="companyId"  ng-model="companyId" style="width: 100%">
-                                <option value="" disabled selected>请选择</option>
-                                <option ng-repeat="el in companyList" ng-value="el.id" >{{el.company_name}}</option>
-                            </select>
-                        </div>
                         <!--品牌-->
-                        <div class="input-field col s3">
+                        <div class="input-field col s4">
                             <select material-select watch id="car_brand" name="car_brand" ng-options="car_brand.make_name for car_brand in get_carMake"   ng-model="car_brand" >
                                 <option value="" disabled selected>请选择</option>
                             </select>
                             <label for="car_brand">品牌</label>
                         </div>
-                        <div class="col s3 input-field">
+                        <div class="col s4 input-field">
                             <input  id="distance" ng-model="distance" type="number" name="distance"  required >
                             <label for="distance"><span style="color: red">*</span>公里数(公里)</label>
                         </div>
-                        <div class="col s3 input-field">
+                        <div class="col s4 input-field">
                             <input  id="price" ng-model="price" type="number"  name="price" required >
                             <label for="price"><span style="color: red">*</span>价格(元)/公里</label>
                         </div>
@@ -83,7 +76,22 @@
 
 
 <div  id="settingEntrust" class="row tab_box">
+
+
     <div class="row col s12" style="width: 96%;margin: 30px auto">
+
+      <!--  <div class="row col s12 card grey-text bold" style="width: 99%;margin-left:0.5%;height:45px;line-height: 45px">
+            <div class="col s12">
+                <select material-select watch ng-model="companyItem.id" ng-change="changeClient(companyItem.id)">
+                    <option ng-repeat="el in companyArr" ng-value=el.id>
+                        {{el.company_name}}
+                        <div style="float: right">已设置线路数:&nbsp;&nbsp;{{el.company_count}}</div>
+
+                    </option>
+                </select>
+            </div>
+        </div>
+-->
         <div class="col s6" style="margin-bottom: 30px">
             <div class="col s12 z-depth-1" style="height: 45px;"></div>
             <div class="col s12 z-depth-2 white" style="min-height: 600px">

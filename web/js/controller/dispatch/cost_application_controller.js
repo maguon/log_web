@@ -130,14 +130,13 @@ app.controller("cost_application_controller", ["$scope", "$state","$stateParams"
     //添加
     $scope.addCost = function (){
         $scope.dpRouteTaskId = '';
-        $scope.carDayCount ='';
-        $scope.carSinglePrice ='';
+        $scope.carDayCount =0;
+        $scope.carSinglePrice =0;
         $scope.addDrivderId = '';
         $scope.addTruckId = '';
-        $scope.addPeccancyTruckId = "";
-        $scope.addDate = "";
-        $scope.addSingle = "";
-        $scope.carOilFee ='';
+        $scope.addDate = 0;
+        $scope.addSingle = 0;
+        $scope.carOilFee =0;
         $scope.driveNameList=[];
         $scope.truckNumListAllList=[];
         getDriveNameList();
@@ -152,8 +151,8 @@ app.controller("cost_application_controller", ["$scope", "$state","$stateParams"
             $scope.addTruck = $scope.addTruckId.id;
             $scope.addTruckNumber= $scope.addTruckId.truck_num;
         }
-        if($scope.addDate==''|| $scope.addSingle==''||$scope.addDrivderId== ''||$scope.addTruck==''|| $scope.dpRouteTaskId==''
-            ||$scope.carDayCount ==''||$scope.carSinglePrice ==''){
+        if($scope.addDate==null|| $scope.addSingle==null||$scope.addDrivderId== ''||$scope.addTruck==''|| $scope.dpRouteTaskId==''
+            ||$scope.carDayCount ==null||$scope.carSinglePrice ==null){
             swal('请输入完整信息!', "", "error")
         }
         else {

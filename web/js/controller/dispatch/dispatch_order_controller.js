@@ -224,7 +224,8 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
             _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" +$scope.putSettleItem.id +'/dpRouteLoadFlag',{
                 distance: $scope.putSettleItem.distance,
                 carCount: $scope.putSettleItem.car_count,
-                loadFlag: $scope.putSettleItem.load_flag
+                loadFlag: $scope.putSettleItem.load_flag,
+                reverseMoney: $scope.putSettleItem.reverse_money
             }).then(function (data) {
                 if (data.success === true) {
                     swal("保存成功", "", "success");

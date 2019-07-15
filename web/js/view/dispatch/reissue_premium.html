@@ -31,7 +31,7 @@
 
                     <!-- body -->
                     <!--添加-->
-                    <div class="col s12 valign-wrapper" style="margin-bottom: 15px;margin-top: 15px">
+                    <div class="col s12 valign-wrapper mp-20">
                         <div class="col s12 input-field">
                             <select id="dispatch_num_mod" ng-model="dispatchNum" material-select watch>
                                 <option value="">请选择</option>
@@ -40,44 +40,44 @@
                         </div>
                     </div>
                     <!--任务信息卡片-->
-                    <div class="col s12 fz14 valign-wrapper red-text" style="font-size: 1.2rem;" >
-                        <div class="col  input-field" style="width: 20%">
-                            <input id="addTrailerFee" type="number"  ng-model="addTrailerFee">
-                            <label for="addTrailerFee" class="active">拖车费/每台</label>
+                    <div class="col s12 fz20 valign-wrapper red-text">
+                        <div class="col  input-field colWidth">
+                            <input id="newTrailerFee" type="number"  ng-model="newTrailerFee">
+                            <label for="newTrailerFee">拖车费/每台</label>
                         </div>
-                        <div class="col  input-field" style="width: 20%">
-                            <input id="addCarParkingFee" type="number"  ng-model="addCarParkingFee">
-                            <label for="addCarParkingFee">提车费/每台</label>
+                        <div class="col  input-field colWidth">
+                            <input id="newCarParkingFee" type="number"  ng-model="newCarParkingFee">
+                            <label for="newCarParkingFee">提车费/每台</label>
                         </div>
-                        <div class="col  input-field" style="width: 20%">
-                            <input id="addRunFee" type="number"  ng-model="addRunFee">
-                            <label for="addRunFee">地跑费/每台</label>
+                        <div class="col  input-field colWidth">
+                            <input id="newRunFee" type="number"  ng-model="newRunFee">
+                            <label for="newRunFee">地跑费/每台</label>
                         </div>
-                        <div class="col  input-field" style="width: 20%">
-                            <input id="addLeadFee" type="number"  ng-model="addLeadFee">
-                            <label for="addLeadFee">带路费/每板</label>
+                        <div class="col  input-field colWidth">
+                            <input id="newLeadFee" type="number"  ng-model="newLeadFee">
+                            <label for="newLeadFee">带路费/每板</label>
                         </div>
-                        <div class="col input-field cyan-text" style="width: 20%">
-                            合计金额:<span class="red-text">{{dispatchNum.car_count==isNaN?0:((addRunFee*dispatchNum.car_count+addCarParkingFee*dispatchNum.car_count+addTrailerFee*dispatchNum.car_count)+addLeadFee)}}</span>
+                        <div class="col input-field cyan-text colWidth">
+                            合计金额:<span class="red-text">{{dispatchNum.car_count==isNaN?0:((newRunFee*dispatchNum.car_count+newCarParkingFee*dispatchNum.car_count+newTrailerFee*dispatchNum.car_count)+newLeadFee)}}</span>
                         </div>
                     </div>
                 </div>
 
 
                 <!--分割线-->
-                <div class="divider" style="background: #ccc;height: 1px;"></div>
+                <div class="divider"></div>
 
 
                <!--按钮-->
                 <div class="modal-footer valign-wrapper">
                     <div class="col s12">
                         <div class="col s2 offset-s4">
-                            <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                            <a  class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
                                 取消
                             </a>
                         </div>
                         <div class="col s2">
-                            <a ng-click="addSingleReissueItem()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                            <a ng-click="addSingleReissueItem()"  class="waves-light waves-effect cyan lighten-1 btn">
                                 确定
                             </a>
                         </div>
@@ -99,14 +99,14 @@
             <div class="col s12">
                 <div class="">
                     <form name="demand_car_form" novalidate>
-                        <div class="mp-30 valign-wrapper" style="overflow: hidden">
+                        <div class="mp-30 valign-wrapper">
                             <div class="col s2 cyan-text text-lighten-1" style="font-size: 20px;min-width: 90px">调度编号:</div>
                             <div class="input-field col s8">
                                 <span></span>
                                 <input type="text" id="dpId" name="dpId" ng-model="dpId"  autocomplete="off"  required>
                             </div>
-                            <div  class="col s2 vc-center " >
-                                <button ng-click="getDetail()" class=" btn btn-floating btn-large waves-effect cyan lighten-1" ><i style="font-size: 35px" class="mdi white-text mdi-magnify"></i></button>
+                            <div  class="col s2 vc-center">
+                                <button ng-click="getDetail()" class=" btn btn-floating btn-large waves-effect cyan lighten-1" ><i class="mdi white-text mdi-magnify fz35"></i></button>
                             </div>
                         </div>
 
@@ -114,7 +114,7 @@
                     <div class="row  mp-50" >
                         <div style="width: 90%;margin: 0 auto">
                             <p class="no_car_detail center-align cyan-text text-lighten-1 mp-50">无此调度任务</p>
-                            <div class="car_detail col s12" style="border:1px solid #bdbdbd;font-size: 14px;font-weight: bold">
+                            <div class="car_detail col s12 fz14 bold" style="border:1px solid #bdbdbd;">
                                 <!-- body -->
                                 <div class=" col s12">
                                     <div class="col s4 input-field cyan-text left-align">
@@ -142,23 +142,23 @@
 
                                 <div class="col s12 fz14 valign-wrapper cyan-text" style="font-size: 1.2rem;" >
                                     <div class="col  input-field red-text left-align" style="width: 20%">
-                                        <input id="addTrailerFee1" type="number"  ng-model="addTrailerFee">
-                                        <label for="addTrailerFee1" class="active">拖车费/每台</label>
+                                        <input id="newTrailerFee1" type="number"  ng-model="newTrailerFee">
+                                        <label for="newTrailerFee1" class="active">拖车费/每台</label>
                                     </div>
                                     <div class="col  input-field red-text right-align" style="width: 20%">
-                                        <input id="addCarParkingFee1" type="number"  ng-model="addCarParkingFee">
-                                        <label for="addCarParkingFee1" class="active">提车费/每台</label>
+                                        <input id="newCarParkingFee1" type="number"  ng-model="newCarParkingFee">
+                                        <label for="newCarParkingFee1" class="active">提车费/每台</label>
                                     </div>
                                     <div class="col  input-field red-text right-align" style="width: 20%">
-                                        <input id="addRunFee1" type="number"  ng-model="addRunFee">
-                                        <label for="addRunFee1" class="active">地跑费/每台</label>
+                                        <input id="newRunFee1" type="number"  ng-model="newRunFee">
+                                        <label for="newRunFee1" class="active">地跑费/每台</label>
                                     </div>
                                     <div class="col  input-field red-text right-align" style="width: 20%">
-                                        <input id="addLeadFee1" type="number"  ng-model="addLeadFee">
-                                        <label for="addLeadFee1" class="active">带路费/每板</label>
+                                        <input id="newLeadFee1" type="number"  ng-model="newLeadFee">
+                                        <label for="newLeadFee1" class="active">带路费/每板</label>
                                     </div>
                                     <div class="col input-field right-align" style="width: 20%">
-                                        合计金额:<span class="red-text">{{dispatchNum.car_count==isNaN?0:((addRunFee*dispatchNum.car_count+addCarParkingFee*dispatchNum.car_count+addTrailerFee*dispatchNum.car_count)+addLeadFee)}}</span>
+                                        合计金额:<span class="red-text">{{dispatchNum.car_count==isNaN?0:((newRunFee*dispatchNum.car_count+newCarParkingFee*dispatchNum.car_count+newTrailerFee*dispatchNum.car_count)+newLeadFee)}}</span>
                                     </div>
                                 </div>
 
@@ -176,12 +176,12 @@
                 <div class="modal-footer car_detail valign-wrapper">
                     <div class="col s12">
                         <div class="col s2 offset-s4">
-                            <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                            <a class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
                                 取消
                             </a>
                         </div>
                         <div class="col s2">
-                            <a ng-click="addFee()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                            <a ng-click="addFee()" class="waves-light waves-effect cyan lighten-1 btn">
                                 确定
                             </a>
                         </div>
@@ -195,7 +195,7 @@
 
 <!--页面渲染-->
 <div class="reissue_premium">
-    <div class="row main_storage_car">
+    <div class="row">
 
         <!-- 上部分：检索条件输入区域 -->
 
@@ -306,16 +306,16 @@
         <div class="row col s12" style="margin-top: 25px">
             <div class="col s12 cyan white-text vc-center  fz18" style="height: 60px;" ng-if="insurancePremiumArrayList.length!==0">
                 <div class="col s3 left-align bold">
-                    总拖车金额:{{boxArrayFee.total_trailer_fee}}元
+                    总拖车金额:{{totalFee.total_trailer_fee}}元
                 </div>
                 <div class="col s3 center-align bold">
-                    总提车金额:{{boxArrayFee.car_parking_fee}}元
+                    总提车金额:{{totalFee.car_parking_fee}}元
                 </div>
                 <div class="col s3 center-align bold">
-                    总地跑金额:{{boxArrayFee.total_run_fee}}元
+                    总地跑金额:{{totalFee.total_run_fee}}元
                 </div>
                 <div class="col s3 right-align bold">
-                    总带路金额:{{boxArrayFee.lead_fee}}元
+                    总带路金额:{{totalFee.lead_fee}}元
                 </div>
             </div>
 

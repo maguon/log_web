@@ -58,33 +58,38 @@
 
 
 
+<!--管理员设置   ---  外协结算设置     页面-->
 <div class="modal-content grey-text text-darken-2">
+
+
+    <!--tab页-->
     <div class="row no-marBottom" ul-tabs style="overflow: hidden">
         <div class="col s12">
             <ul class="tabWrap grey lighten-4">
-                <li class="tab col s6 settingEntrust vc-center" ng-click="settingEntrust()">外协结算设置</li>
+                <li class="tab col s6 settingCompany vc-center" ng-click="settingCompany()">外协结算设置</li>
                 <li class="tab col s6 lookMyselfFile vc-center" ng-click="lookMyselfFile()">外协结算查询</li>
             </ul>
         </div>
     </div>
+
 </div>
 
 
-
-<div  id="settingEntrust" class="row tab_box">
+<!--外协结算设置-->
+<div  id="settingCompany" class="row tab_box">
     <div style="width: 90%;margin: 50px auto">
         <div class="row card" style="height: 100px">
             <div class="col s12 m12">
                 <div class="col s12" >
                     <!--外协公司-->
-                    <div class="input-field col s10" style="margin-top: 30px">
+                    <div class="input-field col s10 mp-30">
                         <select  material-select watch id="companyId" name="companyId"  ng-model="companyId">
                             <option value="" disabled selected>请选择</option>
                             <option ng-repeat="el in companyList" ng-value="el.id" >{{el.company_name}}</option>
                         </select>
                     </div>
                     <!--查询按钮-->
-                    <div class="col s1 right" style="margin-top: 20px">
+                    <div class="col s1 right mp-20">
                         <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
                            style="margin-right: 10px" ng-click="getOutsourcingSetting()">
                             <i class="mdi mdi-magnify"></i>
@@ -112,8 +117,8 @@
     </div>
 </div>
 
-
-<div id="lookMyselfFile" class="row tab_box" style="margin-top: 50px;">
+<!--外协结算查询-->
+<div id="lookMyselfFile" class="row tab_box mp-50">
     <div class="col s10" style="margin-bottom: 20px;">
         <!--委托方   品牌  起始城市  目的城市   公里数  单价 -->
         <div class="col s12" style="height: 70px">

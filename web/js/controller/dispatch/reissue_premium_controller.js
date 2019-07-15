@@ -127,10 +127,10 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
             }
         });
 
-
+        //总金额
         _basic.get(urlCount).then(function (data) {
             if (data.success === true) {
-                $scope.boxArrayFee = data.result[0];
+                $scope.totalFee = data.result[0];
             }
 
         })
@@ -152,6 +152,7 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
 
 
 
+
     /*
     * 单一补发
     * */
@@ -167,23 +168,25 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
                 swal(data.msg, "", "error");
             }
         });
-        $scope.addTrailerFee =0;
-        $scope.addCarParkingFee =0;
-        $scope.addRunFee =0;
-        $scope.addLeadFee =0;
+        $scope.newTrailerFee =0;
+        $scope.newCarParkingFee =0;
+        $scope.newRunFee =0;
+        $scope.newLeadFee =0;
         $('#singleReissue').modal('open');
     }
 
 
-
+    /*
+    * 确定补发
+    * */
     $scope.addSingleReissueItem =function () {
         if($scope.dispatchNum==undefined){
             swal('车辆不能为空', "", "error");
             $('#singleReissue').modal('close');
         }
         else {
-            if ($scope.dispatchNum.car_count == 0 || $scope.addTrailerFee == null || $scope.addCarParkingFee == null ||
-                $scope.addRunFee == null || $scope.addLeadFee == null || $scope.dispatchNum.car_count == null) {
+            if ($scope.dispatchNum.car_count == 0 || $scope.newTrailerFee == null || $scope.newCarParkingFee == null ||
+                $scope.newRunFee == null || $scope.newLeadFee == null || $scope.dispatchNum.car_count == null) {
                 swal('车辆或者补价不能为空', "", "error");
             }
             else {
@@ -195,12 +198,12 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
                     receiveId: $scope.dispatchNum.receive_id,
                     monthFlag: $scope.dispatchNum.month_flag,
                     carCount: $scope.dispatchNum.car_count,
-                    trailerFee: $scope.addTrailerFee,
-                    totalTrailerFee: $scope.addTrailerFee * $scope.dispatchNum.car_count,
-                    carParkingFee: $scope.addCarParkingFee * $scope.dispatchNum.car_count,
-                    runFee: $scope.addRunFee,
-                    totalRunFee: $scope.addRunFee * $scope.dispatchNum.car_count,
-                    leadFee: $scope.addLeadFee,
+                    trailerFee: $scope.newTrailerFee,
+                    totalTrailerFee: $scope.newTrailerFee * $scope.dispatchNum.car_count,
+                    carParkingFee: $scope.newCarParkingFee * $scope.dispatchNum.car_count,
+                    runFee: $scope.newRunFee,
+                    totalRunFee: $scope.newRunFee * $scope.dispatchNum.car_count,
+                    leadFee: $scope.newLeadFee,
                     type: 1
                 }).then(function (data) {
                     if (data.success === true) {
@@ -243,10 +246,10 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
                     $(".car_detail").show();
                     $scope.addWashFeeBox = data.result;
                     $scope.carItem = data.result[0];
-                    $scope.addTrailerFee =0;
-                    $scope.addCarParkingFee =0;
-                    $scope.addRunFee =0;
-                    $scope.addLeadFee =0;
+                    $scope.newTrailerFee =0;
+                    $scope.newCarParkingFee =0;
+                    $scope.newRunFee =0;
+                    $scope.newLeadFee =0;
                 }
             }
         })
@@ -259,8 +262,8 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
             swal('车辆或者补价不能为空', "", "error");
         }
         else{
-            if ($scope.dispatchNum.car_count==0||$scope.addTrailerFee==null||$scope.addCarParkingFee==null||
-                $scope.addRunFee==null||$scope.addLeadFee==null||$scope.dispatchNum.car_count==null) {
+            if ($scope.dispatchNum.car_count==0||$scope.newTrailerFee==null||$scope.newCarParkingFee==null||
+                $scope.newRunFee==null||$scope.newLeadFee==null||$scope.dispatchNum.car_count==null) {
                 swal('车辆或者补价不能为空', "", "error");
             }
             else {
@@ -272,12 +275,12 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
                     receiveId: $scope.dispatchNum.receive_id,
                     monthFlag:$scope.dispatchNum.month_flag,
                     carCount: $scope.dispatchNum.car_count,
-                    trailerFee:  $scope.addTrailerFee,
-                    totalTrailerFee: $scope.addTrailerFee*$scope.dispatchNum.car_count,
-                    carParkingFee:  $scope.addCarParkingFee*$scope.dispatchNum.car_count,
-                    runFee:  $scope.addRunFee,
-                    totalRunFee: $scope.addRunFee*$scope.dispatchNum.car_count,
-                    leadFee:  $scope.addLeadFee,
+                    trailerFee:  $scope.newTrailerFee,
+                    totalTrailerFee: $scope.newTrailerFee*$scope.dispatchNum.car_count,
+                    carParkingFee:  $scope.newCarParkingFee*$scope.dispatchNum.car_count,
+                    runFee:  $scope.newRunFee,
+                    totalRunFee: $scope.newRunFee*$scope.dispatchNum.car_count,
+                    leadFee:  $scope.newLeadFee,
                     type: 1,
                     remark:$scope.remarkItem
                 }).then(function (data) {
@@ -294,6 +297,8 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
         }
 
     }
+
+
 
     /**
      * 组装检索条件。
@@ -313,6 +318,11 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
         };
         return conditionsObj;
     }
+
+
+
+
+
 
 
 

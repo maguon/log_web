@@ -651,12 +651,19 @@ input[type=text]{
     display: block;
 }
 
-/*确认按钮*/
+/*确认按钮 圆形*/
 .circle-btn{
     width: 50px;
     height: 50px;
     border-radius: 100%;
 }
+
+/*确认按钮 方形*/
+.square-bth{
+    width: 50px;
+    height: 50px;
+}
+
 /*位*/
 .garage_col{
     min-width: 36px;
@@ -1226,4 +1233,28 @@ button[type="submit"] {
 /*高德地图去水印*/
 .amap-logo,.amap-copyright {
     display: none !important;
+}
+
+
+/*下载按钮颜色*/
+.export{
+    background: #fea353;
+}
+
+/*row col s12去除格式 */
+.padding{
+    padding: 0;
+}
+.margin{
+    margin: 0;
+}
+
+/*row col 5等分*/
+.colWidth{
+    width: 20%;
+}
+
+/*高度50px*/
+.colHeight{
+    height: 50px;
 }

@@ -1,19 +1,22 @@
 app.controller("setting_settlement_outsourcing_controller", ["$scope", "$state", "$stateParams", "_basic", "_config", "$host", function ($scope, $state, $stateParams, _basic, _config, $host) {
+
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.hasChosen = false;
     $scope.selectedCityId = 0;
     $scope.startCityList = [];
     $scope.endCityList = [];
-    $scope.start1 = 0;
-    $scope.size1 = 11;
-    // 跳转
-    $scope.settingEntrust = function () {
+    $scope.start = 0;
+    $scope.size = 11;
+    /*
+    * 页面跳转
+    * */
+    $scope.settingCompany = function () {
         $('ul.tabWrap li').removeClass("active");
         $(".tab_box").removeClass("active");
         $(".tab_box").hide();
-        $('ul.tabWrap li.settingEntrust ').addClass("active");
-        $("#settingEntrust").addClass("active");
-        $("#settingEntrust").show();
+        $('ul.tabWrap li.settingCompany').addClass("active");
+        $("#settingCompany").addClass("active");
+        $("#settingCompany").show();
     };
     $scope.lookMyselfFile = function () {
         $('ul.tabWrap li').removeClass("active");
@@ -24,7 +27,7 @@ app.controller("setting_settlement_outsourcing_controller", ["$scope", "$state",
         $("#lookMyselfFile").show();
         getCity();
     };
-    $scope.settingEntrust();
+    $scope.settingCompany();
 
     $("#pre1").hide();
     $("#next1").hide();
@@ -161,7 +164,7 @@ app.controller("setting_settlement_outsourcing_controller", ["$scope", "$state",
     }
 
     $scope.searchList = function (){
-        $scope.start1 = 0;
+        $scope.start = 0;
         searchEntrust();
     };
 
@@ -172,20 +175,20 @@ app.controller("setting_settlement_outsourcing_controller", ["$scope", "$state",
             routeStartId:$scope.startCity1,
             routeEndId:$scope.endCity1,
             makeId:$scope.getCarBrand,
-            start:$scope.start1.toString(),
-            size:$scope.size1
+            start:$scope.start.toString(),
+            size:$scope.size
         };
         _basic.get($host.api_url + "/settleOuterTruck?"+ _basic.objToUrl(obj)).then(function (data) {
             if (data.success === true) {
                 $scope.boxArray1 = data.result;
                 $scope.importedFilesList = $scope.boxArray1.slice(0, 10);
-                if ($scope.start1 > 0) {
+                if ($scope.start > 0) {
                     $("#pre1").show();
                 }
                 else {
                     $("#pre1").hide();
                 }
-                if (data.result.length < $scope.size1) {
+                if (data.result.length < $scope.size) {
                     $("#next1").hide();
                 }
                 else {
@@ -240,11 +243,11 @@ app.controller("setting_settlement_outsourcing_controller", ["$scope", "$state",
 
     // 分页
     $scope.previousPage = function () {
-        $scope.start1 = $scope.start1 - ($scope.size1-1);
+        $scope.start = $scope.start - ($scope.size-1);
         searchEntrust();
     };
     $scope.nextPage = function () {
-        $scope.start1 = $scope.start1 + ($scope.size1-1);
+        $scope.start = $scope.start + ($scope.size-1);
         searchEntrust();
     };
 

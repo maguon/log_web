@@ -1,0 +1,103 @@
+<!--车辆成本-->
+<div class="setting_drive">
+
+    <!--查询条件-->
+    <div class="row">
+        <div class="row grey-text text-darken-1">
+            <div class="col s10">
+                <div class="col s12">
+                    <div class="col s3 input-field">
+                        <input id="start_month" type="text" ng-value="startMonth">
+                        <label class="active" for="start_month">月份</label>
+                    </div>
+                    <div class="col input-field s3">
+                        <select  material-select watch ng-model="truckNumber"  id="truckNumber" style="width: 100%">
+                            <option value="" selected disabled>请选择</option>
+                            <option ng-repeat="truckNumItem in truckNumList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}({{truckNumItem.truck_type == 1 ? "头车" : "挂车"}})</option>
+                        </select>
+                    </div>
+
+                    <div class="col input-field s3">
+                        <select  material-select watch id="operateType"  ng-model="operateType" ng-change="changeOperateType()">
+                            <option value="">请选择</option>
+                            <option ng-repeat="operate in operateTypeList" ng-value="operate.id">{{operate.operate_type}}</option>
+                        </select>
+                        <label for="operateType">所属类型</label>
+                    </div>
+
+                    <div class="col input-field s3">
+                        <select id="company" name="company" material-select watch ng-model="driverCompany" required style="width: 100%">
+                            <option value="" selected>请选择</option>
+                            <option ng-repeat="company in companyList" ng-value="company.id" selected>{{company.company_name}}</option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+            <!--按钮-->
+            <div class="col s2" style="margin-top: 15px">
+                <div class="col s6 center-align">
+                    <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getdrive()">
+                        <i class="mdi mdi-magnify"></i>
+                    </a>
+                </div>
+                <div class="col s6 center-align">
+                    <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
+                        <i class="mdi mdi-cloud-download"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col s12">
+            <div class="divider cyan" style="height: 2px;"></div>
+            <table class=" bordered striped text_mid">
+                <thead class="blue-grey lighten-5">
+                <tr class="grey-text text-darken-2">
+                    <th data-field="">月份</th>
+                    <th data-field="">货车牌号</th>
+                    <th data-field="">维修费</th>
+                    <th data-field="">配件费</th>
+                    <th data-field="">保养费</th>
+                    <th data-field="">过路费</th>
+                    <th data-field="">质损个人/公司</th>
+                    <th data-field="">货车油费</th>
+                    <th data-field="">货车尿素费</th>
+                    <th data-field="">保险金额</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="driveInfo in driveList" class="grey-text text-darken-1">
+                    <td>{{startMonth}}</td>
+                    <td>{{driveInfo.truck_num==null?0:driveInfo.truck_num}}</td>
+                    <td>{{driveInfo.repair_fee==null?0:driveInfo.repair_fee}}</td>
+                    <td>{{driveInfo.parts_fee==null?0:driveInfo.parts_fee}}</td>
+                    <td>{{driveInfo.maintain_fee==null?0:driveInfo.maintain_fee}}</td>
+                    <td>{{driveInfo.etc_fee==null?0:driveInfo.etc_fee}}</td>
+                    <td>{{driveInfo.peccancy_under_fee==null?0:driveInfo.peccancy_under_fee}}/{{driveInfo.peccancy_company_fee==null?0:driveInfo.peccancy_company_fee}}</td>
+                    <td>{{driveInfo.oil_fee==null?0:driveInfo.oil_fee}}</td>
+                    <td>{{driveInfo.urea_fee==null?0:driveInfo.urea_fee}}</td>
+                    <td>{{driveInfo.insure_total_money==null?0:driveInfo.insure_total_money}}</td>
+                </tr>
+                <tr ng-if="driveList.length==0">
+                    <td colspan="10">暂无数据</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!--分页-->
+        <div class="row">
+            <div class="paging_box col s12">
+                <div class="right">
+                    <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="pre_btn()">
+                        上一页
+                    </a>
+                    <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_btn()">
+                        下一页
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

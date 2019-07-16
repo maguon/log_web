@@ -436,6 +436,9 @@ CommonFilter.filter("damageLinkType", function () {
             case 16:
                 damageLinkType = "运输途中遭人为破坏";
                 break;
+            case 17:
+                damageLinkType = "其他";
+                break;
             default:
                 damageLinkType = "未知";
         }

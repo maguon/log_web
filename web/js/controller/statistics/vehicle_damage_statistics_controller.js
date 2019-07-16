@@ -78,7 +78,8 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
                     ["天津办收发车: 0 辆", 0],
                     ["PDI漏检: 0 辆", 0],
                     ["大连现场收发车: 0 辆", 0],
-                    ["运输途中遭人为破坏: 0 辆", 0]
+                    ["运输途中遭人为破坏: 0 辆", 0],
+                    ["其他: 0 辆", 0]
 
                 ];
                 // 转化饼图数据格式
@@ -146,6 +147,10 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
                     if(data.result[i].damage_link_type === 16){
                         $scope.truckCountInfo[15][0] = "运输途中遭人为破坏: " + data.result[i].damage_count + " 辆";
                         $scope.truckCountInfo[15][1] = data.result[i].damage_count
+                    }
+                    if(data.result[i].damage_link_type === 17){
+                        $scope.truckCountInfo[16][0] = "其他: " + data.result[i].damage_count + " 辆";
+                        $scope.truckCountInfo[16][1] = data.result[i].damage_count
                     }
                 }
                 $scope.showCompulsoryPie();

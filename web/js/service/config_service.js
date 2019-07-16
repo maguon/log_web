@@ -267,8 +267,8 @@ baseService.factory("_config", function () {
         {id: 13, typeName: "天津办收发车"},
         {id: 14, typeName: "PDI漏检"},
         {id: 15, typeName: "大连现场收发车"},
-        {id: 16, typeName: "运输途中遭人为破坏"}
-
+        {id: 16, typeName: "运输途中遭人为破坏"},
+        {id: 17, typeName: "其他"}
         ];
 
     // 质损类型

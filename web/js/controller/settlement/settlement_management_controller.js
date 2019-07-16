@@ -82,6 +82,11 @@ app.controller("settlement_management_controller", ["$scope","$rootScope","$stat
             _basic.get($host.api_url + "/receive?cityId=" +id ).then(function (receiveData) {
                 if (receiveData.success === true) {
                     $scope.receiveList = receiveData.result;
+                    $('#receiveId').select2({
+                        placeholder: '经销商',
+                        containerCssClass : 'select2_dropdown',
+                        allowClear: true
+                    });
                 }
                 else {
                     swal(receiveData.msg, "", "error");

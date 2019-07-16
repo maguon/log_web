@@ -77,6 +77,12 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
         _basic.get($host.api_url + "/receive?cityId=" + id).then(function (data) {
             if (data.success == true) {
                 $scope.get_receive = data.result;
+                $('#dealer').select2({
+                    placeholder: '经销商',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+
             } else {
                 swal(data.msg, "", "error")
             }

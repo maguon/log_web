@@ -88,11 +88,10 @@
 
             <!--经销商-->
             <div class="input-field col s2">
-                <select material-select watch id="dealer" name="dealer" ng-model="receiveId">
-                    <option value="" disabled selected>请选择</option>
+                <select material-select watch id="dealer" name="dealer" ng-model="receiveId" style="width: 100%">
+                    <option value="" disabled selected>经销商</option>
                     <option ng-repeat="el in get_receive" ng-value="el.id" >{{el.short_name}}</option>
                 </select>
-                <label for="dealer">经销商</label>
             </div>
 
         </div>

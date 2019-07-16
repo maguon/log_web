@@ -290,7 +290,7 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
 
     $scope.addSettlementItem = function (){
         swal({
-            title: "确定交接左侧所有车辆吗？",
+            title: "确定交接这些车辆吗？",
             text: "",
             type: "warning",
             showCancelButton: true,

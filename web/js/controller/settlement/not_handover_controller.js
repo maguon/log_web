@@ -53,24 +53,6 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
         });
     };
 
-    //未返回还车辆
-    function getNum() {
-        if ($scope.planTimeStart == undefined || $scope.planTimeEnd == undefined) {
-            $scope.getNum =0;
-        }
-        else{
-            _basic.get($host.api_url + "/notSettleHandoverCarCount?transferFlag=0&carLoadStatus=2&taskPlanDateStart="+$scope.planTimeStart +"&taskPlanDateEnd="+ $scope.planTimeEnd)
-                .then(function (data) {
-                    if (data.success === true) {
-                        $scope.getNum=data.result[0].car_count;
-                    }
-                    else {
-                        swal(data.msg, "", "error");
-                    }
-                });
-        }
-
-    };
 
     // 目的地城市-经销商联动
     $scope.get_received = function (id) {
@@ -166,14 +148,15 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
     //查询
     $scope.getNotHandoverInfo = function () {
         $scope.start = 0;
-        getNum();
         getNotHandover();
     }
+
 
     function  getNotHandover() {
         if ($scope.planTimeStart == undefined || $scope.planTimeEnd == undefined) {
             swal('请输入完整的查询时间', "", "error");
             $scope.notHandoverArray = [];
+            $scope.getNum =0;
         }
         else {
             _basic.get($host.api_url + "/notSettleHandover?transferFlag=0&" + _basic.objToUrl({
@@ -212,6 +195,15 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
                     swal(data.msg, "", "error");
                 }
             });
+            _basic.get($host.api_url + "/notSettleHandoverCarCount?transferFlag=0&carLoadStatus=2&taskPlanDateStart="+$scope.planTimeStart +"&taskPlanDateEnd="+ $scope.planTimeEnd)
+                .then(function (data) {
+                    if (data.success === true) {
+                        $scope.getNum=data.result[0].car_count;
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
         }
     }
 
@@ -300,7 +292,7 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
             cancelButtonText: "取消"
         }).then(function (result) {
             if (result.value) {
-                if($scope.addNumberId!== undefined&&$scope.addHandoverReceiveStartTime!== undefined){
+                if($scope.addNumberId!== ''&&$scope.addHandoverReceiveStartTime!== ''){
                     _basic.post($host.api_url + "/user/" + userId + "/settleHandoverAll", {
                         "serialNumber":  $scope.addNumberId,
                         "entrustId":   $scope.ArrayList[0].entrust_id,
@@ -343,6 +335,5 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
         getNotHandover();
     };
     getMsg();
-    getNum();
 
 }])

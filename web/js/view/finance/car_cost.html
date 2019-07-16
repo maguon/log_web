@@ -6,18 +6,28 @@
         <div class="row grey-text text-darken-1">
             <div class="col s10">
                 <div class="col s12">
-                    <div class="col s3 input-field">
+                    <div class="col input-field colWidth">
                         <input id="start_month" type="text" ng-value="startMonth">
                         <label class="active" for="start_month">月份</label>
                     </div>
-                    <div class="col input-field s3">
+
+
+                    <div class="col input-field colWidth">
+                        <select  material-select watch ng-model="truckType" style="width: 100%" ng-change="changeTruckType()">
+                            <option value="" selected disabled>车型</option>
+                            <option ng-repeat="tr in truckTypeList" ng-value="tr.id">{{tr.truck_type}}</option>
+                        </select>
+
+                    </div>
+
+                    <div class="col input-field colWidth">
                         <select  material-select watch ng-model="truckNumber"  id="truckNumber" style="width: 100%">
                             <option value="" selected disabled>请选择</option>
-                            <option ng-repeat="truckNumItem in truckNumList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}({{truckNumItem.truck_type == 1 ? "头车" : "挂车"}})</option>
+                            <option ng-repeat="truckNumItem in truckNumList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
                         </select>
                     </div>
 
-                    <div class="col input-field s3">
+                    <div class="col input-field colWidth">
                         <select  material-select watch id="operateType"  ng-model="operateType" ng-change="changeOperateType()">
                             <option value="">请选择</option>
                             <option ng-repeat="operate in operateTypeList" ng-value="operate.id">{{operate.operate_type}}</option>
@@ -25,7 +35,7 @@
                         <label for="operateType">所属类型</label>
                     </div>
 
-                    <div class="col input-field s3">
+                    <div class="col input-field colWidth">
                         <select id="company" name="company" material-select watch ng-model="driverCompany" required style="width: 100%">
                             <option value="" selected>请选择</option>
                             <option ng-repeat="company in companyList" ng-value="company.id" selected>{{company.company_name}}</option>
@@ -54,7 +64,9 @@
                 <thead class="blue-grey lighten-5">
                 <tr class="grey-text text-darken-2">
                     <th data-field="">月份</th>
+                    <th data-field="">车型</th>
                     <th data-field="">货车牌号</th>
+                    <th data-field="">所属公司</th>
                     <th data-field="">维修费</th>
                     <th data-field="">配件费</th>
                     <th data-field="">保养费</th>
@@ -69,7 +81,9 @@
                 <tbody>
                 <tr ng-repeat="driveInfo in driveList" class="grey-text text-darken-1">
                     <td>{{startMonth}}</td>
+                    <td>{{truckTypeList[driveInfo.truck_type-1].truck_type}}</td>
                     <td>{{driveInfo.truck_num==null?0:driveInfo.truck_num}}</td>
+                    <td>{{driveInfo.company_name==null?0:driveInfo.company_name}}</td>
                     <td>{{driveInfo.repair_fee==null?0:driveInfo.repair_fee}}</td>
                     <td>{{driveInfo.parts_fee==null?0:driveInfo.parts_fee}}</td>
                     <td>{{driveInfo.maintain_fee==null?0:driveInfo.maintain_fee}}</td>
@@ -80,7 +94,7 @@
                     <td>{{driveInfo.insure_total_money==null?0:driveInfo.insure_total_money}}</td>
                 </tr>
                 <tr ng-if="driveList.length==0">
-                    <td colspan="10">暂无数据</td>
+                    <td colspan="12">暂无数据</td>
                 </tr>
                 </tbody>
             </table>

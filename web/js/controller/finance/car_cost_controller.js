@@ -14,6 +14,11 @@ app.controller("car_cost_controller", ["$scope","$rootScope", "$state", "$stateP
     $scope.operateTypeList = _config.operateType;
 
 
+    //車型
+    $scope.truckTypeList = _config.truckType;
+
+
+
     //查询条件月份
     $('#start_month').MonthPicker({
         Button: false,
@@ -41,24 +46,6 @@ app.controller("car_cost_controller", ["$scope","$rootScope", "$state", "$stateP
 
 
 
-    // 获取查询条件 (货车牌号)
-    function getCondition() {
-
-        _basic.get($host.api_url + "/truckBase").then(function (data) {
-            if (data.success === true) {
-                $scope.truckNumList = data.result;
-                $('#truckNumber').select2({
-                    placeholder: '货车牌号',
-                    containerCssClass: 'select2_dropdown',
-                    allowClear: true
-                });
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        })
-    };
-
     /*
        * 所属类型--公司联动
        * */
@@ -78,6 +65,22 @@ app.controller("car_cost_controller", ["$scope","$rootScope", "$state", "$stateP
     };
 
 
+    $scope.changeTruckType = function (){
+        _basic.get($host.api_url + "/truckBase?truckType=" + $scope.truckType).then(function (data) {
+            if (data.success == true) {
+                $scope.truckNumList = data.result;
+                $('#truckNumber').select2({
+                    placeholder: '货车牌号',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
+
 
     //查询功能
     $scope.getdrive = function (){
@@ -91,6 +94,7 @@ app.controller("car_cost_controller", ["$scope","$rootScope", "$state", "$stateP
     // 数据导出
     $scope.export = function () {
         var obj = {
+            truckType:$scope.truckType,
             companyId: $scope.driverCompany,
             yMonth:$scope.startMonth,
             truckId:$scope.truckNumber,
@@ -123,6 +127,7 @@ app.controller("car_cost_controller", ["$scope","$rootScope", "$state", "$stateP
         }
             _basic.get($host.api_url + "/truckCost?" + _basic.objToUrl({
                 yMonth:$scope.startMonth,
+                truckType:$scope.truckType,
                 companyId: $scope.driverCompany,
                 truckId:$scope.truckNumber,
                 operateType: $scope.operateType,
@@ -170,7 +175,6 @@ app.controller("car_cost_controller", ["$scope","$rootScope", "$state", "$stateP
 
 
     getLastMonth();
-    getCondition();
     getdriveData();
 
 }])

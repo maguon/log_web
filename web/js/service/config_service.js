@@ -365,5 +365,13 @@ baseService.factory("_config", function () {
         {id: "1", month_flag: "是"}
     ];
 
+    //费用申请状态
+    _this.applicationStatus = [
+        {id: "0", status: "驳回"},
+        {id: "1", status: "未发放"},
+        {id: "2", status: "已发放"}
+    ];
+
+
     return _this
 });

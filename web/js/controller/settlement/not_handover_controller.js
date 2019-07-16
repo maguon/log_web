@@ -278,6 +278,7 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
 
     //未交接到已交接
     $scope.addArr = function (){
+        $scope.carIds=[];
         for (var i = 0; i < $scope.ArrayList.length; i++) {
             $scope.carIds.push($scope.ArrayList[i].car_id)
         }

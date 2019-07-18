@@ -256,12 +256,13 @@ app.controller("look_head_truck_details_controller", ["$scope", "$state", "$stat
             _basic.get($host.api_url + "/company?companyId="+$scope.truckFirst.output_company_id).then(function (data) {
                 if (data.success == true&&data.result.length>0) {
                     $scope.companyName = data.result[0].company_name;
+                    putCompany($scope.companyName)
                 } else {
                     swal(data.msg, "", "error")
                 }
             });
         }
-        putCompany($scope.companyName)
+
 
     }
     function putCompany(companyName){

@@ -14,8 +14,8 @@
                 </div>
             </div>
             <div class="input-field col s4">
-                <input id="VinCode" type="text" ng-model="vinCode">
-                <label for="VinCode">VIN</label>
+                <input id="VinCode" type="text" ng-model="vinCode" minlength="6"  autocomplete="off" class="autocomplete">
+                <label for="VinCode">VIN(至少6位)</label>
             </div>
             <div class="col s3 input-field">
                 <select material-select watch ng-model="processingStatus">

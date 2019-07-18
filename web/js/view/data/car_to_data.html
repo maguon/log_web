@@ -56,7 +56,7 @@
                     <div class="col s12 white" style="height:70px;">
                         <div class="input-field col s4">
                             <select id="chooseStartCity" name="state" style="width:100%" ng-change="get_addr(start_city)" ng-model="start_city">
-                                <option value="0">发运地城市</option>
+                                <option value="0">起始城市</option>
                                 <option ng-repeat="city in get_city" ng-value="city.id">{{city.city_name}}</option>
                             </select>
                         </div>
@@ -279,7 +279,7 @@
                                     </div>
                                     <div class="input-field col s6" ng-show="get_receive.length==0">
                                         <input id="ipnutRecevie" type="text" disabled />
-                                        <label for="ipnutRecevie">发运地地址</label>
+                                        <label for="ipnutRecevie">经销商</label>
                                     </div>
                                     <div class="input-field col s6"  ng-show="get_receive.length!==0">
                                         <select style="width:100%" id="dealer" name="dealer" required  ng-model="dealer" class="col s12">

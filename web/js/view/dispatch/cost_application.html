@@ -1,90 +1,111 @@
-<!--费用申请-->
+
+<!-- 主菜单：调度管理 -> 费用申请 画面 -->
 <div class="cost_application">
 
-    <!--查询条件-->
-    <div class="row">
-        <div class="row grey-text text-darken-1">
-            <div class="col s10">
-                <div class="col s12">
-                    <!--司机-->
-                    <div class="input-field col" style="width: 20%">
-                        <select material-select watch ng-model="drivderId" id="driveName" style="width: 100%">
-                            <option value="" selected>请选择</option>
-                            <option ng-repeat="addDrivder in driveNameList" value={{addDrivder.id}}>{{addDrivder.drive_name}}</option>
-                        </select>
-                    </div>
-                    <!--货车牌号-->
-                    <div class="input-field col" style="width: 20%">
-                        <select  id="truckNum" style="width: 100%" ng-model="truckNum">
-                            <option value=""></option>
-                            <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
-                        </select>
-                    </div>
-                    <div class="input-field col" style="width: 20%">
-                        <select  id="getStatus" style="width: 100%" ng-model="getStatus" material-select watch>
-                            <option value="">请选择</option>
-                            <option value="0">驳回</option>
-                            <option value="1">未发放</option>
-                            <option value="2">已发放</option>
-                        </select>
-                        <label for="getStatus">状态</label>
-                    </div>
 
-                    <!--申请时间(始)  申请时间(终)-->
-                    <div class="input-field col" style="width: 20%">
-                        <input type="text" ng-model="instruct_starTime" id="instruct_start_time" name="instruct_start_time"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
-                        <label for="instruct_start_time">申请时间(始)</label>
-                    </div>
+    <!-- 上部分：检索条件输入区域 -->
 
-                    <div class="input-field col" style="width: 20%">
-                        <input type="text" ng-model="instruct_endTime" id="instruct_endTime" name="instruct_endTime"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
-                        <label for="instruct_endTime">申请时间(终)</label>
-                    </div>
-                </div>
+
+    <!--渲染条件-->
+    <div class="row col s12">
+
+        <div class="col s10">
+
+
+            <!--司机-->
+            <div class="input-field col colWidth">
+                <select material-select watch ng-model="conDrivder" id="driver" style="width: 100%" >
+                    <option value="" selected>请选择</option>
+                    <option ng-repeat="dr in driveList" ng-value=dr.id>{{dr.drive_name}}</option>
+                </select>
             </div>
 
-            <!--按钮-->
-            <div class="col s2" style="margin-top: 20px">
-                <div class="col s4" >
-                    <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getCost()">
-                        <i class="mdi mdi-magnify"></i>
-                    </a>
-                </div>
 
-                <div class="col s4 right-align">
-                    <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2  btn vc-center"  ng-click="addCost()">
-                        <i class="mdi mdi-plus"></i>
-                    </a>
-                </div>
+            <!--货车牌号-->
+            <div class="input-field col colWidth">
+                <select  id="truck" ng-model="conTruck" style="width: 100%" >
+                    <option value=""></option>
+                    <option ng-repeat="tr in truckList" ng-value="tr.id">{{tr.truck_num}}</option>
+                </select>
+            </div>
 
-                <div class="col s4 center-align">
-                    <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
-                        <i class="mdi mdi-cloud-download"></i>
-                    </a>
-                </div>
+
+            <!--申请状态-->
+            <div class="input-field col colWidth">
+                <select id="conStatus" ng-model="conStatus" material-select watch >
+                    <option value="">请选择</option>
+                    <option ng-repeat="ap in applicationStatusList" ng-value="ap.id">{{ap.status}}</option>
+                </select>
+                <label for="conStatus">状态</label>
+            </div>
+
+
+            <!--申请时间(始)-->
+            <div class="input-field col colWidth">
+                <input type="text" ng-model="conStarTime" id="conStarTime" class="datepicker" autocomplete="off" required date>
+                <i class="mdi dataIcon mdi-table-large"></i>
+                <label for="conStarTime">申请时间(始)</label>
+            </div>
+
+
+            <!--申请时间(终)-->
+            <div class="input-field col colWidth">
+                <input type="text" ng-model="conEndTime" id="conEndTime"  class="datepicker" autocomplete="off" required date>
+                <i class="mdi dataIcon mdi-table-large"></i>
+                <label for="conEndTime">申请时间(终)</label>
+            </div>
+
+
+
+        </div>
+
+
+        <!--按钮区域-->
+        <div class="col s2 mp-20">
+            <!--查询按钮-->
+            <div class="col s4" >
+                <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getCost()">
+                    <i class="mdi mdi-magnify"></i>
+                </a>
+            </div>
+            <!--新增按钮-->
+            <div class="col s4 right-align">
+                <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2  btn vc-center"  ng-click="openCost()">
+                    <i class="mdi mdi-plus"></i>
+                </a>
+            </div>
+            <!--下载按钮-->
+            <div class="col s4 center-align">
+                <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
+                    <i class="mdi mdi-cloud-download"></i>
+                </a>
             </div>
         </div>
+
     </div>
-    <div class="col s12">
+
+
+    <!-- 下部分：检索结果显示区域 -->
+    <div class="row">
         <div class="divider cyan" style="height: 2px;"></div>
-        <table class=" bordered striped text_mid">
+        <table class="bordered striped text_mid">
             <thead class="blue-grey lighten-5">
             <tr class="grey-text text-darken-2">
-                <th data-field="">司机</th>
-                <th data-field="">货车牌号</th>
-                <th data-field="">商品车加油费</th>
-                <th data-field="">货车停留天数</th>
-                <th data-field="">货车停车单价</th>
-                <th data-field="">货车停车费</th>
-                <th data-field="">商品车停留天数</th>
-                <th data-field="">商品车停车单价</th>
-                <th data-field="">商品车停车费</th>
-                <th data-field="">申请时间</th>
-                <th data-field="">银行账号</th>
-                <th data-field="">户名</th>
-                <th data-field="">开户行</th>
-                <th data-field="">状态</th>
-                <th data-field="">操作</th>
+                <th>司机</th>
+                <th>货车牌号</th>
+                <th>商品车加油费</th>
+                <th>货车停留天数</th>
+                <th>货车停车单价</th>
+                <th>货车停车费</th>
+                <th>商品车停留天数</th>
+                <th>商品车停车单价</th>
+                <th>商品车停车费</th>
+                <th>申请时间</th>
+                <th>银行账号</th>
+                <th>户名</th>
+                <th>开户行</th>
+                <th>状态</th>
+                <th>操作</th>
             </tr>
             </thead>
             <tbody>
@@ -94,18 +115,18 @@
                 <td>{{costInfo.car_oil_fee}}</td>
                 <td>{{costInfo.day_count}}</td>
                 <td>{{costInfo.single_price}}</td>
-                <td >{{costInfo.total_price}}</td>
+                <td>{{costInfo.total_price}}</td>
                 <td>{{costInfo.car_day_count}}</td>
                 <td>{{costInfo.car_single_price}}</td>
-                <td >{{costInfo.car_total_price}}</td>
-                <td >{{costInfo.created_on|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                <td>{{costInfo.car_total_price}}</td>
+                <td>{{costInfo.created_on|date:'yyyy-MM-dd HH:mm:ss'}}</td>
                 <td>{{costInfo.bank_number}}</td>
                 <td>{{costInfo.bank_name}}</td>
                 <td>{{costInfo.bank_user_name}}</td>
-                <td >{{costInfo.status == 0 ? "驳回" :costInfo.status == 1 ? "未发放" : "已发放" }}</td>
+                <td>{{applicationStatusList[costInfo.status].status}}</td>
                 <td  class="operation">
-                    <a ng-click="putCost(costInfo.id)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
-                        <i class="mdi mdi-file-document" style="margin: 0"></i>
+                    <a ng-click="openEditCost(costInfo.id)" class="cyan-text fz12">
+                        <i class="mdi mdi-file-document"></i>
                     </a>
                 </td>
             </tr>
@@ -116,102 +137,151 @@
         </table>
     </div>
 
-    <!--分页-->
+
+
+    <!-- 上下页按钮 -->
     <div class="row">
         <div class="paging_box col s12">
             <div class="right">
-                <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="pre_btn()">
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="preBtn()">
                     上一页
                 </a>
-                <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_btn()">
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="nextBtn()">
                     下一页
                 </a>
             </div>
         </div>
     </div>
 
+
+
 </div>
 
 
-
 <!--添加模态框-->
-<div id="add_cost" class="row modal modal-fixed-footer">
-    <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-        <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
-            <p>添加费用申请</p>
-        </div>
-        <div class="row col s12" style="width: 80%;margin-left: 10%">
-            <!--司机  货车牌号 天数 单价 总价 备注 -->
-            <div class="row col s12"  style="margin: 0;padding: 0;">
+<div id="newCost" class="row modal modal-fixed-footer">
+
+    <!--   Header 题目  新增费用申请-->
+    <div class="cyan lighten-1 white-text center-align modal_title" >新增费用申请</div>
+
+    <!--body-->
+    <div class="modal-content">
+
+
+        <!--费用信息-->
+        <div class="row col s12">
+
+
+
+            <!--调度编号   司机   货车牌号 -->
+            <div class="row col s12 padding margin">
+
+                <!--调度编号-->
                 <div class="col s4 input-field">
-                    <input type="number" ng-model="dpRouteTaskId" id="dpRouteTaskId" name="dpRouteTaskId">
-                    <label for="dpRouteTaskId"  class="active">调度编号</label>
+                    <input type="number" id="dpRouteTaskId"  ng-model="newCostApplication.dpRouteTaskId">
+                    <label for="dpRouteTaskId">调度编号</label>
                 </div>
+
+
+                <!--司机-->
                 <div class="col s4 input-field">
-                    <select material-select watch ng-model="addDrivderId" id="addDrivderId" style="width: 100%" ng-change="changeDriver(addDrivderId.id)">
+                    <select material-select watch ng-model="newCostApplication.driver" id="newDriver" style="width: 100%" ng-change="changeDriver(newCostApplication.driver.id)">
                         <option value="" selected>请选择</option>
-                        <option ng-repeat="el in driveNameList" ng-value='el'>{{el.drive_name}}</option>
+                        <option ng-repeat="dr in driveList" ng-value='dr'>{{dr.drive_name}}</option>
                     </select>
                 </div>
 
+
+                <!--货车牌号-->
                 <div class="col s4 input-field">
-                    <select  material-select watch ng-model="addTruckId" id="addTruckId"  style="width: 100%">
-                        <option value="" selected>货车牌号</option>
-                        <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem">{{truckNumItem.truck_num}}</option>
+                    <select  material-select watch ng-model="newCostApplication.truck" id="newTruck"  style="width: 100%">
+                        <option value="" selected>请选择</option>
+                        <option ng-repeat="tr in truckList" ng-value="tr">{{tr.truck_num}}</option>
                     </select>
                 </div>
             </div>
 
-            <div class="row col s12" style="margin: 0;padding: 0;">
+
+            <!--货车停留天数  单价   停车费 -->
+            <div class="row col s12 padding margin">
+
+                <!--货车停留天数-->
                 <div class="col s4 input-field">
-                    <input type="number" ng-model="addDate" id="addDate" name="addDate">
-                    <label for="addDate"  class="active">货车停留天数</label>
+                    <input type="number" ng-model="newCostApplication.dayCount" id="newDate">
+                    <label for="newDate">货车停留天数</label>
                 </div>
 
+                <!--货车停车单价-->
                 <div class="col s4 input-field">
-                    <input type="number" ng-model="addSingle" id="addSingle" name="addSingle">
-                    <label for="addSingle"  class="active">货车停车单价</label>
-                    </div>
-                <div class="col s4 input-field right-align"  style="margin-top: 30px;border-bottom: 1px solid #9e9e9e">
-                    <span class="red-text">{{addSingle*addDate}}</span>
+                    <input type="number" ng-model="newCostApplication.singlePrice" id="newSingle">
+                    <label for="newSingle">货车停车单价</label>
+                </div>
+
+
+                <!--货车停车费-->
+                <div class="col s4 input-field right-align"  style="margin-top: 38px;border-bottom: 1px solid #9e9e9e">
+                    <span class="red-text">{{newCostApplication.dayCount*newCostApplication.singlePrice}}</span>
                     <label class="active">货车停车费</label>
                 </div>
             </div>
-            <div class="row col s12"  style="margin: 0;padding: 0;">
+
+
+            <!--商品车停留天数    商品车停车单价   商品车停车费   商品车加油费  备注-->
+            <div class="row col s12 padding margin">
+
+                <!--商品车停留天数-->
                 <div class="col s4 input-field">
-                    <input type="number" ng-model="carDayCount" id="carDayCount" name="carDayCount">
-                    <label for="carDayCount"  class="active">商品车天数</label>
+                    <input type="number" ng-model="newCostApplication.carDayCount" id="newCarDayCount">
+                    <label for="newCarDayCount" class="active">商品车停留天数</label>
                 </div>
 
+                <!--商品车停车单价-->
                 <div class="col s4 input-field">
-                    <input type="number" ng-model="carSinglePrice" id="carSinglePrice" name="carSinglePrice">
-                    <label for="carSinglePrice"  class="active">商品车停车单价</label>
+                    <input type="number" ng-model="newCostApplication.carSinglePrice" id="newCarSinglePrice">
+                    <label for="newCarSinglePrice">商品车停车单价</label>
                 </div>
-                <div class="col s4 input-field right-align"  style="margin-top: 30px;border-bottom: 1px solid #9e9e9e">
-                    <span class="red-text">{{carSinglePrice*carDayCount}}</span>
+
+                <!--商品车停车费-->
+                <div class="col s4 input-field right-align"  style="margin-top: 38px;border-bottom: 1px solid #9e9e9e">
+                    <span class="red-text">{{newCostApplication.carSinglePrice*newCostApplication.carDayCount}}</span>
                     <label class="active">商品车停车费</label>
                 </div>
+
+
+
+                <!--商品车加油费-->
                 <div class="col s12 input-field">
-                    <input type="number" ng-model="carOilFee" id="carOilFee" name="carOilFee">
-                    <label for="carOilFee"  class="active">商品车加油费</label>
+                    <input type="number" ng-model="newCostApplication.carOilFee" id="newOilFee">
+                    <label for="newOilFee">商品车加油费</label>
                 </div>
+
+
+                <!--备注-->
                 <div class="col s12 input-field">
-                    <input type="text" ng-model="remark" id="remark" name="remark">
-                    <label for="remark"  class="active">备注</label>
+                    <input type="text" ng-model="newCostApplication.remark" id="newRemark">
+                    <label for="newRemark">备注</label>
                 </div>
             </div>
+
+
         </div>
+
+
+
     </div>
 
+
+
+    <!--按钮-->
     <div class="modal-footer valign-wrapper">
         <div class="col s12">
             <div class="col s2 offset-s4">
-                <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                <a class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
                     取消
                 </a>
             </div>
             <div class="col s2">
-                <a ng-click="addCostItem()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                <a class="waves-light waves-effect cyan lighten-1 btn"  ng-click="addCostItem()" >
                     确定
                 </a>
             </div>
@@ -222,68 +292,96 @@
 
 
 <!--修改模态框-->
-<div id="put_cost" class="row modal modal-fixed-footer">
-    <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-        <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
-            <p>修改费用申请</p>
-        </div>
-        <div class="row col s12" style="width: 80%;margin-left: 10%">
-            <!--司机  货车牌号 天数 单价 总价 备注 -->
-            <div class="row col s12"  style="margin: 0;padding: 0;">
+<div id="editCost" class="row modal modal-fixed-footer">
+
+
+    <!--   Header 题目  修改费用申请-->
+    <div class="cyan lighten-1 white-text center-align modal_title" >修改费用申请</div>
+
+
+
+    <!--body-->
+    <div class="modal-content">
+
+
+
+        <div class="row col s12">
+
+            <!--行1-->
+            <div class="row col s12 padding margin" >
+
+                <!--调度编号 不可修改-->
                 <div class="col s4 input-field">
                     <input type="number" ng-model="putList.dp_route_task_id" id="putRouteTaskId" name="putRouteTaskId" disabled>
                     <label for="putRouteTaskId"  class="active">调度编号</label>
                 </div>
+
+
+                <!--司机 不可修改-->
                 <div class="col s4 input-field">
                     <input id="putDriverName" type="text" ng-model="putList.drive_name" disabled />
                     <label for="putDriverName">司机</label>
                 </div>
 
+
+                <!--货车牌号 不可修改-->
                 <div class="col s4 input-field">
                     <input id="putTruckNum" type="text" ng-model="putList.truck_num" disabled />
                     <label for="putTruckNum">货车牌号</label>
                 </div>
             </div>
 
-            <div class="row col s12" style="margin: 0;padding: 0;">
+            <!--行2-->
+            <div class="row col s12  padding margin">
+
+                <!--货车停留天数-->
                 <div class="col s4 input-field">
                     <input type="number" id="putDate" ng-model="putList.day_count">
-                    <label for="putDate">停留天数</label>
+                    <label for="putDate">货车停留天数</label>
                 </div>
 
-
+                <!--货车停车单价-->
                 <div class="col s4 input-field">
                     <input type="number" id="putSingle" ng-model="putList.single_price">
-                    <label for="putSingle">停车单价</label>
+                    <label for="putSingle">货车停车单价</label>
                 </div>
 
-
-                <div class="col s4 input-field right-align"  style="margin-top: 30px;border-bottom: 1px solid #9e9e9e">
+                <!--货车停车费-->
+                <div class="col s4 input-field right-align"  style="margin-top: 38px;border-bottom: 1px solid #9e9e9e">
                     <span class="red-text">{{putList.single_price*putList.day_count}}</span>
                     <label class="active">货车停车费</label>
                 </div>
 
             </div>
 
-            <div class="row col s12" style="margin: 0;padding: 0;">
+            <!--行3-->
+            <div class="row col s12 padding margin">
+
+                <!--商品车天数-->
                 <div class="col s4 input-field">
                     <input type="number" ng-model="putList.car_day_count" id="putCarDayCount" name="putCarDayCount">
                     <label for="putCarDayCount"  class="active">商品车天数</label>
                 </div>
 
+                <!--商品车停车单价-->
                 <div class="col s4 input-field">
                     <input type="number" ng-model="putList.car_single_price" id="putCarSinglePrice" name="putCarSinglePrice">
                     <label for="putCarSinglePrice"  class="active">商品车停车单价</label>
                 </div>
-                <div class="col s4 input-field right-align"  style="margin-top: 30px;border-bottom: 1px solid #9e9e9e">
+
+                <!--商品车停车费-->
+                <div class="col s4 input-field right-align"  style="margin-top: 38px;border-bottom: 1px solid #9e9e9e">
                     <span class="red-text">{{putList.car_day_count*putList.car_single_price}}</span>
                     <label class="active">商品车停车费</label>
                 </div>
 
+                <!--商品车加油费-->
                 <div class="col s12 input-field">
                     <input type="number" ng-model="putList.car_oil_fee" id="poutOilFee" name="poutOilFee">
                     <label for="poutOilFee"  class="active">商品车加油费</label>
                 </div>
+
+                <!--备注-->
                 <div class="col s12 input-field">
                     <input type="text" ng-model="putList.remark" id="putRemark" name="putRemark">
                     <label for="putRemark"  class="active">备注</label>
@@ -295,18 +393,28 @@
         </div>
     </div>
 
+
+    <!--按钮-->
     <div class="modal-footer valign-wrapper">
         <div class="col s12">
             <div class="col s2 offset-s4">
-                <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                <a class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
                     取消
                 </a>
             </div>
             <div class="col s2">
-                <a ng-click="finishCost()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                <a class="waves-light waves-effect cyan lighten-1 btn" ng-click="saveCost()">
                     确定
                 </a>
             </div>
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+

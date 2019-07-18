@@ -1,117 +1,132 @@
-<!--车辆成本-->
+<!--财务管理 -> 车辆成本-->
 <div class="setting_drive">
 
     <!--查询条件-->
     <div class="row">
-        <div class="row grey-text text-darken-1">
-            <div class="col s10">
-                <div class="col s12">
-                    <div class="col input-field colWidth">
-                        <input id="start_month" type="text" ng-value="startMonth">
-                        <label class="active" for="start_month">月份</label>
-                    </div>
+
+        <div class="col s10">
+            <div class="col s12">
+                <div class="col input-field colWidth">
+                    <input id="start_month" type="text" ng-value="startMonth">
+                    <label class="active" for="start_month">月份</label>
+                </div>
 
 
-                    <div class="col input-field colWidth">
-                        <select  material-select watch ng-model="truckType" style="width: 100%" ng-change="changeTruckType()">
-                            <option value="" selected disabled>车型</option>
-                            <option ng-repeat="tr in truckTypeList" ng-value="tr.id">{{tr.truck_type}}</option>
-                        </select>
-
-                    </div>
-
-                    <div class="col input-field colWidth">
-                        <select  material-select watch ng-model="truckNumber"  id="truckNumber" style="width: 100%">
-                            <option value="" selected disabled>请选择</option>
-                            <option ng-repeat="truckNumItem in truckNumList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
-                        </select>
-                    </div>
-
-                    <div class="col input-field colWidth">
-                        <select  material-select watch id="operateType"  ng-model="operateType" ng-change="changeOperateType()">
-                            <option value="">请选择</option>
-                            <option ng-repeat="operate in operateTypeList" ng-value="operate.id">{{operate.operate_type}}</option>
-                        </select>
-                        <label for="operateType">所属类型</label>
-                    </div>
-
-                    <div class="col input-field colWidth">
-                        <select id="company" name="company" material-select watch ng-model="driverCompany" required style="width: 100%">
-                            <option value="" selected>请选择</option>
-                            <option ng-repeat="company in companyList" ng-value="company.id" selected>{{company.company_name}}</option>
-                        </select>
-                    </div>
+                <div class="col input-field colWidth">
+                    <select  material-select watch ng-model="truckType" style="width: 100%" ng-change="changeTruckType()">
+                        <option value="" selected disabled>车型</option>
+                        <option ng-repeat="tr in truckTypeList" ng-value="tr.id">{{tr.truck_type}}</option>
+                    </select>
 
                 </div>
-            </div>
-            <!--按钮-->
-            <div class="col s2" style="margin-top: 15px">
-                <div class="col s6 center-align">
-                    <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getdrive()">
-                        <i class="mdi mdi-magnify"></i>
-                    </a>
+
+                <div class="col input-field colWidth">
+                    <select  material-select watch ng-model="truckNumber"  id="truck" style="width: 100%">
+                        <option value="" selected disabled>请选择</option>
+                        <option ng-repeat="truckNumItem in truckList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
+                    </select>
                 </div>
-                <div class="col s6 center-align">
-                    <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
-                        <i class="mdi mdi-cloud-download"></i>
-                    </a>
+
+                <div class="col input-field colWidth">
+                    <select  material-select watch id="operateType"  ng-model="operateType" ng-change="changeOperateType()">
+                        <option value="">请选择</option>
+                        <option ng-repeat="operate in operateTypeList" ng-value="operate.id">{{operate.operate_type}}</option>
+                    </select>
+                    <label for="operateType">所属类型</label>
                 </div>
+
+                <div class="col input-field colWidth">
+                    <select material-select watch  id="company"  ng-model="driverCompany"  style="width: 100%">
+                        <option value="" selected>所属公司</option>
+                        <option ng-repeat="company in companyList" ng-value="company.id">{{company.company_name}}</option>
+                    </select>
+                </div>
+
             </div>
         </div>
-        <div class="col s12">
-            <div class="divider cyan" style="height: 2px;"></div>
-            <table class=" bordered striped text_mid">
-                <thead class="blue-grey lighten-5">
-                <tr class="grey-text text-darken-2">
-                    <th data-field="">月份</th>
-                    <th data-field="">车型</th>
-                    <th data-field="">货车牌号</th>
-                    <th data-field="">所属公司</th>
-                    <th data-field="">维修费</th>
-                    <th data-field="">配件费</th>
-                    <th data-field="">保养费</th>
-                    <th data-field="">过路费</th>
-                    <th data-field="">违章个人/公司</th>
-                    <th data-field="">货车油费</th>
-                    <th data-field="">货车尿素费</th>
-                    <th data-field="">保险金额</th>
 
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="driveInfo in driveList" class="grey-text text-darken-1">
-                    <td>{{startMonth}}</td>
-                    <td>{{truckTypeList[driveInfo.truck_type-1].truck_type}}</td>
-                    <td>{{driveInfo.truck_num==null?0:driveInfo.truck_num}}</td>
-                    <td>{{driveInfo.company_name==null?0:driveInfo.company_name}}</td>
-                    <td>{{driveInfo.repair_fee==null?0:driveInfo.repair_fee}}</td>
-                    <td>{{driveInfo.parts_fee==null?0:driveInfo.parts_fee}}</td>
-                    <td>{{driveInfo.maintain_fee==null?0:driveInfo.maintain_fee}}</td>
-                    <td>{{driveInfo.etc_fee==null?0:driveInfo.etc_fee}}</td>
-                    <td>{{driveInfo.peccancy_under_fee==null?0:driveInfo.peccancy_under_fee}}/{{driveInfo.peccancy_company_fee==null?0:driveInfo.peccancy_company_fee}}</td>
-                    <td>{{driveInfo.oil_fee==null?0:driveInfo.oil_fee}}</td>
-                    <td>{{driveInfo.urea_fee==null?0:driveInfo.urea_fee}}</td>
-                    <td>{{driveInfo.insure_total_money==null?0:driveInfo.insure_total_money}}</td>
-                </tr>
-                <tr ng-if="driveList.length==0">
-                    <td colspan="12">暂无数据</td>
-                </tr>
-                </tbody>
-            </table>
+
+
+        <!--按钮-->
+        <div class="col s2 mp-10">
+            <div class="col s6 center-align">
+                <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getCarCost()">
+                    <i class="mdi mdi-magnify"></i>
+                </a>
+            </div>
+            <div class="col s6 center-align">
+                <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
+                    <i class="mdi mdi-cloud-download"></i>
+                </a>
+            </div>
         </div>
 
-        <!--分页-->
-        <div class="row">
-            <div class="paging_box col s12">
-                <div class="right">
-                    <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="pre_btn()">
-                        上一页
-                    </a>
-                    <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_btn()">
-                        下一页
-                    </a>
-                </div>
+    </div>
+
+
+    <!--列表-->
+    <div class="col s12">
+        <!--分割线-->
+        <div class="divider cyan" style="height: 2px;"></div>
+        <table class=" bordered striped text_mid">
+            <thead class="blue-grey lighten-5">
+
+            <!--表头-->
+            <tr class="grey-text text-darken-2">
+                <th data-field="">月份</th>
+                <th data-field="">车型</th>
+                <th data-field="">货车牌号</th>
+                <th data-field="">所属公司</th>
+                <th data-field="">维修费</th>
+                <th data-field="">配件费</th>
+                <th data-field="">保养费</th>
+                <th data-field="">过路费</th>
+                <th data-field="">违章个人/公司</th>
+                <th data-field="">货车油费</th>
+                <th data-field="">货车尿素费</th>
+                <th data-field="">保险金额</th>
+
+            </tr>
+            </thead>
+
+            <!--表体-->
+            <tbody>
+            <tr ng-repeat="car in carCostList" class="grey-text text-darken-1">
+                <td>{{startMonth}}</td>
+                <td>{{truckTypeList[car.truck_type-1].truck_type}}</td>
+                <td>{{car.truck_num==null?0:car.truck_num}}</td>
+                <td>{{car.company_name==null?0:car.company_name}}</td>
+                <td>{{car.repair_fee==null?0:car.repair_fee}}</td>
+                <td>{{car.parts_fee==null?0:car.parts_fee}}</td>
+                <td>{{car.maintain_fee==null?0:car.maintain_fee}}</td>
+                <td>{{car.etc_fee==null?0:car.etc_fee}}</td>
+                <td>{{car.peccancy_under_fee==null?0:car.peccancy_under_fee}}/{{car.peccancy_company_fee==null?0:car.peccancy_company_fee}}</td>
+                <td>{{car.oil_fee==null?0:car.oil_fee}}</td>
+                <td>{{car.urea_fee==null?0:car.urea_fee}}</td>
+                <td>{{car.insure_total_money==null?0:car.insure_total_money}}</td>
+            </tr>
+            <tr ng-if="carCostList.length==0">
+                <td colspan="12">暂无数据</td>
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+
+    <!--分页-->
+    <div class="row">
+        <div class="paging_box col s12">
+            <div class="right">
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="preBtn()">
+                    上一页
+                </a>
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="nextBtn()">
+                    下一页
+                </a>
             </div>
         </div>
     </div>
+
+
 </div>

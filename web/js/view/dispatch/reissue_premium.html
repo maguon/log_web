@@ -1,6 +1,104 @@
-
-
 <!--新增保道费(条件中)   模态框-->
+<div id="addFeeItem" class="modal">
+    <div class="cyan lighten-1 white-text center-align modal_title" >新增保道费</div>
+    <div class="modal-content">
+        <div class="row col s12">
+            <div class="col s12">
+
+                <div class="mp-30 valign-wrapper">
+                    <div class="col s2 cyan-text text-lighten-1" style="font-size: 20px;min-width: 90px">调度编号:</div>
+                    <div class="input-field col s8">
+                        <input type="text" id="dpId" name="dpId" ng-model="dpId"  autocomplete="off"  required>
+                    </div>
+                    <div  class="col s2 vc-center">
+                        <button ng-click="getDetail()" class=" btn btn-floating btn-large waves-effect cyan lighten-1" ><i class="mdi white-text mdi-magnify fz35"></i></button>
+                    </div>
+                </div>
+
+                <div class="row  mp-50" >
+                    <div style="width: 90%;margin: 0 auto">
+                        <p class="no_car_detail center-align cyan-text text-lighten-1 mp-50">无此调度任务</p>
+                        <div class="car_detail col s12 fz14 bold" style="border:1px solid #bdbdbd;">
+                            <!-- body -->
+                            <div class=" col s12">
+                                <div class="col s4 input-field cyan-text left-align">
+                                    <span>司机：</span>{{carItem.drive_name}}
+                                </div>
+                                <div class="col s4 input-field cyan-text center-align">
+                                    <span>车牌号：</span>{{carItem.truck_num}}
+                                </div>
+                                <div class="col s4 input-field cyan-text center-align">
+                                    <span>调度编号：</span>{{carItem.dp_route_task_id}}
+                                </div>
+                            </div>
+
+
+                            <div class="col s12 valign-wrapper">
+
+                                <div class="col s12 input-field">
+                                    <select id="dispatch_num_mod1" ng-model="dispatchNum" material-select watch>
+                                        <option value="">请选择</option>
+                                        <option ng-repeat="el in addWashFeeBox" ng-value="el">{{el.id+'&emsp;'+el.dp_route_task_id + '&emsp;' + el.route_start+'('+ el.addr_name+')'+  ' - ' + el.route_end +'('+ el.short_name+')'+ '&emsp;' + (el.task_plan_date | date:'yyyy-MM-dd')  +"&emsp;&emsp;&emsp;"+el.car_count}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="col s12 fz14 valign-wrapper cyan-text" style="font-size: 1.2rem;" >
+                                <div class="col  input-field red-text left-align" style="width: 20%">
+                                    <input id="newTrailerFee1" type="number"  ng-model="newTrailerFee">
+                                    <label for="newTrailerFee1" class="active">拖车费/每台</label>
+                                </div>
+                                <div class="col  input-field red-text right-align" style="width: 20%">
+                                    <input id="newCarParkingFee1" type="number"  ng-model="newCarParkingFee">
+                                    <label for="newCarParkingFee1" class="active">提车费/每台</label>
+                                </div>
+                                <div class="col  input-field red-text right-align" style="width: 20%">
+                                    <input id="newRunFee1" type="number"  ng-model="newRunFee">
+                                    <label for="newRunFee1" class="active">地跑费/每台</label>
+                                </div>
+                                <div class="col  input-field red-text right-align" style="width: 20%">
+                                    <input id="newLeadFee1" type="number"  ng-model="newLeadFee">
+                                    <label for="newLeadFee1" class="active">带路费/每板</label>
+                                </div>
+                                <div class="col input-field right-align" style="width: 20%">
+                                    合计金额:<span class="red-text">{{dispatchNum.car_count==isNaN?0:((newRunFee*dispatchNum.car_count+newCarParkingFee*dispatchNum.car_count+newTrailerFee*dispatchNum.car_count)+newLeadFee)}}</span>
+                                </div>
+                            </div>
+
+                            <div class="col s12">
+                                <div class="input-field col s12" style="margin-bottom:20px ">
+                                    <input name="remarkItem" id="remarkItem" type="text" ng-model="remarkItem" >
+                                    <label for="remarkItem">备注:</label>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer car_detail valign-wrapper">
+                    <div class="col s12">
+                        <div class="col s2 offset-s4">
+                            <a class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                                取消
+                            </a>
+                        </div>
+                        <div class="col s2">
+                            <a ng-click="addFee()" class="waves-light waves-effect cyan lighten-1 btn">
+                                确定
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--新增保道费(列表中)   模态框-->
 <div id="singleReissue" class="modal">
 
     <!--题目  新增保道费-->
@@ -8,14 +106,14 @@
 
 
     <div class="modal-content">
-        <div class="row col" style="width:94%; margin-left: 3%;">
+        <div class="row col s12">
             <div class="col s12">
 
 
                <!--添加-->
                 <div class="row">
                     <!-- header -->
-                    <div class="col s12 fz14 valign-wrapper cyan-text" style="font-size: 1.2rem;font-weight: bold">
+                    <div class="col s12 fz18 valign-wrapper cyan-text bold">
                         <div class="row col s12">
                             <div class="col s4 cyan-text left-align">
                                 <span>司机：</span>{{singleReissueData.drive_name}}
@@ -91,109 +189,8 @@
 </div>
 
 
-<!--新增保道费(列表中)   模态框-->
-<div id="addFeeItem" class="modal">
-    <div class="cyan lighten-1 white-text center-align modal_title" >新增保道费用</div>
-    <div class="modal-content">
-        <div class="row col" style="width:94%; margin-left: 3%;">
-            <div class="col s12">
-                <div class="">
-                    <form name="demand_car_form" novalidate>
-                        <div class="mp-30 valign-wrapper">
-                            <div class="col s2 cyan-text text-lighten-1" style="font-size: 20px;min-width: 90px">调度编号:</div>
-                            <div class="input-field col s8">
-                                <span></span>
-                                <input type="text" id="dpId" name="dpId" ng-model="dpId"  autocomplete="off"  required>
-                            </div>
-                            <div  class="col s2 vc-center">
-                                <button ng-click="getDetail()" class=" btn btn-floating btn-large waves-effect cyan lighten-1" ><i class="mdi white-text mdi-magnify fz35"></i></button>
-                            </div>
-                        </div>
 
-                    </form>
-                    <div class="row  mp-50" >
-                        <div style="width: 90%;margin: 0 auto">
-                            <p class="no_car_detail center-align cyan-text text-lighten-1 mp-50">无此调度任务</p>
-                            <div class="car_detail col s12 fz14 bold" style="border:1px solid #bdbdbd;">
-                                <!-- body -->
-                                <div class=" col s12">
-                                    <div class="col s4 input-field cyan-text left-align">
-                                        <span>司机：</span>{{carItem.drive_name}}
-                                    </div>
-                                    <div class="col s4 input-field cyan-text center-align">
-                                        <span>车牌号：</span>{{carItem.truck_num}}
-                                    </div>
-                                    <div class="col s4 input-field cyan-text center-align">
-                                        <span>调度编号：</span>{{carItem.dp_route_task_id}}
-                                    </div>
-                                </div>
-
-
-                                <div class="col s12 valign-wrapper">
-
-                                    <div class="col s12 input-field">
-                                        <select id="dispatch_num_mod1" ng-model="dispatchNum" material-select watch>
-                                            <option value="">请选择</option>
-                                            <option ng-repeat="el in addWashFeeBox" ng-value="el">{{el.id+'&emsp;'+el.dp_route_task_id + '&emsp;' + el.route_start+'('+ el.addr_name+')'+  ' - ' + el.route_end +'('+ el.short_name+')'+ '&emsp;' + (el.task_plan_date | date:'yyyy-MM-dd')  +"&emsp;&emsp;&emsp;"+el.car_count}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-
-                                <div class="col s12 fz14 valign-wrapper cyan-text" style="font-size: 1.2rem;" >
-                                    <div class="col  input-field red-text left-align" style="width: 20%">
-                                        <input id="newTrailerFee1" type="number"  ng-model="newTrailerFee">
-                                        <label for="newTrailerFee1" class="active">拖车费/每台</label>
-                                    </div>
-                                    <div class="col  input-field red-text right-align" style="width: 20%">
-                                        <input id="newCarParkingFee1" type="number"  ng-model="newCarParkingFee">
-                                        <label for="newCarParkingFee1" class="active">提车费/每台</label>
-                                    </div>
-                                    <div class="col  input-field red-text right-align" style="width: 20%">
-                                        <input id="newRunFee1" type="number"  ng-model="newRunFee">
-                                        <label for="newRunFee1" class="active">地跑费/每台</label>
-                                    </div>
-                                    <div class="col  input-field red-text right-align" style="width: 20%">
-                                        <input id="newLeadFee1" type="number"  ng-model="newLeadFee">
-                                        <label for="newLeadFee1" class="active">带路费/每板</label>
-                                    </div>
-                                    <div class="col input-field right-align" style="width: 20%">
-                                        合计金额:<span class="red-text">{{dispatchNum.car_count==isNaN?0:((newRunFee*dispatchNum.car_count+newCarParkingFee*dispatchNum.car_count+newTrailerFee*dispatchNum.car_count)+newLeadFee)}}</span>
-                                    </div>
-                                </div>
-
-                                <div class="col s12">
-                                    <div class="input-field col s12" style="margin-bottom:20px ">
-                                        <input name="remarkItem" id="remarkItem" type="text" ng-model="remarkItem" >
-                                        <label for="remarkItem">备注:</label>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer car_detail valign-wrapper">
-                    <div class="col s12">
-                        <div class="col s2 offset-s4">
-                            <a class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
-                                取消
-                            </a>
-                        </div>
-                        <div class="col s2">
-                            <a ng-click="addFee()" class="waves-light waves-effect cyan lighten-1 btn">
-                                确定
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!--页面渲染-->
+<!-- 主菜单：调度管理 -> 保道费 画面 -->
 <div class="reissue_premium">
     <div class="row">
 
@@ -241,7 +238,7 @@
             <div class="col s3 input-field">
                 <select  material-select watch ng-model="conTruckNum"  id="truckNumber" style="width: 100%">
                     <option value=""></option>
-                    <option ng-repeat="truck in truckNumList" ng-value="truck.id">{{truck.truck_num}}({{truck.truck_type == 1 ? "头车" : "挂车"}})</option>
+                    <option ng-repeat="truck in truckList" ng-value="truck.id">{{truck.truck_num}}({{truck.truck_type == 1 ? "头车" : "挂车"}})</option>
                 </select>
             </div>
 
@@ -276,11 +273,11 @@
 
 
         <!--按钮区域-->
-        <div class="col s2 vc-center" style="height: 125px;">
+        <div class="col s2 vc-center mp-40">
 
             <!--查询-->
             <div class="col s4 center-align">
-                <a class="btn-floating btn-large waves-light waves-effect red lighten-2 btn vc-center"
+                <a class="btn-floating btn-large waves-light waves-effect red lighten-2 btn"
                    ng-click="searchInsurancePremium()">
                     <i class="mdi mdi-magnify"></i>
                 </a>
@@ -288,14 +285,14 @@
 
             <!--添加-->
             <div class="col s4 center-align">
-                <a class="btn-floating btn-large waves-light waves-effect cyan lighten-1 btn vc-center" ng-click="addFeeItem()">
+                <a class="btn-floating btn-large waves-light waves-effect cyan lighten-1 btn" ng-click="addFeeItem()">
                     <i class="mdi mdi-plus"></i>
                 </a>
             </div>
 
             <!--下载-->
             <div class="col s4 center-align">
-                <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353" ng-click="export()">
+                <a class="btn-floating btn-large waves-light waves-effect btn" style="background-color: #fea353" ng-click="export()">
                     <i class="mdi mdi-cloud-download"></i>
                 </a>
             </div>
@@ -303,7 +300,7 @@
         </div>
 
         <!-- 下部分：检索结果显示区域 -->
-        <div class="row col s12" style="margin-top: 25px">
+        <div class="row col s12 mp-30">
             <div class="col s12 cyan white-text vc-center  fz18" style="height: 60px;" ng-if="insurancePremiumArrayList.length!==0">
                 <div class="col s3 left-align bold">
                     总拖车金额:{{totalFee.total_trailer_fee}}元

@@ -1,9 +1,21 @@
+/**
+ * 主菜单：结算管理 -> 未返还交接单 控制器
+ */
 app.controller("not_handover_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
+
+    // 取得当前画面 登录用户
+    var userId = _basic.getSession(_basic.USER_ID);
+
+    // 翻页用
     $scope.start = 0;
     $scope.size = 11;
-    var userId = _basic.getSession(_basic.USER_ID);
+
+
+    //临时数组
     $scope.ArrayList=[];
-    $scope.carIds=[];
+
+
+    //初始  隐藏翻页
     $("#pre").hide();
     $("#next").hide();
 
@@ -13,35 +25,38 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
         // 委托方
         _basic.get($host.api_url + "/entrust").then(function (data) {
             if (data.success == true) {
-                $scope.get_entrust = data.result;
+                $scope.entrustList = data.result;
+                $('#client').select2({
+                    placeholder: '委托方',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+
             }
         })
+
         //  城市信息获取
         _basic.get($host.api_url + "/city").then(function (data) {
             if (data.success == true) {
-                $scope.get_city = data.result;
+                $scope.cityList = data.result;
                 $('#startCity').select2({
                     placeholder: '始发城市',
                     containerCssClass : 'select2_dropdown',
                     allowClear: true
                 });
-                $('#chooseEndCity').select2({
+                $('#endCity').select2({
                     placeholder: '目的地城市',
                     containerCssClass: 'select2_dropdown',
                     allowClear: true
                 });
             }
         });
+
         //获取司机
         _basic.get($host.api_url + "/drive").then(function (data) {
             if (data.success === true) {
                 $scope.driveList = data.result;
-                for(var i =0;i< $scope.driveList.length;i++){
-                    if( $scope.driveList[i].mobile==null){
-                        $scope.driveList[i].mobile = '空';
-                    }
-                }
-                $('#driver_name_mod').select2({
+                $('#driver').select2({
                     placeholder: '司机',
                     containerCssClass : 'select2_dropdown',
                     allowClear: true
@@ -55,10 +70,10 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
 
 
     // 目的地城市-经销商联动
-    $scope.get_received = function (id) {
+    $scope.changeEndCity = function (id) {
         _basic.get($host.api_url + "/receive?cityId=" + id).then(function (data) {
             if (data.success == true) {
-                $scope.get_receive = data.result;
+                $scope.receiveList = data.result;
                 $('#dealer').select2({
                     placeholder: '经销商',
                     containerCssClass : 'select2_dropdown',
@@ -72,10 +87,11 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
     };
 
 
-    $scope.changeCarMake = function (entrustId){
+    //委托方-品牌联动
+    $scope.changeClient = function (entrustId){
         _basic.get($host.api_url + "/entrustMakeRel?entrustId=" + entrustId).then(function (data) {
             if (data.success == true && data.result.length >= 0) {
-                $scope.entrustMakeRelList = data.result;
+                $scope.brandList = data.result;
 
             }
             else {
@@ -85,14 +101,14 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
     }
 
 
-    // 发运地名称
-    $scope.getAddrData = function () {
-        if($scope.startCity == 0 || $scope.startCity == "" || $scope.startCity == null){
-            $scope.startCity = null;
+    // 起始城市-发运地名称联动
+    $scope.changeStartCity = function () {
+        if($scope.conStartCity == 0 || $scope.conStartCity == "" || $scope.conStartCity == null){
+            $scope.conStartCity = null;
             $scope.locateList = [];
         }
         else{
-            _basic.get($host.api_url + "/baseAddr?cityId=" + $scope.startCity).then(function (data) {
+            _basic.get($host.api_url + "/baseAddr?cityId=" + $scope.conStartCity).then(function (data) {
                 if (data.success === true) {
                     $scope.locateList = data.result;
                 }
@@ -105,29 +121,23 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
 
 
 
-    // 数据导出
+    /*
+    * 数据导出
+    * */
     $scope.export = function () {
-        if ($scope.planTimeStart == undefined || $scope.planTimeEnd == undefined) {
+
+        // 基本检索URL
+        var url = $host.api_url + "/notSettleHandover.csv";
+        // 检索条件
+        var conditions = _basic.objToUrl(makeConditions());
+        // 检索URL
+        url = conditions.length > 0 ? url + "?" + conditions : url;
+
+
+        if ($scope.conPlanTimeStart == undefined || $scope.conPlanTimeEnd == undefined) {
             swal('请输入完整的查询时间', "", "error");
         }
         else {
-            var obj = {
-                carLoadStatus: 2,
-                vinCode: $scope.VIN,
-                entrustId: $scope.client,
-                routeEndId: $scope.arrive_city,
-                receiveId: $scope.receiveId,
-                dpRouteTaskId: $scope.instructionNum,
-                driveId: $scope.driverIdMod,
-                makeId: $scope.car_brand,
-                routeStartId: $scope.startCity,
-                baseAddrId: $scope.locateId,
-                taskPlanDateStart: $scope.planTimeStart,
-                taskPlanDateEnd: $scope.planTimeEnd,
-                receivedDateStart: $scope.planTimeStart,
-                receivedDateEnd: $scope.planTimeEnd
-
-            };
             swal({
                     title: "确定导出未返还交接单表？",
                     text: "",
@@ -139,42 +149,41 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
             }).then(
                 function (result) {
                     if (result.value) {
-                        window.open($host.api_url + "/notSettleHandover.csv?" + _basic.objToUrl(obj));
+                        window.open(url);
                     }
                 })
         }
     }
 
-    //查询
+
+
+    /*
+    * 查询按钮
+    * */
     $scope.getNotHandoverInfo = function () {
         $scope.start = 0;
-        getNotHandover();
+        seachNotHandover();
     }
 
 
-    function  getNotHandover() {
-        if ($scope.planTimeStart == undefined || $scope.planTimeEnd == undefined) {
+    /**
+     * 根据条件搜索
+     */
+    function  seachNotHandover() {
+        if ($scope.conPlanTimeStart == undefined || $scope.conPlanTimeEnd == undefined) {
             swal('请输入完整的查询时间', "", "error");
             $scope.notHandoverArray = [];
             $scope.getNum =0;
         }
         else {
-            _basic.get($host.api_url + "/notSettleHandover?transferFlag=0&" + _basic.objToUrl({
-                carLoadStatus: 2,
-                vinCode: $scope.VIN,
-                entrustId: $scope.client,
-                routeEndId: $scope.arrive_city,
-                receiveId: $scope.receiveId,
-                dpRouteTaskId: $scope.instructionNum,
-                driveId: $scope.driverIdMod,
-                taskPlanDateStart: $scope.planTimeStart,
-                taskPlanDateEnd: $scope.planTimeEnd,
-                makeId: $scope.car_brand,
-                routeStartId: $scope.startCity,
-                baseAddrId: $scope.locateId,
-                start: $scope.start.toString(),
-                size: $scope.size
-            })).then(function (data) {
+            // 基本检索URL
+            var url = $host.api_url + "/notSettleHandover?start=" + $scope.start + "&size=" + $scope.size;
+            // 检索条件
+            var conditionsObj = makeConditions();
+            var conditions = _basic.objToUrl(conditionsObj);
+            // 检索URL
+            url = conditions.length > 0 ? url + "&" + conditions : url;
+            _basic.get(url).then(function (data) {
                 if (data.success === true) {
                     $scope.boxArray = data.result;
                     $scope.notHandoverArray = $scope.boxArray.slice(0, 10);
@@ -195,7 +204,9 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
                     swal(data.msg, "", "error");
                 }
             });
-            _basic.get($host.api_url + "/notSettleHandoverCarCount?transferFlag=0&carLoadStatus=2&taskPlanDateStart="+$scope.planTimeStart +"&taskPlanDateEnd="+ $scope.planTimeEnd)
+
+            //未返还车辆总数
+            _basic.get($host.api_url + "/notSettleHandoverCarCount?transferFlag=0&carLoadStatus=2&taskPlanDateStart="+$scope.conPlanTimeStart +"&taskPlanDateEnd="+ $scope.conPlanTimeEnd)
                 .then(function (data) {
                     if (data.success === true) {
                         $scope.getNum=data.result[0].car_count;
@@ -207,8 +218,11 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
         }
     }
 
-    //打开模态框
-    $scope.notHandOverDetail = function (id) {
+
+
+
+    //打开详情模态框
+    $scope.openNotHandOverDetail = function (id) {
         _basic.get($host.api_url + "/notSettleHandover?dpRouteTaskDetailId=" + id).then(function (data) {
             if (data.success === true) {
                 $scope.notHandOverDetailArray = data.result[0];
@@ -219,9 +233,12 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
 
 
 
+
     //点击加号 生成数组
     $scope.getArr = function (el){
         if($scope.ArrayList.length!==0){
+
+            //判断添加的vin是否与第一个vin品牌、委托方、起始城市、发运地、经销商一致
             if(
                 $scope.ArrayList[0].make_name==el.make_name&&
                 $scope.ArrayList[0].e_short_name==el.e_short_name&&
@@ -243,10 +260,14 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
             }
         }
         else{
+
+            //生成数组
             $scope.ArrayList.push(el);
         }
     }
-    //删除
+
+
+    //删除数据
     $scope.deleteSingle =function (_obj,_arr){
         var length = _arr.length;
         for (var i = 0; i < length; i++) {
@@ -268,7 +289,8 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
         $scope.ArrayList =_arr;
     }
 
-    //未交接到已交接
+
+    //未交接到已交接按钮
     $scope.addArr = function (){
         $scope.carIds=[];
         for (var i = 0; i < $scope.ArrayList.length; i++) {
@@ -278,9 +300,13 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
         $scope.addHandoverReceiveStartTime='';
         $scope.newRemark='';
 
-        $('#addSettlementItem').modal('open');
+        $('#addSettlementArr').modal('open');
     }
 
+
+    /*
+    * 执行未交接到已交接操作
+    * */
     $scope.addSettlementItem = function (){
         swal({
             title: "确定交接这些车辆吗？",
@@ -306,8 +332,8 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
                     }).then(function (data) {
                         if (data.success == true) {
                             $scope.ArrayList=[];
-                            $('#addSettlementItem').modal('close');
-                            getNotHandover();
+                            $('#addSettlementArr').modal('close');
+                            seachNotHandover();
                             swal("交接成功", "", "success");
                         }
                         else {
@@ -324,16 +350,49 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
     }
 
 
+
+
+
+
+
+
     // 分页
     $scope.preBtn = function () {
         $scope.start = $scope.start - ($scope.size-1);
-        getNotHandover();
+        seachNotHandover();
     };
 
     $scope.nextBtn = function () {
         $scope.start = $scope.start + ($scope.size-1);
-        getNotHandover();
+        seachNotHandover();
     };
+
+
+    /**
+     * 组装检索条件。
+     */
+    function makeConditions() {
+        var obj = {
+            carLoadStatus: 2,
+            vinCode: $scope.conVin,
+            entrustId: $scope.conEntrust,
+            routeEndId: $scope.conEndcity,
+            receiveId: $scope.conReceive,
+            dpRouteTaskId: $scope.condpId,
+            driveId: $scope.conDriver,
+            taskPlanDateStart: $scope.conPlanTimeStart,
+            taskPlanDateEnd: $scope.conPlanTimeEnd,
+            makeId: $scope.conBrand,
+            routeStartId: $scope.conStartCity,
+            baseAddrId: $scope.conLocate,
+            transferFlag:0
+        }
+        return obj;
+    }
+
+
+
+
     getMsg();
 
 }])

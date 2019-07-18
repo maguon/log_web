@@ -14,7 +14,7 @@ app.controller("car_cost_controller", ["$scope","$rootScope", "$state", "$stateP
     $scope.operateTypeList = _config.operateType;
 
 
-    //車型
+    //车型
     $scope.truckTypeList = _config.truckType;
 
 
@@ -47,8 +47,8 @@ app.controller("car_cost_controller", ["$scope","$rootScope", "$state", "$stateP
 
 
     /*
-       * 所属类型--公司联动
-       * */
+     * 所属类型--公司联动
+     * */
     $scope.changeOperateType=function () {
         _basic.get($host.api_url+"/company?operateType="+$scope.operateType).then(function (data) {
             if(data.success==true){
@@ -65,11 +65,14 @@ app.controller("car_cost_controller", ["$scope","$rootScope", "$state", "$stateP
     };
 
 
+    /**
+     * 货车牌号随车型的变化  ----联动
+     */
     $scope.changeTruckType = function (){
         _basic.get($host.api_url + "/truckBase?truckType=" + $scope.truckType).then(function (data) {
             if (data.success == true) {
-                $scope.truckNumList = data.result;
-                $('#truckNumber').select2({
+                $scope.truckList = data.result;
+                $('#truck').select2({
                     placeholder: '货车牌号',
                     containerCssClass: 'select2_dropdown',
                     allowClear: true
@@ -83,60 +86,31 @@ app.controller("car_cost_controller", ["$scope","$rootScope", "$state", "$stateP
 
 
     //查询功能
-    $scope.getdrive = function (){
+    $scope.getCarCost = function (){
         $scope.start = 0;
-        getdriveData();
+        seachCarCost();
     }
 
 
 
 
-    // 数据导出
-    $scope.export = function () {
-        var obj = {
-            truckType:$scope.truckType,
-            companyId: $scope.driverCompany,
-            yMonth:$scope.startMonth,
-            truckId:$scope.truckNumber,
-            operateType: $scope.operateType
-        };
-        swal({
-            title: "确定导出车辆成本表？",
-            text: "",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "确定",
-            cancelButtonText: "取消"
-        }).then(
-            function (result) {
-                if (result.value) {
-                    window.open($host.api_url + "/truckCost.csv?" + _basic.objToUrl(obj));
-                }
-            })
-
-    };
-
-
-
-
     //获取查询数据
-    function getdriveData(){
+    function seachCarCost(){
         if( $('#start_month').val()!==''){
             $scope.startMonth = $('#start_month').val();
         }
-            _basic.get($host.api_url + "/truckCost?" + _basic.objToUrl({
-                yMonth:$scope.startMonth,
-                truckType:$scope.truckType,
-                companyId: $scope.driverCompany,
-                truckId:$scope.truckNumber,
-                operateType: $scope.operateType,
-                start: $scope.start.toString(),
-                size: $scope.size
-            })).then(function (data) {
-                if (data.success === true) {
+
+        // 基本检索URL
+        var url = $host.api_url + "/truckCost?start=" + $scope.start + "&size=" + $scope.size;
+        // 检索条件
+        var conditionsObj = makeConditions();
+        var conditions = _basic.objToUrl(conditionsObj);
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
+        _basic.get(url).then(function (data) {
+            if (data.success === true) {
                     $scope.boxArray = data.result;
-                    $scope.driveList = $scope.boxArray.slice(0, 10);
+                    $scope.carCostList = $scope.boxArray.slice(0, 10);
                     if ($scope.start > 0) {
                         $("#pre").show();
                     }
@@ -158,23 +132,64 @@ app.controller("car_cost_controller", ["$scope","$rootScope", "$state", "$stateP
 
 
 
+
+
+    /*
+    * 数据导出
+    * */
+    $scope.export = function () {
+        // 基本检索URL
+        var url = $host.api_url + "/truckCost.csv";
+        // 检索条件
+        var conditions = _basic.objToUrl(makeConditions());
+        // 检索URL
+        url = conditions.length > 0 ? url + "?" + conditions : url;
+
+        swal({
+            title: "确定导出车辆成本表？",
+            text: "",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确定",
+            cancelButtonText: "取消"
+        }).then(
+            function (result) {
+                if (result.value) {
+                    window.open(url);
+                }
+            })
+    };
+
+
     // 分页
-
-
-    $scope.pre_btn = function () {
+    $scope.preBtn = function () {
         $scope.start = $scope.start - ($scope.size-1);
-        getdriveData();
+        seachCarCost();
     };
 
 
-
-    $scope.next_btn = function () {
+    $scope.nextBn = function () {
         $scope.start = $scope.start + ($scope.size-1);
-        getdriveData();
+        seachCarCost();
     };
 
+
+    /**
+     * 组装检索条件。
+     */
+    function makeConditions() {
+        var obj = {
+            yMonth:$scope.startMonth,
+            truckType:$scope.truckType,
+            companyId: $scope.driverCompany,
+            truckId:$scope.truckNumber,
+            operateType: $scope.operateType
+        }
+        return obj;
+    }
 
     getLastMonth();
-    getdriveData();
+    seachCarCost();
 
 }])

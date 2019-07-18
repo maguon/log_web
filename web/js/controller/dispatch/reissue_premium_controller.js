@@ -35,7 +35,7 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
 
         _basic.get($host.api_url + "/truckBase").then(function (data) {
             if (data.success === true) {
-                $scope.truckNumList = data.result;
+                $scope.truckList = data.result;
                 $('#truckNumber').select2({
                     placeholder: '货车牌号',
                     containerCssClass: 'select2_dropdown',
@@ -246,6 +246,7 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
                     $(".car_detail").show();
                     $scope.addWashFeeBox = data.result;
                     $scope.carItem = data.result[0];
+
                     $scope.newTrailerFee =0;
                     $scope.newCarParkingFee =0;
                     $scope.newRunFee =0;

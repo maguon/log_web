@@ -181,6 +181,27 @@ app.controller("entrust_setting_controller", ["$scope", "_basic", "_config", "$h
         });
     };
 
+
+    /*导出*/
+    $scope.export = function(){
+        // 基本检索URL
+        var url = $host.api_url + "/entrustCityRouteRel.csv?" ;
+        // 检索条件
+        var conditionsObj = {
+            entrustId:$scope.getClient,
+            makeId:$scope.getCarBrand,
+            routeStartId:$scope.startCity1,
+            routeEndId:$scope.endCity1
+        };
+        var conditions = _basic.objToUrl(conditionsObj);
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
+        window.open(url);
+    }
+
+
+
+
     // 关联品牌模态框
     $scope.entrustMakeRel = function (id) {
         $scope.entrustId=id;

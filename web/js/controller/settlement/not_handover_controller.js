@@ -297,7 +297,7 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
             $scope.carIds.push($scope.ArrayList[i].car_id)
         }
         $scope.addNumberId='';
-        $scope.addHandoverReceiveStartTime='';
+        $scope.addHandoverReceiveStartTime = moment(new Date()).format("YYYY-MM-DD");
         $scope.newRemark='';
 
         $('#addSettlementArr').modal('open');

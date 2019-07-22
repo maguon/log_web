@@ -8,7 +8,7 @@ app.controller("truck_guarantee_details_controller", ["$scope", "$state", "$stat
     $scope.truck_type = $stateParams.type;
     $scope.totalMoney=0;
     $scope.return = function () {
-        $state.go($stateParams.from, {reload: true});
+        $state.go($stateParams.from,{from:'truck_guarantee_details'}, {reload: true});
     };
     $scope.add_insure = function () {
         $(".modal").modal();

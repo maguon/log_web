@@ -304,6 +304,20 @@ baseService.factory("_config", function () {
         {app: "4", typeName: "质安栈"},
         {app: "5", typeName: "捷易结"}
     ];
+
+    //强制更新
+    _this.forceUpdate = [
+        {id: "0", force_update: "否"},
+        {id: "1", force_update: "是"}
+    ];
+
+    //系统
+    _this.systemType = [
+        {id: "1", type: "安卓"},
+        {id: "2", type: "IOS"}
+    ];
+
+
     //经销商类型
     _this.receiveType = [
         {id: "1", typeName: "4S店"},

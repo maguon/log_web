@@ -1,248 +1,296 @@
-<div class="app_version">
-   <!-- 新增操作模态框-->
-    <div class="row" style="margin: 0">
-        <div id="addAppSystem" class="modal modal-fixed-footer" style="width: 75%;height: 600px">
-            <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-                <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
-                    <p>新增操作</p>
-                </div>
-                <div class="row col s12">
-                    <div style="width: 90%;margin: 0 auto">
-                        <div class="col s12">
-                            <div class=" col s6 input-field">
-                                <select  material-select watch name="addSystemType" id="addSystemType" ng-model="addSystemType">
-                                    <option value="" selected>请选择</option>
-                                    <option value="1">安卓</option>
-                                    <option value="2">IOS</option>
-                                </select>
-                                <label><span style="color: red">* </span>系统</label>
-                            </div>
-                            <div class="col s6 input-field">
-                                <select  material-select watch name="addAppType" id="addAppType" ng-model="addAppType">
-                                    <option value="" selected>请选择</option>
-                                    <option ng-repeat="el in appTypeList" ng-value="el.app">{{el.typeName}}</option>
-                                </select>
-                                <label><span style="color: red">* </span>模块</label>
-                            </div>
-                        </div>
-                        <div class="col s12">
-                            <div class=" col s6 p0">
-                                <div class="col s12 input-field">
-                                    <input type="text" id="addAppVersion" watch ng-model="addAppVersion">
-                                    <label for="addAppVersion"><span style="color: red">* </span>版本号</label>
-                                </div>
-                            </div>
-                            <div class=" col s6 input-field">
-                                <select  material-select watch ng-model="addForceUpdate">
-                                    <option value="" selected>请选择</option>
-                                    <option value="1">是</option>
-                                    <option value="0">否</option>
-                                </select>
-                                <label><span style="color: red">* </span>是否强制更新</label>
-                            </div>
-                        </div>
-                        <div class="col s12 " style="margin-bottom:  40px;">
-                            <div class="col s12 input-field">
-                                <input type="text" name="uploadUrl" id="uploadUrl" ng-model="uploadUrl">
-                                <label for="uploadUrl"><span style="color: red">* </span>下载地址</label>
-                            </div>
-                        </div>
-                        <div class="col s12">
-                            <div class="col s12 input-field">
-                                <input type="text" name="addforceUpdate_description" id="addforceUpdate_description" ng-model="appDescription">
-                                <label for="addforceUpdate_description">描述</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!-- 主菜单：app系统  画面 -->
+<div class="row">
+
+    <!-- 上部分：检索条件输入区域 -->
+
+
+    <!--渲染条件-->
+    <div class="row col s12">
+
+        <!--查询条件-->
+        <div class="col s10">
+
+            <!--系统-->
+            <div class="col s4 input-field">
+                <select  material-select watch  ng-model="conSystemType">
+                    <option value="">系统</option>
+                    <option ng-repeat="el in systemTypeList" ng-value="el.id">{{el.type}}</option>
+                </select>
             </div>
 
-            <div class="modal-footer valign-wrapper">
-                <div class="col s12">
-                    <div class="col s2 offset-s4">
-                        <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
-                            取消
-                        </a>
-                    </div>
-                    <div class="col s2">
-                        <a ng-click="createAppList()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
-                            确定
-                        </a>
-                    </div>
-                </div>
+            <!--模块-->
+            <div class="col s4 input-field">
+                <select  material-select watch ng-model="conAppType">
+                    <option value="">模块</option>
+                    <option ng-repeat="el in appTypeList" ng-value="el.app">{{el.typeName}}</option>
+                </select>
+            </div>
+
+
+            <!--是否强制更新-->
+            <div class="col s4 input-field">
+                <select  material-select watch ng-model="conForceUpdate">
+                    <option value="">是否强制更新</option>
+                    <option ng-repeat="el in forceUpdateList" ng-value="el.id">{{el.force_update}}</option>
+                </select>
+            </div>
+
+
+        </div>
+
+
+        <!--按钮-->
+        <div class="col s2">
+            <div class="col s6 center">
+                <a class=" btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="getAppSystem()">
+                    <i class="mdi mdi-magnify"></i>
+                </a>
+            </div>
+            <div class="col s6 center">
+                <a class="btn-floating btn-large waves-light waves-effect cyan lighten-1 btn vc-center" style="margin-right: 10px" ng-click="openAppSystem()">
+                    <i class="mdi mdi-plus"></i>
+                </a>
             </div>
         </div>
     </div>
-   <!-- 详情操作模态框-->
-    <div class="row" style="margin: 0">
-        <div id="showAppSystem" class="modal modal-fixed-footer" style="width: 75%;height: 600px">
-            <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-                <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
-                    <p>操作记录</p>
-                </div>
-                <div class="row col s12" style="margin-top: 35px">
-                    <div style="width: 90%;margin: 0 auto">
-                        <div class="col s12">
-                            <div class=" col s6 input-field">
-                                <select id="type" material-select watch id='type' name="showAppSystemList.type"  ng-model="showAppSystemList.type" style="border-bottom: 1px solid #000">
-                                    <option value="" selected>请选择</option>
-                                    <option value="1">安卓</option>
-                                    <option value="2">IOS</option>
-                                </select>
-                                <label for="type"><span style="color: red">* </span>系统</label>
-                            </div>
-                            <div class=" col s6 input-field">
-                                <select  material-select watch id='app' name="showAppSystemList.app"  ng-model="showAppSystemList.app" style="border-bottom: 1px solid #000">
-                                    <option value="" selected>请选择</option>
-                                    <option ng-repeat="el in appTypeList" ng-value="el.app">{{el.typeName}}</option>
-                                </select>
-                                <label for="app"><span style="color: red">* </span>模块</label>
-                            </div>
-                        </div>
-                        <div class="col s12">
-                            <div class=" col s6 p0">
-                                <div class="col s12 input-field">
-                                    <input type="text" id="updateAppVersion" ng-model="showAppSystemList.version" >
-                                    <label for="addAppVersion"><span style="color: red">* </span>版本号</label>
-                                </div>
-                            </div>
-                            <div class=" col s6 p0">
-                                <div class="input-field col s12">
-                                    <select  required material-select  ng-model="showAppSystemList.force_update">
-                                        <option value="" selected>请选择</option>
-                                        <option value="1">是</option>
-                                        <option value="0">否</option>
-                                    </select>
-                                    <label><span style="color: red">* </span>是否强制更新</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col s12 " style="margin-bottom:  40px;">
-                            <div class="col s12 input-field">
-                                <input type="text" name="uploadUrl" id="updateUploadUrl" ng-model="showAppSystemList.url" >
-                                <label for="uploadUrl"><span style="color: red">* </span>下载地址</label>
-                            </div>
-                        </div>
-                        <div class="col s12">
-                            <div class="col s12 input-field">
-                                <input type="text" id="pdateforceUpdate_description" ng-model="showAppSystemList.remark" >
-                                <label for="addforceUpdate_description">描述</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer valign-wrapper">
-                <div class="col s12">
-                    <div class="col s2 offset-s4">
-                        <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
-                            取消
-                        </a>
-                    </div>
-                    <div class="col s2">
-                        <a ng-click="updateAppSystemItem(showAppSystemList.id)" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
-                            确定
-                        </a>
-                    </div>
-                </div>
+
+
+
+    <!-- 下部分：检索结果显示区域 -->
+    <div class="row">
+        <div class="col s12">
+
+            <!--分隔线-->
+            <div class="divider cyan" style="height: 2px"></div>
+
+            <!--列表-->
+            <table class="bordered striped text_mid">
+
+
+                <!--表头-->
+                <thead class="blue-grey lighten-5">
+                    <tr class="grey-text text-darken-2">
+                        <th data-field="">操作时间</th>
+                        <th data-field="">系统</th>
+                        <th data-field="">模块</th>
+                        <th data-field="">最新版本号</th>
+                        <th data-field="">强制更新</th>
+                        <th data-field="">描述</th>
+                        <th data-field="">操作</th>
+                    </tr>
+                </thead>
+
+
+                <!--表体-->
+                <tbody>
+                <tr ng-repeat="el in appSystemList" class="grey-text text-darken-1">
+                    <td>{{el.updated_on | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td>{{systemTypeList[el.type-1].type}}</td>
+                    <td>{{appTypeList[el.app].typeName}}</td>
+                    <td>{{el.version}}</td>
+                    <td>{{forceUpdateList[el.force_update].force_update}}</td>
+                    <td>{{el.remark}}</td>
+                    <td class="operation vc-center">
+                        <a  ng-click="readAppSystem(el.id)" class="cyan-text fz12">  <i class="mdi mdi-file-document"></i></a>
+                    </td>
+                </tr>
+                <tr class="grey-text text-darken-1" ng-if="appSystemList.length == 0">
+                    <td colspan="7">暂无数据</td>
+                </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+
+
+    <!-- 上下页按钮 -->
+    <div class="row">
+        <div class="paging_box col s12">
+            <div class="right">
+                <a class="waves-light waves-effect cyan lighten-1 btn"  id="pre" ng-click="getPrePage()">上一页</a>
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="getNextPage()">下一页</a>
             </div>
         </div>
     </div>
-    <!--列表-->
-    <div class="modal-content grey-text text-darken-2">
-        <div class="row no-marBottom" ul-tabs style="overflow: hidden">
-            <div id="header_car" class="row tab_box">
-                <div class="storage_storeTitle">
-                        <div class="row grey-text text-darken-1 valign-wrapper">
-                            <div class="col s10" style="color: #000; !important">
-                                    <div class=" col s4 p0">
-                                        <div class="input-field col s12">
-                                            <select  material-select watch name="type" class="type" ng-model="getSystemType">
-                                                <option value="">系统</option>
-                                                <option value="1">安卓</option>
-                                                <option value="2">IOS</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class=" col s4 p0">
-                                        <div class="input-field col s12">
-                                            <select  material-select watch name="appType" class="appType" ng-model="appType">
-                                                <option value="">模块</option>
-                                                <option ng-repeat="el in appTypeList" ng-value="el.app">{{el.typeName}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class=" col s4 p0">
-                                        <div class="input-field col s12">
-                                            <select  material-select watch ng-model="forceUpdate">
-                                                <option value="">是否强制更新</option>
-                                                <option value="1">是</option>
-                                                <option value="0">否</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                            </div>
-                            <div class="col s2">
-                                <div class="col s6 center">
-                                    <a class=" btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="searchAppSystem()">
-                                        <i class="mdi mdi-magnify"></i>
-                                    </a>
-                                </div>
-                                <div class="col s6 center">
-                                    <a class="btn-floating btn-large waves-light waves-effect cyan lighten-1 btn vc-center" style="margin-right: 10px" ng-click="addAppSystem()">
-                                        <i class="mdi mdi-plus"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                <div class="col s12">
-                        <div class="col s12">
-                            <div class="divider cyan" style="height: 2px"></div>
-                            <table class="bordered striped text_mid">
-                                <thead class="blue-grey lighten-5">
-                                <tr class="grey-text text-darken-2">
-                                    <th data-field="">操作时间</th>
-                                    <th data-field="">系统</th>
-                                    <th data-field="">模块</th>
-                                    <th data-field="">最新版本号</th>
-                                    <th data-field="">强制更新</th>
-                                    <th data-field="">描述</th>
-                                    <th data-field="">操作</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr ng-repeat="appSystemItem in appSystemList" class="grey-text text-darken-1">
-                                    <td>{{appSystemItem.updated_on | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                                    <td  ng-if="appSystemItem.type==null">所有</td>
-                                    <td  ng-if="appSystemItem.type==1">安卓</td>
-                                    <td  ng-if="appSystemItem.type==2">IOS</td>
-                                    <td  ng-bind="appTypeList[appSystemItem.app].typeName"></td>
-                                    <td  ng-bind="appSystemItem.version"></td>
-                                    <td  ng-if="appSystemItem.force_update==1">是</td>
-                                    <td  ng-if="appSystemItem.force_update==0">否</td>
-                                    <td  ng-bind="appSystemItem.remark"></td>
-                                    <td class="operation vc-center">
-                                        <a  ng-click="readAppSystem(appSystemItem.id)" class="cyan-text fz12" style="cursor: pointer;display: inline-block;width: 37px;height: 37px;">  <i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-file-document"></i></a>
-                                    </td>
-                                </tr>
-                                <tr class="grey-text text-darken-1" ng-if="appSystemList.length == 0">
-                                    <td colspan="7"><span style="letter-spacing: 2px">暂无数据</span></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!--分页-->
-                <div class="row">
-                    <div class="paging_box col s12">
-                        <div class="right">
-                            <a class="waves-light waves-effect cyan lighten-1 btn"  id="pre" ng-click="getPrePage()">上一页</a>
-                            <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="getNextPage()">下一页</a>
-                        </div>
-                    </div>
+
+
+</div>
+
+
+
+<!-- 新增操作模态框-->
+<div id="newAppSystem" class="row modal modal-fixed-footer">
+
+
+    <!--   Header 题目  新增操作-->
+    <div class="cyan lighten-1 white-text center-align modal_title" >新增操作</div>
+
+
+    <!--body-->
+    <div class="modal-content">
+
+
+        <!--新增信息-->
+        <div class="row col s12">
+
+                <!--系统-->
+                <div class=" col s6 input-field">
+                    <select  material-select watch id="newType" ng-model="newAppVersion.type">
+                        <option value="" selected>请选择</option>
+                        <option ng-repeat="el in systemTypeList" ng-value="el.id">{{el.type}}</option>
+                    </select>
+                    <label for="newType"><span class="red-text">* </span>系统</label>
                 </div>
+
+                <!--模块-->
+                <div class="col s6 input-field">
+                    <select  material-select watch id="newTypeName" ng-model="newAppVersion.typeName">
+                        <option value="" selected>请选择</option>
+                        <option ng-repeat="el in appTypeList" ng-value="el.app">{{el.typeName}}</option>
+                    </select>
+                    <label for="newTypeName"><span class="red-text">* </span>模块</label>
+                </div>
+
+                <!--版本号-->
+                <div class=" col s6 input-field">
+                    <input type="text" id="newVersion" ng-model="newAppVersion.version">
+                    <label for="newVersion"><span class="red-text">* </span>版本号</label>
+                </div>
+
+
+                <!--是否强制更新-->
+                <div class=" col s6 input-field">
+                    <select  material-select watch id="newForceUpdate" ng-model="newAppVersion.forceUpdate">
+                        <option value="" selected>请选择</option>
+                        <option ng-repeat="el in forceUpdateList" ng-value="el.id">{{el.force_update}}</option>
+                    </select>
+                    <label for="newForceUpdate"><span class="red-text">* </span>是否强制更新</label>
+                </div>
+
+                <!--下载地址-->
+                <div class="col s12 input-field">
+                    <input type="text" id="uploadUrl" ng-model="newAppVersion.uploadUrl">
+                    <label for="uploadUrl"><span class="red-text">* </span>下载地址</label>
+                </div>
+
+                <!--描述-->
+                <div class="col s12 input-field">
+                    <input type="text" id="newDescription" ng-model="newAppVersion.appDescription">
+                    <label for="newDescription">描述</label>
+                </div>
+
+        </div>
+
+
+    </div>
+
+
+     <!--按钮-->
+    <div class="modal-footer valign-wrapper">
+        <div class="col s12">
+            <div class="col s2 offset-s4">
+                <a class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                    取消
+                </a>
+            </div>
+            <div class="col s2">
+                <a ng-click="addAppList()" class="waves-light waves-effect cyan lighten-1 btn">
+                    确定
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+<!-- 详情操作模态框-->
+<div id="editAppSystem" class="row modal modal-fixed-footer">
+
+
+    <!--   Header 题目  操作记录-->
+    <div class="cyan lighten-1 white-text center-align modal_title" >操作记录</div>
+
+
+    <!--body-->
+    <div class="modal-content">
+
+
+        <!--修改信息-->
+        <div class="row col s12">
+
+              <!--系统-->
+                <div class="col s6 input-field">
+                    <select material-select watch  id='editType'  ng-model="showAppSystemList.type">
+                        <option value="" selected disabled>请选择</option>
+                        <option ng-repeat="el in systemTypeList" ng-value="el.id">{{el.type}}</option>
+                    </select>
+                    <label for="editType"><span class="red-text">* </span>系统</label>
+                </div>
+
+                <!--模块-->
+                <div class="col s6 input-field">
+                    <select  material-select watch id='app'  ng-model="showAppSystemList.app">
+                        <option value="" selected disabled>请选择</option>
+                        <option ng-repeat="el in appTypeList" ng-value="el.app">{{el.typeName}}</option>
+                    </select>
+                    <label for="app"><span class="red-text">* </span>模块</label>
+                </div>
+
+                <!--版本号-->
+                <div class=" col s6 input-field">
+                    <input type="text" id="updateAppVersion" ng-model="showAppSystemList.version" >
+                    <label for="updateAppVersion"><span class="red-text">* </span>版本号</label>
+                </div>
+
+                <!--是否强制更新-->
+                <div class=" col s6 input-field">
+                    <select  required material-select  ng-model="showAppSystemList.force_update">
+                        <option value="" selected disabled>请选择</option>
+                        <option ng-repeat="el in forceUpdateList" ng-value="el.id">{{el.force_update}}</option>
+                    </select>
+                    <label><span class="red-text">* </span>是否强制更新</label>
+                </div>
+
+                <!--下载地址-->
+                <div class="col s12 input-field">
+                    <input type="text" id="updateUploadUrl" ng-model="showAppSystemList.url">
+                    <label for="uploadUrl"><span class="red-text">* </span>下载地址</label>
+                </div>
+
+                <!--描述-->
+                <div class="col s12 input-field">
+                    <input type="text" id="editDescription" ng-model="showAppSystemList.remark" >
+                    <label for="editDescription">描述</label>
+                </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!--按钮-->
+    <div class="modal-footer valign-wrapper">
+        <div class="col s12">
+            <div class="col s2 offset-s4">
+                <a class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                    取消
+                </a>
+            </div>
+            <div class="col s2">
+                <a ng-click="updateAppSystemItem(showAppSystemList.id)" class="waves-light waves-effect cyan lighten-1 btn">
+                    确定
+                </a>
             </div>
         </div>
     </div>
 </div>
+
+
+

@@ -1,20 +1,76 @@
+/**
+ * 主菜单：app系统 控制器
+ */
 app.controller("app_version_controller", ["$scope", "$state", "$stateParams", "_basic", "_config", "$host", function ($scope, $state, $stateParams, _basic, _config, $host) {
-    $scope.size = 11;
-    $scope.start = 0;
+
+    // 取得当前画面 登录用户
     var userId = _basic.getSession(_basic.USER_ID);
+
+    // 翻页用
+    $scope.start = 0;
+    $scope.size = 11;
+
+
+
+    //模块
     $scope.appTypeList = _config.appType;
-    // 获取app筛选列表
-    function getAppSystemList () {
-        _basic.get($host.api_url + "/app?" + _basic.objToUrl({
-            app: $scope.appType,
-            type:$scope.getSystemType,
-            forceUpdate:$scope.forceUpdate,
-            start:$scope.start.toString(),
-            size:$scope.size
-        })).then(function (data) {
+
+    //强制更新
+    $scope.forceUpdateList = _config.forceUpdate;
+
+    //系统(苹果  安卓)
+    $scope.systemTypeList =_config.systemType;
+
+
+    //新增信息
+    $scope.newAppVersion ={};
+
+
+    //新增申请  默认数据
+    var defaultAppVersion = {
+        //模块
+        app:'',
+        //系统
+        appType: '',
+        //是否强制更新
+        forceUpdate: '',
+        //版本号
+        version: '',
+        //下载地址
+        url: '',
+        //备注
+        remark: ''
+    };
+
+
+
+    /**
+     * 查询按钮
+     */
+    $scope.getAppSystem = function () {
+        $scope.start=0;
+        searchAppSystemList();
+    };
+
+
+
+
+
+    /**
+     * 根据条件搜索
+     */
+    function searchAppSystemList () {
+        // 基本检索URL
+        var url = $host.api_url + "/app?start=" + $scope.start + "&size=" + $scope.size;
+        // 检索条件
+        var conditionsObj = makeConditions();
+        var conditions = _basic.objToUrl(conditionsObj);
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
+        _basic.get(url).then(function (data) {
             if (data.success === true) {
-                $scope.appSystemBoxArray = data.result;
-                $scope.appSystemList = $scope.appSystemBoxArray.slice(0, 10);
+                $scope.boxArray = data.result;
+                $scope.appSystemList = $scope.boxArray.slice(0, 10);
                 if ($scope.start > 0) {
                     $("#pre").show();
                 }
@@ -34,32 +90,60 @@ app.controller("app_version_controller", ["$scope", "$state", "$stateParams", "_
             }
         });
     };
-    // 点击搜索
-    $scope.searchAppSystem = function () {
-        $scope.start=0;
-        getAppSystemList();
-    };
-    //新增操作模态框
-    $scope.addAppSystem=function () {
+
+
+
+
+
+    /**
+     *
+     * 点击添加按钮
+     */
+    $scope.openAppSystem=function () {
+
         $('.modal').modal();
-        $('#addAppSystem').modal('open');
+        $('#newAppSystem').modal('open');
+        // 初期化数据
+        angular.copy(defaultAppVersion, $scope.newAppVersion);
     }
-    //提交新增记录
-    $scope.createAppList=function() {
-        if ($scope.addAppType !== undefined && $scope.addSystemType !== undefined && $scope.addForceUpdate !== undefined && $scope.addAppVersion !== undefined && $scope.uploadUrl !== undefined) {
+
+
+
+
+
+
+    /*
+    * 提交新增信息
+    * */
+    $scope.addAppList=function() {
+
+        //判断必填项不为空
+        if ($scope.newAppVersion.type !== undefined &&$scope.newAppVersion.type!==''&&
+            $scope.newAppVersion.typeName !== undefined &&$scope.newAppVersion.typeName!==''&&
+            $scope.newAppVersion.version !== '' &&$scope.newAppVersion.forceUpdate !== '' &&
+            $scope.newAppVersion.uploadUrl !== undefined&&$scope.newAppVersion.uploadUrl!=='') {
+
+            //添加
             _basic.post($host.api_url + "/user/" + userId + "/app", {
-                app: $scope.addAppType,
-                appType: $scope.addSystemType,
-                forceUpdate: $scope.addForceUpdate,
-                version: $scope.addAppVersion,
-                url: $scope.uploadUrl,
-                remark: $scope.appDescription
+                app:$scope.newAppVersion.typeName,
+                appType: $scope.newAppVersion.type,
+                forceUpdate: $scope.newAppVersion.forceUpdate,
+                version: $scope.newAppVersion.version,
+                url:  $scope.newAppVersion.uploadUrl,
+                remark: $scope.newAppVersion.appDescription
             }).then(function (data) {
+
+                //添加成功执行此操作
                 if (data.success == true) {
-                    $('#addAppSystem').modal('close');
+
+                    $('#newAppSystem').modal('close');
+
                     swal("新增成功", "", "success");
-                    getAppSystemList();
-                } else {
+
+                    searchAppSystemList();
+                }
+                //添加失败
+                else {
                     swal(data.msg, "", "error");
                 }
             })
@@ -67,11 +151,17 @@ app.controller("app_version_controller", ["$scope", "$state", "$stateParams", "_
         else {
                 swal("请填写完整信息！", "", "warning");
             }
-    }
+    };
+
+
+
+
     //查看详情
     $scope.readAppSystem=function (id) {
+
         $('.modal').modal();
-        $('#showAppSystem').modal('open');
+        $('#editAppSystem').modal('open');
+
         _basic.get($host.api_url + "/app?appId=" + id).then(function (data) {
             if (data.success == true) {
                 $scope.showAppSystemList = data.result[0];
@@ -83,10 +173,14 @@ app.controller("app_version_controller", ["$scope", "$state", "$stateParams", "_
             }
         })
     }
+
+
+
     //修改
     $scope.updateAppSystemItem = function (id) {
-        if ($scope.showAppSystemList.app !== "" && $scope.showAppSystemList.type !== ""
-            && $scope.showAppSystemList.force_update !== "" && $scope.showAppSystemList.version !== "" && $scope.showAppSystemList.url !== "") {
+
+        //条件不能为空（除了备注）
+        if ($scope.showAppSystemList.version !== "" && $scope.showAppSystemList.url !== "") {
             var obj = {
                 app: $scope.showAppSystemList.app,
                 appType: $scope.showAppSystemList.type,
@@ -98,8 +192,8 @@ app.controller("app_version_controller", ["$scope", "$state", "$stateParams", "_
             _basic.put($host.api_url + "/user/" + userId + "/app/" + id, obj).then(function (data) {
                 if (data.success == true) {
                     swal("修改成功", "", "success");
-                    $('#showAppSystem').modal('close');
-                    getAppSystemList();
+                    $('#editAppSystem').modal('close');
+                    searchAppSystemList();
                 } else {
                     swal(data.msg, "", "error");
                 }
@@ -110,14 +204,35 @@ app.controller("app_version_controller", ["$scope", "$state", "$stateParams", "_
             swal("请填写完整信息！", "", "warning");
         }
     };
+
+
+
+
     // 分页
     $scope.getPrePage = function () {
         $scope.start = $scope.start - ($scope.size-1);
-        getAppSystemList();
+        searchAppSystemList();
     };
     $scope.getNextPage = function () {
         $scope.start = $scope.start + ($scope.size-1);
-        getAppSystemList();
+        searchAppSystemList();
     };
-    $scope.searchAppSystem();
+
+
+
+    /**
+     * 组装检索条件。
+     */
+    function makeConditions() {
+        var obj = {
+            app: $scope.conAppType,
+            type:$scope.conSystemType,
+            forceUpdate:$scope.conForceUpdate
+        }
+        return obj;
+    }
+
+
+
+    searchAppSystemList();
 }])

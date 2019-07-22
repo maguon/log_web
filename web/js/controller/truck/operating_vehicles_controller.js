@@ -1,19 +1,25 @@
-app.controller("operating_vehicles_controller", ['$scope', "$host", '_basic', '$rootScope','$state','$stateParams',function ($scope, $host, _basic, $rootScope,$state,$stateParams) {
+app.controller("operating_vehicles_controller", ['$scope', "$host", '_basic', '$rootScope','$state','_config','$stateParams',function ($scope, $host, _basic, $rootScope,$state,_config,$stateParams) {
     $scope.size = 11;
     $scope.start = 0;
 
-    // 获取公司
-     function get_company() {
-        _basic.get($host.api_url + "/company").then(function (data) {
-            if (data.success == true) {
-                $scope.company = data.result;
-            }
-            else {
-                swal(data.msg, "", "error")
+    // 公司所属类型列表
+    $scope.operateTypeList = _config.operateType;
+
+
+    /*
+  * 所属类型--公司联动
+  * */
+    $scope.changeOperateType=function () {
+        _basic.get($host.api_url+"/company?operateType="+$scope.operateType).then(function (data) {
+            if(data.success==true){
+                $scope.company=data.result;
+            }else {
+                swal(data.msg,"","error")
             }
         });
-
     };
+
+
     // 获取货车品牌信息
     function getTruckBrandList() {
         _basic.get($host.api_url + "/brand").then(function (data) {
@@ -67,7 +73,7 @@ app.controller("operating_vehicles_controller", ['$scope', "$host", '_basic', '$
                 $rootScope.refObj = {pageArray: []};
                 $rootScope.refObj.pageArray.push(pageItems);
                 $scope.boxArray = data.result;
-                $scope.responseData = $scope.boxArray.slice(0, 20);
+                $scope.responseData = $scope.boxArray.slice(0, 10);
                 if ($scope.start > 0) {
                     $("#pre").show();
                 }
@@ -113,6 +119,7 @@ app.controller("operating_vehicles_controller", ['$scope', "$host", '_basic', '$
         $scope.search_num=conditions.truckId;
         $scope.search_driver=conditions.driveName;
         $scope.search_company=conditions.companyId;
+        $scope.operateType = conditions.operateType;
         $scope.dispatchFlag=conditions.dispatchFlag;
         $scope.truckBrand=conditions.brandId;
     }
@@ -127,7 +134,8 @@ app.controller("operating_vehicles_controller", ['$scope', "$host", '_basic', '$
             driveName:$scope.search_driver,
             companyId:$scope.search_company,
             brandId:$scope.truckBrand,
-            dispatchFlag:$scope.dispatchFlag
+            dispatchFlag:$scope.dispatchFlag,
+            operateType: $scope.operateType
         };
     }
 
@@ -164,7 +172,6 @@ app.controller("operating_vehicles_controller", ['$scope', "$host", '_basic', '$
         }
         $scope.searchOperatingVehicles();
         getTruckNumList ();
-        get_company();
         getTruckBrandList();
     }
     initData();

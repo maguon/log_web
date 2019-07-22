@@ -1,8 +1,8 @@
 app.controller("look_head_detail_controller", ["$scope","$rootScope", "$state", "$stateParams", "_basic", "_config", "$host", function ($scope,$rootScope, $state, $stateParams, _basic, _config, $host) {
     var userId = _basic.getSession(_basic.USER_ID);
         var id = $stateParams.id;
-        var hand_truck_msg;
-        var hand_driver_msg;
+        var hand_truck_msg =[];
+        var hand_driver_msg =[];
         $scope.show_unbind_trailer_btn = false;
         $scope.show_unbind_drive_btn = false;
         $scope.show_unbind_copilot_btn = false;
@@ -174,10 +174,13 @@ app.controller("look_head_detail_controller", ["$scope","$rootScope", "$state", 
 
         // 挂车过滤
         $scope.Binding_trailer_check = function () {
-            if ($scope.Binding_trailer != null && $scope.Binding_trailer != "") {
+            if ($scope.Binding_trailer !== null && $scope.Binding_trailer !== "") {
                 $scope.hand_truck_msg = [];
+                if(!hand_truck_msg){
+                    return;
+                }
                 hand_truck_msg.forEach(function (i) {
-                    if (i.truck_num.indexOf($scope.Binding_trailer) != -1) {
+                    if (i.truck_num.indexOf($scope.Binding_trailer) !== -1) {
                         if ($scope.hand_truck_msg.indexOf(i) == -1) {
                             $scope.hand_truck_msg.push(i);
                         }

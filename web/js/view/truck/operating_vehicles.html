@@ -5,21 +5,29 @@
     <!--查询条件-->
     <div class="row">
         <div class="col s10">
-            <div class="input-field col " style="width: 20%" >
+            <div class="input-field col s2">
+                <select  material-select watch id="operateType"  ng-model="operateType" ng-change="changeOperateType()">
+                    <option value="">请选择</option>
+                    <option ng-repeat="operate in operateTypeList" ng-value="operate.id">{{operate.operate_type}}</option>
+                </select>
+                <label for="operateType">所属类型</label>
+            </div>
+
+            <div class="input-field col s2">
                 <select id="search_company" material-select watch ng-model="search_company">
                     <option value="">所属公司</option>
                     <option ng-repeat="el in company" ng-value="el.id">{{el.company_name}}</option>
                 </select>
                 <label for="search_company">请选择</label>
             </div>
-            <div class="input-field col " style="width: 20%" >
+            <div class="input-field col s2">
                 <select id="truck_brand" ng-model="truckBrand" material-select watch>
                     <option value="" selected>请选择</option>
                     <option ng-repeat="brand in brandList" ng-value="brand.id">{{brand.brand_name}}</option>
                 </select>
                 <label for="truck_brand">货车品牌</label>
             </div>
-            <div class="input-field col " style="width: 20%" >
+            <div class="input-field col s2">
                 <select id="search_num" style="width: 100%" ng-model="search_num">
                     <option value="">牌号</option>
                     <option ng-repeat="el in truckNumList" ng-value="el.id" >{{el.truck_num}}</option>
@@ -27,12 +35,12 @@
             </div>
 
 
-             <div class="input-field col " style="width: 20%" >
+             <div class="input-field col s2">
                 <input name="search_driver" id="search_driver" type="text" ng-model="search_driver" >
                 <label for="search_driver">关联司机</label>
             </div>
 
-            <div class="input-field col " style="width: 20%" >
+            <div class="input-field col s2">
                 <select material-select watch id="dispatchFlag" style="width: 100%" ng-model="dispatchFlag">
                     <option value="">请选择</option>
                     <option value="1">可用</option>

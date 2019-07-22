@@ -386,6 +386,20 @@ baseService.factory("_config", function () {
         {id: "2", status: "已发放"}
     ];
 
+    //运营状态
+    _this.dispatchFlag = [
+        {id: "0", dispatch_flag: "不可用"},
+        {id: "1", dispatch_flag: "可用"}
+    ];
+
+    //商品车状态
+    _this.carStatus = [
+        {id: "1", status: "待发运"},
+        {id: "2", status: "中转"},
+        {id: "3", status: "已装车"},
+        {id: "9", status: "已完成"}
+
+    ];
 
     return _this
 });

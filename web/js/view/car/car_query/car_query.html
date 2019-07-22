@@ -1,91 +1,126 @@
-<div class="car_demand">
-    <div class="row main_storage_car">
-        <div class="row grey-text text-darken-1 valign-wrapper">
+
+<!-- 主菜单：公共数据 -- 商品车信息 画面 -->
+<div class="car_query">
+
+    <!-- 上部分：检索条件输入区域 -->
+
+
+    <!--渲染条件-->
+    <div class="row col s12">
+
+            <!--检索条件-->
             <div class="col s10">
 
+                <!--行1-->
+
+                <!--起始城市-->
                 <div class="input-field col s2">
-                    <select id="start_city_list" name="state" style="width:100%" ng-change="getAddrData()" ng-model="addrCity">
+                    <select id="start"  ng-change="changeStartCity()" ng-model="conStartCity"  style="width:100%">
                         <option value=""></option>
-                        <option value="0" >清除选择</option>
                         <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
                     </select>
                 </div>
+
+                <!--发运地-->
                 <div class="input-field col s2">
-                    <select material-select watch ng-model="addrId"  id="addrId" style="width:100%">
+                    <select material-select watch ng-model="conAddr"  id="addr" style="width:100%">
                         <option value="" selected>发运地名称</option>
                         <option ng-repeat="addr in addrList" ng-value="addr.id">{{addr.addr_name}}</option>
                     </select>
                 </div>
 
+                <!--目的城市-->
                 <div class="input-field col s2">
-                    <select id="end_city_list" name="state" style="width:100%" ng-change="getReceiveData()" ng-model="destinationId">
+                    <select id="end" ng-change="changeEndCity()" ng-model="conEndCity" style="width:100%" >
                         <option value=""></option>
-                        <option value="0" >清除选择</option>
                         <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
                     </select>
                 </div>
+
+                <!--经销商-->
                 <div class="input-field col s2">
-                    <select material-select watch ng-model="receiveId" id="receiveId" style="width:100%">
+                    <select material-select watch ng-model="conReceive" id="receive" style="width:100%">
                         <option value="" selected>经销商</option>
                         <option ng-repeat="receive in receiveList" value={{receive.id}}>{{receive.short_name}}</option>
                     </select>
                 </div>
+
+                <!--车辆品牌-->
                 <div class="input-field col s2">
-                    <select material-select watch ng-model="brandId">
-                        <option value="" selected>制造商</option>
+                    <select material-select watch ng-model="conBrand">
+                        <option value="" selected>车辆品牌</option>
                         <option ng-repeat="carBrand in carMakeList" value={{carBrand.id}}>{{carBrand.make_name}}</option>
                     </select>
                 </div>
+
+                <!--委托方-->
                 <div class="input-field col s2">
-                    <select material-select watch ng-model="entrustId">
+                    <select material-select watch ng-model="conEntrust">
                         <option value="" selected>委托方</option>
                         <option ng-repeat="entrust in entrustList" value={{entrust.id}}>{{entrust.short_name}}</option>
                     </select>
                 </div>
+
+                <!--行2-->
+
+                <!--vin-->
                 <div class="input-field col s2">
-                    <input id="VIN" type="text" ng-model="vin_code">
+                    <input id="VIN" type="text" ng-model="conVin">
                     <label for="VIN">VIN</label>
                 </div>
+
+                <!--指令时间（始）-->
                 <div class="input-field col s2">
-                    <input type="text" class="datepicker" date ng-model="instructionsStart" id="instructionsStart"><i
-                        class="mdi dataIcon mdi-table-large"></i>
-                    <label for="instructionsStart">指令时间</label>
-                </div>
-                <div class="input-field col s2">
-                    <input type="text" class="datepicker" date ng-model="instructionsEnd" id="instructionsEnd"><i
-                        class="mdi dataIcon mdi-table-large"></i>
-                    <label for="instructionsEnd">至</label>
+                    <input type="text" class="datepicker" date ng-model="conInstructionsStart" id="instructionsStart">
+                    <i class="mdi dataIcon mdi-table-large"></i>
+                    <label for="instructionsStart">指令时间(始)</label>
                 </div>
 
+                <!--指令时间（终）-->
                 <div class="input-field col s2">
-                    <input type="text" class="datepicker" date ng-model="createdStart" id="createdStart"><i
-                        class="mdi dataIcon mdi-table-large"></i>
-                    <label for="createdStart">录入时间</label>
+                    <input type="text" class="datepicker" date ng-model="conInstructionsEnd" id="instructionsEnd">
+                    <i class="mdi dataIcon mdi-table-large"></i>
+                    <label for="instructionsEnd">指令时间(终)</label>
                 </div>
+
+                <!--录入时间（始）-->
                 <div class="input-field col s2">
-                    <input type="text" class="datepicker" date ng-model="createdEnd" id="createdEnd"><i
-                        class="mdi dataIcon mdi-table-large"></i>
-                    <label for="createdEnd">至</label>
+                    <input type="text" class="datepicker" date ng-model="conCreatedStart" id="createdStart">
+                    <i class="mdi dataIcon mdi-table-large"></i>
+                    <label for="createdStart">录入时间(始)</label>
                 </div>
+
+                <!--录入时间（终）-->
                 <div class="input-field col s2">
-                    <select material-select watch ng-model="carStatus" id="dealStatus">
+                    <input type="text" class="datepicker" date ng-model="conCreatedEnd" id="createdEnd">
+                    <i class="mdi dataIcon mdi-table-large"></i>
+                    <label for="createdEnd">录入时间(终)</label>
+                </div>
+
+                <!--状态-->
+                <div class="input-field col s2">
+                    <select material-select watch ng-model="conStatus">
                         <option value="" selected>状态</option>
-                        <option ng-value=1>待发运</option>
-                        <option ng-value=2>中转</option>
-                        <option ng-value=3>已装车</option>
-                        <option ng-value=9>已完成</option>
+                        <option ng-repeat="car in carStatusList" ng-value=car.id>{{car.status}}</option>
                     </select>
                 </div>
-
-
             </div>
-            <div class="col s2 center">
+
+
+            <!--按钮区域-->
+            <div class="col s2 center mp-40">
+
+
+                <!--查询按钮-->
                 <div class="col s6 right-align">
                     <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
-                       ng-click="searchMatchCar()">
+                       ng-click="getCar()">
                         <i class="mdi mdi-magnify"></i>
                     </a>
                 </div>
+
+
+                <!--下载按钮-->
                 <div class="col s6 center-align">
                     <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
                         <i class="mdi mdi-cloud-download"></i>
@@ -93,59 +128,68 @@
                 </div>
 
 
-
             </div>
-        </div>
     </div>
-    <div class="col s12">
+
+
+
+    <!-- 下部分：检索结果显示区域 -->
+    <div class="row">
         <div class="divider cyan" style="height: 2px;"></div>
         <table class="bordered striped text_mid">
             <thead class="blue-grey lighten-5">
             <tr class="grey-text text-darken-2">
-                <th data-field="">VIN</th>
-                <th data-field="">制造商</th>
-                <th data-field="">委托方</th>
-                <th data-field="">发运地城市</th>
-                <th data-field="">发运地地址</th>
-                <th data-field="">目的地城市</th>
-                <th data-field="">经销商</th>
-                <th data-field="">指令时间</th>
-                <th data-field="">状态</th>
+                <th>VIN</th>
+                <th>制造商</th>
+                <th>委托方</th>
+                <th>发运地城市</th>
+                <th>发运地地址</th>
+                <th>目的地城市</th>
+                <th>经销商</th>
+                <th>指令时间</th>
+                <th>状态</th>
                 <th>操作</th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="response in responseData" class="grey-text text-darken-1">
-                <td>{{response.vin}}</td>
-                <td>{{response.make_name}}</td>
-                <td>{{response.en_short_name}}</td>
-                <td>{{response.route_start}}</td>
-                <td>{{response.addr_name}}</td>
-                <td>{{response.route_end}}</td>
-                <td>{{response.re_short_name}}</td>
-                <td>{{response.order_date | date:'yyyy-MM-dd'}}</td>
-                <td>{{response.car_status | carStatus}}</td>
-                <td width="100" class="operation">
-                    <a ui-sref="car_query_details({vin:response.vin,id:response.id,from:'car_query'})" class="">
-                        <i class="mdi mdi-file-outline look_icon cyan-text lighten-1  "></i>
+            <tr ng-repeat="car in carList" class="grey-text text-darken-1">
+                <td>{{car.vin}}</td>
+                <td>{{car.make_name}}</td>
+                <td>{{car.en_short_name}}</td>
+                <td>{{car.route_start}}</td>
+                <td>{{car.addr_name}}</td>
+                <td>{{car.route_end}}</td>
+                <td>{{car.re_short_name}}</td>
+                <td>{{car.order_date | date:'yyyy-MM-dd'}}</td>
+                <td>{{car.car_status | carStatus}}</td>
+                <td class="operation">
+                    <a ui-sref="car_query_details({vin:car.vin,id:car.id,from:'car_query'})">
+                        <i class="mdi mdi-file-outline look_icon cyan-text lighten-1"></i>
                     </a>
                 </td>
             </tr>
-            <tr class="grey-text text-darken-1" ng-if="responseData.length == 0">
-                <td colspan="10"><span style="letter-spacing: 2px">暂无数据</span></td>
+            <tr class="grey-text text-darken-1" ng-if="carList.length == 0">
+                <td colspan="10">暂无数据</td>
             </tr>
             </tbody>
         </table>
     </div>
 
-    <div class="paging_box col s12" style="height: 45px">
-        <div class="right">
-            <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="previous_page()">
-                上一页
-            </a>
-            <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_page()">
-                下一页
-            </a>
+
+    <!-- 上下页按钮 -->
+    <div class="row">
+        <div class="paging_box col s12">
+            <div class="right">
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="preBtn()">
+                    上一页
+                </a>
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="nextBtn()">
+                    下一页
+                </a>
+            </div>
         </div>
     </div>
+    
+    
+    
 </div>

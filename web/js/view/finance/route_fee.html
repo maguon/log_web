@@ -77,12 +77,12 @@
                     <th data-field="">司机</th>
                     <th data-field="">货车牌号</th>
                     <th data-field="">商品车加油费</th>
-                    <th data-field="">货车停留天数</th>
-                    <th data-field="">货车停车单价</th>
                     <th data-field="">货车停车费</th>
-                    <th data-field="">商品车停留天数</th>
-                    <th data-field="">商品车停车单价</th>
                     <th data-field="">商品车停车费</th>
+                    <th data-field="">现金ETC</th>
+                    <th data-field="">现金维修</th>
+                    <th data-field="">现金违章</th>
+                    <th data-field="">现金加油</th>
                     <th data-field="">申请时间</th>
                     <th data-field="">银行账号</th>
                     <th data-field="">户名</th>
@@ -96,13 +96,13 @@
                     <td>{{costInfo.drive_name}}</td>
                     <td>{{costInfo.truck_num}}</td>
                     <td>{{costInfo.car_oil_fee}}</td>
-                    <td>{{costInfo.day_count}}</td>
-                    <td>{{costInfo.single_price}}</td>
-                    <td >{{costInfo.total_price}}</td>
-                    <td>{{costInfo.car_day_count}}</td>
-                    <td>{{costInfo.car_single_price}}</td>
-                    <td >{{costInfo.car_total_price}}</td>
-                    <td >{{costInfo.created_on|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td>{{costInfo.total_price}}</td>
+                    <td>{{costInfo.car_total_price}}</td>
+                    <td>{{costInfo.cash_etc}}</td>
+                    <td>{{costInfo.cash_repair}}</td>
+                    <td>{{costInfo.cash_peccancy}}</td>
+                    <td>{{costInfo.cash_oil}}</td>
+                    <td>{{costInfo.created_on|date:'yyyy-MM-dd HH:mm:ss'}}</td>
                     <td>{{costInfo.bank_number}}</td>
                     <td>{{costInfo.bank_name}}</td>
                     <td>{{costInfo.bank_user_name}}</td>
@@ -135,10 +135,10 @@
         <div class="row">
             <div class="paging_box col s12">
                 <div class="right">
-                    <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="pre_btn()">
+                    <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="preBtn()">
                         上一页
                     </a>
-                    <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_btn()">
+                    <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="nextBtn()">
                         下一页
                     </a>
                 </div>

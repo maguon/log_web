@@ -94,12 +94,12 @@
                 <th>司机</th>
                 <th>货车牌号</th>
                 <th>商品车加油费</th>
-                <th>货车停留天数</th>
-                <th>货车停车单价</th>
                 <th>货车停车费</th>
-                <th>商品车停留天数</th>
-                <th>商品车停车单价</th>
                 <th>商品车停车费</th>
+                <th>现金ETC</th>
+                <th>现金维修</th>
+                <th>现金违章</th>
+                <th>现金加油</th>
                 <th>申请时间</th>
                 <th>银行账号</th>
                 <th>户名</th>
@@ -113,12 +113,12 @@
                 <td>{{costInfo.drive_name}}</td>
                 <td>{{costInfo.truck_num}}</td>
                 <td>{{costInfo.car_oil_fee}}</td>
-                <td>{{costInfo.day_count}}</td>
-                <td>{{costInfo.single_price}}</td>
                 <td>{{costInfo.total_price}}</td>
-                <td>{{costInfo.car_day_count}}</td>
-                <td>{{costInfo.car_single_price}}</td>
                 <td>{{costInfo.car_total_price}}</td>
+                <td>{{costInfo.cash_etc}}</td>
+                <td>{{costInfo.cash_repair}}</td>
+                <td>{{costInfo.cash_peccancy}}</td>
+                <td>{{costInfo.cash_oil}}</td>
                 <td>{{costInfo.created_on|date:'yyyy-MM-dd HH:mm:ss'}}</td>
                 <td>{{costInfo.bank_number}}</td>
                 <td>{{costInfo.bank_name}}</td>
@@ -226,7 +226,7 @@
             </div>
 
 
-            <!--商品车停留天数    商品车停车单价   商品车停车费   商品车加油费  备注-->
+            <!--商品车停留天数    商品车停车单价   商品车停车费-->
             <div class="row col s12 padding margin">
 
                 <!--商品车停留天数-->
@@ -248,11 +248,51 @@
                 </div>
 
 
+            </div>
+
+
+
+
+            <!--商品车加油费  现金ETC  现金维修-->
+            <div class="row col s12 padding margin">
 
                 <!--商品车加油费-->
-                <div class="col s12 input-field">
+                <div class="col s4 input-field">
                     <input type="number" ng-model="newCostApplication.carOilFee" id="newOilFee">
                     <label for="newOilFee">商品车加油费</label>
+                </div>
+
+
+                <!--现金ETC-->
+                <div class="col s4 input-field">
+                    <input type="number" ng-model="newCostApplication.cashEtc" id="newCashEtc">
+                    <label for="newCashEtc">现金ETC</label>
+                </div>
+
+
+                <!--现金维修-->
+                <div class="col s4 input-field">
+                    <input type="number" ng-model="newCostApplication.cashRepair" id="newCashRepair">
+                    <label for="newCashRepair">现金维修</label>
+                </div>
+
+            </div>
+
+
+            <!--现金违章 现金加油 备注-->
+            <div class="row col s12 padding margin">
+
+                <!--现金违章-->
+                <div class="col s6 input-field">
+                    <input type="number" ng-model="newCostApplication.cashPeccancy" id="newCashPeccancy">
+                    <label for="newCashPeccancy">现金违章</label>
+                </div>
+
+
+                <!--现金加油-->
+                <div class="col s6 input-field">
+                    <input type="number" ng-model="newCostApplication.cashOil" id="newCashOil">
+                    <label for="newCashOil">现金加油</label>
                 </div>
 
 
@@ -262,7 +302,6 @@
                     <label for="newRemark">备注</label>
                 </div>
             </div>
-
 
         </div>
 
@@ -312,7 +351,7 @@
 
                 <!--调度编号 不可修改-->
                 <div class="col s4 input-field">
-                    <input type="number" ng-model="putList.dp_route_task_id" id="putRouteTaskId" name="putRouteTaskId" disabled>
+                    <input type="number" ng-model="putList.dp_route_task_id" id="putRouteTaskId" disabled>
                     <label for="putRouteTaskId"  class="active">调度编号</label>
                 </div>
 
@@ -359,13 +398,13 @@
 
                 <!--商品车天数-->
                 <div class="col s4 input-field">
-                    <input type="number" ng-model="putList.car_day_count" id="putCarDayCount" name="putCarDayCount">
+                    <input type="number" ng-model="putList.car_day_count" id="putCarDayCount">
                     <label for="putCarDayCount"  class="active">商品车天数</label>
                 </div>
 
                 <!--商品车停车单价-->
                 <div class="col s4 input-field">
-                    <input type="number" ng-model="putList.car_single_price" id="putCarSinglePrice" name="putCarSinglePrice">
+                    <input type="number" ng-model="putList.car_single_price" id="putCarSinglePrice">
                     <label for="putCarSinglePrice"  class="active">商品车停车单价</label>
                 </div>
 
@@ -375,11 +414,50 @@
                     <label class="active">商品车停车费</label>
                 </div>
 
+            </div>
+
+
+            <!--行4-->
+            <div class="row col s12 padding margin">
                 <!--商品车加油费-->
-                <div class="col s12 input-field">
-                    <input type="number" ng-model="putList.car_oil_fee" id="poutOilFee" name="poutOilFee">
-                    <label for="poutOilFee"  class="active">商品车加油费</label>
+                <div class="col s4 input-field">
+                    <input type="number" ng-model="putList.car_oil_fee" id="putOilFee">
+                    <label for="putOilFee"  class="active">商品车加油费</label>
                 </div>
+
+
+                <!--现金ETC-->
+                <div class="col s4 input-field">
+                    <input type="number" ng-model="putList.cash_etc" id="putCashEtc">
+                    <label for="putCashEtc">现金ETC</label>
+                </div>
+
+
+                <!--现金维修-->
+                <div class="col s4 input-field">
+                    <input type="number" ng-model="putList.cash_repair" id="putCashRepair">
+                    <label for="putCashRepair">现金维修</label>
+                </div>
+
+            </div>
+
+
+            <!--行5-->
+            <div class="row col s12 padding margin">
+
+                <!--现金违章-->
+                <div class="col s6 input-field">
+                    <input type="number" ng-model="putList.cash_peccancy" id="putCashPeccancy">
+                    <label for="putCashPeccancy">现金违章</label>
+                </div>
+
+
+                <!--现金加油-->
+                <div class="col s6 input-field">
+                    <input type="number" ng-model="putList.cash_oil" id="putCashOil">
+                    <label for="putCashOil">现金加油</label>
+                </div>
+
 
                 <!--备注-->
                 <div class="col s12 input-field">

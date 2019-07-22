@@ -1,18 +1,35 @@
+
+/**
+ * 主菜单：车辆管理 -> 运营车辆 控制器
+ */
+
 app.controller("operating_vehicles_controller", ['$scope', "$host", '_basic', '$rootScope','$state','_config','$stateParams',function ($scope, $host, _basic, $rootScope,$state,_config,$stateParams) {
-    $scope.size = 11;
+
+
+    // 翻页用
     $scope.start = 0;
+    $scope.size = 11;
+
+
 
     // 公司所属类型列表
     $scope.operateTypeList = _config.operateType;
+
+
+
+    //运营状态
+    $scope.dispatchFlagList = _config.dispatchFlag;
+
+
 
 
     /*
   * 所属类型--公司联动
   * */
     $scope.changeOperateType=function () {
-        _basic.get($host.api_url+"/company?operateType="+$scope.operateType).then(function (data) {
+        _basic.get($host.api_url+"/company?operateType="+$scope.conOperateType).then(function (data) {
             if(data.success==true){
-                $scope.company=data.result;
+                $scope.companyList=data.result;
             }else {
                 swal(data.msg,"","error")
             }
@@ -20,24 +37,36 @@ app.controller("operating_vehicles_controller", ['$scope', "$host", '_basic', '$
     };
 
 
-    // 获取货车品牌信息
-    function getTruckBrandList() {
+
+
+    /*
+    * 获取货车品牌信息
+    * */
+    function getBrandList() {
         _basic.get($host.api_url + "/brand").then(function (data) {
             if (data.success === true) {
                 $scope.brandList = data.result;
+
             }
             else {
                 swal(data.msg, "", "error");
             }
         });
     };
-    //車牌号
-    function getTruckNumList () {
+
+
+
+
+
+   /*
+   * 头车（货车牌号）
+   * */
+    function getTruckList () {
         _basic.get($host.api_url + "/truckFirst?truckType=1").then(function (data) {
             if (data.success === true) {
-                $scope.truckNumList = data.result;
-                $('#search_num').select2({
-                    placeholder: '车牌号',
+                $scope.truckList = data.result;
+                $('#truck').select2({
+                    placeholder: '货车牌号',
                     containerCssClass : 'select2_dropdown',
                     allowClear: true
                 });
@@ -48,8 +77,26 @@ app.controller("operating_vehicles_controller", ['$scope', "$host", '_basic', '$
         });
     }
 
-    // 获取列表
-    function getOperatingVehiclesList () {
+
+
+
+
+    /**
+     * 查询按钮
+     */
+    $scope.getOperatingVehicles = function () {
+        $scope.start=0;
+        searchOperatingVehiclesList();
+    };
+
+
+
+
+
+    /**
+     * 根据条件搜索
+     */
+    function searchOperatingVehiclesList () {
         // 基本检索URL
         var url = $host.api_url + "/truckOperate?start=" + $scope.start + "&size=" + $scope.size;
         // 检索条件
@@ -73,7 +120,7 @@ app.controller("operating_vehicles_controller", ['$scope', "$host", '_basic', '$
                 $rootScope.refObj = {pageArray: []};
                 $rootScope.refObj.pageArray.push(pageItems);
                 $scope.boxArray = data.result;
-                $scope.responseData = $scope.boxArray.slice(0, 10);
+                $scope.operatingList = $scope.boxArray.slice(0, 10);
                 if ($scope.start > 0) {
                     $("#pre").show();
                 }
@@ -93,12 +140,13 @@ app.controller("operating_vehicles_controller", ['$scope', "$host", '_basic', '$
         });
     };
 
-    // 点击搜索
-    $scope.searchOperatingVehicles = function () {
-        $scope.start=0;
-        getOperatingVehiclesList();
-    };
 
+
+
+
+    /**
+     * 数据导出
+     */
     $scope.export = function (){
         // 基本检索URL
         var url = $host.api_url + "/truckOperate.csv?" ;
@@ -111,31 +159,37 @@ app.controller("operating_vehicles_controller", ['$scope', "$host", '_basic', '$
     }
 
 
+
+
+
     /**
      * 设置检索条件。
      * @param conditions 上次检索条件
      */
     function setConditions(conditions) {
-        $scope.search_num=conditions.truckId;
-        $scope.search_driver=conditions.driveName;
-        $scope.search_company=conditions.companyId;
-        $scope.operateType = conditions.operateType;
-        $scope.dispatchFlag=conditions.dispatchFlag;
-        $scope.truckBrand=conditions.brandId;
+        $scope.conNumber=conditions.truckId;
+        $scope.conDriver=conditions.driveName;
+        $scope.conCompany=conditions.companyId;
+        $scope.conOperateType = conditions.operateType;
+        $scope.conDispatchFlag=conditions.dispatchFlag;
+        $scope.conTruckBrand=conditions.brandId;
     }
+
+
+
 
     /**
      * 组装检索条件。
      */
     function makeConditions() {
         return {
-            truckId:$scope.search_num,
+            truckId:$scope.conNumber,
             truckType:1,
-            driveName:$scope.search_driver,
-            companyId:$scope.search_company,
-            brandId:$scope.truckBrand,
-            dispatchFlag:$scope.dispatchFlag,
-            operateType: $scope.operateType
+            driveName:$scope.conDriver,
+            companyId:$scope.conCompany,
+            brandId:$scope.conTruckBrand,
+            dispatchFlag:$scope.conDispatchFlag,
+            operateType: $scope.conOperateType
         };
     }
 
@@ -143,12 +197,13 @@ app.controller("operating_vehicles_controller", ['$scope', "$host", '_basic', '$
     // 分页
     $scope.getPrePage = function () {
         $scope.start = $scope.start - ($scope.size-1);
-        getOperatingVehiclesList();
+        searchOperatingVehiclesList();
     };
     $scope.getNextPage = function () {
         $scope.start = $scope.start + ($scope.size-1);
-        getOperatingVehiclesList();
+        searchOperatingVehiclesList();
     };
+
 
 
 
@@ -170,20 +225,14 @@ app.controller("operating_vehicles_controller", ['$scope', "$host", '_basic', '$
             // 初始显示时，没有前画面，所以没有基本信息
             $rootScope.refObj = {pageArray: []};
         }
-        $scope.searchOperatingVehicles();
-        getTruckNumList ();
-        getTruckBrandList();
+        $scope.getOperatingVehicles();
+        getTruckList ();
+        getBrandList();
     }
+
+
+
     initData();
 
 
-
-
-
-
-
-
-
-
-
-}])
+}]);

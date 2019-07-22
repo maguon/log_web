@@ -1,60 +1,83 @@
 
-<!--运营车辆-->
+<!-- 主菜单：车辆管理 -> 运营车辆 画面 -->
 <div class="operating_vehicles">
 
-    <!--查询条件-->
+
+    <!-- 上部分：检索条件输入区域 -->
+
+
+    <!--渲染条件-->
     <div class="row">
         <div class="col s10">
+
+            <!--所属类型   联动 -- 所属公司  -->
             <div class="input-field col s2">
-                <select  material-select watch id="operateType"  ng-model="operateType" ng-change="changeOperateType()">
+                <select  material-select watch id="operateType"  ng-model="conOperateType" ng-change="changeOperateType()">
                     <option value="">请选择</option>
                     <option ng-repeat="operate in operateTypeList" ng-value="operate.id">{{operate.operate_type}}</option>
                 </select>
                 <label for="operateType">所属类型</label>
             </div>
 
+
+            <!--所属公司-->
             <div class="input-field col s2">
-                <select id="search_company" material-select watch ng-model="search_company">
+                <select id="company" material-select watch ng-model="conCompany">
                     <option value="">所属公司</option>
-                    <option ng-repeat="el in company" ng-value="el.id">{{el.company_name}}</option>
+                    <option ng-repeat="el in companyList" ng-value="el.id">{{el.company_name}}</option>
                 </select>
-                <label for="search_company">请选择</label>
+                <label for="company">请选择</label>
             </div>
+
+
+            <!--品牌-->
             <div class="input-field col s2">
-                <select id="truck_brand" ng-model="truckBrand" material-select watch>
+                <select id="brand" ng-model="conTruckBrand" material-select watch>
                     <option value="" selected>请选择</option>
                     <option ng-repeat="brand in brandList" ng-value="brand.id">{{brand.brand_name}}</option>
                 </select>
-                <label for="truck_brand">货车品牌</label>
+                <label for="brand">品牌</label>
             </div>
+
+
+            <!--货车牌号-->
             <div class="input-field col s2">
-                <select id="search_num" style="width: 100%" ng-model="search_num">
-                    <option value="">牌号</option>
-                    <option ng-repeat="el in truckNumList" ng-value="el.id" >{{el.truck_num}}</option>
+                <select id="truck" style="width: 100%" ng-model="conNumber">
+                    <option value="">货车牌号</option>
+                    <option ng-repeat="el in truckList" ng-value="el.id" >{{el.truck_num}}</option>
                 </select>
             </div>
 
-
+            <!--关联司机-->
              <div class="input-field col s2">
-                <input name="search_driver" id="search_driver" type="text" ng-model="search_driver" >
-                <label for="search_driver">关联司机</label>
+                <input  id="driver" type="text" ng-model="conDriver" >
+                <label for="driver">关联司机</label>
             </div>
 
+
+            <!--运营状态-->
             <div class="input-field col s2">
-                <select material-select watch id="dispatchFlag" style="width: 100%" ng-model="dispatchFlag">
+                <select material-select watch id="dispatchFlag" style="width: 100%" ng-model="conDispatchFlag">
                     <option value="">请选择</option>
-                    <option value="1">可用</option>
-                    <option value="0">不可用</option>
+                    <option ng-repeat="el in dispatchFlagList" ng-value="el.id" >{{el.dispatch_flag}}</option>
                 </select>
                 <label for="dispatchFlag">运营状态</label>
             </div>
         </div>
+
+
+
+        <!--按钮区域-->
         <div class="col s2">
+
+            <!--查询按钮-->
             <div class="col s6 center">
-                <a class=" btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px"  ng-click="searchOperatingVehicles()">
+                <a class=" btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"  ng-click="getOperatingVehicles()">
                     <i class="mdi mdi-magnify"></i>
                 </a>
             </div>
+
+            <!--下载按钮-->
             <div class="col s6 center-align">
                 <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
                     <i class="mdi mdi-cloud-download"></i>
@@ -63,38 +86,44 @@
         </div>
     </div>
 
-    <!--列表-->
-    <div class="col s12">
+    <!-- 下部分：检索结果显示区域 -->
+    <div class="row">
         <div class="col s12">
             <div class="divider cyan" style="height: 2px;"></div>
+
+            <!--列表-->
             <table class="bordered striped text_mid">
                 <thead class="blue-grey lighten-5">
                 <tr class="grey-text text-darken-2">
-                    <th data-field="">车牌号</th>
-                    <th data-field="">货车品牌</th>
-                    <th data-field="">主驾</th>
-                    <th data-field="">电话</th>
-                    <th data-field="">所属公司</th>
-                    <th data-field="">当前城市或路线</th>
-                    <th data-field="">操作</th>
+                    <th>车牌号</th>
+                    <th>货车品牌</th>
+                    <th>主驾</th>
+                    <th>电话</th>
+                    <th>所属公司</th>
+                    <th>当前城市或路线</th>
+                    <th>运营状态</th>
+                    <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="el in responseData" class="grey-text text-darken-1">
+                <tr ng-repeat="el in operatingList" class="grey-text text-darken-1">
                     <td>{{el.truck_num}}</td>
                     <td>{{el.brand_name}}</td>
-                    <td  ng-bind="el.drive_name"></td>
-                    <td  ng-bind="el.mobile"></td>
-                    <td  ng-bind="el.company_name"></td>
+                    <td>{{el.drive_name}}</td>
+                    <td>{{el.mobile}}</td>
+                    <td>{{el.company_name}}</td>
                     <td  ng-if="el.current_city_name==null&&el.task_start_name==null&&l.task_end_name==null"></td>
                     <td  ng-if="el.current_city_name==null&&(el.task_start_name!==null||el.task_end_name!==null)">{{el.task_start_name}}-{{el.task_end_name}}</td>
                     <td  ng-if="el.current_city_name!==null">{{el.current_city_name}}</td>
+                    <td>{{dispatchFlagList[el.dispatch_flag].dispatch_flag}}</td>
                     <td class="operation fz12">
-                        <a ui-sref="look_head_truck_details({id:el.id,from:'operating_vehicles'})" class="cyan-text" style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-file-document" style="margin: 0"></i></a>
+                        <a ui-sref="look_head_truck_details({id:el.id,from:'operating_vehicles'})" class="cyan-text">
+                            <i class="mdi mdi-file-document"></i>
+                        </a>
                     </td>
                 </tr>
-                <tr ng-if="responseData.length == 0">
-                    <td colspan="7">暂无数据</td>
+                <tr ng-if="operatingList.length == 0">
+                    <td colspan="8">暂无数据</td>
                 </tr>
 
                 </tbody>

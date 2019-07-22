@@ -163,6 +163,20 @@ app.controller("route_fee_controller", ["$scope", "$state","$stateParams", "$hos
         }
 
 
+
+    // 分页
+    $scope.preBtn = function () {
+        $scope.start = $scope.start - ($scope.size-1);
+        searchCost();
+    };
+
+    $scope.nextBtn = function () {
+        $scope.start = $scope.start + ($scope.size-1);
+        searchCost();
+    };
+
+
+
         getDriveNameList ();
         getTruckNum();
         searchCost();

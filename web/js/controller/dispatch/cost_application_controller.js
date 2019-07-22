@@ -47,6 +47,14 @@ app.controller("cost_application_controller", ["$scope", "$state","$stateParams"
         carTotalPrice:0,
         //商品车加油费
         carOilFee:0,
+        //现金ETC
+        cashEtc: 0,
+        //现金维修
+        cashRepair: 0,
+        //现金违章
+        cashPeccancy: 0,
+        //现金加油
+        cashOil: 0,
         //备注
         remark:''
     };
@@ -246,7 +254,12 @@ app.controller("cost_application_controller", ["$scope", "$state","$stateParams"
         if($scope.newCostApplication.carDayCount==null|| $scope.newCostApplication.carSinglePrice==null||
             $scope.newCostApplication.driver== ''||$scope.newTruck==null||  $scope.newTruckNumber==null||
             $scope.newCostApplication.dpRouteTaskId==''||$scope.newCostApplication.dayCount ==null||
-            $scope.newCostApplication.singlePrice ==null||$scope.newCostApplication.carOilFee==null){
+            $scope.newCostApplication.singlePrice ==null||$scope.newCostApplication.carOilFee==null||
+            $scope.newCostApplication.cashEtc ==null||$scope.newCostApplication.cashRepair==null||
+            $scope.newCostApplication.cashPeccancy ==null||$scope.newCostApplication.cashOil==null
+
+
+        ){
             swal('请输入完整信息!', "", "error")
         }
         else {
@@ -263,6 +276,10 @@ app.controller("cost_application_controller", ["$scope", "$state","$stateParams"
                 carSinglePrice: $scope.newCostApplication.carSinglePrice,
                 carTotalPrice: $scope.newCostApplication.carDayCount*$scope.newCostApplication.carSinglePrice,
                 carOilFee:$scope.newCostApplication.carOilFee,
+                cashEtc: $scope.newCostApplication.cashEtc,
+                cashRepair: $scope.newCostApplication.cashRepair,
+                cashPeccancy: $scope.newCostApplication.cashPeccancy,
+                cashOil: $scope.newCostApplication.cashOil,
                 remark:$scope.newCostApplication.remark
             }).then(function (data) {
                 if (data.success == true) {
@@ -307,7 +324,9 @@ app.controller("cost_application_controller", ["$scope", "$state","$stateParams"
 
         //必填条件
         if($scope.putList.day_count !== null &&  $scope.putList.single_price!== null&&$scope.putList.car_oil_fee!==null
-        &&$scope.putList.car_day_count !== null &&  $scope.putList.car_single_price!== null){
+        &&$scope.putList.car_day_count !== null &&  $scope.putList.car_single_price!== null&&$scope.putList.cash_etc!== null
+            &&  $scope.putList.cash_repair!== null&&  $scope.putList.cash_peccancy!== null&&  $scope.putList.cash_oil!== null
+        ){
 
             _basic.put($host.api_url + "/user/" + userId + "/dpRouteTaskFee/"+$scope.dpRouteTaskFeeId,{
                 dayCount: $scope.putList.day_count,
@@ -317,6 +336,10 @@ app.controller("cost_application_controller", ["$scope", "$state","$stateParams"
                 carDayCount: $scope.putList.car_day_count,
                 carSinglePrice: $scope.putList.car_single_price,
                 carTotalPrice: $scope.putList.car_single_price*$scope.putList.car_day_count,
+                cashEtc: $scope.putList.cash_etc,
+                cashRepair: $scope.putList.cash_repair,
+                cashPeccancy: $scope.putList.cash_peccancy,
+                cashOil: $scope.putList.cash_oil,
                 remark:$scope.putList.remark
             }).then(function (data) {
                 if (data.success === true) {

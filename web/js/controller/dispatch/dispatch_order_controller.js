@@ -70,7 +70,7 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
         seachOrderInfo();
     }
 
-    // 下载csv
+    // 下载csv  调度路线导出
     $scope.downloadCsvFile = function () {
         // 基本检索URL
         if($scope.reverseFlag==null){
@@ -87,6 +87,29 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
         url = conditions.length > 0 ? url + "&" + conditions : url;
         window.open(url);
     };
+
+
+    //司机里程导出
+    $scope.export = function (){
+        var obj={
+            loadTaskStatuArr:[1,3,7]
+        }
+        // 基本检索URL
+        if($scope.reverseFlag==null){
+            var url = $host.api_url + "/driveDistanceLoad.csv?"+ _basic.objToUrl(obj)
+        }
+        else {
+            var url = $host.api_url + "/driveDistanceLoad.csv?"+'reverseFlag='+$scope.reverseFlag+'&'+ _basic.objToUrl(obj);
+        }
+
+        // 检索条件
+        var conditionsObj = makeConditions();
+        var conditions = _basic.objToUrl(conditionsObj);
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
+        window.open(url);
+    }
+
 
 
     /**
@@ -151,7 +174,7 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
         $scope.taskStatus=conditions.taskStatus;
         $scope.planTimeStart=conditions.taskPlanDateStart;
         $scope.planTimeEnd=conditions.taskPlanDateEnd;
-        $scope.driver=conditions.driveName;
+        $scope.driver=conditions.driveId;
         $scope.truckNum=conditions.truckNum;
         $scope.startCity=conditions.routeStartId;
         $scope.endCity=conditions.routeEndId;
@@ -167,8 +190,8 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
             taskStatus: $scope.taskStatus,
             taskPlanDateStart: $scope.planTimeStart,
             taskPlanDateEnd:$scope.planTimeEnd,
-            driveName:$scope.driver,
-            truckNum:$scope.truckNum,
+            driveId:$scope.driver,
+            truckId:$scope.truckNum,
             routeStartId:$scope.startCity,
             routeEndId:$scope.endCity
         };

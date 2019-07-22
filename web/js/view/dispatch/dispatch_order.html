@@ -116,7 +116,7 @@
             <div class="col input-field" style="width: 12.5%">
                 <select id="driver"  ng-model="driver"  style="width: 100%">
                     <option value=""></option>
-                    <option ng-repeat="putDrive in driveList" ng-value='putDrive.drive_name'>{{putDrive.drive_name}}</option>
+                    <option ng-repeat="putDrive in driveList" ng-value='putDrive.id'>{{putDrive.drive_name}}</option>
                 </select>
             </div>
 
@@ -125,7 +125,7 @@
             <div class="col input-field" style="width: 12.5%">
                 <select  material-select watch ng-model="truckNum"  id="truckNum" style="width: 100%">
                     <option value="" selected disabled>请选择</option>
-                    <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem.truck_num">{{truckNumItem.truck_num}}({{truckNumItem.truck_type == 1 ? "头车" : "挂车"}})</option>
+                    <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}({{truckNumItem.truck_type == 1 ? "头车" : "挂车"}})</option>
                 </select>
             </div>
 
@@ -159,16 +159,23 @@
 
         <!--查询按钮-->
         <div class="col s2" style="margin-top:45px;">
-            <div class="col s6 center">
+            <div class="col s4 center">
                 <a ng-click="getOrderInfo()" class="btn-floating btn-large waves-light waves-effect red lighten-2 btn vc-center" style="margin-right: 10px">
                     <i class="mdi mdi-magnify"></i>
                 </a>
             </div>
-            <div class="col s6 center">
-                <a ng-click="downloadCsvFile()" style="background-color: #f0ad4e;" class="btn-floating btn-large waves-light waves-effect lighten-2 btn vc-center">
+            <div class="col s4 center">
+                <a ng-click="downloadCsvFile()" style="background-color: #f0ad4e;"  title="调度路线导出" class="btn-floating btn-large waves-light waves-effect lighten-2 btn vc-center">
                     <i class="mdi mdi-cloud-download"></i>
                 </a>
             </div>
+
+            <div class="col s4 center">
+                <a ng-click="export()" class="btn-floating btn-large waves-light waves-effect cyan btn vc-center" title="司机里程导出">
+                    <i class="mdi mdi-cloud-download"></i>
+                </a>
+            </div>
+
         </div>
 
 

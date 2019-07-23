@@ -636,6 +636,14 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'add_truck_management_controller'
         })
 
+        //计划油耗
+        .state("plan_oil",{
+            url:"/plan_oil",
+            params: {"from": null},
+            templateUrl: "js/view/truck/plan_oil.html",
+            controller:'plan_oil_controller'
+        })
+
         //司机违章扣款
         .state("peccancy_withhold",{
             url:"/peccancy_withhold",

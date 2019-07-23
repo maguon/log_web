@@ -401,5 +401,17 @@ baseService.factory("_config", function () {
 
     ];
 
+    //是否倒板
+    _this.reverseFlag = [
+        {id: "0", reverse_flag: "否"},
+        {id: "1", reverse_flag: "是"}
+    ];
+
+    //重载(空载)
+    _this.loadFlag = [
+        {id: "0", load_flag: "空"},
+        {id: "1", load_flag: "重"}
+    ];
+
     return _this
 });

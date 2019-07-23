@@ -1,0 +1,131 @@
+<!-- 主菜单：车辆管理 -> 计划油耗 画面 -->
+<div class="plan_oil">
+
+
+    <!-- 上部分：检索条件输入区域 -->
+
+
+    <!--渲染条件-->
+    <div class="row col s12">
+
+        <div class="col s10">
+
+            <!--调度编号-->
+            <div class="input-field col colWidth">
+                <input id="dpId" type="text" ng-model="conDpId">
+                <label for="dpId">调度编号</label>
+            </div>
+
+            <!--司机-->
+            <div class="input-field col colWidth">
+                <select material-select watch ng-model="conDrivder" id="driver" style="width: 100%" >
+                    <option value="" selected>请选择</option>
+                    <option ng-repeat="dr in driveList" ng-value=dr.id>{{dr.drive_name}}</option>
+                </select>
+            </div>
+
+
+            <!--货车牌号-->
+            <div class="input-field col colWidth">
+                <select  id="truck" ng-model="conTruck" style="width: 100%" >
+                    <option value=""></option>
+                    <option ng-repeat="tr in truckList" ng-value="tr.id">{{tr.truck_num}}</option>
+                </select>
+            </div>
+
+
+
+            <!--计划执行时间(始)-->
+            <div class="input-field col colWidth">
+                <input type="text" ng-model="conStarTime" id="conStarTime" class="datepicker" autocomplete="off" date>
+                <i class="mdi dataIcon mdi-table-large"></i>
+                <label for="conStarTime">计划执行时间(始)</label>
+            </div>
+
+
+            <!--计划执行时间(终)-->
+            <div class="input-field col colWidth">
+                <input type="text" ng-model="conEndTime" id="conEndTime"  class="datepicker" autocomplete="off" date>
+                <i class="mdi dataIcon mdi-table-large"></i>
+                <label for="conEndTime">计划执行时间(终)</label>
+            </div>
+
+
+
+        </div>
+
+
+        <!--按钮区域-->
+        <div class="col s2 mp-20">
+            <!--查询按钮-->
+            <div class="col s12 center-align">
+                <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getPlanOil()">
+                    <i class="mdi mdi-magnify"></i>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- 下部分：检索结果显示区域 -->
+    <div class="row">
+        <div class="divider cyan" style="height: 2px;"></div>
+        <table class="bordered striped text_mid">
+            <thead class="blue-grey lighten-5">
+            <tr class="grey-text text-darken-2">
+                <th>调度编号</th>
+                <th>司机</th>
+                <th>货车牌号</th>
+                <th>路线</th>
+                <th>计划执行时间</th>
+                <th>结算里程</th>
+                <th>油耗里程</th>
+                <th>运载车辆数</th>
+                <th>倒板</th>
+                <th>空(重)</th>
+                <th>百公里耗油量/尿素</th>
+                <th>总耗油量/尿素</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="oil in planOilList" class="grey-text text-darken-1">
+                <td>{{oil.dp_route_task_id}}</td>
+                <td>{{oil.drive_name}}</td>
+                <td>{{oil.truck_num}}</td>
+                <td>{{oil.route_start + " - " + oil.route_end}}</td>
+                <td>{{oil.task_plan_date|date:'yyyy-MM-dd'}}</td>
+                <td>{{oil.distance}}</td>
+                <td>{{oil.oil_distance}}</td>
+                <td>{{oil.car_count==null?0:oil.car_count}}</td>
+                <td>{{reverseFlagList[oil.reverse_flag].reverse_flag}}</td>
+                <td>{{loadFlagList[oil.oil_load_flag].load_flag}}</td>
+                <td>{{oil.oil==null&&oil.urea==null?'':oil.oil+'/'+oil.urea}}</td>
+                <td>{{oil.total_oil==null&&oil.total_urea==null?'':oil.total_oil+'/'+oil.total_urea}}</td>
+            </tr>
+            <tr ng-if="planOilList.length==0">
+                <td colspan="12">暂无数据</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <!-- 上下页按钮 -->
+    <div class="row">
+        <div class="paging_box col s12">
+            <div class="right">
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="preBtn()">
+                    上一页
+                </a>
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="nextBtn()">
+                    下一页
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

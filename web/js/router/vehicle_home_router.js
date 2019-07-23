@@ -161,6 +161,13 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/truck/operating_vehicles.html",
             controller:'operating_vehicles_controller'
         })
+        //计划油耗
+        .state("plan_oil",{
+            url:"/plan_oil",
+            params: {"from": null},
+            templateUrl: "js/view/truck/plan_oil.html",
+            controller:'plan_oil_controller'
+        })
         // 商品车信息
         .state("car_query",{
             url:"/car_query",

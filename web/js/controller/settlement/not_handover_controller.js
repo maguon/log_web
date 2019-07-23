@@ -127,7 +127,7 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
     $scope.export = function () {
 
         // 基本检索URL
-        var url = $host.api_url + "/notSettleHandover.csv";
+        var url = $host.api_url + "/notSettleHandover.csv?transferFlag=0";
         // 检索条件
         var conditions = _basic.objToUrl(makeConditions());
         // 检索URL
@@ -177,7 +177,7 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
         }
         else {
             // 基本检索URL
-            var url = $host.api_url + "/notSettleHandover?start=" + $scope.start + "&size=" + $scope.size;
+            var url = $host.api_url + "/notSettleHandover?start=" + $scope.start + "&size=" + $scope.size+'&transferFlag=0';
             // 检索条件
             var conditionsObj = makeConditions();
             var conditions = _basic.objToUrl(conditionsObj);
@@ -384,8 +384,7 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
             taskPlanDateEnd: $scope.conPlanTimeEnd,
             makeId: $scope.conBrand,
             routeStartId: $scope.conStartCity,
-            baseAddrId: $scope.conLocate,
-            transferFlag:0
+            baseAddrId: $scope.conLocate
         }
         return obj;
     }

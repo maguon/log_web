@@ -29,6 +29,14 @@ app.controller("add_head_truck_details_controller", ["$scope", "$state", "$state
         });
     };
 
+    _basic.get($host.api_url + "/company").then(function (data) {
+        if (data.success == true) {
+            $scope.companyList = data.result;
+        } else {
+            swal(data.msg, "", "error")
+        }
+    });
+
     // 获取品牌
     _basic.get($host.api_url + "/brand").then(function (data) {
         if (data.success == true) {
@@ -81,7 +89,6 @@ app.controller("add_head_truck_details_controller", ["$scope", "$state", "$state
             hp: parseInt($scope.horsepower),
             truckTel: $scope.phone_num,
             theCode: $scope.vin,
-            driveId: $scope.main_driver,
             companyId: $scope.truck_company,
             truckType: 1,
             operateType: $scope.truck_type,

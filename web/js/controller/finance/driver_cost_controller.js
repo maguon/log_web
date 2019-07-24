@@ -2,6 +2,11 @@ app.controller("driver_cost_controller", ["$scope","$rootScope","$state","$state
     $scope.start = 0;
     $scope.size = 11;
 
+    //指令日期
+    $scope.starTime=undefined;
+    $scope.endTime=undefined;
+
+
     //司机 公司
     function getDriveNameList () {
         _basic.get($host.api_url + "/drive?").then(function (data) {
@@ -48,19 +53,41 @@ app.controller("driver_cost_controller", ["$scope","$rootScope","$state","$state
     //查询功能
     $scope.getdrive = function (){
         $scope.start = 0;
-        getdriveData();
+        $scope.starTime=$scope.instruct_starTime;
+        $scope.endTime=$scope.instruct_endTime;
+        if($scope.starTime==undefined||$scope.endTime==undefined){
+            $scope.driveList=[];
+            swal('请输入完整的指令时间', "", "error");
+            $("#pre").hide();
+            $("#next").hide();
+        }
+        else {
+            getdriveData();
+        }
+
+
     }
 
     // 数据导出
     $scope.export = function () {
-        var obj = {
-            companyId: $scope.driverCompany,
-            truckId:$scope.addTruckId,
-            dateIdStart: moment($scope.instruct_starTime).format("YYYYMMDD"),
-            dateIdEnd: moment($scope.instruct_endTime).format("YYYYMMDD"),
-            driveId: $scope.drivderId
-        };
-        swal({
+        $scope.starTime=$scope.instruct_starTime;
+        $scope.endTime=$scope.instruct_endTime;
+        if($scope.starTime==undefined||$scope.endTime==undefined){
+            $scope.driveList=[];
+            swal('请输入完整的指令时间', "", "error");
+            $("#pre").hide();
+            $("#next").hide();
+        }
+        else {
+
+            var obj = {
+                companyId: $scope.driverCompany,
+                truckId: $scope.addTruckId,
+                dateIdStart: moment($scope.starTime).format("YYYYMMDD"),
+                dateIdEnd: moment($scope.endTime).format("YYYYMMDD"),
+                driveId: $scope.drivderId
+            };
+            swal({
                 title: "确定导出司机成本表？",
                 text: "",
                 type: "warning",
@@ -69,27 +96,22 @@ app.controller("driver_cost_controller", ["$scope","$rootScope","$state","$state
                 confirmButtonText: "确定",
                 cancelButtonText: "取消"
             }).then(
-            function (result) {
-                if (result.value) {
-                    window.open($host.api_url + "/driveCost.csv?" + _basic.objToUrl(obj));
-                }
-            })
-
+                function (result) {
+                    if (result.value) {
+                        window.open($host.api_url + "/driveCost.csv?" + _basic.objToUrl(obj));
+                    }
+                })
+        }
     };
 
     //获取查询数据
     function getdriveData(){
-        if($scope.instruct_starTime==undefined||$scope.instruct_endTime==undefined){
-            $scope.settlementList=[];
-            $("#pre").hide();
-            $("#next").hide();
-        }
-        else{
+
             _basic.get($host.api_url + "/driveCost?" + _basic.objToUrl({
                 companyId: $scope.driverCompany,
                 truckId:$scope.addTruckId,
-                dateIdStart:moment($scope.instruct_starTime).format("YYYYMMDD"),
-                dateIdEnd:moment($scope.instruct_endTime).format("YYYYMMDD"),
+                dateIdStart:moment($scope.starTime).format("YYYYMMDD"),
+                dateIdEnd:moment($scope.endTime).format("YYYYMMDD"),
                 driveId: $scope.drivderId,
                 start: $scope.start.toString(),
                 size: $scope.size
@@ -114,7 +136,7 @@ app.controller("driver_cost_controller", ["$scope","$rootScope","$state","$state
                     swal(data.msg, "", "error");
                 }
             });
-        }
+
     }
     // 分页
     $scope.pre_btn = function () {

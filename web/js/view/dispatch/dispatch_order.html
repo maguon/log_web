@@ -235,8 +235,12 @@
                     <a  ui-sref="dispatch_order_details({id:el.id,from:'dispatch_order'})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1  " ></i></a>
                 </td>
             </tr>
-            <tr class="grey-text text-darken-1" ng-if="dispatchOrderArray.length == 0">
-                <td colspan="15" style="letter-spacing: 2px;text-align: center;">暂无数据</td>
+
+            <tr ng-if="dispatchOrderArray.length==0&&starTime!==undefined&&endTime!==undefined">
+                <td colspan="15">暂无数据</td>
+            </tr>
+            <tr ng-if="(endTime==undefined||starTime==undefined)&&dispatchOrderArray.length==0">
+                <td colspan="15"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
             </tr>
             </tbody>
         </table>

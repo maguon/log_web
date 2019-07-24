@@ -4,8 +4,15 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
     $("#pre").hide();
     $("#next").hide();
     var userId = _basic.getSession(_basic.USER_ID);
+
+
     // 调度指令状态
     $scope.taskStatusList =_config.taskStatus;
+
+
+    //计划执行时间
+    $scope.starTime=undefined;
+    $scope.endTime=undefined;
 
 
     /*
@@ -67,7 +74,17 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
      * */
     $scope.getOrderInfo = function (){
         $scope.start = 0;
-        seachOrderInfo();
+        $scope.starTime=$scope.planTimeStart;
+        $scope.endTime=$scope.planTimeEnd;
+        if($scope.starTime==undefined||$scope.endTime==undefined){
+            $scope.dispatchOrderArray=[];
+            swal('请输入完整的计划执行时间', "", "error");
+            $("#pre").hide();
+            $("#next").hide();
+        }
+        else {
+            seachOrderInfo();
+        }
     }
 
     // 下载csv  调度路线导出
@@ -80,12 +97,22 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
             var url = $host.api_url + "/dpRouteTask.csv?"+'reverseFlag='+$scope.reverseFlag;
         }
 
-        // 检索条件
-        var conditionsObj = makeConditions();
-        var conditions = _basic.objToUrl(conditionsObj);
-        // 检索URL
-        url = conditions.length > 0 ? url + "&" + conditions : url;
-        window.open(url);
+
+        if($scope.starTime==undefined||$scope.endTime==undefined){
+            $scope.dispatchOrderArray=[];
+            swal('请输入完整的计划执行时间', "", "error");
+            $("#pre").hide();
+            $("#next").hide();
+        }
+        else{
+            // 检索条件
+            var conditionsObj = makeConditions();
+            var conditions = _basic.objToUrl(conditionsObj);
+            // 检索URL
+            url = conditions.length > 0 ? url + "&" + conditions : url;
+            window.open(url);
+        }
+
     };
 
 
@@ -102,12 +129,20 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
             var url = $host.api_url + "/driveDistanceLoad.csv?"+'reverseFlag='+$scope.reverseFlag+'&'+ _basic.objToUrl(obj);
         }
 
-        // 检索条件
-        var conditionsObj = makeConditions();
-        var conditions = _basic.objToUrl(conditionsObj);
-        // 检索URL
-        url = conditions.length > 0 ? url + "&" + conditions : url;
-        window.open(url);
+        if($scope.starTime==undefined||$scope.endTime==undefined){
+            $scope.dispatchOrderArray=[];
+            swal('请输入完整的计划执行时间', "", "error");
+            $("#pre").hide();
+            $("#next").hide();
+        }
+        else {
+            // 检索条件
+            var conditionsObj = makeConditions();
+            var conditions = _basic.objToUrl(conditionsObj);
+            // 检索URL
+            url = conditions.length > 0 ? url + "&" + conditions : url;
+            window.open(url);
+        }
     }
 
 
@@ -123,45 +158,50 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
         else {
             var url = $host.api_url + "/dpRouteTaskList?start=" + $scope.start + "&size=" + $scope.size+'&reverseFlag='+$scope.reverseFlag;
         }
+        if($scope.starTime==undefined||$scope.endTime==undefined){
+            $scope.dispatchOrderArray=[];
 
-        // 检索条件
-        var conditionsObj = makeConditions();
-        var conditions = _basic.objToUrl(conditionsObj);
-        // 检索URL
-        url = conditions.length > 0 ? url + "&" + conditions : url;
+        }
+        else {
+            // 检索条件
+            var conditionsObj = makeConditions();
+            var conditions = _basic.objToUrl(conditionsObj);
+            // 检索URL
+            url = conditions.length > 0 ? url + "&" + conditions : url;
 
-        _basic.get(url).then(function (data) {
+            _basic.get(url).then(function (data) {
 
-            if (data.success == true) {
+                if (data.success == true) {
 
-                // 当前画面的检索信息
-                var pageItems = {
-                    pageId: "dispatch_order",
-                    start: $scope.start,
-                    size: $scope.size,
-                    conditions: conditionsObj
-                };
-                // 将当前画面的条件
-                $rootScope.refObj = {pageArray: []};
-                $rootScope.refObj.pageArray.push(pageItems);
-                $scope.dispatchOrderBoxArray = data.result;
-                $scope.dispatchOrderArray = $scope.dispatchOrderBoxArray.slice(0,10);
-                if ($scope.start > 0) {
-                    $("#pre").show();
+                    // 当前画面的检索信息
+                    var pageItems = {
+                        pageId: "dispatch_order",
+                        start: $scope.start,
+                        size: $scope.size,
+                        conditions: conditionsObj
+                    };
+                    // 将当前画面的条件
+                    $rootScope.refObj = {pageArray: []};
+                    $rootScope.refObj.pageArray.push(pageItems);
+                    $scope.dispatchOrderBoxArray = data.result;
+                    $scope.dispatchOrderArray = $scope.dispatchOrderBoxArray.slice(0, 10);
+                    if ($scope.start > 0) {
+                        $("#pre").show();
+                    }
+                    else {
+                        $("#pre").hide();
+                    }
+                    if (data.result.length < $scope.size) {
+                        $("#next").hide();
+                    }
+                    else {
+                        $("#next").show();
+                    }
+                } else {
+                    swal(data.msg, "", "error");
                 }
-                else {
-                    $("#pre").hide();
-                }
-                if (data.result.length < $scope.size) {
-                    $("#next").hide();
-                }
-                else {
-                    $("#next").show();
-                }
-            } else {
-                swal(data.msg, "", "error");
-            }
-        });
+            });
+        }
     };
 
 
@@ -172,8 +212,8 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
     function setConditions(conditions) {
         $scope.dispatchId=conditions.dpRouteTaskId;
         $scope.taskStatus=conditions.taskStatus;
-        $scope.planTimeStart=conditions.taskPlanDateStart;
-        $scope.planTimeEnd=conditions.taskPlanDateEnd;
+        $scope.starTime=conditions.taskPlanDateStart;
+        $scope.endTime=conditions.taskPlanDateEnd;
         $scope.driver=conditions.driveId;
         $scope.truckNum=conditions.truckNum;
         $scope.startCity=conditions.routeStartId;
@@ -188,8 +228,8 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
         return {
             dpRouteTaskId: $scope.dispatchId,
             taskStatus: $scope.taskStatus,
-            taskPlanDateStart: $scope.planTimeStart,
-            taskPlanDateEnd:$scope.planTimeEnd,
+            taskPlanDateStart: $scope.starTime,
+            taskPlanDateEnd:$scope.endTime,
             driveId:$scope.driver,
             truckId:$scope.truckNum,
             routeStartId:$scope.startCity,
@@ -211,13 +251,14 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
                 // 将上次的检索条件设定到画面
                 setConditions(pageItems.conditions);
 
-                // 查询数据
-                seachOrderInfo();
+
             }
         } else {
             // 初始显示时，没有前画面，所以没有基本信息
             $rootScope.refObj = {pageArray: []};
         }
+        // 查询数据
+        seachOrderInfo();
     }
     initData();
 

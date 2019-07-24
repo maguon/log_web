@@ -1,11 +1,28 @@
+
+/**
+ * 主菜单：财务管理 -> 出车款 控制器
+ */
+
 app.controller("route_fee_controller", ["$scope", "$state","$stateParams", "$host", "_basic",  "_config",function ($scope, $state,$stateParams, $host, _basic,_config) {
     var userId = _basic.getSession(_basic.USER_ID);
         $scope.start = 0;
         $scope.size = 11;
 
+        // 领取状态 默认为未发放
+        $scope.getStatus = "1";
 
 
-        //通过
+    // 初始化复选金额
+    $scope.initial={
+        selectedIdsArr:[],
+        checkOilFee:0,
+        checkedTotalPrice:0,
+        checkedParkingFee:0
+    }
+
+
+
+    //通过
         $scope.carHave = function(id){
             swal({
                 title: "确定领取吗？",
@@ -102,6 +119,8 @@ app.controller("route_fee_controller", ["$scope", "$state","$stateParams", "$hos
                 truckId: $scope.truckNum,
                 createdOnStart:$scope.instruct_starTime,
                 createdOnEnd:$scope.instruct_endTime,
+                grantDateStart:$scope.grant_start_time,
+                grantDateEnd:$scope.grant_end_time,
                 status:$scope.getStatus,
                 start:$scope.start,
                 size:$scope.size
@@ -161,6 +180,170 @@ app.controller("route_fee_controller", ["$scope", "$state","$stateParams", "$hos
             url = conditions.length > 0 ? url + "&" + conditions : url;
             window.open(url);
         }
+
+
+
+
+
+
+
+
+
+    /*
+    *
+    * 全选
+    * */
+    $scope.selectAllCheckBox = function (event) {
+
+        //本页全部选中
+        if (event.target.checked) {
+            $("[name = 'select']").prop('checked', true);
+            for (var i = 0; i < $scope.costList.length; i++) {
+                $scope.initial.selectedIdsArr.push($scope.costList[i].id);
+                $scope.initial.checkOilFee+= $scope.costList[i].car_oil_fee;
+                $scope.initial.checkedTotalPrice+= $scope.costList[i].car_total_price;
+                $scope.initial.checkedParkingFee+= $scope.costList[i].total_price;
+
+            }
+        }
+
+        //本页全不选
+        else {
+
+            //初始化
+            $scope.initial={
+                selectedIdsArr:[],
+                checkOilFee:0,
+                checkedTotalPrice:0,
+                checkedParkingFee:0
+            }
+
+            //checkbox 为空
+            $("[name = 'select']").prop('checked', false);
+
+        }
+    };
+
+
+
+    /*
+    * 检测所有分选按钮是否被选中
+    * */
+    $scope.checkIsAllSel = function () {
+        var selectAll = false;
+        $("[name = 'select']").each(function () {
+            if(!$(this).is(':checked')){
+                selectAll = true;
+            }
+        });
+
+        // 如果全部checkBox被选中，则改变全选按钮状态
+        if(selectAll){
+            $("[name = 'selectAll']").prop('checked' , false);
+        }
+        else{
+            $("[name = 'selectAll']").prop('checked' , true);
+        }
+    };
+
+
+
+    /*
+    * 点击单个按钮
+    * */
+    $scope.checkSelMission = function (event, car, index) {
+        var currentSel = event.target;
+
+        //选中  添加金额
+        if(currentSel.checked){
+            $scope.initial.selectedIdsArr.push(car.id);
+            $scope.initial.checkOilFee+= car.car_oil_fee;
+            $scope.initial.checkedTotalPrice+= car.car_total_price;
+            $scope.initial.checkedParkingFee+= car.total_price;
+        }
+
+
+        //未选中  删除金额
+        else{
+            // 获取取消选中的checkbox在id数组中的下标
+            var noSelIndex = $scope.initial.selectedIdsArr.indexOf(car.id);
+            $scope.initial.selectedIdsArr.splice(noSelIndex, 1);
+            $scope.initial.checkOilFee-= car.car_oil_fee;
+            $scope.initial.checkedTotalPrice-= car.car_total_price;
+            $scope.initial.checkedParkingFee-= car.total_price;
+
+        }
+    };
+
+
+
+    /*
+    *
+    * 点击批量按钮
+    * */
+    $scope.batchDeal = function (){
+        $(".modal").modal();
+        $("#openBatchDeal").modal("open");
+    }
+
+
+
+    /*
+    *
+    *  确定批量
+    * */
+    $scope.createList = function (){
+        if($scope.initial.selectedIdsArr.length==0){
+            $("#openBatchDeal").modal("close");
+            swal('请至少选择一条数据', "", "error");
+
+        }
+        else {
+            swal({
+                title: "确定批量发放吗？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确认",
+                cancelButtonText: "取消"
+            }).then(
+                function(result){
+                    if (result.value) {
+                        _basic.put($host.api_url + "/user/" + userId + "/status/2/dpRouteTaskFeeStatusAll", {
+                            "dpRouteTaskFeeIds": $scope.initial.selectedIdsArr
+                        }).then(function (data) {
+                            if (data.success === true) {
+                                //初始化
+                                $scope.initial={
+                                    selectedIdsArr:[],
+                                    checkOilFee:0,
+                                    checkedTotalPrice:0,
+                                    checkedParkingFee:0
+                                };
+                                $("[name = 'selectAll']").prop('checked', false);
+                                $("#openBatchDeal").modal("close");
+                                searchCost();
+                            }
+                            else {
+                                swal(data.msg, "", "error");
+                            }
+                        });
+                    }
+                });
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

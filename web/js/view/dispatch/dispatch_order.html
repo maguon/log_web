@@ -236,12 +236,12 @@
                 </td>
             </tr>
 
-            <tr ng-if="dispatchOrderArray.length==0&&starTime!==undefined&&endTime!==undefined">
+            <tr ng-if="dispatchOrderArray.length==0">
                 <td colspan="15">暂无数据</td>
             </tr>
-            <tr ng-if="(endTime==undefined||starTime==undefined)&&dispatchOrderArray.length==0">
+           <!-- <tr ng-if="(endTime==undefined||starTime==undefined)&&dispatchOrderArray.length==0">
                 <td colspan="15"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
-            </tr>
+            </tr>-->
             </tbody>
         </table>
     </div>

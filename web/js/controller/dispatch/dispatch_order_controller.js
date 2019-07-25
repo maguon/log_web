@@ -10,11 +10,6 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
     $scope.taskStatusList =_config.taskStatus;
 
 
-    //计划执行时间
-    $scope.starTime=undefined;
-    $scope.endTime=undefined;
-
-
     /*
     * 获取起始城市 目的城市*
     * */
@@ -74,17 +69,7 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
      * */
     $scope.getOrderInfo = function (){
         $scope.start = 0;
-        $scope.starTime=$scope.planTimeStart;
-        $scope.endTime=$scope.planTimeEnd;
-        if($scope.starTime==undefined||$scope.endTime==undefined){
-            $scope.dispatchOrderArray=[];
-            swal('请输入完整的计划执行时间', "", "error");
-            $("#pre").hide();
-            $("#next").hide();
-        }
-        else {
-            seachOrderInfo();
-        }
+         seachOrderInfo();
     }
 
     // 下载csv  调度路线导出
@@ -98,8 +83,7 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
         }
 
 
-        if($scope.starTime==undefined||$scope.endTime==undefined){
-            $scope.dispatchOrderArray=[];
+        if($scope.planTimeEnd==undefined||$scope.planTimeStart==undefined){
             swal('请输入完整的计划执行时间', "", "error");
             $("#pre").hide();
             $("#next").hide();
@@ -129,8 +113,7 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
             var url = $host.api_url + "/driveDistanceLoad.csv?"+'reverseFlag='+$scope.reverseFlag+'&'+ _basic.objToUrl(obj);
         }
 
-        if($scope.starTime==undefined||$scope.endTime==undefined){
-            $scope.dispatchOrderArray=[];
+        if($scope.planTimeEnd==undefined||$scope.planTimeStart==undefined){
             swal('请输入完整的计划执行时间', "", "error");
             $("#pre").hide();
             $("#next").hide();
@@ -158,11 +141,6 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
         else {
             var url = $host.api_url + "/dpRouteTaskList?start=" + $scope.start + "&size=" + $scope.size+'&reverseFlag='+$scope.reverseFlag;
         }
-        if($scope.starTime==undefined||$scope.endTime==undefined){
-            $scope.dispatchOrderArray=[];
-
-        }
-        else {
             // 检索条件
             var conditionsObj = makeConditions();
             var conditions = _basic.objToUrl(conditionsObj);
@@ -201,7 +179,6 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
                     swal(data.msg, "", "error");
                 }
             });
-        }
     };
 
 
@@ -212,8 +189,8 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
     function setConditions(conditions) {
         $scope.dispatchId=conditions.dpRouteTaskId;
         $scope.taskStatus=conditions.taskStatus;
-        $scope.starTime=conditions.taskPlanDateStart;
-        $scope.endTime=conditions.taskPlanDateEnd;
+        $scope.planTimeStart=conditions.taskPlanDateStart;
+        $scope.planTimeEnd=conditions.taskPlanDateEnd;
         $scope.driver=conditions.driveId;
         $scope.truckNum=conditions.truckNum;
         $scope.startCity=conditions.routeStartId;
@@ -228,8 +205,8 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
         return {
             dpRouteTaskId: $scope.dispatchId,
             taskStatus: $scope.taskStatus,
-            taskPlanDateStart: $scope.starTime,
-            taskPlanDateEnd:$scope.endTime,
+            taskPlanDateStart: $scope.planTimeStart,
+            taskPlanDateEnd:$scope.planTimeEnd,
             driveId:$scope.driver,
             truckId:$scope.truckNum,
             routeStartId:$scope.startCity,

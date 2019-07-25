@@ -458,7 +458,7 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
             loadTaskCleanRelId: $scope.cleanCarId,
             driveId: $scope.driver,
             routeEndId: $scope.cityId,
-            receiveId: $scope.distributor,
+            receiveId: $scope.receive,
             status: $scope.receive_status,
             cleanDateStart: $scope.receiveTimeStart,
             cleanDateEnd: $scope.receiveTimeEnd,

@@ -59,7 +59,7 @@
                     </div>
 
                     <div class="col s6 center-align">
-                        <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="exportMonth()">
+                        <a class="btn-floating btn-large waves-light waves-effect btn vc-center" title="超油" style="background-color: #fea353;" ng-click="exportMonth()">
                             <i class="mdi mdi-cloud-download"></i>
                         </a>
                     </div>
@@ -109,6 +109,14 @@
                             <a  ui-sref="driver_exceed_oil_month_detail({driveId:ExceedOilInfo.drive_id,truckId:ExceedOilInfo.truck_id,from:'driver_exceed_oil',dateId:startMonth})" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
                                 <i class="mdi mdi-file-document" style="margin: 0"></i>
                             </a>
+
+
+                            <a  title="司机加油" ng-click="exportOil(ExceedOilInfo.drive_id,ExceedOilInfo.truck_id,ExceedOilInfo.company_id)" style="color: #fea353; ">
+                                <i class="mdi mdi-cloud-download"></i>
+                            </a>
+
+
+
                         </td>
                     </tr>
                     <tr ng-if="ExceedOilListMonth.length==0">

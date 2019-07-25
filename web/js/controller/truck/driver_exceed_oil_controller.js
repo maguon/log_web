@@ -196,6 +196,26 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
 
 
 
+    $scope.exportOil = function (exportDriveId,exportTruckId,exportCompany){
+        // 基本检索URL
+        var url = $host.api_url + "/driveExceedOilRel.csv?" ;
+
+        // 检索条件
+        var conditions = _basic.objToUrl({
+            driveId:exportDriveId,
+            truckId:exportTruckId,
+            oilDateStart: $scope.firstDay,
+            oilDateEnd:$scope.lastDay,
+            companyId:exportCompany
+        });
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
+        window.open(url);
+
+    }
+
+
+
    /* // 分页
     $scope.pre_btn = function () {
         $scope.start = $scope.start - ($scope.size-1);

@@ -30,6 +30,23 @@
 
 <!--超量扣款-->
 <div id="missionSalary" class="row col s12" style="padding: 0;width: 100%;margin: 0 auto">
+    <div class="col s12" ng-show="exceedOilItem.check_status !== 3">
+        <div class="col s5 input-field">
+            <input type="number" ng-model="singleItem.oil_single_price" id="oilSingle" />
+            <label for="oilSingle">油扣款单价</label>
+
+        </div>
+        <div class="col s5 input-field">
+            <input type="number" ng-model="singleItem.urea_single_price" id="ureaSingle" />
+            <label for="ureaSingle">尿素扣款单价</label>
+        </div>
+        <div class="col s2 left-align mp-20">
+            <a ng-click="putSinleInfo()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                保存
+            </a>
+        </div>
+    </div>
+
 
     <!--未扣款任务-->
     <div class="col s6">
@@ -215,13 +232,13 @@
     <div class="col s12 valign-wrapper" style="font-weight: bold;">
         <div class="col s6 cyan-text">
             <div class="col s3" style="padding: 0;">
-               超量油：<span class="red-text" >{{totalOilActal-totalOil+exceedOilItem.subsidy_oil-exceedOilItem.surplus_oil|number:2}}</span> L
+                超量油：<span class="red-text" >{{totalOilActal-totalOil+exceedOilItem.subsidy_oil-exceedOilItem.surplus_oil|number:2}}</span> L*<span class="red-text">{{singleItem.oil_single_price}}</span>
             </div>
             <div class="col s3" style="padding: 0;">
                 (原超量油：<span class="red-text" >{{exceedOilItem.exceed_oil|number:2}}</span> L)
             </div>
             <div class="col s3" style="padding: 0;">
-               超量尿素：<span class="red-text" >{{totalUreaActal-totalUrea+exceedOilItem.subsidy_urea-exceedOilItem.surplus_urea|number:2}}</span>
+                超量尿素：<span class="red-text" >{{totalUreaActal-totalUrea+exceedOilItem.subsidy_urea-exceedOilItem.surplus_urea|number:2}}</span>*<span class="red-text">{{singleItem.urea_single_price}}</span>
             </div>
             <div class="col s3" style="padding: 0;">
                 (原超量尿素：<span class="red-text" >{{exceedOilItem.exceed_urea|number:2}}</span>)
@@ -229,11 +246,15 @@
         </div>
 
         <div class="col s6 cyan-text">
-            <div class="col s12 input-field" style="padding: 0;" ng-show="exceedOilItem.check_status !== 3">
-                <input style="font-size: 2rem;color: rgb(230,123,123)" type="number" id="should_pay" name="should_pay" ng-model="exceedOilItem.actual_money">
-                <label class="{{exceedOilItem.actual_money != null ? 'active' : 'inactive'}}" for="should_pay">超量金额(元)</label>
+            <div class="col s6 input-field" style="padding: 0;" ng-show="exceedOilItem.check_status !== 3">
+                <input style="font-size: 2rem;color: rgb(230,123,123)" type="number" id="should_pay" name="should_pay" ng-model="overMoney">
+                <label class="{{exceedOilItem.actual_money !== null ? 'active' : 'inactive'}}" for="should_pay">超量金额(元)</label>
             </div>
-            <div class="col s12  input-field" ng-show="exceedOilItem.check_status == 3" style="padding: 0;">
+            <div class="col s6 input-field" style="padding: 0;" ng-show="exceedOilItem.check_status !== 3">
+                <p>(原超量金额：<span class="red-text" >{{exceedOilItem.actual_money|number:2}}</span> 元)</p>
+            </div>
+
+            <div class="col s12" ng-show="exceedOilItem.check_status == 3" style="padding: 0;">
                 <p>超量金额：<span class="red-text" >{{exceedOilItem.actual_money|number:2}}</span> 元</p>
             </div>
         </div>

@@ -22,7 +22,7 @@
 
                 <div class="col input-field colWidth">
                     <select  material-select watch ng-model="truckNumber"  id="truck" style="width: 100%">
-                        <option value="" selected disabled>请选择</option>
+                        <option value="" selected disabled>货车牌号</option>
                         <option ng-repeat="truckNumItem in truckList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
                     </select>
                 </div>
@@ -127,6 +127,4 @@
             </div>
         </div>
     </div>
-
-
 </div>

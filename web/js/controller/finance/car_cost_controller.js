@@ -19,6 +19,8 @@ app.controller("car_cost_controller", ["$scope","$rootScope", "$state", "$stateP
 
 
 
+
+
     //查询条件月份
     $('#start_month').MonthPicker({
         Button: false,
@@ -69,19 +71,26 @@ app.controller("car_cost_controller", ["$scope","$rootScope", "$state", "$stateP
      * 货车牌号随车型的变化  ----联动
      */
     $scope.changeTruckType = function (){
-        _basic.get($host.api_url + "/truckBase?truckType=" + $scope.truckType).then(function (data) {
-            if (data.success == true) {
-                $scope.truckList = data.result;
-                $('#truck').select2({
-                    placeholder: '货车牌号',
-                    containerCssClass: 'select2_dropdown',
-                    allowClear: true
-                });
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
+        if($scope.truckType==null){
+            $scope.truckList=[];
+            $scope.truckNumber='';
+        }
+        else {
+            _basic.get($host.api_url + "/truckBase?truckType=" + $scope.truckType).then(function (data) {
+                if (data.success == true) {
+                    $scope.truckList = data.result;
+                    $('#truck').select2({
+                        placeholder: '货车牌号',
+                        containerCssClass: 'select2_dropdown',
+                        allowClear: true
+                    });
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
+
     }
 
 
@@ -168,13 +177,10 @@ app.controller("car_cost_controller", ["$scope","$rootScope", "$state", "$stateP
         seachCarCost();
     };
 
-
-    $scope.nextBn = function () {
+    $scope.nextBtn = function () {
         $scope.start = $scope.start + ($scope.size-1);
         seachCarCost();
     };
-
-
     /**
      * 组装检索条件。
      */

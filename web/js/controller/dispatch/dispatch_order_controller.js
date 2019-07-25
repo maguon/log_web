@@ -192,7 +192,7 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
         $scope.planTimeStart=conditions.taskPlanDateStart;
         $scope.planTimeEnd=conditions.taskPlanDateEnd;
         $scope.driver=conditions.driveId;
-        $scope.truckNum=conditions.truckNum;
+        $scope.truckNum=conditions.truckId;
         $scope.startCity=conditions.routeStartId;
         $scope.endCity=conditions.routeEndId;
 

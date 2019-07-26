@@ -69,19 +69,19 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
      * */
     $scope.getOrderInfo = function (){
         $scope.start = 0;
-         seachOrderInfo();
+        seachOrderInfo();
     }
 
     // 下载csv  调度路线导出
     $scope.downloadCsvFile = function () {
         // 基本检索URL
-        if($scope.reverseFlag==null){
-            var url = $host.api_url + "/dpRouteTask.csv?"
-        }
-        else {
-            var url = $host.api_url + "/dpRouteTask.csv?"+'reverseFlag='+$scope.reverseFlag;
-        }
-
+        /* if($scope.reverseFlag==null){
+             var url = $host.api_url + "/dpRouteTask.csv?"
+         }
+         else {
+             var url = $host.api_url + "/dpRouteTask.csv?"+'reverseFlag='+$scope.reverseFlag;
+         }*/
+        var url = $host.api_url + "/dpRouteTask.csv?"
 
         if($scope.planTimeEnd==undefined||$scope.planTimeStart==undefined){
             swal('请输入完整的计划执行时间', "", "error");
@@ -91,7 +91,7 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
         else{
             // 检索条件
             var conditionsObj = makeConditions();
-            var conditions = _basic.objToUrl(conditionsObj);
+            var conditions = _basic.objNewToUrl(conditionsObj);
             // 检索URL
             url = conditions.length > 0 ? url + "&" + conditions : url;
             window.open(url);
@@ -105,14 +105,15 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
         var obj={
             loadTaskStatuArr:[1,3,7]
         }
-        // 基本检索URL
-        if($scope.reverseFlag==null){
-            var url = $host.api_url + "/driveDistanceLoad.csv?"+ _basic.objToUrl(obj)
-        }
-        else {
-            var url = $host.api_url + "/driveDistanceLoad.csv?"+'reverseFlag='+$scope.reverseFlag+'&'+ _basic.objToUrl(obj);
-        }
-
+        /*  // 基本检索URL
+          if($scope.reverseFlag==null){
+              var url = $host.api_url + "/driveDistanceLoad.csv?"+ _basic.objNewToUrl(obj)
+          }
+          else {
+              var url = $host.api_url + "/driveDistanceLoad.csv?"+'reverseFlag='+$scope.reverseFlag+'&'+ _basic.objNewToUrl(obj);
+          }
+    */
+        var url = $host.api_url + "/driveDistanceLoad.csv?" + _basic.objNewToUrl(obj)
         if($scope.planTimeEnd==undefined||$scope.planTimeStart==undefined){
             swal('请输入完整的计划执行时间', "", "error");
             $("#pre").hide();
@@ -121,7 +122,7 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
         else {
             // 检索条件
             var conditionsObj = makeConditions();
-            var conditions = _basic.objToUrl(conditionsObj);
+            var conditions = _basic.objNewToUrl(conditionsObj);
             // 检索URL
             url = conditions.length > 0 ? url + "&" + conditions : url;
             window.open(url);
@@ -134,51 +135,52 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
      * 查询列表
      * */
     function seachOrderInfo(){
+        var url = $host.api_url + "/dpRouteTaskList?start=" + $scope.start + "&size=" + $scope.size;
         // 基本检索URL
-        if($scope.reverseFlag==null){
-            var url = $host.api_url + "/dpRouteTaskList?start=" + $scope.start + "&size=" + $scope.size;
-        }
-        else {
-            var url = $host.api_url + "/dpRouteTaskList?start=" + $scope.start + "&size=" + $scope.size+'&reverseFlag='+$scope.reverseFlag;
-        }
-            // 检索条件
-            var conditionsObj = makeConditions();
-            var conditions = _basic.objToUrl(conditionsObj);
-            // 检索URL
-            url = conditions.length > 0 ? url + "&" + conditions : url;
+        /* if($scope.reverseFlag==null){
+             var url = $host.api_url + "/dpRouteTaskList?start=" + $scope.start + "&size=" + $scope.size;
+         }
+         else {
+             var url = $host.api_url + "/dpRouteTaskList?start=" + $scope.start + "&size=" + $scope.size+'&reverseFlag='+$scope.reverseFlag;
+         }*/
+        // 检索条件
+        var conditionsObj = makeConditions();
+        var conditions = _basic.objNewToUrl(conditionsObj);
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
 
-            _basic.get(url).then(function (data) {
+        _basic.get(url).then(function (data) {
 
-                if (data.success == true) {
+            if (data.success == true) {
 
-                    // 当前画面的检索信息
-                    var pageItems = {
-                        pageId: "dispatch_order",
-                        start: $scope.start,
-                        size: $scope.size,
-                        conditions: conditionsObj
-                    };
-                    // 将当前画面的条件
-                    $rootScope.refObj = {pageArray: []};
-                    $rootScope.refObj.pageArray.push(pageItems);
-                    $scope.dispatchOrderBoxArray = data.result;
-                    $scope.dispatchOrderArray = $scope.dispatchOrderBoxArray.slice(0, 10);
-                    if ($scope.start > 0) {
-                        $("#pre").show();
-                    }
-                    else {
-                        $("#pre").hide();
-                    }
-                    if (data.result.length < $scope.size) {
-                        $("#next").hide();
-                    }
-                    else {
-                        $("#next").show();
-                    }
-                } else {
-                    swal(data.msg, "", "error");
+                // 当前画面的检索信息
+                var pageItems = {
+                    pageId: "dispatch_order",
+                    start: $scope.start,
+                    size: $scope.size,
+                    conditions: conditionsObj
+                };
+                // 将当前画面的条件
+                $rootScope.refObj = {pageArray: []};
+                $rootScope.refObj.pageArray.push(pageItems);
+                $scope.dispatchOrderBoxArray = data.result;
+                $scope.dispatchOrderArray = $scope.dispatchOrderBoxArray.slice(0, 10);
+                if ($scope.start > 0) {
+                    $("#pre").show();
                 }
-            });
+                else {
+                    $("#pre").hide();
+                }
+                if (data.result.length < $scope.size) {
+                    $("#next").hide();
+                }
+                else {
+                    $("#next").show();
+                }
+            } else {
+                swal(data.msg, "", "error");
+            }
+        });
     };
 
 
@@ -192,9 +194,11 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
         $scope.planTimeStart=conditions.taskPlanDateStart;
         $scope.planTimeEnd=conditions.taskPlanDateEnd;
         $scope.driver=conditions.driveId;
-        $scope.truckNum=conditions.truckId;
+        $scope.truckNumber = conditions.truckId;
         $scope.startCity=conditions.routeStartId;
         $scope.endCity=conditions.routeEndId;
+        $scope.reverseFlag = conditions.reverseFlag;
+
 
     }
 
@@ -208,9 +212,10 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
             taskPlanDateStart: $scope.planTimeStart,
             taskPlanDateEnd:$scope.planTimeEnd,
             driveId:$scope.driver,
-            truckId:$scope.truckNum,
+            truckId: $scope.truckNumber,
             routeStartId:$scope.startCity,
-            routeEndId:$scope.endCity
+            routeEndId: $scope.endCity,
+            reverseFlag: $scope.reverseFlag
         };
     }
 

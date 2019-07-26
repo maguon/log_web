@@ -1,3 +1,5 @@
+
+
 <!--修改结算-->
 <div id="putSettle" class="modal">
     <div class="cyan lighten-1 white-text center-align modal_title" >修改结算</div>
@@ -123,18 +125,18 @@
 
             <!--货车-->
             <div class="col input-field" style="width: 12.5%">
-                <select  material-select watch ng-model="truckNum"  id="truckNum" style="width: 100%">
-                    <option value="" selected disabled>请选择</option>
-                    <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}({{truckNumItem.truck_type == 1 ? "头车" : "挂车"}})</option>
+                <select material-select watch id="truckNum" ng-model="truckNumber" style="width: 100%">
+                    <option value=""></option>
+                    <option ng-repeat="truck in truckNumListAllList" ng-value="truck.id">{{truck.truck_num}}</option>
                 </select>
             </div>
 
             <!--倒板-->
             <div class="col s3 input-field">
                 <select material-select watch id='reverse_flag' ng-model="reverseFlag" style="width: 100%">
-                    <option value="" selected disabled >请选择</option>
-                    <option ng-value="0">否</option>
-                    <option ng-value="1">是</option>
+                    <option value="">请选择</option>
+                    <option ng-value=0>否</option>
+                    <option ng-value=1>是</option>
                 </select>
                 <label for="reverse_flag">倒板</label>
             </div>
@@ -143,7 +145,7 @@
             <!--起始城市-->
             <div class="col s3 input-field">
                 <select material-select watch id='startCity' ng-model="startCity" style="width: 100%">
-                    <option value=""  ></option>
+                    <option value=""></option>
                     <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
                 </select>
             </div>
@@ -239,9 +241,9 @@
             <tr ng-if="dispatchOrderArray.length==0">
                 <td colspan="15">暂无数据</td>
             </tr>
-           <!-- <tr ng-if="(endTime==undefined||starTime==undefined)&&dispatchOrderArray.length==0">
-                <td colspan="15"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
-            </tr>-->
+            <!-- <tr ng-if="(endTime==undefined||starTime==undefined)&&dispatchOrderArray.length==0">
+                 <td colspan="15"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
+             </tr>-->
             </tbody>
         </table>
     </div>

@@ -77,7 +77,7 @@ baseService.factory('_basic', ['$http', '$location', '$q', "$cookies", function 
                 success(data)
             },
             error:function(err){
-               error(err)
+                error(err)
             }
         });
     };
@@ -221,6 +221,20 @@ baseService.factory('_basic', ['$http', '$location', '$q', "$cookies", function 
         }
         return str.substr(0, str.length - 1);
     };
+
+
+    _this.objNewToUrl = function (obj) {
+        var str = "";
+        for (var i in obj) {
+            if (obj[i] == 0) {
+                str = str + i + "=" + 0 + "&";
+            }
+            else if (obj[i] != null && obj[i] != "") {
+                str = str + i + "=" + obj[i] + "&";
+            }
+        }
+        return str.substr(0, str.length - 1);
+    };
+
     return _this;
 }]);
-

@@ -151,7 +151,7 @@ app.controller("driver_exceed_oil_month_detail_controller", ["$scope", "$state",
                 for(var i =0;i< $scope.unOilRelList.length;i++){
                     $scope.totalOil+=  $scope.unOilRelList[i].total_oil;
                     $scope.totalUrea+=  $scope.unOilRelList[i].total_urea;
-                    if($scope.unOilRelList[i].oil_load_flag==0){
+                    if($scope.unOilRelList[i].oil_load_flag==1){
                         $scope.totalOilDistance+=  $scope.unOilRelList[i].oil_distance;
                     }
                     else {

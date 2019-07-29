@@ -155,17 +155,18 @@
     <!--计划重载空载-->
     <div class="col s12 valign-wrapper" style="font-weight: bold;">
         <div class="col s6 pull-s6 cyan-text">
-            <div class="col s3" style="padding: 0;">
-                计划重载：<span class="red-text" >{{totalOilDistance |number:2}}</span>
-            </div>
-            <div class="col s3" style="padding: 0;">
-                (原计划重载：<span class="red-text" >{{exceedOilItem.load_oil_distance|number:2}}</span>)
-            </div>
+
             <div class="col s3" style="padding: 0;">
                 计划空载：<span class="red-text" >{{totalNoOilDistance |number:2}}</span>
             </div>
             <div class="col s3" style="padding: 0;">
                 (原计划空载：<span class="red-text" >{{exceedOilItem.no_load_oil_distance|number:2}}</span>)
+            </div>
+            <div class="col s3" style="padding: 0;">
+                计划重载：<span class="red-text" >{{totalOilDistance |number:2}}</span>
+            </div>
+            <div class="col s3" style="padding: 0;">
+                (原计划重载：<span class="red-text" >{{exceedOilItem.load_oil_distance|number:2}}</span>)
             </div>
         </div>
     </div>

@@ -28,17 +28,21 @@
             </div>
         </div>
         <div class="row col s12">
-            <div class="input-field col s4">
+            <div class="input-field col s3">
                 <input disabled id="vin" name="phone" type="text" ng-model="currentDamageInfo.vin">
                 <label for="vin">VIN</label>
             </div>
-            <div class="input-field col s4">
+            <div class="input-field col s3">
                 <input disabled id="brand" name="phone" type="text" ng-model="currentDamageInfo.make_name">
                 <label for="brand">品牌</label>
             </div>
-            <div class="input-field col s4">
+            <div class="input-field col s3">
                 <input disabled id="entrust" name="phone" type="text" ng-model="currentDamageInfo.en_short_name">
                 <label for="entrust">委托方</label>
+            </div>
+            <div class="input-field col s3">
+                <input disabled id="order" name="order" type="text" ng-model="currentDamageInfo.order_date|date'yyyy-MM-dd'">
+                <label for="entrust">指令时间</label>
             </div>
         </div>
         <div class="row col s12">
@@ -92,14 +96,17 @@
             </div>
         </div>
         <div class="row col s12">
-            <div class="col s4">
+            <div class="col s3">
                 <p><span class="cyan-text" >VIN：</span>{{currentDamageInfo.vin}}</p>
             </div>
-            <div class="col s4">
+            <div class="col s3">
                 <p><span class="cyan-text" >品牌：</span>{{currentDamageInfo.make_name}}</p>
             </div>
-            <div class="col s4">
+            <div class="col s3">
                 <p><span class="cyan-text" >委托方：</span>{{currentDamageInfo.en_short_name}}</p>
+            </div>
+            <div class="col s3">
+                <p><span class="cyan-text" >指令时间：</span>{{currentDamageInfo.order_date|date:'yyyy-MM-dd'}}</p>
             </div>
         </div>
         <div class="row col s12">
@@ -140,14 +147,17 @@
                 </div>
             </div>
             <div class="col s12">
-                <div class="col s4">
+                <div class="col s3">
                     <p><span class="cyan-text" >VIN：</span>{{currentDamageInfo.vin}}</p>
                 </div>
-                <div class="col s4">
+                <div class="col s3">
                     <p><span class="cyan-text" >品牌：</span>{{currentDamageInfo.make_name}}</p>
                 </div>
-                <div class="col s4">
+                <div class="col s3">
                     <p><span class="cyan-text" >委托方：</span>{{currentDamageInfo.en_short_name}}</p>
+                </div>
+                <div class="col s3">
+                    <p><span class="cyan-text" >指令时间：</span>{{currentDamageInfo.order_date|date:'yyyy-MM-dd'}}</p>
                 </div>
             </div>
             <div class="col s12">

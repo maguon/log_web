@@ -75,6 +75,7 @@
                         <th data-field="">货车牌号</th>
                         <th data-field="">所属类型</th>
                         <th data-field="">所属公司</th>
+                        <th data-field="">重载/空载里程</th>
                         <th data-field="">计划/实际用油量</th>
                         <th data-field="">计划/实际尿素量</th>
                         <th data-field="">结余油量/尿素量</th>
@@ -92,6 +93,7 @@
                         <td>{{ExceedOilInfo.truck_num}}</td>
                         <td>{{ExceedOilInfo.operate_type==1?'自营':'外协'}}</td>
                         <td>{{ExceedOilInfo.company_name}}</td>
+                        <td>{{ExceedOilInfo.load_oil_distance==null?0:ExceedOilInfo.load_oil_distance}}/{{ExceedOilInfo.no_load_oil_distance==null?0:ExceedOilInfo.no_load_oil_distance}}</td>
                         <td ng-show="ExceedOilInfo.id!==null">{{ExceedOilInfo.plan_oil_total}}/{{ExceedOilInfo.actual_oil_total}}</td>
                         <td ng-show="ExceedOilInfo.id!==null">{{ExceedOilInfo.plan_urea_total}}/{{ExceedOilInfo.actual_urea_total}}</td>
                         <td ng-show="ExceedOilInfo.id==null">{{ExceedOilInfo.plan_oil==null?0:ExceedOilInfo.plan_oil}}/{{ExceedOilInfo.actual_oil==null?0:ExceedOilInfo.actual_oil}}</td>
@@ -120,7 +122,7 @@
                         </td>
                     </tr>
                     <tr ng-if="ExceedOilListMonth.length==0">
-                        <td colspan="13">暂无数据</td>
+                        <td colspan="14">暂无数据</td>
                     </tr>
                     </tbody>
                 </table>

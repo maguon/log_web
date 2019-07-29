@@ -31,14 +31,23 @@
 <!--超量扣款-->
 <div id="missionSalary" class="row col s12" style="padding: 0;width: 100%;margin: 0 auto">
     <div class="col s12" ng-show="exceedOilItem.check_status !== 3">
-        <div class="col s5 input-field">
+        <div class="col input-field colWidth">
             <input type="number" ng-model="singleItem.oil_single_price" id="oilSingle" />
             <label for="oilSingle">油扣款单价</label>
 
         </div>
-        <div class="col s5 input-field">
+        <div class="col input-field colWidth">
             <input type="number" ng-model="singleItem.urea_single_price" id="ureaSingle" />
             <label for="ureaSingle">尿素扣款单价</label>
+        </div>
+        <div class="col input-field colWidth">
+            <input type="number" ng-model="singleItem.surplus_oil_single_price" id="surplusOilSingle" />
+            <label for="surplusOilSingle">油补贴单价</label>
+
+        </div>
+        <div class="col input-field colWidth">
+            <input type="number" ng-model="singleItem.surplus_urea_single_price" id="surplusUreaSingle" />
+            <label for="surplusUreaSingle">尿素补贴单价</label>
         </div>
         <div class="col s2 left-align mp-20">
             <a ng-click="putSinleInfo()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
@@ -73,7 +82,7 @@
                     <th data-field="">空(重)</th>
                     <th data-field="">百公里耗油量/尿素</th>
                     <th data-field="">总耗油量/尿素</th>
-                 <!--   <th data-field=""></th>-->
+
                 </tr>
                 </thead>
                 <tbody>
@@ -140,6 +149,24 @@
                 </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+
+    <!--计划重载空载-->
+    <div class="col s12 valign-wrapper" style="font-weight: bold;">
+        <div class="col s6 pull-s6 cyan-text">
+            <div class="col s3" style="padding: 0;">
+                计划重载：<span class="red-text" >{{totalOilDistance |number:2}}</span>
+            </div>
+            <div class="col s3" style="padding: 0;">
+                (原计划重载：<span class="red-text" >{{exceedOilItem.load_oil_distance|number:2}}</span>)
+            </div>
+            <div class="col s3" style="padding: 0;">
+                计划空载：<span class="red-text" >{{totalNoOilDistance |number:2}}</span>
+            </div>
+            <div class="col s3" style="padding: 0;">
+                (原计划空载：<span class="red-text" >{{exceedOilItem.no_load_oil_distance|number:2}}</span>)
+            </div>
         </div>
     </div>
 
@@ -232,13 +259,15 @@
     <div class="col s12 valign-wrapper" style="font-weight: bold;">
         <div class="col s6 cyan-text">
             <div class="col s3" style="padding: 0;">
-                超量油：<span class="red-text" >{{totalOilActal-totalOil+exceedOilItem.subsidy_oil-exceedOilItem.surplus_oil|number:2}}</span> L*<span class="red-text">{{singleItem.oil_single_price}}</span>
+                超量油：<span class="red-text" >{{totalOilActal-totalOil+exceedOilItem.subsidy_oil-exceedOilItem.surplus_oil|number:2}}</span> L*
+                <span class="red-text">{{(totalOilActal-totalOil+exceedOilItem.subsidy_oil-exceedOilItem.surplus_oil)>0?singleItem.oil_single_price:singleItem.surplus_oil_single_price}}</span>
             </div>
             <div class="col s3" style="padding: 0;">
                 (原超量油：<span class="red-text" >{{exceedOilItem.exceed_oil|number:2}}</span> L)
             </div>
             <div class="col s3" style="padding: 0;">
-                超量尿素：<span class="red-text" >{{totalUreaActal-totalUrea+exceedOilItem.subsidy_urea-exceedOilItem.surplus_urea|number:2}}</span>*<span class="red-text">{{singleItem.urea_single_price}}</span>
+                超量尿素：<span class="red-text" >{{totalUreaActal-totalUrea+exceedOilItem.subsidy_urea-exceedOilItem.surplus_urea|number:2}}</span>*
+                <span class="red-text">{{(totalUreaActal-totalUrea+exceedOilItem.subsidy_urea-exceedOilItem.surplus_urea)>0?singleItem.urea_single_price:singleItem.surplus_urea_single_price}}</span>
             </div>
             <div class="col s3" style="padding: 0;">
                 (原超量尿素：<span class="red-text" >{{exceedOilItem.exceed_urea|number:2}}</span>)

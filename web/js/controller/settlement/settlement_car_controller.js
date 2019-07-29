@@ -5,10 +5,13 @@ app.controller("settlement_car_controller", ["$scope","$rootScope","$state","$st
         $scope.start = 0;
         $scope.upload_percent = 0;
         $scope.num = 0;
+        $scope.num1 = 0;
         $scope.flag=false;
         $scope.tableBox = true;
         $scope.success_data_box = false;
+        $scope.success_data_box1 = false;
         $scope.dataBox = false;
+        $scope.dataBox1 = false;
         $scope.Picture_carId = "";
         $scope.fileDetailObj = {
             fileName: "",
@@ -19,7 +22,11 @@ app.controller("settlement_car_controller", ["$scope","$rootScope","$state","$st
         $scope.upload_isSuccesss = false;
         $scope.show_error = false;
         $scope.error_msg = false;
-        $scope.csvFile = null;
+        $scope.local_isSuccesss1 = false;
+      /*  $scope.upload_isSuccesss1 = false;*/
+        $scope.show_error1 = false;
+        $scope.error_msg1 = false;
+
         $scope.rightNumber = 0;
         $scope.errorNumber = 0;
         $scope.update = function () {
@@ -132,7 +139,6 @@ app.controller("settlement_car_controller", ["$scope","$rootScope","$state","$st
             _basic.formPost($("#file_upload_form"), $host.api_url + '/user/' + userId + '/settleCarFile?uploadId='+id , function (data) {
                 if (data.success == true) {
                     $scope.$apply(function () {
-
                         $scope.upload_error_array_num =data.result.failedCase;
                         $scope.orginData_Length=data.result.failedCase+data.result.successedInsert;
                         $scope.num=data.result.successedInsert;
@@ -141,18 +147,6 @@ app.controller("settlement_car_controller", ["$scope","$rootScope","$state","$st
                         $("#file_upload_form").disabled=true;
                         $("#buttonImport").attr("disabled",false);
                         swal('正确:'+$scope.num+'错误:'+$scope.upload_error_array_num,"", "success")
-
-
-
-
-
-                       /*
-                        $scope.upload_error_array_num = 0;
-                        $scope.num=$scope.orginData_Length;
-                        $scope.local_isSuccesss = false;
-                        $scope.upload_isSuccesss = true;
-                        $("#buttonImport").attr("disabled",false);
-                        swal('正确:'+$scope.num+'错误:'+$scope.upload_error_array_num,"", "success")*/
                     });
 
                 }
@@ -162,54 +156,14 @@ app.controller("settlement_car_controller", ["$scope","$rootScope","$state","$st
                 }
             });
         }
-/*
-        //发送数组中最后一条车辆信息
-        function socketUpload(fileId) {
-            if (uploadDataArray && uploadDataArray.length > 0) {
-                $scope.num = $scope.num + 1;
-                var carItem = uploadDataArray[uploadDataArray.length - 1];
-                _socket.uploadCarInfoSettlement(fileId, carItem, uploadDataArray.length - 1, function (msg) {
-                    acknowledgeUpload(msg);
-                })
-            }
-            else {
-                swal("上传完成", "", "success");
-                $scope.$apply(function () {
-                    $scope.show_error = true;
-                });
 
-            }
-        }
-
-        //处理socket上传结果，递归
-        function acknowledgeUpload(msg) {
-            var msgContent = msg.mcontent;
-            if (msgContent.success) {
-
-            }
-            else {
-                //错误记录处理
-                var list_index = msg.mid.split("_");
-                upload_error_array.push({
-                    index: parseInt(list_index[1]) + 1,
-                    msg: msg.mcontent.msg
-                });
-
-                $scope.upload_error_array = upload_error_array.slice().reverse();
-            }
-            if (upload_error_array.length > 0) {
-                $scope.upload_error_array_num = upload_error_array.length;
-                $scope.local_isSuccesss = false;
-                $scope.upload_isSuccesss = true;
-            }
-            uploadDataArray.splice(uploadDataArray.length - 1, 1);
-
-            return socketUpload($scope.file_id);
-        }*/
 
         // 展示上传的错误数据
         $scope.show_error_msg = function () {
             $scope.error_msg = !$scope.error_msg;
+        };
+        $scope.show_error_msg1 = function () {
+            $scope.error_msg1 = !$scope.error_msg1;
         };
 
         $scope.fileChange = function (file) {
@@ -305,6 +259,11 @@ app.controller("settlement_car_controller", ["$scope","$rootScope","$state","$st
                 if (entrustData.success === true) {
                     $scope.entrustCarList = entrustData.result;
                     $('#client').select2({
+                        placeholder: '委托方',
+                        containerCssClass : 'select2_dropdown',
+                        allowClear: true
+                    });
+                    $('#invoiceEntrust').select2({
                         placeholder: '委托方',
                         containerCssClass : 'select2_dropdown',
                         allowClear: true
@@ -558,4 +517,149 @@ app.controller("settlement_car_controller", ["$scope","$rootScope","$state","$st
         $scope.export = function(id){
             window.open($host.file_url + "/user/" +userId+'/file/'+id);
         }
+
+
+
+        //开票车辆导入
+        $scope.invoiceCarModel = function(){
+            $(".modal").modal();
+            $("#invoiceCarModel").modal("open");
+            $scope.invoiceEntrust='';
+            $scope.entrustCarList=[];
+            $scope.flag_invoice=false;
+            $scope.dataBox1=false;
+            $scope.success_data_box1=false;
+            getAddCity();
+
+        };
+
+        //显示导入按钮
+        $scope.changeEntrust = function(){
+            if($scope.invoiceEntrust==''||$scope.invoiceEntrust==undefined||$scope.invoiceEntrust==null){
+                $scope.flag_invoice=false;
+            }
+            else {
+                $scope.flag_invoice=true;
+            }
+        }
+
+
+        $scope.invoiceFileChange =function (file){
+            // 表头原始数据
+            $scope.tableHeadeArray = [];
+            // 主体原始错误数据
+            $scope.tableContentErrorFilter = [];
+            // 主体原始成功数据
+            $scope.tableContentFilter = [];
+            $scope.rightNumber = 0;
+            $scope.errorNumber = 0;
+            $(file).parse({
+                config: {
+                    complete: function (result) {
+                        $scope.$apply(function () {
+                            if(result==null ||result.data==null ||result.data.length ==0){
+                                swal("文件类型错误");
+                            } else {
+                                $scope.tableHeadeArray = result.data[0];
+                                // 表头校验
+                                if ($scope.titleFilter($scope.tableHeadeArray) != false) {
+                                    // 主体内容校验
+                                    var content_filter_array = result.data.slice(1, result.data.length);
+                                    var con_line = [];
+                                    // console.log(content_filter_array);
+                                    // excel换行过滤
+                                    for (var i = 0; i < content_filter_array.length; i++) {
+                                        if (content_filter_array[i].length == 1 && content_filter_array[i][0] == "") {
+                                            break;
+                                        }
+                                        else if ($scope.invoiceEntrust.toString() !== content_filter_array[i][1]) {
+                                            $scope.dataBox1= false;
+                                            $scope.success_data_box1= false;
+                                            swal("委托方不一致!", "", "error");
+                                            return;
+                                        }
+                                        else {
+                                            con_line.push(content_filter_array[i]);
+                                        }
+
+                                    }
+                                    $scope.ContentFilter(con_line);
+                                    if ($scope.tableContentErrorFilter.length == 0) {
+                                        $scope.success_data_box1 = true;
+                                        $scope.dataBox1 = false;
+                                        swal("正确条数" + $scope.tableContentFilter.length);
+                                        // 总条数
+                                        $scope.orginData_Length1 = $scope.tableContentFilter.length;
+                                        $scope.local_isSuccesss1 = true;
+                                    } else {
+                                        $scope.success_data_box1 = false;
+                                        $scope.dataBox1 = true;
+                                        swal("错误条数" + $scope.tableContentErrorFilter.length);
+                                    }
+                                    $scope.tableHeader = result.data[0];
+                                }
+                                else {
+                                    swal("表头格式错误", "", "error");
+                                }
+
+                            }
+
+                        });
+
+                    }
+                },
+                before: function (file, inputElem) {
+                    $scope.fileType = file.type;
+                },
+                error: function (err, file, inputElem, reason) {
+                    console.log(err)
+                },
+                complete: function (val) {
+                    // console.log(val)
+                }
+            })
+        }
+
+    $scope.fileInvoiceUpload = function () {
+        $("#buttonImport1").attr("disabled",true);
+        _basic.formPost($("#file_upload_form1"), $host.file_url + '/user/' + userId + '/file?fileType=2&userType=' + userType, function (data) {
+            if (data.success == true) {
+                $scope.file_id = data.result.id;
+                getLocalInvoiceFile($scope.file_id);
+            }
+        });
+    };
+    function  getLocalInvoiceFile(id){
+        _basic.formPost($("#file_upload_form1"), $host.api_url + '/user/' + userId + '/entrustInvoiceCarRelFile?entrustId='+$scope.invoiceEntrust+'&uploadId='+id , function (data) {
+            if (data.success == true) {
+                $scope.entrustInvoiceId = data.result.entrustInvoiceId;
+                $scope.$apply(function () {
+                    $("#file_upload_form1").disabled=true;
+                    $("#buttonImport1").attr("disabled",false);
+                     $state.go('invoice_detail', {
+                        reload: true,
+                        id:$scope.entrustInvoiceId,
+                        from:'settlement_car'
+                    });
+
+                  /*  $scope.upload_error_array_num1 =data.result.failedCase;
+                    $scope.orginData_Length1=data.result.failedCase+data.result.successedInsert;
+                    $scope.num1=data.result.successedInsert;
+                    $scope.local_isSuccesss1 = false;
+                    $scope.upload_isSuccesss1 = true;*/
+
+                  /*  swal('正确:'+$scope.num1+'错误:'+$scope.upload_error_array_num1,"", "success")
+                    $scope.importFile();*!/*/
+                });
+
+            }
+            else {
+                $("#buttonImport1").attr("disabled",false);
+                swal(data.msg, "", "error");
+            }
+        });
+    }
+
+
+
 }])

@@ -211,4 +211,15 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/system_settings/setting_settlement_outsourcing_detail.html",
             controller:'setting_settlement_outsourcing_detail_controller'
         })
+        .state("invoice",{
+            url:"/invoice",
+            params: {"from": null},
+            templateUrl: "js/view/settlement/invoice.html",
+            controller:'invoice_controller'
+        })
+        .state("invoice_detail",{
+            url:"/invoice_detail/id/{id}/from/{from}",
+            templateUrl: "js/view/settlement/invoice_detail.html",
+            controller:'invoice_detail_controller'
+        })
 }]);

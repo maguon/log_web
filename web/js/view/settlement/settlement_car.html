@@ -133,7 +133,11 @@
                 <th data-field="">始发地</th>
                 <th data-field="">routeEndId</th>
                 <th data-field="">目的地</th>
-                <th data-field="">金额</th>
+                <th data-field="">金额1</th>
+                <th data-field="">金额2</th>
+                <th data-field="">金额3</th>
+                <th data-field="">金额4</th>
+                <th data-field="">金额5</th>
             </tr>
             </thead>
             <tbody>
@@ -145,11 +149,15 @@
                 <td  ng-bind="car.route_start"></td>
                 <td  ng-bind="car.route_end_id"></td>
                 <td  ng-bind="car.route_end"></td>
-                <td class="red-text bold" ng-bind="car.price+car.price_2+car.price_3+car.price_4+car.price_5"></td>
+                <td class="red-text bold" ng-bind="car.price"></td>
+                <td class="red-text bold" ng-bind="car.price_2"></td>
+                <td class="red-text bold" ng-bind="car.price_3"></td>
+                <td class="red-text bold" ng-bind="car.price_4"></td>
+                <td class="red-text bold" ng-bind="car.price_5"></td>
             </tr>
             <tr>
             <tr ng-if="fileDetailObj.fileRecord.length==0">
-                <td colspan="8">没有于导入文件对应的车辆信息</td>
+                <td colspan="12">没有于导入文件对应的车辆信息</td>
             </tr>
             </tbody>
         </table>
@@ -178,29 +186,28 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col s5 offset-s3">
-                        <div class="col s4">
-                            <div class="row">
-                                <div class="file-field input-field">
-                                    <div class="btn cyan lighten-2 circle_button">
-                                        <span>批量数据导入</span>
-                                        <input type="file" style="font-size: 80px;height:45px;"  name="file" accept="text/csv" onchange='angular.element(this).scope().fileChange(this)' >
-                                    </div>
+                    <div class="col s8">
+                        <div class="col s3">
+                            <div class="file-field cyan input-field">
+                                <a href="" class="right btn waves-effect circle_button" ng-click="invoiceCarModel()">开票车辆导入</a>
+                            </div>
+                        </div>
+                        <div class="col s3">
+                            <div class="file-field input-field">
+                                <div class="btn cyan lighten-2 circle_button right">
+                                    <span>批量数据导入</span>
+                                    <input type="file" style="font-size: 80px;height:45px;"  name="file" accept="text/csv" onchange='angular.element(this).scope().fileChange(this)' >
                                 </div>
                             </div>
                         </div>
-                        <div class="col s4">
-                            <div class="row">
-                                <div class="file-field cyan input-field ">
-                                    <a href="" class="right btn waves-effect circle_button" ng-click="openDataModel()">单条数据修改</a>
-                                </div>
+                        <div class="col s3">
+                            <div class="file-field cyan input-field ">
+                                <a href="" class="right btn waves-effect circle_button" ng-click="openDataModel()">单条数据修改</a>
                             </div>
                         </div>
-                        <div class="col s4">
-                            <div class="row">
-                                <div class="file-field input-field ">
-                                    <a href="" class="right btn waves-effect circle_button" ng-click="new_data_list()">单条数据增加</a>
-                                </div>
+                        <div class="col s3">
+                            <div class="file-field input-field ">
+                                <a href="" class="right btn waves-effect circle_button" ng-click="new_data_list()">单条数据增加</a>
                             </div>
                         </div>
                     </div>
@@ -358,6 +365,106 @@
             </div>
 
 
+        </div>
+    </div>
+</div>
+
+
+
+<!--开票模态框-->
+<div id="invoiceCarModel" class="modal ">
+    <div class="cyan lighten-1 white-text center-align modal_title" >开票车辆导入</div>
+    <div class="modal-content" style="padding: 0px">
+        <div class="row col" style="width: 60%;margin-bottom: 40px">
+            <form name="file_upload_form1 " id="file_upload_form1">
+                <!--委托方-->
+                <div class="col s6 offset-s2" style="margin-top: 15px">
+                    <select material-select watch id="invoiceEntrust" ng-model="invoiceEntrust" style="width: 100%" ng-change="changeEntrust()">
+                        <option value="">请选择</option>
+                        <option ng-repeat="el in entrustCarList" ng-value="el.id">{{el.short_name}}</option>
+                    </select>
+                </div>
+
+                <div class="col s4"  ng-show="flag_invoice">
+                    <div class="file-field input-field">
+                        <div class="btn cyan lighten-2 circle_button right">
+                            <span>开票车辆导入</span>
+                            <input type="file" style="font-size: 80px;height:45px;"  name="file" accept="text/csv" onchange='angular.element(this).scope().invoiceFileChange(this)' >
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--上传错误页-->
+                <div class="row dataBox1 " style="overflow: auto;" ng-show="dataBox1">
+                    <div class="col s12">
+                        <h6 class="red lighten-2 white-text vc-center" style="padding: 20px">错误数据<span>{{errorNumber}}</span>条，请修改后重新上传</h6>
+                        <table class="responsive-table highlight">
+                            <thead class="blue-grey lighten-4 grey-text text-darken-1">
+                            <tr>
+                                <th>序号</th>
+                                <th ng-repeat="header in tableHeader track by $index">{{header}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="row in tableContentErrorFilter track by $index">
+                                <td>{{$index+1}}</td>
+                                <td ng-repeat="item in row track by $index">{{item}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!--上传成功页-->
+                <div class="row col s12 success_data_box1 " style="overflow: auto; "  ng-show="success_data_box1">
+                    <div class="col s12 " style="padding: 50px 0">
+                        <p><span>{{num1}}</span>/<span>{{orginData_Length1}}</span></p>
+                        <div class="col s6 offset-s3 ">
+                            <p class="vc-center " ng-show="local_isSuccesss1">
+                                <i class="mdi mdi-check cyan-text text-lighten-2 fz40"></i><span class="blue-grey-text fz18">本地校验成功</span>
+                            </p>
+                           <!-- <p class="vc-center " ng-show="upload_isSuccesss1">
+                                <i class="mdi mdi-check cyan-text text-lighten-2 fz40" ></i><span class="blue-grey-text fz18">上传完成</span>
+                            </p>
+                            <p class="vc-center" ng-show="upload_isSuccesss1">
+                                <span>错误条数:<span>{{upload_error_array_num1}}</span></span>
+                                <span>正确条数:<span>{{orginData_Length1-upload_error_array_num1}}</span></span>
+                                <span>总条数:<span>{{orginData_Length1}}</span></span>
+                            </p>-->
+                            <!--<a href="" class="btn btn-large waves-effect cyan lighten-2"></a>-->
+                            <p class="center-align">
+                                <button class="btn btn-large circle_button cyan lighten-2" ng-click="fileInvoiceUpload()" id="buttonImport1">
+                                    导入数据库
+                                </button>
+                                <a href="" style="margin-top: 10px" class="btn btn-large circle_button cyan lighten-2" ng-show="show_error1" ng-click="show_error_msg1()">错误数据显示</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <table class=" bordered striped" ng-show="error_msg">
+                        <thead class="blue-grey lighten-5">
+                        <tr class="grey-text text-darken-2">
+                            <th data-field="">错误位置</th>
+                            <th data-field="">原因</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="el in upload_error_array" class="grey-text text-darken-1">
+                            <td>第{{el.index}}条</td>
+                            <td ng-bind="el.msg"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </form>
+
+
+        </div>
+        <div class="divider" style="background: #ccc;height: 1px;"></div>
+        <div class="modal-footer vc-center">
+            <a class=" modal-action modal-close waves-effect waves-light cyan lighten-1 btn" style="margin-left: 10px" >确定 </a>
         </div>
     </div>
 </div>

@@ -1,0 +1,125 @@
+<!--交接单详情-->
+<div class="settlement_management_detail">
+    <div class="storage_storeTitle vc-center ">
+        <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
+            <i class="mdi mdi-arrow-left-bold"></i>
+        </a>
+        <h4 class="center-align cyan-text text-lighten-1">发票结算详情</h4>
+    </div>
+    <div class="divider cyan" style="height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
+
+    <div class="row" style="width: 90%;maidrgin: 0 auto">
+
+        <!--详细信息-->
+        <div class="col s12"  style="height: 60px">
+            <div class="col s12 center-align cyan-text bold">
+                <div class="col s3">
+                    <p>编号：{{invoiceItem.id}}</p>
+                </div>
+                <div class="col s3">
+                    <p>委托方：{{invoiceItem.short_name}}</p>
+                </div>
+                <div class="col s3">
+                    <p>送达车辆：{{invoiceItem.car_count}}</p>
+                </div>
+                <div class="col s3">
+                    <p>{{invoiceItem.invoice_status==1?'未处理':'已处理'}}</p>
+                </div>
+            </div>
+
+            <div class="col s12 mp-20">
+                <div class="divider cyan" style="height: 2px;"></div>
+                <table class=" bordered striped text_mid">
+                    <thead class="blue-grey lighten-5">
+                    <tr class="grey-text text-darken-2">
+                        <th>VIN</th>
+                        <th>起始城市</th>
+                        <th>目的城市</th>
+                        <th>价格</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="invoice in invoiceList" class="grey-text text-darken-1">
+                        <td>{{invoice.vin}}</td>
+                        <td>{{invoice.route_start}}</td>
+                        <td>{{invoice.route_end}}</td>
+                        <td class="red-text">{{invoice.price}}</td>
+                    </tr>
+                    <tr ng-if="invoiceList.length==0">
+                        <td colspan="4">暂无数据</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+
+
+
+
+            <div class="row col s12 mp-20">
+
+                <!--body-->
+                <div class="row col s12">
+
+                    <!--行1-->
+                    <div class="row col s12 padding margin" >
+
+                        <!--计划金额-->
+                        <div class="col s4 input-field">
+                            <input type="number" ng-model="invoiceItem.plan_price" id="putPlanPrice" disabled>
+                            <label for="putPlanPrice"  class="active">计划金额</label>
+                        </div>
+                        <!--调整金额-->
+                        <div class="col s4 input-field">
+                            <input type="number" ng-model="invoiceItem.update_price" id="putUpdatePrice">
+                            <label for="putUpdatePrice"  class="active">调整金额</label>
+                        </div>
+
+
+                        <!--实际金额-->
+                        <div class="col s4 input-field center-align" style="margin-top: 25px">
+                            实际金额:<span class="red-text bold fz20">{{invoiceItem.plan_price-invoiceItem.update_price}}</span> 元
+                        </div>
+
+
+
+                        <!--备注-->
+                        <div class="col s12 input-field">
+                            <input type="text" ng-model="invoiceItem.remark" id="putRemark" name="putRemark">
+                            <label for="putRemark"  class="active">备注</label>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!--按钮-->
+                <div class="col s12">
+                  <!--  <div class="col s2 offset-s4">
+                        <a class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                            取消
+                        </a>
+                    </div>-->
+                    <div class="col offset-s5 s2">
+                        <a class="waves-light waves-effect cyan lighten-1 btn" ng-click="saveInvoice()">
+                            修改
+                        </a>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+
+
+         </div>
+    </div>
+
+</div>

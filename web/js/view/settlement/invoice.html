@@ -1,0 +1,99 @@
+
+<!-- 主菜单：结算管理 -> 开票结算 画面 -->
+<div class="invoice">
+
+
+    <!-- 上部分：检索条件输入区域 -->
+
+
+    <!--渲染条件-->
+    <div class="row col s12">
+
+        <div class="col s10">
+
+
+            <!--委托方-->
+            <div class="input-field col s12">
+                <select material-select watch id="client"  ng-model="conEntrust">
+                    <option value="">请选择</option>
+                    <option ng-repeat="el in entrustList" ng-value="el.id" >{{el.short_name}}</option>
+                </select>
+            </div>
+        </div>
+
+
+        <!--按钮区域-->
+        <div class="col s2 mp-10">
+            <!--查询按钮-->
+            <div class="col s12 center-align" >
+                <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getInvoice()">
+                    <i class="mdi mdi-magnify"></i>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- 下部分：检索结果显示区域 -->
+    <div class="row">
+        <div class="divider cyan" style="height: 2px;"></div>
+        <table class="bordered striped text_mid">
+            <thead class="blue-grey lighten-5">
+            <tr class="grey-text text-darken-2">
+                <th>编号</th>
+                <th>委托方</th>
+                <th>车辆数</th>
+                <th>计划金额</th>
+                <th>调整金额</th>
+                <th>实际金额</th>
+                <th>创建时间</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="el in invoiceList" class="grey-text text-darken-1">
+                <td>{{el.id}}</td>
+                <td>{{el.short_name}}</td>
+                <td>{{el.car_count}}</td>
+                <td>{{el.plan_price}}</td>
+                <td>{{el.update_price}}</td>
+                <td>{{el.actual_price}}</td>
+                <td>{{el.created_on|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                <td>{{el.invoice_status==1?'未处理':'已处理'}}</td>
+                <td  class="operation">
+                    <a href="#" ui-sref="invoice_detail({id:el.id,from:'invoice'})" >
+                        <i class="mdi mdi-file-outline look_icon cyan-text lighten-1"></i>
+                    </a>
+                    <a ng-click="delete(el.id)">
+                        <i style="line-height: 39px;margin-left: 4px" class="mdi mdi-delete-forever red-text"></i>
+                    </a>
+                </td>
+            </tr>
+            <tr ng-if="invoiceList.length==0">
+                <td colspan="9">暂无数据</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <!-- 上下页按钮 -->
+    <div class="row">
+        <div class="paging_box col s12">
+            <div class="right">
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="preBtn()">
+                    上一页
+                </a>
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="nextBtn()">
+                    下一页
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

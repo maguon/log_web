@@ -305,6 +305,25 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
 
     }
 
+
+    /*
+   * 点击查看详情
+   * */
+    $scope.getDetail = function (id){
+        _basic.get($host.api_url + "/dpRouteLoadTaskCleanRel?loadTaskCleanRelId=" + id).then(function (data) {
+            if (data.success == true) {
+                $scope.showList = data.result[0];
+            } else {
+                swal(data.msg, "", "error");
+            }
+        })
+        $(".modal").modal();
+        $("#openDetailModal").modal("open");
+    }
+
+
+
+
     // 分页
     $scope.previous_page = function () {
         $scope.start = $scope.start - ($scope.size-1);

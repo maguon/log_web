@@ -90,7 +90,7 @@ app.controller("route_fee_controller", ["$scope", "$state","$stateParams", "$hos
 
         //获取货车牌号
         function getTruckNum() {
-            _basic.get($host.api_url + "/truckBase").then(function (data) {
+            _basic.get($host.api_url + "/truckBase?truckType=1").then(function (data) {
                 if (data.success === true) {
                     $scope.truckNumListAllList = data.result;
                     $('#truckNum').select2({
@@ -116,6 +116,7 @@ app.controller("route_fee_controller", ["$scope", "$state","$stateParams", "$hos
         function searchCost() {
             _basic.get($host.api_url+ '/dpRouteTaskFee?' + _basic.objToUrl({
                 driveId: $scope.drivderId,
+                dpRouteTaskId:$scope.dispatchId,
                 truckId: $scope.truckNum,
                 createdOnStart:$scope.instruct_starTime,
                 createdOnEnd:$scope.instruct_endTime,
@@ -151,6 +152,7 @@ app.controller("route_fee_controller", ["$scope", "$state","$stateParams", "$hos
                 driveId: $scope.drivderId,
                 truckId: $scope.truckNum,
                 createdOnStart:$scope.instruct_starTime,
+                dpRouteTaskId:$scope.dispatchId,
                 createdOnEnd:$scope.instruct_endTime,
                 status:$scope.getStatus,
                 start:$scope.start,
@@ -173,6 +175,7 @@ app.controller("route_fee_controller", ["$scope", "$state","$stateParams", "$hos
                 truckId: $scope.truckNum,
                 createdOnStart:$scope.instruct_starTime,
                 createdOnEnd:$scope.instruct_endTime,
+                dpRouteTaskId:$scope.dispatchId,
                 status:$scope.getStatus
             };
             var conditions = _basic.objToUrl(conditionsObj);

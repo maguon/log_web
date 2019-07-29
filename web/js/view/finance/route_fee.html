@@ -5,6 +5,11 @@
             <div class="row grey-text text-darken-1">
                 <div class="col s10">
                     <div class="col s12">
+                        <!--调度编号-->
+                        <div class="col s3 input-field">
+                            <input  id="dispatchId" name="dispatchId" ng-model="dispatchId" type="text"   required >
+                            <label for="dispatchId">调度编号</label>
+                        </div>
                         <!--司机-->
                         <div class="input-field col s3">
                             <select material-select watch ng-model="drivderId" id="driveName" style="width: 100%">
@@ -19,7 +24,7 @@
                                 <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
                             </select>
                         </div>
-                        <div class="input-field col s6">
+                        <div class="input-field col s3">
                             <select  id="getStatus" style="width: 100%" ng-model="getStatus" material-select watch>
                                 <option value="" disabled>请选择</option>
                                 <option value="0">驳回</option>
@@ -105,6 +110,7 @@
                         <input type="checkbox" ng-click="selectAllCheckBox($event)" id="selectAll" name="selectAll" class="filled-in" />
                         <label for="selectAll" class="black-text">全选</label>
                     </th>
+                    <th data-field="">调度编号</th>
                     <th data-field="">司机</th>
                     <th data-field="">货车牌号</th>
                     <th data-field="">商品车加油费</th>
@@ -135,6 +141,7 @@
                               <label for="{{costInfo.id}}" class="mp-10"></label>
                         </span>
                     </td>
+                    <td>{{costInfo.dp_route_task_id}}</td>
                     <td>{{costInfo.drive_name}}</td>
                     <td>{{costInfo.truck_num}}</td>
                     <td>{{costInfo.car_oil_fee}}</td>
@@ -167,7 +174,7 @@
                     </td>
                 </tr>
                 <tr ng-if="costList.length==0">
-                    <td colspan="15">暂无数据</td>
+                    <td colspan="16">暂无数据</td>
                 </tr>
                 </tbody>
             </table>

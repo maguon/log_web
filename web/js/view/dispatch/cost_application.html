@@ -10,10 +10,14 @@
     <div class="row col s12">
 
         <div class="col s10">
-
+            <!--调度编号-->
+            <div class="col s2 input-field">
+                <input  id="dispatchId" name="dispatchId" ng-model="conDispatchId" type="text" >
+                <label for="dispatchId">调度编号</label>
+            </div>
 
             <!--司机-->
-            <div class="input-field col colWidth">
+            <div class="input-field col s2">
                 <select material-select watch ng-model="conDrivder" id="driver" style="width: 100%" >
                     <option value="" selected>请选择</option>
                     <option ng-repeat="dr in driveList" ng-value=dr.id>{{dr.drive_name}}</option>
@@ -22,7 +26,7 @@
 
 
             <!--货车牌号-->
-            <div class="input-field col colWidth">
+            <div class="input-field col s2">
                 <select  id="truck" ng-model="conTruck" style="width: 100%" >
                     <option value=""></option>
                     <option ng-repeat="tr in truckList" ng-value="tr.id">{{tr.truck_num}}</option>
@@ -31,7 +35,7 @@
 
 
             <!--申请状态-->
-            <div class="input-field col colWidth">
+            <div class="input-field col s2">
                 <select id="conStatus" ng-model="conStatus" material-select watch >
                     <option value="">请选择</option>
                     <option ng-repeat="ap in applicationStatusList" ng-value="ap.id">{{ap.status}}</option>
@@ -41,7 +45,7 @@
 
 
             <!--申请时间(始)-->
-            <div class="input-field col colWidth">
+            <div class="input-field col s2">
                 <input type="text" ng-model="conStarTime" id="conStarTime" class="datepicker" autocomplete="off" required date>
                 <i class="mdi dataIcon mdi-table-large"></i>
                 <label for="conStarTime">申请时间(始)</label>
@@ -49,7 +53,7 @@
 
 
             <!--申请时间(终)-->
-            <div class="input-field col colWidth">
+            <div class="input-field col s2">
                 <input type="text" ng-model="conEndTime" id="conEndTime"  class="datepicker" autocomplete="off" required date>
                 <i class="mdi dataIcon mdi-table-large"></i>
                 <label for="conEndTime">申请时间(终)</label>
@@ -91,7 +95,9 @@
         <table class="bordered striped text_mid">
             <thead class="blue-grey lighten-5">
             <tr class="grey-text text-darken-2">
+                <th>调度编号</th>
                 <th>司机</th>
+                <th>路线</th>
                 <th>货车牌号</th>
                 <th>商品车加油费</th>
                 <th>货车停车费</th>
@@ -110,7 +116,9 @@
             </thead>
             <tbody>
             <tr ng-repeat="costInfo in costList" class="grey-text text-darken-1">
+                <td>{{costInfo.dp_route_task_id}}</td>
                 <td>{{costInfo.drive_name}}</td>
+                <td>{{costInfo.route_start}}--{{costInfo.route_end}}</td>
                 <td>{{costInfo.truck_num}}</td>
                 <td>{{costInfo.car_oil_fee}}</td>
                 <td>{{costInfo.total_price}}</td>
@@ -131,7 +139,7 @@
                 </td>
             </tr>
             <tr ng-if="costList.length==0">
-                <td colspan="15">暂无数据</td>
+                <td colspan="17">暂无数据</td>
             </tr>
             </tbody>
         </table>

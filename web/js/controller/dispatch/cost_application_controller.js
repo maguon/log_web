@@ -378,6 +378,7 @@ app.controller("cost_application_controller", ["$scope", "$state","$stateParams"
      */
     function makeConditions() {
         var obj = {
+            dpRouteTaskId: $scope.conDispatchId,
             driveId: $scope.conDrivder,
             truckId: $scope.conTruck,
             createdOnStart:$scope.conStarTime,

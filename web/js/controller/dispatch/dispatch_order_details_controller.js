@@ -1,5 +1,9 @@
 app.controller("dispatch_order_details_controller", ["$scope", "$host", "$location", "_basic", "$state", "$stateParams", function ($scope, $host, $location, _basic, $state, $stateParams) {
     var val = $stateParams.id;//跳转过来的id
+    //用户名
+    var userId = _basic.getSession(_basic.USER_ID);
+
+
 
     // 返回上层
     $scope.return = function (){
@@ -118,6 +122,23 @@ app.controller("dispatch_order_details_controller", ["$scope", "$host", "$locati
         $(".modal").modal();
         $("#orderTaskModal").modal("close");
     }
+
+
+
+    $scope.putDataItem= function (){
+        _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/"+val+'/dpRouteReverseRemark',{
+            remark:$scope.dispatchOrderList.remark
+        }).then(function (data) {
+            if (data.success === true) {
+                swal("修改成功", "", "success");
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
+
+
 
 
     /**

@@ -30,11 +30,11 @@
                         <label for="search_storage">所在仓库</label>
                     </div>
                     <div class="input-field col s2">
-                        <select material-select id="search_dealer" watch ng-model="search_dealer">
-                            <option value=""  >请选择</option>
+                        <select material-select id="search_dealer" watch ng-model="search_dealer" style="width: 100%">
+                            <option value=""  >经销商</option>
                             <option ng-repeat="el in get_receive" ng-value="el.id">{{el.short_name}}</option>
                         </select>
-                        <label for="search_dealer">经销商</label>
+
                     </div>
             </div>
             <div class="col s12 " style="margin-top: 15px">

@@ -93,6 +93,11 @@ app.controller("instruction_need_controller", ["$scope","$rootScope","$state","$
             _basic.get($host.api_url + "/receive?cityId=" + id).then(function (data) {
                 if (data.success == true) {
                     $scope.receiveList = data.result;
+                    $('#dealer').select2({
+                        placeholder: '经销商',
+                        containerCssClass: 'select2_dropdown',
+                        allowClear: true
+                    });
                 }
             });
         }

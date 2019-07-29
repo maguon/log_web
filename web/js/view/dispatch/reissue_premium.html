@@ -254,7 +254,7 @@
 
                 <!--经销商-->
                 <div class="col s6">
-                    <select material-select watch ng-model="conReceive" style="width:100%">
+                    <select material-select watch ng-model="conReceive" style="width:100%" id="dealer">
                         <option value="" selected>经销商</option>
                         <option ng-repeat="receive in receiveList" ng-value="receive.id">{{receive.short_name}}</option>
                     </select>

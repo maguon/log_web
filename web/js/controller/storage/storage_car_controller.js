@@ -208,6 +208,11 @@ app.controller("storage_car_controller", ["$scope", "$rootScope", "$stateParams"
          _basic.get($host.api_url + "/receive").then(function (data) {
              if (data.success == true) {
                  $scope.get_receive = data.result;
+                 $('#search_dealer').select2({
+                     placeholder: '经销商',
+                     containerCssClass: 'select2_dropdown',
+                     allowClear: true
+                 });
              }
          });
 

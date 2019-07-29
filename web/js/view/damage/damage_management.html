@@ -29,7 +29,7 @@
                     </select>
                 </div>
                 <div class="col s2 input-field">
-                    <select material-select watch ng-model="distributor">
+                    <select material-select watch ng-model="distributor"  style="width: 100%" id="dealer">
                         <option value="" selected>经销商</option>
                         <option ng-repeat="receive in receiveList" ng-value="receive.id">{{receive.short_name}}</option>
                     </select>

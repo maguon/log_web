@@ -136,6 +136,11 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
             _basic.get($host.api_url + "/receive?cityId=" + $scope.cityId).then(function (data) {
                 if (data.success === true) {
                     $scope.receiveList = data.result;
+                    $('#dealer').select2({
+                        placeholder: '经销商',
+                        containerCssClass: 'select2_dropdown',
+                        allowClear: true
+                    });
                 }
             });
         }

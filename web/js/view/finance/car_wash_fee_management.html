@@ -294,7 +294,7 @@
                     </select>
                 </div>
                 <div class="col s6">
-                    <select material-select watch ng-model="distributor" style="width:100%">
+                    <select material-select watch ng-model="distributor"  style="width: 100%" id="dealer">
                         <option value="" selected>经销商</option>
                         <option ng-repeat="rec in receiveList" ng-value="rec.id">{{rec.short_name}}</option>
                     </select>

@@ -75,6 +75,11 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
             _basic.get($host.api_url + "/receive?cityId=" + $scope.conRouteEnd).then(function (data) {
                 if (data.success === true) {
                     $scope.receiveList = data.result;
+                    $('#dealer').select2({
+                        placeholder: '经销商',
+                        containerCssClass: 'select2_dropdown',
+                        allowClear: true
+                    });
                 }
             });
         }

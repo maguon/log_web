@@ -48,6 +48,7 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
 
     // 过滤条件数据
     var colObjs = [
+        {name: '编号', type: 'string',require: false},
         {name: '车牌号', type: 'string',require: true},
         {name: '费用', type: 'number', require: true},
         {name: '时间', type: 'string', require: true},
@@ -267,6 +268,8 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
                 etcDatenEnd: $scope.endDate,
                 createdOnStart:$scope.createdOnStart,
                 createdOnEnd:$scope.createdOnEnd,
+                paymentType:$scope.paymentType,
+                paymentStuts:$scope.paymentStuts,
                 start:$scope.start,
                 size:$scope.size
             })).then(function (data) {
@@ -296,6 +299,8 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
             _basic.get($host.api_url + "/truckEtcFeeCount?"+ _basic.objToUrl({
                 truckId:  $scope.truckId,
                 driveId:  $scope.driveName,
+                paymentType:$scope.paymentType,
+                paymentStuts:$scope.paymentStuts,
                 etcDateStart: $scope.startDate,
                 etcDatenEnd: $scope.endDate,
                 createdOnStart:$scope.createdOnStart,
@@ -370,6 +375,8 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
         $scope.truckNumListAllList=[];
         $scope.truckNum='';
         $scope.addCount='';
+        $scope.addnumber='';
+        $scope.hasLoan ='';
         $scope.happenTime='';
         $scope.remark='';
         getDriveNameList();
@@ -399,15 +406,17 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
 
     function addItem(){
 
-        if ($scope.addDrivderId!==''&&$scope.truckNum!==''&&$scope.addCount!==''&&$scope.happenTime!=='') {
+        if ($scope.addDrivderId!==''&&$scope.truckNum!==''&&$scope.addCount!==''&&$scope.addCount!==null&&$scope.happenTime!==''&&$scope.happenTime!==undefined&&$scope.hasLoan!=='') {
             var obj = {
+                "number":$scope.addnumber,
                 "driveId": $scope.addDrivderId.id,
                 "driveName": $scope.addDrivderId.drive_name,
                 "truckId": $scope.truckNum,
                 "truckNum": $scope.truckNumberName,
                 "etcFee": $scope.addCount,
                 "etcDate": $scope.happenTime,
-                "remark":   $scope.remark
+                "remark":   $scope.remark,
+                "paymentType":$scope.hasLoan
             };
             _basic.post($host.api_url + "/user/" + userId + "/truckEtc", obj).then(function (data) {
                 if (data.success == true) {
@@ -423,7 +432,17 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
             swal("请输入完整信息！", "", "warning");
         }
     }
-
+   /*  // 判断是否允许输入财务借款
+      $scope.checkHasLoan = function () {
+          if($scope.hasLoan == 1){
+              $scope.hasLoanType = false;
+          }
+          else{
+              $scope.addCount = 0;
+              $scope.hasLoanType = true;
+          }
+      };
+*/
 
     // 分页
     $scope.previous_page = function () {

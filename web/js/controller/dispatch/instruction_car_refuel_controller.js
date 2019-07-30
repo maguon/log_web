@@ -46,6 +46,7 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
     };
     // 过滤条件数据
     var colObjs = [
+        {name: '编号', type: 'string',require: false},
         {name: '车号', type: 'string',require: true},
         {name: '司机', type: 'string',require: true},
         {name: '时间', type: 'string', require: true},
@@ -267,6 +268,8 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
         $scope.addOil ='';
         $scope.addUrea ='';
         $scope.addExceedOilDriver ='';
+        $scope.addnumber='';
+        $scope.paymentType='';
         $scope.truckNumListAll=[];
         $scope.addTruckId='';
         $scope.addTime ='';
@@ -304,7 +307,8 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
         $scope.addTruckId=id;
     }
     $scope.addDataItem = function (){
-        if ($scope.addExceedOilDriver!==''&&$scope.addTime !== '' && $scope.addPlce !== ''&&$scope.addTruckId!==null&& $scope.addType!==''&&$scope.oilMoney!=='') {
+        if ($scope.addExceedOilDriver!==''&&$scope.addTime !== '' && $scope.addPlce !== ''
+            &&$scope.addTruckId!==null&& $scope.addType!==''&&$scope.oilMoney!==''&&$scope.paymentType!=='') {
             _basic.post($host.api_url + "/user/" + userId + "/driveExceedOilRel", {
                 "exceedOilId": 0,
                 "driveId":$scope.addExceedOilDriver,
@@ -314,6 +318,8 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
                 "oilAddress":  $scope.addPlce,
                 'oilMoney': $scope.oilMoney,
                 "oil":  $scope.addOil,
+                "number":$scope.addnumber,
+                "paymentType":$scope.paymentType,
                 "oilSinglePrice":$scope.oilSinglePrice,
                 "ureaSinglePrice": $scope.ureaSinglePrice,
                 "ureaMoney": $scope.ureaMoney,
@@ -353,13 +359,15 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
     $scope.putDataItem =function (){
         if($scope.putList.oil !== "" &&  $scope.putList.urea!== ''
             &&  $scope.putList.oil_single_price!== ''&&   $scope.putList.urea_single_price!== ''
-            &&   $scope.putList.oil_date!== ''&& $scope.putList.oil_address_type!==null){
+            &&   $scope.putList.oil_date!== ''&& $scope.putList.oil_address_type!==null&&$scope.putList.payment_type!==null){
             _basic.put($host.api_url + "/user/" + userId + "/driveExceedOilRel/" +$scope.relId,{
                 "oilDate":  $scope.putList.oil_date,
                 "oilAddressType": $scope.putList.oil_address_type,
                 "oilAddress":  $scope.putList.oil_address,
                 "oil":  $scope.putList.oil,
                 "urea":  $scope.putList.urea,
+                "number":  $scope.putList.number,
+                "paymentType":$scope.putList.payment_type,
                 "oilSinglePrice":  $scope.putList.oil_single_price,
                 "ureaSinglePrice":  $scope.putList.urea_single_price,
                 "oilMoney":$scope.putList.oil_money,
@@ -447,7 +455,9 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
             oilDateStart: $scope.refueling_startTime,
             oilDateEnd:$scope.refueling_endTime,
             createdOnStart:$scope.createdOnStart,
-            createdOnEnd:$scope.createdOnEnd
+            createdOnEnd:$scope.createdOnEnd,
+            paymentType:$scope.paymentType,
+            paymentStatus:$scope.paymentStatus
         }
     }
 

@@ -2,84 +2,96 @@
 <div id="addPeccancyItem" class="modal">
     <div class="cyan lighten-1 white-text center-align modal_title" >新增违章扣款</div>
     <div class="modal-content">
-        <div class="row col" style="width: 80%;">
+        <div class="row col margin" style="width: 80%;margin-left: 10%">
 
-            <!--司机   货车牌号  -->
+
             <div class="col s12" style="height: 70px">
-
-                <div class="col s6 input-field">
+                <!--司机   货车牌号  -->
+                <div class="col s3 input-field">
                     <select material-select watch ng-model="addDrivderId" id="addDrivderId" style="width: 100%" >
                         <option value="" selected>请选择</option>
                         <option ng-repeat="addDrivder in driveNameList" value={{addDrivder.id}}>{{addDrivder.drive_name}}</option>
                     </select>
                 </div>
 
-                <div class="col s6 input-field">
+                <div class="col s3 input-field">
                     <select  material-select watch ng-model="addPeccancyTruckId" id="addPeccancyTruckId"  style="width: 100%">
                         <option value="" selected>请选择</option>
                         <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem">{{truckNumItem.truck_num}}({{truckNumItem.truck_type == 1 ? "头车" : "挂车"}})</option>
                     </select>
                 </div>
 
-            </div>
-            <!--违章时间 时间范围-->
-            <div class="col s12"  style="height: 70px">
-                <div class="input-field col s6">
+                <!--违章时间 时间范围-->
+                <div class="input-field col s3">
                     <input type="text" ng-model="addStartTime" id="addStartTime" name="addStartTime"  class="datepicker" autocomplete="off"    date><i class="mdi dataIcon mdi-table-large"></i>
                     <label for="addStartTime"><span class="red-text">*</span>违章时间</label>
                 </div>
-                <div class="input-field col s6">
+                <div class="input-field col s3">
                     <input type="text" ng-model="handleDate" id="handleDate" name="handleDate"  class="datepicker" autocomplete="off"    date><i class="mdi dataIcon mdi-table-large"></i>
                     <label for="handleDate"><span class="red-text">*</span>处理时间</label>
                 </div>
+
             </div>
+
             <!--处理时间   扣分-->
             <div class="col s12"  style="height: 70px">
 
-                <div class="col s6 input-field">
+                <div class="col s3 input-field">
                     <input id="addPeccancyScore" type="number"  ng-model="addPeccancyScore">
                     <label for="addPeccancyScore"><span class="red-text">*</span>扣分</label>
                 </div>
-                <div class="col s6 input-field">
+                <div class="col s3 input-field">
                     <input id="addScoreMoney" type="number"  ng-model="addScoreMoney">
                     <label for="addScoreMoney"><span class="red-text">*</span>买分金额（元）</label>
                 </div>
-            </div>
-            <!--交通罚款 处理金额-->
-            <div class="col s12" style="height: 70px">
 
-                <div class="col s6 input-field">
+                <!--交通罚款 处理金额-->
+                <div class="col s3 input-field">
                     <input id="addPeccancyMoney" type="number"  ng-model="addPeccancyMoney">
                     <label for="addPeccancyMoney"><span class="red-text">*</span>交通罚款</label>
                 </div>
-                <div class="input-field col s6">
+                <div class="input-field col s3">
                     <input id="addDealMoney" name="addDealMoney"  ng-model="addDealMoney" type="number" ng-change="changeAddDealMoney(addDealMoney,addSingeDealMoney)">
                     <label for="addDealMoney"><span class="red-text">*</span>处理金额</label>
                 </div>
             </div>
 
+
             <!--个人承担 公司承担-->
             <div class="col s12" style="height: 70px">
 
-                <div class="col s6 input-field">
+                <div class="col s3 input-field">
+                    <select material-select watch id="has_loan" ng-model="hasLoan">
+                        <option value="" selected>请选择</option>
+                        <option value="0">否</option>
+                        <option value="1">是</option>
+                    </select>
+                    <label for="has_loan">财务打款</label>
+                </div>
+
+
+                <div class="col s3 input-field">
                     <input id="addSingeDealMoney" type="number"  ng-model="addSingeDealMoney" ng-change="changeAddSingDealMoney(addDealMoney,addSingeDealMoney)">
                     <label for="addSingeDealMoney"><span class="red-text">*</span>个人承担</label>
                 </div>
-                <div class="input-field col s6">
+                <div class="input-field col s3">
                     <input id="addCompanyDealMoney" name="addCompanyDealMoney"  ng-model="addCompanyMoney" readonly  type="number">
                     <label for="addCompanyDealMoney"><span class="red-text">*</span>公司承担</label>
                 </div>
-            </div>
-
-            <!--违章地点  备注-->
-            <div class="col s12">
-                <div class="col s6 input-field"  style="height: 50px">
+                <!--违章地点-->
+                <div class="col s3 input-field"  style="height: 50px">
                     <select id="addCity" name="state" style="width:100%"  ng-model="addCity">
                         <option value=""></option>
                         <option ng-repeat="city in get_city" ng-value="city">{{city.city_name}}</option>
                     </select>
                 </div>
-                <div class="col s6 input-field"  style="height: 50px">
+
+
+            </div>
+
+            <!--备注-->
+            <div class="col s12">
+                <div class="col s12 input-field"  style="height: 50px">
                     <input type="text" ng-model="addPlce" id="addPlce" name="addPlce">
                     <label for="addPlce">违章地点</label>
                 </div>
@@ -104,35 +116,30 @@
     <div class="cyan lighten-1 white-text center-align modal_title" >违章扣款详情</div>
     <div >
         <div class="modal-content">
-            <div class="row col" style="width: 80%;">
+            <div class="row col" style="width: 80%;margin-left: 10%;margin-bottom: 0">
 
                 <!--违章结算编号-->
-                <div class="col s12" style="width: 95%;margin-left: 2.5%; height: 50px;padding-bottom:10px;border-bottom: 2px solid #ccc">
-                    <div class="col s6 input-field cyan-text fz18  bold" style="padding: 0;margin: 0;">违章结算编号:{{putPeccancyList.id}}</div>
-                </div>
+                <div class="col s12 input-field cyan-text fz18  bold"  style="padding: 0;margin: 0;">违章结算编号:{{putPeccancyList.id}} </div>
 
                 <!--司机   货车牌号  -->
-                <div class="col s12" style="height: 60px;margin-top: 5px">
-                    <div class="col s6 input-field">
+                <div class="col s12" style="height: 60px;">
+                    <div class="col s3 input-field">
                         <select id="putDrivderId"  ng-model="putPeccancyList.drive_id"  style="width: 100%">
                             <option ng-repeat="putDrive in driveList" ng-value='putDrive.id'>{{putDrive.drive_name}}</option>
                         </select>
                     </div>
 
-                    <div class="col s6 input-field">
+                    <div class="col s3 input-field">
                         <select  material-select watch ng-model="putPeccancyList.truck_id" id="putTruckNum"  style="width: 100%">
                             <option ng-repeat="truckNumItem in truckNumListList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}({{truckNumItem.truck_type == 1 ? "头车" : "挂车"}})</option>
                         </select>
                     </div>
-
-                </div>
-                <!--时间范围-->
-                <div class="col s12"  style="height: 60px">
-                    <div class="input-field col s6">
+                    <!--时间范围-->
+                    <div class="input-field col s3">
                         <input type="text" ng-model="putPeccancyList.start_date" id="putStartTime" name="putStartTime"  class="datepicker" autocomplete="off"    date><i class="mdi dataIcon mdi-table-large"></i>
                         <label for="putStartTime">违章时间</label>
                     </div>
-                    <div class="col s6 input-field">
+                    <div class="col s3 input-field">
                         <input id="putHandleDate" type="text" ng-model="putPeccancyList.handle_date"  name="putHandleDate"  class="datepicker" autocomplete="off"  date><i class="mdi dataIcon mdi-table-large"></i>
                         <label for="putHandleDate">处理时间</label>
                     </div>
@@ -140,61 +147,60 @@
 
                 <!--处理时间  扣分 买分金额-->
                 <div class="col s12" style="height: 60px">
-                    <div class="col s6 input-field">
+                    <div class="col s3 input-field">
                         <input id="putPeccancyScore" type="number"  ng-model="putPeccancyList.fine_score">
                         <label for="putPeccancyScore">扣分</label>
                     </div>
-                    <div class="col s6 input-field">
+                    <div class="col s3 input-field">
                         <input id="putBuyScore" type="number"  ng-model="putPeccancyList.buy_score">
                         <label for="putBuyScore">买分金额(元)</label>
                     </div>
-
-                </div>
-                <!--交通罚款  处理金额-->
-                <div class="col s12" style="height: 60px">
-
-                    <div class="col s6 input-field">
+                    <!--交通罚款  处理金额-->
+                    <div class="col s3 input-field">
                         <input id="putFineMoney" type="number"  ng-model="putPeccancyList.traffic_fine">
                         <label for="putFineMoney">交通罚款</label>
                     </div>
 
-                    <div class="col s6 input-field">
+                    <div class="col s3 input-field">
                         <input id="putTrafficFine" type="number"  ng-model="putPeccancyList.fine_money" ng-change="changePutFineMoney(putPeccancyList.fine_money,putPeccancyList.under_money)">
                         <label for="putTrafficFine">处理金额</label>
                     </div>
 
                 </div>
-                <!--个人承担 公司承担-->
-                <div class="col s12" style="height: 70px">
 
-                    <div class="col s6 input-field">
+                <!--个人承担 公司承担-->
+                <div class="col s12" style="height: 60px">
+                    <div class="col s3 input-field">
+                        <select material-select watch id="putHasLoan" ng-model="putHasLoan">
+                            <option value="" selected>请选择</option>
+                            <option ng-value=0>否</option>
+                            <option ng-value=1>是</option>
+                        </select>
+                        <label for="putHasLoan">财务打款</label>
+                    </div>
+                    <div class="col s3 input-field">
                         <input id="putSingeDealMoney" type="number"  ng-model="putPeccancyList.under_money" ng-change="changePutDealMoney(putPeccancyList.fine_money,putPeccancyList.under_money)">
                         <label for="putSingeDealMoney"><span class="red-text">*</span>个人承担</label>
                     </div>
-                    <div class="input-field col s6">
+                    <div class="input-field col s3">
                         <input id="putCompanyDealMoney" name="putCompanyDealMoney"  ng-model="putPeccancyList.company_money" readonly  type="number">
                         <label for="putCompanyDealMoney"><span class="red-text">*</span>公司承担</label>
                     </div>
-                </div>
-
-                <!--违章地点-->
-                <div class="col s12">
-                    <div class="col s6 input-field"  style="height: 50px">
+                    <div class="col s3 input-field"  style="height: 50px">
                         <select  id="putCity" name="state" style="width:100%"  ng-model="putPeccancyList.city_id" >
                             <option value="" disabled selected>请选择</option>
                             <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
                         </select>
                     </div>
+                </div>
 
-                    <div class="col s6 input-field"  style="height: 60px">
+                <!--违章地点---备注-->
+                <div class="col s12">
+                    <div class="col s12 input-field"  style="height: 35px">
                         <input id="putAdress" name="putAdress"  ng-model="putPeccancyList.address" type="text">
                         <label for="putAdress">违章地点</label>
                     </div>
-                </div>
-
-                <!--备注-->
-                <div class="col s12">
-                    <div class="col s12 input-field"  style="height: 60px">
+                    <div class="col s12 input-field"  style="height: 40px">
                         <input id="putRemark" name="remark"  ng-model="putPeccancyList.remark" type="text">
                         <label for="putRemark">备注:</label>
                     </div>

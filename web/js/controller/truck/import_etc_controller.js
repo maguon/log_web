@@ -269,7 +269,7 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
                 createdOnStart:$scope.createdOnStart,
                 createdOnEnd:$scope.createdOnEnd,
                 paymentType:$scope.paymentType,
-                paymentStuts:$scope.paymentStuts,
+                paymentStatus:$scope.paymentStatus,
                 start:$scope.start,
                 size:$scope.size
             })).then(function (data) {
@@ -300,7 +300,7 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
                 truckId:  $scope.truckId,
                 driveId:  $scope.driveName,
                 paymentType:$scope.paymentType,
-                paymentStuts:$scope.paymentStuts,
+                paymentStatus:$scope.paymentStatus,
                 etcDateStart: $scope.startDate,
                 etcDatenEnd: $scope.endDate,
                 createdOnStart:$scope.createdOnStart,

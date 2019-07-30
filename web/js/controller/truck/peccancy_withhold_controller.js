@@ -245,12 +245,12 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
                 if (data.success == true) {
                     $scope.get_city = data.result;
                     $('#addCity').select2({
-                        placeholder: '城市',
+                        placeholder: '违章城市',
                         containerCssClass : 'select2_dropdown',
                         allowClear: true
                     });
                     $('#putCity').select2({
-                        placeholder: '城市',
+                        placeholder: '违章城市',
                         containerCssClass : 'select2_dropdown',
                         allowClear: true
                     });

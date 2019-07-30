@@ -194,13 +194,13 @@
                         <label for="paymentType">财务打款</label>
                     </div>
                     <div class="col s3 input-field">
-                        <select material-select watch id="paymentStuts" ng-model="paymentStuts">
+                        <select material-select watch id="paymentStatus" ng-model="paymentStatus">
                             <option value="">请选择</option>
                             <option value="-1">驳回</option>
                             <option value="0">未处理</option>
                             <option value="1">已付款</option>
                         </select>
-                        <label for="paymentStuts">打款状态</label>
+                        <label for="paymentStatus">打款状态</label>
                     </div>
 
                     <!--时间查询（始）-->
@@ -276,7 +276,7 @@
                             <td>{{fileInfo.truck_num}}</td>
                             <td class="red-text" >{{fileInfo.etc_fee}}</td>
                             <td>{{fileInfo.payment_type==1?'否':'是'}}</td>
-                            <td>{{fileInfo.payment_status==0?'未打款':fileInfo.payment_status==1?'已打款':'驳回'}}</td>
+                            <td>{{fileInfo.payment_status==0?'未处理':fileInfo.payment_status==1?'已付款':'驳回'}}</td>
                             <td>{{fileInfo.date_id}}</td>
                             <td>{{fileInfo.created_on | date:'yyyyMMdd'}}</td>
                             <td>{{fileInfo.remark}}</td>

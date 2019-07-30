@@ -3,7 +3,7 @@
  */
 app.controller("truck_repair_controller", ["$scope", "$state", "$stateParams", "_basic", "_config", "$host", function ($scope, $state, $stateParams, _basic, _config, $host) {
     var userId = _basic.getSession(_basic.USER_ID);
-    var truckId = $stateParams.id;
+    var truckId = $stateParams.truckId;
     $scope.truckType = $stateParams.type;
     $scope.showAccidentRepair = true;
     $scope.connectAccident = false;

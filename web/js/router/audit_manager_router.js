@@ -555,7 +555,7 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
         // 维修
         .state("truck_repair",{
-            url:"/truck_repair/id/{id}/type/{type}/status/{status}?from",
+            url:"/truck_repair/id/{id}/truckId/{truckId}/type/{type}/status/{status}?from",
             templateUrl: "js/view/truck/truck_repair.html",
             controller:'truck_repair_controller'
         })

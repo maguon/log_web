@@ -494,9 +494,19 @@ app.controller("truck_repair_list_controller", ['$rootScope', "$rootScope","$sta
         if($scope.condition){
             _basic.post($host.api_url + "/user/" + userId + "/truck/" + $scope.modTruckNum.id + "/truckRepairRel",$scope.paramObj).then(function (data) {
                 if (data.success === true) {
-                    swal("新增成功", "", "success");
-                    $('#addRepairInfoModel').modal('close');
-                   /* $scope.searchRepairRecordList();*/
+                    $scope.relId = data.result.truckRepairRelId;
+                  /*  swal("新增成功", "", "success");
+                    $('#addRepairInfoModel').modal('close');*/
+                    $state.go('truck_repair', {
+                        reload: true,
+                        id: $scope.relId,
+                        truckId:$scope.modTruckNum.id,
+                        type:1,
+                        status:'',
+                        from:'truck_repair_list'
+                    });
+
+
                 }
                 else {
                     swal(data.msg, "", "error");
@@ -525,6 +535,8 @@ app.controller("truck_repair_list_controller", ['$rootScope', "$rootScope","$sta
         $scope.insureCompany=conditions.companyId;
         $scope.createdOnStart=conditions.createdOnStart;
         $scope.createdOnEnd=conditions.createdOnEnd;
+        $scope.paymentType=conditions.paymentType;
+        $scope.paymentStatus=conditions.paymentStatus;
     }
 
     /**
@@ -543,7 +555,9 @@ app.controller("truck_repair_list_controller", ['$rootScope', "$rootScope","$sta
             endDateEnd: $scope.record_endTime_end,
             companyId: $scope.insureCompany,
             createdOnStart:$scope.createdOnStart,
-            createdOnEnd:$scope.createdOnEnd
+            createdOnEnd:$scope.createdOnEnd,
+            paymentType:$scope.paymentType,
+            paymentStatus:$scope.paymentStatus
         };
     }
 

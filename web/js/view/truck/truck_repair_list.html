@@ -182,7 +182,7 @@
 
             <div id="repairRecord"  class="row tab_box">
                 <div class="row">
-                    <div class="col s9">
+                    <div class="col s8">
                         <div class="input-field col s2">
                             <select id="record_truck_name" style="width: 100%" ng-model="recordTruckNum">
                                 <option value=""></option>
@@ -254,7 +254,26 @@
                         </div>
 
                     </div>
-                    <div class="col s3" style="margin-top: 40px">
+                    <div class="col s2">
+                        <div class="col s12 input-field">
+                            <select material-select watch id="searchPaymentType"  ng-model="paymentType">
+                                <option value="">请选择</option>
+                                <option value="1">否</option>
+                                <option value="2">是</option>
+                            </select>
+                            <label for="searchPaymentType">财务打款</label>
+                        </div>
+                        <div class="col s12 input-field">
+                            <select material-select watch id="paymentStatus" ng-model="paymentStatus">
+                                <option value="">请选择</option>
+                                <option value="-1">驳回</option>
+                                <option value="0">未处理</option>
+                                <option value="1">已付款</option>
+                            </select>
+                            <label for="paymentStatus">打款状态</label>
+                        </div>
+                    </div>
+                    <div class="col s2" style="margin-top: 40px">
                         <div class="col s4 center">
                             <a ng-click="searchRepairRecordList()" class="btn-floating btn-large waves-light waves-effect red lighten-2 btn vc-center" style="margin-right: 10px">
                                 <i class="mdi mdi-magnify"></i>
@@ -291,7 +310,8 @@
                             <table class="bordered striped text_mid">
                                 <thead class="blue-grey lighten-5">
                                 <tr class="grey-text text-darken-2">
-                                    <th data-field="">维修编号</th>
+                                    <th data-field="">维修ID</th>
+                                    <th data-field="">编号</th>
                                     <th data-field="">车牌号</th>
                                     <th data-field="">司机</th>
                                     <th data-field="">所属公司</th>
@@ -303,12 +323,15 @@
                                     <th data-field="">维修原因</th>
                                     <th data-field="">维修状态</th>
                                     <th data-field="">维修金额</th>
+                                    <th data-field="">财务打款</th>
+                                    <th data-field="">状态</th>
                                     <th>操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="repair in repairRecordList" class="grey-text text-darken-1">
                                     <td>{{repair.id}}</td>
+                                    <td>{{repair.number}}</td>
                                     <td>{{repair.truck_num}}</td>
                                     <td>{{repair.drive_name}}</td>
                                     <td>{{repair.company_name}}</td>
@@ -321,8 +344,10 @@
                                     <td class="red-text text-lighten-2" ng-if="repair.repair_status == 0">正在维修</td>
                                     <td class="cyan-text text-lighten-2" ng-if="repair.repair_status == 1">维修完成</td>
                                     <td>{{repair.repair_money}}</td>
+                                    <td>{{repair.payment_type==1?'否':'是'}}</td>
+                                    <td>{{repair.payment_status==0?'未处理':repair.payment_status==1?'已付款':'驳回'}}</td>
                                     <td class="operation">
-                                        <a ui-sref="truck_repair({id:repair.truck_id,type:repair.truck_type,status:'',from:'truck_repair_list'})" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-eye" style="margin: 0"></i></a>
+                                        <a ui-sref="truck_repair({id:repair.id,truckId:repair.truck_id,type:repair.truck_type,status:'',from:'truck_repair_list'})" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-eye" style="margin: 0"></i></a>
                                     </td>
                                 </tr>
                               <!--  <tr class="grey-text text-darken-1" ng-if="repairRecordList.length == 0">

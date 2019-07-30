@@ -165,6 +165,10 @@
                         <a ng-show="costInfo.status == 1" ng-click="carHave(costInfo.id)" style="font-size: 1.5rem;cursor: pointer">
                             <i class="mdi  mdi-check look_icon cyan-text lighten-1"></i>
                         </a>
+                        <a ng-click="getDetail(costInfo.id)">
+                            <i class="mdi mdi-file-document look_icon cyan-text lighten-1"></i>
+                        </a>
+
                     </td>
                 </tr>
                 <tr ng-if="costList.length==0">
@@ -238,4 +242,57 @@
             </div>
         </div>
     </div>
+</div>
+
+
+
+
+<!--详情  模态框-->
+<div id="openDetailModal" class="modal">
+
+
+    <!--标题-->
+    <div class="cyan lighten-1 white-text center-align modal_title" >费用详情</div>
+
+
+    <!--内容-->
+    <div class="modal-content">
+
+        <div class="container">
+            <div class="row col s12  left-align bold">费用价格</div>
+
+
+            <div class="row col s12 cyan-text">
+
+                <!--大车洗车费  小车洗车费  拖车费   地跑费  带路费  -->
+                <div class="col s4 input-field ">商品车加油费:<span class="red-text fz22">{{showList.car_oil_fee}}</span></div>
+                <div class="col s4 input-field ">货车停车单价:<span class="red-text fz22">{{showList.single_price}}</span></div>
+                <div class="col s4 input-field ">货车停车费:<span class="red-text fz22">{{showList.total_price}}</span></div>
+                <div class="col s4 input-field ">商品车停车单价:<span class="red-text fz22">{{showList.car_single_price}}</span></div>
+                <div class="col s4 input-field ">商品车停车费:<span class="red-text fz22">{{showList.car_total_price}}</span></div>
+                <div class="col s4 input-field ">其它费用:<span class="red-text fz22">{{showList.other_fee}}</span></div>
+
+
+            </div>
+
+
+
+
+        </div>
+    </div>
+
+    <!--分隔符-->
+    <div class="divider"></div>
+
+    <!--按钮-->
+    <div class="modal-footer row">
+        <div class="col s12 center-align mp-10">
+            <div class="col s2 offset-s5">
+                <a class="modal-action modal-close waves-light waves-effect cyan lighten-1 btn">
+                    关闭
+                </a>
+            </div>
+        </div>
+    </div>
+
 </div>

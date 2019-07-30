@@ -341,6 +341,20 @@ app.controller("route_fee_controller", ["$scope", "$state","$stateParams", "$hos
 
 
 
+    /*
+    * 点击查看详情
+    * */
+    $scope.getDetail = function (id){
+        _basic.get($host.api_url + "/dpRouteTaskFee?dpRouteTaskFeeId=" + id).then(function (data) {
+            if (data.success == true) {
+                $scope.showList = data.result[0];
+            } else {
+                swal(data.msg, "", "error");
+            }
+        })
+        $(".modal").modal();
+        $("#openDetailModal").modal("open");
+    }
 
 
 

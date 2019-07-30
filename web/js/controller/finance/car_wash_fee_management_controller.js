@@ -256,7 +256,7 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
         $('#addFeeItem').modal('open');
     };
     //查找详细信息
-    $scope.getDetail = function (){
+    $scope.getDetail1 = function (){
         _basic.get($host.api_url + "/dpRouteLoadTask?dpRouteTaskId=" +$scope.dpId).then(function (data) {
             if (data.success = true) {
                 if (data.result.length == 0) {

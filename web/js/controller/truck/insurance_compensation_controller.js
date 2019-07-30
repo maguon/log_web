@@ -264,6 +264,8 @@ app.controller("insurance_compensation_controller", ["$scope", "$rootScope","$st
         $scope.declareDateStart=conditions.declareDateStart;
         $scope.declareDateEnd=conditions.declareDateEnd;
         $scope.getLiabilityType=conditions.liabilityType;
+        $scope.completedDateStart=conditions.completedDateStart;
+        $scope.completedDateEnd=conditions.completedDateEnd;
     }
 
     /**
@@ -284,7 +286,9 @@ app.controller("insurance_compensation_controller", ["$scope", "$rootScope","$st
             declareDateStart:$scope.declareDateStart,
             declareDateEnd:$scope.declareDateEnd,
             insureStatus: $scope.handleStatus,
-            insureUserName: $scope.agentName
+            insureUserName: $scope.agentName,
+            completedDateStart: $scope.completedDateStart,
+            completedDateEnd:  $scope.completedDateEnd,
         };
     }
 

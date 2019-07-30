@@ -17,29 +17,44 @@
                 </div>
                 <div class="row col s12" style="margin-top: 15px">
                     <div class="col s8 offset-s2">
-                        <div class="col s6 input-field">
+                        <div class="col s4 input-field">
+                            <input type="number" id="addnumber" name="addnumber" ng-model="addnumber">
+                            <label for="addnumber">编号</label>
+                        </div>
+                        <div class="col s4 input-field">
                             <select material-select watch id="repairStation" class="truck_type" ng-model="repairStation">
                                 <option value="" selected disabled>请选择</option>
                                 <option ng-repeat="station in repairStationList" ng-value="station.id">{{station.repair_station_name}}</option>
                             </select>
                             <label for="repairStation"><span style="color: red">* </span>选择维修站</label>
                         </div>
-                        <div class="col s6 input-field">
-                            <input style="font-size: 1.8rem;text-align: right;color: rgb(230,123,123)" type="number" name="repairMoney" id="repairMoney" ng-model="repairMoney">
-                            <label for="repairMoney"><span style="color: red">* </span>维修金额</label>
+                        <div class="col s4 input-field">
+                            <select material-select watch id="paymentType"  ng-model="paymentType">
+                                <option value="">请选择</option>
+                                <option value="1">否</option>
+                                <option value="2">是</option>
+                            </select>
+                            <label for="paymentType"><span style="color: red">* </span>财务打款</label>
                         </div>
+
                     </div>
                 </div>
                 <div class="row col s12" style="margin-top: 15px">
                     <div class="col s8 offset-s2">
-                        <div class="col s6 input-field">
+                        <div class="col s4 input-field">
+                            <input style="font-size: 1.8rem;text-align: right;color: rgb(230,123,123)" type="number" name="repairMoney" id="repairMoney" ng-model="repairMoney">
+                            <label for="repairMoney"><span style="color: red">* </span>维修金额</label>
+                        </div>
+                        <div class="col s4 input-field">
                             <input style="font-size: 1.8rem;text-align: right;color: rgb(230,123,123)" type="number" name="partsMoney" id="partsMoney" ng-model="partsMoney">
                             <label for="partsMoney"><span style="color: red">* </span>配件金额</label>
                         </div>
-                        <div class="col s6 input-field">
+                        <div class="col s4 input-field">
                             <input style="font-size: 1.8rem;text-align: right;color: rgb(230,123,123)" type="number" name="maintainMoney" id="maintainMoney" ng-model="maintainMoney">
                             <label for="maintainMoney"><span style="color: red">* </span>保养金额</label>
                         </div>
+
+
                     </div>
                 </div>
                 <div class="row col s12" style="margin-top: 10px">
@@ -68,6 +83,11 @@
             </div>
         </div>
     </div>
+
+
+
+
+
 
     <div  class="row col s12" style="width: 75%;margin: 0 auto">
         <!--简短信息-->
@@ -212,6 +232,8 @@
                             </div>
                             <div class="row" style="margin-bottom: 0">
                                 <div class="col s4 offset-s8 right-align">
+                                    <p style="font-size: 1.2rem;font-weight: bold;color: darkgray;margin: 0">编号：<span style="color: #e57474">{{repaired.number==null?'未知':repaired.number}}</span></p>
+                                    <p style="font-size: 1.2rem;font-weight: bold;color: darkgray;margin: 0">财务打款：<span style="color: #e57474">{{repaired.payment_type==1?'否':'是'}}</span></p>
                                     <p style="font-size: 1.2rem;font-weight: bold;color: darkgray;margin: 0">维修金额：<span style="color: #e57474">{{repaired.repair_money}} </span>元</p>
                                     <p style="font-size: 1.2rem;font-weight: bold;color: darkgray;margin: 0">配件金额：<span style="color: #e57474">{{repaired.parts_money}} </span>元</p>
                                     <p style="font-size: 1.2rem;font-weight: bold;color: darkgray;margin: 0">保养金额：<span style="color: #e57474">{{repaired.maintain_money}} </span>元</p>

@@ -106,14 +106,26 @@
             </div>
             <div class="row col s12" style="margin-top: 35px">
                 <div class="col s8 offset-s2">
-                    <div class="col s6 input-field">
+                    <div class="col s3 input-field">
+                        <input type="number" id="addnumber" name="addnumber" ng-model="addnumber">
+                        <label for="addnumber">编号</label>
+                    </div>
+                    <div class="col s3 input-field">
                         <select id="repair_station" name="repair_station" ng-model="repairStationMod" material-select watch>
                             <option value="" selected>请选择</option>
                             <option ng-repeat="repair in repairStationList" ng-value="repair.id">{{repair.repair_station_name}}</option>
                         </select>
                         <label for="repair_station"><span style="color: red">* </span>维修站</label>
                     </div>
-                    <div class="col s6 input-field">
+                    <div class="col s3 input-field">
+                        <select material-select watch id="paymentType"  ng-model="paymentType">
+                            <option value="">请选择</option>
+                            <option value="1">否</option>
+                            <option value="2">是</option>
+                        </select>
+                        <label for="paymentType"><span style="color: red">* </span>财务打款</label>
+                    </div>
+                    <div class="col s3 input-field">
                         <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="repair_money_mod" name="repair_money_mod" ng-model="repairMoneyMod">
                         <label for="repair_money_mod"><span style="color: red">* </span>维修金额</label>
                     </div>
@@ -520,6 +532,8 @@
                                 </div>
                                 <div class="col s12">
                                     <div class="col s4 offset-s8 right-align">
+                                        <p>编号：{{accident.number==null?'未知':accident.number}}</p>
+                                        <p>财务打款：{{accident.payment_type==1?'否':'是'}}</p>
                                         <p>维修金额：<span style="color: #e57676;font-weight: bold">{{accident.repair_money.toFixed(2)}}</span> 元</p>
                                     </div>
                                 </div>

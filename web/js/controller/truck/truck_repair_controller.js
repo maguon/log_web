@@ -162,7 +162,7 @@ app.controller("truck_repair_controller", ["$scope", "$state", "$stateParams", "
 
     // 模态框内确认维修结束
     $scope.completeRepairInfo = function () {
-        if($scope.relId !== "" && $scope.repairStation != null && $scope.repairMoney !==""&&$scope.partsMoney!==''&&$scope.maintainMoney!==''){
+        if($scope.relId !== "" && $scope.repairStation != null && $scope.repairMoney !==""&&$scope.partsMoney!==''&&$scope.maintainMoney!==''&&$scope.paymentType!==''){
             swal({
                     title: "确定结束维修吗？",
                     type: "warning",
@@ -174,11 +174,14 @@ app.controller("truck_repair_controller", ["$scope", "$state", "$stateParams", "
                 function(result){
                     if (result.value) {
                         _basic.put($host.api_url + "/user/" + userId + "/truckRepairRel/" + $scope.relId, {
+                            number:$scope.addnumber,
                             repairStationId: $scope.repairStation,
                             remark: $scope.repairDescription,
                             repairMoney: $scope.repairMoney,
                             partsMoney: $scope.partsMoney,
-                            maintainMoney: $scope.maintainMoney
+                            maintainMoney: $scope.maintainMoney,
+                            paymentType:$scope.paymentType
+
                         }).then(function (data) {
                             if (data.success === true) {
                                 $('#repairFinishMod').modal('close');

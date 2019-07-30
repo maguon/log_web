@@ -435,8 +435,6 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                     $scope.repairReason = $scope.repairingInfo[0].repair_reason;
                     relId = $scope.repairingInfo[0].id;
                 }
-                // console.log("repairingInfo",$scope.repairingInfo);
-                // console.log("repairedInfo",$scope.repairedInfo);
             }
             else {
                 swal(data.msg, "", "error");
@@ -452,17 +450,16 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
 
     // 维修模态框内点击确定
     $scope.createRepairInfo = function () {
-        // console.log("truckAccId",truckAccId);
+
         if($scope.repairReason !== ""){
             _basic.post($host.api_url + "/user/" + userId + "/truck/" + $scope.truckId + "/truckRepairRel",{
+                paymentType:$scope.paymentType,
                 repairType: 1,
                 accidentId: truckAccId,
                 repairReason: $scope.repairInfo
             }).then(function (data) {
                 if (data.success === true) {
-                    // console.log("data", data);
                     relId = data.result.truckRepairRelId;
-                    // console.log("relId",relId);
                     $scope.getRepairInfo();
                     $("#repairReasonMod").modal("close");
                 }
@@ -484,7 +481,6 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
             repairReason: $scope.repairReason
         }).then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
                 $scope.getRepairInfo();
             }
             else {
@@ -512,7 +508,7 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
 
     // 模态框内点击维修完成
     $scope.completeRepairInfo = function () {
-        if($scope.repairStationMod != "" && $scope.repairMoneyMod != "" && $scope.repairExplainMod != ""){
+        if($scope.repairStationMod != "" && $scope.repairMoneyMod != "" && $scope.repairExplainMod != ""&&$scope.paymentType!==''){
             swal({
                     title: "确定维修结束吗？",
                     type: "warning",
@@ -524,6 +520,8 @@ app.controller("look_truck_management_controller", ["$scope", "$state", "$stateP
                 function(result){
                     if (result.value) {
                         _basic.put($host.api_url + "/user/" + userId + "/truckRepairRel/" + relId, {
+                            number:$scope.addnumber,
+                            paymentType:$scope.paymentType,
                             repairType: 1,
                             accidentId: truckAccId,
                             repairReason: $scope.repairReason,

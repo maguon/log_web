@@ -60,6 +60,7 @@ app.controller("truck_repair_list_controller", ['$rootScope', "$rootScope","$sta
 
     // 过滤条件数据
     var colObjs = [
+        {name: '编号', type: 'string',require: false},
         {name: '车号', type: 'string',require: true},
         {name: '司机', type: 'string',require: true},
         {name: '维修类型', type: 'number', require: true},
@@ -405,7 +406,7 @@ app.controller("truck_repair_list_controller", ['$rootScope', "$rootScope","$sta
             $scope.addDrivderId='';
             $scope.driveNameList=[];
             $scope.driveName='';
-
+            getDriverId();
         }
         else {
             $scope.addDrivderId=$scope.modTruckNum.drive_id;
@@ -420,6 +421,7 @@ app.controller("truck_repair_list_controller", ['$rootScope', "$rootScope","$sta
                 }
             });
         }
+
         $scope.associatedAccident = "";
         _basic.get($host.api_url + "/truckAccident?truckId=" + $scope.modTruckNum.id).then(function (data) {
             if (data.success === true) {

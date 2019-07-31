@@ -86,7 +86,7 @@
     <div class="row col s12">
 
         <!--调度编号 调度状态 计划执行时间 司机 货车 起始城市 目的城市-->
-        <div class="col s10">
+        <div class="col s9">
 
             <!--调度编号-->
             <div class="col s3 input-field">
@@ -160,21 +160,27 @@
         </div>
 
         <!--查询按钮-->
-        <div class="col s2" style="margin-top:45px;">
-            <div class="col s4 center">
+        <div class="col s3" style="margin-top:45px;">
+            <div class="col s3 center">
                 <a ng-click="getOrderInfo()" class="btn-floating btn-large waves-light waves-effect red lighten-2 btn vc-center" style="margin-right: 10px">
                     <i class="mdi mdi-magnify"></i>
                 </a>
             </div>
-            <div class="col s4 center">
+            <div class="col s3 center">
                 <a ng-click="downloadCsvFile()" style="background-color: #f0ad4e;"  title="调度路线导出" class="btn-floating btn-large waves-light waves-effect lighten-2 btn vc-center">
                     <i class="mdi mdi-cloud-download"></i>
                 </a>
             </div>
 
-            <div class="col s4 center">
+            <div class="col s3 center">
                 <a ng-click="export()" class="btn-floating btn-large waves-light waves-effect cyan btn vc-center" title="司机里程导出">
                     <i class="mdi mdi-cloud-download"></i>
+                </a>
+            </div>
+
+            <div class="col s3 center">
+                <a ng-click="exportCar()" class="btn-floating btn-large waves-light waves-effect purple btn vc-center" title="装车明细导出">
+                    <i class="mdi mdi-car"></i>
                 </a>
             </div>
 

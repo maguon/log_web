@@ -131,6 +131,29 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
 
 
 
+
+    //装车明细导出
+    $scope.exportCar = function (){
+        var obj={
+            loadTaskStatuArr:[1,3,7]
+        }
+        var url = $host.api_url + "/dpRouteTaskDetail.csv?" + _basic.objNewToUrl(obj);
+        if($scope.planTimeEnd==undefined||$scope.planTimeStart==undefined){
+            swal('请输入完整的计划执行时间', "", "error");
+            $("#pre").hide();
+            $("#next").hide();
+        }
+        else {
+            // 检索条件
+            var conditionsObj = makeConditions();
+            var conditions = _basic.objNewToUrl(conditionsObj);
+            // 检索URL
+            url = conditions.length > 0 ? url + "&" + conditions : url;
+            window.open(url);
+        }
+    }
+
+
     /**
      * 查询列表
      * */

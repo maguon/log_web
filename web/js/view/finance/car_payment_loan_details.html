@@ -84,10 +84,13 @@
                 <div class="col s12" id="damageList">
                     <!--质损信息-->
                     <div class="col s12 bold_txt" style="color: darkgray;font-size: 1.1rem">
-                        <div class="col s6">
+                        <div class="col s4">
+                            <p><span>vin：</span>{{damageInfoCardList.vin }}</p>
+                        </div>
+                        <div class="col s4">
                             <p><span>质损类型：</span>{{damageInfoCardList.damage_type |damageType}}</p>
                         </div>
-                        <div class="col s6">
+                        <div class="col s4">
                             <p><span>质损环节：</span>{{damageInfoCardList.damage_link_type|damageLinkType}}</p>
                         </div>
                         <div  class="col s12" style="height:1px;border-bottom: 1px dotted #ccc;width:98%;margin-left: 1%"></div>

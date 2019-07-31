@@ -77,6 +77,12 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/finance/car_payment_loan_details.html",
             controller:'car_payment_loan_details_controller'
         })
+        .state("cash_loan",{
+            url:"/cash_loan",
+            params: {"from": null},
+            templateUrl: "js/view/finance/cash_loan.html",
+            controller:'cash_loan_controller'
+        })
       /*  .state("commercial_vehicle_compensate_loan",{
             url:"/commercial_vehicle_compensate_loan",
             params: {"from": null},

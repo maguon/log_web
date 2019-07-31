@@ -265,16 +265,25 @@
             <div class="row col s12 cyan-text">
 
                 <!--大车洗车费  小车洗车费  拖车费   地跑费  带路费  -->
-                <div class="col s4 input-field ">商品车加油费:<span class="red-text fz22">{{showList.car_oil_fee}}</span></div>
-                <div class="col s4 input-field ">货车停车单价:<span class="red-text fz22">{{showList.single_price}}</span></div>
-                <div class="col s4 input-field ">货车停车费:<span class="red-text fz22">{{showList.total_price}}</span></div>
-                <div class="col s4 input-field ">商品车停车单价:<span class="red-text fz22">{{showList.car_single_price}}</span></div>
-                <div class="col s4 input-field ">商品车停车费:<span class="red-text fz22">{{showList.car_total_price}}</span></div>
-                <div class="col s4 input-field ">其它费用:<span class="red-text fz22">{{showList.other_fee}}</span></div>
-
+                <div class="col s3 input-field ">商品车加油费:<span class="red-text fz22">{{showList.car_oil_fee}}</span></div>
+                <div class="col s3 input-field ">货车停车费:<span class="red-text fz22">{{showList.total_price}}</span></div>
+                <div class="col s3 input-field ">商品车停车费:<span class="red-text fz22">{{showList.car_total_price}}</span></div>
+                <div class="col s3 input-field ">其它费用:<span class="red-text fz22">{{showList.other_fee}}</span></div>
 
             </div>
 
+
+            <div class="row col s12  left-align bold">费用单价</div>
+
+            <!--大车洗车费单价  小车洗车费单价  拖车费单价 地跑费单价   带路费单价 -->
+            <div class="row col s12 cyan-text fz13">
+                <div class="col s6 input-field ">货车停车单价:<span class="red-text fz22">{{showList.single_price}}</span></div>
+                <div class="col s6 input-field ">商品车停车单价:<span class="red-text fz22">{{showList.car_single_price}}</span></div>
+            </div>
+
+            <div class="col s12 input-field left-align">
+                备注:{{showList.remark}}
+            </div>
 
 
 

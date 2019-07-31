@@ -47,6 +47,7 @@
     <li class="bold side_navigator" >
         <a class="waves-effect waves-light first-N" ui-sref="audit_index" ><i class="white-text mdi mdi-speedometer"></i>主控面板</a>
     </li>
+
     <li class="bold side_navigator">
         <ul class="collapsible collapsible-accordion">
             <li class="bold">
@@ -68,6 +69,7 @@
                         <li><a href="#!" ui-sref="operating_vehicles"><i class="white-text mdi mdi-chevron-right"></i>运营车辆</a></li>
                         <li><a href="#!" ui-sref="import_etc"><i class="mdi mdi-chevron-right white-text "></i>车辆ETC</a></li>
                         <li><a href="#!" ui-sref="instruction_car_refuel"><i class="mdi mdi-chevron-right white-text "></i>车辆加油管理</a></li>
+                        <li><a href="#!" ui-sref="plan_oil"><i class="mdi mdi-chevron-right white-text "></i>计划油耗</a></li>
                     </ul>
                 </div>
             </li>
@@ -195,6 +197,7 @@
 
     </li>
 
+
     <li class="bold side_navigator">
         <ul class="collapsible collapsible-accordion">
             <li class="bold">
@@ -213,8 +216,10 @@
                         <li><a href="#!" ui-sref="driver_settlement"><i class="white-text mdi mdi-chevron-right"></i>司机结算</a></li>
                         <li><a href="#!" ui-sref="instruction_driver_mileage"><i class="mdi mdi-chevron-right white-text "></i>司机里程</a></li>
                         <li><a href="#!" ui-sref="driver_cost"><i class="white-text mdi mdi-chevron-right"></i>司机成本</a></li>
+                        <li><a href="#!" ui-sref="car_cost"><i class="white-text mdi mdi-chevron-right"></i>车辆成本</a></li>
                         <li><a href="#!" ui-sref="driver_social_security"><i class="white-text mdi mdi-chevron-right"></i>司机出勤</a></li>
                         <li><a href="#!" ui-sref="route_fee"><i class="white-text mdi mdi-chevron-right"></i>出车款</a></li>
+                        <li><a href="#!" ui-sref="cash_loan"><i class="white-text mdi mdi-chevron-right"></i>货车现金打款</a></li>
                         <li><a href="#!" ui-sref="truck_depreciation"><i class="white-text mdi mdi-chevron-right"></i>货车折旧</a></li>
                         <li><a href="#!" ui-sref="single_value"><i class="white-text mdi mdi-chevron-right"></i>单车核算</a></li>
                     </ul>
@@ -222,6 +227,8 @@
             </li>
         </ul>
     </li>
+
+
 
     <li class="bold side_navigator">
         <ul class="collapsible collapsible-accordion">
@@ -235,12 +242,13 @@
                         <li><a href="#!" ui-sref="driver_settlement"><i class="white-text mdi mdi-chevron-right"></i>司机结算</a></li>
                         <li><a href="#!" ui-sref="car_settlement"><i class="white-text mdi mdi-chevron-right"></i>商品车结算</a></li>
                         <li><a href="#!" ui-sref="settlement_car"><i class="white-text mdi mdi-chevron-right"></i>结算车辆导入</a></li>
+                        <li><a href="#!" ui-sref="settlement_outsourcing"><i class="white-text mdi mdi-chevron-right"></i>外协结算</a></li>
+                        <li><a href="#!" ui-sref="invoice"><i class="white-text mdi mdi-chevron-right"></i>开票结算</a></li>
                     </ul>
                 </div>
             </li>
         </ul>
     </li>
-
     <li class="bold side_navigator">
         <ul class="collapsible collapsible-accordion">
             <li class="bold">
@@ -278,11 +286,13 @@
                         <li><a href="#!" ui-sref="setting_repair"><i class="white-text mdi mdi-chevron-right"></i>维修站</a></li>
                         <li><a href="#!" ui-sref="setting_files"><i class="white-text mdi mdi-chevron-right"></i>导入的文件</a></li>
                         <li><a href="#!" ui-sref="setting_vin_match"><i class="white-text mdi mdi-chevron-right"></i>车型匹配</a></li>
+                        <li><a href="#!" ui-sref="setting_settlement_outsourcing"><i class="white-text mdi mdi-chevron-right"></i>外协结算设置</a></li>
                     </ul>
                 </div>
             </li>
         </ul>
     </li>
+
 
     <li class="bold side_navigator">
         <a href="#!" ui-sref="data_dictionary" class=" waves-effect waves-light first-N" ><i class="white-text mdi mdi-book-multiple"></i>数据字典</a>
@@ -383,6 +393,7 @@
 <script src="/js/controller/truck/driver_exceed_oil_month_detail_controller.js"></script>
 <script src="/js/controller/truck/security_check_controller.js"></script>
 <script src="/js/controller/truck/operating_vehicles_controller.js"></script>
+<script src="/js/controller/truck/plan_oil_controller.js"></script>
 
 
 <!--etc-->
@@ -521,15 +532,16 @@
 <script src="/js/controller/finance/route_fee_controller.js"></script>
 <script src="/js/controller/finance/truck_depreciation_controller.js"></script>
 <script src="/js/controller/finance/single_value_controller.js"></script>
-
-
+<script src="/js/controller/finance/car_cost_controller.js"></script>
+<script src="/js/controller/finance/cash_loan_controller.js"></script>
 
 <!--其他-->
 <script src="/js/controller/data/car_to_data_controller.js"></script>
 <script src="/js/controller/data/imported_files_controller.js"></script>
 <script src="/js/controller/data/imported_files_details_controller.js"></script>
 <script src="/js/controller/index_controller.js"></script>
-
+<script src="/js/controller/setting/setting_settlement_outsourcing_controller.js"></script>
+<script src="/js/controller/setting/setting_settlement_outsourcing_detail_controller.js"></script>
 <!--结算管理-->
 <script src="/js/controller/settlement/settlement_management_controller.js"></script>
 <script src="/js/controller/settlement/settlement_management_detail_controller.js"></script>
@@ -537,7 +549,9 @@
 <script src="/js/controller/settlement/driver_settlement_controller.js"></script>
 <script src="/js/controller/settlement/settlement_car_controller.js"></script>
 <script src="/js/controller/settlement/car_settlement_controller.js"></script>
-
+<script src="/js/controller/settlement/settlement_outsourcing_controller.js"></script>
+<script src="/js/controller/settlement/invoice_controller.js"></script>
+<script src="/js/controller/settlement/invoice_detail_controller.js"></script>
 
 <!--视频播放器-->
 <script src="/assets/plugins/video/dist/video.min.js"></script>

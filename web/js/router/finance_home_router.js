@@ -85,6 +85,12 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/finance/single_value.html",
             controller:'single_value_controller'
         })
+        .state("cash_loan",{
+            url:"/cash_loan",
+            params: {"from": null},
+            templateUrl: "js/view/finance/cash_loan.html",
+            controller:'cash_loan_controller'
+        })
         .state("driver_salary",{
             url:"/driver_salary",
             params: {"from": null},

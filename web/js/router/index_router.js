@@ -906,6 +906,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/finance/car_cost.html",
             controller:'car_cost_controller'
         })
+        .state("cash_loan",{
+            url:"/cash_loan",
+            params: {"from": null},
+            templateUrl: "js/view/finance/cash_loan.html",
+            controller:'cash_loan_controller'
+        })
 
 
 

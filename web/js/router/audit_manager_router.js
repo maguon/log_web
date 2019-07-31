@@ -878,6 +878,51 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             controller:'car_settlement_controller'
         })
 
+        //计划油耗
+        .state("plan_oil",{
+            url:"/plan_oil",
+            params: {"from": null},
+            templateUrl: "js/view/truck/plan_oil.html",
+            controller:'plan_oil_controller'
+        })
+        .state("car_cost",{
+            url:"/car_cost",
+            params: {"from": null},
+            templateUrl: "js/view/finance/car_cost.html",
+            controller:'car_cost_controller'
+        })
+        .state("cash_loan",{
+            url:"/cash_loan",
+            params: {"from": null},
+            templateUrl: "js/view/finance/cash_loan.html",
+            controller:'cash_loan_controller'
+        })
+        .state("settlement_outsourcing",{
+            url:"/settlement_outsourcing",
+            templateUrl: "js/view/settlement/settlement_outsourcing.html",
+            controller:'settlement_outsourcing_controller'
+        })
+        .state("setting_settlement_outsourcing_detail",{
+            url:"/setting_settlement_outsourcing_detail/id/{id}/from/{from}",
+            templateUrl: "js/view/system_settings/setting_settlement_outsourcing_detail.html",
+            controller:'setting_settlement_outsourcing_detail_controller'
+        })
+        .state("invoice",{
+            url:"/invoice",
+            params: {"from": null},
+            templateUrl: "js/view/settlement/invoice.html",
+            controller:'invoice_controller'
+        })
+        .state("invoice_detail",{
+            url:"/invoice_detail/id/{id}/from/{from}",
+            templateUrl: "js/view/settlement/invoice_detail.html",
+            controller:'invoice_detail_controller'
+        })
+        .state("setting_settlement_outsourcing",{
+            url:"/setting_settlement_outsourcing",
+            templateUrl: "js/view/system_settings/setting_settlement_outsourcing.html",
+            controller:'setting_settlement_outsourcing_controller'
+        })
 
 
 }]);

@@ -11,7 +11,10 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     $scope.applyRouteFeeBtn = true;
     $scope.addMissionBtn = true;
     $scope.hasRouteFeeInfoId = false;
-    $scope.leftKeyWord = "";
+    $scope.leftKeyWordStart = null;
+    $scope.leftKeyWordEnd = null;
+    $scope.leftTransferKeyWordStart = null;
+    $scope.leftTransferKeyWordEnd =null;
     $scope.rightKeyWord = "";
     $scope.rightKeyWord2 = "";
     $scope.lineEndCityInfo = "";
@@ -39,6 +42,10 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
 
     // 获取发运商品车信息（左侧信息卡片）
     $scope.getDeliveryCarInfo = function () {
+        $scope.leftKeyWordStart = '';
+        $scope.leftKeyWordEnd = '';
+        $scope.leftTransferKeyWordStart = "";
+        $scope.leftTransferKeyWordEnd = "";
         _basic.get($host.api_url + "/dpTaskStat?dpTaskStatStatus=1").then(function (dispatchCarData) {
             if (dispatchCarData.success === true) {
                 // 转换日期格式
@@ -134,13 +141,25 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     $scope.updateLeftCardList = function () {
         $scope.newDispatchCarList = [];
         $scope.newTransferDispatchCarList =[];
-        if($scope.leftKeyWord != ""){
+
+
+        if($scope.leftKeyWordStart != ""||$scope.leftKeyWordEnd!==''){
             for(var i = 0;i < $scope.disPatchCarList.length;i++){
-                if(($scope.disPatchCarList[i].city_route_start).indexOf($scope.leftKeyWord) !== -1 || ($scope.disPatchCarList[i].city_route_end).indexOf($scope.leftKeyWord) !== -1){
+                if(($scope.disPatchCarList[i].city_route_start).indexOf($scope.leftKeyWordStart) !== -1 && ($scope.disPatchCarList[i].city_route_end).indexOf($scope.leftKeyWordEnd) !== -1){
                     $scope.newDispatchCarList.push($scope.disPatchCarList[i])
+                }
+                else if(($scope.disPatchCarList[i].city_route_start).indexOf($scope.leftKeyWordStart) !== -1 && $scope.leftKeyWordEnd==''){
+                    $scope.newDispatchCarList.push($scope.disPatchCarList[i])
+                }
+                else  if($scope.leftKeyWordStart == ""&&($scope.disPatchCarList[i].city_route_end).indexOf($scope.leftKeyWordEnd) !== -1){
+                    $scope.newDispatchCarList.push($scope.disPatchCarList[i])
+                }
+                else {
                 }
             }
         }
+
+
         else{
             $scope.newDispatchCarList = $scope.disPatchCarList;
         }
@@ -150,11 +169,29 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     // 根据输入的关键字筛选左侧卡片 中转  信息
     $scope.updateTransferLeftCardList= function () {
         $scope.newTransferDispatchCarList =[];
-        if($scope.leftTransferKeyWord != ""){
+        if($scope.leftTransferKeyWordStart != ""||$scope.leftTransferKeyWordEnd != ""){
             for(var i = 0;i < $scope.transferdisPatchCarList.length;i++){
-                if(($scope.transferdisPatchCarList[i].transfer_city_name).indexOf($scope.leftTransferKeyWord) !== -1 || ($scope.transferdisPatchCarList[i].route_end_name).indexOf($scope.leftTransferKeyWord) !== -1){
+               /* if(($scope.transferdisPatchCarList[i].transfer_city_name).indexOf($scope.leftTransferKeyWord) !== -1 || ($scope.transferdisPatchCarList[i].route_end_name).indexOf($scope.leftTransferKeyWord) !== -1){
                     $scope.newTransferDispatchCarList.push($scope.transferdisPatchCarList[i])
                 }
+*/
+
+
+                if(($scope.transferdisPatchCarList[i].transfer_city_name).indexOf($scope.leftTransferKeyWordStart) !== -1 && ($scope.transferdisPatchCarList[i].route_end_name).indexOf($scope.leftTransferKeyWordEnd) !== -1){
+                    $scope.newTransferDispatchCarList.push($scope.transferdisPatchCarList[i])
+                }
+                else if(($scope.transferdisPatchCarList[i].transfer_city_name).indexOf($scope.leftTransferKeyWordStart) !== -1 && $scope.leftTransferKeyWordEnd==''){
+                    $scope.newTransferDispatchCarList.push($scope.transferdisPatchCarList[i])
+                }
+                else  if($scope.leftTransferKeyWordStart == ""&&($scope.transferdisPatchCarList[i].route_end_name).indexOf($scope.leftTransferKeyWordEnd) !== -1){
+                    $scope.newTransferDispatchCarList.push($scope.transferdisPatchCarList[i])
+                }
+                else {
+                }
+
+
+
+
             }
         }
         else{
@@ -291,6 +328,69 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             }
         });
     }
+
+
+    $scope.changeTruckStatus = function(stus){
+        $scope.newCarDetailsList=[];
+        if(stus==1){
+            _basic.get($host.api_url + "/truckDispatch?dispatchFlag=1&taskStart=0&taskEnd=0").then(function (carDetailsData) {
+                if (carDetailsData.success === true) {
+                    // 防止过滤出错，将信息为null的转为空字符串
+                    for (var i = 0; i < carDetailsData.result.length; i++) {
+                        if (carDetailsData.result[i].drive_name === null) {
+                            carDetailsData.result[i].drive_name = "";
+                        }
+                        if (carDetailsData.result[i].city_name === null) {
+                            carDetailsData.result[i].city_name = "";
+                        }
+                        if(carDetailsData.result[i].current_city === 0){
+                            carDetailsData.result[i].operate_status = "途"
+                        }
+                        else{
+                            carDetailsData.result[i].operate_status = "待"
+                        }
+                    }
+                    $scope.newCarDetailsList  = carDetailsData.result;
+
+
+                }
+                else {
+                    swal(carDetailsData.msg, "", "error");
+                }
+            });
+        }
+        else if(stus==2){
+            _basic.get($host.api_url + "/truckDispatch?dispatchFlag=1&currentCity=0").then(function (carDetailsData) {
+                if (carDetailsData.success === true) {
+                    // 防止过滤出错，将信息为null的转为空字符串
+                    for (var i = 0; i < carDetailsData.result.length; i++) {
+                        if (carDetailsData.result[i].drive_name === null) {
+                            carDetailsData.result[i].drive_name = "";
+                        }
+                        if (carDetailsData.result[i].city_name === null) {
+                            carDetailsData.result[i].city_name = "";
+                        }
+                        if(carDetailsData.result[i].current_city === 0){
+                            carDetailsData.result[i].operate_status = "途"
+                        }
+                        else{
+                            carDetailsData.result[i].operate_status = "待"
+                        }
+                    }
+                    $scope.newCarDetailsList = carDetailsData.result;
+
+                }
+                else {
+                    swal(carDetailsData.msg, "", "error");
+                }
+            });
+        }
+        else {
+            $scope.getCarDetails();
+        }
+
+    }
+
 
 
     // 点击左侧 直达 的卡片详情显示模态框

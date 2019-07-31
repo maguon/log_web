@@ -19,6 +19,8 @@ app.controller("damage_declaration_details_controller", ["$scope","$state", "$st
             if (data.success === true) {
                 data.result[0].created_on = moment(data.result[0].created_on).format("YYYY-MM-DD HH:mm:ss");
                 $scope.currentDamageInfo = data.result[0];
+                $scope.currentOrderDate=moment(data.result[0].order_date).format("YYYY-MM-DD");
+
                 $scope.driverName = data.result[0].drive_name;
                 $scope.driverId = data.result[0].drive_id;
                 $scope.truckNum = data.result[0].truck_num;

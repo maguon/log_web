@@ -355,13 +355,19 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
           $scope.truckNum='';
            _basic.get($host.api_url + "/drive?driveId=" + driver).then(function (data) {
                if (data.success == true) {
-                   if(data.result[0].truck_id!==undefined||data.result[0].truck_id!==null||data.result[0].truck_id!==''){
-                       $scope.truckNum = data.result[0].truck_id;
-                       getTruckNum();
+                   if(data.result.length==0){
+                       $scope.truckNum='';
                    }
                    else {
-                       $scope.truckNum = data.result[0].truck_id='';
+                       if(data.result[0].truck_id!==undefined||data.result[0].truck_id!==null||data.result[0].truck_id!==''){
+                           $scope.truckNum = data.result[0].truck_id;
+                           getTruckNum();
+                       }
+                       else {
+                           $scope.truckNum = data.result[0].truck_id='';
+                       }
                    }
+
                }
                else {
                    swal(data.msg, "", "error");
@@ -406,7 +412,8 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
 
     function addItem(){
 
-        if ($scope.addDrivderId!==''&&$scope.truckNum!==''&&$scope.addCount!==''&&$scope.addCount!==null&&$scope.happenTime!==''&&$scope.happenTime!==undefined&&$scope.hasLoan!=='') {
+        if ($scope.addDrivderId!==''&&$scope.truckNum!==''&&$scope.addCount!==''&&
+            $scope.addCount!==null&&$scope.happenTime!==''&&$scope.happenTime!==undefined&&$scope.hasLoan!=='') {
             var obj = {
                 "number":$scope.addnumber,
                 "driveId": $scope.addDrivderId.id,

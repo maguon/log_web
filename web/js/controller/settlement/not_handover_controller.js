@@ -5,7 +5,7 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
 
     // 取得当前画面 登录用户
     var userId = _basic.getSession(_basic.USER_ID);
-
+    var userType = _basic.getSession(_basic.USER_TYPE);
     // 翻页用
     $scope.start = 0;
     $scope.size = 11;
@@ -18,6 +18,262 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
     //初始  隐藏翻页
     $("#pre").hide();
     $("#next").hide();
+
+
+    $scope.num = 0;
+    $scope.flag=false;
+    $scope.templateBox = true;
+    $scope.success_data_box = false;
+    $scope.dataBox = false;
+    $scope.Picture_carId = "";
+
+    $scope.get_receive=[];
+
+    $scope.local_isSuccesss = false;
+    $scope.upload_isSuccesss = false;
+    $scope.show_error = false;
+    $scope.error_msg = false;
+    $scope.csvFile = null;
+    $scope.rightNumber = 0;
+    $scope.errorNumber = 0;
+    $scope.putStartCity='';
+    $scope.putArriveCity='';
+    $scope.putArriveReceive='';
+
+    $scope.tableHeader = [];
+
+    $scope.fileType = "";
+    // 表头原始数据
+    $scope.tableHeadeArray = [];
+    // 主体原始错误数据
+    $scope.tableContentErrorFilter = [];
+    // 主体原始成功数据
+    $scope.tableContentFilter = [];
+
+
+    // 跳转
+    $scope.importFile = function () {
+        $('ul.tabWrap li').removeClass("active");
+        $(".tab_box").removeClass("active");
+        $(".tab_box").hide();
+        $('ul.tabWrap li.importFile ').addClass("active");
+        $("#importFile").addClass("active");
+        $("#importFile").show();
+    };
+    $scope.lookMyselfFile = function () {
+        $('ul.tabWrap li').removeClass("active");
+        $(".tab_box").removeClass("active");
+        $(".tab_box").hide();
+        $('ul.tabWrap li.lookMyselfFile ').addClass("active");
+        $("#lookMyselfFile").addClass("active");
+        $("#lookMyselfFile").show();
+    };
+    $scope.lookMyselfFile();
+
+    $("#pre").hide();
+    $("#next").hide();
+
+    // 过滤条件数据
+    // $scope.filterArray=[1,2,3,4,5,6,7,8,9];
+    var colObjs = [
+        {name: 'VIN', type: 'string', length: 17, require: true},
+        {name: '制造商ID', type: 'number', length: 3, require: true},
+        {name: '委托方ID', type: 'number', length: 3, require: true},
+        {name: '起始城市ID', type: 'number', length: 3, require: true},
+        {name: '发运地址ID', type: 'number', length: 3, require: true},
+        {name: '目的地ID', type: 'number', length: 3,require: true},
+        {name: '经销商ID', type: 'number', length: 3,require: true}];
+    // 头部条件判断
+    $scope.titleFilter = function (headerArray) {
+        if (colObjs.length != headerArray.length) {
+            return false;
+        } else {
+            for (var i in headerArray) {
+                if (colObjs[i].name != headerArray[i]) {
+                    return false
+                }
+            }
+        }
+    };
+    // 主体条件判断
+    $scope.ContentFilter = function (contentArray) {
+
+        for (var i = 0; i < contentArray.length; i++) {
+            var flag = true;
+            var isNumber;
+            for (var j = 0; j < colObjs.length; j++) {
+                //check required
+                if (colObjs[j].require) {
+                    if (contentArray[i][j] == null && contentArray[i][j].length == 0) {
+                        $scope.errorNumber = $scope.errorNumber + 1;
+                        $scope.tableContentErrorFilter.push(contentArray[i]);
+                        flag = false;
+                        break;
+                    }
+                }
+                //check type
+                // console.log(isNaN(contentArray[i][j]));
+
+                if (contentArray[i][j] == '' || isNaN(contentArray[i][j])) {
+                    isNumber = "string"
+                } else {
+                    isNumber = "number"
+                }
+                if (colObjs[j].type != isNumber && contentArray[i][j] != '' &&colObjs[j].require ) {
+                    $scope.errorNumber = $scope.errorNumber + 1;
+                    $scope.tableContentErrorFilter.push(contentArray[i]);
+                    flag = false;
+                    break;
+                }
+                //check length
+                if (colObjs[j].type=='string'&&(colObjs[j].length && colObjs[j].length != contentArray[i][j].length)) {
+                    $scope.errorNumber = $scope.errorNumber + 1;
+                    $scope.tableContentErrorFilter.push(contentArray[i]);
+                    flag = false;
+                    break;
+                }
+
+            }
+            if (flag == true) {
+                $scope.rightNumber = $scope.rightNumber + 1;
+                $scope.tableContentFilter.push(contentArray[i]);
+            }
+
+
+        }
+
+    };
+
+/*
+    $scope.fileUpload = function () {
+        $("#buttonImport").attr("disabled",true);
+        _basic.formPost($("#file_upload_form"), $host.file_url + '/user/' + userId + '/file?fileType=1&&userType=' + userType, function (data) {
+            if (data.success == true) {
+                $scope.file_id = data.result.id;
+                uploadDataArray = $scope.tableContentFilter;
+                if (uploadDataArray.length > 0) {
+                    orginDataLength = $scope.tableContentFilter.length;
+                    $("#buttonImport").attr("disabled",false);
+                    swal('正确:'+$scope.num+'错误:'+$scope.upload_error_array_num,"", "success")
+                }
+            }
+        });
+    };
+
+*/
+
+
+
+    $scope.fileUpload = function () {
+        $("#buttonImport").attr("disabled",true);
+        _basic.formPost($("#file_upload_form"), $host.api_url + '/user/' + userId + '/settleHandoverCarRelFile' , function (data) {
+            if (data.success == true) {
+                $scope.$apply(function () {
+                    $scope.upload_error_array_num =data.result.failedCase;
+                    $scope.orginData_Length=data.result.failedCase+data.result.successedInsert;
+                    $scope.num=data.result.successedInsert;
+                    $scope.local_isSuccesss = false;
+                    $scope.upload_isSuccesss = true;
+                    $("#file_upload_form").disabled=true;
+                    $("#buttonImport").attr("disabled",false);
+                    swal('正确:'+$scope.num+'错误:'+$scope.upload_error_array_num,"", "success")
+                });
+
+            }
+            else {
+                $("#buttonImport").attr("disabled",false);
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+
+
+
+
+    // 展示上传的错误数据
+    $scope.show_error_msg = function () {
+        $scope.error_msg = !$scope.error_msg;
+    };
+    $scope.fileChange = function (file) {
+        // 表头原始数据
+        $scope.tableHeadeArray = [];
+        // 主体原始错误数据
+        $scope.tableContentErrorFilter = [];
+        // 主体原始成功数据
+        $scope.tableContentFilter = [];
+        $scope.rightNumber = 0;
+        $scope.errorNumber = 0;
+        $(file).parse({
+            config: {
+                complete: function (result) {
+                    $scope.$apply(function () {
+                        if(result==null ||result.data==null ||result.data.length ==0){
+                            swal("文件类型错误");
+                        } else {
+                            $scope.tableHeadeArray = result.data[0];
+                            $scope.templateBox = false;
+                            // 表头校验
+                            if ($scope.titleFilter($scope.tableHeadeArray) != false) {
+                                // 主体内容校验
+                                var content_filter_array = result.data.slice(1, result.data.length);
+                                var con_line = [];
+                                // console.log(content_filter_array);
+                                // excel换行过滤
+                                for (var i = 0; i < content_filter_array.length; i++) {
+                                    if (content_filter_array[i].length == 1 && content_filter_array[i][0] == "") {
+                                        break;
+                                    } else {
+                                        con_line.push(content_filter_array[i]);
+                                    }
+                                }
+                                $scope.ContentFilter(con_line);
+                                if ($scope.tableContentErrorFilter.length == 0) {
+                                    $scope.success_data_box = true;
+                                    $scope.dataBox = false;
+                                    swal("正确条数" + $scope.tableContentFilter.length);
+                                    // 总条数
+                                    $scope.orginData_Length = $scope.tableContentFilter.length;
+                                    $scope.local_isSuccesss = true;
+                                } else {
+                                    $scope.success_data_box = false;
+                                    $scope.dataBox = true;
+                                    swal("错误条数" + $scope.tableContentErrorFilter.length);
+                                }
+                                $scope.tableHeader = result.data[0];
+                            }
+                            else {
+                                swal("表头格式错误", "", "error");
+                                $scope.templateBox = true;
+                            }
+
+                        }
+
+                    });
+
+                }
+            },
+            before: function (file, inputElem) {
+                $scope.fileType = file.type;
+            },
+            error: function (err, file, inputElem, reason) {
+                console.log(err)
+            },
+            complete: function (val) {
+                // console.log(val)
+            }
+        })
+    };
+
+
+
+
+
+
+
+
+
+
 
 
     // 信息获取
@@ -238,7 +494,7 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
     $scope.getArr = function (el){
         if($scope.ArrayList.length!==0){
 
-            //判断添加的vin是否与第一个vin品牌、委托方、起始城市、发运地、经销商一致
+          /*  //判断添加的vin是否与第一个vin品牌、委托方、起始城市、发运地、经销商一致
             if(
                 $scope.ArrayList[0].make_name==el.make_name&&
                 $scope.ArrayList[0].e_short_name==el.e_short_name&&
@@ -246,7 +502,7 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
                 $scope.ArrayList[0].route_start==el.route_start&&
                 $scope.ArrayList[0].addr_name==el.addr_name&&
                 $scope.ArrayList[0].r_short_name==el.r_short_name
-            ){
+            ){*/
                 for (var i = 0; i < $scope.ArrayList.length; i++) {
                     if ($scope.ArrayList[i].vin === el.vin) {
                         swal('不能重复添加相同VIN!',"", "error");
@@ -254,10 +510,10 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
                     }
                 }
                 $scope.ArrayList.push(el);
-            }
+           /* }
             else{
                 swal('请保持与现有的VIN品牌、委托方、起始城市、发运地、经销商一致',"", "error");
-            }
+            }*/
         }
         else{
 
@@ -296,17 +552,60 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
         for (var i = 0; i < $scope.ArrayList.length; i++) {
             $scope.carIds.push($scope.ArrayList[i].car_id)
         }
-        $scope.addNumberId='';
-        $scope.addHandoverReceiveStartTime = moment(new Date()).format("YYYY-MM-DD");
-        $scope.newRemark='';
 
-        $('#addSettlementArr').modal('open');
+        swal({
+            title: "确定交接这"+ $scope.carIds.length+"车辆吗？",
+            text: "",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确定",
+            cancelButtonText: "取消"
+        }).then(function (result) {
+            if (result.value) {
+                /*if($scope.addNumberId!== ''&&$scope.addHandoverReceiveStartTime!== ''){*/
+                _basic.post($host.api_url + "/user/" + userId + "/settleHandoverAll", {
+                    /* "serialNumber":  $scope.addNumberId,
+                     "entrustId":   $scope.ArrayList[0].entrust_id,
+                     "receivedDate": $scope.addHandoverReceiveStartTime,
+                     "routeStartId":  $scope.ArrayList[0].route_start_id,
+                     "routeEndId":  $scope.ArrayList[0].route_end_id,
+                     "receiveId":  $scope.ArrayList[0].receive_id,
+                     "carCount":$scope.ArrayList.length,
+                     "remark":$scope.newRemark,*/
+                    "carIds":$scope.carIds
+                }).then(function (data) {
+                    if (data.success == true) {
+                        $scope.ArrayList=[];
+                        /*$('#addSettlementArr').modal('close');*/
+                        seachNotHandover();
+                        swal("交接成功", "", "success");
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                })
+                /*  }
+                else {
+                      swal("请填写完整信息！", "", "warning");
+                  }*/
+
+            }
+        })
+
+
+       /* $scope.addNumberId='';
+        $scope.addHandoverReceiveStartTime = moment(new Date()).format("YYYY-MM-DD");
+        $scope.newRemark='';*/
+
+       /* $('#addSettlementArr').modal('open');*/
     }
 
+/*
 
-    /*
+    /!*
     * 执行未交接到已交接操作
-    * */
+    * *!/
     $scope.addSettlementItem = function (){
         swal({
             title: "确定交接这些车辆吗？",
@@ -318,16 +617,16 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
             cancelButtonText: "取消"
         }).then(function (result) {
             if (result.value) {
-                if($scope.addNumberId!== ''&&$scope.addHandoverReceiveStartTime!== ''){
+                /!*if($scope.addNumberId!== ''&&$scope.addHandoverReceiveStartTime!== ''){*!/
                     _basic.post($host.api_url + "/user/" + userId + "/settleHandoverAll", {
-                        "serialNumber":  $scope.addNumberId,
+                       /!* "serialNumber":  $scope.addNumberId,
                         "entrustId":   $scope.ArrayList[0].entrust_id,
                         "receivedDate": $scope.addHandoverReceiveStartTime,
                         "routeStartId":  $scope.ArrayList[0].route_start_id,
                         "routeEndId":  $scope.ArrayList[0].route_end_id,
                         "receiveId":  $scope.ArrayList[0].receive_id,
                         "carCount":$scope.ArrayList.length,
-                        "remark":$scope.newRemark,
+                        "remark":$scope.newRemark,*!/
                         "carIds":$scope.carIds
                     }).then(function (data) {
                         if (data.success == true) {
@@ -340,14 +639,15 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
                             swal(data.msg, "", "error");
                         }
                     })
-                }
+              /!*  }
               else {
                     swal("请填写完整信息！", "", "warning");
-                }
+                }*!/
 
             }
         })
     }
+*/
 
 
 

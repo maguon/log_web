@@ -86,12 +86,12 @@ app.controller("driver_social_security_controller", ["$scope", "$state", "$state
         });
     }
     // 分页
-    $scope.pre_btn = function () {
+    $scope.previous_page = function () {
         $scope.start = $scope.start - ($scope.size-1);
         getData();
     };
 
-    $scope.next_btn = function () {
+    $scope.next_page = function () {
         $scope.start = $scope.start + ($scope.size-1);
         getData();
     };

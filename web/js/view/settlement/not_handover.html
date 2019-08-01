@@ -1,211 +1,328 @@
 <!-- 主菜单：结算管理 -> 未返还交接单 画面 -->
-<div class="dispatch_order">
-
-    <!-- 上部分：检索条件输入区域 -->
 
 
-    <div class="row col s12">
-
-        <!--渲染条件-->
-        <div class="col s10">
-
-            <!--行1-->
-
-            <!--vin-->
-            <div class="col s4 input-field">
-                <input  id="VIN" ng-model="conVin" type="text">
-                <label for="VIN">VIN</label>
-            </div>
-
-            <!--调度编号-->
-            <div class="col s2 input-field">
-                <input id="condpId" type="text" ng-model="condpId">
-                <label for="condpId">调度编号</label>
-            </div>
-
-            <!--司机-->
-            <div class="col s2 input-field">
-                <select id="driver" style="width: 100%" ng-model="conDriver">
-                    <option value=""></option>
-                    <option ng-repeat="driver in driveList" ng-value="driver.id">{{driver.drive_name }}</option>
-                </select>
-            </div>
-
-            <!--计划执行时间(始)-->
-            <div class="col s2 input-field">
-                <input id="planTimeStart" type="text" ng-model="conPlanTimeStart"  class="datepicker" autocomplete="off" required   date>
-                <i class="mdi dataIcon mdi-table-large"></i>
-                <label for="planTimeStart">计划执行时间（始）</label>
-            </div>
-
-            <!--计划执行时间(终)-->
-            <div class="col s2 input-field">
-                <input id="planTimeEnd" type="text" ng-model="conPlanTimeEnd"  class="datepicker" autocomplete="off"  required   date>
-                <i class="mdi dataIcon mdi-table-large"></i>
-                <label for="planTimeEnd">计划执行时间（终）</label>
-            </div>
-
-
-            <!--行2-->
-
-            <!--委托方-->
-            <div class="input-field col s2">
-                <select material-select watch id="client"  ng-model="conEntrust"  ng-change="changeClient(conEntrust)"  required>
-                    <option value="" selected>请选择</option>
-                    <option ng-repeat="el in entrustList" ng-value="el.id" >{{el.short_name}}</option>
-                </select>
-            </div>
-
-            <!--品牌-->
-            <div class="input-field col s2">
-                <select  id="conBrand" material-select watch ng-model="conBrand">
-                    <option value="">请选择</option>
-                    <option ng-repeat="el in brandList" ng-value="el.make_id">{{el.make_name}}</option>
-                </select>
-                <label for="conBrand">品牌</label>
-            </div>
-
-
-            <!--起始城市-->
-            <div class="input-field col s2">
-                <select id="startCity" style="width:100%" ng-change="changeStartCity()" ng-model="conStartCity">
-                    <option value="">请选择</option>
-                    <option ng-repeat="startCity in cityList" ng-value=startCity.id>{{startCity.city_name}}</option>
-                </select>
-            </div>
-
-            <!--装车地点-->
-            <div class="col s2 input-field">
-                <select id="chooseLocate" ng-model="conLocate" watch material-select>
-                    <option value="" selected>装车地点</option>
-                    <option ng-repeat="locateCity in locateList" ng-value="locateCity.id">{{locateCity.addr_name}}</option>
-                </select>
-            </div>
-
-
-            <!--目的地城市-->
-            <div class="input-field col s2">
-                <select id="endCity" style="width:100%" ng-change="changeEndCity(conEndcity)" ng-model="conEndcity">
-                    <option value=""></option>
-                    <option ng-repeat="city in cityList" ng-value="city.id" >{{city.city_name}}</option>
-                </select>
-            </div>
-
-            <!--经销商-->
-            <div class="input-field col s2">
-                <select material-select watch id="dealer" ng-model="conReceive" style="width: 100%">
-                    <option value="" disabled selected>经销商</option>
-                    <option ng-repeat="el in receiveList" ng-value="el.id" >{{el.short_name}}</option>
-                </select>
-            </div>
-
-        </div>
-
-
-        <!--按钮-->
-        <div class="col s2 mp-40">
-            <div class="col s6" >
-                <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getNotHandoverInfo()">
-                    <i class="mdi mdi-magnify"></i>
-                </a>
-            </div>
-            <div class="col s6 center-align">
-                <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
-                    <i class="mdi mdi-cloud-download"></i>
-                </a>
-            </div>
-        </div>
-
-    </div>
-
-
-    <!--未返还车辆   临时数组-->
-    <div class="row col s12 bold">
+<div class="modal-content grey-text text-darken-2">
+    <div class="row no-marBottom" ul-tabs style="overflow: hidden">
         <div class="col s12">
-            <div class="col s1">
-                未返还车辆:{{getNum}}
+            <ul class="tabWrap grey lighten-4">
+                <li class="tab col s6 lookMyselfFile vc-center" ng-click="lookMyselfFile()">查看交接单</li>
+                <li class="tab col s6 importFile vc-center" ng-click="importFile()">导入交接车辆文件</li>
+            </ul>
+        </div>
+
+        <!--导入文件-->
+        <div id="importFile" class="row tab_box" style="margin-top: 50px">
+
+            <!--按钮 第一行-->
+            <div class="row">
+                <form name="file_upload_form " id="file_upload_form" >
+                    <div class="col s4">
+                        <div class="row">
+                            <div class="file-field  input-field ">
+                                <a href="/assets/交接车辆信息导入模板.csv" target="_blank" class="btn center-align waves-effect circle_button" >下载模板格式</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s5 offset-s3">
+                        <div class="col s4"> </div>
+                        <div class="col s4 offset-s4">
+                            <div class="row">
+                                <div class="file-field input-field">
+                                    <div class="btn cyan lighten-2 circle_button">
+                                        <span>批量数据导入</span>
+                                        <input type="file" style="font-size: 100px;height: 45px;"  name="file" accept="text/csv" onchange='angular.element(this).scope().fileChange(this)'  >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="col s11">
-                <div class="col s11">
-                    <div class="chip" ng-repeat="el in ArrayList">
-                        {{el.vin}}
-                        <i class="close  mdi mdi-window-close look_icon grey-text lighten-1" style="cursor: pointer"  ng-click="deleteSingle(el,ArrayList)"></i>
+
+            <!--大图-->
+            <div class="row">
+                <div class="col s12">
+                    <div class="col s12 templateBox" ng-show="templateBox">
+                        <img style="width: 100%" src="/assets/images/car_handover.png" />
                     </div>
                 </div>
-                <div class="col s1 right-align" ng-show="ArrayList.length!==0">
-                    <a class="btn-floating btn-small waves-light waves-effect cyan lighten-2  btn vc-center" ng-click="addArr()">
-                        <i class="mdi mdi-check"></i>
+            </div>
+            <div class="row dataBox " style="overflow: auto;" ng-show="dataBox">
+                <div class="col s12">
+                    <h6 class="red lighten-2 white-text vc-center" style="padding: 20px">错误数据<span>{{errorNumber}}</span>条，请修改后重新上传</h6>
+                    <table class="responsive-table highlight">
+                        <thead class="blue-grey lighten-4 grey-text text-darken-1">
+                        <tr>
+                            <th>序号</th>
+                            <th ng-repeat="header in tableHeader track by $index">{{header}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="row in tableContentErrorFilter track by $index">
+                            <td>{{$index+1}}</td>
+                            <td ng-repeat="item in row track by $index">{{item}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row success_data_box " style="overflow: auto; "  ng-show="success_data_box">
+                <div class="divider" style="height: 2px;"></div>
+                <div class="col s12 " style="padding: 100px 0">
+                    <div class="progress" >
+                        <div class="determinate" ng-style="obj"></div>
+                    </div>
+                    <p><span>{{num}}</span>/<span>{{orginData_Length}}</span></p>
+                    <div class="col s2 offset-s5 ">
+                        <p class="vc-center " ng-show="local_isSuccesss">
+                            <i class="mdi mdi-check cyan-text text-lighten-2 fz40"></i><span class="blue-grey-text fz18">本地校验成功</span>
+                        </p>
+                        <p class="vc-center " ng-show="upload_isSuccesss">
+                            <i class="mdi mdi-check cyan-text text-lighten-2 fz40" ></i><span class="blue-grey-text fz18">上传完成</span>
+                        </p>
+                        <p class="vc-center" ng-show="upload_isSuccesss">
+                            <span>错误条数:<span>{{upload_error_array_num}}</span></span>
+                            <span>正确条数:<span>{{orginData_Length-upload_error_array_num}}</span></span>
+                            <span>总条数:<span>{{orginData_Length}}</span></span>
+                        </p>
+                        <!--<a href="" class="btn btn-large waves-effect cyan lighten-2"></a>-->
+                        <p class="center-align">
+                            <button class="btn btn-large circle_button cyan lighten-2" ng-click="fileUpload()" id="buttonImport" >
+                                导入数据库
+                            </button>
+                            <a href="" style="margin-top: 10px" class="btn btn-large circle_button cyan lighten-2" ng-show="show_error" ng-click="show_error_msg()">错误数据显示</a>
+                        </p>
+                    </div>
+                </div>
+
+                <table class=" bordered striped" ng-show="error_msg">
+                    <thead class="blue-grey lighten-5">
+                    <tr class="grey-text text-darken-2">
+                        <th data-field="">错误位置</th>
+                        <th data-field="">原因</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="el in upload_error_array" class="grey-text text-darken-1">
+                        <td>第{{el.index}}条</td>
+                        <td ng-bind="el.msg"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <!--查看导入文件-->
+        <div id="lookMyselfFile" class="row tab_box" style="margin-top: 50px;">
+            <!-- 上部分：检索条件输入区域 -->
+
+
+            <div class="row col s12">
+
+                <!--渲染条件-->
+                <div class="col s10">
+
+                    <!--行1-->
+
+                    <!--vin-->
+                    <div class="col s4 input-field">
+                        <input  id="VIN" ng-model="conVin" type="text">
+                        <label for="VIN">VIN</label>
+                    </div>
+
+                    <!--调度编号-->
+                    <div class="col s2 input-field">
+                        <input id="condpId" type="text" ng-model="condpId">
+                        <label for="condpId">调度编号</label>
+                    </div>
+
+                    <!--司机-->
+                    <div class="col s2 input-field">
+                        <select id="driver" style="width: 100%" ng-model="conDriver">
+                            <option value=""></option>
+                            <option ng-repeat="driver in driveList" ng-value="driver.id">{{driver.drive_name }}</option>
+                        </select>
+                    </div>
+
+                    <!--计划执行时间(始)-->
+                    <div class="col s2 input-field">
+                        <input id="planTimeStart" type="text" ng-model="conPlanTimeStart"  class="datepicker" autocomplete="off" required   date>
+                        <i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="planTimeStart">计划执行时间（始）</label>
+                    </div>
+
+                    <!--计划执行时间(终)-->
+                    <div class="col s2 input-field">
+                        <input id="planTimeEnd" type="text" ng-model="conPlanTimeEnd"  class="datepicker" autocomplete="off"  required   date>
+                        <i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="planTimeEnd">计划执行时间（终）</label>
+                    </div>
+
+
+                    <!--行2-->
+
+                    <!--委托方-->
+                    <div class="input-field col s2">
+                        <select material-select watch id="client"  ng-model="conEntrust"  ng-change="changeClient(conEntrust)"  required style="width:100%">                            <option value="" selected>请选择</option>
+                            <option ng-repeat="el in entrustList" ng-value="el.id" >{{el.short_name}}</option>
+                        </select>
+                    </div>
+
+                    <!--品牌-->
+                    <div class="input-field col s2">
+                        <select  id="conBrand" material-select watch ng-model="conBrand">
+                            <option value="">请选择</option>
+                            <option ng-repeat="el in brandList" ng-value="el.make_id">{{el.make_name}}</option>
+                        </select>
+                        <label for="conBrand">品牌</label>
+                    </div>
+
+
+                    <!--起始城市-->
+                    <div class="input-field col s2">
+                        <select id="startCity" style="width:100%" ng-change="changeStartCity()" ng-model="conStartCity">
+                            <option value="">请选择</option>
+                            <option ng-repeat="startCity in cityList" ng-value=startCity.id>{{startCity.city_name}}</option>
+                        </select>
+                    </div>
+
+                    <!--装车地点-->
+                    <div class="col s2 input-field">
+                        <select id="chooseLocate" ng-model="conLocate" watch material-select>
+                            <option value="" selected>装车地点</option>
+                            <option ng-repeat="locateCity in locateList" ng-value="locateCity.id">{{locateCity.addr_name}}</option>
+                        </select>
+                    </div>
+
+
+                    <!--目的地城市-->
+                    <div class="input-field col s2">
+                        <select id="endCity" style="width:100%" ng-change="changeEndCity(conEndcity)" ng-model="conEndcity">
+                            <option value=""></option>
+                            <option ng-repeat="city in cityList" ng-value="city.id" >{{city.city_name}}</option>
+                        </select>
+                    </div>
+
+                    <!--经销商-->
+                    <div class="input-field col s2">
+                        <select material-select watch id="dealer" ng-model="conReceive" style="width: 100%">
+                            <option value="" disabled selected>经销商</option>
+                            <option ng-repeat="el in receiveList" ng-value="el.id" >{{el.short_name}}</option>
+                        </select>
+                    </div>
+
+                </div>
+
+
+                <!--按钮-->
+                <div class="col s2 mp-40">
+                    <div class="col s6" >
+                        <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getNotHandoverInfo()">
+                            <i class="mdi mdi-magnify"></i>
+                        </a>
+                    </div>
+                    <div class="col s6 center-align">
+                        <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
+                            <i class="mdi mdi-cloud-download"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!--未返还车辆   临时数组-->
+            <div class="row col s12 bold">
+                <div class="col s12">
+                    <div class="col s1">
+                        未返还车辆:{{getNum}}
+                    </div>
+                    <div class="col s11">
+                        <div class="col s11">
+                            <div class="chip" ng-repeat="el in ArrayList">
+                                {{el.vin}}
+                                <i class="close  mdi mdi-window-close look_icon grey-text lighten-1" style="cursor: pointer"  ng-click="deleteSingle(el,ArrayList)"></i>
+                            </div>
+                        </div>
+                        <div class="col s1 right-align" ng-show="ArrayList.length!==0">
+                            <a class="btn-floating btn-small waves-light waves-effect cyan lighten-2  btn vc-center" ng-click="addArr()">
+                                <i class="mdi mdi-check"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- 下部分：检索结果显示区域 -->
+            <div class="row col s12" >
+                <div class="divider cyan" style="height: 2px;"></div>
+                <table class="bordered striped centered">
+                    <thead class="blue-grey lighten-5">
+                    <tr class="grey-text text-darken-2">
+                        <th>VIN</th>
+                        <th>品牌</th>
+                        <th>委托方</th>
+                        <th>调度编号</th>
+                        <th>路线</th>
+                        <th>发运地</th>
+                        <th>经销商</th>
+                        <th>司机</th>
+                        <th>货车牌号</th>
+                        <th>计划执行时间</th>
+                        <th>送达时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="el in notHandoverArray" class="grey-text text-darken-1">
+                        <td>{{el.vin}}</td>
+                        <td>{{el.make_name}}</td>
+                        <td>{{el.e_short_name}}</td>
+                        <td>{{el.dp_route_task_id}}</td>
+                        <td>{{el.route_start}}--{{el.route_end}}</td>
+                        <td>{{el.addr_name}}</td>
+                        <td>{{el.r_short_name}}</td>
+                        <td>{{el.drive_name}}</td>
+                        <td>{{el.truck_num }}</td>
+                        <td>{{el.task_plan_date |date:'yyyy-MM-dd'}}</td>
+                        <td>{{el.arrive_date |date:'yyyy-MM-dd hh:mm'}}</td>
+                        <!-- 显示画面按钮 -->
+                        <td class="operation">
+                            <a  ng-click="openNotHandOverDetail(el.id)" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ></i></a>
+                            <a  ng-click="getArr(el)" style="font-size: 1.5rem;cursor: pointer"><i class="mdi mdi-plus look_icon cyan-text lighten-1"></i></a>
+                        </td>
+                    </tr>
+                    <tr ng-if="notHandoverArray.length==0&&conPlanTimeStart!==undefined&&conPlanTimeEnd!==undefined">
+                        <td colspan="12">暂无数据</td>
+                    </tr>
+                    <tr ng-if="conPlanTimeStart==undefined||conPlanTimeEnd==undefined&&notHandoverArray.length==0">
+                        <td colspan="12"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;计划执行时间为必填项</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <!-- 上下页按钮 -->
+            <div class="paging_box col s12">
+                <div class="right">
+                    <a class="waves-light waves-effect cyan lighten-1 btn  "  id="pre"   ng-click="preBtn()">
+                        上一页
+                    </a>
+                    <a class="waves-light waves-effect cyan lighten-1 btn " id="next"  ng-click="nextBtn()">
+                        下一页
                     </a>
                 </div>
             </div>
 
         </div>
     </div>
-
-
-    <!-- 下部分：检索结果显示区域 -->
-    <div class="row col s12" >
-        <div class="divider cyan" style="height: 2px;"></div>
-        <table class="bordered striped centered">
-            <thead class="blue-grey lighten-5">
-            <tr class="grey-text text-darken-2">
-                <th>VIN</th>
-                <th>品牌</th>
-                <th>委托方</th>
-                <th>调度编号</th>
-                <th>路线</th>
-                <th>发运地</th>
-                <th>经销商</th>
-                <th>司机</th>
-                <th>货车牌号</th>
-                <th>计划执行时间</th>
-                <th>送达时间</th>
-                <th>操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="el in notHandoverArray" class="grey-text text-darken-1">
-                <td>{{el.vin}}</td>
-                <td>{{el.make_name}}</td>
-                <td>{{el.e_short_name}}</td>
-                <td>{{el.dp_route_task_id}}</td>
-                <td>{{el.route_start}}--{{el.route_end}}</td>
-                <td>{{el.addr_name}}</td>
-                <td>{{el.r_short_name}}</td>
-                <td>{{el.drive_name}}</td>
-                <td>{{el.truck_num }}</td>
-                <td>{{el.task_plan_date |date:'yyyy-MM-dd'}}</td>
-                <td>{{el.arrive_date |date:'yyyy-MM-dd hh:mm'}}</td>
-                <!-- 显示画面按钮 -->
-                <td class="operation">
-                    <a  ng-click="openNotHandOverDetail(el.id)" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ></i></a>
-                    <a  ng-click="getArr(el)" style="font-size: 1.5rem;cursor: pointer"><i class="mdi mdi-plus look_icon cyan-text lighten-1"></i></a>
-                </td>
-            </tr>
-            <tr ng-if="notHandoverArray.length==0&&conPlanTimeStart!==undefined&&conPlanTimeEnd!==undefined">
-                <td colspan="12">暂无数据</td>
-            </tr>
-            <tr ng-if="conPlanTimeStart==undefined||conPlanTimeEnd==undefined&&notHandoverArray.length==0">
-                <td colspan="12"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;计划执行时间为必填项</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-
-    <!-- 上下页按钮 -->
-    <div class="paging_box col s12">
-        <div class="right">
-            <a class="waves-light waves-effect cyan lighten-1 btn  "  id="pre"   ng-click="preBtn()">
-                上一页
-            </a>
-            <a class="waves-light waves-effect cyan lighten-1 btn " id="next"  ng-click="nextBtn()">
-                下一页
-            </a>
-        </div>
-    </div>
-
 </div>
+
 
 
 <!--显示 未交接单 数据详情-->
@@ -260,12 +377,13 @@
 
 
 <!--批量交接 模态框-->
+<!--
 <div id="addSettlementArr" class="modal">
 
-    <!--   Header 题目  显示交接单-->
+    &lt;!&ndash;   Header 题目  显示交接单&ndash;&gt;
     <div class="cyan lighten-1 white-text center-align modal_title" >显示交接单</div>
 
-    <!--body-->
+    &lt;!&ndash;body&ndash;&gt;
     <div class="modal-content">
         <div class="row col s12">
 
@@ -282,7 +400,7 @@
                 <div class="col s6 left-align mp-20" ng-repeat="list in  ArrayList">车辆VIN:{{list.vin}}</div>
             </div>
 
-           <!--序号   交接单收到日期-->
+           &lt;!&ndash;序号   交接单收到日期&ndash;&gt;
             <div class="col s12 colHeight">
                 <div class="col s6 input-field padding">
                     <input type="number" ng-model="addNumberId" id="addNumberId" name="addNumberId"  required>
@@ -295,7 +413,7 @@
                 </div>
             </div>
 
-            <!--备注-->
+            &lt;!&ndash;备注&ndash;&gt;
             <div class="col s12 mp-10 colHeight">
                 <div class="col s12 input-field">
                     <input id="addRemark" name="remark"  ng-model="newRemark" type="text">
@@ -312,4 +430,4 @@
         <a class=" modal-action modal-close waves-effect waves-light grey lighten-1 btn"  >取消 </a>
         <button class="btn waves-light waves-effect cyan lighten-2"  ng-click="addSettlementItem()" name="action" style="margin-left: 10px">确定</button>
     </div>
-</div>
+</div>-->

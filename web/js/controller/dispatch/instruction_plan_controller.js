@@ -1906,6 +1906,36 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         })
     };
 
+
+    $scope.startCityMod = function (id){
+        // 根据卡片信息查询起始目的地信息
+        _basic.get($host.api_url + "/notCompletedDpDemand?routeStartId=" +id).then(function (data) {
+            if (data.success === true) {
+                $scope.startCityModList = data.result;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+        $(".modal").modal();
+        $('#startCityMod').modal('open');
+    }
+    $scope.endCityMod = function (id){
+        // 根据卡片信息查询起始目的地信息
+        _basic.get($host.api_url + "/notCompletedDpDemand?routeEndId=" +id).then(function (data) {
+            if (data.success === true) {
+                $scope.endCityModList = data.result;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+        $(".modal").modal();
+        $('#endCityMod').modal('open');
+    }
+
+
+
     // 获取数据
     function queryData() {
         truckDispatchCount();

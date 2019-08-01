@@ -395,6 +395,103 @@
 </div>
 
 
+
+<!--点击起始城市 模态框-->
+<div id="startCityMod" class="modal modal-fixed-footer" style="width: 72%;">
+    <div class="modal-content center" style="padding: 0;">
+
+
+        <!--头部-->
+        <div class="row col s12 vc-center cyan bold fz22 white-text" style="height: 80px;">
+
+            <!--起始--目的-->
+            <div class="col s12 vc-center">
+               ( {{startCityModList[0].route_start}})起始地发运任务
+            </div>
+
+
+        </div>
+
+        <!--模态框内信息卡片-->
+        <div class="row col s12" style="width: 94%;margin-left: 3%">
+            <div class="col s4" ng-repeat="transport in startCityModList" >
+                <div class="card-panel white "  style="padding: 0">
+                    <div class="row white-text setting_shipments_title vc-center" ng-class="{'dis_bgc':transport.demand_status != 1}"
+                         style="padding: 8px;height: 50px;margin-bottom: 12px;background-color:rgb(77,208,225);">
+                        <div class="col s12 center fz17">
+                            <p class="col s12"><span >{{transport.addr_name}}</span>&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;<span>{{transport.short_name}}</span></p>
+                        </div>
+                    </div>
+                    <div class="row fz15" ng-class="{'dis_txt':transport.demand_status != 1}">
+                        <div class="col s7" style="margin-bottom: 12px" >
+                            <p><span >{{transport.date_id}}</span></p>
+                         </div>
+                        <div class="col s5" style="margin-bottom: 12px">
+                            <p><span style="color: rgb(229,115,115)" >{{transport.plan_count}}/{{transport.pre_count}}</span>&nbsp;</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--确定按钮-->
+    <div class="modal-footer vc-center">
+        <button class="modal-action modal-close btn waves-light waves-effect cyan lighten-1" type="button">确定</button>
+    </div>
+</div>
+
+<!--点击目的城市 模态框-->
+<div id="endCityMod" class="modal modal-fixed-footer" style="width: 72%;">
+    <div class="modal-content center" style="padding: 0;">
+
+
+        <!--头部-->
+        <div class="row col s12 vc-center cyan bold fz22 white-text" style="height: 80px;">
+
+            <!--起始--目的-->
+            <div class="col s12 vc-center">
+                ({{endCityModList[0].route_start}})目的地发运任务
+            </div>
+
+
+        </div>
+
+        <!--模态框内信息卡片-->
+        <div class="row col s12" style="width: 94%;margin-left: 3%">
+            <div class="col s4" ng-repeat="transport in endCityModList" >
+                <div class="card-panel white "  style="padding: 0">
+                    <div class="row white-text setting_shipments_title vc-center" ng-class="{'dis_bgc':transport.demand_status != 1}"
+                         style="padding: 8px;height: 50px;margin-bottom: 12px;background-color:rgb(77,208,225);">
+                        <div class="col s12 center fz17">
+                            <p class="col s12"><span >{{transport.addr_name}}</span>&emsp;<span class="mdi mdi-arrow-right"></span>&emsp;<span>{{transport.short_name}}</span></p>
+                        </div>
+                    </div>
+                    <div class="row fz15" ng-class="{'dis_txt':transport.demand_status != 1}">
+                        <div class="col s7" style="margin-bottom: 12px" >
+                            <p><span >{{transport.date_id}}</span></p>
+                        </div>
+                        <div class="col s5" style="margin-bottom: 12px">
+                            <p><span style="color: rgb(229,115,115)" >{{transport.plan_count}}/{{transport.pre_count}}</span>&nbsp;</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--确定按钮-->
+    <div class="modal-footer vc-center">
+        <button class="modal-action modal-close btn waves-light waves-effect cyan lighten-1" type="button">确定</button>
+    </div>
+</div>
+
+
+
 <!--画面渲染-->
 <div class="instruction_plan">
     <div class="row">
@@ -426,9 +523,11 @@
                         <div class="row cyan lighten-2 white-text setting_shipments_title vc-center"
                              style="padding: 10px;height: 42px">
                             <div class="col s12" style="padding: 0;">
-                                <h6 class="white-text fz16" style="font-weight:bold;margin: 0">{{car.city_route_start}}&emsp;
+                                <h6 class="white-text fz16" style="font-weight:bold;margin: 0;cursor: pointer">
+                                    <span ng-click="startCityMod(car.route_start_id)">&emsp; {{car.city_route_start}}&emsp;</span>
+
                                     <span style="font-size: 1.2rem" class="mdi mdi-arrow-right"></span>
-                                    <span>&emsp;{{car.city_route_end}}</span>
+                                    <span ng-click="endCityMod(car.route_end_id)">&emsp;{{car.city_route_end}}</span>
                                 </h6>
                             </div>
 

@@ -358,6 +358,15 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                     swal(carDetailsData.msg, "", "error");
                 }
             });
+            _basic.get($host.api_url + '/cityTruckDispatchCount?dispatchFlag=1&taskStart=0&taskEnd=0').then(function (locateData) {
+                if (locateData.success === true) {
+                    $scope.truckIdCount = locateData.result[0].truck_id;
+                    $scope.truckNumberCount = locateData.result[0].truck_number;
+                }
+                else {
+                    swal(locateData.msg, "", "error");
+                }
+            });
         }
         else if(stus==2){
             _basic.get($host.api_url + "/truckDispatch?dispatchFlag=1&currentCity=0").then(function (carDetailsData) {
@@ -382,6 +391,15 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 }
                 else {
                     swal(carDetailsData.msg, "", "error");
+                }
+            });
+            _basic.get($host.api_url + '/cityTruckDispatchCount?dispatchFlag=1&currentCity=0').then(function (locateData) {
+                if (locateData.success === true) {
+                    $scope.truckIdCount = locateData.result[0].truck_id;
+                    $scope.truckNumberCount = locateData.result[0].truck_number;
+                }
+                else {
+                    swal(locateData.msg, "", "error");
                 }
             });
         }

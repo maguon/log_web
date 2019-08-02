@@ -77,10 +77,20 @@
                 <th data-field="">车型</th>
                 <th data-field="">货车牌号</th>
                 <th data-field="">所属公司</th>
+                <th data-field="">洗车费</th>
+                <th data-field="">拖车费</th>
+                <th data-field="">商品车提车费</th>
+                <th data-field="">地跑费</th>
+                <th data-field="">带路费</th>
+                <th data-field="">货车停车费</th>
+                <th data-field="">商品车加油费</th>
+                <th data-field="">商品车停车费</th>
+                <th data-field="">其它费用</th>
                 <th data-field="">维修费</th>
                 <th data-field="">配件费</th>
                 <th data-field="">保养费</th>
                 <th data-field="">过路费</th>
+                <th data-field="">货车事故个人/公司</th>
                 <th data-field="">违章个人/公司</th>
                 <th data-field="">货车油费</th>
                 <th data-field="">货车尿素费</th>
@@ -96,17 +106,27 @@
                 <td>{{truckTypeList[car.truck_type-1].truck_type}}</td>
                 <td>{{car.truck_num==null?0:car.truck_num}}</td>
                 <td>{{car.company_name==null?0:car.company_name}}</td>
+                <td>{{car.total_clean_fee==null?0:car.total_clean_fee}}</td>
+                <td>{{car.total_trailer_fee==null?0:car.total_trailer_fee}}</td>
+                <td>{{car.car_parking_fee==null?0:car.car_parking_fee}}</td>
+                <td>{{car.total_run_fee==null?0:car.total_run_fee}}</td>
+                <td>{{car.lead_fee==null?0:car.lead_fee}}</td>
+                <td>{{car.truck_parking_fee==null?0:car.truck_parking_fee}}</td>
+                <td>{{car.car_oil_fee==null?0:car.car_oil_fee}}</td>
+                <td>{{car.car_total_fee==null?0:car.car_total_fee}}</td>
+                <td>{{car.other_fee==null?0:car.other_fee}}</td>
                 <td>{{car.repair_fee==null?0:car.repair_fee}}</td>
                 <td>{{car.parts_fee==null?0:car.parts_fee}}</td>
                 <td>{{car.maintain_fee==null?0:car.maintain_fee}}</td>
                 <td>{{car.etc_fee==null?0:car.etc_fee}}</td>
+                <td>{{car.accident_under_fee==null?0:car.accident_under_fee}}/{{car.accident_company_fee==null?0:car.accident_company_fee}}</td>
                 <td>{{car.peccancy_under_fee==null?0:car.peccancy_under_fee}}/{{car.peccancy_company_fee==null?0:car.peccancy_company_fee}}</td>
                 <td>{{car.oil_fee==null?0:car.oil_fee}}</td>
                 <td>{{car.urea_fee==null?0:car.urea_fee}}</td>
                 <td>{{car.insure_total_money==null?0:car.insure_total_money}}</td>
             </tr>
             <tr ng-if="carCostList.length==0">
-                <td colspan="12">暂无数据</td>
+                <td colspan="22">暂无数据</td>
             </tr>
             </tbody>
 

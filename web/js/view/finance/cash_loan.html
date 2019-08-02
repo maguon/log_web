@@ -146,8 +146,8 @@
                                 <td class="red-text" >{{oil.urea_money}}</td>
                                 <td style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis">{{oil.oil_address}}</td>
                                 <td>{{oil.payment_status==0?'未处理':oil.payment_status==1?'已付款':'驳回'}}</td>
-                                <td>{{oil.created_on | date:'yyyyMMdd'}}</td>
-                                <td>{{oil.grant_date_id}}</td>
+                                <td>{{oil.created_on | date:'yyyy-MM-dd'}}</td>
+                                <td>{{oil.oil_date| date:'yyyy-MM-dd'}}</td>
                                 <td>{{oil.bank_number}}</td>
                                 <td>{{oil.bank_name}}</td>
                                 <td>{{oil.bank_user_name}}</td>
@@ -166,7 +166,7 @@
                                 </td>
                             </tr>
                             <tr ng-if="oilList.length==0">
-                                <td colspan="19">暂无数据</td>
+                                <td colspan="17">暂无数据</td>
                             </tr>
                             </tbody>
                         </table>
@@ -321,8 +321,8 @@
                                 <td class="red-text" >{{el.parts_money}}</td>
                                 <td class="red-text" >{{el.maintain_money}}</td>
                                 <td>{{el.payment_status==0?'未处理':el.payment_status==1?'已付款':'驳回'}}</td>
-                                <td>{{el.created_on | date:'yyyyMMdd'}}</td>
-                                <td>{{el.grant_date_id}}</td>
+                                <td>{{el.created_on | date:'yyyy-MM-dd'}}</td>
+                                <td>{{el.repair_date | date:'yyyy-MM-dd'}}</td>
                                 <td>{{el.bank_number}}</td>
                                 <td>{{el.bank_name}}</td>
                                 <td>{{el.bank_user_name}}</td>
@@ -479,8 +479,8 @@
                                 <td>{{etc.truck_num}}</td>
                                 <td class="red-text" >{{etc.etc_fee}}</td>
                                 <td>{{etc.payment_status==0?'未处理':etc.payment_status==1?'已付款':'驳回'}}</td>
-                                <td>{{etc.created_on | date:'yyyyMMdd'}}</td>
-                                <td>{{etc.grant_date_id}}</td>
+                                <td>{{etc.created_on | date:'yyyy-MM-dd'}}</td>
+                                <td>{{etc.etc_date |date:'yyyy-MM-dd'}}</td>
                                 <td>{{etc.bank_number}}</td>
                                 <td>{{etc.bank_name}}</td>
                                 <td>{{etc.bank_user_name}}</td>

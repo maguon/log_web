@@ -102,7 +102,7 @@
             <th width="200" class="center-align">商品车加油</th>
             <th width="200" class="center-align">商品车停车</th>
             <th width="200" class="center-align">货车停车费</th>
-
+            <th width="200" class="center-align">其它费用</th>
         </tr>
         </thead>
         <tbody style=" display:block;height:370px;overflow-y:scroll;">
@@ -152,6 +152,7 @@
            <td width="200" class="center-align">{{driver.car_oil_fee }}</td>
            <td width="200" class="center-align">{{driver.car_parking_total_fee }}</td>
            <td width="200" class="center-align">{{driver.truck_parking_fee}}</td>
+           <td width="200" class="center-align">{{driver.other_fee}}</td>
        </tr>
         </tbody>
     </table>
@@ -205,12 +206,13 @@
                 <th>商品车加油</th>
                 <th>商品车停车</th>
                 <th>货车停车费</th>
+                <th>其它费用</th>
             </tr>
             </thead>
 
             <tbody style="height: 20px;width: 100%;overflow-y: scroll" >
             <tr class="grey-text text-darken-1">
-                <td colspan="44"><span style="letter-spacing: 2px">暂无数据</span></td>
+                <td colspan="45"><span style="letter-spacing: 2px">暂无数据</span></td>
             </tr>
             </tbody>
         </table>

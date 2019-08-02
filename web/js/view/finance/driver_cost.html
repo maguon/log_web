@@ -69,6 +69,7 @@
                 <th data-field="">货车停车费</th>
                 <th data-field="">商品车加油费</th>
                 <th data-field="">商品车停车费</th>
+                <th data-field="">其它费用</th>
                 <th data-field="">货车油费</th>
                 <th data-field="">货车尿素费</th>
                 <th data-field="">违章司机</th>
@@ -93,6 +94,7 @@
                 <td>{{driveInfo.truck_parking_fee==null?0:driveInfo.truck_parking_fee}}</td>
                 <td>{{driveInfo.car_oil_fee==null?0:driveInfo.car_oil_fee}}</td>
                 <td>{{driveInfo.car_total_fee==null?0:driveInfo.car_total_fee}}</td>
+                <td>{{driveInfo.other_fee==null?0:driveInfo.other_fee}}</td>
                 <td>{{driveInfo.oil_fee==null?0:driveInfo.oil_fee}}</td>
                 <td>{{driveInfo.urea_fee==null?0:driveInfo.urea_fee}}</td>
                 <td>{{driveInfo.peccancy_under_fee==null?0:driveInfo.peccancy_under_fee}}</td>
@@ -106,10 +108,10 @@
 
             </tr>
             <tr ng-if="driveList.length==0&&starTime!==undefined&&endTime!==undefined">
-                <td colspan="20">暂无数据</td>
+                <td colspan="21">暂无数据</td>
             </tr>
             <tr ng-if="(starTime==undefined||endTime==undefined)&&driveList.length==0">
-                <td colspan="20"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
+                <td colspan="21"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
             </tr>
             </tbody>
         </table>

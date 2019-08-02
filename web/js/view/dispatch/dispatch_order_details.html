@@ -213,8 +213,8 @@
                         </div>
                     </div>
                 </div>
-
-
+            </div>
+            <div class="row col s12" ng-if="taskList.length!==0" style="width: 90%; margin-left:5%; margin-top:10px;">
                 <div class="col s10 input-field">
                     <input type="text" ng-model="dispatchOrderList.remark" id="remark">
                     <label for="remark">备注</label>
@@ -222,10 +222,8 @@
                 <div class="col s2 input-field right-align">
                     <button class="btn waves-light waves-effect cyan lighten-2"  ng-click="putDataItem()" name="action" style="margin-left: 10px">确定</button>
                 </div>
-
-
-
             </div>
+
             <div class="row col s12" ng-if="taskList.length==0">
                 <div class="card-content">
                     <div style="height:200px;line-height: 200px;text-align: center">

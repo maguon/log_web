@@ -4076,7 +4076,7 @@ button.btn-floating {
     height: 125%;
     width: 100%;
     background: #000;
-    display: none !important;
+    display: none;
     will-change: opacity; }
 
 .modal.modal-fixed-footer {

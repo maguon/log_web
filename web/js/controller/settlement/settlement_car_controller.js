@@ -634,6 +634,8 @@ app.controller("settlement_car_controller", ["$scope","$rootScope","$state","$st
             if (data.success == true) {
                 $scope.entrustInvoiceId = data.result.entrustInvoiceId;
                 $scope.$apply(function () {
+                    $(".modal").modal();
+                    $("#invoiceCarModel").modal("close");
                     $("#file_upload_form1").disabled=true;
                     $("#buttonImport1").attr("disabled",false);
                      $state.go('invoice_detail', {

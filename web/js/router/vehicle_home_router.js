@@ -262,7 +262,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/truck/truck_repair_list.html",
             controller:'truck_repair_list_controller'
         })
-
+        .state("social_security",{
+            url:"/social_security",
+            params: {"from": null},
+            templateUrl: "js/view/truck/social_security.html",
+            controller:'social_security_controller'
+        })
 
         .state("add_storage_car", {
             url:"/add_storage_car/vin/{vin}?from",

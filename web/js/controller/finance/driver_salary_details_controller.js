@@ -50,7 +50,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
             if (data.success === true) {
                 $scope.salaryDetails = data.result[0];
                 $scope.user_id = data.result[0].user_id;
-                $scope.socialSecurityFee = data.result[0].social_security_fee==null?0: data.result[0].social_security_fee;
+               /* $scope.socialSecurityFee = data.result[0].social_security_fee==null?0: data.result[0].social_security_fee;*/
                 $scope.otherDeductions = data.result[0].other_fee==null?0: data.result[0].other_fee;
                 $scope.foodFee  = data.result[0].food_fee==null?0: data.result[0].food_fee;
                 $scope.singleFee = data.result[0].loan_fee==null?0: data.result[0].loan_fee;
@@ -70,6 +70,22 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                 swal(data.msg, "", "error");
             }
         });
+        _basic.get($host.api_url + "/driveSocialSecurity?"+ _basic.objToUrl({
+            driveId:driveId,
+            yMonth:monthId
+        })).then(function (data) {
+            if (data.success === true) {
+                if( data.result.length==0){
+                    $scope.socialSecurityFee=0.00;
+                }
+                else {
+                    $scope.socialSecurityFee = data.result[0].social_security_fee;
+                }
+
+            }
+
+        })
+
     };
 
     // 获取当前司机结算任务
@@ -261,7 +277,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                 "peccancyUnderFee":$scope.peccancyTotalMoney,
                 "exceedOilFee": $scope.exceedOilTotalMoney,
                 "refundFee":$scope.Reimbursement,
-                "socialSecurityFee": $scope.socialSecurityFee,
+              /*  "socialSecurityFee": $scope.socialSecurityFee,*/
                 "otherFee": $scope.otherDeductions,
                 foodFee:$scope.foodFee,
                 loanFee:$scope.singleFee,
@@ -284,7 +300,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
         else {
             _basic.put($host.api_url + "/user/" + userId + "/driveSalary/" + id + "/driveActualSalary",{
                 refundFee:$scope.Reimbursement,
-                socialSecurityFee:$scope.socialSecurityFee,
+               /* socialSecurityFee:$scope.socialSecurityFee,*/
                 otherFee: $scope.otherDeductions,
                 foodFee:$scope.foodFee,
                 loanFee:$scope.singleFee,
@@ -335,7 +351,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                             "peccancyUnderFee":$scope.peccancyTotalMoney,
                             "exceedOilFee": $scope.exceedOilTotalMoney,
                             "refundFee":$scope.Reimbursement,
-                            "socialSecurityFee": $scope.socialSecurityFee,
+                           /* "socialSecurityFee": $scope.socialSecurityFee,*/
                             "otherFee": $scope.otherDeductions,
                             foodFee:$scope.foodFee,
                             loanFee:$scope.singleFee,
@@ -358,7 +374,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                     else {
                         _basic.put($host.api_url + "/user/" + userId + "/driveSalary/" + id + "/driveActualSalary",{
                             refundFee:$scope.Reimbursement,
-                            socialSecurityFee:$scope.socialSecurityFee,
+                          /*  socialSecurityFee:$scope.socialSecurityFee,*/
                             otherFee: $scope.otherDeductions,
                             foodFee:$scope.foodFee,
                             loanFee:$scope.singleFee,

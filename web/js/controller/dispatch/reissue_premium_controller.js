@@ -33,7 +33,7 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
             }
         });
 
-        _basic.get($host.api_url + "/truckBase").then(function (data) {
+        _basic.get($host.api_url + "/truckBase?truckType=1").then(function (data) {
             if (data.success === true) {
                 $scope.truckList = data.result;
                 $('#truckNumber').select2({

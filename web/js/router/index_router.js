@@ -723,6 +723,14 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/truck/operating_vehicles.html",
             controller:'operating_vehicles_controller'
         })
+        .state("social_security",{
+            url:"/social_security",
+            params: {"from": null},
+            templateUrl: "js/view/truck/social_security.html",
+            controller:'social_security_controller'
+        })
+
+
 
         // 质损
         .state("damage_declaration",{

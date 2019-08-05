@@ -923,6 +923,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/system_settings/setting_settlement_outsourcing.html",
             controller:'setting_settlement_outsourcing_controller'
         })
-
+        .state("social_security",{
+            url:"/social_security",
+            params: {"from": null},
+            templateUrl: "js/view/truck/social_security.html",
+            controller:'social_security_controller'
+        })
 
 }]);

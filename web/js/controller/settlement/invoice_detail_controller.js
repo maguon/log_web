@@ -16,7 +16,24 @@ app.controller("invoice_detail_controller", ["$scope","$rootScope","$state","$st
         $state.go($stateParams.from,{from:"invoice_detail"}, {reload: true})
     };
 
-
+    // 跳转
+    $scope.importFile = function () {
+        $('ul.tabWrap li').removeClass("active");
+        $(".tab_box").removeClass("active");
+        $(".tab_box").hide();
+        $('ul.tabWrap li.importFile ').addClass("active");
+        $("#importFile").addClass("active");
+        $("#importFile").show();
+    };
+    $scope.lookMyselfFile = function () {
+        $('ul.tabWrap li').removeClass("active");
+        $(".tab_box").removeClass("active");
+        $(".tab_box").hide();
+        $('ul.tabWrap li.lookMyselfFile ').addClass("active");
+        $("#lookMyselfFile").addClass("active");
+        $("#lookMyselfFile").show();
+    };
+    $scope.importFile  ();
 
     function getInvoice(){
         _basic.get($host.api_url+ '/entrustInvoice?entrustInvoiceId='+id).then(function (data) {

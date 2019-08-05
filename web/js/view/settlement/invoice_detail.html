@@ -6,9 +6,21 @@
         </a>
         <h4 class="center-align cyan-text text-lighten-1">发票结算详情</h4>
     </div>
-    <div class="divider cyan" style="height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
 
-    <div class="row" style="width: 90%;maidrgin: 0 auto">
+    <div class="modal-content grey-text text-darken-2">
+        <div class="row no-marBottom" ul-tabs style="overflow: hidden">
+            <div class="col s12">
+                <ul class="tabWrap grey lighten-4">
+                    <li class="tab col s6 importFile vc-center" ng-click="importFile()">修改金额</li>
+                    <li class="tab col s6 lookMyselfFile vc-center" ng-click="lookMyselfFile()">查看车辆</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="importFile"  class="row tab_box"  style="width: 90%;maidrgin: 0 auto">
 
         <!--详细信息-->
         <div class="col s12"  style="height: 60px">
@@ -26,37 +38,6 @@
                     <p>{{invoiceItem.invoice_status==1?'未处理':'已处理'}}</p>
                 </div>
             </div>
-
-            <div class="col s12 mp-20">
-                <div class="divider cyan" style="height: 2px;"></div>
-                <table class=" bordered striped text_mid">
-                    <thead class="blue-grey lighten-5">
-                    <tr class="grey-text text-darken-2">
-                        <th>VIN</th>
-                        <th>起始城市</th>
-                        <th>目的城市</th>
-                        <th>价格</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="invoice in invoiceList" class="grey-text text-darken-1">
-                        <td>{{invoice.vin}}</td>
-                        <td>{{invoice.route_start}}</td>
-                        <td>{{invoice.route_end}}</td>
-                        <td class="red-text">{{invoice.price}}</td>
-                    </tr>
-                    <tr ng-if="invoiceList.length==0">
-                        <td colspan="4">暂无数据</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-
-
-
-
-
-
 
             <div class="row col s12 mp-20">
 
@@ -121,5 +102,50 @@
 
          </div>
     </div>
+    <div id="lookMyselfFile"  class="row tab_box"  style="width: 90%;maidrgin: 0 auto">
 
+        <!--详细信息-->
+        <div class="col s12"  style="height: 60px">
+            <div class="col s12 center-align cyan-text bold">
+                <div class="col s3">
+                    <p>编号：{{invoiceItem.id}}</p>
+                </div>
+                <div class="col s3">
+                    <p>委托方：{{invoiceItem.short_name}}</p>
+                </div>
+                <div class="col s3">
+                    <p>送达车辆：{{invoiceItem.car_count}}</p>
+                </div>
+                <div class="col s3">
+                    <p>{{invoiceItem.invoice_status==1?'未处理':'已处理'}}</p>
+                </div>
+            </div>
+
+            <div class="col s12 mp-20">
+                <div class="divider cyan" style="height: 2px;"></div>
+                <table class=" bordered striped text_mid">
+                    <thead class="blue-grey lighten-5">
+                    <tr class="grey-text text-darken-2">
+                        <th>VIN</th>
+                        <th>起始城市</th>
+                        <th>目的城市</th>
+                        <th>价格</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="invoice in invoiceList" class="grey-text text-darken-1">
+                        <td>{{invoice.vin}}</td>
+                        <td>{{invoice.route_start}}</td>
+                        <td>{{invoice.route_end}}</td>
+                        <td class="red-text">{{invoice.price}}</td>
+                    </tr>
+                    <tr ng-if="invoiceList.length==0">
+                        <td colspan="4">暂无数据</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
 </div>

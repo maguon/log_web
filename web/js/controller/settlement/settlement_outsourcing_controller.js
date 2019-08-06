@@ -391,7 +391,7 @@ app.controller("settlement_outsourcing_controller", ["_basic","$rootScope", "_co
             cancelButtonText: "取消"
         }).then(function (result) {
             if (result.value) {
-                _basic.delete($host.api_url + "/user/" + userId + "/entrustInvoice/" + id).then(function (data) {
+                _basic.delete($host.api_url + "/user/" + userId + "/settleOuterInvoice/" + id).then(function (data) {
                     if (data.success === true) {
                         searchInvoiceList();
                     }

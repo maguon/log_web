@@ -139,13 +139,13 @@
                         <div class="col s6 left-align">结算车辆数:{{carMsg.settle_car_count}}</div>
                         <div class="col s5 right-align">结算金额:{{carMsg.settle_car_price}}元</div>
                         <div class="col s1 right-align" ng-show="carMsg.settle_car_count!==0&&carMsg.settle_car_count!==''
-                        &&carMsg.settle_car_count!==undefined&&companyId!==undefined&&companyId!==''&&conStatus!==undefiend&&conStatus!==''">
+                        &&carMsg.settle_car_count!==undefined&&companyId!==undefined&&companyId!==''&&conStatus==1">
                             <a class="btn-floating btn-small waves-light waves-effect cyan lighten-2  btn vc-center"  ng-click="addHandover()">
                                 <i class="mdi mdi-plus"></i>
                             </a>
                         </div>
                         <div class="col s1 right-align" ng-show="carMsg.settle_car_count==0||carMsg.settle_car_count==''||
-                        carMsg.settle_car_count==undefiend||companyId==''||conStatus==undefiend||conStatus==''">
+                        carMsg.settle_car_count==undefiend||companyId==''||conStatus==2||conStatus==''||conStatus==undefined">
                             <a class="btn-floating btn-small waves-light waves-effect grey lighten-2  btn vc-center">
                                 <i class="mdi mdi-plus"></i>
                             </a>

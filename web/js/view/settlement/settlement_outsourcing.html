@@ -1,178 +1,454 @@
-<!--委托方结算-->
-<div class="setting_settlement">
 
-    <!--查询条件-->
-    <div class="row">
-        <div class="row grey-text text-darken-1">
-            <div class="col s10">
+<div class="modal-content grey-text text-darken-2">
+    <div class="row no-marBottom" ul-tabs style="overflow: hidden">
+        <div class="col s12">
+            <ul class="tabWrap grey lighten-4">
+                <li class="tab col s6 importFile vc-center" ng-click="importFile()">外协车辆查询</li>
+                <li class="tab col s6 lookMyselfFile vc-center" ng-click="lookMyselfFile()">外协结算</li>
+            </ul>
+        </div>
+        <!--委托方结算-->
+        <div  id="importFile" class="setting_settlement  row tab_box">
+
+            <!--查询条件-->
+            <div class="row">
+                <div class="row grey-text text-darken-1">
+                    <div class="col s10">
+                        <div class="col s12">
+                            <div class="input-field col" style="width: 20%">
+                                <input id="vin_code" type="text" ng-model="vin">
+                                <label for="vin_code">VIN</label>
+                            </div>
+                            <!--指令日期(始)  指令日期(终)-->
+                            <div class="input-field col" style="width: 20%">
+                                <input type="text" ng-model="instruct_starTime" id="instruct_start_time" name="instruct_start_time"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
+                                <label for="instruct_start_time"><span class="red-text">*</span>指令日期(始)</label>
+                            </div>
+
+
+                            <div class="input-field col" style="width: 20%">
+                                <input type="text" ng-model="instruct_endTime" id="instruct_endTime" name="instruct_endTime"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
+                                <label for="instruct_endTime"><span class="red-text">*</span>指令日期(终)</label>
+                            </div>
+                            <!--委托方-->
+                            <div class="input-field col" style="width: 20%">
+                                <select  id="entrust" name="client"  ng-model="entrustId" ng-change="changeCarMake(entrustId)" required style="width: 100%">
+                                    <option value="" disabled selected>请选择</option>
+                                    <option ng-repeat="el in get_entrust" ng-value="el.id" >{{el.short_name}}</option>
+                                </select>
+                            </div>
+
+                            <!--外协公司-->
+                            <div class="input-field col" style="width: 20%">
+                                <select id="truck_company" name="truck_company" material-select watch ng-model="companyId" required>
+                                    <option value="">请选择</option>
+                                    <option ng-repeat="el in companyList" ng-value="el.id">{{el.company_name}}</option>
+                                </select>
+                                <label for="truck_company">外协公司</label>
+                            </div>
+
+
+                            <!--品牌-->
+                            <div class="input-field col s2">
+                                <select  id="car_brand" name="car_brand" material-select watch ng-model="car_brand">
+                                    <option value="">请选择</option>
+                                    <option ng-repeat="el in brandList" ng-value="el.id">{{el.make_name}}</option>
+                                </select>
+                                <label for="car_brand">品牌</label>
+                            </div>
+
+
+
+                            <!--起始城市-->
+                            <div class="input-field col s2">
+                                <select id="startCity" name="startCity" style="width:100%" ng-change="getAddrData()" ng-model="startCity">
+                                    <option value="">请选择</option>
+                                    <option ng-repeat="startCity in cityList" value={{startCity.id}}>{{startCity.city_name}}</option>
+                                </select>
+                            </div>
+
+
+                            <div class="input-field col s2"  ng-show="locateList.length!==0">
+                                <select id="chooseLocate" ng-model="locateId" watch material-select  style="width: 100%">
+                                    <option value="">装车地点</option>
+                                    <option ng-repeat="locateCity in locateList" ng-value="locateCity.id">{{locateCity.addr_name}}</option>
+                                </select>
+                            </div>
+
+                            <div class="input-field col s2"  ng-show="locateList.length==0">
+                                <select  ng-model="locateId" watch material-select>
+                                    <option value="" selected>装车地点</option>
+                                    <option ng-repeat="locateCity in locateList" ng-value="locateCity.id">{{locateCity.addr_name}}</option>
+                                </select>
+                            </div>
+
+
+                            <!--目的城市-->
+                            <div class="input-field col s2"  >
+                                <select id="endCity" name="endCity" material-select watch ng-model="endCity" ng-change="getReceiveMod(endCity)" style="width: 100%">
+                                    <option value="">请选择</option>
+                                    <option ng-repeat="endCity in cityList" value={{endCity.id}}>{{endCity.city_name}}</option>
+                                </select>
+                            </div>
+
+                            <!--经销商-->
+                            <div class="input-field col s2"   ng-show="receiveList.length!==0">
+                                <select material-select watch ng-model="receiveId" id="receiveId" style="width: 100%">
+                                    <option value="" selected>经销商</option>
+                                    <option ng-repeat="receive in receiveList" value={{receive.id}}>{{receive.short_name}}</option>
+                                </select>
+                            </div>
+                            <div class="input-field col s2"  ng-show="receiveList.length==0">
+                                <select material-select watch ng-model="receiveId">
+                                    <option value="" selected>经销商</option>
+                                    <option ng-repeat="receive in receiveList" value={{receive.id}}>{{receive.short_name}}</option>
+                                </select>
+                            </div>
+                            <div class="input-field col s2">
+                                <select id="conStatus" ng-model="conStatus" material-select watch>
+                                    <option value="" selected>请选择</option>
+                                    <option value="1">未处理</option>
+                                    <option value="2">已处理</option>
+                                </select>
+                                <label for="conStatus">状态</label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--按钮-->
+                    <div class="col s2" style="margin-top: 40px">
+                        <div class="col s6" >
+                            <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getSettlement()">
+                                <i class="mdi mdi-magnify"></i>
+                            </a>
+                        </div>
+
+                        <div class="col s6 center-align">
+                            <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
+                                <i class="mdi mdi-cloud-download"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
                 <div class="col s12">
-                    <div class="input-field col" style="width: 20%">
-                        <input id="vin_code" type="text" ng-model="vin">
-                        <label for="vin_code">VIN</label>
+                    <div class="col s12 cyan white-text vc-center fz18" style="height: 60px;border-bottom: 1px solid  #4e84cb;border-top:1px solid  #fff" >
+                        <div class="col s6 left-align">结算车辆数:{{carMsg.settle_car_count}}</div>
+                        <div class="col s5 right-align">结算金额:{{carMsg.settle_car_price}}元</div>
+                        <div class="col s1 right-align" ng-show="carMsg.settle_car_count!==0&&carMsg.settle_car_count!==''
+                        &&carMsg.settle_car_count!==undefined&&companyId!==undefined&&companyId!==''&&conStatus!==undefiend&&conStatus!==''">
+                            <a class="btn-floating btn-small waves-light waves-effect cyan lighten-2  btn vc-center"  ng-click="addHandover()">
+                                <i class="mdi mdi-plus"></i>
+                            </a>
+                        </div>
+                        <div class="col s1 right-align" ng-show="carMsg.settle_car_count==0||carMsg.settle_car_count==''||
+                        carMsg.settle_car_count==undefiend||companyId==''||conStatus==undefiend||conStatus==''">
+                            <a class="btn-floating btn-small waves-light waves-effect grey lighten-2  btn vc-center">
+                                <i class="mdi mdi-plus"></i>
+                            </a>
+                        </div>
                     </div>
-                    <!--指令日期(始)  指令日期(终)-->
-                    <div class="input-field col" style="width: 20%">
-                        <input type="text" ng-model="instruct_starTime" id="instruct_start_time" name="instruct_start_time"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
-                        <label for="instruct_start_time"><span class="red-text">*</span>指令日期(始)</label>
+                    <table class="bordered striped text_mid">
+                        <thead class="blue-grey lighten-5">
+                        <tr class="grey-text text-darken-2">
+                            <th data-field="">VIN</th>
+                            <th data-field="">品牌</th>
+                            <th data-field="">外协公司</th>
+                            <th data-field="">司机</th>
+                            <th data-field="">车牌号</th>
+                            <th data-field="">委托方</th>
+                            <th data-field="">路线</th>
+                            <th data-field="">装车地点</th>
+                            <th data-field="">经销商</th>
+                            <th data-field="">指令时间</th>
+                            <th data-field="">公里数</th>
+                            <th data-field="">价格/公里</th>
+                            <th data-field="">金额</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="settlementInfo in settlementList" class="grey-text text-darken-1">
+                            <td>{{settlementInfo.vin}}</td>
+                            <td>{{settlementInfo.make_name}}</td>
+                            <td>{{settlementInfo.company_name}}</td>
+                            <td>{{settlementInfo.drive_name}}</td>
+                            <td>{{settlementInfo.truck_num}}</td>
+                            <td>{{settlementInfo.e_short_name}}</td>
+                            <td>{{settlementInfo.route_start}}-{{settlementInfo.route_end}}</td>
+                            <td>{{settlementInfo.addr_name}}</td>
+                            <td>{{settlementInfo.r_short_name}}</td>
+                            <td>{{settlementInfo.order_date | date:'yyyy-MM-dd'}}</td>
+                            <td>{{settlementInfo.distance}}</td>
+                            <td>{{settlementInfo.fee}} </td>
+                            <td ng-if="settlementInfo.fee!==null&&settlementInfo.distance!==null">{{settlementInfo.distance*settlementInfo.fee |number:2}}</td>
+                            <td ng-if="settlementInfo.fee==null||settlementInfo.distance==null"></td>
+                        </tr>
+                        <tr ng-if="settlementList.length==0&&instruct_starTime!==undefined&&instruct_endTime!==undefined">
+                            <td colspan="13">暂无数据</td>
+                        </tr>
+                        <tr ng-if="instruct_starTime==undefined||instruct_endTime==undefined&&settlementList.length==0">
+                            <td colspan="13"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!--分页-->
+            <div class="row">
+                <div class="paging_box col s12">
+                    <div class="right">
+                        <a class="waves-light waves-effect cyan lighten-1 btn" id="prebtn" ng-click="pre_btn()">
+                            上一页
+                        </a>
+                        <a class="waves-light waves-effect cyan lighten-1 btn" id="nextbtn" ng-click="next_btn()">
+                            下一页
+                        </a>
                     </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="lookMyselfFile" class="invoice row tab_box">
 
 
-                    <div class="input-field col" style="width: 20%">
-                        <input type="text" ng-model="instruct_endTime" id="instruct_endTime" name="instruct_endTime"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
-                        <label for="instruct_endTime"><span class="red-text">*</span>指令日期(终)</label>
-                    </div>
-                    <!--委托方-->
-                    <div class="input-field col" style="width: 20%">
-                        <select  id="client" name="client"  ng-model="entrustId" ng-change="changeCarMake(entrustId)" required style="width: 100%">
-                            <option value="" disabled selected>请选择</option>
-                            <option ng-repeat="el in get_entrust" ng-value="el.id" >{{el.short_name}}</option>
-                        </select>
-                    </div>
+            <!-- 上部分：检索条件输入区域 -->
+
+
+            <!--渲染条件-->
+            <div class="row col s12">
+
+                <div class="col s10">
+
 
                     <!--外协公司-->
-                    <div class="input-field col" style="width: 20%">
-                        <select id="truck_company" name="truck_company" material-select watch ng-model="companyId" required>
+                    <div class="input-field col s6">
+                        <select id="conCompany"  material-select watch ng-model="conCompany" required>
                             <option value="">请选择</option>
                             <option ng-repeat="el in companyList" ng-value="el.id">{{el.company_name}}</option>
                         </select>
                         <label for="truck_company">外协公司</label>
                     </div>
-
-
-                    <!--品牌-->
-                    <div class="input-field col" style="width: 20%">
-                        <select  id="car_brand" name="car_brand" material-select watch ng-model="car_brand">
-                            <option value="">请选择</option>
-                            <option ng-repeat="el in brandList" ng-value="el.id">{{el.make_name}}</option>
+                    <!--状态-->
+                    <div class="input-field col s6">
+                        <select id="status" ng-model="status" material-select watch>
+                            <option value="" selected>请选择</option>
+                            <option value="1">未处理</option>
+                            <option value="2">已处理</option>
                         </select>
-                        <label for="car_brand">品牌</label>
+                        <label for="status">状态</label>
                     </div>
+                </div>
 
 
-
-                    <!--起始城市-->
-                    <div class="input-field col" style="width: 20%">
-                        <select id="startCity" name="startCity" style="width:100%" ng-change="getAddrData()" ng-model="startCity">
-                            <option value="">请选择</option>
-                            <option ng-repeat="startCity in cityList" value={{startCity.id}}>{{startCity.city_name}}</option>
-                        </select>
+                <!--按钮区域-->
+                <div class="col s2 mp-10">
+                    <!--查询按钮-->
+                    <div class="col s12 center-align" >
+                        <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getInvoice()">
+                            <i class="mdi mdi-magnify"></i>
+                        </a>
                     </div>
-
-
-                    <div class="input-field col" style="width: 20%">
-                        <select id="chooseLocate" name="chooseLocate" ng-model="locateId" watch material-select>
-                            <option value="" selected>装车地点</option>
-                            <option ng-repeat="locateCity in locateList" ng-value="locateCity.id">{{locateCity.addr_name}}</option>
-                        </select>
-                    </div>
-
-                    <!--目的城市-->
-                    <div class="input-field col" style="width: 20%">
-                        <select id="endCity" name="endCity" material-select watch ng-model="endCity" ng-change="getReceiveMod(endCity)">
-                            <option value="">请选择</option>
-                            <option ng-repeat="endCity in cityList" value={{endCity.id}}>{{endCity.city_name}}</option>
-                        </select>
-                    </div>
-
-                    <!--经销商-->
-                    <div class="input-field col" style="width: 20%" ng-show="receiveList.length!==0">
-                        <select material-select watch ng-model="receiveId" id="receiveId" style="width: 100%">
-                            <option value="" selected>经销商</option>
-                            <option ng-repeat="receive in receiveList" value={{receive.id}}>{{receive.short_name}}</option>
-                        </select>
-                    </div>
-                    <div class="input-field col s2" style="width: 20%" ng-show="receiveList.length==0">
-                        <select material-select watch ng-model="receiveId">
-                            <option value="" selected>经销商</option>
-                            <option ng-repeat="receive in receiveList" value={{receive.id}}>{{receive.short_name}}</option>
-                        </select>
-                    </div>
-
                 </div>
 
             </div>
 
-            <!--按钮-->
-            <div class="col s2" style="margin-top: 40px">
-                <div class="col s6" >
-                    <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getSettlement()">
-                        <i class="mdi mdi-magnify"></i>
-                    </a>
-                </div>
 
-                <div class="col s6 center-align">
-                    <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
-                        <i class="mdi mdi-cloud-download"></i>
-                    </a>
+            <!-- 下部分：检索结果显示区域 -->
+            <div class="row col s12">
+                <div class="divider cyan" style="height: 2px;"></div>
+                <table class="bordered striped text_mid">
+                    <thead class="blue-grey lighten-5">
+                    <tr class="grey-text text-darken-2">
+                        <th>编号</th>
+                        <th>外协公司</th>
+                        <th>车辆数</th>
+                        <th>计划金额</th>
+                        <th>调整金额</th>
+                        <th>实际金额</th>
+                        <th>创建时间</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="el in invoiceList" class="grey-text text-darken-1">
+                        <td>{{el.id}}</td>
+                        <td>{{el.company_name}}</td>
+                        <td>{{el.car_count}}</td>
+                        <td>{{el.plan_price}}</td>
+                        <td>{{el.update_price}}</td>
+                        <td>{{el.actual_price}}</td>
+                        <td>{{el.created_on|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td>{{el.invoice_status==1?'未处理':'已处理'}}</td>
+                        <td  class="operation">
+                            <a ng-click="putDetail(el.id)">
+                                <i class="mdi mdi-file-outline look_icon cyan-text lighten-1"></i>
+                            </a>
+                            <a ng-click="delete(el.id)">
+                                <i style="line-height: 39px;margin-left: 4px" class="mdi mdi-delete-forever red-text"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr ng-if="invoiceList.length==0">
+                        <td colspan="9">暂无数据</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+            <!-- 上下页按钮 -->
+            <div class="row">
+                <div class="paging_box col s12">
+                    <div class="right">
+                        <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="preBtn()">
+                            上一页
+                        </a>
+                        <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="nextBtn()">
+                            下一页
+                        </a>
+                    </div>
                 </div>
             </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+<div id="lookDetail" class="row modal modal-fixed-footer">
+
+
+    <!--   Header 题目  修改司机社保-->
+    <div class="cyan lighten-1 white-text center-align modal_title" >修改外协结算</div>
+
+
+
+    <!--body-->
+    <div class="modal-content">
+
+
+
+        <div class="row col s12 margin">
+
+            <!--行1-->
+
+
+            <!--详细信息-->
+
+                <div class="row col s12 center-align cyan-text bold">
+                    <div class="col s3">
+                        <p>编号：{{detailItem.id}}</p>
+                    </div>
+                    <div class="col s3">
+                        <p>外协公司：{{detailItem.company_name}}</p>
+                    </div>
+                    <div class="col s3">
+                        <p>送达车辆：{{detailItem.car_count}}</p>
+                    </div>
+                    <div class="col s3">
+                        <p>{{detailItem.invoice_status==1?'未处理':'已处理'}}</p>
+                    </div>
+                </div>
+
+                <div class="row col s12" ng-show="detailItem.invoice_status==1">
+                    <!--计划金额-->
+                    <div class="col s4 input-field">
+                        <input type="number" ng-model="detailItem.plan_price" id="putPlanPrice" disabled>
+                        <label for="putPlanPrice"  class="active">计划金额</label>
+                    </div>
+                    <!--调整金额-->
+                    <div class="col s4 input-field">
+                        <input type="number" ng-model="detailItem.update_price" id="putUpdatePrice">
+                        <label for="putUpdatePrice"  class="active">调整金额</label>
+                    </div>
+                    <!--实际金额-->
+                    <div class="col s4 input-field center-align" style="margin-top: 25px">
+                        实际金额:<span class="red-text bold fz20">{{detailItem.plan_price-detailItem.update_price}}</span> 元
+                    </div>
+                    <!--备注-->
+                    <div class="col s12 input-field">
+                        <input type="text" ng-model="detailItem.remark" id="putRemark" name="putRemark">
+                        <label for="putRemark"  class="active">备注</label>
+                    </div>
+                </div>
+            <div class="row col s12" ng-show="detailItem.invoice_status!==1">
+                <!--计划金额-->
+                <div class="col s4 input-field">
+                    <input type="number" ng-model="detailItem.plan_price" disabled>
+                    <label for="putPlanPrice"  class="active">计划金额</label>
+                </div>
+                <!--调整金额-->
+                <div class="col s4 input-field">
+                    <input type="number" ng-model="detailItem.update_price" disabled>
+                    <label for="putUpdatePrice"  class="active">调整金额</label>
+                </div>
+                <!--实际金额-->
+                <div class="col s4 input-field center-align" style="margin-top: 25px" disabled>
+                    实际金额:<span class="red-text bold fz20">{{detailItem.plan_price-detailItem.update_price}}</span> 元
+                </div>
+                <!--备注-->
+                <div class="col s12 input-field">
+                    <input type="text" ng-model="detailItem.remark"  name="putRemark" disabled>
+                    <label for="putRemark"  class="active">备注</label>
+                </div>
+            </div>
+                <div class="row col s12">
+                <div class="col s12 mp-20">
+                    <div class="divider cyan" style="height: 2px;"></div>
+                    <table class=" bordered striped text_mid">
+                        <thead class="blue-grey lighten-5">
+                        <tr class="grey-text text-darken-2">
+                            <th>VIN</th>
+                            <th>距离</th>
+                            <th>单价</th>
+                            <th>总价</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="invoice in detailList" class="grey-text text-darken-1">
+                            <td>{{invoice.vin}}</td>
+                            <td>{{invoice.distance}}</td>
+                            <td>{{invoice.fee}}</td>
+                            <td class="red-text">{{invoice.total_fee}}</td>
+                        </tr>
+                        <tr ng-if="detailList.length==0">
+                            <td colspan="4">暂无数据</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+
+
         </div>
     </div>
 
-    <div class="row">
+
+    <!--按钮-->
+    <div class="modal-footer valign-wrapper">
         <div class="col s12">
-            <div class="col s12 cyan white-text vc-center fz18" style="height: 60px;border-bottom: 1px solid  #4e84cb;border-top:1px solid  #fff" >
-                <div class="col s6 left-align">结算车辆数:{{carMsg.settle_car_count}}</div>
-                <div class="col s6 right-align">结算金额:{{carMsg.settle_car_price}}元</div>
-            </div>
-            <table class="bordered striped text_mid">
-                <thead class="blue-grey lighten-5">
-                <tr class="grey-text text-darken-2">
-                    <th data-field="">VIN</th>
-                    <th data-field="">品牌</th>
-                    <th data-field="">外协公司</th>
-                    <th data-field="">司机</th>
-                    <th data-field="">车牌号</th>
-                    <th data-field="">委托方</th>
-                    <th data-field="">路线</th>
-                    <th data-field="">装车地点</th>
-                    <th data-field="">经销商</th>
-                    <th data-field="">指令时间</th>
-                    <th data-field="">公里数</th>
-                    <th data-field="">价格/公里</th>
-                    <th data-field="">金额</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="settlementInfo in settlementList" class="grey-text text-darken-1">
-                    <td>{{settlementInfo.vin}}</td>
-                    <td>{{settlementInfo.make_name}}</td>
-                    <td>{{settlementInfo.company_name}}</td>
-                    <td>{{settlementInfo.drive_name}}</td>
-                    <td>{{settlementInfo.truck_num}}</td>
-                    <td>{{settlementInfo.e_short_name}}</td>
-                    <td>{{settlementInfo.route_start}}-{{settlementInfo.route_end}}</td>
-                    <td>{{settlementInfo.addr_name}}</td>
-                    <td>{{settlementInfo.r_short_name}}</td>
-                    <td>{{settlementInfo.order_date | date:'yyyy-MM-dd'}}</td>
-                    <td>{{settlementInfo.distance}}</td>
-                    <td>{{settlementInfo.fee}} </td>
-                    <td ng-if="settlementInfo.fee!==null&&settlementInfo.distance!==null">{{settlementInfo.distance*settlementInfo.fee |number:2}}</td>
-                    <td ng-if="settlementInfo.fee==null||settlementInfo.distance==null"></td>
-                </tr>
-                <tr ng-if="settlementList.length==0&&instruct_starTime!==undefined&&instruct_endTime!==undefined">
-                    <td colspan="13">暂无数据</td>
-                </tr>
-                <tr ng-if="instruct_starTime==undefined||instruct_endTime==undefined&&settlementList.length==0">
-                    <td colspan="13"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!--分页-->
-    <div class="row">
-        <div class="paging_box col s12">
-            <div class="right">
-                <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="pre_btn()">
-                    上一页
+            <div class="col s2 offset-s4">
+                <a class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                    取消
                 </a>
-                <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_btn()">
-                    下一页
+            </div>
+            <div class="col s2">
+                <a class="waves-light waves-effect cyan lighten-1 btn" ng-click="saveInvoice()">
+                    确定
                 </a>
             </div>
         </div>
     </div>
-
 </div>

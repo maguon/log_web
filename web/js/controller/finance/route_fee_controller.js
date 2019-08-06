@@ -175,6 +175,8 @@ app.controller("route_fee_controller", ["$scope", "$state","$stateParams", "$hos
                 truckId: $scope.truckNum,
                 createdOnStart:$scope.instruct_starTime,
                 createdOnEnd:$scope.instruct_endTime,
+                grantDateStart:$scope.grant_start_time,
+                grantDateEnd:$scope.grant_end_time,
                 dpRouteTaskId:$scope.dispatchId,
                 status:$scope.getStatus
             };

@@ -77,28 +77,34 @@
         </div>
         <div class="col s12">
             <div class="col s12 cyan white-text vc-center fz18" style="height: 60px;border-bottom: 1px solid  #4e84cb;border-top:1px solid  #fff" ng-if="costList.length!==0">
-                <div class="col s6 left-align bold">
+                <div class="col s3 left-align bold">
                     总加油金额:{{boxArrayFee.car_oil_fee}}元
                 </div>
-                <div class="col s3 right-align bold">
+                <div class="col s3 left-align bold">
                     商品车总停车金额:{{boxArrayFee.car_total_price}}元
                 </div>
                 <div class="col s3 right-align bold">
                     货车总停车金额:{{boxArrayFee.truck_parking_fee}}元
+                </div>
+                <div class="col s3 right-align bold">
+                    其它费用:{{boxArrayFee.other_fee}}元
                 </div>
             </div>
 
 
             <!--复选框点击后显示的费用-->
             <div class="col s12 cyan white-text vc-center fz18 bold colHeight" ng-if="initial.selectedIdsArr.length!==0">
-                <div class="col s6 left-align bold">
+                <div class="col s3 left-align bold">
                     总加油金额:{{initial.checkOilFee}}元
                 </div>
-                <div class="col s3 right-align bold">
+                <div class="col s3 left-align bold">
                     商品车总停车金额:{{initial.checkedTotalPrice}}元
                 </div>
                 <div class="col s3 right-align bold">
                     货车总停车金额:{{initial.checkedParkingFee}}元
+                </div>
+                <div class="col s3 right-align bold">
+                    其它费用:{{initial.checkedOtherFee}}元
                 </div>
             </div>
 
@@ -212,10 +218,10 @@
             <div class="row col s12 cyan-text">
 
 
-                <div class="col input-field s4">总加油金额:<span class="red-text fz22">{{initial.checkOilFee}}</span></div>
-                <div class="col input-field s4">商品车总停车金额:<span class="red-text fz22">{{initial.checkedTotalPrice}}</span></div>
-                <div class="col input-field s4">货车总停车金额:<span class="red-text fz22">{{initial.checkedParkingFee}}</span></div>
-
+                <div class="col input-field s3">总加油金额:<span class="red-text fz22">{{initial.checkOilFee}}</span></div>
+                <div class="col input-field s3">商品车总停车金额:<span class="red-text fz22">{{initial.checkedTotalPrice}}</span></div>
+                <div class="col input-field s3">货车总停车金额:<span class="red-text fz22">{{initial.checkedParkingFee}}</span></div>
+                <div class="col input-field s3">其它费用:<span class="red-text fz22">{{initial.checkedOtherFee}}</span></div>
 
 
 

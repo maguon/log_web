@@ -17,7 +17,8 @@ app.controller("route_fee_controller", ["$scope", "$state","$stateParams", "$hos
         selectedIdsArr:[],
         checkOilFee:0,
         checkedTotalPrice:0,
-        checkedParkingFee:0
+        checkedParkingFee:0,
+        checkedOtherFee:0
     }
 
 
@@ -208,6 +209,7 @@ app.controller("route_fee_controller", ["$scope", "$state","$stateParams", "$hos
                 $scope.initial.checkOilFee+= $scope.costList[i].car_oil_fee;
                 $scope.initial.checkedTotalPrice+= $scope.costList[i].car_total_price;
                 $scope.initial.checkedParkingFee+= $scope.costList[i].total_price;
+                $scope.initial.checkedOtherFee+= $scope.costList[i].other_fee;
 
             }
         }
@@ -220,7 +222,8 @@ app.controller("route_fee_controller", ["$scope", "$state","$stateParams", "$hos
                 selectedIdsArr:[],
                 checkOilFee:0,
                 checkedTotalPrice:0,
-                checkedParkingFee:0
+                checkedParkingFee:0,
+                checkedOtherFee:0
             }
 
             //checkbox 为空
@@ -265,6 +268,7 @@ app.controller("route_fee_controller", ["$scope", "$state","$stateParams", "$hos
             $scope.initial.checkOilFee+= car.car_oil_fee;
             $scope.initial.checkedTotalPrice+= car.car_total_price;
             $scope.initial.checkedParkingFee+= car.total_price;
+            $scope.initial.checkedOtherFee+= car.other_fee;
         }
 
 
@@ -276,6 +280,7 @@ app.controller("route_fee_controller", ["$scope", "$state","$stateParams", "$hos
             $scope.initial.checkOilFee-= car.car_oil_fee;
             $scope.initial.checkedTotalPrice-= car.car_total_price;
             $scope.initial.checkedParkingFee-= car.total_price;
+            $scope.initial.checkedOtherFee-=car.other_fee;
 
         }
     };
@@ -323,7 +328,8 @@ app.controller("route_fee_controller", ["$scope", "$state","$stateParams", "$hos
                                     selectedIdsArr:[],
                                     checkOilFee:0,
                                     checkedTotalPrice:0,
-                                    checkedParkingFee:0
+                                    checkedParkingFee:0,
+                                    checkedOtherFee:0
                                 };
                                 $("[name = 'selectAll']").prop('checked', false);
                                 $("#openBatchDeal").modal("close");

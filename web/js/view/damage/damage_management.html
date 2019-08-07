@@ -132,6 +132,7 @@
                 <tr class="grey-text text-darken-2">
                     <th data-field="">质损编号</th>
                     <th data-field="">申报时间</th>
+                    <th data-field="">指令日期</th>
                     <th data-field="">处理结束时间</th>
                     <th data-field="">VIN</th>
                     <th data-field="">品牌</th>
@@ -145,7 +146,8 @@
                 <tbody>
                 <tr ng-repeat="damage in damageMamagementList" class="grey-text text-darken-1">
                     <td>{{damage.id}}</td>
-                    <td>{{damage.created_on | date:'yyyyMMdd HH:mm'}}</td>
+                    <td>{{damage.created_on | date:'yyyy-MM-dd HH:mm'}}</td>
+                    <td>{{damage.order_date | date:'yyyy-MM-dd'}}</td>
                     <td>{{damage.check_end_date }}</td>
                     <td>{{damage.vin}}</td>
                     <td>{{damage.make_name}}</td>
@@ -160,7 +162,7 @@
                     </td>
                 </tr>
                 <tr class="grey-text text-darken-1" ng-if="damageMamagementList.length == 0">
-                    <td colspan="10"><span style="letter-spacing: 2px">暂无数据</span></td>
+                    <td colspan="11"><span style="letter-spacing: 2px">暂无数据</span></td>
                 </tr>
                 </tbody>
             </table>

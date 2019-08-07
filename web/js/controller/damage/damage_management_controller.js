@@ -154,6 +154,11 @@ app.controller("damage_management_controller", ["$scope","$rootScope","$state","
         $scope.hangStatus=conditions.hangStatus;
         $scope.deal_startTime =conditions.endDateStart;
         $scope.deal_endTime =conditions.endDateEnd;
+        $scope.order_startTime =conditions.orderStart;
+        $scope.order_endTime =conditions.orderEnd;
+
+
+
     }
 
     /**
@@ -190,7 +195,9 @@ app.controller("damage_management_controller", ["$scope","$rootScope","$state","
             damageType:$scope.damage_type,
             endDateStart: endStart,
             endDateEnd:endEnd,
-            hangStatus:$scope.hangStatus
+            hangStatus:$scope.hangStatus,
+            orderStart:$scope.order_startTime,
+            orderEnd: $scope.order_endTime
         };
     }
 

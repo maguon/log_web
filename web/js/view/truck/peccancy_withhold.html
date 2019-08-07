@@ -60,7 +60,7 @@
             <!--个人承担 公司承担-->
             <div class="col s12" style="height: 70px">
 
-                <div class="col s3 input-field">
+              <!--  <div class="col s3 input-field">
                     <select material-select watch id="has_loan" ng-model="hasLoan">
                         <option value="" selected>请选择</option>
                         <option value="0">否</option>
@@ -68,7 +68,7 @@
                     </select>
                     <label for="has_loan">财务打款</label>
                 </div>
-
+-->
 
                 <div class="col s3 input-field">
                     <input id="addSingeDealMoney" type="number"  ng-model="addSingeDealMoney" ng-change="changeAddSingDealMoney(addDealMoney,addSingeDealMoney)">
@@ -79,7 +79,7 @@
                     <label for="addCompanyDealMoney"><span class="red-text">*</span>公司承担</label>
                 </div>
                 <!--违章地点-->
-                <div class="col s3 input-field"  style="height: 50px">
+                <div class="col s6 input-field"  style="height: 50px">
                     <select id="addCity" name="state" style="width:100%"  ng-model="addCity">
                         <option value=""></option>
                         <option ng-repeat="city in get_city" ng-value="city">{{city.city_name}}</option>
@@ -170,14 +170,14 @@
 
                 <!--个人承担 公司承担-->
                 <div class="col s12" style="height: 60px">
-                    <div class="col s3 input-field">
+                   <!-- <div class="col s3 input-field">
                         <select material-select watch id="putHasLoan" ng-model="putHasLoan">
                             <option value="" selected>请选择</option>
                             <option ng-value=0>否</option>
                             <option ng-value=1>是</option>
                         </select>
                         <label for="putHasLoan">财务打款</label>
-                    </div>
+                    </div>-->
                     <div class="col s3 input-field">
                         <input id="putSingeDealMoney" type="number"  ng-model="putPeccancyList.under_money" ng-change="changePutDealMoney(putPeccancyList.fine_money,putPeccancyList.under_money)">
                         <label for="putSingeDealMoney"><span class="red-text">*</span>个人承担</label>
@@ -186,7 +186,7 @@
                         <input id="putCompanyDealMoney" name="putCompanyDealMoney"  ng-model="putPeccancyList.company_money" readonly  type="number">
                         <label for="putCompanyDealMoney"><span class="red-text">*</span>公司承担</label>
                     </div>
-                    <div class="col s3 input-field"  style="height: 50px">
+                    <div class="col s6 input-field"  style="height: 50px">
                         <select  id="putCity" name="state" style="width:100%"  ng-model="putPeccancyList.city_id" >
                             <option value="" disabled selected>请选择</option>
                             <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>

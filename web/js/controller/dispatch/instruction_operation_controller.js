@@ -203,14 +203,14 @@ app.controller("instruction_operation_controller", ["$scope","$rootScope","$stat
     initData();
 
     // 分页
-    $scope.previous_page = function () {
+    $scope.pre_btn = function () {
         $scope.start = $scope.start - ($scope.size-1);
-        $scope.search_car();
+        $scope.getTruckDispatch();
     };
 
-    $scope.next_page = function () {
+    $scope.next_btn = function () {
         $scope.start = $scope.start + ($scope.size-1);
-        $scope.search_car();
+        $scope.getTruckDispatch();
     };
     // 获取所有数据
     $scope.queryData = function () {

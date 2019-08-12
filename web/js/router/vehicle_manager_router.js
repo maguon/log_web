@@ -363,6 +363,13 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/truck/driver_information.html",
             controller:'driver_information_controller'
         })
+        .state("car_cost",{
+            url:"/car_cost",
+            params: {"from": null},
+            templateUrl: "js/view/finance/car_cost.html",
+            controller:'car_cost_controller'
+        })
+
         .state("driver_information_details",{
             url:"/driver_information_details/driverId/{driverId}/from/{from}",
             templateUrl: "js/view/truck/driver_information_details.html",

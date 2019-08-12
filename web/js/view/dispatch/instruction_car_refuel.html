@@ -358,11 +358,17 @@
             <div class="row col s12">
                 <div class="col s12" style="margin-top: 15px">
                     <div class="col s12 cyan white-text vc-center fz18" style="height: 60px;border-bottom: 1px solid  #4e84cb;border-top:1px solid  #fff" ng-if="importedFilesList.length!==0">
-                        <div class="col s6 left-align bold">
+                        <div class="col s3 left-align bold">
                             总加油金额:{{boxArrayFee.oil_money}}元
                         </div>
-                        <div class="col s6 right-align bold">
+                        <div class="col s3 left-align bold">
                             总加尿素金额:{{boxArrayFee.urea_money}}元
+                        </div>
+                        <div class="col s3 right-align bold">
+                            总加油量:{{boxArrayFee.oil}}
+                        </div>
+                        <div class="col s3 right-align bold">
+                            总加尿素量:{{boxArrayFee.urea}}
                         </div>
                     </div>
                     <div class="divider cyan" style="height: 2px;"></div>

@@ -292,71 +292,69 @@
                     </div>
                 </div>
                 <!--表格-->
-                <div class="row">
-                    <div class="col s12">
-                        <div class="col s12 cyan white-text vc-center fz18" style="height: 60px;border-bottom: 1px solid  #4e84cb;border-top:1px solid  #fff" ng-if="repairRecordList.length!==0">
-                            <div class="col s4 left-align bold">
-                                总维修金额:{{boxArrayFee.repair_money}}元
-                            </div>
-                            <div class="col s4 center-align bold">
-                                总配件金额:{{boxArrayFee.parts_money}}元
-                            </div>
-                            <div class="col s4 right-align bold">
-                                总保养金额:{{boxArrayFee.maintain_money}}元
-                            </div>
+                <div class="row col s12">
+                    <div class="col s12 cyan white-text vc-center fz18" style="height: 60px;" ng-if="repairRecordList.length!==0">
+                        <div class="col s4 left-align bold">
+                            总维修金额:{{boxArrayFee.repair_money}}元
                         </div>
-                        <div class="col s12">
-                            <div class="divider cyan" style="height: 2px;"></div>
-                            <table class="bordered striped text_mid">
-                                <thead class="blue-grey lighten-5">
-                                <tr class="grey-text text-darken-2">
-                                    <th data-field="">维修ID</th>
-                                    <th data-field="">编号</th>
-                                    <th data-field="">车牌号</th>
-                                    <th data-field="">司机</th>
-                                    <th data-field="">所属公司</th>
-                                    <th data-field="">车辆类型</th>
-                                    <th data-field="">维修类型</th>
-                                    <th data-field="">起始时间</th>
-                                    <th data-field="">结束时间</th>
-                                    <th data-field="">创建时间</th>
-                                    <th data-field="">维修原因</th>
-                                    <th data-field="">维修状态</th>
-                                    <th data-field="">维修金额</th>
-                                    <th data-field="">财务打款</th>
-                                    <th data-field="">状态</th>
-                                    <th>操作</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr ng-repeat="repair in repairRecordList" class="grey-text text-darken-1">
-                                    <td>{{repair.id}}</td>
-                                    <td>{{repair.number}}</td>
-                                    <td>{{repair.truck_num}}</td>
-                                    <td>{{repair.drive_name}}</td>
-                                    <td>{{repair.company_name}}</td>
-                                    <td>{{repair.truck_type == 1 ? "头车" : "挂车"}}</td>
-                                    <td>{{repair.repair_type == 1 ? "事故维修" :repair.repair_type == 2 ?'公司维修':'在外临时维修'}}</td>
-                                    <td>{{repair.repair_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                                    <td>{{repair.end_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                                    <td>{{repair.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                                    <td>{{repair.repair_reason}}</td>
-                                    <td class="red-text text-lighten-2" ng-if="repair.repair_status == 0">正在维修</td>
-                                    <td class="cyan-text text-lighten-2" ng-if="repair.repair_status == 1">维修完成</td>
-                                    <td>{{repair.repair_money}}</td>
-                                    <td>{{repair.payment_type==1?'否':'是'}}</td>
-                                    <td>{{repair.payment_status==0?'未处理':repair.payment_status==1?'已付款':'驳回'}}</td>
-                                    <td class="operation">
-                                        <a ui-sref="truck_repair({id:repair.id,truckId:repair.truck_id,type:repair.truck_type,status:'',from:'truck_repair_list'})" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-eye" style="margin: 0"></i></a>
-                                    </td>
-                                </tr>
-                              <!--  <tr class="grey-text text-darken-1" ng-if="repairRecordList.length == 0">
-                                    <td colspan="12"><span style="letter-spacing: 2px">暂无数据</span></td>
-                                </tr>-->
-                                </tbody>
-                            </table>
+                        <div class="col s4 center-align bold">
+                            总配件金额:{{boxArrayFee.parts_money}}元
                         </div>
+                        <div class="col s4 right-align bold">
+                            总保养金额:{{boxArrayFee.maintain_money}}元
+                        </div>
+
                     </div>
+                    <div class="divider cyan" style="height: 2px;"></div>
+                    <table class="bordered striped text_mid">
+                        <thead class="blue-grey lighten-5">
+                        <tr class="grey-text text-darken-2">
+                            <th data-field="">维修ID</th>
+                            <th data-field="">编号</th>
+                            <th data-field="">车牌号</th>
+                            <th data-field="">司机</th>
+                            <th data-field="">所属公司</th>
+                            <th data-field="">车辆类型</th>
+                            <th data-field="">维修类型</th>
+                            <th data-field="">起始时间</th>
+                            <th data-field="">结束时间</th>
+                            <th data-field="">创建时间</th>
+                            <th data-field="">维修原因</th>
+                            <th data-field="">维修状态</th>
+                            <th data-field="">维修金额</th>
+                            <th data-field="">财务打款</th>
+                            <th data-field="">状态</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="repair in repairRecordList" class="grey-text text-darken-1">
+                            <td>{{repair.id}}</td>
+                            <td>{{repair.number}}</td>
+                            <td>{{repair.truck_num}}</td>
+                            <td>{{repair.drive_name}}</td>
+                            <td>{{repair.company_name}}</td>
+                            <td>{{repair.truck_type == 1 ? "头车" : "挂车"}}</td>
+                            <td>{{repair.repair_type == 1 ? "事故维修" :repair.repair_type == 2 ?'公司维修':'在外临时维修'}}</td>
+                            <td>{{repair.repair_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                            <td>{{repair.end_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                            <td>{{repair.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                            <td>{{repair.repair_reason}}</td>
+                            <td class="red-text text-lighten-2" ng-if="repair.repair_status == 0">正在维修</td>
+                            <td class="cyan-text text-lighten-2" ng-if="repair.repair_status == 1">维修完成</td>
+                            <td>{{repair.repair_money}}</td>
+                            <td>{{repair.payment_type==1?'否':'是'}}</td>
+                            <td>{{repair.payment_status==0?'未处理':repair.payment_status==1?'已付款':'驳回'}}</td>
+                            <td class="operation">
+                                <a ui-sref="truck_repair({id:repair.id,truckId:repair.truck_id,type:repair.truck_type,status:'',from:'truck_repair_list'})" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i class="mdi mdi-eye" style="margin: 0"></i></a>
+                            </td>
+                        </tr>
+                        <!--  <tr class="grey-text text-darken-1" ng-if="repairRecordList.length == 0">
+                              <td colspan="12"><span style="letter-spacing: 2px">暂无数据</span></td>
+                          </tr>-->
+                        </tbody>
+                    </table>
+
                 </div>
                 <!--分页-->
                 <div class="row">

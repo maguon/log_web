@@ -1,356 +1,482 @@
 <div class="truck_insure">
-    <!--新增记录模态框-->
-    <div class="row" style="margin: 0">
-        <div id="addTruckInsure" class="modal modal-fixed-footer" style="width: 65%;height: 480px">
-            <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-                <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
-                    <p>新增保单</p>
-                </div>
-                <div class="row col s12">
-                    <div style="width: 90%;margin: 0 auto">
-                        <div class="col s12">
-                            <div class=" col s6 p0">
-                                <div class=" col s12 input-field">
-                                    <select material-select watch  class="insure_name" ng-model="addtruckInsureName">
-                                        <option value="" selected>请选择</option>
-                                        <option ng-repeat="insure in insureCompanyNameList" ng-value="insure.id">{{insure.insure_name}}</option>
-                                    </select>
-                                    <label><span style="color: red">* </span>保险公司</label>
+    <div class="modal-content grey-text text-darken-2">
+        <div class="row no-marBottom" ul-tabs style="overflow: hidden">
+            <div class="col s12">
+                <ul class="tabWrap grey lighten-4">
+                    <li class="tab col s6 lookMyselfFile vc-center" ng-click="lookMyselfFile()">查看货车保险</li>
+                    <li class="tab col s6 importFile vc-center" ng-click="importFile()">导入货车保险文件</li>
+                </ul>
+            </div>
+
+            <!--导入文件-->
+            <div id="importFile" class="row tab_box" style="margin-top: 50px">
+
+                <!--按钮 第一行-->
+                <div class="row">
+                    <form name="file_upload_form " id="file_upload_form" >
+                        <div class="col s4">
+                            <div class="row">
+                                <div class="file-field  input-field ">
+                                    <a href="/assets/货车保险导入模板.csv" target="_blank" class="btn center-align waves-effect circle_button" >下载模板格式</a>
                                 </div>
                             </div>
-                            <div class=" col s6 p0">
-                                <div class=" col s12 input-field">
-                                    <select material-select watch  name="insure_type" class="insure_type" ng-model="addtruckInsureType">
+                        </div>
+                        <div class="col s5 offset-s3">
+                            <div class="col s4"> </div>
+                            <div class="col s4 offset-s4">
+                                <div class="row">
+                                    <div class="file-field input-field">
+                                        <div class="btn cyan lighten-2 circle_button">
+                                            <span>批量数据导入</span>
+                                            <input type="file" style="font-size: 80px;height:45px;"  name="file" accept="text/csv" onchange='angular.element(this).scope().fileChange(this)' >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                           <!-- <div class="col s4">
+                                <div class="row">
+                                    <div class="file-field cyan input-field ">
+                                        <a href="" class="right btn waves-effect circle_button" ng-click="new_data_list()">单条数据增加</a>
+                                    </div>
+                                </div>
+                            </div>-->
+                        </div>
+                    </form>
+                </div>
+
+                <!--大图-->
+                <div class="row">
+                    <div class="col s12">
+                        <div class="col s12 tableBox" ng-show="tableBox">
+                            <img style="width: 100%" src="/assets/images/import_insure.png" />
+                        </div>
+                    </div>
+                </div>
+
+                <!--上传错误页-->
+                <div class="row dataBox " style="overflow: auto;" ng-show="dataBox">
+                    <div class="col s12">
+                        <h6 class="red lighten-2 white-text vc-center" style="padding: 20px">错误数据<span>{{errorNumber}}</span>条，请修改后重新上传</h6>
+                        <table class="responsive-table highlight">
+                            <thead class="blue-grey lighten-4 grey-text text-darken-1">
+                            <tr>
+                                <th>序号</th>
+                                <th ng-repeat="header in tableHeader track by $index">{{header}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="row in tableContentErrorFilter track by $index">
+                                <td>{{$index+1}}</td>
+                                <td ng-repeat="item in row track by $index">{{item}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!--上传成功页-->
+                <div class="row success_data_box " style="overflow: auto; "  ng-show="success_data_box">
+                    <div class="divider" style="height: 2px;"></div>
+                    <div class="col s12 " style="padding: 100px 0">
+                        <p><span>{{num}}</span>/<span>{{orginData_Length}}</span></p>
+                        <div class="col s2 offset-s5 ">
+                            <p class="vc-center " ng-show="local_isSuccesss">
+                                <i class="mdi mdi-check cyan-text text-lighten-2 fz40"></i><span class="blue-grey-text fz18">本地校验成功</span>
+                            </p>
+                            <p class="vc-center " ng-show="upload_isSuccesss">
+                                <i class="mdi mdi-check cyan-text text-lighten-2 fz40" ></i><span class="blue-grey-text fz18">上传完成</span>
+                            </p>
+                            <p class="vc-center" ng-show="upload_isSuccesss">
+                                <span>错误条数:<span>{{upload_error_array_num}}</span></span>
+                                <span>正确条数:<span>{{orginData_Length-upload_error_array_num}}</span></span>
+                                <span>总条数:<span>{{orginData_Length}}</span></span>
+                            </p>
+                            <!--<a href="" class="btn btn-large waves-effect cyan lighten-2"></a>-->
+                            <p class="center-align">
+                                <button class="btn btn-large circle_button cyan lighten-2" ng-click="fileUpload()"  id="buttonImport">
+                                    导入数据库
+                                </button>
+                                <a href="" style="margin-top: 10px" class="btn btn-large circle_button cyan lighten-2" ng-show="show_error" ng-click="show_error_msg()">错误数据显示</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <table class=" bordered striped" ng-show="error_msg">
+                        <thead class="blue-grey lighten-5">
+                        <tr class="grey-text text-darken-2">
+                            <th data-field="">错误位置</th>
+                            <th data-field="">原因</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="el in upload_error_array" class="grey-text text-darken-1">
+                            <td>第{{el.index}}条</td>
+                            <td ng-bind="el.msg"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+            <!--查看导入文件-->
+            <div id="lookMyselfFile" class="row tab_box" style="margin-top: 50px;">
+                <!--列表记录-->
+                <div class="row">
+                    <div class="row valign-wrapper">
+                        <div class="col s9">
+                            <div class="col s12">
+                                <div class="col s3 input-field">
+                                    <input type="text" name="insure_num" id="insure_num" ng-model="InsureNum">
+                                    <label for="insure_num">保单编号</label>
+                                </div>
+                                <div class="col s3 input-field">
+                                    <select material-select watch id="insure_name" class="insure_name" ng-model="truckInsureId">
+                                        <option value="" selected>请选择</option>
+                                        <option ng-repeat="insure in insureCompanyNameList" ng-value="insure.id">{{insure.id}}.{{insure.insure_name}}</option>
+                                    </select>
+                                    <label for="insure_name">保险公司</label>
+                                </div>
+                                <div class="col s3 input-field" >
+                                    <select material-select watch id="insure_type" name="insure_type" class="insure_type" ng-model="truckInsureType">
                                         <option value="" selected>请选择</option>
                                         <option value="1">交强险</option>
                                         <option value="2">商业险</option>
                                         <option value="3">货运险</option>
                                     </select>
-                                    <label><span style="color: red">* </span>保险种类</label>
+                                    <label for="insure_type">险种</label>
+                                </div>
+                                <div class="col s3 input-field">
+                                    <input type="text" name="insure_user_name" id="insure_user_name" ng-model="insureUserName">
+                                    <label for="insure_user_name">经办人</label>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col s12">
-                            <div class=" col s6 p0">
-                                <div class="col s12 input-field">
-                                    <input type="text" name="insure_num" ng-model="addInsureNum">
-                                    <label for="insure_num"><span style="color: red">* </span>保单编号</label>
-                                </div>
-                            </div>
-                            <div class=" col s6 p0">
-                                <div class="col s6">
-                                    <div class="col s11 input-field">
-                                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="under_cost" type="number"  ng-change="under_cost" ng-model="addinsureMoney">
-                                        <label for="under_cost"><span style="color: red">* </span>保险金额</label>
-                                    </div>
-                                    <div class="col s1 right-align" style="padding: 0;margin-top: 28px">元</div>
-                                </div>
-                                <div class="col s6">
-                                    <div class="col s11 input-field">
-                                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="tax_cost" type="number"   ng-model="addTaxCost">
-                                        <label for="tax_cost"><span style="color: red">* </span>税金额</label>
-                                    </div>
-                                    <div class="col s1 right-align" style="padding: 0;margin-top: 28px">元</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col s12">
-                            <div class=" col s6 p0">
-                                <div class=" col s12 input-field">
-                                    <select  style="width: 100%" watch ng-model="addSystemType" id="truck_number">
-                                        <option value="" selected>请选择</option>
-                                        <option ng-repeat="truckNumItem in truckNumListAll" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}({{truckNumItem.truck_type == 1 ? "头车" : "挂车"}})</option>
+                            <div class="col s12">
+
+                                <div class="input-field col s2">
+                                    <select id="truck_num" style="width: 100%" ng-model="truckNum">
+                                        <option value=""></option>
+                                        <option ng-repeat="el in truckNumList" >{{el.truck_num}}</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class=" col s3 p0">
-                                <div class=" col s12 input-field">
-                                    <input type="text" ng-model="startDate" id="time_start" name="time_start"  class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
-                                    <label for="time_start">生效日期(始)</label>
+
+                                <div class="col s2 input-field">
+                                    <select material-select watch id="truck_type" class="truck_type" ng-model="truckType">
+                                        <option value="" selected>请选择</option>
+                                        <option value="1">头车</option>
+                                        <option value="2">挂车</option>
+                                    </select>
+                                    <label for="truck_type">车辆类型</label>
                                 </div>
-                            </div>
-                            <div class=" col s3 p0">
-                                <div class=" col s12 input-field">
-                                    <input type="text" ng-model="endDate" id="time_end" name="time_end"  class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
-                                    <label for="time_end">生效日期(终)</label>
+
+                                <div class="col s2 input-field">
+                                    <select id="insure_company" ng-model="insureCompany" material-select watch>
+                                        <option value="" selected>请选择</option>
+                                        <option ng-repeat="company in companyList" ng-value="company.id">{{company.company_name}}</option>
+                                    </select>
+                                    <label for="insure_company">所属公司</label>
+                                </div>
+
+                                <div class="col s3 input-field">
+                                    <input type="text" ng-model="startTimeStart" id="startTime_start" name="startTime_start"  class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                                    <label for="startTime_start">保险终止时间(始)</label>
+                                </div>
+                                <div class="col s3 input-field">
+                                    <input type="text" ng-model="startTimeEnd" id="startTime_end" name="startTime_end"  class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                                    <label for="startTime_end">保险终止时间(终)</label>
                                 </div>
                             </div>
                         </div>
-                        <div class="col s12 " style="margin-bottom:  40px;">
-                            <div class="col s12 input-field">
-                                <input type="text" name="uploadUrl" id="uploadUrl" ng-model="addInsureExplain">
-                                <label for="uploadUrl">保险备注</label>
+                        <div class="col s3">
+                            <div class="col s4 center">
+                                <a ng-click="searchTruckInsure()" class="btn-floating btn-large waves-light waves-effect red lighten-2 btn vc-center" style="margin-right: 10px">
+                                    <i class="mdi mdi-magnify"></i>
+                                </a>
+                            </div>
+                            <div class="col s4 center">
+                                <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="margin-right: 10px;background-color: #fea353;" ng-click="export()">
+                                    <i class="mdi mdi-cloud-download"></i>
+                                </a>
+                            </div>
+                            <div class="col s4 center">
+                                <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2 btn vc-center" style="margin-right: 10px" ng-click="addTruckInsure()">
+                                    <i class="mdi mdi-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--表格-->
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="col s12">
+                                <div class="divider cyan" style="height: 2px;"></div>
+                                <table class="bordered striped text_mid">
+                                    <thead class="blue-grey lighten-5">
+                                    <tr class="grey-text text-darken-2">
+                                        <th  data-field="">保单编号</th>
+                                        <th  data-field="">保险公司</th>
+                                        <th  data-field="">险种</th>
+                                        <th  data-field="">保险金额</th>
+                                        <th  data-field="">税金额</th>
+                                        <th  data-field="">总金额</th>
+                                        <th  data-field="">车牌号码</th>
+                                        <th  data-field="">车辆类型</th>
+                                        <th  data-field="">所属公司</th>
+                                        <th  data-field="">经办人</th>
+                                        <th  data-field="">生效日期</th>
+                                        <th  data-field="">状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="truckInsureItem in truckInsureList" class="grey-text text-darken-1">
+                                        <td>{{truckInsureItem.insure_num}}</td>
+                                        <td>{{truckInsureItem.insure_name}}</td>
+                                        <td  ng-if="truckInsureItem.insure_type == 1">交强险</td>
+                                        <td  ng-if="truckInsureItem.insure_type == 2">商业险</td>
+                                        <td  ng-if="truckInsureItem.insure_type == 3">货运险</td>
+                                        <td>{{truckInsureItem.insure_money}}</td>
+                                        <td>{{truckInsureItem.tax_money}}</td>
+                                        <td>{{truckInsureItem.total_money}}</td>
+                                        <td>{{truckInsureItem.truck_num}}</td>
+                                        <td>{{truckInsureItem.truck_type == 1 ? "头车" : "挂车"}}</td>
+                                        <td>{{truckInsureItem.company_name}}</td>
+                                        <td>{{truckInsureItem.insure_user_name}}</td>
+                                        <td>{{truckInsureItem.start_date | date:'yyyy-MM-dd'}}至{{truckInsureItem.end_date | date:'yyyy-MM-dd'}}</td>
+                                        <td  style="color: red" ng-if="truckInsureItem.expiredStatus==0">临近</td>
+                                        <td  ng-if="truckInsureItem.expiredStatus==1">已失效</td>
+                                        <td  ng-if="truckInsureItem.expiredStatus==2">&nbsp;</td>
+                                        <td class="operation">
+                                            <a  ng-click="readTruckInsure(truckInsureItem.id)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-file-document"></i></a>
+                                            <a  ng-click="deleteTruckInsure(truckInsureItem.id)" class="red-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-delete-forever"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr class="grey-text text-darken-1" ng-if="truckInsureList.length == 0">
+                                        <td colspan="13"><span style="letter-spacing: 2px">暂无数据</span></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!--分页-->
+                    <div class="row">
+                        <div class="paging_box col s12">
+                            <div class="right">
+                                <a class="waves-light waves-effect cyan lighten-1 btn"  id="pre" ng-click="getPrePage()">上一页</a>
+                                <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="getNextPage()">下一页</a>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer valign-wrapper">
-                <div class="col s12">
-                    <div class="col s2 offset-s4">
-                        <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
-                            取消
-                        </a>
-                    </div>
-                    <div class="col s2">
-                        <a ng-click="createTruckInsureItem()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
-                            确定
-                        </a>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>
-    <!--详情记录模态框-->
-    <div class="row" style="margin: 0">
-        <div id="showTruckInsure" class="modal modal-fixed-footer" style="width: 65%;height: 480px">
-            <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-                <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
-                    <p>保单详情</p>
-                </div>
-                <div class="row col s12">
-                    <div style="width: 90%;margin: 0 auto">
-                        <div class="col s12">
-                            <div class=" col s6 p0">
-                                <div class=" col s12 input-field">
-                                    <select material-select watch  class="insure_name" ng-model="showTruckInsureList.insure_id" style="border-bottom: 1px solid #000">
-                                        <option value="" selected>请选择</option>
-                                        <option ng-repeat="insure in insureCompanyNameList" ng-value="insure.id">{{insure.insure_name}}</option>
-                                    </select>
-                                    <label><span style="color: red">* </span>保险公司</label>
-                                </div>
-                            </div>
-                            <div class=" col s6 p0">
-                                <div class=" col s12 input-field">
-                                    <select material-select watch class="insure_type" ng-model="showTruckInsureList.insure_type" style="border-bottom: 1px solid #000">
-                                        <option ng-value="" selected>请选择</option>
-                                        <option ng-value="1">交强险</option>
-                                        <option ng-value="2">商业险</option>
-                                        <option ng-value="3">货运险</option>
-                                    </select>
-                                    <label><span style="color: red">* </span>保险种类</label>
-                                </div>
+</div>
+
+<!--新增记录模态框-->
+<div class="row" style="margin: 0">
+    <div id="addTruckInsure" class="modal modal-fixed-footer" style="width: 65%;height: 480px">
+        <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+            <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
+                <p>新增保单</p>
+            </div>
+            <div class="row col s12">
+                <div style="width: 90%;margin: 0 auto">
+                    <div class="col s12">
+                        <div class=" col s6 p0">
+                            <div class=" col s12 input-field">
+                                <select material-select watch  class="insure_name" ng-model="addtruckInsureName">
+                                    <option value="" selected>请选择</option>
+                                    <option ng-repeat="insure in insureCompanyNameList" ng-value="insure.id">{{insure.id}}.{{insure.insure_name}}</option>
+                                </select>
+                                <label><span style="color: red">* </span>保险公司</label>
                             </div>
                         </div>
-                        <div class="col s12">
-                            <div class=" col s6 p0">
-                                <div class="col s12 input-field">
-                                    <input type="text" name="insure_num" ng-model="showTruckInsureList.insure_num">
-                                    <label for="insure_num"><span style="color: red">* </span>保单编号</label>
-                                </div>
-                            </div>
-                            <div class=" col s6 p0">
-                                <div class="col s6">
-                                    <div class="col s11 input-field">
-                                        <input id="insure_money" style="font-size: 2rem;text-align: right;color: rgb(230,123,123)"  type="number"  ng-model="showTruckInsureList.insure_money">
-                                        <label for="insure_money"><span style="color: red">* </span>保险金额</label>
-                                    </div>
-                                    <div class="col s1 right-align" style="padding: 0;margin-top: 28px">元</div>
-                                </div>
-                                <div class="col s6">
-                                    <div class="col s11 input-field">
-                                        <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="tax_money"  style="font-size: 2rem;text-align: right;color: rgb(230,123,123)"  type="number"   ng-model="showTruckInsureList.tax_money">
-                                        <label for="tax_money"><span style="color: red">* </span>税金额</label>
-                                    </div>
-                                    <div class="col s1 right-align" style="padding: 0;margin-top: 28px">元</div>
-                                </div>
+                        <div class=" col s6 p0">
+                            <div class=" col s12 input-field">
+                                <select material-select watch  name="insure_type" class="insure_type" ng-model="addtruckInsureType">
+                                    <option value="" selected>请选择</option>
+                                    <option value="1">交强险</option>
+                                    <option value="2">商业险</option>
+                                    <option value="3">货运险</option>
+                                </select>
+                                <label><span style="color: red">* </span>保险种类</label>
                             </div>
                         </div>
-                        <div class="col s12">
-                            <div class=" col s6 p0">
-                                <div class=" col s12 input-field">
-                                    <select  material-select watch ng-model="showTruckInsureList.truck_id">
-                                        <option ng-value="" selected>请选择</option>
-                                        <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}({{truckNumItem.truck_type == 1 ? "头车" : "挂车"}})</option>
-                                    </select>
-                                    <label><span style="color: red">* </span>货车牌号</label>
-                                </div>
-                            </div>
-                            <div class=" col s3 p0">
-                                <div class=" col s12 input-field">
-                                    <input form-date type="text" id="show_startTime_start" name="date" ng-model="showTruckInsureList.start_date"  class="datepicker" autocomplete="off"  required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                    <label check_operation_endTime  for="show_startTime_start">生效日期(始)</label>
-                                </div>
-                            </div>
-                            <div class=" col s3 p0">
-                                <div class=" col s12 input-field">
-                                    <input form-date type="text" id="show_startTime_end" ng-model="showTruckInsureList.end_date"  name="date" class="datepicker" autocomplete="off"  required   date><i class="mdi dataIcon mdi-table-large"></i>
-                                    <label check_operation_endTime for="show_startTime_end">生效日期(终)</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col s12 " style="margin-bottom:  40px;">
+                    </div>
+                    <div class="col s12">
+                        <div class=" col s6 p0">
                             <div class="col s12 input-field">
-                                <input type="text" name="showTruckInsureList.insure_explain"  ng-model="showTruckInsureList.insure_explain">
-                                <label for="uploadUrl">保险备注</label>
+                                <input type="text" name="insure_num" ng-model="addInsureNum">
+                                <label for="insure_num"><span style="color: red">* </span>保单编号</label>
                             </div>
+                        </div>
+                        <div class=" col s6 p0">
+                            <div class="col s6">
+                                <div class="col s11 input-field">
+                                    <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="under_cost" type="number"  ng-change="under_cost" ng-model="addinsureMoney">
+                                    <label for="under_cost"><span style="color: red">* </span>保险金额</label>
+                                </div>
+                                <div class="col s1 right-align" style="padding: 0;margin-top: 28px">元</div>
+                            </div>
+                            <div class="col s6">
+                                <div class="col s11 input-field">
+                                    <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="tax_cost" type="number"   ng-model="addTaxCost">
+                                    <label for="tax_cost"><span style="color: red">* </span>税金额</label>
+                                </div>
+                                <div class="col s1 right-align" style="padding: 0;margin-top: 28px">元</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12">
+                        <div class=" col s6 p0">
+                            <div class=" col s12 input-field">
+                                <select  style="width: 100%" watch ng-model="addSystemType" id="truck_number">
+                                    <option value="" selected>请选择</option>
+                                    <option ng-repeat="truckNumItem in truckNumListAll" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}({{truckNumItem.truck_type == 1 ? "头车" : "挂车"}})</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class=" col s3 p0">
+                            <div class=" col s12 input-field">
+                                <input type="text" ng-model="startDate" id="time_start" name="time_start"  class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                                <label for="time_start">生效日期(始)</label>
+                            </div>
+                        </div>
+                        <div class=" col s3 p0">
+                            <div class=" col s12 input-field">
+                                <input type="text" ng-model="endDate" id="time_end" name="time_end"  class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                                <label for="time_end">生效日期(终)</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 " style="margin-bottom:  40px;">
+                        <div class="col s12 input-field">
+                            <input type="text" name="uploadUrl" id="uploadUrl" ng-model="addInsureExplain">
+                            <label for="uploadUrl">保险备注</label>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer valign-wrapper">
-                <div class="col s12">
-                    <div class="col s2 offset-s4">
-                        <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
-                            取消
-                        </a>
-                    </div>
-                    <div class="col s2">
-                        <a ng-click="updateTruckInsureItem(showTruckInsureList.id)" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
-                            确定
-                        </a>
-                    </div>
-                </div>
-            </div>
         </div>
-    </div>
-    <!--列表记录-->
-    <div class="row">
-        <div class="row valign-wrapper">
-            <div class="col s9">
-                <div class="col s12">
-                    <div class="col s3 input-field">
-                        <input type="text" name="insure_num" id="insure_num" ng-model="InsureNum">
-                        <label for="insure_num">保单编号</label>
-                    </div>
-                    <div class="col s3 input-field">
-                        <select material-select watch id="insure_name" class="insure_name" ng-model="truckInsureId">
-                            <option value="" selected>请选择</option>
-                            <option ng-repeat="insure in insureCompanyNameList" ng-value="insure.id">{{insure.insure_name}}</option>
-                        </select>
-                        <label for="insure_name">保险公司</label>
-                    </div>
-                    <div class="col s3 input-field" >
-                        <select material-select watch id="insure_type" name="insure_type" class="insure_type" ng-model="truckInsureType">
-                            <option value="" selected>请选择</option>
-                            <option value="1">交强险</option>
-                            <option value="2">商业险</option>
-                            <option value="3">货运险</option>
-                        </select>
-                        <label for="insure_type">险种</label>
-                    </div>
-                    <div class="col s3 input-field">
-                        <input type="text" name="insure_user_name" id="insure_user_name" ng-model="insureUserName">
-                        <label for="insure_user_name">经办人</label>
-                    </div>
-                </div>
-                <div class="col s12">
-
-                    <div class="input-field col s2">
-                        <select id="truck_num" style="width: 100%" ng-model="truckNum">
-                            <option value=""></option>
-                            <option ng-repeat="el in truckNumList" >{{el.truck_num}}</option>
-                        </select>
-                    </div>
-
-                    <div class="col s2 input-field">
-                        <select material-select watch id="truck_type" class="truck_type" ng-model="truckType">
-                            <option value="" selected>请选择</option>
-                            <option value="1">头车</option>
-                            <option value="2">挂车</option>
-                        </select>
-                        <label for="truck_type">车辆类型</label>
-                    </div>
-
-                    <div class="col s2 input-field">
-                        <select id="insure_company" ng-model="insureCompany" material-select watch>
-                            <option value="" selected>请选择</option>
-                            <option ng-repeat="company in companyList" ng-value="company.id">{{company.company_name}}</option>
-                        </select>
-                        <label for="insure_company">所属公司</label>
-                    </div>
-
-                    <div class="col s3 input-field">
-                        <input type="text" ng-model="startTimeStart" id="startTime_start" name="startTime_start"  class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
-                        <label for="startTime_start">保险终止时间(始)</label>
-                    </div>
-                    <div class="col s3 input-field">
-                        <input type="text" ng-model="startTimeEnd" id="startTime_end" name="startTime_end"  class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
-                        <label for="startTime_end">保险终止时间(终)</label>
-                    </div>
-                </div>
-            </div>
-            <div class="col s3">
-                <div class="col s4 center">
-                    <a ng-click="searchTruckInsure()" class="btn-floating btn-large waves-light waves-effect red lighten-2 btn vc-center" style="margin-right: 10px">
-                        <i class="mdi mdi-magnify"></i>
-                    </a>
-                </div>
-                <div class="col s4 center">
-                    <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="margin-right: 10px;background-color: #fea353;" ng-click="export()">
-                        <i class="mdi mdi-cloud-download"></i>
-                    </a>
-                </div>
-                <div class="col s4 center">
-                    <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2 btn vc-center" style="margin-right: 10px" ng-click="addTruckInsure()">
-                        <i class="mdi mdi-plus"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <!--表格-->
-        <div class="row">
+        <div class="modal-footer valign-wrapper">
             <div class="col s12">
-                <div class="col s12">
-                    <div class="divider cyan" style="height: 2px;"></div>
-                    <table class="bordered striped text_mid">
-                        <thead class="blue-grey lighten-5">
-                        <tr class="grey-text text-darken-2">
-                            <th  data-field="">保单编号</th>
-                            <th  data-field="">保险公司</th>
-                            <th  data-field="">险种</th>
-                            <th  data-field="">保险金额</th>
-                            <th  data-field="">税金额</th>
-                            <th  data-field="">总金额</th>
-                            <th  data-field="">车牌号码</th>
-                            <th  data-field="">车辆类型</th>
-                            <th  data-field="">所属公司</th>
-                            <th  data-field="">经办人</th>
-                            <th  data-field="">生效日期</th>
-                            <th  data-field="">状态</th>
-                            <th>操作</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat="truckInsureItem in truckInsureList" class="grey-text text-darken-1">
-                            <td>{{truckInsureItem.insure_num}}</td>
-                            <td>{{truckInsureItem.insure_name}}</td>
-                            <td  ng-if="truckInsureItem.insure_type == 1">交强险</td>
-                            <td  ng-if="truckInsureItem.insure_type == 2">商业险</td>
-                            <td  ng-if="truckInsureItem.insure_type == 3">货运险</td>
-                            <td>{{truckInsureItem.insure_money}}</td>
-                            <td>{{truckInsureItem.tax_money}}</td>
-                            <td>{{truckInsureItem.total_money}}</td>
-                            <td>{{truckInsureItem.truck_num}}</td>
-                            <td>{{truckInsureItem.truck_type == 1 ? "头车" : "挂车"}}</td>
-                            <td>{{truckInsureItem.company_name}}</td>
-                            <td>{{truckInsureItem.insure_user_name}}</td>
-                            <td>{{truckInsureItem.start_date | date:'yyyy-MM-dd'}}至{{truckInsureItem.end_date | date:'yyyy-MM-dd'}}</td>
-                            <td  style="color: red" ng-if="truckInsureItem.expiredStatus==0">临近</td>
-                            <td  ng-if="truckInsureItem.expiredStatus==1">已失效</td>
-                            <td  ng-if="truckInsureItem.expiredStatus==2">&nbsp;</td>
-                            <td class="operation">
-                                <a  ng-click="readTruckInsure(truckInsureItem.id)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-file-document"></i></a>
-                                <a  ng-click="deleteTruckInsure(truckInsureItem.id)" class="red-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-delete-forever"></i></a>
-                            </td>
-                        </tr>
-                        <tr class="grey-text text-darken-1" ng-if="truckInsureList.length == 0">
-                            <td colspan="13"><span style="letter-spacing: 2px">暂无数据</span></td>
-                        </tr>
-                        </tbody>
-                    </table>
+                <div class="col s2 offset-s4">
+                    <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                        取消
+                    </a>
                 </div>
-            </div>
-        </div>
-        <!--分页-->
-        <div class="row">
-            <div class="paging_box col s12">
-                <div class="right">
-                    <a class="waves-light waves-effect cyan lighten-1 btn"  id="pre" ng-click="getPrePage()">上一页</a>
-                    <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="getNextPage()">下一页</a>
+                <div class="col s2">
+                    <a ng-click="createTruckInsureItem()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                        确定
+                    </a>
                 </div>
             </div>
         </div>
     </div>
-
+</div>
+<!--详情记录模态框-->
+<div class="row" style="margin: 0">
+    <div id="showTruckInsure" class="modal modal-fixed-footer" style="width: 65%;height: 480px">
+        <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+            <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
+                <p>保单详情</p>
+            </div>
+            <div class="row col s12">
+                <div style="width: 90%;margin: 0 auto">
+                    <div class="col s12">
+                        <div class=" col s6 p0">
+                            <div class=" col s12 input-field">
+                                <select material-select watch  class="insure_name" ng-model="showTruckInsureList.insure_id" style="border-bottom: 1px solid #000">
+                                    <option value="" selected>请选择</option>
+                                    <option ng-repeat="insure in insureCompanyNameList" ng-value="insure.id">{{insure.id}}.{{insure.insure_name}}</option>
+                                </select>
+                                <label><span style="color: red">* </span>保险公司</label>
+                            </div>
+                        </div>
+                        <div class=" col s6 p0">
+                            <div class=" col s12 input-field">
+                                <select material-select watch class="insure_type" ng-model="showTruckInsureList.insure_type" style="border-bottom: 1px solid #000">
+                                    <option ng-value="" selected>请选择</option>
+                                    <option ng-value="1">交强险</option>
+                                    <option ng-value="2">商业险</option>
+                                    <option ng-value="3">货运险</option>
+                                </select>
+                                <label><span style="color: red">* </span>保险种类</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12">
+                        <div class=" col s6 p0">
+                            <div class="col s12 input-field">
+                                <input type="text" name="insure_num" ng-model="showTruckInsureList.insure_num">
+                                <label for="insure_num"><span style="color: red">* </span>保单编号</label>
+                            </div>
+                        </div>
+                        <div class=" col s6 p0">
+                            <div class="col s6">
+                                <div class="col s11 input-field">
+                                    <input id="insure_money" style="font-size: 2rem;text-align: right;color: rgb(230,123,123)"  type="number"  ng-model="showTruckInsureList.insure_money">
+                                    <label for="insure_money"><span style="color: red">* </span>保险金额</label>
+                                </div>
+                                <div class="col s1 right-align" style="padding: 0;margin-top: 28px">元</div>
+                            </div>
+                            <div class="col s6">
+                                <div class="col s11 input-field">
+                                    <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="tax_money"  style="font-size: 2rem;text-align: right;color: rgb(230,123,123)"  type="number"   ng-model="showTruckInsureList.tax_money">
+                                    <label for="tax_money"><span style="color: red">* </span>税金额</label>
+                                </div>
+                                <div class="col s1 right-align" style="padding: 0;margin-top: 28px">元</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12">
+                        <div class=" col s6 p0">
+                            <div class=" col s12 input-field">
+                                <select  material-select watch ng-model="showTruckInsureList.truck_id">
+                                    <option ng-value="" selected>请选择</option>
+                                    <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}({{truckNumItem.truck_type == 1 ? "头车" : "挂车"}})</option>
+                                </select>
+                                <label><span style="color: red">* </span>货车牌号</label>
+                            </div>
+                        </div>
+                        <div class=" col s3 p0">
+                            <div class=" col s12 input-field">
+                                <input form-date type="text" id="show_startTime_start" name="date" ng-model="showTruckInsureList.start_date"  class="datepicker" autocomplete="off"  required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                <label check_operation_endTime  for="show_startTime_start">生效日期(始)</label>
+                            </div>
+                        </div>
+                        <div class=" col s3 p0">
+                            <div class=" col s12 input-field">
+                                <input form-date type="text" id="show_startTime_end" ng-model="showTruckInsureList.end_date"  name="date" class="datepicker" autocomplete="off"  required   date><i class="mdi dataIcon mdi-table-large"></i>
+                                <label check_operation_endTime for="show_startTime_end">生效日期(终)</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 " style="margin-bottom:  40px;">
+                        <div class="col s12 input-field">
+                            <input type="text" name="showTruckInsureList.insure_explain"  ng-model="showTruckInsureList.insure_explain">
+                            <label for="uploadUrl">保险备注</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer valign-wrapper">
+            <div class="col s12">
+                <div class="col s2 offset-s4">
+                    <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                        取消
+                    </a>
+                </div>
+                <div class="col s2">
+                    <a ng-click="updateTruckInsureItem(showTruckInsureList.id)" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                        确定
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

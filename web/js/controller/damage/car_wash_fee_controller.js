@@ -223,7 +223,7 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
     function getCarWashFeeList() {
         // 基本检索URL
         var url = $host.api_url + "/dpRouteLoadTaskCleanRel?start=" + $scope.start + "&size=" + $scope.size;
-        var urlCount = $host.api_url + "/dpRouteLoadTaskCleanRelCount?start=" + $scope.start + "&size=" + $scope.size;
+        var urlCount = $host.api_url + "/dpRouteLoadTaskCleanRelCount";
         // 检索条件
         var conditionsObj = makeConditions();
         var conditions = _basic.objToUrl(conditionsObj);

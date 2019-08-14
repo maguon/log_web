@@ -142,8 +142,8 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
             loadDateEnd:$scope.loadDateEnd,
             dpRouteTaskId:$scope.dp_number,
             truckId:$scope.truckNum,
-            start:$scope.start.toString(),
-            size:$scope.size
+            companyId:$scope.companyId,
+            operateType:$scope.operateType
         })).then(function (data) {
             if (data.success === true) {
                 $scope.boxArrayFee = data.result[0];

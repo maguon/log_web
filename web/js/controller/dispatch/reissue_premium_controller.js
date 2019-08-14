@@ -99,7 +99,7 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
     function getInsurancePremium() {
         // 基本检索URL
         var url =$host.api_url + "/dpRouteLoadTaskCleanRel?start=" + $scope.start + "&size=" + $scope.size;
-        var urlCount = $host.api_url+ '/dpRouteLoadTaskCleanRelCount?start=' + $scope.start + "&size=" + $scope.size;
+        var urlCount = $host.api_url+ '/dpRouteLoadTaskCleanRelCount';
 
         //条件
         var conditions = _basic.objToUrl(makeConditions());

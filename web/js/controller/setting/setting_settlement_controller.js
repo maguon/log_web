@@ -53,6 +53,7 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
 
 
             var obj = {
+                vin:$scope.vin,
                 entrustId: $scope.entrustId,
                 orderStart: $scope.instruct_starTime,
                 orderEnd: $scope.instruct_endTime,

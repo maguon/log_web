@@ -127,7 +127,7 @@
                     <!--行1-->
 
                     <!--vin-->
-                    <div class="col s4 input-field">
+                    <div class="col s2 input-field">
                         <input  id="VIN" ng-model="conVin" type="text">
                         <label for="VIN">VIN</label>
                     </div>
@@ -160,16 +160,6 @@
                         <label for="planTimeEnd">计划执行时间（终）</label>
                     </div>
 
-
-                    <!--行2-->
-
-                    <!--委托方-->
-                    <div class="input-field col s2">
-                        <select material-select watch id="client"  ng-model="conEntrust"  ng-change="changeClient(conEntrust)"  required style="width:100%">                            <option value="" selected>请选择</option>
-                            <option ng-repeat="el in entrustList" ng-value="el.id" >{{el.short_name}}</option>
-                        </select>
-                    </div>
-
                     <!--品牌-->
                     <div class="input-field col s2">
                         <select  id="conBrand" material-select watch ng-model="conBrand">
@@ -179,6 +169,14 @@
                         <label for="conBrand">品牌</label>
                     </div>
 
+                    <!--行2-->
+
+                    <!--委托方-->
+                    <div class="input-field col s2">
+                        <select material-select watch id="client"  ng-model="conEntrust"  ng-change="changeClient(conEntrust)"  required style="width:100%">                            <option value="" selected>请选择</option>
+                            <option ng-repeat="el in entrustList" ng-value="el.id" >{{el.short_name}}</option>
+                        </select>
+                    </div>
 
                     <!--起始城市-->
                     <div class="input-field col s2">
@@ -210,6 +208,15 @@
                         <select material-select watch id="dealer" ng-model="conReceive" style="width: 100%">
                             <option value="" disabled selected>经销商</option>
                             <option ng-repeat="el in receiveList" ng-value="el.id" >{{el.short_name}}</option>
+                        </select>
+                    </div>
+
+                    <!--状态-->
+                    <div class="input-field col s2">
+                        <select material-select watch id="handoverFlag" ng-model="handoverFlag" style="width: 100%">
+                            <option value="" >状态</option>
+                            <option  value=1 >未返还</option>
+                            <option  value=2 >已返回</option>
                         </select>
                     </div>
 
@@ -293,7 +300,7 @@
                         <!-- 显示画面按钮 -->
                         <td class="operation">
                             <a  ng-click="openNotHandOverDetail(el.id)" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ></i></a>
-                            <a  ng-click="getArr(el)" style="font-size: 1.5rem;cursor: pointer"><i class="mdi mdi-plus look_icon cyan-text lighten-1"></i></a>
+                            <a  ng-show="el.handover_flag==1" ng-click="getArr(el)" style="font-size: 1.5rem;cursor: pointer"><i class="mdi mdi-plus look_icon cyan-text lighten-1"></i></a>
                         </td>
                     </tr>
                     <tr ng-if="notHandoverArray.length==0&&conPlanTimeStart!==undefined&&conPlanTimeEnd!==undefined">

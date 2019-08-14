@@ -494,33 +494,33 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
     $scope.getArr = function (el){
         if($scope.ArrayList.length!==0){
 
-          /*  //判断添加的vin是否与第一个vin品牌、委托方、起始城市、发运地、经销商一致
-            if(
-                $scope.ArrayList[0].make_name==el.make_name&&
-                $scope.ArrayList[0].e_short_name==el.e_short_name&&
-                $scope.ArrayList[0].route_end==el.route_end&&
-                $scope.ArrayList[0].route_start==el.route_start&&
-                $scope.ArrayList[0].addr_name==el.addr_name&&
-                $scope.ArrayList[0].r_short_name==el.r_short_name
-            ){*/
-                for (var i = 0; i < $scope.ArrayList.length; i++) {
-                    if ($scope.ArrayList[i].vin === el.vin) {
-                        swal('不能重复添加相同VIN!',"", "error");
-                        return;
-                    }
+            /*  //判断添加的vin是否与第一个vin品牌、委托方、起始城市、发运地、经销商一致
+              if(
+                  $scope.ArrayList[0].make_name==el.make_name&&
+                  $scope.ArrayList[0].e_short_name==el.e_short_name&&
+                  $scope.ArrayList[0].route_end==el.route_end&&
+                  $scope.ArrayList[0].route_start==el.route_start&&
+                  $scope.ArrayList[0].addr_name==el.addr_name&&
+                  $scope.ArrayList[0].r_short_name==el.r_short_name
+              ){*/
+            for (var i = 0; i < $scope.ArrayList.length; i++) {
+                if ($scope.ArrayList[i].vin === el.vin) {
+                    swal('不能重复添加相同VIN!',"", "error");
+                    return;
                 }
-                $scope.ArrayList.push(el);
-           /* }
-            else{
-                swal('请保持与现有的VIN品牌、委托方、起始城市、发运地、经销商一致',"", "error");
-            }*/
+            }
+            $scope.ArrayList.push(el);
+            /* }
+             else{
+                 swal('请保持与现有的VIN品牌、委托方、起始城市、发运地、经销商一致',"", "error");
+             }*/
         }
         else{
 
             //生成数组
             $scope.ArrayList.push(el);
         }
-    }
+     }
 
 
     //删除数据
@@ -684,7 +684,8 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
             taskPlanDateEnd: $scope.conPlanTimeEnd,
             makeId: $scope.conBrand,
             routeStartId: $scope.conStartCity,
-            baseAddrId: $scope.conLocate
+            baseAddrId: $scope.conLocate,
+            handoverFlag:$scope.handoverFlag
         }
         return obj;
     }

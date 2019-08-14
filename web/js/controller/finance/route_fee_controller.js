@@ -156,8 +156,8 @@ app.controller("route_fee_controller", ["$scope", "$state","$stateParams", "$hos
                 dpRouteTaskId:$scope.dispatchId,
                 createdOnEnd:$scope.instruct_endTime,
                 status:$scope.getStatus,
-                start:$scope.start,
-                size:$scope.size
+                grantDateStart:$scope.grant_start_time,
+                grantDateEnd:$scope.grant_end_time
             })).then(function (data) {
                 if (data.success === true) {
                     $scope.boxArrayFee = data.result[0];

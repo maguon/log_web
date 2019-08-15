@@ -975,36 +975,7 @@ app.controller("cash_loan_controller",["$scope","$rootScope", "$state", "$stateP
     };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
 
     $scope.cash_oil();
     getTruckNumList ();

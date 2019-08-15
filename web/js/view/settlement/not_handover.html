@@ -214,9 +214,9 @@
                     <!--状态-->
                     <div class="input-field col s2">
                         <select material-select watch id="handoverFlag" ng-model="handoverFlag" style="width: 100%">
-                            <option value="" >状态</option>
-                            <option  value=1 >未返还</option>
-                            <option  value=2 >已返回</option>
+                            <option value="" disabled>状态</option>
+                            <option ng-repeat="el in handoverFlagList" ng-value="el.id" >{{el.handover_flag}}</option>
+
                         </select>
                     </div>
 

@@ -304,9 +304,7 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
                 etcDateStart: $scope.startDate,
                 etcDatenEnd: $scope.endDate,
                 createdOnStart:$scope.createdOnStart,
-                createdOnEnd:$scope.createdOnEnd,
-                start:$scope.start,
-                size:$scope.size
+                createdOnEnd:$scope.createdOnEnd
             })).then(function (data) {
                 if (data.success === true) {
 
@@ -337,6 +335,8 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
             // 检索条件
 
             var conditions = _basic.objToUrl({
+                paymentType:$scope.paymentType,
+                paymentStatus:$scope.paymentStatus,
                 truckId: $scope.truckId,
                 driveId: $scope.driveName,
                 etcDateStart: $scope.startDate,

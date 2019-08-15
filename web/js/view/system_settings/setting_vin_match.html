@@ -65,76 +65,78 @@
             </div>
 
     </div>
-    <div style="width: 90%;margin: 0 auto">
-        <div class="row" style="height: 135px">
-            <div class="col s12 m12">
-                <div class="col s12  " style="margin-bottom: 15px;">
-                    <div class="input-field col s3 " style="margin-top: 40px;margin-left: 70px">
-                        <div class="col s12 p0" >
-                            <input name="search_id" id="search_id" type="text" ng-model="search_vin" >
-                            <label for="search_id">vin段落(第4～8位)</label>
-                        </div>
-                    </div>
-                    <div class="input-field col s4 " style="margin-top: 40px;margin-left: 100px;">
-                        <select material-select watch id="car_brand" name="car_brand"  ng-model="car_brand" >
-                           <option value="" disabled selected>请选择</option>
-                           <option ng-repeat="el in get_carMake" ng-value="el.id">{{el.make_name}}</option>
-                        </select>
-                        <label for="car_brand">品牌</label>
-                    </div>
 
-                    <div class="col s1 flex flex-round right" style="margin-top: 30px;">
-                        <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2  btn vc-center" ng-click="clickAdd()">
-                            <i class="mdi mdi-plus"></i>
-                        </a>
-                    </div>
-                    <div class="col s1 flex flex-round right" style="margin-top: 30px;">
-                        <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
-                           style="margin-right: 10px" ng-click="searchData()">
-                            <i class="mdi mdi-magnify"></i>
-                        </a>
-                    </div>
+    <div class="row" >
+
+            <div class="col s10">
+                <div class="input-field col s6">
+                    <input name="search_id" id="search_id" type="text" ng-model="search_vin" >
+                    <label for="search_id">vin段落(第4～8位)</label>
+                </div>
+                <div class="input-field col s6">
+                    <select material-select watch id="car_brand" name="car_brand"  ng-model="car_brand" >
+                       <option value="" disabled selected>请选择</option>
+                       <option ng-repeat="el in get_carMake" ng-value="el.id">{{el.make_name}}</option>
+                    </select>
+                    <label for="car_brand">品牌</label>
                 </div>
             </div>
-        </div>
-    </div>
-    <div style="width:90%;margin:0 auto;background: white">
-        <div class="col s12">
-            <div class="col s12">
-                <div class="divider cyan" style="height: 2px"></div>
-                <table class="bordered striped text_mid">
-                    <thead class="blue-grey lighten-5">
-                    <tr class="grey-text text-darken-2">
-                        <th data-field="">编号</th>
-                        <th data-field="">vin段落</th>
-                        <th data-field="">品牌</th>
-                        <th data-field="">备注</th>
-                        <th data-field="">操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="el in vinList" class="grey-text text-darken-1">
-                        <td>{{el.id }}</td>
-                        <td>{{el.vin}}</td>
-                        <td>{{el.make_name}}</td>
-                        <td>{{el.remark}}</td>
-                        <td class="operation vc-center">
-                            <a  ng-click="readItem(el.id)" class="cyan-text fz12" style="cursor: pointer;display: inline-block;width: 37px;height: 37px;">  <i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-file-document"></i></a>
-                            <a ng-click="deleteCar(el.id)" class="red-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-delete-forever"></i></a>
-                        </td>
-                    </tr>
-                    <tr class="grey-text text-darken-1" ng-if="vinList.length == 0">
-                        <td colspan="5"><span style="letter-spacing: 2px">暂无数据</span></td>
-                    </tr>
-                    </tbody>
-                </table>
+
+        <!--按钮区域-->
+        <div class="col s2 mp-10">
+            <div class="col s6 flex flex-round right mp-10">
+                <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2  btn vc-center" ng-click="clickAdd()">
+                    <i class="mdi mdi-plus"></i>
+                </a>
+            </div>
+            <div class="col s6 flex flex-round right mp-10">
+                <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
+                   style="margin-right: 10px" ng-click="searchData()">
+                    <i class="mdi mdi-magnify"></i>
+                </a>
             </div>
         </div>
     </div>
-    <div class="paging_box col s12">
-        <div class="right">
-            <a class="waves-light waves-effect cyan lighten-1 btn"  id="pre"   ng-click="previousPage()"> 上一页</a>
-            <a class="waves-light waves-effect cyan lighten-1 btn" id="next"  ng-click="nextPage()"> 下一页 </a>
+
+
+    <!-- 下部分：检索结果显示区域 -->
+    <div class="row">
+        <div class="divider cyan" style="height: 2px"></div>
+        <table class="bordered striped text_mid">
+            <thead class="blue-grey lighten-5">
+            <tr class="grey-text text-darken-2">
+                <th data-field="">编号</th>
+                <th data-field="">vin段落</th>
+                <th data-field="">品牌</th>
+                <th data-field="">备注</th>
+                <th data-field="">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="el in vinList" class="grey-text text-darken-1">
+                <td>{{el.id }}</td>
+                <td>{{el.vin}}</td>
+                <td>{{el.make_name}}</td>
+                <td>{{el.remark}}</td>
+                <td class="operation vc-center">
+                    <a  ng-click="readItem(el.id)" class="cyan-text fz12" style="cursor: pointer;display: inline-block;width: 37px;height: 37px;">  <i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-file-document"></i></a>
+                    <a ng-click="deleteCar(el.id)" class="red-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center"><i style="font-size: 1.3rem;line-height: 38px" class="mdi mdi-delete-forever"></i></a>
+                </td>
+            </tr>
+            <tr class="grey-text text-darken-1" ng-if="vinList.length == 0">
+                <td colspan="5"><span style="letter-spacing: 2px">暂无数据</span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 上下页按钮 -->
+    <div class="row">
+        <div class="paging_box col s12">
+            <div class="right">
+                <a class="waves-light waves-effect cyan lighten-1 btn"  id="pre"   ng-click="previousPage()"> 上一页</a>
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="next"  ng-click="nextPage()"> 下一页 </a>
+            </div>
         </div>
     </div>
 </div>

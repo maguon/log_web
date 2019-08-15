@@ -1,7 +1,7 @@
 /**
  * 主菜单：结算管理 -> 未返还交接单 控制器
  */
-app.controller("not_handover_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
+app.controller("not_handover_controller", ["$scope", "$host",'_config', "_basic", function ($scope, $host,_config, _basic) {
 
     // 取得当前画面 登录用户
     var userId = _basic.getSession(_basic.USER_ID);
@@ -9,6 +9,13 @@ app.controller("not_handover_controller", ["$scope", "$host", "_basic", function
     // 翻页用
     $scope.start = 0;
     $scope.size = 11;
+
+    // 状态列表
+    $scope.handoverFlagList = _config.handoverFlag;
+
+
+    // 状态 默认为未返还
+    $scope.handoverFlag = "1";
 
 
     //临时数组

@@ -413,5 +413,11 @@ baseService.factory("_config", function () {
         {id: "1", load_flag: "重"}
     ];
 
+
+    //交接单状态
+    _this.handoverFlag = [
+        {id: "1", handover_flag: "未返还"},
+        {id: "2", handover_flag: "已返回"}
+    ];
     return _this
 });

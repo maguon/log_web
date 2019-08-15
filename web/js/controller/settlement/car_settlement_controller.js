@@ -162,7 +162,6 @@ app.controller("car_settlement_controller", ["$scope", "_basic", "_config", "$ho
                 entrustId: $scope.carClient,
                 routeStartId: $scope.carStartCity,
                 routeEndId: $scope.carEndCity,
-                receiveId: $scope.carDealer,
                 orderStart:$scope.orderStartCar,
                 orderEnd:$scope.orderEndCar,
                 start: $scope.start.toString(),
@@ -214,7 +213,6 @@ app.controller("car_settlement_controller", ["$scope", "_basic", "_config", "$ho
             entrustId: $scope.enstrustId,
             routeStartId: $scope.routeStartId,
             routeEndId: $scope.routeEndId,
-            receiveId: $scope.carDealer,
             orderStart:$scope.orderStart,
             orderEnd:$scope.orderEnd,
             settleStatus:2
@@ -235,7 +233,6 @@ app.controller("car_settlement_controller", ["$scope", "_basic", "_config", "$ho
             entrustId: $scope.carClient,
             routeStartId: $scope.carStartCity,
             routeEndId: $scope.carEndCity,
-            receiveId: $scope.carDealer,
             orderStart:$scope.orderStartCar,
             orderEnd:$scope.orderEndCar,
             settleStatus:1
@@ -265,7 +262,6 @@ app.controller("car_settlement_controller", ["$scope", "_basic", "_config", "$ho
                 entrustId: $scope.carClient,
                 routeStartId: $scope.carStartCity,
                 routeEndId: $scope.carEndCity,
-                receiveId: $scope.carDealer,
                 orderStart:$scope.orderStartCar,
                 orderEnd:$scope.orderEndCar
             });

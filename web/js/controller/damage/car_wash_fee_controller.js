@@ -223,13 +223,13 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
     function getCarWashFeeList() {
         // 基本检索URL
         var url = $host.api_url + "/dpRouteLoadTaskCleanRel?start=" + $scope.start + "&size=" + $scope.size;
-        var urlCount = $host.api_url + "/dpRouteLoadTaskCleanRelCount";
+        var urlCount = $host.api_url + "/dpRouteLoadTaskCleanRelCount?";
         // 检索条件
         var conditionsObj = makeConditions();
         var conditions = _basic.objToUrl(conditionsObj);
         // 检索URL
         url = conditions.length > 0 ? url + "&" + conditions : url;
-        urlCount = conditions.length > 0 ? urlCount + "&" + conditions : urlCount;
+        urlCount = conditions.length > 0 ? urlCount + conditions : urlCount;
 
         _basic.get(url).then(function (data) {
             if (data.success == true) {

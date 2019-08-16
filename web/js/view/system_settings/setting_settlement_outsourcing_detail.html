@@ -1,17 +1,16 @@
 <!-- 信息修改或新增模态框 -->
 <div class="row" style="margin: 0">
-    <div id="modifyModel" class="modal modal-fixed-footer" style="width: 75%;height: 550px">
-        <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-            <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
-                <p>线路设置</p>
-            </div>
-        </div>
+    <div id="modifyModel" class="modal" style="width: 75%;">
 
-        <div class="row col s12" id="chip" style="width: 80%;margin-left: 10%">
-            <div class="col grey-text text-darken-1 valign-wrapper" style="padding: 0;width: 80%;margin-left: 10%;margin-bottom: 10px">
+        <!--标题-->
+        <div class="cyan lighten-1 white-text center-align modal_title" >线路设置</div>
+
+
+        <div class="modal-content  center padding bold row col s12" style="border-bottom: 1px solid #ccc">
+            <div class="container col s12">
                 <div class="col s12">
-                    <div class="col s12" style="height: 30%;margin-top: 80px;">
-                        <h6 class="cyan-text fz25" style="font-weight:500">{{startCity}}&emsp;
+                    <div class="col s12" style="margin-top: 20px;">
+                        <h6 class="cyan-text fz25 left-align" style="font-weight:500">{{startCity}}&emsp;
                             <span class="mdi mdi-swap-horizontal">&emsp;{{endCity}}</span>
                         </h6>
                     </div>
@@ -49,13 +48,18 @@
             </div>
         </div>
 
-        <div class="col s12 vc-center" style="padding-top:10px;border-top: 1px solid #ccc;margin-top: 60px">
-            <a class=" modal-action modal-close waves-effect waves-light grey lighten-1 btn">
-                <i class="mdi mdi-close"></i>
-            </a>
-            <button ng-click="distanceModify()" class="btn waves-light waves-effect cyan lighten-1" type="button" style="margin-left: 56px" >
-                <i class="mdi mdi-check"></i>
-            </button>
+
+        <div class="row col s12 center-align mp-10">
+            <div class="col s2 offset-s4">
+                <a class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                    <i class="mdi mdi-close"></i>
+                </a>
+            </div>
+            <div class="col s2">
+                <a ng-click="distanceModify()" class="waves-light waves-effect cyan lighten-1 btn">
+                    <i class="mdi mdi-check"></i>
+                </a>
+            </div>
         </div>
 
     </div>

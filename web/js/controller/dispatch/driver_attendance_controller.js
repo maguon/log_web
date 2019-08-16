@@ -382,6 +382,22 @@ app.controller("driver_attendance_controller", ["$scope","$rootScope", "$state",
         getData();
     };
 
+    $scope.export = function(){
+        $scope.startMonth = $('#start_month').val();
+        // 基本检索URL
+        var url = $host.api_url + "/driveWork.csv?" ;
+
+        var conditions = _basic.objToUrl({
+            driveId:$scope.driveName,
+            yMonth:$scope.startMonth
+        });
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
+        window.open(url);
+    }
+
+
+
     //获取查询数据
     function getData(){
         $scope.startMonth = $('#start_month').val();

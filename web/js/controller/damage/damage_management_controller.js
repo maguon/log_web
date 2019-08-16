@@ -31,6 +31,22 @@ app.controller("damage_management_controller", ["$scope","$rootScope","$state","
         });
     };
 
+    function getResponsibilityPerson (){
+        _basic.get($host.api_url + "/user?status=1").then(function (data) {
+            if (data.success === true) {
+                $scope.responsibilityList = data.result;
+                $('#responsibility_person').select2({
+                    placeholder: '责任人',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
+
     // 获取城市列表
     $scope.getCityList = function () {
         _basic.get($host.api_url + "/city").then(function (data) {
@@ -235,6 +251,7 @@ app.controller("damage_management_controller", ["$scope","$rootScope","$state","
     $scope.queryData = function () {
         $scope.getBrandList();
         $scope.getCityList();
+        getResponsibilityPerson();
     };
     $scope.queryData();
 }]);

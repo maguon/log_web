@@ -37,8 +37,10 @@
                     </select>
                 </div>
                 <div class="col input-field s2">
-                    <input id="responsibility_person" type="text" ng-model="responsibilityPerson">
-                    <label for="responsibility_person">责任人</label>
+                    <select material-select watch ng-model="responsibilityPerson"  style="width: 100%" id="responsibility_person">
+                        <option value="" selected>责任人</option>
+                        <option ng-repeat="el in responsibilityList" ng-value="el.uid">{{el.real_name}}</option>
+                    </select>
                 </div>
                 <div class="col input-field s2">
                     <input id="report_person" type="text" ng-model="reportPerson">

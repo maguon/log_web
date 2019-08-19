@@ -26,10 +26,26 @@ app.controller("finance_route_fee_statistics_controller", ["$scope", "$host", "_
     // 申请金额按月统计
     var applyMoneyMonth = [
         {
-            name: '出车款金额',
+            name: '货车停车费',
+            data: [],
+            color: '#26C6DA'
+        },
+        {
+            name: '商品车停车费',
             data: [],
             color: '#FF7E7E'
+        },
+        {
+            name: '商品车加油费',
+            data: [],
+            color: '#F5AA2C'
+        },
+        {
+            name: '其他费用',
+            data: [],
+            color: '#BF19E1'
         }
+
     ];
 
     // 申请笔数按日统计
@@ -44,9 +60,24 @@ app.controller("finance_route_fee_statistics_controller", ["$scope", "$host", "_
     // 申请金额按日统计
     var applyMoneyDay = [
         {
-            name: '出车款金额',
+            name: '货车停车费',
+            data: [],
+            color: '#26C6DA'
+        },
+        {
+            name: '商品车停车费',
             data: [],
             color: '#FF7E7E'
+        },
+        {
+            name: '商品车加油费',
+            data: [],
+            color: '#F5AA2C'
+        },
+        {
+            name: '其他费用',
+            data: [],
+            color: '#BF19E1'
         }
     ];
 
@@ -60,7 +91,7 @@ app.controller("finance_route_fee_statistics_controller", ["$scope", "$host", "_
         if(monthEnd == "" || monthEnd == undefined){
             monthEnd = $scope.endInitial;
         }
-        _basic.get($host.api_url + "/dpRouteTaskLoanMonthStat?monthStart=" + monthStart + "&monthEnd=" + monthEnd).then(function (data) {
+        _basic.get($host.api_url + "/dpRouteTaskFeeMonthStat?status=2&monthStart=" + monthStart + "&monthEnd=" + monthEnd).then(function (data) {
             if (data.success === true) {
                 // console.log("data", data);
                 data.result.reverse();
@@ -68,13 +99,19 @@ app.controller("finance_route_fee_statistics_controller", ["$scope", "$host", "_
                 // 申请笔数金额初始化
                 applyCountMonth[0].data = [];
                 applyMoneyMonth[0].data = [];
+                applyMoneyMonth[1].data = [];
+                applyMoneyMonth[2].data = [];
+                applyMoneyMonth[3].data = [];
                 for (var i = 0; i < data.result.length; i++) {
                     // x轴月份
                     financeInfoMonthCount.push(data.result[i].y_month);
                     // 申请笔数
                     applyCountMonth[0].data.push(Math.ceil(data.result[i].refund_count));
                     // 申请金额
-                    applyMoneyMonth[0].data.push(Math.ceil(data.result[i].refund_actual_money));
+                    applyMoneyMonth[0].data.push(Math.ceil(data.result[i].total_price));
+                    applyMoneyMonth[1].data.push(Math.ceil(data.result[i].car_total_price));
+                    applyMoneyMonth[2].data.push(Math.ceil(data.result[i].car_oil_fee));
+                    applyMoneyMonth[3].data.push(Math.ceil(data.result[i].other_fee));
                 }
                 $scope.showFinanceCountMonthChart();
                 $scope.showFinanceMoneyMonthChart();
@@ -88,21 +125,26 @@ app.controller("finance_route_fee_statistics_controller", ["$scope", "$host", "_
 
     // 获取财务按日统计数据
     $scope.getFinanceDayInfo = function () {
-        _basic.get($host.api_url + "/dpRouteTaskLoanDayStat?start=0&size=" + $scope.financeInfoSize).then(function (data) {
+        _basic.get($host.api_url + "/dpRouteTaskFeeDayStat?status=2&start=0&size=" + $scope.financeInfoSize).then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
                 data.result.reverse();
                 financeInfoDayCount = [];
                 // 申请笔数金额初始化
                 applyCountDay[0].data = [];
                 applyMoneyDay[0].data = [];
+                applyMoneyDay[1].data = [];
+                applyMoneyDay[2].data = [];
+                applyMoneyDay[3].data = [];
                 for (var i = 0; i < data.result.length; i++) {
                     // x轴月份
                     financeInfoDayCount.push(data.result[i].id);
                     // 申请笔数
                     applyCountDay[0].data.push(Math.ceil(data.result[i].refund_count));
                     // 申请金额
-                    applyMoneyDay[0].data.push(Math.ceil(data.result[i].refund_actual_money));
+                    applyMoneyDay[0].data.push(Math.ceil(data.result[i].total_price));
+                    applyMoneyDay[1].data.push(Math.ceil(data.result[i].car_total_price));
+                    applyMoneyDay[2].data.push(Math.ceil(data.result[i].car_oil_fee));
+                    applyMoneyDay[3].data.push(Math.ceil(data.result[i].other_fee));
                 }
                 $scope.showFinanceCountDayChart();
                 $scope.showFinanceMoneyDayChart();
@@ -137,7 +179,7 @@ app.controller("finance_route_fee_statistics_controller", ["$scope", "$host", "_
                 crosshair: true
             },
             yAxis: {
-                min: 0,
+               /* min: 0,*/
                 title: {
                     text: '次'
                 }
@@ -192,7 +234,7 @@ app.controller("finance_route_fee_statistics_controller", ["$scope", "$host", "_
                 crosshair: true
             },
             yAxis: {
-                min: 0,
+             /*   min: 0,*/
                 title: {
                     text: '人民币(￥)'
                 }
@@ -247,7 +289,7 @@ app.controller("finance_route_fee_statistics_controller", ["$scope", "$host", "_
                 crosshair: true
             },
             yAxis: {
-                min: 0,
+               /* min: 0,*/
                 title: {
                     text: '次'
                 }
@@ -302,7 +344,7 @@ app.controller("finance_route_fee_statistics_controller", ["$scope", "$host", "_
                 crosshair: true
             },
             yAxis: {
-                min: 0,
+              /*  min: 0,*/
                 title: {
                     text: '人民币(￥)'
                 }

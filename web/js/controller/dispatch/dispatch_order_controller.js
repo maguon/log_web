@@ -159,13 +159,6 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
      * */
     function seachOrderInfo(){
         var url = $host.api_url + "/dpRouteTaskList?start=" + $scope.start + "&size=" + $scope.size;
-        // 基本检索URL
-        /* if($scope.reverseFlag==null){
-             var url = $host.api_url + "/dpRouteTaskList?start=" + $scope.start + "&size=" + $scope.size;
-         }
-         else {
-             var url = $host.api_url + "/dpRouteTaskList?start=" + $scope.start + "&size=" + $scope.size+'&reverseFlag='+$scope.reverseFlag;
-         }*/
         // 检索条件
         var conditionsObj = makeConditions();
         var conditions = _basic.objNewToUrl(conditionsObj);

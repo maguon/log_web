@@ -40,9 +40,10 @@ app.controller("maintenance_statistics_controller", ["$scope", "_basic", "_confi
                 // 饼图初始数据
                 $scope.truckCountInfo = [
                     ["自营: 0 辆", 0],
-                    ["外协: 0 辆", 0],
-                    ["供方: 0 辆", 0],
-                    ["承包: 0 辆", 0]
+                    ["外协: 0 辆", 0]
+
+                   /* ["供方: 0 辆", 0],
+                    ["承包: 0 辆", 0]*/
                 ];
                 // 转化饼图数据格式
                 for (var i = 0; i < truckData.result.length; i++) {
@@ -54,14 +55,14 @@ app.controller("maintenance_statistics_controller", ["$scope", "_basic", "_confi
                         $scope.truckCountInfo[1][0] = "外协: " + truckData.result[i].truck_count + " 辆";
                         $scope.truckCountInfo[1][1] = truckData.result[i].truck_count
                     }
-                    if(truckData.result[i].operate_type === 3){
+                  /*  if(truckData.result[i].operate_type === 3){
                         $scope.truckCountInfo[2][0] = "供方: " + truckData.result[i].truck_count + " 辆";
                         $scope.truckCountInfo[2][1] = truckData.result[i].truck_count
                     }
                     if(truckData.result[i].operate_type === 4){
                         $scope.truckCountInfo[3][0] = "承包: " + truckData.result[i].truck_count + " 辆";
                         $scope.truckCountInfo[3][1] = truckData.result[i].truck_count
-                    }
+                    }*/
                 }
                 // console.log("truckCountInfo",$scope.truckCountInfo);
                 $scope.showTruckPie();

@@ -54,7 +54,8 @@ app.controller("damage_management_controller", ["$scope","$rootScope","$state","
                 $scope.cityList = data.result;
                 $('#end_city_list').select2({
                     placeholder: '目的城市',
-                    containerCssClass : 'select2_dropdown'
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
                 });
             }
             else {

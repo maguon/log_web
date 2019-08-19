@@ -80,7 +80,7 @@ app.controller("car_refueling_statistics_controller", ["$scope", "$host", "_basi
         if (end === undefined) {
             end = $scope.endInitial
         }
-        _basic.get($host.api_url + "/driveOilMonthStat?oilStatus=2&monthStart=" + start + "&monthEnd=" + end).then(function (data) {
+        _basic.get($host.api_url + "/driveExceedOilRelMonthStat?paymentStatus=1&monthStart=" + start + "&monthEnd=" + end).then(function (data) {
             if (data.success === true) {
                 data.result.reverse();
                 // 货车加油X轴月份
@@ -88,38 +88,26 @@ app.controller("car_refueling_statistics_controller", ["$scope", "$host", "_basi
                 // 初始化统计数
                 truckRefuelingVolCountMonth[0].data = [];
                 truckRefuelingMoneyCountMonth[0].data = [];
-                if(data.result.length > 0){
-                    for (var i = 0; i < data.result.length; i++) {
-                            truckRefuelingVolCountMonth[0].data.push(Math.ceil(data.result[i].actual_oil));
-                            if($scope.refuelingVolMonth.indexOf(data.result[i].y_month) === -1){
-                                $scope.refuelingVolMonth.push(data.result[i].y_month);
-                            }
-                        }
-                    }
-                $scope.showTruckRefueling_month();
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
-
-
-        _basic.get($host.api_url + "/driveUreaMonthStat?oilStatus=2&monthStart=" + start + "&monthEnd=" + end).then(function (data) {
-            if (data.success === true) {
-                data.result.reverse();
                 // 货车加油X轴月份
                 $scope.ureaVolMonth = [];
                 // 初始化统计数
                 truckUreaVolCountMonth[0].data = [];
                 if(data.result.length > 0){
                     for (var i = 0; i < data.result.length; i++) {
-                        truckUreaVolCountMonth[0].data.push(Math.ceil(data.result[i].actual_urea));
-                        if($scope.ureaVolMonth.indexOf(data.result[i].y_month) === -1){
-                            $scope.ureaVolMonth.push(data.result[i].y_month);
-                        }
+                            truckRefuelingVolCountMonth[0].data.push(Math.ceil(data.result[i].oil));
+                            truckUreaVolCountMonth[0].data.push(Math.ceil(data.result[i].urea));
+                            if($scope.refuelingVolMonth.indexOf(data.result[i].y_month) === -1){
+                                $scope.refuelingVolMonth.push(data.result[i].y_month);
+                            }
+                            if($scope.ureaVolMonth.indexOf(data.result[i].y_month) === -1){
+                                $scope.ureaVolMonth.push(data.result[i].y_month);
+                            }
                     }
-                }
+                 }
+
+                $scope.showTruckRefueling_month();
                 $scope.showTruckUrea_month();
+
             }
             else {
                 swal(data.msg, "", "error");
@@ -127,7 +115,7 @@ app.controller("car_refueling_statistics_controller", ["$scope", "$host", "_basi
         });
 
 
-        _basic.get($host.api_url + "/driveOilMoneyMonthStat?monthStart=" + start + "&monthEnd=" + end).then(function (data) {
+        _basic.get($host.api_url + "/driveExceedOilMoneyMonthStat?checkStatus=3&monthStart=" + start + "&monthEnd=" + end).then(function (data) {
             if (data.success === true) {
                 data.result.reverse();
                 // 货车加油X轴月份
@@ -153,58 +141,17 @@ app.controller("car_refueling_statistics_controller", ["$scope", "$host", "_basi
 
     // 获取货车加油按周统计信息
     $scope.getTruckRefuelingWeekInfo = function () {
-        _basic.get($host.api_url + "/driveOilWeekStat?oilStatus=2&start=0&size=10").then(function (data) {
+        _basic.get($host.api_url + "/driveExceedOilRelWeekStat?paymentStatus=1&start=0&size=10").then(function (data) {
             if (data.success === true) {
                 data.result.reverse();
                 // 货车加油X轴周数
                 $scope.refuelingVolWeek = [];
-
                 // 初始化统计数
                 truckRefuelingVolCountWeek[0].data = [];
-
-
-                if(data.result.length > 0){
-                    for (var i = 0; i < data.result.length; i++) {
-                            truckRefuelingVolCountWeek[0].data.push(Math.ceil(data.result[i].actual_oil));
-                            if($scope.refuelingVolWeek.indexOf(data.result[i].y_week) === -1){
-                                $scope.refuelingVolWeek.push(data.result[i].y_week);
-                            }
-                    }
-                }
-                $scope.showTruckRefueling_week();
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
-        _basic.get($host.api_url + "/driveUreaWeekStat?oilStatus=2&start=0&size=10").then(function (data) {
-            if (data.success === true) {
-                data.result.reverse();
                 // 货车加油X轴周数
-
                 $scope.ureaVolWeek = [];
-
                 // 初始化统计数
-
                 truckUreaVolCountWeek[0].data = [];
-
-                if(data.result.length > 0){
-                    for (var i = 0; i < data.result.length; i++) {
-                        truckUreaVolCountWeek[0].data.push(Math.ceil(data.result[i].actual_urea));
-                        if($scope.ureaVolWeek.indexOf(data.result[i].y_week) === -1){
-                            $scope.ureaVolWeek.push(data.result[i].y_week);
-                        }
-                    }
-                }
-                $scope. showTruckUrea_week();
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
-        _basic.get($host.api_url + "/driveOilMoneyWeekStat?start=0&size=10").then(function (data) {
-            if (data.success === true) {
-                data.result.reverse();
                 // 货车加油X轴周数
                 $scope.refuelingMoneyWeek = [];
                 // 初始化统计数
@@ -212,13 +159,25 @@ app.controller("car_refueling_statistics_controller", ["$scope", "$host", "_basi
 
                 if(data.result.length > 0){
                     for (var i = 0; i < data.result.length; i++) {
-                        truckRefuelingMoneyCountWeek[0].data.push(Math.ceil(data.result[i].actual_money));
-                        if($scope.refuelingMoneyWeek.indexOf(data.result[i].y_week) === -1){
-                            $scope.refuelingMoneyWeek.push(data.result[i].y_week);
-                        }
+                            truckRefuelingVolCountWeek[0].data.push(Math.ceil(data.result[i].oil));
+                            truckUreaVolCountWeek[0].data.push(Math.ceil(data.result[i].urea));
+                            truckRefuelingMoneyCountWeek[0].data.push(Math.ceil(data.result[i].oil_money));
+                            if($scope.refuelingVolWeek.indexOf(data.result[i].y_week) === -1){
+                                $scope.refuelingVolWeek.push(data.result[i].y_week);
+                            }
+                            if($scope.ureaVolWeek.indexOf(data.result[i].y_week) === -1){
+                                $scope.ureaVolWeek.push(data.result[i].y_week);
+                            }
+
+                            if($scope.refuelingMoneyWeek.indexOf(data.result[i].y_week) === -1){
+                                $scope.refuelingMoneyWeek.push(data.result[i].y_week);
+                            }
                     }
                 }
+
                 $scope.showTruckRefuelingMoney_week();
+                $scope.showTruckUrea_week();
+                $scope.showTruckRefueling_week();
             }
             else {
                 swal(data.msg, "", "error");
@@ -340,7 +299,7 @@ app.controller("car_refueling_statistics_controller", ["$scope", "$host", "_basi
                 crosshair: true
             },
             yAxis: {
-                min: 0,
+              /*  min: 0,*/
                 title: {
                     text: '人民币(￥)'
                 }

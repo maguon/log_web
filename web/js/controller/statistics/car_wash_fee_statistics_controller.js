@@ -54,7 +54,7 @@ app.controller("car_wash_fee_statistics_controller", ["$scope", "$host", "_basic
                 washMoneyCountMonth[0].data = [];
                 for (var i = 0; i < data.result.length; i++) {
                     $scope.carWashFeeMonthCount.push(data.result[i].y_month);
-                    washMoneyCountMonth[0].data.push(Math.ceil(data.result[i].actual_price));
+                    washMoneyCountMonth[0].data.push(Math.ceil(data.result[i].total_price));
                 }
                 $scope.showCarWashFeeStatistics_month();
             }
@@ -77,7 +77,7 @@ app.controller("car_wash_fee_statistics_controller", ["$scope", "$host", "_basic
                 washMoneyCountWeek[0].data = [];
                 for (var i = 0; i < data.result.length; i++) {
                     $scope.carWashFeeWeekCount.push(data.result[i].y_week);
-                    washMoneyCountWeek[0].data.push(Math.ceil(data.result[i].actual_price));
+                    washMoneyCountWeek[0].data.push(Math.ceil(data.result[i].total_price));
                 }
                 $scope.showCarWashFeeStatistics_week();
             }
@@ -111,10 +111,10 @@ app.controller("car_wash_fee_statistics_controller", ["$scope", "$host", "_basic
                         carWashFeeList = data.result;
                     }
                     // 金额最大项即为数组第一个元素的金额
-                    var maxCount = carWashFeeList[0].actual_price;
+                    var maxCount = carWashFeeList[0].total_price;
                     // 根据金额最大项来计算百分比
                     for (var i = 0; i < carWashFeeList.length; i++) {
-                        carWashFeeList[i].percent = Math.floor((carWashFeeList[i].actual_price / maxCount) * 100);
+                        carWashFeeList[i].percent = Math.floor((carWashFeeList[i].total_price / maxCount) * 100);
                     }
                 }
                 $scope.carWashFeeRankingMonth = carWashFeeList;
@@ -142,10 +142,10 @@ app.controller("car_wash_fee_statistics_controller", ["$scope", "$host", "_basic
                         carWashFeeList = data.result;
                     }
                     // 金额最大项即为数组第一个元素的金额
-                    var maxCount = carWashFeeList[0].actual_price;
+                    var maxCount = carWashFeeList[0].total_price;
                     // 根据金额最大项来计算百分比
                     for (var i = 0; i < carWashFeeList.length; i++) {
-                        carWashFeeList[i].percent = Math.floor((carWashFeeList[i].actual_price / maxCount) * 100);
+                        carWashFeeList[i].percent = Math.floor((carWashFeeList[i].total_price / maxCount) * 100);
                     }
                 }
                 $scope.carWashFeeRankingWeek = carWashFeeList;

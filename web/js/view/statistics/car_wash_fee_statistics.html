@@ -47,14 +47,14 @@
                         <div class="col s1 right-align" style="padding: 0;">
                             <span class="white lighten-2 center" style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">{{$index + 1}}</span>
                         </div>
-                        <div class="col s3 center-align">
-                            <span style="color: grey;font-weight: bold">{{feeInfo.short_name}}</span>
+                        <div class="col s4 center-align">
+                            <span style="color: grey;font-weight: bold" class="fz14">{{feeInfo.short_name}}</span>
                         </div>
                         <div class="col s5 progress" style="margin: 1rem 0">
                             <div class="determinate" style="width:{{feeInfo.percent + '%'}}"></div>
                         </div>
-                        <div class="col s3">
-                            <span style="color: #ff8282;font-weight: bold">{{feeInfo.actual_price}}</span>
+                        <div class="col s2">
+                            <span style="color: #ff8282;font-weight: bold">{{feeInfo.total_price}}</span>
                         </div>
                     </div>
 
@@ -84,16 +84,16 @@
                     <!--top10排行榜-->
                     <div ng-repeat="feeInfo in carWashFeeRankingWeek" class="col s12 valign-wrapper" style="margin: 5px 0">
                         <div class="col s1 right-align" style="padding: 0;">
-                            <span class="white lighten-2 center" style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">{{$index + 1}}</span>
+                            <span class="white lighten-2 center " style="width:30px;height:30px;font-weight: bold;display:inline-block;border-radius: 100%;font-size: 1.1rem;color: white;background-color: #c6c6c6 !important;line-height: 31px">{{$index + 1}}</span>
                         </div>
-                        <div class="col s3 center-align">
-                            <span style="color: grey;font-weight: bold">{{feeInfo.short_name}}</span>
+                        <div class="col s4 center-align">
+                            <span class="fz14" style="color: grey;font-weight: bold">{{feeInfo.short_name}}</span>
                         </div>
                         <div class="col s5 progress" style="margin: 1rem 0;background-color: #ffdcdc;">
                             <div class="determinate" style="width: {{feeInfo.percent + '%'}};background-color: #FF7E7E;"></div>
                         </div>
-                        <div class="col s3">
-                            <span style="color: #ff8282;font-weight: bold">{{feeInfo.actual_price}}</span>
+                        <div class="col s2">
+                            <span style="color: #ff8282;font-weight: bold">{{feeInfo.total_price}}</span>
                         </div>
                     </div>
                 </div>

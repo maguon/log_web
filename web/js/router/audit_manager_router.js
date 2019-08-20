@@ -463,11 +463,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/statistics/truck_indemnity_loan_statistics.html",
             controller:"truck_indemnity_loan_statistics_controller"
         })*/
-        .state("settlement_statistics", {
+       /* .state("settlement_statistics", {
             url:"/settlement_statistics",
             templateUrl: "js/view/statistics/settlement_statistics.html",
             controller:"settlement_statistics_controller"
-        })
+        })*/
         .state("transport_planning_statistics", {
             url:"/transport_planning_statistics",
             templateUrl: "js/view/statistics/transport_planning_statistics.html",

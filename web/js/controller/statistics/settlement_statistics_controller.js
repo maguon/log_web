@@ -1,4 +1,4 @@
-app.controller("settlement_statistics_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
+/**app.controller("settlement_statistics_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
 
     // 日期初始值
     $scope.startInitial = moment(new Date()).format('YYYY') + "01";
@@ -335,3 +335,4 @@ app.controller("settlement_statistics_controller", ["$scope", "$host", "_basic",
     };
     $scope.queryData();
 }]);
+ */

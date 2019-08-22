@@ -97,48 +97,56 @@ app.controller("instruction_list_controller", ["$scope","$rootScope","$state","$
 
     // 搜索请求
    function search_All() {
-       // 基本检索URL
-       var url = $host.api_url + "/dpRouteTask?start=" + $scope.start + "&size=" + $scope.size;
-       // 检索条件
-       var conditionsObj = makeConditions();
-       var conditions = _basic.objToUrl(conditionsObj);
-       // 检索URL
-       url = conditions.length > 0 ? url + "&" + conditions : url;
 
-       _basic.get(url).then(function (data) {
+       if (($scope.dispatch_instruct_endTime == undefined && $scope.dispatch_instruct_startTime == undefined) && ($scope.instruct_endTime == undefined && $scope.instruct_startTime == undefined) ||
+           ($scope.dispatch_instruct_endTime == '' && $scope.dispatch_instruct_startTime == '') &&( $scope.instruct_endTime == '' && $scope.instruct_startTime == '')) {
+           $scope.instruction_list=[];
+           swal('请输入完整的时间范围', "", "error");
+       }
+       else {
+           // 基本检索URL
+           var url = $host.api_url + "/dpRouteTask?start=" + $scope.start + "&size=" + $scope.size;
+           // 检索条件
+           var conditionsObj = makeConditions();
+           var conditions = _basic.objToUrl(conditionsObj);
+           // 检索URL
+           url = conditions.length > 0 ? url + "&" + conditions : url;
 
-           if (data.success == true) {
+           _basic.get(url).then(function (data) {
 
-               // 当前画面的检索信息
-               var pageItems = {
-                   pageId: "instruction_list",
-                   start: $scope.start,
-                   size: $scope.size,
-                   conditions: conditionsObj
-               };
-               // 将当前画面的条件
-               $rootScope.refObj = {pageArray: []};
-               $rootScope.refObj.pageArray.push(pageItems);
-                $scope.instruction_list_obj = data.result;
-                $scope.instruction_list = $scope.instruction_list_obj.slice(0, 10);
-                if ($scope.start > 0) {
-                    $scope.pre = true;
-                }
-                else {
-                    $scope.pre = false;
-                }
+               if (data.success == true) {
 
-                if ($scope.instruction_list_obj.length < $scope.size) {
-                    $scope.next = false;
-                }
-                else {
-                    $scope.next = true;
-                }
+                   // 当前画面的检索信息
+                   var pageItems = {
+                       pageId: "instruction_list",
+                       start: $scope.start,
+                       size: $scope.size,
+                       conditions: conditionsObj
+                   };
+                   // 将当前画面的条件
+                   $rootScope.refObj = {pageArray: []};
+                   $rootScope.refObj.pageArray.push(pageItems);
+                   $scope.instruction_list_obj = data.result;
+                   $scope.instruction_list = $scope.instruction_list_obj.slice(0, 10);
+                   if ($scope.start > 0) {
+                       $scope.pre = true;
+                   }
+                   else {
+                       $scope.pre = false;
+                   }
 
-            } else {
-                swal(data.msg, "", "error")
-            }
-        })
+                   if ($scope.instruction_list_obj.length < $scope.size) {
+                       $scope.next = false;
+                   }
+                   else {
+                       $scope.next = true;
+                   }
+
+               } else {
+                   swal(data.msg, "", "error")
+               }
+           })
+       }
     };
 
     // 普通查询
@@ -166,8 +174,8 @@ app.controller("instruction_list_controller", ["$scope","$rootScope","$state","$
     function setConditions(conditions) {
         $scope.vin = conditions.vin;
         $scope.dispatch_num = conditions.dpRouteTaskId;
-        $scope.instruct_startTime= conditions.taskPlanDateStart;
-        $scope.instruct_endTime = conditions.taskPlanDateEnd;
+        $scope.dispatch_instruct_startTime= conditions.taskPlanDateStart;
+        $scope.dispatch_instruct_endTime = conditions.taskPlanDateEnd;
         $scope.truck_num = conditions.truckNum;
         $scope.driver = conditions.driveName;
         $scope.start_city= conditions.routeStartId;
@@ -176,6 +184,8 @@ app.controller("instruction_list_controller", ["$scope","$rootScope","$state","$
         $scope.dealer = conditions.receiveId;
         $scope.task_status= conditions.taskStatus;
         $scope.dispatch_car_status= conditions.loadTaskStatus;
+        $scope.instruct_startTime= conditions.createdOnStart;
+        $scope.instruct_endTime = conditions.createdOnEnd;
     }
 
     /**
@@ -185,8 +195,10 @@ app.controller("instruction_list_controller", ["$scope","$rootScope","$state","$
         return {
             vin: $scope.vin,
             dpRouteTaskId: $scope.dispatch_num,
-            taskPlanDateStart:$scope.instruct_startTime,
-            taskPlanDateEnd: $scope.instruct_endTime,
+            createdOnStart:$scope.instruct_startTime,
+            createdOnEnd: $scope.instruct_endTime,
+            taskPlanDateStart:$scope.dispatch_instruct_startTime,
+            taskPlanDateEnd:$scope.dispatch_instruct_endTime,
             truckNum: $scope.truck_num,
             driveName: $scope.driver,
             loadTaskStatus: $scope.dispatch_car_status,

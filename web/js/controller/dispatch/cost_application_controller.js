@@ -32,7 +32,7 @@ app.controller("cost_application_controller", ["$scope", "$state","$stateParams"
         //货车牌号
         truckNum: '',
         //调度编号
-        dpRouteTaskId:'',
+        dpRouteTaskId:0,
         //货车停留天数
         dayCount:0,
         //货车停车单价
@@ -243,19 +243,15 @@ app.controller("cost_application_controller", ["$scope", "$state","$stateParams"
     * 提交新增信息
     * */
     $scope.addCostItem = function () {
-
-
-
         if( $scope.newCostApplication.truck!==undefined&& $scope.newCostApplication.truck!==null){
 
             $scope.newTruck = $scope.newCostApplication.truck.id;
             $scope.newTruckNumber= $scope.newCostApplication.truck.truck_num;
 
-
         }
         if($scope.newCostApplication.carDayCount==null|| $scope.newCostApplication.carSinglePrice==null||
             $scope.newCostApplication.driver== ''||$scope.newTruck==null||  $scope.newTruckNumber==null||
-            $scope.newCostApplication.dpRouteTaskId==''||$scope.newCostApplication.dayCount ==null||
+            $scope.newCostApplication.dpRouteTaskId==null||$scope.newCostApplication.dayCount ==null||
             $scope.newCostApplication.singlePrice ==null||$scope.newCostApplication.carOilFee==null
         ){
             swal('请输入完整信息!', "", "error")

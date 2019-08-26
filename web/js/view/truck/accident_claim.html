@@ -10,14 +10,14 @@
                 <div class="row col s12" style="margin-top: 35px">
                     <div style="width: 90%;margin: 0 auto">
                         <div class="col s12">
-                            <div class="col s4 input-field">
+                            <div class="col s3 input-field">
                                 <select material-select watch id="insurance_company_modal" ng-model="insuranceCompanyMod">
                                     <option value="" selected>请选择</option>
                                     <option ng-repeat="company in insureCompanyList" ng-value="company.id">{{company.insure_name}}</option>
                                 </select>
                                 <label for="insurance_company_modal"><span style="color: red">* </span>保险公司</label>
                             </div>
-                            <div class="col s4 input-field">
+                            <div class="col s3 input-field">
                                 <select material-select watch id="insurance_type_modal" ng-model="insuranceTypeMod">
                                     <option value="" selected>请选择</option>
                                     <option ng-value="1">交强险</option>
@@ -26,10 +26,15 @@
                                 </select>
                                 <label for="insurance_type_modal"><span style="color: red">* </span>险种</label>
                             </div>
-                            <div class="col s4 input-field">
+                            <div class="col s3 input-field">
                                 <input type="number" name="payment_money_start" id="payment_money_modal" ng-model="paymentMoneyMod">
                                 <label for="payment_money_modal"><span style="color: red">* </span>贷赔金额（元）</label>
                             </div>
+                            <div class="col s3 input-field">
+                                <input id="refRemark" type="text" ng-model="refRemarkMod">
+                                <label for="refRemark">定损员信息</label>
+                            </div>
+
                            <!-- <div class="col s6" style="padding: 0;">
                                 <div class="col s6 input-field">
                                     <select material-select watch id="has_loan" ng-change="checkHasLoan()" ng-model="hasLoan">

@@ -43,7 +43,12 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$
         _basic.get($host.api_url + "/damageInsure?damageInsureId=" + damageId).then(function (data) {
             if (data.success === true) {
                 $scope.currentInsurInfo = data.result[0];
-                $scope.declareDate = moment(data.result[0].declare_date).format("YYYY-MM-DD");
+                if(data.result[0].declare_date==null){
+                    $scope.declareDate='';
+                }
+                else {
+                    $scope.declareDate = moment(data.result[0].declare_date).format("YYYY-MM-DD");
+                }
                 $scope.insuranceCompany = data.result[0].insure_id;
                 $scope.damageMoney = data.result[0].damage_money;
                 $scope.insuranceCompensation = data.result[0].insure_plan;
@@ -159,7 +164,6 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$
             swal('请输入完整信息!', "", "error");
         }
         else {
-
             _basic.get($host.api_url +'/city?cityId='+$scope.currentInsurInfo.city_id).then(function (data) {
                 if (data.success == true) {
                     $scope.cityName=data.result[0].city_name;
@@ -189,6 +193,7 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$
             insureActual: $scope.insurancePayment,
             paymentExplain: $scope.currentInsurInfo.payment_explain,
             checkExplain: $scope.currentInsurInfo.check_explain,
+            detailExplain:$scope.currentInsurInfo.detail_explain,
             damageIds: $scope.damageIdArr
         }).then(function (data) {
             if (data.success === true) {
@@ -216,8 +221,7 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$
                 if (result.value) {
                     _basic.put($host.api_url + "/user/" + userId + "/damageInsure/" + damageId + "/insureStatus/2", {}).then(function (data) {
                         if (data.success === true) {
-                            $scope.getCurrentDamageInfo();
-                            $scope.getCurrentDamageCard();
+                            $scope.saveDamageInfo();
                         }
                         else {
                             swal(data.msg, "", "error");

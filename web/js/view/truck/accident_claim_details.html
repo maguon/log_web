@@ -43,16 +43,23 @@
                                 </select>
                                 <label for="insurance_type">保险种类</label>
                             </div>
-                            <div class="col s6" style="padding: 0;">
+                            <div class="col s4" style="padding: 0;">
                                 <div class="col s12 input-field">
                                     <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" name="payment_money" id="payment_money" ng-model="accidentDetails.insure_plan">
                                     <label for="payment_money">待赔金额（元）</label>
                                 </div>
                             </div>
-                            <div class="col s6 input-field">
+                            <div class="col s4 input-field">
                                 <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" name="actual_payment" id="actual_payment" ng-model="accidentDetails.insure_actual">
                                 <label for="actual_payment">实际赔付（元）</label>
                             </div>
+                            <div class="col s4 input-field">
+                                <input id="refRemark" type="text" ng-model="accidentDetails.ref_remark">
+                                <label for="refRemark">定损员信息</label>
+                            </div>
+
+
+
                         </div>
                     </div>
 
@@ -75,6 +82,9 @@
                         </div>-->
                         <div class="col s4">
                             <p>实际赔付：<span style="color: #e57676">{{accidentDetails.insure_actual.toFixed(2)}}</span> 元</p>
+                        </div>
+                        <div class="col s4">
+                            <p>定损员信息：<span style="color: #e57676">{{accidentDetails.ref_remark}}</span></p>
                         </div>
                     </div>
 
@@ -183,10 +193,15 @@
                         <input type="text" name="handle_description" id="handle_description" ng-model="accidentDetails.check_explain">
                         <label for="handle_description">处理描述</label>
                     </div>
-
+                    <!--特殊说明-->
+                    <div class="col s12 input-field" ng-if="accidentDetails.insure_status == 1">
+                        <input type="text" name="ref_remark" id="ref_remark" ng-model="accidentDetails.detail_explain">
+                        <label for="ref_remark">特殊说明</label>
+                    </div>
                     <div class="col s12" style="font-size: 1.2rem;font-weight: bold;color: darkgray" ng-if="accidentDetails.insure_status == 2">
                         <p>赔付描述：{{accidentDetails.payment_explain}}</p>
                         <p>处理描述：{{accidentDetails.check_explain}}</p>
+                        <p>特殊说明：{{accidentDetails.detail_explain}}</p>
                     </div>
 
                     <div class="col s12" style="margin: 40px 0 15px 0" ng-if="accidentDetails.insure_status == 1">

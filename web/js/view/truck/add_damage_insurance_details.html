@@ -245,6 +245,14 @@
                     <div class="col s12" style="color: darkgray;font-size: 1.2rem" ng-show="insureStatus == 2">
                         <p><span style="font-weight: bold">处理描述：</span>{{currentInsurInfo.check_explain}}</p>
                     </div>
+                    <!--特殊说明-->
+                    <div class="col s12 input-field" ng-if="insureStatus == 1">
+                        <input type="text" name="ref_remark" id="ref_remark" ng-model="currentInsurInfo.detail_explain">
+                        <label style="font-weight: bold" for="ref_remark">特殊说明</label>
+                    </div>
+                    <div class="col s12" style="color: darkgray;font-size: 1.2rem" ng-show="insureStatus == 2">
+                        <p><span style="font-weight: bold">特殊说明：</span>{{currentInsurInfo.detail_explain}}</p>
+                    </div>
                 </div>
             </div>
             <div class="row col s12" ng-show="insureStatus == 1">

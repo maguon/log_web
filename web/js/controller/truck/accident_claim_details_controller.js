@@ -142,8 +142,10 @@ app.controller("accident_claim_details_controller", ["$scope","$state", "$host",
                 insureType: $scope.accidentDetails.insure_type,
                 insurePlan: $scope.accidentDetails.insure_plan,
                 insureActual: $scope.accidentDetails.insure_actual,
+                refRemark: $scope.accidentDetails.ref_remark,
                 paymentExplain: $scope.accidentDetails.payment_explain,
-                checkExplain: $scope.accidentDetails.check_explain
+                checkExplain: $scope.accidentDetails.check_explain,
+                detailExplain:$scope.accidentDetails.detail_explain
              /*   financialLoan: $scope.accidentDetails.financial_loan*/
             }).then(function (data) {
                 if (data.success === true) {
@@ -179,8 +181,10 @@ app.controller("accident_claim_details_controller", ["$scope","$state", "$host",
                             insureType: $scope.accidentDetails.insure_type,
                             insurePlan: $scope.accidentDetails.insure_plan,
                             insureActual: $scope.accidentDetails.insure_actual,
+                            refRemark: $scope.accidentDetails.ref_remark,
                             paymentExplain: $scope.accidentDetails.payment_explain,
-                            checkExplain: $scope.accidentDetails.check_explain
+                            checkExplain: $scope.accidentDetails.check_explain,
+                            detailExplain:$scope.accidentDetails.detail_explain
                           /*  financialLoan: $scope.accidentDetails.financial_loan*/
                         }).then(function (data) {
                             if (data.success === true) {

@@ -165,6 +165,7 @@ app.controller("accident_claim_controller", ["$scope","$rootScope","$state","$st
         $scope.insuranceCompanyMod = "";
         $scope.insuranceTypeMod = "";
         $scope.paymentMoneyMod = "";
+        $scope.refRemarkMod ='';
         $scope.hasLoan = "";
         $scope.loanMoneyNum = "";
         $scope.paymentDescription = "";
@@ -254,6 +255,7 @@ app.controller("accident_claim_controller", ["$scope","$rootScope","$state","$st
                 insureId: $scope.insuranceCompanyMod,
                 insureType: $scope.insuranceTypeMod,
                 insurePlan: $scope.paymentMoneyMod,
+                refRemark: $scope.refRemarkMod,
                /* financialLoanStatus: $scope.hasLoan,
                 financialLoan: financialLoanCount,*/
                 paymentExplain: $scope.paymentDescription,

@@ -432,10 +432,10 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
             truckType:$scope.truckType,
             startDateStart:$scope.getStartTime,
             startDateEnd:$scope.getEndTime,
-            headleDateStart:$scope.deal_start_time,
-            headleDateEnd:$scope.deal_end_time,
-            createdOnStart:$scope.creat_start_time,
-            createdOnEnd:$scope.creat_end_time,
+            handleDateStart:$scope.dealStartTime,
+            handleDateEnd:$scope.dealEndTime,
+            createdOnStart:$scope.creatStartTime,
+            createdOnEnd:$scope.creatEndTime,
             truckId:$scope.truckId,
         };
         window.open($host.api_url + "/drivePeccancy.csv?" + _basic.objToUrl(obj));

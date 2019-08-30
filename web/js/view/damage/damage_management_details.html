@@ -82,45 +82,56 @@
                     <p><span class="cyan-text" >申报日期：</span>{{currentDamageInfo.created_on | date:'yyyy-MM-dd HH:mm'}}</p>
                 </div>
                 <div class="col s2">
-                    <p><span class="cyan-text" >质损编号：</span>{{currentDamageInfo.id}}</p>
+                    <p><span class="cyan-text" >指令时间：</span>{{currentOrderDate}}</p>
                 </div>
-                <div class="col s3" ng-if="currentDamageInfo.damage_status == 1">
+                <div class="col s3 center-align" ng-if="currentDamageInfo.damage_status == 1">
                     <p style="font-size: 1.5rem;color: rgb(229,115,115);margin: 10px 0">待处理</p>
                 </div>
-                <div class="col s3" ng-if="currentDamageInfo.damage_status == 2">
+                <div class="col s3 center-align" ng-if="currentDamageInfo.damage_status == 2">
                     <p  class="cyan-text"  style="font-size: 1.5rem;margin: 10px 0">处理中</p>
                 </div>
-                <div class="col s3" ng-if="currentDamageInfo.damage_status == 3">
+                <div class="col s3 center-align" ng-if="currentDamageInfo.damage_status == 3">
                     <p style="font-size: 1.5rem;color: darkgray;margin: 10px 0">已处理</p>
                 </div>
             </div>
             <!--质损说明-->
             <div class="row col s12 wash_fee_details">
-                <div class="col s12">
-                    <div class="col s4">
-                        <p><span>VIN：</span>{{currentDamageInfo.vin}}</p>
+
+                <div class="row col s12">
+                    <div class="col colWidth">
+                        <p><span class="cyan-text" >VIN：</span>{{currentDamageInfo.vin}}</p>
                     </div>
-                    <div class="col s4">
-                        <p><span>品牌：</span>{{currentDamageInfo.make_name}}</p>
+                    <div class="col colWidth">
+                        <p><span class="cyan-text" >起始城市：</span>{{currentDamageInfo.route_start}}</p>
                     </div>
-                    <div class="col s4">
-                        <p><span>委托方：</span>{{currentDamageInfo.en_short_name}}</p>
+                    <div class="col colWidth">
+                        <p><span class="cyan-text" >起始地：</span>{{currentDamageInfo.addr_name}}</p>
                     </div>
-                </div>
-                <div class="col s12">
-                    <div class="col s3">
-                        <p><span>货车牌号：</span>{{currentDamageInfo.truck_num}}</p>
+                    <div class="col colWidth">
+                        <p><span class="cyan-text" >目的地：</span>{{currentDamageInfo.route_end}}</p>
                     </div>
-                    <div class="col s3">
-                        <p><span>司机：</span>{{currentDamageInfo.drive_name}}</p>
-                    </div>
-                    <div class="col s3">
-                        <p><span>经销商：</span>{{currentDamageInfo.re_short_name}}</p>
-                    </div>
-                    <div class="col s3">
-                        <p><span>船名：</span>{{currentDamageInfo.ship_name}}</p>
+                    <div class="col colWidth">
+                        <p><span class="cyan-text">经销商：</span>{{currentDamageInfo.re_short_name}}</p>
                     </div>
                 </div>
+                <div class="row col s12">
+                    <div class="col colWidth">
+                        <p><span class="cyan-text" >司机：</span>{{currentDamageInfo.drive_name}}</p>
+                    </div>
+                    <div class="col colWidth">
+                        <p><span class="cyan-text" >货车牌号：</span>{{currentDamageInfo.truck_num}}</p>
+                    </div>
+                    <div class="col colWidth">
+                        <p><span class="cyan-text" >品牌：</span>{{currentDamageInfo.make_name}}</p>
+                    </div>
+                    <div class="col colWidth">
+                        <p><span class="cyan-text" >委托方：</span>{{currentDamageInfo.en_short_name}}</p>
+                    </div>
+                    <div class="col colWidth">
+                        <p><span class="cyan-text">船名：</span>{{currentDamageInfo.ship_name}}</p>
+                    </div>
+                </div>
+
                 <div class="col s12">
                     <div class="col s4">
                         <p>

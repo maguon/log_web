@@ -86,6 +86,7 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
             if (data.success === true) {
                 $scope.currentDamageStatus = data.result[0].damage_status;
                 $scope.currentDamageInfo = data.result[0];
+                $scope.currentOrderDate=moment(data.result[0].order_date).format("YYYY-MM-DD");
                 $scope.currentDamageInfo.vin = data.result[0].vin;
             }
             else {

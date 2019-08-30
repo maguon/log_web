@@ -28,8 +28,8 @@
                 <label for="entrustName">委托方</label>
             </div>
             <div class="input-field col s3">
-                <input disabled id="receiveName" name="receive_name" type="text" ng-model="vinData.re_short_name">
-                <label for="receiveName">经销商</label>
+                <input disabled id="load_date" name="load_date" type="text" ng-model="vinData.load_date">
+                <label for="load_date">装车时间</label>
             </div>
         </div>
 
@@ -43,12 +43,31 @@
                 <label for="truckNum">货车牌号</label>
             </div>
             <div class="input-field col s3">
-                <input disabled id="load_date" name="load_date" type="text" ng-model="vinData.load_date">
-                <label for="load_date">装车时间</label>
+                <input disabled id="order_date" name="load_date" type="text" ng-model="vinData.order_date">
+                <label for="order_date">指令时间</label>
             </div>
             <div class="input-field col s3">
                 <input id="shipName" type="text" ng-model="vinData.ship_name" disabled>
                 <label for="shipName">船名</label>
+            </div>
+        </div>
+        <div class="row col s12">
+            <div class="input-field col s3">
+                <input disabled id="route_start" name="receive_name" type="text" ng-model="vinData.route_start">
+                <label for="route_start">起始城市</label>
+            </div>
+            <div class="input-field col s3">
+                <input disabled id="addr_name" name="receive_name" type="text" ng-model="vinData.addr_name">
+                <label for="addr_name">起始地</label>
+            </div>
+            <div class="input-field col s3">
+                <input disabled id="route_end" name="receive_name" type="text" ng-model="vinData.route_end">
+                <label for="route_end">目的地</label>
+            </div>
+
+            <div class="input-field col s3">
+                <input disabled id="receiveName" name="receive_name" type="text" ng-model="vinData.re_short_name">
+                <label for="receiveName">经销商</label>
             </div>
         </div>
         <div class="row col s12" style="margin-top: 80px">

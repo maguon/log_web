@@ -60,7 +60,9 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
                     if(data.result[0].load_date!==null){
                         $scope.vinData.load_date=moment(data.result[0].load_date.toString()).format("YYYY-MM-DD hh:ss");
                     }
-
+                    if(data.result[0].order_date!==null){
+                        $scope.vinData.order_date=moment(data.result[0].order_date.toString()).format("YYYY-MM-DD");
+                    }
                     if($scope.vinData.drive_name!==null){
                         getDriverDetail();
                     }

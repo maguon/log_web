@@ -15,50 +15,63 @@
     <!--待处理-->
     <div class="damage_details_step_1" ng-if="damageStatus == 1 && !photoClick" style="font-size: 1.1rem;font-weight: bold;color: darkgray;display: inline-block">
         <div class="row col s12 valign-wrapper">
-            <div class="input-field col s4">
-                <input disabled id="person" name="phone" type="text" ng-model="currentDamageInfo.declare_user_name">
+            <div class="input-field col s3">
+                <input disabled id="person" type="text" ng-model="currentDamageInfo.declare_user_name">
                 <label for="person">申报人</label>
             </div>
-            <div class="input-field col s4">
-                <input disabled id="date" name="phone" type="text" ng-model="currentDamageInfo.created_on">
-                <label for="date">申报日期</label>
+            <div class="input-field col s3">
+                <input disabled id="createDate"  type="text" ng-model="currentDamageInfo.created_on">
+                <label for="createDate">申报日期</label>
             </div>
-            <div class="col s4">
+            <div class="input-field col s3">
+                <input disabled id="orderDate"  type="text" ng-model="currentOrderDate">
+                <label for="orderDate">指令时间</label>
+            </div>
+            <div class="col s3">
                 <p style="font-size: 1.5rem;color: rgb(230,123,123);margin: 10px 0">待处理</p>
             </div>
         </div>
         <div class="row col s12">
-            <div class="input-field col s3">
+            <div class="input-field col colWidth">
                 <input disabled id="vin" name="phone" type="text" ng-model="currentDamageInfo.vin">
                 <label for="vin">VIN</label>
             </div>
-            <div class="input-field col s3">
-                <input disabled id="brand" name="phone" type="text" ng-model="currentDamageInfo.make_name">
-                <label for="brand">品牌</label>
+            <div class="input-field col colWidth">
+                <input disabled id="route_start" name="order" type="text" ng-model="currentDamageInfo.route_start">
+                <label for="route_start">起始城市</label>
             </div>
-            <div class="input-field col s3">
-                <input disabled id="entrust" name="phone" type="text" ng-model="currentDamageInfo.en_short_name">
-                <label for="entrust">委托方</label>
+            <div class="input-field col colWidth">
+                <input disabled id="addr_name" name="order" type="text" ng-model="currentDamageInfo.addr_name">
+                <label for="addr_name">起始地</label>
             </div>
-            <div class="input-field col s3">
-                <input disabled id="order" name="order" type="text" ng-model="currentOrderDate">
-                <label for="entrust">指令时间</label>
+            <div class="input-field col colWidth">
+                <input disabled id="endCity" type="text" ng-model="currentDamageInfo.route_end">
+                <label for="endCity">目的地</label>
             </div>
-        </div>
-        <div class="row col s12">
-            <div class="input-field col s3">
-                <input id="autocomplete-input-driver" name="phone" type="text" ng-change="hasModifyDriver()" ng-model="driverName">
-                <label for="autocomplete-input-driver">司机</label>
-            </div>
-            <div class="input-field col s3">
-                <input disabled id="code" name="phone" type="text" ng-model="truckNum">
-                <label for="code">货车编号</label>
-            </div>
-            <div class="input-field col s3">
+            <div class="input-field col colWidth">
                 <input disabled id="distributor" name="phone" type="text" ng-model="currentDamageInfo.re_short_name">
                 <label for="distributor">经销商</label>
             </div>
-            <div class="input-field col s3">
+        </div>
+        <div class="row col s12">
+            <div class="input-field col colWidth">
+                <input id="autocomplete-input-driver" name="phone" type="text" ng-change="hasModifyDriver()" ng-model="driverName">
+                <label for="autocomplete-input-driver">司机</label>
+            </div>
+            <div class="input-field col colWidth">
+                <input disabled id="code" name="phone" type="text" ng-model="truckNum">
+                <label for="code">货车编号</label>
+            </div>
+            <div class="input-field col colWidth">
+                <input disabled id="brand" name="phone" type="text" ng-model="currentDamageInfo.make_name">
+                <label for="brand">品牌</label>
+            </div>
+            <div class="input-field col colWidth">
+                <input disabled id="entrust" name="phone" type="text" ng-model="currentDamageInfo.en_short_name">
+                <label for="entrust">委托方</label>
+            </div>
+
+            <div class="input-field col colWidth">
                 <input id="shipName" type="text" ng-model="currentDamageInfo.ship_name" disabled>
                 <label for="shipName">船名</label>
             </div>
@@ -85,41 +98,50 @@
     <!--处理中-->
     <div class="damage_details_step_2" ng-if="damageStatus == 2 && !photoClick" style="font-size: 1.1rem;font-weight: bold;color: darkgray;display: inline-block">
         <div class="row col s12 valign-wrapper">
-            <div class="col s4">
+            <div class="col s3">
                 <p><span class="cyan-text" >申报人：</span>{{currentDamageInfo.declare_user_name}}&emsp;&emsp;<span>{{currentDamageInfo.type | department}}</span></p>
             </div>
-            <div class="col s4">
+            <div class="col s3">
                 <p><span class="cyan-text" >申报日期：</span>{{currentDamageInfo.created_on}}</p>
             </div>
-            <div class="col s4">
+            <div class="col s3">
+                <p><span class="cyan-text" >指令时间：</span>{{currentOrderDate}}</p>
+            </div>
+            <div class="col s3">
                 <p style="font-size: 1.5rem;margin: 10px 0" class="cyan-text">处理中</p>
             </div>
         </div>
         <div class="row col s12">
-            <div class="col s3">
+            <div class="col colWidth">
                 <p><span class="cyan-text" >VIN：</span>{{currentDamageInfo.vin}}</p>
             </div>
-            <div class="col s3">
-                <p><span class="cyan-text" >品牌：</span>{{currentDamageInfo.make_name}}</p>
+            <div class="col colWidth">
+                <p><span class="cyan-text" >起始城市：</span>{{currentDamageInfo.route_start}}</p>
             </div>
-            <div class="col s3">
-                <p><span class="cyan-text" >委托方：</span>{{currentDamageInfo.en_short_name}}</p>
+            <div class="col colWidth">
+                <p><span class="cyan-text" >起始地：</span>{{currentDamageInfo.addr_name}}</p>
             </div>
-            <div class="col s3">
-                <p><span class="cyan-text" >指令时间：</span>{{currentDamageInfo.order_date|date:'yyyy-MM-dd'}}</p>
+            <div class="col colWidth">
+                <p><span class="cyan-text" >目的地：</span>{{currentDamageInfo.route_end}}</p>
+            </div>
+            <div class="col colWidth">
+                <p><span class="cyan-text">经销商：</span>{{currentDamageInfo.re_short_name}}</p>
             </div>
         </div>
         <div class="row col s12">
-            <div class="col s3">
-                <p><span class="cyan-text" >货车牌号：</span>{{currentDamageInfo.truck_num}}</p>
-            </div>
-            <div class="col s3">
+            <div class="col colWidth">
                 <p><span class="cyan-text" >司机：</span>{{currentDamageInfo.drive_name}}</p>
             </div>
-            <div class="col s3">
-                <p><span class="cyan-text">经销商：</span>{{currentDamageInfo.re_short_name}}</p>
+            <div class="col colWidth">
+                <p><span class="cyan-text" >货车牌号：</span>{{currentDamageInfo.truck_num}}</p>
             </div>
-            <div class="col s3">
+            <div class="col colWidth">
+                <p><span class="cyan-text" >品牌：</span>{{currentDamageInfo.make_name}}</p>
+            </div>
+            <div class="col colWidth">
+                <p><span class="cyan-text" >委托方：</span>{{currentDamageInfo.en_short_name}}</p>
+            </div>
+            <div class="col colWidth">
                 <p><span class="cyan-text">船名：</span>{{currentDamageInfo.ship_name}}</p>
             </div>
         </div>
@@ -135,42 +157,51 @@
     <!--已处理-->
     <div class="damage_details_step_3" ng-if="damageStatus == 3 && !photoClick" style="font-size: 1.1rem;font-weight: bold;color: darkgray;display: inline-block">
         <div class="row col s12">
-            <div class="col s12">
-                <div class="col s4">
+            <div class="row col s12 valign-wrapper">
+                <div class="col s3">
                     <p><span class="cyan-text" >申报人：</span>{{currentDamageInfo.declare_user_name}}&emsp;&emsp;<span>{{currentDamageInfo.type | department}}</span></p>
                 </div>
-                <div class="col s4">
+                <div class="col s3">
                     <p><span class="cyan-text" >申报日期：</span>{{currentDamageInfo.created_on}}</p>
                 </div>
-                <div class="col s4">
-                    <p style="font-size: 1.5rem;margin: 10px 0">已处理</p>
+                <div class="col s3">
+                    <p><span class="cyan-text" >指令时间：</span>{{currentOrderDate}}</p>
+                </div>
+                <div class="col s3">
+                    <p style="font-size: 1.5rem;margin: 10px 0" class="cyan-text">处理中</p>
                 </div>
             </div>
-            <div class="col s12">
-                <div class="col s3">
+            <div class="row col s12">
+                <div class="col colWidth">
                     <p><span class="cyan-text" >VIN：</span>{{currentDamageInfo.vin}}</p>
                 </div>
-                <div class="col s3">
-                    <p><span class="cyan-text" >品牌：</span>{{currentDamageInfo.make_name}}</p>
+                <div class="col colWidth">
+                    <p><span class="cyan-text" >起始城市：</span>{{currentDamageInfo.route_start}}</p>
                 </div>
-                <div class="col s3">
-                    <p><span class="cyan-text" >委托方：</span>{{currentDamageInfo.en_short_name}}</p>
+                <div class="col colWidth">
+                    <p><span class="cyan-text" >起始地：</span>{{currentDamageInfo.addr_name}}</p>
                 </div>
-                <div class="col s3">
-                    <p><span class="cyan-text" >指令时间：</span>{{currentDamageInfo.order_date|date:'yyyy-MM-dd'}}</p>
+                <div class="col colWidth">
+                    <p><span class="cyan-text" >目的地：</span>{{currentDamageInfo.route_end}}</p>
+                </div>
+                <div class="col colWidth">
+                    <p><span class="cyan-text">经销商：</span>{{currentDamageInfo.re_short_name}}</p>
                 </div>
             </div>
-            <div class="col s12">
-                <div class="col s3">
+            <div class="row col s12">
+                <div class="col colWidth">
+                    <p><span class="cyan-text" >司机：</span>{{currentDamageInfo.drive_name}}</p>
+                </div>
+                <div class="col colWidth">
                     <p><span class="cyan-text" >货车牌号：</span>{{currentDamageInfo.truck_num}}</p>
                 </div>
-                <div class="col s3">
-                    <p><span class="cyan-text"  >司机：</span>{{currentDamageInfo.drive_name}}</p>
+                <div class="col colWidth">
+                    <p><span class="cyan-text" >品牌：</span>{{currentDamageInfo.make_name}}</p>
                 </div>
-                <div class="col s3">
-                    <p><span class="cyan-text" >经销商：</span>{{currentDamageInfo.re_short_name}}</p>
+                <div class="col colWidth">
+                    <p><span class="cyan-text" >委托方：</span>{{currentDamageInfo.en_short_name}}</p>
                 </div>
-                <div class="col s3">
+                <div class="col colWidth">
                     <p><span class="cyan-text">船名：</span>{{currentDamageInfo.ship_name}}</p>
                 </div>
             </div>

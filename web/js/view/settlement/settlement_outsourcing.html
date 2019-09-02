@@ -15,23 +15,34 @@
                 <div class="row grey-text text-darken-1">
                     <div class="col s10">
                         <div class="col s12">
-                            <div class="input-field col" style="width: 20%">
+                            <div class="input-field col" style="width: 10%">
                                 <input id="vin_code" type="text" ng-model="vin">
                                 <label for="vin_code">VIN</label>
                             </div>
                             <!--指令日期(始)  指令日期(终)-->
-                            <div class="input-field col" style="width: 20%">
+                            <div class="input-field col" style="width: 15%">
                                 <input type="text" ng-model="instruct_starTime" id="instruct_start_time" name="instruct_start_time"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
                                 <label for="instruct_start_time"><span class="red-text">*</span>指令日期(始)</label>
                             </div>
 
 
-                            <div class="input-field col" style="width: 20%">
+                            <div class="input-field col" style="width: 15%">
                                 <input type="text" ng-model="instruct_endTime" id="instruct_endTime" name="instruct_endTime"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
                                 <label for="instruct_endTime"><span class="red-text">*</span>指令日期(终)</label>
                             </div>
+
+                            <div class="input-field col" style="width: 15%">
+                                <input type="text" ng-model="orderStarTime" id="start_time" name="instruct_start_time"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
+                                <label for="start_time"><span class="red-text"></span>调度日期(始)</label>
+                            </div>
+
+
+                            <div class="input-field col" style="width: 15%">
+                                <input type="text" ng-model="orderEndTime" id="endTime" name="instruct_endTime"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
+                                <label for="endTime"><span class="red-text"></span>调度日期(终)</label>
+                            </div>
                             <!--委托方-->
-                            <div class="input-field col" style="width: 20%">
+                            <div class="input-field col" style="width: 15%">
                                 <select  id="entrust" name="client"  ng-model="entrustId" ng-change="changeCarMake(entrustId)" required style="width: 100%">
                                     <option value="" disabled selected>请选择</option>
                                     <option ng-repeat="el in get_entrust" ng-value="el.id" >{{el.short_name}}</option>
@@ -39,7 +50,7 @@
                             </div>
 
                             <!--外协公司-->
-                            <div class="input-field col" style="width: 20%">
+                            <div class="input-field col" style="width: 15%">
                                 <select id="truck_company" name="truck_company" material-select watch ng-model="companyId" required>
                                     <option value="">请选择</option>
                                     <option ng-repeat="el in companyList" ng-value="el.id">{{el.company_name}}</option>

@@ -175,6 +175,7 @@
                             <th data-field="">装车地点</th>
                             <th data-field="">经销商</th>
                             <th data-field="">指令时间</th>
+                            <th data-field="">调度时间</th>
                             <th data-field="">公里数</th>
                             <th data-field="">价格/公里</th>
                             <th data-field="">金额</th>
@@ -192,16 +193,17 @@
                             <td>{{settlementInfo.addr_name}}</td>
                             <td>{{settlementInfo.r_short_name}}</td>
                             <td>{{settlementInfo.order_date | date:'yyyy-MM-dd'}}</td>
+                            <td>{{settlementInfo.task_plan_date | date:'yyyy-MM-dd'}}</td>
                             <td>{{settlementInfo.distance}}</td>
                             <td>{{settlementInfo.fee}} </td>
                             <td ng-if="settlementInfo.fee!==null&&settlementInfo.distance!==null">{{settlementInfo.distance*settlementInfo.fee |number:2}}</td>
                             <td ng-if="settlementInfo.fee==null||settlementInfo.distance==null"></td>
                         </tr>
-                        <tr ng-if="settlementList.length==0&&instruct_starTime!==undefined&&instruct_endTime!==undefined">
-                            <td colspan="13">暂无数据</td>
+                        <tr ng-if="settlementList.length==0&&instruct_starTime!==undefined&&instruct_endTime!==undefined&&orderStarTime!==undefined&&orderEndTime!==undefined">
+                            <td colspan="14">暂无数据</td>
                         </tr>
-                        <tr ng-if="instruct_starTime==undefined||instruct_endTime==undefined&&settlementList.length==0">
-                            <td colspan="13"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
+                        <tr ng-if="orderStarTime==undefined||orderEndTime==undefined||instruct_starTime==undefined||instruct_endTime==undefined&&settlementList.length==0">
+                            <td colspan="14"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令日期和调度日期为必填项</td>
                         </tr>
                         </tbody>
                     </table>

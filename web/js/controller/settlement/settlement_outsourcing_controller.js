@@ -119,8 +119,8 @@ app.controller("settlement_outsourcing_controller", ["_basic","$rootScope", "_co
 
     // 数据导出
     $scope.export = function () {
-        if($scope.instruct_starTime==undefined||$scope.instruct_endTime==undefined){
-            swal('请输入完整的指令时间', "", "error");
+        if($scope.instruct_starTime==undefined||$scope.instruct_endTime==undefined||$scope.orderStarTime==undefined||$scope.orderEndTime==undefined){
+            swal('请输入完整的指令日期和调度日期', "", "error");
             $scope.settlementList=[];
             $("#prebtn").hide();
             $("#nextbtn").hide();
@@ -167,28 +167,52 @@ app.controller("settlement_outsourcing_controller", ["_basic","$rootScope", "_co
     }
 
     $scope.addHandover=function (){
+
         var obj={
+            entrustId: $scope.entrustId,
             orderStart: $scope.instruct_starTime,
             orderEnd: $scope.instruct_endTime,
+            taskPlanDateStart:$scope.orderStarTime,
+            taskPlanDateEnd:$scope.orderEndTime,
+            makeId: $scope.car_brand,
+            routeStartId: $scope.startCity,
+            addrId: $scope.locateId,
+            routeEndId: $scope.endCity,
+            receiveId: $scope.receiveId,
             companyId:$scope.companyId,
+            vin:$scope.vin,
+            operateType:2,
             settleStatus:1
         }
-        _basic.get($host.api_url + "/settleOuterInvoiceBatch?" + _basic.objToUrl(obj)).then(function (data) {
-            if (data.success == true) {
-                swal('交接成功', "", "success");
-                getSettlementData();
 
+        swal({
+            title: "确定交接当前车辆吗？",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确认",
+            cancelButtonText: "取消"
+        }).then(function (result) {
+            if (result.value) {
+                _basic.get($host.api_url + "/settleOuterInvoiceBatch?" + _basic.objToUrl(obj)).then(function (data) {
+                    if (data.success == true) {
+                        swal('交接成功', "", "success");
+                        getSettlementData();
+
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
             }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
+        })
+
     }
 
     //获取查询数据
     function getSettlementData(){
-        if($scope.instruct_starTime==undefined||$scope.instruct_endTime==undefined){
-            swal('请输入完整的指令时间', "", "error");
+        if($scope.instruct_starTime==undefined||$scope.instruct_endTime==undefined||$scope.orderStarTime==undefined||$scope.orderEndTime==undefined){
+            swal('请输入完整的指令日期和调度日期', "", "error");
             $scope.settlementList=[];
             $scope.carMsg ='';
             $("#prebtn").hide();

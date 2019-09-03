@@ -1,5 +1,3 @@
-
-
 app.controller("driver_exceed_oil_month_detail_controller", ["$scope", "$state","$stateParams", "_basic", "_config", "$host", function ($scope, $state,$stateParams, _basic, _config, $host) {
     var userId = _basic.getSession(_basic.USER_ID);
     var dateId = $stateParams.dateId;
@@ -21,6 +19,8 @@ app.controller("driver_exceed_oil_month_detail_controller", ["$scope", "$state",
     $scope.totalUrea =0;
     $scope.totalOilDistance=0;
     $scope.totalNoOilDistance=0;
+    $scope.unOilRelList=[];
+    $scope.OilRelList=[];
     var obj={
         driveId:driveId,
         truckId:truckId
@@ -59,7 +59,7 @@ app.controller("driver_exceed_oil_month_detail_controller", ["$scope", "$state",
                     $scope.exceedOilItem.drive_name= data.result[0].drive_name;
 
                     dpRouteTaskOilRel(firstDay,lastDay);
-                    driveExceedOilRel(firstDay,lastDay);
+                  /*  driveExceedOilRel(firstDay,lastDay);*/
 
                 }
             }
@@ -114,23 +114,38 @@ app.controller("driver_exceed_oil_month_detail_controller", ["$scope", "$state",
         $scope.totalUreaActal =0;
         _basic.get($host.api_url + "/driveExceedOilRel?oilDateStart="+firstDay+'&oilDateEnd='+lastDay+'&'+_basic.objToUrl(obj)).then(function (data) {
             if (data.success === true) {
-                $scope.OilRelList = data.result;
-                for(var i =0;i< $scope.OilRelList.length;i++){
-                    $scope.totalOilActal+=  $scope.OilRelList[i].oil;
-                    $scope.totalUreaActal+=  $scope.OilRelList[i].urea;
-                }
-                if($scope.totalOilActal- $scope.totalOil+ $scope.exceedOilItem.subsidy_oil- $scope.exceedOilItem.surplus_oil>0){
-                    $scope.overMoney= ($scope.totalOilActal- $scope.totalOil+ $scope.exceedOilItem.subsidy_oil- $scope.exceedOilItem.surplus_oil)*$scope.singleItem.oil_single_price
-                        +($scope.totalUreaActal- $scope.totalUrea+ $scope.exceedOilItem.subsidy_urea- $scope.exceedOilItem.surplus_urea)*$scope.singleItem.urea_single_price;
-                    $scope.oilSinglePrice=$scope.singleItem.oil_single_price;
-                    $scope.ureaSinglePrice=$scope.singleItem.urea_single_price;
-                }
-                else {
-                    $scope.overMoney= ($scope.totalOilActal- $scope.totalOil+ $scope.exceedOilItem.subsidy_oil- $scope.exceedOilItem.surplus_oil)*$scope.singleItem.surplus_oil_single_price
-                        +($scope.totalUreaActal- $scope.totalUrea+ $scope.exceedOilItem.subsidy_urea- $scope.exceedOilItem.surplus_urea)*$scope.singleItem.surplus_urea_single_price;
+                if(data.result.length==0){
+                    $scope.OilRelList=[];
+                    $scope.totalOilActal=0;
+                    $scope.totalUreaActal=0;
                     $scope.oilSinglePrice=$scope.singleItem.surplus_oil_single_price;
                     $scope.ureaSinglePrice=$scope.singleItem.surplus_urea_single_price;
+                    $scope.overMoney= ($scope.totalOilActal- $scope.totalOil+ $scope.exceedOilItem.subsidy_oil- $scope.exceedOilItem.surplus_oil)*$scope.singleItem.surplus_oil_single_price
+                        +($scope.totalUreaActal- $scope.totalUrea+ $scope.exceedOilItem.subsidy_urea- $scope.exceedOilItem.surplus_urea)*$scope.singleItem.surplus_urea_single_price;
+                    $scope.overMoney=   parseInt($scope.overMoney).toFixed(2);
                 }
+                else {
+                    $scope.OilRelList = data.result;
+                    for(var i =0;i< $scope.OilRelList.length;i++){
+                        $scope.totalOilActal+=  $scope.OilRelList[i].oil;
+                        $scope.totalUreaActal+=  $scope.OilRelList[i].urea;
+                    }
+                    if($scope.totalOilActal- $scope.totalOil+ $scope.exceedOilItem.subsidy_oil- $scope.exceedOilItem.surplus_oil>0){
+                        $scope.overMoney= ($scope.totalOilActal- $scope.totalOil+ $scope.exceedOilItem.subsidy_oil- $scope.exceedOilItem.surplus_oil)*$scope.singleItem.oil_single_price
+                            +($scope.totalUreaActal- $scope.totalUrea+ $scope.exceedOilItem.subsidy_urea- $scope.exceedOilItem.surplus_urea)*$scope.singleItem.urea_single_price;
+                        $scope.overMoney=   parseInt($scope.overMoney).toFixed(2);
+                        $scope.oilSinglePrice=$scope.singleItem.oil_single_price;
+                        $scope.ureaSinglePrice=$scope.singleItem.urea_single_price;
+                    }
+                    else {
+                        $scope.overMoney= ($scope.totalOilActal- $scope.totalOil+ $scope.exceedOilItem.subsidy_oil- $scope.exceedOilItem.surplus_oil)*$scope.singleItem.surplus_oil_single_price
+                            +($scope.totalUreaActal- $scope.totalUrea+ $scope.exceedOilItem.subsidy_urea- $scope.exceedOilItem.surplus_urea)*$scope.singleItem.surplus_urea_single_price;
+                        $scope.overMoney=   parseInt($scope.overMoney).toFixed(2);
+                        $scope.oilSinglePrice=$scope.singleItem.surplus_oil_single_price;
+                        $scope.ureaSinglePrice=$scope.singleItem.surplus_urea_single_price;
+                    }
+                }
+
                 }
             else {
                 swal(data.msg, "", "error");
@@ -141,13 +156,13 @@ app.controller("driver_exceed_oil_month_detail_controller", ["$scope", "$state",
     // 未扣款任务
     function dpRouteTaskOilRel(firstDay,lastDay){
         $scope.unOilRelList=[];
-        $scope.totalOil =0;
-        $scope.totalUrea =0;
-        $scope.totalOilDistance=0;
-        $scope.totalNoOilDistance=0;
-        _basic.get($host.api_url + "/dpRouteTaskOilRel?driveId=" + driveId+'&truckId='+truckId+'&taskPlanDateStart='+firstDay+"&taskPlanDateEnd="+lastDay).then(function (data) {
-            if (data.success === true) {
-                $scope.unOilRelList = data.result;
+        _basic.get($host.api_url + "/dpRouteTaskOilRel?driveId=" + driveId+'&truckId='+truckId+'&taskPlanDateStart='+firstDay+"&taskPlanDateEnd="+lastDay).then(function (dataOil) {
+            if (dataOil.success === true) {
+                $scope.unOilRelList = dataOil.result;
+                $scope.totalOil =0;
+                $scope.totalUrea =0;
+                $scope.totalOilDistance=0;
+                $scope.totalNoOilDistance=0;
                 for(var i =0;i< $scope.unOilRelList.length;i++){
                     $scope.totalOil+=  $scope.unOilRelList[i].total_oil;
                     $scope.totalUrea+=  $scope.unOilRelList[i].total_urea;
@@ -158,20 +173,18 @@ app.controller("driver_exceed_oil_month_detail_controller", ["$scope", "$state",
                         $scope.totalNoOilDistance+=  $scope.unOilRelList[i].oil_distance;
                     }
 
-
-
                 }
             }
             else {
-                swal(data.msg, "", "error");
+                swal(dataOil.msg, "", "error");
             }
+            driveExceedOilRel(firstDay,lastDay)
         });
 
     }
 
 
     $scope.saveCurrentInfo = function (){
-
         _basic.put($host.api_url + "/user/" + userId + "/exceedOilDateId/"+ $scope.exceedOilItem.id,{
             "planOilTotal": $scope.totalOil,
             "planUreaTotal": $scope.totalUrea,
@@ -197,11 +210,6 @@ app.controller("driver_exceed_oil_month_detail_controller", ["$scope", "$state",
                 swal(data.msg, "", "error");
             }
         });
-
-
-
-
-
         putItem($scope.exceedOilItem.id)
     }
 
@@ -286,6 +294,7 @@ app.controller("driver_exceed_oil_month_detail_controller", ["$scope", "$state",
             if (data.success === true) {
                 $scope.id= data.id;
                 putItem($scope.id);
+                getOilRel();
             }
             else {
                 swal(data.msg, "", "error");
@@ -297,7 +306,6 @@ app.controller("driver_exceed_oil_month_detail_controller", ["$scope", "$state",
     function putItem(id){
         _basic.put($host.api_url + "/user/" + userId + "/exceedOilDate/" + id+'/checkStatus/2',{}).then(function (data) {
             if (data.success === true) {
-                getOilRel();
                 swal('处理中', "", "success");
             }
             else {

@@ -277,8 +277,8 @@
 
         <div class="col s6 cyan-text">
             <div class="col s6 input-field" style="padding: 0;" ng-show="exceedOilItem.check_status !== 3">
-                <input style="font-size: 2rem;color: rgb(230,123,123)" type="number" id="should_pay" name="should_pay" ng-model="overMoney">
-                <label class="{{exceedOilItem.actual_money !== null ? 'active' : 'inactive'}}" for="should_pay">超量金额(元)</label>
+                <input style="font-size: 2rem;color: rgb(230,123,123)" type="text" id="should_pay" name="should_pay" ng-model="overMoney">
+                <label class="{{overMoney !== null ? 'active' : 'inactive'}}" for="should_pay">超量金额(元)</label>
             </div>
             <div class="col s6 input-field" style="padding: 0;" ng-show="exceedOilItem.check_status !== 3">
                 <p>(原超量金额：<span class="red-text" >{{exceedOilItem.actual_money|number:2}}</span> 元)</p>

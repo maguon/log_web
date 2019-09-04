@@ -226,7 +226,7 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
         var urlCount = $host.api_url + "/dpRouteLoadTaskCleanRelCount?";
         // 检索条件
         var conditionsObj = makeConditions();
-        var conditions = _basic.objToUrl(conditionsObj);
+        var conditions = _basic.objNewToUrl(conditionsObj);
         // 检索URL
         url = conditions.length > 0 ? url + "&" + conditions : url;
         urlCount = conditions.length > 0 ? urlCount + conditions : urlCount;
@@ -274,7 +274,7 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
         var url = $host.api_url + "/dpRouteLoadTaskCleanRel.csv?" ;
         // 检索条件
         var conditionsObj = makeConditions();
-        var conditions = _basic.objToUrl(conditionsObj);
+        var conditions = _basic.objNewToUrl(conditionsObj);
         // 检索URL
         url = conditions.length > 0 ? url + "&" + conditions : url;
         window.open(url);
@@ -465,6 +465,7 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
             routeEndId: $scope.cityId,
             receiveId: $scope.receive,
             status: $scope.receive_status,
+            monthFlag:$scope.monthFlag,
             cleanDateStart: $scope.receiveTimeStart,
             cleanDateEnd: $scope.receiveTimeEnd,
             loadDateStart:$scope.loadDateStart,

@@ -136,13 +136,20 @@
 
 
             <!--领取状态-->
-            <div class="col s2 input-field">
+            <div class="col s1 input-field">
                 <select material-select watch  ng-model="receive_status">
                     <option value="" disabled>领取状态</option>
                     <option ng-repeat="receive in receiveStatus" ng-value="receive.id">{{receive.status_name}}</option>
                 </select>
             </div>
-
+            <div class="col s1 input-field">
+                <select  material-select  ng-model="monthFlag" id="monthFlag">
+                    <option ng-value="" >请选择</option>
+                    <option ng-value="1">是</option>
+                    <option ng-value="0">否</option>
+                </select>
+                <label for="monthFlag">是否月结</label>
+            </div>
 
             <!--装车时间(始)-->
             <div class="col s2 input-field">

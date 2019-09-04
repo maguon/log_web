@@ -239,13 +239,21 @@
             </div>
 
 
-            <div class="col s2 input-field">
+            <div class="col s1 input-field">
                 <select material-select watch ng-model="receive_status" style="width:100%">
                     <option value="" selected>领取状态</option>
                     <option value="0">未通过</option>
                     <option value="1">未领取</option>
                     <option value="2">已领取</option>
                 </select>
+            </div>
+            <div class="col s1 input-field">
+                <select  material-select  ng-model="monthFlag" id="monthFlag">
+                    <option ng-value="" >请选择</option>
+                    <option ng-value="1">是</option>
+                    <option ng-value="0">否</option>
+                </select>
+                <label for="monthFlag">是否月结</label>
             </div>
             <div class="col s2 input-field">
                 <input id="load_time_start" type="text" class="datepicker" ng-model="loadDateStart" date style="width:100%"><i

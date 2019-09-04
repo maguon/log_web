@@ -93,12 +93,13 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
 
 
     function getCarWashFeeList() {
-        _basic.get($host.api_url + "/dpRouteLoadTaskCleanRel?" + _basic.objToUrl({
+        _basic.get($host.api_url + "/dpRouteLoadTaskCleanRel?" +_basic.objNewToUrl({
             loadTaskCleanRelId: $scope.instructionNum,
             driveId: $scope.driver,
             routeEndId: $scope.destinationCity,
             receiveId: $scope.distributor,
             status: $scope.receive_status,
+            monthFlag:$scope.monthFlag,
             cleanDateStart: $scope.receiveTimeStart,
             cleanDateEnd: $scope.receiveTimeEnd,
             loadDateStart:$scope.loadDateStart,
@@ -130,11 +131,12 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
                 swal(data.msg, "", "error");
             }
         });
-        _basic.get($host.api_url+ '/dpRouteLoadTaskCleanRelCount?' + _basic.objToUrl({
+        _basic.get($host.api_url+ '/dpRouteLoadTaskCleanRelCount?' + _basic.objNewToUrl({
             loadTaskCleanRelId: $scope.instructionNum,
             driveId: $scope.driver,
             routeEndId: $scope.destinationCity,
             receiveId: $scope.distributor,
+            monthFlag:$scope.monthFlag,
             status: $scope.receive_status,
             cleanDateStart: $scope.receiveTimeStart,
             cleanDateEnd: $scope.receiveTimeEnd,
@@ -156,11 +158,12 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
         // 基本检索URL
         var url = $host.api_url + "/dpRouteLoadTaskCleanRel.csv?" ;
 
-        var conditions = _basic.objToUrl({
+        var conditions =_basic.objNewToUrl({
             loadTaskCleanRelId: $scope.instructionNum,
             driveId: $scope.driver,
             routeEndId: $scope.destinationCity,
             receiveId: $scope.distributor,
+            monthFlag:$scope.monthFlag,
             status: $scope.receive_status,
             cleanDateStart: $scope.receiveTimeStart,
             cleanDateEnd: $scope.receiveTimeEnd,

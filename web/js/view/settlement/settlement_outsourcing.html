@@ -299,6 +299,9 @@
                         <td>{{el.created_on|date:'yyyy-MM-dd HH:mm:ss'}}</td>
                         <td>{{el.invoice_status==1?'未处理':'已处理'}}</td>
                         <td  class="operation">
+                            <a  ng-click="exportSettle(el.id)">
+                                <i class="mdi mdi-cloud-download"></i>
+                            </a>
                             <a ng-click="putDetail(el.id)">
                                 <i class="mdi mdi-file-outline look_icon cyan-text lighten-1"></i>
                             </a>

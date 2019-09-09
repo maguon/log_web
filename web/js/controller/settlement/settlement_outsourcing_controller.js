@@ -505,6 +505,29 @@ app.controller("settlement_outsourcing_controller", ["_basic","$rootScope", "_co
 
 
 
+// 数据导出
+    $scope.exportSettle = function (id) {
+
+        var obj = {
+            settleOuterInvoiceId:id,
+        };
+        swal({
+            title: "确定导出外协结算报表？",
+            text: "",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确定",
+            cancelButtonText: "取消"
+        }).then(
+            function (result) {
+                if (result.value) {
+                    window.open($host.api_url + "/settleOuterInvoiceCarRel.csv?" + _basic.objToUrl(obj));
+                }
+            })
+
+
+    };
 
 
 
@@ -522,20 +545,6 @@ app.controller("settlement_outsourcing_controller", ["_basic","$rootScope", "_co
 
     getEntrust();
     searchInvoiceList()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

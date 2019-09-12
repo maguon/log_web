@@ -62,7 +62,7 @@ app.controller("damage_index_controller", ["$scope", "$host", "_basic", function
         _basic.get($host.api_url + "/dpRouteLoadTaskCleanRelMonthStat?yearMonth="+currentMonth).then(function (data) {
             if (data.success === true) {
                 for (var i = 0; i < data.result.length; i++) {
-                    $scope.getCleanPrice += data.result[i].actual_price;
+                    $scope.getCleanPrice += data.result[i].total_price;
                     $scope.getCleanCount += data.result[i].car_count;
                     }
                 }

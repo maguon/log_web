@@ -765,6 +765,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/damage/damage_management_details.html",
             controller:'damage_management_details_controller'
         })
+        .state("car_payment",{
+            url:"/car_payment",
+            params: {"from": null},
+            templateUrl: "js/view/damage/car_payment.html",
+            controller:'car_payment_controller'
+        })
         .state("move_car_statistics", {
             url:"/move_car_statistics",
             templateUrl: "js/view/damage/move_car_statistics.html",

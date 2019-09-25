@@ -199,6 +199,11 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/statistics/transport_planning_statistics.html",
             controller:"transport_planning_statistics_controller"
         })
+        .state("vehicle_damage_statistics", {
+            url:"/vehicle_damage_statistics",
+            templateUrl: "js/view/statistics/vehicle_damage_statistics.html",
+            controller:"vehicle_damage_statistics_controller"
+        })
         // 质损申报
         .state("damage_declaration",{
             url:"/damage_declaration",

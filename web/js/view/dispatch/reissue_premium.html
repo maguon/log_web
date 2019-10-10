@@ -326,10 +326,16 @@
                     <th>货车牌号</th>
                     <th>品牌</th>
                     <th>装车数</th>
+
                     <th>拖车费</th>
-                    <th>提车费</th>
                     <th>地跑费</th>
                     <th>带路费</th>
+
+                    <th>应发拖车费</th>
+                    <th>应发地跑费</th>
+                    <th>应发带路费</th>
+                    <th>提车费</th>
+
                     <th>送达经销商</th>
                     <th>装车日期</th>
                     <th>状态</th>
@@ -345,10 +351,18 @@
                     <td>{{car.truck_num}}</td>
                     <td>{{car.make_name}}</td>
                     <td>{{car.car_count}}</td>
+
+
+                    <td>{{car.actual_trailer_fee}}</td>
+                    <td>{{car.actual_run_fee}}</td>
+                    <td>{{car.actual_lead_fee}}</td>
+
                     <td>{{car.total_trailer_fee}}</td>
-                    <td>{{car.car_parking_fee}}</td>
                     <td>{{car.total_run_fee}}</td>
                     <td>{{car.lead_fee}}</td>
+                    <td>{{car.car_parking_fee}}</td>
+
+
                     <td>{{car.short_name}}</td>
                     <td>{{car.load_date | date:'yyyy-MM-dd'}}</td>
                     <td>{{receiveStatus[car.status].status_name}}</td>
@@ -359,7 +373,7 @@
                     </td>
                 </tr>
                 <tr class="grey-text text-darken-1" ng-if="insurancePremiumArrayList.length == 0">
-                    <td colspan="15"><span style="letter-spacing: 2px">暂无数据</span></td>
+                    <td colspan="18"><span style="letter-spacing: 2px">暂无数据</span></td>
                 </tr>
                 </tbody>
             </table>

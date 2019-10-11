@@ -205,10 +205,13 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
                     carCount: $scope.dispatchNum.car_count,
                     trailerFee: $scope.newTrailerFee,
                     totalTrailerFee: $scope.newTrailerFee * $scope.dispatchNum.car_count,
+                    actualTrailerFee: $scope.newTrailerFee * $scope.dispatchNum.car_count,
                     carParkingFee: $scope.newCarParkingFee * $scope.dispatchNum.car_count,
                     runFee: $scope.newRunFee,
                     totalRunFee: $scope.newRunFee * $scope.dispatchNum.car_count,
+                    actualRunFee:$scope.newRunFee * $scope.dispatchNum.car_count,
                     leadFee: $scope.newLeadFee,
+                    actualLeadFee:$scope.newLeadFee,
                     type: 1
                 }).then(function (data) {
                     if (data.success === true) {

@@ -72,7 +72,7 @@ app.controller("driver_attendance_controller", ["$scope","$rootScope", "$state",
         {name: '电话', type: 'number', require: true},
         {name: '月份', type: 'number', require: true},
         {name: '出勤天数', type: 'number', require: true},
-        {name: '住宿费', type: 'number', require: true}];
+        {name: '补助', type: 'number', require: true}];
     // 头部条件判断
     $scope.titleFilter = function (headerArray) {
         if (colObjs.length != headerArray.length) {

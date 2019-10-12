@@ -129,7 +129,7 @@
                 </div>
                 <div class="col s3 input-field">
                     <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="hotelCost" name="hotelCost" ng-model="routeFeeInfo.grant_hotel_cost">
-                    <label class="{{hotelCost != null ? 'active' : 'inactive'}}" for="hotelCost">住宿费（元）</label>
+                    <label class="{{hotelCost != null ? 'active' : 'inactive'}}" for="hotelCost">补助（元）</label>
                 </div>
                 <div class="col s3 input-field">
                     <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="carCost" name="carCost" ng-model="routeFeeInfo.grant_car_cost">
@@ -236,7 +236,7 @@
                     <p>打车费：<span style="color: #e57373">{{routeFeeInfo.grant_taxi_cost}}</span> 元</p>
                 </div>
                 <div class="col s3">
-                    <p>住宿费：<span style="color: #e57373">{{routeFeeInfo.grant_hotel_cost}}</span> 元</p>
+                    <p>补助：<span style="color: #e57373">{{routeFeeInfo.grant_hotel_cost}}</span> 元</p>
                 </div>
                 <div class="col s3">
                     <p>商品车费用：<span style="color: #e57373">{{routeFeeInfo.grant_car_cost}}</span> 元</p>
@@ -319,7 +319,7 @@
                         <p>打车费：<span style="color: #e57373">{{routeFeeInfo.refund_taxi_cost}}</span> 元</p>
                     </div>
                     <div class="col s3">
-                        <p>住宿费：<span style="color: #e57373">{{routeFeeInfo.refund_hotel_cost}}</span> 元</p>
+                        <p>补助：<span style="color: #e57373">{{routeFeeInfo.refund_hotel_cost}}</span> 元</p>
                     </div>
                     <div class="col s3">
                         <p>商品车费用：<span style="color: #e57373">{{routeFeeInfo.refund_car_cost}}</span> 元</p>
@@ -397,7 +397,7 @@
 
                     <div class="col s3 input-field">
                         <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="hotel_cost_mod" name="hotelCost" ng-model="hotelCostMod">
-                        <label for="car_cost_mod">住宿费（元）</label>
+                        <label for="car_cost_mod">补助（元）</label>
                     </div>
                     <div class="col s3 input-field">
                         <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" id="car_cost_mod" name="carCost" ng-model="carCostMod">

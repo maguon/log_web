@@ -16,7 +16,8 @@ app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$hos
             var obj = {
                 vin: $scope.demand_vin
             };
-            _basic.get($host.api_url + "/car?" + _basic.objToUrl(obj)).then(function (data) {
+            console.log(_basic.objNewTo2Url(obj))
+            _basic.get($host.api_url + "/car?" + _basic.objNewTo2Url(obj)).then(function (data) {
                 if (data.success = true) {
                     if (data.result.length == 0) {
                         $(".no_car_detail").show();

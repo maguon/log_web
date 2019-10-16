@@ -239,5 +239,22 @@ baseService.factory('_basic', ['$http', '$location', '$q', "$cookies", function 
         return str.substr(0, str.length - 1);
     };
 
+    _this.objNewTo2Url = function (obj) {
+        var str = "";
+        for (var i in obj) {
+            if (obj[i] == 0&& obj[i] !== "") {
+                str = str + i + "=" + obj[i] + "&";
+            }
+            else if (obj[i] == 0&& obj[i] == "") {
+                str = str ;
+            }
+            else if (obj[i] != null && obj[i] != "") {
+                str = str + i + "=" + obj[i] + "&";
+            }
+        }
+        return str.substr(0, str.length - 1);
+    };
+
+
     return _this;
 }]);

@@ -148,7 +148,7 @@ app.controller("car_query_controller", ["$scope", "$rootScope","$state","$stateP
         var url = $host.api_url + "/carList?start=" + $scope.start + "&size=" + $scope.size;
         // 检索条件
         var conditionsObj = makeConditions();
-        var conditions = _basic.objToUrl(conditionsObj);
+        var conditions = _basic.objNewTo2Url(conditionsObj);
         // 检索URL
         url = conditions.length > 0 ? url + "&" + conditions : url;
 

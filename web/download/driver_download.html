@@ -63,20 +63,6 @@
 </body>
 
 <script language="JavaScript" type="text/javascript">
-    $.ajax({
-        type:"GET",
-        url:host.api_url+'/app?app=0&type=1&start=0&size=1',
-        async:true,
-        success:function (data) {
-            apkUrl= data.result[0].url;
-            $('#downloadHref')[0].href = apkUrl;
-            $('#downloadHref').attr("disabled",false);
-        },
-        error: function () {
-            alert('地址错误！');
-        }
-    });
-
 
    /* var apkUrl = 'http://myxxjs.com/log_driver_0.0.4.apk'
     $('#downloadHref')[0].href = apkUrl;*/
@@ -94,7 +80,6 @@
             wechatFlag = true;
         }
         if(userAgentInfo.indexOf(androidAgent)>0){
-
             return ;
         }
         var iosAgent = ['iphone','ipad','ipod'];
@@ -106,7 +91,9 @@
                 $('#versionSpan')[0].innerText=sys_config.ios_dl_info.version;
                 $('#releasedSpan')[0].innerText = sys_config.ios_dl_info.released;
                 $('#downloadHref')[0].href = sys_config.ios_dl_info.url;*/
-                alert('暂不支持IOS系统');
+              /*  alert('暂不支持IOS系统');*/
+
+
                 return ;
             }
         }
@@ -118,5 +105,30 @@
         }
     }
     IsPC();
+
+
+
+   var url;
+   if(iosFlag==true){
+       url=host.api_url+'/app?app=0&type=2&start=0&size=1';
+   }
+   else{
+       url=host.api_url+'/app?app=0&type=1&start=0&size=1';
+   }
+
+   $.ajax({
+       type:"GET",
+       url:url,
+       async:true,
+       success:function (data) {
+           apkUrl= data.result[0].url;
+           $('#downloadHref')[0].href = apkUrl;
+           $('#downloadHref').attr("disabled",false);
+       },
+       error: function () {
+           alert('地址错误！');
+       }
+   });
+
 </script>
 </html>

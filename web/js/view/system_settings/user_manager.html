@@ -1,11 +1,20 @@
 <div>
     <div class="row">
         <div class="row">
-            <div class="input-field col s3 offset-s7">
-                <select material-select ng-model="userType">
+
+            <div class="input-field col s5">
+                <select material-select ng-model="userType" ng-change="getName(userType)">
                     <option ng-repeat="user in user_info_section" ng-value={{user.type}}>{{user.name}}</option>
                 </select>
             </div>
+
+            <div class=" input-field col s5">
+                <select style="width: 100%" id="name" material-select watch ng-model="realName">
+                    <option value=""></option>
+                    <option ng-repeat="name in nameList" ng-value="name.real_name">{{name.real_name}}</option>
+                </select>
+            </div>
+
             <div class="col s1 flex flex-round">
                 <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
                    style="margin-right: 10px" ng-click="clickSearch()">

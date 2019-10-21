@@ -33,11 +33,42 @@ app.controller("setting_user_controller", ["_basic", "_config", "$host", "$scope
             }
         }
     };
+
+
+    // 获取姓名
+    $scope.getName = function (id) {
+        if (id == undefined || id == "" || id == null) {
+            $scope.nameList = [];
+        }
+        else {
+            _basic.get($host.api_url + "/user?type=" + id).then(function (data) {
+                if (data.success == true) {
+                    $scope.nameList = data.result;
+                    $('#name').select2({
+                        placeholder: '姓名',
+                        containerCssClass: 'select2_dropdown',
+                        allowClear: true
+                    });
+                }
+            });
+        }
+    };
+    $scope.getName(10);
+
+
     user_info_fun();
     // 搜索所有查询
     var searchAll = function () {
         // 获取所有用户
-        _basic.get($host.api_url + "/user?type=" + $scope.userType + "&start=" + $scope.start + "&size=" + $scope.size).then(function (data) {
+        var url;
+        if($scope.realName==undefined){
+            url = $host.api_url + "/user?type=" + $scope.userType + "&start=" + $scope.start + "&size=" + $scope.size
+        }
+        else {
+            url =$host.api_url + "/user?realName="+$scope.realName+"&type=" + $scope.userType + "&start=" + $scope.start + "&size=" + $scope.size
+        }
+
+        _basic.get(url).then(function (data) {
             if (data.success === true) {
                 $scope.boxArray = data.result;
                 $scope.matchUser = $scope.boxArray.slice(0, 20);

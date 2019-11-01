@@ -187,7 +187,6 @@ app.controller("setting_user_controller", ["_basic", "_config", "$host", "$scope
         }
 
     };
-
     // 点击按钮查询用户
     $scope.clickSearch = function () {
         $scope.start = 0;

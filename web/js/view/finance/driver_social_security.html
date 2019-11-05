@@ -37,6 +37,7 @@
                     <th data-field="">月份</th>
                     <th data-field="">出勤天数</th>
                     <th data-field="">补助</th>
+                    <th data-field="">备注</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -48,9 +49,10 @@
                     <td>{{fileInfo.y_month}}</td>
                     <td class="red-text" >{{fileInfo.work_count}}</td>
                     <td class="red-text" >{{fileInfo.hotel_fee}}</td>
+                    <td class="unnecessary" style="max-width: 250px;">{{fileInfo.remark}}</td>
                 </tr>
                 <tr ng-if="securityList.length==0">
-                    <td colspan="7">暂无数据</td>
+                    <td colspan="8">暂无数据</td>
                 </tr>
                 </tbody>
             </table>

@@ -288,6 +288,7 @@ app.controller("driver_attendance_controller", ["$scope","$rootScope", "$state",
         $scope.truckNum='';
         $scope.addWorkCount='';
         $scope.addHotelFee ='';
+        $scope.addRemark ='';
         getDriveNameList();
         // monthPicker控件
         $('#add_start_month').MonthPicker({
@@ -330,7 +331,8 @@ app.controller("driver_attendance_controller", ["$scope","$rootScope", "$state",
                 "mobile": $scope.addDrivderId.mobile,
                 "workCount": $scope.addWorkCount,
                 "hotelFee":$scope.addHotelFee,
-                "yMonth": $scope.addStartMonth
+                "yMonth": $scope.addStartMonth,
+                'remark':$scope.addRemark
             };
             _basic.post($host.api_url + "/user/" + userId + "/driveWork", obj).then(function (data) {
                 if (data.success == true) {
@@ -364,7 +366,8 @@ app.controller("driver_attendance_controller", ["$scope","$rootScope", "$state",
     $scope.putCarItem =function (){
         _basic.put($host.api_url + "/user/" + userId + "/driveWork/" + $scope.driveSocialSecurityId, {
             workCount:$scope.socialSecurity.work_count,
-            hotelFee:$scope.socialSecurity.hotel_fee
+            hotelFee:$scope.socialSecurity.hotel_fee,
+            remark:$scope.socialSecurity.remark
         }).then(function (data) {
             if (data.success == true) {
                 swal("修改成功", "", "success");

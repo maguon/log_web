@@ -163,7 +163,7 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
     // 提交填写信息转到下一步
     $scope.nextStep = function () {
         if($scope.carType==undefined){
-            $scope.carType='';
+            $scope.carType=null;
         }
         var truckId = $scope.vinData.drive_name === "" ||$scope.vinData.drive_name === null? 0 : $scope.AccurateDriverInfo.truck_id;
         var truckNum = $scope.vinData.drive_name === "" ||$scope.vinData.drive_name === null? "" : $scope.AccurateDriverInfo.truck_num;

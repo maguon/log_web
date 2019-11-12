@@ -153,6 +153,7 @@
                     <th data-field="">处理结束时间</th>
                     <th data-field="">VIN</th>
                     <th data-field="">品牌</th>
+                    <th data-field="">车型</th>
                     <th data-field="">质损说明</th>
                     <th data-field="">申报人</th>
                     <th data-field="">责任人</th>
@@ -168,6 +169,7 @@
                     <td>{{damage.check_end_date }}</td>
                     <td>{{damage.vin}}</td>
                     <td>{{damage.make_name}}</td>
+                    <td>{{damage.car_model_name}}</td>
                     <td class="unnecessary" style="max-width: 150px;">{{damage.damage_explain}}</td>
                     <td>{{damage.declare_user_name}}</td>
                     <td>{{damage.under_user_name}}</td>
@@ -179,7 +181,7 @@
                     </td>
                 </tr>
                 <tr class="grey-text text-darken-1" ng-if="damageMamagementList.length == 0">
-                    <td colspan="11"><span style="letter-spacing: 2px">暂无数据</span></td>
+                    <td colspan="12"><span style="letter-spacing: 2px">暂无数据</span></td>
                 </tr>
                 </tbody>
             </table>

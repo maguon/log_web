@@ -19,10 +19,21 @@
                 <input id="autocomplete-input-vin" class="autocomplete" name="vin_code" type="text" ng-change="searchVinInfo()" ng-model="vinCode">
                 <label for="autocomplete-input-vin"><span style="color: red">* </span>VIN</label>
             </div>
-            <div class="input-field col s3">
-                <input disabled id="brandName" name="brand_name" type="text" ng-model="vinData.make_name">
-                <label for="brandName">品牌</label>
+            <div class="col s3">
+               <div class="input-field col s6" >
+                   <input disabled id="brandName" name="brand_name" type="text" ng-model="vinData.make_name">
+                   <label for="brandName">品牌</label>
+               </div>
+                <div class="input-field col s6">
+                    <select  material-select watch id="carType"  ng-model="carType">
+                        <option value="">请选择</option>
+                        <option ng-repeat="carType in carTypeList" ng-value="carType.model_name">{{carType.model_name}}</option>
+                    </select>
+                    <label for="carType">车型</label>
+                </div>
+
             </div>
+
             <div class="input-field col s3">
                 <input disabled id="entrustName" name="entrust_name" type="text" ng-model="vinData.en_short_name">
                 <label for="entrustName">委托方</label>

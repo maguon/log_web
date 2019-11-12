@@ -57,6 +57,9 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
                 if (data.success === true && data.result.length !== 0) {
                     $scope.vinCheck = true;
                     $scope.vinData = data.result[0];
+                    if(data.result[0].make_id!==''){
+                        getCarType(data.result[0].make_id);
+                    }
                     if(data.result[0].load_date!==null){
                         $scope.vinData.load_date=moment(data.result[0].load_date.toString()).format("YYYY-MM-DD hh:ss");
                     }
@@ -78,6 +81,20 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
         }
 
     };
+
+
+    function  getCarType(makeName){
+        _basic.get($host.api_url + "/carMake/" + makeName + "/carModel").then(function (data) {
+            if (data.success == true) {
+
+                $scope.carTypeList = data.result;
+
+            } else {
+                swal(data.msg, "", "error");
+            }
+        });
+
+    }
 
     function getDriverDetail(){
         _basic.get($host.api_url + "/drive?driveName=" + $scope.vinData.drive_name).then(function (data) {
@@ -145,6 +162,9 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
 
     // 提交填写信息转到下一步
     $scope.nextStep = function () {
+        if($scope.carType==undefined){
+            $scope.carType='';
+        }
         var truckId = $scope.vinData.drive_name === "" ||$scope.vinData.drive_name === null? 0 : $scope.AccurateDriverInfo.truck_id;
         var truckNum = $scope.vinData.drive_name === "" ||$scope.vinData.drive_name === null? "" : $scope.AccurateDriverInfo.truck_num;
         var driveId = $scope.vinData.drive_name === "" ||$scope.vinData.drive_name === null? 0 : $scope.AccurateDriverInfo.id;
@@ -154,6 +174,7 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
                 _basic.post($host.api_url + "/user/" + userId + "/damage",{
                     carId:$scope.vinData.id,
                     vin:$scope.vinCode,
+                    carModelName:$scope.carType,
                     truckId:truckId,
                     truckNum:truckNum,
                     driveId:driveId,

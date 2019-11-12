@@ -66,6 +66,7 @@
                     <th>申报时间</th>
                     <th>VIN</th>
                     <th>品牌</th>
+                    <th>车型</th>
                     <th>质损说明</th>
                     <th>处理状态</th>
                     <th>挂起状态</th>
@@ -78,6 +79,7 @@
                     <td>{{damage.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                     <td>{{damage.vin}}</td>
                     <td>{{damage.make_name}}</td>
+                    <td>{{damage.car_model_name}}</td>
                     <td style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis">{{damage.damage_explain}}</td>
                     <td ng-class="{'damage_pending_treatment':damage.damage_status == 1 , 'damage_in_process':damage.damage_status == 2}">{{damage.damage_status | damageStatus}}</td>
                     <td>{{damage.hang_status==1?'挂起':'不挂起'}}</td>
@@ -88,7 +90,7 @@
                     </td>
                 </tr>
                 <tr class="grey-text text-darken-1" ng-if="damageList.length == 0">
-                    <td colspan="8"><span style="letter-spacing: 2px">暂无数据</span></td>
+                    <td colspan="9"><span style="letter-spacing: 2px">暂无数据</span></td>
                 </tr>
                 </tbody>
             </table>

@@ -20,7 +20,7 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
     $scope.searchVinInfo = function () {
         // 模糊查询所有匹配的6位VIN
         if ($scope.vinCode != undefined && $scope.vinCode != "") {
-            if ($scope.vinCode.length >= 6) {
+            if ($scope.vinCode.length >= 6&&$scope.vinCode.length<=17) {
                 _basic.get($host.api_url + "/carList?vinCode=" + $scope.vinCode + "&start=0&size=4").then(function (data) {
                     if (data.success == true && data.result.length > 0) {
                         $scope.vin_msg = data.result;
@@ -49,7 +49,7 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
         }
 
         // 根据填充完毕的完整VIN信息进行精确查询
-        if ($scope.vinCode.length >= 17) {
+        if ($scope.vinCode.length > 17) {
             $scope.vinIdCode=$scope.vinCode.split('       ')[1];
             $scope.carIdCode=$scope.vinCode.split('       ')[0];
             $scope.vinCode=$scope.vinCode.split('       ')[1];

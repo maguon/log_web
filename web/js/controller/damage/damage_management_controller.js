@@ -6,7 +6,7 @@ app.controller("damage_management_controller", ["$scope","$rootScope","$state","
     $scope.damageLinkType = _config.damageLinkType;
     $scope.damageType = _config.damageType;
     $scope.user_info_obj = _config.userTypes;
-
+    $scope.truckNumListAllList =[];
     // 下载csv
     $scope.downloadCsvFile = function () {
         // 基本检索URL
@@ -30,6 +30,62 @@ app.controller("damage_management_controller", ["$scope","$rootScope","$state","
             }
         });
     };
+
+    //司机
+    function getDriveNameList () {
+        _basic.get($host.api_url + "/drive").then(function (data) {
+            if (data.success == true) {
+                $scope.driveList = data.result;
+                $('#driver_name').select2({
+                    placeholder: '司机',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
+    //获取货车牌号
+    function getTruckNum() {
+        _basic.get($host.api_url + "/truckBase").then(function (data) {
+            if (data.success === true) {
+                $scope.truckNumListAllList = data.result;
+                $('#truckNum').select2({
+                    placeholder: '货车牌号',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        })
+    }
+
+    // 根据电话号精确搜索司机
+    $scope.hasModifyDriver = function (nameAndTelArr) {
+        $scope.truckNumber='';
+        $scope.truckNumListAllList=[];
+        _basic.get($host.api_url + "/drive?driveId=" + nameAndTelArr).then(function (data) {
+            if (data.success === true) {
+                    if(data.result.length>0){
+                        getTruckNum()
+                        $scope.truckNumber = data.result[0].truck_id;
+
+                    }
+                    else {
+                        $scope.truckNumber=''
+                    }
+
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
 
     function getResponsibilityPerson (){
         _basic.get($host.api_url + "/user?status=1").then(function (data) {
@@ -161,6 +217,8 @@ app.controller("damage_management_controller", ["$scope","$rootScope","$state","
         $scope.brand=conditions.makeId;
         $scope.reportPerson=conditions.declareUserName;
         $scope.reportTimeStart=conditions.createdOnStart;
+        $scope.driverId=conditions.driveId;
+        $scope.truckNumber=conditions.truckId;
         $scope.reportTimeEnd=conditions.createdOnEnd;
         $scope.titleName=conditions.underUserType;
         $scope.responsibilityPerson=conditions.underUserName;
@@ -201,6 +259,8 @@ app.controller("damage_management_controller", ["$scope","$rootScope","$state","
             damageStatus:$scope.processingStatus,
             vinCode:$scope.vinCode,
             makeId:$scope.brand,
+            driveId:$scope.driverId,
+            truckId:$scope.truckNumber,
             declareUserName:$scope.reportPerson,
             createdOnStart:$scope.reportTimeStart,
             createdOnEnd:$scope.reportTimeEnd,
@@ -253,6 +313,7 @@ app.controller("damage_management_controller", ["$scope","$rootScope","$state","
         $scope.getBrandList();
         $scope.getCityList();
         getResponsibilityPerson();
+        getDriveNameList ()
     };
     $scope.queryData();
 }]);

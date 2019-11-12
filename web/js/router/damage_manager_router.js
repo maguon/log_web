@@ -190,4 +190,9 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/statistics/transport_planning_statistics.html",
             controller:"transport_planning_statistics_controller"
         })
+        .state("setting_car_brand", {
+            url:"/setting_car_brand",
+            templateUrl: "js/view/system_settings/setting_car_brand.html",
+            controller:'storage_car_brand_controller'
+        })
 }]);

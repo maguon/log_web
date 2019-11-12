@@ -86,6 +86,7 @@ app.controller("damage_declaration_controller", ["$scope","$rootScope","$state",
         $scope.reportTimeStart=conditions.createdOnStart;
         $scope.reportTimeEnd=conditions.createdOnEnd;
         $scope.processingStatus=conditions.damageStatus;
+        $scope.hangStatus=conditions.hangStatus;
         $scope.vinCode=conditions.vinCode;
     }
 
@@ -97,6 +98,7 @@ app.controller("damage_declaration_controller", ["$scope","$rootScope","$state",
             createdOnStart: $scope.reportTimeStart,
             createdOnEnd: $scope.reportTimeEnd,
             damageStatus: $scope.processingStatus,
+            hangStatus:$scope.hangStatus,
             vinCode:$scope.vinCode
         };
     }

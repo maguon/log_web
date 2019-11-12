@@ -3,50 +3,51 @@
         <div class="col s12 valign-wrapper">
             <div class="col s10" style="padding: 0;">
 
-                <div class="col input-field s2">
+                <div class="col input-field" style="width: 20%">
                     <input id="damage_number" type="text" ng-model="damageNum">
                     <label for="damage_number">质损编号</label>
                 </div>
-                <div class="input-field col s2">
+                <div class="col input-field" style="width: 20%">
                     <input type="text" id="autocomplete-input" name="vin" ng-change="shortSearch()" ng-model="vinCode" autocomplete="off" class="autocomplete" minlength="6">
                     <label for="autocomplete-input">VIN(至少6位)</label>
                 </div>
-                <div class="col s2 input-field">
+                <div class="col input-field" style="width: 20%">
                     <select id="end_city_list" name="state" style="width:100%" ng-change="getReceiveList()" ng-model="endCity">
                         <option value=""></option>
                        <!-- <option value="0" >清除选择</option>-->
                         <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
                     </select>
                 </div>
-                <div class="col s2 input-field">
-                    <select material-select watch ng-model="brand">
-                        <option value="" selected>品牌</option>
-                        <option ng-repeat="brand in brandList" ng-value="brand.id">{{brand.make_name}}</option>
-                    </select>
-                </div>
-                <div class="col s2 input-field">
+
+                <div class="col input-field" style="width: 20%">
                     <select material-select watch ng-model="distributor"  style="width: 100%" id="dealer">
                         <option value="" selected>经销商</option>
                         <option ng-repeat="receive in receiveList" ng-value="receive.id">{{receive.short_name}}</option>
                     </select>
                 </div>
-                <div class="col input-field s2">
+                <div class="col input-field" style="width: 20%">
+                    <select material-select watch ng-model="brand">
+                        <option value="" selected>品牌</option>
+                        <option ng-repeat="brand in brandList" ng-value="brand.id">{{brand.make_name}}</option>
+                    </select>
+                </div>
+                <div class="col input-field" style="width: 20%">
                     <select material-select watch id="titleName" name="state" style="width:100%" ng-model="titleName">
                         <option value="">责任人职务</option>
                         <option ng-repeat="el in user_info_obj" ng-value="el.type">{{el.name}}</option>
                     </select>
                 </div>
-                <div class="col input-field s2">
+                <div class="col input-field" style="width: 20%">
                     <select material-select watch ng-model="responsibilityPerson"  style="width: 100%" id="responsibility_person">
                         <option value="" selected>责任人</option>
                         <option ng-repeat="el in responsibilityList" ng-value="el.real_name">{{el.real_name}}</option>
                     </select>
                 </div>
-                <div class="col input-field s2">
+                <div class="col input-field" style="width: 20%">
                     <input id="report_person" type="text" ng-model="reportPerson">
                     <label for="report_person">申报人</label>
                 </div>
-                <div class="col s2 input-field">
+                <div class="col input-field" style="width: 20%">
                     <select material-select watch ng-model="processingStatus">
                         <option value="" selected>处理状态</option>
                         <option value="1" >待处理</option>
@@ -54,53 +55,71 @@
                         <option value="3" >已处理</option>
                     </select>
                 </div>
-                <div class="col s2 input-field">
+                <div class="col input-field" style="width: 20%">
                     <select material-select watch ng-model="hangStatus">
                         <option value="" selected>挂起状态</option>
                         <option value="1" >挂起</option>
                         <option value="0" >不挂起</option>
                     </select>
                 </div>
-                <div class="col s2 input-field">
+                <div class="col input-field" style="width: 20%">
+                    <select material-select watch id="driver_name" style="width: 100%" ng-model="driverId" ng-change="hasModifyDriver(driverId)">
+                        <option value=""></option>
+                        <option ng-repeat="driver in driveList" ng-value="driver.id">{{driver.drive_name + " - " + driver.mobile}}</option>
+                    </select>
+                </div>
+                <div class="col input-field" style="width: 20%" ng-show="truckNumListAllList.length!==0">
+                    <select material-select watch id="truckNum" ng-model="truckNumber" style="width: 100%">
+                        <option value=""></option>
+                        <option ng-repeat="truck in truckNumListAllList" ng-value="truck.id">{{truck.truck_num}}</option>
+                    </select>
+                </div>
+                <div class="col input-field" style="width: 20%" ng-show="truckNumListAllList.length==0">
+                    <input  id="code" name="phone" type="text" ng-model="truckNum" disabled>
+                    <label for="code">货车牌号</label>
+                </div>
+
+
+                <div class="col input-field" style="width: 20%">
                     <select id="damageLinkType" material-select watch ng-model="damage_link_type">
                         <option value="">质损环节类别</option>
                         <option ng-repeat="damage in damageLinkType" ng-value="damage.id">{{damage.typeName}}</option>
                     </select>
                 </div>
-                <div class="col s2 input-field">
+               <div class="col input-field" style="width: 20%">
                     <select material-select watch ng-model="damage_type">
                         <option value="">质损类型</option>
                         <option ng-repeat="damage in damageType" ng-value="damage.id">{{damage.typeLevel}}</option>
                     </select>
                 </div>
-                <div class="col input-field s2">
+                <div class="col input-field" style="width: 20%">
                     <input id="report_time_start" type="text" class="datepicker" ng-model="reportTimeStart" date><i
                         class="mdi dataIcon mdi-table-large"></i>
                     <label for="report_time_start">申报时间</label>
                 </div>
-                <div class="col input-field s2">
+                <div class="col input-field" style="width: 20%">
                     <input id="report_time_end" type="text" class="datepicker" ng-model="reportTimeEnd" date><i
                         class="mdi dataIcon mdi-table-large"></i>
                     <label for="report_time_end">至</label>
                 </div>
 
 
-                <div class="input-field col s2">
+                <div class="col input-field" style="width: 20%">
                     <input type="text" ng-model="deal_startTime" id="deal_startTime" class="datepicker"  date><i
                         class="mdi dataIcon mdi-table-large"></i>
                     <label style="color: #000; !important" for="deal_startTime">处理结束时间(始)</label>
                 </div>
-                <div class="input-field col s2">
+                <div class="col input-field" style="width: 20%">
                     <input type="text" ng-model="deal_endTime" id="deal_endTime"  class="datepicker" date><i
                         class="mdi dataIcon mdi-table-large"></i>
                     <label style="color: #000; !important"  for="deal_endTime">处理结束时间(终)</label>
                 </div>
-                <div class="input-field col s2">
+                <div class="col input-field" style="width: 20%">
                     <input type="text" ng-model="order_startTime" id="order_startTime" class="datepicker"  date><i
                         class="mdi dataIcon mdi-table-large"></i>
                     <label style="color: #000; !important" for="order_startTime">指令时间(始)</label>
                 </div>
-                <div class="input-field col s2">
+                <div class="col input-field" style="width: 20%">
                     <input type="text" ng-model="order_endTime" id="order_endTime"  class="datepicker" date><i
                         class="mdi dataIcon mdi-table-large"></i>
                     <label style="color: #000; !important"  for="order_endTime">指令时间(终)</label>

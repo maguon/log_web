@@ -271,11 +271,11 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/dispatch/look_instruction_list_details.html",
             controller:"look_instruction_list_details_controller"
         })
-       /* .state("setting_settlement",{
+        .state("setting_settlement",{
             url:"/setting_settlement",
             templateUrl: "js/view/system_settings/setting_settlement.html",
             controller:'setting_settlement_controller'
-        })*/
+        })
         .state("driver_settlement",{
             url:"/driver_settlement",
             templateUrl: "js/view/settlement/driver_settlement.html",

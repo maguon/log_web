@@ -262,8 +262,13 @@
                         <div class="col s6 left-align cyan-text" >
                             <p style="margin: 0">所有任务</p>
                         </div>
-                        <div class="col s6 right-align" style="color: darkgray;font-size: 1.05rem">
+                        <div class="col s5 right-align" style="color: darkgray;font-size: 1.05rem">
                             <p class="cyan-text"  style="margin: 0;font-size: 1.2rem">{{unsettledSalaryList.length}} 条</p>
+                        </div>
+                        <div class="col s1 right-align" style="font-size: 2rem">
+                            <a style="cursor: pointer" ng-click="export()">
+                                <i class="mdi mdi-cloud-download"></i>
+                            </a>
                         </div>
                     </div>
                     <!--头-->

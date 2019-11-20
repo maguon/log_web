@@ -136,6 +136,24 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
         });
     };
 
+    $scope.export =function (){
+
+        // 基本检索URL
+        var url = $host.api_url + "/dpRouteTaskBase.csv?";
+        // 检索条件
+
+        var conditions = _basic.objToUrl({
+            driveId:driveId,
+            taskStatusArr:[9,10],
+            taskPlanDateStart:$scope.firstDay,
+            taskPlanDateEnd: $scope.lastDay
+        });
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
+        window.open(url);
+
+    }
+
     // 获取商品车质损任务信息
     $scope.getCarDamageInfo = function () {
         $scope.damageTotalMoney=0;

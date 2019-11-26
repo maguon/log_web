@@ -26,12 +26,18 @@
                         <input name="truck_num" id="truck_num" autocomplete="off" type="text" ng-model="truckFirst.truck_num"  required>
                         <label for="truck_num"><span style="color: red;margin-right: 5px">*</span>车牌牌号</label>
                     </div>
-                    <div class="input-field col s4" ng-class="{'has-error':look_truck_form.truck_make.$invalid&&submitted }">
-                        <select id="truck_make" name="truck_make" material-select watch ng-model="truckFirst.brand_id" required>
+                    <div class="input-field col s3" ng-class="{'has-error':look_truck_form.truck_make.$invalid&&submitted }">
+                        <select id="truck_make" name="truck_make" material-select watch ng-model="truckFirst.brand_id" required ng-change="changeBrand(truckFirst.brand_id)">
                             <option value="">请选择</option>
                             <option ng-repeat="el in brand" ng-value="el.id">{{el.brand_name}}</option>
                         </select>
                         <label for="truck_make"><span style="color: red;margin-right: 5px">*</span>车辆品牌</label>
+                    </div>
+                    <div class="col s1" style="padding-top: 30px;padding-left: 30px ;font-size: 20px" ng-show="brandId!==undefiend" ng-click="loadOil()">
+                        <i class="mdi mdi-eye look_icon cyan-text lighten-1"  title="油耗"></i>
+                    </div>
+                    <div class="col s1" style="padding-top: 30px;padding-left: 30px ;font-size: 20px" ng-show="brandId==undefiend">
+                        <i class="mdi mdi-eye look_icon grey-text lighten-1" title="油耗"></i>
                     </div>
                     <div class="input-field col s4">
                         <input name="horsepower" id="horsepower" type="number" ng-model="truckFirst.hp" autocomplete="off" >
@@ -307,6 +313,51 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="loadOil" class="modal">
+    <div class="cyan lighten-1 white-text center-align modal_title" >油耗设置</div>
+    <div class="modal-content">
+        <div class="row col" style="width: 80%;">
+
+            <div class="col s12" style="height: 100px">
+
+                <div class="col s4 input-field">
+                    <input id="load" type="number" name="load" ng-model="loadItem.load_distance_oil" style="margin: 0;" disabled>
+                    <label for="load">重载油耗(升/百公里)</label>
+                </div>
+
+                <div class="col s4 input-field">
+                    <input id="not_load" type="number" name="not_load" ng-model="loadItem.no_load_distance_oil" style="margin: 0;" disabled>
+                    <label for="not_load">空载油耗(升/百公里)</label>
+                </div>
+
+                <div class="col s4 input-field">
+                    <input id="urea" type="number" name="urea" ng-model="loadItem.urea" style="margin: 0;" disabled>
+                    <label for="urea">尿素</label>
+                </div>
+                <div class="col s6 input-field">
+                    <input id="loadReverse" type="number"  ng-model="loadItem.load_reverse_oil" style="margin: 0;" disabled>
+                    <label for="loadReverse" class="active">重载倒板(升/百公里)</label>
+                </div>
+
+                <div class="col s6 input-field">
+                    <input id="notLoadReverse" type="number" ng-model="loadItem.no_load_reverse_oil" style="margin: 0;" disabled>
+                    <label for="notLoadReverse" class="active">空载倒板(升/百公里)</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row modal-footer valign-wrapper">
+        <div class=" col s12">
+            <div class="col s2 offset-s5">
+                <a style="width: 100%" class="modal-action modal-close waves-light waves-effect cyan lighten-1 btn">
+                    取消
+                </a>
             </div>
         </div>
     </div>

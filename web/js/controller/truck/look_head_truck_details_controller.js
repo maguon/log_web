@@ -97,6 +97,7 @@ app.controller("look_head_truck_details_controller", ["$scope", "$state", "$stat
         _basic.get($host.api_url + "/truckFirst?truckId=" + id).then(function (data) {
             if (data.success == true) {
                 $scope.truckFirst = data.result[0];
+                $scope.changeBrand( $scope.truckFirst.brand_id)
                 $scope.truckFirst.hp = $scope.truckFirst.hp === 0 ? null : $scope.truckFirst.hp;
                 // 获取车牌号
                 $scope.truck_num = $scope.truckFirst;
@@ -703,6 +704,7 @@ app.controller("look_head_truck_details_controller", ["$scope", "$state", "$stat
                         _basic.get($host.api_url + "/truckFirst?truckId=" + id).then(function (data) {
                             if (data.success == true) {
                                 $scope.truckFirst = data.result[0];
+
                                 // 获取车牌号
                                 $scope.truck_num = $scope.truckFirst;
 
@@ -788,4 +790,24 @@ app.controller("look_head_truck_details_controller", ["$scope", "$state", "$stat
         $('.modal').modal();
         $('#add_guarantee').modal('open');
     }
+    $scope.changeBrand = function (id){
+        $scope.brandId=id;
+    }
+
+    $scope.loadOil = function (){
+        $('.modal').modal();
+        $('#loadOil').modal('open');
+        //设置 车头的 100公里重载油量 和 空载油量
+
+            _basic.get($host.api_url + "/brand?brandId=" + $scope.brandId).then(function (data) {
+                if (data.success == true && data.result.length >= 0) {
+                    $scope.loadItem = data.result[0];
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            })
+        }
+
+
 }]);

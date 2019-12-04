@@ -179,7 +179,7 @@ app.controller("entrust_setting_controller", ["$scope", "_basic", "_config", "$h
                 else {
                     $("#pre1").hide();
                 }
-                if (data.result.length < $scope.size) {
+                if (data.result.length < $scope.size1) {
                     $("#next1").hide();
                 }
                 else {
@@ -520,11 +520,11 @@ app.controller("entrust_setting_controller", ["$scope", "_basic", "_config", "$h
     };
 
     // 分页
-    $scope.previousPage = function () {
+    $scope.previousPage1 = function () {
         $scope.start1 = $scope.start1 - ($scope.size1-1);
         searchEntrust();
     };
-    $scope.nextPage = function () {
+    $scope.nextPage1 = function () {
         $scope.start1 = $scope.start1 + ($scope.size1-1);
         searchEntrust();
     };

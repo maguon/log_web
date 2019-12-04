@@ -7,6 +7,8 @@ app.controller("setting_settlement_outsourcing_controller", ["$scope", "$state",
     $scope.endCityList = [];
     $scope.start = 0;
     $scope.size = 11;
+    $scope.start1 = 0;
+    $scope.size1 = 11;
     /*
     * 页面跳转
     * */
@@ -27,6 +29,14 @@ app.controller("setting_settlement_outsourcing_controller", ["$scope", "$state",
         $("#lookMyselfFile").show();
         getCity();
     };
+    $scope.outsourcingImport = function(){
+        $('ul.tabWrap li').removeClass("active");
+        $(".tab_box").removeClass("active");
+        $(".tab_box").hide();
+        $('ul.tabWrap li.outsourcingImport ').addClass("active");
+        $("#outsourcingImport").addClass("active");
+        $("#outsourcingImport").show();
+    }
     $scope.settingCompany();
 
     $("#pre1").hide();
@@ -122,15 +132,40 @@ app.controller("setting_settlement_outsourcing_controller", ["$scope", "$state",
     function searchOutsourcingSetting(){
         var obj = {
             companyId:$scope.companyId,
-            operateType:2
+            operateType:2,
+            start:$scope.start.toString(),
+            size:$scope.size
         };
 
         _basic.get($host.api_url + "/companyRoute?"+ _basic.objToUrl(obj)).then(function (data) {
+
+            if (data.success === true) {
+                $scope.boxArray2 = data.result;
+                $scope.entrustSettingArray = $scope.boxArray2.slice(0, 10);
+                if ($scope.start > 0) {
+                    $("#pre").show();
+                }
+                else {
+                    $("#pre").hide();
+                }
+                if (data.result.length < $scope.size) {
+                    $("#next").hide();
+                }
+                else {
+                    $("#next").show();
+                }
+            } else {
+                swal(data.msg, "", "error");
+            }
+
+
+
+        /*
             if (data.success === true) {
                 $scope.entrustSettingArray = data.result;
             } else {
                 swal(data.msg, "", "error");
-            }
+            }*/
         });
     }
 
@@ -164,7 +199,7 @@ app.controller("setting_settlement_outsourcing_controller", ["$scope", "$state",
     }
 
     $scope.searchList = function (){
-        $scope.start = 0;
+        $scope.start1 = 0;
         searchEntrust();
     };
 
@@ -175,20 +210,20 @@ app.controller("setting_settlement_outsourcing_controller", ["$scope", "$state",
             routeStartId:$scope.startCity1,
             routeEndId:$scope.endCity1,
             makeId:$scope.getCarBrand,
-            start:$scope.start.toString(),
-            size:$scope.size
+            start:$scope.start1.toString(),
+            size:$scope.size1
         };
         _basic.get($host.api_url + "/settleOuterTruck?"+ _basic.objToUrl(obj)).then(function (data) {
             if (data.success === true) {
                 $scope.boxArray1 = data.result;
-                $scope.importedFilesList = $scope.boxArray1.slice(0, 10);
-                if ($scope.start > 0) {
+                $scope.importedFilesList = $scope.boxArray1.slice(0,10);
+                if ($scope.start1 > 0) {
                     $("#pre1").show();
                 }
                 else {
                     $("#pre1").hide();
                 }
-                if (data.result.length < $scope.size) {
+                if (data.result.length < $scope.size1) {
                     $("#next1").hide();
                 }
                 else {
@@ -240,14 +275,225 @@ app.controller("setting_settlement_outsourcing_controller", ["$scope", "$state",
         }
     }
 
+    /*导出*/
+    $scope.export = function(){
+        // 基本检索URL
+        var url = $host.api_url + "/settleOuterTruckBase.csv?" ;
+        // 检索条件
+        var conditionsObj = {
+            companyId:$scope.getClient,
+            routeStartId:$scope.startCity1,
+            routeEndId:$scope.endCity1,
+            makeId:$scope.getCarBrand
+        };
+        var conditions = _basic.objToUrl(conditionsObj);
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
+        window.open(url);
+    }
+
+
+    $scope.num = 0;
+    $scope.flag=false;
+    $scope.templateBox = true;
+    $scope.success_data_box = false;
+    $scope.dataBox = false;
+    $scope.local_isSuccesss = false;
+    $scope.upload_isSuccesss = false;
+    $scope.show_error = false;
+    $scope.error_msg = false;
+    $scope.rightNumber = 0;
+    $scope.errorNumber = 0;
+    $scope.tableHeader = [];
+    $scope.fileType = "";
+    // 表头原始数据
+    $scope.tableHeadeArray = [];
+    // 主体原始错误数据
+    $scope.tableContentErrorFilter = [];
+    // 主体原始成功数据
+    $scope.tableContentFilter = [];
+    // 过滤条件数据
+    var colObjs = [
+        {name: '外协公司ID', type: 'number', length: 3,require: true},
+        {name: '制造商ID', type: 'number', length: 3, require: true},
+        {name: '起始城市ID', type: 'number', length: 3, require: true},
+        {name: '目的地ID', type: 'number', length: 3, require: true},
+       /* {name: '车型', type: 'number', length: 1, require: true},*/
+        {name: '公里数', type: 'number',require: true},
+        {name: '单价', type: 'number',require: true}
+       /* {name: '二级公里数', type: 'number',require: true},
+        {name: '二级单价', type: 'number',require: true}*/];
+    // 头部条件判断
+    $scope.titleFilter = function (headerArray) {
+        if (colObjs.length != headerArray.length) {
+            return false;
+        } else {
+            for (var i in headerArray) {
+                if (colObjs[i].name != headerArray[i]) {
+                    return false
+                }
+            }
+        }
+    };
+    // 主体条件判断
+    $scope.ContentFilter = function (contentArray) {
+
+        for (var i = 0; i < contentArray.length; i++) {
+            var flag = true;
+            var isNumber;
+            for (var j = 0; j < colObjs.length; j++) {
+                if (colObjs[j].require) {
+                    if (contentArray[i][j] == null && contentArray[i][j].length == 0) {
+                        $scope.errorNumber = $scope.errorNumber + 1;
+                        $scope.tableContentErrorFilter.push(contentArray[i]);
+                        flag = false;
+                        break;
+                    }
+                }
+
+
+                if (contentArray[i][j] == '' || isNaN(contentArray[i][j])) {
+                    isNumber = "string"
+                } else {
+                    isNumber = "number"
+                }
+                if (colObjs[j].type != isNumber && contentArray[i][j] != '' &&colObjs[j].require ) {
+                    $scope.errorNumber = $scope.errorNumber + 1;
+                    $scope.tableContentErrorFilter.push(contentArray[i]);
+                    flag = false;
+                    break;
+                }
+                if (colObjs[j].type=='string'&&(colObjs[j].length && colObjs[j].length != contentArray[i][j].length)) {
+                    $scope.errorNumber = $scope.errorNumber + 1;
+                    $scope.tableContentErrorFilter.push(contentArray[i]);
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag == true) {
+                $scope.rightNumber = $scope.rightNumber + 1;
+                $scope.tableContentFilter.push(contentArray[i]);
+            }
+
+
+        }
+
+    };
+
+    $scope.fileUpload = function () {
+        $("#buttonImport").attr("disabled",true);
+        _basic.formPost($("#file_upload_form"), $host.api_url + '/user/' + userId + '/settleOuterTruckFile' , function (data) {
+            if (data.success == true) {
+                $scope.$apply(function () {
+                    $scope.upload_error_array_num =data.result.failedCase;
+                    $scope.orginData_Length=data.result.failedCase+data.result.successedInsert;
+                    $scope.num=data.result.successedInsert;
+                    $scope.local_isSuccesss = false;
+                    $scope.upload_isSuccesss = true;
+                    $("#buttonImport").attr("disabled",false);
+                    swal('正确:'+$scope.num+'错误:'+$scope.upload_error_array_num,"", "success")
+                });
+
+            }
+            else {
+                $("#buttonImport").attr("disabled",false);
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+
+    // 展示上传的错误数据
+    $scope.show_error_msg = function () {
+        $scope.error_msg = !$scope.error_msg;
+    };
+    $scope.fileChange = function (file) {
+        // 表头原始数据
+        $scope.tableHeadeArray = [];
+        // 主体原始错误数据
+        $scope.tableContentErrorFilter = [];
+        // 主体原始成功数据
+        $scope.tableContentFilter = [];
+        $scope.rightNumber = 0;
+        $scope.errorNumber = 0;
+        $(file).parse({
+            config: {
+                complete: function (result) {
+                    $scope.$apply(function () {
+                        if(result==null ||result.data==null ||result.data.length ==0){
+                            swal("文件类型错误");
+                        } else {
+                            $scope.tableHeadeArray = result.data[0];
+                            $scope.templateBox = false;
+                            // 表头校验
+                            if ($scope.titleFilter($scope.tableHeadeArray) != false) {
+                                // 主体内容校验
+                                var content_filter_array = result.data.slice(1, result.data.length);
+                                var con_line = [];
+                                // console.log(content_filter_array);
+                                // excel换行过滤
+                                for (var i = 0; i < content_filter_array.length; i++) {
+                                    if (content_filter_array[i].length == 1 && content_filter_array[i][0] == "") {
+                                        break;
+                                    } else {
+                                        con_line.push(content_filter_array[i]);
+                                    }
+                                }
+                                $scope.ContentFilter(con_line);
+                                if ($scope.tableContentErrorFilter.length == 0) {
+                                    $scope.success_data_box = true;
+                                    $scope.dataBox = false;
+                                    swal("正确条数" + $scope.tableContentFilter.length);
+                                    // 总条数
+                                    $scope.orginData_Length = $scope.tableContentFilter.length;
+                                    $scope.local_isSuccesss = true;
+                                } else {
+                                    $scope.success_data_box = false;
+                                    $scope.dataBox = true;
+                                    swal("错误条数" + $scope.tableContentErrorFilter.length);
+                                }
+                                $scope.tableHeader = result.data[0];
+                            }
+                            else {
+                                swal("表头格式错误", "", "error");
+                                $scope.templateBox = true;
+                            }
+
+                        }
+
+                    });
+
+                }
+            },
+            before: function (file, inputElem) {
+                $scope.fileType = file.type;
+            },
+            error: function (err, file, inputElem, reason) {
+                console.log(err)
+            },
+            complete: function (val) {
+                // console.log(val)
+            }
+        })
+    };
 
     // 分页
     $scope.previousPage = function () {
         $scope.start = $scope.start - ($scope.size-1);
-        searchEntrust();
+        searchOutsourcingSetting();
     };
     $scope.nextPage = function () {
         $scope.start = $scope.start + ($scope.size-1);
+        searchOutsourcingSetting();
+    };
+
+    // 分页
+    $scope.previousPage1 = function () {
+        $scope.start1 = $scope.start1 - ($scope.size1-1);
+        searchEntrust();
+    };
+    $scope.nextPage1 = function () {
+        $scope.start1 = $scope.start1 + ($scope.size1-1);
         searchEntrust();
     };
 

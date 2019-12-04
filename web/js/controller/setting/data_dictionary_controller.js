@@ -56,6 +56,14 @@ app.controller("data_dictionary_controller", ["$scope", "_basic", "_config", "$h
                 swal(carData.msg, "", "error");
             }
         })
+        _basic.get($host.api_url + "/company?operateType=2").then(function (carData) {
+            if (carData.success === true) {
+                $scope.outsourcingList = carData.result;
+            }
+            else {
+                swal(carData.msg, "", "error");
+            }
+        })
     };
 
     $scope.queryData();
@@ -94,6 +102,12 @@ app.controller("data_dictionary_controller", ["$scope", "_basic", "_config", "$h
         $scope.city_details = false;
         $scope.flag = false;
         $scope.listInfo = $scope.dispatchList;
+    };
+    $scope.getOutsourcing = function () {
+        $scope.clickStatus = "outsourcing";
+        $scope.city_details = false;
+        $scope.flag = false;
+        $scope.listInfo = $scope.outsourcingList;
     };
 
     // $scope.listInfo = [];
@@ -169,6 +183,17 @@ app.controller("data_dictionary_controller", ["$scope", "_basic", "_config", "$h
                 $scope.listInfo = $scope.carbrandList;
             }
         }
-
+        if ($scope.clickStatus === "outsourcing") {
+            if ($scope.keyWord != "") {
+                for (var b = 0; b < $scope.outsourcingList.length; b++) {
+                    if (($scope.outsourcingList[b].company_name).indexOf($scope.keyWord) !== -1) {
+                        $scope.listInfo.push($scope.outsourcingList[b]);
+                    }
+                }
+            }
+            else {
+                $scope.listInfo = $scope.carbrandList;
+            }
+        }
     }
 }]);

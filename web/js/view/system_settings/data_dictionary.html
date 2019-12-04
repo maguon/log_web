@@ -5,6 +5,7 @@
         <li class="tab"><a ng-click="getEntrust()" class="cyan-text"  href="javascript:void(0)">委托方</a></li>
         <li class="tab"><a ng-click="getReceive()" class="cyan-text"  href="javascript:void(0)">经销商</a></li>
         <li class="tab"><a ng-click="getBrand()" class="cyan-text"  href="javascript:void(0)">制造商</a></li>
+        <li class="tab"><a ng-click="getOutsourcing()" class="cyan-text"  href="javascript:void(0)">外协公司</a></li>
     </ul>
     <div class="search_info z-depth-2">
         <input style="border-bottom: 0" type="text" ng-change="updateList()" ng-model="keyWord" placeholder="请输入关键字">
@@ -13,10 +14,10 @@
     <table class="dic_table striped z-depth-1" border="1">
         <thead>
         <tr style="background-color: #c8c8c8;color: white;font-size: 16px">
-            <th width="150" data-field="id">{{clickStatus === "city" ? "城市编号" : clickStatus === "entrust" ? "委托方编号" : clickStatus === "receive" ? "经销商编号" :clickStatus === "dispatch" ? "发运地编号": "制造商编号"}}</th>
+            <th width="150" data-field="id">{{clickStatus === "city" ? "城市编号" : clickStatus === "entrust" ? "委托方编号" : clickStatus === "receive" ? "经销商编号" :clickStatus === "dispatch" ? "发运地编号": clickStatus === "outsourcing" ?'外协公司编号':"制造商编号"}}</th>
             <th ng-if="city_details">品牌</th>
             <th width="250" ng-if="flag" data-field="id">{{clickStatus === "city" ? "城市简称" : clickStatus === "entrust" ? "委托方简称" : "经销商简称"}}</th>
-            <th data-field="name" width="300">{{clickStatus === "city" ? "城市名称" : clickStatus === "entrust" ? "委托方名称" : clickStatus === "receive" ? "经销商名称" :clickStatus === "dispatch" ? "发运地名称": "车辆制造商"}}</th>
+            <th data-field="name" width="300">{{clickStatus === "city" ? "城市名称" : clickStatus === "entrust" ? "委托方名称" : clickStatus === "receive" ? "经销商名称" :clickStatus === "dispatch" ? "发运地名称":  clickStatus === "outsourcing" ?'外协公司名称':"车辆制造商"}}</th>
             <th ng-if="city_details">城市编号</th>
             <th ng-if="city_details">所在城市</th>
         </tr>
@@ -27,7 +28,7 @@
             <td width="150">{{dataInfo.id}}</td>
             <td ng-if="city_details">{{dataInfo.make_name}}</td>
             <td width="250" ng-if="flag">{{dataInfo.short_name}}</td>
-            <td width="300">{{clickStatus === "city" ? dataInfo.city_name : clickStatus === "entrust" ? dataInfo.entrust_name :clickStatus === "receive" ?  dataInfo.receive_name :clickStatus === "dispatch" ?dataInfo.addr_name:dataInfo.make_name}}</td>
+            <td width="300">{{clickStatus === "city" ? dataInfo.city_name : clickStatus === "entrust" ? dataInfo.entrust_name :clickStatus === "receive" ?  dataInfo.receive_name :clickStatus === "dispatch" ?dataInfo.addr_name:  clickStatus === "outsourcing" ?dataInfo.company_name:dataInfo.make_name}}</td>
             <td ng-if="city_details">{{dataInfo.city_id}}</td>
             <td ng-if="city_details">{{dataInfo.city_name}}</td>
         </tr>

@@ -171,7 +171,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
         });
     };
 
-    // 获取货车事故信息
+    // 获取货 车事故信息
     $scope.getTruckAccidentInfo = function () {
         $scope.accidentTotalMoney=0;
         // 未结算事故责任

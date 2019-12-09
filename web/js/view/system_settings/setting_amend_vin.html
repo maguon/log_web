@@ -44,18 +44,22 @@
                                 <div class="col s12 white" style="height:20px;"></div>
                                 <!-- body -->
                                 <div class="col s12 white disabled" style="height:70px;">
-                                    <div class="input-field col s4">
+                                    <div class="input-field col s3">
                                         <input type="text" id="get_makecarName" disabled  ng-model="carItem.make_name" >
                                         <label for="get_makecarName">制造商</label>
                                     </div>
-                                    <div class="input-field col s4 ">
+                                    <div class="input-field col s3 ">
                                         <input type="text" id="entrust_id" disabled  ng-model="carItem.en_short_name" >
                                         <label for="entrust_id">委托方</label>
                                     </div>
-                                    <div class="input-field col s4">
+                                    <div class="input-field col s3">
                                         <input type="text" id="order_name" class="datepicker " disabled date ng-model="order_date"><i
                                             class="mdi dataIcon mdi-table-large"></i>
                                         <label for="order_name">指令时间</label>
+                                    </div>
+                                    <div class="input-field col s3 ">
+                                        <input type="text" id="companyId" disabled  ng-model="carItem.company_name" >
+                                        <label for="companyId">外协公司</label>
                                     </div>
                                 </div>
                                 <!-- body -->
@@ -139,47 +143,54 @@
                 </div>
                 <!-- body -->
                 <div class="col s12 white" style="height:70px;">
-                    <div class="input-field col s4">
+                    <div class="input-field col s3">
                         <select material-select watch  id="look_makecarName"  name="look_makecarName"  ng-model="commodityCarList.make_id" required>
                             <option value="" disabled selected>请选择</option>
                             <option ng-repeat="el in makecarName" ng-value="el.id" >{{el.make_name}}</option>
                         </select>
                         <label for="look_makecarName" ><span style="color: red">*</span>制造商</label>
                     </div>
-                    <div class="input-field col s4">
+                    <div class="input-field col s3">
                         <select material-select watch id="client1" name="client"  ng-model="commodityCarList.entrust_id" >
                             <option value="" disabled selected>请选择</option>
                             <option ng-repeat="el in get_entrust" ng-value="el.id" >{{el.short_name}}</option>
                         </select>
                         <label for="client1">委托方</label>
                     </div>
-                    <div class="input-field col s4">
+                    <div class="input-field col s3">
                         <input type="text" id="last_name" class="datepicker" date ng-model="commodityCarList.order_date"><i
                             class="mdi dataIcon mdi-table-large"></i>
                         <label for="last_name">指令时间</label>
                     </div>
+                    <div class="input-field col s3">
+                        <select  material-select watch id="company_id" name="companyId"  ng-model="commodityCarList.company_id" style="width: 100%">
+                            <option ng-value=null >外协公司</option>
+                            <option ng-value=0 >请选择</option>
+                            <option ng-repeat="el in companyList" ng-value="el.id" >{{el.company_name}}</option>
+                        </select>
+                    </div>
                 </div>
                 <!-- body -->
                 <div class="col s12 white" style="height:70px;">
-                    <div class="input-field col s4">
+                    <div class="input-field col s3">
                         <select id="chooseStartCity" name="state" style="width:100%" ng-change="get_addr(start_city)" ng-model="start_city">
                             <option value="0">发运地城市</option>
                             <option ng-repeat="city in get_city" ng-value="city.id">{{city.city_name}}</option>
                         </select>
                     </div>
-                    <div class="input-field col s4">
+                    <div class="input-field col s3">
                         <select  style="width:100%" id="start_addr" name="start_addr"  required  ng-model="start_addr" >
                             <option value=""></option>
                             <option ng-repeat="el in start_address" ng-value="el.id" >{{el.addr_name}}</option>
                         </select>
                     </div>
-                    <div class="input-field col s2">
+                    <div class="input-field col s3">
                         <select id="chooseEndCity" name="state" style="width:100%" ng-change="get_received(arrive_city)" ng-model="arrive_city">
                             <option ng-value="0">目的地城市</option>
                             <option ng-repeat="city in get_city" ng-value="city.id" >{{city.city_name}}</option>
                         </select>
                     </div>
-                    <div class="input-field col s2">
+                    <div class="input-field col s3">
                         <select  id="dealer1" style="width:100%" name="dealer1" ng-model="arrive_receive">
                             <option value=""></option>
                             <option ng-repeat="el in put_receive" ng-value="el.id" >{{el.short_name}}</option>

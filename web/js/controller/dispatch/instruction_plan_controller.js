@@ -455,13 +455,14 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     // 点击左侧 直达 的卡片详情显示模态框中的模态框
     $scope.showCarDetailModel = function (transport) {
         // 根据卡片信息查询起始目的地信息
-        _basic.get($host.api_url + "/carList?" + _basic.objToUrl({
+        _basic.get($host.api_url + "/carList?" + _basic.objNewToUrl({
             orderStart:transport.date_id,
             orderEnd :transport.date_id,
             routeStartId: transport.route_start_id,
             addrId:transport.base_addr_id,
             receiveId:transport.receive_id,
-            routeEndId: transport.route_end_id
+            routeEndId: transport.route_end_id,
+            companyId:0
         })).then(function (data) {
             if (data.success === true) {
                 $scope.vinList = data.result;

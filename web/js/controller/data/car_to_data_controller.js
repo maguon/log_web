@@ -54,7 +54,8 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
             {name: '目的地ID', type: 'number', length: 3},
             {name: '经销商ID', type: 'number', length: 3},
             {name: '指令时间', type: 'string'},
-            {name: '船名', type: 'string'}];
+            {name: '船名', type: 'string'},
+            {name: '外协公司ID', type: 'number'}];
         // 头部条件判断
         $scope.titleFilter = function (headerArray) {
             if (colObjs.length != headerArray.length) {
@@ -126,7 +127,7 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                         socketUpload($scope.file_id);
                         orginDataLength = $scope.tableContentFilter.length;
                         $("#buttonImport").attr("disabled",false);
-                        swal('正确:'+$scope.num+'错误:'+$scope.upload_error_array_num,"", "success")
+                      /*  swal('正确:'+$scope.num+'错误:'+$scope.upload_error_array_num,"", "success")*/
                     }
                 }
             });
@@ -364,6 +365,7 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
             $("#new_car").modal("open");
             $scope.get_Msg();
             getCityEvery();
+            getCompany();
             $scope.vin = "";
             $scope.car_brand = "";
             $scope.arrival_time = "";
@@ -403,6 +405,27 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                 }
             });
         };
+
+    function getCompany(){
+        _basic.get($host.api_url + "/company?operateType=2").then(function (companyData) {
+            if (companyData.success === true) {
+                $scope.companyList = companyData.result;
+                $('#companyId').select2({
+                    placeholder: '外协公司',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+                $('#company_id').select2({
+                    placeholder: '外协公司',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(companyData.msg, "", "error");
+            }
+        });
+    }
 
         function getCityEvery(){
             // 城市
@@ -531,6 +554,7 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
 
         // 新增车辆信息
         $scope.addCarItem = function () {
+            $scope.companyList=[];
             if($scope.vin==undefined){
                 swal("请填写17位VIN！", "", "warning");
             }
@@ -538,6 +562,9 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                 if ($scope.vin!==''&&$scope.car_brand.id!==undefined&&$scope.car_brand.make_name!==undefined&&$scope.start_city.id!==undefined&&$scope.base_addr!==undefined&&$scope.client!=='') {
                     if($scope.shipName==undefined){
                         $scope.shipName=null;
+                    }
+                    if($scope.companyId==undefined){
+                        $scope.companyId=0;
                     }
                     var obj = {
                         "vin": $scope.vin,
@@ -552,9 +579,10 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                         "entrustId": $scope.client,
                         "orderDate": $scope.arrival_time,
                         "shipName": $scope.shipName,
-                        "remark": $scope.remark
+                        "remark": $scope.remark,
+                        "companyId":$scope.companyId
                     };
-                    _basic.post($host.api_url + "/user/" + userId + "/car", _basic.removeNullProps(obj)).then(function (data) {
+                    _basic.post($host.api_url + "/user/" + userId + "/car", _basic.removeProps(obj)).then(function (data) {
                         if (data.success == true) {
                             $('.tabWrap .tab').removeClass("active");
                             $(".tab_box ").removeClass("active");
@@ -753,6 +781,9 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
         };
 
        function putSingleData(){
+           if($scope.commodityCarList.company_id==undefined||$scope.commodityCarList.company_id==null){
+               $scope.commodityCarList.company_id=0;
+           }
         var obj = {
             "vin": $scope.commodityCarList.vin,
             "makeId": $scope.commodityCarList.make_id,
@@ -766,10 +797,11 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
             "routeEnd":$scope.putArriveCity,
             "receiveId": $scope.arrive_receive,
             "shipName":$scope.commodityCarList.ship_name,
-            "entrustId": $scope.commodityCarList.entrust_id
+            "entrustId": $scope.commodityCarList.entrust_id,
+            'companyId':$scope.commodityCarList.company_id
         };
         // 修改仓库信息
-        _basic.put($host.api_url + "/user/" + userId + "/car/" +  $scope.putDataItemId, _basic.removeNullProps(obj)).then(function (data) {
+        _basic.put($host.api_url + "/user/" + userId + "/car/" +  $scope.putDataItemId, _basic.removeProps(obj)).then(function (data) {
             if (data.success == true) {
                 $('#commodityCar').modal('close');
                 swal("修改成功", "", "success");
@@ -781,6 +813,6 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
         });
     }
 
-
+    getCompany()
 
 }]);

@@ -16,8 +16,7 @@ app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$hos
             var obj = {
                 vin: $scope.demand_vin
             };
-            console.log(_basic.objNewTo2Url(obj))
-            _basic.get($host.api_url + "/car?" + _basic.objNewTo2Url(obj)).then(function (data) {
+            _basic.get($host.api_url + "/carList?" + _basic.objNewTo2Url(obj)).then(function (data) {
                 if (data.success = true) {
                     if (data.result.length == 0) {
                         $(".no_car_detail").show();
@@ -116,6 +115,23 @@ app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$hos
     };
 
 
+    function getCompany(){
+        _basic.get($host.api_url + "/company?operateType=2").then(function (companyData) {
+            if (companyData.success === true) {
+                $scope.companyList = companyData.result;
+                $('#company_id').select2({
+                    placeholder: '外协公司',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(companyData.msg, "", "error");
+            }
+        });
+    }
+
+
     //删除
     $scope.deleteDataItem = function (id) {
         swal({
@@ -174,6 +190,9 @@ app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$hos
 
 
     function putSingleData(){
+        if($scope.commodityCarList.company_id==null||$scope.commodityCarList.company_id==0){
+            $scope.commodityCarList.company_id=0;
+        }
         var obj = {
             "makeId": $scope.commodityCarList.make_id,
             "makeName": $("#look_makecarName").find("option:selected").text(),
@@ -185,10 +204,11 @@ app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$hos
             "routeEndId": $scope.arrive_city,
             "routeEnd":$scope.putArriveCity,
             "receiveId": $scope.arrive_receive,
-            "entrustId": $scope.commodityCarList.entrust_id
+            "entrustId": $scope.commodityCarList.entrust_id,
+            "companyId":$scope.commodityCarList.company_id
         };
         // 修改仓库信息
-        _basic.put($host.api_url + "/user/" + admin + "/car/" +  $scope.putDataItemId+'/completedCar', _basic.removeNullProps(obj)).then(function (data) {
+        _basic.put($host.api_url + "/user/" + admin + "/car/" +  $scope.putDataItemId+'/completedCar', _basic.removeProps(obj)).then(function (data) {
             if (data.success == true) {
                 $('#putDataItem').modal('close');
                 swal("修改成功", "", "success");
@@ -257,7 +277,7 @@ app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$hos
     }
     $scope.get_Msg();
     getCityEvery();
-
+    getCompany();
 
     // 目的地城市-经销商联动
     $scope.get_received = function (id,text) {

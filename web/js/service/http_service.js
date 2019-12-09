@@ -208,6 +208,13 @@ baseService.factory('_basic', ['$http', '$location', '$q', "$cookies", function 
         }
         return tempObj
     };
+    _this.removeProps = function (obj) {
+        var tempObj = {};
+        for (var i in obj) {
+                tempObj[i] = obj[i]
+        }
+        return tempObj
+    };
 
     _this.objToUrl = function (obj) {
         var str = "";

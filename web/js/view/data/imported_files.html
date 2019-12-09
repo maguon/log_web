@@ -21,6 +21,7 @@
                 <th data-field="">目的地</th>
                 <th data-field="">经销商</th>
                 <th data-field="">指令时间</th>
+                <th data-field="">外协公司</th>
             </tr>
             </thead>
             <tbody>
@@ -41,10 +42,12 @@
                 <td ng-if="car.re_short_name==null">暂无数据</td>
                 <td ng-if="car.created_on!==null">{{car.order_date | date:'yyyy-MM-dd'}}</td>
                 <td ng-if="car.created_on==null">暂无数据</td>
+                <td ng-if="car.company_name!==null">{{car.company_name}}</td>
+                <td ng-if="car.company_name==null">暂无数据</td>
             </tr>
             <tr>
             <tr ng-if="fileDetailObj.fileRecord.length==0">
-                <td colspan="8">没有于导入文件对应的车辆信息</td>
+                <td colspan="9">没有于导入文件对应的车辆信息</td>
             </tr>
             </tbody>
         </table>

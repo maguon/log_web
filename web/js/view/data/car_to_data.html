@@ -32,24 +32,30 @@
                     </div>
                     <!-- body -->
                     <div class="col s12 white" style="height:70px;">
-                        <div class="input-field col s4">
+                        <div class="input-field col s3">
                             <select material-select watch  id="look_makecarName"  name="look_makecarName"  ng-model="commodityCarList.make_id" required>
                                 <option value="" disabled selected>请选择</option>
                                 <option ng-repeat="el in makecarName" ng-value="el.id" >{{el.make_name}}</option>
                             </select>
                             <label for="look_makecarName" ><span style="color: red">*</span>制造商</label>
                         </div>
-                        <div class="input-field col s4">
+                        <div class="input-field col s3">
                             <select material-select watch id="client1" name="client"  ng-model="commodityCarList.entrust_id" >
                                 <option value="" disabled selected>请选择</option>
                                 <option ng-repeat="el in get_entrust" ng-value="el.id" >{{el.short_name}}</option>
                             </select>
                             <label for="client1">委托方</label>
                         </div>
-                        <div class="input-field col s4">
+                        <div class="input-field col s3">
                             <input type="text" id="last_name" class="datepicker" date ng-model="commodityCarList.order_date"><i
                                 class="mdi dataIcon mdi-table-large"></i>
                             <label for="last_name">指令时间</label>
+                        </div>
+                        <div class="input-field col s3">
+                            <select  material-select watch id="company_id" name="companyId"  ng-model="commodityCarList.company_id" style="width: 100%">
+                                <option ng-value=0  selected>外协公司</option>
+                                <option ng-repeat="el in companyList" ng-value="el.id" >{{el.company_name}}</option>
+                            </select>
                         </div>
                     </div>
                     <!-- body -->
@@ -233,20 +239,27 @@
                     <form name="new_carForm" style="color:#616161" ng-submit="newSubmitForm(new_carForm.$valid)" novalidate>
                         <div class="row" style="margin-top: 40px">
                             <div class="row "  >
-                                <div class="input-field col s4">
+                                <div class="input-field col s3">
                                     <input  id="vin" name="vin" autocomplete="off" ng-model="vin" type="text" ng-pattern="/^[a-zA-Z0-9]{17}$/"   required >
                                     <label for="vin"><span style="color: red;margin-right: 5px">*</span>VIN</label>
                                 </div>
-                                <div class="input-field col s4">
+                                <div class="input-field col s3">
                                     <select material-select watch id="car_brand" name="car_brand" ng-options="car_brand.make_name for car_brand in get_carMake"   ng-model="car_brand" >
                                         <option value="" disabled selected>请选择</option>
                                     </select>
                                     <label for="car_brand">品牌</label>
                                 </div>
-                                <div class="input-field col s4">
+                                <div class="input-field col s3">
                                     <input type="text" id="arrival_time" name="arrival_time"  class="datepicker" autocomplete="off" ng-model="arrival_time" date><i class="mdi grey-text text-lighten-1 dataIcon mdi-table-large"></i>
                                     <label for="arrival_time">指令时间</label>
                                 </div>
+                                <div class="input-field col s3">
+                                    <select  material-select watch id="companyId" name="companyId"  ng-model="companyId" style="width: 100%">
+                                        <option value="" disabled selected>外协公司</option>
+                                        <option ng-repeat="el in companyList" ng-value="el.id" >{{el.company_name}}</option>
+                                    </select>
+                                </div>
+
                             </div>
 
                             <div class="row">

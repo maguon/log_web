@@ -7,6 +7,7 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
     var val = $stateParams.id;
     var vin = $stateParams.vin;
     $scope.get_city = [];
+    $scope.companyList = [];
     $(document).ready(function () {
         $('.save').tooltip({delay: 50});
         $('.displacement').tooltip({delay: 50});
@@ -52,6 +53,25 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
         })
     };
     $scope.get_Msg();
+
+    function getCompany(){
+        _basic.get($host.api_url + "/company?operateType=2").then(function (companyData) {
+            if (companyData.success === true) {
+                $scope.companyList = companyData.result;
+                $('#company_id').select2({
+                    placeholder: '外协公司',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(companyData.msg, "", "error");
+            }
+        });
+
+    }
+
+    getCompany();
 
     // 车库查询
     _basic.get($host.api_url + "/storage").then(function (data) {
@@ -334,6 +354,9 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
                 $scope.modelId = data.result[0].model_id;
                 data.result[0].real_out_time = data.result[0].real_out_time == null ? '' : data.result[0].real_out_time
                 $scope.self_car = data.result[0];
+
+                // 判断获取的目的地城市是否存在，不存在则默认选中目的地城市的select
+                $scope.companyId =data.result[0].company_id=== null ? "0" : data.result[0].company_id;
                 // console.log("self_car",$scope.self_car);
                 // modelID赋值
                 $scope.look_make_id = $scope.self_car.make_id;
@@ -393,11 +416,10 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
 
     $scope.lookStorageCar(val, vin);
     // 修改仓库详情
-    $scope.submitForm = function (isValid, id, r_id) {
-        $scope.submitted = true;
-        if (isValid) {
+    $scope.submitForm = function (id) {
             // 如果没有选中select或是重置了初始值，则传空字符串
             var arrive_city = $scope.arrive_city == 0 ? "" : $scope.arrive_city;
+            var companyId = $scope.companyId ==undefined ? 0 : $scope.companyId;
             var obj = {
                 "vin": $scope.self_car.vin,
                 "makeId": $scope.self_car.make_id,
@@ -410,7 +432,8 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
                 "routeEndId": arrive_city,
                 "routeEnd": $scope.arrive_city_name,
                 "receiveId": $scope.self_car.receive_id,
-                "entrustId": $scope.self_car.entrust_id
+                "entrustId": $scope.self_car.entrust_id,
+                'companyId': companyId
             };
             // 修改仓库信息
             _basic.put($host.api_url + "/user/" + userId + "/car/" + id, _basic.removeNullProps(obj)).then(function (data) {
@@ -421,7 +444,7 @@ app.controller("storage_car_details_controller", ["$state", "$stateParams", "_co
                     swal(data.msg, "", "error")
                 }
             });
-        }
+
     };
 
     // 目的地城市-经销商联动

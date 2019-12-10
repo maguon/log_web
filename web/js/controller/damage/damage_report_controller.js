@@ -169,6 +169,7 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
         var truckNum = $scope.vinData.drive_name === "" ||$scope.vinData.drive_name === null? "" : $scope.AccurateDriverInfo.truck_num;
         var driveId = $scope.vinData.drive_name === "" ||$scope.vinData.drive_name === null? 0 : $scope.AccurateDriverInfo.id;
         var driveName = $scope.vinData.drive_name === "" ||$scope.vinData.drive_name === null? "" : $scope.AccurateDriverInfo.drive_name;
+        var remark = $scope.damageRemark.replace(/，|,/g, ' ');
         if($scope.vinCode !== ""){
             if($scope.vinCode.length === 17 && $scope.vinCheck){
                 _basic.post($host.api_url + "/user/" + userId + "/damage",{
@@ -179,7 +180,7 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
                     truckNum:truckNum,
                     driveId:driveId,
                     driveName:driveName,
-                    damageExplain:$scope.damageRemark
+                    damageExplain:remark
                 }).then(function (data) {
                     if (data.success === true) {
                         $scope.step_1 = false;

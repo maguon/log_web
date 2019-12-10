@@ -84,14 +84,16 @@ app.controller("damage_declaration_details_controller", ["$scope","$state", "$st
 
     // 提交修改后的信息
     $scope.submitModifyInfo = function () {
+        var remark = $scope.currentDamageInfo.damage_explain.replace(/，|,/g, ' ');
         _basic.put($host.api_url + "/user/" + userId + "/damage/" + damageId,{
             truckId:$scope.truckId,
             truckNum:$scope.truckNum,
             driveId:$scope.driverId,
             driveName:$scope.driverName,
-            damageExplain:$scope.currentDamageInfo.damage_explain
+            damageExplain:remark
         }).then(function (data) {
             if (data.success === true) {
+                $scope.getCurrentDamageInfo();
                 swal("修改成功", "", "success");
             }
             else {

@@ -49,6 +49,18 @@ app.controller("settlement_outsourcing_controller", ["_basic","$rootScope", "_co
         _basic.get($host.api_url + "/company?operateType=2").then(function (data) {
             if (data.success === true) {
                 $scope.companyList = data.result;
+                $('#truck_company').select2({
+                    placeholder: '外协公司',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+                $('#conCompany').select2({
+                    placeholder: '外协公司',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+
+
             }
             else {
                 swal(data.msg, "", "error");

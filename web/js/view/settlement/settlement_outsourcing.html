@@ -55,9 +55,10 @@
                                     <option value="">请选择</option>
                                     <option ng-repeat="el in companyList" ng-value="el.id">{{el.company_name}}</option>
                                 </select>
-                                <label for="truck_company">外协公司</label>
+                               <!-- <label for="truck_company">外协公司</label>-->
                             </div>
-
+                        </div>
+                        <div class="col s12">
 
                             <!--品牌-->
                             <div class="input-field col s2">
@@ -240,11 +241,10 @@
 
                     <!--外协公司-->
                     <div class="input-field col s6">
-                        <select id="conCompany"  material-select watch ng-model="conCompany" required>
+                        <select id="conCompany"  material-select watch ng-model="conCompany" required style="width: 100%">
                             <option value="">请选择</option>
                             <option ng-repeat="el in companyList" ng-value="el.id">{{el.company_name}}</option>
                         </select>
-                        <label for="truck_company">外协公司</label>
                     </div>
                     <!--状态-->
                     <div class="input-field col s6">

@@ -178,6 +178,27 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
         window.open(url);
     }
 
+
+
+    //装车明细导出
+    $scope.exportCar = function (){
+        var url = $host.api_url + "/dpRouteTaskDetail.csv?";
+            // 检索条件
+            var conditions = _basic.objNewToUrl({
+                companyId:$scope.companyId,
+                operateType:$scope.operateType,
+                taskPlanDateStart: $scope.firstDay,
+                taskPlanDateEnd:$scope.lastDay,
+                driveId:$scope.driverName,
+                truckId:$scope.truckNumber
+            });
+            // 检索URL
+            url = conditions.length > 0 ? url + "&" + conditions : url;
+            window.open(url);
+
+    }
+
+
     $scope.exportDriver  = function(exportDriveId,exportTruckId,exportStartMonth){
         // 基本检索URL
         var url = $host.api_url + "/driveDpRouteTaskOilRel.csv?" ;

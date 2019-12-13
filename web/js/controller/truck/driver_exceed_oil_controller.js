@@ -187,8 +187,8 @@ app.controller("driver_exceed_oil_controller", ["$scope","$rootScope","$state","
             var conditions = _basic.objNewToUrl({
                 companyId:$scope.companyId,
                 operateType:$scope.operateType,
-                taskPlanDateStart: $scope.firstDay,
-                taskPlanDateEnd:$scope.lastDay,
+                taskPlanDateStart:moment($scope.firstDay).format("YYYY-MM-DD"),
+                taskPlanDateEnd:moment($scope.lastDay).format("YYYY-MM-DD"),
                 driveId:$scope.driverName,
                 truckId:$scope.truckNumber
             });

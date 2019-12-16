@@ -147,7 +147,7 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
     * */
     $scope.export = function () {
         // 基本检索URL
-        var url = $host.api_url + "/dpRouteLoadTaskProtect.csv?" ;
+        var url = $host.api_url + "/dpRouteLoadTaskCleanRel.csv?" ;
         // 检索条件
         var conditionsObj = makeConditions();
         var conditions = _basic.objToUrl(conditionsObj);

@@ -196,10 +196,6 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
             }
             else {
                 if($scope.selectCarPark==undefined||$scope.selectCarPark==""){
-                    swal('提车费方式不能为空', "", "error");
-                    return;
-                }
-                else if($scope.selectCarPark==1){
                     var carParkingFee =$scope.newCarParkingFee*$scope.dispatchNum.car_count;
                 }
                 else {
@@ -287,11 +283,7 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
             }
             else {
                 if($scope.selectCarPark==undefined||$scope.selectCarPark==""){
-                    swal('提车费方式不能为空', "", "error");
-                    return;
-                }
-                else if($scope.selectCarPark==1){
-                   var carParkingFee =$scope.newCarParkingFee*$scope.dispatchNum.car_count;
+                    var carParkingFee =$scope.newCarParkingFee*$scope.dispatchNum.car_count;
                 }
                 else {
                     var carParkingFee =$scope.newCarParkingFee;

@@ -16,7 +16,7 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
     //领取状态 默认为未领取
     $scope.conStatus = "1";
 
-
+    $scope.selectCarPark ='';
     // 获取查询条件 (司机  货车牌号   目的城市)
     function getCondition() {
         _basic.get($host.api_url + "/drive").then(function (data) {
@@ -195,6 +195,16 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
                 swal('车辆或者补价不能为空', "", "error");
             }
             else {
+                if($scope.selectCarPark==undefined||$scope.selectCarPark==""){
+                    swal('提车费方式不能为空', "", "error");
+                    return;
+                }
+                else if($scope.selectCarPark==1){
+                    var carParkingFee =$scope.newCarParkingFee*$scope.dispatchNum.car_count;
+                }
+                else {
+                    var carParkingFee =$scope.newCarParkingFee;
+                }
                 _basic.post($host.api_url + "/user/" + userId + "/dpRouteLoadTaskCleanRel", {
                     dpRouteTaskId: $scope.dispatchNum.dp_route_task_id,
                     dpRouteLoadTaskId: $scope.dispatchNum.id,
@@ -206,7 +216,7 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
                     trailerFee: $scope.newTrailerFee,
                     totalTrailerFee: $scope.newTrailerFee * $scope.dispatchNum.car_count,
                     actualTrailerFee: $scope.newTrailerFee * $scope.dispatchNum.car_count,
-                    carParkingFee: $scope.newCarParkingFee * $scope.dispatchNum.car_count,
+                    carParkingFee:carParkingFee,
                     runFee: $scope.newRunFee,
                     totalRunFee: $scope.newRunFee * $scope.dispatchNum.car_count,
                     actualRunFee:$scope.newRunFee * $scope.dispatchNum.car_count,
@@ -276,6 +286,16 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
                 swal('车辆或者补价不能为空', "", "error");
             }
             else {
+                if($scope.selectCarPark==undefined||$scope.selectCarPark==""){
+                    swal('提车费方式不能为空', "", "error");
+                    return;
+                }
+                else if($scope.selectCarPark==1){
+                   var carParkingFee =$scope.newCarParkingFee*$scope.dispatchNum.car_count;
+                }
+                else {
+                    var carParkingFee =$scope.newCarParkingFee;
+                }
                 _basic.post($host.api_url + "/user/" + userId + "/dpRouteLoadTaskCleanRel",{
                     dpRouteTaskId: $scope.dispatchNum.dp_route_task_id,
                     dpRouteLoadTaskId: $scope.dispatchNum.id,
@@ -286,7 +306,7 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
                     carCount: $scope.dispatchNum.car_count,
                     trailerFee:  $scope.newTrailerFee,
                     totalTrailerFee: $scope.newTrailerFee*$scope.dispatchNum.car_count,
-                    carParkingFee:  $scope.newCarParkingFee*$scope.dispatchNum.car_count,
+                    carParkingFee: carParkingFee,
                     runFee:  $scope.newRunFee,
                     totalRunFee: $scope.newRunFee*$scope.dispatchNum.car_count,
                     leadFee:  $scope.newLeadFee,

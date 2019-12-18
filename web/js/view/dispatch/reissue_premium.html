@@ -45,31 +45,38 @@
 
 
                             <div class="col s12 fz14 valign-wrapper cyan-text" style="font-size: 1.2rem;" >
-                                <div class="col  input-field red-text left-align" style="width: 20%">
-                                    <input id="newTrailerFee1" type="number"  ng-model="newTrailerFee">
+                                <div class="col  input-field red-text left-align s2" >
+                                    <input id="newTrailerFee1" type="number"  ng-model="newTrailerFee" style="margin-top: 20px">
                                     <label for="newTrailerFee1" class="active">拖车费/每台</label>
                                 </div>
-                                <div class="col  input-field red-text right-align" style="width: 20%">
-                                    <input id="newCarParkingFee1" type="number"  ng-model="newCarParkingFee">
-                                    <label for="newCarParkingFee1" class="active">提车费/每台</label>
+                                <div class="col  input-field right-align s2" >
+                                    <select id="selectCarPark" ng-model="selectCarPark" material-select watch >
+                                        <option value="">提车费方式</option>
+                                        <option ng-value="1">提车费/每台</option>
+                                        <option ng-value="2">提车费/每板</option>
+                                    </select>
                                 </div>
-                                <div class="col  input-field red-text right-align" style="width: 20%">
-                                    <input id="newRunFee1" type="number"  ng-model="newRunFee">
+                                <div class="col  input-field red-text right-align s2" >
+                                    <input id="newCarParkingFee1" type="number"  ng-model="newCarParkingFee" style="margin-top: 20px">
+                                    <label for="newCarParkingFee1" class="active">提车费金额</label>
+                                </div>
+                                <div class="col  input-field red-text right-align s2">
+                                    <input id="newRunFee1" type="number"  ng-model="newRunFee"  style="margin-top: 20px">
                                     <label for="newRunFee1" class="active">地跑费/每台</label>
                                 </div>
-                                <div class="col  input-field red-text right-align" style="width: 20%">
-                                    <input id="newLeadFee1" type="number"  ng-model="newLeadFee">
+                                <div class="col  input-field red-text right-align s2">
+                                    <input id="newLeadFee1" type="number"  ng-model="newLeadFee"  style="margin-top: 20px">
                                     <label for="newLeadFee1" class="active">带路费/每板</label>
                                 </div>
-                                <div class="col input-field right-align" style="width: 20%">
+                                <div class="col input-field right-align s2" style="margin-top: 30px">
                                     合计金额:<span class="red-text">{{dispatchNum.car_count==isNaN?0:((newRunFee*dispatchNum.car_count+newCarParkingFee*dispatchNum.car_count+newTrailerFee*dispatchNum.car_count)+newLeadFee)}}</span>
                                 </div>
                             </div>
 
                             <div class="col s12">
                                 <div class="input-field col s12" style="margin-bottom:20px ">
-                                    <input name="remarkItem" id="remarkItem" type="text" ng-model="remarkItem" >
-                                    <label for="remarkItem">备注:</label>
+                                    <input name="remarkItem" id="remarkItem1" type="text" ng-model="remarkItem" >
+                                    <label for="remarkItem1">备注:</label>
                                 </div>
                             </div>
 
@@ -139,28 +146,42 @@
                     </div>
                     <!--任务信息卡片-->
                     <div class="col s12 fz20 valign-wrapper red-text">
-                        <div class="col  input-field colWidth">
-                            <input id="newTrailerFee" type="number"  ng-model="newTrailerFee">
+                        <div class="col  input-field s2">
+                            <input id="newTrailerFee" type="number"  ng-model="newTrailerFee"  style="margin-top: 20px">
                             <label for="newTrailerFee">拖车费/每台</label>
                         </div>
-                        <div class="col  input-field colWidth">
-                            <input id="newCarParkingFee" type="number"  ng-model="newCarParkingFee">
-                            <label for="newCarParkingFee">提车费/每台</label>
+                        <div class="col  input-field s2 cyan-text">
+                            <select id="selectCarPark1" ng-model="selectCarPark" material-select watch>
+                                <option value="">提车费方式</option>
+                                <option ng-value="1">提车费/每台</option>
+                                <option ng-value="2">提车费/每板</option>
+                            </select>
                         </div>
-                        <div class="col  input-field colWidth">
-                            <input id="newRunFee" type="number"  ng-model="newRunFee">
+                        <div class="col  input-field s2" >
+                            <input id="newCarParkingFee" type="number"  ng-model="newCarParkingFee" style="margin-top: 20px">
+                            <label for="newCarParkingFee">提车费金额</label>
+                        </div>
+                        <div class="col  input-field s2">
+                            <input id="newRunFee" type="number"  ng-model="newRunFee"  style="margin-top: 20px">
                             <label for="newRunFee">地跑费/每台</label>
                         </div>
-                        <div class="col  input-field colWidth">
-                            <input id="newLeadFee" type="number"  ng-model="newLeadFee">
+                        <div class="col  input-field s2" >
+                            <input id="newLeadFee" type="number"  ng-model="newLeadFee" style="margin-top: 20px">
                             <label for="newLeadFee">带路费/每板</label>
                         </div>
-                        <div class="col input-field cyan-text colWidth">
+                        <div class="col input-field cyan-text s2" style="margin-top: 20px">
                             合计金额:<span class="red-text">{{dispatchNum.car_count==isNaN?0:((newRunFee*dispatchNum.car_count+newCarParkingFee*dispatchNum.car_count+newTrailerFee*dispatchNum.car_count)+newLeadFee)}}</span>
                         </div>
                     </div>
                 </div>
 
+
+                <div class="col s12">
+                    <div class="input-field col s12" style="margin-bottom:20px ">
+                        <input name="remarkItem" id="remarkItem" type="text" ng-model="remarkItem" >
+                        <label for="remarkItem">备注:</label>
+                    </div>
+                </div>
 
                 <!--分割线-->
                 <div class="divider"></div>

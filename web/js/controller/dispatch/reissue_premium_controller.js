@@ -177,6 +177,8 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
         $scope.newCarParkingFee =0;
         $scope.newRunFee =0;
         $scope.newLeadFee =0;
+        $scope.dispatchNum=undefined;
+        $scope.remarkItem='';
         $('#singleReissue').modal('open');
     }
 
@@ -242,6 +244,10 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
         $scope.carItem=null;
         $scope.dispatchNum=undefined;
         $scope.remarkItem='';
+        $scope.newTrailerFee =0;
+        $scope.newCarParkingFee =0;
+        $scope.newRunFee =0;
+        $scope.newLeadFee =0;
         $(".no_car_detail").hide();
         $(".car_detail").hide();
         $('#addFeeItem').modal('open');

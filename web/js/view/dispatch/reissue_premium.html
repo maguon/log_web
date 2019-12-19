@@ -67,8 +67,12 @@
                                     <input id="newLeadFee1" type="number"  ng-model="newLeadFee"  style="margin-top: 20px">
                                     <label for="newLeadFee1" class="active">带路费/每板</label>
                                 </div>
-                                <div class="col input-field right-align s2" style="margin-top: 30px">
+
+                                <div class="col input-field cyan-text s2" style="margin-top: 20px" ng-show="selectCarPark!==1">
                                     合计金额:<span class="red-text">{{dispatchNum.car_count==isNaN?0:((newRunFee*dispatchNum.car_count+newCarParkingFee*dispatchNum.car_count+newTrailerFee*dispatchNum.car_count)+newLeadFee)}}</span>
+                                </div>
+                                <div class="col input-field cyan-text s2" style="margin-top: 20px" ng-show="selectCarPark==1">
+                                    合计金额:<span class="red-text">{{dispatchNum.car_count==isNaN?0:((newRunFee*dispatchNum.car_count+newCarParkingFee+newTrailerFee*dispatchNum.car_count)+newLeadFee)}}</span>
                                 </div>
                             </div>
 
@@ -167,8 +171,11 @@
                             <input id="newLeadFee" type="number"  ng-model="newLeadFee" style="margin-top: 20px">
                             <label for="newLeadFee">带路费/每板</label>
                         </div>
-                        <div class="col input-field cyan-text s2" style="margin-top: 20px">
+                        <div class="col input-field cyan-text s2" style="margin-top: 20px" ng-show="selectCarPark!==1">
                             合计金额:<span class="red-text">{{dispatchNum.car_count==isNaN?0:((newRunFee*dispatchNum.car_count+newCarParkingFee*dispatchNum.car_count+newTrailerFee*dispatchNum.car_count)+newLeadFee)}}</span>
+                        </div>
+                        <div class="col input-field cyan-text s2" style="margin-top: 20px" ng-show="selectCarPark==1">
+                            合计金额:<span class="red-text">{{dispatchNum.car_count==isNaN?0:((newRunFee*dispatchNum.car_count+newCarParkingFee+newTrailerFee*dispatchNum.car_count)+newLeadFee)}}</span>
                         </div>
                     </div>
                 </div>

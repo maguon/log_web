@@ -46,7 +46,6 @@
 
                 </div>
             </div>
-            <div class="row" style="height: 30px"></div>
             <div class="row">
                 <div class="col s12">
                     <div class="input-field col s2">
@@ -72,6 +71,22 @@
                     <div class="input-field col s2">
                         <input id="shipName" type="text" ng-model="vincodeList[0].ship_name" disabled>
                         <label for="shipName">船名</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="input-field col s4">
+                        <input id="driver" type="text" ng-model="loadingDetailsList[0].drive_name" disabled>
+                        <label for="driver">司机</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input id="truckNumber" type="text" ng-model="loadingDetailsList[0].truck_num" disabled>
+                        <label for="truckNumber">货车牌号</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input id="opTime" type="text" ng-model="loadingDetailsList[0].load_date" disabled>
+                        <label for="opTime">操作时间</label>
                     </div>
                 </div>
             </div>

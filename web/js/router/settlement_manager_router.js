@@ -90,13 +90,13 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/statistics/transport_planning_statistics.html",
             controller:"transport_planning_statistics_controller"
         })
-        // 结算管理
+       /* // 结算管理
         .state("settlement_management",{
             url:"/settlement_management",
             params: {"from": null},
             templateUrl: "js/view/settlement/settlement_management.html",
             controller:'settlement_management_controller'
-        })
+        })*/
         .state("instruction_driver_mileage", {
             url: "/instruction_driver_mileage",
             params: {"from": null},
@@ -113,12 +113,12 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/settlement/driver_settlement.html",
             controller:'driver_settlement_controller'
         })
-        // 结算管理详情
+       /* // 结算管理详情
         .state("settlement_management_detail",{
             url:"/settlement_management_detail/id/{id}/from/{from}",
             templateUrl: "js/view/settlement/settlement_management_detail.html",
             controller:'settlement_management_detail_controller'
-        })
+        })*/
         .state("not_handover",{
             url:"/not_handover",
             templateUrl: "js/view/settlement/not_handover.html",

@@ -281,6 +281,7 @@
                         <th>货车牌号</th>
                         <th>计划执行时间</th>
                         <th>送达时间</th>
+                        <th>序列号</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -297,6 +298,7 @@
                         <td>{{el.truck_num }}</td>
                         <td>{{el.task_plan_date |date:'yyyy-MM-dd'}}</td>
                         <td>{{el.arrive_date |date:'yyyy-MM-dd hh:mm'}}</td>
+                        <td>{{el.sequence_num}}</td>
                         <!-- 显示画面按钮 -->
                         <td class="operation">
                             <a  ng-click="openNotHandOverDetail(el.id)" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1" ></i></a>
@@ -304,10 +306,10 @@
                         </td>
                     </tr>
                     <tr ng-if="notHandoverArray.length==0&&conPlanTimeStart!==undefined&&conPlanTimeEnd!==undefined">
-                        <td colspan="12">暂无数据</td>
+                        <td colspan="13">暂无数据</td>
                     </tr>
                     <tr ng-if="conPlanTimeStart==undefined||conPlanTimeEnd==undefined&&notHandoverArray.length==0">
-                        <td colspan="12"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;计划执行时间为必填项</td>
+                        <td colspan="13"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;计划执行时间为必填项</td>
                     </tr>
                     </tbody>
                 </table>

@@ -29,7 +29,12 @@ app.controller("car_query_details_controller", ["$scope", "$stateParams", "$host
         _basic.get($host.api_url + "/dpRouteLoadTaskDetailBase?" + "carId=" + carId).then(function (carData) {
             if (carData.success === true) {
                 $scope.loadingDetailsList = carData.result;
-                $scope.loadingDetailsList[0].load_date = moment(carData.result[0].load_date).format('YYYY-MM-DD');
+                for(var i=0;i< $scope.loadingDetailsList.length;i++){
+                    if(carData.result[i].load_date&&carData.result[i].load_date!==undefined){
+                        $scope.loadingDetailsList[i].load_date = moment(carData.result[i].load_date).format('YYYY-MM-DD');
+                    }
+                }
+
             }
             else {
                 swal(carData.msg, "", "error");

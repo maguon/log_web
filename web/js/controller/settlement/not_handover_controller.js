@@ -89,7 +89,8 @@ app.controller("not_handover_controller", ["$scope", "$host",'_config', "_basic"
         {name: '起始城市ID', type: 'number', length: 3, require: true},
         {name: '发运地址ID', type: 'number', length: 3, require: true},
         {name: '目的地ID', type: 'number', length: 3,require: true},
-        {name: '经销商ID', type: 'number', length: 3,require: true}];
+        {name: '经销商ID', type: 'number', length: 3,require: true},
+        {name: '序列号', type: 'number', length: 50,require: false}];
     // 头部条件判断
     $scope.titleFilter = function (headerArray) {
         if (colObjs.length != headerArray.length) {
@@ -390,9 +391,10 @@ app.controller("not_handover_controller", ["$scope", "$host",'_config', "_basic"
     $scope.export = function () {
 
         // 基本检索URL
-        var url = $host.api_url + "/notSettleHandover.csv?transferFlag=0";
+        var url = $host.api_url + "/notSettleHandover.csv";
+        var conditionsObj = makeConditions();
         // 检索条件
-        var conditions = _basic.objToUrl(makeConditions());
+        var conditions = _basic.objNewToUrl(conditionsObj);
         // 检索URL
         url = conditions.length > 0 ? url + "?" + conditions : url;
 
@@ -440,10 +442,10 @@ app.controller("not_handover_controller", ["$scope", "$host",'_config', "_basic"
         }
         else {
             // 基本检索URL
-            var url = $host.api_url + "/notSettleHandover?start=" + $scope.start + "&size=" + $scope.size+'&transferFlag=0';
+            var url = $host.api_url + "/notSettleHandover?start=" + $scope.start + "&size=" + $scope.size;
             // 检索条件
             var conditionsObj = makeConditions();
-            var conditions = _basic.objToUrl(conditionsObj);
+            var conditions = _basic.objNewToUrl(conditionsObj);
             // 检索URL
             url = conditions.length > 0 ? url + "&" + conditions : url;
             _basic.get(url).then(function (data) {
@@ -486,7 +488,7 @@ app.controller("not_handover_controller", ["$scope", "$host",'_config', "_basic"
 
     //打开详情模态框
     $scope.openNotHandOverDetail = function (id) {
-        _basic.get($host.api_url + "/notSettleHandover?dpRouteTaskDetailId=" + id).then(function (data) {
+        _basic.get($host.api_url + "/notSettleHandover?handoverFlag="+$scope.handoverFlag+"&dpRouteTaskDetailId=" + id).then(function (data) {
             if (data.success === true) {
                 $scope.notHandOverDetailArray = data.result[0];
             }
@@ -692,7 +694,8 @@ app.controller("not_handover_controller", ["$scope", "$host",'_config', "_basic"
             makeId: $scope.conBrand,
             routeStartId: $scope.conStartCity,
             baseAddrId: $scope.conLocate,
-            handoverFlag:$scope.handoverFlag
+            handoverFlag:$scope.handoverFlag,
+            transferFlag:0
         }
         return obj;
     }

@@ -74,18 +74,18 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" ng-show="loadingDetailsList.length!==0" ng-repeat="loading in loadingDetailsList">
                 <div class="col s12">
                     <div class="input-field col s4">
-                        <input id="driver" type="text" ng-model="loadingDetailsList[0].drive_name" disabled>
+                        <input id="driver" type="text" ng-model="loading.drive_name" disabled>
                         <label for="driver">司机</label>
                     </div>
                     <div class="input-field col s4">
-                        <input id="truckNumber" type="text" ng-model="loadingDetailsList[0].truck_num" disabled>
+                        <input id="truckNumber" type="text" ng-model="loading.truck_num" disabled>
                         <label for="truckNumber">货车牌号</label>
                     </div>
                     <div class="input-field col s4">
-                        <input id="opTime" type="text" ng-model="loadingDetailsList[0].load_date" disabled>
+                        <input id="opTime" type="text" ng-model="loading.load_date" disabled>
                         <label for="opTime">操作时间</label>
                     </div>
                 </div>

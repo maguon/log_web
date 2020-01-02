@@ -81,7 +81,7 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
          else {
              var url = $host.api_url + "/dpRouteTask.csv?"+'reverseFlag='+$scope.reverseFlag;
          }*/
-        var url = $host.api_url + "/dpRouteTask.csv"
+        var url = $host.api_url + "/dpRouteTask.csv?"
 
         if($scope.planTimeEnd==undefined||$scope.planTimeStart==undefined){
             swal('请输入完整的计划执行时间', "", "error");
@@ -90,10 +90,20 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
         }
         else{
             // 检索条件
-            var conditionsObj = makeConditions();
+            var conditionsObj = {
+                dpRouteTaskId: $scope.dispatchId,
+                taskStatus: $scope.taskStatus,
+                taskPlanDateStart: $scope.planTimeStart,
+                taskPlanDateEnd:$scope.planTimeEnd,
+                driveId:$scope.driver,
+                truckId: $scope.truckNumber,
+                routeStartId:$scope.startCity,
+                routeEndId: $scope.endCity,
+                upDistanceFlag: $scope.mileageFlag
+            };
             var conditions = _basic.objNewToUrl(conditionsObj);
             // 检索URL
-            url = conditions.length > 0 ? url + "&" + conditions : url;
+            url = conditions.length > 0 ? url  + conditions : url;
             window.open(url);
         }
 
@@ -121,7 +131,16 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
         }
         else {
             // 检索条件
-            var conditionsObj = makeConditions();
+            var conditionsObj = {
+                dpRouteTaskId: $scope.dispatchId,
+                taskStatus: $scope.taskStatus,
+                taskPlanDateStart: $scope.planTimeStart,
+                taskPlanDateEnd:$scope.planTimeEnd,
+                driveId:$scope.driver,
+                truckId: $scope.truckNumber,
+                routeStartId:$scope.startCity,
+                routeEndId: $scope.endCity
+            };
             var conditions = _basic.objNewToUrl(conditionsObj);
             // 检索URL
             url = conditions.length > 0 ? url + "&" + conditions : url;
@@ -145,7 +164,16 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
         }
         else {
             // 检索条件
-            var conditionsObj = makeConditions();
+            var conditionsObj = {
+                dpRouteTaskId: $scope.dispatchId,
+                taskStatus: $scope.taskStatus,
+                taskPlanDateStart: $scope.planTimeStart,
+                taskPlanDateEnd:$scope.planTimeEnd,
+                driveId:$scope.driver,
+                truckId: $scope.truckNumber,
+                routeStartId:$scope.startCity,
+                routeEndId: $scope.endCity
+            };
             var conditions = _basic.objNewToUrl(conditionsObj);
             // 检索URL
             url = conditions.length > 0 ? url + "&" + conditions : url;

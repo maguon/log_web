@@ -81,7 +81,7 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
          else {
              var url = $host.api_url + "/dpRouteTask.csv?"+'reverseFlag='+$scope.reverseFlag;
          }*/
-        var url = $host.api_url + "/dpRouteTask.csv?"
+        var url = $host.api_url + "/dpRouteTask.csv"
 
         if($scope.planTimeEnd==undefined||$scope.planTimeStart==undefined){
             swal('请输入完整的计划执行时间', "", "error");
@@ -214,6 +214,7 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
         $scope.startCity=conditions.routeStartId;
         $scope.endCity=conditions.routeEndId;
         $scope.reverseFlag = conditions.reverseFlag;
+        $scope.mileageFlag =conditions.upDistanceFlag;
 
 
     }
@@ -231,7 +232,8 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
             truckId: $scope.truckNumber,
             routeStartId:$scope.startCity,
             routeEndId: $scope.endCity,
-            reverseFlag: $scope.reverseFlag
+            reverseFlag: $scope.reverseFlag,
+            upDistanceFlag: $scope.mileageFlag
         };
     }
 

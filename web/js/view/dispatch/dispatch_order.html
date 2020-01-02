@@ -132,7 +132,7 @@
             </div>
 
             <!--倒板-->
-            <div class="col s3 input-field">
+            <div class="col input-field" style="width: 12.5%">
                 <select material-select watch id='reverse_flag' ng-model="reverseFlag" style="width: 100%">
                     <option value="">请选择</option>
                     <option ng-value=0>否</option>
@@ -140,7 +140,14 @@
                 </select>
                 <label for="reverse_flag">倒板</label>
             </div>
-
+            <div class="col input-field" style="width: 12.5%">
+                <select material-select watch id='mileage_flag' ng-model="mileageFlag" style="width: 100%">
+                    <option value="">请选择</option>
+                    <option ng-value=0>未更新</option>
+                    <option ng-value=1>有更新</option>
+                </select>
+                <label for="mileage_flag">修改里程</label>
+            </div>
 
             <!--起始城市-->
             <div class="col s3 input-field">
@@ -202,6 +209,7 @@
                 <th data-field="">路线</th>
                 <th data-field="">里程(km)</th>
                 <th data-field="">油耗里程(km)</th>
+                <th data-field="">修改里程次数</th>
                 <th data-field="">司机</th>
                 <th data-field="">货车</th>
                 <th data-field="">计划装车数</th>
@@ -221,6 +229,7 @@
                 <td>{{el.city_route_start}}-{{el.city_route_end}}</td>
                 <td ng-bind="el.distance"></td>
                 <td ng-bind="el.oil_distance"></td>
+                <td ng-bind="el.up_distance_count"></td>
                 <td ng-bind="el.drive_name"></td>
                 <td ng-bind="el.truck_num"></td>
                 <td ng-bind="el.plan_count"></td>
@@ -245,7 +254,7 @@
             </tr>
 
             <tr ng-if="dispatchOrderArray.length==0">
-                <td colspan="15">暂无数据</td>
+                <td colspan="16">暂无数据</td>
             </tr>
             <!-- <tr ng-if="(endTime==undefined||starTime==undefined)&&dispatchOrderArray.length==0">
                  <td colspan="15"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>

@@ -3,15 +3,29 @@ app.controller("settlement_outsourcing_controller", ["_basic","$rootScope", "_co
     $scope.size1 = 11;
     $scope.start = 0;
     $scope.size = 11;
+    $scope.start2 = 0;
+    $scope.size2 = 11;
     $("#prebtn").hide();
     $("#nextbtn").hide();
+    $("#prebtn1").hide();
+    $("#nextbtn1").hide();
     $scope.receiveList=[];
     $scope.locateList =[];
     $scope.carMsg=[];
+    $scope.carMsg1=[];
     //用户名
     var userId = _basic.getSession(_basic.USER_ID);
 
+
     // 跳转
+    $scope.importCarFile = function () {
+        $('ul.tabWrap li').removeClass("active");
+        $(".tab_box").removeClass("active");
+        $(".tab_box").hide();
+        $('ul.tabWrap li.importCarFile ').addClass("active");
+        $("#importCarFile").addClass("active");
+        $("#importCarFile").show();
+    };
     $scope.importFile = function () {
         $('ul.tabWrap li').removeClass("active");
         $(".tab_box").removeClass("active");
@@ -28,7 +42,7 @@ app.controller("settlement_outsourcing_controller", ["_basic","$rootScope", "_co
         $("#lookMyselfFile").addClass("active");
         $("#lookMyselfFile").show();
     };
-    $scope.importFile  ();
+    $scope.importCarFile  ();
 
 
     // 获取所有公司列表
@@ -37,6 +51,11 @@ app.controller("settlement_outsourcing_controller", ["_basic","$rootScope", "_co
             if (data.success == true) {
                 $scope.get_entrust = data.result;
                 $('#entrust').select2({
+                    placeholder: '委托方',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
+                $('#entrust1').select2({
                     placeholder: '委托方',
                     containerCssClass: 'select2_dropdown',
                     allowClear: true
@@ -50,6 +69,11 @@ app.controller("settlement_outsourcing_controller", ["_basic","$rootScope", "_co
             if (data.success === true) {
                 $scope.companyList = data.result;
                 $('#truck_company').select2({
+                    placeholder: '外协公司',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+                $('#truck_company1').select2({
                     placeholder: '外协公司',
                     containerCssClass : 'select2_dropdown',
                     allowClear: true
@@ -75,7 +99,17 @@ app.controller("settlement_outsourcing_controller", ["_basic","$rootScope", "_co
                     containerCssClass : 'select2_dropdown',
                     allowClear: true
                 });
+                $('#startCity1').select2({
+                    placeholder: '始发城市',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
                 $('#endCity').select2({
+                    placeholder: '目的城市',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+                $('#endCity1').select2({
                     placeholder: '目的城市',
                     containerCssClass : 'select2_dropdown',
                     allowClear: true
@@ -114,6 +148,28 @@ app.controller("settlement_outsourcing_controller", ["_basic","$rootScope", "_co
             });
         }
     };
+    // 发运地名称
+    $scope.getAddrData1 = function () {
+        if($scope.startCity1 == 0 || $scope.startCity1 == "" || $scope.startCity1 == null){
+            $scope.startCity1 = null;
+            $scope.locateList1 = [];
+        }
+        else{
+            _basic.get($host.api_url + "/baseAddr?cityId=" + $scope.startCity1).then(function (data) {
+                if (data.success === true) {
+                    $scope.locateList1 = data.result;
+                    $('#chooseLocate1').select2({
+                        placeholder: '装车地点',
+                        containerCssClass: 'select2_dropdown',
+                        allowClear: true
+                    });
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
+    };
 
     //获取经销商
     $scope.getReceiveMod = function (id) {
@@ -128,6 +184,198 @@ app.controller("settlement_outsourcing_controller", ["_basic","$rootScope", "_co
             }
         });
     };
+    $scope.getReceiveMod1 = function (id) {
+        _basic.get($host.api_url + "/receive?cityId=" + id).then(function (data) {
+            if (data.success == true) {
+                $scope.receiveList1 = data.result;
+                $('#receiveId1').select2({
+                    placeholder: '经销商',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+        });
+    };
+
+
+    // 数据导出
+    $scope.export1 = function () {
+        if($scope.instruct_endTime1==undefined||$scope.instruct_starTime1==undefined){
+            swal('请输入完整的指令日期', "", "error");
+            $scope.settlementList1=[];
+            $("#prebtn1").hide();
+            $("#nextbtn1").hide();
+        }
+        else {
+            var obj = {
+                entrustId: $scope.entrustId1,
+                orderStart: $scope.instruct_starTime1,
+                orderEnd: $scope.instruct_endTime1,
+                makeId: $scope.car_brand1,
+                routeStartId: $scope.startCity1,
+                addrId: $scope.locateId1,
+                routeEndId: $scope.endCity1,
+                receiveId: $scope.receiveId1,
+                settleStatus:$scope.conStatus1,
+                vin:$scope.vin1,
+                companyId:$scope.companyId1
+            };
+            swal({
+                title: "确定导出外协导入车辆结算报表？",
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消"
+            }).then(
+                function (result) {
+                    if (result.value) {
+                        window.open($host.api_url + "/settleOuterCar.csv?" + _basic.objToUrl(obj));
+                    }
+                })
+
+        }
+    };
+
+    //查询功能
+    $scope.getSettlement1 = function (){
+        $scope.start2 = 0;
+        getSettlementData1();
+    }
+
+    $scope.addHandover1=function (){
+
+        var obj={
+            entrustId: $scope.entrustId1,
+            orderStart: $scope.instruct_starTime1,
+            orderEnd: $scope.instruct_endTime1,
+            makeId: $scope.car_brand1,
+            routeStartId: $scope.startCity1,
+            addrId: $scope.locateId1,
+            routeEndId: $scope.endCity1,
+            receiveId: $scope.receiveId1,
+            vin:$scope.vin1,
+            companyId:$scope.companyId1,
+            settleStatus:1
+        }
+
+        swal({
+            title: "确定交接当前车辆吗？",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确认",
+            cancelButtonText: "取消"
+        }).then(function (result) {
+            if (result.value) {
+                _basic.get($host.api_url + "/settleOuterInvoiceBat?" + _basic.objToUrl(obj)).then(function (data) {
+                    if (data.success == true) {
+                        swal('交接成功', "", "success");
+                        getSettlementData1();
+
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
+            }
+        })
+
+    }
+
+    //获取查询数据
+    function getSettlementData1(){
+        if($scope.instruct_starTime1==undefined||$scope.instruct_endTime1==undefined){
+            swal('请输入完整的指令日期', "", "error");
+            $scope.settlementList1=[];
+            $scope.carMsg1 =[];
+            $("#prebtn1").hide();
+            $("#nextbtn1").hide();
+        }
+        else{
+            _basic.get($host.api_url + "/settleOuterCarList?" + _basic.objToUrl({
+                entrustId: $scope.entrustId1,
+                orderStart: $scope.instruct_starTime1,
+                orderEnd: $scope.instruct_endTime1,
+                makeId: $scope.car_brand1,
+                routeStartId: $scope.startCity1,
+                addrId: $scope.locateId1,
+                routeEndId: $scope.endCity1,
+                receiveId: $scope.receiveId1,
+                settleStatus:$scope.conStatus1,
+                vin:$scope.vin1,
+                companyId:$scope.companyId1,
+                start:$scope.start2.toString(),
+                size:$scope.size2
+            })).then(function (data) {
+                if (data.success === true) {
+                    $scope.boxArray1 = data.result;
+                    $scope.settlementList1 = $scope.boxArray1.slice(0, 10);
+                    if ($scope.start2 > 0) {
+                        $("#prebtn1").show();
+                    }
+                    else {
+                        $("#prebtn1").hide();
+                    }
+                    if (data.result.length < $scope.size2) {
+                        $("#nextbtn1").hide();
+                    }
+                    else {
+                        $("#nextbtn1").show();
+                    }
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+            var obj = {
+                entrustId: $scope.entrustId1,
+                orderStart: $scope.instruct_starTime1,
+                orderEnd: $scope.instruct_endTime1,
+                makeId: $scope.car_brand1,
+                routeStartId: $scope.startCity1,
+                addrId: $scope.locateId1,
+                routeEndId: $scope.endCity1,
+                receiveId: $scope.receiveId1,
+                settleStatus:$scope.conStatus1,
+                vin:$scope.vin1,
+                companyId:$scope.companyId1
+            };
+            _basic.get($host.api_url + "/settleOuterCarCount?" + _basic.objToUrl(obj)).then(function (data) {
+                if (data.success == true) {
+                    if (data.result.length > 0) {
+                        $scope.carMsg1 = data.result[0];
+                    }
+                    else {
+                        $scope.carMsg1 = [];
+                    }
+
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+
+        }
+
+    }
+
+
+    // 分页
+    $scope.pre_btn1 = function () {
+        $scope.start2 = $scope.start2 - ($scope.size2-1);
+        getSettlementData1();
+    };
+
+    $scope.next_btn1 = function () {
+        $scope.start2 = $scope.start2 + ($scope.size2-1);
+        getSettlementData1();
+    };
+
+
+
+
 
     // 数据导出
     $scope.export = function () {
@@ -155,7 +403,7 @@ app.controller("settlement_outsourcing_controller", ["_basic","$rootScope", "_co
                 companyId:$scope.companyId
             };
             swal({
-                title: "确定导出外协结算报表？",
+                title: "确定导出外协调度车辆结算报表？",
                 text: "",
                 type: "warning",
                 showCancelButton: true,
@@ -226,7 +474,7 @@ app.controller("settlement_outsourcing_controller", ["_basic","$rootScope", "_co
         if($scope.instruct_starTime==undefined||$scope.instruct_endTime==undefined||$scope.orderStarTime==undefined||$scope.orderEndTime==undefined){
             swal('请输入完整的指令日期和调度日期', "", "error");
             $scope.settlementList=[];
-            $scope.carMsg ='';
+            $scope.carMsg =[];
             $("#prebtn").hide();
             $("#nextbtn").hide();
         }
@@ -353,14 +601,6 @@ app.controller("settlement_outsourcing_controller", ["_basic","$rootScope", "_co
         $scope.start1 = $scope.start1 + ($scope.size1-1);
         getSettlementData();
     };
-
-
-
-
-
-
-
-
 
 
 

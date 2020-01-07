@@ -4,8 +4,12 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
     $("#pre").hide();
     $("#next").hide();
     var userId = _basic.getSession(_basic.USER_ID);
-
-
+    var myDate = new Date();
+    //当前日（1-31）；
+    var nowDay=myDate.getDate();
+    //当前毫秒时间戳
+    var nowTamp =new Date().getTime();
+    var deadDay=8;
     // 调度指令状态
     $scope.taskStatusList =_config.taskStatus;
 
@@ -294,67 +298,58 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
     * 修改结算
     * */
     $scope.putSettle = function (obj){
-        var taskTime=moment(obj.task_plan_date).format('YYYYMM');
-        var myDate = new Date();
-        //当前日（1-31）；
-        var nowDay=myDate.getDate();
-        //当前毫秒时间戳
-        var nowTamp =new Date().getTime();
+       $scope.taskTimetSettle=moment(obj.task_plan_date).format('YYYYMM');
+        if(nowDay >deadDay){
+            $scope.lastMonthSettle=moment(nowTamp).format('YYYYMM');
+        }else{
+            $scope.lastMonthSettle=moment(nowTamp-24*30*3600*1000).format('YYYYMM');
+        }
+        if( $scope.taskTimetSettle>=$scope.lastMonthSettle){
+            if(obj.task_status!==10){
+                swal("全部完成状态下可修改！", "", "warning");
+            }
+            else{
+                $("#putSettle").modal("open");
+            }
+        }else{
+            swal("超过任务修改期限！", "", "warning");
+        }
 
-        if(nowDay<=8){
-            var lastMonth=moment(nowTamp-24*30*3600*1000).format('YYYYMM');
-            if(lastMonth==taskTime){
-                if(obj.task_status!==10){
-                    swal("全部完成状态下可修改！", "", "warning");
-                }
-                else{
-                    $("#putSettle").modal("open");
-                }
-            }
-            else {
-                swal("超过任务修改期限！", "", "warning");
-            }
-        }
-        else {
-            var lastMonth=moment(nowTamp).format('YYYYMM');
-            if(taskTime==lastMonth){
-                if(obj.task_status!==10){
-                    swal("全部完成状态下可修改！", "", "warning");
-                }
-                else{
-                    $("#putSettle").modal("open");
-                }
-            }
-            else {
-                swal("超过任务修改期限！", "", "warning");
-            }
-        }
         $scope.putSettleItem=obj;
 
     }
     $scope.putSettleData =function(){
-        if($scope.putSettleItem.distance == null || $scope.putSettleItem.distance === ""
-            || $scope.putSettleItem.car_count == null || $scope.putSettleItem.car_count === ""
-            || $scope.putSettleItem.load_flag == null || $scope.putSettleItem.load_flag === ""){
-            swal("里程或运载车辆数或载重类型不能为空！", "", "warning");
+        if(nowDay >deadDay){
+            $scope.lastMonthSettle=moment(nowTamp).format('YYYYMM');
+        }else{
+            $scope.lastMonthSettle=moment(nowTamp-24*30*3600*1000).format('YYYYMM');
         }
-        else{
-            _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" +$scope.putSettleItem.id +'/dpRouteLoadDistance',{
-                distance: $scope.putSettleItem.distance,
-                carCount: $scope.putSettleItem.car_count,
-                loadFlag: $scope.putSettleItem.load_flag,
-                reverseMoney: $scope.putSettleItem.reverse_money,
-                remark: $scope.putSettleItem.remark
-            }).then(function (data) {
-                if (data.success === true) {
-                    swal("保存成功", "", "success");
-                    $("#putSettle").modal("close");
-                    seachOrderInfo();
-                }
-                else {
-                    swal(data.msg, "", "error");
-                }
-            });
+        if( $scope.taskTimetSettle>=$scope.lastMonthSettle){
+            if($scope.putSettleItem.distance == null || $scope.putSettleItem.distance === ""
+                || $scope.putSettleItem.car_count == null || $scope.putSettleItem.car_count === ""
+                || $scope.putSettleItem.load_flag == null || $scope.putSettleItem.load_flag === ""){
+                swal("里程或运载车辆数或载重类型不能为空！", "", "warning");
+            }
+            else{
+                _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" +$scope.putSettleItem.id +'/dpRouteLoadDistance',{
+                    distance: $scope.putSettleItem.distance,
+                    carCount: $scope.putSettleItem.car_count,
+                    loadFlag: $scope.putSettleItem.load_flag,
+                    reverseMoney: $scope.putSettleItem.reverse_money,
+                    remark: $scope.putSettleItem.remark
+                }).then(function (data) {
+                    if (data.success === true) {
+                        swal("保存成功", "", "success");
+                        $("#putSettle").modal("close");
+                        seachOrderInfo();
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
+            }
+        }else{
+            swal("超过任务修改期限！", "", "warning");
         }
     }
 
@@ -362,63 +357,56 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
     * 修改油耗
     * */
     $scope.putOil = function (obj){
-        var taskTime=moment(obj.task_plan_date).format('YYYYMM');
-        var myDate = new Date();
-        //当前日（1-31）；
-        var nowDay=myDate.getDate();
-        //当前毫秒时间戳
-        var nowTamp =new Date().getTime();
-
-        if(nowDay<=8){
-            var lastMonth=moment(nowTamp-24*30*3600*1000).format('YYYYMM');
-            if(lastMonth==taskTime){
-                if(obj.task_status!==10){
-                    swal("全部完成状态下可修改！", "", "warning");
-                }
-                else{
-                    $("#putOil").modal("open");
-                }
-            }
-            else {
-                swal("超过任务修改期限！", "", "warning");
-            }
+        $scope.taskTimeOil=moment(obj.task_plan_date).format('YYYYMM');
+        if(nowDay >deadDay){
+            $scope.lastMonthOil=moment(nowTamp).format('YYYYMM');
+        }else{
+            $scope.lastMonthOil=moment(nowTamp-24*30*3600*1000).format('YYYYMM');
         }
-        else {
-            var lastMonth=moment(nowTamp).format('YYYYMM');
-            if(taskTime==lastMonth){
-                if(obj.task_status!==10){
-                    swal("全部完成状态下可修改！", "", "warning");
-                }
-                else{
-                    $("#putOil").modal("open");
-                }
+        if( $scope.taskTimeOil>=$scope.lastMonthOil){
+            if(obj.task_status!==10){
+                swal("全部完成状态下可修改！", "", "warning");
             }
-            else {
-                swal("超过任务修改期限！", "", "warning");
+            else{
+                $("#putSettle").modal("open");
             }
+        }else{
+            swal("超过任务修改期限！", "", "warning");
         }
         $scope.putOilItem=obj;
     }
     $scope.putOilData =function(){
-        if($scope.putOilItem.oil_distance == null || $scope.putOilItem.oil_distance === ""
-            || $scope.putOilItem.oil_load_flag == null || $scope.putOilItem.oil_load_flag === ""){
-            swal("里程或载重类型不能为空！", "", "warning");
+        if(nowDay >deadDay){
+            $scope.lastMonthOil=moment(nowTamp).format('YYYYMM');
+        }else{
+            $scope.lastMonthOil=moment(nowTamp-24*30*3600*1000).format('YYYYMM');
         }
-        else{
-            _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" +$scope.putOilItem.id +'/dpRouteOilLoadDistance',{
-                oilDistance: $scope.putOilItem.oil_distance,
-                oilLoadFlag: $scope.putOilItem.oil_load_flag
-            }).then(function (data) {
-                if (data.success === true) {
-                    swal("保存成功", "", "success");
-                    $("#putOil").modal("close");
-                    seachOrderInfo();
-                }
-                else {
-                    swal(data.msg, "", "error");
-                }
-            });
+        if( $scope.taskTimeOil>=$scope.lastMonthOil){
+            if($scope.putOilItem.oil_distance == null || $scope.putOilItem.oil_distance === ""
+                || $scope.putOilItem.oil_load_flag == null || $scope.putOilItem.oil_load_flag === ""){
+                swal("里程或载重类型不能为空！", "", "warning");
+            }
+            else{
+                _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" +$scope.putOilItem.id +'/dpRouteOilLoadDistance',{
+                    oilDistance: $scope.putOilItem.oil_distance,
+                    oilLoadFlag: $scope.putOilItem.oil_load_flag
+                }).then(function (data) {
+                    if (data.success === true) {
+                        swal("保存成功", "", "success");
+                        $("#putOil").modal("close");
+                        seachOrderInfo();
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
+            }
+        }else{
+            swal("超过任务修改期限！", "", "warning");
         }
+
+
+
     }
 
 

@@ -118,6 +118,10 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
         };
 
         $scope.fileUpload = function () {
+            if(!_basic.checkUser()){
+                swal("登录信息错误", "请重新登陆", "error");
+                return;
+            }
             $("#buttonImport").attr("disabled",true);
             _basic.formPost($("#file_upload_form"), $host.file_url + '/user/' + userId + '/file?fileType=1&&userType=' + userType, function (data) {
                 if (data.success == true) {
@@ -192,6 +196,10 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
         };
         $scope.fileChange = function (file) {
             // 表头原始数据
+            if(!_basic.checkUser()){
+                swal("登录信息错误", "请重新登陆", "error");
+                return;
+            }
             $scope.tableHeadeArray = [];
             // 主体原始错误数据
             $scope.tableContentErrorFilter = [];

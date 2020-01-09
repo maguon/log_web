@@ -156,11 +156,11 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/system_settings/setting_city.html",
             controller:'setting_city_controller'
         })
-        .state("setting_line",{
+      /*  .state("setting_line",{
             url:"/setting_line",
             templateUrl: "js/view/system_settings/setting_line.html",
             controller:'setting_line_controller'
-        })
+        })*/
         .state("setting_client",{
             url:"/setting_client",
             templateUrl: "js/view/system_settings/setting_client/setting_client.html",

@@ -334,7 +334,7 @@
                     <i class="mdi mdi-magnify"></i>
                 </a>
             </div>
-            <div class="col s4 center-align">
+            <div class="col s4 center-align" ng-show="addWashFeeFlag==true">
                 <a class="btn-floating btn-large waves-light waves-effect cyan lighten-1 btn vc-center" style="margin-right: 10px" ng-click="addFeeItem()">
                     <i class="mdi mdi-plus"></i>
                 </a>
@@ -427,7 +427,7 @@
                     <td>{{car.status==0?'未通过':car.status==1?'未领取':'已领取'}}</td>
                     <td>{{car.month_flag==1?'是':'否'}}</td>
                     <td>
-                        <a ng-click="addSingleMoney(car)">
+                        <a ng-click="addSingleMoney(car)"  ng-show="addWashFeeFlag==true">
                             <i class="mdi mdi-plus fz22"></i>
                         </a>
                         <a ng-click="getDetail(car.id)">

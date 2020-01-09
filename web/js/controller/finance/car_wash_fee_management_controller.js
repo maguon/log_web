@@ -2,10 +2,18 @@
 app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.receive_status = "1";
+    $scope.addWashFeeFlag=false;
     $scope.start = 0;
     $scope.size = 11;
     $(".car_detail").hide();
     $(".no_car_detail").hide();
+    $scope.userDepartment = parseInt(_basic.getSession(_basic.USER_TYPE));
+    if($scope.userDepartment==49){
+        $scope.addWashFeeFlag=true
+    }
+    else {
+        $scope.addWashFeeFlag=false;
+    }
     // 获取目的城市列表
     $scope.getCityList = function () {
         _basic.get($host.api_url + "/city").then(function (data) {

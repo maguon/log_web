@@ -317,10 +317,10 @@ app.controller("instruction_operation_details_controller", ["$scope","$state", "
 
     // 新增装车数
     $scope.addLoadCar = function (carId,missionId) {
-        _basic.post($host.api_url + "/user/" + userId + "/dpRouteLoadTask/" + missionId + "/dpRouteLoadTaskDetail?truckId=" + truckId,{
+        _basic.post($host.api_url + "/user/" + userId + "/dpRouteLoadTask/" + missionId + "/dpRouteLoadTaskDetail?truckId=" + truckId+'&dpRouteTaskId='+$scope.currentOperateInfo.id,{
             carId:carId,
-            vin:$scope.codeVin,
-            dpRouteTaskId: $scope.currentOperateInfo.id
+            vin:$scope.codeVin
+          /*  dpRouteTaskId: $scope.currentOperateInfo.id*/
         }).then(function (addLoadData) {
             if (addLoadData.success === true) {
                 $scope.showTruckLoadInfo(missionId);

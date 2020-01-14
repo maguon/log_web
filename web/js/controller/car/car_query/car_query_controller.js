@@ -198,8 +198,21 @@ app.controller("car_query_controller", ["$scope", "$rootScope","$state","$stateP
         // 基本检索URL
         var url = $host.api_url + "/carList.csv?" ;
         // 检索条件
-        var conditionsObj = makeConditions();
-        var conditions = _basic.objNewTo2Url(conditionsObj);
+
+        var conditions = _basic.objNewTo2Url({
+            vinCode: $scope.conVin,
+            makeId: $scope.conBrand,
+            routeStartId:$scope.conStartCity,
+            addrId: $scope.conAddr,
+            orderStart: $scope.conInstructionsStart,
+            orderEnd: $scope.conInstructionsEnd,
+            entrustId: $scope.conEntrust,
+            receiveId: $scope.conReceive,
+            routeEndId:$scope.conEndCity,
+            createdStart:$scope.conCreatedStart,
+            createdEnd:$scope.conCreatedEnd,
+            carStatus:$scope.conStatus,
+        });
         // 检索URL
         url = conditions.length > 0 ? url + "&" + conditions : url;
         window.open(url);

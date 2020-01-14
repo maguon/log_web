@@ -98,11 +98,22 @@
                 </div>
 
                 <!--状态-->
-                <div class="input-field col s2">
+                <div class="input-field col s1">
                     <select material-select watch ng-model="conStatus">
                         <option value="" selected>状态</option>
                         <option ng-repeat="car in carStatusList" ng-value=car.id>{{car.status}}</option>
                     </select>
+                </div>
+
+                <!--是否外协-->
+                <div class="input-field col s1">
+                    <select material-select watch id="perateType" ng-model="conPerateType" required>
+                        <option value="">请选择</option>
+                        <option ng-value="0">否</option>
+                        <option ng-value="1">是</option>
+                    </select>
+                    <label for="perateType">是否外协</label>
+
                 </div>
             </div>
 

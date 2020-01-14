@@ -25,12 +25,33 @@ app.controller("damage_declaration_details_controller", ["$scope","$state", "$st
                 $scope.driverId = data.result[0].drive_id;
                 $scope.truckNum = data.result[0].truck_num;
                 $scope.truckId = data.result[0].truck_id;
+                $scope.makeName = data.result[0].car_model_name;
+                getCarType(data.result[0].make_id)
+
             }
             else {
                 swal(data.msg, "", "error");
             }
         });
     };
+
+    function  getCarType(makeName){
+        if(makeName==null||makeName==undefined){
+            $scope.carTypeList=[]
+        }
+        else {
+            _basic.get($host.api_url + "/carMake/" + makeName + "/carModel").then(function (data) {
+                if (data.success == true) {
+                    $scope.carTypeList = data.result;
+
+                } else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
+
+    }
+
 
     // 获取所有司机信息
     $scope.getAllDriver = function () {
@@ -81,25 +102,34 @@ app.controller("damage_declaration_details_controller", ["$scope","$state", "$st
         $scope.truckNum = "";
         $scope.driverName = "";
     };
-
+    $scope.changeCarType = function(makeName){
+        $scope.makeName=makeName;
+    }
     // 提交修改后的信息
     $scope.submitModifyInfo = function () {
         var remark = $scope.currentDamageInfo.damage_explain.replace(/，|,/g, ' ');
-        _basic.put($host.api_url + "/user/" + userId + "/damage/" + damageId,{
-            truckId:$scope.truckId,
-            truckNum:$scope.truckNum,
-            driveId:$scope.driverId,
-            driveName:$scope.driverName,
-            damageExplain:remark
-        }).then(function (data) {
-            if (data.success === true) {
-                $scope.getCurrentDamageInfo();
-                swal("修改成功", "", "success");
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
+        if( $scope.makeName==null|| $scope.makeName==undefined||$scope.makeName==''){
+            swal("请填写车型！","","error")
+        }
+        else{
+            _basic.put($host.api_url + "/user/" + userId + "/damage/" + damageId,{
+                carModelName: $scope.makeName,
+                truckId:$scope.truckId,
+                truckNum:$scope.truckNum,
+                driveId:$scope.driverId,
+                driveName:$scope.driverName,
+                damageExplain:remark
+            }).then(function (data) {
+                if (data.success === true) {
+                    /*  $scope.getCurrentDamageInfo();*/
+                    swal("修改成功", "", "success");
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
+
     };
 
     // 获取当前质损照片  和视频

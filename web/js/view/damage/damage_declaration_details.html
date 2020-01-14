@@ -67,7 +67,11 @@
                 <label for="brand">品牌</label>
             </div>
             <div class="input-field col" style="width: 10%">
-                <input disabled id="carType"  type="text" ng-model="currentDamageInfo.car_model_name">
+
+                <select  material-select watch id="carType"  ng-model="makeName" ng-change="changeCarType(makeName)">
+                    <option value="" disabled>请选择</option>
+                    <option ng-repeat="carType in carTypeList" ng-value="carType.model_name">{{carType.model_name}}</option>
+                </select>
                 <label for="carType">车型</label>
             </div>
             <div class="input-field col colWidth">

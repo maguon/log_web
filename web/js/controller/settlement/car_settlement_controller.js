@@ -75,6 +75,15 @@ app.controller("car_settlement_controller", ["$scope", "_basic", "_config", "$ho
         });
     }
 
+    function getMakeName(){
+        // 车辆品牌
+        _basic.get($host.api_url + "/carMake").then(function (data) {
+            if (data.success == true) {
+                $scope.get_carMake = data.result;
+            }
+        });
+    }
+
     // 城市-经销商联动(未结算)
     $scope.getCarDealer = function () {
         if($scope.carEndCity == 0 || $scope.carEndCity == "" || $scope.carEndCity == null){
@@ -101,6 +110,7 @@ app.controller("car_settlement_controller", ["$scope", "_basic", "_config", "$ho
                 settleStatus:2,
                 vin: $scope.VIN,
                 entrustId:$scope.enstrustId,
+                makeId:$scope.getCarBrand,
                 routeStartId:$scope.routeStartId,
                 routeEndId:$scope.routeEndId,
                 orderStart:$scope.orderStart,
@@ -160,6 +170,7 @@ app.controller("car_settlement_controller", ["$scope", "_basic", "_config", "$ho
                 settleStatus:1,
                 vin: $scope.carVIN,
                 entrustId: $scope.carClient,
+                makeId:$scope.carBrand,
                 routeStartId: $scope.carStartCity,
                 routeEndId: $scope.carEndCity,
                 orderStart:$scope.orderStartCar,
@@ -211,6 +222,7 @@ app.controller("car_settlement_controller", ["$scope", "_basic", "_config", "$ho
         _basic.get($host.api_url + "/settleCarCount?"+ _basic.objToUrl({
             vin: $scope.VIN,
             entrustId: $scope.enstrustId,
+            makeId:$scope.getCarBrand,
             routeStartId: $scope.routeStartId,
             routeEndId: $scope.routeEndId,
             orderStart:$scope.orderStart,
@@ -232,6 +244,7 @@ app.controller("car_settlement_controller", ["$scope", "_basic", "_config", "$ho
             vin: $scope.carVIN,
             entrustId: $scope.carClient,
             routeStartId: $scope.carStartCity,
+            makeId:$scope.carBrand,
             routeEndId: $scope.carEndCity,
             orderStart:$scope.orderStartCar,
             orderEnd:$scope.orderEndCar,
@@ -245,7 +258,7 @@ app.controller("car_settlement_controller", ["$scope", "_basic", "_config", "$ho
             }
         });
     }
-
+    getMakeName();
     getCity();
 
     $scope. unsettledExport = function () {
@@ -260,6 +273,7 @@ app.controller("car_settlement_controller", ["$scope", "_basic", "_config", "$ho
                 settleStatus:1,
                 vin: $scope.carVIN,
                 entrustId: $scope.carClient,
+                makeId:$scope.carBrand,
                 routeStartId: $scope.carStartCity,
                 routeEndId: $scope.carEndCity,
                 orderStart:$scope.orderStartCar,
@@ -284,6 +298,7 @@ app.controller("car_settlement_controller", ["$scope", "_basic", "_config", "$ho
                 settleStatus:2,
                 vin: $scope.VIN,
                 entrustId:$scope.enstrustId,
+                makeId:$scope.getCarBrand,
                 routeStartId:$scope.routeStartId,
                 routeEndId:$scope.routeEndId,
                 orderStart:$scope.orderStart,

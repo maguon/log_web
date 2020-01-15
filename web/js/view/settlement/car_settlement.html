@@ -16,58 +16,69 @@
                 <div class="row">
                     <div class="col s10">
 
-
-                        <!--指令时间-->
-                        <div class="input-field col s2">
-                            <input type="text" class="datepicker" date ng-model="orderStart"><i
-                                class="mdi dataIcon mdi-table-large"></i>
-                            <label>指令时间(始)</label>
+                        <div class="col s7">
+                            <!--指令时间-->
+                            <div class="input-field col s3">
+                                <input type="text" class="datepicker" date ng-model="orderStart"><i
+                                    class="mdi dataIcon mdi-table-large"></i>
+                                <label>指令时间(始)</label>
+                            </div>
+                            <div class="input-field col s3">
+                                <input type="text" class="datepicker" date ng-model="orderEnd"><i
+                                    class="mdi dataIcon mdi-table-large"></i>
+                                <label>指令时间(终)</label>
+                            </div>
+                            <!--委托方-->
+                            <div class="col s3">
+                                <div class="input-field col s12">
+                                    <select id="client" name="client" style="width:100%" ng-model="enstrustId" >
+                                        <option value=""></option>
+                                        <option ng-repeat="el in entrustList" ng-value="el.id" >{{el.short_name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!--起始城市-->
+                            <div class="col s3">
+                                <div class="input-field col s12">
+                                    <select id="startCity" name="state" style="width:100%" ng-model="routeStartId">
+                                        <option value=""></option>
+                                        <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                        <div class="input-field col s2">
-                            <input type="text" class="datepicker" date ng-model="orderEnd"><i
-                                class="mdi dataIcon mdi-table-large"></i>
-                            <label>指令时间(终)</label>
-                        </div>
-
-
-                        <!--委托方-->
-                        <div class="col s2">
-                            <div class="input-field col s12">
-                                <select id="client" name="client" style="width:100%" ng-model="enstrustId" >
-                                    <option value=""></option>
-                                    <option ng-repeat="el in entrustList" ng-value="el.id" >{{el.short_name}}</option>
-                                </select>
+                        <div class="col s5">
+                            <!--目的地-->
+                            <div class="col s4">
+                                <div class="input-field col s12">
+                                    <select id="endCity" name="state" style="width:100%" ng-model="routeEndId" ng-change="get_dealer()">
+                                        <option value=""></option>
+                                        <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!--品牌-->
+                            <div class="col s4">
+                                <div class="input-field col s12">
+                                    <select  id="getCarBrand" material-select watch ng-model="getCarBrand" name="getCarBrand" style="width: 100%">
+                                        <option value="" disabled selected>请选择</option>
+                                        <option ng-repeat="el in get_carMake" ng-value="el.id">{{el.make_name}}</option>
+                                    </select>
+                                    <label for="getCarBrand">品牌</label>
+                                </div>
+                            </div>
+                            <!--vin-->
+                            <div class="col s4">
+                                <div class="input-field col s12">
+                                    <input type="text" ng-model="VIN" id="VIN" name="VIN" required>
+                                    <label for="VIN" class="active">VIN</label>
+                                </div>
                             </div>
                         </div>
 
-                        <!--起始城市-->
-                        <div class="col s2">
-                            <div class="input-field col s12">
-                                <select id="startCity" name="state" style="width:100%" ng-model="routeStartId">
-                                    <option value=""></option>
-                                    <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
-                                </select>
-                            </div>
-                        </div>
 
 
-                        <!--目的地-->
-                        <div class="col s2">
-                            <div class="input-field col s12">
-                                <select id="endCity" name="state" style="width:100%" ng-model="routeEndId" ng-change="get_dealer()">
-                                    <option value=""></option>
-                                    <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
-                                </select>
-                            </div>
-                        </div>
 
-                        <!--vin-->
-                        <div class="col s2">
-                            <div class="input-field col s12">
-                                <input type="text" ng-model="VIN" id="VIN" name="VIN" required>
-                                <label for="VIN" class="active">VIN</label>
-                            </div>
-                        </div>
                     </div>
                     <div class="col s2" style="margin-top: 5px">
                         <div class="col s6 center">
@@ -99,6 +110,7 @@
                             <tr class="grey-text text-darken-2">
                                 <th data-field="">vin</th>
                                 <th data-field="">委托方</th>
+                                <th data-field="">品牌</th>
                                 <th data-field="">起始城市</th>
                                 <th data-field="">目的城市</th>
                                 <th data-field="">公里数</th>
@@ -113,6 +125,7 @@
                             <tr ng-repeat="carItem in carList" class="grey-text text-darken-1">
                                 <td  ng-bind="carItem.vin"></td>
                                 <td  ng-bind="carItem.e_short_name"></td>
+                                <td  ng-bind="carItem.make_name"></td>
                                 <td  ng-bind="carItem.route_start"></td>
                                 <td  ng-bind="carItem.route_end"></td>
                                 <td  ng-bind="carItem.distance"></td>
@@ -123,10 +136,10 @@
                                 <td>{{carItem.order_date | date:'yyyy-MM-dd'}}</td>
                             </tr>
                             <tr ng-if="carList.length == 0&&orderStart!==undefined&&orderEnd!==undefined">
-                                <td colspan="10">暂无数据</td>
+                                <td colspan="11">暂无数据</td>
                             </tr>
                             <tr ng-if="orderEnd==undefined||orderStart==undefined&&carList.length == 0">
-                                <td colspan="10"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
+                                <td colspan="11"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
                             </tr>
 
                             </tbody>
@@ -152,23 +165,20 @@
                 <!--查询条件-->
                 <div class="row">
                     <div class="col s10">
-                        <div class=" col s4">
+                        <div class=" col s7">
                             <!--指令时间-->
-                            <div class="input-field col s6">
+                            <div class="input-field col s3">
                                 <input type="text" class="datepicker" date ng-model="orderStartCar"><i
                                     class="mdi dataIcon mdi-table-large"></i>
                                 <label>指令时间(始)</label>
                             </div>
-                            <div class="input-field col s6">
+                            <div class="input-field col s3">
                                 <input type="text" class="datepicker" date ng-model="orderEndCar"><i
                                     class="mdi dataIcon mdi-table-large"></i>
                                 <label>指令时间(终)</label>
                             </div>
-                        </div>
-
-                        <div class=" col s4">
                             <!--委托方-->
-                            <div class=" col s6">
+                            <div class=" col s3">
                                 <div class="input-field col s12">
                                     <select id="carClient" name="client" style="width:100%" ng-model="carClient">
                                         <option value=""></option>
@@ -178,7 +188,7 @@
                             </div>
 
                             <!--起始城市-->
-                            <div class=" col s6">
+                            <div class=" col s3">
                                 <div class="input-field col s12">
                                     <select id="carStartCity" name="state" style="width:100%" ng-model="carStartCity">
                                         <option value=""></option>
@@ -188,9 +198,9 @@
                             </div>
                         </div>
 
-                        <div class=" col s4">
+                        <div class=" col s5">
                             <!--目的地-->
-                            <div class=" col s6">
+                            <div class=" col s4">
                                 <div class="input-field col s12">
                                     <select id="carEndCity" name="state" style="width:100%" ng-model="carEndCity" ng-change="getCarDealer()">
                                         <option value=""></option>
@@ -198,10 +208,19 @@
                                     </select>
                                 </div>
                             </div>
-
+                            <!--品牌-->
+                            <div class="col s4">
+                                <div class="input-field col s12">
+                                    <select  id="carBrand" material-select watch ng-model="carBrand" name="carBrand" style="width: 100%">
+                                        <option value="" disabled selected>请选择</option>
+                                        <option ng-repeat="el in get_carMake" ng-value="el.id">{{el.make_name}}</option>
+                                    </select>
+                                    <label for="carBrand">品牌</label>
+                                </div>
+                            </div>
 
                             <!--vin-->
-                            <div class=" col s6">
+                            <div class=" col s4">
                                 <div class="input-field col s12">
                                     <input type="text" ng-model="carVIN" id="carVIN" name="carVIN" required>
                                     <label for="VIN" class="active">VIN</label>
@@ -237,6 +256,7 @@
                             <tr class="grey-text text-darken-2">
                                 <th data-field="">vin</th>
                                 <th data-field="">委托方</th>
+                                <th data-field="">品牌</th>
                                 <th data-field="">起始城市</th>
                                 <th data-field="">目的城市</th>
                                 <th data-field="">公里数</th>
@@ -249,6 +269,7 @@
                             <tr ng-repeat="carItem in carLists" class="grey-text text-darken-1">
                                 <td  ng-bind="carItem.vin"></td>
                                 <td  ng-bind="carItem.e_short_name"></td>
+                                <td  ng-bind="carItem.make_name"></td>
                                 <td  ng-bind="carItem.route_start"></td>
                                 <td  ng-bind="carItem.route_end"></td>
                                 <td  ng-bind="carItem.distance"></td>
@@ -256,11 +277,11 @@
                                 <td class="red-text bold" ng-bind="carItem.plan_price"></td>
                                 <td>{{carItem.order_date | date:'yyyy-MM-dd'}}</td>
                             </tr>
-                            <tr ng-if="carList.length == 0&&orderStartCar!==undefined&&orderEndCar!==undefined">
-                                <td colspan="8">暂无数据</td>
+                            <tr ng-if="carLists.length == 0&&orderStartCar!==undefined&&orderEndCar!==undefined">
+                                <td colspan="9">暂无数据</td>
                             </tr>
                             <tr ng-if="orderEndCar==undefined||orderStartCar==undefined&&carList.length == 0">
-                                <td colspan="8"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
+                                <td colspan="9"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
                             </tr>
 
                             </tbody>

@@ -326,8 +326,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/system_settings/setting_settlement_outsourcing.html",
             controller:'setting_settlement_outsourcing_controller'
         })
-
-
+        //数据修改
+        .state("putData",{
+            url:"/putData",
+            templateUrl: "js/view/system_settings/putData.html",
+            controller:'putData_controller'
+        })
 
 
 
@@ -347,6 +351,9 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/system_settings/dealer_map.html",
             controller:'dealer_map_controller'
         })
+
+
+
         // 仓储
         .state("storage_index", {  //路由状态
             url: "/storage_index",  //路由路径

@@ -294,14 +294,40 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
     * 修改结算
     * */
     $scope.putSettle = function (obj){
-        if(obj.task_status!==10){
-            $(".modal").modal();
-            $("#putSettle").modal("close");
-            swal("全部完成状态下可修改！", "", "warning");
+        var taskTime=moment(obj.task_plan_date).format('YYYYMM');
+        var myDate = new Date();
+        //当前日（1-31）；
+        var nowDay=myDate.getDate();
+        //当前毫秒时间戳
+        var nowTamp =new Date().getTime();
+
+        if(nowDay<=8){
+            var lastMonth=moment(nowTamp-24*30*3600*1000).format('YYYYMM');
+            if(lastMonth==taskTime){
+                if(obj.task_status!==10){
+                    swal("全部完成状态下可修改！", "", "warning");
+                }
+                else{
+                    $("#putSettle").modal("open");
+                }
+            }
+            else {
+                swal("超过任务修改期限！", "", "warning");
+            }
         }
-        else{
-            $(".modal").modal();
-            $("#putSettle").modal("open");
+        else {
+            var lastMonth=moment(nowTamp).format('YYYYMM');
+            if(taskTime==lastMonth){
+                if(obj.task_status!==10){
+                    swal("全部完成状态下可修改！", "", "warning");
+                }
+                else{
+                    $("#putSettle").modal("open");
+                }
+            }
+            else {
+                swal("超过任务修改期限！", "", "warning");
+            }
         }
         $scope.putSettleItem=obj;
 
@@ -313,11 +339,12 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
             swal("里程或运载车辆数或载重类型不能为空！", "", "warning");
         }
         else{
-            _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" +$scope.putSettleItem.id +'/dpRouteLoadFlag',{
+            _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" +$scope.putSettleItem.id +'/dpRouteLoadDistance',{
                 distance: $scope.putSettleItem.distance,
                 carCount: $scope.putSettleItem.car_count,
                 loadFlag: $scope.putSettleItem.load_flag,
-                reverseMoney: $scope.putSettleItem.reverse_money
+                reverseMoney: $scope.putSettleItem.reverse_money,
+                remark: $scope.putSettleItem.remark
             }).then(function (data) {
                 if (data.success === true) {
                     swal("保存成功", "", "success");
@@ -335,14 +362,40 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
     * 修改油耗
     * */
     $scope.putOil = function (obj){
-        if(obj.task_status!==10){
-            $(".modal").modal();
-            $("#putOil").modal("close");
-            swal("全部完成状态下可修改！", "", "warning");
+        var taskTime=moment(obj.task_plan_date).format('YYYYMM');
+        var myDate = new Date();
+        //当前日（1-31）；
+        var nowDay=myDate.getDate();
+        //当前毫秒时间戳
+        var nowTamp =new Date().getTime();
+
+        if(nowDay<=8){
+            var lastMonth=moment(nowTamp-24*30*3600*1000).format('YYYYMM');
+            if(lastMonth==taskTime){
+                if(obj.task_status!==10){
+                    swal("全部完成状态下可修改！", "", "warning");
+                }
+                else{
+                    $("#putOil").modal("open");
+                }
+            }
+            else {
+                swal("超过任务修改期限！", "", "warning");
+            }
         }
-        else{
-            $(".modal").modal();
-            $("#putOil").modal("open");
+        else {
+            var lastMonth=moment(nowTamp).format('YYYYMM');
+            if(taskTime==lastMonth){
+                if(obj.task_status!==10){
+                    swal("全部完成状态下可修改！", "", "warning");
+                }
+                else{
+                    $("#putOil").modal("open");
+                }
+            }
+            else {
+                swal("超过任务修改期限！", "", "warning");
+            }
         }
         $scope.putOilItem=obj;
     }
@@ -352,7 +405,7 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
             swal("里程或载重类型不能为空！", "", "warning");
         }
         else{
-            _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" +$scope.putOilItem.id +'/dpRouteOilLoadFlag',{
+            _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" +$scope.putOilItem.id +'/dpRouteOilLoadDistance',{
                 oilDistance: $scope.putOilItem.oil_distance,
                 oilLoadFlag: $scope.putOilItem.oil_load_flag
             }).then(function (data) {

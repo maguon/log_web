@@ -35,6 +35,12 @@
 
 
             </div>
+            <div class="col s12">
+                <div class="col s12 input-field">
+                    <input type="text" ng-model="putSettleItem.remark" id="remark" name="remark">
+                    <label for="remark"  class="active">备注</label>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -243,12 +249,12 @@
                 <td ng-if="el.reverse_flag==1">是</td>
                 <!-- 显示画面按钮 -->
                 <td class="operation">
-                  <!--  <a ng-click="putSettle(el)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
+                    <a ng-click="putSettle(el)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
                         <i class="mdi mdi-cash-usd cyan-text lighten-1" style="margin: 0"></i>
                     </a>
                     <a ng-click="putOil(el)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
                         <i class="mdi mdi-water-pump cyan-text lighten-1" style="margin: 0"></i>
-                    </a>-->
+                    </a>
                     <a  ui-sref="dispatch_order_details({id:el.id,from:'dispatch_order'})" class=""><i class="mdi mdi-file-outline look_icon cyan-text lighten-1  " ></i></a>
                 </td>
             </tr>

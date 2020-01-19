@@ -30,41 +30,47 @@ app.controller("putData_controller",["$scope", "$rootScope","$state","$statePara
         // 检索条件
         var conditionsObj = makeConditions();
         var conditions = _basic.objNewToUrl(conditionsObj);
-        // 检索URL
-        url = conditions.length > 0 ? url + "&" + conditions : url;
+        if($scope.dispatchId==undefined||$scope.dispatchId==''){
+            $scope.dispatchOrderArray=[];
+        }
+        else {
+            // 检索URL
+            url = conditions.length > 0 ? url + "&" + conditions : url;
 
-        _basic.get(url).then(function (data) {
+            _basic.get(url).then(function (data) {
 
-            if (data.success == true) {
+                if (data.success == true) {
 
-                // 当前画面的检索信息
-                var pageItems = {
-                    pageId: "putData",
-                    start: $scope.start,
-                    size: $scope.size,
-                    conditions: conditionsObj
-                };
-                // 将当前画面的条件
-                $rootScope.refObj = {pageArray: []};
-                $rootScope.refObj.pageArray.push(pageItems);
-                $scope.dispatchOrderBoxArray = data.result;
-                $scope.dispatchOrderArray = $scope.dispatchOrderBoxArray.slice(0, 10);
-                if ($scope.start > 0) {
-                    $("#pre").show();
+                    // 当前画面的检索信息
+                    var pageItems = {
+                        pageId: "putData",
+                        start: $scope.start,
+                        size: $scope.size,
+                        conditions: conditionsObj
+                    };
+                    // 将当前画面的条件
+                    $rootScope.refObj = {pageArray: []};
+                    $rootScope.refObj.pageArray.push(pageItems);
+                    $scope.dispatchOrderBoxArray = data.result;
+                    $scope.dispatchOrderArray = $scope.dispatchOrderBoxArray.slice(0, 10);
+                    if ($scope.start > 0) {
+                        $("#pre").show();
+                    }
+                    else {
+                        $("#pre").hide();
+                    }
+                    if (data.result.length < $scope.size) {
+                        $("#next").hide();
+                    }
+                    else {
+                        $("#next").show();
+                    }
+                } else {
+                    swal(data.msg, "", "error");
                 }
-                else {
-                    $("#pre").hide();
-                }
-                if (data.result.length < $scope.size) {
-                    $("#next").hide();
-                }
-                else {
-                    $("#next").show();
-                }
-            } else {
-                swal(data.msg, "", "error");
-            }
-        });
+            });
+        }
+
     };
 
 
@@ -74,6 +80,7 @@ app.controller("putData_controller",["$scope", "$rootScope","$state","$statePara
      */
     function setConditions(conditions) {
         $scope.dispatchId=conditions.dpRouteTaskId;
+
     }
 
     /**
@@ -81,7 +88,8 @@ app.controller("putData_controller",["$scope", "$rootScope","$state","$statePara
      */
     function makeConditions() {
         return {
-            dpRouteTaskId: $scope.dispatchId
+            dpRouteTaskId: $scope.dispatchId,
+            taskStatus:10
         };
     }
 

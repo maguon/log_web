@@ -140,7 +140,7 @@
                             <th data-field="">计划执行时间</th>
                             <th data-field="">完成时间</th>
                             <th data-field="">调度</th>
-                            <th data-field="">状态</th>
+                           <!-- <th data-field="">状态</th>-->
                             <th data-field="">倒板</th>
                             <th>操作</th>
                         </tr>
@@ -160,7 +160,7 @@
                             <td ng-bind="el.task_plan_date |date:'yyyy-MM-dd'"></td>
                             <td ng-bind="el.task_end_date |date:'yyyy-MM-dd hh:mm'"></td>
                             <td>{{el.route_op_name }}</td>
-                            <td>{{el.task_status | instructionsStatus}}</td>
+                         <!--   <td>{{el.task_status | instructionsStatus}}</td>-->
                             <td ng-if="el.reverse_flag==0">否</td>
                             <td ng-if="el.reverse_flag==1">是</td>
                             <!-- 显示画面按钮 -->
@@ -175,12 +175,12 @@
                             </td>
                         </tr>
 
-                        <tr ng-if="dispatchOrderArray.length==0">
-                            <td colspan="16">暂无数据</td>
+                        <tr ng-if="(dispatchId!==undefined&&dispatchId!=='')&&dispatchOrderArray.length==0">
+                            <td colspan="15">暂无数据</td>
                         </tr>
-                        <!-- <tr ng-if="(endTime==undefined||starTime==undefined)&&dispatchOrderArray.length==0">
-                             <td colspan="15"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;指令时间为必填项</td>
-                         </tr>-->
+                         <tr ng-if="(dispatchId==undefined||dispatchId=='')&&dispatchOrderArray.length==0">
+                             <td colspan="15"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;调度编号为必填项</td>
+                         </tr>
                         </tbody>
                     </table>
                 </div>

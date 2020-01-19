@@ -147,7 +147,9 @@ app.controller("putData_controller",["$scope", "$rootScope","$state","$statePara
                 distance: $scope.putSettleItem.distance,
                 carCount: $scope.putSettleItem.car_count,
                 loadFlag: $scope.putSettleItem.load_flag,
-                reverseMoney: $scope.putSettleItem.reverse_money
+                reverseMoney: $scope.putSettleItem.reverse_money,
+                expiredFlag:1,
+                remark: $scope.putSettleItem.remark
             }).then(function (data) {
                 if (data.success === true) {
                     swal("保存成功", "", "success");
@@ -184,7 +186,9 @@ app.controller("putData_controller",["$scope", "$rootScope","$state","$statePara
         else{
             _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" +$scope.putOilItem.id +'/dpRouteOilLoadDistance',{
                 oilDistance: $scope.putOilItem.oil_distance,
-                oilLoadFlag: $scope.putOilItem.oil_load_flag
+                oilLoadFlag: $scope.putOilItem.oil_load_flag,
+                expiredFlag:1,
+                remark:$scope.putOilItem.remark
             }).then(function (data) {
                 if (data.success === true) {
                     swal("保存成功", "", "success");

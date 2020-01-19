@@ -389,7 +389,8 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
             else{
                 _basic.put($host.api_url + "/user/" + userId + "/dpRouteTask/" +$scope.putOilItem.id +'/dpRouteOilLoadDistance',{
                     oilDistance: $scope.putOilItem.oil_distance,
-                    oilLoadFlag: $scope.putOilItem.oil_load_flag
+                    oilLoadFlag: $scope.putOilItem.oil_load_flag,
+                    remark:$scope.putOilItem.remark
                 }).then(function (data) {
                     if (data.success === true) {
                         swal("保存成功", "", "success");

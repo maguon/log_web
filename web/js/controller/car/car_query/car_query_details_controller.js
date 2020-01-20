@@ -8,7 +8,7 @@ app.controller("car_query_details_controller", ["$scope", "$stateParams", "$host
     var carId = $stateParams.id;
     $scope.tabSwitchLeft = true;
     $scope.tabSwitchRight = false;
-
+    $scope.recordList=[];
     // 返回
     $scope.return = function () {
         $state.go($stateParams.from,{from:"car_query_details"}, {reload: true})
@@ -47,7 +47,13 @@ app.controller("car_query_details_controller", ["$scope", "$stateParams", "$host
         _basic.get($host.record_url + "/user/" + userId + "/car/" + carId + "/record").then(function (recordData) {
             if (recordData.success === true) {
                 if(recordData.result.length !== 0){
-                    $scope.recordList = recordData.result[0].comment;
+                    for(var i=0;i<recordData.result.length;i++){
+
+                        for(var j=0;j<recordData.result[i].comment.length;j++){
+                            $scope.recordList.push(recordData.result[i].comment[j]);
+                        }
+
+                    }
                     if(recordData.result[0].storage_image.length !== 0){
                         // 将数组里的图片有效路径转为正确路径,并添加用户名
                         for (var i = 0; i < recordData.result[0].storage_image.length; i++) {
@@ -59,7 +65,6 @@ app.controller("car_query_details_controller", ["$scope", "$stateParams", "$host
                     else{
                         $scope.imageList = [];
                     }
-
                 }
             }
             else {

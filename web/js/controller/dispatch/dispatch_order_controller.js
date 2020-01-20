@@ -368,7 +368,7 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
                 swal("全部完成状态下可修改！", "", "warning");
             }
             else{
-                $("#putSettle").modal("open");
+                $("#putOil").modal("open");
             }
         }else{
             swal("超过任务修改期限！", "", "warning");

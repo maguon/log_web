@@ -118,7 +118,7 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/dispatch/dispatch_route_fee_details.html",
             controller:'dispatch_route_fee_details_controller'
         })
-     /*   .state("dispatch_order",{
+        .state("dispatch_order",{
             url:"/dispatch_order",
             params: {"from": null},
             templateUrl: "js/view/dispatch/dispatch_order.html",
@@ -128,7 +128,7 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             url:"/dispatch_order_details/id/{id}/?from",
             templateUrl: "js/view/dispatch/dispatch_order_details.html",
             controller:'dispatch_order_details_controller'
-        })*/
+        })
         .state("cost_application",{
             url:"/cost_application",
             params: {"from": null},

@@ -12,7 +12,13 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
     var deadDay=8;
     // 调度指令状态
     $scope.taskStatusList =_config.taskStatus;
-
+    $scope.userDepartment = parseInt(_basic.getSession(_basic.USER_TYPE));
+    if($scope.userDepartment==39){
+        $scope.addFlag=true
+    }
+    else {
+        $scope.addFlag=false;
+    }
 
     /*
     * 获取起始城市 目的城市*

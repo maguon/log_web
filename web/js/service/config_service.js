@@ -252,7 +252,22 @@ baseService.factory("_config", function () {
 
     // 质损环节类别
     _this.damageLinkType = [
-        {id: 1, typeName: "短驳移库"},
+        {id: 1, typeName: "不可抗力因素"},
+        {id: 2, typeName: "基层漏检"},
+        {id: 3, typeName: "基层违规操作"},
+        {id: 4, typeName: "驾驶员漏检"},
+        {id: 5, typeName: "驾驶员违规操作"},
+        {id: 6, typeName: "交通事故"},
+        {id: 7, typeName: "经销商恶意刁难"},
+        {id: 8, typeName: "前端责任"},
+        {id: 9, typeName: "强判"},
+        {id: 10, typeName: "人为破坏"},
+        {id: 11, typeName: "设备故障"},
+        {id: 12, typeName: "索赔"},
+        {id: 13, typeName: "其他"}
+
+
+     /*   {id: 1, typeName: "短驳移库"},
         {id: 2, typeName: "公路运输"},
         {id: 3, typeName: "公司运输"},
         {id: 4, typeName: "驾驶员漏检"},
@@ -268,7 +283,7 @@ baseService.factory("_config", function () {
         {id: 14, typeName: "PDI漏检"},
         {id: 15, typeName: "大连现场收发车"},
         {id: 16, typeName: "运输途中遭人为破坏"},
-        {id: 17, typeName: "其他"}
+        {id: 17, typeName: "其他"}*/
         ];
 
     // 质损类型

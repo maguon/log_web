@@ -231,6 +231,9 @@ app.controller("damage_management_controller", ["$scope","$rootScope","$state","
         $scope.deal_endTime =conditions.endDateEnd;
         $scope.order_startTime =conditions.orderStart;
         $scope.order_endTime =conditions.orderEnd;
+        $scope.indemnityStartTime =conditions.indemnityStart;
+        $scope.indemnityEndTime =conditions.indemnityEnd;
+
 
 
 
@@ -242,6 +245,8 @@ app.controller("damage_management_controller", ["$scope","$rootScope","$state","
     function makeConditions() {
         var endStart=null;
         var endEnd=null;
+        var indemnityStartTime=null;
+        var indemnityEndTime=null;
         if($scope.deal_startTime==undefined){
             endStart=null
         }
@@ -253,6 +258,18 @@ app.controller("damage_management_controller", ["$scope","$rootScope","$state","
         }
         else {
             endEnd=moment($scope.deal_endTime).format('YYYYMMDD')
+        }
+        if($scope.indemnityStartTime==undefined){
+            indemnityStartTime=null
+        }
+        else {
+            indemnityStartTime=moment($scope.indemnityStartTime).format('YYYYMMDD')
+        }
+        if($scope.indemnityEndTime==undefined){
+            indemnityEndTime=null
+        }
+        else {
+            indemnityEndTime=moment($scope.indemnityEndTime).format('YYYYMMDD')
         }
         return {
             damageId:$scope.damageNum,
@@ -274,7 +291,9 @@ app.controller("damage_management_controller", ["$scope","$rootScope","$state","
             endDateEnd:endEnd,
             hangStatus:$scope.hangStatus,
             orderStart:$scope.order_startTime,
-            orderEnd: $scope.order_endTime
+            orderEnd: $scope.order_endTime,
+            indemnityStart:indemnityStartTime,
+            indemnityEnd:indemnityEndTime
         };
     }
 

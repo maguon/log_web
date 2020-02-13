@@ -247,25 +247,25 @@ app.controller("damage_management_controller", ["$scope","$rootScope","$state","
         var endEnd=null;
         var indemnityStartTime=null;
         var indemnityEndTime=null;
-        if($scope.deal_startTime==undefined){
+        if($scope.deal_startTime==undefined||$scope.deal_startTime==''||$scope.deal_startTime==null){
             endStart=null
         }
         else {
             endStart=moment($scope.deal_startTime).format('YYYYMMDD')
         }
-        if($scope.deal_endTime==undefined){
+        if($scope.deal_endTime==undefined||$scope.deal_endTime==''||$scope.deal_endTime==null){
             endEnd=null
         }
         else {
             endEnd=moment($scope.deal_endTime).format('YYYYMMDD')
         }
-        if($scope.indemnityStartTime==undefined){
+        if($scope.indemnityStartTime==undefined||$scope.indemnityStartTime==''||$scope.indemnityStartTime==null){
             indemnityStartTime=null
         }
         else {
             indemnityStartTime=moment($scope.indemnityStartTime).format('YYYYMMDD')
         }
-        if($scope.indemnityEndTime==undefined){
+        if($scope.indemnityEndTime==undefined||$scope.indemnityEndTime==null||$scope.indemnityEndTime==''){
             indemnityEndTime=null
         }
         else {

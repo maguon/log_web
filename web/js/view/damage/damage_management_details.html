@@ -466,8 +466,8 @@
                             <div class="col s10 offset-s1" style="margin-bottom: 20px" ng-show="currentDamageStatus != 3 && financeIndemnityStatus == 1">
 
                                <div class="col s12">
-                                   <div class="col s3 input-field">
-                                       <input type="text" id="bank_account" name="bank_account" ng-model="bankAccount">
+                                   <div class="col s3 input-field"> <!--ng-keyup="filter(bankAccount)"-->
+                                       <input type="text" id="bank_account" ng-model="bankAccount" ng-pattern="/^[0-9]*$/" />
                                        <label for="bank_account"><span style="color: red">* </span>银行账号</label>
                                    </div>
                                    <div class="col s3 input-field">

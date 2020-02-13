@@ -349,7 +349,19 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
             $scope.getCityList();
         }
     };
-
+   /* $scope.filter= function(value) {
+        //因为当用户只输入一个“-”负号时候会被解析为字符串从而被过滤掉，所以需要分开判断
+        if (value.length == 1) {
+            var parttern = /[0-9\-]/;
+            var matches = parttern.exec(value);
+            $scope.bankAccount = Array.isArray(matches) ? matches[0] : '';
+        } else {
+            var parttern = /(-|\+)?\d+/g;
+            var matches = parttern.exec(value);
+            $scope.bankAccount = Array.isArray(matches) ? matches[0] : '';
+        }
+        console.log($scope.bankAccount)
+    }*/
 
     // 点击开始处理，变为处理中状态并初始化处理信息
     $scope.beginProcessing = function () {

@@ -4,7 +4,12 @@ app.controller("damage_declaration_controller", ["$scope","$rootScope","$state",
     $scope.size = 21;
     $scope.processingStatus = "";
     $scope.vinCode = "";
-
+    //申报日期
+    $scope.reportStart=undefined;
+    $scope.reportEnd=undefined;
+    $scope.damageList=[];
+    $("#pre").hide();
+    $("#next").hide();
     // 获取质损列表
     $scope.getDamageInfoList = function () {
         // 基本检索URL
@@ -53,7 +58,22 @@ app.controller("damage_declaration_controller", ["$scope","$rootScope","$state",
     // 点击按钮进行查询
     $scope.searchDamageInfoList = function () {
         $scope.start = 0;
-        $scope.getDamageInfoList();
+        $scope.reportStart=$scope.reportTimeStart;
+        $scope.reportEnd=$scope.reportTimeEnd;
+        if(($scope.reportStart==undefined||$scope.reportEnd==undefined||$scope.reportStart==null
+            ||$scope.reportEnd==null||$scope.reportStart==''||$scope.reportEnd=='')&&($scope.vinCode==undefined||$scope.vinCode==''||$scope.vinCode==null)){
+            $scope.damageList=[];
+            $scope.reportStart=undefined;
+            $scope.reportEnd=undefined;
+            $scope.vinCode=undefined;
+            swal('请输入完整的申报时间或VIN', "", "error");
+            $("#pre").hide();
+            $("#next").hide();
+        }
+        else {
+            $scope.getDamageInfoList();
+        }
+
     };
 
     // 分页
@@ -69,14 +89,30 @@ app.controller("damage_declaration_controller", ["$scope","$rootScope","$state",
 
     // 数据导出
     $scope.export = function () {
-        // 基本检索URL
-        var url = $host.api_url + "/damageBase.csv?" ;
-        // 检索条件
-        var conditionsObj = makeConditions();
-        var conditions = _basic.objToUrl(conditionsObj);
-        // 检索URL
-        url = conditions.length > 0 ? url + "&" + conditions : url;
-        window.open(url);
+        $scope.reportStart=$scope.reportTimeStart;
+        $scope.reportEnd=$scope.reportTimeEnd;
+        if(($scope.reportStart==undefined||$scope.reportEnd==undefined||$scope.reportStart==null
+            ||$scope.reportEnd==null||$scope.reportStart==''||$scope.reportEnd=='')&&($scope.vinCode==undefined||$scope.vinCode==''||$scope.vinCode==null)){
+            $scope.damageList=[];
+            $scope.reportStart=undefined;
+            $scope.reportEnd=undefined;
+            $scope.vinCode=undefined;
+            swal('请输入完整的申报时间或VIN', "", "error");
+            $("#pre").hide();
+            $("#next").hide();
+        }
+        else {
+            // 基本检索URL
+            var url = $host.api_url + "/damageBase.csv?" ;
+            // 检索条件
+            var conditionsObj = makeConditions();
+            var conditions = _basic.objToUrl(conditionsObj);
+            // 检索URL
+            url = conditions.length > 0 ? url + "&" + conditions : url;
+            window.open(url);
+        }
+
+
     };
     /**
      * 设置检索条件。
@@ -116,22 +152,16 @@ app.controller("damage_declaration_controller", ["$scope","$rootScope","$state",
                 $scope.size = pageItems.size;
                 // 将上次的检索条件设定到画面
                 setConditions(pageItems.conditions);
-
+                // 查询数据
+                $scope.getDamageInfoList();
             }
         } else {
             // 初始显示时，没有前画面，所以没有基本信息
             $rootScope.refObj = {pageArray: []};
         }
-        // 查询数据
-        $scope.getDamageInfoList();
+
 
     }
     initData();
 
-
-    // 获取数据
-    $scope.queryData = function () {
-        $scope.searchDamageInfoList()
-    };
-    $scope.queryData();
 }]);

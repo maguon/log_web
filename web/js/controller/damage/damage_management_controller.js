@@ -7,6 +7,8 @@ app.controller("damage_management_controller", ["$scope","$rootScope","$state","
     $scope.damageType = _config.damageType;
     $scope.user_info_obj = _config.userTypes;
     $scope.truckNumListAllList =[];
+    $("#pre").hide();
+    $("#next").hide();
     // 下载csv
     $scope.downloadCsvFile = function () {
         // 基本检索URL
@@ -311,7 +313,8 @@ app.controller("damage_management_controller", ["$scope","$rootScope","$state","
                 $scope.size = pageItems.size;
                 // 将上次的检索条件设定到画面
                 setConditions(pageItems.conditions);
-
+                // 查询数据
+                getDamageManagementList();
             }
         } else {
             // 初始显示时，没有前画面，所以没有基本信息
@@ -319,8 +322,7 @@ app.controller("damage_management_controller", ["$scope","$rootScope","$state","
 
         }
         $scope.getReceiveList();
-        // 查询数据
-        getDamageManagementList();
+
 
     }
     initData();

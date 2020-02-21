@@ -8,6 +8,54 @@
       </div>
   </div>
 
+
+  <!--增加保险信息模态框-->
+  <div id="carInfoModel" class="modal modal-fixed-footer" style="width: 50%;height: 480px">
+      <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+          <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
+              <p>保险赔付信息</p>
+          </div>
+          <div class="row col s12">
+              <div class="col s12">
+                  <div class="col s6 offset-s3 input-field">
+                      <select material-select watch ng-model="insuranceCompanyId">
+                          <option value="" selected>选择保险公司</option>
+                          <option ng-repeat="insure in insuranceList" ng-value="insure.id">{{insure.insure_name}}</option>
+                      </select>
+                  </div>
+              </div>
+              <div class="col s12" style="margin-top: 15px">
+                  <div class="col s6 offset-s3 input-field valign-wrapper">
+                      <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="insurance_compensation" type="number" ng-model="insuranceCompensation">
+                      <label class="{{insuranceCompensation != null ? 'active' : 'inactive'}}" style="font-weight: bold" for="insurance_compensation">保险待赔（元）</label>
+                  </div>
+              </div>
+              <div class="col s12">
+                  <div class="col s6 offset-s3 input-field valign-wrapper">
+                      <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="insurance_pay" type="number" ng-model="insurancePay">
+                      <label class="{{insurancePay != null ? 'active' : 'inactive'}}" style="font-weight: bold" for="insurance_pay">保险赔付（元）</label>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="modal-footer valign-wrapper">
+          <div class="col s12">
+              <div class="col s2 offset-s4">
+                  <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                      取消
+                  </a>
+              </div>
+              <div class="col s2">
+                  <a ng-click="saveInsuranceInfo()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                      确定
+                  </a>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
 <div class="damage_management_details" style="width: 80%;margin: 0 auto">
     <div class="row">
         <div class="storage_storeTitle vc-center ">
@@ -15,52 +63,6 @@
                 <i class="mdi mdi-arrow-left-bold"></i>
             </a>
             <h4 class="center-align cyan-text text-lighten-1">质损详情&nbsp;-{{currentDamageInfo.id}}</h4>
-        </div>
-
-        <!--增加保险信息模态框-->
-        <div id="carInfoModel" class="modal modal-fixed-footer" style="width: 50%;height: 480px">
-            <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-                <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
-                    <p>保险赔付信息</p>
-                </div>
-                <div class="row col s12">
-                    <div class="col s12">
-                        <div class="col s6 offset-s3 input-field">
-                            <select material-select watch ng-model="insuranceCompanyId">
-                                <option value="" selected>选择保险公司</option>
-                                <option ng-repeat="insure in insuranceList" ng-value="insure.id">{{insure.insure_name}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col s12" style="margin-top: 15px">
-                        <div class="col s6 offset-s3 input-field valign-wrapper">
-                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="insurance_compensation" type="number" ng-model="insuranceCompensation">
-                            <label class="{{insuranceCompensation != null ? 'active' : 'inactive'}}" style="font-weight: bold" for="insurance_compensation">保险待赔（元）</label>
-                        </div>
-                    </div>
-                    <div class="col s12">
-                        <div class="col s6 offset-s3 input-field valign-wrapper">
-                            <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="insurance_pay" type="number" ng-model="insurancePay">
-                            <label class="{{insurancePay != null ? 'active' : 'inactive'}}" style="font-weight: bold" for="insurance_pay">保险赔付（元）</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal-footer valign-wrapper">
-                <div class="col s12">
-                    <div class="col s2 offset-s4">
-                        <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
-                            取消
-                        </a>
-                    </div>
-                    <div class="col s2">
-                        <a ng-click="saveInsuranceInfo()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
-                            确定
-                        </a>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <!--tab栏-->
@@ -124,9 +126,22 @@
                     <div class="col" style="width: 10%">
                         <p><span class="cyan-text" >品牌：</span>{{currentDamageInfo.make_name}}</p>
                     </div>
-                    <div class="col" style="width: 10%">
+                    <div class="col" style="width: 10%"  ng-if="currentDamageInfo.damage_status == 3">
                         <p><span class="cyan-text" >车型：</span>{{currentDamageInfo.car_model_name}}</p>
                     </div>
+
+
+
+
+                    <div class="col" style="width: 10%"  ng-if="currentDamageInfo.damage_status !== 3">
+                        <select  material-select watch id="carType"  ng-model="currentDamageInfo.car_model_name">
+                            <option value="">请选择</option>
+                            <option ng-repeat="carType in carTypeList" ng-value="carType.model_name">{{carType.model_name}}</option>
+                        </select>
+                    </div>
+
+
+
                     <div class="col colWidth">
                         <p><span class="cyan-text" >委托方：</span>{{currentDamageInfo.en_short_name}}</p>
                     </div>
@@ -150,10 +165,29 @@
                     </div>
                 </div>
                 <div class="col s12">
-                    <div class="col s12">
+                    <div class="col s12 input-field" ng-if="currentDamageInfo.damage_status !== 3">
+                        <input  id="damage_explain" name="damage_explain" type="text" ng-model="currentDamageInfo.damage_explain">
+                        <label for="damage_explain">质损说明:</label>
+                    </div>
+
+
+                    <div class="col s12" ng-if="currentDamageInfo.damage_status == 3">
                         <p><span>质损说明：</span>{{currentDamageInfo.damage_explain}}</p>
                     </div>
                 </div>
+
+
+
+                <!--保存完成按钮-->
+                <div class="row col s12" style="margin-top: 30px" ng-hide="currentDamageStatus == 3">
+                    <div class="col s2 offset-s5">
+                        <a ng-click="putBasicItem()" style="width: 100%" class="waves-light waves-effect cyan lighten-2 btn">
+                            保存
+                        </a>
+                    </div>
+                </div>
+
+
             </div>
         </div>
 

@@ -86,6 +86,7 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
             if (data.success === true) {
                 $scope.currentDamageStatus = data.result[0].damage_status;
                 $scope.currentDamageInfo = data.result[0];
+                getCarType( $scope.currentDamageInfo.make_id)
                 $scope.currentOrderDate=moment(data.result[0].order_date).format("YYYY-MM-DD");
                 $scope.currentDamageInfo.vin = data.result[0].vin;
             }
@@ -94,7 +95,18 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
             }
         });
     };
+    function  getCarType(makeName){
+        _basic.get($host.api_url + "/carMake/" + makeName + "/carModel").then(function (data) {
+            if (data.success == true) {
 
+                $scope.carTypeList = data.result;
+
+            } else {
+                swal(data.msg, "", "error");
+            }
+        });
+
+    }
 
     // 停启用
     $scope.changeStatus = function (st, id) {
@@ -114,6 +126,36 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
             }
         })
     };
+
+
+    //保存
+    $scope.putBasicItem =function(){
+        if($scope.currentDamageInfo.damage_explain==null||$scope.currentDamageInfo.damage_explain==undefined||$scope.currentDamageInfo.damage_explain==''){
+            swal("请填写质损说明！","","error")
+        }
+        else {
+            var remark = $scope.currentDamageInfo.damage_explain.replace(/，|,/g, ' ');
+            if( $scope.currentDamageInfo.car_model_name==null|| $scope.currentDamageInfo.car_model_name==undefined||$scope.currentDamageInfo.car_model_name==''){
+                swal("请填写车型！","","error")
+            }
+            else{
+                _basic.put($host.api_url + "/user/" + userId + "/damage/" + damageId,{
+                    carModelName: $scope.currentDamageInfo.car_model_name,
+                    damageExplain:remark
+                }).then(function (data) {
+                    if (data.success === true) {
+
+                        swal("修改成功", "", "success");
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
+            }
+        }
+
+
+    }
 
     // 获取当前质损照片
     $scope.getCurrentDamageImage = function () {

@@ -264,7 +264,9 @@ baseService.factory("_config", function () {
         {id: 10, typeName: "人为破坏"},
         {id: 11, typeName: "设备故障"},
         {id: 12, typeName: "索赔"},
-        {id: 13, typeName: "其他"}
+        {id: 13, typeName: "其他"},
+        {id: 14, typeName: "仓储责任"}
+
 
 
      /*   {id: 1, typeName: "短驳移库"},

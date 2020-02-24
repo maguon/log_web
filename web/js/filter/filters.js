@@ -427,6 +427,9 @@ CommonFilter.filter("damageLinkType", function () {
             case 13:
                 damageLinkType = "其他";
                 break;
+            case 14:
+                damageLinkType = "仓储责任";
+                break;
             default:
                 damageLinkType = "未知";
         }

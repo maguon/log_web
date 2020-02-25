@@ -74,17 +74,6 @@ app.controller("damage_index_controller", ["$scope", "$host", "_basic", function
     };
     // 当月洗车数/量
     $scope.getCleanPriceAndCount = function () {
-        _basic.get($host.api_url + "/dpRouteLoadTaskCleanRelMonthStat?yearMonth="+currentMonth).then(function (data) {
-            if (data.success === true) {
-                for (var i = 0; i < data.result.length; i++) {
-                  /*  $scope.getCleanPrice += data.result[i].total_price;*/
-                    $scope.getCleanCount += data.result[i].car_count;
-                    }
-                }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
         _basic.get($host.api_url + "/dpRouteLoadTaskCleanRelCount?loadDateStart="+ firstDay +'&loadDateEnd='+lastDay ).then(function (data) {
             if (data.success === true) {
                 if(data.result[0].total_clean_fee==null){
@@ -92,6 +81,12 @@ app.controller("damage_index_controller", ["$scope", "$host", "_basic", function
                 }
                 else {
                     $scope.getCleanPrice = data.result[0].total_clean_fee;
+                }
+                if(data.result[0].car_count==null){
+                    $scope.getCleanCount=0;
+                }
+                else {
+                    $scope.getCleanCount = data.result[0].car_count;
                 }
 
             }

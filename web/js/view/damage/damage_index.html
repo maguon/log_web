@@ -101,17 +101,17 @@
         </div>
         <!--下方两卡片-->
         <div class="row" style="margin-top: 80px">
-            <div class="col s6" style="font-size: 1.5rem;font-weight: bold;color: rgb(146,166,176)">
+            <div class="col" style="font-size: 1.5rem;font-weight: bold;color: rgb(146,166,176);width: 60%">
                 <div class="" style="background-color: white;border: 2px solid rgb(37,198,218);height: 180px;margin-top: 10px;box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.14), 0 2px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)">
-                    <div class="col s6" style="border-right: 1px solid rgb(37,198,218)">
+                    <div class="col s4" style="border-right: 1px solid rgb(37,198,218)">
                         <div class="col s12 left-align">
-                            <p>&emsp;<span style="color: rgb(37,198,218);font-size: 2rem" class="mdi mdi-car-wash"></span>&emsp;当月洗车数</p>
+                            <p>&emsp;<span style="color: rgb(37,198,218);font-size: 2rem" class="mdi mdi-car-wash"></span>&emsp;当月预估洗车数</p>
                         </div>
                         <div class="col s12 right-align">
                             <p style="margin: 15px 0"><span style="color: rgb(37,198,218);font-size: 2.4rem">{{getCleanCount}}</span>&nbsp;辆</p>
                         </div>
                     </div>
-                    <div class="col s6" style="border-right: 1px solid rgb(37,198,218)">
+                    <div class="col s4" style="border-right: 1px solid rgb(37,198,218)">
                         <div class="col s12 left-align">
                             <p>&emsp;<span style="color: rgb(37,198,218);font-size: 2rem" class="mdi mdi-car-wash"></span>&emsp;当月预估洗车费</p>
                         </div>
@@ -119,9 +119,20 @@
                             <p style="margin: 15px 0"><span style="color: rgb(229,115,115);font-size: 2.4rem">{{getCleanPrice |number:2}}</span>&nbsp;元</p>
                         </div>
                     </div>
+                    <div class="col s4" style="border-right: 1px solid rgb(37,198,218)">
+                        <div class="col s12 left-align">
+                            <p>&emsp;<span style="color: rgb(37,198,218);font-size: 2rem" class="mdi mdi-car-wash"></span>&emsp;当月预估洗车单价</p>
+                        </div>
+                        <div class="col s12 right-align" ng-show="getCleanCount!==0">
+                            <p style="margin: 15px 0"><span style="color: rgb(229,115,115);font-size: 2.4rem">{{(getCleanPrice/getCleanCount) |number:2}}</span>&nbsp;元/辆</p>
+                        </div>
+                        <div class="col s12 right-align" ng-show="getCleanCount==0">
+                            <p style="margin: 15px 0"><span style="color: rgb(229,115,115);font-size: 2.4rem">{{0 |number:2}}</span>&nbsp;元/辆</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col s6" style="font-size: 1.5rem;font-weight: bold;color: rgb(146,166,176)">
+            <div class="col" style="font-size: 1.5rem;font-weight: bold;color: rgb(146,166,176);width: 40%">
                 <div class="" style="background-color: white;border: 2px solid rgb(37,198,218);height: 180px;margin-top: 10px;box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.14), 0 2px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)">
                     <div class="col s6" style="border-right: 1px solid rgb(37,198,218)">
                         <div class="col s12 left-align">

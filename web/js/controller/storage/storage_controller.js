@@ -2,7 +2,7 @@
  * Created by ASUS on 2017/5/4.
  */
 app.controller("storage_store_controller", ["$scope", "$host", "_basic", "$state", "$rootScope", "_config",  "baseService", function ($scope, $host, _basic, $state, $rootScope, _config, baseService) {
-    var userId = _basic.getSession(_basic.USER_ID);
+  /*  var userId = _basic.getSession(_basic.USER_ID);*/
     var now_date = moment(new Date()).format('YYYYMMDD');
     var searchAll = function () {
         var obj = {
@@ -19,7 +19,7 @@ app.controller("storage_store_controller", ["$scope", "$host", "_basic", "$state
     };
     searchAll();
 
-    // 车辆品牌查询
+   /* // 车辆品牌查询
     _basic.get($host.api_url + "/carMake").then(function (data) {
         if (data.success == true) {
             $scope.makecarName = data.result;
@@ -27,9 +27,9 @@ app.controller("storage_store_controller", ["$scope", "$host", "_basic", "$state
         else {
             swal(data.msg, "", "error");
         }
-    });
+    });*/
 
-    // 车辆型号联动查询
+  /*  // 车辆型号联动查询
     $scope.changeMakeId = function (val) {
         if ($scope.curruntId == val) {
 
@@ -45,10 +45,11 @@ app.controller("storage_store_controller", ["$scope", "$host", "_basic", "$state
                 }
             })
         }
-    };
+    };*/
 
     // 颜色
     $scope.color = _config.config_color;
+/*
 
     // 存放位置联动查询--行
     $scope.changeStorageId = function (val) {
@@ -194,10 +195,11 @@ app.controller("storage_store_controller", ["$scope", "$host", "_basic", "$state
             swal('服务器内部错误', "", "error");
         })
     };
+*/
 
 
-    // 当汽车详情页
+   /* // 当汽车详情页
     $scope.lookStorageCar = function (val) {
         $state.go("storageCar_details", {}, {reload: true})
-    };
+    };*/
 }]);

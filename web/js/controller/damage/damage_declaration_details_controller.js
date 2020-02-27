@@ -40,7 +40,7 @@ app.controller("damage_declaration_details_controller", ["$scope","$state", "$st
             $scope.carTypeList=[]
         }
         else {
-            _basic.get($host.api_url + "/carMake/" + makeName + "/carModel").then(function (data) {
+            _basic.get($host.api_url + "/carMake/" + makeName + "/carModel?modelStatus=1").then(function (data) {
                 if (data.success == true) {
                     $scope.carTypeList = data.result;
 

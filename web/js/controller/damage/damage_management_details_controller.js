@@ -96,7 +96,7 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
         });
     };
     function  getCarType(makeName){
-        _basic.get($host.api_url + "/carMake/" + makeName + "/carModel").then(function (data) {
+        _basic.get($host.api_url + "/carMake/" + makeName + "/carModel?modelStatus=1").then(function (data) {
             if (data.success == true) {
 
                 $scope.carTypeList = data.result;

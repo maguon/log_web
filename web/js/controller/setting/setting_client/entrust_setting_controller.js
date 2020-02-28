@@ -4,6 +4,15 @@ app.controller("entrust_setting_controller", ["$scope", "_basic", "_config", "$h
     $scope.size = 11;
     $scope.start1 = 0;
     $scope.size1 = 11;
+    $scope.addFlag=false;
+    $scope.userDepartment = parseInt(_basic.getSession(_basic.USER_TYPE));
+    if($scope.userDepartment==79||$scope.userDepartment==71){
+        $scope.addFlag=true
+    }
+    else {
+        $scope.addFlag=false;
+    }
+
     // 跳转
     $scope.settingEntrust = function () {
         $('ul.tabWrap li').removeClass("active");
@@ -31,7 +40,7 @@ app.controller("entrust_setting_controller", ["$scope", "_basic", "_config", "$h
     };
 
 
-    $scope.settingEntrust  ();
+    $scope.lookMyselfFile  ();
 
     $("#pre").hide();
     $("#next").hide();

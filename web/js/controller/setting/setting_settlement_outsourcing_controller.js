@@ -2,6 +2,7 @@ app.controller("setting_settlement_outsourcing_controller", ["$scope", "$state",
 
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.hasChosen = false;
+    $scope.addFlag=false;
     $scope.selectedCityId = 0;
     $scope.startCityList = [];
     $scope.endCityList = [];
@@ -9,6 +10,14 @@ app.controller("setting_settlement_outsourcing_controller", ["$scope", "$state",
     $scope.size = 11;
     $scope.start1 = 0;
     $scope.size1 = 11;
+    $scope.userDepartment = parseInt(_basic.getSession(_basic.USER_TYPE));
+    if($scope.userDepartment==79||$scope.userDepartment==71){
+        $scope.addFlag=true
+    }
+    else {
+        $scope.addFlag=false;
+    }
+
     /*
     * 页面跳转
     * */
@@ -37,7 +46,7 @@ app.controller("setting_settlement_outsourcing_controller", ["$scope", "$state",
         $("#outsourcingImport").addClass("active");
         $("#outsourcingImport").show();
     }
-    $scope.settingCompany();
+    $scope.lookMyselfFile();
 
     $("#pre1").hide();
     $("#next1").hide();

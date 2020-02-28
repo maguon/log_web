@@ -80,6 +80,12 @@ CommonFilter.filter("department", function () {
             case 10:
                 user = "司机";
                 break;
+            case 79:
+                user = "市场管理员";
+                break;
+            case 71:
+                user = "市场操作员";
+                break;
             case 69:
                 user = "结算管理员";
                 break;

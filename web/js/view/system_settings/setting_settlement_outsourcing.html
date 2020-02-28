@@ -65,10 +65,15 @@
     <!--tab页-->
     <div class="row no-marBottom" ul-tabs style="overflow: hidden">
         <div class="col s12">
-            <ul class="tabWrap grey lighten-4">
-                <li class="tab col s4 settingCompany vc-center" ng-click="settingCompany()">外协结算设置</li>
+            <ul class="tabWrap grey lighten-4" ng-show="addFlag">
                 <li class="tab col s4 lookMyselfFile vc-center" ng-click="lookMyselfFile()">外协结算查询</li>
+                <li class="tab col s4 settingCompany vc-center" ng-click="settingCompany()">外协结算设置</li>
                 <li class="tab col s4 outsourcingImport vc-center" ng-click="outsourcingImport()">外协结算导入</li>
+            </ul>
+            <ul class="tabWrap grey lighten-4" ng-show="!addFlag">
+                <li class="tab col s12 lookMyselfFile vc-center" ng-click="lookMyselfFile()">外协结算查询</li>
+                <!--<li class="tab col s4 settingCompany vc-center" ng-click="settingCompany()">外协结算设置</li>
+                <li class="tab col s4 outsourcingImport vc-center" ng-click="outsourcingImport()">外协结算导入</li>-->
             </ul>
         </div>
     </div>

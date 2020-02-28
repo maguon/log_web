@@ -110,6 +110,21 @@ baseService.factory("_config", function () {
             qr: [{qrSrc: "/download/account_download.html"}]
         },
         {
+            type: 71,
+            name: "市场操作员",
+            subType: [],
+            index: 'market_home.html',
+            qr: []
+        },
+
+        {
+            type: 79,
+            name: "市场管理员",
+            subType: [{type: 71, name: "市场操作员"}],
+            index: 'market_manager.html',
+            qr: []
+        },
+        {
             type: 90,
             name: "审计人员",
             subType: [],

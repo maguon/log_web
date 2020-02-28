@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-cn" ng-app="log_dev">
+<head>
+    <meta charset="UTF-8">
+    <title>市场部</title>
+    <link rel="stylesheet" href="/assets/plugins/materialize/css/materialize.css">
+    <link rel="stylesheet" href="/assets/plugins/alert/sweetalert2.min.css">
+    <link rel="stylesheet" href="/assets/plugins/material_icon/css/materialdesignicons.css">
+    <link rel="stylesheet" href="/assets/plugins/fullcalendar-3.3.0/fullcalendar.min.css">
+    <link rel="stylesheet" href="/assets/plugins/jQueryViewer/css/viewer.min.css">
+    <link rel="stylesheet" href="/assets/plugins/month_picker/jquery-ui.min.css">
+    <link rel="stylesheet" href="/assets/plugins/month_picker/month_picker.min.css">
+    <link rel="stylesheet" href="/assets/plugins/select2/select2.min.css">
+    <link rel="stylesheet" href="/assets/css/index.css">
+    <link rel="stylesheet" href="/assets/css/flex.css">
+    <link rel="stylesheet" href="/assets/css/col.css">
+    <link rel="stylesheet" href="/assets/css/font.css">
+    <link rel="icon" href="/assets/images/ico/logo_32.ico">
+</head>
+<body>
+<header type="71" url="../assets/images/logo_72.png"></header>
+<ul id="slide-out" class="side-nav blue-grey darken-4">
+    <li class="nav-logo valign-wrapper" style="border-bottom: 1px solid #182024">
+        <div class="userBox">
+            <!--有头像照片的时候显示头像，没有则显示默认svg头像-->
+            <div ng-if="hasUserPortrait" class="logo_img responsive-img left" style="height:50px">
+                <img ng-src="{{userImg}}" style="width: 100%;height: 100%;border-radius: 100%" alt="">
+            </div>
+
+            <div ng-if="!hasUserPortrait" class="nav-avatar logo_img responsive-img left" style="height:50px">
+                {{realName.substring(0,1)}}
+            </div>
+
+            <div class="userBoxMsg left">
+              <span class="white-text">
+                {{userName + ":"}}
+              </span>
+                <span class="white-text">
+                    {{realName}}
+              </span>
+            </div>
+        </div>
+    </li>
+   <!-- <li class="bold side_navigator">
+        <a class="waves-effect waves-light first-N" ui-sref="settlement_index"><i class="white-text mdi mdi-speedometer"></i>主控面板</a>
+    </li>-->
+    <li class="bold side_navigator">
+        <a href="#!" ui-sref="data_dictionary" class=" waves-effect waves-light first-N" ><i class="white-text mdi mdi-book-multiple"></i>数据字典</a>
+    </li>
+    <li class="bold side_navigator">
+        <ul class="collapsible collapsible-accordion">
+            <li class="bold">
+                <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-database "></i>公共数据</a>
+                <div class="collapsible-body slider_nav_box blue-grey darken-3" style="padding: 0;">
+                    <ul>
+                        <li><a href="#!" ui-sref="car_query"><i class="mdi mdi-chevron-right white-text "></i>商品车信息</a></li>
+                        <li><a href="#!" ui-sref="instruction_list"><i class="mdi mdi-chevron-right white-text "></i>指令列表</a></li>
+                        <li><a href="#!" ui-sref="driver_information"><i class="mdi mdi-chevron-right white-text "></i>司机信息</a></li>
+                        <li><a href="#!" ui-sref="dealer_map"><i class="white-text mdi mdi-chevron-right"></i>经销商</a></li>
+                        <li><a href="#!" ui-sref="fuel_record"><i class="mdi mdi-chevron-right white-text "></i>加油记录</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+
+    <li class="bold side_navigator">
+        <ul class="collapsible collapsible-accordion">
+            <li class="bold">
+                <a class="collapsible-header waves-effect waves-light first-N" ><i class="white-text mdi mdi-account-settings-variant "></i>管理员设置</a>
+                <div class="collapsible-body blue-grey darken-3" style="padding: 0;">
+                    <ul>
+                        <li><a href="#!" ui-sref="setting_client"><i class="white-text mdi mdi-chevron-right"></i>委托方</a></li>
+                        <li><a href="#!" ui-sref="entrust_setting"><i class="white-text mdi mdi-chevron-right"></i>委托方设置</a></li>
+                        <li><a href="#!" ui-sref="setting_settlement_outsourcing"><i class="white-text mdi mdi-chevron-right"></i>外协结算设置</a></li>
+
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+
+</ul>
+<div class="ConWrap">
+    <div class="containerBox">
+        <div ui-view></div>
+    </div>
+</div>
+<footer></footer>
+
+</body>
+<div class="shadeDowWrap">
+    <div class="shadeDow vc-center">
+        <div class="preloader-wrapper big active ">
+            <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementsByClassName("ConWrap")[0].style.height = document.body.scrollHeight - 50 - 70 + "px";
+</script>
+<script src="/lib/jquery.min.js"></script>
+<script src="/lib/jquery.form.min.js"></script>
+<script src="/assets/plugins/fullcalendar-3.3.0/lib/jquery-ui.min.js"></script>
+<script src="/assets/plugins/month_picker/month_picker.min.js"></script>
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.2&key=cfbd1db1ba7309dd7687fef4fd39ba3f&plugin=AMap.MarkerClusterer"></script>
+<script src="/assets/plugins/fullcalendar-3.3.0/lib/moment.min.js"></script>
+<script src="/assets/plugins/fullcalendar-3.3.0/fullcalendar.min.js"></script>
+<script src="/assets/plugins/fullcalendar-3.3.0/locale/zh-cn.js"></script>
+<script src="/assets/plugins/select2/select2.min.js"></script>
+<script src="/assets/plugins/jquery.cropit.js"></script>
+<script src="/assets/plugins/materialize/js/materialize.js"></script>
+<script src="/assets/plugins/jQueryViewer/js/viewer.min.js"></script>
+<script src="/assets/plugins/avatar/avatar.min.js"></script>
+<script src="/assets/plugins/alert/sweetalert2.min.js"></script>
+<script src="/lib/angular/angular.min.js"></script>
+<script src="/assets/plugins/angular/angular-materialize.js"></script>
+<script src="/lib/highcharts.js"></script>
+<script src="/lib/parse.min.js"></script>
+<script src="/assets/custom.js"></script>
+<script src="/assets/plugins/qrcode.js"></script>
+<script src="/lib/angular/angular-ui-router.min.js"></script>
+<script src="/lib/angular/angular-cookies.min.js"></script>
+<script src="/lib/angular/angular-messages.min.js"></script>
+<script src="/js/module/app_module.js"></script>
+<script src="/js/directive/public_directive.js"></script>
+<script src="/js/router/market_home_router.js"></script>
+<script src="/js/host/host_config.js"></script>
+<script src="/js/filter/filters.js"></script>
+<script src="/js/service/base_service.js"></script>
+<script src="/js/service/config_service.js"></script>
+<script src="/js/service/http_service.js"></script>
+<script src="/js/service/socket_service.js"></script>
+
+<script src="/js/controller/setting/data_dictionary_controller.js"></script>
+
+
+<!--公共数据-->
+<script src="/js/controller/car/car_query/car_query_controller.js"></script>
+<script src="/js/controller/car/car_query/car_query_details_controller.js"></script>
+<script src="/js/controller/dispatch/instruction_list_controller.js"></script>
+<script src="/js/controller/dispatch/look_instruction_list_details_controller.js"></script>
+<script src="/js/controller/truck/driver_information_controller.js"></script>
+<script src="/js/controller/truck/driver_information_details_controller.js"></script>
+<script src="/js/controller/setting/dealer_map_controller.js"></script>
+<script src="/js/controller/data/fuel_record_controller.js"></script>
+
+
+<script src="/js/controller/setting/setting_client/entrust_setting_controller.js"></script>
+<script src="/js/controller/setting/setting_client/entrust_setting_detail_controller.js"></script>
+<script src="/js/controller/setting/setting_settlement_outsourcing_controller.js"></script>
+<script src="/js/controller/setting/setting_settlement_outsourcing_detail_controller.js"></script>
+<script src="/js/controller/setting/setting_client/setting_client_controller.js"></script>
+<script src="/js/controller/setting/setting_client/setting_add_client_controller.js"></script>
+<script src="/js/controller/setting/setting_client/setting_client_details_controller.js"></script>
+</html>

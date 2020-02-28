@@ -11,7 +11,7 @@ app.controller("setting_settlement_outsourcing_controller", ["$scope", "$state",
     $scope.start1 = 0;
     $scope.size1 = 11;
     $scope.userDepartment = parseInt(_basic.getSession(_basic.USER_TYPE));
-    if($scope.userDepartment==79||$scope.userDepartment==71){
+    if($scope.userDepartment==79||$scope.userDepartment==71||userId=='1'){
         $scope.addFlag=true
     }
     else {

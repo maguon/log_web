@@ -13,7 +13,7 @@ app.controller("dispatch_order_controller", ["$scope", "$rootScope","$state","$s
     // 调度指令状态
     $scope.taskStatusList =_config.taskStatus;
     $scope.userDepartment = parseInt(_basic.getSession(_basic.USER_TYPE));
-    if($scope.userDepartment==39){
+    if($scope.userDepartment==39||userId=='1'){
         $scope.addFlag=true
     }
     else {

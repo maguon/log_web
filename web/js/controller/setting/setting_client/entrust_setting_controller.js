@@ -6,7 +6,7 @@ app.controller("entrust_setting_controller", ["$scope", "_basic", "_config", "$h
     $scope.size1 = 11;
     $scope.addFlag=false;
     $scope.userDepartment = parseInt(_basic.getSession(_basic.USER_TYPE));
-    if($scope.userDepartment==79||$scope.userDepartment==71){
+    if($scope.userDepartment==79||$scope.userDepartment==71||userId=='1'){
         $scope.addFlag=true
     }
     else {

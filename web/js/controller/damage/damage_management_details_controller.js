@@ -364,6 +364,7 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
                 if (data.success === true) {
                     $scope.paymentInfo = data.result[0];
                     $scope.bankAccount = data.result[0].bank_number;
+                    $scope.banNumberAccount = data.result[0].bank_id;
                     $scope.accountName = data.result[0].bank_user_name;
                     $scope.openingBank = data.result[0].bank_name;
                     $scope.locatedCity = data.result[0].city_id;
@@ -503,6 +504,8 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
                 && $scope.distributor !==undefined
                 && $scope.paymentMoney!== ""
                 && $scope.paymentMoney!==undefined
+                && $scope.banNumberAccount!== ""
+                && $scope.banNumberAccount!==undefined
             ){
                 $scope.getCityList();
                 // 新增操作
@@ -510,6 +513,7 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
                     damageId: damageId,
                     damageCheckId: damageCheckId,
                     bankNumber: $scope.bankAccount,
+                    bankId:$scope.banNumberAccount,
                     bankUserName: $scope.accountName,
                     bankName: $scope.openingBank,
                     cityId: $scope.locatedCity,
@@ -563,12 +567,15 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
                 && $scope.distributor !==undefined
                 && $scope.paymentMoney!== ""
                 && $scope.paymentMoney!==undefined
+                && $scope.banNumberAccount!== ""
+                && $scope.banNumberAccount!==undefined
             ){
                 // 修改操作
                 _basic.put($host.api_url + "/user/" + userId + "/damageCheckIndemnity/" + indemnityId,{
                     damageId: damageId,
                     damageCheckId: damageCheckId,
                     bankNumber: $scope.bankAccount,
+                    bankId:$scope.banNumberAccount,
                     bankUserName: $scope.accountName,
                     bankName: $scope.openingBank,
                     cityId: $scope.locatedCity,

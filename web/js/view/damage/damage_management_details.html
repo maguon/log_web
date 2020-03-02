@@ -239,25 +239,28 @@
                                 <div class="col s3">
                                     <p>户名：{{accountName}}</p>
                                 </div>
-                                <div class="col s3">
+                                <div class="col s2">
                                     <p>开户行：{{openingBank}}</p>
                                 </div>
-                                <div class="col s2">
-                                    <p>所在城市：{{paymentInfo.city_name}}</p>
+                                <div class="col s3">
+                                    <p>开户行号：{{banNumberAccount}}</p>
                                 </div>
                             </div>
                             <div class="col s12" style="padding: 0;">
-                                <div class="col s4">
+                                <div class="col s2">
+                                    <p>所在城市：{{paymentInfo.city_name}}</p>
+                                </div>
+                                <div class="col s2">
                                     <p>联系人：{{contactsName}}</p>
 
                                 </div>
                                 <div class="col s3">
                                     <p>联系电话：{{contactsTel}}</p>
                                 </div>
-                                <div class="col s3">
+                                <div class="col s2">
                                     <p>经销商：{{paymentInfo.receive_name}}</p>
                                 </div>
-                                <div class="col s2">
+                                <div class="col s3">
                                     <p>赔款金额：<span style="color: #e77a7a;font-weight: bold">{{paymentMoney.toFixed(2)}}</span></p>
 
                                 </div>
@@ -513,18 +516,22 @@
                                        <label for="opening_bank"><span style="color: red">* </span>开户行</label>
                                    </div>
                                    <div class="col s3 input-field">
-                                       <select id="located_city" name="located_city" style="width:100%" ng-model="locatedCity">
-                                           <option value=""><span style="color: red">* </span></option>
-                                           <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
-                                       </select>
+                                       <input type="text" id="banNumberAccount" ng-model="banNumberAccount" ng-pattern="/^[0-9]*$/" />
+                                       <label for="banNumberAccount"><span style="color: red">* </span>开户行号</label>
                                    </div>
                                </div>
                                 <div class="col s12">
-                                    <div class="col s3 input-field">
+                                    <div class="col s2 input-field">
+                                        <select id="located_city" name="located_city" style="width:100%" ng-model="locatedCity">
+                                            <option value=""><span style="color: red">* </span></option>
+                                            <option ng-repeat="city in cityList" ng-value="city.id">{{city.city_name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col s2 input-field">
                                         <input type="text" id="contactsName" name="contactsName" ng-model="contactsName">
                                         <label for="contactsName">联系人</label>
                                     </div>
-                                    <div class="col s3 input-field">
+                                    <div class="col s2 input-field">
                                         <input type="text" id="contactsTel" name="contactsTel" ng-model="contactsTel">
                                         <label for="contactsTel">联系电话</label>
                                     </div>

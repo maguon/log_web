@@ -46,7 +46,7 @@ app.controller("setting_shipments_controller", ["$scope", "_basic", "_config", "
     // 搜索经销商
     $scope.search_dealer = function () {
         var obj = {
-            receiveId: $scope.s_dealer,
+            baseAddrId: $scope.s_dealer,
             cityId: $scope.city
         };
 

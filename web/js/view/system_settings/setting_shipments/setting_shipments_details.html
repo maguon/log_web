@@ -23,10 +23,11 @@
                     </div>
                     <div class="row">
                         <div class="col s12 input-field">
-                            <select id="start_city" name="state" style="width:100%">
+                            <select id="start_city" name="state" style="width:100%"  ng-model="locatedCity">
                                 <option value=""></option>
                                 <option ng-repeat="el in setting_city" ng-value="el.id" ng-show="el.city_status==1">{{el.city_name}}</option>
                             </select>
+
                         </div>
                     </div>
                     <div class="row" style="position: relative;">

@@ -20,16 +20,18 @@ app.controller("setting_shipments_details_controller", ["$scope", "_basic", "_co
     $scope.getAddrData = function () {
         _basic.get($host.api_url + "/baseAddr?baseAddrId=" + $stateParams.shipments_id).then(function (data) {
             if (data.success === true) {
-                // console.log("data", data);
                 $scope.shipments_details = data.result[0];
                 $scope.input_address = $scope.shipments_details.address;
                 $scope.lng = data.result[0].lng;
                 $scope.lat = data.result[0].lat;
-                $('#start_city').val(data.result[0].city_id);
-                $("#select2-start_city-container").html($("#start_city").find("option:selected").text());
+                $scope.locatedCity = data.result[0].city_id;
+                $scope.getCityList();
+               /* $('#start_city').val(data.result[0].city_id);
+                $("#select2-start_city-container").html($("#start_city").find("option:selected").text());*/
                 $scope.showMarkerPosition($scope.lng, $scope.lat)
             }
             else {
+                $scope.getCityList();
                 swal(data.msg, "", "error");
             }
         });
@@ -103,7 +105,7 @@ app.controller("setting_shipments_details_controller", ["$scope", "_basic", "_co
             var obj = {
                 addrName: $scope.shipments_details.addr_name,
                 address: $("#amapAddress").val(),
-                cityId: $scope.shipments_details.city_id,
+                cityId: $scope.locatedCity,
                 lng: $scope.lng,
                 lat: $scope.lat,
                 remark: $scope.shipments_details.remark
@@ -122,7 +124,6 @@ app.controller("setting_shipments_details_controller", ["$scope", "_basic", "_co
 
     // 获取数据
     $scope.queryData = function () {
-        $scope.getCityList();
         $scope.getAddrData();
     };
     $scope.queryData()

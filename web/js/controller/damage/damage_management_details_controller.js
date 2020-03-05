@@ -13,7 +13,8 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
     $scope.paymentFlag = "1";
     $scope.financeIndemnityStatus = 1; // 财务打款状态
     $scope.cityList = [];
-
+    $scope.paymentRemark='';
+    $scope.damageInfoBefore={};
     // 返回
     $scope.return = function () {
         $state.go($stateParams.from,{from:"damage_management_details"}, {reload: true})
@@ -491,6 +492,7 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
 
     // 保存打款信息
     $scope.savePaymentInfoModify = function (finishFlag) {
+
         var paymentRemark =$scope.paymentRemark.replace(/，|,/g, ' ');
 
         // 根据借款状态判断是新增操作还是修改操作

@@ -523,6 +523,8 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
         })
 
 
+
+
         // 用户信息
         .state("user_info",{
             url:"/user_info",
@@ -932,6 +934,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             params: {"from": null},
             templateUrl: "js/view/finance/cash_loan.html",
             controller:'cash_loan_controller'
+        })
+        .state("driver_incidental",{
+            url:"/driver_incidental",
+            params: {"from": null},
+            templateUrl: "js/view/finance/driver_incidental.html",
+            controller:'driver_incidental_controller'
         })
 
 

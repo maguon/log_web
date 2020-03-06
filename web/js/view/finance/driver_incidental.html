@@ -177,7 +177,7 @@
                 <div class="col s12">
                     <div class="col s12 tableBox" ng-show="tableBox">
                         <div class="col s12">
-                            <div class="col s4 push-s4 fz30 cyan-text center-align" style="margin-top: 30px;padding-bottom:20px;border-bottom: 1px solid #ccc">数据导入须知</div>
+                            <div class="col s4 push-s4 fz30 cyan-text center-align" style="padding-bottom:20px;border-bottom: 1px solid #ccc">数据导入须知</div>
                         </div>
                         <div class="col s9 push-s3 red-text fz20 mp-20">
                             <i class="mdi  mdi-checkbox-multiple-blank-circle  cyan-text" ></i>
@@ -195,6 +195,70 @@
                             <i class="mdi  mdi-checkbox-multiple-blank-circle  cyan-text" ></i>
                             如果系统内未查询到司机信息，将上传失败;
                         </div>
+                        <div class="col s8 push-s2 mp-40 fz15">个人借款,社保费,伙食费导入说明 </div>
+                        <div class="col s8 push-s2 mp-20">
+                            <div class="divider cyan" style="height: 2px;"></div>
+                            <table class=" bordered striped text_mid">
+                                <thead class="blue-grey lighten-5">
+                                <tr class="grey-text text-darken-2">
+                                    <th data-field="">司机姓名</th>
+                                    <th data-field="">电话</th>
+                                    <th data-field="">月份</th>
+                                    <th data-field="">个人借款</th>
+                                    <th data-field="">社保费</th>
+                                    <th data-field="">伙食费</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="grey-text text-darken-1">
+                                    <td>王永泉</td>
+                                    <td>15002420806</td>
+                                    <td>202001</td>
+                                    <td>100</td>
+                                    <td>200</td>
+                                    <td>300</td>
+                                </tr>
+                                <tr class="grey-text text-darken-1">
+                                    <td>司机姓名</td>
+                                    <td>手机号码</td>
+                                    <td>导入的月份格式年月</td>
+                                    <td>个人借款默认为0</td>
+                                    <td>社保费默认为0</td>
+                                    <td>伙食费默认为0</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="col s8 push-s2 mp-40 fz15">其他扣款导入说明 </div>
+                        <div class="col s8 push-s2 mp-20">
+                            <div class="divider cyan" style="height: 2px;"></div>
+                            <table class=" bordered striped text_mid">
+                                <thead class="blue-grey lighten-5">
+                                <tr class="grey-text text-darken-2">
+                                    <th data-field="">司机姓名</th>
+                                    <th data-field="">电话</th>
+                                    <th data-field="">月份</th>
+                                    <th data-field="">其他扣款</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="grey-text text-darken-1">
+                                    <td>王永泉</td>
+                                    <td>15002420806</td>
+                                    <td>202001</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr class="grey-text text-darken-1">
+                                    <td>司机姓名</td>
+                                    <td>手机号码</td>
+                                    <td>导入的月份格式年月</td>
+                                    <td>其他扣款默认为0</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
 
                     </div>
                 </div>
@@ -292,20 +356,6 @@
                                     <option ng-repeat="driver in driveNameList" value={{driver.id}}>{{driver.drive_name}}</option>
                                 </select>
                             </div>
-
-<!--
-
-                            <div class="input-field col s3">
-                                <input type="text" id="creat_start_time" name="creat_start_time" ng-model="creatStartTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
-                                <label for="creat_start_time">导入时间(始)</label>
-                            </div>
-                            <div class="input-field col s3">
-                                <input type="text" id="creat_end_time" name="creat_end_time" ng-model="creatEndTime" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
-                                <label for="creat_end_time">导入时间(终)</label>
-                            </div>
-
--->
-
 
                         </div>
 

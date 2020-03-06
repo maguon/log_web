@@ -469,7 +469,7 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
                 refundUserName: $("#reimbursement_person").find("option:selected").text().split(" ")[0],
                 reductionCost: $scope.damageInfoBefore.reduction_cost,
                 penaltyCost: $scope.damageInfoBefore.penalty_cost,
-                profit: $scope.damageInfoBefore.profit,
+                profit: 0,
                 repairId: repairId,
                 repairCost: $scope.damageInfoBefore.repair_cost,
                 transportCost: $scope.damageInfoBefore.transport_cost,

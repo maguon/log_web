@@ -318,7 +318,7 @@
                     </div>
 
                     <div class="row col s12">
-                        <div class="col s3 valign-wrapper">
+                        <div class="col s4 valign-wrapper">
                             <div class="col s11 input-field" style="padding: 0">
                                 <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="price_reduction" type="number" ng-model="damageInfoBefore.reduction_cost">
                                 <label style="font-weight: bold" for="price_reduction">降价费</label>
@@ -327,7 +327,7 @@
                                 <p>元</p>
                             </div>
                         </div>
-                        <div class="col s3 valign-wrapper">
+                        <div class="col s4 valign-wrapper">
                             <div class="col s11 input-field" style="padding: 0">
                                 <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="fine" type="number" ng-model="damageInfoBefore.penalty_cost">
                                 <label style="font-weight: bold" for="fine">罚款</label>
@@ -336,7 +336,7 @@
                                 <p>元</p>
                             </div>
                         </div>
-                        <div class="col s3 valign-wrapper">
+                      <!--  <div class="col s3 valign-wrapper">
                             <div class="col s11 input-field" style="padding: 0">
                                 <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="profit_and_loss" type="number" ng-model="damageInfoBefore.profit">
                                 <label style="font-weight: bold" for="profit_and_loss">盈亏</label>
@@ -344,8 +344,8 @@
                             <div class="col s1 left-align" style="padding: 0">
                                 <p>元</p>
                             </div>
-                        </div>
-                        <div class="col s3 valign-wrapper">
+                        </div>-->
+                        <div class="col s4 valign-wrapper">
                             <div class="col s11 input-field" style="padding: 0">
                                 <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="freight" type="number" ng-model="damageInfoBefore.transport_cost">
                                 <label style="font-weight: bold" for="freight">运费</label>
@@ -357,7 +357,7 @@
                     </div>
 
                     <div class="row col s12">
-                        <div class="col s6 valign-wrapper" style="padding: 0;">
+                        <div class="col s4 valign-wrapper" style="padding: 0;">
                             <div class="col s11 input-field">
                                 <select id="repair_station" ng-model="damageInfoBefore.repair_id" material-select watch>
                                     <option value="" selected>请选择</option>
@@ -367,7 +367,7 @@
                             </div>
                             <div class="col s1 left-align" style="padding: 0"></div>
                         </div>
-                        <div class="col s3 valign-wrapper">
+                        <div class="col s4 valign-wrapper">
                             <div class="col s11 input-field" style="padding: 0">
                                 <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="maintenance_cost" type="number" ng-model="damageInfoBefore.repair_cost">
                                 <label style="font-weight: bold" for="maintenance_cost">维修费</label>
@@ -376,7 +376,7 @@
                                 <p>元</p>
                             </div>
                         </div>
-                        <div class="col s3 input-field">
+                        <div class="col s4 input-field">
                             <select id="reimbursement_person" name="reimbursement_person" style="width:100%">
 
                             </select>
@@ -435,27 +435,27 @@
                         </div>
                     </div>
                     <div class="row col s12" style="color: darkgray;font-size: 1.1rem;font-weight: bold">
-                        <div class="col s3">
+                        <div class="col s4">
                             <p>降价费：<span style="color: #e18281">{{damageInfoBefore.reduction_cost.toFixed(2)}}</span> 元</p>
                         </div>
-                        <div class="col s3">
+                        <div class="col s4">
                             <p>罚款：<span style="color: #e18281">{{damageInfoBefore.penalty_cost.toFixed(2)}}</span> 元</p>
                         </div>
-                        <div class="col s3">
+                      <!--  <div class="col s3">
                             <p>盈亏：<span style="color: #e18281">{{damageInfoBefore.profit.toFixed(2)}}</span> 元</p>
-                        </div>
-                        <div class="col s3">
+                        </div>-->
+                        <div class="col s4">
                             <p>运费：<span style="color: #e18281">{{damageInfoBefore.transport_cost.toFixed(2)}}</span> 元</p>
                         </div>
                     </div>
                     <div class="row col s12" style="color: darkgray;font-size: 1.1rem;font-weight: bold">
-                        <div class="col s6">
+                        <div class="col s4">
                             <p>维修站：{{damageInfoBefore.repair_station_name}}</p>
                         </div>
-                        <div class="col s3">
+                        <div class="col s4">
                             <p>维修费：<span style="color: #e18281">{{damageInfoBefore.repair_cost.toFixed(2)}}</span> 元</p>
                         </div>
-                        <div class="col s3">
+                        <div class="col s4">
                             <p>报销人：{{damageInfoBefore.refund_user_name}}</p>
                         </div>
                     </div>

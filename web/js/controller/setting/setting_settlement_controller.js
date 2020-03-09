@@ -181,6 +181,45 @@ app.controller("setting_settlement_controller", ["_basic", "_config", "$host", "
         }
     }
 
+    //委托方导出
+    $scope.exportSettlement = function(){
+        if($scope.instruct_starTime==undefined||$scope.instruct_endTime==undefined){
+            swal('请输入完整的指令时间', "", "error");
+            $scope.settlementList=[];
+            $("#pre").hide();
+            $("#next").hide();
+        }
+        else {
+            var obj = {
+                entrustId: $scope.entrustId,
+                orderStart: $scope.instruct_starTime,
+                orderEnd: $scope.instruct_endTime,
+                makeId: $scope.car_brand,
+                routeStartId: $scope.startCity,
+                addrId: $scope.locateId,
+                routeEndId: $scope.endCity,
+                receiveId: $scope.receiveId,
+                vin:$scope.vin
+            };
+            swal({
+                title: "确定导出委托方估值统计？",
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消"
+            }).then(
+                function (result) {
+                    if (result.value) {
+                        window.open($host.api_url + "/entrustPrice.csv?" + _basic.objToUrl(obj));
+                    }
+                })
+
+        }
+    }
+
+
     // 数据导出
     $scope.export = function () {
         if($scope.instruct_starTime==undefined||$scope.instruct_endTime==undefined){

@@ -5,6 +5,8 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
     var damageCheckId;
     var indemnityStatus;
     var indemnityId = null;
+    var paymentRemark;
+    var damageInfoBeforeRemark;
     $scope.userList = _config.userTypes;
     $scope.damageTypeList = _config.damageType;
     $scope.damageLinkTypeList = _config.damageLinkType;
@@ -13,7 +15,6 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
     $scope.paymentFlag = "1";
     $scope.financeIndemnityStatus = 1; // 财务打款状态
     $scope.cityList = [];
-    $scope.paymentRemark='';
     $scope.damageInfoBefore={};
     // 返回
     $scope.return = function () {
@@ -449,8 +450,12 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
     // 保存基本信息
     $scope.saveHandleInfoModify = function (finishFlag) {
         var liablePersonText = $("#liable_person").find("option:selected").text().split(" ")[0];
-
-        var damageInfoBeforeRemark = $scope.damageInfoBefore.remark.replace(/，|,/g, ' ');
+        if($scope.damageInfoBefore.remark==null||$scope.damageInfoBefore.remark==undefined){
+            damageInfoBeforeRemark ='';
+        }
+        else {
+            damageInfoBeforeRemark = $scope.damageInfoBefore.remark.replace(/，|,/g, ' ');
+        }
         if(liablePersonText=='责任人'){
             liablePersonText = '';
         }
@@ -493,7 +498,13 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
     // 保存打款信息
     $scope.savePaymentInfoModify = function (finishFlag) {
 
-        var paymentRemark =$scope.paymentRemark.replace(/，|,/g, ' ');
+        if( $scope.paymentRemark==''|| $scope.paymentRemark==undefined){
+             paymentRemark ='';
+        }
+        else {
+             paymentRemark =$scope.paymentRemark.replace(/，|,/g, ' ');
+        }
+
 
         // 根据借款状态判断是新增操作还是修改操作
         if($scope.paymentFlag == 2 && indemnityId == null){

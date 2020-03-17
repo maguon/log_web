@@ -72,7 +72,8 @@ app.controller("driver_attendance_controller", ["$scope","$rootScope", "$state",
         {name: '电话', type: 'number', require: true},
         {name: '月份', type: 'number', require: true},
         {name: '出勤天数', type: 'number', require: true},
-        {name: '补助', type: 'number', require: true}];
+        {name: '出差补助', type: 'number', require: true},
+        {name: '满勤补助', type: 'number', require: true}];
     // 头部条件判断
     $scope.titleFilter = function (headerArray) {
         if (colObjs.length != headerArray.length) {
@@ -288,6 +289,7 @@ app.controller("driver_attendance_controller", ["$scope","$rootScope", "$state",
         $scope.truckNum='';
         $scope.addWorkCount='';
         $scope.addHotelFee ='';
+        $scope.addFullWorkFee ='';
         $scope.addRemark ='';
         getDriveNameList();
         // monthPicker控件
@@ -322,7 +324,7 @@ app.controller("driver_attendance_controller", ["$scope","$rootScope", "$state",
     };
 
     function addItem(){
-        if ($scope.addDrivderId!==''&&$scope.addStartMonth!==''&&$scope.addWorkCount!==''&&$scope.addHotelFee !=='') {
+        if ($scope.addDrivderId!==''&&$scope.addStartMonth!==''&&$scope.addWorkCount!==''&&$scope.addHotelFee !==''&& $scope.addFullWorkFee!=='') {
             var obj = {
                 "driveId": $scope.addDrivderId.id,
                 "driveName": $scope.addDrivderId.drive_name,
@@ -331,6 +333,7 @@ app.controller("driver_attendance_controller", ["$scope","$rootScope", "$state",
                 "mobile": $scope.addDrivderId.mobile,
                 "workCount": $scope.addWorkCount,
                 "hotelFee":$scope.addHotelFee,
+                "fullWorkFee": $scope.addFullWorkFee,
                 "yMonth": $scope.addStartMonth,
                 'remark':$scope.addRemark
             };
@@ -367,6 +370,7 @@ app.controller("driver_attendance_controller", ["$scope","$rootScope", "$state",
         _basic.put($host.api_url + "/user/" + userId + "/driveWork/" + $scope.driveSocialSecurityId, {
             workCount:$scope.socialSecurity.work_count,
             hotelFee:$scope.socialSecurity.hotel_fee,
+            fullWorkFee:$scope.socialSecurity.full_work_fee,
             remark:$scope.socialSecurity.remark
         }).then(function (data) {
             if (data.success == true) {

@@ -5,30 +5,35 @@
         <div class="row col s12">
             <div class="row">
                 <!--司机  货车牌号 电话 出勤 月份-->
-                <div class="col  input-field" style="width: 20%">
+                <div class="col s2 input-field">
                     <input id="add_start_month" type="text" ng-model="addStartMonth" />
                     <label for="add_start_month">月份</label>
                 </div>
-                <div class="col  input-field" style="width: 20%">
+                <div class="col s2  input-field">
                     <select material-select watch ng-model="addDrivderId" id="addDrivderId"  ng-change="changeDriver(addDrivderId.id)" style="width: 100%" >
                         <option value="" selected>请选择</option>
                         <option ng-repeat="addDrivder in driveNameList" ng-value=addDrivder>{{addDrivder.drive_name}}&nbsp;&nbsp;({{addDrivder.mobile}})</option>
                     </select>
                 </div>
-                <div class="col  input-field" style="width: 20%">
+                <div class="col s2 input-field" >
                     <select ng-model="truckNum" id="truckNum"  style="width: 100%">
                         <option value="" selected>请选择</option>
                         <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
                     </select>
                 </div>
-                <div class="col  input-field" style="width: 20%">
+                <div class="col s2  input-field" >
                     <input type="number" id="addWorkCount" name="addWorkCount" ng-model="addWorkCount">
                     <label for="addWorkCount">出勤天数</label>
                 </div>
-                <div class="col  input-field" style="width: 20%">
+                <div class="col s2 input-field">
                     <input type="number" id="addHotelFee" name="addHotelFee" ng-model="addHotelFee">
-                    <label for="addHotelFee">补助</label>
+                    <label for="addHotelFee">出差补助</label>
                 </div>
+                <div class="col s2 input-field">
+                    <input type="number" id="addFullWorkFee" name="addFullWorkFee" ng-model="addFullWorkFee">
+                    <label for="addFullWorkFee">满勤补助</label>
+                </div>
+
                 <div class="col s12  input-field" >
                     <input type="text" id="addRemark" name="addRemark" ng-model="addRemark">
                     <label for="addRemark">备注</label>
@@ -59,25 +64,29 @@
         <div class="row col s12">
             <div class="row">
                 <!--司机  货车牌号 电话 出勤 月份-->
-                <div class="input-field col" style="width: 20%">
+                <div class="input-field col s2">
                     <input id="put_start_month" type="text" ng-model="socialSecurity.y_month" disabled/>
                     <label for="put_start_month">月份</label>
                 </div>
-                <div class="input-field col" style="width: 20%">
+                <div class="input-field col s2">
                     <input id="putDrivderId" type="text" ng-model="socialSecurity.total" disabled/>
                     <label for="putDrivderId">司机</label>
                 </div>
-                <div class="input-field col" style="width: 20%">
+                <div class="input-field col s2">
                     <input id="putTruckNum" type="text" ng-model="socialSecurity.truck_num" disabled/>
                     <label for="putTruckNum">货车牌号</label>
                 </div>
-                <div class="input-field col" style="width: 20%">
+                <div class="input-field col s2">
                     <input type="number" id="putWorkCount" name="putWorkCount" ng-model="socialSecurity.work_count">
                     <label for="putWorkCount">出勤天数</label>
                 </div>
-                <div class="input-field col" style="width: 20%">
+                <div class="input-field col s2">
                     <input type="number" id="putHotelFee" name="putHotelFee" ng-model="socialSecurity.hotel_fee">
-                    <label for="putHotelFee">补助</label>
+                    <label for="putHotelFee">出差补助</label>
+                </div>
+                <div class="input-field col s2">
+                    <input type="number" id="putFullWorkFee" name="putFullWorkFee" ng-model="socialSecurity.full_work_fee">
+                    <label for="putFullWorkFee">满勤补助</label>
                 </div>
 
                 <div class="input-field col s12">
@@ -148,13 +157,75 @@
 
                 </form>
             </div>
+            <!--大图-->
             <div class="row">
                 <div class="col s12">
                     <div class="col s12 tableBox" ng-show="tableBox">
-                        <img style="width: 100%" src="/assets/images/import_social.png" />
+                        <div class="col s12">
+                            <div class="col s4 push-s4 fz30 cyan-text center-align" style="padding-bottom:20px;border-bottom: 1px solid #ccc">数据导入须知</div>
+                        </div>
+                        <div class="col s9 push-s3 red-text fz20 mp-20">
+                            <i class="mdi  mdi-checkbox-multiple-blank-circle  cyan-text" ></i>
+                            上传得数据表格必须为csv格式的文件,不支持excel格式的表格文件上传;
+                        </div>
+                        <div class="col s9 push-s3 red-text fz20 mp-20">
+                            <i class="mdi  mdi-checkbox-multiple-blank-circle  cyan-text" ></i>
+                            上传得数据表格,必须遵守模板的数据表头顺序，若顺序错误将无法上传;
+                        </div>
+                        <div class="col s9 push-s3 red-text fz20 mp-20">
+                            <i class="mdi  mdi-checkbox-multiple-blank-circle  cyan-text" ></i>
+                            导入数据中各字段均为必填项，如果未发生数据，则以数字"0"代替;
+                        </div>
+                        <div class="col s9 push-s3 red-text fz20 mp-20">
+                            <i class="mdi  mdi-checkbox-multiple-blank-circle  cyan-text" ></i>
+                            如果系统内存在相同的记录，将上传失败;
+                        </div>
+
+                        <div class="col s10 push-s1 mp-40">
+                            <div class="divider cyan" style="height: 2px;"></div>
+                            <table class=" bordered striped text_mid">
+                                <thead class="blue-grey lighten-5">
+                                <tr class="grey-text text-darken-2">
+                                    <th data-field="">司机姓名</th>
+                                    <th data-field="">货车牌号</th>
+                                    <th data-field="">电话</th>
+                                    <th data-field="">月份</th>
+                                    <th data-field="">出勤天数</th>
+                                    <th data-field="">出差补助</th>
+                                    <th data-field="">满勤补助</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="grey-text text-darken-1">
+                                    <td>王永泉</td>
+                                    <td>辽B12345</td>
+                                    <td>15002420806</td>
+                                    <td>202001</td>
+                                    <td>28</td>
+                                    <td>100</td>
+                                    <td>200</td>
+                                </tr>
+                                <tr class="grey-text text-darken-1">
+                                    <td>姓名需与车管录入的信息一致</td>
+                                    <td>货车牌号需与车管录入的信息一致</td>
+                                    <td>司机登陆的车驿通的手机号</td>
+                                    <td>司机出勤月份</td>
+                                    <td>司机出勤天数</td>
+                                    <td>出差补助默认为0</td>
+                                    <td>满勤补助默认为0</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+
+
                     </div>
                 </div>
             </div>
+
+
             <div class="row dataBox " style="overflow: auto;" ng-show="dataBox">
                 <div class="col s12">
                     <h6 class="red lighten-2 white-text vc-center" style="padding: 20px">错误数据<span>{{errorNumber}}</span>条，请修改后重新上传</h6>
@@ -263,7 +334,8 @@
                             <th data-field="">电话</th>
                             <th data-field="">月份</th>
                             <th data-field="">出勤天数</th>
-                            <th data-field="">补助</th>
+                            <th data-field="">出差补助</th>
+                            <th data-field="">满勤补助</th>
                             <th data-field=""></th>
                         </tr>
                         </thead>
@@ -276,6 +348,7 @@
                             <td>{{fileInfo.y_month}}</td>
                             <td class="red-text" >{{fileInfo.work_count}}</td>
                             <td class="red-text" >{{fileInfo.hotel_fee}}</td>
+                            <td class="red-text" >{{fileInfo.full_work_fee}}</td>
                             <td class="operation">
                                 <a ng-click="putSecurity(fileInfo.id)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
                                     <i class="mdi mdi-file-document" style="margin: 0"></i>
@@ -283,7 +356,7 @@
                             </td>
                         </tr>
                         <tr ng-if="securityList.length==0">
-                            <td colspan="8">暂无数据</td>
+                            <td colspan="9">暂无数据</td>
                         </tr>
                         </tbody>
                     </table>

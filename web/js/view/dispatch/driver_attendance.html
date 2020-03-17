@@ -3,7 +3,7 @@
     <div class="cyan lighten-1 white-text center-align modal_title" >新增出勤</div>
     <div class="modal-content" style="padding-bottom: 0px">
         <div class="row col s12">
-            <div class="row">
+            <div class="col s12">
                 <!--司机  货车牌号 电话 出勤 月份-->
                 <div class="col s4 input-field">
                     <input id="add_start_month" type="text" ng-model="addStartMonth" />
@@ -21,6 +21,8 @@
                         <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
                     </select>
                 </div>
+            </div>
+            <div class="col s12">
                 <div class="col s3  input-field" >
                     <input type="number" id="addWorkCount" name="addWorkCount" ng-model="addWorkCount">
                     <label for="addWorkCount">出勤天数</label>
@@ -43,6 +45,8 @@
                     <label for="addRemark">备注</label>
                 </div>
             </div>
+
+
             <div class="modal-footer center-align">
                 <div class="col s12">
                     <div class="col s2 offset-s4">

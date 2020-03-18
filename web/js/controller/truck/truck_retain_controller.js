@@ -126,7 +126,7 @@ app.controller("truck_retain_controller", ["$scope","$rootScope", "$state", "$st
         else {
             swal("月份必填！", "", "warning")
         }
-        if ($scope.addDrivderId!==''&&$scope.addStartMonth!==''&&$scope.addTruckRetainFee!=='') {
+        if ($scope.addDrivderId!==null&&$scope.addDrivderId!==''&&$scope.addStartMonth!==''&&$scope.addTruckRetainFee!=='') {
             var obj = {
                 "yearMonth":  $scope.addStartMonth,
                 "driveId": $scope.addDrivderId.id,

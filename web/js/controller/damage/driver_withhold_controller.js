@@ -126,7 +126,7 @@ app.controller("driver_withhold_controller", ["$scope","$rootScope", "$state", "
         else {
             swal("月份必填！", "", "warning")
         }
-        if ($scope.addDrivderId!==''&&$scope.addStartMonth!==''&&$scope.addDamageFee!==''&&$scope.addDamageSocityFee !=='') {
+        if ($scope.addDrivderId!==null&&$scope.addDrivderId!==''&&$scope.addStartMonth!==''&&$scope.addDamageFee!==''&&$scope.addDamageSocityFee !=='') {
             var obj = {
                 "yearMonth":  $scope.addStartMonth,
                 "driveId": $scope.addDrivderId.id,

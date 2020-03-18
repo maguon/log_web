@@ -93,6 +93,13 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/truck/add_damage_insurance_details.html",
             controller:'add_damage_insurance_details_controller'
         })
+        .state("driver_withhold",{
+            url:"/driver_withhold",
+            params: {"from": null},
+            templateUrl: "js/view/damage/driver_withhold.html",
+            controller:'driver_withhold_controller'
+        })
+
         // 管理员设置
         .state("setting_users", {
             url: "/setting_users",

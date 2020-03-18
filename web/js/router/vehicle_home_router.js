@@ -279,6 +279,13 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/storage/add_storage_car_put_in.html",
             controller:'add_storage_car_put_in_controller'
         })
+        .state("truck_retain",{
+            url:"/truck_retain",
+            params: {"from": null},
+            templateUrl: "js/view/truck/truck_retain.html",
+            controller:'truck_retain_controller'
+        })
+
 
         // 数据统计
         .state("insurance_statistics", {

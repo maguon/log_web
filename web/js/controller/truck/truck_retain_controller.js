@@ -1,8 +1,9 @@
 
+
 /*
-* 质损管理--司机暂扣款
+* 车辆管理--交车暂扣款
 * */
-app.controller("driver_withhold_controller", ["$scope","$rootScope", "$state", "$stateParams", "_basic", "_config", "$host", function ($scope,$rootScope, $state, $stateParams, _basic, _config, $host) {
+app.controller("truck_retain_controller", ["$scope","$rootScope", "$state", "$stateParams", "_basic", "_config", "$host", function ($scope,$rootScope, $state, $stateParams, _basic, _config, $host) {
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.size = 11;
     $scope.start = 0;
@@ -74,7 +75,7 @@ app.controller("driver_withhold_controller", ["$scope","$rootScope", "$state", "
         var conditions = _basic.objToUrl({
             driveId:$scope.driveName,
             yearMonth:$scope.startMonth,
-            type:1
+            type:2
         });
         // 检索URL
         url = conditions.length > 0 ? url + "&" + conditions : url;
@@ -110,8 +111,7 @@ app.controller("driver_withhold_controller", ["$scope","$rootScope", "$state", "
     $scope.addItem = function () {
         $scope.addDrivderId = null;
         $scope.driveNameList=[];
-        $scope.addDamageFee=0;
-        $scope.addDamageSocityFee =0;
+        $scope.addTruckRetainFee=0;
         $scope.addRemark ="";
         getDriveNameList();
         $("#new_driver_withhold").modal("open");
@@ -126,14 +126,14 @@ app.controller("driver_withhold_controller", ["$scope","$rootScope", "$state", "
         else {
             swal("月份必填！", "", "warning")
         }
-        if ($scope.addDrivderId!==''&&$scope.addStartMonth!==''&&$scope.addDamageFee!==''&&$scope.addDamageSocityFee !=='') {
+        if ($scope.addDrivderId!==''&&$scope.addStartMonth!==''&&$scope.addTruckRetainFee!=='') {
             var obj = {
                 "yearMonth":  $scope.addStartMonth,
                 "driveId": $scope.addDrivderId.id,
-                "damageRetainFee":  $scope.addDamageFee,
-                "damageOpFee":$scope.addDamageSocityFee,
-                "truckRetainFee": 0,
-                "type": 1,
+                "truckRetainFee":$scope.addTruckRetainFee,
+                "damageRetainFee":  0,
+                "damageOpFee":0,
+                "type": 2,
                 "remark":$scope.addRemark
 
             };
@@ -172,10 +172,10 @@ app.controller("driver_withhold_controller", ["$scope","$rootScope", "$state", "
         _basic.put($host.api_url + "/user/" + userId + "/driveSalaryRetain/" + $scope.driveSocialSecurityId, {
             "yearMonth":  $scope.socialSecurity.y_month,
             "driveId":$scope.socialSecurity.drive_id,
-            "damageRetainFee": $scope.socialSecurity.damage_retain_fee,
-            "damageOpFee":$scope.socialSecurity.damage_op_fee,
-            "truckRetainFee": 0,
-            "type": 1,
+            "truckRetainFee": $scope.socialSecurity.truck_retain_fee,
+            "damageRetainFee":  0,
+            "damageOpFee":0,
+            "type": 2,
             "remark": $scope.socialSecurity.remark
         }).then(function (data) {
             if (data.success == true) {

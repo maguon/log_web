@@ -816,6 +816,13 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/truck/insurance_compensation.html",
             controller:'insurance_compensation_controller'
         })
+        .state("truck_retain",{
+            url:"/truck_retain",
+            params: {"from": null},
+            templateUrl: "js/view/truck/truck_retain.html",
+            controller:'truck_retain_controller'
+        })
+
         .state("car_wash_fee",{
             url:"/car_wash_fee",
             params: {"from": null},

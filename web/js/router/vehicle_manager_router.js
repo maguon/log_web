@@ -76,6 +76,13 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/dispatch/instruction_car_refuel_details.html",
             controller:"instruction_car_refuel_details_controller"
         })
+        .state("truck_retain",{
+            url:"/truck_retain",
+            params: {"from": null},
+            templateUrl: "js/view/truck/truck_retain.html",
+            controller:'truck_retain_controller'
+        })
+
         // 质损
         .state("damage_declaration",{
             url:"/damage_declaration",

@@ -801,6 +801,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/damage/damage_import.html",
             controller:'damage_import_controller'
         })
+        .state("driver_withhold",{
+            url:"/driver_withhold",
+            params: {"from": null},
+            templateUrl: "js/view/damage/driver_withhold.html",
+            controller:'driver_withhold_controller'
+        })
 
 
 

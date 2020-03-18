@@ -523,7 +523,6 @@ app.controller("driver_incidental_controller", ["$scope","$rootScope", "$state",
         $scope.addSocialFee =0;
         $scope.addMealsFee =0;
         $scope.addOtherFee =0;
-       0
         getDriveNameList ();
         $('#addItem').modal('open');
     }

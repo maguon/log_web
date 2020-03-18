@@ -48,6 +48,10 @@ app.controller("driver_attendance_controller", ["$scope","$rootScope", "$state",
         Button: false,
         MonthFormat: 'yymm'
     });
+    $('#add_start_month').MonthPicker({
+        Button: false,
+        MonthFormat: 'yymm'
+    });
     //获取上个月年月
     function getLastMonth(){//获取上个月日期
         var date = new Date();
@@ -288,21 +292,12 @@ app.controller("driver_attendance_controller", ["$scope","$rootScope", "$state",
         $scope.driveNameList=[];
         $scope.truckNumListAllList=[];
         $scope.truckNum='';
-        $scope.addWorkCount='';
-        $scope.addHotelFee ='';
-        $scope.addFullWorkFee ='';
-        $scope.addOtherFee ='';
+        $scope.addWorkCount=0;
+        $scope.addHotelFee =0;
+        $scope.addFullWorkFee =0;
+        $scope.addOtherFee =0;
         $scope.addRemark ='';
         getDriveNameList();
-        // monthPicker控件
-        $('#add_start_month').MonthPicker({
-            Button: false,
-            MonthFormat: 'yymm'
-        });
-        getLastMonth();
-        $(".modal").modal({
-            height: 500
-        });
         $("#new_driver_social_security").modal("open");
     };
 
@@ -326,7 +321,13 @@ app.controller("driver_attendance_controller", ["$scope","$rootScope", "$state",
     };
 
     function addItem(){
-        if ($scope.addDrivderId!==''&&$scope.addStartMonth!==''&&$scope.addWorkCount!==''&&$scope.addHotelFee !==''&& $scope.addFullWorkFee!==''&& $scope.addOtherFee!=='') {
+        if($('#add_start_month').val()!==''){
+            $scope.addStartMonth = $('#add_start_month').val();
+        }
+        else {
+            swal("月份必填！", "", "warning")
+        }
+        if ($scope.addDrivderId!==''&&$scope.addWorkCount!==''&&$scope.addHotelFee !==''&& $scope.addFullWorkFee!==''&& $scope.addOtherFee!=='') {
             var obj = {
                 "driveId": $scope.addDrivderId.id,
                 "driveName": $scope.addDrivderId.drive_name,

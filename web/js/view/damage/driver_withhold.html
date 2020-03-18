@@ -1,0 +1,182 @@
+<!--增加模态框-->
+<div id="new_driver_withhold" class="modal">
+    <div class="cyan lighten-1 white-text center-align modal_title" >新增暂扣款</div>
+    <div class="modal-content" style="padding-bottom: 0px">
+        <div class="row col s12">
+            <div class="row">
+                <!--司机  月份 质损暂扣款 质安罚款	 备注-->
+                <div class="col s3 input-field">
+                    <input id="add_start_month" type="text" ng-model="addStartMonth" />
+                    <label for="add_start_month">月份</label>
+                </div>
+                <div class="col s3 input-field">
+                    <select material-select watch ng-model="addDrivderId" id="addDrivderId" style="width: 100%" >
+                        <option value="" selected>请选择</option>
+                        <option ng-repeat="addDrivder in driveNameList" ng-value=addDrivder>{{addDrivder.drive_name}}&nbsp;&nbsp;({{addDrivder.mobile}})</option>
+                    </select>
+                </div>
+
+                <div class="col s3 input-field">
+                    <input type="number" id="addDamageFee" name="addDamageFee" ng-model="addDamageFee">
+                    <label for="addDamageFee">质损暂扣款</label>
+                </div>
+                <div class="col s3 input-field">
+                    <input type="number" id="addDamageSocityFee" name="addDamageSocityFee" ng-model="addDamageSocityFee">
+                    <label for="addDamageSocityFee">质安罚款</label>
+                </div>
+
+                <div class="col s12  input-field" >
+                    <input type="text" id="addRemark" name="addRemark" ng-model="addRemark">
+                    <label for="addRemark">备注</label>
+                </div>
+            </div>
+            <div class="modal-footer center-align">
+                <div class="col s12">
+                    <div class="col s2 offset-s4">
+                        <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                            取消
+                        </a>
+                    </div>
+                    <div class="col s2">
+                        <a ng-click="addCarItem()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                            确定
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--修改模态框-->
+<div id="put_driver_withhold" class="modal">
+    <div class="cyan lighten-1 white-text center-align modal_title" >暂扣款信息</div>
+    <div class="modal-content">
+        <div class="row col s12">
+            <div class="row">
+                <!--司机  货车牌号 电话 出勤 月份-->
+                <div class="col s3 input-field">
+                    <input id="put_start_month" type="text" ng-model="socialSecurity.y_month" disabled/>
+                    <label for="put_start_month">月份</label>
+                </div>
+                <div class="col s3 input-field">
+                    <input id="putDrivderId" type="text" ng-model="socialSecurity.total" disabled/>
+                    <label for="putDrivderId">司机</label>
+                </div>
+
+                <div class="col s3 input-field">
+                    <input type="number" id="putWorkCount" name="putWorkCount" ng-model="socialSecurity.damage_retain_fee">
+                    <label for="putWorkCount">质损暂扣款</label>
+                </div>
+                <div class="col s3 input-field">
+                    <input type="number" id="putHotelFee" name="putHotelFee" ng-model="socialSecurity.damage_op_fee">
+                    <label for="putHotelFee">质安罚款</label>
+                </div>
+
+                <div class="input-field col s12">
+                    <input type="text" id="putRemark" name="putRemark" ng-model="socialSecurity.remark">
+                    <label for="putRemark">备注</label>
+                </div>
+
+            </div>
+            <div class="modal-footer center-align">
+                <div class="col s12">
+                    <div class="col s2 offset-s4">
+                        <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                            取消
+                        </a>
+                    </div>
+                    <div class="col s2">
+                        <a ng-click="putCarItem()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                            确定
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row tab_box">
+    <div class="col s10" style="margin-bottom: 20px;">
+        <!--司机-->
+        <div class="col s12" style="height: 70px">
+            <div class="col s6 input-field">
+                <input id="start_month" type="text" ng-value="startMonth">
+                <label class="active" for="start_month">月份</label>
+            </div>
+            <div class="col s6 input-field">
+                <select material-select watch ng-model="driveName" id="driveName" style="width: 100%" >
+                    <option value="" selected>请选择</option>
+                    <option ng-repeat="addDrivder in driveNameList" ng-value='addDrivder.id'>{{addDrivder.drive_name}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!--查询-->
+    <div class="col s1  flex flex-round" style="margin-top: 5px;">
+        <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
+           style="margin-right: 10px" ng-click="searchList()">
+            <i class="mdi mdi-magnify"></i>
+        </a>
+    </div>
+    <div class="col s1   flex flex-round"  style="margin-top: 5px;">
+        <a class="btn-floating btn-large waves-light waves-effect btn vc-center cyan"  ng-click="addItem()">
+            <i class="mdi mdi-plus"></i>
+        </a>
+    </div>
+
+    <!--查询列表页-->
+    <div class="row tableBox">
+        <div class="col s12">
+            <div class="divider cyan" style="height: 2px;"></div>
+            <table class=" bordered striped text_mid">
+                <thead class="blue-grey lighten-5">
+                <tr class="grey-text text-darken-2">
+                    <th data-field="">月份</th>
+                    <th data-field="">当前所属公司</th>
+                    <th data-field="">司机</th>
+                    <th data-field="">手机号</th>
+                    <th data-field="">质损暂扣款</th>
+                    <th data-field="">质安罚款</th>
+                    <th data-field="">备注</th>
+                    <th data-field="">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="fileInfo in securityList" class="grey-text text-darken-1">
+                    <td>{{fileInfo.y_month}}</td>
+                    <td>{{fileInfo.company_name}}</td>
+                    <td>{{fileInfo.drive_name}}</td>
+                    <td>{{fileInfo.tel}}</td>
+                    <td class="red-text" >{{fileInfo.damage_retain_fee}}</td>
+                    <td class="red-text" >{{fileInfo.damage_op_fee}}</td>
+                    <td class="unnecessary" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis">{{fileInfo.remark}}</td>
+                    <td class="operation">
+                        <a ng-click="putItem(fileInfo.id)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
+                            <i class="mdi mdi-file-document" style="margin: 0"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr ng-if="securityList.length==0">
+                    <td colspan="8">暂无数据</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!--分页-->
+    <div class="row tableBox">
+        <div class="col s12" style="height: 45px">
+            <div class="right">
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="previous_page()">
+                    上一页
+                </a>
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_page()">
+                    下一页
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

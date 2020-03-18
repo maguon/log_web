@@ -89,15 +89,15 @@
                     <label for="putWorkCount">出勤天数</label>
                 </div>
                 <div class="input-field col s3">
-                    <input type="number" id="putHotelFee" name="putHotelFee" ng-model="socialSecurity.hotel_fee">
+                    <input type="number" id="putHotelFee" name="putHotelFee" ng-model="socialSecurity.hotel_bonus">
                     <label for="putHotelFee">出差补助</label>
                 </div>
                 <div class="input-field col s3">
-                    <input type="number" id="putFullWorkFee" name="putFullWorkFee" ng-model="socialSecurity.full_work_fee">
+                    <input type="number" id="putFullWorkFee" name="putFullWorkFee" ng-model="socialSecurity.full_work_bonus">
                     <label for="putFullWorkFee">满勤补助</label>
                 </div>
                 <div class="input-field col s3">
-                    <input type="number" id="putOtherFee" name="putOtherFee" ng-model="socialSecurity.other_fee">
+                    <input type="number" id="putOtherFee" name="putOtherFee" ng-model="socialSecurity.other_bonus">
                     <label for="putOtherFee">其他补助</label>
                 </div>
 
@@ -363,9 +363,9 @@
                             <td>{{fileInfo.mobile}}</td>
                             <td>{{fileInfo.y_month}}</td>
                             <td class="red-text" >{{fileInfo.work_count}}</td>
-                            <td class="red-text" >{{fileInfo.hotel_fee}}</td>
-                            <td class="red-text" >{{fileInfo.full_work_fee}}</td>
-                            <td class="red-text" >{{fileInfo.other_fee}}</td>
+                            <td class="red-text" >{{fileInfo.hotel_bonus}}</td>
+                            <td class="red-text" >{{fileInfo.full_work_bonus}}</td>
+                            <td class="red-text" >{{fileInfo.other_bonus}}</td>
                             <td class="operation">
                                 <a ng-click="putSecurity(fileInfo.id)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
                                     <i class="mdi mdi-file-document" style="margin: 0"></i>

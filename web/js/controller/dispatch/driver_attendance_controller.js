@@ -335,9 +335,9 @@ app.controller("driver_attendance_controller", ["$scope","$rootScope", "$state",
                 "truckNum": $scope.truckNumberName,
                 "mobile": $scope.addDrivderId.mobile,
                 "workCount": $scope.addWorkCount,
-                "hotelFee":$scope.addHotelFee,
-                "fullWorkFee": $scope.addFullWorkFee,
-                "otherFee":$scope.addOtherFee,
+                "hotelBonus":$scope.addHotelFee,
+                "fullWorkBonus": $scope.addFullWorkFee,
+                "otherBonus":$scope.addOtherFee,
                 "yMonth": $scope.addStartMonth,
                 'remark':$scope.addRemark
             };
@@ -373,9 +373,9 @@ app.controller("driver_attendance_controller", ["$scope","$rootScope", "$state",
     $scope.putCarItem =function (){
         _basic.put($host.api_url + "/user/" + userId + "/driveWork/" + $scope.driveSocialSecurityId, {
             workCount:$scope.socialSecurity.work_count,
-            hotelFee:$scope.socialSecurity.hotel_fee,
-            fullWorkFee:$scope.socialSecurity.full_work_fee,
-            otherFee:$scope.socialSecurity.other_fee,
+            hotelBonus:$scope.socialSecurity.hotel_bonus,
+            fullWorkBonus:$scope.socialSecurity.full_work_bonus,
+            otherBonus:$scope.socialSecurity.other_bonus,
             remark:$scope.socialSecurity.remark
         }).then(function (data) {
             if (data.success == true) {

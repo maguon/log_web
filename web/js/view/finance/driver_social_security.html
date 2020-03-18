@@ -1,5 +1,5 @@
 
-<div class="row tab_box" style="margin-top: 50px;">
+<div class="row tab_box">
     <div class="col s10" style="margin-bottom: 20px;">
         <!--司机-->
         <div class="col s12" style="height: 70px">
@@ -36,7 +36,9 @@
                     <th data-field="">电话</th>
                     <th data-field="">月份</th>
                     <th data-field="">出勤天数</th>
-                    <th data-field="">补助</th>
+                    <th data-field="">出差补助</th>
+                    <th data-field="">满勤补助</th>
+                    <th data-field="">其他补助</th>
                     <th data-field="">备注</th>
                 </tr>
                 </thead>
@@ -48,11 +50,13 @@
                     <td>{{fileInfo.mobile}}</td>
                     <td>{{fileInfo.y_month}}</td>
                     <td class="red-text" >{{fileInfo.work_count}}</td>
-                    <td class="red-text" >{{fileInfo.hotel_fee}}</td>
-                    <td class="unnecessary" style="max-width: 250px;">{{fileInfo.remark}}</td>
+                    <td class="red-text" >{{fileInfo.hotel_bonus}}</td>
+                    <td class="red-text" >{{fileInfo.full_work_bonus}}</td>
+                    <td class="red-text" >{{fileInfo.other_bonus}}</td>
+                    <td  class="unnecessary" style="max-width: 150px;">{{fileInfo.remark}}</td>
                 </tr>
                 <tr ng-if="securityList.length==0">
-                    <td colspan="8">暂无数据</td>
+                    <td colspan="10">暂无数据</td>
                 </tr>
                 </tbody>
             </table>

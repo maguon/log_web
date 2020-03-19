@@ -1,4 +1,197 @@
 
+<!--调度任务详情模态框-->
+<div class="row" style="margin: 0">
+    <div id="dispatchMissionModal" class="modal modal-fixed-footer" style="width: 75%;height: 650px">
+        <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+            <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
+                <p>调度任务详情</p>
+            </div>
+            <div class="row" style="width: 85%;margin: 0 auto">
+                <div class="col s12 left-align cyan-text" style="font-weight: bold;font-size: 1.2rem">
+                    <p>调度编号：{{salaryHandleStatus == "unsettled" ? salaryInfo.id : salaryInfo.dp_route_task_id}}</p>
+                </div>
+                <div class="col s12 left-align valign-wrapper cyan-text" style="font-weight: bold;font-size: 1.2rem;padding: 30px 10px;border-bottom: 1px solid darkgray">
+                    <div class="col s8" style="padding: 0;">
+                        <div class="col s4" style="padding: 0;">
+                            <p>{{salaryInfo.city_route_start + " - " + salaryInfo.city_route_end}}</p>
+                        </div>
+                        <div class="col s4">
+                            <p>{{salaryInfo.distance}} 公里</p>
+                        </div>
+                        <div class="col s4">
+                            <p>总装车数：{{salaryInfo.car_count}}</p>
+                        </div>
+                    </div>
+                    <div class="col s4 right-align">
+                        <p style="color: darkgray"><span style="font-size: 1.6rem;" class="mdi mdi-truck cyan-text"></span>&emsp;{{salaryInfo.truck_num}}&emsp;{{salaryInfo.brand_name}}</p>
+                    </div>
+                </div>
+                <div class="col s12" style="color: darkgray;font-weight: bold;font-size: 1.1rem;padding: 0;">
+                    <div class="col s12 left-align" ng-repeat="line in lineList" style="padding: 20px 0;border-bottom: 1px dotted darkgray">
+                        <div class="col s3">
+                            <p>{{line.addr_name + " - " + line.short_name}}</p>
+                        </div>
+                        <div class="col s2">
+                            <p>{{line.receive_flag==1?'到库':'非到库'}}</p>
+                        </div>
+                        <div class="col s3">
+                            <p>装车数量：{{line.real_count}}</p>
+                        </div>
+                        <div class="col s4">
+                            <p>装车时间：{{line.load_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                        </div>
+                    </div>
+                    <div class="col s12 left-align" ng-show="lineList.length == 0" style="padding: 20px 0">
+                        <div class="col s12 center-align">
+                            <p style="letter-spacing: 2px">暂无装车任务</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12" style="border-top: 1px solid darkgray;color: darkgray;font-weight: bold;font-size: 1.1rem;padding: 34px 0">
+                    <div class="col s6 left-align">
+                        <p>调度人员：{{salaryInfo.route_op_name}}</p>
+                    </div>
+                    <div class="col s6 right-align">
+                        <p>指令时间：{{salaryInfo.task_end_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer valign-wrapper">
+            <div class="col s12">
+                <div class="col s2 offset-s5">
+                    <a style="width: 100%" class="modal-action modal-close waves-light waves-effect cyan lighten-1 btn">
+                        确定
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--商品车质损详情模态框-->
+<div class="row" style="margin: 0">
+    <div id="carDamageModal" class="modal modal-fixed-footer" style="width: 75%;height: 650px">
+        <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+            <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
+                <p>商品车质损详情</p>
+            </div>
+            <div class="row" style="width: 85%;margin: 0 auto">
+                <div class="col s12 left-align cyan-text" style="font-weight: bold;font-size: 1.2rem;border-bottom: 1px solid darkgray;padding: 20px 10px">
+                    <p>质损编号：{{damageHandleStatus == "unsettled" ? damageInfo.id : damageInfo.damage_id}}</p>
+                </div>
+                <div class="col s12" style="color: darkgray;font-weight: bold;font-size: 1.1rem;padding: 0;">
+                    <div class="col s12 left-align" style="padding: 20px 0;border-bottom: 1px dotted darkgray">
+                        <div class="col s4">
+                            <p>VIN：{{damageInfo.vin}}</p>
+                        </div>
+                        <div class="col s4">
+                            <p>委托方：{{damageInfo.en_short_name}}</p>
+                        </div>
+                        <div class="col s4">
+                            <p>经销商：{{damageHandleStatus == "unsettled" ? damageInfo.re_short_name : damageInfo.r_short_name}}</p>
+                        </div>
+                    </div>
+                    <div class="col s12 left-align" style="padding: 20px 0;border-bottom: 1px dotted darkgray">
+                        <div class="col s4">
+                            <p>质损类型：{{damageInfo.damage_type | damageType}}</p>
+                        </div>
+                        <div class="col s4">
+                            <p>质损环节：{{damageInfo.damage_link_type | damageLinkType}}</p>
+                        </div>
+                        <div class="col s4">
+                            <p>发生时间：{{damageInfo.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                        </div>
+                    </div>
+                    <div class="col s12 left-align" style="padding: 20px 0;border-bottom: 1px dotted darkgray">
+                        <div class="col s12">
+                            <p>质损说明：{{damageInfo.damage_explain}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12" style="border-top: 1px solid darkgray;color: darkgray;font-weight: bold;font-size: 1.1rem;padding: 34px 0">
+                    <div class="col s6 left-align">
+                        <p>公司承担金额：<span style="color: #e57373">{{damageInfo.company_cost.toFixed(2)}}</span> 元</p>
+                    </div>
+                    <div class="col s6 left-align">
+                        <p>责任人承担金额：<span style="color: #e57373">{{damageInfo.under_cost.toFixed(2)}}</span> 元</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer valign-wrapper">
+            <div class="col s12">
+                <div class="col s2 offset-s5">
+                    <a style="width: 100%" class="modal-action modal-close waves-light waves-effect cyan lighten-1 btn">
+                        确定
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--货车事故详情模态框-->
+<div class="row" style="margin: 0">
+    <div id="truckAccidentModal" class="modal modal-fixed-footer" style="width: 75%;height: 650px">
+        <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+            <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
+                <p>货车责任详情</p>
+            </div>
+            <div class="row" style="width: 85%;margin: 0 auto">
+                <div class="col s12 left-align cyan-text" style="font-weight: bold;font-size: 1.2rem;border-bottom: 1px solid darkgray;padding: 20px 10px">
+                    <p>事故编号：{{accidentHandleStatus == 'unsettled' ? accidentInfo.id : accidentInfo.accident_id}}</p>
+                </div>
+                <div class="col s12" style="color: darkgray;font-weight: bold;font-size: 1.1rem;padding: 0;">
+                    <div class="col s12 left-align" style="padding: 20px 0;border-bottom: 1px dotted darkgray">
+                        <div class="col s6">
+                            <p>调度编号：{{accidentInfo.dp_route_task_id}}</p>
+                        </div>
+                        <div class="col s6">
+                            <p>{{accidentInfo.city_route_start + " - " + accidentInfo.city_route_end}}</p>
+                        </div>
+                    </div>
+                    <div class="col s12 left-align" style="padding: 20px 0;border-bottom: 1px dotted darkgray">
+                        <div class="col s6">
+                            <p>质损类型：{{accidentInfo.truck_accident_type | damageType}}</p>
+                        </div>
+                        <div class="col s6">
+                            <p>发生时间：{{accidentInfo.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                        </div>
+                    </div>
+                    <div class="col s12 left-align" style="padding: 20px 0;border-bottom: 1px dotted darkgray">
+                        <div class="col s12">
+                            <p>事故说明：{{accidentInfo.accident_explain}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12" style="border-top: 1px solid darkgray;color: darkgray;font-weight: bold;font-size: 1.1rem;padding: 34px 0">
+                    <div class="col s6 left-align">
+                        <p>公司承担金额：<span style="color: #e57373">{{accidentInfo.company_cost.toFixed(2)}}</span> 元</p>
+                    </div>
+                    <div class="col s6 left-align">
+                        <p>责任人承担金额：<span style="color: #e57373">{{accidentInfo.under_cost.toFixed(2)}}</span> 元</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer valign-wrapper">
+            <div class="col s12">
+                <div class="col s2 offset-s5">
+                    <a style="width: 100%" class="modal-action modal-close waves-light waves-effect cyan lighten-1 btn">
+                        确定
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <div class="driver_salary_details">
     <div class="storage_storeTitle vc-center ">
         <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
@@ -7,197 +200,6 @@
         <h4 class="center-align cyan-text text-lighten-1">司机工资结算</h4>
     </div>
     <div class="divider cyan" style="height: 2px;margin-top: 10px;margin-bottom: 30px"></div>
-
-    <!--调度任务详情模态框-->
-    <div class="row" style="margin: 0">
-        <div id="dispatchMissionModal" class="modal modal-fixed-footer" style="width: 75%;height: 650px">
-            <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-                <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
-                    <p>调度任务详情</p>
-                </div>
-                <div class="row" style="width: 85%;margin: 0 auto">
-                    <div class="col s12 left-align cyan-text" style="font-weight: bold;font-size: 1.2rem">
-                        <p>调度编号：{{salaryHandleStatus == "unsettled" ? salaryInfo.id : salaryInfo.dp_route_task_id}}</p>
-                    </div>
-                    <div class="col s12 left-align valign-wrapper cyan-text" style="font-weight: bold;font-size: 1.2rem;padding: 30px 10px;border-bottom: 1px solid darkgray">
-                        <div class="col s8" style="padding: 0;">
-                            <div class="col s4" style="padding: 0;">
-                                <p>{{salaryInfo.city_route_start + " - " + salaryInfo.city_route_end}}</p>
-                            </div>
-                            <div class="col s4">
-                                <p>{{salaryInfo.distance}} 公里</p>
-                            </div>
-                            <div class="col s4">
-                                <p>总装车数：{{salaryInfo.car_count}}</p>
-                            </div>
-                        </div>
-                        <div class="col s4 right-align">
-                            <p style="color: darkgray"><span style="font-size: 1.6rem;" class="mdi mdi-truck cyan-text"></span>&emsp;{{salaryInfo.truck_num}}&emsp;{{salaryInfo.brand_name}}</p>
-                        </div>
-                    </div>
-                    <div class="col s12" style="color: darkgray;font-weight: bold;font-size: 1.1rem;padding: 0;">
-                        <div class="col s12 left-align" ng-repeat="line in lineList" style="padding: 20px 0;border-bottom: 1px dotted darkgray">
-                            <div class="col s3">
-                                <p>{{line.addr_name + " - " + line.short_name}}</p>
-                            </div>
-                            <div class="col s2">
-                                <p>{{line.receive_flag==1?'到库':'非到库'}}</p>
-                            </div>
-                            <div class="col s3">
-                                <p>装车数量：{{line.real_count}}</p>
-                            </div>
-                            <div class="col s4">
-                                <p>装车时间：{{line.load_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
-                            </div>
-                        </div>
-                        <div class="col s12 left-align" ng-show="lineList.length == 0" style="padding: 20px 0">
-                            <div class="col s12 center-align">
-                                <p style="letter-spacing: 2px">暂无装车任务</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col s12" style="border-top: 1px solid darkgray;color: darkgray;font-weight: bold;font-size: 1.1rem;padding: 34px 0">
-                        <div class="col s6 left-align">
-                            <p>调度人员：{{salaryInfo.route_op_name}}</p>
-                        </div>
-                        <div class="col s6 right-align">
-                            <p>指令时间：{{salaryInfo.task_end_date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal-footer valign-wrapper">
-                <div class="col s12">
-                    <div class="col s2 offset-s5">
-                        <a style="width: 100%" class="modal-action modal-close waves-light waves-effect cyan lighten-1 btn">
-                            确定
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--商品车质损详情模态框-->
-    <div class="row" style="margin: 0">
-        <div id="carDamageModal" class="modal modal-fixed-footer" style="width: 75%;height: 650px">
-            <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-                <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
-                    <p>商品车质损详情</p>
-                </div>
-                <div class="row" style="width: 85%;margin: 0 auto">
-                    <div class="col s12 left-align cyan-text" style="font-weight: bold;font-size: 1.2rem;border-bottom: 1px solid darkgray;padding: 20px 10px">
-                        <p>质损编号：{{damageHandleStatus == "unsettled" ? damageInfo.id : damageInfo.damage_id}}</p>
-                    </div>
-                    <div class="col s12" style="color: darkgray;font-weight: bold;font-size: 1.1rem;padding: 0;">
-                        <div class="col s12 left-align" style="padding: 20px 0;border-bottom: 1px dotted darkgray">
-                            <div class="col s4">
-                                <p>VIN：{{damageInfo.vin}}</p>
-                            </div>
-                            <div class="col s4">
-                                <p>委托方：{{damageInfo.en_short_name}}</p>
-                            </div>
-                            <div class="col s4">
-                                <p>经销商：{{damageHandleStatus == "unsettled" ? damageInfo.re_short_name : damageInfo.r_short_name}}</p>
-                            </div>
-                        </div>
-                        <div class="col s12 left-align" style="padding: 20px 0;border-bottom: 1px dotted darkgray">
-                            <div class="col s4">
-                                <p>质损类型：{{damageInfo.damage_type | damageType}}</p>
-                            </div>
-                            <div class="col s4">
-                                <p>质损环节：{{damageInfo.damage_link_type | damageLinkType}}</p>
-                            </div>
-                            <div class="col s4">
-                                <p>发生时间：{{damageInfo.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</p>
-                            </div>
-                        </div>
-                        <div class="col s12 left-align" style="padding: 20px 0;border-bottom: 1px dotted darkgray">
-                            <div class="col s12">
-                                <p>质损说明：{{damageInfo.damage_explain}}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col s12" style="border-top: 1px solid darkgray;color: darkgray;font-weight: bold;font-size: 1.1rem;padding: 34px 0">
-                        <div class="col s6 left-align">
-                            <p>公司承担金额：<span style="color: #e57373">{{damageInfo.company_cost.toFixed(2)}}</span> 元</p>
-                        </div>
-                        <div class="col s6 left-align">
-                            <p>责任人承担金额：<span style="color: #e57373">{{damageInfo.under_cost.toFixed(2)}}</span> 元</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal-footer valign-wrapper">
-                <div class="col s12">
-                    <div class="col s2 offset-s5">
-                        <a style="width: 100%" class="modal-action modal-close waves-light waves-effect cyan lighten-1 btn">
-                            确定
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--货车事故详情模态框-->
-    <div class="row" style="margin: 0">
-        <div id="truckAccidentModal" class="modal modal-fixed-footer" style="width: 75%;height: 650px">
-            <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
-                <div class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
-                    <p>货车责任详情</p>
-                </div>
-                <div class="row" style="width: 85%;margin: 0 auto">
-                    <div class="col s12 left-align cyan-text" style="font-weight: bold;font-size: 1.2rem;border-bottom: 1px solid darkgray;padding: 20px 10px">
-                        <p>事故编号：{{accidentHandleStatus == 'unsettled' ? accidentInfo.id : accidentInfo.accident_id}}</p>
-                    </div>
-                    <div class="col s12" style="color: darkgray;font-weight: bold;font-size: 1.1rem;padding: 0;">
-                        <div class="col s12 left-align" style="padding: 20px 0;border-bottom: 1px dotted darkgray">
-                            <div class="col s6">
-                                <p>调度编号：{{accidentInfo.dp_route_task_id}}</p>
-                            </div>
-                            <div class="col s6">
-                                <p>{{accidentInfo.city_route_start + " - " + accidentInfo.city_route_end}}</p>
-                            </div>
-                        </div>
-                        <div class="col s12 left-align" style="padding: 20px 0;border-bottom: 1px dotted darkgray">
-                            <div class="col s6">
-                                <p>质损类型：{{accidentInfo.truck_accident_type | damageType}}</p>
-                            </div>
-                            <div class="col s6">
-                                <p>发生时间：{{accidentInfo.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</p>
-                            </div>
-                        </div>
-                        <div class="col s12 left-align" style="padding: 20px 0;border-bottom: 1px dotted darkgray">
-                            <div class="col s12">
-                                <p>事故说明：{{accidentInfo.accident_explain}}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col s12" style="border-top: 1px solid darkgray;color: darkgray;font-weight: bold;font-size: 1.1rem;padding: 34px 0">
-                        <div class="col s6 left-align">
-                            <p>公司承担金额：<span style="color: #e57373">{{accidentInfo.company_cost.toFixed(2)}}</span> 元</p>
-                        </div>
-                        <div class="col s6 left-align">
-                            <p>责任人承担金额：<span style="color: #e57373">{{accidentInfo.under_cost.toFixed(2)}}</span> 元</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal-footer valign-wrapper">
-                <div class="col s12">
-                    <div class="col s2 offset-s5">
-                        <a style="width: 100%" class="modal-action modal-close waves-light waves-effect cyan lighten-1 btn">
-                            确定
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!--详情-->
     <div class="row" style="width: 95%;margin: 0 auto">
@@ -249,6 +251,11 @@
                 <li class="tab"><a id="truckAccidentPage" href="#truckAccident" ng-click="getTruckAccidentInfo()" class="cyan-text"  style="line-height: 40px">货车事故</a></li>
                 <li class="tab"><a href="#driverPeccancyList" ng-click="getPeccancyList()" class="cyan-text"  style="line-height: 40px">违章扣款</a></li>
                 <li class="tab"><a href="#driverExceedOil" ng-click="getExceedOilList()"  class="cyan-text"  style="line-height: 40px">超量扣款</a></li>
+                <li class="tab"><a href="#driverAttendance" ng-click="getAttendanceList()"  class="cyan-text"  style="line-height: 40px">补贴</a></li>
+                <li class="tab"><a href="#driverIncidental" ng-click="getIncidentalList()"  class="cyan-text"  style="line-height: 40px">杂费</a></li>
+                <li class="tab"><a href="#driverRetain" ng-click="getRetainList()"  class="cyan-text"  style="line-height: 40px">扣款</a></li>
+                <li class="tab"><a href="#driverApplication" ng-click="getApplicationList()"  class="cyan-text"  style="line-height: 40px">现金</a></li>
+                <li class="tab"><a href="#driverWash" ng-click="getWashList()"  class="cyan-text"  style="line-height: 40px">洗车费</a></li>
                 <li class="tab"><a id="settlementSalaryPage" href="#settlementSalary" class="cyan-text"  ng-click="grantWages()" style="line-height: 40px">结算工资</a></li>
             </ul>
         </div>
@@ -317,17 +324,17 @@
 
             <div class="col s12 valign-wrapper" style="color: darkgray;font-size: 1.2rem;font-weight: bold;margin: 20px 0">
                 <div class="col s12">
-                    <div class="col s3" style="padding: 0;">
-                        <p>里程工资：<span class="cyan-text" >{{settledSalaryList.distance_salary}}</span> 元</p>
+                    <div class="col s3 center-align" style="padding: 0;">
+                        <p>里程工资：<span class="cyan-text" >{{salaryDetails.distance_salary}}</span> 元</p>
                     </div>
-                    <div class="col s3" style="padding: 0;">
-                        <p>交车打车进门费：<span class="cyan-text" >{{settledSalaryList.not_storage_car_count*enter}}</span> 元</p>
+                    <div class="col s3 center-align" style="padding: 0;">
+                        <p>交车打车进门费：<span class="cyan-text" >{{salaryDetails.enter_fee}}</span> 元</p>
                     </div>
-                    <div class="col s3" style="padding: 0;">
-                        <p>倒板工资：<span class="cyan-text" >{{settledSalaryList.reverse_salary==null?0:settledSalaryList.reverse_salary}}</span> 元</p>
+                    <div class="col s3 center-align" style="padding: 0;">
+                        <p>倒板工资：<span class="cyan-text" >{{salaryDetails.reverse_salary}}</span> 元</p>
                     </div>
-                    <div class="col s3" style="padding: 0;">
-                        <p>任务工资：<span class="cyan-text" >{{settledSalaryList.distance_salary+settledSalaryList.reverse_salary+settledSalaryList.not_storage_car_count *enter}}</span> 元</p>
+                    <div class="col s3 center-align" style="padding: 0;">
+                        <p>任务工资：<span class="cyan-text" >{{salaryDetails.distance_salary+salaryDetails.reverse_salary+salaryDetails.enter_fee}}</span> 元</p>
                     </div>
                 </div>
             </div>
@@ -377,7 +384,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="right-align" style="margin-top: 10px;margin-right: 15px">质损总计:<span class="red-text fz22" >{{damageTotalMoney | number:2}}</span>元</div>
+                <div class="right-align" style="margin-top: 10px;margin-right: 15px">质损总计:<span class="red-text fz22" >{{salaryDetails.damage_under_fee | number:2}}</span>元</div>
             </div>
         </div>
 
@@ -422,7 +429,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="right-align" style="margin-top: 10px;margin-right: 15px">事故总计:<span class="red-text fz22" >{{accidentTotalMoney | number:2}}</span>元</div>
+                <div class="right-align" style="margin-top: 10px;margin-right: 15px">事故总计:<span class="red-text fz22" >{{salaryDetails.accident_fee | number:2}}</span>元</div>
             </div>
         </div>
 
@@ -449,7 +456,7 @@
                             <th data-field="">扣罚分数</th>
                             <th data-field="">扣罚金额</th>
                             <th data-field="">发生时间</th>
-                           <!-- <th data-field="">状态</th>-->
+
                         </tr>
                         </thead>
                         <tbody>
@@ -458,9 +465,8 @@
                             <td>{{peccancyInfo.truck_num}}</td>
                             <td>{{peccancyInfo.fine_score}}</td>
                             <td class="red-text">{{peccancyInfo.under_money |number:2}}</td>
-                            <td>{{peccancyInfo.start_date | date:'yyyy-MM-dd'}}<!--至{{peccancyInfo.end_date | date:'yyyy-MM-dd'}}--></td>
-                          <!--  <td class="red-text" ng-if="peccancyInfo.stat_status==1">未扣</td>
-                            <td ng-if="peccancyInfo.stat_status!==1">已扣</td>-->
+                            <td>{{peccancyInfo.start_date | date:'yyyy-MM-dd'}}</td>
+
                         </tr>
                         <tr ng-if="peccancyAccidentList.length==0">
                             <td colspan="6">暂无数据</td>
@@ -468,7 +474,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="right-align" style="margin-top: 10px;margin-right: 15px">违章扣款总计:<span class="red-text fz22" >{{peccancyTotalMoney | number:2}}</span>元</div>
+                <div class="right-align" style="margin-top: 10px;margin-right: 15px">违章扣款总计:<span class="red-text fz22" >{{salaryDetails.peccancy_under_fee | number:2}}</span>元</div>
             </div>
         </div>
 
@@ -520,9 +526,318 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="right-align" style="margin-top: 10px;margin-right: 15px">超量扣款总计:<span class="red-text fz22" >{{exceedOilTotalMoney | number:2}}</span>元</div>
+                <div class="right-align" style="margin-top: 10px;margin-right: 15px">超量扣款总计:<span class="red-text fz22" >{{salaryDetails.exceed_oil_fee | number:2}}</span>元</div>
             </div>
         </div>
+
+        <!--补贴-->
+        <div id="driverAttendance" class="row col s12" style="padding: 0;">
+            <div class="col s12">
+                <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px;min-height: 380px">
+                    <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
+                        <div class="col s6 left-align cyan-text" >
+                            <p style="margin: 0">司机补贴</p>
+                        </div>
+                        <div class="col s6 right-align" style="color: darkgray;font-size: 1.05rem">
+                            <p class="cyan-text"  style="margin: 0;font-size: 1.2rem">{{driverAttendanceList.length}} 条</p>
+                        </div>
+                    </div>
+                    <table class=" bordered striped text_mid">
+                        <thead class="blue-grey lighten-5">
+                        <tr class="grey-text text-darken-2">
+                            <th data-field="">编号</th>
+                            <th data-field="">货车牌号</th>
+                            <th data-field="">出勤天数</th>
+                            <th data-field="">出差补助</th>
+                            <th data-field="">满勤补助</th>
+                            <th data-field="">其他补助</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="fileInfo in driverAttendanceList" class="grey-text text-darken-1">
+                            <td>{{fileInfo.id}}</td>
+                            <td>{{fileInfo.truck_num}}</td>
+                            <td class="red-text" >{{fileInfo.work_count}}</td>
+                            <td class="red-text" >{{fileInfo.hotel_bonus}}</td>
+                            <td class="red-text" >{{fileInfo.full_work_bonus}}</td>
+                            <td class="red-text" >{{fileInfo.other_bonus}}</td>
+                        </tr>
+                        <tr ng-if="driverAttendanceList.length==0">
+                            <td colspan="6">暂无数据</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col s12 valign-wrapper" style="color: darkgray;font-size: 1.2rem;font-weight: bold;margin: 20px 0">
+                <div class="col s12">
+                    <div class="col s4 center-align" style="padding: 0;">
+                        <p>出差补助：<span class="cyan-text" >{{salaryDetails.hotel_bonus }}</span> 元</p>
+                    </div>
+                    <div class="col s4 center-align" style="padding: 0;">
+                        <p>满勤补助：<span class="cyan-text" >{{salaryDetails.full_work_bonus}}</span> 元</p>
+                    </div>
+                    <div class="col s4 center-align" style="padding: 0;">
+                        <p>其他补助：<span class="cyan-text" >{{salaryDetails.other_bonus}}</span> 元</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--杂费-->
+        <div id="driverIncidental" class="row col s12" style="padding: 0;">
+            <div class="col s12">
+                <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px;min-height: 380px">
+                    <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
+                        <div class="col s6 left-align cyan-text" >
+                            <p style="margin: 0">司机杂费</p>
+                        </div>
+                        <div class="col s6 right-align" style="color: darkgray;font-size: 1.05rem">
+                            <p class="cyan-text"  style="margin: 0;font-size: 1.2rem">{{incidentalList.length}} 条</p>
+                        </div>
+                    </div>
+                    <table class=" bordered striped text_mid">
+                        <thead class="blue-grey lighten-5">
+                        <tr class="grey-text text-darken-2">
+                            <th data-field="">编号</th>
+                            <th data-field="">个人借款</th>
+                            <th data-field="">社保费</th>
+                            <th data-field="">伙食费</th>
+                            <th data-field="">其他扣款</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="incidentalInfo in incidentalList" class="grey-text text-darken-1">
+                            <td>{{incidentalInfo.id}}</td>
+                            <td  class="red-text">{{incidentalInfo.personal_loan}}</td>
+                            <td  class="red-text">{{incidentalInfo.social_fee}}</td>
+                            <td  class="red-text">{{incidentalInfo.meals_fee}}</td>
+                            <td  class="red-text">{{incidentalInfo.other_fee}}</td>
+                        </tr>
+                        <tr ng-if="incidentalList.length==0">
+                            <td colspan="5">暂无数据</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col s12 valign-wrapper" style="color: darkgray;font-size: 1.2rem;font-weight: bold;margin: 20px 0">
+                <div class="col s12">
+                    <div class="col s3 center-align" style="padding: 0;">
+                        <p>个人借款：<span class="cyan-text" >{{salaryDetails.loan_fee}}</span> 元</p>
+                    </div>
+                    <div class="col s3 center-align" style="padding: 0;">
+                        <p>社保费：<span class="cyan-text" >{{salaryDetails.social_security_fee}}</span> 元</p>
+                    </div>
+                    <div class="col s3 center-align" style="padding: 0;">
+                        <p>伙食费：<span class="cyan-text" >{{salaryDetails.food_fee}}</span> 元</p>
+                    </div>
+                    <div class="col s3 center-align" style="padding: 0;">
+                        <p>其他扣款：<span class="cyan-text" >{{salaryDetails.other_fee}}</span> 元</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--扣款-->
+        <div id="driverRetain" class="row col s12" style="padding: 0;">
+            <div class="col s12">
+                <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px;min-height: 380px">
+                    <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
+                        <div class="col s6 left-align cyan-text" >
+                            <p style="margin: 0">司机扣款</p>
+                        </div>
+                        <div class="col s6 right-align" style="color: darkgray;font-size: 1.05rem">
+                            <p class="cyan-text"  style="margin: 0;font-size: 1.2rem">{{securityList.length}} 条</p>
+                        </div>
+                    </div>
+                    <table class=" bordered striped text_mid">
+                        <thead class="blue-grey lighten-5">
+                        <tr class="grey-text text-darken-2">
+                            <th data-field="">当前所属公司</th>
+                            <th data-field="">司机</th>
+                            <th data-field="">手机号</th>
+                            <th data-field="">质损暂扣款</th>
+                            <th data-field="">质安罚款</th>
+                            <th data-field="">交车暂扣款</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="fileInfo in securityList" class="grey-text text-darken-1">
+                            <td>{{fileInfo.company_name}}</td>
+                            <td>{{fileInfo.drive_name}}</td>
+                            <td>{{fileInfo.mobile}}</td>
+                            <td class="red-text" >{{fileInfo.damage_retain_fee}}</td>
+                            <td class="red-text" >{{fileInfo.damage_op_fee}}</td>
+                            <td class="red-text" >{{fileInfo.truck_retain_fee}}</td>
+                        </tr>
+                        <tr ng-if="securityList.length==0">
+                            <td colspan="6">暂无数据</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col s12 valign-wrapper" style="color: darkgray;font-size: 1.2rem;font-weight: bold;margin: 20px 0">
+                <div class="col s12">
+                    <div class="col s4 center-align" style="padding: 0;">
+                        <p>质损暂扣款：<span class="cyan-text" >{{salaryDetails.damage_retain_fee}}</span> 元</p>
+                    </div>
+                    <div class="col s4 center-align" style="padding: 0;">
+                        <p>质安罚款：<span class="cyan-text" >{{salaryDetails.damage_op_fee }}</span> 元</p>
+                    </div>
+                    <div class="col s4 center-align" style="padding: 0;">
+                        <p>交车暂扣款：<span class="cyan-text" >{{salaryDetails.truck_retain_fee}}</span> 元</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--现金-->
+        <div id="driverApplication" class="row col s12" style="padding: 0;">
+            <div class="col s12">
+                <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px;min-height: 380px">
+                    <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
+                        <div class="col s6 left-align cyan-text" >
+                            <p style="margin: 0">现金</p>
+                        </div>
+                        <div class="col s6 right-align" style="color: darkgray;font-size: 1.05rem">
+                            <p class="cyan-text"  style="margin: 0;font-size: 1.2rem">{{applicationList.length}} 条</p>
+                        </div>
+                    </div>
+                    <table class=" bordered striped text_mid">
+                        <thead class="blue-grey lighten-5">
+                        <tr class="grey-text text-darken-2">
+                            <th>调度编号</th>
+                            <th>路线</th>
+                            <th>货车牌号</th>
+                            <th>商品车加油费</th>
+                            <th>货车停车费</th>
+                            <th>商品车停车费</th>
+                            <th>其它费用</th>
+                            <th>申请时间</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="costInfo in applicationList" class="grey-text text-darken-1">
+                            <td>{{costInfo.dp_route_task_id}}</td>
+                            <td>{{costInfo.route_start}}--{{costInfo.route_end}}</td>
+                            <td>{{costInfo.truck_num}}</td>
+                            <td>{{costInfo.car_oil_fee}}</td>
+                            <td>{{costInfo.total_price}}</td>
+                            <td>{{costInfo.car_total_price}}</td>
+                            <td>{{costInfo.other_fee}}</td>
+                            <td>{{costInfo.created_on|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        </tr>
+                        <tr ng-if="applicationList.length==0">
+                            <td colspan="8">暂无数据</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col s12 valign-wrapper" style="color: darkgray;font-size: 1.2rem;font-weight: bold;margin: 20px 0">
+                <div class="col s12">
+                    <div class="col s3 center-align" style="padding: 0;">
+                        <p>商品车加油费：<span class="cyan-text" >{{salaryDetails.car_oil_fee}}</span> 元</p>
+                    </div>
+                    <div class="col s3 center-align" style="padding: 0;">
+                        <p>货车停车费：<span class="cyan-text" >{{salaryDetails.truck_parking_fee}}</span> 元</p>
+                    </div>
+                    <div class="col s3 center-align" style="padding: 0;">
+                        <p>商品车停车费：<span class="cyan-text" >{{salaryDetails.car_parking_fee}}</span> 元</p>
+                    </div>
+                    <div class="col s3 center-align" style="padding: 0;">
+                        <p>其它费用：<span class="cyan-text" >{{salaryDetails.dp_other_fee}}</span> 元</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--洗车费-->
+        <div id="driverWash" class="row col s12" style="padding: 0;">
+            <div class="col s12">
+                <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 20px;min-height: 380px">
+                    <div class="col s12 valign-wrapper" style="height: 60px;background-color: #dcdfe0;font-size: 1.2rem;font-weight: bold">
+                        <div class="col s6 left-align cyan-text" >
+                            <p style="margin: 0">司机扣款</p>
+                        </div>
+                        <div class="col s6 right-align" style="color: darkgray;font-size: 1.05rem">
+                            <p class="cyan-text"  style="margin: 0;font-size: 1.2rem">{{carWashFeeList.length}} 条</p>
+                        </div>
+                    </div>
+                    <table class=" bordered striped text_mid">
+                        <thead class="blue-grey lighten-5">
+                        <tr class="grey-text text-darken-2">
+                            <th>编号</th>
+                            <th>调度编号</th>
+                            <th>品牌</th>
+                            <th>装车数</th>
+                            <th>洗车费</th>
+                            <th>拖车费</th>
+                            <th>地跑费</th>
+                            <th>带路费</th>
+                            <th>应发洗车费</th>
+                            <th>应发拖车费</th>
+                            <th>应发地跑费</th>
+                            <th>应发带路费</th>
+                            <th>提车费</th>
+                            <th>车牌号</th>
+                            <th>经销商</th>
+                            <th>装车日期</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="car in carWashFeeList" class="grey-text text-darken-1">
+                            <td>{{car.id}}</td>
+                            <td>{{car.dp_route_task_id}}</td>
+                            <td>{{car.make_name}}</td>
+                            <td>{{car.car_count}}</td>
+                            <td>{{car.total_price}}</td>
+                            <td>{{car.actual_trailer_fee}}</td>
+                            <td>{{car.actual_run_fee}}</td>
+                            <td>{{car.actual_lead_fee}}</td>
+                            <td>{{car.actual_price}}</td>
+                            <td>{{car.total_trailer_fee}}</td>
+                            <td>{{car.total_run_fee}}</td>
+                            <td>{{car.lead_fee}}</td>
+                            <td>{{car.car_parking_fee}}</td>
+                            <td>{{car.truck_num}}</td>
+                            <td>{{car.short_name}}</td>
+                            <td>{{car.load_date | date:'yyyy-MM-dd'}}</td>
+
+                        </tr>
+                        <tr ng-if="carWashFeeList.length==0">
+                            <td colspan="16">暂无数据</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col s12 valign-wrapper" style="color: darkgray;font-size: 1.2rem;font-weight: bold;margin: 20px 0">
+                <div class="col s12">
+                    <div class="col center-align" style="padding: 0; width: 20%">
+                        <p>应发洗车费：<span class="cyan-text" >{{salaryDetails.clean_fee}}</span> 元</p>
+                    </div>
+                    <div class="col center-align" style="padding: 0; width: 20%">
+                        <p>应发拖车费：<span class="cyan-text" >{{salaryDetails.railer_fee}}</span> 元</p>
+                    </div>
+                    <div class="col center-align" style="padding: 0; width: 20%">
+                        <p>应发地跑费：<span class="cyan-text" >{{salaryDetails.run_fee}}</span> 元</p>
+                    </div>
+                    <div class="col center-align" style="padding: 0; width: 20%">
+                        <p>应发带路费：<span class="cyan-text" >{{salaryDetails.lead_fee}}</span> 元</p>
+                    </div>
+                    <div class="col center-align" style="padding: 0; width: 20%">
+                        <p>提车费：<span class="cyan-text" >{{salaryDetails.car_pick_fee}}</span> 元</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
 
         <!--结算工资-->
         <div id="settlementSalary" class="row col s12" style="padding: 0;">
@@ -532,23 +847,27 @@
                 <!--任务工资-->
                 <div class="col s2 z-depth-1 center-align" style="border: 2px solid rgb(245,166,35);font-weight: bold ;background: rgb(245,166,35)">
                     <div class="col s12" style="color: #fff">
-                        <p>任务工资 <span style="font-size: 1rem">(元)</span></p>
+                        <p>任务工资(元)</p>
                     </div>
                     <div class="col s12" style="color: #fff">
-                        <p>{{settledSalaryList.distance_salary+settledSalaryList.reverse_salary+settledSalaryList.not_storage_car_count *enter.toFixed(2)}}</p>
+                       <div class="col s4">{{salaryDetails.distance_salary}}+</div>
+                       <div class="col s4">{{salaryDetails.reverse_salary}}+</div>
+                       <div class="col s4">{{salaryDetails.enter_fee}}</div>
+                    </div>
+                    <div class="col s12" style="color: #fff">
+                        <p>{{salaryDetails.distance_salary+salaryDetails.reverse_salary+salaryDetails.enter_fee}}</p>
                     </div>
                 </div>
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
                     <span  class="mdi mdi-minus cyan-text"></span>
                 </div>
-
                 <!--商品车质损承担-->
                 <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold">
                     <div class="col s12 cyan-text" >
                         <p>商品车质损 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12" style="color: #e57373">
-                        <p>{{damageTotalMoney.toFixed(2)}}</p>
+                        <p>{{salaryDetails.damage_under_fee.toFixed(2)}}</p>
                     </div>
                 </div>
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
@@ -560,7 +879,7 @@
                         <p>货车事故承担 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12 input-field" style="color: #e57373;margin: 0">
-                        <p>{{accidentTotalMoney.toFixed(2)}}</p>
+                        <p>{{salaryDetails.accident_fee.toFixed(2)}}</p>
                     </div>
                 </div>
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
@@ -571,7 +890,7 @@
                         <p>违章扣款 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12" style="color: #e57373">
-                        <p>{{peccancyTotalMoney.toFixed(2)}}</p>
+                        <p>{{salaryDetails.peccancy_under_fee.toFixed(2)}}</p>
                     </div>
                 </div>
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
@@ -582,186 +901,267 @@
                         <p>超量扣款 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12" style="color: #e57373">
-                        <p>{{exceedOilTotalMoney.toFixed(2)}}</p>
+                        <p>{{salaryDetails.exceed_oil_fee}}</p>
                     </div>
                 </div>
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
-                    <span  class="mdi mdi-minus cyan-text"></span>
+                    <span  class="mdi mdi-plus cyan-text"></span>
                 </div>
-                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
-                    <div class="col s12 cyan-text" >
-                        <p>报销扣款 <span style="font-size: 1rem">(元)</span></p>
-                    </div>
-                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
-                        <input style="font-size: 1.5rem;text-align: center;color: rgb(230,123,123);margin-bottom: 17px" type="number" id="Reimbursement" name="Reimbursement" ng-model="Reimbursement">
-                    </div>
-                </div>
-                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold" ng-show="salaryDetails.grant_status == 3">
-                    <div class="col s12 cyan-text" >
-                        <p>报销扣款 <span style="font-size: 1rem">(元)</span></p>
-                    </div>
-                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
-                        <p >{{Reimbursement.toFixed(2)}}</p>
-                    </div>
-                </div>
-
             </div>
 
-            <div class="col s12 valign-wrapper" style="margin-top: 50px"           >
-           <!--     <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
-                    <div class="col s12 cyan-text" >
-                        <p>社保缴费 <span style="font-size: 1rem">(元)</span></p>
-                    </div>
-                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
-                        <input style="font-size: 1.5rem;text-align: center;color: rgb(230,123,123);margin-bottom: 17px" type="number" id="socialSecurityFee" name="socialSecurityFee" ng-model="socialSecurityFee" disabled>
-                    </div>
-                </div>-->
+            <div class="col s12 valign-wrapper" style="margin-top: 15px">
                 <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold"  >
-                <!--ng-show="salaryDetails.grant_status == 3"-->
+                    <div class="col s12 cyan-text" >
+                        <p>满勤补助 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <p >{{salaryDetails.full_work_bonus.toFixed(2)}}</p>
+                    </div>
+                </div>
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span  class="mdi mdi-plus cyan-text"></span>
+                </div>
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold"  >
+
+                    <div class="col s12 cyan-text" >
+                        <p>其他补助 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <p >{{salaryDetails.other_bonus.toFixed(2)}}</p>
+                    </div>
+                </div>
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span  class="mdi mdi-minus cyan-text"></span>
+                </div>
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold"  >
+
+                    <div class="col s12 cyan-text" >
+                        <p>出差补助 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <p >{{salaryDetails.hotel_bonus.toFixed(2)}}</p>
+                    </div>
+                </div>
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span  class="mdi mdi-minus cyan-text"></span>
+                </div>
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold"  >
                     <div class="col s12 cyan-text" >
                         <p>社保缴费 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12 input-field" style="color: #e57373;margin: 0">
-                        <p >{{socialSecurityFee.toFixed(2)}}</p>
+                        <p >{{salaryDetails.social_security_fee.toFixed(2)}}</p>
                     </div>
                 </div>
-
-
-
-
-
-
-
-                <!--伙食费   个人借款   暂扣款   上月欠款-->
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
                     <span  class="mdi mdi-minus cyan-text"></span>
                 </div>
-                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold">
                     <div class="col s12 cyan-text" >
                         <p>伙食费 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12 input-field" style="color: #e57373;margin: 0">
-                        <input style="font-size: 1.5rem;text-align: center;color: rgb(230,123,123);margin-bottom: 17px" type="number" id="foodFee" name="foodFee" ng-model="foodFee">
-                    </div>
-                </div>
-                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold" ng-show="salaryDetails.grant_status == 3">
-                    <div class="col s12 cyan-text" >
-                        <p>伙食费 <span style="font-size: 1rem">(元)</span></p>
-                    </div>
-                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
-                        <p >{{foodFee.toFixed(2)}}</p>
+                        <p >{{salaryDetails.food_fee.toFixed(2)}}</p>
                     </div>
                 </div>
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
                     <span  class="mdi mdi-minus cyan-text"></span>
                 </div>
-           <!-- </div>-->
+            </div>
 
-          <!--  <div class="col s12 valign-wrapper" style="margin-top: 50px"           >-->
-                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
+            <div class="col s12 valign-wrapper" style="margin-top: 15px">
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold" >
                     <div class="col s12 cyan-text" >
                         <p>个人借款 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12 input-field" style="color: #e57373;margin: 0">
-                        <input style="font-size: 1.5rem;text-align: center;color: rgb(230,123,123);margin-bottom: 17px" type="number" id="single_deductions" name="single_deductions" ng-model="singleFee">
-                    </div>
-                </div>
-                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold" ng-show="salaryDetails.grant_status == 3">
-                    <div class="col s12 cyan-text" >
-                        <p>个人借款 <span style="font-size: 1rem">(元)</span></p>
-                    </div>
-                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
-                        <p >{{singleFee.toFixed(2)}}</p>
+                        <p >{{salaryDetails.loan_fee.toFixed(2)}}</p>
                     </div>
                 </div>
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
                     <span  class="mdi mdi-minus cyan-text"></span>
                 </div>
-                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
-                    <div class="col s12 cyan-text" >
-                        <p>暂扣款 <span style="font-size: 1rem">(元)</span></p>
-                    </div>
-                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
-                        <input style="font-size: 1.5rem;text-align: center;color: rgb(230,123,123);margin-bottom: 17px" type="number" id="just_deductions" name="just_deductions" ng-model="justFee">
-                    </div>
-                </div>
-                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold" ng-show="salaryDetails.grant_status == 3">
-                    <div class="col s12 cyan-text" >
-                        <p>暂扣款 <span style="font-size: 1rem">(元)</span></p>
-                    </div>
-                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
-                        <p >{{justFee.toFixed(2)}}</p>
-                    </div>
-                </div>
-                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
-                    <span  class="mdi mdi-minus cyan-text"></span>
-                </div>
-                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
-                    <div class="col s12 cyan-text" >
-                        <p>上月欠款 <span style="font-size: 1rem">(元)</span></p>
-                    </div>
-                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
-                        <input style="font-size: 1.5rem;text-align: center;color: rgb(230,123,123);margin-bottom: 17px" type="number" id="last_deductions" name="last_deductions" ng-model="lastFee">
-                    </div>
-                </div>
-                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold" ng-show="salaryDetails.grant_status == 3">
-                    <div class="col s12 cyan-text" >
-                        <p>上月欠款 <span style="font-size: 1rem">(元)</span></p>
-                    </div>
-                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
-                        <p >{{lastFee.toFixed(2)}}</p>
-                    </div>
-                </div>
-
-
-
-
-
-
-
-
-                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
-                    <span  class="mdi mdi-minus cyan-text"></span>
-                </div>
-                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold" ng-show="salaryDetails.grant_status !== 3">
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold">
                     <div class="col s12 cyan-text" >
                         <p>其他扣款 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12 input-field" style="color: #e57373;margin: 0">
-                        <input style="font-size: 1.5rem;text-align: center;color: rgb(230,123,123);margin-bottom: 17px" type="number" id="other_deductions" name="other_deductions" ng-model="otherDeductions">
+                        <p >{{salaryDetails.other_fee.toFixed(2)}}</p>
                     </div>
                 </div>
-                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold" ng-show="salaryDetails.grant_status == 3">
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span  class="mdi mdi-minus cyan-text"></span>
+                </div>
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold">
                     <div class="col s12 cyan-text" >
-                        <p>其他扣款 <span style="font-size: 1rem">(元)</span></p>
+                        <p>质损暂扣款 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12 input-field" style="color: #e57373;margin: 0">
-                        <p >{{otherDeductions.toFixed(2)}}</p>
+                        <p >{{salaryDetails.damage_retain_fee.toFixed(2)}}</p>
                     </div>
                 </div>
-
-            </div>
-
-
-            <!--等于号-->
-            <div class="col s12 valign-wrapper">
-                <div class="col s12 center-align" style="font-size: 3rem;padding: 0">
-                    <span  class="mdi mdi-equal cyan-text"></span>
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span  class="mdi mdi-minus cyan-text"></span>
+                </div>
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold">
+                    <div class="col s12 cyan-text" >
+                        <p>质安罚款 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <p >{{salaryDetails.damage_op_fee.toFixed(2)}}</p>
+                    </div>
+                </div>
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span  class="mdi mdi-minus cyan-text"></span>
+                </div>
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold">
+                    <div class="col s12 cyan-text" >
+                        <p>交车暂扣款 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <p >{{salaryDetails.truck_retain_fee.toFixed(2)}}</p>
+                    </div>
+                </div>
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span  class="mdi  mdi-plus cyan-text"></span>
                 </div>
             </div>
+
+            <div class="col s12 valign-wrapper" style="margin-top: 15px">
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold" >
+                    <div class="col s12 cyan-text" >
+                        <p>商品车加油费 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <p >{{salaryDetails.car_oil_fee.toFixed(2)}}</p>
+                    </div>
+                </div>
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span  class="mdi mdi-plus cyan-text"></span>
+                </div>
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold">
+                    <div class="col s12 cyan-text" >
+                        <p>货车停车费 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <p >{{salaryDetails.truck_parking_fee.toFixed(2)}}</p>
+                    </div>
+                </div>
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span  class="mdi mdi-plus cyan-text"></span>
+                </div>
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold">
+                    <div class="col s12 cyan-text" >
+                        <p>商品车停车费 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <p >{{salaryDetails.car_parking_fee.toFixed(2)}}</p>
+                    </div>
+                </div>
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span  class="mdi mdi-plus cyan-text"></span>
+                </div>
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold">
+                    <div class="col s12 cyan-text" >
+                        <p>其它费用 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <p >{{salaryDetails.dp_other_fee.toFixed(2)}}</p>
+                    </div>
+                </div>
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span  class="mdi mdi-plus cyan-text"></span>
+                </div>
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold">
+                    <div class="col s12 cyan-text" >
+                        <p>应发洗车费 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <p >{{salaryDetails.clean_fee.toFixed(2)}}</p>
+                    </div>
+                </div>
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span  class="mdi  mdi-plus cyan-text"></span>
+                </div>
+            </div>
+
+            <div class="col s12 valign-wrapper" style="margin-top: 15px">
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold" >
+                    <div class="col s12 cyan-text" >
+                        <p>应发拖车费 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <p >{{salaryDetails.railer_fee.toFixed(2)}}</p>
+                    </div>
+                </div>
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span  class="mdi mdi-plus cyan-text"></span>
+                </div>
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold">
+                    <div class="col s12 cyan-text" >
+                        <p>应发地跑费 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <p >{{salaryDetails.run_fee.toFixed(2)}}</p>
+                    </div>
+                </div>
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span  class="mdi mdi-plus cyan-text"></span>
+                </div>
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold">
+                    <div class="col s12 cyan-text" >
+                        <p>应发带路费 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <p >{{salaryDetails.lead_fee.toFixed(2)}}</p>
+                    </div>
+                </div>
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span  class="mdi mdi-plus cyan-text"></span>
+                </div>
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold">
+                    <div class="col s12 cyan-text" >
+                        <p>提车费 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <p >{{salaryDetails.car_pick_fee.toFixed(2)}}</p>
+                    </div>
+                </div>
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span  class="mdi mdi-minus cyan-text"></span>
+                </div>
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold">
+                    <div class="col s12 cyan-text" >
+                        <p>个税 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <input style="font-size: 1.5rem;text-align: center;color: rgb(230,123,123);margin-bottom: 17px" type="number" id="personalTax" name="personalTax" ng-model="personalTax">
+                    </div>
+
+
+                </div>
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span  class="mdi  mdi-equal cyan-text"></span>
+                </div>
+            </div>
+
 
             <!--应付工资-->
-            <div class="col s12 valign-wrapper">
+            <div class="col s12 valign-wrapper mp-50" >
                 <div class="col s4 offset-s4 z-depth-1 center-align cyan cyan_border" style="font-size: 1.2rem;font-weight: bold">
                     <div class="col s12" style="color: white">
                         <p>应付工资 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12" style="color: white">
-                        <p>{{(settledSalaryList.distance_salary+settledSalaryList.reverse_salary+settledSalaryList.not_storage_car_count *enter - accidentTotalMoney - peccancyTotalMoney - exceedOilTotalMoney- damageTotalMoney- socialSecurityFee -Reimbursement-otherDeductions-lastFee-justFee-singleFee-foodFee).toFixed(2)}}</p>
+                        <p>{{salaryDetails.distance_salary+salaryDetails.reverse_salary+salaryDetails.enter_fee
+                            - salaryDetails.damage_under_fee - salaryDetails.accident_fee - salaryDetails.peccancy_under_fee - salaryDetails.exceed_oil_fee
+                            +salaryDetails.full_work_bonus+salaryDetails.other_bonus-salaryDetails.hotel_bonus-salaryDetails.social_security_fee-salaryDetails.food_fee
+                            -salaryDetails.loan_fee -salaryDetails.other_fee -salaryDetails.damage_retain_fee -salaryDetails.damage_op_fee -salaryDetails.truck_retain_fee
+                            +salaryDetails.car_oil_fee+salaryDetails.truck_parking_fee+salaryDetails.car_parking_fee+salaryDetails.dp_other_fee+salaryDetails.clean_fee
+                            +salaryDetails.railer_fee+salaryDetails.run_fee+salaryDetails.lead_fee+salaryDetails.car_pick_fee-personalTax.toFixed(2)}}</p>
                     </div>
                 </div>
             </div>
-
             <div class="col s12 valign-wrapper" ng-show="salaryDetails.grant_status !== 3">
                 <div class="col s4 z-depth-1 offset-s4 center-align input-field cyan_border" style="height:100px;margin-top:30px;">
                     <div class="col s12" style="margin-top: 20px">

@@ -1,13 +1,215 @@
 app.controller("driver_salary_controller", ["$scope","$rootScope","$state","$stateParams", "$host", "_config", "_basic", function ($scope, $rootScope,$state,$stateParams,$host, _config, _basic) {
-
+    var userId = _basic.getSession(_basic.USER_ID);
     $scope.start = 0;
     $scope.size = 11;
     $scope.selectedIdsArr = [];
     $scope.noLoadDistanceCount = 0;
     $scope.loadDistanceCount = 0;
     $scope.shouldPay = 0;
-    var heavyLoad = _config.heavyLoad;
-    var userId = _basic.getSession(_basic.USER_ID);
+
+
+    $scope.num = 0;
+    $scope.flag=false;
+    $scope.tableBox = true;
+    $scope.success_data_box = false;
+    $scope.dataBox = false;
+    $scope.local_isSuccesss = false;
+    $scope.upload_isSuccesss = false;
+    $scope.show_error = false;
+    $scope.error_msg = false;
+    $scope.rightNumber = 0;
+    $scope.errorNumber = 0;
+    $scope.tableHeader = [];
+    $scope.fileType = "";
+    // 表头原始数据
+    $scope.tableHeadeArray = [];
+    // 主体原始错误数据
+    $scope.tableContentErrorFilter = [];
+    // 主体原始成功数据
+    $scope.tableContentFilter = [];
+    $scope.ImportedFilesList = [];
+
+
+    // 跳转
+    $scope.importFile = function () {
+        $('ul.tabWrap li').removeClass("active");
+        $(".tab_box").removeClass("active");
+        $(".tab_box").hide();
+        $('ul.tabWrap li.importFile ').addClass("active");
+        $("#importFile").addClass("active");
+        $("#importFile").show();
+    };
+    $scope.driverSalary = function () {
+        $('ul.tabWrap li').removeClass("active");
+        $(".tab_box").removeClass("active");
+        $(".tab_box").hide();
+        $('ul.tabWrap li.driverSalary ').addClass("active");
+        $("#driverSalary").addClass("active");
+        $("#driverSalary").show();
+    };
+    $scope.importFile  ();
+
+
+
+    // 过滤条件数据
+    var colObjs = [
+        {name: '司机姓名', type: 'string',require: true},
+        {name: '电话', type: 'number', require: true},
+        {name: '月份', type: 'number', require: true},
+        {name: '个人所得税', type: 'number', require: true}];
+    // 头部条件判断
+    $scope.titleFilter = function (headerArray) {
+        if (colObjs.length != headerArray.length) {
+            return false;
+        } else {
+            for (var i in headerArray) {
+                if (colObjs[i].name != headerArray[i]) {
+                    return false
+                }
+            }
+        }
+    };
+    // 主体条件判断
+    $scope.ContentFilter = function (contentArray) {
+
+        for (var i = 0; i < contentArray.length; i++) {
+            var flag = true;
+            var isNumber;
+            for (var j = 0; j < colObjs.length; j++) {
+                if (colObjs[j].require) {
+                    if (contentArray[i][j] == null && contentArray[i][j].length == 0) {
+                        $scope.errorNumber = $scope.errorNumber + 1;
+                        $scope.tableContentErrorFilter.push(contentArray[i]);
+                        flag = false;
+                        break;
+                    }
+                }
+                if (contentArray[i][j] == '' || isNaN(contentArray[i][j])) {
+                    isNumber = "string"
+                } else {
+                    isNumber = "number"
+                }
+                if (colObjs[j].type != isNumber && contentArray[i][j] != '' &&colObjs[j].require ) {
+                    $scope.errorNumber = $scope.errorNumber + 1;
+                    $scope.tableContentErrorFilter.push(contentArray[i]);
+                    flag = false;
+                    break;
+                }
+                if (colObjs[j].type=='string'&&(colObjs[j].length && colObjs[j].length != contentArray[i][j].length)) {
+                    $scope.errorNumber = $scope.errorNumber + 1;
+                    $scope.tableContentErrorFilter.push(contentArray[i]);
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag == true) {
+                $scope.rightNumber = $scope.rightNumber + 1;
+                $scope.tableContentFilter.push(contentArray[i]);
+            }
+        }
+    };
+
+    $scope.fileUpload = function () {
+        $("#buttonImport").attr("disabled",true);
+        _basic.formPost($("#file_upload_form"), $host.api_url + '/user/' + userId + '/driveSalaryPersonalTaxFile' , function (data) {
+            if (data.success == true) {
+                $scope.$apply(function () {
+                    $scope.upload_error_array_num =data.result.failedCase;
+                    $scope.orginData_Length=data.result.failedCase+data.result.successedInsert;
+                    $scope.num=data.result.successedInsert;
+                    $scope.local_isSuccesss = false;
+                    $scope.upload_isSuccesss = true;
+                    $("#buttonImport").attr("disabled",false);
+                    swal('正确:'+$scope.num+'错误:'+$scope.upload_error_array_num,"", "success")
+                });
+
+            }
+            else {
+                $("#buttonImport").attr("disabled",false);
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+
+    // 展示上传的错误数据
+    $scope.show_error_msg = function () {
+        $scope.error_msg = !$scope.error_msg;
+    };
+
+    $scope.fileChange = function (file) {
+        // 表头原始数据
+        $scope.tableHeadeArray = [];
+        // 主体原始错误数据
+        $scope.tableContentErrorFilter = [];
+        // 主体原始成功数据
+        $scope.tableContentFilter = [];
+        $scope.rightNumber = 0;
+        $scope.errorNumber = 0;
+        $(file).parse({
+            config: {
+                complete: function (result) {
+                    $scope.$apply(function () {
+                        if(result==null ||result.data==null ||result.data.length ==0){
+                            swal("文件类型错误");
+                        } else {
+                            $scope.tableHeadeArray = result.data[0];
+                            $scope.tableBox = false;
+                            // 表头校验
+                            if ($scope.titleFilter($scope.tableHeadeArray) != false) {
+                                // 主体内容校验
+                                var content_filter_array = result.data.slice(1, result.data.length);
+                                var con_line = [];
+                                // excel换行过滤
+                                for (var i = 0; i < content_filter_array.length; i++) {
+                                    if (content_filter_array[i].length == 1 && content_filter_array[i][0] == "") {
+                                        break;
+                                    } else {
+                                        con_line.push(content_filter_array[i]);
+                                    }
+                                }
+                                $scope.ContentFilter(con_line);
+                                if ($scope.tableContentErrorFilter.length == 0) {
+                                    $scope.success_data_box = true;
+                                    $scope.dataBox = false;
+                                    swal("正确条数" + $scope.tableContentFilter.length);
+                                    // 总条数
+                                    $scope.orginData_Length = $scope.tableContentFilter.length;
+                                    $scope.local_isSuccesss = true;
+                                } else {
+                                    $scope.success_data_box = false;
+                                    $scope.dataBox = true;
+                                    swal("错误条数" + $scope.tableContentErrorFilter.length);
+                                }
+                                $scope.tableHeader = result.data[0];
+                            }
+                            else {
+                                swal("表头格式错误", "", "error");
+                                $scope.tableBox = true;
+                            }
+
+                        }
+
+                    });
+
+                }
+            },
+            before: function (file, inputElem) {
+                $scope.fileType = file.type;
+            },
+            error: function (err, file, inputElem, reason) {
+                console.log(err)
+            },
+            complete: function (val) {
+            }
+        })
+    };
+
+
+
+
+
+
 
     // monthPicker控件
     $('#start_month').MonthPicker({
@@ -141,145 +343,6 @@ app.controller("driver_salary_controller", ["$scope","$rootScope","$state","$sta
     $scope.getDriverSalaryList = function () {
         $scope.start = 0;
         $scope.searchDriverSalaryList();
-    };
-
-    // 根据司机id查询未结算工资信息
-    $scope.showDriverWageSettlement = function (driverInfo) {
-        $scope.driverInfo = driverInfo;
-        _basic.get($host.api_url + "/dpRouteTaskBase?driveId=" + driverInfo.drive_id + "&taskStatus=10&statStatus=1").then(function (data) {
-            if (data.success === true) {
-                $scope.driverWageSettlementList = data.result;
-                $("#wageSettlementModal").modal("open");
-                $scope.selectedIdsArr = [];
-                $("[name = 'selectAll']").prop('checked' , false);
-                $scope.noLoadDistanceCount = 0;
-                $scope.loadDistanceCount = 0;
-                $scope.settleMonth=$scope.monthStart.slice(0,4)+"-"+$scope.monthStart.slice(-2);
-                getNotCompletedTaskStatusCount();
-
-
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
-    };
-    function  getNotCompletedTaskStatusCount (){
-        _basic.get($host.api_url + "/notCompletedTaskStatusCount?driveId=" +  $scope.driverInfo.drive_id + "&taskStatus=10&statStatus=1").then(function (data) {
-            if (data.success === true) {
-                $scope.notCompletedTaskStatusCount = data.result[0].task_status_count;
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
-    }
-    // 全选
-    $scope.selectAllCheckBox = function (event) {
-        var selAllBtn = event.target;
-        $scope.selectedIdsArr = [];
-        if (selAllBtn.checked) {
-            $("[name = 'select']").prop('checked', true);
-            // 收集调度编号并计算重载空载里程
-            for (var i = 0; i < $scope.driverWageSettlementList.length; i++) {
-                $scope.selectedIdsArr.push($scope.driverWageSettlementList[i].id);
-
-                if($scope.driverWageSettlementList[i].car_count <= heavyLoad){
-                    $scope.noLoadDistanceCount += $scope.driverWageSettlementList[i].distance
-                }
-                else{
-                    $scope.loadDistanceCount += $scope.driverWageSettlementList[i].distance
-                }
-            }
-        }
-        else {
-            $("[name = 'select']").prop('checked', false);
-            $scope.selectedIdsArr = [];
-            $scope.noLoadDistanceCount = 0;
-            $scope.loadDistanceCount = 0;
-        }
-        // console.log("selectedIdsArr",$scope.selectedIdsArr);
-    };
-
-    // 检测所有分选按钮是否被选中
-    $scope.checkIsAllSel = function () {
-        var selectAll = false;
-        $("[name = 'select']").each(function () {
-            if(!$(this).is(':checked')){
-                selectAll = true;
-            }
-        });
-
-        // 如果全部checkBox被选中，则改变全选按钮状态
-        if(selectAll){
-            $("[name = 'selectAll']").prop('checked' , false);
-        }
-        else{
-            $("[name = 'selectAll']").prop('checked' , true);
-        }
-    };
-
-    // 检测当前选中的路线，修改路线id数组并计算重载空载公里数
-    $scope.checkSelMission = function (event, id, index) {
-        var currentSel = event.target;
-        if(currentSel.checked){
-            $scope.selectedIdsArr.push(id);
-            // 计算重载空载公里数
-            if($scope.driverWageSettlementList[index].car_count <= heavyLoad){
-                $scope.noLoadDistanceCount += $scope.driverWageSettlementList[index].distance
-            }
-            else{
-                $scope.loadDistanceCount += $scope.driverWageSettlementList[index].distance
-            }
-        }
-        else{
-            // 获取取消选中的checkbox在id数组中的下标
-            var noSelIndex = $scope.selectedIdsArr.indexOf(id);
-            $scope.selectedIdsArr.splice(noSelIndex, 1);
-            // 计算重载空载公里数
-            if($scope.driverWageSettlementList[index].car_count <= heavyLoad){
-                $scope.noLoadDistanceCount -= $scope.driverWageSettlementList[index].distance
-            }
-            else{
-                $scope.loadDistanceCount -= $scope.driverWageSettlementList[index].distance
-            }
-        }
-        // console.log("selectedIdsArr",$scope.selectedIdsArr);
-    };
-
-    // 模态框点击确定新增结算任务工资并跳转页面
-    $scope.addRouteFeeInfo = function () {
-        var truckId = $scope.driverInfo.truck_id == null ? 0 : $scope.driverInfo.truck_id;
-        _basic.post($host.api_url + "/user/" + userId + "/driveSalary",{
-            driveId: $scope.driverInfo.drive_id,
-            truckId: truckId,
-            monthDateId:$scope.monthStart,
-            loadDistance: $scope.loadDistanceCount,
-            noLoadDistance: $scope.noLoadDistanceCount,
-            planSalary: $scope.shouldPay,
-            dpRouteTaskIds: $scope.selectedIdsArr
-        }).then(function (data) {
-            if (data.success === true) {
-                swal({
-                        title: "操作成功",
-                        type: "success",
-                        showCancelButton: false,
-                        confirmButtonColor: "#86cceb",
-                        confirmButtonText: "确认"
-                }).then(
-                    function () {
-                        $state.go("driver_salary_details", {
-                            id: data.id,
-                            driveId: $scope.driverInfo.drive_id,
-                            from:'driver_salary'
-                        });
-                        $("#wageSettlementModal").modal("close");
-                    });
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
     };
 
 

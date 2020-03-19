@@ -1135,11 +1135,11 @@
                         <p>个税 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12 input-field" style="color: #e57373;margin: 0">
-                        <input style="font-size: 1.5rem;text-align: center;color: rgb(230,123,123);margin-bottom: 17px" type="number" id="personalTax" name="personalTax" ng-model="personalTax">
+                        <input style="font-size: 1.5rem;text-align: center;color: rgb(230,123,123);margin-bottom: 17px" type="number" id="personalTax" name="personalTax" ng-model="salaryDetails.personal_tax">
                     </div>
 
-
                 </div>
+
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
                     <span  class="mdi  mdi-equal cyan-text"></span>
                 </div>
@@ -1158,7 +1158,7 @@
                             +salaryDetails.full_work_bonus+salaryDetails.other_bonus-salaryDetails.hotel_bonus-salaryDetails.social_security_fee-salaryDetails.food_fee
                             -salaryDetails.loan_fee -salaryDetails.other_fee -salaryDetails.damage_retain_fee -salaryDetails.damage_op_fee -salaryDetails.truck_retain_fee
                             +salaryDetails.car_oil_fee+salaryDetails.truck_parking_fee+salaryDetails.car_parking_fee+salaryDetails.dp_other_fee+salaryDetails.clean_fee
-                            +salaryDetails.railer_fee+salaryDetails.run_fee+salaryDetails.lead_fee+salaryDetails.car_pick_fee-personalTax.toFixed(2)}}</p>
+                            +salaryDetails.railer_fee+salaryDetails.run_fee+salaryDetails.lead_fee+salaryDetails.car_pick_fee-salaryDetails.personal_tax.toFixed(2)}}</p>
                     </div>
                 </div>
             </div>

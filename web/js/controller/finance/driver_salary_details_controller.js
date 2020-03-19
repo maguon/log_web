@@ -343,7 +343,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
             +$scope.salaryDetails.full_work_bonus+$scope.salaryDetails.other_bonus-$scope.salaryDetails.hotel_bonus-$scope.salaryDetails.social_security_fee-$scope.salaryDetails.food_fee
             -$scope.salaryDetails.loan_fee -$scope.salaryDetails.other_fee -$scope.salaryDetails.damage_retain_fee -$scope.salaryDetails.damage_op_fee -$scope.salaryDetails.truck_retain_fee
             +$scope.salaryDetails.car_oil_fee+$scope.salaryDetails.truck_parking_fee+$scope.salaryDetails.car_parking_fee+$scope.salaryDetails.dp_other_fee+$scope.salaryDetails.clean_fee
-            +$scope.salaryDetails.railer_fee+$scope.salaryDetails.run_fee+$scope.salaryDetails.lead_fee+$scope.salaryDetails.car_pick_fee-$scope.personalTax;
+            +$scope.salaryDetails.railer_fee+$scope.salaryDetails.run_fee+$scope.salaryDetails.lead_fee+$scope.salaryDetails.car_pick_fee-$scope.salaryDetails.personal_tax;
 
         if(id==undefined){
             _basic.post($host.api_url + "/user/" + userId + "/driveSalary",{
@@ -433,7 +433,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                         +$scope.salaryDetails.full_work_bonus+$scope.salaryDetails.other_bonus-$scope.salaryDetails.hotel_bonus-$scope.salaryDetails.social_security_fee-$scope.salaryDetails.food_fee
                         -$scope.salaryDetails.loan_fee -$scope.salaryDetails.other_fee -$scope.salaryDetails.damage_retain_fee -$scope.salaryDetails.damage_op_fee -$scope.salaryDetails.truck_retain_fee
                         +$scope.salaryDetails.car_oil_fee+$scope.salaryDetails.truck_parking_fee+$scope.salaryDetails.car_parking_fee+$scope.salaryDetails.dp_other_fee+$scope.salaryDetails.clean_fee
-                        +$scope.salaryDetails.railer_fee+$scope.salaryDetails.run_fee+$scope.salaryDetails.lead_fee+$scope.salaryDetails.car_pick_fee-$scope.personalTax;
+                        +$scope.salaryDetails.railer_fee+$scope.salaryDetails.run_fee+$scope.salaryDetails.lead_fee+$scope.salaryDetails.car_pick_fee-$scope.salaryDetails.personal_tax;
                     ;
                     if(id==undefined){
                         _basic.post($host.api_url + "/user/" + userId + "/driveSalary",{

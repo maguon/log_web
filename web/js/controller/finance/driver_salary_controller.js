@@ -47,7 +47,7 @@ app.controller("driver_salary_controller", ["$scope","$rootScope","$state","$sta
         $("#driverSalary").addClass("active");
         $("#driverSalary").show();
     };
-    $scope.importFile  ();
+    $scope.driverSalary  ();
 
 
 

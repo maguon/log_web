@@ -410,6 +410,19 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                     swal(data.msg, "", "error");
                 }
             });
+
+            _basic.put($host.api_url + "/user/" + userId + "/drivePersonalTax",{
+                "driveId": driveId,
+                "yMonth": monthId,
+                "personalTax": $scope.salaryDetails.personal_tax
+            }).then(function (data) {
+                if (data.success === true) {
+                    getSalaryDetails();
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
         }
 
     };
@@ -495,6 +508,18 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                                 $scope.addId=id;
                                 putStatus();
                                 swal("保存成功", "", "success");
+                            }
+                            else {
+                                swal(data.msg, "", "error");
+                            }
+                        });
+                        _basic.put($host.api_url + "/user/" + userId + "/drivePersonalTax",{
+                            "driveId": driveId,
+                            "yMonth": monthId,
+                            "personalTax": $scope.salaryDetails.personal_tax
+                        }).then(function (data) {
+                            if (data.success === true) {
+                                getSalaryDetails();
                             }
                             else {
                                 swal(data.msg, "", "error");

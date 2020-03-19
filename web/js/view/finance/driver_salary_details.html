@@ -235,8 +235,8 @@
                         <p class="cyan-text" >{{monthId}}</p>
                     </div>
                     <div class="col s2 offset-s6 center-align">
-                        <p ng-if="salaryDetails.grant_status!== 2&&salaryDetails.grant_status !== 3" style="color: #e57373">未结算</p>
-                        <p ng-if="salaryDetails.grant_status == 2" class="cyan-text" >未发放</p>
+                        <!--<p ng-if="salaryDetails.grant_status!== 2&&salaryDetails.grant_status !== 3" style="color: #e57373">未结算</p>-->
+                        <p ng-if="salaryDetails.grant_status !== 3" class="cyan-text" >未发放</p>
                         <p ng-if="salaryDetails.grant_status == 3" style="color: darkgray">已发放</p>
                     </div>
                 </div>

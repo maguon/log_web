@@ -52,7 +52,7 @@
                     <div class="col s6 input-field">
                         <select id="grant_status" ng-model="grantStatus" material-select watch>
                             <option value="" selected>请选择</option>
-                            <option value="1">未结算</option>
+                        <!--    <option value="1">未结算</option>-->
                             <option value="2">未发放</option>
                             <option value="3">已发放</option>
                         </select>
@@ -105,16 +105,15 @@
                                 <td>{{salary.plan_distance_salary==''?0:salary.plan_distance_salary}}</td>
                                 <td>{{salary.plan_enter_fee==''?0:salary.plan_enter_fee}}</td>
                                 <td>{{salary.plan_reverse_salary==''?0:salary.plan_reverse_salary}}</td>
-                                <td style="color: #e57373" ng-if="salary.grant_status !== 2&&salary.grant_status !== 3">未结算</td>
-                                <td style="color: #f6ad33" ng-if="salary.grant_status == 2">未发放</td>
+                                <td style="color: #f6ad33" ng-if="salary.grant_status !== 3">未发放</td>
                                 <td style="color: darkgray" ng-if="salary.grant_status == 3">已发放</td>
-                                <td class="operation fz12" ng-show="salary.grant_status == null || salary.grant_status == 1">
+                               <!-- <td class="operation fz12" ng-show="salary.grant_status == null || salary.grant_status == 1">
                                     <a style="cursor: pointer;text-align: center;color: #f6ad33" ui-sref="driver_salary_details({id:salary.id,driveId:salary.drive_id,monthId:salary.month_date_id == null ? monthVal : salary.month_date_id,from:'driver_salary'})">
                                         <i class="mdi mdi-comment-text" style="margin: 0"></i>
                                     </a>
 
-                                </td>
-                                <td class="operation fz12" ng-show="salary.grant_status == 2 || salary.grant_status == 3">
+                                </td>-->
+                                <td class="operation fz12">
                                     <a ui-sref="driver_salary_details({driveId:salary.drive_id,monthId:salary.month_date_id == null ? monthVal : salary.month_date_id,from:'driver_salary',id:salary.id})" class="cyan-text " style="cursor: pointer;text-align: center;"><i class="mdi mdi-eye" style="margin: 0"></i></a>
                                 </td>
                             </tr>

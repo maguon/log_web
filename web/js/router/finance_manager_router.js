@@ -320,6 +320,12 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/finance/car_cost.html",
             controller:'car_cost_controller'
         })
+        .state("driver_incidental",{
+            url:"/driver_incidental",
+            params: {"from": null},
+            templateUrl: "js/view/finance/driver_incidental.html",
+            controller:'driver_incidental_controller'
+        })
 
         // 数据字典
         .state("data_dictionary",{

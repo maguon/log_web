@@ -546,6 +546,7 @@
                         <thead class="blue-grey lighten-5">
                         <tr class="grey-text text-darken-2">
                             <th data-field="">编号</th>
+                            <th data-field="">月份</th>
                             <th data-field="">货车牌号</th>
                             <th data-field="">出勤天数</th>
                             <th data-field="">出差补助</th>
@@ -556,6 +557,7 @@
                         <tbody>
                         <tr ng-repeat="fileInfo in driverAttendanceList" class="grey-text text-darken-1">
                             <td>{{fileInfo.id}}</td>
+                            <td>{{fileInfo.y_month}}</td>
                             <td>{{fileInfo.truck_num}}</td>
                             <td class="red-text" >{{fileInfo.work_count}}</td>
                             <td class="red-text" >{{fileInfo.hotel_bonus}}</td>
@@ -563,7 +565,7 @@
                             <td class="red-text" >{{fileInfo.other_bonus}}</td>
                         </tr>
                         <tr ng-if="driverAttendanceList.length==0">
-                            <td colspan="6">暂无数据</td>
+                            <td colspan="7">暂无数据</td>
                         </tr>
                         </tbody>
                     </table>
@@ -600,6 +602,7 @@
                         <thead class="blue-grey lighten-5">
                         <tr class="grey-text text-darken-2">
                             <th data-field="">编号</th>
+                            <th data-field="">月份</th>
                             <th data-field="">个人借款</th>
                             <th data-field="">社保费</th>
                             <th data-field="">伙食费</th>
@@ -609,13 +612,14 @@
                         <tbody>
                         <tr ng-repeat="incidentalInfo in incidentalList" class="grey-text text-darken-1">
                             <td>{{incidentalInfo.id}}</td>
+                            <td>{{incidentalInfo.y_month}}</td>
                             <td  class="red-text">{{incidentalInfo.personal_loan}}</td>
                             <td  class="red-text">{{incidentalInfo.social_fee}}</td>
                             <td  class="red-text">{{incidentalInfo.meals_fee}}</td>
                             <td  class="red-text">{{incidentalInfo.other_fee}}</td>
                         </tr>
                         <tr ng-if="incidentalList.length==0">
-                            <td colspan="5">暂无数据</td>
+                            <td colspan="6">暂无数据</td>
                         </tr>
                         </tbody>
                     </table>
@@ -654,6 +658,7 @@
                     <table class=" bordered striped text_mid">
                         <thead class="blue-grey lighten-5">
                         <tr class="grey-text text-darken-2">
+                            <th data-field="">月份</th>
                             <th data-field="">当前所属公司</th>
                             <th data-field="">司机</th>
                             <th data-field="">手机号</th>
@@ -665,6 +670,7 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="fileInfo in securityList" class="grey-text text-darken-1">
+                            <td>{{fileInfo.y_month}}</td>
                             <td>{{fileInfo.company_name}}</td>
                             <td>{{fileInfo.drive_name}}</td>
                             <td>{{fileInfo.mobile}}</td>
@@ -673,7 +679,7 @@
                             <td class="red-text" >{{fileInfo.truck_retain_fee}}</td>
                         </tr>
                         <tr ng-if="securityList.length==0">
-                            <td colspan="6">暂无数据</td>
+                            <td colspan="7">暂无数据</td>
                         </tr>
                         </tbody>
                     </table>

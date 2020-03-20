@@ -235,7 +235,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
     $scope.getRetainList = function(){
         var conditions ={
             driveId:driveId,
-            yMonth:monthId
+            yearMonth:monthId
         };
         _basic.get($host.api_url+"/driveSalaryRetain?"+ _basic.objToUrl(conditions)).then(function (data) {
 

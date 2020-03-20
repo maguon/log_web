@@ -414,7 +414,7 @@ app.controller("driver_salary_controller", ["$scope","$rootScope","$state","$sta
                 $scope.size = pageItems.size;
                 // 将上次的检索条件设定到画面
                 setConditions(pageItems.conditions);
-                $scope.searchDriverSalaryList(pageItems.conditions.monthDateId);
+                $scope.searchDriverSalaryList(pageItems.conditions.yMonth);
             }
         } else {
             // 初始显示时，没有前画面，所以没有基本信息

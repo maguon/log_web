@@ -34,10 +34,10 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
     function getSalaryDetails() {
         var url;
         if(salaryId==''||salaryId==undefined){
-            url = $host.api_url + "/driveSalary?driveId="+driveId+'&monthDateId='+monthId;
+            url = $host.api_url + "/driveSalaryBase?driveId="+driveId+'&yMonth='+monthId;
         }
       else{
-            url = $host.api_url + "/driveSalary?driveSalaryId=" + salaryId+'&monthDateId='+monthId+'&driveId'+driveId;
+            url = $host.api_url + "/driveSalaryBase?driveSalaryId=" + salaryId+'&yMonth='+monthId+'&driveId='+driveId;
         }
         _basic.get(url).then(function (data) {
             if (data.success === true) {

@@ -288,7 +288,7 @@ app.controller("driver_salary_controller", ["$scope","$rootScope","$state","$sta
         $scope.startMonth =  $scope.monthStart;
 
         // 基本检索URL
-        var url = $host.api_url + "/driveSalary?start=" + $scope.start + "&size=" + $scope.size;
+        var url = $host.api_url + "/driveSalaryBase?start=" + $scope.start + "&size=" + $scope.size;
         // 检索条件
         var conditionsObj = makeConditions();
         var conditions = _basic.objToUrl(conditionsObj);
@@ -377,7 +377,7 @@ app.controller("driver_salary_controller", ["$scope","$rootScope","$state","$sta
      * @param conditions 上次检索条件
      */
     function setConditions(conditions) {
-        $scope.monthStart=conditions.monthDateId;
+        $scope.monthStart=conditions.yMonth;
         $scope.driverName=conditions.driveName;
         $scope.carType=conditions.operateType;
         $scope.insureCompany=conditions.companyId;
@@ -391,7 +391,7 @@ app.controller("driver_salary_controller", ["$scope","$rootScope","$state","$sta
      */
     function makeConditions() {
         return {
-            monthDateId: $scope.monthStart,
+            yMonth: $scope.monthStart,
             driveName: $scope.driverName,
             operateType: $scope.carType,
             companyId: $scope.insureCompany,

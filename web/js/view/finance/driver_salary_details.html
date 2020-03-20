@@ -822,7 +822,7 @@
                         <p>应发洗车费：<span class="cyan-text" >{{salaryDetails.clean_fee}}</span> 元</p>
                     </div>
                     <div class="col center-align" style="padding: 0; width: 20%">
-                        <p>应发拖车费：<span class="cyan-text" >{{salaryDetails.railer_fee}}</span> 元</p>
+                        <p>应发拖车费：<span class="cyan-text" >{{salaryDetails.trailer_fee}}</span> 元</p>
                     </div>
                     <div class="col center-align" style="padding: 0; width: 20%">
                         <p>应发地跑费：<span class="cyan-text" >{{salaryDetails.run_fee}}</span> 元</p>
@@ -901,7 +901,7 @@
                         <p>超量扣款 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12" style="color: #e57373">
-                        <p>{{salaryDetails.exceed_oil_fee}}</p>
+                        <p>{{salaryDetails.exceed_oil_fee.toFixed(2)}}</p>
                     </div>
                 </div>
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
@@ -1091,7 +1091,7 @@
                         <p>应发拖车费 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12 input-field" style="color: #e57373;margin: 0">
-                        <p >{{salaryDetails.railer_fee.toFixed(2)}}</p>
+                        <p >{{salaryDetails.trailer_fee.toFixed(2)}}</p>
                     </div>
                 </div>
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
@@ -1153,12 +1153,13 @@
                         <p>应付工资 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12" style="color: white">
-                        <p>{{salaryDetails.distance_salary+salaryDetails.reverse_salary+salaryDetails.enter_fee
+                        <p>{{(salaryDetails.distance_salary+salaryDetails.reverse_salary+salaryDetails.enter_fee
                             - salaryDetails.damage_under_fee - salaryDetails.accident_fee - salaryDetails.peccancy_under_fee - salaryDetails.exceed_oil_fee
                             +salaryDetails.full_work_bonus+salaryDetails.other_bonus-salaryDetails.hotel_bonus-salaryDetails.social_security_fee-salaryDetails.food_fee
                             -salaryDetails.loan_fee -salaryDetails.other_fee -salaryDetails.damage_retain_fee -salaryDetails.damage_op_fee -salaryDetails.truck_retain_fee
                             +salaryDetails.car_oil_fee+salaryDetails.truck_parking_fee+salaryDetails.car_parking_fee+salaryDetails.dp_other_fee+salaryDetails.clean_fee
-                            +salaryDetails.railer_fee+salaryDetails.run_fee+salaryDetails.lead_fee+salaryDetails.car_pick_fee-salaryDetails.personal_tax.toFixed(2)}}</p>
+                            +salaryDetails.trailer_fee+salaryDetails.run_fee+salaryDetails.lead_fee+salaryDetails.car_pick_fee-salaryDetails.personal_tax).toFixed(2)}}</p>
+
                     </div>
                 </div>
             </div>

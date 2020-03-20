@@ -102,9 +102,9 @@
                                 <td>{{salary.company_name}}</td>
                                 <td>{{salary.truck_num}}</td>
                                 <td>{{salary.brand_name}}</td>
-                                <td>{{salary.plan_distance_salary==''?0:salary.plan_distance_salary}}</td>
-                                <td>{{salary.plan_enter_fee==''?0:salary.plan_enter_fee}}</td>
-                                <td>{{salary.plan_reverse_salary==''?0:salary.plan_reverse_salary}}</td>
+                                <td>{{salary.distance_salary==''?0:salary.distance_salary}}</td>
+                                <td>{{salary.enter_fee==''?0:salary.enter_fee}}</td>
+                                <td>{{salary.reverse_salary==''?0:salary.reverse_salary}}</td>
                                 <td style="color: #f6ad33" ng-if="salary.grant_status !== 3">未发放</td>
                                 <td style="color: darkgray" ng-if="salary.grant_status == 3">已发放</td>
                                <!-- <td class="operation fz12" ng-show="salary.grant_status == null || salary.grant_status == 1">

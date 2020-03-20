@@ -304,13 +304,6 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
     };
 
 
-    // 获取结算工资信息
-    $scope.grantWages = function () {
-        $scope.getCarDamageInfo();
-        $scope.getTruckAccidentInfo();
-        $scope.getPeccancyList();
-        $scope.getExceedOilList();
-    };
 
 
     // 任务工资详情

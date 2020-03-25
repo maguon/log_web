@@ -243,22 +243,6 @@ app.controller("driver_incidental_controller", ["$scope","$rootScope", "$state",
             }
         });
     }
-    //获取司机
-    function getDriveList(selectText){
-        _basic.get($host.api_url + "/drive").then(function (data) {
-            if (data.success == true) {
-                $scope.driveList = data.result;
-                $('#putDrivderId').select2({
-                    placeholder: selectText,
-                    containerCssClass : 'select2_dropdown',
-                    allowClear: true
-                })
-            }
-            else {
-                swal(data.msg, "", "error");
-            }
-        });
-    }
 
     //月份格式
     $('#start_month').MonthPicker({
@@ -269,11 +253,6 @@ app.controller("driver_incidental_controller", ["$scope","$rootScope", "$state",
         Button: false,
         MonthFormat: 'yymm'
     });
-    $('#put_start_month').MonthPicker({
-        Button: false,
-        MonthFormat: 'yymm'
-    });
-
 
     //获取上个月年月
     function getLastMonth(){//获取上个月日期
@@ -408,7 +387,6 @@ app.controller("driver_incidental_controller", ["$scope","$rootScope", "$state",
     //打开修改模态框
     $scope.putIncidental = function (id){
         $scope.id = id;
-        $scope.driveList =[];
         $('#putItem').modal('open');
         _basic.get($host.api_url + "/driveSundryFee?driveSundryFeeId=" +id).then(function (data) {
             if (data.success === true) {
@@ -418,7 +396,6 @@ app.controller("driver_incidental_controller", ["$scope","$rootScope", "$state",
                 else{
                     $scope.putIncidentalList = data.result[0];
                     $scope.putIncidentalList.drive_id = data.result[0].drive_id;
-                    getDriveList($scope.putIncidentalList.drive_id);
 
                 }
             }
@@ -431,9 +408,6 @@ app.controller("driver_incidental_controller", ["$scope","$rootScope", "$state",
             $scope.putIncidentalList.personal_loan!== "" &&$scope.putIncidentalList.social_fee!== ""
             &&$scope.putIncidentalList.meals_fee!== "" &&$scope.putIncidentalList.other_fee!== "" ){
             var obj = {
-                "userId": userId,
-                "driveId":$scope.putIncidentalList.drive_id,
-                "yMonth": $scope.putIncidentalList.y_month,
                 "personalLoan": $scope.putIncidentalList.personal_loan,
                 "socialFee": $scope.putIncidentalList.social_fee,
                 "mealsFee": $scope.putIncidentalList.meals_fee,

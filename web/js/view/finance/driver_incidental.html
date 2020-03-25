@@ -60,15 +60,13 @@
                 <div class="col s12" style="height: 60px;">
 
                     <div class="col s6 input-field">
-                        <input id="put_start_month" type="text" ng-model="putIncidentalList.y_month" />
+                        <input id="put_start_month" type="text" ng-model="putIncidentalList.y_month" disabled />
                         <label for="put_start_month">月份</label>
                     </div>
 
                     <div class="col s6 input-field">
-                        <select id="putDrivderId"  ng-model="putIncidentalList.drive_id"  style="width: 100%">
-                            <option value=''>司机</option>
-                            <option ng-repeat="putDrive in driveList" ng-value='putDrive.id'>{{putDrive.drive_name}}</option>
-                        </select>
+                        <input id="putDrivderId" type="text" ng-model="putIncidentalList.drive_name" disabled/>
+                        <label for="putDrivderId">司机</label>
                     </div>
 
                 </div>

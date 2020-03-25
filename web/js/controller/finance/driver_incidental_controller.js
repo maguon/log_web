@@ -60,7 +60,8 @@ app.controller("driver_incidental_controller", ["$scope","$rootScope", "$state",
         {name: '月份', type: 'number', require: true},
         {name: '个人借款', type: 'number', require: true},
         {name: '社保费', type: 'number', require: true},
-        {name: '伙食费', type: 'number', require: true}];
+        {name: '伙食费', type: 'number', require: true},
+        {name: '其他扣款', type: 'number', require: true}];
 
 
 
@@ -217,167 +218,6 @@ app.controller("driver_incidental_controller", ["$scope","$rootScope", "$state",
     };
 
 
-
-
-
-
-    // 过滤条件数据
-    var colObjsOther = [
-        {name: '司机姓名', type: 'string',require: true},
-        {name: '电话', type: 'number',require: true},
-        {name: '月份', type: 'number', require: true},
-        {name: '其他扣款', type: 'number', require: true}];
-    // 头部条件判断
-    $scope.titleFilterOther = function (headerArray) {
-        if (colObjsOther.length != headerArray.length) {
-            return false;
-        } else {
-            for (var i in headerArray) {
-                if (colObjsOther[i].name != headerArray[i]) {
-                    return false
-                }
-            }
-        }
-    };
-
-    // 主体条件判断
-    $scope.ContentFilterOther = function (contentArray) {
-
-        for (var i = 0; i < contentArray.length; i++) {
-            var flag = true;
-            var isNumber;
-            for (var j = 0; j < colObjsOther.length; j++) {
-                if (colObjsOther[j].require) {
-                    if (contentArray[i][j] == null && contentArray[i][j].length == 0) {
-                        $scope.errorNumber = $scope.errorNumber + 1;
-                        $scope.tableContentErrorFilter.push(contentArray[i]);
-                        flag = false;
-                        break;
-                    }
-                }
-                if (contentArray[i][j] == '' || isNaN(contentArray[i][j])) {
-                    isNumber = "string"
-                } else {
-                    isNumber = "number"
-                }
-                if (colObjsOther[j].type != isNumber && contentArray[i][j] != '' &&colObjsOther[j].require ) {
-                    $scope.errorNumber = $scope.errorNumber + 1;
-                    $scope.tableContentErrorFilter.push(contentArray[i]);
-                    flag = false;
-                    break;
-                }
-                if (colObjsOther[j].type=='string'&&(colObjsOther[j].length && colObjsOther[j].length != contentArray[i][j].length)) {
-                    $scope.errorNumber = $scope.errorNumber + 1;
-                    $scope.tableContentErrorFilter.push(contentArray[i]);
-                    flag = false;
-                    break;
-                }
-            }
-            if (flag == true) {
-                $scope.rightNumber = $scope.rightNumber + 1;
-                $scope.tableContentFilter.push(contentArray[i]);
-            }
-        }
-    };
-
-    $scope.fileUploadOther = function () {
-        $("#buttonImportOther").attr("disabled",true);
-        _basic.formPost($("#file_upload_form1"), $host.api_url + '/user/' + userId + '/driveSundryOtherFeeFile' , function (data) {
-            if (data.success == true) {
-                $scope.$apply(function () {
-                    $scope.upload_error_array_num =data.result.failedCase;
-                    $scope.orginData_Length=data.result.failedCase+data.result.successedInsert;
-                    $scope.num=data.result.successedInsert;
-                    $scope.local_isSuccesss = false;
-                    $scope.upload_isSuccesss = true;
-                    $("#file_upload_form1").disabled=true;
-                    $("#buttonImportOther").attr("disabled",false);
-                    swal('正确:'+$scope.num+'错误:'+$scope.upload_error_array_num,"", "success")
-                });
-
-            }
-            else {
-                $("#buttonImportOther").attr("disabled",false);
-                swal(data.msg, "", "error");
-            }
-        });
-    };
-
-    // 展示上传的错误数据
-    $scope.show_error_msg = function () {
-        $scope.error_msg = !$scope.error_msg;
-    };
-
-
-
-    $scope.fileChangeOther = function (file){
-        $scope.otherFlag=false;
-        // 表头原始数据
-        $scope.tableHeadeArray = [];
-        // 主体原始错误数据
-        $scope.tableContentErrorFilter = [];
-        // 主体原始成功数据
-        $scope.tableContentFilter = [];
-        $scope.rightNumber = 0;
-        $scope.errorNumber = 0;
-        $(file).parse({
-            config: {
-                complete: function (result) {
-                    $scope.$apply(function () {
-                        if(result==null ||result.data==null ||result.data.length ==0){
-                            swal("文件类型错误");
-                        } else {
-                            $scope.tableHeadeArray = result.data[0];
-                            $scope.tableBox = false;
-                            // 表头校验
-                            if ($scope.titleFilterOther($scope.tableHeadeArray) != false) {
-                                // 主体内容校验
-                                var content_filter_array = result.data.slice(1, result.data.length);
-                                var con_line = [];
-                                // excel换行过滤
-                                for (var i = 0; i < content_filter_array.length; i++) {
-                                    if (content_filter_array[i].length == 1 && content_filter_array[i][0] == "") {
-                                        break;
-                                    } else {
-                                        con_line.push(content_filter_array[i]);
-                                    }
-                                }
-                                $scope.ContentFilterOther(con_line);
-                                if ($scope.tableContentErrorFilter.length == 0) {
-                                    $scope.success_data_box = true;
-                                    $scope.dataBox = false;
-                                    swal("正确条数" + $scope.tableContentFilter.length);
-                                    // 总条数
-                                    $scope.orginData_Length = $scope.tableContentFilter.length;
-                                    $scope.local_isSuccesss = true;
-                                } else {
-                                    $scope.success_data_box = false;
-                                    $scope.dataBox = true;
-                                    swal("错误条数" + $scope.tableContentErrorFilter.length);
-                                }
-                                $scope.tableHeader = result.data[0];
-                            }
-                            else {
-                                swal("表头格式错误", "", "error");
-                                $scope.tableBox = true;
-                            }
-
-                        }
-
-                    });
-
-                }
-            },
-            before: function (file, inputElem) {
-                $scope.fileType = file.type;
-            },
-            error: function (err, file, inputElem, reason) {
-                console.log(err)
-            },
-            complete: function (val) {
-            }
-        })
-    }
     /*
     * 查询页面
     * */
@@ -511,10 +351,6 @@ app.controller("driver_incidental_controller", ["$scope","$rootScope", "$state",
 
 
 
-
-
-
-
     //打开新增模态框
     $scope.addIncidental = function (){
         $scope.addDrivderId='';
@@ -569,10 +405,6 @@ app.controller("driver_incidental_controller", ["$scope","$rootScope", "$state",
     }
 
 
-
-
-
-
     //打开修改模态框
     $scope.putIncidental = function (id){
         $scope.id = id;
@@ -592,8 +424,6 @@ app.controller("driver_incidental_controller", ["$scope","$rootScope", "$state",
             }
         })
     }
-
-
 
     $scope.putIncidentalItem = function (){
         if($scope.putIncidentalList.y_month!== "" &&$scope.putIncidentalList.drive_id!==""&&
@@ -625,10 +455,6 @@ app.controller("driver_incidental_controller", ["$scope","$rootScope", "$state",
     }
 
 
-
-
-
-
     // 分页
     $scope.pre_btn = function () {
         $scope.start = $scope.start - ($scope.size-1);
@@ -647,8 +473,5 @@ app.controller("driver_incidental_controller", ["$scope","$rootScope", "$state",
         getIncidentalData();
     }
     queryData()
-
-
-
 
 }])

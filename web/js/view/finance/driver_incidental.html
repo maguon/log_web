@@ -120,56 +120,34 @@
 
             <!--按钮 第一行-->
             <div class="row col s12">
-                <div class="col s6">
-                    <form name="file_upload_form " id="file_upload_form" >
-                        <div class="col s12">
-                            <div class="row">
-                                <div class="file-field  input-field ">
-                                    <a href="/assets/司机杂费导入模板.csv" target="_blank" class="btn center-align waves-effect circle_button" >下载个人借款,社保费,伙食费模板格式</a>
-                                </div>
+
+
+                <form name="file_upload_form " id="file_upload_form" >
+                    <div class="col s4">
+                        <div class="row">
+                            <div class="file-field  input-field ">
+                                <a href="/assets/司机杂费导入模板.csv" target="_blank" class="btn waves-effect circle_button" >下载模板格式</a>
                             </div>
                         </div>
-                        <div class="col s12">
+                    </div>
+                    <div class="col s5 offset-s3">
+                        <div class="col s4"></div>
+                        <div class="col s4"></div>
+                        <div class="col s4">
                             <div class="row">
-                                <div class="file-field  input-field ">
+                                <div class="file-field input-field">
                                     <div class="btn cyan lighten-2 circle_button">
-                                        <span>批量个人借款,社保费,伙食费数据导入</span>
-                                        <input type="file" style="font-size: 80px;height:45px;"  name="file" accept="text/csv" onchange='angular.element(this).scope().fileChange(this)' >
+                                        <span>批量数据导入</span>
+                                        <input type="file" style="font-size: 100px;height: 45px;"  name="file" accept="text/csv" onchange='angular.element(this).scope().fileChange(this)' >
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div>
 
-
-
-
-                <div class="col s6">
-                     <form name="file_upload_form1 " id="file_upload_form1" >
-                    <div class="col s12">
-                        <div class="col s5 push-s7">
-                            <div class="row">
-                                <div class="file-field input-field">
-                                    <a href="/assets/司机其他扣款导入模板.csv" target="_blank" class="btn center-align waves-effect circle_button" >下载其他扣款模板格式</a>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                    <div class="col s12">
-                        <div class="col s5 push-s7">
-                            <div class="row">
-                                <div class="file-field input-field">
-                                    <div class="btn cyan lighten-2 circle_button">
-                                        <span>批量其他扣款数据导入</span>
-                                        <input type="file" style="font-size: 80px;height:45px;"  name="file" accept="text/csv" onchange='angular.element(this).scope().fileChangeOther(this)' >
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                 </form>
-                </div>
+
             </div>
 
             <!--大图-->
@@ -195,8 +173,8 @@
                             <i class="mdi  mdi-checkbox-multiple-blank-circle  cyan-text" ></i>
                             如果系统内未查询到司机信息，将上传失败;
                         </div>
-                        <div class="col s8 push-s2 mp-40 fz15">个人借款,社保费,伙食费导入说明 </div>
-                        <div class="col s8 push-s2 mp-20">
+
+                        <div class="col s8 push-s2 mp-40">
                             <div class="divider cyan" style="height: 2px;"></div>
                             <table class=" bordered striped text_mid">
                                 <thead class="blue-grey lighten-5">
@@ -207,6 +185,7 @@
                                     <th data-field="">个人借款</th>
                                     <th data-field="">社保费</th>
                                     <th data-field="">伙食费</th>
+                                    <th data-field="">其他扣款</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -217,6 +196,7 @@
                                     <td>100</td>
                                     <td>200</td>
                                     <td>300</td>
+                                    <td>400</td>
                                 </tr>
                                 <tr class="grey-text text-darken-1">
                                     <td>司机姓名</td>
@@ -225,40 +205,11 @@
                                     <td>个人借款默认为0</td>
                                     <td>社保费默认为0</td>
                                     <td>伙食费默认为0</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="col s8 push-s2 mp-40 fz15">其他扣款导入说明 </div>
-                        <div class="col s8 push-s2 mp-20">
-                            <div class="divider cyan" style="height: 2px;"></div>
-                            <table class=" bordered striped text_mid">
-                                <thead class="blue-grey lighten-5">
-                                <tr class="grey-text text-darken-2">
-                                    <th data-field="">司机姓名</th>
-                                    <th data-field="">电话</th>
-                                    <th data-field="">月份</th>
-                                    <th data-field="">其他扣款</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr class="grey-text text-darken-1">
-                                    <td>王永泉</td>
-                                    <td>15002420806</td>
-                                    <td>202001</td>
-                                    <td>100</td>
-                                </tr>
-                                <tr class="grey-text text-darken-1">
-                                    <td>司机姓名</td>
-                                    <td>手机号码</td>
-                                    <td>导入的月份格式年月</td>
                                     <td>其他扣款默认为0</td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
-
 
                     </div>
                 </div>

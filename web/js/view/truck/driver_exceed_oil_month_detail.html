@@ -154,7 +154,7 @@
 
     <!--计划重载空载-->
     <div class="col s12 valign-wrapper" style="font-weight: bold;">
-        <div class="col s6 pull-s6 cyan-text">
+        <div class="col s8 pull-s4 cyan-text">
 
             <div class="col s3" style="padding: 0;">
                 计划空载：<span class="red-text" >{{totalNoOilDistance |number:2}}</span>
@@ -173,7 +173,7 @@
 
     <!--计划实际油量尿素 金额-->
     <div class="col s12 valign-wrapper" style="font-weight: bold;">
-        <div class="col s6 pull-s6 cyan-text">
+        <div class="col s8 pull-s4 cyan-text">
             <div class="col s3" style="padding: 0;">
               计划用油量：<span class="red-text" >{{totalOil |number:2}}</span> L
             </div>
@@ -189,8 +189,30 @@
         </div>
     </div>
 
+    <!--GPS用油量  GPS尿素量-->
     <div class="col s12 valign-wrapper" style="font-weight: bold;">
-        <div class="col s6 pull-s6 cyan-text">
+        <div class="col s8 cyan-text">
+            <div class="col s3" style="padding: 0;">
+                GPS用油量：<span class="red-text" >{{(exceedOilItem.gps_no_load_oil_distance*exceedOilItem.no_load_distance_oil+exceedOilItem.gps_load_oil_distance*exceedOilItem.load_distance_oil)/100 |number:2}}</span> L
+            </div>
+            <div class="col s3" style="padding: 0;">
+                (GPS原计划用油量：<span class="red-text" >{{totalOilGPS}}</span>L)
+            </div>
+            <div class="col s3" style="padding: 0;">
+                GPS尿素量：<span class="red-text" >{{(exceedOilItem.gps_no_load_oil_distance+exceedOilItem.gps_load_oil_distance)/100*exceedOilItem.urea |number:2}}</span>
+            </div>
+            <div class="col s3" style="padding: 0;">
+                (GPS原计划尿素量：<span class="red-text" >{{totalUreaGPS}}</span>)
+            </div>
+
+        </div>
+        <div class="col s4 grey-text center-align">
+            GPS超量油=实际用油量- GPS用油量-结余油量+本月油补
+        </div>
+    </div>
+
+    <div class="col s12 valign-wrapper" style="font-weight: bold;">
+        <div class="col s8 pull-s4 cyan-text">
             <div class="col s3" style="padding: 0;">
                实际用油量：<span class="red-text" >{{totalOilActal |number:2}}</span> L
             </div>
@@ -206,8 +228,34 @@
         </div>
     </div>
 
+    <!--GPS空载 GPS重载 -->
     <div class="col s12 valign-wrapper" style="font-weight: bold;">
-        <div class="col s6 cyan-text" ng-show="exceedOilItem.check_status==3">
+        <div class="col s8 cyan-text" ng-show="exceedOilItem.check_status==3">
+            <div class="col s6" style="padding: 0;">
+                <p>GPS空载：<span class="red-text" >{{exceedOilItem.gps_no_load_oil_distance|number:2}}</span> L</p>
+            </div>
+            <div class="col s6" style="padding: 0;">
+                <p>GPS重载：<span class="red-text" >{{exceedOilItem.gps_load_oil_distance|number:2}}</span> </p>
+            </div>
+        </div>
+        <div class="col s8 cyan-text" ng-show="exceedOilItem.check_status!==3">
+            <div class="col s5 input-field" style="padding: 0;">
+                <input style="color: rgb(230,123,123)" type="number" id="gps_oil" ng-model="exceedOilItem.gps_no_load_oil_distance" ng-change="resetExceedMoney()">
+                <label class="{{exceedOilItem.gps_no_load_oil_distance != null ? 'active' : 'inactive'}}" for="gps_oil">GPS空载</label>
+            </div>
+            <div class="col s6 offset-s1 input-field" style="padding: 0;">
+                <input style="color: rgb(230,123,123)" type="number" id="gps_urea" ng-model="exceedOilItem.gps_load_oil_distance" ng-change="resetExceedMoney()">
+                <label class="{{exceedOilItem.gps_load_oil_distance != null ? 'active' : 'inactive'}}" for="gps_urea">GPS重载</label>
+            </div>
+        </div>
+
+        <div class="col s4 grey-text center-align">
+            GPS超量尿素=实际尿素量-GPS尿素量-结余尿素+本月尿素补
+        </div>
+    </div>
+
+    <div class="col s12 valign-wrapper" style="font-weight: bold;">
+        <div class="col s8 cyan-text" ng-show="exceedOilItem.check_status==3">
             <div class="col s6" style="padding: 0;">
                 <p>结余油量：<span class="red-text" >{{exceedOilItem.surplus_oil|number:2}}</span> L</p>
             </div>
@@ -215,25 +263,24 @@
                 <p>结余尿素：<span class="red-text" >{{exceedOilItem.surplus_urea|number:2}}</span> </p>
             </div>
         </div>
-        <div class="col s6 cyan-text" ng-show="exceedOilItem.check_status!==3">
+        <div class="col s8 cyan-text" ng-show="exceedOilItem.check_status!==3">
             <div class="col s5 input-field" style="padding: 0;">
-                <input style="color: rgb(230,123,123)" type="number" id="surplus_oil" ng-model="exceedOilItem.surplus_oil">
+                <input style="color: rgb(230,123,123)" type="number" id="surplus_oil" ng-model="exceedOilItem.surplus_oil"  ng-change="resetExceedMoney()">
                 <label class="{{exceedOilItem.surplus_oil != null ? 'active' : 'inactive'}}" for="surplus_oil">结余油量(L)</label>
             </div>
             <div class="col s6 offset-s1 input-field" style="padding: 0;">
-                <input style="color: rgb(230,123,123)" type="number" id="surplus_urea" ng-model="exceedOilItem.surplus_urea">
+                <input style="color: rgb(230,123,123)" type="number" id="surplus_urea" ng-model="exceedOilItem.surplus_urea"  ng-change="resetExceedMoney()">
                 <label class="{{exceedOilItem.surplus_urea != null ? 'active' : 'inactive'}}" for="surplus_oil">结余尿素</label>
             </div>
         </div>
 
-        <div class="col s6 grey-text center-align">
-            超量油=实际用油量-计划用油量-结余油量+本月油补
+        <div class="col s4 grey-text center-align">
+            计划超量油=实际用油量-计划用油量-结余油量+本月油补
         </div>
     </div>
 
-
     <div class="col s12 valign-wrapper" style="font-weight: bold;">
-        <div class="col s6 cyan-text" ng-show="exceedOilItem.check_status==3">
+        <div class="col s8 cyan-text" ng-show="exceedOilItem.check_status==3">
             <div class="col s6" style="padding: 0;">
                 <p>本月油补：<span class="red-text" >{{exceedOilItem.subsidy_oil|number:2}}</span> L</p>
             </div>
@@ -241,33 +288,33 @@
                 <p>本月尿素补：<span class="red-text" >{{exceedOilItem.subsidy_urea|number:2}}</span> </p>
             </div>
         </div>
-        <div class="col s6 cyan-text" ng-show="exceedOilItem.check_status!==3">
+        <div class="col s8 cyan-text" ng-show="exceedOilItem.check_status!==3">
             <div class="col s5 input-field left-align" style="padding: 0;">
-                <input style="color: rgb(230,123,123)" type="number" id="subsidy_oil" ng-model="exceedOilItem.subsidy_oil">
+                <input style="color: rgb(230,123,123)" type="number" id="subsidy_oil" ng-model="exceedOilItem.subsidy_oil"  ng-change="resetExceedMoney()">
                 <label class="{{exceedOilItem.subsidy_oil != null ? 'active' : 'inactive'}}" for="subsidy_oil">本月油补(L)</label>
             </div>
             <div class="col s6 offset-s1 input-field" style="padding: 0;">
-                <input style="color: rgb(230,123,123)" type="number" id="subsidy_urea" ng-model="exceedOilItem.subsidy_urea">
+                <input style="color: rgb(230,123,123)" type="number" id="subsidy_urea" ng-model="exceedOilItem.subsidy_urea"  ng-change="resetExceedMoney()">
                 <label class="{{exceedOilItem.subsidy_urea != null ? 'active' : 'inactive'}}" for="subsidy_urea">本月尿素补</label>
             </div>
         </div>
-        <div class="col s6 grey-text center-align">
-            超量尿素=实际尿素量-计划尿素量-结余尿素+本月尿素补
+        <div class="col s4 grey-text center-align">
+            计划超量尿素=实际尿素量-计划尿素量-结余尿素+本月尿素补
         </div>
 
     </div>
 
     <div class="col s12 valign-wrapper" style="font-weight: bold;">
-        <div class="col s6 cyan-text">
+        <div class="col s8 cyan-text">
             <div class="col s3" style="padding: 0;">
-                超量油：<span class="red-text" >{{totalOilActal-totalOil+exceedOilItem.subsidy_oil-exceedOilItem.surplus_oil|number:2}}</span> L*
+               计划超量油：<span class="red-text" >{{totalOilActal-totalOil+exceedOilItem.subsidy_oil-exceedOilItem.surplus_oil|number:2}}</span> L*
                 <span class="red-text">{{(totalOilActal-totalOil+exceedOilItem.subsidy_oil-exceedOilItem.surplus_oil)>0?singleItem.oil_single_price:singleItem.surplus_oil_single_price}}</span>
             </div>
             <div class="col s3" style="padding: 0;">
                 (原超量油：<span class="red-text" >{{exceedOilItem.exceed_oil|number:2}}</span> L)
             </div>
             <div class="col s3" style="padding: 0;">
-                超量尿素：<span class="red-text" >{{totalUreaActal-totalUrea+exceedOilItem.subsidy_urea-exceedOilItem.surplus_urea|number:2}}</span>*
+                计划超量尿素：<span class="red-text" >{{totalUreaActal-totalUrea+exceedOilItem.subsidy_urea-exceedOilItem.surplus_urea|number:2}}</span>*
                 <span class="red-text">{{(totalUreaActal-totalUrea+exceedOilItem.subsidy_urea-exceedOilItem.surplus_urea)>0?singleItem.urea_single_price:singleItem.surplus_urea_single_price}}</span>
             </div>
             <div class="col s3" style="padding: 0;">
@@ -275,17 +322,47 @@
             </div>
         </div>
 
-        <div class="col s6 cyan-text">
+        <div class="col s4 cyan-text">
             <div class="col s6 input-field" style="padding: 0;" ng-show="exceedOilItem.check_status !== 3">
                 <input style="font-size: 2rem;color: rgb(230,123,123)" type="text" id="should_pay" name="should_pay" ng-model="overMoney">
-                <label class="{{overMoney !== null ? 'active' : 'inactive'}}" for="should_pay">超量金额(元)</label>
+                <label class="{{overMoney !== null ? 'active' : 'inactive'}}" for="should_pay">计划超量金额(元)</label>
             </div>
             <div class="col s6 input-field" style="padding: 0;" ng-show="exceedOilItem.check_status !== 3">
                 <p>(原超量金额：<span class="red-text" >{{exceedOilItem.actual_money|number:2}}</span> 元)</p>
             </div>
 
             <div class="col s12" ng-show="exceedOilItem.check_status == 3" style="padding: 0;">
-                <p>超量金额：<span class="red-text" >{{exceedOilItem.actual_money|number:2}}</span> 元</p>
+                <p> 计划超量金额：<span class="red-text" >{{exceedOilItem.actual_money|number:2}}</span> 元</p>
+            </div>
+        </div>
+    </div>
+
+    <!--GPS超量油   GPS超量尿素-->
+    <div class="col s12 valign-wrapper" style="font-weight: bold;">
+        <div class="col s8 cyan-text">
+            <div class="col s6" style="padding: 0;">
+                GPS超量油：<span class="red-text" >{{totalOilActal-((exceedOilItem.gps_no_load_oil_distance*exceedOilItem.no_load_distance_oil+exceedOilItem.gps_load_oil_distance*exceedOilItem.load_distance_oil)/100)+exceedOilItem.subsidy_oil-exceedOilItem.surplus_oil|number:2}}</span> L*
+                <span class="red-text">{{(totalOilActal-((exceedOilItem.gps_no_load_oil_distance*exceedOilItem.no_load_distance_oil+exceedOilItem.gps_load_oil_distance*exceedOilItem.load_distance_oil)/100)+exceedOilItem.subsidy_oil-exceedOilItem.surplus_oil)>0?singleItem.oil_single_price:singleItem.surplus_oil_single_price}}</span>
+            </div>
+
+            <div class="col s6" style="padding: 0;">
+                GPS超量尿素：<span class="red-text" >{{totalUreaActal-((exceedOilItem.gps_no_load_oil_distance+exceedOilItem.gps_load_oil_distance)*exceedOilItem.urea/100)+exceedOilItem.subsidy_urea-exceedOilItem.surplus_urea|number:2}}</span>*
+                <span class="red-text">{{(totalUreaActal-((exceedOilItem.gps_no_load_oil_distance+exceedOilItem.gps_load_oil_distance)*exceedOilItem.urea/100)+exceedOilItem.subsidy_urea-exceedOilItem.surplus_urea)>0?singleItem.urea_single_price:singleItem.surplus_urea_single_price}}</span>
+            </div>
+
+        </div>
+
+        <div class="col s4 cyan-text">
+            <div class="col s6 input-field" style="padding: 0;" ng-show="exceedOilItem.check_status !== 3">
+                <input style="font-size: 2rem;color: rgb(230,123,123)" type="text" id="should_pay_gps" name="should_pay" ng-model="overMoneyGPS">
+                <label class="{{overMoneyGPS !== null ? 'active' : 'inactive'}}" for="should_pay_gps">GPS超量金额(元)</label>
+            </div>
+            <div class="col s6 input-field" style="padding: 0;" ng-show="exceedOilItem.check_status !== 3">
+                <p>(原GPS超量金额：<span class="red-text" >{{exceedOilItem.gps_actual_money|number:2}}</span> 元)</p>
+            </div>
+
+            <div class="col s12" ng-show="exceedOilItem.check_status == 3" style="padding: 0;">
+                <p> GPS超量金额：<span class="red-text" >{{exceedOilItem.gps_actual_money|number:2}}</span> 元</p>
             </div>
         </div>
     </div>

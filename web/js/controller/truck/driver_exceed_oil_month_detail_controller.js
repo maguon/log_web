@@ -94,6 +94,18 @@ app.controller("driver_exceed_oil_month_detail_controller", ["$scope", "$state",
         _basic.get($host.api_url + "/driveExceedOilPrice").then(function (data) {
             if (data.success === true) {
                 $scope.singleItem = data.result[0];
+                if( $scope.singleItem.oil_single_price==undefined|| $scope.singleItem.oil_single_price==''){
+                    $scope.singleItem.oil_single_price=0;
+                }
+                if( $scope.singleItem.urea_single_price==undefined|| $scope.singleItem.urea_single_price==''){
+                    $scope.singleItem.urea_single_price=0;
+                }
+                if( $scope.singleItem.surplus_oil_single_price==undefined|| $scope.singleItem.surplus_oil_single_price==''){
+                    $scope.singleItem.surplus_oil_single_price=0;
+                }
+                if( $scope.singleItem.surplus_urea_single_price==undefined|| $scope.singleItem.surplus_urea_single_price==''){
+                    $scope.singleItem.surplus_urea_single_price=0;
+                }
             }
             else {
                 swal(data.msg, "", "error");
@@ -152,51 +164,7 @@ app.controller("driver_exceed_oil_month_detail_controller", ["$scope", "$state",
                     }
                 }
 
-                if($scope.totalOilActal- $scope.totalOil+ $scope.exceedOilItem.subsidy_oil- $scope.exceedOilItem.surplus_oil>0&&($scope.totalUreaActal-$scope.totalUrea+$scope.exceedOilItem.subsidy_urea-$scope.exceedOilItem.surplus_urea)>0){
-                    $scope.overMoney= ($scope.totalOilActal- $scope.totalOil+ $scope.exceedOilItem.subsidy_oil- $scope.exceedOilItem.surplus_oil).toFixed(2)*$scope.singleItem.oil_single_price
-                        +($scope.totalUreaActal- $scope.totalUrea+ $scope.exceedOilItem.subsidy_urea- $scope.exceedOilItem.surplus_urea).toFixed(2)*$scope.singleItem.urea_single_price;
-                    $scope.oilSinglePrice=$scope.singleItem.oil_single_price;
-                    $scope.ureaSinglePrice=$scope.singleItem.urea_single_price;
-                }
-                else if($scope.totalOilActal- $scope.totalOil+ $scope.exceedOilItem.subsidy_oil- $scope.exceedOilItem.surplus_oil>0&&($scope.totalUreaActal-$scope.totalUrea+$scope.exceedOilItem.subsidy_urea-$scope.exceedOilItem.surplus_urea)<0){
-                    $scope.overMoney= ($scope.totalOilActal- $scope.totalOil+ $scope.exceedOilItem.subsidy_oil- $scope.exceedOilItem.surplus_oil).toFixed(2)*$scope.singleItem.oil_single_price
-                        +($scope.totalUreaActal- $scope.totalUrea+ $scope.exceedOilItem.subsidy_urea- $scope.exceedOilItem.surplus_urea).toFixed(2)*$scope.singleItem.surplus_urea_single_price;
-                    $scope.oilSinglePrice=$scope.singleItem.oil_single_price;
-                    $scope.ureaSinglePrice=$scope.singleItem.surplus_urea_single_price;
-                }
-                else if($scope.totalOilActal- $scope.totalOil+ $scope.exceedOilItem.subsidy_oil- $scope.exceedOilItem.surplus_oil<0&&($scope.totalUreaActal-$scope.totalUrea+$scope.exceedOilItem.subsidy_urea-$scope.exceedOilItem.surplus_urea)>0){
-                    $scope.overMoney= ($scope.totalOilActal- $scope.totalOil+ $scope.exceedOilItem.subsidy_oil- $scope.exceedOilItem.surplus_oil).toFixed(2)*$scope.singleItem.surplus_oil_single_price
-                        +($scope.totalUreaActal- $scope.totalUrea+ $scope.exceedOilItem.subsidy_urea- $scope.exceedOilItem.surplus_urea).toFixed(2)*$scope.singleItem.urea_single_price;
-                    $scope.oilSinglePrice=$scope.singleItem.surplus_oil_single_price;
-                    $scope.ureaSinglePrice=$scope.singleItem.urea_single_price;
-                }
-                else {
-                    $scope.overMoney= ($scope.totalOilActal- $scope.totalOil+ $scope.exceedOilItem.subsidy_oil- $scope.exceedOilItem.surplus_oil).toFixed(2)*$scope.singleItem.surplus_oil_single_price
-                        +($scope.totalUreaActal- $scope.totalUrea+ $scope.exceedOilItem.subsidy_urea- $scope.exceedOilItem.surplus_urea).toFixed(2)*$scope.singleItem.surplus_urea_single_price;
-
-                    $scope.oilSinglePrice=$scope.singleItem.surplus_oil_single_price;
-                    $scope.ureaSinglePrice=$scope.singleItem.surplus_urea_single_price;
-                }
-
-                if( $scope.totalOilActal-$scope.totalOilGPS+$scope.exceedOilItem.subsidy_oil-$scope.exceedOilItem.surplus_oil>0&& $scope.totalUreaActal-$scope.totalUreaGPS+$scope.exceedOilItem.subsidy_urea-$scope.exceedOilItem.surplus_urea>0){
-                    $scope.overMoneyGPS = (($scope.totalOilActal- $scope.$scope.totalOilGPS+ $scope.exceedOilItem.subsidy_oil- $scope.exceedOilItem.surplus_oil).toFixed(2)*$scope.singleItem.oil_single_price
-                        +($scope.totalUreaActal- $scope.totalUreaGPS+ $scope.exceedOilItem.subsidy_urea- $scope.exceedOilItem.surplus_urea).toFixed(2)*$scope.singleItem.urea_single_price).toFixed(2);
-                }
-
-                else if($scope.totalOilActal-$scope.totalOilGPS+$scope.exceedOilItem.subsidy_oil-$scope.exceedOilItem.surplus_oil<0&& $scope.totalUreaActal-$scope.totalUreaGPS+$scope.exceedOilItem.subsidy_urea-$scope.exceedOilItem.surplus_urea>0){
-                    $scope.overMoneyGPS =(($scope.totalOilActal- $scope.totalOilGPS+ $scope.exceedOilItem.subsidy_oil- $scope.exceedOilItem.surplus_oil).toFixed(2)*$scope.singleItem.surplus_oil_single_price
-                        +($scope.totalUreaActal- $scope.totalUreaGPS+ $scope.exceedOilItem.subsidy_urea- $scope.exceedOilItem.surplus_urea).toFixed(2)*$scope.singleItem.urea_single_price).toFixed(2);
-
-                }
-                else if($scope.totalOilActal-$scope.totalOilGPS+$scope.exceedOilItem.subsidy_oil-$scope.exceedOilItem.surplus_oil>0&& $scope.totalUreaActal-$scope.totalUreaGPS+$scope.exceedOilItem.subsidy_urea-$scope.exceedOilItem.surplus_urea<0){
-                    $scope.overMoneyGPS =(($scope.totalOilActal- $scope.totalOilGPS+ $scope.exceedOilItem.subsidy_oil- $scope.exceedOilItem.surplus_oil).toFixed(2)*$scope.singleItem.oil_single_price
-                        +($scope.totalUreaActal- $scope.totalUreaGPS+ $scope.exceedOilItem.subsidy_urea- $scope.exceedOilItem.surplus_urea).toFixed(2)*$scope.singleItem.surplus_urea_single_price).toFixed(2);
-                }
-
-                else {
-                    $scope.overMoneyGPS =(($scope.totalOilActal- $scope.totalOilGPS+ $scope.exceedOilItem.subsidy_oil- $scope.exceedOilItem.surplus_oil).toFixed(2)*$scope.singleItem.surplus_oil_single_price
-                        +($scope.totalUreaActal- $scope.totalUreaGPS+ $scope.exceedOilItem.subsidy_urea- $scope.exceedOilItem.surplus_urea).toFixed(2)*$scope.singleItem.surplus_urea_single_price).toFixed(2);
-                }
+                startData();
 
 
                 }
@@ -206,28 +174,36 @@ app.controller("driver_exceed_oil_month_detail_controller", ["$scope", "$state",
         });
     }
 
-    $scope.resetExceedMoney = function(){
+
+    function startData(){
+
         //计划超量油
         var exceedOil = ($scope.totalOilActal - $scope.totalOil - $scope.exceedOilItem.surplus_oil + $scope.exceedOilItem.subsidy_oil).toFixed(2);
         //计划超量尿素
         var exceedUrea = ($scope.totalUreaActal-$scope.totalUrea+$scope.exceedOilItem.subsidy_urea-$scope.exceedOilItem.surplus_urea).toFixed(2);
-
         var exceedOilMoney = exceedOil>0? exceedOil*$scope.singleItem.oil_single_price : exceedOil*$scope.singleItem.surplus_oil_single_price;
         var exceedUreaMoney = exceedUrea>0?exceedUrea*$scope.singleItem.urea_single_price : exceedUrea*$scope.singleItem.surplus_urea_single_price;
+        $scope.oilSinglePrice=exceedOil>0? $scope.singleItem.oil_single_price :$scope.singleItem.surplus_oil_single_price;
+        $scope.ureaSinglePrice=exceedUrea>0?$scope.singleItem.urea_single_price : $scope.singleItem.surplus_urea_single_price;
         $scope.overMoney = (exceedOilMoney + exceedUreaMoney).toFixed(2);
 
 
         $scope.totalOilG =($scope.exceedOilItem.gps_no_load_oil_distance*$scope.exceedOilItem.no_load_distance_oil+$scope.exceedOilItem.gps_load_oil_distance*$scope.exceedOilItem.load_distance_oil)/100;
         $scope.totalUreaG= ($scope.exceedOilItem.gps_no_load_oil_distance+$scope.exceedOilItem.gps_load_oil_distance)*$scope.exceedOilItem.urea/100;
         //GPS超量油
-        var GPSExceedOil = ($scope.totalOilActal-$scope.totalOilG+$scope.exceedOilItem.subsidy_oil-$scope.exceedOilItem.surplus_oil).toFixed(2);
+        $scope.GPSExceedOil = ($scope.totalOilActal-$scope.totalOilG+$scope.exceedOilItem.subsidy_oil-$scope.exceedOilItem.surplus_oil).toFixed(2);
         //GPS超量尿素
-        var GPSExceedUrea = ($scope.totalUreaActal-$scope.totalUreaG+$scope.exceedOilItem.subsidy_urea-$scope.exceedOilItem.surplus_urea).toFixed(2);
+        $scope.GPSExceedUrea = ($scope.totalUreaActal-$scope.totalUreaG+$scope.exceedOilItem.subsidy_urea-$scope.exceedOilItem.surplus_urea).toFixed(2);
 
-        var exceedOilMoneyGPS = GPSExceedOil>0? GPSExceedOil*$scope.singleItem.oil_single_price : GPSExceedOil*$scope.singleItem.surplus_oil_single_price;
-        var exceedUreaMoneyGPS = GPSExceedUrea>0?GPSExceedUrea*$scope.singleItem.urea_single_price : GPSExceedUrea*$scope.singleItem.surplus_urea_single_price;
+        var exceedOilMoneyGPS =  $scope.GPSExceedOil>0?  $scope.GPSExceedOil*$scope.singleItem.oil_single_price :  $scope.GPSExceedOil*$scope.singleItem.surplus_oil_single_price;
+        var exceedUreaMoneyGPS =  $scope.GPSExceedUrea>0? $scope.GPSExceedUrea*$scope.singleItem.urea_single_price :  $scope.GPSExceedUrea*$scope.singleItem.surplus_urea_single_price;
+
         $scope.overMoneyGPS = (exceedOilMoneyGPS + exceedUreaMoneyGPS).toFixed(2);
+    }
 
+
+    $scope.resetExceedMoney = function(){
+        startData()
     }
 
 
@@ -281,21 +257,30 @@ app.controller("driver_exceed_oil_month_detail_controller", ["$scope", "$state",
             "actualMoney": $scope.overMoney,
             "gpsNoLoadOilDistance": $scope.exceedOilItem.gps_no_load_oil_distance,
             "gpsLoadOilDistance": $scope.exceedOilItem.gps_load_oil_distance,
-            "gpsOilTotal": $scope.totalOilGPS,
-            "gpsUreaTotal":$scope.totalUreaGPS,
-            "gpsExceedOil":  $scope.totalOilActal-$scope.totalOilGPS+$scope.exceedOilItem.subsidy_oil-$scope.exceedOilItem.surplus_oil,
-            "gpsExceedUrea":$scope.totalUreaActal-$scope.totalUreaGPS+$scope.exceedOilItem.subsidy_urea-$scope.exceedOilItem.surplus_urea,
+            "gpsOilTotal": $scope.totalOilG,
+            "gpsUreaTotal":$scope.totalUreaG,
+            "gpsExceedOil":  $scope.GPSExceedOil,
+            "gpsExceedUrea": $scope.GPSExceedUrea,
             "gpsActualMoney":  $scope.overMoneyGPS,
             "remark": $scope.exceedOilItem.remark
         }).then(function (data) {
             if (data.success === true) {
+
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+        _basic.put($host.api_url + "/user/" + userId + "/exceedOilDate/" + $scope.exceedOilItem.id+'/checkStatus/2',{}).then(function (data) {
+            if (data.success === true) {
+                swal('保存成功', "", "success");
                 getOilRel()
             }
             else {
                 swal(data.msg, "", "error");
             }
         });
-        putItem($scope.exceedOilItem.id)
+
     }
 
     /*处理结束*/
@@ -329,22 +314,19 @@ app.controller("driver_exceed_oil_month_detail_controller", ["$scope", "$state",
                             "actualMoney": $scope.overMoney,
                             "gpsNoLoadOilDistance": $scope.exceedOilItem.gps_no_load_oil_distance,
                             "gpsLoadOilDistance": $scope.exceedOilItem.gps_load_oil_distance,
-                            "gpsOilTotal": $scope.totalOilGPS,
-                            "gpsUreaTotal":$scope.totalUreaGPS,
-                            "gpsExceedOil":  $scope.totalOilActal-$scope.totalOilGPS+$scope.exceedOilItem.subsidy_oil-$scope.exceedOilItem.surplus_oil,
-                            "gpsExceedUrea":$scope.totalUreaActal-$scope.totalUreaGPS+$scope.exceedOilItem.subsidy_urea-$scope.exceedOilItem.surplus_urea,
+                            "gpsOilTotal": $scope.totalOilG,
+                            "gpsUreaTotal":$scope.totalUreaG,
+                            "gpsExceedOil":  $scope.GPSExceedOil,
+                            "gpsExceedUrea": $scope.GPSExceedUrea,
                             "gpsActualMoney":  $scope.overMoneyGPS,
                             "remark": $scope.exceedOilItem.remark
                         }).then(function (data) {
                             if (data.success === true) {
-                               /* getOilRel()*/
                             }
                             else {
                                 swal(data.msg, "", "error");
                             }
                         });
-
-
 
                         _basic.put($host.api_url + "/user/" + userId + "/exceedOilDate/" + $scope.exceedOilItem.id + '/checkStatus/3', {}).then(function (data) {
                             if (data.success === true) {
@@ -362,7 +344,7 @@ app.controller("driver_exceed_oil_month_detail_controller", ["$scope", "$state",
 
     /*开始处理*/
     $scope.startDealInfo = function (){
-        _basic.post($host.api_url + "/user/" + userId + "/driveExceedOilDate/",{
+       _basic.post($host.api_url + "/user/" + userId + "/driveExceedOilDate/",{
             "monthDateId": dateId,
             "driveId": driveId,
             "truckId": truckId,
@@ -383,10 +365,10 @@ app.controller("driver_exceed_oil_month_detail_controller", ["$scope", "$state",
             "actualMoney": $scope.overMoney,
             "gpsNoLoadOilDistance": $scope.exceedOilItem.gps_no_load_oil_distance,
             "gpsLoadOilDistance": $scope.exceedOilItem.gps_load_oil_distance,
-            "gpsOilTotal": $scope.totalOilGPS,
-            "gpsUreaTotal":$scope.totalUreaGPS,
-            "gpsExceedOil":  $scope.totalOilActal-$scope.totalOilGPS+$scope.exceedOilItem.subsidy_oil-$scope.exceedOilItem.surplus_oil,
-            "gpsExceedUrea":$scope.totalUreaActal-$scope.totalUreaGPS+$scope.exceedOilItem.subsidy_urea-$scope.exceedOilItem.surplus_urea,
+            "gpsOilTotal": $scope.totalOilG,
+            "gpsUreaTotal":$scope.totalUreaG,
+           "gpsExceedOil":  $scope.GPSExceedOil,
+           "gpsExceedUrea": $scope.GPSExceedUrea,
             "gpsActualMoney":  $scope.overMoneyGPS,
             "remark": $scope.exceedOilItem.remark
         }).then(function (data) {

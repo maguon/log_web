@@ -120,7 +120,7 @@ app.controller("driver_incidental_controller", ["$scope","$rootScope", "$state",
     };
 
     $scope.fileUpload = function () {
-        $("#buttonImport").attr("disabled",true);
+        $("#buttonImport").removeAttr("disabled");
 
         _basic.formPost($("#file_upload_form"), $host.api_url + '/user/' + userId +  '/driveSundryFeeFile' , function (data) {
             if (data.success == true) {
@@ -131,13 +131,13 @@ app.controller("driver_incidental_controller", ["$scope","$rootScope", "$state",
                     $scope.local_isSuccesss = false;
                     $scope.upload_isSuccesss = true;
                     $("#file_upload_form").disabled=true;
-                    $("#buttonImport").attr("disabled",false);
+                  $("#buttonImport").attr("disabled",true);
                     swal('正确:'+$scope.num+'错误:'+$scope.upload_error_array_num,"", "success")
                 });
 
             }
             else {
-                $("#buttonImport").attr("disabled",false);
+              $("#buttonImport").attr("disabled",true);
                 swal(data.msg, "", "error");
             }
         });

@@ -122,7 +122,7 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                 swal("登录信息错误", "请重新登陆", "error");
                 return;
             }
-            $("#buttonImport").attr("disabled",true);
+            $("#buttonImport").removeAttr("disabled");
             _basic.formPost($("#file_upload_form"), $host.file_url + '/user/' + userId + '/file?fileType=1&&userType=' + userType, function (data) {
                 if (data.success == true) {
                     $scope.file_id = data.result.id;
@@ -130,7 +130,7 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                     if (uploadDataArray.length > 0) {
                         socketUpload($scope.file_id);
                         orginDataLength = $scope.tableContentFilter.length;
-                        $("#buttonImport").attr("disabled",false);
+                      $("#buttonImport").attr("disabled",true);
                       /*  swal('正确:'+$scope.num+'错误:'+$scope.upload_error_array_num,"", "success")*/
                     }
                 }

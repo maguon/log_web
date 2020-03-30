@@ -106,7 +106,7 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
     };
 
     $scope.fileUpload = function () {
-        $("#buttonImport").attr("disabled",true);
+        $("#buttonImport").removeAttr("disabled");
         _basic.formPost($("#file_upload_form"), $host.file_url + '/user/' + userId + '/file?fileType=2&&userType=' + userType, function (data) {
             if (data.success == true) {
                 $scope.file_id = data.result.id;
@@ -124,13 +124,13 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
                     $scope.num=data.result.successedInsert;
                     $scope.local_isSuccesss = false;
                     $scope.upload_isSuccesss = true;
-                    $("#buttonImport").attr("disabled",false);
+                  $("#buttonImport").attr("disabled",true);
                     swal('正确:'+$scope.num+'错误:'+$scope.upload_error_array_num,"", "success")
                 });
 
             }
             else {
-                $("#buttonImport").attr("disabled",false);
+              $("#buttonImport").attr("disabled",true);
                 swal(data.msg, "", "error");
             }
         });

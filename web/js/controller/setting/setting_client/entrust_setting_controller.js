@@ -421,7 +421,7 @@ app.controller("entrust_setting_controller", ["$scope", "_basic", "_config", "$h
     };
 
     $scope.fileUpload = function () {
-        $("#buttonImport").attr("disabled",true);
+        $("#buttonImport").removeAttr("disabled");
         _basic.formPost($("#file_upload_form"), $host.api_url + '/user/' + userId + '/entrustCityRouteRelFile' , function (data) {
             if (data.success == true) {
                 $scope.$apply(function () {
@@ -430,13 +430,13 @@ app.controller("entrust_setting_controller", ["$scope", "_basic", "_config", "$h
                     $scope.num=data.result.successedInsert;
                     $scope.local_isSuccesss = false;
                     $scope.upload_isSuccesss = true;
-                    $("#buttonImport").attr("disabled",false);
+                  $("#buttonImport").attr("disabled",true);
                     swal('正确:'+$scope.num+'错误:'+$scope.upload_error_array_num,"", "success")
                 });
 
             }
             else {
-                $("#buttonImport").attr("disabled",false);
+              $("#buttonImport").attr("disabled",true);
                 swal(data.msg, "", "error");
             }
         });

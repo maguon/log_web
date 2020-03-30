@@ -154,14 +154,14 @@ app.controller("not_handover_controller", ["$scope", "$host",'_config', "_basic"
 
 /*
     $scope.fileUpload = function () {
-        $("#buttonImport").attr("disabled",true);
+        $("#buttonImport").removeAttr("disabled");
         _basic.formPost($("#file_upload_form"), $host.file_url + '/user/' + userId + '/file?fileType=1&&userType=' + userType, function (data) {
             if (data.success == true) {
                 $scope.file_id = data.result.id;
                 uploadDataArray = $scope.tableContentFilter;
                 if (uploadDataArray.length > 0) {
                     orginDataLength = $scope.tableContentFilter.length;
-                    $("#buttonImport").attr("disabled",false);
+                  $("#buttonImport").attr("disabled",true);
                     swal('正确:'+$scope.num+'错误:'+$scope.upload_error_array_num,"", "success")
                 }
             }
@@ -173,7 +173,7 @@ app.controller("not_handover_controller", ["$scope", "$host",'_config', "_basic"
 
 
     $scope.fileUpload = function () {
-        $("#buttonImport").attr("disabled",true);
+        $("#buttonImport").removeAttr("disabled");
         _basic.formPost($("#file_upload_form"), $host.api_url + '/user/' + userId + '/settleHandoverCarRelFile' , function (data) {
             if (data.success == true) {
                 $scope.$apply(function () {
@@ -183,13 +183,13 @@ app.controller("not_handover_controller", ["$scope", "$host",'_config', "_basic"
                     $scope.local_isSuccesss = false;
                     $scope.upload_isSuccesss = true;
                     $("#file_upload_form").disabled=true;
-                    $("#buttonImport").attr("disabled",false);
+                  $("#buttonImport").attr("disabled",true);
                     swal('正确:'+$scope.num+'错误:'+$scope.upload_error_array_num,"", "success")
                 });
 
             }
             else {
-                $("#buttonImport").attr("disabled",false);
+              $("#buttonImport").attr("disabled",true);
                 swal(data.msg, "", "error");
             }
         });

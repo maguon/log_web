@@ -109,7 +109,7 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
         }
     };
     $scope.fileUpload = function () {
-        $("#buttonImport").attr("disabled",true);
+        $("#buttonImport").removeAttr("disabled");
         _basic.formPost($("#file_upload_form"), $host.api_url + '/user/' + userId + '/driveExceedOilRelFile' , function (data) {
             if (data.success == true) {
                 $scope.$apply(function () {
@@ -118,14 +118,14 @@ app.controller("instruction_car_refuel_controller", ["$scope","$rootScope","$sta
                     $scope.num=data.result.successedInsert;
                     $scope.local_isSuccesss = false;
                     $scope.upload_isSuccesss = true;
-                    $("#buttonImport").attr("disabled",false);
+                  $("#buttonImport").attr("disabled",true);
                    swal('正确:'+$scope.num+'错误:'+$scope.upload_error_array_num,"", "success")
 
                 });
 
             }
             else {
-                $("#buttonImport").attr("disabled",false);
+              $("#buttonImport").attr("disabled",true);
                 swal(data.msg, "", "error");
             }
         });

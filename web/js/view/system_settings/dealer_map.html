@@ -12,11 +12,44 @@
             <div class="col s4 grey-text" auto-map-height >
                <!--第一层 城市-->
                 <div class="col s12" ng-show="flag==true" style="height: 590px;overflow: auto">
-                    <div ng-repeat="el in get_city" class="col s4" style=" padding:1rem;">
-                        <div class="col s12 city_model_panel z-depth-1 center-align"  style="cursor: pointer">
-                            <p style="margin: 9px 0;" class="cyan-text" id="query" ng-click="getCityDealer(el.id)">{{el.city_name}}({{el.receive_count}})</p>
+                    <!--统计  精确-->
+                    <div class="row no-marBottom" ul-tabs>
+
+                        <div class="col s12">
+                            <ul class="tabWrap grey lighten-4">
+                                <li class="tab col s6 test1 vc-center" ng-click="test1()">统计</li>
+                                <li class="tab col s6 test2 vc-center" ng-click="test2()">精确</li>
+                            </ul>
+                        </div>
+                        <div id="test1" class="col s12 tab_box">
+                            <div ng-repeat="el in get_city" class="col s4" style=" padding:1rem;">
+                                <div class="col s12 city_model_panel z-depth-1 center-align"  style="cursor: pointer">
+                                    <p style="margin: 9px 0;" class="cyan-text" id="query" ng-click="getCityDealer(el.id)">{{el.city_name}}({{el.receive_count}})</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="test2" class="col s12 tab_box" style="margin-top: 20px">
+                            <div class="col s5">
+                                <select id="citySelectOn"  material-select watch  ng-model="citySelect" ng-change="getRecive(citySelect)" style="width: 100%;margin-top: 10px">
+                                    <option value="">请选择</option>
+                                    <option ng-repeat="el in cityList" ng-value="el.id">{{el.city_name}}</option>
+                                </select>
+                            </div>
+                            <div class="col s5">
+                                <select material-select watch id="dealer" name="dealer"  ng-model="dealer"  style="width: 100%">
+                                    <option value="" disabled selected>经销商</option>
+                                    <option ng-repeat="el in get_receive" ng-value="el.id" >{{el.short_name}}</option>
+                                </select>
+                            </div>
+                            <div class="col s2">
+                                <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2  btn vc-center"
+                                   style="margin-right: 10px;margin-top: 5px" ng-click="getCityDealer(citySelect);getDetailDealer(dealer)">
+                                    <i class="mdi mdi-magnify"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
+
                 </div>
                 <!--第二层 经销商-->
                 <div ng-show="get_receive.length!==0&&dealer_details==null" style="height: 590px;overflow: auto">
@@ -77,7 +110,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row col s12" style="height: 120px;">
+                    <div class="row col s12" style="height: 170px;">
                         <div class="col s12 z-depth-2" style="padding: 0;margin-bottom: 25px;font-size: 1.1rem;color: darkgray">
                             <div class="col s12" style="height: 50px;background-color: #dcdfe0;font-weight: bold;;line-height: 25px">
                                 <div class="col s12 valign-wrapper">
@@ -90,10 +123,22 @@
                             <div class="row col s12 wash_fee_details less_mar" style="color: darkgray;font-weight: bold;font-size: 1.05rem;">
                                 <div class="col s12" style="border-bottom: 1px solid darkgray;height: 50px;line-height: 50px">
                                     <div class="col s6">
-                                        洗车费:<span class="red-text">{{dealer_details.clean_fee}}</span> 元
+                                        大车洗车费:<span class="red-text">{{dealer_details.big_clean_fee}}</span> 元
                                     </div>
+
                                     <div class="col s6">
-                                        门卫费:<span class="red-text">{{dealer_details.guard_fee}}</span>元
+                                        小车洗车费:<span class="red-text">{{dealer_details.clean_fee}}</span> 元
+                                    </div>
+                                </div>
+                                 <div class="col s12" style="border-bottom: 1px solid darkgray;height: 50px;line-height: 50px">
+                                    <div class="col s4">
+                                        拖车费:<span class="red-text">{{dealer_details.trailer_fee}}</span>元
+                                    </div>
+                                    <div class="col s4">
+                                        地跑费:<span class="red-text">{{dealer_details.run_fee}}</span>元
+                                    </div>
+                                    <div class="col s4">
+                                        带路费:<span class="red-text">{{dealer_details.lead_fee}}</span>元
                                     </div>
                                 </div>
                             </div>

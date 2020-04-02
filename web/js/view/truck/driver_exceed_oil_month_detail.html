@@ -231,21 +231,35 @@
     <!--GPS空载 GPS重载 -->
     <div class="col s12 valign-wrapper" style="font-weight: bold;">
         <div class="col s8 cyan-text" ng-show="exceedOilItem.check_status==3">
-            <div class="col s6" style="padding: 0;">
+            <div class="col s3" style="padding: 0;">
                 <p>GPS空载：<span class="red-text" >{{exceedOilItem.gps_no_load_oil_distance|number:2}}</span> L</p>
             </div>
-            <div class="col s6" style="padding: 0;">
+            <div class="col s3" style="padding: 0;">
+                <p>油耗空载：<span class="red-text" >{{exceedOilItem.no_load_distance_oil|number:2}}</span> L</p>
+            </div>
+            <div class="col s3" style="padding: 0;">
                 <p>GPS重载：<span class="red-text" >{{exceedOilItem.gps_load_oil_distance|number:2}}</span> </p>
+            </div>
+            <div class="col s3" style="padding: 0;">
+                <p>油耗重载：<span class="red-text" >{{exceedOilItem.load_distance_oil|number:2}}</span> </p>
             </div>
         </div>
         <div class="col s8 cyan-text" ng-show="exceedOilItem.check_status!==3">
-            <div class="col s5 input-field" style="padding: 0;">
+            <div class="col s2 input-field" style="padding: 0;">
                 <input style="color: rgb(230,123,123)" type="number" id="gps_oil" ng-model="exceedOilItem.gps_no_load_oil_distance" ng-change="resetExceedMoney()">
                 <label class="{{exceedOilItem.gps_no_load_oil_distance != null ? 'active' : 'inactive'}}" for="gps_oil">GPS空载</label>
             </div>
-            <div class="col s6 offset-s1 input-field" style="padding: 0;">
+            <div class="col s2 offset-s1 input-field" style="padding: 0;">
+                <input style="color: rgb(230,123,123)" type="number" id="gps_load_oil" ng-model="exceedOilItem.no_load_distance_oil" ng-change="resetExceedMoney()">
+                <label class="{{exceedOilItem.no_load_distance_oil != null ? 'active' : 'inactive'}}" for="gps_load_oil">油耗空载</label>
+            </div>
+            <div class="col s2 offset-s1 input-field" style="padding: 0;">
                 <input style="color: rgb(230,123,123)" type="number" id="gps_urea" ng-model="exceedOilItem.gps_load_oil_distance" ng-change="resetExceedMoney()">
                 <label class="{{exceedOilItem.gps_load_oil_distance != null ? 'active' : 'inactive'}}" for="gps_urea">GPS重载</label>
+            </div>
+            <div class="col s3 offset-s1 input-field" style="padding: 0;">
+                <input style="color: rgb(230,123,123)" type="number" id="gps_load_urea" ng-model="exceedOilItem.load_distance_oil" ng-change="resetExceedMoney()">
+                <label class="{{exceedOilItem.load_distance_oil != null ? 'active' : 'inactive'}}" for="gps_load_urea">油耗重载</label>
             </div>
         </div>
 

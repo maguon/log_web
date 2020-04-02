@@ -15,6 +15,7 @@ app.controller("driver_exceed_oil_month_detail_controller", ["$scope", "$state",
     firstDay= moment(firstDay).format("YYYYMMDD");//格式化 //这个格式化方法要用你们自己的，也可以用本文已经贴出来的下面的Format
     lastDay= moment(lastDay).format("YYYYMMDD");//格式化
 
+
     /*计划用油量*/
     $scope.totalOil =0;
     /*计划尿素量*/
@@ -77,9 +78,8 @@ app.controller("driver_exceed_oil_month_detail_controller", ["$scope", "$state",
                     $scope.exceedOilItem.drive_name= data.result[0].drive_name;
 
 
-                    $scope.totalOilGPS =($scope.exceedOilItem.gps_no_load_oil_distance*$scope.exceedOilItem.no_load_distance_oil+$scope.exceedOilItem.gps_load_oil_distance*$scope.exceedOilItem.load_distance_oil)/100;
-                    $scope.totalUreaGPS= ($scope.exceedOilItem.gps_no_load_oil_distance+$scope.exceedOilItem.gps_load_oil_distance)*$scope.exceedOilItem.urea/100;
-
+                    $scope.totalOilGPS =$scope.exceedOilItem.gps_oil_total;
+                    $scope.totalUreaGPS=$scope.exceedOilItem.gps_urea_total;
 
                     dpRouteTaskOilRel(firstDay,lastDay);
 
@@ -187,8 +187,10 @@ app.controller("driver_exceed_oil_month_detail_controller", ["$scope", "$state",
         $scope.ureaSinglePrice=exceedUrea>0?$scope.singleItem.urea_single_price : $scope.singleItem.surplus_urea_single_price;
         $scope.overMoney = (exceedOilMoney + exceedUreaMoney).toFixed(2);
 
-
+        //GPS用油量
         $scope.totalOilG =($scope.exceedOilItem.gps_no_load_oil_distance*$scope.exceedOilItem.no_load_distance_oil+$scope.exceedOilItem.gps_load_oil_distance*$scope.exceedOilItem.load_distance_oil)/100;
+        console.log($scope.totalOilG)
+        //GPS尿素量
         $scope.totalUreaG= ($scope.exceedOilItem.gps_no_load_oil_distance+$scope.exceedOilItem.gps_load_oil_distance)*$scope.exceedOilItem.urea/100;
         //GPS超量油
         $scope.GPSExceedOil = ($scope.totalOilActal-$scope.totalOilG+$scope.exceedOilItem.subsidy_oil-$scope.exceedOilItem.surplus_oil).toFixed(2);

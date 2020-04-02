@@ -76,7 +76,7 @@ app.controller("dealer_map_controller", ["$scope", "_basic", "_config", "baseSer
         });
     };
 
-    // 获取经销商位置信息
+    // 获取经销商位置信息（第一层）
    function getAllPositionInfo() {
        $scope.flag=true;
         _basic.get($host.api_url + "/receive/").then(function (data) {
@@ -158,95 +158,104 @@ app.controller("dealer_map_controller", ["$scope", "_basic", "_config", "baseSer
 
     };
 
-    //点击城市以后获取经销商
-    $scope.getCityDealer = function(city){
-        dealerPositionList=[];
-        $scope.flag=false;
-        $scope.city=city;
-        $scope.dealer_details=null;
-
-        if(city==''){
+    //到二层或者三层
+    $scope.getCityOrDealer = function (c,d){
+        if(c==''||c==null||c==undefined){
             getAllPositionInfo();
             swal('请先选择城市!', "", "error")
         }
         else {
-            // 经销商下拉列表
-            _basic.get($host.api_url + "/receive?cityId=" + city).then(function (data) {
-                if (data.success === true) {
-                    if (data.result.length == 0) {
-                        getAllPositionInfo();
-                        swal('此城市暂无经销商!', "", "error")
-                    } else {
-                        $scope.get_receive = data.result;
-                        $scope.cityName = data.result[0].city_name;
-                        $scope.lng = data.result[0].lng;
-                        $scope.lat = data.result[0].lat;
-                        for (var i = 0; i < data.result.length; i++) {
-                            dealerPositionList.push([data.result[i].lng, data.result[i].lat])
-                        }
-                        var map = new AMap.Map('amap_setting_dealer', {
-                            resizeEnable: true
-                        });
-                        map.setCity($scope.cityName);
-                        for (var i = 0; i < dealerPositionList.length; i++) {
-                            marker = new AMap.Marker({
-                                position: dealerPositionList[i],
-                                map: map,
-                                icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png"
-                            });
-
-                            // 设置label标签
-                            marker.setLabel({//label默认蓝框白底左上角显示，样式className为：amap-marker-label
-                                offset: new AMap.Pixel(20, 20),//修改label相对于maker的位置
-                                content:data.result[i].short_name
-                            });
-                        }
-
-                    }
-                }
-            })
+            if(d==null||d==undefined||d==""){
+                $scope.getCityDealer(c);
+            }
+            else {
+                $scope.c='';
+                $scope.getDetailDealer(d);
+            }
         }
+    }
+
+
+    //点击城市以后获取经销商（第二层）
+    $scope.getCityDealer = function(city){
+        $scope.flagScond=true;
+        dealerPositionList=[];
+        $scope.flag=false;
+        $scope.city=city;
+        $scope.c=city;
+        $scope.dealer_details=null;
+
+        // 经销商下拉列表
+        _basic.get($host.api_url + "/receive?cityId=" + city).then(function (data) {
+            if (data.success === true) {
+                if (data.result.length == 0) {
+                    getAllPositionInfo();
+                    swal('此城市暂无经销商!', "", "error")
+                } else {
+                    $scope.get_receive = data.result;
+
+                    for (var i = 0; i < data.result.length; i++) {
+                        dealerPositionList.push([data.result[i].lng, data.result[i].lat])
+                    }
+                    var map = new AMap.Map('amap_setting_dealer', {
+                        resizeEnable: true
+                    });
+
+                    for (var i = 0; i < dealerPositionList.length; i++) {
+                        marker = new AMap.Marker({
+                            position: dealerPositionList[i],
+                            map: map,
+                            icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png"
+                        });
+
+                        // 设置label标签
+                        marker.setLabel({//label默认蓝框白底左上角显示，样式className为：amap-marker-label
+                            offset: new AMap.Pixel(20, 20),//修改label相对于maker的位置
+                            content:data.result[i].short_name
+                        });
+                    }
+
+                }
+            }
+        })
+
 
     };
 
-    //获取详细位置
+    //获取详细位置（第三层）
     $scope.getDetailDealer=function(id){
-        if(id==null||id==undefined||id==""){
-            return;
-        }
-        else {
-            $scope.id=id;
-            _basic.get($host.api_url + "/receive?receiveId=" + id).then(function (data) {
-                if (data.success === true) {
-                    $scope.dealer_details = data.result[0];
-                    $scope.lng = data.result[0].lng ? data.result[0].lng : 121.62;
-                    $scope.lat = data.result[0].lat ? data.result[0].lat : 38.92;
-                    var marker, map = new AMap.Map("amap_setting_dealer", {
-                        resizeEnable: true,
-                        center: [$scope.lng, $scope.lat],
-                        zoom: 16
-                    });
-                    if (marker) {
-                        return;
-                    }
-                    marker = new AMap.Marker({
-                        icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
-                        position: [$scope.lng, $scope.lat]
-                    });
-                    marker.setMap(map);
+        $scope.flagScond=false;
+        $scope.flag='';
+        $scope.id=id;
+        _basic.get($host.api_url + "/receive?receiveId=" + id).then(function (data) {
+            if (data.success === true) {
+                $scope.dealer_details = data.result[0];
+                $scope.lng = data.result[0].lng ? data.result[0].lng : 121.62;
+                $scope.lat = data.result[0].lat ? data.result[0].lat : 38.92;
+                var marker, map = new AMap.Map("amap_setting_dealer", {
+                    resizeEnable: true,
+                    center: [$scope.lng, $scope.lat],
+                    zoom: 16
+                });
+                if (marker) {
+                    return;
                 }
-            });
-            _basic.get($host.api_url + "/receive/" +$scope.id+'/contacts').then(function (data) {
-                if (data.success === true) {
-                    if(data.result.length==0){
-                        $scope.dealerContacts=[];
-                    }else{
-                        $scope.dealerContacts = data.result;
-                    }
+                marker = new AMap.Marker({
+                    icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+                    position: [$scope.lng, $scope.lat]
+                });
+                marker.setMap(map);
+            }
+        });
+        _basic.get($host.api_url + "/receive/" +$scope.id+'/contacts').then(function (data) {
+            if (data.success === true) {
+                if(data.result.length==0){
+                    $scope.dealerContacts=[];
+                }else{
+                    $scope.dealerContacts = data.result;
                 }
-            });
-        }
-
+            }
+        });
     }
 
     //返回第一层
@@ -260,9 +269,22 @@ app.controller("dealer_map_controller", ["$scope", "_basic", "_config", "baseSer
     }
 
 
-    //返回上一层
+    //返回上一层（第三层到第二层）
     $scope.return=function(){
-        $scope.getCityDealer($scope.city);
+        if($scope.c==''){
+            $scope.get_receive=[];
+            truckPositionList=[];
+            $scope.cityList=[];
+            $scope.citySelect='';
+            $scope.flagScond=true;
+            $scope.flag=true;
+            $scope.dealer_details=null;
+            getAllPositionInfo();
+        }
+        else {
+            $scope.getCityDealer($scope.city);
+        }
+
     }
 
     getMsg();

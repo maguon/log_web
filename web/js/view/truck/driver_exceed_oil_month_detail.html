@@ -353,7 +353,7 @@
 
     <!--GPS超量油   GPS超量尿素-->
     <div class="col s12 valign-wrapper" style="font-weight: bold;">
-        <div class="col s8 cyan-text">
+        <div class="col s8 cyan-text" ng-show="exceedOilItem.check_status !== 3">
             <div class="col s6" style="padding: 0;">
                 GPS超量油：<span class="red-text" >{{totalOilActal-((exceedOilItem.gps_no_load_oil_distance*exceedOilItem.no_load_distance_oil+exceedOilItem.gps_load_oil_distance*exceedOilItem.load_distance_oil)/100)+exceedOilItem.subsidy_oil-exceedOilItem.surplus_oil|number:2}}</span> L*
                 <span class="red-text">{{(totalOilActal-((exceedOilItem.gps_no_load_oil_distance*exceedOilItem.no_load_distance_oil+exceedOilItem.gps_load_oil_distance*exceedOilItem.load_distance_oil)/100)+exceedOilItem.subsidy_oil-exceedOilItem.surplus_oil)>0?singleItem.oil_single_price:singleItem.surplus_oil_single_price}}</span>
@@ -364,6 +364,11 @@
                 <span class="red-text">{{(totalUreaActal-((exceedOilItem.gps_no_load_oil_distance+exceedOilItem.gps_load_oil_distance)*exceedOilItem.urea/100)+exceedOilItem.subsidy_urea-exceedOilItem.surplus_urea)>0?singleItem.urea_single_price:singleItem.surplus_urea_single_price}}</span>
             </div>
 
+        </div>
+
+        <div class="col s8 cyan-text" ng-show="exceedOilItem.check_status == 3">
+            <div class="col s6" style="padding: 0;"> GPS超量油：<span class="red-text" >{{exceedOilItem.gps_exceed_oil|number:2}}</span></div>
+            <div class="col s6" style="padding: 0;"> GPS超量尿素：<span class="red-text" >{{exceedOilItem.gps_exceed_urea|number:2}}</span></div>
         </div>
 
         <div class="col s4 cyan-text">

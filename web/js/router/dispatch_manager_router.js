@@ -274,7 +274,11 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             controller:'look_head_detail_controller'
         })
 
-
+        .state("driver_settlement",{
+            url:"/driver_settlement",
+            templateUrl: "js/view/settlement/driver_settlement.html",
+            controller:'driver_settlement_controller'
+        })
         // 公共数据
         .state("car_query",{
             url:"/car_query",

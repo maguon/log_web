@@ -515,9 +515,9 @@
                             <td ng-show="ExceedOilInfo.id==null">{{ExceedOilInfo.plan_urea==null?0:ExceedOilInfo.plan_urea}}/{{ExceedOilInfo.actual_urea==null?0:ExceedOilInfo.actual_urea}}</td>
                             <td>{{ExceedOilInfo.surplus_oil==null?0:ExceedOilInfo.surplus_oil}}/{{ExceedOilInfo.surplus_urea==null?0:ExceedOilInfo.surplus_urea}}</td>
                             <td>{{ExceedOilInfo.subsidy_oil==null?0:ExceedOilInfo.subsidy_oil}}/{{ExceedOilInfo.subsidy_urea==null?0:ExceedOilInfo.subsidy_urea}}</td>
-                            <td>{{ExceedOilInfo.exceed_oil==null?0:ExceedOilInfo.exceed_oil}}</td>
-                            <td>{{ExceedOilInfo.exceed_urea==null?0:ExceedOilInfo.exceed_urea}}</td>
-                            <td>{{ExceedOilInfo.actual_money}}</td>
+                            <td>{{ExceedOilInfo.gps_exceed_oil==null?0:ExceedOilInfo.gps_exceed_oil}}</td>
+                            <td>{{ExceedOilInfo.gps_exceed_urea==null?0:ExceedOilInfo.gps_exceed_urea}}</td>
+                            <td>{{ExceedOilInfo.gps_actual_money}}</td>
                             <td>{{ExceedOilInfo.check_status==2?'处理中':ExceedOilInfo.check_status==3?'已处理':'未处理'}}</td>
                         </tr>
                         <tr ng-if="OilRelList.length==0">

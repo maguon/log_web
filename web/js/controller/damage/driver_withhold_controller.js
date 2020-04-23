@@ -6,6 +6,7 @@ app.controller("driver_withhold_controller", ["$scope","$rootScope", "$state", "
     var userId = _basic.getSession(_basic.USER_ID);
     $scope.size = 11;
     $scope.start = 0;
+    $scope.flag=false;
     $('#start_month').MonthPicker({
         Button: false,
         MonthFormat: 'yymm'
@@ -14,6 +15,12 @@ app.controller("driver_withhold_controller", ["$scope","$rootScope", "$state", "
         Button: false,
         MonthFormat: 'yymm'
     });
+    $('#truck_start_month').MonthPicker({
+        Button: false,
+        MonthFormat: 'yymm'
+    });
+
+
     //获取上个月年月
     function getLastMonth(){//获取上个月日期
         var date = new Date();
@@ -29,6 +36,7 @@ app.controller("driver_withhold_controller", ["$scope","$rootScope", "$state", "
         }
         $scope.startMonth = year.toString()+month.toString();
         $scope.addStartMonth = year.toString()+month.toString();
+        $scope.truckStartMonth = year.toString()+month.toString();
 
     }
     getLastMonth()
@@ -44,6 +52,11 @@ app.controller("driver_withhold_controller", ["$scope","$rootScope", "$state", "
                     allowClear: true
                 });
                 $('#addDrivderId').select2({
+                    placeholder: '司机',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+                $('#truckDrivderId').select2({
                     placeholder: '司机',
                     containerCssClass : 'select2_dropdown',
                     allowClear: true
@@ -188,6 +201,51 @@ app.controller("driver_withhold_controller", ["$scope","$rootScope", "$state", "
         })
     }
 
+
+    //司机变化暂扣款变化
+    $scope.changeTruck = function(){
+         if($('#truck_start_month').val()!==''){
+          $scope.truckStartMonth = $('#truck_start_month').val();
+          }
+          else {
+              swal("月份必填！", "", "warning")
+          }
+        _basic.get($host.api_url + "/driveSalary?driveId="+ $scope.truckDrivderId+"&monthDateId="+ $scope.truckStartMonth).then(function (data) {
+            if (data.success == true&&data.result.length>0) {
+                $scope.flag=true;
+                $scope.truckFee = data.result[0].enter_fee;
+
+            } else if(data.result.length==0){
+                $scope.flag=false;
+                swal("未发现司机该月工资", "无法扣除交车费", "warning");
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        })
+
+    }
+
+    //暂扣交车费
+    $scope.truckRetainFee =function(){
+        $scope.truckDrivderId=null;
+        $scope.driveNameList=[];
+        $scope.truckFee='';
+        getLastMonth();
+        getDriveNameList();
+        $("#truckRetainFee").modal("open");
+    }
+    $scope.truckCarItem = function (){
+        _basic.put($host.api_url + "/user/" + userId + "/drive/" + $scope.truckDrivderId+'/yMonth/'+$scope.truckStartMonth, {
+        }).then(function (data) {
+            if (data.success == true) {
+                swal("扣除成功", "", "success");
+                $('#truckRetainFee').modal('close');
+            } else {
+                swal('扣除失败', "", "error");
+            }
+        })
+    }
 
     // 分页
     $scope.previous_page = function () {

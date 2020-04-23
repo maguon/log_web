@@ -47,6 +47,53 @@
         </div>
     </div>
 </div>
+<!--暂扣交车费  无工资-->
+<div id="truckRetainFee" class="modal">
+    <div class="cyan lighten-1 white-text center-align modal_title" >扣除交车费</div>
+    <div class="modal-content" style="padding-bottom: 0px">
+        <div class="row col s12">
+            <div class="row">
+                <!--司机  月份 质损暂扣款 质安罚款	 备注-->
+                <div class="col s4 input-field">
+                    <input id="truck_start_month" type="text" ng-model="truckStartMonth" />
+                    <label for="add_start_month">月份</label>
+                </div>
+                <div class="col s4 input-field">
+                    <select material-select watch ng-model="truckDrivderId" id="truckDrivderId" style="width: 100%"  ng-change="changeTruck()">
+                        <option value="" selected>请选择</option>
+                        <option ng-repeat="truckDrivder in driveNameList" ng-value=truckDrivder.id>{{truckDrivder.drive_name}}&nbsp;&nbsp;({{truckDrivder.mobile}})</option>
+                    </select>
+                </div>
+
+                <div class="col s4 input-field">
+                    <input type="number" id="truckFee" name="truckFee" ng-model="truckFee" disabled>
+                    <label for="truckFee">交车费</label>
+                </div>
+                <p class="red-text">该司机当月工资内的交车费将为0</p>
+
+            </div>
+            <div class="modal-footer center-align">
+                <div class="col s12">
+                    <div class="col s2 offset-s4">
+                        <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                            取消
+                        </a>
+                    </div>
+                    <div class="col s2" ng-show="flag==false">
+                        <a style="width: 100%" class="waves-light waves-effect grey lighten-1 btn" >
+                            确定
+                        </a>
+                    </div>
+                    <div class="col s2" ng-show="flag==true">
+                        <a ng-click="truckCarItem()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn" >
+                            确定
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!--修改模态框-->
 <div id="put_driver_withhold" class="modal">
@@ -98,7 +145,7 @@
 </div>
 
 <div class="row tab_box">
-    <div class="col s10" style="margin-bottom: 20px;">
+    <div class="col s9" style="margin-bottom: 20px;">
         <!--司机-->
         <div class="col s12" style="height: 70px">
             <div class="col s6 input-field">
@@ -123,6 +170,11 @@
     <div class="col s1   flex flex-round"  style="margin-top: 5px;">
         <a class="btn-floating btn-large waves-light waves-effect btn vc-center cyan"  ng-click="addItem()">
             <i class="mdi mdi-plus"></i>
+        </a>
+    </div>
+    <div class="col s1   flex flex-round"  style="margin-top: 5px;">
+        <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"  ng-click="truckRetainFee()">
+            <i class="mdi mdi-window-minimize"></i>
         </a>
     </div>
 

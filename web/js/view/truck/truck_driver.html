@@ -44,7 +44,7 @@
     <div class="row main_storage_car">
         <div class="row valign-wrapper">
             <div class="col s10">
-                <div class="input-field col s3">
+                <div class="input-field col s2">
                   <!--  <input id="drive_name" type="text" ng-model="driveName">
                     <label for="drive_name">姓名</label>-->
 
@@ -56,7 +56,7 @@
 
 
                 </div>
-                <div class="input-field col s3">
+                <div class="input-field col s2">
                     <select material-select watch ng-change="searchOperateType()" ng-model="driverType">
                         <option value="" selected>所属类型</option>
                         <option value="1" >自营</option>
@@ -85,7 +85,13 @@
                         <option value="0" >不可用</option>
                     </select>
                 </div>
-
+                <div class="input-field col s2">
+                    <select material-select watch ng-model="socialType">
+                        <option value="" selected>社保状态</option>
+                        <option value="1" >在保</option>
+                        <option value="0" >退保</option>
+                    </select>
+                </div>
                 <div class="input-field col s3">
                     <input id="drive_tel" type="text" ng-model="driveTel">
                     <label for="drive_tel">电话</label>
@@ -144,6 +150,7 @@
                     <th data-field="">性别</th>
                     <th data-field="">所属类型</th>
                     <th data-field="">所属单位</th>
+                    <th data-field="">社保</th>
                     <th data-field="">主驾货车</th>
                     <th data-field="">电话</th>
                     <th data-field="">车检</th>
@@ -158,6 +165,8 @@
                     <td>{{driver.gender | gender}}</td>
                     <td>{{driver.operate_type | carType}}</td>
                     <td>{{driver.company_name}}</td>
+                    <td ng-if="driver.social_type==1">在保</td>
+                    <td ng-if="driver.social_type==0">退保</td>
                     <td>{{driver.truck_num}}</td>
                     <td>{{driver.mobile}}</td>
                     <!--<td width="120">{{driver.drive_status | workStatus}}</td>-->
@@ -180,7 +189,7 @@
                     </td>
                 </tr>
                 <tr class="grey-text text-darken-1" ng-if="driveList.length == 0">
-                    <td colspan="9"><span style="letter-spacing: 2px">暂无数据</span></td>
+                    <td colspan="10"><span style="letter-spacing: 2px">暂无数据</span></td>
                 </tr>
                 </tbody>
             </table>

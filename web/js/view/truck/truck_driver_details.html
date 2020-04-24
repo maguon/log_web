@@ -14,25 +14,33 @@
             <li class="tab"><a ng-click="showDriverBand()" class="cyan-text"  style="line-height: 40px" href="javascript:void(0)">绑定货车</a></li>
         </ul>
         <div class="driver_details_step_1" ng-if="stepFirst">
-            <!--<form name="truck_driver_details" ng-submit="submitForm(truck_driver_details.$valid)" novalidate>-->
+            <form name="truck_driver_details" ng-submit="submitInfo(truck_driver_details.$valid)" novalidate>
             <div class="row">
-                <div class="input-field col s4"
-                     ng-class="{'has-error':truck_driver_details.drive_name.$invalid&&submitted }">
+                <div class="input-field col s3" ng-class="{'has-error':truck_driver_details.drive_name.$invalid&&submitted }">
                     <input id="drive_name" name="drive_name" type="text" ng-model="driverInfo.drive_name" required>
                     <label for="drive_name"><span style="color: red">* </span>司机姓名</label>
                 </div>
-                <div class="input-field col s4" ng-class="{'has-error':truck_driver_details.sex.$invalid&&submitted }">
+
+                <div class="input-field col s3" ng-class="{'has-error':truck_driver_details.sex.$invalid&&submitted }">
                     <select id="sex" name="sex" material-select watch ng-model="driverInfo.gender" required>
                         <option value="" selected>请选择</option>
                         <option value="0">女</option>
                         <option value="1">男</option>
                     </select>
-                    <label><span style="color: red">* </span>性别</label>
+                    <label for="sex"><span style="color: red">* </span>性别</label>
                 </div>
-                <div class="input-field col s4"
+                <div class="input-field col s3"
                      ng-class="{'has-error':truck_driver_details.phone.$invalid&&submitted }" >
                     <input id="phone" name="phone" type="text" ng-model="driverInfo.mobile" required disabled>
                     <label for="phone"><span style="color: red">* </span>联系电话</label>
+                </div>
+                <div class="input-field col s3" ng-class="{'has-error':truck_driver_details.socialType.$invalid&&submitted }">
+                    <select id="socialType" name="socialType" material-select watch ng-model="driverInfo.social_type"  required>
+                        <option value="" selected>请选择</option>
+                        <option ng-value="1" >在保</option>
+                        <option ng-value="0" >退保</option>
+                    </select>
+                    <label for="socialType"><span style="color: red">* </span>社保状态</label>
                 </div>
             </div>
             <div class="row">
@@ -87,12 +95,11 @@
             </div>
             <div class="row col s12">
                 <div class="subBtn" style="width: 300px ;margin: 0 auto;margin-top: 100px">
-                    <button style="width: 300px;font-size: 1.3rem" class="btn btn-large waves-effect waves-light"
-                            ng-click="submitInfo()">提交
+                    <button style="width: 300px;font-size: 1.3rem" class="btn btn-large waves-effect waves-light">提交
                     </button>
                 </div>
             </div>
-            <!--</form>-->
+            </form>
         </div>
         <div class="driver_details_step_4" ng-if="stepforth">
             <div class="input-field col s4"

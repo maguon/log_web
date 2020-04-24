@@ -502,32 +502,35 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
 
 
     // 司机信息
-    $scope.submitInfo = function () {
-        var newDriverInfo = {
-            driveName: $scope.driverInfo.drive_name,
-            gender: $scope.driverInfo.gender,
-            idNumber: $scope.driverInfo.id_number,
-            tel: $scope.driverInfo.mobile,
-
-            licenseType: $scope.driverInfo.license_type,
-            // entryDate: $scope.driverInfo.confirm_date,
-            address: $scope.driverInfo.address,
-            sibTel: $scope.driverInfo.sib_tel,
-            licenseDate: $scope.driverInfo.license_date,
-            remark: $scope.driverInfo.remark
-        };
-        // console.log(newDriverInfo);
-        _basic.put($host.api_url + "/user/" + userId + "/drive/" + driverId, newDriverInfo).then(function (data) {
-            if (data.success === true) {
-                // console.log("successData", data);
-                // console.log("info", newDriverInfo);
-                swal("修改成功", "", "success");
-            }
-            else {
-                // console.log("noData", data);
-                swal(data.msg, "", "error");
-            }
-        });
+    $scope.submitInfo = function (inValid) {
+        $scope.submitted = true;
+        if (inValid) {
+            var newDriverInfo = {
+                driveName: $scope.driverInfo.drive_name,
+                gender: $scope.driverInfo.gender,
+                idNumber: $scope.driverInfo.id_number,
+                tel: $scope.driverInfo.mobile,
+                socialType: $scope.driverInfo.social_type,
+                licenseType: $scope.driverInfo.license_type,
+                // entryDate: $scope.driverInfo.confirm_date,
+                address: $scope.driverInfo.address,
+                sibTel: $scope.driverInfo.sib_tel,
+                licenseDate: $scope.driverInfo.license_date,
+                remark: $scope.driverInfo.remark
+            };
+            // console.log(newDriverInfo);
+            _basic.put($host.api_url + "/user/" + userId + "/drive/" + driverId, newDriverInfo).then(function (data) {
+                if (data.success === true) {
+                    // console.log("successData", data);
+                    // console.log("info", newDriverInfo);
+                    swal("修改成功", "", "success");
+                }
+                else {
+                    // console.log("noData", data);
+                    swal(data.msg, "", "error");
+                }
+            });
+        }
     };
 
     //修改所属公司

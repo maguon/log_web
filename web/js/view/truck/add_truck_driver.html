@@ -17,7 +17,7 @@
         <form name="add_driver_form" ng-submit="submitForm(add_driver_form.$valid)" novalidate>
             <div class="row main_storage_car">
                 <div class="row col s12">
-                    <div class="input-field col s5"
+                    <div class="input-field col s3"
                          ng-class="{'has-error':add_driver_form.drive_name.$invalid&&submitted }">
                         <input id="drive_name" name="drive_name" type="text" ng-model="driveName" required>
                         <label for="drive_name"><span style="color: red">* </span>司机姓名</label>
@@ -29,12 +29,10 @@
                             <option value="" selected>请选择</option>
                             <option value="1" >自营</option>
                             <option value="2" >外协</option>
-                           <!-- <option value="3" >供方</option>
-                            <option value="4" >承包</option>-->
                         </select>
                         <label><span style="color: red">* </span>所属类型</label>
                     </div>
-                    <div class="input-field col s4"
+                    <div class="input-field col s3"
                          ng-class="{'has-error':add_driver_form.company.$invalid&&submitted }">
                         <select id="company" name="company" material-select watch ng-model="driverCompany" required>
                             <option value="" selected>请选择</option>
@@ -42,6 +40,18 @@
                         </select>
                         <label><span style="color: red">* </span>所属公司</label>
                     </div>
+
+
+                    <div class="input-field col s3"
+                         ng-class="{'has-error':add_driver_form.socialType.$invalid&&submitted }">
+                        <select id="socialType" name="socialType" material-select watch ng-model="socialType"  required>
+                            <option value="" selected>请选择</option>
+                            <option value="1" >在保</option>
+                            <option value="0" >退保</option>
+                        </select>
+                        <label for="socialType"><span style="color: red">* </span>社保状态</label>
+                    </div>
+
                 </div>
                 <div class="row col s12">
                     <div class="input-field col s3" ng-class="{'has-error':add_driver_form.sex.$invalid&&submitted }">

@@ -36,6 +36,7 @@ app.controller("add_truck_driver_controller", ["$scope", "$state", "_basic", "_c
         if (inValid) {
             var driverInfo = {
                 driveName: $scope.driveName,
+                socialType:$scope.socialType,
                 gender: $scope.driverType,
                 idNumber: $scope.identityNum,
                 tel: $scope.driverPhone,

@@ -88,6 +88,7 @@
                 <div class="input-field col s2">
                     <select material-select watch ng-model="socialType">
                         <option value="" selected>社保状态</option>
+                        <option value="2" >未保</option>
                         <option value="1" >在保</option>
                         <option value="0" >退保</option>
                     </select>
@@ -165,6 +166,7 @@
                     <td>{{driver.gender | gender}}</td>
                     <td>{{driver.operate_type | carType}}</td>
                     <td>{{driver.company_name}}</td>
+                    <td ng-if="driver.social_type==2">未保</td>
                     <td ng-if="driver.social_type==1">在保</td>
                     <td ng-if="driver.social_type==0">退保</td>
                     <td>{{driver.truck_num}}</td>

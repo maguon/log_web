@@ -37,8 +37,10 @@
                 <div class="input-field col s3" ng-class="{'has-error':truck_driver_details.socialType.$invalid&&submitted }">
                     <select id="socialType" name="socialType" material-select watch ng-model="driverInfo.social_type"  required>
                         <option value="" selected>请选择</option>
+                        <option ng-value="2" >未保</option>
                         <option ng-value="1" >在保</option>
                         <option ng-value="0" >退保</option>
+
                     </select>
                     <label for="socialType"><span style="color: red">* </span>社保状态</label>
                 </div>

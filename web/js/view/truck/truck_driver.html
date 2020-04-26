@@ -166,6 +166,7 @@
                     <td>{{driver.gender | gender}}</td>
                     <td>{{driver.operate_type | carType}}</td>
                     <td>{{driver.company_name}}</td>
+                    <td ng-if="driver.social_type==null||driver.social_type==undefined||driver.social_type==''"></td>
                     <td ng-if="driver.social_type==2">未保</td>
                     <td ng-if="driver.social_type==1">在保</td>
                     <td ng-if="driver.social_type==0">退保</td>

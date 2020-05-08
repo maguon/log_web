@@ -173,7 +173,7 @@ app.controller("driver_withhold_controller", ["$scope","$rootScope", "$state", "
         _basic.get($host.api_url + "/driveSalaryRetain?driveSalaryRetainId="+id).then(function (data) {
             if (data.success == true) {
                 $scope.socialSecurity = data.result[0];
-                $scope.socialSecurity.total=data.result[0].drive_name+"    "+data.result[0].tel;
+                $scope.socialSecurity.total=data.result[0].drive_name+"    "+data.result[0].mobile;
 
             } else {
                 swal(data.msg, "", "error");

@@ -121,8 +121,13 @@
                 </div>
 
                 <div class="input-field col s12">
-                    <input type="text" id="putRemark" name="putRemark" ng-model="socialSecurity.remark">
-                    <label for="putRemark">备注</label>
+                    <div class="col s1">备注：</div>
+                    <div class="col s11">
+                    <textarea style="height: 150px" id="putRemark" name="putRemark" cols="30" rows="10"
+                              ng-model="socialSecurity.remark"></textarea>
+                    </div>
+
+
                 </div>
 
             </div>
@@ -203,7 +208,7 @@
                     <td>{{fileInfo.mobile}}</td>
                     <td class="red-text" >{{fileInfo.damage_retain_fee}}</td>
                     <td class="red-text" >{{fileInfo.damage_op_fee}}</td>
-                    <td class="unnecessary" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis">{{fileInfo.remark}}</td>
+                    <td class="unnecessary" style="max-width: 150px;">{{fileInfo.remark}}</td>
                     <td class="operation">
                         <a ng-click="putItem(fileInfo.id)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
                             <i class="mdi mdi-file-document" style="margin: 0"></i>

@@ -30,83 +30,85 @@
                             <div class="col s10">
 
                                 <!--行1-->
+                                <div class="col s12">
+                                    <!--所属类型-->
+                                    <div class="input-field col colWidth">
+                                        <select  material-select watch id="headOperateType"  ng-model="conHeadOperateType" ng-change="changeOperateType(conHeadOperateType)">
+                                            <option value="">请选择</option>
+                                            <option ng-repeat="operate in operateTypeList" ng-value="operate.id">{{operate.operate_type}}</option>
+                                        </select>
+                                        <label for="headOperateType">所属类型</label>
+                                    </div>
 
-                                <!--所属类型-->
-                                <div class="input-field col colWidth">
-                                    <select  material-select watch id="headOperateType"  ng-model="conHeadOperateType" ng-change="changeOperateType(conHeadOperateType)">
-                                        <option value="">请选择</option>
-                                        <option ng-repeat="operate in operateTypeList" ng-value="operate.id">{{operate.operate_type}}</option>
-                                    </select>
-                                    <label for="headOperateType">所属类型</label>
-                                </div>
+                                    <!--所属公司-->
+                                    <div class="input-field col colWidth">
+                                        <select id="headCompany" material-select watch ng-model="conHeadCompany">
+                                            <option value="">所属公司</option>
+                                            <option ng-repeat="el in companyList" ng-value="el.id">{{el.company_name}}</option>
+                                        </select>
+                                        <label for="headCompany">请选择</label>
+                                    </div>
 
-                                <!--所属公司-->
-                                <div class="input-field col colWidth">
-                                    <select id="headCompany" material-select watch ng-model="conHeadCompany">
-                                        <option value="">所属公司</option>
-                                        <option ng-repeat="el in companyList" ng-value="el.id">{{el.company_name}}</option>
-                                    </select>
-                                    <label for="headCompany">请选择</label>
+                                    <!--品牌-->
+                                    <div class="input-field col colWidth">
+                                        <select id="headBrand" material-select watch ng-model="conHeadBrand">
+                                            <option value="">请选择</option>
+                                            <option ng-repeat="el in brandList" ng-value="el.id">{{el.brand_name}}</option>
+                                        </select>
+                                        <label for="headBrand">品牌</label>
+                                    </div>
+                                    <!--型号-->
+                                    <div class="input-field col colWidth">
+                                        <select id="truck_style" name="truck_style" material-select watch ng-model="conHeadStyle">
+                                            <option value="">请选择</option>
+                                            <option ng-repeat="el in brandStyle" ng-value="el.id">{{el.brand_style_name}}</option>
+                                        </select>
+                                        <label for="truck_style">品牌型号</label>
+                                    </div>
+                                    <!--货车牌号-->
+                                    <div class="input-field col colWidth">
+                                        <select id="headTruck" ng-model="conHeadTruck" style="width: 100%" >
+                                            <option value=""></option>
+                                            <option ng-repeat="el in headTruckList" >{{el.truck_num}}</option>
+                                        </select>
+                                    </div>
                                 </div>
-
-                                <!--品牌-->
-                                <div class="input-field col colWidth">
-                                    <select id="headBrand" material-select watch ng-model="conHeadBrand">
-                                        <option value="">请选择</option>
-                                        <option ng-repeat="el in brandList" ng-value="el.id">{{el.brand_name}}</option>
-                                    </select>
-                                    <label for="headBrand">品牌</label>
-                                </div>
-                                <!--型号-->
-                                <div class="input-field col colWidth">
-                                    <select id="truck_style" name="truck_style" material-select watch ng-model="conHeadStyle">
-                                        <option value="">请选择</option>
-                                        <option ng-repeat="el in brandStyle" ng-value="el.id">{{el.brand_style_name}}</option>
-                                    </select>
-                                    <label for="truck_style">品牌型号</label>
-                                </div>
-                                <!--货车牌号-->
-                                <div class="input-field col colWidth">
-                                    <select id="headTruck" ng-model="conHeadTruck" style="width: 100%" >
-                                        <option value=""></option>
-                                        <option ng-repeat="el in headTruckList" >{{el.truck_num}}</option>
-                                    </select>
-                                </div>
-
 
                                 <!--行2-->
-                                <!--关联司机-->
-                                <div class="input-field col colWidth">
-                                    <input id="headDriver" type="text" ng-model="conHeadDriver">
-                                    <label for="headDriver">关联司机</label>
-                                </div>
+                                <div class="col s12">
+                                    <!--关联司机-->
+                                    <div class="input-field col colWidth">
+                                        <input id="headDriver" type="text" ng-model="conHeadDriver">
+                                        <label for="headDriver">关联司机</label>
+                                    </div>
 
-                                <!--营运证检证日期(始)-->
-                                <div class="input-field col colWidth">
-                                    <input type="text" ng-model="conHeadOperationStartTime" id="headOperationStartTime"  class="datepicker" autocomplete="off" date>
-                                    <i class="mdi dataIcon mdi-table-large"></i>
-                                    <label for="headOperationStartTime">营运证检证日期(始)</label>
-                                </div>
+                                    <!--营运证检证日期(始)-->
+                                    <div class="input-field col colWidth">
+                                        <input type="text" ng-model="conHeadOperationStartTime" id="headOperationStartTime"  class="datepicker" autocomplete="off" date>
+                                        <i class="mdi dataIcon mdi-table-large"></i>
+                                        <label for="headOperationStartTime">营运证检证日期(始)</label>
+                                    </div>
 
-                                <!--营运证检证日期(终)-->
-                                <div class="input-field col colWidth">
-                                    <input type="text" ng-model="conHeadOperationEndTime" id="headOperationEndTime"  class="datepicker" autocomplete="off" date>
-                                    <i class="mdi dataIcon mdi-table-large"></i>
-                                    <label for="headOperationEndTime">营运证检证日期(终)</label>
-                                </div>
+                                    <!--营运证检证日期(终)-->
+                                    <div class="input-field col colWidth">
+                                        <input type="text" ng-model="conHeadOperationEndTime" id="headOperationEndTime"  class="datepicker" autocomplete="off" date>
+                                        <i class="mdi dataIcon mdi-table-large"></i>
+                                        <label for="headOperationEndTime">营运证检证日期(终)</label>
+                                    </div>
 
-                                <!--行驶证检证日期(始)-->
-                                <div class="input-field col colWidth">
-                                    <input type="text" ng-model="conHeadCarStartTime" id="headCarStartTime" class="datepicker" autocomplete="off" date>
-                                    <i class="mdi dataIcon mdi-table-large"></i>
-                                    <label for="headCarStartTime">行驶证检证日期(始)</label>
-                                </div>
+                                    <!--行驶证检证日期(始)-->
+                                    <div class="input-field col colWidth">
+                                        <input type="text" ng-model="conHeadCarStartTime" id="headCarStartTime" class="datepicker" autocomplete="off" date>
+                                        <i class="mdi dataIcon mdi-table-large"></i>
+                                        <label for="headCarStartTime">行驶证检证日期(始)</label>
+                                    </div>
 
-                                <!--行驶证检证日期(终)-->
-                                <div class="input-field col colWidth">
-                                    <input type="text" ng-model="conHeadCarEndTime" id="headCarEndTime"   class="datepicker" autocomplete="off" date>
-                                    <i class="mdi dataIcon mdi-table-large"></i>
-                                    <label for="headCarEndTime">行驶证检证日期(终)</label>
+                                    <!--行驶证检证日期(终)-->
+                                    <div class="input-field col colWidth">
+                                        <input type="text" ng-model="conHeadCarEndTime" id="headCarEndTime"   class="datepicker" autocomplete="off" date>
+                                        <i class="mdi dataIcon mdi-table-large"></i>
+                                        <label for="headCarEndTime">行驶证检证日期(终)</label>
+                                    </div>
                                 </div>
                             </div>
 

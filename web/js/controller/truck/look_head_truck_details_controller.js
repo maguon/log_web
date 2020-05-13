@@ -57,7 +57,14 @@ app.controller("look_head_truck_details_controller", ["$scope", "$state", "$stat
                 swal(data.msg, "", "error")
             }
         });
-
+        //获取型号
+        _basic.get($host.api_url + "/brandStyle").then(function (data) {
+            if (data.success == true) {
+                $scope.brandStyle = data.result;
+            } else {
+                swal(data.msg, "", "error")
+            }
+        });
         // 获取车头
         _basic.get($host.api_url + "/truckFirst?truckType=1").then(function (data) {
             if (data.success == true) {
@@ -97,6 +104,7 @@ app.controller("look_head_truck_details_controller", ["$scope", "$state", "$stat
         _basic.get($host.api_url + "/truckFirst?truckId=" + id).then(function (data) {
             if (data.success == true) {
                 $scope.truckFirst = data.result[0];
+                $scope.brandStyleId=$scope.truckFirst.brand_style_id;
                 $scope.changeBrand( $scope.truckFirst.brand_id)
                 $scope.truckFirst.hp = $scope.truckFirst.hp === 0 ? null : $scope.truckFirst.hp;
                 // 获取车牌号
@@ -221,6 +229,25 @@ app.controller("look_head_truck_details_controller", ["$scope", "$state", "$stat
         });
     };
 
+
+    //获取型号ID
+    $scope.changeBrandStyle = function(){
+        if($scope.truckFirst.brand_style_name!==undefined&&$scope.truckFirst.brand_style_name!==''&&$scope.truckFirst.brand_style_name!==null){
+            _basic.get($host.api_url + "/brandStyle?brandStyleName="+ $scope.truckFirst.brand_style_name).then(function (data) {
+                if (data.success == true) {
+                    $scope.brandStyleId = data.result[0].id;
+                } else {
+                    swal(data.msg, "", "error")
+                }
+            });
+        }
+        else {
+            $scope.truckFirst.brand_style_name=null;
+            $scope.brandStyleId=null;
+        }
+
+    }
+
     // 修改头车
     $scope.submit_Form = function (inValid) {
         $scope.submitted = true;
@@ -230,6 +257,8 @@ app.controller("look_head_truck_details_controller", ["$scope", "$state", "$stat
             "truckTel": $scope.truckFirst.truck_tel,
             "theCode": $scope.truckFirst.the_code,
             "truckType": 1,
+            brandStyleId:  $scope.brandStyleId,
+            brandStyleName: $scope.truckFirst.brand_style_name,
            /* operateType:1,*/
             "drivingDate": $scope.truckFirst.driving_date,
             "licenseDate": $scope.truckFirst.license_date,

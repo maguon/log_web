@@ -58,6 +58,14 @@
                                     <label for="truck_make"><span style="color: red;margin-right: 5px">*</span>车辆品牌</label>
                                 </div>
                                 <div class="input-field col s3">
+                                    <select id="truck_style" name="truck_style" material-select watch ng-model="truck_style">
+                                        <option value="">请选择</option>
+                                        <option ng-repeat="el in brandStyle" ng-value="el">{{el.brand_style_name}}</option>
+                                    </select>
+                                    <label for="truck_style">品牌型号</label>
+                                </div>
+
+                                <div class="input-field col s3">
                                     <input name="horsepower" id="horsepower" type="number" ng-model="horsepower" autocomplete="off" >
                                     <label for="horsepower">马力</label>
                                 </div>
@@ -65,17 +73,18 @@
                                     <input name="vin" id="vin" type="text" ng-model="vin" autocomplete="off" >
                                     <label for="vin">识别代码</label>
                                 </div>
-                                <div class="input-field col s3">
+
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s4">
                                     <input name="phone_num" id="phone_num"  autocomplete="off" type="text" ng-model="phone_num"  ng-pattern="mobileRegx"  >
                                     <label for="phone_num">联系电话</label>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col s6 input-field">
+                                <div class="col s4 input-field">
                                     <input type="text" name="drive_time" id="drive_time" class="datepicker" autocomplete="off" ng-model="drive_time" required   date><i class="mdi dataIcon mdi-table-large"></i>
                                     <label for="drive_time"><span style="color: red;margin-right: 5px">*</span>行驶证检证日期</label>
                                 </div>
-                                <div class="col s6 input-field">
+                                <div class="col s4 input-field">
                                     <input type="text" name="service_time" id="service_time" class="datepicker" autocomplete="off" ng-model="service_time" required   date><i class="mdi dataIcon mdi-table-large"></i>
                                     <label for="service_time"><span style="color: red;margin-right: 5px">*</span>营运证检证日期</label>
                                 </div>

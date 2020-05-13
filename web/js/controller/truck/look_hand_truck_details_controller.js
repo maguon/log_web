@@ -49,6 +49,15 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
             }
         });
 
+        //获取型号
+        _basic.get($host.api_url + "/brandStyle").then(function (data) {
+            if (data.success == true) {
+                $scope.brandStyle = data.result;
+            } else {
+                swal(data.msg, "", "error")
+            }
+        });
+
         // 获取车头
         _basic.get($host.api_url+"/truckFirst?truckType=1").then(function (data) {
             if(data.success==true){
@@ -65,6 +74,7 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
         _basic.get($host.api_url+"/truckTrailer?truckId="+id).then(function (data) {
             if(data.success==true){
                 $scope.truckTrailer=data.result[0];
+                $scope.brandStyleId=$scope.truckTrailer.brand_style_id;
                 $scope.truck_id=$scope.truckTrailer.truck_num;
                 $scope.hand_truck_img($scope.truck_id);
                 $scope.getCompany();
@@ -133,6 +143,26 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
 
     })
 
+    //获取型号ID
+    $scope.changeBrandStyle = function(){
+        if($scope.truckTrailer.brand_style_name!==undefined&&$scope.truckTrailer.brand_style_name!==''&&$scope.truckTrailer.brand_style_name!==null){
+            _basic.get($host.api_url + "/brandStyle?brandStyleName="+ $scope.truckTrailer.brand_style_name).then(function (data) {
+                if (data.success == true) {
+                    $scope.brandStyleId = data.result[0].id;
+                } else {
+                    swal(data.msg, "", "error")
+                }
+            });
+        }
+        else {
+            $scope.truckTrailer.brand_style_name=null;
+            $scope.brandStyleId=null;
+        }
+
+    }
+
+
+
 
 
     // 修改挂车
@@ -144,7 +174,9 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
             "truckTel": $scope.truckTrailer.truck_tel,
             "theCode": $scope.truckTrailer.the_code,
             "truckType":2,
-           /* operateType:1,*/
+            brandStyleId:  $scope.brandStyleId,
+            brandStyleName: $scope.truckTrailer.brand_style_name,
+            /* operateType:1,*/
             "number":$scope.truckTrailer.number,
             "drivingDate":$scope.truckTrailer.driving_date,
             "licenseDate":$scope.truckTrailer.license_date,
@@ -159,6 +191,7 @@ app.controller("look_hand_truck_details_controller", ["$scope","$state","$stateP
                 }
             });
         }
+
 
     };
 

@@ -32,6 +32,15 @@ app.controller("add_hand_truck_details_controller", ["$scope", "$state", "$state
         }
     });
 
+    //获取型号
+    _basic.get($host.api_url + "/brandStyle").then(function (data) {
+        if (data.success == true) {
+            $scope.brandStyle = data.result;
+        } else {
+            swal(data.msg, "", "error")
+        }
+    });
+
     // 获取车头
     _basic.get($host.api_url + "/truckFirst?truckType=1").then(function (data) {
         if (data.success == true) {
@@ -65,21 +74,46 @@ app.controller("add_hand_truck_details_controller", ["$scope", "$state", "$state
     // 新增
     $scope.submit_Form = function (inValid) {
         $scope.submitted = true;
-        var obj = {
-            truckNum: $scope.truck_hand_num,
-            brandId: $scope.truck_make,
-            theCode: $scope.hand_vin,
-            companyId: $scope.truck_hand_company,
-            truckType: 2,
-            operateType: $scope.truck_hand_type,
-            outputCompanyId:$scope.outputCompany.id,
-            outputCompanyName:$scope.outputCompany.company_name,
-            relId: $scope.check_hand_truck,
-            number: $scope.hand_have_num,
-            drivingDate: $scope.drive_hand_time,
-            licenseDate: $scope.service_hand_time,
-            remark: $scope.hand_textarea
-        };
+        var obj={};
+        if( $scope.truck_style==undefined){
+             obj = {
+                truckNum: $scope.truck_hand_num,
+                brandId: $scope.truck_make,
+                brandStyleId: null,
+                brandStyleName: null,
+                theCode: $scope.hand_vin,
+                companyId: $scope.truck_hand_company,
+                truckType: 2,
+                operateType: $scope.truck_hand_type,
+                outputCompanyId:$scope.outputCompany.id,
+                outputCompanyName:$scope.outputCompany.company_name,
+                relId: $scope.check_hand_truck,
+                number: $scope.hand_have_num,
+                drivingDate: $scope.drive_hand_time,
+                licenseDate: $scope.service_hand_time,
+                remark: $scope.hand_textarea
+            };
+        }
+        else {
+             obj = {
+                truckNum: $scope.truck_hand_num,
+                brandId: $scope.truck_make,
+                brandStyleId: $scope.truck_style.id,
+                brandStyleName: $scope.truck_style.brand_style_name,
+                theCode: $scope.hand_vin,
+                companyId: $scope.truck_hand_company,
+                truckType: 2,
+                operateType: $scope.truck_hand_type,
+                outputCompanyId:$scope.outputCompany.id,
+                outputCompanyName:$scope.outputCompany.company_name,
+                relId: $scope.check_hand_truck,
+                number: $scope.hand_have_num,
+                drivingDate: $scope.drive_hand_time,
+                licenseDate: $scope.service_hand_time,
+                remark: $scope.hand_textarea
+            };
+
+        }
         if (inValid) {
             _basic.post($host.api_url + "/user/" + userId + "/truckTrailer", obj).then(function (data) {
                 if (data.success == true) {
@@ -101,9 +135,7 @@ app.controller("add_hand_truck_details_controller", ["$scope", "$state", "$state
                     swal(data.msg, "", "error")
                 }
             });
-        } else {
-
-        }
+        } else { }
 
     };
 

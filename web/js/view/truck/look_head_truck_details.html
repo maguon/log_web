@@ -22,11 +22,11 @@
                     车辆类型:头车
                 </div>
                 <div class="row">
-                    <div class="input-field col s4" ng-class="{'has-error':look_truck_form.truck_num.$invalid&&submitted }">
+                    <div class="input-field col s3" ng-class="{'has-error':look_truck_form.truck_num.$invalid&&submitted }">
                         <input name="truck_num" id="truck_num" autocomplete="off" type="text" ng-model="truckFirst.truck_num"  required>
                         <label for="truck_num"><span style="color: red;margin-right: 5px">*</span>车牌牌号</label>
                     </div>
-                    <div class="input-field col s3" ng-class="{'has-error':look_truck_form.truck_make.$invalid&&submitted }">
+                    <div class="input-field col s2" ng-class="{'has-error':look_truck_form.truck_make.$invalid&&submitted }">
                         <select id="truck_make" name="truck_make" material-select watch ng-model="truckFirst.brand_id" required ng-change="changeBrand(truckFirst.brand_id)">
                             <option value="">请选择</option>
                             <option ng-repeat="el in brand" ng-value="el.id">{{el.brand_name}}</option>
@@ -36,10 +36,24 @@
                     <div class="col s1" style="padding-top: 30px;padding-left: 30px ;font-size: 20px" ng-show="brandId!==undefiend" ng-click="loadOil()">
                         <i class="mdi mdi-eye look_icon cyan-text lighten-1"  title="油耗"></i>
                     </div>
+
+
                     <div class="col s1" style="padding-top: 30px;padding-left: 30px ;font-size: 20px" ng-show="brandId==undefiend">
                         <i class="mdi mdi-eye look_icon grey-text lighten-1" title="油耗"></i>
                     </div>
-                    <div class="input-field col s4">
+
+
+                    <div class="input-field col s3">
+                        <select id="truck_style" name="truck_style" material-select watch ng-model="truckFirst.brand_style_name" ng-change="changeBrandStyle()">
+                            <option value="">请选择</option>
+                            <option ng-repeat="el in brandStyle" ng-value="el.brand_style_name">{{el.brand_style_name}}</option>
+                        </select>
+                        <label for="truck_style">品牌型号</label>
+                    </div>
+
+
+
+                    <div class="input-field col s3">
                         <input name="horsepower" id="horsepower" type="number" ng-model="truckFirst.hp" autocomplete="off" >
                         <label for="horsepower">马力</label>
                     </div>

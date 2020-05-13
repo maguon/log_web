@@ -55,21 +55,29 @@
                                     </select>
                                     <label for="truck_make"><span style="color: red;margin-right: 5px">*</span>车辆品牌</label>
                                 </div>
-                                <div class="input-field col s4" ng-class="{'has-error':add_truck_form.hand_have_num.$invalid&&submitted }">
+                                <div class="input-field col s4">
+                                    <select id="truck_style" name="truck_style" material-select watch ng-model="truck_style">
+                                        <option value="">请选择</option>
+                                        <option ng-repeat="el in brandStyle" ng-value="el">{{el.brand_style_name}}</option>
+                                    </select>
+                                    <label for="truck_style">品牌型号</label>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s3" ng-class="{'has-error':add_truck_form.hand_have_num.$invalid&&submitted }">
                                     <input name="hand_have_num" id="hand_have_num" type="number" ng-model="hand_have_num" ng-pattern="/^[1-9]?\d$/"  required >
                                     <label for="hand_have_num"><span style="color: red;margin-right: 5px">*</span>挂车货位（最多两位数）</label>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s4">
+                                <div class="input-field col s3">
                                     <input name="hand_vin" id="hand_vin" type="text" ng-model="hand_vin" >
                                     <label for="hand_vin">识别代码</label>
                                 </div>
-                            <div class="col s4 input-field" ng-class="{'has-error':add_truck_form.drive_time.$invalid&&submitted }">
+                            <div class="col s3 input-field" ng-class="{'has-error':add_truck_form.drive_time.$invalid&&submitted }">
                                 <input type="text" name="drive_time" id="drive_time" class="datepicker" autocomplete="off" ng-model="drive_hand_time" required   date><i class="mdi dataIcon mdi-table-large"></i>
                                 <label for="drive_time"><span style="color: red;margin-right: 5px">*</span>行驶证检证日期</label>
                             </div>
-                            <div class="col s4 input-field" ng-class="{'has-error':add_truck_form.service_time.$invalid&&submitted }">
+                            <div class="col s3 input-field" ng-class="{'has-error':add_truck_form.service_time.$invalid&&submitted }">
                                 <input type="text" name="service_time" id="service_time" class="datepicker" autocomplete="off" ng-model="service_hand_time" required date><i class="mdi dataIcon mdi-table-large"></i>
                                 <label for="service_time"><span style="color: red;margin-right: 5px">*</span>营运证检证日期</label>
                             </div>

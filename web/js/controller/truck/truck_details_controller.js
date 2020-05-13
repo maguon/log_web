@@ -111,6 +111,20 @@ app.controller("truck_details_controller", ["$scope","$rootScope", "$state", "$s
         });
     }
 
+    /*
+  * 获取型号（头车）
+  * */
+    function getBrandStyle(){
+        _basic.get($host.api_url + "/brandStyle").then(function (data) {
+            if (data.success == true) {
+                $scope.brandStyle = data.result;
+            } else {
+                swal(data.msg, "", "error")
+            }
+        });
+    }
+
+
 
 
 
@@ -444,6 +458,7 @@ app.controller("truck_details_controller", ["$scope","$rootScope", "$state", "$s
         $scope.conHeadCarStartTime=conditions.drivingDateStart;
         $scope.conHeadCarEndTime=conditions.drivingDateEnd;
         $scope.conHeadBrand=conditions.brandId;
+        $scope.conHeadStyle =conditions.brandStyleId;
     }
 
 
@@ -461,7 +476,8 @@ app.controller("truck_details_controller", ["$scope","$rootScope", "$state", "$s
             drivingDateStart:$scope.conHeadCarStartTime,
             drivingDateEnd:$scope.conHeadCarEndTime,
             brandId:$scope.conHeadBrand,
-            truckType:1
+            truckType:1,
+            brandStyleId: $scope.conHeadStyle
         };
     }
 
@@ -481,6 +497,7 @@ app.controller("truck_details_controller", ["$scope","$rootScope", "$state", "$s
         $scope.conCarHandStartTime=conditions.drivingDateStart;
         $scope.conCarHandEndTime=conditions.drivingDateEnd;
         $scope.conHandBrand=conditions.brandId;
+        $scope.conHandStyle=conditions.brandStyleId;
     }
 
 
@@ -499,7 +516,8 @@ app.controller("truck_details_controller", ["$scope","$rootScope", "$state", "$s
             drivingDateStart :$scope.conCarHandStartTime,
             drivingDateEnd : $scope.conCarHandEndTime,
             brandId : $scope.conHandBrand,
-            truckType:2
+            truckType:2,
+            brandStyleId: $scope.conHandStyle
 
         };
     }
@@ -570,5 +588,6 @@ app.controller("truck_details_controller", ["$scope","$rootScope", "$state", "$s
     getBrandList();
     getHeadTruckList ();
     getHandTruckList ();
+    getBrandStyle();
 
 }]);

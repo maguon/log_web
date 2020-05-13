@@ -66,14 +66,18 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
     $scope.getDriverDetails = function () {
         _basic.get($host.api_url + "/drive?driveId=" + driverId).then(function (data) {
             if (data.success === true) {
-                // console.log("driveData",data);
                 // 修改某些数据显示格式
                 data.result[0].confirm_date = moment(data.result[0].confirm_date).format("YYYY-MM-DD");
                 data.result[0].license_date = moment(data.result[0].license_date).format("YYYY-MM-DD");
+                if(data.result[0].entry_time==null){
+                    data.result[0].entry_time=null
+                }
+                else {
+                    data.result[0].entry_time = moment(data.result[0].entry_time).format("YYYY-MM-DD");
+                }
+
                 data.result[0].operate_type = data.result[0].operate_type.toString();
-                // console.log("modifyData",data.result[0]);
                 $scope.driverInfo = data.result[0];
-                // console.log("driverInfo",$scope.driverInfo);
                 if($scope.driverInfo.drive_image != null){
                     $scope.drive_img_front = [{
                         img: $host.file_url + '/image/' + data.result[0].drive_image,
@@ -504,29 +508,33 @@ app.controller("truck_driver_details_controller", ["$scope","$state", "$statePar
     // 司机信息
     $scope.submitInfo = function (inValid) {
         $scope.submitted = true;
+
+        if($scope.driverInfo.entry_time==undefined||$scope.driverInfo.entry_time==''){
+            $scope.driverInfo.entry_time=null;
+        }
+        if($scope. driverInfo.archives_num==undefined||$scope. driverInfo.archives_num==''){
+            $scope. driverInfo.archives_num=null;
+        }
         if (inValid) {
             var newDriverInfo = {
                 driveName: $scope.driverInfo.drive_name,
                 gender: $scope.driverInfo.gender,
                 idNumber: $scope.driverInfo.id_number,
                 tel: $scope.driverInfo.mobile,
+                entryTime:$scope.driverInfo.entry_time,
+                archivesNum: $scope. driverInfo.archives_num,
                 socialType: $scope.driverInfo.social_type,
                 licenseType: $scope.driverInfo.license_type,
-                // entryDate: $scope.driverInfo.confirm_date,
                 address: $scope.driverInfo.address,
                 sibTel: $scope.driverInfo.sib_tel,
                 licenseDate: $scope.driverInfo.license_date,
                 remark: $scope.driverInfo.remark
             };
-            // console.log(newDriverInfo);
             _basic.put($host.api_url + "/user/" + userId + "/drive/" + driverId, newDriverInfo).then(function (data) {
                 if (data.success === true) {
-                    // console.log("successData", data);
-                    // console.log("info", newDriverInfo);
                     swal("修改成功", "", "success");
                 }
                 else {
-                    // console.log("noData", data);
                     swal(data.msg, "", "error");
                 }
             });

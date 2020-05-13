@@ -63,20 +63,34 @@
                         </select>
                         <label><span style="color: red">* </span>性别</label>
                     </div>
-                    <div class="input-field col s5"
+                    <div class="input-field col s3"
                          ng-class="{'has-error':add_driver_form.phone.$invalid&&submitted }">
                         <input id="phone" name="phone" type="text" ng-model="driverPhone" required>
                         <label for="phone"><span style="color: red">* </span>联系电话</label>
                     </div>
-                    <div class="input-field col s4"
+                    <div class="input-field col s3"
                          ng-class="{'has-error':add_driver_form.id_card.$invalid&&submitted||!checkVal&&submitted}">
                         <input id="id_card" name="id_card" type="text" ng-model="identityNum" required>
                         <label for="id_card"><span style="color: red">* </span>身份证</label>
                     </div>
 
+                    <!--入职时间  档案编号-->
+                    <div class="input-field col s3">
+                        <input id="entry_time" name="entryTime" type="text" class="datepicker" date ng-model="entryTime">
+                        <i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="entry_time">入职时间</label>
+                    </div>
+
+
                 </div>
                 <div class="row col s12">
-                    <div class="input-field col s4"
+                    <!--档案编号-->
+                    <div class="input-field col s3">
+                        <input id="file_no" name="file_no" type="text" ng-model="fileNo">
+                        <label for="file_no">档案编号</label>
+                    </div>
+
+                    <div class="input-field col s3"
                          ng-class="{'has-error':add_driver_form.license.$invalid&&submitted }">
                         <select id="license" name="license" material-select watch ng-model="drivingLicense" required>
                             <option value="" selected>请选择</option>
@@ -84,7 +98,7 @@
                         </select>
                         <label><span style="color: red">* </span>驾驶类型</label>
                     </div>
-                    <div class="input-field col s4"
+                    <div class="input-field col s3"
                          ng-class="{'has-error':add_driver_form.endTime.$invalid&&submitted }">
                         <input id="verification_time" name="endTime" type="text" class="datepicker" date ng-model="licenseEndTime"
                                required>
@@ -92,7 +106,7 @@
                         <label for="verification_time"><span style="color: red">* </span>驾驶证到期时间</label>
                     </div>
 
-                    <div class="input-field col s4">
+                    <div class="input-field col s3">
                         <input id="driver_parent" type="text" ng-model="driverParent">
                         <label for="driver_parent">紧急联系人电话</label>
                     </div>

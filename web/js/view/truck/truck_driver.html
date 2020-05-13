@@ -44,48 +44,40 @@
     <div class="row main_storage_car">
         <div class="row valign-wrapper">
             <div class="col s10">
-                <div class="input-field col s2">
-                  <!--  <input id="drive_name" type="text" ng-model="driveName">
-                    <label for="drive_name">姓名</label>-->
-
-
+                <div class="input-field col" style="width: 20%">
                     <select material-select watch ng-model="driveName" id="driveName" style="width: 100%" >
                         <option value="" selected>请选择</option>
                         <option ng-repeat="addDrivder in driveNameList" value={{addDrivder.id}}>{{addDrivder.drive_name}}</option>
                     </select>
-
-
                 </div>
-                <div class="input-field col s2">
+                <div class="input-field col" style="width: 20%">
                     <select material-select watch ng-change="searchOperateType()" ng-model="driverType">
                         <option value="" selected>所属类型</option>
                         <option value="1" >自营</option>
                         <option value="2" >外协</option>
-                      <!--  <option value="3" >供方</option>
-                        <option value="4" >承包</option>-->
                     </select>
                 </div>
-                <div class="input-field col s2">
+                <div class="input-field col" style="width: 20%">
                     <select material-select watch ng-model="driverCompany">
                         <option value="" selected>所属公司</option>
                         <option ng-repeat="company in companyList" ng-value="company.id">{{company.company_name}}</option>
                     </select>
                 </div>
-                <div class="input-field col s2">
+                <div class="input-field col" style="width: 20%">
                     <select material-select watch ng-model="workStatus">
                         <option value="" selected>司机状态</option>
                         <option value="1" >可用</option>
                         <option value="0" >停用</option>
                     </select>
                 </div>
-                <div class="input-field col s2">
+                <div class="input-field col" style="width: 20%">
                     <select material-select watch ng-model="operateFlag">
                         <option value="" selected>运营状态</option>
                         <option value="1" >可用</option>
                         <option value="0" >不可用</option>
                     </select>
                 </div>
-                <div class="input-field col s2">
+                <div class="input-field col" style="width: 20%">
                     <select material-select watch ng-model="socialType">
                         <option value="" selected>社保状态</option>
                         <option value="2" >未保</option>
@@ -93,21 +85,28 @@
                         <option value="0" >退保</option>
                     </select>
                 </div>
-                <div class="input-field col s3">
+                <div class="input-field col" style="width: 20%">
                     <input id="drive_tel" type="text" ng-model="driveTel">
                     <label for="drive_tel">电话</label>
                 </div>
-                <div class="input-field col s3">
+
+                <div class="input-field col" style="width: 20%">
+                    <input id="identity_num" type="text" ng-model="identityNum" placeholder="请输入18位身份证号">
+                    <label for="identity_num">身份证</label>
+                </div>
+
+
+                <div class="input-field col" style="width: 20%">
                     <input id="band_truck" type="text" ng-model="truckNumber">
                     <label for="band_truck">主驾货车</label>
                 </div>
-                <div class="input-field col s2">
+                <div class="input-field col" style="width: 20%">
                     <select material-select watch ng-model="drivingLicense">
                         <option value="" selected>驾驶类型</option>
                         <option ng-repeat="license in licenseType" ng-value="license.id">{{license.typeName}}</option>
                     </select>
                 </div>
-                <div class="row col s4">
+                <div class="col s6" style="padding: 0;margin:0">
                     <div class="col input-field s6">
                         <input id="verification_time" type="text" class="datepicker" date ng-model="verificationStart"><i
                             class="mdi dataIcon mdi-table-large"></i>
@@ -117,6 +116,19 @@
                         <input type="text" class="datepicker" date ng-model="verificationEnd"><i
                             class="mdi dataIcon mdi-table-large"></i>
                         <label for="verification_time">至</label>
+                    </div>
+                </div>
+
+                <div class="col s6" style="padding: 0;margin:0">
+                    <div class="col input-field s6">
+                        <input id="entry_time_start" type="text" class="datepicker" date ng-model="entryTimeStart"><i
+                            class="mdi dataIcon mdi-table-large"></i>
+                        <label for="entry_time_start">入职时间</label>
+                    </div>
+                    <div class="col input-field s6">
+                        <input   id="entry_time_end"  type="text" class="datepicker" date ng-model="entryTimeEnd"><i
+                            class="mdi dataIcon mdi-table-large"></i>
+                        <label for="entry_time_end">至</label>
                     </div>
                 </div>
             </div>

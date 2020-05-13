@@ -9,14 +9,14 @@ app.controller("add_truck_driver_controller", ["$scope", "$state", "_basic", "_c
     $scope.step_second = false;
     $scope.step_third = false;
     $scope.checkVal = false;
+    $scope.entryTime=null;
+    $scope.fileNo=null;
     // 电话号正则
     $scope.mobileReg = _config.mobileRegx;
     // 身份证正则
     $scope.identityReg = _config.CarNoRegx;
     // 驾驶类型
     $scope.licenseType = _config.licenseType;
-
-    // $scope.step_second = true;
 
     // 验证身份证号
     $scope.checkId = function (value) {
@@ -30,15 +30,22 @@ app.controller("add_truck_driver_controller", ["$scope", "$state", "_basic", "_c
 
     // 提交司机信息
     $scope.submitForm = function (inValid) {
-        // console.log("isValid", inValid);
         $scope.checkId($scope.identityNum);
         $scope.submitted = true;
+        if($scope.entryTime==''||$scope.entryTime==undefined){
+            $scope.entryTime=null
+        }
+        if($scope.fileNo==''||$scope.fileNo==undefined){
+            $scope.fileNo=null;
+        }
         if (inValid) {
             var driverInfo = {
                 driveName: $scope.driveName,
                 socialType:$scope.socialType,
                 gender: $scope.driverType,
                 idNumber: $scope.identityNum,
+                entryTime:$scope.entryTime,
+                archivesNum: $scope.fileNo,
                 tel: $scope.driverPhone,
                 companyId: $scope.driverCompany,
                 operateType:$scope.operateType,
@@ -48,12 +55,8 @@ app.controller("add_truck_driver_controller", ["$scope", "$state", "_basic", "_c
                 licenseDate: $scope.licenseEndTime,
                 remark: $scope.remark
             };
-            // console.log("driverInfo",driverInfo);
             _basic.post($host.api_url + "/user/" + userId + "/drive", driverInfo).then(function (data) {
                 if (data.success === true) {
-                    // console.log("successData", data);
-                    // console.log("info", driverInfo);
-                    // swal("新增成功", "", "success");
                     $scope.step_first = false;
                     $scope.step_second = true;
                     Picture_driverid = data.result.driveId;
@@ -74,7 +77,6 @@ app.controller("add_truck_driver_controller", ["$scope", "$state", "_basic", "_c
 
     // 根据select选择的所属类型获取所属公司信息
     $scope.chooseOperateType = function () {
-        // console.log("operateType",$scope.operateType);
         _basic.get($host.api_url + "/company?operateType=" + $scope.operateType).then(function (companyData) {
             if (companyData.success === true) {
                 $scope.companyList = companyData.result;
@@ -90,7 +92,6 @@ app.controller("add_truck_driver_controller", ["$scope", "$state", "_basic", "_c
         _basic.get($host.api_url + "/truckFirst?truckType=1").then(function (truckData) {
             if (truckData.success === true) {
                 $scope.truckList = truckData.result;
-                // console.log("truckList",$scope.truckList);
             }
             else {
                 swal(truckData.msg, "", "error");
@@ -202,7 +203,6 @@ app.controller("add_truck_driver_controller", ["$scope", "$state", "_basic", "_c
         var dom_obj = $(dom);
         var filename = $(dom).val();
         uploadBrandImage(filename, dom_obj, function (imageId) {
-            // console.log("imageId:",imageId);
             var nowDate = moment(new Date()).format("YYYY-MM-DD HH:mm");
             $scope.$apply(function () {
                 $scope.license_img = [{

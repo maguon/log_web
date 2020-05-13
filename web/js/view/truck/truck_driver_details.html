@@ -46,12 +46,25 @@
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col s4"
+                <div class="input-field col" style="width: 20%"
                      ng-class="{'has-error':truck_driver_details.id_card.$invalid&&submitted }">
                     <input id="id_card" name="id_card" type="text" ng-model="driverInfo.id_number" required>
                     <label for="id_card"><span style="color: red">* </span>身份证</label>
                 </div>
-                <div class="input-field col s4"
+
+                <div class="input-field col" style="width: 20%">
+                    <input id="entry_time" name="entryTime" type="text" class="datepicker" date ng-model="driverInfo.entry_time">
+                    <i class="mdi dataIcon mdi-table-large"></i>
+                    <label for="entry_time">入职时间</label>
+                </div>
+
+                <div class="input-field col" style="width: 20%">
+                    <input id="file_no" name="file_no" type="text" ng-model="driverInfo.archives_num">
+                    <label for="file_no">档案编号</label>
+                </div>
+
+
+                <div class="input-field col" style="width: 20%"
                      ng-class="{'has-error':truck_driver_details.license.$invalid&&submitted }">
                     <select id="license" name="license" material-select watch ng-model="driverInfo.license_type" required>
                         <option value="" selected>请选择</option>
@@ -59,7 +72,7 @@
                     </select>
                     <label><span style="color: red">* </span>驾驶类型</label>
                 </div>
-                <div class="input-field col s4"
+                <div class="input-field col" style="width: 20%"
                      ng-class="{'has-error':truck_driver_details.endTime.$invalid&&submitted }">
                     <input id="endTime" name="endTime" type="text" class="datepicker" date ng-model="driverInfo.license_date"
                            required>

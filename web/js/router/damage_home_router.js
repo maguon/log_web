@@ -99,7 +99,22 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/damage/driver_withhold.html",
             controller:'driver_withhold_controller'
         })
-
+        .state("instruction_driver_mileage", {
+            url: "/instruction_driver_mileage",
+            params: {"from": null},
+            templateUrl: "js/view/dispatch/instruction_driver_mileage.html",
+            controller:"instruction_driver_mileage_controller"
+        })
+        .state("instruction_drive_details", {
+            url: "/instruction_drive_details/id/{id}/timeStart/{timeStart}/timeEnd/{timeEnd}/makeId/{makeId}/from/{from}",
+            templateUrl: "js/view/dispatch/instruction_drive_details.html",
+            controller:"instruction_drive_details_controller"
+        })
+        .state("_look_instruction_list_details", {
+            url: "/look_instruction_list_details/id/{id}/instruction_id/{instruction_id}/timeStart/{timeStart}/timeEnd/{timeEnd}/makeId/{makeId}/from/{from}?refer",
+            templateUrl: "js/view/dispatch/look_instruction_list_details.html",
+            controller: "look_instruction_list_details_controller"
+        })
         // 商品车信息
         .state("car_query",{
             url:"/car_query",

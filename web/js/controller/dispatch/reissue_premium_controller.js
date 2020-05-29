@@ -17,6 +17,10 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
     $scope.conStatus = "1";
 
     $scope.selectCarPark ='';
+
+    // 补发状态
+    $scope.supplementStatus = _config.supplementStatus;
+
     // 获取查询条件 (司机  货车牌号   目的城市)
     function getCondition() {
         _basic.get($host.api_url + "/drive").then(function (data) {
@@ -327,6 +331,23 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
 
 
 
+    /*
+     * 点击查看详情
+     * */
+    $scope.getDetail = function (id){
+        _basic.get($host.api_url + "/dpRouteLoadTaskCleanRel?loadTaskCleanRelId=" + id).then(function (data) {
+            if (data.success == true) {
+                $scope.showList = data.result[0];
+            } else {
+                swal(data.msg, "", "error");
+            }
+        })
+        $(".modal").modal();
+        $("#openDetailModal").modal("open");
+    }
+
+
+
     /**
      * 组装检索条件。
      */
@@ -338,6 +359,7 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
             routeEndId: $scope.conRouteEnd,
             receiveId: $scope.conReceive,
             status: $scope.conStatus,
+            type:$scope.conSupplementStatus,
             loadDateStart:$scope.conLoadDateStart,
             loadDateEnd:$scope.conLoadDateEnd,
             dpRouteTaskId:$scope.conRouteTaskId,

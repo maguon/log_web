@@ -158,9 +158,16 @@ app.controller("damage_declaration_controller", ["$scope","$rootScope","$state",
         } else {
             // 初始显示时，没有前画面，所以没有基本信息
             $rootScope.refObj = {pageArray: []};
+
+            // 申报时间 默认当天
+            var nowDate = moment(new Date()).format("YYYY-MM-DD");
+            $scope.reportTimeStart=nowDate;
+            $scope.reportStart=nowDate;
+            $scope.reportTimeEnd=nowDate;
+            $scope.reportEnd=nowDate;
+            // 查询数据
+            $scope.getDamageInfoList();
         }
-
-
     }
     initData();
 

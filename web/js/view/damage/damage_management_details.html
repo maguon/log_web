@@ -55,6 +55,164 @@
       </div>
   </div>
 
+  <!--新增/修改 质损保险模态框-->
+  <div class="row" style="margin: 0">
+      <div id="insuranceModel" class="modal modal-fixed-footer" style="width: 65%;height: 660px">
+          <div class="modal-content center fz20" style="font-weight: 500;padding: 0">
+              <div ng-if="pageType == 'new'" class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
+                  <p>新增质损保险</p>
+              </div>
+
+              <div ng-if="pageType == 'edit'" class="row col s12 vc-center cyan" style="color: white;letter-spacing:1px;font-weight: bold;height: 50px;">
+                  <p>修改质损保险</p>
+              </div>
+
+              <div class="row" style="width: 80%;margin: 0 auto">
+                  <div class="col s3 input-field">
+                      <select material-select watch id="insurance_company_mod" ng-model="insuranceCompanyMod">
+                          <option value="" disabled>请选择</option>
+                          <option ng-repeat="company in insureCompanyList" ng-value="company.id">{{company.insure_name}}</option>
+                      </select>
+                      <label for="insurance_company_mod"><span style="color: red">* </span>保险公司</label>
+                  </div>
+                  <!--出险城市-->
+                  <div class="col s3 input-field">
+                      <select material-select watch id="cityName" ng-model="cityName" style="width: 100%">
+                          <option ng-if="pageType == 'new'" value="" disabled>请选择</option>
+                          <option ng-if="pageType == 'new'" ng-repeat="el in insureCityList" ng-value="el">{{el.city_name}}</option>
+                          <option ng-if="pageType == 'edit'" ng-repeat="el in insureCityList" ng-value="el.id">{{el.city_name}}</option>
+                      </select>
+                  </div>
+                  <!--责任判定-->
+                  <div class="col s3 input-field">
+                      <select material-select watch id="liabilityType" ng-model="liabilityType">
+                          <option value="" disabled>请选择</option>
+                          <option value="1">全责</option>
+                          <option value="2">免责</option>
+                          <option value="3">五五</option>
+                          <option value="4">三七</option>
+                      </select>
+                      <label for="liabilityType"><span style="color: red">* </span>责任判定</label>
+                  </div>
+                  <div class="col s3 input-field">
+                      <input disabled id="handler" type="text" ng-model="handler">
+                      <label for="handler">经办人</label>
+                  </div>
+                  <div class="col s3 input-field">
+                      <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="damageMoney" type="number" ng-model="damageMoney">
+                      <label for="damageMoney"><span style="color: red">* </span>定损金额（元）</label>
+                  </div>
+                  <div class="col s3 input-field">
+                      <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="insure_plan_mod" type="number" ng-model="insurePlanMod">
+                      <label for="insure_plan_mod"><span style="color: red">* </span>待赔金额（元）</label>
+                  </div>
+                  <!-- <div class="col s6" style="padding: 0;">
+                       <div class="col s6 input-field">
+                           <select material-select watch id="has_loan" ng-change="checkHasLoan()" ng-model="hasLoan">
+                               <option value="" selected>请选择</option>
+                               <option value="0">否</option>
+                               <option value="1">是</option>
+                           </select>
+                           <label for="has_loan"><span style="color: red">* </span>是否财务借款</label>
+                       </div>
+                       <div class="col s6 input-field">
+                           <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" type="number" name="payment_money_start" id="loan_money_num" ng-disabled="hasLoanType" ng-model="loanMoneyNum">
+                           <label class="{{loanMoneyNum != null ? 'active' : 'inactive'}}" for="loan_money_num">财务借款（元）</label>
+                       </div>
+                   </div>-->
+                  <!--免赔金额-->
+                  <div class="col s3 input-field">
+                      <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="derateMoney" type="number" ng-model="derateMoney">
+                      <label for="derateMoney"><span style="color: red">* </span>免赔金额（元）</label>
+                  </div>
+                  <!--车辆估值-->
+                  <div class="col s3 input-field">
+                      <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="carValuation" type="number" ng-model="carValuation">
+                      <label for="carValuation"><span style="color: red">* </span>车辆估值（元）</label>
+                  </div>
+
+                  <div class="row" style="margin-bottom:0;">
+                      <!--发票金额-->
+                      <div class="col s6 input-field">
+                          <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="invoiceMoney" type="number" ng-model="invoiceMoney">
+                          <label for="invoiceMoney"><span style="color: red">* </span>发票金额（元）</label>
+                      </div>
+                      <!--报案日期-->
+                      <div class="input-field col s6">
+                          <input type="text" ng-model="declareDate" id="declareDate" name="declareDate"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
+                          <label for="declareDate">报案日期</label>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <!--定损员信息-->
+                      <div class="col s6 input-field">
+                          <input id="refRemark" type="text" ng-model="refRemark">
+                          <label for="refRemark">定损员信息</label>
+                      </div>
+
+                      <div class="col s6 input-field">
+                          <input id="payment_explain" type="text" ng-model="paymentExplain">
+                          <label for="payment_explain">赔付描述</label>
+                      </div>
+                  </div>
+
+                  <div ng-show="pageType == 'edit'" class="row">
+                      <div class="col s6 input-field">
+                          <input id="insurance_actual" type="number" ng-model="insurancePayment" style="font-size: 2rem;text-align: right;color: rgb(230,123,123)">
+                          <label for="insurance_actual"><span style="color: red">* </span>实际赔付（元）</label>
+                      </div>
+                      <div class="col s6 input-field">&nbsp;</div>
+
+                      <div class="col s12 input-field">
+                          <input id="processing_description" type="text" ng-model="checkExplain">
+                          <label for="processing_description">处理描述</label>
+                      </div>
+                      <!--特殊说明-->
+                      <div class="col s12 input-field">
+                          <input id="ref_remark" type="text" name="ref_remark" ng-model="detailExplain">
+                          <label for="ref_remark">特殊说明</label>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="modal-footer valign-wrapper">
+              <!-- 新增质损保险 -->
+              <div ng-show="pageType == 'new'" class="col s12">
+                  <div class="col s2 offset-s4">
+                      <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                          取消
+                      </a>
+                  </div>
+                  <div class="col s2">
+                      <a ng-click="addDamageRecord()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                          确定
+                      </a>
+                  </div>
+              </div>
+
+              <!-- 修改质损保险 -->
+              <div ng-show="pageType == 'edit'" class="col s12 center">
+                  <div class="col s2 offset-s3">
+                      <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                          取消
+                      </a>
+                  </div>
+                  <div class="col s2">
+                      <a ng-click="saveDamageInfo()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                          保存
+                      </a>
+                  </div>
+                  <div class="col s2">
+                      <a ng-click="completeDamageList()" style="width: 100%;background-color: #f0ad4e;" class="waves-light waves-effect lighten-1 btn">
+                          处理结束
+                      </a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 
 <div class="damage_management_details" style="width: 80%;margin: 0 auto">
     <div class="row">
@@ -662,13 +820,27 @@
         <div id="insuranceInfo" class="row col s12 insurance_info_step_4">
             <!--保险信息卡片-->
             <div class="row col s12" style="margin-top: 15px">
+                <div class="col s12 right-align">
+                    <a ng-click="newInsuranceModal()" style="margin-top:6px;" class="waves-light waves-effect cyan lighten-1 btn">
+                        新增质损保险
+                    </a>
+                </div>
                 <!--下面加repeat-->
                 <div class="col s12 cyan_border" ng-repeat="damage in damageInsureCardList" style="border-radius: 5px;background-color: white;color: darkgray;margin-top: 15px">
                     <!--头-->
-                    <div class="col s12 card_head" style="padding: 0;border-bottom: 1px solid #ccc">
-                        <div class="col s6 left-align">
-                            <p class="cyan-text" style="font-weight: bold;">理赔编号：{{damage.id}}</p>
+                    <div class="col s12 card_head" style="padding: 0;border-bottom: 1px solid #ccc;">
+                        <div class="col s2 left-align cyan-text" style="font-weight: bold;">
+                            <p>理赔编号：{{damage.id}}</p>
                         </div>
+
+                        <div class="col s4 left-align">
+                            <span ng-if="damage.insure_status==1">
+                                <a ng-click="editInsuranceModal(damage.id)" style="margin-top:6px;" class="waves-light waves-effect cyan lighten-1 btn">
+                                    编辑
+                                </a>
+                            </span>
+                        </div>
+
                         <div class="col s6 right-align" style="font-weight: bold">
                             <p>生成日期：{{damage.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</p>
                         </div>

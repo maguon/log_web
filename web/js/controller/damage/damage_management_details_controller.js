@@ -16,6 +16,9 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
     $scope.financeIndemnityStatus = 1; // 财务打款状态
     $scope.cityList = [];
     $scope.damageInfoBefore={};
+    $scope.handler = _basic.getSession(_basic.USER_NAME);
+    $scope.pageType = '';
+
     // 返回
     $scope.return = function () {
         $state.go($stateParams.from,{from:"damage_management_details"}, {reload: true})
@@ -34,6 +37,8 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
     $scope.showInsuranceInfo = function () {
         $scope.getInsuranceInfo();
         $scope.getInsurePaymentCard();
+        getInsuranceCompany();
+        getCityList();
     };
 
     // 获取责任人列表
@@ -701,7 +706,277 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
             muted: false
         });
         player.fluid(true);
+    };
+
+    /*** 2020-08-12 添加代码开始部分 ***/
+
+    // 获取所有保险公司
+    function getInsuranceCompany() {
+        _basic.get($host.api_url + "/truckInsure").then(function (data) {
+            if (data.success === true) {
+                $scope.insureCompanyList = data.result;
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
     }
+
+    //出险城市
+    function getCityList() {
+        _basic.get($host.api_url + "/city").then(function (cityData) {
+            if (cityData.success === true) {
+                $scope.insureCityList = cityData.result;
+                $('#cityName').select2({
+                    placeholder: '出险城市',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: false
+                }).on('change', function () {
+                    // 委托方 下拉选中 内容
+                    if ($("#cityName").val() != null && $("#cityName").val() !== "") {
+                        $scope.selectedCityId = $("#cityName").select2("data")[0].id;
+                        $scope.selectedCityNm = $("#cityName").select2("data")[0].text;
+                    }
+                });
+            } else {
+                swal(cityData.msg, "", "error");
+            }
+        });
+    }
+
+    // 1.打开【新增质损保险】
+    $scope.newInsuranceModal = function () {
+        // 保险公司
+        $scope.insuranceCompanyMod = "";
+        // 出险城市
+        $scope.cityName ='';
+        // 责任判定
+        $scope.liabilityType ='';
+
+        // 定损金额
+        $scope.damageMoney ='';
+        // 待赔金额
+        $scope.insurePlanMod = "";
+        // 免赔金额
+        $scope.derateMoney ='';
+        // 车辆估值
+        $scope.carValuation ='';
+
+        // 发票金额
+        $scope.invoiceMoney ='';
+        // 报案日期
+        $scope.declareDate ='';
+        // 定损员信息
+        $scope.refRemark ='';
+        // 赔付描述
+        $scope.paymentExplain = "";
+
+        // 画面区分
+        $scope.pageType = 'new';
+        $('#insuranceModel').modal('open');
+    };
+
+    // 1.新增质损信息 【确定】按钮，保存质损信息
+    $scope.addDamageRecord = function () {
+        if ($scope.insuranceCompanyMod !== ""
+            && $scope.cityName !== ''
+            && $scope.liabilityType !== ''
+            && $scope.damageMoney !== ''
+            && $scope.insurePlanMod !== ""
+            && $scope.derateMoney !== ''
+            && $scope.carValuation !== ''
+            && $scope.invoiceMoney !== ''
+            && $scope.declareDate !== ''
+        ) {
+            _basic.post($host.api_url + "/user/" + userId + "/damageInsure", {
+                // 保险公司
+                insureId: $scope.insuranceCompanyMod,
+                // 城市
+                cityId: $scope.cityName.id,
+                cityName: $scope.cityName.city_name,
+                // 责任判定
+                liabilityType: $scope.liabilityType,
+                // 定损金额
+                damageMoney: $scope.damageMoney,
+                // 待赔金额
+                insurePlan: $scope.insurePlanMod,
+                // 免赔金额
+                derateMoney: $scope.derateMoney,
+                // 车辆估值
+                carValuation: $scope.carValuation,
+                //发票金额
+                invoiceMoney: $scope.invoiceMoney,
+                // 报案日期
+                declareDate: moment($scope.declareDate).format('YYYY-MM-DD'),
+                // 定损员信息
+                refRemark: $scope.refRemark,
+                // 赔付描述
+                paymentExplain: $scope.paymentExplain,
+                // 质损编号
+                damageIds: [damageId]
+            }).then(function (data) {
+                if (data.success === true) {
+                    swal("新增成功", "", "success");
+                    $('#insuranceModel').modal('close');
+                    $scope.showInsuranceInfo();
+                } else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        } else {
+            swal("请输入完成信息！", "", "error");
+        }
+    };
+
+    // 2.打开【修改质损保险】
+    $scope.editInsuranceModal = function (damageInsureId) {
+        // 保险公司及赔付信息
+        _basic.get($host.api_url + "/damageInsure?damageInsureId=" + damageInsureId).then(function (data) {
+            if (data.success === true) {
+                $scope.currentInsurInfo = data.result[0];
+
+                // 保险公司
+                $scope.insuranceCompanyMod = data.result[0].insure_id;
+                // 出险城市
+                $scope.cityName = data.result[0].city_id;
+                $scope.selectedCityNm = data.result[0].city_name;
+                // 责任判定
+                $scope.liabilityType = data.result[0].liability_type + '';
+
+                // 定损金额
+                $scope.damageMoney = data.result[0].damage_money;
+                // 待赔金额
+                $scope.insurePlanMod = data.result[0].insure_plan;
+                // 实际赔付
+                $scope.insurancePayment = data.result[0].insure_actual;
+
+                // 免赔金额
+                $scope.derateMoney = data.result[0].derate_money;
+                // 车辆估值
+                $scope.carValuation = data.result[0].car_valuation;
+
+                // 发票金额
+                $scope.invoiceMoney = data.result[0].invoice_money;
+
+                // 报案日期
+                if (data.result[0].declare_date == null) {
+                    $scope.declareDate = '';
+                } else {
+                    $scope.declareDate = moment(data.result[0].declare_date).format("YYYY-MM-DD");
+                }
+
+                // 定损员信息
+                $scope.refRemark = data.result[0].ref_remark;
+                // 赔付描述
+                $scope.paymentExplain = data.result[0].payment_explain;
+
+                // 处理描述
+                $scope.checkExplain = data.result[0].check_explain;
+                // 特殊说明
+                $scope.detailExplain = data.result[0].detail_explain;
+
+                // 画面区分
+                $scope.pageType = 'edit';
+                $('#insuranceModel').modal('open');
+            } else {
+                swal(data.msg, "", "error");
+            }
+        });
+    };
+
+    // 2.保存修改后的质损信息
+    function saveDamageInfo(type) {
+        if ($scope.damageMoney !== ''
+            && $scope.insurePlanMod !== ""
+            && $scope.derateMoney !== ''
+            && $scope.carValuation !== ''
+            && $scope.invoiceMoney !== ''
+            && $scope.declareDate !== ''
+            && $scope.insurancePayment !== ''
+            && $scope.insurancePayment !== null
+        ) {
+            _basic.put($host.api_url + "/user/" + userId + "/damageInsure/" + $scope.currentInsurInfo.id, {
+                // 保险公司
+                insureId: $scope.insuranceCompanyMod,
+                // 城市
+                cityId: $scope.cityName,
+                cityName: $scope.selectedCityNm,
+                // 责任判定
+                liabilityType: $scope.liabilityType,
+                // 定损金额
+                damageMoney: $scope.damageMoney,
+                // 待赔金额
+                insurePlan: $scope.insurePlanMod,
+                // 免赔金额
+                derateMoney: $scope.derateMoney,
+                // 车辆估值
+                carValuation: $scope.carValuation,
+                //发票金额
+                invoiceMoney: $scope.invoiceMoney,
+                // 报案日期
+                declareDate: moment($scope.declareDate).format('YYYY-MM-DD'),
+                // 定损员信息
+                refRemark: $scope.refRemark,
+                // 赔付描述
+                paymentExplain: $scope.paymentExplain,
+
+                // 实际赔付
+                insureActual: $scope.insurancePayment,
+                // 处理描述
+                checkExplain: $scope.checkExplain,
+                // 特殊说明
+                detailExplain: $scope.detailExplain,
+                // 质损编号
+                damageIds: [damageId]
+            }).then(function (data) {
+                if (data.success === true) {
+                    if (type === 'complete') {
+                        swal({
+                            title: "确定完成当前质损吗？",
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "确认",
+                            cancelButtonText: "取消"
+                        }).then(
+                            function(result){
+                                if (result.value) {
+                                    _basic.put($host.api_url + "/user/" + userId + "/damageInsure/" + $scope.currentInsurInfo.id + "/insureStatus/2", {}).then(function (data) {
+                                        if (data.success) {
+                                            swal("保存成功", "", "success");
+                                            $('#insuranceModel').modal('close');
+                                            $scope.showInsuranceInfo();
+                                        } else {
+                                            swal(data.msg, "", "error");
+                                        }
+
+                                    });
+                                }
+                            });
+                    } else {
+                        swal("保存成功", "", "success");
+                        $('#insuranceModel').modal('close');
+                        $scope.showInsuranceInfo();
+                    }
+                } else {
+                    swal(data.msg, "", "error");
+                }
+            });
+        } else {
+            swal("请输入完成信息！", "", "error");
+        }
+    }
+
+    // 2.【保存】按钮
+    $scope.saveDamageInfo = function () {
+        saveDamageInfo('save');
+    };
+
+    // 2.【处理结束】按钮
+    $scope.completeDamageList = function () {
+        saveDamageInfo('complete');
+    };
+
     // 获取数据
     $scope.queryData = function () {
         $scope.getCurrentDamageInfo();

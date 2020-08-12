@@ -45,6 +45,7 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
         $scope.tableContentFilter = [];
         // 加入检车任务 按钮
         $scope.damageQaTaskFlag = false;
+        $scope.upload_error_array_num = 0;
         // 过滤条件数据
         // $scope.filterArray=[1,2,3,4,5,6,7,8,9];
         var colObjs = [

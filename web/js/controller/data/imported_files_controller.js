@@ -63,7 +63,7 @@ app.controller("imported_files_controller", ["$scope", "$rootScope", "$host", "_
                 }
             });
         }
-    };
+    }
 
 
     $scope.changeDetail = function (file) {
@@ -79,12 +79,38 @@ app.controller("imported_files_controller", ["$scope", "$rootScope", "$host", "_
                 swal(data.msg, "", "error");
             }
         })
-    }
+    };
 
     // 分页
     $scope.pre_btn = function () {
         $scope.start = $scope.start - ($scope.size-1);
         searchMatchFiles();
+    };
+
+    /*** 2020-08-12 追加代码 开始位置 ***/
+
+    // 将导入数据 加入检车任务
+    $scope.addDamageQaTask = function (uploadId) {
+        swal({
+            title: "确定加入检车任务吗？",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确认",
+            cancelButtonText: "取消"
+        }).then(
+            function(result){
+                if (result.value) {
+                    _basic.post($host.api_url + "/user/" + userId + "/damageQaTask?uploadId=" + uploadId, {}).then(function (data) {
+                        if (data.success) {
+                            swal("加入检车任务成功", "", "success");
+                            searchMatchFiles();
+                        } else {
+                            swal(data.msg, "", "error");
+                        }
+                    });
+                }
+            });
     };
 
     $scope.next_btn = function () {

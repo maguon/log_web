@@ -43,6 +43,8 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
         $scope.tableContentErrorFilter = [];
         // 主体原始成功数据
         $scope.tableContentFilter = [];
+        // 加入检车任务 按钮
+        $scope.damageQaTaskFlag = false;
         // 过滤条件数据
         // $scope.filterArray=[1,2,3,4,5,6,7,8,9];
         var colObjs = [
@@ -147,11 +149,13 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                 })
             }
             else {
+                // 正确条数 > 0 则 为 true ，显示 【加入检车任务按钮】
+                $scope.damageQaTaskFlag = $scope.orginData_Length - $scope.upload_error_array_num > 0;
+
                 swal("上传完成", "", "success");
                 $scope.$apply(function () {
                     $scope.show_error = true;
                 });
-
             }
         }
 
@@ -207,6 +211,8 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
             $scope.tableContentFilter = [];
             $scope.rightNumber = 0;
             $scope.errorNumber = 0;
+            // 初期值
+            $scope.damageQaTaskFlag = false;
             $(file).parse({
                 config: {
                     complete: function (result) {
@@ -820,6 +826,31 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
             }
         });
     }
+
+    /*** 2020-08-12 追加代码 开始位置 ***/
+
+    // 将导入数据 加入检车任务
+    $scope.addDamageQaTask = function () {
+        swal({
+            title: "确定加入检车任务吗？",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确认",
+            cancelButtonText: "取消"
+        }).then(
+            function(result){
+                if (result.value) {
+                    _basic.post($host.api_url + "/user/" + userId + "/damageQaTask?uploadId=" + $scope.file_id, {}).then(function (data) {
+                        if (data.success) {
+                            swal("加入检车任务成功", "", "success");
+                        } else {
+                            swal(data.msg, "", "error");
+                        }
+                    });
+                }
+            });
+    };
 
     getCompany()
 

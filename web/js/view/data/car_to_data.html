@@ -203,7 +203,10 @@
                     <button class="btn btn-large circle_button cyan lighten-2" ng-click="fileUpload()" id="buttonImport" >
                         导入数据库
                     </button>
-                    <a href="" style="margin-top: 10px" class="btn btn-large circle_button cyan lighten-2" ng-show="show_error" ng-click="show_error_msg()">错误数据显示</a>
+                    <div class="col s12 center-align">
+                        <a href="" class="btn btn-large circle_button cyan lighten-2" ng-show="show_error" ng-click="show_error_msg()">错误数据显示</a>
+                        <a href="" style="margin-top: 10px;background-color: #fea353;" ng-show="damageQaTaskFlag" class="btn btn-large circle_button red lighten-2" ng-click="addDamageQaTask()">加入检车任务</a>
+                    </div>
                 </p>
             </div>
         </div>

@@ -820,11 +820,12 @@
         <div id="insuranceInfo" class="row col s12 insurance_info_step_4">
             <!--保险信息卡片-->
             <div class="row col s12" style="margin-top: 15px">
-                <div class="col s12 right-align">
-                    <a ng-click="newInsuranceModal()" style="margin-top:6px;" class="waves-light waves-effect cyan lighten-1 btn">
-                        新增质损保险
-                    </a>
-                </div>
+                <!-- 暂时注掉 -->
+<!--                <div class="col s12 right-align">-->
+<!--                    <a ng-click="newInsuranceModal()" style="margin-top:6px;" class="waves-light waves-effect cyan lighten-1 btn">-->
+<!--                        新增质损保险-->
+<!--                    </a>-->
+<!--                </div>-->
                 <!--下面加repeat-->
                 <div class="col s12 cyan_border" ng-repeat="damage in damageInsureCardList" style="border-radius: 5px;background-color: white;color: darkgray;margin-top: 15px">
                     <!--头-->
@@ -833,12 +834,13 @@
                             <p>理赔编号：{{damage.id}}</p>
                         </div>
 
+                        <!-- 暂时注掉 -->
                         <div class="col s4 left-align">
-                            <span ng-if="damage.insure_status==1">
-                                <a ng-click="editInsuranceModal(damage.id)" style="margin-top:6px;" class="waves-light waves-effect cyan lighten-1 btn">
-                                    编辑
-                                </a>
-                            </span>
+<!--                            <span ng-if="damage.insure_status==1">-->
+<!--                                <a ng-click="editInsuranceModal(damage.id)" style="margin-top:6px;" class="waves-light waves-effect cyan lighten-1 btn">-->
+<!--                                    编辑-->
+<!--                                </a>-->
+<!--                            </span>-->
                         </div>
 
                         <div class="col s6 right-align" style="font-weight: bold">

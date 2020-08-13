@@ -1,63 +1,211 @@
-<div class="move_car_statistics">
-    <div class="row valign-wrapper">
-        <!--查询条件-->
-        <div class="col s10">
-            <div class="col s4 input-field" style="margin-bottom: 20px;">
-                <select id="manager" style="width:100%"  ng-model="manager">
-                    <option value=""></option>
-                    <option ng-repeat="el in settingManagerList" ng-value="el.uid">{{el.real_name}}</option>
-                </select>
+<!-- 主菜单：质损管理 -> 质损统计 画面 -->
+
+<!-- 检车任务详情 模态框-->
+<div id="damageModal" class="modal modal-fixed-footer row" style="max-height: 600px;">
+
+    <!-- Header -->
+    <div class="modal_title center-align cyan white-text">检车任务详情</div>
+
+    <!-- Body -->
+    <div class="modal-content" style="max-height: 560px;">
+
+        <div class="row">
+            <div class="col s12 cyan-text" style="margin-bottom:10px;">用户检车统计</div>
+            <div class="col s2" ng-repeat="el in userStatArray">
+                {{el.real_name}}：{{el.qa_count}}
             </div>
-            <div class="col s4 input-field">
-                <input type="text" id="dateStart" name="dateStart" ng-model="dateStart" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
-                <label for="dateStart">开始时间(始)</label>
-            </div>
-            <div class="col s4 input-field">
-                <input type="text" id="dateEnd" name="dateEnd" ng-model="dateEnd" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
-                <label for="dateEnd">开始时间(终)</label>
-            </div>
-        </div>
-        <div class="col s2">
-            <div class="col s6 center">
-                <a ng-click="searchMoveCarList()" class="btn-floating btn-large waves-light waves-effect red lighten-2 btn vc-center" style="margin-right: 10px">
-                    <i class="mdi mdi-magnify"></i>
-                </a>
-            </div>
-            <div class="col s6 center-align">
-                <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
-                    <i class="mdi mdi-cloud-download"></i>
-                </a>
-            </div>
+            <div class="col s2" ng-if="userStatArray.length==0">暂无数据</div>
         </div>
 
-
-
-    </div>
-    <!--表格-->
-    <div class="row">
-        <div class="col s12">
+        <!-- 显示画面 列表 -->
+        <div class="row">
             <div class="col s12">
-                <div class="divider cyan" style="height: 2px;"></div>
                 <table class="bordered striped text_mid">
                     <thead class="blue-grey lighten-5">
                     <tr class="grey-text text-darken-2">
-                        <th data-field="">操作员</th>
-                        <th data-field="">质检数</th>
+                        <th>任务号</th>
+                        <th>用户</th>
+                        <th>VIN</th>
+                        <th>检车状态</th>
+                        <th>检车日期</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="el in moveCarList" class="grey-text text-darken-1">
-                        <td>{{el._id.username}}</td>
-                        <td>{{el.opCount}}</td>
+                    <tr ng-repeat="el in damageQaTaskCarRelArray" class="grey-text text-darken-1">
+                        <td>{{el.qt_id}}</td>
+                        <td>{{el.real_name}}</td>
+                        <td>{{el.vin}}</td>
+                        <td>{{el.qa_status === 1 ? '已检' : '未检'}}</td>
+                        <td>{{el.date_id}}</td>
                     </tr>
-                    <tr ng-if="moveCarList.length==0&&dateStart!==undefined&&dateEnd!==undefined">
-                        <td colspan="3">暂无数据</td>
-                    </tr>
-                    <tr ng-if="dateStart==undefined||dateEnd==undefined&&moveCarList.length==0">
-                        <td colspan="3"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;时间为必填项</td>
+                    <tr ng-if="damageQaTaskCarRelArray.length==0">
+                        <td colspan="5">暂无数据</td>
                     </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="modal-footer">
+        <div class="col s2 offset-s5">
+            <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                取消
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- 主体 2TAB -->
+<div id="move_car_statistics">
+    <div class="modal-content grey-text text-darken-2">
+        <div class="row no-marBottom" ul-tabs style="overflow: hidden">
+            <!--头部 跳转页-->
+            <div class="col s12">
+                <ul class="tabWrap grey lighten-4">
+                    <li class="tab col s6 damage vc-center" ng-click="showDamageQaTask()">检车任务</li>
+                    <li class="tab col s6 detection vc-center" ng-click="showDetection()">质检统计</li>
+                </ul>
+            </div>
+
+            <!-- TAB1：检车任务 页面-->
+            <div id="damage" class="row tab_box mp-50">
+                <!-- 上部分：检索条件输入区域 -->
+                <div class="col s10">
+                    <div class="col s4 input-field" style="margin-bottom: 20px;">
+                        <input type="text" id="damageDateStart" name="damageDateStart" ng-model="damageDateStart" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="damageDateStart">开始时间(始)</label>
+                    </div>
+                    <div class="col s4 input-field">
+                        <input type="text" id="damageDateEnd" name="damageDateEnd" ng-model="damageDateEnd" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="damageDateEnd">开始时间(终)</label>
+                    </div>
+                </div>
+
+                <!--按钮区域-->
+                <div class="col s2 right-align">
+                    <a ng-click="getDamageQaTaskList()" class="btn-floating btn-large waves-light waves-effect red lighten-2 btn vc-center" style="margin-right: 10px">
+                        <i class="mdi mdi-magnify"></i>
+                    </a>
+                </div>
+
+                <!-- 下部分：检索结果显示区域 -->
+                <div class="row">
+                    <div class="col s12">
+                        <div class="col s12">
+                            <div class="divider cyan" style="height: 2px;"></div>
+                            <table class="bordered striped text_mid">
+                                <thead class="blue-grey lighten-5">
+                                <tr class="grey-text text-darken-2">
+                                    <th>任务号</th>
+                                    <th>检车车辆数</th>
+                                    <th>已检车辆数</th>
+                                    <th>未检</th>
+                                    <th>任务日期</th>
+                                    <th>创建时间</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="el in damageQaTaskList" class="grey-text text-darken-1">
+                                    <td>{{el.id}}</td>
+                                    <td>{{el.car_count}}</td>
+                                    <td>{{el.qa_car_count}}</td>
+                                    <td>{{el.car_count - el.qa_car_count}}</td>
+                                    <td>{{el.date_id}}</td>
+                                    <td>{{el.created_on | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                    <!--操作-->
+                                    <td class="operation">
+                                        <span><i class="mdi mdi-eye cyan-text text-lighten-1" ng-click="openDamageModal(el.id)"></i></span>
+                                    </td>
+                                </tr>
+                                <tr ng-if="damageQaTaskList.length==0">
+                                    <td colspan="7">暂无数据</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 上下页按钮 -->
+                <div class="row">
+                    <div class="paging_box col s12">
+                        <div class="right">
+                            <a class="waves-light waves-effect cyan lighten-1 btn"  id="pre"   ng-click="preBtn()">
+                                上一页
+                            </a>
+                            <a class="waves-light waves-effect cyan lighten-1 btn"  id="next"  ng-click="nextBtn()">
+                                下一页
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB2：质检统计 页面-->
+            <div id="detection" class="row tab_box mp-50">
+                <!-- 上部分：检索条件输入区域 -->
+                <div class="col s10">
+                    <div class="col s4 input-field" style="margin-bottom: 20px;">
+                        <select id="manager" style="width:100%" ng-model="manager">
+                            <option value=""></option>
+                            <option ng-repeat="el in settingManagerList" ng-value="el.uid">{{el.real_name}}</option>
+                        </select>
+                    </div>
+                    <div class="col s4 input-field">
+                        <input type="text" id="dateStart" name="dateStart" ng-model="dateStart" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="dateStart">开始时间(始)</label>
+                    </div>
+                    <div class="col s4 input-field">
+                        <input type="text" id="dateEnd" name="dateEnd" ng-model="dateEnd" class="datepicker" autocomplete="off" date><i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="dateEnd">开始时间(终)</label>
+                    </div>
+                </div>
+
+                <!--按钮区域-->
+                <div class="col s2">
+                    <div class="col s6 center">
+                        <a ng-click="searchMoveCarList()" class="btn-floating btn-large waves-light waves-effect red lighten-2 btn vc-center" style="margin-right: 10px">
+                            <i class="mdi mdi-magnify"></i>
+                        </a>
+                    </div>
+                    <div class="col s6 center-align">
+                        <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
+                            <i class="mdi mdi-cloud-download"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 下部分：检索结果显示区域 -->
+                <div class="row">
+                    <div class="col s12">
+                        <div class="col s12">
+                            <div class="divider cyan" style="height: 2px;"></div>
+                            <table class="bordered striped text_mid">
+                                <thead class="blue-grey lighten-5">
+                                <tr class="grey-text text-darken-2">
+                                    <th data-field="">操作员</th>
+                                    <th data-field="">质检数</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="el in moveCarList" class="grey-text text-darken-1">
+                                    <td>{{el._id.username}}</td>
+                                    <td>{{el.opCount}}</td>
+                                </tr>
+                                <tr ng-if="moveCarList.length==0&&dateStart!==undefined&&dateEnd!==undefined">
+                                    <td colspan="3">暂无数据</td>
+                                </tr>
+                                <tr ng-if="dateStart==undefined||dateEnd==undefined&&moveCarList.length==0">
+                                    <td colspan="3"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;时间为必填项</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

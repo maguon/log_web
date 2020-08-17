@@ -1411,6 +1411,11 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                     allowClear: true
 
                 });
+                $('.original_route').select2({
+                    placeholder: '原始路线',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
                 $('.transfer_city').select2({
                     placeholder: '中转站城市',
                     containerCssClass : 'select2_dropdown',

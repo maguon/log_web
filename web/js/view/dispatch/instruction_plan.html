@@ -947,19 +947,24 @@
                                                         </div>
                                                     </div>
                                                     <div ng-show="selectWhereStart==2" style="height:350px;">
-                                                        <div class="col s4 input-field">
-                                                            <select id="transferChooseLocate" name="chooseLocate" ng-change="changeTransferLocate(ransferLocateId)" ng-model="ransferLocateId" watch material-select>
-                                                                <option value="" selected>中转装车地点</option>
-                                                                <option ng-repeat="locateCity in locateList" ng-value="locateCity">{{locateCity.addr_name}}</option>
-                                                            </select>
+                                                        <div class="row" style="margin-bottom:0">
+                                                            <div class="col s4 input-field">
+                                                                <select id="transferChooseLocate" name="chooseLocate" ng-change="changeTransferLocate(ransferLocateId)" ng-model="ransferLocateId" watch material-select>
+                                                                    <option value="" selected>中转装车地点</option>
+                                                                    <option ng-repeat="locateCity in locateList" ng-value="locateCity">{{locateCity.addr_name}}</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col s7 input-field">
+                                                                <select class="original_route" style="width: 100%;" id="originalRoute" name="originalRoute" ng-options="el.demand_route_start +'(' + el.addr_name+ ')' + '--' + el.route_end_name +'(' + el.short_name+ ')' + '&emsp; ' + el.date_id+'&emsp;'+el.plan_count +'/'+el.pre_count for el in transferCityLocateList" ng-model="$parent.originalRoute" required>
+                                                                    <option value=""></option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col s1 input-field">
+                                                                <i style="font-size: 1.5rem;margin-top: 6px" ng-click="showCarModelT()"
+                                                                   class="mdi mdi-file-document cyan-text vc-center col s2"></i>
+                                                            </div>
                                                         </div>
-                                                        <div class="col s8 input-field">
-                                                            <select class="col s10" id="originalRoute" name="originalRoute" ng-options="el.demand_route_start +'(' + el.addr_name+ ')' + '--' + el.route_end_name +'(' + el.short_name+ ')' + '&emsp; ' + el.date_id+'&emsp;'+el.plan_count +'/'+el.pre_count for el in transferCityLocateList" ng-model="$parent.originalRoute" watch material-select>
-                                                                <option value="" selected>原始路线</option>
-                                                            </select>
-                                                            <i style="font-size: 1.5rem;margin-top: 6px" ng-click="showCarModelT()"
-                                                               class="mdi mdi-file-document cyan-text vc-center col s2"></i>
-                                                        </div>
+
                                                         <div class="col s4 input-field">
                                                             <input id="load_num2" type="number" name="load_num" ng-model="$parent.distributeNum2" style="margin: 0;">
                                                             <label for="load_num2">装车数量</label>

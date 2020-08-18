@@ -259,6 +259,7 @@ app.controller("insurance_compensation_controller", ["$scope", "$rootScope","$st
         $scope.paymentMoneyStart=conditions.insurePlanStart;
         $scope.paymentMoneyEnd=conditions.insurePlanEnd;
         $scope.handleStatus=conditions.insureStatus;
+        $scope.vin=conditions.vin;
         $scope.agentName=conditions.insureUserName;
         $scope.getCityName=conditions.cityId;
         $scope.declareDateStart=conditions.declareDateStart;
@@ -272,6 +273,11 @@ app.controller("insurance_compensation_controller", ["$scope", "$rootScope","$st
      * 组装检索条件。
      */
     function makeConditions() {
+        // 当vin码 大于等于6位时，才作为检索条件
+        let vin = '';
+        if ($scope.vin != undefined && $scope.vin != null && $scope.vin.length > 5) {
+            vin = $scope.vin;
+        }
         return {
             damageInsureId: $scope.compensateNum,
             cityId:$scope.getCityName,
@@ -286,6 +292,7 @@ app.controller("insurance_compensation_controller", ["$scope", "$rootScope","$st
             declareDateStart:$scope.declareDateStart,
             declareDateEnd:$scope.declareDateEnd,
             insureStatus: $scope.handleStatus,
+            vinCode: vin,
             insureUserName: $scope.agentName,
             completedDateStart: $scope.completedDateStart,
             completedDateEnd:  $scope.completedDateEnd,

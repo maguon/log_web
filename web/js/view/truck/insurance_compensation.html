@@ -206,7 +206,7 @@
                     <label for="handle_status">处理状态</label>
                 </div>
                 <!--责任判定-->
-                <div class="col  input-field" style="width: 25%">
+                <div class="col  input-field" style="width: 12.5%">
                     <select material-select watch id="getLiabilityType" ng-model="getLiabilityType">
                         <option value="" >请选择</option>
                         <option value="1">全责</option>
@@ -216,6 +216,12 @@
                     </select>
                     <label for="getLiabilityType">责任判定</label>
                 </div>
+
+                <div class="col  input-field" style="width: 12.5%">
+                    <input type="text" name="vin" id="vin" ng-model="vin" placeholder="查询至少需要6位VIN">
+                    <label for="vin">VIN</label>
+                </div>
+
                 <div class="col  input-field" style="width: 12.5%">
                     <input type="text" name="agent_name" id="agent_name" ng-model="agentName">
                     <label for="agent_name">经办人</label>

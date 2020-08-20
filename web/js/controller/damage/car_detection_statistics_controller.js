@@ -155,9 +155,12 @@ app.controller("car_detection_statistics_controller", ["$scope", "$rootScope", "
     /**
      * 根据任务号 查询数据【检车任务详情】
      */
-    function getDamageQaTaskCarRel(qtId) {
+    $scope.getDamageQaTaskCarRel = function () {
         // 基本检索URL
-        var url = $host.api_url + "/user/" + userId + "/damageQaTaskCarRel?qtId=" + qtId;
+        var url = $host.api_url + "/user/" + userId + "/damageQaTaskCarRel?qtId=" + $scope.qtId;
+        if ($scope.qaStatus != undefined && $scope.qaStatus != null && $scope.qaStatus.length > 0) {
+            url = url + "&qaStatus=" + $scope.qaStatus;
+        }
         _basic.get(url).then(function (data) {
             if (data.success) {
                 $scope.damageQaTaskCarRelArray = data.result;
@@ -165,7 +168,7 @@ app.controller("car_detection_statistics_controller", ["$scope", "$rootScope", "
                 swal(data.msg, "", "error");
             }
         });
-    }
+    };
 
     /**
      * 根据任务号 查询数据【检车任务详情】-【用户统计】
@@ -184,8 +187,12 @@ app.controller("car_detection_statistics_controller", ["$scope", "$rootScope", "
 
     // 【检车任务】打开 模态 检车任务详情
     $scope.openDamageModal = function (qtId) {
+        // 保存任务号
+        $scope.qtId = qtId;
+        // 清空检车状态
+        $scope.qaStatus = '';
         // 取得任务号 检车任务详情
-        getDamageQaTaskCarRel(qtId);
+        $scope.getDamageQaTaskCarRel();
         // 统计用户检车数
         getDamageUserStat(qtId);
 

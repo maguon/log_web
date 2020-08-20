@@ -17,6 +17,17 @@
             <div class="col s2" ng-if="userStatArray.length==0">暂无数据</div>
         </div>
 
+        <div class="row">
+            <div class="col s3 input-field">
+                <select material-select watch id="qa_status" ng-model="qaStatus" ng-change="getDamageQaTaskCarRel()">
+                    <option value="" disabled>请选择</option>
+                    <option value="0">未检</option>
+                    <option value="1">已检</option>
+                </select>
+                <label for="qa_status">检车状态</label>
+            </div>
+        </div>
+
         <!-- 显示画面 列表 -->
         <div class="row">
             <div class="col s12">

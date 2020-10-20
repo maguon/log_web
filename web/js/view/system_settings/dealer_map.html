@@ -29,6 +29,34 @@
                             </div>
                         </div>
                         <div id="test2" class="col s12 tab_box" style="margin-top: 20px">
+                            <div class="row">
+                                <!--经销商类型-->
+                                <div class="col input-field s4">
+                                    <select material-select watch id="receiveType" ng-model="receive_type" required>
+                                        <option value="" selected>请选择</option>
+                                        <option ng-repeat="el in receiveTypeList" ng-value="el.id">{{el.typeName}}</option>
+                                    </select>
+                                    <label class="grey-text bold" for="receiveType">经销商类型</label>
+                                </div>
+                                <!--经营品牌-->
+                                <div class="col input-field s4">
+                                    <select material-select watch id="car_brand" name="car_brand" ng-options="car_brand.make_name for car_brand in carMakeList"   ng-model="car_brand" >
+                                        <option value="" selected>请选择</option>
+                                    </select>
+                                    <label class="grey-text bold" for="car_brand">经营品牌</label>
+                                </div>
+
+                                <div class="col input-field s4">
+                                    <select material-select watch id="receiveFlag" ng-model="receive_flag" required>
+                                        <option value="">请选择</option>
+                                        <option ng-value=0>否</option>
+                                        <option ng-value=1>是</option>
+                                    </select>
+                                    <label class="grey-text bold" for="receiveFlag">是否为库</label>
+                                </div>
+                            </div>
+
+
                             <div class="col s5">
                                 <select id="citySelectOn"  material-select watch  ng-model="citySelect" ng-change="getRecive(citySelect)" style="width: 100%;margin-top: 10px">
                                     <option value="">请选择</option>
@@ -38,7 +66,7 @@
                             <div class="col s5">
                                 <select material-select watch id="dealer" name="dealer"  ng-model="dealer"  style="width: 100%">
                                     <option value="" disabled selected>经销商</option>
-                                    <option ng-repeat="el in get_receive" ng-value="el.id" >{{el.short_name}}</option>
+                                    <option ng-repeat="el in receiveList" ng-value="el.id" >{{el.short_name}}</option>
                                 </select>
                             </div>
                             <div class="col s2">

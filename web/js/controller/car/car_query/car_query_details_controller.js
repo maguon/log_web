@@ -42,6 +42,22 @@ app.controller("car_query_details_controller", ["$scope", "$stateParams", "$host
         });
     };
 
+    // 根据car_id获取相关检车信息
+    $scope.getDamageQaTaskCarRel = function () {
+        _basic.get($host.api_url + "/user/" + userId + "/damageQaTaskCarRel?carId=" + carId).then(function (carData) {
+            if (carData.success) {
+                $scope.checkCarUser = '';
+                $scope.checkCarDate = '';
+                if (carData.result.length > 0 && carData.result[0].user_id !== 0) {
+                    $scope.checkCarUser = carData.result[0].real_name;
+                    $scope.checkCarDate = carData.result[0].date_id;
+                }
+            } else {
+                swal(carData.msg, "", "error");
+            }
+        });
+    };
+
     // 根据用户id和VIN获取相关操作记录
     $scope.getOperationRecord = function () {
         _basic.get($host.record_url + "/user/" + userId + "/car/" + carId + "/record").then(function (recordData) {
@@ -175,6 +191,8 @@ app.controller("car_query_details_controller", ["$scope", "$stateParams", "$host
 
     $scope.queryData = function () {
         $scope.getVinCodeInfo();
+        // 检车人信息取得
+        $scope.getDamageQaTaskCarRel();
         $scope.getOperationRecord();
         $scope.getDamageInfoList();
     };

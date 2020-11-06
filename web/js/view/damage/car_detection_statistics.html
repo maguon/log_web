@@ -110,6 +110,7 @@
                                 <thead class="blue-grey lighten-5">
                                 <tr class="grey-text text-darken-2">
                                     <th>任务号</th>
+                                    <th>上传ID</th>
                                     <th>检车车辆数</th>
                                     <th>已检车辆数</th>
                                     <th>未检</th>
@@ -121,6 +122,7 @@
                                 <tbody>
                                 <tr ng-repeat="el in damageQaTaskList" class="grey-text text-darken-1">
                                     <td>{{el.id}}</td>
+                                    <td>{{el.upload_id}}</td>
                                     <td>{{el.car_count}}</td>
                                     <td>{{el.qa_car_count}}</td>
                                     <td>{{el.car_count - el.qa_car_count}}</td>
@@ -132,7 +134,7 @@
                                     </td>
                                 </tr>
                                 <tr ng-if="damageQaTaskList.length==0">
-                                    <td colspan="7">暂无数据</td>
+                                    <td colspan="8">暂无数据</td>
                                 </tr>
                                 </tbody>
                             </table>

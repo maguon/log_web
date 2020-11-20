@@ -282,7 +282,7 @@
                     </div>
 
                     <div class="col s6 center-align">
-                        <select id="chooseEndCityMod"  name="state" style="width:100%;display: block;background: #fafafa;border: 1px solid #fafafa;border-bottom: 1px solid #000" ng-options="city.city_name + ' ' + city.distance + ' km'+ ' ' + city.reverse_money + ' 元'  for city in addCityList" ng-change="changeReverseF(endCityInfoMod)"  ng-model="endCityInfoMod">
+                        <select id="chooseEndCityMod"  name="state" style="width:100%;display: block;background: #fafafa;border: 1px solid #fafafa;border-bottom: 1px solid #000" ng-options="city.city_name + ' ' + city.distance + ' km'+ ' ' + (dispatchInfo.truck_number === 8 ? city.reverse_money_2 : city.reverse_money) + ' 元'  for city in addCityList" ng-change="changeReverseF(endCityInfoMod)"  ng-model="endCityInfoMod">
                             <option value="">目的城市</option>
                         </select>
                     </div>

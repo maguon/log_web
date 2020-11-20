@@ -48,6 +48,7 @@ app.controller("setting_line_controller", ["$scope", "$host", "_basic", function
                             $scope.endCityList[i].dis = data.result[j].distance;
                             $scope.endCityList[i].protect_fee = data.result[j].protect_fee;
                             $scope.endCityList[i].reverse_money = data.result[j].reverse_money;
+                            $scope.endCityList[i].reverse_money8 = data.result[j].reverse_money_2;
                             $scope.endCityList[i].routeId = data.result[j].id;
                             $scope.endCityList[i].flag = true;
                             break;
@@ -56,6 +57,7 @@ app.controller("setting_line_controller", ["$scope", "$host", "_basic", function
                             $scope.endCityList[i].dis = data.result[j].distance;
                             $scope.endCityList[i].protect_fee = data.result[j].protect_fee;
                             $scope.endCityList[i].reverse_money = data.result[j].reverse_money;
+                            $scope.endCityList[i].reverse_money8 = data.result[j].reverse_money_2;
                             $scope.endCityList[i].routeId = data.result[j].id;
                             $scope.endCityList[i].flag = true;
                             break;
@@ -64,6 +66,7 @@ app.controller("setting_line_controller", ["$scope", "$host", "_basic", function
                             $scope.endCityList[i].dis = "";
                             $scope.endCityList[i].protect_fee = '';
                             $scope.endCityList[i].reverse_money ='';
+                            $scope.endCityList[i].reverse_money8 ='';
                             $scope.endCityList[i].routeId = 0;
                             $scope.endCityList[i].flag = false;
                         }
@@ -82,6 +85,7 @@ app.controller("setting_line_controller", ["$scope", "$host", "_basic", function
         $scope.distance = lineInfo.dis;
        /* $scope.applyProtectCost = lineInfo.protect_fee;*/
         $scope.reverseCost= lineInfo.reverse_money;
+        $scope.reverseCost8= lineInfo.reverse_money8;
         $scope.modifyFlag = lineInfo.flag;
         $scope.routeId = lineInfo.routeId;
         $scope.endCityId = lineInfo.id;
@@ -98,10 +102,17 @@ app.controller("setting_line_controller", ["$scope", "$host", "_basic", function
         // flag为true时执行修改操作，否则执行新增操作
         if($scope.modifyFlag){
             if($scope.distance !== null){
+                if($scope.reverseCost==null || $scope.reverseCost==''){
+                    $scope.reverseCost=0;
+                }
+                if($scope.reverseCost8==null || $scope.reverseCost8==''){
+                    $scope.reverseCost8=0;
+                }
                 _basic.put($host.api_url + "/user/" + userId + "/cityRoute/" + $scope.routeId,{
                     distance:parseFloat($scope.distance),
                    /* protectFee: parseFloat($scope.applyProtectCost),*/
-                    reverseMoney:parseFloat($scope.reverseCost)
+                    reverseMoney:parseFloat($scope.reverseCost),
+                    reverseMoney2:parseFloat($scope.reverseCost8)
                 }).then(function (modifyData) {
                     if (modifyData.success === true) {
                         swal("修改成功", "", "success");
@@ -119,8 +130,11 @@ app.controller("setting_line_controller", ["$scope", "$host", "_basic", function
         }
         else{
             if($scope.distance !== ""){
-                if($scope.reverseCost==''){
+                if($scope.reverseCost==null || $scope.reverseCost==''){
                     $scope.reverseCost=0;
+                }
+                if($scope.reverseCost8==null || $scope.reverseCost8==''){
+                    $scope.reverseCost8=0;
                 }
                 _basic.post($host.api_url + "/user/" + userId + "/cityRoute",{
                     routeStartId: $scope.selectedCityId,
@@ -129,7 +143,8 @@ app.controller("setting_line_controller", ["$scope", "$host", "_basic", function
                     routeEnd: $scope.endCity,
                     distance: $scope.distance,
                    /* protectFee:$scope.applyProtectCost,*/
-                    reverseMoney:$scope.reverseCost
+                    reverseMoney:$scope.reverseCost,
+                    reverseMoney2:$scope.reverseCost8
                 }).then(function (data) {
                     if (data.success === true) {
                         swal("修改成功", "", "success");

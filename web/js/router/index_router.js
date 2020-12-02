@@ -795,6 +795,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/damage/re_damage_statistics.html",
             controller:"re_damage_statistics_controller"
         })
+        // 热点统计 2020-12-01 新建
+        .state("hotspot_statistics", {
+            url:"/hotspot_statistics",
+            templateUrl: "js/view/damage/hotspot_statistics.html",
+            controller:"hotspot_statistics_controller"
+        })
         .state("damage_import",{
             url:"/damage_import",
             params: {"from": null},

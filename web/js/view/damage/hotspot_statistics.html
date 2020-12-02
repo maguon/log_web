@@ -1,0 +1,113 @@
+<!-- 数据统计-热点统计 -->
+<div id="hotspot_statistics">
+    <div class="modal-content grey-text text-darken-2">
+        <div class="row no-marBottom" ul-tabs style="overflow: hidden">
+
+            <!--头部 TAB页-->
+            <div class="col s12">
+                <ul class="tabWrap grey lighten-4">
+                    <li class="tab col s4 route vc-center" ng-click="showRoute()">路线</li>
+                    <li class="tab col s4 dealer vc-center" ng-click="showDealer()">经销商</li>
+                    <li class="tab col s4 entrust vc-center" ng-click="showEntrust()">委托方</li>
+                </ul>
+            </div>
+
+            <!-- TAB1：路线 页面-->
+            <div id="route" class="row tab_box mp-50">
+                <div style="width: 85%;margin: 0 auto">
+                    <!--柱状图-->
+                    <div style="width: 98.6%">
+                        <!--商品车品牌，按月统计-->
+                        <div class="row z-depth-2">
+                            <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                                <!--条件-->
+                                <div class="col s12">
+                                    <div class="col s1" style="margin-top:15px;padding-right:0;"><p>选择月份:</p></div>
+                                    <div class="col s3">
+                                        <input id="routeMonth" type="text" ng-value="routeMonth" readonly>
+                                    </div>
+                                    <div class="col s3 left">
+                                        <i class="mdi mdi-magnify" ng-click="queryRouteStatistics()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--柱状图-->
+                            <div class="col s12">
+                                <div id="routeStatisticsMonth" style="min-width:400px;height:500px;margin: 10px 0 10px 0"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB2：经销商 页面-->
+            <div id="dealer" class="row tab_box mp-50">
+                <div style="width: 85%;margin: 0 auto">
+                    <!--柱状图-->
+                    <div style="width: 98.6%">
+                        <!--商品车品牌，按月统计-->
+                        <div class="row z-depth-2">
+                            <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                                <!--条件-->
+                                <div class="col s12">
+                                    <div class="col s1" style="margin-top:15px;padding-right:0;"><p>选择月份:</p></div>
+                                    <div class="col s3">
+                                        <input id="dealerMonth" type="text" ng-value="dealerMonth" readonly>
+                                    </div>
+                                    <div class="col s3">
+                                        <select  material-select watch ng-model="receiveFlag">
+                                            <option ng-value="0">非库</option>
+                                            <option ng-value="1">是库</option>
+                                        </select>
+                                    </div>
+                                    <div class="col s3 left">
+                                        <i class="mdi mdi-magnify" ng-click="queryDealerStatistics()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--柱状图-->
+                            <div class="col s12">
+                                <div id="dealerStatisticsMonth" style="min-width:400px;height:500px;margin: 10px 0 10px 0"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB2：委托方 页面-->
+            <div id="entrust" class="row tab_box mp-50">
+                <div style="width: 85%;margin: 0 auto">
+                    <!--柱状图-->
+                    <div style="width: 98.6%">
+                        <!--商品车品牌，按月统计-->
+                        <div class="row z-depth-2">
+                            <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                                <!--条件-->
+                                <div class="col s12">
+                                    <div class="col s1" style="margin-top:15px;padding-right:0;"><p>选择月份:</p></div>
+                                    <div class="col s3">
+                                        <input id="entrustMonth" type="text" ng-value="entrustMonth" readonly>
+                                    </div>
+                                    <div class="col s3 left">
+                                        <i class="mdi mdi-magnify" ng-click="queryEntrustStatistics()" style="margin:25px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--柱状图-->
+                            <div class="col s12">
+                                <div id="entrustStatisticsMonth" style="min-width:400px;height:500px;margin: 10px 0 10px 0"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -153,7 +153,6 @@ app.controller("hotspot_statistics_controller", ["$scope", "$host", "_basic", fu
         };
 
         var url = $host.api_url + "/receiveStat?start=0&size=20&"+_basic.objToUrl(obj);
-        console.log('de',url);
         _basic.get(url).then(function (data) {
             if (data.success){
                 // data.result.reverse();
@@ -247,7 +246,6 @@ app.controller("hotspot_statistics_controller", ["$scope", "$host", "_basic", fu
         };
 
         var url = $host.api_url + "/entrustStat?start=0&size=20&"+_basic.objToUrl(obj);
-        console.log('de',url);
         _basic.get(url).then(function (data) {
             if (data.success){
                 // data.result.reverse();

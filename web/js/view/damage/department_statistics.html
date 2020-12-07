@@ -1,0 +1,117 @@
+<!-- 数据统计-部门统计 -->
+<div id="department_statistics">
+    <div class="modal-content grey-text text-darken-2">
+        <div class="row no-marBottom" ul-tabs style="overflow: hidden">
+
+            <!--头部 TAB页-->
+            <div class="col s12">
+                <ul class="tabWrap grey lighten-4">
+                    <li class="tab col s3 settle vc-center" ng-click="showSettle()">结算</li>
+
+
+                    <li class="tab col s3 dealer vc-center" ng-click="showDealer()">临时</li>
+                    <li class="tab col s3 entrust vc-center" ng-click="showEntrust()">临时</li>
+                    <li class="tab col s3 temp vc-center" ng-click="showTemp()">临时</li>
+                </ul>
+            </div>
+
+            <!-- TAB1：结算 页面-->
+            <div id="settle" class="row tab_box mp-50">
+                <div style="width: 85%;margin: 0 auto">
+                    <!-- 1:产值 柱状图-->
+                    <div class="row z-depth-2">
+                        <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                            <!--条件-->
+                            <div class="col s12">
+                                <div class="col s2" style="font-size: 18px;margin-top:12px;">产值</div>
+                                <div class="col s1" ng-repeat="year in yearList">
+                                    <input type="checkbox" id="{{year.key}}" name="select" class="filled-in"
+                                           ng-click="checkOutputStat($event,year.key,$index)" ng-checked="$index==yearList.length-1"/>
+                                    <label for="{{year.key}}" class="mp-10" style="margin-top:2px;">{{year.value}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--柱状图-->
+                        <div class="col s12">
+                            <div id="outputStatistics" style="min-width:400px;height:500px;margin: 10px 0 10px 0"></div>
+                        </div>
+                    </div>
+
+                    <!-- 2:外协产值 柱状图-->
+                    <div class="row z-depth-2">
+                        <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                            <!--条件-->
+                            <div class="col s12">
+                                <div class="col s2" style="font-size: 16px;margin-top:12px;">外协产值</div>
+                                <div class="col s1" ng-repeat="year in yearList">
+                                    <input type="checkbox" id="{{year.key}}_'out'" name="select" class="filled-in"
+                                           ng-click="checkOuterStat($event,year.key,$index)" ng-checked="$index==yearList.length-1"/>
+                                    <label for="{{year.key}}_'out'" class="mp-10" style="margin-top:2px;">{{year.value}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--柱状图-->
+                        <div class="col s12">
+                            <div id="outerOutputStatistics" style="min-width:400px;height:500px;margin: 10px 0 10px 0"></div>
+                        </div>
+                    </div>
+
+                    <!-- 3:单车产值 柱状图-->
+                    <div class="row z-depth-2">
+                        <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                            <!--条件-->
+                            <div class="col s12">
+                                <div class="col s2" style="font-size: 18px;margin-top:12px;">单车产值</div>
+                                <div class="col s1" ng-repeat="year in yearList">
+                                    <input type="checkbox" id="{{year.key}}_'per_truck'" name="select" class="filled-in"
+                                           ng-click="checkPerTruckStat($event,year.key,$index)" ng-checked="$index==yearList.length-1"/>
+                                    <label for="{{year.key}}_'per_truck'" class="mp-10" style="margin-top:2px;">{{year.value}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--柱状图-->
+                        <div class="col s12">
+                            <div id="perTruckOutputStatistics" style="min-width:400px;height:500px;margin: 10px 0 10px 0"></div>
+                        </div>
+                    </div>
+
+                    <!-- 4:单公里产值 柱状图-->
+                    <div class="row z-depth-2">
+                        <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                            <!--条件-->
+                            <div class="col s12">
+                                <div class="col s2" style="font-size: 18px;margin-top:12px;">单公里产值</div>
+                                <div class="col s1" ng-repeat="year in yearList">
+                                    <input type="checkbox" id="{{year.key}}_'per_km'" name="select" class="filled-in"
+                                           ng-click="checkPerKmStat($event,year.key,$index)" ng-checked="$index==yearList.length-1"/>
+                                    <label for="{{year.key}}_'per_km'" class="mp-10" style="margin-top:2px;">{{year.value}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--柱状图-->
+                        <div class="col s12">
+                            <div id="perKmOutputStatistics" style="min-width:400px;height:500px;margin: 10px 0 10px 0"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB2：XXXX 页面-->
+            <div id="dealer" class="row tab_box mp-50">
+            </div>
+
+            <!-- TAB3：XXXX 页面-->
+            <div id="entrust" class="row tab_box mp-50">
+            </div>
+
+            <!-- TAB4：XXXX 页面-->
+            <div id="temp" class="row tab_box mp-50">
+            </div>
+
+        </div>
+    </div>
+</div>

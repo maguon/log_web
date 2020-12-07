@@ -801,6 +801,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/damage/hotspot_statistics.html",
             controller:"hotspot_statistics_controller"
         })
+        // 部门统计 2020-12-04 新建
+        .state("department_statistics", {
+            url:"/department_statistics",
+            templateUrl: "js/view/damage/department_statistics.html",
+            controller:"department_statistics_controller"
+        })
         .state("damage_import",{
             url:"/damage_import",
             params: {"from": null},

@@ -7,11 +7,9 @@
             <div class="col s12">
                 <ul class="tabWrap grey lighten-4">
                     <li class="tab col s3 settle vc-center" ng-click="showSettle()">结算</li>
-
-
-                    <li class="tab col s3 dealer vc-center" ng-click="showDealer()">临时</li>
-                    <li class="tab col s3 entrust vc-center" ng-click="showEntrust()">临时</li>
-                    <li class="tab col s3 temp vc-center" ng-click="showTemp()">临时</li>
+                    <li class="tab col s3 dispatch vc-center" ng-click="showDispatch()">调度</li>
+                    <li class="tab col s3 quality vc-center" ng-click="showQuality()">质量</li>
+                    <li class="tab col s3 car vc-center" ng-click="showCar()">车管</li>
                 </ul>
             </div>
 
@@ -25,8 +23,8 @@
                             <div class="col s12">
                                 <div class="col s2" style="font-size: 18px;margin-top:12px;">产值</div>
                                 <div class="col s1" ng-repeat="year in yearList">
-                                    <input type="checkbox" id="{{year.key}}" name="select" class="filled-in"
-                                           ng-click="checkOutputStat($event,year.key,$index)" ng-checked="$index==yearList.length-1"/>
+                                    <input type="checkbox" id="{{year.key}}" name="select" class="filled-in settle"
+                                           ng-click="checkOutputStat($event,year.key,$index)" ng-checked="defaultYear==year.key"/>
                                     <label for="{{year.key}}" class="mp-10" style="margin-top:2px;">{{year.value}}</label>
                                 </div>
                             </div>
@@ -45,9 +43,9 @@
                             <div class="col s12">
                                 <div class="col s2" style="font-size: 16px;margin-top:12px;">外协产值</div>
                                 <div class="col s1" ng-repeat="year in yearList">
-                                    <input type="checkbox" id="{{year.key}}_'out'" name="select" class="filled-in"
-                                           ng-click="checkOuterStat($event,year.key,$index)" ng-checked="$index==yearList.length-1"/>
-                                    <label for="{{year.key}}_'out'" class="mp-10" style="margin-top:2px;">{{year.value}}</label>
+                                    <input type="checkbox" id="{{year.key}}_out" name="select" class="filled-in settle"
+                                           ng-click="checkOuterStat($event,year.key,$index)" ng-checked="defaultYear==year.key"/>
+                                    <label for="{{year.key}}_out" class="mp-10" style="margin-top:2px;">{{year.value}}</label>
                                 </div>
                             </div>
                         </div>
@@ -65,9 +63,9 @@
                             <div class="col s12">
                                 <div class="col s2" style="font-size: 18px;margin-top:12px;">单车产值</div>
                                 <div class="col s1" ng-repeat="year in yearList">
-                                    <input type="checkbox" id="{{year.key}}_'per_truck'" name="select" class="filled-in"
-                                           ng-click="checkPerTruckStat($event,year.key,$index)" ng-checked="$index==yearList.length-1"/>
-                                    <label for="{{year.key}}_'per_truck'" class="mp-10" style="margin-top:2px;">{{year.value}}</label>
+                                    <input type="checkbox" id="{{year.key}}_per_truck" name="select" class="filled-in settle"
+                                           ng-click="checkPerTruckStat($event,year.key,$index)" ng-checked="defaultYear==year.key"/>
+                                    <label for="{{year.key}}_per_truck" class="mp-10" style="margin-top:2px;">{{year.value}}</label>
                                 </div>
                             </div>
                         </div>
@@ -85,9 +83,9 @@
                             <div class="col s12">
                                 <div class="col s2" style="font-size: 18px;margin-top:12px;">单公里产值</div>
                                 <div class="col s1" ng-repeat="year in yearList">
-                                    <input type="checkbox" id="{{year.key}}_'per_km'" name="select" class="filled-in"
-                                           ng-click="checkPerKmStat($event,year.key,$index)" ng-checked="$index==yearList.length-1"/>
-                                    <label for="{{year.key}}_'per_km'" class="mp-10" style="margin-top:2px;">{{year.value}}</label>
+                                    <input type="checkbox" id="{{year.key}}_per_km" name="select" class="filled-in settle"
+                                           ng-click="checkPerKmStat($event,year.key,$index)" ng-checked="defaultYear==year.key"/>
+                                    <label for="{{year.key}}_per_km" class="mp-10" style="margin-top:2px;">{{year.value}}</label>
                                 </div>
                             </div>
                         </div>
@@ -100,8 +98,109 @@
                 </div>
             </div>
 
-            <!-- TAB2：XXXX 页面-->
-            <div id="dealer" class="row tab_box mp-50">
+            <!-- TAB2：调度 页面-->
+            <div id="dispatch" class="row tab_box mp-50">
+                <div style="width: 85%;margin: 0 auto">
+                    <!-- 1:出车数 柱状图-->
+                    <div class="row z-depth-2">
+                        <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                            <!--条件-->
+                            <div class="col s12">
+                                <div class="col s2" style="font-size: 18px;margin-top:12px;">出车数</div>
+                                <div class="col s1" ng-repeat="year in yearList">
+                                    <input type="checkbox" id="{{year.key}}_truck_count" name="select" class="filled-in dispatch"
+                                           ng-click="checkTruckCount($event,year.key,$index)" ng-checked="defaultYear==year.key"/>
+                                    <label for="{{year.key}}_truck_count" class="mp-10" style="margin-top:2px;">{{year.value}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--柱状图-->
+                        <div class="col s12">
+                            <div id="truckCountStatistics" style="min-width:400px;height:500px;margin: 10px 0 10px 0"></div>
+                        </div>
+                    </div>
+
+                    <!-- 2:发运量 柱状图-->
+                    <div class="row z-depth-2">
+                        <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                            <!--条件-->
+                            <div class="col s12">
+                                <div class="col s2" style="font-size: 16px;margin-top:12px;">发运量</div>
+                                <div class="col s1" ng-repeat="year in yearList">
+                                    <input type="checkbox" id="{{year.key}}_car_count" name="select" class="filled-in dispatch"
+                                           ng-click="checkCarCount($event,year.key,$index)" ng-checked="defaultYear==year.key"/>
+                                    <label for="{{year.key}}_car_count" class="mp-10" style="margin-top:2px;">{{year.value}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--柱状图-->
+                        <div class="col s12">
+                            <div id="carCountStatistics" style="min-width:400px;height:500px;margin: 10px 0 10px 0"></div>
+                        </div>
+                    </div>
+
+                    <!-- 3:总里程 柱状图-->
+                    <div class="row z-depth-2">
+                        <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                            <!--条件-->
+                            <div class="col s12">
+                                <div class="col s2" style="font-size: 18px;margin-top:12px;">总里程</div>
+                                <div class="col s1" ng-repeat="year in yearList">
+                                    <input type="checkbox" id="{{year.key}}_total_distance" name="select" class="filled-in dispatch"
+                                           ng-click="checkTotalDistance($event,year.key,$index)" ng-checked="defaultYear==year.key"/>
+                                    <label for="{{year.key}}_total_distance" class="mp-10" style="margin-top:2px;">{{year.value}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--柱状图-->
+                        <div class="col s12">
+                            <div id="totalDistanceStatistics" style="min-width:400px;height:500px;margin: 10px 0 10px 0"></div>
+                        </div>
+                    </div>
+
+                    <!-- 4:重载历程 柱状图-->
+                    <div class="row z-depth-2">
+                        <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                            <!--条件-->
+                            <div class="col s12">
+                                <div class="col s2" style="font-size: 18px;margin-top:12px;">重载历程</div>
+                                <div class="col s1" ng-repeat="year in yearList">
+                                    <input type="checkbox" id="{{year.key}}_load_distance" name="select" class="filled-in dispatch"
+                                           ng-click="checkLoadDistance($event,year.key,$index)" ng-checked="defaultYear==year.key"/>
+                                    <label for="{{year.key}}_load_distance" class="mp-10" style="margin-top:2px;">{{year.value}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--柱状图-->
+                        <div class="col s12">
+                            <div id="loadDistanceStatistics" style="min-width:400px;height:500px;margin: 10px 0 10px 0"></div>
+                        </div>
+                    </div>
+
+                    <!-- 5:重载率 柱状图-->
+                    <div class="row z-depth-2">
+                        <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                            <!--条件-->
+                            <div class="col s12">
+                                <div class="col s2" style="font-size: 18px;margin-top:12px;">重载率</div>
+                                <div class="col s1" ng-repeat="year in yearList">
+                                    <input type="checkbox" id="{{year.key}}_load_ratio" name="select" class="filled-in dispatch"
+                                           ng-click="checkLoadRatio($event,year.key,$index)" ng-checked="defaultYear==year.key"/>
+                                    <label for="{{year.key}}_load_ratio" class="mp-10" style="margin-top:2px;">{{year.value}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--柱状图-->
+                        <div class="col s12">
+                            <div id="loadRatioStatistics" style="min-width:400px;height:500px;margin: 10px 0 10px 0"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- TAB3：XXXX 页面-->

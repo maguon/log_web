@@ -203,8 +203,169 @@
                 </div>
             </div>
 
-            <!-- TAB3：XXXX 页面-->
-            <div id="entrust" class="row tab_box mp-50">
+            <!-- TAB3：质量 页面-->
+            <div id="quality" class="row tab_box mp-50">
+                <div style="width: 85%;margin: 0 auto">
+                    <!-- 1:质损次数 柱状图-->
+                    <div class="row z-depth-2">
+                        <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                            <!--条件-->
+                            <div class="col s12">
+                                <div class="col s2" style="font-size: 18px;margin-top:12px;">质损次数</div>
+                                <div class="col s1" ng-repeat="year in yearList">
+                                    <input type="checkbox" id="{{year.key}}_damage_count" name="select" class="filled-in quality"
+                                           ng-click="checkDamageCount($event,year.key,$index)" ng-checked="defaultYear==year.key"/>
+                                    <label for="{{year.key}}_damage_count" class="mp-10" style="margin-top:2px;">{{year.value}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--柱状图-->
+                        <div class="col s12">
+                            <div id="damageCountStatistics" style="min-width:400px;height:500px;margin: 10px 0 10px 0"></div>
+                        </div>
+                    </div>
+
+                    <!-- 2:总体质损成本 柱状图-->
+                    <div class="row z-depth-2">
+                        <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                            <!--条件-->
+                            <div class="col s12">
+                                <div class="col s2" style="font-size: 16px;margin-top:12px;">总体质损成本</div>
+                                <div class="col s1" ng-repeat="year in yearList">
+                                    <input type="checkbox" id="{{year.key}}_total_damge_money" name="select" class="filled-in quality"
+                                           ng-click="checkTotalDamgeMoney($event,year.key,$index)" ng-checked="defaultYear==year.key"/>
+                                    <label for="{{year.key}}_total_damge_money" class="mp-10" style="margin-top:2px;">{{year.value}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--柱状图-->
+                        <div class="col s12">
+                            <div id="totalDamgeMoneyStatistics" style="min-width:400px;height:500px;margin: 10px 0 10px 0"></div>
+                        </div>
+                    </div>
+
+                    <!-- 3:公司承担质损成本 柱状图-->
+                    <div class="row z-depth-2">
+                        <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                            <!--条件-->
+                            <div class="col s12">
+                                <div class="col s2" style="font-size: 18px;margin-top:12px;">公司承担质损成本</div>
+                                <div class="col s1" ng-repeat="year in yearList">
+                                    <input type="checkbox" id="{{year.key}}_company_money" name="select" class="filled-in quality"
+                                           ng-click="checkCompanyMoney($event,year.key,$index)" ng-checked="defaultYear==year.key"/>
+                                    <label for="{{year.key}}_company_money" class="mp-10" style="margin-top:2px;">{{year.value}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--柱状图-->
+                        <div class="col s12">
+                            <div id="companyMoneyStatistics" style="min-width:400px;height:500px;margin: 10px 0 10px 0"></div>
+                        </div>
+                    </div>
+
+                    <!-- 4:单车质损成本 柱状图-->
+                    <div class="row z-depth-2">
+                        <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                            <!--条件-->
+                            <div class="col s12">
+                                <div class="col s2" style="font-size: 18px;margin-top:12px;">单车质损成本</div>
+                                <div class="col s1" ng-repeat="year in yearList">
+                                    <input type="checkbox" id="{{year.key}}_per_car_damage_money" name="select" class="filled-in quality"
+                                           ng-click="checkPerCarDamageMoney($event,year.key,$index)" ng-checked="defaultYear==year.key"/>
+                                    <label for="{{year.key}}_per_car_damage_money" class="mp-10" style="margin-top:2px;">{{year.value}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--柱状图-->
+                        <div class="col s12">
+                            <div id="perCarDamageMoneyStatistics" style="min-width:400px;height:500px;margin: 10px 0 10px 0"></div>
+                        </div>
+                    </div>
+
+                    <!-- 5:单车公司质损成本 柱状图-->
+                    <div class="row z-depth-2">
+                        <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                            <!--条件-->
+                            <div class="col s12">
+                                <div class="col s2" style="font-size: 18px;margin-top:12px;">单车公司质损成本</div>
+                                <div class="col s1" ng-repeat="year in yearList">
+                                    <input type="checkbox" id="{{year.key}}_per_car_c_damage_money" name="select" class="filled-in quality"
+                                           ng-click="checkPerCarCDamageMoney($event,year.key,$index)" ng-checked="defaultYear==year.key"/>
+                                    <label for="{{year.key}}_per_car_c_damage_money" class="mp-10" style="margin-top:2px;">{{year.value}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--柱状图-->
+                        <div class="col s12">
+                            <div id="perCarCDamageMoneyStatistics" style="min-width:400px;height:500px;margin: 10px 0 10px 0"></div>
+                        </div>
+                    </div>
+
+                    <!-- 6:洗车费 柱状图-->
+                    <div class="row z-depth-2">
+                        <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                            <!--条件-->
+                            <div class="col s12">
+                                <div class="col s2" style="font-size: 18px;margin-top:12px;">洗车费</div>
+                                <div class="col s1" ng-repeat="year in yearList">
+                                    <input type="checkbox" id="{{year.key}}_clean_fee" name="select" class="filled-in quality"
+                                           ng-click="checkCleanFee($event,year.key,$index)" ng-checked="defaultYear==year.key"/>
+                                    <label for="{{year.key}}_clean_fee" class="mp-10" style="margin-top:2px;">{{year.value}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--柱状图-->
+                        <div class="col s12">
+                            <div id="cleanFeeStatistics" style="min-width:400px;height:500px;margin: 10px 0 10px 0"></div>
+                        </div>
+                    </div>
+
+                    <!-- 7:单车洗车费 柱状图-->
+                    <div class="row z-depth-2">
+                        <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                            <!--条件-->
+                            <div class="col s12">
+                                <div class="col s2" style="font-size: 18px;margin-top:12px;">单车洗车费</div>
+                                <div class="col s1" ng-repeat="year in yearList">
+                                    <input type="checkbox" id="{{year.key}}_per_car_clean_fee" name="select" class="filled-in quality"
+                                           ng-click="checkPerCarCleanFee($event,year.key,$index)" ng-checked="defaultYear==year.key"/>
+                                    <label for="{{year.key}}_per_car_clean_fee" class="mp-10" style="margin-top:2px;">{{year.value}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--柱状图-->
+                        <div class="col s12">
+                            <div id="perCarCleanFeeStatistics" style="min-width:400px;height:500px;margin: 10px 0 10px 0"></div>
+                        </div>
+                    </div>
+
+                    <!-- 8:质损率 柱状图-->
+                    <div class="row z-depth-2">
+                        <div class="col s12 blue-grey input-field lighten-4 bold grey-text text-darken-1 statisticsTitle no-mp">
+                            <!--条件-->
+                            <div class="col s12">
+                                <div class="col s2" style="font-size: 18px;margin-top:12px;">质损率</div>
+                                <div class="col s1" ng-repeat="year in yearList">
+                                    <input type="checkbox" id="{{year.key}}_damage_ratio" name="select" class="filled-in quality"
+                                           ng-click="checkDamageRatio($event,year.key,$index)" ng-checked="defaultYear==year.key"/>
+                                    <label for="{{year.key}}_damage_ratio" class="mp-10" style="margin-top:2px;">{{year.value}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--柱状图-->
+                        <div class="col s12">
+                            <div id="damageRatioStatistics" style="min-width:400px;height:500px;margin: 10px 0 10px 0"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- TAB4：XXXX 页面-->

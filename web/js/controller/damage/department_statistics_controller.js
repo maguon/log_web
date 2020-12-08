@@ -196,6 +196,19 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
     }
 
     /**
+     * 数据赋值
+     * @param yAxisDataIndex y轴索引
+     * @param month 月份索引
+     * @param data 接口数据
+     */
+    function setSettleStat(yAxisDataIndex, month, data){
+        $scope.yAxisData[yAxisDataIndex].dataOutput[month] = data.output;
+        $scope.yAxisData[yAxisDataIndex].dataOuter[month] = data.outer_output;
+        $scope.yAxisData[yAxisDataIndex].dataPerTruck[month] = data.per_truck_output;
+        $scope.yAxisData[yAxisDataIndex].dataPerKm[month] = data.per_km_output;
+    }
+
+    /**
      * TAB1：调用接口 取得数据
      * @param showFlag 显示数据/清除数据
      * @param year 操作年份
@@ -248,76 +261,40 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
                 for (var i = 0; i < data.result.length; i++) {
                     switch (data.result[i].y_month.toString().slice(4,6)) {
                         case '01':
-                            $scope.yAxisData[index].dataOutput[0] = data.result[i].output;
-                            $scope.yAxisData[index].dataOuter[0] = data.result[i].outer_output;
-                            $scope.yAxisData[index].dataPerTruck[0] = data.result[i].per_truck_output;
-                            $scope.yAxisData[index].dataPerKm[0] = data.result[i].per_km_output;
+                            setSettleStat(index, 0, data.result[i]);
                             break;
                         case '02':
-                            $scope.yAxisData[index].dataOutput[1] = data.result[i].output;
-                            $scope.yAxisData[index].dataOuter[1] = data.result[i].outer_output;
-                            $scope.yAxisData[index].dataPerTruck[1] = data.result[i].per_truck_output;
-                            $scope.yAxisData[index].dataPerKm[1] = data.result[i].per_km_output;
+                            setSettleStat(index, 1, data.result[i]);
                             break;
                         case '03':
-                            $scope.yAxisData[index].dataOutput[2] = data.result[i].output;
-                            $scope.yAxisData[index].dataOuter[2] = data.result[i].outer_output;
-                            $scope.yAxisData[index].dataPerTruck[2] = data.result[i].per_truck_output;
-                            $scope.yAxisData[index].dataPerKm[2] = data.result[i].per_km_output;
+                            setSettleStat(index, 2, data.result[i]);
                             break;
                         case '04':
-                            $scope.yAxisData[index].dataOutput[3] = data.result[i].output;
-                            $scope.yAxisData[index].dataOuter[3] = data.result[i].outer_output;
-                            $scope.yAxisData[index].dataPerTruck[3] = data.result[i].per_truck_output;
-                            $scope.yAxisData[index].dataPerKm[3] = data.result[i].per_km_output;
+                            setSettleStat(index, 3, data.result[i]);
                             break;
                         case '05':
-                            $scope.yAxisData[index].dataOutput[4] = data.result[i].output;
-                            $scope.yAxisData[index].dataOuter[4] = data.result[i].outer_output;
-                            $scope.yAxisData[index].dataPerTruck[4] = data.result[i].per_truck_output;
-                            $scope.yAxisData[index].dataPerKm[4] = data.result[i].per_km_output;
+                            setSettleStat(index, 4, data.result[i]);
                             break;
                         case '06':
-                            $scope.yAxisData[index].dataOutput[5] = data.result[i].output;
-                            $scope.yAxisData[index].dataOuter[5] = data.result[i].outer_output;
-                            $scope.yAxisData[index].dataPerTruck[5] = data.result[i].per_truck_output;
-                            $scope.yAxisData[index].dataPerKm[5] = data.result[i].per_km_output;
+                            setSettleStat(index, 5, data.result[i]);
                             break;
                         case '07':
-                            $scope.yAxisData[index].dataOutput[6] = data.result[i].output;
-                            $scope.yAxisData[index].dataOuter[6] = data.result[i].outer_output;
-                            $scope.yAxisData[index].dataPerTruck[6] = data.result[i].per_truck_output;
-                            $scope.yAxisData[index].dataPerKm[6] = data.result[i].per_km_output;
+                            setSettleStat(index, 6, data.result[i]);
                             break;
                         case '08':
-                            $scope.yAxisData[index].dataOutput[7] = data.result[i].output;
-                            $scope.yAxisData[index].dataOuter[7] = data.result[i].outer_output;
-                            $scope.yAxisData[index].dataPerTruck[7] = data.result[i].per_truck_output;
-                            $scope.yAxisData[index].dataPerKm[7] = data.result[i].per_km_output;
+                            setSettleStat(index, 7, data.result[i]);
                             break;
                         case '09':
-                            $scope.yAxisData[index].dataOutput[8] = data.result[i].output;
-                            $scope.yAxisData[index].dataOuter[8] = data.result[i].outer_output;
-                            $scope.yAxisData[index].dataPerTruck[8] = data.result[i].per_truck_output;
-                            $scope.yAxisData[index].dataPerKm[8] = data.result[i].per_km_output;
+                            setSettleStat(index, 8, data.result[i]);
                             break;
                         case '10':
-                            $scope.yAxisData[index].dataOutput[9] = data.result[i].output;
-                            $scope.yAxisData[index].dataOuter[9] = data.result[i].outer_output;
-                            $scope.yAxisData[index].dataPerTruck[9] = data.result[i].per_truck_output;
-                            $scope.yAxisData[index].dataPerKm[9] = data.result[i].per_km_output;
+                            setSettleStat(index, 9, data.result[i]);
                             break;
                         case '11':
-                            $scope.yAxisData[index].dataOutput[10] = data.result[i].output;
-                            $scope.yAxisData[index].dataOuter[10] = data.result[i].outer_output;
-                            $scope.yAxisData[index].dataPerTruck[10] = data.result[i].per_truck_output;
-                            $scope.yAxisData[index].dataPerKm[10] = data.result[i].per_km_output;
+                            setSettleStat(index, 10, data.result[i]);
                             break;
                         case '12':
-                            $scope.yAxisData[index].dataOutput[11] = data.result[i].output;
-                            $scope.yAxisData[index].dataOuter[11] = data.result[i].outer_output;
-                            $scope.yAxisData[index].dataPerTruck[11] = data.result[i].per_truck_output;
-                            $scope.yAxisData[index].dataPerKm[11] = data.result[i].per_km_output;
+                            setSettleStat(index, 11, data.result[i]);
                             break;
                     }
                 }
@@ -501,6 +478,20 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
     }
 
     /**
+     * 数据赋值
+     * @param index y轴索引
+     * @param month 月份索引
+     * @param data 接口数据
+     */
+    function setDispatchStat(index, month, data){
+        $scope.yAxisDataDispatch[index].truckCount[month] = data.truck_count;
+        $scope.yAxisDataDispatch[index].carCount[month] = data.car_count;
+        $scope.yAxisDataDispatch[index].totalDistance[month] = data.total_distance;
+        $scope.yAxisDataDispatch[index].loadDistance[month] = data.load_distance;
+        $scope.yAxisDataDispatch[index].loadRatio[month] = data.load_ratio;
+    }
+
+    /**
      * TAB2：调用接口 取得数据
      * @param showFlag 显示数据/清除数据
      * @param year 操作年份
@@ -556,88 +547,40 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
                 for (var i = 0; i < data.result.length; i++) {
                     switch (data.result[i].y_month.toString().slice(4,6)) {
                         case '01':
-                            $scope.yAxisDataDispatch[index].truckCount[0] = data.result[i].truck_count;
-                            $scope.yAxisDataDispatch[index].carCount[0] = data.result[i].car_count;
-                            $scope.yAxisDataDispatch[index].totalDistance[0] = data.result[i].total_distance;
-                            $scope.yAxisDataDispatch[index].loadDistance[0] = data.result[i].load_distance;
-                            $scope.yAxisDataDispatch[index].loadRatio[0] = data.result[i].load_ratio;
+                            setDispatchStat(index, 0, data.result[i]);
                             break;
                         case '02':
-                            $scope.yAxisDataDispatch[index].truckCount[1] = data.result[i].truck_count;
-                            $scope.yAxisDataDispatch[index].carCount[1] = data.result[i].car_count;
-                            $scope.yAxisDataDispatch[index].totalDistance[1] = data.result[i].total_distance;
-                            $scope.yAxisDataDispatch[index].loadDistance[1] = data.result[i].load_distance;
-                            $scope.yAxisDataDispatch[index].loadRatio[1] = data.result[i].load_ratio;
+                            setDispatchStat(index, 1, data.result[i]);
                             break;
                         case '03':
-                            $scope.yAxisDataDispatch[index].truckCount[2] = data.result[i].truck_count;
-                            $scope.yAxisDataDispatch[index].carCount[2] = data.result[i].car_count;
-                            $scope.yAxisDataDispatch[index].totalDistance[2] = data.result[i].total_distance;
-                            $scope.yAxisDataDispatch[index].loadDistance[2] = data.result[i].load_distance;
-                            $scope.yAxisDataDispatch[index].loadRatio[2] = data.result[i].load_ratio;
+                            setDispatchStat(index, 2, data.result[i]);
                             break;
                         case '04':
-                            $scope.yAxisDataDispatch[index].truckCount[3] = data.result[i].truck_count;
-                            $scope.yAxisDataDispatch[index].carCount[3] = data.result[i].car_count;
-                            $scope.yAxisDataDispatch[index].totalDistance[3] = data.result[i].total_distance;
-                            $scope.yAxisDataDispatch[index].loadDistance[3] = data.result[i].load_distance;
-                            $scope.yAxisDataDispatch[index].loadRatio[3] = data.result[i].load_ratio;
+                            setDispatchStat(index, 3, data.result[i]);
                             break;
                         case '05':
-                            $scope.yAxisDataDispatch[index].truckCount[4] = data.result[i].truck_count;
-                            $scope.yAxisDataDispatch[index].carCount[4] = data.result[i].car_count;
-                            $scope.yAxisDataDispatch[index].totalDistance[4] = data.result[i].total_distance;
-                            $scope.yAxisDataDispatch[index].loadDistance[4] = data.result[i].load_distance;
-                            $scope.yAxisDataDispatch[index].loadRatio[4] = data.result[i].load_ratio;
+                            setDispatchStat(index, 4, data.result[i]);
                             break;
                         case '06':
-                            $scope.yAxisDataDispatch[index].truckCount[5] = data.result[i].truck_count;
-                            $scope.yAxisDataDispatch[index].carCount[5] = data.result[i].car_count;
-                            $scope.yAxisDataDispatch[index].totalDistance[5] = data.result[i].total_distance;
-                            $scope.yAxisDataDispatch[index].loadDistance[5] = data.result[i].load_distance;
-                            $scope.yAxisDataDispatch[index].loadRatio[5] = data.result[i].load_ratio;
+                            setDispatchStat(index, 5, data.result[i]);
                             break;
                         case '07':
-                            $scope.yAxisDataDispatch[index].truckCount[6] = data.result[i].truck_count;
-                            $scope.yAxisDataDispatch[index].carCount[6] = data.result[i].car_count;
-                            $scope.yAxisDataDispatch[index].totalDistance[6] = data.result[i].total_distance;
-                            $scope.yAxisDataDispatch[index].loadDistance[6] = data.result[i].load_distance;
-                            $scope.yAxisDataDispatch[index].loadRatio[6] = data.result[i].load_ratio;
+                            setDispatchStat(index, 6, data.result[i]);
                             break;
                         case '08':
-                            $scope.yAxisDataDispatch[index].truckCount[7] = data.result[i].truck_count;
-                            $scope.yAxisDataDispatch[index].carCount[7] = data.result[i].car_count;
-                            $scope.yAxisDataDispatch[index].totalDistance[7] = data.result[i].total_distance;
-                            $scope.yAxisDataDispatch[index].loadDistance[7] = data.result[i].load_distance;
-                            $scope.yAxisDataDispatch[index].loadRatio[7] = data.result[i].load_ratio;
+                            setDispatchStat(index, 7, data.result[i]);
                             break;
                         case '09':
-                            $scope.yAxisDataDispatch[index].truckCount[8] = data.result[i].truck_count;
-                            $scope.yAxisDataDispatch[index].carCount[8] = data.result[i].car_count;
-                            $scope.yAxisDataDispatch[index].totalDistance[8] = data.result[i].total_distance;
-                            $scope.yAxisDataDispatch[index].loadDistance[8] = data.result[i].load_distance;
-                            $scope.yAxisDataDispatch[index].loadRatio[8] = data.result[i].load_ratio;
+                            setDispatchStat(index, 8, data.result[i]);
                             break;
                         case '10':
-                            $scope.yAxisDataDispatch[index].truckCount[9] = data.result[i].truck_count;
-                            $scope.yAxisDataDispatch[index].carCount[9] = data.result[i].car_count;
-                            $scope.yAxisDataDispatch[index].totalDistance[9] = data.result[i].total_distance;
-                            $scope.yAxisDataDispatch[index].loadDistance[9] = data.result[i].load_distance;
-                            $scope.yAxisDataDispatch[index].loadRatio[9] = data.result[i].load_ratio;
+                            setDispatchStat(index, 9, data.result[i]);
                             break;
                         case '11':
-                            $scope.yAxisDataDispatch[index].truckCount[10] = data.result[i].truck_count;
-                            $scope.yAxisDataDispatch[index].carCount[10] = data.result[i].car_count;
-                            $scope.yAxisDataDispatch[index].totalDistance[10] = data.result[i].total_distance;
-                            $scope.yAxisDataDispatch[index].loadDistance[10] = data.result[i].load_distance;
-                            $scope.yAxisDataDispatch[index].loadRatio[10] = data.result[i].load_ratio;
+                            setDispatchStat(index, 10, data.result[i]);
                             break;
                         case '12':
-                            $scope.yAxisDataDispatch[index].truckCount[11] = data.result[i].truck_count;
-                            $scope.yAxisDataDispatch[index].carCount[11] = data.result[i].car_count;
-                            $scope.yAxisDataDispatch[index].totalDistance[11] = data.result[i].total_distance;
-                            $scope.yAxisDataDispatch[index].loadDistance[11] = data.result[i].load_distance;
-                            $scope.yAxisDataDispatch[index].loadRatio[11] = data.result[i].load_ratio;
+                            setDispatchStat(index, 11, data.result[i]);
                             break;
                     }
                 }
@@ -692,7 +635,384 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
         createChartOptions(node, 'column', yAxisText, yAxisData);
     }
 
+    // TAB3：质量
+    $scope.showQuality = function () {
+        $('ul.tabWrap li').removeClass("active");
+        $(".tab_box").removeClass("active");
+        $(".tab_box").hide();
+        $('ul.tabWrap li.quality').addClass("active");
+        $("#quality").addClass("active");
+        $("#quality").show();
+        // 清空选中状态
+        $(".quality").prop('checked', false);
+        // 默认年全部选中
+        $("#" + $scope.defaultYear + "_damage_count").prop('checked', true);
+        $("#" + $scope.defaultYear + "_total_damge_money").prop('checked', true);
+        $("#" + $scope.defaultYear + "_company_money").prop('checked', true);
+        $("#" + $scope.defaultYear + "_per_car_damage_money").prop('checked', true);
+        $("#" + $scope.defaultYear + "_per_car_c_damage_money").prop('checked', true);
+        $("#" + $scope.defaultYear + "_clean_fee").prop('checked', true);
+        $("#" + $scope.defaultYear + "_per_car_clean_fee").prop('checked', true);
+        $("#" + $scope.defaultYear + "_damage_ratio").prop('checked', true);
 
+        // 初始化 y轴 数据
+        $scope.yAxisDataQuality = [];
+        // 组装初始数据
+        $scope.yearList.forEach(function (year) {
+            // y轴
+            $scope.yAxisDataQuality.push({
+                name: year.key,
+                showDamageCount: false,
+                showTotalDamgeMoney: false,
+                showCompanyMoney: false,
+                showPerCarDamageMoney: false,
+                showPerCarCDamageMoney: false,
+                showCleanFee: false,
+                showPerCarCleanFee: false,
+                showDamageRatio: false,
+                // 质损次数 damage_count 总体质损成本 total_damge_money 公司承担质损成本 company_money 单车质损成本 per_car_damage_money
+                // 单车公司质损成本 per_car_c_damage_money 洗车费 clean_fee 单车洗车费 per_car_clean_fee 质损率 damage_ratio
+                damageCount: [0,0,0,0,0,0,0,0,0,0,0,0],
+                totalDamgeMoney: [0,0,0,0,0,0,0,0,0,0,0,0],
+                companyMoney: [0,0,0,0,0,0,0,0,0,0,0,0],
+                perCarDamageMoney: [0,0,0,0,0,0,0,0,0,0,0,0],
+                perCarCDamageMoney: [0,0,0,0,0,0,0,0,0,0,0,0],
+                cleanFee: [0,0,0,0,0,0,0,0,0,0,0,0],
+                perCarCleanFee: [0,0,0,0,0,0,0,0,0,0,0,0],
+                damageRatio: [0,0,0,0,0,0,0,0,0,0,0,0]
+            });
+        });
+
+        // 默认显示最后一个年的数据
+        let index = $scope.yearList.length - 1;
+        // 默认：显示年列表最后一个年的数据
+        getQualityStatistics(true, $scope.yearList[index].key, index,'');
+    };
+
+    // TAB3：图1：年列表 选中/取消 操作
+    $scope.checkDamageCount = function (event, year, index) {
+        // 查询接口数据
+        getQualityStatistics(event.target.checked, year, index, 'damage_count');
+    };
+
+    // TAB3：图2：年列表 选中/取消 操作
+    $scope.checkTotalDamgeMoney = function (event, year, index) {
+        // 查询接口数据
+        getQualityStatistics(event.target.checked, year, index, 'total_damge_money');
+    };
+
+    // TAB3：图3：年列表 选中/取消 操作
+    $scope.checkCompanyMoney = function (event, year, index) {
+        // 查询接口数据
+        getQualityStatistics(event.target.checked, year, index, 'company_money');
+    };
+
+    // TAB3：图4：年列表 选中/取消 操作
+    $scope.checkPerCarDamageMoney = function (event, year, index) {
+        // 查询接口数据
+        getQualityStatistics(event.target.checked, year, index, 'per_car_damage_money');
+    };
+
+    // TAB3：图5：年列表 选中/取消 操作
+    $scope.checkPerCarCDamageMoney = function (event, year, index) {
+        // 查询接口数据
+        getQualityStatistics(event.target.checked, year, index, 'per_car_c_damage_money');
+    };
+
+    // TAB3：图6：年列表 选中/取消 操作
+    $scope.checkCleanFee = function (event, year, index) {
+        // 查询接口数据
+        getQualityStatistics(event.target.checked, year, index, 'clean_fee');
+    };
+
+    // TAB3：图7：年列表 选中/取消 操作
+    $scope.checkPerCarCleanFee = function (event, year, index) {
+        // 查询接口数据
+        getQualityStatistics(event.target.checked, year, index, 'per_car_clean_fee');
+    };
+
+    // TAB3：图8：年列表 选中/取消 操作
+    $scope.checkDamageRatio = function (event, year, index) {
+        // 查询接口数据
+        getQualityStatistics(event.target.checked, year, index, 'damage_ratio');
+    };
+
+    /**
+     * TAB3：初始化 图表数据
+     * @param index 操作年份索引
+     * @param type 操作chart图的区分
+     */
+    function initQualityChartData(index, type){
+        // 先清空 指定索引 y轴 数据
+        switch (type) {
+            case 'damage_count':
+                $scope.yAxisDataQuality[index].showDamageCount = false;
+                $scope.yAxisDataQuality[index].damageCount = [0,0,0,0,0,0,0,0,0,0,0,0];
+                break;
+            case 'total_damge_money':
+                $scope.yAxisDataQuality[index].showTotalDamgeMoney = false;
+                $scope.yAxisDataQuality[index].totalDamgeMoney = [0,0,0,0,0,0,0,0,0,0,0,0];
+                break;
+            case 'company_money':
+                $scope.yAxisDataQuality[index].showCompanyMoney = false;
+                $scope.yAxisDataQuality[index].companyMoney = [0,0,0,0,0,0,0,0,0,0,0,0];
+                break;
+            case 'per_car_damage_money':
+                $scope.yAxisDataQuality[index].showPerCarDamageMoney = false;
+                $scope.yAxisDataQuality[index].perCarDamageMoney = [0,0,0,0,0,0,0,0,0,0,0,0];
+                break;
+
+            case 'per_car_c_damage_money':
+                $scope.yAxisDataQuality[index].showPerCarCDamageMoney = false;
+                $scope.yAxisDataQuality[index].perCarCDamageMoney = [0,0,0,0,0,0,0,0,0,0,0,0];
+                break;
+            case 'clean_fee':
+                $scope.yAxisDataQuality[index].showCleanFee = false;
+                $scope.yAxisDataQuality[index].cleanFee = [0,0,0,0,0,0,0,0,0,0,0,0];
+                break;
+            case 'per_car_clean_fee':
+                $scope.yAxisDataQuality[index].showPerCarCleanFee = false;
+                $scope.yAxisDataQuality[index].perCarCleanFee = [0,0,0,0,0,0,0,0,0,0,0,0];
+                break;
+            case 'damage_ratio':
+                $scope.yAxisDataQuality[index].showDamageRatio = false;
+                $scope.yAxisDataQuality[index].damageRatio = [0,0,0,0,0,0,0,0,0,0,0,0];
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * TAB3：根据区分 刷新指定图表
+     * @param type 操作chart图的区分
+     */
+    function refreshQualityChart(type){
+        switch (type) {
+            case 'damage_count':
+                createQualityChartData($("#damageCountStatistics"), 'damage_count', '次');
+                break;
+            case 'total_damge_money':
+                createQualityChartData($("#totalDamgeMoneyStatistics"), 'total_damge_money', '元');
+                break;
+            case 'company_money':
+                createQualityChartData($("#companyMoneyStatistics"), 'company_money', '元');
+                break;
+            case 'per_car_damage_money':
+                createQualityChartData($("#perCarDamageMoneyStatistics"), 'per_car_damage_money', '元');
+                break;
+            case 'per_car_c_damage_money':
+                createQualityChartData($("#perCarCDamageMoneyStatistics"), 'per_car_c_damage_money', '元');
+                break;
+            case 'clean_fee':
+                createQualityChartData($("#cleanFeeStatistics"), 'clean_fee', '元');
+                break;
+            case 'per_car_clean_fee':
+                createQualityChartData($("#perCarCleanFeeStatistics"), 'per_car_clean_fee', '元');
+                break;
+            case 'damage_ratio':
+                createQualityChartData($("#damageRatioStatistics"), 'damage_ratio', '');
+                break;
+            default:
+                createQualityChartData($("#damageCountStatistics"), 'damage_count', '次');
+                createQualityChartData($("#totalDamgeMoneyStatistics"), 'total_damge_money', '元');
+                createQualityChartData($("#companyMoneyStatistics"), 'company_money', '元');
+                createQualityChartData($("#perCarDamageMoneyStatistics"), 'per_car_damage_money', '元');
+                createQualityChartData($("#perCarCDamageMoneyStatistics"), 'per_car_c_damage_money', '元');
+                createQualityChartData($("#cleanFeeStatistics"), 'clean_fee', '元');
+                createQualityChartData($("#perCarCleanFeeStatistics"), 'per_car_clean_fee', '元');
+                createQualityChartData($("#damageRatioStatistics"), 'damage_ratio', '');
+        }
+    }
+
+    /**
+     * 数据赋值
+     * @param index y轴索引
+     * @param month 月份索引
+     * @param data 接口数据
+     */
+    function setQualityStat(index, month, data){
+        $scope.yAxisDataQuality[index].damageCount[month] = data.damage_count;
+        $scope.yAxisDataQuality[index].totalDamgeMoney[month] = data.total_damange_money;
+        $scope.yAxisDataQuality[index].companyMoney[month] = data.company_damage_money;
+        $scope.yAxisDataQuality[index].perCarDamageMoney[month] = data.per_car_damage_money;
+
+        $scope.yAxisDataQuality[index].perCarCDamageMoney[month] = data.per_car_c_damange_money;
+        $scope.yAxisDataQuality[index].cleanFee[month] = data.clean_fee;
+        $scope.yAxisDataQuality[index].perCarCleanFee[month] = data.per_car_clean_fee;
+        $scope.yAxisDataQuality[index].damageRatio[month] = data.damage_ratio;
+    }
+
+    /**
+     * TAB3：调用接口 取得数据
+     * @param showFlag 显示数据/清除数据
+     * @param year 操作年份
+     * @param index 操作年份索引
+     * @param type 操作chart图的区分
+     */
+    function getQualityStatistics(showFlag, year, index, type){
+        // 初始化 图表数据
+        initQualityChartData(index, type);
+
+        // 如果是checkbox是取消，则直接刷新chart
+        if (!showFlag) {
+            // 刷新图表
+            refreshQualityChart(type);
+            return;
+        }
+
+        // 根据年 取得当前年的数据
+        let obj = {
+            yMonthStart: year + '01',
+            yMonthEnd: year + '12'
+        };
+        let url = $host.api_url + "/user/" + userId + "/qualityStat?" + _basic.objToUrl(obj);
+        _basic.get(url).then(function (data) {
+            if (data.success){
+                data.result.reverse();
+                switch (type) {
+                    case 'damage_count':
+                        $scope.yAxisDataQuality[index].showDamageCount = true;
+                        break;
+                    case 'total_damge_money':
+                        $scope.yAxisDataQuality[index].showTotalDamgeMoney = true;
+                        break;
+                    case 'company_money':
+                        $scope.yAxisDataQuality[index].showCompanyMoney = true;
+                        break;
+                    case 'per_car_damage_money':
+                        $scope.yAxisDataQuality[index].showPerCarDamageMoney = true;
+                        break;
+                    case 'per_car_c_damage_money':
+                        $scope.yAxisDataQuality[index].showPerCarCDamageMoney = true;
+                        break;
+                    case 'clean_fee':
+                        $scope.yAxisDataQuality[index].showCleanFee = true;
+                        break;
+                    case 'per_car_clean_fee':
+                        $scope.yAxisDataQuality[index].showPerCarCleanFee = true;
+                        break;
+                    case 'damage_ratio':
+                        $scope.yAxisDataQuality[index].showDamageRatio = true;
+                        break;
+                    default:
+                        $scope.yAxisDataQuality[index].showDamageCount = true;
+                        $scope.yAxisDataQuality[index].showTotalDamgeMoney = true;
+                        $scope.yAxisDataQuality[index].showCompanyMoney = true;
+                        $scope.yAxisDataQuality[index].showPerCarDamageMoney = true;
+                        $scope.yAxisDataQuality[index].showPerCarCDamageMoney = true;
+                        $scope.yAxisDataQuality[index].showCleanFee = true;
+                        $scope.yAxisDataQuality[index].showPerCarCleanFee = true;
+                        $scope.yAxisDataQuality[index].showDamageRatio = true;
+                }
+
+                // 给指定月份数据 赋值
+                // 出车数 truck_count 发运量 car_count 总里程 total_distance 重载历程 load_distance 重载率 load_ratio
+                for (let i = 0; i < data.result.length; i++) {
+                    switch (data.result[i].y_month.toString().slice(4,6)) {
+                        case '01':
+                            setQualityStat(index, 0, data.result[i]);
+                            break;
+                        case '02':
+                            setQualityStat(index, 1, data.result[i]);
+                            break;
+                        case '03':
+                            setQualityStat(index, 2, data.result[i]);
+                            break;
+                        case '04':
+                            setQualityStat(index, 3, data.result[i]);
+                            break;
+                        case '05':
+                            setQualityStat(index, 4, data.result[i]);
+                            break;
+                        case '06':
+                            setQualityStat(index, 5, data.result[i]);
+                            break;
+                        case '07':
+                            setQualityStat(index, 6, data.result[i]);
+                            break;
+                        case '08':
+                            setQualityStat(index, 7, data.result[i]);
+                            break;
+                        case '09':
+                            setQualityStat(index, 8, data.result[i]);
+                            break;
+                        case '10':
+                            setQualityStat(index, 9, data.result[i]);
+                            break;
+                        case '11':
+                            setQualityStat(index, 10, data.result[i]);
+                            break;
+                        case '12':
+                            setQualityStat(index, 11, data.result[i]);
+                            break;
+                    }
+                }
+                // 刷新图表
+                refreshQualityChart(type);
+            } else{
+                swal(data.msg, "", "error");
+            }
+        });
+    }
+
+    /**
+     * TAB3：初始化 chart图
+     * @param node 节点
+     * @param chartType 操作chart图的区分
+     * @param yAxisText 图表Y轴单位
+     */
+    function createQualityChartData(node, chartType, yAxisText) {
+        // 只显示 选中的年数据
+        let yAxisData = [];
+        for (let i = 0; i < $scope.yAxisDataQuality.length; i++) {
+            switch (chartType) {
+                case 'damage_count':
+                    if ($scope.yAxisDataQuality[i].showDamageCount) {
+                        yAxisData.push({name: $scope.yAxisDataQuality[i].name, data: $scope.yAxisDataQuality[i].damageCount});
+                    }
+                    break;
+                case 'total_damge_money':
+                    if ($scope.yAxisDataQuality[i].showTotalDamgeMoney) {
+                        yAxisData.push({name: $scope.yAxisDataQuality[i].name, data: $scope.yAxisDataQuality[i].totalDamgeMoney});
+                    }
+                    break;
+                case 'company_money':
+                    if ($scope.yAxisDataQuality[i].showCompanyMoney) {
+                        yAxisData.push({name: $scope.yAxisDataQuality[i].name, data: $scope.yAxisDataQuality[i].companyMoney});
+                    }
+                    break;
+                case 'per_car_damage_money':
+                    if ($scope.yAxisDataQuality[i].showPerCarDamageMoney) {
+                        yAxisData.push({name: $scope.yAxisDataQuality[i].name, data: $scope.yAxisDataQuality[i].perCarDamageMoney});
+                    }
+                    break;
+                case 'per_car_c_damage_money':
+                    if ($scope.yAxisDataQuality[i].showPerCarCDamageMoney) {
+                        yAxisData.push({name: $scope.yAxisDataQuality[i].name, data: $scope.yAxisDataQuality[i].perCarCDamageMoney});
+                    }
+                    break;
+                case 'clean_fee':
+                    if ($scope.yAxisDataQuality[i].showCleanFee) {
+                        yAxisData.push({name: $scope.yAxisDataQuality[i].name, data: $scope.yAxisDataQuality[i].cleanFee});
+                    }
+                    break;
+                case 'per_car_clean_fee':
+                    if ($scope.yAxisDataQuality[i].showPerCarCleanFee) {
+                        yAxisData.push({name: $scope.yAxisDataQuality[i].name, data: $scope.yAxisDataQuality[i].perCarCleanFee});
+                    }
+                    break;
+                case 'damage_ratio':
+                    if ($scope.yAxisDataQuality[i].showDamageRatio) {
+                        yAxisData.push({name: $scope.yAxisDataQuality[i].name, data: $scope.yAxisDataQuality[i].damageRatio});
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        createChartOptions(node, 'column', yAxisText, yAxisData);
+    }
 
     /**
      * 画面初期显示时，用来获取画面必要信息的初期方法。

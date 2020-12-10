@@ -349,6 +349,12 @@ baseService.factory("_config", function () {
         {id: "2", type: "IOS"}
     ];
 
+    // Highchart type
+    _this.highchartType = [
+        // {key: "bar", value: "条形图"},
+        {key: "column", value: "柱状图"},
+        {key: "line", value: "折线图"}
+    ];
 
     //经销商类型
     _this.receiveType = [

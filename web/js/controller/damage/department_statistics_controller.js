@@ -1,4 +1,6 @@
-app.controller("department_statistics_controller", ["$scope", "$host", "_basic", function ($scope, $host, _basic) {
+app.controller("department_statistics_controller", ["$scope", "$host", "_basic", "_config", function ($scope, $host, _basic, _config) {
+    // bar: 条形图，line：折线图，column：柱状图
+    $scope.chartTypeList =_config.highchartType;
     // 用户ID
     let userId = _basic.getSession(_basic.USER_ID);
 
@@ -90,6 +92,11 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
         $("#" + $scope.defaultYear + "_out").prop('checked', true);
         $("#" + $scope.defaultYear + "_per_truck").prop('checked', true);
         $("#" + $scope.defaultYear + "_per_km").prop('checked', true);
+        // 初始化：图标类型
+        $scope.outputChartType = $scope.chartTypeList[0].key;
+        $scope.outerChartType = $scope.chartTypeList[0].key;
+        $scope.perTruckChartType = $scope.chartTypeList[0].key;
+        $scope.perKmChartType = $scope.chartTypeList[0].key;
 
         // 初始化 y轴 数据
         $scope.yAxisData = [];
@@ -173,27 +180,27 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
      * TAB1：根据区分 刷新指定图表
      * @param type 操作chart图的区分
      */
-    function refreshChart(type){
+    $scope.refreshChart = function (type) {
         switch (type) {
             case 'outPut':
-                createSettleChartData($("#outputStatistics"), 'outPut');
+                createSettleChartData($("#outputStatistics"), 'outPut', $scope.outputChartType);
                 break;
             case 'outer':
-                createSettleChartData($("#outerOutputStatistics"), 'outer');
+                createSettleChartData($("#outerOutputStatistics"), 'outer', $scope.outerChartType);
                 break;
             case 'perTruck':
-                createSettleChartData($("#perTruckOutputStatistics"), 'perTruck');
+                createSettleChartData($("#perTruckOutputStatistics"), 'perTruck', $scope.perTruckChartType);
                 break;
             case 'perKm':
-                createSettleChartData($("#perKmOutputStatistics"), 'perKm');
+                createSettleChartData($("#perKmOutputStatistics"), 'perKm', $scope.perKmChartType);
                 break;
             default:
-                createSettleChartData($("#outputStatistics"), 'outPut');
-                createSettleChartData($("#outerOutputStatistics"), 'outer');
-                createSettleChartData($("#perTruckOutputStatistics"), 'perTruck');
-                createSettleChartData($("#perKmOutputStatistics"), 'perKm');
+                createSettleChartData($("#outputStatistics"), 'outPut', $scope.outputChartType);
+                createSettleChartData($("#outerOutputStatistics"), 'outer', $scope.outerChartType);
+                createSettleChartData($("#perTruckOutputStatistics"), 'perTruck', $scope.perTruckChartType);
+                createSettleChartData($("#perKmOutputStatistics"), 'perKm', $scope.perKmChartType);
         }
-    }
+    };
 
     /**
      * 数据赋值
@@ -222,7 +229,7 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
         // 如果是checkbox是取消，则直接刷新chart
         if (!showFlag) {
             // 刷新图表
-            refreshChart(type);
+            $scope.refreshChart(type);
             return;
         }
 
@@ -299,15 +306,20 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
                     }
                 }
                 // 刷新图表
-                refreshChart(type);
+                $scope.refreshChart(type);
             } else{
                 swal(data.msg, "", "error");
             }
         });
     }
 
-    // TAB1：初始化 chart图
-    function createSettleChartData(node, type) {
+    /**
+     * TAB1：初始化 chart图
+     * @param node 图例节点
+     * @param type 图例区分
+     * @param chartType 图表显示类型：bar: 条形图，line：折线图，column：柱状图
+     */
+    function createSettleChartData(node, type, chartType) {
         // 只显示 选中的年数据
         let yAxisData = [];
         for (let i = 0; i < $scope.yAxisData.length; i++) {
@@ -337,7 +349,7 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
             }
         }
         // high-chart 参数设定
-        createChartOptions(node, 'column', '元', yAxisData);
+        createChartOptions(node, chartType, '元', yAxisData);
     }
 
     // TAB2：调度
@@ -357,6 +369,13 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
         $("#" + $scope.defaultYear + "_load_distance").prop('checked', true);
         $("#" + $scope.defaultYear + "_load_ratio").prop('checked', true);
 
+        // 初始化图表类型
+        $scope.truckCountChartType = $scope.chartTypeList[0].key;
+        $scope.carCountChartType = $scope.chartTypeList[0].key;
+        $scope.totalDistanceChartType = $scope.chartTypeList[0].key;
+        $scope.loadDistanceChartType = $scope.chartTypeList[0].key;
+        $scope.loadRatioChartType = $scope.chartTypeList[0].key;
+
         // 初始化 y轴 数据
         $scope.yAxisDataDispatch = [];
         // 组装初始数据
@@ -369,7 +388,7 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
                 showTotalDistance: false,
                 showLoadDistance: false,
                 showLoadRatio: false,
-                // 出车数 truck_count 发运量 car_count 总里程 total_distance 重载历程 load_distance 重载率 load_ratio
+                // 出车数 truck_count 发运量 car_count 总里程 total_distance 重载里程 load_distance 重载率 load_ratio
                 truckCount: [0,0,0,0,0,0,0,0,0,0,0,0],
                 carCount: [0,0,0,0,0,0,0,0,0,0,0,0],
                 totalDistance: [0,0,0,0,0,0,0,0,0,0,0,0],
@@ -451,31 +470,31 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
      * TAB2：根据区分 刷新指定图表
      * @param type 操作chart图的区分
      */
-    function refreshDispatchChart(type){
+    $scope.refreshDispatchChart = function (type) {
         switch (type) {
             case 'truck_count':
-                createDispatchChartData($("#truckCountStatistics"), 'truck_count', '辆');
+                createDispatchChartData($("#truckCountStatistics"), 'truck_count', '辆', $scope.truckCountChartType);
                 break;
             case 'car_count':
-                createDispatchChartData($("#carCountStatistics"), 'car_count', '辆');
+                createDispatchChartData($("#carCountStatistics"), 'car_count', '辆', $scope.carCountChartType);
                 break;
             case 'total_distance':
-                createDispatchChartData($("#totalDistanceStatistics"), 'total_distance', '公里');
+                createDispatchChartData($("#totalDistanceStatistics"), 'total_distance', '公里', $scope.totalDistanceChartType);
                 break;
             case 'load_distance':
-                createDispatchChartData($("#loadDistanceStatistics"), 'load_distance', '公里');
+                createDispatchChartData($("#loadDistanceStatistics"), 'load_distance', '公里', $scope.loadDistanceChartType);
                 break;
             case 'load_ratio':
-                createDispatchChartData($("#loadRatioStatistics"), 'load_ratio', '');
+                createDispatchChartData($("#loadRatioStatistics"), 'load_ratio', '', $scope.loadRatioChartType);
                 break;
             default:
-                createDispatchChartData($("#truckCountStatistics"), 'truck_count', '辆');
-                createDispatchChartData($("#carCountStatistics"), 'car_count', '辆');
-                createDispatchChartData($("#totalDistanceStatistics"), 'total_distance', '公里');
-                createDispatchChartData($("#loadDistanceStatistics"), 'load_distance', '公里');
-                createDispatchChartData($("#loadRatioStatistics"), 'load_ratio', '');
+                createDispatchChartData($("#truckCountStatistics"), 'truck_count', '辆', $scope.truckCountChartType);
+                createDispatchChartData($("#carCountStatistics"), 'car_count', '辆', $scope.carCountChartType);
+                createDispatchChartData($("#totalDistanceStatistics"), 'total_distance', '公里', $scope.totalDistanceChartType);
+                createDispatchChartData($("#loadDistanceStatistics"), 'load_distance', '公里', $scope.loadDistanceChartType);
+                createDispatchChartData($("#loadRatioStatistics"), 'load_ratio', '', $scope.loadRatioChartType);
         }
-    }
+    };
 
     /**
      * 数据赋值
@@ -505,7 +524,7 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
         // 如果是checkbox是取消，则直接刷新chart
         if (!showFlag) {
             // 刷新图表
-            refreshDispatchChart(type);
+            $scope.refreshDispatchChart(type);
             return;
         }
 
@@ -543,7 +562,7 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
                 }
 
                 // 给指定月份数据 赋值
-                // 出车数 truck_count 发运量 car_count 总里程 total_distance 重载历程 load_distance 重载率 load_ratio
+                // 出车数 truck_count 发运量 car_count 总里程 total_distance 重载里程 load_distance 重载率 load_ratio
                 for (var i = 0; i < data.result.length; i++) {
                     switch (data.result[i].y_month.toString().slice(4,6)) {
                         case '01':
@@ -585,7 +604,7 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
                     }
                 }
                 // 刷新图表
-                refreshDispatchChart(type);
+                $scope.refreshDispatchChart(type);
             } else{
                 swal(data.msg, "", "error");
             }
@@ -595,14 +614,15 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
     /**
      * TAB2：初始化 chart图
      * @param node 节点
-     * @param chartType 操作chart图的区分
+     * @param type 操作chart图的区分
      * @param yAxisText 图表Y轴单位
+     * @param chartType 图表显示类型：bar: 条形图，line：折线图，column：柱状图
      */
-    function createDispatchChartData(node, chartType, yAxisText) {
+    function createDispatchChartData(node, type, yAxisText, chartType) {
         // 只显示 选中的年数据
         let yAxisData = [];
         for (let i = 0; i < $scope.yAxisDataDispatch.length; i++) {
-            switch (chartType) {
+            switch (type) {
                 case 'truck_count':
                     if ($scope.yAxisDataDispatch[i].showTruckCount) {
                         yAxisData.push({name: $scope.yAxisDataDispatch[i].name, data: $scope.yAxisDataDispatch[i].truckCount});
@@ -632,7 +652,7 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
                     break;
             }
         }
-        createChartOptions(node, 'column', yAxisText, yAxisData);
+        createChartOptions(node, chartType, yAxisText, yAxisData);
     }
 
     // TAB3：质量
@@ -654,6 +674,16 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
         $("#" + $scope.defaultYear + "_clean_fee").prop('checked', true);
         $("#" + $scope.defaultYear + "_per_car_clean_fee").prop('checked', true);
         $("#" + $scope.defaultYear + "_damage_ratio").prop('checked', true);
+
+        // 初始化图表类型
+        $scope.damageCountChartType = $scope.chartTypeList[0].key;
+        $scope.totalDamgeMoneyChartType = $scope.chartTypeList[0].key;
+        $scope.companyMoneyChartType = $scope.chartTypeList[0].key;
+        $scope.perCarDamageMoneyChartType = $scope.chartTypeList[0].key;
+        $scope.perCarCDamageMoneyChartType = $scope.chartTypeList[0].key;
+        $scope.cleanFeeChartType = $scope.chartTypeList[0].key;
+        $scope.perCarCleanFeeChartType = $scope.chartTypeList[0].key;
+        $scope.damageRatioChartType = $scope.chartTypeList[0].key;
 
         // 初始化 y轴 数据
         $scope.yAxisDataQuality = [];
@@ -787,43 +817,43 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
      * TAB3：根据区分 刷新指定图表
      * @param type 操作chart图的区分
      */
-    function refreshQualityChart(type){
+    $scope.refreshQualityChart = function (type) {
         switch (type) {
             case 'damage_count':
-                createQualityChartData($("#damageCountStatistics"), 'damage_count', '次');
+                createQualityChartData($("#damageCountStatistics"), 'damage_count', '次', $scope.damageCountChartType);
                 break;
             case 'total_damge_money':
-                createQualityChartData($("#totalDamgeMoneyStatistics"), 'total_damge_money', '元');
+                createQualityChartData($("#totalDamgeMoneyStatistics"), 'total_damge_money', '元', $scope.totalDamgeMoneyChartType);
                 break;
             case 'company_money':
-                createQualityChartData($("#companyMoneyStatistics"), 'company_money', '元');
+                createQualityChartData($("#companyMoneyStatistics"), 'company_money', '元', $scope.companyMoneyChartType);
                 break;
             case 'per_car_damage_money':
-                createQualityChartData($("#perCarDamageMoneyStatistics"), 'per_car_damage_money', '元');
+                createQualityChartData($("#perCarDamageMoneyStatistics"), 'per_car_damage_money', '元', $scope.perCarDamageMoneyChartType);
                 break;
             case 'per_car_c_damage_money':
-                createQualityChartData($("#perCarCDamageMoneyStatistics"), 'per_car_c_damage_money', '元');
+                createQualityChartData($("#perCarCDamageMoneyStatistics"), 'per_car_c_damage_money', '元', $scope.perCarCDamageMoneyChartType);
                 break;
             case 'clean_fee':
-                createQualityChartData($("#cleanFeeStatistics"), 'clean_fee', '元');
+                createQualityChartData($("#cleanFeeStatistics"), 'clean_fee', '元', $scope.cleanFeeChartType);
                 break;
             case 'per_car_clean_fee':
-                createQualityChartData($("#perCarCleanFeeStatistics"), 'per_car_clean_fee', '元');
+                createQualityChartData($("#perCarCleanFeeStatistics"), 'per_car_clean_fee', '元', $scope.perCarCleanFeeChartType);
                 break;
             case 'damage_ratio':
-                createQualityChartData($("#damageRatioStatistics"), 'damage_ratio', '');
+                createQualityChartData($("#damageRatioStatistics"), 'damage_ratio', '', $scope.damageRatioChartType);
                 break;
             default:
-                createQualityChartData($("#damageCountStatistics"), 'damage_count', '次');
-                createQualityChartData($("#totalDamgeMoneyStatistics"), 'total_damge_money', '元');
-                createQualityChartData($("#companyMoneyStatistics"), 'company_money', '元');
-                createQualityChartData($("#perCarDamageMoneyStatistics"), 'per_car_damage_money', '元');
-                createQualityChartData($("#perCarCDamageMoneyStatistics"), 'per_car_c_damage_money', '元');
-                createQualityChartData($("#cleanFeeStatistics"), 'clean_fee', '元');
-                createQualityChartData($("#perCarCleanFeeStatistics"), 'per_car_clean_fee', '元');
-                createQualityChartData($("#damageRatioStatistics"), 'damage_ratio', '');
+                createQualityChartData($("#damageCountStatistics"), 'damage_count', '次', $scope.damageCountChartType);
+                createQualityChartData($("#totalDamgeMoneyStatistics"), 'total_damge_money', '元', $scope.totalDamgeMoneyChartType);
+                createQualityChartData($("#companyMoneyStatistics"), 'company_money', '元', $scope.companyMoneyChartType);
+                createQualityChartData($("#perCarDamageMoneyStatistics"), 'per_car_damage_money', '元', $scope.perCarDamageMoneyChartType);
+                createQualityChartData($("#perCarCDamageMoneyStatistics"), 'per_car_c_damage_money', '元', $scope.perCarCDamageMoneyChartType);
+                createQualityChartData($("#cleanFeeStatistics"), 'clean_fee', '元', $scope.cleanFeeChartType);
+                createQualityChartData($("#perCarCleanFeeStatistics"), 'per_car_clean_fee', '元', $scope.perCarCleanFeeChartType);
+                createQualityChartData($("#damageRatioStatistics"), 'damage_ratio', '', $scope.damageRatioChartType);
         }
-    }
+    };
 
     /**
      * 数据赋值
@@ -857,7 +887,7 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
         // 如果是checkbox是取消，则直接刷新chart
         if (!showFlag) {
             // 刷新图表
-            refreshQualityChart(type);
+            $scope.refreshQualityChart(type);
             return;
         }
 
@@ -907,7 +937,7 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
                 }
 
                 // 给指定月份数据 赋值
-                // 出车数 truck_count 发运量 car_count 总里程 total_distance 重载历程 load_distance 重载率 load_ratio
+                // 出车数 truck_count 发运量 car_count 总里程 total_distance 重载里程 load_distance 重载率 load_ratio
                 for (let i = 0; i < data.result.length; i++) {
                     switch (data.result[i].y_month.toString().slice(4,6)) {
                         case '01':
@@ -949,7 +979,7 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
                     }
                 }
                 // 刷新图表
-                refreshQualityChart(type);
+                $scope.refreshQualityChart(type);
             } else{
                 swal(data.msg, "", "error");
             }
@@ -959,14 +989,15 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
     /**
      * TAB3：初始化 chart图
      * @param node 节点
-     * @param chartType 操作chart图的区分
+     * @param type 操作chart图的区分
      * @param yAxisText 图表Y轴单位
+     * @param chartType 图表显示类型：bar: 条形图，line：折线图，column：柱状图
      */
-    function createQualityChartData(node, chartType, yAxisText) {
+    function createQualityChartData(node, type, yAxisText, chartType) {
         // 只显示 选中的年数据
         let yAxisData = [];
         for (let i = 0; i < $scope.yAxisDataQuality.length; i++) {
-            switch (chartType) {
+            switch (type) {
                 case 'damage_count':
                     if ($scope.yAxisDataQuality[i].showDamageCount) {
                         yAxisData.push({name: $scope.yAxisDataQuality[i].name, data: $scope.yAxisDataQuality[i].damageCount});
@@ -1011,8 +1042,104 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
                     break;
             }
         }
-        createChartOptions(node, 'column', yAxisText, yAxisData);
+        createChartOptions(node, chartType, yAxisText, yAxisData);
     }
+
+    // 过路费
+    // 油费 油的升数
+    // 尿素 尿素的升数
+    // 维修费 保养费
+    // 配件费
+
+    // 过路费
+    // 油费 油的升数
+    // 尿素 尿素的升数
+    // 维修费 保养费
+    // 配件费
+    // 买分金额 buy_score_fee 交通罚款 traffic_fine_fee
+    // 个人承担违章  driver_under_money 公司承担违章 company_under_money
+
+
+
+
+    //            // 车管 y轴
+    //             $scope.yAxisDataCar.push({
+    //                 name: year.key,
+    //                 show: false,
+    //                 // 过路费 etc_fee 油量 oil_vol 油费 oil_fee 尿素量 urea_vol
+    //                 // 尿素费 urea_fee 修理费 repair_fee 配件费 part_fee 保养费 maintian_fee
+    //                 // 在外维修次数 outer_repair_count 在外维修金额 outer_repair_fee 买分金额 buy_score_fee 交通罚款 traffic_fine_fee
+    //                 // 个人承担违章  driver_under_money 公司承担违章 company_under_money
+    //                 etcFee: defaultData,
+    //                 oilVol: defaultData,
+    //                 oilFee: defaultData,
+    //                 ureaVol: defaultData,
+    //                 ureaFee: defaultData,
+    //                 repairFee: defaultData,
+    //                 partFee: defaultData,
+    //                 maintianFee: defaultData,
+    //                 outerRepairCount: defaultData,
+    //                 outerRepairFee: defaultData,
+    //                 buyScoreFee: defaultData,
+    //                 trafficFineFee: defaultData,
+    //                 driverUnderMoney: defaultData,
+    //                 companyUnderMoney: defaultData
+    //             });
+    //         });
+
+    // TAB4：车管
+    $scope.showTruck = function () {
+        $('ul.tabWrap li').removeClass("active");
+        $(".tab_box").removeClass("active");
+        $(".tab_box").hide();
+        $('ul.tabWrap li.truck').addClass("active");
+        $("#truck").addClass("active");
+        $("#truck").show();
+        // 清空选中状态
+        $(".truck").prop('checked', false);
+        // 默认年全部选中
+        $("#" + $scope.defaultYear + "_damage_count").prop('checked', true);
+        $("#" + $scope.defaultYear + "_total_damge_money").prop('checked', true);
+        $("#" + $scope.defaultYear + "_company_money").prop('checked', true);
+        $("#" + $scope.defaultYear + "_per_car_damage_money").prop('checked', true);
+        $("#" + $scope.defaultYear + "_per_car_c_damage_money").prop('checked', true);
+        $("#" + $scope.defaultYear + "_clean_fee").prop('checked', true);
+        $("#" + $scope.defaultYear + "_per_car_clean_fee").prop('checked', true);
+        $("#" + $scope.defaultYear + "_damage_ratio").prop('checked', true);
+
+        // 初始化 y轴 数据
+        $scope.yAxisDataQuality = [];
+        // 组装初始数据
+        $scope.yearList.forEach(function (year) {
+            // y轴
+            $scope.yAxisDataQuality.push({
+                name: year.key,
+                showDamageCount: false,
+                showTotalDamgeMoney: false,
+                showCompanyMoney: false,
+                showPerCarDamageMoney: false,
+                showPerCarCDamageMoney: false,
+                showCleanFee: false,
+                showPerCarCleanFee: false,
+                showDamageRatio: false,
+                // 质损次数 damage_count 总体质损成本 total_damge_money 公司承担质损成本 company_money 单车质损成本 per_car_damage_money
+                // 单车公司质损成本 per_car_c_damage_money 洗车费 clean_fee 单车洗车费 per_car_clean_fee 质损率 damage_ratio
+                damageCount: [0,0,0,0,0,0,0,0,0,0,0,0],
+                totalDamgeMoney: [0,0,0,0,0,0,0,0,0,0,0,0],
+                companyMoney: [0,0,0,0,0,0,0,0,0,0,0,0],
+                perCarDamageMoney: [0,0,0,0,0,0,0,0,0,0,0,0],
+                perCarCDamageMoney: [0,0,0,0,0,0,0,0,0,0,0,0],
+                cleanFee: [0,0,0,0,0,0,0,0,0,0,0,0],
+                perCarCleanFee: [0,0,0,0,0,0,0,0,0,0,0,0],
+                damageRatio: [0,0,0,0,0,0,0,0,0,0,0,0]
+            });
+        });
+
+        // 默认显示最后一个年的数据
+        let index = $scope.yearList.length - 1;
+        // 默认：显示年列表最后一个年的数据
+        getQualityStatistics(true, $scope.yearList[index].key, index,'');
+    };
 
     /**
      * 画面初期显示时，用来获取画面必要信息的初期方法。

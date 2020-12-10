@@ -1045,48 +1045,6 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
         createChartOptions(node, chartType, yAxisText, yAxisData);
     }
 
-    // 过路费
-    // 油费 油的升数
-    // 尿素 尿素的升数
-    // 维修费 保养费
-    // 配件费
-
-    // 过路费
-    // 油费 油的升数
-    // 尿素 尿素的升数
-    // 维修费 保养费
-    // 配件费
-    // 买分金额 buy_score_fee 交通罚款 traffic_fine_fee
-    // 个人承担违章  driver_under_money 公司承担违章 company_under_money
-
-
-
-
-    //            // 车管 y轴
-    //             $scope.yAxisDataCar.push({
-    //                 name: year.key,
-    //                 show: false,
-    //                 // 过路费 etc_fee 油量 oil_vol 油费 oil_fee 尿素量 urea_vol
-    //                 // 尿素费 urea_fee 修理费 repair_fee 配件费 part_fee 保养费 maintian_fee
-    //                 // 在外维修次数 outer_repair_count 在外维修金额 outer_repair_fee 买分金额 buy_score_fee 交通罚款 traffic_fine_fee
-    //                 // 个人承担违章  driver_under_money 公司承担违章 company_under_money
-    //                 etcFee: defaultData,
-    //                 oilVol: defaultData,
-    //                 oilFee: defaultData,
-    //                 ureaVol: defaultData,
-    //                 ureaFee: defaultData,
-    //                 repairFee: defaultData,
-    //                 partFee: defaultData,
-    //                 maintianFee: defaultData,
-    //                 outerRepairCount: defaultData,
-    //                 outerRepairFee: defaultData,
-    //                 buyScoreFee: defaultData,
-    //                 trafficFineFee: defaultData,
-    //                 driverUnderMoney: defaultData,
-    //                 companyUnderMoney: defaultData
-    //             });
-    //         });
-
     // TAB4：车管
     $scope.showTruck = function () {
         $('ul.tabWrap li').removeClass("active");
@@ -1098,48 +1056,559 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
         // 清空选中状态
         $(".truck").prop('checked', false);
         // 默认年全部选中
-        $("#" + $scope.defaultYear + "_damage_count").prop('checked', true);
-        $("#" + $scope.defaultYear + "_total_damge_money").prop('checked', true);
-        $("#" + $scope.defaultYear + "_company_money").prop('checked', true);
-        $("#" + $scope.defaultYear + "_per_car_damage_money").prop('checked', true);
-        $("#" + $scope.defaultYear + "_per_car_c_damage_money").prop('checked', true);
-        $("#" + $scope.defaultYear + "_clean_fee").prop('checked', true);
-        $("#" + $scope.defaultYear + "_per_car_clean_fee").prop('checked', true);
-        $("#" + $scope.defaultYear + "_damage_ratio").prop('checked', true);
+        // 过路费 etc_fee 油量 oil_vol 油费 oil_fee 尿素量 urea_vol 尿素费 urea_fee
+        // 修理费 repair_fee 保养费 maintian_fee 配件费 part_fee 买分金额 buy_score_fee 交通罚款 traffic_fine_fee
+        // 个人承担违章  driver_under_money 公司承担违章 company_under_money  在外维修次数 outer_repair_count 在外维修金额 outer_repair_fee
+        $("#" + $scope.defaultYear + "_etc_fee").prop('checked', true);
+        $("#" + $scope.defaultYear + "_oil_vol").prop('checked', true);
+        $("#" + $scope.defaultYear + "_oil_fee").prop('checked', true);
+        $("#" + $scope.defaultYear + "_urea_vol").prop('checked', true);
+        $("#" + $scope.defaultYear + "_urea_fee").prop('checked', true);
+        $("#" + $scope.defaultYear + "_repair_fee").prop('checked', true);
+        $("#" + $scope.defaultYear + "_part_fee").prop('checked', true);
+        $("#" + $scope.defaultYear + "_maintian_fee").prop('checked', true);
+        $("#" + $scope.defaultYear + "_outer_repair_count").prop('checked', true);
+        $("#" + $scope.defaultYear + "_outer_repair_fee").prop('checked', true);
+        $("#" + $scope.defaultYear + "_buy_score_fee").prop('checked', true);
+        $("#" + $scope.defaultYear + "_traffic_fine_fee").prop('checked', true);
+        $("#" + $scope.defaultYear + "_driver_under_money").prop('checked', true);
+        $("#" + $scope.defaultYear + "_company_under_money").prop('checked', true);
 
+        // 初始化图表类型
+        $scope.etcFeeChartType = $scope.chartTypeList[0].key;
+        $scope.oilVolChartType = $scope.chartTypeList[0].key;
+        $scope.oilFeeChartType = $scope.chartTypeList[0].key;
+        $scope.ureaVolChartType = $scope.chartTypeList[0].key;
+        $scope.ureaFeeChartType = $scope.chartTypeList[0].key;
+        $scope.repairFeeChartType = $scope.chartTypeList[0].key;
+        $scope.maintianFeeChartType = $scope.chartTypeList[0].key;
+        $scope.partFeeChartType = $scope.chartTypeList[0].key;
+        $scope.buyScoreFeeChartType = $scope.chartTypeList[0].key;
+        $scope.trafficFineFeeChartType = $scope.chartTypeList[0].key;
+        $scope.driverUnderMoneyChartType = $scope.chartTypeList[0].key;
+        $scope.companyUnderMoneyChartType = $scope.chartTypeList[0].key;
+        $scope.outerRepairCountChartType = $scope.chartTypeList[0].key;
+        $scope.outerRepairFeeChartType = $scope.chartTypeList[0].key;
         // 初始化 y轴 数据
-        $scope.yAxisDataQuality = [];
+        $scope.yAxisDataTruck = [];
         // 组装初始数据
         $scope.yearList.forEach(function (year) {
             // y轴
-            $scope.yAxisDataQuality.push({
+            $scope.yAxisDataTruck.push({
                 name: year.key,
-                showDamageCount: false,
-                showTotalDamgeMoney: false,
-                showCompanyMoney: false,
-                showPerCarDamageMoney: false,
-                showPerCarCDamageMoney: false,
-                showCleanFee: false,
-                showPerCarCleanFee: false,
-                showDamageRatio: false,
-                // 质损次数 damage_count 总体质损成本 total_damge_money 公司承担质损成本 company_money 单车质损成本 per_car_damage_money
-                // 单车公司质损成本 per_car_c_damage_money 洗车费 clean_fee 单车洗车费 per_car_clean_fee 质损率 damage_ratio
-                damageCount: [0,0,0,0,0,0,0,0,0,0,0,0],
-                totalDamgeMoney: [0,0,0,0,0,0,0,0,0,0,0,0],
-                companyMoney: [0,0,0,0,0,0,0,0,0,0,0,0],
-                perCarDamageMoney: [0,0,0,0,0,0,0,0,0,0,0,0],
-                perCarCDamageMoney: [0,0,0,0,0,0,0,0,0,0,0,0],
-                cleanFee: [0,0,0,0,0,0,0,0,0,0,0,0],
-                perCarCleanFee: [0,0,0,0,0,0,0,0,0,0,0,0],
-                damageRatio: [0,0,0,0,0,0,0,0,0,0,0,0]
+                showEtcFee: false,
+                showOilVol: false,
+                showOilFee: false,
+                showUreaVol: false,
+                showUreaFee: false,
+                showRepairFee: false,
+                showPartFee: false,
+                showMaintianFee: false,
+                showOuterRepairCount: false,
+                showOuterRepairFee: false,
+                showBuyScoreFee: false,
+                showTrafficFineFee: false,
+                showDriverUnderMoney: false,
+                showCompanyUnderMoney: false,
+                etcFee: [0,0,0,0,0,0,0,0,0,0,0,0],
+                oilVol: [0,0,0,0,0,0,0,0,0,0,0,0],
+                oilFee: [0,0,0,0,0,0,0,0,0,0,0,0],
+                ureaVol: [0,0,0,0,0,0,0,0,0,0,0,0],
+                ureaFee: [0,0,0,0,0,0,0,0,0,0,0,0],
+                repairFee: [0,0,0,0,0,0,0,0,0,0,0,0],
+                partFee: [0,0,0,0,0,0,0,0,0,0,0,0],
+                maintianFee: [0,0,0,0,0,0,0,0,0,0,0,0],
+                outerRepairCount: [0,0,0,0,0,0,0,0,0,0,0,0],
+                outerRepairFee: [0,0,0,0,0,0,0,0,0,0,0,0],
+                buyScoreFee: [0,0,0,0,0,0,0,0,0,0,0,0],
+                trafficFineFee: [0,0,0,0,0,0,0,0,0,0,0,0],
+                driverUnderMoney: [0,0,0,0,0,0,0,0,0,0,0,0],
+                companyUnderMoney: [0,0,0,0,0,0,0,0,0,0,0,0]
             });
         });
 
         // 默认显示最后一个年的数据
         let index = $scope.yearList.length - 1;
         // 默认：显示年列表最后一个年的数据
-        getQualityStatistics(true, $scope.yearList[index].key, index,'');
+        getTruckStatistics(true, $scope.yearList[index].key, index,'');
     };
+
+    // TAB4：图1：年列表 选中/取消 操作
+    $scope.checkEtcFee = function (event, year, index) {
+        // 查询接口数据
+        getTruckStatistics(event.target.checked, year, index, 'etc_fee');
+    };
+
+    // TAB4：图2：年列表 选中/取消 操作
+    $scope.checkOilVol = function (event, year, index) {
+        // 查询接口数据
+        getTruckStatistics(event.target.checked, year, index, 'oil_vol');
+    };
+    $scope.checkOilFee = function (event, year, index) {
+        // 查询接口数据
+        getTruckStatistics(event.target.checked, year, index, 'oil_fee');
+    };
+
+    // TAB4：图3：年列表 选中/取消 操作
+    $scope.checkUreaVol = function (event, year, index) {
+        // 查询接口数据
+        getTruckStatistics(event.target.checked, year, index, 'urea_vol');
+    };
+    $scope.checkUreaFee = function (event, year, index) {
+        // 查询接口数据
+        getTruckStatistics(event.target.checked, year, index, 'urea_fee');
+    };
+
+    // TAB4：图4：年列表 选中/取消 操作
+    $scope.checkRepairFee = function (event, year, index) {
+        // 查询接口数据
+        getTruckStatistics(event.target.checked, year, index, 'repair_fee');
+    };
+    $scope.checkMaintianFee = function (event, year, index) {
+        // 查询接口数据
+        getTruckStatistics(event.target.checked, year, index, 'maintian_fee');
+    };
+
+    // TAB4：图5：年列表 选中/取消 操作
+    $scope.checkPartFee = function (event, year, index) {
+        // 查询接口数据
+        getTruckStatistics(event.target.checked, year, index, 'part_fee');
+    };
+
+    // TAB4：图6：年列表 选中/取消 操作
+    $scope.checkBuyScoreFee = function (event, year, index) {
+        // 查询接口数据
+        getTruckStatistics(event.target.checked, year, index, 'buy_score_fee');
+    };
+    $scope.checkTrafficFineFee = function (event, year, index) {
+        // 查询接口数据
+        getTruckStatistics(event.target.checked, year, index, 'traffic_fine_fee');
+    };
+
+    // TAB4：图7：年列表 选中/取消 操作
+    $scope.checkDriverUnderMoney = function (event, year, index) {
+        // 查询接口数据
+        getTruckStatistics(event.target.checked, year, index, 'driver_under_money');
+    };
+    $scope.checkCompanyUnderMoney = function (event, year, index) {
+        // 查询接口数据
+        getTruckStatistics(event.target.checked, year, index, 'company_under_money');
+    };
+    // TAB4：图8：年列表 选中/取消 操作
+    $scope.checkOuterRepairCount = function (event, year, index) {
+        // 查询接口数据
+        getTruckStatistics(event.target.checked, year, index, 'outer_repair_count');
+    };
+    $scope.checkOuterRepairFee = function (event, year, index) {
+        // 查询接口数据
+        getTruckStatistics(event.target.checked, year, index, 'outer_repair_fee');
+    };
+
+    /**
+     * TAB4：初始化 图表数据
+     * @param index 操作年份索引
+     * @param type 操作chart图的区分
+     */
+    function initTruckChartData(index, type){
+        // 先清空 指定索引 y轴 数据
+        switch (type) {
+            case 'etc_fee':
+                $scope.yAxisDataTruck[index].showEtcFee = false;
+                $scope.yAxisDataTruck[index].etcFee = [0,0,0,0,0,0,0,0,0,0,0,0];
+                break;
+            case 'oil_vol':
+                $scope.yAxisDataTruck[index].showOilVol = false;
+                $scope.yAxisDataTruck[index].oilVol = [0,0,0,0,0,0,0,0,0,0,0,0];
+                break;
+            case 'oil_fee':
+                $scope.yAxisDataTruck[index].showOilFee = false;
+                $scope.yAxisDataTruck[index].oilFee = [0,0,0,0,0,0,0,0,0,0,0,0];
+                break;
+            case 'urea_vol':
+                $scope.yAxisDataTruck[index].showUreaVol = false;
+                $scope.yAxisDataTruck[index].ureaVol = [0,0,0,0,0,0,0,0,0,0,0,0];
+                break;
+            case 'urea_fee':
+                $scope.yAxisDataTruck[index].showUreaFee = false;
+                $scope.yAxisDataTruck[index].ureaFee = [0,0,0,0,0,0,0,0,0,0,0,0];
+                break;
+            case 'repair_fee':
+                $scope.yAxisDataTruck[index].showRepairFee = false;
+                $scope.yAxisDataTruck[index].repairFee = [0,0,0,0,0,0,0,0,0,0,0,0];
+                break;
+            case 'part_fee':
+                $scope.yAxisDataTruck[index].showPartFee = false;
+                $scope.yAxisDataTruck[index].partFee = [0,0,0,0,0,0,0,0,0,0,0,0];
+                break;
+            case 'maintian_fee':
+                $scope.yAxisDataTruck[index].showMaintianFee = false;
+                $scope.yAxisDataTruck[index].maintianFee = [0,0,0,0,0,0,0,0,0,0,0,0];
+                break;
+            case 'buy_score_fee':
+                $scope.yAxisDataTruck[index].showMaintianFee = false;
+                $scope.yAxisDataTruck[index].buyScoreFee = [0,0,0,0,0,0,0,0,0,0,0,0];
+                break;
+            case 'traffic_fine_fee':
+                $scope.yAxisDataTruck[index].showMaintianFee = false;
+                $scope.yAxisDataTruck[index].trafficFineFee = [0,0,0,0,0,0,0,0,0,0,0,0];
+                break;
+            case 'driver_under_money':
+                $scope.yAxisDataTruck[index].showDriverUnderMoney = false;
+                $scope.yAxisDataTruck[index].driverUnderMoney = [0,0,0,0,0,0,0,0,0,0,0,0];
+                break;
+            case 'company_under_money':
+                $scope.yAxisDataTruck[index].showCompanyUnderMoney = false;
+                $scope.yAxisDataTruck[index].companyUnderMoney = [0,0,0,0,0,0,0,0,0,0,0,0];
+                break;
+            // 在外维修次数  在外维修金额
+            case 'outer_repair_count':
+                $scope.yAxisDataTruck[index].showOuterRepairCount = false;
+                $scope.yAxisDataTruck[index].outerRepairCount = [0,0,0,0,0,0,0,0,0,0,0,0];
+                break;
+            case 'outer_repair_fee':
+                $scope.yAxisDataTruck[index].showOuterRepairFee = false;
+                $scope.yAxisDataTruck[index].outerRepairFee = [0,0,0,0,0,0,0,0,0,0,0,0];
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * TAB4：根据区分 刷新指定图表
+     * @param type 操作chart图的区分
+     */
+    $scope.refreshTruckChart = function (type) {
+        switch (type) {
+            // 过路费
+            case 'etc_fee':
+                createTruckChartData($("#etcFeeStatistics"), 'etc_fee', '元', $scope.etcFeeChartType);
+                break;
+            case 'oil_vol':
+                createTruckChartData($("#oilVolStatistics"), 'oil_vol', '升',$scope.oilVolChartType);
+                break;
+            case 'oil_fee':
+                createTruckChartData($("#oilFeeStatistics"), 'oil_fee','元', $scope.oilFeeChartType);
+                break;
+            // 尿素量 urea_vol 尿素费 urea_fee
+            case 'urea_vol':
+                createTruckChartData($("#ureaVolStatistics"), 'urea_vol','升', $scope.ureaVolChartType);
+                break;
+            case 'urea_fee':
+                createTruckChartData($("#ureaFeeStatistics"), 'urea_fee','元', $scope.ureaFeeChartType);
+                break;
+            // 修理费 repair_fee 保养费 maintian_fee
+            case 'repair_fee':
+                createTruckChartData($("#repairFeeStatistics"), 'repair_fee','元', $scope.repairFeeChartType);
+                break;
+            case 'maintian_fee':
+                createTruckChartData($("#maintianFeeStatistics"), 'maintian_fee','元', $scope.maintianFeeChartType);
+                break;
+            // 配件费 part_fee
+            case 'part_fee':
+                createTruckChartData($("#partFeeStatistics"), 'part_fee', '元',$scope.partFeeChartType);
+                break;
+            // 买分金额 buy_score_fee 交通罚款 traffic_fine_fee
+            case 'buy_score_fee':
+                createTruckChartData($("#buyScoreFeeStatistics"), 'buy_score_fee','元', $scope.buyScoreFeeChartType);
+                break;
+            case 'traffic_fine_fee':
+                createTruckChartData($("#trafficFineFeeStatistics"), 'traffic_fine_fee', '元',$scope.trafficFineFeeChartType);
+                break;
+            // 个人承担违章  driver_under_money 公司承担违章 company_under_money
+            case 'driver_under_money':
+                createTruckChartData($("#driverUnderMoneyStatistics"), 'driver_under_money','元', $scope.driverUnderMoneyChartType);
+                break;
+            case 'company_under_money':
+                createTruckChartData($("#companyUnderMoneyStatistics"), 'company_under_money','元', $scope.companyUnderMoneyChartType);
+                break;
+            // 在外维修次数 outer_repair_count 在外维修金额 outer_repair_fee
+            case 'outer_repair_count':
+                createTruckChartData($("#outerRepairCountStatistics"), 'outer_repair_count', '次',$scope.outerRepairCountChartType);
+                break;
+            case 'outer_repair_fee':
+                createTruckChartData($("#outerRepairFeeStatistics"), 'outer_repair_fee', '元',$scope.outerRepairFeeChartType);
+                break;
+            default:
+                createTruckChartData($("#etcFeeStatistics"), 'etc_fee', '元', $scope.etcFeeChartType);
+                createTruckChartData($("#oilVolStatistics"), 'oil_vol', '升',$scope.oilVolChartType);
+                createTruckChartData($("#oilFeeStatistics"), 'oil_fee', '元',$scope.oilFeeChartType);
+                createTruckChartData($("#ureaVolStatistics"), 'urea_vol','升', $scope.ureaVolChartType);
+                createTruckChartData($("#ureaFeeStatistics"), 'urea_fee', '元',$scope.ureaFeeChartType);
+                createTruckChartData($("#repairFeeStatistics"), 'repair_fee','元', $scope.repairFeeChartType);
+                createTruckChartData($("#maintianFeeStatistics"), 'maintian_fee','元', $scope.maintianFeeChartType);
+                createTruckChartData($("#partFeeStatistics"), 'part_fee','元', $scope.partFeeChartType);
+                createTruckChartData($("#buyScoreFeeStatistics"), 'buy_score_fee','元', $scope.buyScoreFeeChartType);
+                createTruckChartData($("#trafficFineFeeStatistics"), 'traffic_fine_fee','元', $scope.trafficFineFeeChartType);
+                createTruckChartData($("#driverUnderMoneyStatistics"), 'driver_under_money','元', $scope.driverUnderMoneyChartType);
+                createTruckChartData($("#companyUnderMoneyStatistics"), 'company_under_money','元', $scope.companyUnderMoneyChartType);
+                createTruckChartData($("#outerRepairCountStatistics"), 'outer_repair_count', '次',$scope.outerRepairCountChartType);
+                createTruckChartData($("#outerRepairFeeStatistics"), 'outer_repair_fee', '元',$scope.outerRepairFeeChartType);
+        }
+    };
+
+    /**
+     * TAB4：初始化 chart图
+     * @param node 节点
+     * @param type 操作chart图的区分
+     * @param yAxisText 图表Y轴单位
+     * @param chartType 图表显示类型：bar: 条形图，line：折线图，column：柱状图
+     */
+    function createTruckChartData(node, type, yAxisText, chartType) {
+        // 只显示 选中的年数据
+        let yAxisData = [];
+        for (let i = 0; i < $scope.yAxisDataTruck.length; i++) {
+            switch (type) {
+                case 'etc_fee':
+                    if ($scope.yAxisDataTruck[i].showEtcFee) {
+                        yAxisData.push({name: $scope.yAxisDataTruck[i].name, data: $scope.yAxisDataTruck[i].etcFee});
+                    }
+                    break;
+                case 'oil_vol':
+                    if ($scope.yAxisDataTruck[i].showOilVol) {
+                        yAxisData.push({name: $scope.yAxisDataTruck[i].name, data: $scope.yAxisDataTruck[i].oilVol});
+                    }
+                    break;
+                case 'oil_fee':
+                    if ($scope.yAxisDataTruck[i].showOilFee) {
+                        yAxisData.push({name: $scope.yAxisDataTruck[i].name, data: $scope.yAxisDataTruck[i].oilFee});
+                    }
+                    break;
+                case 'urea_vol':
+                    if ($scope.yAxisDataTruck[i].showUreaVol) {
+                        yAxisData.push({name: $scope.yAxisDataTruck[i].name, data: $scope.yAxisDataTruck[i].ureaVol});
+                    }
+                    break;
+                case 'urea_fee':
+                    if ($scope.yAxisDataTruck[i].showUreaFee) {
+                        yAxisData.push({name: $scope.yAxisDataTruck[i].name, data: $scope.yAxisDataTruck[i].ureaFee});
+                    }
+                    break;
+                case 'repair_fee':
+                    if ($scope.yAxisDataTruck[i].showRepairFee) {
+                        yAxisData.push({name: $scope.yAxisDataTruck[i].name, data: $scope.yAxisDataTruck[i].repairFee});
+                    }
+                    break;
+                case 'maintian_fee':
+                    if ($scope.yAxisDataTruck[i].showMaintianFee) {
+                        yAxisData.push({name: $scope.yAxisDataTruck[i].name, data: $scope.yAxisDataTruck[i].maintianFee});
+                    }
+                    break;
+                case 'part_fee':
+                    if ($scope.yAxisDataTruck[i].showPartFee) {
+                        yAxisData.push({name: $scope.yAxisDataTruck[i].name, data: $scope.yAxisDataTruck[i].partFee});
+                    }
+                    break;
+                case 'buy_score_fee':
+                    if ($scope.yAxisDataTruck[i].showBuyScoreFee) {
+                        yAxisData.push({name: $scope.yAxisDataTruck[i].name, data: $scope.yAxisDataTruck[i].buyScoreFee});
+                    }
+                    break;
+                case 'traffic_fine_fee':
+                    if ($scope.yAxisDataTruck[i].showTrafficFineFee) {
+                        yAxisData.push({name: $scope.yAxisDataTruck[i].name, data: $scope.yAxisDataTruck[i].trafficFineFee});
+                    }
+                    break;
+                case 'driver_under_money':
+                    if ($scope.yAxisDataTruck[i].showDriverUnderMoney) {
+                        yAxisData.push({name: $scope.yAxisDataTruck[i].name, data: $scope.yAxisDataTruck[i].driverUnderMoney});
+                    }
+                    break;
+                case 'company_under_money':
+                    if ($scope.yAxisDataTruck[i].showCompanyUnderMoney) {
+                        yAxisData.push({name: $scope.yAxisDataTruck[i].name, data: $scope.yAxisDataTruck[i].companyUnderMoney});
+                    }
+                    break;
+                case 'outer_repair_count':
+                    if ($scope.yAxisDataTruck[i].showOuterRepairCount) {
+                        yAxisData.push({name: $scope.yAxisDataTruck[i].name, data: $scope.yAxisDataTruck[i].outerRepairCount});
+                    }
+                    break;
+                case 'outer_repair_fee':
+                    if ($scope.yAxisDataTruck[i].showOuterRepairFee) {
+                        yAxisData.push({name: $scope.yAxisDataTruck[i].name, data: $scope.yAxisDataTruck[i].outerRepairFee});
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        createChartOptions(node, chartType, yAxisText, yAxisData);
+    }
+
+    /**
+     * 数据赋值
+     * @param index y轴索引
+     * @param month 月份索引
+     * @param data 接口数据
+     */
+    function setTruckStat(index, month, data){
+        // 过路费 etc_fee
+        // 油量 oil_vol 油费 oil_fee
+        // 尿素量 urea_vol 尿素费 urea_fee
+        // 修理费 repair_fee 保养费 maintian_fee
+        // 配件费 part_fee
+        // 买分金额 buy_score_fee 交通罚款 traffic_fine_fee
+        // 个人承担违章  driver_under_money 公司承担违章 company_under_money
+        // 在外维修次数 outer_repair_count 在外维修金额 outer_repair_fee
+        $scope.yAxisDataTruck[index].etcFee[month] = data.etc_fee;
+        $scope.yAxisDataTruck[index].oilVol[month] = data.oil_vol;
+        $scope.yAxisDataTruck[index].oilFee[month] = data.oil_fee;
+        $scope.yAxisDataTruck[index].ureaVol[month] = data.urea_vol;
+        $scope.yAxisDataTruck[index].ureaFee[month] = data.urea_fee;
+        $scope.yAxisDataTruck[index].repairFee[month] = data.repair_fee;
+        $scope.yAxisDataTruck[index].partFee[month] = data.part_fee;
+        $scope.yAxisDataTruck[index].maintianFee[month] = data.maintain_fee;
+        $scope.yAxisDataTruck[index].outerRepairCount[month] = data.outer_repair_count;
+        $scope.yAxisDataTruck[index].outerRepairFee[month] = data.outer_repair_fee;
+        $scope.yAxisDataTruck[index].buyScoreFee[month] = data.buy_score_fee;
+        $scope.yAxisDataTruck[index].trafficFineFee[month] = data.traffic_fine_fee;
+        $scope.yAxisDataTruck[index].driverUnderMoney[month] = data.driver_under_money;
+        $scope.yAxisDataTruck[index].companyUnderMoney[month] = data.company_under_money;
+    }
+
+    /**
+     * TAB4：调用接口 取得数据
+     * @param showFlag 显示数据/清除数据
+     * @param year 操作年份
+     * @param index 操作年份索引
+     * @param type 操作chart图的区分
+     */
+    function getTruckStatistics(showFlag, year, index, type){
+        // 初始化 图表数据
+        initTruckChartData(index, type);
+
+        // 如果是checkbox是取消，则直接刷新chart
+        if (!showFlag) {
+            // 刷新图表
+            $scope.refreshTruckChart(type);
+            return;
+        }
+
+        // 根据年 取得当前年的数据
+        let obj = {
+            yMonthStart: year + '01',
+            yMonthEnd: year + '12'
+        };
+        let url = $host.api_url + "/user/" + userId + "/truckStat?" + _basic.objToUrl(obj);
+        _basic.get(url).then(function (data) {
+            if (data.success){
+                data.result.reverse();
+                switch (type) {
+                    case 'etc_fee':
+                        $scope.yAxisDataTruck[index].showEtcFee = true;
+                        break;
+                    case 'oil_vol':
+                        $scope.yAxisDataTruck[index].showOilVol = true;
+                        break;
+                    case 'oil_fee':
+                        $scope.yAxisDataTruck[index].showOilFee = true;
+                        break;
+                    // 尿素量 urea_vol 尿素费 urea_fee
+                    case 'urea_vol':
+                        $scope.yAxisDataTruck[index].showUreaVol = true;
+                        break;
+                    case 'urea_fee':
+                        $scope.yAxisDataTruck[index].showUreaFee = true;
+                        break;
+                    // 修理费 repair_fee 保养费 maintian_fee
+                    case 'repair_fee':
+                        $scope.yAxisDataTruck[index].showRepairFee = true;
+                        break;
+                    case 'maintian_fee':
+                        $scope.yAxisDataTruck[index].showMaintianFee = true;
+                        break;
+                    // 配件费 part_fee
+                    case 'part_fee':
+                        $scope.yAxisDataTruck[index].showPartFee = true;
+                        break;
+                    // 买分金额 buy_score_fee 交通罚款 traffic_fine_fee
+                    case 'buy_score_fee':
+                        $scope.yAxisDataTruck[index].showBuyScoreFee = true;
+                        break;
+                    case 'traffic_fine_fee':
+                        $scope.yAxisDataTruck[index].showTrafficFineFee = true;
+                        break;
+                    // 个人承担违章  driver_under_money 公司承担违章 company_under_money
+                    case 'driver_under_money':
+                        $scope.yAxisDataTruck[index].showDriverUnderMoney = true;
+                        break;
+                    case 'company_under_money':
+                        $scope.yAxisDataTruck[index].showCompanyUnderMoney = true;
+                        break;
+                    // 在外维修次数 outer_repair_count 在外维修金额 outer_repair_fee
+                    case 'outer_repair_count':
+                        $scope.yAxisDataTruck[index].showOuterRepairCount = true;
+                        break;
+                    case 'outer_repair_fee':
+                        $scope.yAxisDataTruck[index].showOuterRepairFee = true;
+                        break;
+                    default:
+                        $scope.yAxisDataTruck[index].showEtcFee = true;
+                        $scope.yAxisDataTruck[index].showOilVol = true;
+                        $scope.yAxisDataTruck[index].showOilFee = true;
+                        $scope.yAxisDataTruck[index].showUreaVol = true;
+                        $scope.yAxisDataTruck[index].showUreaFee = true;
+                        $scope.yAxisDataTruck[index].showRepairFee = true;
+                        $scope.yAxisDataTruck[index].showMaintianFee = true;
+                        $scope.yAxisDataTruck[index].showPartFee = true;
+                        $scope.yAxisDataTruck[index].showBuyScoreFee = true;
+                        $scope.yAxisDataTruck[index].showTrafficFineFee = true;
+                        $scope.yAxisDataTruck[index].showDriverUnderMoney = true;
+                        $scope.yAxisDataTruck[index].showCompanyUnderMoney = true;
+                        $scope.yAxisDataTruck[index].showOuterRepairCount = true;
+                        $scope.yAxisDataTruck[index].showOuterRepairFee = true;
+                }
+
+                // 给指定月份数据 赋值
+                for (let i = 0; i < data.result.length; i++) {
+                    switch (data.result[i].y_month.toString().slice(4,6)) {
+                        case '01':
+                            setTruckStat(index, 0, data.result[i]);
+                            break;
+                        case '02':
+                            setTruckStat(index, 1, data.result[i]);
+                            break;
+                        case '03':
+                            setTruckStat(index, 2, data.result[i]);
+                            break;
+                        case '04':
+                            setTruckStat(index, 3, data.result[i]);
+                            break;
+                        case '05':
+                            setTruckStat(index, 4, data.result[i]);
+                            break;
+                        case '06':
+                            setTruckStat(index, 5, data.result[i]);
+                            break;
+                        case '07':
+                            setTruckStat(index, 6, data.result[i]);
+                            break;
+                        case '08':
+                            setTruckStat(index, 7, data.result[i]);
+                            break;
+                        case '09':
+                            setTruckStat(index, 8, data.result[i]);
+                            break;
+                        case '10':
+                            setTruckStat(index, 9, data.result[i]);
+                            break;
+                        case '11':
+                            setTruckStat(index, 10, data.result[i]);
+                            break;
+                        case '12':
+                            setTruckStat(index, 11, data.result[i]);
+                            break;
+                    }
+                }
+                console.log('yAxisDataTruck ',$scope.yAxisDataTruck);
+                // 刷新图表
+                $scope.refreshTruckChart(type);
+            } else{
+                swal(data.msg, "", "error");
+            }
+        });
+    }
 
     /**
      * 画面初期显示时，用来获取画面必要信息的初期方法。

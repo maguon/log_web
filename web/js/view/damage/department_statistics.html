@@ -39,26 +39,26 @@
                     </div>
 
                     <!-- 2:外协产值 柱状图-->
-                    <div class="row z-depth-2">
-                        <div class="col s12 blue-grey lighten-4 bold grey-text text-darken-1 no-mp">
-                            <div class="col s2" style="font-size: 16px;margin-top:12px;">外协产值</div>
-                            <div class="col s1">
-                                <select material-select watch ng-change="refreshChart('outer')" ng-model="outerChartType">
-                                    <option ng-repeat="el in chartTypeList" ng-value="el.key">{{el.value}}</option>
-                                </select>
-                            </div>
-                            <div class="col s1" style="margin-top:12px;" ng-repeat="year in yearList">
-                                <input type="checkbox" id="{{year.key}}_out" name="select" class="filled-in settle"
-                                       ng-click="checkOuterStat($event,year.key,$index)" ng-checked="defaultYear==year.key"/>
-                                <label for="{{year.key}}_out" class="mp-10" style="margin-top:2px;">{{year.value}}</label>
-                            </div>
-                        </div>
+<!--                    <div class="row z-depth-2">-->
+<!--                        <div class="col s12 blue-grey lighten-4 bold grey-text text-darken-1 no-mp">-->
+<!--                            <div class="col s2" style="font-size: 16px;margin-top:12px;">外协产值</div>-->
+<!--                            <div class="col s1">-->
+<!--                                <select material-select watch ng-change="refreshChart('outer')" ng-model="outerChartType">-->
+<!--                                    <option ng-repeat="el in chartTypeList" ng-value="el.key">{{el.value}}</option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                            <div class="col s1" style="margin-top:12px;" ng-repeat="year in yearList">-->
+<!--                                <input type="checkbox" id="{{year.key}}_out" name="select" class="filled-in settle"-->
+<!--                                       ng-click="checkOuterStat($event,year.key,$index)" ng-checked="defaultYear==year.key"/>-->
+<!--                                <label for="{{year.key}}_out" class="mp-10" style="margin-top:2px;">{{year.value}}</label>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                        <!--柱状图-->
-                        <div class="col s12">
-                            <div id="outerOutputStatistics" style="min-width:400px;height:500px;margin: 10px 0 10px 0"></div>
-                        </div>
-                    </div>
+<!--                        &lt;!&ndash;柱状图&ndash;&gt;-->
+<!--                        <div class="col s12">-->
+<!--                            <div id="outerOutputStatistics" style="min-width:400px;height:500px;margin: 10px 0 10px 0"></div>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
                     <!-- 3:单车产值 柱状图-->
                     <div class="row z-depth-2">

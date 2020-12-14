@@ -196,7 +196,8 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
                 break;
             default:
                 createSettleChartData($("#outputStatistics"), 'outPut', $scope.outputChartType);
-                createSettleChartData($("#outerOutputStatistics"), 'outer', $scope.outerChartType);
+                // TODO 暂时不显示
+                // createSettleChartData($("#outerOutputStatistics"), 'outer', $scope.outerChartType);
                 createSettleChartData($("#perTruckOutputStatistics"), 'perTruck', $scope.perTruckChartType);
                 createSettleChartData($("#perKmOutputStatistics"), 'perKm', $scope.perKmChartType);
         }
@@ -1601,7 +1602,6 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
                             break;
                     }
                 }
-                console.log('yAxisDataTruck ',$scope.yAxisDataTruck);
                 // 刷新图表
                 $scope.refreshTruckChart(type);
             } else{

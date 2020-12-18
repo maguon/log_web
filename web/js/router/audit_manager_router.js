@@ -473,6 +473,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/statistics/transport_planning_statistics.html",
             controller:"transport_planning_statistics_controller"
         })
+        // 部门统计 2020-12-18 新建
+        .state("department_statistics", {
+            url:"/department_statistics",
+            templateUrl: "js/view/damage/department_statistics.html",
+            controller:"department_statistics_controller"
+        })
 
         // 从首页跳详情图
         .state("storage_car_details", {

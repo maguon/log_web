@@ -348,6 +348,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/statistics/accident_statistics.html",
             controller:"accident_statistics_controller"
         })
+        // 部门统计 2020-12-18 新建
+        .state("department_statistics", {
+            url:"/department_statistics",
+            templateUrl: "js/view/damage/department_statistics.html",
+            controller:"department_statistics_controller"
+        })
         .state("demand_car_details",{
             url:"/demand_car_details/{id}/vin/{vin}?from",
             templateUrl: "js/view/car/car_demand/demand_car_details.html",

@@ -204,6 +204,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/damage/car_detection_statistics.html",
             controller:"car_detection_statistics_controller"
         })
+        // 部门统计 2020-12-18 新建
+        .state("department_statistics", {
+            url:"/department_statistics",
+            templateUrl: "js/view/damage/department_statistics.html",
+            controller:"department_statistics_controller"
+        })
         // 质损申报
         .state("damage_declaration",{
             url:"/damage_declaration",

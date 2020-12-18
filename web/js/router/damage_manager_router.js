@@ -191,6 +191,12 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/statistics/car_insurance_payment_statistics.html",
             controller:"car_insurance_payment_statistics_controller"
         })
+        // 部门统计 2020-12-18 新建
+        .state("department_statistics", {
+            url:"/department_statistics",
+            templateUrl: "js/view/damage/department_statistics.html",
+            controller:"department_statistics_controller"
+        })
         .state("instruction_list", {
             url: "/instruction_list",
             params: {"from": null},

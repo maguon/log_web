@@ -1611,6 +1611,47 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
     }
 
     /**
+     * 数据导出
+     */
+    $scope.exportSettle = function (){
+        // 基本检索URL
+        let url = $host.api_url + "/settleStat.csv" ;
+        // 检索条件
+        // var conditionsObj = makeConditions();
+        // var conditions = _basic.objToUrl(conditionsObj);
+        // // 检索URL
+        // url = conditions.length > 0 ? url + "&" + conditions : url;
+        window.open(url);
+    };
+
+    /**
+     * 数据导出
+     */
+    $scope.exportDispatch = function (){
+        // 基本检索URL
+        let url = $host.api_url + "/dispatchStat.csv" ;
+        window.open(url);
+    };
+
+    /**
+     * 数据导出
+     */
+    $scope.exportQuality = function (){
+        // 基本检索URL
+        let url = $host.api_url + "/qualityStat.csv" ;
+        window.open(url);
+    };
+
+    /**
+     * 数据导出
+     */
+    $scope.exportTruck = function (){
+        // 基本检索URL
+        let url = $host.api_url + "/truckStat.csv" ;
+        window.open(url);
+    };
+
+    /**
      * 画面初期显示时，用来获取画面必要信息的初期方法。
      */
     function initData() {

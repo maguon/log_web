@@ -6,10 +6,22 @@
             <!--头部 TAB页-->
             <div class="col s12">
                 <ul class="tabWrap grey lighten-4">
-                    <li class="tab col s3 settle vc-center" ng-click="showSettle()">结算</li>
-                    <li class="tab col s3 dispatch vc-center" ng-click="showDispatch()">调度</li>
-                    <li class="tab col s3 quality vc-center" ng-click="showQuality()">质量</li>
-                    <li class="tab col s3 truck vc-center" ng-click="showTruck()">车管</li>
+                    <li class="tab col s3 settle vc-center" >
+                        <div class="col s8 center" ng-click="showSettle()">结算</div>
+                        <div class="col s4 center" ng-click="exportSettle()"><i class="mdi mdi-cloud-download fz18"></i></div>
+                    </li>
+                    <li class="tab col s3 dispatch vc-center" >
+                        <div class="col s8 center" ng-click="showDispatch()">调度</div>
+                        <div class="col s4 center" ng-click="exportDispatch()"><i class="mdi mdi-cloud-download fz18"></i></div>
+                    </li>
+                    <li class="tab col s3 quality vc-center" >
+                        <div class="col s8 center" ng-click="showQuality()">质量</div>
+                        <div class="col s4 center" ng-click="exportQuality()"><i class="mdi mdi-cloud-download fz18"></i></div>
+                    </li>
+                    <li class="tab col s3 truck vc-center" >
+                        <div class="col s8 center" ng-click="showTruck()">车管</div>
+                        <div class="col s4 center" ng-click="exportTruck()"><i class="mdi mdi-cloud-download fz18"></i></div>
+                    </li>
                 </ul>
             </div>
 

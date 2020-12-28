@@ -356,6 +356,12 @@ baseService.factory("_config", function () {
         {key: "line", value: "折线图"}
     ];
 
+    // 消息 状态
+    _this.notificationStatus = [
+        {key: "0", value: "不可用"},
+        {key: "1", value: "可用"}
+    ];
+
     //经销商类型
     _this.receiveType = [
         {id: "1", typeName: "4S店"},

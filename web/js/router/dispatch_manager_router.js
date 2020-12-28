@@ -214,6 +214,12 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/dispatch/reissue_premium.html",
             controller:"reissue_premium_controller"
         })
+        // 消息管理 2020-12-28 新建
+        .state("notification_manager", {
+            url:"/notification_manager",
+            templateUrl: "js/view/dispatch/notification_manager.html",
+            controller:"notification_manager_controller"
+        })
         .state("car_to_data", {
             url: "/car_to_data",  //路由路径
             templateUrl: "js/view/data/car_to_data.html",  //路由填充的模板

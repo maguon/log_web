@@ -1,0 +1,146 @@
+<div>
+    <!--添加模态框-->
+    <div id="newMsgModal" class="modal">
+        <!-- 标题 -->
+        <div class="cyan lighten-1 white-text center-align modal_title" >新增消息</div>
+
+        <!-- 主体 -->
+        <div class="modal-content">
+            <div class="row col margin" style="width: 80%;margin-left: 10%">
+
+                <div class="row col s12 input-field">
+                    <input id="msgTitle" type="text" ng-model="newMsgTitle">
+                    <label for="msgTitle"><span class="red-text">*</span>标题</label>
+                </div>
+
+                <div class="row">
+                    <div class="col s12 mp-20"><span class="red-text">*</span>内容</div>
+                    <div class="col s12 input-field"><textarea style="height: 180px"  ng-model="newMsgContent"></textarea></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部 -->
+        <div class="divider" style="background: #ccc;height: 1px;"></div>
+        <div class="modal-footer vc-center">
+            <a class=" modal-action modal-close waves-effect waves-light grey lighten-1 btn"  >取消 </a>
+            <button class="btn waves-light waves-effect cyan lighten-2"  ng-click="addNotification()" name="action" style="margin-left: 10px">确定</button>
+        </div>
+    </div>
+
+    <!--修改模态框-->
+    <div id="editMsgModal" class="modal">
+        <!-- 标题 -->
+        <div class="cyan lighten-1 white-text center-align modal_title" >消息详情</div>
+
+        <!-- 主体 -->
+        <div class="modal-content">
+            <div class="row col margin" style="width: 80%;margin-left: 10%">
+
+                <div class="row col s12 input-field">
+                    <input id="title" type="text" ng-model="editMsgTitle">
+                    <label for="title"><span class="red-text">*</span>标题</label>
+                </div>
+
+                <div class="row">
+                    <div class="col s12 mp-20"><span class="red-text">*</span>内容</div>
+                    <div class="col s12 input-field"><textarea style="height: 180px"  ng-model="editMsgContent"></textarea></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部 -->
+        <div class="divider" style="background: #ccc;height: 1px;"></div>
+        <div class="modal-footer vc-center">
+            <a class=" modal-action modal-close waves-effect waves-light grey lighten-1 btn"  >取消 </a>
+            <button class="btn waves-light waves-effect cyan lighten-2"  ng-click="saveNotification()" name="action" style="margin-left: 10px">确定</button>
+        </div>
+    </div>
+
+
+    <!-- 主页面 -->
+    <div class="row">
+        <!-- 检索条件 部分 -->
+        <div class="row">
+            <div class="col s3 input-field">
+                <select material-select watch style="width: 100%" id="msgStatus" ng-model="msgStatus">
+                    <option value="" selected>请选择</option>
+                    <option ng-repeat="el in notificationStatusList" ng-value="el.key">{{el.value}}</option>
+                </select>
+            </div>
+
+            <!--发布时间(始)-->
+            <div class="col s3 input-field">
+                <input id="conCreatedOnStart" type="text" ng-model="conCreatedOnStart" class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
+                <label for="conCreatedOnStart">发布时间（始）</label>
+            </div>
+
+            <!--发布时间(终)-->
+            <div class="col s3 input-field">
+                <input id="conCreatedOnEnd" type="text" ng-model="conCreatedOnEnd"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
+                <label for="conCreatedOnEnd">发布时间（终）</label>
+            </div>
+
+            <div class="col s1"></div>
+
+            <div class="col s1 flex flex-round">
+                <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" style="margin-right: 10px" ng-click="searchNotification()">
+                    <i class="mdi mdi-magnify"></i>
+                </a>
+            </div>
+            <div class="col s1 flex flex-round">
+                <a class="btn-floating btn-large waves-light waves-effect cyan lighten-2  btn vc-center" ng-click="showNewMsgModal()"><i class="mdi mdi-plus"></i></a>
+            </div>
+        </div>
+
+        <!-- 检索结果 部分 -->
+        <div class="divider cyan" style="height: 2px;"></div>
+        <div class="col s12">
+            <table class="highlight bordered striped text_mid">
+                <thead>
+                <tr class="table_header blue-grey lighten-5 grey-text text-darken-1">
+                    <th data-field="">用户名</th>
+                    <th data-field="">标题</th>
+                    <th data-field="">发布日期</th>
+                    <th data-field="">状态</th>
+                    <th width="200" class="table_operation">操作</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr ng-repeat="el in sysNotificationList" class="grey-text text-darken-1">
+                    <td>{{el.real_name}}</td>
+                    <td>{{el.title}}</td>
+                    <td>{{el.created_on | date:'yyyy-MM-dd'}}</td>
+                    <td ng-if="el.status==1">可用</td>
+                    <td ng-if="el.status==0">不可用</td>
+                    <td width="200" class="operation table_operation vc-center">
+                        <span><i class="mdi mdi-eye cyan-text text-lighten-1" ng-click="showMsgModal(el.id)"></i></span>
+                        <span class="switch" style="height: 30px;">
+                            <label>
+                                <input type="checkbox" ng-click="changeStatus(el.id, el.status)" ng-checked="el.status==1">
+                                <span class="lever"></span>
+                            </label>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="grey-text text-darken-1" ng-if="matchUser.length == 0">
+                    <td colspan="5"><span style="letter-spacing: 2px">暂无数据</span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="paging_box col s12">
+            <div class="right">
+                <a class="waves-light waves-effect cyan lighten-1 btn"  id="pre"   ng-click="previous_page()">
+                    上一页
+                </a>
+                <a class="waves-light waves-effect cyan lighten-1 btn" id="next"  ng-click="next_page()">
+                    下一页
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -58,7 +58,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/dispatch/reissue_premium.html",
             controller:"reissue_premium_controller"
         })
-
+        // 消息管理 2020-12-28 新建
+        .state("notification_manager", {
+            url:"/notification_manager",
+            templateUrl: "js/view/dispatch/notification_manager.html",
+            controller:"notification_manager_controller"
+        })
 
         .state("look_instruction_list_details", {
             url: "/look_instruction_list_details/id/{id}/from/{from}",

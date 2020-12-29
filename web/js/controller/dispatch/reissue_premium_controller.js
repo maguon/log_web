@@ -224,7 +224,8 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
                     actualRunFee:$scope.newRunFee * $scope.dispatchNum.car_count,
                     leadFee: $scope.newLeadFee,
                     actualLeadFee:$scope.newLeadFee,
-                    type: 1
+                    type: 1,
+                    remark:$scope.remarkItem
                 }).then(function (data) {
                     if (data.success === true) {
                         $('#singleReissue').modal('close');
@@ -240,27 +241,38 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
     }
 
 
-
-
-    //根据调度编号 添加补发
+    /**
+     * 【加号】按钮，显示【新增洗车费用】
+     * 根据调度编号 添加补发
+     */
     $scope.addFeeItem = function (){
+        //调度编号
         $scope.dpId='';
+        // 司机/车牌号/调度编号
         $scope.carItem=null;
+        // 调度编号
         $scope.dispatchNum=undefined;
+        // 备注
         $scope.remarkItem='';
+        // 拖车费
         $scope.newTrailerFee =0;
+        // 提车费金额
         $scope.newCarParkingFee =0;
+        // 地跑费
         $scope.newRunFee =0;
+        // 带路费
         $scope.newLeadFee =0;
         $(".no_car_detail").hide();
         $(".car_detail").hide();
         $('#addFeeItem').modal('open');
     };
 
-
-    //根据调度编号 查找调度信息
-    $scope.getDetail = function (){
-        _basic.get($host.api_url + "/dpRouteLoadTask?dpRouteTaskId=" +$scope.dpId).then(function (data) {
+    /**
+     * 【新增洗车费用】模态：根据调度编号 查找调度信息
+     */
+    $scope.geDpRouteLoadTask = function () {
+        let dpRouteTaskId = $scope.dpId == "" ? -1 : $scope.dpId;
+        _basic.get($host.api_url + "/dpRouteLoadTask?dpRouteTaskId=" + dpRouteTaskId).then(function (data) {
             if (data.success = true) {
                 if (data.result.length == 0) {
                     $(".no_car_detail").show();
@@ -270,33 +282,31 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
                     $(".car_detail").show();
                     $scope.addWashFeeBox = data.result;
                     $scope.carItem = data.result[0];
-
-                    $scope.newTrailerFee =0;
-                    $scope.newCarParkingFee =0;
-                    $scope.newRunFee =0;
-                    $scope.newLeadFee =0;
+                    // 每台/每板
+                    $scope.selectCarPark = '';
+                    $scope.newTrailerFee = 0;
+                    $scope.newCarParkingFee = 0;
+                    $scope.newRunFee = 0;
+                    $scope.newLeadFee = 0;
                 }
             }
         })
-    }
-
+    };
 
     //根据调度编号 补发保道费
     $scope.addFee  = function(){
         if($scope.dispatchNum==undefined){
             swal('车辆或者补价不能为空', "", "error");
-        }
-        else{
-            if ($scope.dispatchNum.car_count==0||$scope.newTrailerFee==null||$scope.newCarParkingFee==null||
-                $scope.newRunFee==null||$scope.newLeadFee==null||$scope.dispatchNum.car_count==null) {
+        } else {
+            if ($scope.dispatchNum.car_count == 0 || $scope.newTrailerFee == null || $scope.newCarParkingFee == null ||
+                $scope.newRunFee == null || $scope.newLeadFee == null || $scope.dispatchNum.car_count == null) {
                 swal('车辆或者补价不能为空', "", "error");
-            }
-            else {
-                if($scope.selectCarPark==undefined||$scope.selectCarPark==""){
-                    var carParkingFee =$scope.newCarParkingFee*$scope.dispatchNum.car_count;
-                }
-                else {
-                    var carParkingFee =$scope.newCarParkingFee;
+            } else {
+                let carParkingFee;
+                if ($scope.selectCarPark == undefined || $scope.selectCarPark == "") {
+                    carParkingFee =$scope.newCarParkingFee*$scope.dispatchNum.car_count;
+                }  else {
+                    carParkingFee =$scope.newCarParkingFee;
                 }
                 _basic.post($host.api_url + "/user/" + userId + "/dpRouteLoadTaskCleanRel",{
                     dpRouteTaskId: $scope.dispatchNum.dp_route_task_id,
@@ -308,10 +318,13 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
                     carCount: $scope.dispatchNum.car_count,
                     trailerFee:  $scope.newTrailerFee,
                     totalTrailerFee: $scope.newTrailerFee*$scope.dispatchNum.car_count,
+                    actualTrailerFee: $scope.newTrailerFee * $scope.dispatchNum.car_count,
                     carParkingFee: carParkingFee,
                     runFee:  $scope.newRunFee,
                     totalRunFee: $scope.newRunFee*$scope.dispatchNum.car_count,
+                    actualRunFee:$scope.newRunFee * $scope.dispatchNum.car_count,
                     leadFee:  $scope.newLeadFee,
+                    actualLeadFee:$scope.newLeadFee,
                     type: 1,
                     remark:$scope.remarkItem
                 }).then(function (data) {
@@ -326,9 +339,7 @@ app.controller("reissue_premium_controller", ["$scope", "$state","$stateParams",
                 })
             }
         }
-
-    }
-
+    };
 
 
     /*

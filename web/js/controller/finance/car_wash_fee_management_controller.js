@@ -268,7 +268,8 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
     };
     //查找详细信息
     $scope.getDetail1 = function (){
-        _basic.get($host.api_url + "/dpRouteLoadTask?dpRouteTaskId=" +$scope.dpId).then(function (data) {
+        let dpRouteTaskId = $scope.dpId == "" ? -1 : $scope.dpId;
+        _basic.get($host.api_url + "/dpRouteLoadTask?dpRouteTaskId=" +dpRouteTaskId).then(function (data) {
             if (data.success = true) {
                 if (data.result.length == 0) {
                     $(".no_car_detail").show();

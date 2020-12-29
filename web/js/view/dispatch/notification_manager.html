@@ -6,16 +6,17 @@
 
         <!-- 主体 -->
         <div class="modal-content">
-            <div class="row col margin" style="width: 80%;margin-left: 10%">
-
+            <div class="row col margin">
                 <div class="row col s12 input-field">
                     <input id="msgTitle" type="text" ng-model="newMsgTitle">
                     <label for="msgTitle"><span class="red-text">*</span>标题</label>
                 </div>
 
                 <div class="row">
-                    <div class="col s12 mp-20"><span class="red-text">*</span>内容</div>
-                    <div class="col s12 input-field"><textarea style="height: 180px"  ng-model="newMsgContent"></textarea></div>
+                    <div class="col s5 mp-20"><span class="red-text">*</span>内容</div>
+                    <div class="col s7 mp-20">效果演示</div>
+                    <div class="col s5 input-field"><textarea style="height: 300px" ng-change="markdown2HTML('newMsg')" ng-model="newMsgContent"></textarea></div>
+                    <div class="col s7 input-field" id="newMsg"></div>
                 </div>
             </div>
         </div>
@@ -43,8 +44,10 @@
                 </div>
 
                 <div class="row">
-                    <div class="col s12 mp-20"><span class="red-text">*</span>内容</div>
-                    <div class="col s12 input-field"><textarea style="height: 180px"  ng-model="editMsgContent"></textarea></div>
+                    <div class="col s5 mp-20"><span class="red-text">*</span>内容</div>
+                    <div class="col s7 mp-20">效果演示</div>
+                    <div class="col s5 input-field"><textarea style="height: 300px" ng-change="markdown2HTML('editMsg')" ng-model="editMsgContent"></textarea></div>
+                    <div class="col s7 input-field" id="editMsg"></div>
                 </div>
             </div>
         </div>

@@ -8,13 +8,25 @@ app.controller("notification_manager_controller", ["_basic", "_config", "$host",
     $scope.start = 0;
     $scope.size = 21;
 
+    // Markdown to HTML
+    $scope.markdown2HTML = function (type) {
+        let content = type === 'newMsg' ? $scope.newMsgContent : $scope.editMsgContent;
+        document.getElementById(type).innerHTML = new showdown.Converter().makeHtml(content);
+    };
+
     /**
      * 显示模态【新增消息】
      */
     $scope.showNewMsgModal = function () {
         // 初始化数据
         $scope.newMsgTitle = "";
-        $scope.newMsgContent = "";
+        $scope.newMsgContent = "# 一级标题"
+            + "\n## 二级标题"
+            + "\n### 三级标题"
+            + "\n图片显示"
+            + "\n![blockchain](https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=702257389,1274025419&fm=27&gp=0.jpg)"
+        ;
+        $scope.markdown2HTML('newMsg');
         // 显示模态
         $(".modal").modal();
         $("#newMsgModal").modal("open");
@@ -53,6 +65,7 @@ app.controller("notification_manager_controller", ["_basic", "_config", "$host",
                 $scope.editId = data.result[0].id;
                 $scope.editMsgTitle = data.result[0].title;
                 $scope.editMsgContent = data.result[0].content;
+                $scope.markdown2HTML('editMsg');
             } else {
                 swal(data.msg, "", "error");
             }

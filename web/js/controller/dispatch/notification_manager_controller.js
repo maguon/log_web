@@ -23,8 +23,7 @@ app.controller("notification_manager_controller", ["_basic", "_config", "$host",
         $scope.newMsgContent = "# 一级标题"
             + "\n## 二级标题"
             + "\n### 三级标题"
-            + "\n图片显示"
-            + "\n![blockchain](https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=702257389,1274025419&fm=27&gp=0.jpg)"
+            + "\n![blockchain](http://stsswl.com/backend/assets/images/logo.png)"
         ;
         $scope.markdown2HTML('newMsg');
         // 显示模态

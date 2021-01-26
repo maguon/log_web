@@ -1,135 +1,265 @@
-<!--委托方结算-->
-<div class="setting_settlement">
 
-    <!--查询条件-->
-    <div class="row">
-        <div class="row grey-text text-darken-1">
-            <div class="col s10">
-                <div class="col s12">
+<!--tab分页 司机产值  司机工资（第一个下载）-->
+<div class="modal-content grey-text text-darken-2">
+    <div class="row no-marBottom" ul-tabs style="overflow: hidden">
+        <div class="col s12">
+            <ul class="tabWrap grey lighten-4">
+                <li class="tab col s6 driverOutput vc-center" ng-click="driverOutput()">司机产值</li>
+                <li class="tab col s6 driverSalary vc-center" ng-click="driverSalary()">司机工资</li>
+            </ul>
+        </div>
 
-                    <!--指令日期(始)  指令日期(终)-->
-                    <div class="input-field col s4">
-                        <input type="text" ng-model="instruct_starTime" id="instruct_start_time" name="instruct_start_time"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
-                        <label for="instruct_start_time">计划执行时间(始)</label>
+        <!--司机产值-->
+        <div id="driverOutput" class="row tab_box" style="margin-top: 50px" >
+
+            <!--查询条件-->
+            <div class="row">
+                <div class="row grey-text text-darken-1">
+                    <div class="col s10">
+                        <div class="col s12">
+                            <!--指令日期(始)  指令日期(终)-->
+                            <div class="input-field col s4">
+                                <input type="text" ng-model="instruct_starTime" id="instruct_start_time" name="instruct_start_time"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
+                                <label for="instruct_start_time">计划执行时间(始)</label>
+                            </div>
+                            <div class="input-field col s4">
+                                <input type="text" ng-model="instruct_endTime" id="instruct_endTime" name="instruct_endTime"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
+                                <label for="instruct_endTime">计划执行时间(终)</label>
+                            </div>
+                            <!--司机-->
+                            <div class="input-field col s4">
+                                <select material-select watch ng-model="drivderId" id="driveName" style="width: 100%">
+                                    <option value="" selected>请选择</option>
+                                    <option ng-repeat="addDrivder in driveNameList" value={{addDrivder.id}}>{{addDrivder.drive_name}}</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="col s12">
+                            <!--货车牌号-->
+                            <div class="input-field col s4">
+                                <select  id="truckNum" style="width: 100%" ng-model="truckNum">
+                                    <option value=""></option>
+                                    <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
+                                </select>
+                            </div>
+                            <div class="input-field col s4">
+                                <select id="operate_type" name="operate_type" material-select watch ng-change="chooseOperateType()" ng-model="operateType">
+                                    <option value="">请选择</option>
+                                    <option value="1">自营</option>
+                                    <option value="2">外协</option>
+                                    <!--  <option value="3">供方</option>
+                                      <option value="4">承包</option>-->
+                                </select>
+                                <label>所属类型</label>
+                            </div>
+                            <div class="input-field col s4">
+                                <select id="company" name="company" material-select watch ng-model="searchCompany" required>
+                                    <option value="">请选择</option>
+                                    <option ng-repeat="company in companyList" ng-value="company.id" selected>{{company.company_name}}</option>
+                                </select>
+                                <label>所属公司</label>
+                            </div>
+                        </div>
+
                     </div>
 
-
-                    <div class="input-field col s4">
-                        <input type="text" ng-model="instruct_endTime" id="instruct_endTime" name="instruct_endTime"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
-                        <label for="instruct_endTime">计划执行时间(终)</label>
+                    <!--按钮-->
+                    <div class="col s2" style="margin-top: 40px">
+                        <div class="col s4" >
+                            <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getSettlement()">
+                                <i class="mdi mdi-magnify"></i>
+                            </a>
+                        </div>
+                        <div class="col s4 center-align">
+                            <a class="btn-floating btn-large waves-light waves-effect btn vc-center" title="产值" style="background-color: #fea353;" ng-click="export()">
+                                <i class="mdi mdi-cloud-download"></i>
+                            </a>
+                        </div>
+                        <div class="col s4 center-align">
+                            <a class="btn-floating btn-large waves-light waves-effect cyan btn vc-center" title="产值明细"  ng-click="exportDatail()">
+                                <i class="mdi mdi-cloud-download"></i>
+                            </a>
+                        </div>
                     </div>
-
-                    <!--司机-->
-                    <div class="input-field col s4">
-                        <select material-select watch ng-model="drivderId" id="driveName" style="width: 100%">
-                            <option value="" selected>请选择</option>
-                            <option ng-repeat="addDrivder in driveNameList" value={{addDrivder.id}}>{{addDrivder.drive_name}}</option>
-                        </select>
-                    </div>
-
+                </div>
             </div>
             <div class="col s12">
-                <!--货车牌号-->
-                <div class="input-field col s4">
-                    <select  id="truckNum" style="width: 100%" ng-model="truckNum">
-                        <option value=""></option>
-                        <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
-                    </select>
-                </div>
+                <div class="divider cyan" style="height: 2px;"></div>
+                <table class=" bordered striped text_mid">
+                    <thead class="blue-grey lighten-5">
+                    <tr class="grey-text text-darken-2">
+                        <th data-field="">司机</th>
+                        <th data-field="">车牌号</th>
+                        <th data-field="">所属类型</th>
+                        <th data-field="">所属公司</th>
+                     <!--   <th data-field="">到库数</th>
+                        <th data-field="">非到库数</th>-->
+                       <!-- <th data-field="">里程工资</th>
+                        <th data-field="">倒板工资</th>-->
+                        <th data-field="">产值</th>
+                        <th data-field="">二级产值</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="settlementInfo in settlementList" class="grey-text text-darken-1">
+                        <td>{{settlementInfo.drive_name}}</td>
+                        <td>{{settlementInfo.truck_num}}</td>
+                        <td>{{settlementInfo.operate_type|carType}}</td>
+                        <td>{{settlementInfo.company_name}}</td>
+                        <!--<td >{{settlementInfo.storage_car_count}}</td>
+                        <td>{{settlementInfo.not_storage_car_count}}</td>-->
+                        <!--<td>{{settlementInfo.distance_salary}}</td>
+                        <td>{{settlementInfo.reverse_salary}}</td>-->
+                        <td>{{settlementInfo.output}}</td>
+                        <td>{{settlementInfo.two_output}}</td>
+                    </tr>
+                    <tr ng-if="settlementList.length==0&&instruct_starTime!==undefined&&instruct_endTime!==undefined">
+                        <td colspan="6">暂无数据</td>
+                    </tr>
+                    <tr ng-if="instruct_starTime==undefined||instruct_endTime==undefined&&settlementList.length==0">
+                        <td colspan="6"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;计划执行时间为必填项</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 
-                <div class="input-field col s4">
-                    <select id="operate_type" name="operate_type" material-select watch ng-change="chooseOperateType()" ng-model="operateType">
-                        <option value="">请选择</option>
-                        <option value="1">自营</option>
-                        <option value="2">外协</option>
-                      <!--  <option value="3">供方</option>
-                        <option value="4">承包</option>-->
-                    </select>
-                    <label>所属类型</label>
-                </div>
-                <div class="input-field col s4">
-                    <select id="company" name="company" material-select watch ng-model="searchCompany" required>
-                        <option value="">请选择</option>
-                        <option ng-repeat="company in companyList" ng-value="company.id" selected>{{company.company_name}}</option>
-                    </select>
-                    <label>所属公司</label>
+
+            <!--分页-->
+            <div class="row">
+                <div class="paging_box col s12">
+                    <div class="right">
+                        <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="pre_btn()">
+                            上一页
+                        </a>
+                        <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_btn()">
+                            下一页
+                        </a>
+                    </div>
                 </div>
             </div>
 
+        </div>
+
+        <!--司机工资-->
+        <div id="driverSalary" class="row tab_box" style="margin-top: 50px">
+
+            <!--查询条件-->
+            <div class="row">
+                <div class="row grey-text text-darken-1">
+                    <div class="col s10">
+                        <div class="col s12">
+                            <!--指令日期(始)  指令日期(终)-->
+                            <div class="input-field col s4">
+                                <input type="text" ng-model="instruct_starTimeSalary" id="instruct_start_time_salary" name="instruct_start_time_salary"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
+                                <label for="instruct_start_time_salary">计划执行时间(始)</label>
+                            </div>
+                            <div class="input-field col s4">
+                                <input type="text" ng-model="instruct_endTimeSalary" id="instruct_endTime_salary" name="instruct_endTime_salary"  class="datepicker" autocomplete="off" required date><i class="mdi dataIcon mdi-table-large"></i>
+                                <label for="instruct_endTime_salary">计划执行时间(终)</label>
+                            </div>
+                            <!--司机-->
+                            <div class="input-field col s4">
+                                <select material-select watch ng-model="drivderIdSalary" id="driveNameSalary" style="width: 100%">
+                                    <option value="" selected>请选择</option>
+                                    <option ng-repeat="addDrivder in driveNameList" value={{addDrivder.id}}>{{addDrivder.drive_name}}</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="col s12">
+                            <!--货车牌号-->
+                            <div class="input-field col s4">
+                                <select  id="truckNumSalary" style="width: 100%" ng-model="truckNumSalary">
+                                    <option value=""></option>
+                                    <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}</option>
+                                </select>
+                            </div>
+                            <div class="input-field col s4">
+                                <select id="operate_type_Salary" name="operate_type_Salary" material-select watch ng-change="chooseOperateTypeSalary()" ng-model="operateTypeSalary">
+                                    <option value="">请选择</option>
+                                    <option value="1">自营</option>
+                                    <option value="2">外协</option>
+                                    <!--  <option value="3">供方</option>
+                                      <option value="4">承包</option>-->
+                                </select>
+                                <label>所属类型</label>
+                            </div>
+                            <div class="input-field col s4">
+                                <select id="companySalary" name="company" material-select watch ng-model="searchCompanySalary" required>
+                                    <option value="">请选择</option>
+                                    <option ng-repeat="company in companyListSalary" ng-value="company.id" selected>{{company.company_name}}</option>
+                                </select>
+                                <label>所属公司</label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--按钮-->
+                    <div class="col s2" style="margin-top: 40px">
+                        <div class="col s6" >
+                            <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getSettlementSalary()">
+                                <i class="mdi mdi-magnify"></i>
+                            </a>
+                        </div>
+                        <div class="col s6 center-align">
+                            <a class="btn-floating btn-large waves-light waves-effect btn vc-center" title="产值" style="background-color: #fea353;" ng-click="exportSalary()">
+                                <i class="mdi mdi-cloud-download"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12">
+                <div class="divider cyan" style="height: 2px;"></div>
+                <table class=" bordered striped text_mid">
+                    <thead class="blue-grey lighten-5">
+                    <tr class="grey-text text-darken-2">
+                        <th data-field="">司机</th>
+                        <th data-field="">车牌号</th>
+                        <th data-field="">所属类型</th>
+                        <th data-field="">所属公司</th>
+                        <th data-field="">到库数</th>
+                        <th data-field="">非到库数</th>
+                        <th data-field="">里程工资</th>
+                        <th data-field="">倒板工资</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="settlementInfo in  settlementListSalary" class="grey-text text-darken-1">
+                        <td>{{settlementInfo.drive_name}}</td>
+                        <td>{{settlementInfo.truck_num}}</td>
+                        <td>{{settlementInfo.operate_type|carType}}</td>
+                        <td>{{settlementInfo.company_name}}</td>
+                        <td >{{settlementInfo.storage_car_count}}</td>
+                        <td>{{settlementInfo.not_storage_car_count}}</td>
+                        <td>{{settlementInfo.distance_salary}}</td>
+                        <td>{{settlementInfo.reverse_salary}}</td>
+                    </tr>
+                    <tr ng-if="settlementListSalary.length==0&&instruct_starTimeSalary!==undefined&&instruct_endTimeSalary!==undefined">
+                        <td colspan="8">暂无数据</td>
+                    </tr>
+                    <tr ng-if="instruct_starTimeSalary==undefined||instruct_endTimeSalary==undefined&&settlementListSalary.length==0">
+                        <td colspan="8"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;计划执行时间为必填项</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
 
-            <!--按钮-->
-            <div class="col s2" style="margin-top: 40px">
-                <div class="col s4" >
-                    <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center" ng-click="getSettlement()">
-                        <i class="mdi mdi-magnify"></i>
-                    </a>
-                </div>
-                <div class="col s4 center-align">
-                    <a class="btn-floating btn-large waves-light waves-effect btn vc-center" title="产值" style="background-color: #fea353;" ng-click="export()">
-                        <i class="mdi mdi-cloud-download"></i>
-                    </a>
-                </div>
-                <div class="col s4 center-align">
-                    <a class="btn-floating btn-large waves-light waves-effect cyan btn vc-center" title="产值明细"  ng-click="exportDatail()">
-                        <i class="mdi mdi-cloud-download"></i>
-                    </a>
+
+            <!--分页-->
+            <div class="row">
+                <div class="paging_box col s12">
+                    <div class="right">
+                        <a class="waves-light waves-effect cyan lighten-1 btn"  id="preSalary" ng-click="getPrePageSalary()">上一页</a>
+                        <a class="waves-light waves-effect cyan lighten-1 btn" id="nextSalary" ng-click="getNextPageSalary()">下一页</a>
+                    </div>
                 </div>
             </div>
+
+
         </div>
     </div>
-    <div class="col s12">
-        <div class="divider cyan" style="height: 2px;"></div>
-        <table class=" bordered striped text_mid">
-            <thead class="blue-grey lighten-5">
-            <tr class="grey-text text-darken-2">
-                <th data-field="">司机</th>
-                <th data-field="">车牌号</th>
-                <th data-field="">所属类型</th>
-                <th data-field="">所属公司</th>
-                <th data-field="">到库数</th>
-                <th data-field="">非到库数</th>
-                <th data-field="">里程工资</th>
-                <th data-field="">倒板工资</th>
-                <th data-field="">产值</th>
-                <th data-field="">二级产值</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="settlementInfo in settlementList" class="grey-text text-darken-1">
-                <td>{{settlementInfo.drive_name}}</td>
-                <td>{{settlementInfo.truck_num}}</td>
-                <td>{{settlementInfo.operate_type|carType}}</td>
-                <td>{{settlementInfo.company_name}}</td>
-                <td >{{settlementInfo.storage_car_count}}</td>
-                <td>{{settlementInfo.not_storage_car_count}}</td>
-                <td>{{settlementInfo.distance_salary}}</td>
-                <td>{{settlementInfo.reverse_salary}}</td>
-                <td>{{settlementInfo.output}}</td>
-                <td>{{settlementInfo.two_output}}</td>
-            </tr>
-            <tr ng-if="settlementList.length==0&&instruct_starTime!==undefined&&instruct_endTime!==undefined">
-                <td colspan="10">暂无数据</td>
-            </tr>
-            <tr ng-if="instruct_starTime==undefined||instruct_endTime==undefined&&settlementList.length==0">
-                <td colspan="10"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;计划执行时间为必填项</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <!--分页-->
-    <div class="row">
-        <div class="paging_box col s12">
-            <div class="right">
-                <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="pre_btn()">
-                    上一页
-                </a>
-                <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_btn()">
-                    下一页
-                </a>
-            </div>
-        </div>
-    </div>
-
 </div>
+

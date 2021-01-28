@@ -31,11 +31,17 @@ app.controller("vehicle_index_controller", ['$scope', "$host", "_basic", functio
     $scope.insurePlanCount = 0;
     $scope.insurePlanMoney = 0;
     $scope.onRoadCount = 0;
+    $scope.numberCount1 = 0;
+    $scope.numberCount2 = 0;
+    $scope.numberCount3 = 0;
+    $scope.totalCount1 = 0;
+    $scope.totalCount2 = 0;
+    $scope.totalCount3 = 0;
 
     // 获取车辆信息
     $scope.getTruckCountInfo = function () {
         // 所属类型信息1自营车
-        _basic.get($host.api_url + "/operateTypeCount?truckStatus=1").then(function (data) {
+        _basic.get($host.api_url + "/operateTypeCount?truckType=1&truckStatus=1").then(function (data) {
             if (data.success === true) {
                 if(data.result.length !== 0){
                     for (var i = 0; i < data.result.length; i++) {
@@ -51,7 +57,7 @@ app.controller("vehicle_index_controller", ['$scope', "$host", "_basic", functio
         });
 
         // 自营挂车数量
-        _basic.get($host.api_url + "/truckCount?truckType=2&operateType=1").then(function (data) {
+        _basic.get($host.api_url + "/truckCount?truckType=2&operateType=1&truckStatus=1").then(function (data) {
             if (data.success === true) {
                 if(data.result.length !== 0){
                     $scope.trailerCarCount = data.result[0].truck_count;
@@ -113,6 +119,30 @@ app.controller("vehicle_index_controller", ['$scope', "$host", "_basic", functio
                 swal(data.msg, "", "error");
             }
         })
+
+        _basic.get($host.api_url + "/truckDispatchOpTypeCount?dispatchFlag=1&operateType=1").then(function (data) {
+            if (data.success === true) {
+                $scope.numberCount1 =data.result[0].truck_number;
+                $scope.numberCount2 =data.result[1].truck_number;
+                $scope.numberCount3 =data.result[2].truck_number;
+                $scope.totalCount1 =data.result[0].total_count;
+                $scope.totalCount2 =data.result[1].total_count;
+                $scope.totalCount3 =data.result[2].total_count;
+
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        })
+
+        $scope.numberCount1 = 0;
+        $scope.numberCount2 = 0;
+        $scope.numberCount3 = 0;
+        $scope.totalCount1 = 0;
+        $scope.totalCount2 = 0;
+        $scope.totalCount3 = 0;
+
+
     };
 
     // 获取本月事故，事故承担总额和待完成保险赔付信息

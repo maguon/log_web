@@ -1,3 +1,160 @@
+<div id="openPutProvinceModal" class="modal">
+
+    <!--标题-->
+    <div class="cyan lighten-1 white-text center-align modal_title" >修改城市省份</div>
+
+
+    <!--内容-->
+    <div class="modal-content">
+
+        <div class="container">
+
+            <div class="row col s12" style="width:94%; margin-left: 3%;">
+                <div class="col s12">
+                    <!--省份-->
+                    <div class="col offset-s2 s8">
+                        <div class="input-field col s9">
+                            <select material-select watch id="putProvince" name="putProvince"  ng-model="cityList.province_id"  required style="width: 100%">
+                                <option  ng-value="0">请选择</option>
+                                <option ng-repeat="putProvince in putProvinceList" ng-value='putProvince.id'>{{putProvince.province_name}}</option>
+                            </select>
+                        </div>
+
+                        <div class="col s3 center-align" style="margin-top: 20px">{{cityList.city_name}}</div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--分隔符-->
+    <div class="divider"></div>
+
+    <!--按钮-->
+    <div class="modal-footer row">
+        <div class="col s12">
+            <div class="col s2 offset-s4">
+                <a ng-click="put_city()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                    确定
+                </a>
+            </div>
+            <div class="col s2">
+                <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                    取消
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="openCityModal" class="modal">
+
+    <!--标题-->
+    <div class="cyan lighten-1 white-text center-align modal_title" >添加城市</div>
+
+
+    <!--内容-->
+    <div class="modal-content">
+
+        <div class="container">
+
+            <div class="row col s12" style="width:94%; margin-left: 3%;">
+                <div class="col s12">
+                    <!--省份-->
+                    <div class="col s6">
+                        <div class="input-field col s12">
+                            <select  id="province" name="province"  ng-model="province"  required style="width: 100%">
+                                <option value="" disabled selected>请选择</option>
+                                <option ng-repeat="el in get_province" ng-value="el.id" >{{el.province_name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--城市-->
+                    <div class="col s6">
+                        <div class="input-field col s12">
+                            <input id="cityText" type="text" ng-model="cityText">
+                            <label for="cityText">城市名称</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--分隔符-->
+    <div class="divider"></div>
+
+    <!--按钮-->
+    <div class="modal-footer row">
+        <div class="col s12">
+            <div class="col s2 offset-s4">
+                <a ng-click="add_city()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                    确定
+                </a>
+            </div>
+            <div class="col s2">
+                <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                    取消
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="openProvinceModal" class="modal">
+
+    <!--标题-->
+    <div class="cyan lighten-1 white-text center-align modal_title" >添加城市</div>
+
+
+    <!--内容-->
+    <div class="modal-content">
+
+        <div class="container">
+
+            <div class="row col s12" style="width:94%; margin-left: 3%;">
+                <div class="col s12">
+                    <!--省份-->
+                    <div class="col s12">
+                        <div class="input-field col s12">
+                            <input id="provinceText" type="text" ng-model="provinceText">
+                            <label for="provinceText">省份名称</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--分隔符-->
+    <div class="divider"></div>
+
+    <!--按钮-->
+    <div class="modal-footer row">
+        <div class="col s12">
+            <div class="col s2 offset-s4">
+                <a ng-click="add_province()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                    确定
+                </a>
+            </div>
+            <div class="col s2">
+                <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                    取消
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
 <div class="setting_car_brand">
     <div class="row">
         <div class="row valign-wrapper">
@@ -10,26 +167,10 @@
         </div>
         <div style="width: 85%;margin: 0 auto">
             <div class="row">
-                <a href="" class=" right  btn btn-large btn-floating waves-effect cyan lighten-1 waves-light vc-center open_city " ng-click="city_box()" ng-show="city_btn"><i class="mdi mdi-plus"></i></a>
-                <form name="addCityFrom" ng-submit="add_city(addCityFrom.$valid)" novalidate>
-                    <div ng-show="city_box_show" class="col s12 z-depth-2 white city_box" style="padding: 0.75rem 0;" ng-class="{'has-error':addCityFrom.cityText.$invalid&&submitted}">
-                        <div class="col s1 vc-center" style="height: 45px">
-                            <h6 class=" bold cyan-text text-lighten-1" style="min-width: 88px;margin-left: 10px">城市名称:</h6>
-                        </div>
-                        <input class="col s3 city_text" name="cityText" id="cityText" type="text" autocomplete="off" ng-model="cityText" required>
-                        <div class="col s2 add_Brand_Icon">
-                            <a style="margin-right: 20px"
-                               class="btn-floating waves-effect waves-light red lighten-2 btn" ng-click="closeCity()">
-                                <i class="mdi mdi-close add_brand"></i>
-                            </a>
-                            <button style="margin: 0" class="btn-floating waves-effect waves-light cyan  lighten-1 btn"
-                                    type="submit"
-                                    name="action">
-                                <i class="mdi mdi-check add_city"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
+                <a href="" style="background-color: #f0ad4e;" class=" right  btn btn-large btn-floating waves-effect  lighten-1 waves-light vc-center open_city " ng-click="province_box()" title="省份"><i class="mdi mdi-plus"></i></a>
+                <a href="" style="margin-right: 20px" class=" right  btn btn-large cyan btn-floating waves-effect lighten-1 waves-light vc-center open_city " ng-click="city_box()"  title="城市"><i class="mdi mdi-plus"></i></a>
+
+
             </div>
             <div class="col s12">
                 <div class="divider"></div>
@@ -38,10 +179,13 @@
                         <div ng-repeat="el in city_model" class="col s2" style=" padding:1rem;">
 
                            <!--开启-->
-                            <div class="col s12 city_model_panel z-depth-1 center-align"
-                                 ng-class="{'no_amend_model':el.model_status==0}" ng-show="el.city_oil_flag==1">
-                                <div class="col s9 cyan-text" style="margin: 9px 0;padding: 0px;">{{el.id + " - " + el.city_name}}</div>
-                                <div class="col s3">
+                            <div class="col s12 city_model_panel z-depth-1 center-align" ng-show="el.city_oil_flag==1">
+                                <div class="col s8 cyan-text" style="margin: 9px 0;padding: 0px;">{{el.id + " - " + el.city_name}}</div>
+
+                                <div class="col s2">
+                                    <i class="mdi cyan-text text-lighten-1 fz25 mdi-pencil" style="cursor: pointer" ng-click="openProvince(el.id,el.province_id,$index)"></i>
+                                </div>
+                                <div class="col s2">
                                     <i class="mdi cyan-text text-lighten-1 mdi-check-circle fz25" style="cursor: pointer"
                                        ng-click="openCity(el.id,el.city_oil_flag,$index)">
                                     </i>
@@ -61,10 +205,12 @@
                             </div>
 
                             <!--不开启-->
-                            <div class="col s12 city_model_panel z-depth-1  lighten-2  center-align"
-                                 ng-class="{'no_amend_model':el.model_status==0}"  ng-show="el.city_oil_flag==0">
-                                <div class="col s9 cyan-text" style="margin: 9px 0;padding: 0px;">{{el.id + " - " + el.city_name}}</div>
-                                <div class="col s3">
+                            <div class="col s12 city_model_panel z-depth-1  lighten-2  center-align" ng-show="el.city_oil_flag==0">
+                                <div class="col s8 cyan-text" style="margin: 9px 0;padding: 0px;">{{el.id + " - " + el.city_name}}</div>
+                                <div class="col s2">
+                                    <i class="mdi cyan-text text-lighten-1 fz25 mdi-pencil" style="cursor: pointer" ng-click="openProvince(el.id,el.province_id,$index)"></i>
+                                </div>
+                                <div class="col s2">
                                     <i class="mdi cyan-text text-lighten-1 mdi-check-circle-outline fz25" style="cursor: pointer"
                                        ng-click="openCity(el.id,el.city_oil_flag,$index)">
                                     </i>

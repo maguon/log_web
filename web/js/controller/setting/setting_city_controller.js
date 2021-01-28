@@ -210,21 +210,41 @@ app.controller("setting_city_controller", ["$scope", "$host", "_basic", function
 
 
     $scope.changeProvince = function(){
-        _basic.get($host.api_url + "/city?provinceId="+$scope.getProvince).then(function (data) {
-            if (data.success === true) {
-                if(data.result.length==0){
-                    $scope.city_model = [];
-                }
-                else {
-                    $scope.city_model = data.result;
+        if($scope.getProvince==undefined){
+            _basic.get($host.api_url + "/city").then(function (data) {
+                if (data.success === true) {
+                    if(data.result.length==0){
+                        $scope.city_model = [];
+                    }
+                    else {
+                        $scope.city_model = data.result;
 
 
+                    }
                 }
-            }
-            else{
-                swal(data.msg, "", "error")
-            }
-        });
+                else{
+                    swal(data.msg, "", "error")
+                }
+            });
+        }
+        else {
+            _basic.get($host.api_url + "/city?provinceId="+$scope.getProvince).then(function (data) {
+                if (data.success === true) {
+                    if(data.result.length==0){
+                        $scope.city_model = [];
+                    }
+                    else {
+                        $scope.city_model = data.result;
+
+
+                    }
+                }
+                else{
+                    swal(data.msg, "", "error")
+                }
+            });
+        }
+
 
     }
 

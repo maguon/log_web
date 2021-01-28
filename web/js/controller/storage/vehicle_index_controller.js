@@ -35,7 +35,7 @@ app.controller("vehicle_index_controller", ['$scope', "$host", "_basic", functio
     // 获取车辆信息
     $scope.getTruckCountInfo = function () {
         // 所属类型信息1自营车
-        _basic.get($host.api_url + "/operateTypeCount?truckType=1").then(function (data) {
+        _basic.get($host.api_url + "/operateTypeCount?truckStatus=1").then(function (data) {
             if (data.success === true) {
                 if(data.result.length !== 0){
                     for (var i = 0; i < data.result.length; i++) {

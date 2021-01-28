@@ -7,14 +7,17 @@ app.controller("setting_city_controller", ["$scope", "$host", "_basic", function
     //城市
     function getCity() {
         _basic.get($host.api_url + "/city").then(function (data) {
-            _basic.callBackDate(data, function () {
+            if (data.success == true) {
                 $scope.city_model = data.result;
-            })
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
         });
     };
     // 省份
     function getProvince(){
-        _basic.get($host.api_url + "/cityProvince").then(function (data) {
+        _basic.get($host.api_url + "/cityProvince?provinceStatus=1").then(function (data) {
             if (data.success == true) {
                 $scope.get_province = data.result;
                 $('#province').select2({
@@ -22,7 +25,11 @@ app.controller("setting_city_controller", ["$scope", "$host", "_basic", function
                     containerCssClass: 'select2_dropdown',
                     allowClear: true
                 });
-
+                $('#getProvince').select2({
+                    placeholder: '省份',
+                    containerCssClass: 'select2_dropdown',
+                    allowClear: true
+                });
             }
             else {
                 swal(data.msg, "", "error");
@@ -187,7 +194,7 @@ app.controller("setting_city_controller", ["$scope", "$host", "_basic", function
 
     //获取省份
     function getProvinceList(selectText){
-        _basic.get($host.api_url + "/cityProvince").then(function (data) {
+        _basic.get($host.api_url + "/cityProvince?provinceStatus=1").then(function (data) {
             if (data.success == true) {
                 $scope.putProvinceList = data.result;
                 $('#putProvince').select2({
@@ -199,6 +206,26 @@ app.controller("setting_city_controller", ["$scope", "$host", "_basic", function
                 swal(data.msg, "", "error");
             }
         });
+    }
+
+
+    $scope.changeProvince = function(){
+        _basic.get($host.api_url + "/city?provinceId="+$scope.getProvince).then(function (data) {
+            if (data.success === true) {
+                if(data.result.length==0){
+                    $scope.city_model = [];
+                }
+                else {
+                    $scope.city_model = data.result;
+
+
+                }
+            }
+            else{
+                swal(data.msg, "", "error")
+            }
+        });
+
     }
 
 }]);

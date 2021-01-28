@@ -30,14 +30,8 @@ app.controller("vehicle_index_controller", ['$scope', "$host", "_basic", functio
     $scope.accidentBearTotal = 0;
     $scope.insurePlanCount = 0;
     $scope.insurePlanMoney = 0;
-    $scope.onRoadCount = 0;
-    $scope.numberCount1 = 0;
-    $scope.numberCount2 = 0;
-    $scope.numberCount3 = 0;
-    $scope.totalCount1 = 0;
-    $scope.totalCount2 = 0;
-    $scope.totalCount3 = 0;
-
+    $scope.numberCount =[];
+    $scope.totalCount =[];
     // 获取车辆信息
     $scope.getTruckCountInfo = function () {
         // 所属类型信息1自营车
@@ -122,25 +116,13 @@ app.controller("vehicle_index_controller", ['$scope', "$host", "_basic", functio
 
         _basic.get($host.api_url + "/truckDispatchOpTypeCount?dispatchFlag=1&operateType=1").then(function (data) {
             if (data.success === true) {
-                $scope.numberCount1 =data.result[0].truck_number;
-                $scope.numberCount2 =data.result[1].truck_number;
-                $scope.numberCount3 =data.result[2].truck_number;
-                $scope.totalCount1 =data.result[0].total_count;
-                $scope.totalCount2 =data.result[1].total_count;
-                $scope.totalCount3 =data.result[2].total_count;
-
+                $scope.truckDispatchOpTypeCountArray=  data.result;
             }
             else {
                 swal(data.msg, "", "error");
             }
         })
 
-        $scope.numberCount1 = 0;
-        $scope.numberCount2 = 0;
-        $scope.numberCount3 = 0;
-        $scope.totalCount1 = 0;
-        $scope.totalCount2 = 0;
-        $scope.totalCount3 = 0;
 
 
     };

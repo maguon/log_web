@@ -166,11 +166,16 @@
             <div class="divider cyan lighten-2"></div>
         </div>
         <div style="width: 85%;margin: 0 auto">
-            <div class="row">
+            <div class="row s12">
+                <div class="input-field col s4">
+                    <select  id="getProvince" name="getProvince"  ng-change="changeProvince()"  ng-model="getProvince" required style="width: 100%">
+                        <option value="" disabled selected>请选择</option>
+                        <option ng-repeat="el in get_province" ng-value="el.id" >{{el.province_name}}</option>
+                    </select>
+                </div>
+
                <!-- <a href="" style="background-color: #f0ad4e;" class=" right  btn btn-large btn-floating waves-effect  lighten-1 waves-light vc-center open_city " ng-click="province_box()" title="省份"><i class="mdi mdi-plus"></i></a>
                --> <a href="" style="margin-right: 20px" class=" right  btn btn-large cyan btn-floating waves-effect lighten-1 waves-light vc-center open_city " ng-click="city_box()"  title="城市"><i class="mdi mdi-plus"></i></a>
-
-
             </div>
             <div class="col s12">
                 <div class="divider"></div>

@@ -71,9 +71,8 @@
                     <span style="display:block;font-size: 3rem;color: #e57474;margin-top: 35px">{{onRoadCount}}/{{useCar}}</span>
                 </div>
                 <div class="col s3  grey-text right-align">
-                    <div style="display:block;font-size: 1.5rem;">{{numberCount1}}位/{{totalCount1}}台</div>
-                    <div style="display:block;font-size: 1.5rem;">{{numberCount2}}位/{{totalCount2}}台</div>
-                    <div style="display:block;font-size: 1.5rem;">{{numberCount3}}位/{{totalCount3}}台</div>
+
+                    <div style="display:block;font-size: 1.5rem;" ng-repeat="el in truckDispatchOpTypeCountArray">{{el.truck_number}}位/{{el.total_count}}台</div>
                 </div>
             </div>
 

@@ -66,7 +66,21 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
             plotOptions: {
                 column: {
                     pointPadding: 0.2,
-                    borderWidth: 0
+                    borderWidth: 0,
+                    dataLabels: {
+                        // 开启数据标签
+                        enabled: true
+                    },
+                    // 关闭鼠标跟踪，对应的提示框、点击事件会失效
+                    enableMouseTracking: false
+                },
+                line: {
+                    dataLabels: {
+                        // 开启数据标签
+                        enabled: true
+                    },
+                    // 关闭鼠标跟踪，对应的提示框、点击事件会失效
+                    enableMouseTracking: false
                 }
             },
             credits: {

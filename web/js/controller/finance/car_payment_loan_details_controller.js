@@ -124,7 +124,7 @@ app.controller("car_payment_loan_details_controller", ["$scope", "$state", "$sta
     };
     // 点击打款按钮
     $scope.updateLoanInfo = function () {
-        if($scope.loanInfo.actual_money == null || $scope.loanInfo.actual_money === "" || $scope.loanInfo.indemnity_explain == null || $scope.loanInfo.indemnity_explain === ""){
+        if($scope.loanInfo.actual_money == null || $scope.loanInfo.actual_money === ""/* || $scope.loanInfo.indemnity_explain == null || $scope.loanInfo.indemnity_explain === ""*/){
             swal("打款金额或打款描述不能为空！", "", "warning");
         }
         else{

@@ -67,7 +67,7 @@ app.controller("vehicle_index_controller", ['$scope', "$host", "_basic", functio
             if (data.success === true) {
                 if(data.result.length !== 0){
                     $scope.totalDriver = data.result[0].total_drive;
-                    $scope.haveTotalDriver  = data.result[0].drive_truck_count+data.result[0].vice_drive_count;
+                    $scope.haveTotalDriver = data.result[0].drive_truck_count+data.result[0].vice_drive_count;
                 }
             }
             else {

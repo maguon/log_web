@@ -839,6 +839,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/truck/truck_retain.html",
             controller:'truck_retain_controller'
         })
+        .state("truck_confirm",{
+            url:"/truck_confirm",
+            params: {"from": null},
+            templateUrl: "js/view/truck/truck_confirm.html",
+            controller:'truck_confirm_controller'
+        })
 
         .state("car_wash_fee",{
             url:"/car_wash_fee",

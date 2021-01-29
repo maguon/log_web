@@ -1,0 +1,362 @@
+<div class="modal-content grey-text text-darken-2">
+    <div class="row no-marBottom" ul-tabs style="overflow: hidden">
+        <div class="col s12">
+            <ul class="tabWrap grey lighten-4">
+                <li class="tab col s6 importFile vc-center" ng-click="importFile()">导入货车检证文件</li>
+                <li class="tab col s6 lookMyselfFile vc-center" ng-click="lookMyselfFile()">查看货车检证</li>
+            </ul>
+        </div>
+
+        <!--导入货车检证文件-->
+        <div id="importFile" class="row tab_box" style="margin-top: 50px">
+
+            <!--按钮 第一行-->
+            <div class="row">
+                <form name="file_upload_form " id="file_upload_form" >
+                    <div class="col s4">
+                        <div class="row">
+                            <div class="file-field  input-field ">
+                                <a href="/assets/货车检证导入模板.csv" target="_blank" class="btn center-align waves-effect circle_button" >下载模板格式</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s5 offset-s3">
+                        <div class="col s4"> </div>
+                        <div class="col s4">
+                            <div class="row">
+                                <div class="file-field input-field">
+                                    <div class="btn cyan lighten-2 circle_button">
+                                        <span>批量数据导入</span>
+                                        <input type="file" style="font-size: 80px;height:45px;"  name="file" accept="text/csv" onchange='angular.element(this).scope().fileChange(this)' >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s4">
+                            <div class="row">
+                                <div class="file-field cyan input-field ">
+                                    <a href="" class="right btn waves-effect circle_button" ng-click="new_data_list()">单条数据增加</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+            <!--大图-->
+            <div class="row">
+                <div class="col s12">
+                    <div class="col s12 tableBox" ng-show="tableBox">
+                        <div class="col s12">
+                            <div class="col s4 push-s4 fz30 cyan-text center-align" style="padding-bottom:20px;border-bottom: 1px solid #ccc">数据导入须知</div>
+                        </div>
+                        <div class="col s9 push-s3 red-text fz20 mp-20">
+                            <i class="mdi  mdi-checkbox-multiple-blank-circle  cyan-text" ></i>
+                            上传得数据表格必须为csv格式的文件,不支持excel格式的表格文件上传;
+                        </div>
+                        <div class="col s9 push-s3 red-text fz20 mp-20">
+                            <i class="mdi  mdi-checkbox-multiple-blank-circle  cyan-text" ></i>
+                            上传得数据表格,必须遵守模板的数据表头顺序，若顺序错误将无法上传;
+                        </div>
+                        <div class="col s9 push-s3 red-text fz20 mp-20">
+                            <i class="mdi  mdi-checkbox-multiple-blank-circle  cyan-text" ></i>
+                            导入数据中各字段均为必填项，如果未发生数据，则以数字"0"代替;
+                        </div>
+                        <div class="col s9 push-s3 red-text fz20 mp-20">
+                            <i class="mdi  mdi-checkbox-multiple-blank-circle  cyan-text" ></i>
+                            如果系统内存在相同的记录，将上传失败;
+                        </div>
+                         <!--编号,货车牌号,检车类型,检车费用,税费,检车时间,备注-->
+                        <div class="col s10 push-s1 mp-40">
+                            <div class="divider cyan" style="height: 2px;"></div>
+                            <table class=" bordered striped text_mid">
+                                <thead class="blue-grey lighten-5">
+                                <tr class="grey-text text-darken-2">
+                                    <th data-field="">编号</th>
+                                    <th data-field="">货车牌号</th>
+                                    <th data-field="">检车类型</th>
+                                    <th data-field="">检车费用</th>
+                                    <th data-field="">税费</th>
+                                    <th data-field="">检车时间</th>
+                                    <th data-field="">备注</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="grey-text text-darken-1">
+                                    <td>23245685</td>
+                                    <td>辽B12345</td>
+                                    <td>1</td>
+                                    <td>100</td>
+                                    <td>200</td>
+                                    <td>2021/1/2</td>
+                                    <td>下次检车时间2022/2/5</td>
+                                </tr>
+                                <tr class="grey-text text-darken-1">
+                                    <td>自定义编号,长度小于20字符，非必填</td>
+                                    <td>检证车的货车头车牌号</td>
+                                    <td>1.运营证2.行驶证</td>
+                                    <td>检车所支付的费用</td>
+                                    <td>检车税费</td>
+                                    <td>检车时间</td>
+                                    <td>必要描述</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+
+            <!--上传错误页-->
+            <div class="row dataBox " style="overflow: auto;" ng-show="dataBox">
+                <div class="col s12">
+                    <h6 class="red lighten-2 white-text vc-center" style="padding: 20px">错误数据<span>{{errorNumber}}</span>条，请修改后重新上传</h6>
+                    <table class="responsive-table highlight">
+                        <thead class="blue-grey lighten-4 grey-text text-darken-1">
+                        <tr>
+                            <th>序号</th>
+                            <th ng-repeat="header in tableHeader track by $index">{{header}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="row in tableContentErrorFilter track by $index">
+                            <td>{{$index+1}}</td>
+                            <td ng-repeat="item in row track by $index">{{item}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!--上传成功页-->
+            <div class="row success_data_box " style="overflow: auto; "  ng-show="success_data_box">
+                <div class="divider" style="height: 2px;"></div>
+                <div class="col s12 " style="padding: 100px 0">
+                    <p><span>{{num}}</span>/<span>{{orginData_Length}}</span></p>
+                    <div class="col s2 offset-s5 ">
+                        <p class="vc-center " ng-show="local_isSuccesss">
+                            <i class="mdi mdi-check cyan-text text-lighten-2 fz40"></i><span class="blue-grey-text fz18">本地校验成功</span>
+                        </p>
+                        <p class="vc-center " ng-show="upload_isSuccesss">
+                            <i class="mdi mdi-check cyan-text text-lighten-2 fz40" ></i><span class="blue-grey-text fz18">上传完成</span>
+                        </p>
+                        <p class="vc-center" ng-show="upload_isSuccesss">
+                            <span>错误条数:<span>{{upload_error_array_num}}</span></span>
+                            <span>正确条数:<span>{{orginData_Length-upload_error_array_num}}</span></span>
+                            <span>总条数:<span>{{orginData_Length}}</span></span>
+                        </p>
+                        <p class="center-align">
+                            <button class="btn btn-large circle_button cyan lighten-2" ng-click="fileUpload()"  id="buttonImport">
+                                导入数据库
+                            </button>
+                            <a href="" style="margin-top: 10px" class="btn btn-large circle_button cyan lighten-2" ng-show="show_error" ng-click="show_error_msg()">错误数据显示</a>
+                        </p>
+                    </div>
+                </div>
+
+                <table class=" bordered striped" ng-show="error_msg">
+                    <thead class="blue-grey lighten-5">
+                    <tr class="grey-text text-darken-2">
+                        <th data-field="">错误位置</th>
+                        <th data-field="">原因</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="el in upload_error_array" class="grey-text text-darken-1">
+                        <td>第{{el.index}}条</td>
+                        <td ng-bind="el.msg"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+
+        <!--查看导入货车检证文件-->
+        <div id="lookMyselfFile" class="row tab_box" style="margin-top: 50px;">
+            <div class="col s10" style="margin-bottom: 20px;">
+                <!--货车牌号  -->
+                <div class="col s12">
+
+                    <div class="col s6 input-field">
+                        <select  material-select watch ng-model="truckId" id="truckId"  style="width: 100%">
+                            <option value="" selected>请选择</option>
+                            <option ng-repeat="truckNumItem in truckNumListAllList" ng-value="truckNumItem.id">{{truckNumItem.truck_num}}({{truckNumItem.truck_type == 1 ? "头车" : "挂车"}})</option>
+                        </select>
+                    </div>
+
+
+                    <div class="col s6 input-field">
+                        <select material-select watch id="paymentStatus" ng-model="paymentStatus">
+                            <option value="">请选择</option>
+                            <option ng-value="1">营运证</option>
+                            <option ng-value="2">行驶证</option>
+                        </select>
+                        <label for="paymentStatus">检车类型</label>
+                    </div>
+
+                    <!--时间查询（始）-->
+                    <div class="col s3 input-field">
+                        <input type="text" ng-model="startDate" id="putStartTime" name="putStartTime"  class="datepicker" autocomplete="off"    date><i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="putStartTime">交易时间(始)</label>
+                    </div>
+
+                    <!--时间查询（终）-->
+                    <div class="col s3 input-field">
+                        <input type="text" ng-model="endDate" id="putEndTime" name="putEndTime"  class="datepicker" autocomplete="off"   date><i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="putEndTime">交易时间(终)</label>
+                    </div>
+
+                    <div class="col s3 input-field">
+                        <input type="text" ng-model="createdOnStart" id="createdOnStart" name="createdOnStart"  class="datepicker" autocomplete="off"   date><i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="createdOnStart">创建范围(始)</label>
+                    </div>
+                    <div class="col s3 input-field">
+                        <input type="text" ng-model="createdOnEnd" id="createdOnEnd" name="createdOnEnd"  class="datepicker" autocomplete="off"   date><i class="mdi dataIcon mdi-table-large"></i>
+                        <label for="createdOnEnd">创建范围(终)</label>
+                    </div>
+
+
+                </div>
+            </div>
+            <!--查询-->
+            <div class="col s2 center" style="margin-top: 35px;">
+                <div class="col s6 right-align">
+                    <a class="btn-floating btn-large waves-light waves-effect red lighten-2  btn vc-center"
+                       style="margin-right: 10px" ng-click="searchETCList()">
+                        <i class="mdi mdi-magnify"></i>
+                    </a>
+
+                </div>
+                <div class="col s6 center-align">
+                    <a class="btn-floating btn-large waves-light waves-effect btn vc-center" style="background-color: #fea353;" ng-click="export()">
+                        <i class="mdi mdi-cloud-download"></i>
+                    </a>
+                </div>
+            </div>
+
+
+
+
+            <!--查询列表页-->
+            <div class="row tableBox">
+                <div class="col s12">
+                    <div class="divider cyan" style="height: 2px;"></div>
+                    <table class=" bordered striped text_mid">
+                        <thead class="blue-grey lighten-5">
+                        <tr class="grey-text text-darken-2">
+                            <th data-field="">编号</th>
+                            <th data-field="">货车牌号</th>
+                            <th data-field="">检车类型</th>
+                            <th data-field="">检车费用</th>
+                            <th data-field="">税费</th>
+                            <th data-field="">检车时间</th>
+                            <th data-field="">创建时间</th>
+                            <th data-field="">描述</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="fileInfo in importedFilesList" class="grey-text text-darken-1">
+                            <td>{{fileInfo.number}}</td>
+                            <td>{{fileInfo.truck_num}}</td>
+                            <td>{{fileInfo.qa_type==1?'运营证':'行驶证'}}</td>
+                            <td>{{fileInfo.qa_fee}}</td>
+                            <td>{{fileInfo.tax_fee}}</td>
+                            <td>{{fileInfo.date_id}}</td>
+                            <td>{{fileInfo.created_on | date:'yyyyMMdd'}}</td>
+                            <td>{{fileInfo.remark}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!--分页-->
+            <div class="row tableBox">
+                <div class="col s12" style="height: 45px">
+                    <div class="right">
+                        <a class="waves-light waves-effect cyan lighten-1 btn" id="pre" ng-click="previous_page()">
+                            上一页
+                        </a>
+                        <a class="waves-light waves-effect cyan lighten-1 btn" id="next" ng-click="next_page()">
+                            下一页
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--增加模态框-->
+<div id="new_driver_social_security" class="modal">
+    <div class="cyan lighten-1 white-text center-align modal_title" >新增货车检证</div>
+    <div class="modal-content" style="padding-bottom: 0px">
+        <div class="row col s12">
+            <div class="row">
+                <!-- 编号,货车牌号,检车类型,检车费用,税费,检车时间,备注   -->
+                <div class="col s2 input-field">
+                    <input type="number" id="addnumber" name="addnumber" ng-model="addnumber">
+                    <label for="addnumber">编号</label>
+                </div>
+                <div class="col s2 input-field">
+                    <select material-select watch ng-model="truckNum" id="truckNum"  style="width: 100%" >
+                        <option value="" selected>请选择</option>
+                        <option ng-repeat="truckNum in truckNumListAllList" ng-value=truckNum>{{truckNum.truck_num}}</option>
+                    </select>
+                </div>
+                <div class="col s2 input-field">
+                    <select material-select watch id="qaType" style="width:100%"  ng-model="qaType">
+                        <option value="" selected disabled>检车类型</option>
+                        <option ng-value="1">营运证</option>
+                        <option ng-value="2">行驶证</option>
+                    </select>
+                </div>
+
+                <div class="col s2 input-field">
+                    <input type="number" id="qaFee" name="qaFee" ng-model="qaFee">
+                    <label for="qaFee">检车费用</label>
+                </div>
+
+                <div class="col s2 input-field">
+                    <input type="number" id="taxFee" name="taxFee" ng-model="taxFee">
+                    <label for="taxFee">税费</label>
+                </div>
+                <div class="col s2 input-field">
+                    <input type="text" ng-model="happenTime" id="happenTime" name="happenTime"  class="datepicker" autocomplete="off" required   date>
+                    <i class="mdi dataIcon mdi-table-large"></i>
+                    <label for="happenTime">检车时间</label>
+                </div>
+                <div class="col s12 input-field">
+                    <input type="text" id="remark" name="remark" ng-model="remark">
+                    <label for="remark">备注</label>
+                </div>
+
+            </div>
+            <div class="divider" style="background: #ccc;height: 1px;margin: 20px 0"></div>
+            <div class="modal-footer center-align">
+                <div class="col s12">
+                    <div class="col s2 offset-s4">
+                        <a style="width: 100%" class="modal-action modal-close waves-light waves-effect grey lighten-1 btn">
+                            取消
+                        </a>
+                    </div>
+                    <div class="col s2">
+                        <a ng-click="addCarItem()" style="width: 100%" class="waves-light waves-effect cyan lighten-1 btn">
+                            确定
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

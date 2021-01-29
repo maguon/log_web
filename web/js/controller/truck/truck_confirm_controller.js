@@ -1,4 +1,4 @@
-app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_basic", "_config", "$host", function ($scope, $state, $stateParams, _basic, _config, $host) {
+app.controller("truck_confirm_controller", ["$scope", "$state", "$stateParams", "_basic", "_config", "$host", function ($scope, $state, $stateParams, _basic, _config, $host) {
     var userId = _basic.getSession(_basic.USER_ID);
     var userType = _basic.getSession(_basic.USER_TYPE);
     $scope.importedFilesList=[];
@@ -49,10 +49,12 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
     // 过滤条件数据
     var colObjs = [
         {name: '编号', type: 'string',require: false},
-        {name: '车牌号', type: 'string',require: true},
-        {name: '费用', type: 'number', require: true},
-        {name: '时间', type: 'string', require: true},
-        {name: '描述', type: 'string', require: true}];
+        {name: '货车牌号', type: 'string',require: true},
+        {name: '检车类型', type: 'number', require: true},
+        {name: '检车费用', type: 'number', require: true},
+        {name: '税费', type: 'number', require: true},
+        {name: '检车时间', type: 'string', require: true},
+        {name: '备注', type: 'string', require: true}];
     // 头部条件判断
     $scope.titleFilter = function (headerArray) {
         if (colObjs.length != headerArray.length) {
@@ -116,7 +118,7 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
     };
 
     function  getLocalFile(id){
-        _basic.formPost($("#file_upload_form"), $host.api_url + '/user/' + userId + '/truckEtcFile?uploadId='+id , function (data) {
+        _basic.formPost($("#file_upload_form"), $host.api_url + '/user/' + userId + '/truckQaFile?uploadId='+id , function (data) {
             if (data.success == true) {
                 $scope.$apply(function () {
                     $scope.upload_error_array_num =data.result.failedCase;
@@ -124,13 +126,13 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
                     $scope.num=data.result.successedInsert;
                     $scope.local_isSuccesss = false;
                     $scope.upload_isSuccesss = true;
-                  $("#buttonImport").attr("disabled",true);
+                    $("#buttonImport").attr("disabled",true);
                     swal('正确:'+$scope.num+'错误:'+$scope.upload_error_array_num,"", "success")
                 });
 
             }
             else {
-              $("#buttonImport").attr("disabled",true);
+                $("#buttonImport").attr("disabled",true);
                 swal(data.msg, "", "error");
             }
         });
@@ -210,16 +212,16 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
     };
 
     function getDriveNameList () {
-        _basic.get($host.api_url + "/drive?driveName=").then(function (data) {
+        _basic.get($host.api_url + "/truckBase").then(function (data) {
             if (data.success == true) {
                 $scope.driveNameList = data.result;
                 $('#driveName').select2({
-                    placeholder: '司机',
+                    placeholder: '货车牌号',
                     containerCssClass : 'select2_dropdown',
                     allowClear: true
                 });
                 $('#addDrivderId').select2({
-                    placeholder: '司机',
+                    placeholder: '货车牌号',
                     containerCssClass : 'select2_dropdown',
                     allowClear: true
                 });
@@ -261,15 +263,13 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
             swal('请输入完整的时间范围', "", "error");
         }
         else{
-            _basic.get($host.api_url + "/truckEtc?"+ _basic.objToUrl({
+            _basic.get($host.api_url + "/truckQa?"+ _basic.objToUrl({
                 truckId:  $scope.truckId,
-                driveId:  $scope.driveName,
-                etcDateStart: $scope.startDate,
-                etcDateEnd: $scope.endDate,
+                qaDateStart: $scope.startDate,
+                qaDateEnd: $scope.endDate,
                 createdOnStart:$scope.createdOnStart,
                 createdOnEnd:$scope.createdOnEnd,
-                paymentType:$scope.paymentType,
-                paymentStatus:$scope.paymentStatus,
+                qaType:$scope.paymentStatus,
                 start:$scope.start,
                 size:$scope.size
             })).then(function (data) {
@@ -294,24 +294,6 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
                     swal(data.msg, "", "error");
                 }
             });
-
-
-            _basic.get($host.api_url + "/truckEtcFeeCount?"+ _basic.objToUrl({
-                truckId:  $scope.truckId,
-                driveId:  $scope.driveName,
-                paymentType:$scope.paymentType,
-                paymentStatus:$scope.paymentStatus,
-                etcDateStart: $scope.startDate,
-                etcDateEnd: $scope.endDate,
-                createdOnStart:$scope.createdOnStart,
-                createdOnEnd:$scope.createdOnEnd
-            })).then(function (data) {
-                if (data.success === true) {
-
-                    $scope.boxArrayEtc = data.result[0].etc_fee;
-                }
-
-            })
         }
     };
 
@@ -331,18 +313,16 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
         else {
 
             // 基本检索URL
-            var url = $host.api_url + "/truckEtc.csv?";
+            var url = $host.api_url + "/truckQa.csv?";
             // 检索条件
 
             var conditions = _basic.objToUrl({
-                paymentType:$scope.paymentType,
-                paymentStatus:$scope.paymentStatus,
-                truckId: $scope.truckId,
-                driveId: $scope.driveName,
-                etcDateStart: $scope.startDate,
-                etcDateEnd: $scope.endDate,
-                createdOnStart: $scope.createdOnStart,
-                createdOnEnd: $scope.createdOnEnd
+                truckId:  $scope.truckId,
+                qaDateStart: $scope.startDate,
+                qaDateEnd: $scope.endDate,
+                createdOnStart:$scope.createdOnStart,
+                createdOnEnd:$scope.createdOnEnd,
+                qaType:$scope.paymentStatus
             });
             // 检索URL
             url = conditions.length > 0 ? url + "&" + conditions : url;
@@ -350,52 +330,28 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
         }
 
     }
-      $scope.changeDriver = function (driver) {
-          $scope.truckNumListAllList=[];
-          $scope.truckNum='';
-           _basic.get($host.api_url + "/drive?driveId=" + driver).then(function (data) {
-               if (data.success == true) {
-                   if(data.result.length==0){
-                       $scope.truckNum='';
-                   }
-                   else {
-                       if(data.result[0].truck_id!==undefined||data.result[0].truck_id!==null||data.result[0].truck_id!==''){
-                           $scope.truckNum = data.result[0].truck_id;
-                           getTruckNum();
-                       }
-                       else {
-                           $scope.truckNum = data.result[0].truck_id='';
-                       }
-                   }
 
-               }
-               else {
-                   swal(data.msg, "", "error");
-               }
-           });
-       }
     // 单条数据录入
     $scope.new_data_list = function () {
-        $scope.addDrivderId = null;
-        $scope.driveNameList=[];
         $scope.truckNumListAllList=[];
         $scope.truckNum='';
-        $scope.addCount='';
+        $scope.qaFee='';
+        $scope.qaType='';
+        $scope.taxFee='';
         $scope.addnumber='';
-        $scope.hasLoan ='';
         $scope.happenTime='';
         $scope.remark='';
-        getDriveNameList();
+        getTruckNum();
         $(".modal").modal({
             height: 500
         });
         $("#new_driver_social_security").modal("open");
     };
 
-    // 新增车辆信息
+    // 新增检车信息
     $scope.addCarItem = function () {
         if($scope.truckNum!==''){
-            _basic.get($host.api_url + "/truckBase?truckId=" + $scope.truckNum).then(function (data) {
+            _basic.get($host.api_url + "/truckBase?truckId=" + $scope.truckNum.id).then(function (data) {
                 if (data.success == true) {
                     $scope.truckNumberName = data.result[0].truck_num;
                     addItem();
@@ -412,20 +368,19 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
 
     function addItem(){
 
-        if ($scope.addDrivderId!==''&&$scope.truckNum!==''&&$scope.addCount!==''&&
-            $scope.addCount!==null&&$scope.happenTime!==''&&$scope.happenTime!==undefined&&$scope.hasLoan!=='') {
+        if ($scope.truckNum.id!==''&&$scope.truckNumberName!==''&& $scope.qaType!==""&&$scope.qaFee!==null&&$scope.taxFee!==null&&
+            $scope.happenTime!==''&&$scope.happenTime!==undefined) {
             var obj = {
                 "number":$scope.addnumber,
-                "driveId": $scope.addDrivderId.id,
-                "driveName": $scope.addDrivderId.drive_name,
-                "truckId": $scope.truckNum,
+                "truckId": $scope.truckNum.id,
                 "truckNum": $scope.truckNumberName,
-                "etcFee": $scope.addCount,
-                "etcDate": $scope.happenTime,
-                "remark":   $scope.remark,
-                "paymentType":$scope.hasLoan
+                "qaType": $scope.qaType,
+                "qaFee":$scope.qaFee,
+                "taxFee":$scope.taxFee,
+                "qaDate": $scope.happenTime,
+                "remark": $scope.remark
             };
-            _basic.post($host.api_url + "/user/" + userId + "/truckEtc", obj).then(function (data) {
+            _basic.post($host.api_url + "/user/" + userId + "/truckQa", obj).then(function (data) {
                 if (data.success == true) {
                     $("#new_driver_social_security").modal("close");
                     swal("新增成功！", "", "success");
@@ -439,18 +394,6 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
             swal("请输入完整信息！", "", "warning");
         }
     }
-   /*  // 判断是否允许输入财务借款
-      $scope.checkHasLoan = function () {
-          if($scope.hasLoan == 1){
-              $scope.hasLoanType = false;
-          }
-          else{
-              $scope.addCount = 0;
-              $scope.hasLoanType = true;
-          }
-      };
-*/
-
     // 分页
     $scope.previous_page = function () {
         $scope.start = $scope.start - ($scope.size-1);

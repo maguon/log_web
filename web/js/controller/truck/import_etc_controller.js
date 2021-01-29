@@ -114,7 +114,6 @@ app.controller("import_etc_controller", ["$scope", "$state", "$stateParams", "_b
             }
         });
     };
-
     function  getLocalFile(id){
         _basic.formPost($("#file_upload_form"), $host.api_url + '/user/' + userId + '/truckEtcFile?uploadId='+id , function (data) {
             if (data.success == true) {

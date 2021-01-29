@@ -229,6 +229,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/truck/import_etc.html",
             controller:'import_etc_controller'
         })
+        .state("truck_confirm",{
+            url:"/truck_confirm",
+            params: {"from": null},
+            templateUrl: "js/view/truck/truck_confirm.html",
+            controller:'truck_confirm_controller'
+        })
         //车辆安全检查
         .state("security_check",{
             url:"/security_check",

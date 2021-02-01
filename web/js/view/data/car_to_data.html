@@ -152,13 +152,96 @@
         </form>
     </div>
 
-    <div class="row">
+   <!-- <div class="row">
         <div class="col s12">
             <div class="col s12 templateBox" ng-show="templateBox">
                 <img style="width: 100%" src="/assets/images/import_instruction.png" />
             </div>
         </div>
+    </div>-->
+
+    <div class="row">
+        <div class="col s12">
+            <div class="col s12 tableBox" ng-show="templateBox">
+                <div class="col s12">
+                    <div class="col s4 push-s4 fz30 cyan-text center-align" style="padding-bottom:20px;border-bottom: 1px solid #ccc">数据导入须知</div>
+                </div>
+                <div class="col s9 push-s3 red-text fz20 mp-20">
+                    <i class="mdi  mdi-checkbox-multiple-blank-circle  cyan-text" ></i>
+                    上传得数据表格必须为csv格式的文件,不支持excel格式的表格文件上传;
+                </div>
+                <div class="col s9 push-s3 red-text fz20 mp-20">
+                    <i class="mdi  mdi-checkbox-multiple-blank-circle  cyan-text" ></i>
+                    上传得数据表格,必须遵守模板的数据表头顺序,若顺序错误将无法上传;
+                </div>
+                <div class="col s9 push-s3 red-text fz20 mp-20">
+                    <i class="mdi  mdi-checkbox-multiple-blank-circle  cyan-text" ></i>
+                   每个字段的ID编码都可以在系统的数据字典中查询到,若数据字典中查询不到,请联系部门管理员添加数据,再执行上传;
+                </div>
+                <div class="col s9 push-s3 red-text fz20 mp-20">
+                    <i class="mdi  mdi-checkbox-multiple-blank-circle  cyan-text" ></i>
+                    导入数据中VIN码、制造商ID、委托方ID、起始城市ID、发运地ID字段均为必填项;
+                </div>
+                <div class="col s9 push-s3 red-text fz20 mp-20">
+                    <i class="mdi  mdi-checkbox-multiple-blank-circle  cyan-text" ></i>
+                    导入数据中目的地ID、经销商ID、指令时间、船名、外协公司ID字段均为非必填项;
+                </div>
+                <!--编号,货车牌号,检车类型,检车费用,税费,检车时间,备注-->
+                <div class="col s10 push-s1 mp-40">
+                    <div class="divider cyan" style="height: 2px;"></div>
+                    <table class=" bordered striped text_mid">
+                        <thead class="blue-grey lighten-5">
+                        <tr class="grey-text text-darken-2">
+                            <th data-field="">VIN码</th>
+                            <th data-field="">制造商ID</th>
+                            <th data-field="">委托方ID</th>
+                            <th data-field="">起始城市ID</th>
+                            <th data-field="">发运地ID</th>
+                            <th data-field="">目的地ID</th>
+                            <th data-field="">经销商ID</th>
+                            <th data-field="">指令时间</th>
+                            <th data-field="">船名</th>
+                            <th data-field="">外协公司ID</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="grey-text text-darken-1">
+                            <td>LSVAV4BRXGN167064</td>
+                            <td>103</td>
+                            <td>101</td>
+                            <td>100</td>
+                            <td>102</td>
+                            <td>101</td>
+                            <td>120</td>
+                            <td>2021-01-02</td>
+                            <td>和谐号</td>
+                            <td>2</td>
+                        </tr>
+                        <tr class="grey-text text-darken-1">
+                            <td>该字段存放17位车辆VIN码</td>
+                            <td>由数字编码代替制造商</td>
+                            <td>由数字编码代替委托方</td>
+                            <td>由数字编码代替起始城市</td>
+                            <td>由数字编码代替发运地</td>
+                            <td>由数字编码代替目的地</td>
+                            <td>由数字编码代替经销商</td>
+                            <td>委托方指定的商品车运输时间</td>
+                            <td>载货船只的名称，没有船名不填写</td>
+                            <td>由数字编码代替外协公司</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+
+            </div>
+        </div>
     </div>
+
+
+
     <div class="row dataBox " style="overflow: auto;" ng-show="dataBox">
         <div class="col s12">
             <h6 class="red lighten-2 white-text vc-center" style="padding: 20px">错误数据<span>{{errorNumber}}</span>条，请修改后重新上传</h6>

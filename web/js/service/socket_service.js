@@ -100,6 +100,7 @@ baseService.factory('_socket',['$http','$location','$q',"$cookies","$host","_bas
             orderDate : carParamArray[7],
             shipName : carParamArray[8],
             companyId : carParamArray[9],
+            qaLevel : carParamArray[10],
             userId : _basic.getSession(_basic.USER_ID)
         };
 

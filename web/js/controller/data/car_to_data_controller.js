@@ -58,7 +58,8 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
             {name: '经销商ID', type: 'number', length: 3},
             {name: '指令时间', type: 'string'},
             {name: '船名', type: 'string'},
-            {name: '外协公司ID', type: 'number'}];
+            {name: '外协公司ID', type: 'number'},
+            {name: '重检', type: 'number'}];
         // 头部条件判断
         $scope.titleFilter = function (headerArray) {
             if (colObjs.length != headerArray.length) {
@@ -595,7 +596,8 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
                         "orderDate": $scope.arrival_time,
                         "shipName": $scope.shipName,
                         "remark": $scope.remark,
-                        "companyId":$scope.companyId
+                        "companyId":$scope.companyId,
+                        'qaLevel':$scope.qa_level
                     };
                     _basic.post($host.api_url + "/user/" + userId + "/car", _basic.removeProps(obj)).then(function (data) {
                         if (data.success == true) {
@@ -813,7 +815,8 @@ app.controller("car_to_data_controller", ['$scope', "$host", '_basic', '_socket'
             "receiveId": $scope.arrive_receive,
             "shipName":$scope.commodityCarList.ship_name,
             "entrustId": $scope.commodityCarList.entrust_id,
-            'companyId':$scope.commodityCarList.company_id
+            'companyId':$scope.commodityCarList.company_id,
+            'qaLevel':$scope.commodityCarList.qa_level
         };
         // 修改仓库信息
         _basic.put($host.api_url + "/user/" + userId + "/car/" +  $scope.putDataItemId, _basic.removeProps(obj)).then(function (data) {

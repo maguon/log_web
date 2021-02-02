@@ -60,7 +60,7 @@
                     </div>
                     <!-- body -->
                     <div class="col s12 white" style="height:70px;">
-                        <div class="input-field col s4">
+                        <div class="input-field col s2">
                             <select id="chooseStartCity" name="state" style="width:100%" ng-change="get_addr(start_city)" ng-model="start_city">
                                 <option value="0">起始城市</option>
                                 <option ng-repeat="city in get_city" ng-value="city.id">{{city.city_name}}</option>
@@ -87,6 +87,13 @@
                         <div class="input-field col s2">
                             <input  id="putShipName" name="putShipName"  ng-model="commodityCarList.ship_name" type="text" >
                             <label for="putShipName">船名</label>
+                        </div>
+                        <div class="input-field col s2">
+                            <select material-select watch id="qa_level" style="width:100%"  ng-model="commodityCarList.qa_level">
+                                <option value="" selected disabled>重检</option>
+                                <option ng-value="0">正常</option>
+                                <option ng-value="1">重检</option>
+                            </select>
                         </div>
                     </div>
                     <!-- body -->
@@ -184,7 +191,7 @@
                 </div>
                 <div class="col s9 push-s3 red-text fz20 mp-20">
                     <i class="mdi  mdi-checkbox-multiple-blank-circle  cyan-text" ></i>
-                    导入数据中目的地ID、经销商ID、指令时间、船名、外协公司ID字段均为非必填项;
+                    导入数据中目的地ID、经销商ID、指令时间、船名、外协公司ID、重检字段均为非必填项;
                 </div>
                 <!--编号,货车牌号,检车类型,检车费用,税费,检车时间,备注-->
                 <div class="col s10 push-s1 mp-40">
@@ -202,6 +209,7 @@
                             <th data-field="">指令时间</th>
                             <th data-field="">船名</th>
                             <th data-field="">外协公司ID</th>
+                            <th data-field="">重检</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -216,6 +224,7 @@
                             <td>2021-01-02</td>
                             <td>和谐号</td>
                             <td>2</td>
+                            <td>0</td>
                         </tr>
                         <tr class="grey-text text-darken-1">
                             <td>该字段存放17位车辆VIN码</td>
@@ -228,6 +237,7 @@
                             <td>委托方指定的商品车运输时间</td>
                             <td>载货船只的名称，没有船名不填写</td>
                             <td>由数字编码代替外协公司</td>
+                            <td>0正常  1重检</td>
                         </tr>
                         </tbody>
                     </table>
@@ -325,27 +335,33 @@
                     <form name="new_carForm" style="color:#616161" ng-submit="newSubmitForm(new_carForm.$valid)" novalidate>
                         <div class="row" style="margin-top: 40px">
                             <div class="row "  >
-                                <div class="input-field col s3">
+                                <div class="input-field col s2-0">
                                     <input  id="vin" name="vin" autocomplete="off" ng-model="vin" type="text" ng-pattern="/^[a-zA-Z0-9]{17}$/"   required >
                                     <label for="vin"><span style="color: red;margin-right: 5px">*</span>VIN</label>
                                 </div>
-                                <div class="input-field col s3">
+                                <div class="input-field col s2-0">
                                     <select material-select watch id="car_brand" name="car_brand" ng-options="car_brand.make_name for car_brand in get_carMake"   ng-model="car_brand" >
                                         <option value="" disabled selected>请选择</option>
                                     </select>
                                     <label for="car_brand">品牌</label>
                                 </div>
-                                <div class="input-field col s3">
+                                <div class="input-field col s2-0">
                                     <input type="text" id="arrival_time" name="arrival_time"  class="datepicker" autocomplete="off" ng-model="arrival_time" date><i class="mdi grey-text text-lighten-1 dataIcon mdi-table-large"></i>
                                     <label for="arrival_time">指令时间</label>
                                 </div>
-                                <div class="input-field col s3">
+                                <div class="input-field col s2-0">
                                     <select  material-select watch id="companyId" name="companyId"  ng-model="companyId" style="width: 100%">
                                         <option value="" disabled selected>外协公司</option>
                                         <option ng-repeat="el in companyList" ng-value="el.id" >{{el.company_name}}</option>
                                     </select>
                                 </div>
-
+                                <div class="input-field col s2-0">
+                                    <select material-select watch id="qalevel" style="width:100%"  ng-model="qa_level">
+                                        <option value="" selected disabled>重检</option>
+                                        <option value="0">正常</option>
+                                        <option value="1">重检</option>
+                                    </select>
+                                </div>
                             </div>
 
                             <div class="row">

@@ -37,10 +37,11 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
      * high-chart 参数设定
      * @param node 节点
      * @param chartType 图表类型
+     * @param xAxisData 图表X轴单位
      * @param yAxisText 图表Y轴单位
      * @param yAxisData 数据
      */
-    function createChartOptions(node, chartType, yAxisText, yAxisData) {
+    function createChartOptions(node, chartType, xAxisData, yAxisText, yAxisData) {
         node.highcharts({
             // bar: 条形图，line：折线图，column：柱状图
             chart: {
@@ -54,7 +55,7 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
             },
             xAxis: {
                 // xAxisData
-                categories:$scope.xAxisData,
+                categories: xAxisData,
                 crosshair: true
             },
             yAxis: {
@@ -224,10 +225,10 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
      * @param data 接口数据
      */
     function setSettleStat(yAxisDataIndex, month, data){
-        $scope.yAxisData[yAxisDataIndex].dataOutput[month] = data.output;
-        $scope.yAxisData[yAxisDataIndex].dataOuter[month] = data.outer_output;
-        $scope.yAxisData[yAxisDataIndex].dataPerTruck[month] = data.per_truck_output;
-        $scope.yAxisData[yAxisDataIndex].dataPerKm[month] = data.per_km_output;
+        $scope.yAxisData[yAxisDataIndex].dataOutput[month] = data.output == null ? 0 : data.output;
+        $scope.yAxisData[yAxisDataIndex].dataOuter[month] = data.outer_output == null ? 0 : data.outer_output;
+        $scope.yAxisData[yAxisDataIndex].dataPerTruck[month] = data.per_truck_output == null ? 0 : data.per_truck_output;
+        $scope.yAxisData[yAxisDataIndex].dataPerKm[month] = data.per_km_output == null ? 0 : data.per_km_output;
     }
 
     /**
@@ -364,21 +365,24 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
             }
         }
         // high-chart 参数设定
-        createChartOptions(node, chartType, '元', yAxisData);
+        createChartOptions(node, chartType, $scope.xAxisData, '元', yAxisData);
     }
 
     // TAB2：调度
     $scope.showDispatch = function () {
+        // 切换TAB
         $('ul.tabWrap li').removeClass("active");
         $(".tab_box").removeClass("active");
         $(".tab_box").hide();
         $('ul.tabWrap li.dispatch').addClass("active");
         $("#dispatch").addClass("active");
         $("#dispatch").show();
+
         // 清空选中状态
         $(".dispatch").prop('checked', false);
         // 默认年全部选中
         $("#" + $scope.defaultYear + "_truck_count").prop('checked', true);
+        $("#" + $scope.defaultYear + "_truck_count_des").prop('checked', true);
         $("#" + $scope.defaultYear + "_car_count").prop('checked', true);
         $("#" + $scope.defaultYear + "_total_distance").prop('checked', true);
         $("#" + $scope.defaultYear + "_load_distance").prop('checked', true);
@@ -386,11 +390,18 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
 
         // 初始化图表类型
         $scope.truckCountChartType = $scope.chartTypeList[0].key;
+        $scope.truckCountDesChartType = $scope.chartTypeList[0].key;
         $scope.carCountChartType = $scope.chartTypeList[0].key;
         $scope.totalDistanceChartType = $scope.chartTypeList[0].key;
         $scope.loadDistanceChartType = $scope.chartTypeList[0].key;
         $scope.loadRatioChartType = $scope.chartTypeList[0].key;
 
+        // 初始化 y轴 数据
+        $scope.yAxisDataDispatchDes = [
+            {name: '6位', data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+            {name: '8位', data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+            {name: '12位', data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
+        ];
         // 初始化 y轴 数据
         $scope.yAxisDataDispatch = [];
         // 组装初始数据
@@ -422,6 +433,13 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
     $scope.checkTruckCount = function (event, year, index) {
         // 查询接口数据
         getDispatchStatistics(event.target.checked, year, index, 'truck_count');
+    };
+
+    // TAB2：图1：年列表 选中/取消 操作
+    $scope.checkTruckCountDes = function (year) {
+        // 查询接口数据
+        // getDispatchStatisticsDes( year, 'truck_count_des');
+        getDispatchStatistics(true, year, -1, 'truck_count_des');
     };
 
     // TAB2：图2：年列表 选中/取消 操作
@@ -460,6 +478,11 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
                 $scope.yAxisDataDispatch[index].showTruckCount = false;
                 $scope.yAxisDataDispatch[index].truckCount = [0,0,0,0,0,0,0,0,0,0,0,0];
                 break;
+            case 'truck_count_des':
+                $scope.yAxisDataDispatchDes[0].data = [0,0,0,0,0,0,0,0,0,0,0,0];
+                $scope.yAxisDataDispatchDes[1].data = [0,0,0,0,0,0,0,0,0,0,0,0];
+                $scope.yAxisDataDispatchDes[2].data = [0,0,0,0,0,0,0,0,0,0,0,0];
+                break;
             case 'car_count':
                 $scope.yAxisDataDispatch[index].showCarCount = false;
                 $scope.yAxisDataDispatch[index].carCount = [0,0,0,0,0,0,0,0,0,0,0,0];
@@ -490,6 +513,9 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
             case 'truck_count':
                 createDispatchChartData($("#truckCountStatistics"), 'truck_count', '辆', $scope.truckCountChartType);
                 break;
+            case 'truck_count_des':
+                createChartOptions($("#truckCountDesStatistics"), $scope.truckCountDesChartType, $scope.xAxisData, '辆', $scope.yAxisDataDispatchDes);
+                break;
             case 'car_count':
                 createDispatchChartData($("#carCountStatistics"), 'car_count', '辆', $scope.carCountChartType);
                 break;
@@ -503,7 +529,9 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
                 createDispatchChartData($("#loadRatioStatistics"), 'load_ratio', '', $scope.loadRatioChartType);
                 break;
             default:
+                // 默认情况，刷新图
                 createDispatchChartData($("#truckCountStatistics"), 'truck_count', '辆', $scope.truckCountChartType);
+                createChartOptions($("#truckCountDesStatistics"), $scope.truckCountDesChartType, $scope.xAxisData, '辆', $scope.yAxisDataDispatchDes);
                 createDispatchChartData($("#carCountStatistics"), 'car_count', '辆', $scope.carCountChartType);
                 createDispatchChartData($("#totalDistanceStatistics"), 'total_distance', '公里', $scope.totalDistanceChartType);
                 createDispatchChartData($("#loadDistanceStatistics"), 'load_distance', '公里', $scope.loadDistanceChartType);
@@ -518,11 +546,33 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
      * @param data 接口数据
      */
     function setDispatchStat(index, month, data){
-        $scope.yAxisDataDispatch[index].truckCount[month] = data.truck_count;
-        $scope.yAxisDataDispatch[index].carCount[month] = data.car_count;
-        $scope.yAxisDataDispatch[index].totalDistance[month] = data.total_distance;
-        $scope.yAxisDataDispatch[index].loadDistance[month] = data.load_distance;
-        $scope.yAxisDataDispatch[index].loadRatio[month] = data.load_ratio;
+        if (index > -1) {
+            $scope.yAxisDataDispatch[index].truckCount[month] = data.truck_count == null ? 0 : data.truck_count;
+            $scope.yAxisDataDispatch[index].carCount[month] = data.car_count == null ? 0 : data.car_count;
+            $scope.yAxisDataDispatch[index].totalDistance[month] = data.total_distance == null ? 0 : data.total_distance;
+            $scope.yAxisDataDispatch[index].loadDistance[month] = data.load_distance == null ? 0 : data.load_distance;
+            $scope.yAxisDataDispatch[index].loadRatio[month] = data.load_ratio == null ? 0 : data.load_ratio;
+        }
+
+        if (data.truck_count_desc != null) {
+            let json = JSON.parse(data.truck_count_desc.replace('\\',''));
+            //遍历json对象的每个key/value对,p为key
+            for(let key in json){
+                console.log(key + " " + json[key]);
+                switch (key) {
+                    case '6':
+                        $scope.yAxisDataDispatchDes[0].data[month] = json[key];
+                        break;
+                    case '8':
+                        $scope.yAxisDataDispatchDes[1].data[month] = json[key];
+                        break;
+                    case '12':
+                        $scope.yAxisDataDispatchDes[2].data[month] = json[key];
+                        break;
+                    default:
+                }
+            }
+        }
     }
 
     /**
@@ -555,6 +605,8 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
                 switch (type) {
                     case 'truck_count':
                         $scope.yAxisDataDispatch[index].showTruckCount = true;
+                        break;
+                    case 'truck_count_des':
                         break;
                     case 'car_count':
                         $scope.yAxisDataDispatch[index].showCarCount = true;
@@ -667,7 +719,7 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
                     break;
             }
         }
-        createChartOptions(node, chartType, yAxisText, yAxisData);
+        createChartOptions(node, chartType, $scope.xAxisData, yAxisText, yAxisData);
     }
 
     // TAB3：质量
@@ -877,15 +929,15 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
      * @param data 接口数据
      */
     function setQualityStat(index, month, data){
-        $scope.yAxisDataQuality[index].damageCount[month] = data.damage_count;
-        $scope.yAxisDataQuality[index].totalDamgeMoney[month] = data.total_damange_money;
-        $scope.yAxisDataQuality[index].companyMoney[month] = data.company_damage_money;
-        $scope.yAxisDataQuality[index].perCarDamageMoney[month] = data.per_car_damage_money;
+        $scope.yAxisDataQuality[index].damageCount[month] = data.damage_count == null ? 0 : data.damage_count;
+        $scope.yAxisDataQuality[index].totalDamgeMoney[month] = data.total_damange_money == null ? 0 : data.total_damange_money;
+        $scope.yAxisDataQuality[index].companyMoney[month] = data.company_damage_money == null ? 0 : data.company_damage_money;
+        $scope.yAxisDataQuality[index].perCarDamageMoney[month] = data.per_car_damage_money == null ? 0 : data.per_car_damage_money;
 
-        $scope.yAxisDataQuality[index].perCarCDamageMoney[month] = data.per_car_c_damange_money;
-        $scope.yAxisDataQuality[index].cleanFee[month] = data.clean_fee;
-        $scope.yAxisDataQuality[index].perCarCleanFee[month] = data.per_car_clean_fee;
-        $scope.yAxisDataQuality[index].damageRatio[month] = data.damage_ratio;
+        $scope.yAxisDataQuality[index].perCarCDamageMoney[month] = data.per_car_c_damange_money == null ? 0 : data.per_car_c_damange_money;
+        $scope.yAxisDataQuality[index].cleanFee[month] = data.clean_fee == null ? 0 : data.clean_fee;
+        $scope.yAxisDataQuality[index].perCarCleanFee[month] = data.per_car_clean_fee == null ? 0 : data.per_car_clean_fee;
+        $scope.yAxisDataQuality[index].damageRatio[month] = data.damage_ratio == null ? 0 : data.damage_ratio;
     }
 
     /**
@@ -1057,7 +1109,7 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
                     break;
             }
         }
-        createChartOptions(node, chartType, yAxisText, yAxisData);
+        createChartOptions(node, chartType, $scope.xAxisData, yAxisText, yAxisData);
     }
 
     // TAB4：车管
@@ -1448,7 +1500,7 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
                     break;
             }
         }
-        createChartOptions(node, chartType, yAxisText, yAxisData);
+        createChartOptions(node, chartType, $scope.xAxisData, yAxisText, yAxisData);
     }
 
     /**
@@ -1466,20 +1518,20 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
         // 买分金额 buy_score_fee 交通罚款 traffic_fine_fee
         // 个人承担违章  driver_under_money 公司承担违章 company_under_money
         // 在外维修次数 outer_repair_count 在外维修金额 outer_repair_fee
-        $scope.yAxisDataTruck[index].etcFee[month] = data.etc_fee;
-        $scope.yAxisDataTruck[index].oilVol[month] = data.oil_vol;
-        $scope.yAxisDataTruck[index].oilFee[month] = data.oil_fee;
-        $scope.yAxisDataTruck[index].ureaVol[month] = data.urea_vol;
-        $scope.yAxisDataTruck[index].ureaFee[month] = data.urea_fee;
-        $scope.yAxisDataTruck[index].repairFee[month] = data.repair_fee;
-        $scope.yAxisDataTruck[index].partFee[month] = data.part_fee;
-        $scope.yAxisDataTruck[index].maintianFee[month] = data.maintain_fee;
-        $scope.yAxisDataTruck[index].outerRepairCount[month] = data.outer_repair_count;
-        $scope.yAxisDataTruck[index].outerRepairFee[month] = data.outer_repair_fee;
-        $scope.yAxisDataTruck[index].buyScoreFee[month] = data.buy_score_fee;
-        $scope.yAxisDataTruck[index].trafficFineFee[month] = data.traffic_fine_fee;
-        $scope.yAxisDataTruck[index].driverUnderMoney[month] = data.driver_under_money;
-        $scope.yAxisDataTruck[index].companyUnderMoney[month] = data.company_under_money;
+        $scope.yAxisDataTruck[index].etcFee[month] = data.etc_fee == null ? 0 : data.etc_fee;
+        $scope.yAxisDataTruck[index].oilVol[month] = data.oil_vol == null ? 0 : data.oil_vol;
+        $scope.yAxisDataTruck[index].oilFee[month] = data.oil_fee == null ? 0 : data.oil_fee;
+        $scope.yAxisDataTruck[index].ureaVol[month] = data.urea_vol == null ? 0 : data.urea_vol;
+        $scope.yAxisDataTruck[index].ureaFee[month] = data.urea_fee == null ? 0 : data.urea_fee;
+        $scope.yAxisDataTruck[index].repairFee[month] = data.repair_fee == null ? 0 : data.repair_fee;
+        $scope.yAxisDataTruck[index].partFee[month] = data.part_fee == null ? 0 : data.part_fee;
+        $scope.yAxisDataTruck[index].maintianFee[month] = data.maintain_fee == null ? 0 : data.maintain_fee;
+        $scope.yAxisDataTruck[index].outerRepairCount[month] = data.outer_repair_count == null ? 0 : data.outer_repair_count;
+        $scope.yAxisDataTruck[index].outerRepairFee[month] = data.outer_repair_fee == null ? 0 : data.outer_repair_fee;
+        $scope.yAxisDataTruck[index].buyScoreFee[month] = data.buy_score_fee == null ? 0 : data.buy_score_fee;
+        $scope.yAxisDataTruck[index].trafficFineFee[month] = data.traffic_fine_fee == null ? 0 : data.traffic_fine_fee;
+        $scope.yAxisDataTruck[index].driverUnderMoney[month] = data.driver_under_money == null ? 0 : data.driver_under_money;
+        $scope.yAxisDataTruck[index].companyUnderMoney[month] = data.company_under_money == null ? 0 : data.company_under_money;
     }
 
     /**

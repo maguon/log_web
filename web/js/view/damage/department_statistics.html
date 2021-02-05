@@ -143,6 +143,28 @@
                         </div>
                     </div>
 
+                    <!-- 1:车位出车数 柱状图-->
+                    <div class="row z-depth-2">
+                        <div class="col s12 blue-grey lighten-4 bold grey-text text-darken-1 no-mp">
+                            <div class="col s2" style="font-size: 18px;margin-top:12px;">车位出车数</div>
+                            <div class="col s1">
+                                <select material-select watch ng-change="refreshDispatchChart('truck_count_des')" ng-model="truckCountDesChartType">
+                                    <option ng-repeat="el in chartTypeList" ng-value="el.key">{{el.value}}</option>
+                                </select>
+                            </div>
+                            <div class="col s1" style="margin-top:12px;" ng-repeat="year in yearList">
+                                <input type="radio" id="{{year.key}}_truck_count_des" name="select" velue="year.key"
+                                       ng-click="checkTruckCountDes(year.key)" ng-checked="defaultYear==year.key"/>
+                                <label for="{{year.key}}_truck_count_des" class="mp-10" style="margin-top:2px;">{{year.value}}</label>
+                            </div>
+                        </div>
+
+                        <!--柱状图-->
+                        <div class="col s12">
+                            <div id="truckCountDesStatistics" style="min-width:400px;height:500px;margin: 10px 0 10px 0"></div>
+                        </div>
+                    </div>
+
                     <!-- 2:发运量 柱状图-->
                     <div class="row z-depth-2">
                         <div class="col s12 blue-grey lighten-4 bold grey-text text-darken-1 no-mp">

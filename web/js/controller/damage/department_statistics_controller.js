@@ -397,11 +397,8 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
         $scope.loadRatioChartType = $scope.chartTypeList[0].key;
 
         // 初始化 y轴 数据
-        $scope.yAxisDataDispatchDes = [
-            {name: '6位', data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
-            {name: '8位', data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
-            {name: '12位', data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
-        ];
+        $scope.yAxisDataDispatchDes = [];
+
         // 初始化 y轴 数据
         $scope.yAxisDataDispatch = [];
         // 组装初始数据
@@ -479,9 +476,7 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
                 $scope.yAxisDataDispatch[index].truckCount = [0,0,0,0,0,0,0,0,0,0,0,0];
                 break;
             case 'truck_count_des':
-                $scope.yAxisDataDispatchDes[0].data = [0,0,0,0,0,0,0,0,0,0,0,0];
-                $scope.yAxisDataDispatchDes[1].data = [0,0,0,0,0,0,0,0,0,0,0,0];
-                $scope.yAxisDataDispatchDes[2].data = [0,0,0,0,0,0,0,0,0,0,0,0];
+                $scope.yAxisDataDispatchDes = [];
                 break;
             case 'car_count':
                 $scope.yAxisDataDispatch[index].showCarCount = false;
@@ -545,7 +540,7 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
      * @param month 月份索引
      * @param data 接口数据
      */
-    function setDispatchStat(index, month, data){
+    function setDispatchStat(index, month, data) {
         if (index > -1) {
             $scope.yAxisDataDispatch[index].truckCount[month] = data.truck_count == null ? 0 : data.truck_count;
             $scope.yAxisDataDispatch[index].carCount[month] = data.car_count == null ? 0 : data.car_count;
@@ -555,21 +550,13 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
         }
 
         if (data.truck_count_desc != null) {
-            let json = JSON.parse(data.truck_count_desc.replace('\\',''));
-            //遍历json对象的每个key/value对,p为key
-            for(let key in json){
-                console.log(key + " " + json[key]);
-                switch (key) {
-                    case '6':
-                        $scope.yAxisDataDispatchDes[0].data[month] = json[key];
-                        break;
-                    case '8':
-                        $scope.yAxisDataDispatchDes[1].data[month] = json[key];
-                        break;
-                    case '12':
-                        $scope.yAxisDataDispatchDes[2].data[month] = json[key];
-                        break;
-                    default:
+            let json = JSON.parse(data.truck_count_desc.replace('\\', ''));
+            // 遍历json对象的每个key/value
+            for (let key in json) {
+                for (let i = 0; i < $scope.yAxisDataDispatchDes.length; i++) {
+                    if (key == $scope.yAxisDataDispatchDes[i].chk) {
+                        $scope.yAxisDataDispatchDes[i].data[month] = json[key];
+                    }
                 }
             }
         }
@@ -628,9 +615,28 @@ app.controller("department_statistics_controller", ["$scope", "$host", "_basic",
                         $scope.yAxisDataDispatch[index].showLoadRatio = true;
                 }
 
+                // 遍历数据 组装 车位出车数 Y轴 数量
+                let customMap = new Map();
+                for (let i = 0; i < data.result.length; i++) {
+                    if (data.result[i].truck_count_desc != null) {
+                        let json = JSON.parse(data.result[i].truck_count_desc.replace('\\', ''));
+                        //遍历json对象的每个key/value对,p为key
+                        for (let key in json) {
+                            customMap.set(key, json[key]);
+                        }
+                    }
+                }
+                for (let key of customMap.keys()) {
+                    $scope.yAxisDataDispatchDes.push({
+                        chk: key,
+                        name: key + '位',
+                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                    });
+                }
+
                 // 给指定月份数据 赋值
                 // 出车数 truck_count 发运量 car_count 总里程 total_distance 重载里程 load_distance 重载率 load_ratio
-                for (var i = 0; i < data.result.length; i++) {
+                for (let i = 0; i < data.result.length; i++) {
                     switch (data.result[i].y_month.toString().slice(4,6)) {
                         case '01':
                             setDispatchStat(index, 0, data.result[i]);

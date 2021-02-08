@@ -109,8 +109,8 @@ app.controller("driver_settlement_controller", ["_basic", "_config", "$host", "$
         }
         else {
             var obj = {
-                taskPlanDateStart:  moment($scope.instruct_starTime).format('YYYYMMDD'),
-                taskPlanDateEnd:  moment($scope.instruct_endTime).format('YYYYMMDD'),
+                taskPlanDateStart:  moment($scope.instruct_starTime).format('YYYY-MM-DD'),
+                taskPlanDateEnd:  moment($scope.instruct_endTime).format('YYYY-MM-DD'),
                 driveId: $scope.drivderId,
                 companyId: $scope.searchCompany,
                 operateType: $scope.operateType,
@@ -141,8 +141,8 @@ app.controller("driver_settlement_controller", ["_basic", "_config", "$host", "$
         }
         else {
             var obj = {
-                taskPlanDateStart:  moment($scope.instruct_starTime).format('YYYYMMDD'),
-                taskPlanDateEnd:  moment($scope.instruct_endTime).format('YYYYMMDD'),
+                taskPlanDateStart:  moment($scope.instruct_starTime).format('YYYY-MM-DD'),
+                taskPlanDateEnd:  moment($scope.instruct_endTime).format('YYYY-MM-DD'),
                 driveId: $scope.drivderId,
                 companyId: $scope.searchCompany,
                 operateType: $scope.operateType,
@@ -172,8 +172,8 @@ app.controller("driver_settlement_controller", ["_basic", "_config", "$host", "$
         }
         else {
             var obj = {
-                taskPlanDateStart:  moment($scope.instruct_starTimeSalary).format('YYYYMMDD'),
-                taskPlanDateEnd:  moment($scope.instruct_endTimeSalary).format('YYYYMMDD'),
+                taskPlanDateStart:  moment($scope.instruct_starTimeSalary).format('YYYY-MM-DD'),
+                taskPlanDateEnd:  moment($scope.instruct_endTimeSalary).format('YYYY-MM-DD'),
                 driveId: $scope.drivderIdSalary,
                 companyId: $scope.searchCompanySalary,
                 operateType: $scope.operateTypeSalary,
@@ -211,8 +211,8 @@ app.controller("driver_settlement_controller", ["_basic", "_config", "$host", "$
         }
         else{
             _basic.get($host.api_url + "/driveSettleOutput?" + _basic.objToUrl({
-                taskPlanDateStart:  moment($scope.instruct_starTime).format('YYYYMMDD'),
-                taskPlanDateEnd:  moment($scope.instruct_endTime).format('YYYYMMDD'),
+                taskPlanDateStart:  moment($scope.instruct_starTime).format('YYYY-MM-DD'),
+                taskPlanDateEnd:  moment($scope.instruct_endTime).format('YYYY-MM-DD'),
                 driveId: $scope.drivderId,
                 companyId: $scope.searchCompany,
                 operateType: $scope.operateType,
@@ -257,8 +257,8 @@ app.controller("driver_settlement_controller", ["_basic", "_config", "$host", "$
         }
         else{
             _basic.get($host.api_url + "/driveSettleSalary?" + _basic.objToUrl({
-                taskPlanDateStart:  moment($scope.instruct_starTimeSalary).format('YYYYMMDD'),
-                taskPlanDateEnd:  moment($scope.instruct_endTimeSalary).format('YYYYMMDD'),
+                taskPlanDateStart:  moment($scope.instruct_starTimeSalary).format('YYYY-MM-DD'),
+                taskPlanDateEnd:  moment($scope.instruct_endTimeSalary).format('YYYY-MM-DD'),
                 driveId: $scope.drivderIdSalary,
                 companyId: $scope.searchCompanySalary,
                 operateType: $scope.operateTypeSalary,

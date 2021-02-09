@@ -9,7 +9,7 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
 
     // 翻页用
     $scope.start = 0;
-    $scope.size = 11;
+    $scope.size = 26;
 
     // 领取状态列表
     $scope.receiveStatus = _config.receiveStatus;
@@ -234,7 +234,7 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
         _basic.get(url).then(function (data) {
             if (data.success == true) {
                 $scope.carWashFeeArray = data.result;
-                $scope.carWashFeeList = $scope.carWashFeeArray.slice(0,10);
+                $scope.carWashFeeList = $scope.carWashFeeArray.slice(0,25);
                 if ($scope.start > 0) {
                     $("#pre").show();
                 }
@@ -417,39 +417,28 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
 
         }
         else {
-            swal({
-                title: "确定批量领取吗？",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "确认",
-                cancelButtonText: "取消"
-            }).then(
-                function(result){
-                    if (result.value) {
-                        _basic.put($host.api_url + "/user/" + userId + "/status/2/cleanRelAll", {
-                            "cleanRelIds": $scope.initial.selectedIdsArr
-                        }).then(function (data) {
-                            if (data.success === true) {
-                                //初始化
-                                $scope.initial={
-                                    selectedIdsArr:[],
-                                    checkedWash:0,
-                                    checkedTotalTrailerFee:0,
-                                    checkedCarParkingFee:0,
-                                    checkedTotalRunFee:0,
-                                    checkedLeadFee:0
-                                };
-                                $("[name = 'selectAll']").prop('checked', false);
-                                $("#openBatchDeal").modal("close");
-                                getCarWashFeeList();
-                            }
-                            else {
-                                swal(data.msg, "", "error");
-                            }
-                        });
-                    }
-                });
+            _basic.put($host.api_url + "/user/" + userId + "/status/2/cleanRelAll", {
+                "cleanRelIds": $scope.initial.selectedIdsArr
+            }).then(function (data) {
+                if (data.success === true) {
+                    //初始化
+                    $scope.initial={
+                        selectedIdsArr:[],
+                        checkedWash:0,
+                        checkedTotalTrailerFee:0,
+                        checkedCarParkingFee:0,
+                        checkedTotalRunFee:0,
+                        checkedLeadFee:0
+                    };
+                    $("[name = 'selectAll']").prop('checked', false);
+                    $("#openBatchDeal").modal("close");
+                    swal("批量成功", "", "success");
+                    getCarWashFeeList();
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
         }
     }
 

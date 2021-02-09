@@ -6,7 +6,7 @@
 app.controller("route_fee_controller", ["$scope", "$state","$stateParams", "$host", "_basic",  "_config",function ($scope, $state,$stateParams, $host, _basic,_config) {
     var userId = _basic.getSession(_basic.USER_ID);
         $scope.start = 0;
-        $scope.size = 11;
+        $scope.size = 26;
 
         // 领取状态 默认为未发放
         $scope.getStatus = "1";
@@ -129,7 +129,7 @@ app.controller("route_fee_controller", ["$scope", "$state","$stateParams", "$hos
             })).then(function (data) {
                 if (data.success === true) {
                     $scope.boxArray = data.result;
-                    $scope.costList = $scope.boxArray.slice(0, 10);
+                    $scope.costList = $scope.boxArray.slice(0, 25);
                     if ($scope.start > 0) {
                         $("#pre").show();
                     }
@@ -309,38 +309,27 @@ app.controller("route_fee_controller", ["$scope", "$state","$stateParams", "$hos
 
         }
         else {
-            swal({
-                title: "确定批量发放吗？",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "确认",
-                cancelButtonText: "取消"
-            }).then(
-                function(result){
-                    if (result.value) {
-                        _basic.put($host.api_url + "/user/" + userId + "/status/2/dpRouteTaskFeeStatusAll", {
-                            "dpRouteTaskFeeIds": $scope.initial.selectedIdsArr
-                        }).then(function (data) {
-                            if (data.success === true) {
-                                //初始化
-                                $scope.initial={
-                                    selectedIdsArr:[],
-                                    checkOilFee:0,
-                                    checkedTotalPrice:0,
-                                    checkedParkingFee:0,
-                                    checkedOtherFee:0
-                                };
-                                $("[name = 'selectAll']").prop('checked', false);
-                                $("#openBatchDeal").modal("close");
-                                searchCost();
-                            }
-                            else {
-                                swal(data.msg, "", "error");
-                            }
-                        });
-                    }
-                });
+            _basic.put($host.api_url + "/user/" + userId + "/status/2/dpRouteTaskFeeStatusAll", {
+                "dpRouteTaskFeeIds": $scope.initial.selectedIdsArr
+            }).then(function (data) {
+                if (data.success === true) {
+                    //初始化
+                    $scope.initial={
+                        selectedIdsArr:[],
+                        checkOilFee:0,
+                        checkedTotalPrice:0,
+                        checkedParkingFee:0,
+                        checkedOtherFee:0
+                    };
+                    $("[name = 'selectAll']").prop('checked', false);
+                    $("#openBatchDeal").modal("close");
+                    swal("批量成功", "", "success");
+                    searchCost();
+                }
+                else {
+                    swal(data.msg, "", "error");
+                }
+            });
         }
     }
 

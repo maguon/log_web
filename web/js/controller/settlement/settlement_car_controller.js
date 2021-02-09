@@ -66,12 +66,13 @@ app.controller("settlement_car_controller", ["$scope","$rootScope","$state","$st
 
         // 过滤条件数据
         var colObjs = [
-            {name: 'vin', type: 'string', length: 17, require: true},
-            {name: 'entrustId', type: 'number', length: 3, require: true},
-            {name: 'routeStartId', type: 'number', length: 3},
-            {name: 'routeEndId', type: 'number', length: 3, require: true},
-            {name: 'price', type: 'number', require: true},
-            {name: 'seq', type: 'number', require: true}
+            {name: 'VIN', type: 'string', length: 17, require: true},
+            {name: '委托方ID', type: 'number', length: 3, require: true},
+            {name: '起始城市ID', type: 'number', length: 3},
+            {name: '目的地ID', type: 'number', length: 3, require: true},
+            {name: '指令时间', type: 'string'},
+            {name: '金额', type: 'number', require: true},
+            {name: '结算次序', type: 'number', require: true}
         ];
         // 头部条件判断
         $scope.titleFilter = function (headerArray) {
@@ -377,13 +378,15 @@ app.controller("settlement_car_controller", ["$scope","$rootScope","$state","$st
 
         // 新增结算车辆信息
         $scope.addsettlementItem = function () {
-            if ($scope.VIN!==undefined&&$scope.addRouteStartId!==undefined&&$scope.addRouteEndId!==undefined&&$scope.addRnstrustId!==undefined&&$scope.price!==undefined) {
+            if ($scope.VIN!==undefined&&$scope.addRouteStartId!==undefined&&$scope.addRouteEndId!==undefined
+                &&$scope.addRnstrustId!==undefined&&$scope.price!==undefined&&$scope.conInstructions!==undefined) {
                 var obj = {
                     vin: $scope.VIN,
                     entrustId:$scope.addRnstrustId,
                     routeStartId: $scope.addRouteStartId,
                     routeEndId: $scope.addRouteEndId,
-                    price: $scope.price
+                    price: $scope.price,
+                    orderDateId:moment($scope.conInstructions).format('YYYYMMDD')
                 };
                 _basic.post($host.api_url + "/user/" + userId + "/settleCar", _basic.removeNullProps(obj)).then(function (data) {
                     if (data.success == true) {
@@ -471,13 +474,16 @@ app.controller("settlement_car_controller", ["$scope","$rootScope","$state","$st
         //修改
         $scope.updateSettlementItem = function (id) {
             if ($scope.showSettlementList.entrust_id !== ""&& $scope.showSettlementList.route_start_id !== ""
-                && $scope.showSettlementList.route_end_id !== "" && $scope.showSettlementList.price!== "") {
+                && $scope.showSettlementList.route_end_id !== "" && $scope.showSettlementList.price!== ""
+            && $scope.showSettlementList.order_date_id!=="") {
                 var obj = {
                     vin: $scope.showSettlementList.vin,
                     entrustId: $scope.showSettlementList.entrust_id,
                     routeStartId: $scope.showSettlementList.route_start_id,
                     routeEndId:$scope.showSettlementList.route_end_id,
-                    price: $scope.showSettlementList.price
+                    price: $scope.showSettlementList.price,
+                    orderDateId: moment($scope.showSettlementList.order_date_id).format('YYYYMMDD')
+
                 };
                 _basic.put($host.api_url + "/user/" + userId + "/settleCar/" + id, obj).then(function (data) {
                     if (data.success == true) {

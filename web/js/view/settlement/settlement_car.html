@@ -31,6 +31,11 @@
                 <input type="number" ng-model="price" id="price" name="price" required>
                 <label for="price" class="active"><span class="red-text">*</span>金额</label>
             </div>
+            <div class="input-field col s12">
+                <input type="text" class="datepicker" date ng-model="conInstructions" id="instructions">
+                <i class="mdi dataIcon mdi-table-large"></i>
+                <label for="instructions">指令时间</label>
+            </div>
         </div>
         <div class="divider" style="background: #ccc;height: 1px;"></div>
         <div class="modal-footer vc-center">
@@ -72,7 +77,7 @@
                         </div>
                     </div>
                     <!-- body -->
-                    <div class="col s12 white" style="height:200px;">
+                    <div class="col s12 white" style="height:260px;">
                         <div class="col s6 input-field" style="height: 70px;margin-top: 30px">
                             <select id="updateStartCity" name="state" style="width:100%" ng-model="showSettlementList.route_start_id">
                                 <option value=""></option>
@@ -94,6 +99,11 @@
                         <div class="col s6 input-field" style="height: 70px">
                             <input type="number" ng-model="showSettlementList.price" id="updatePrice" name="updatePrice" required>
                             <label for="updatePrice" class="active"><span class="red-text">*</span>金额</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input type="text" class="datepicker" date ng-model="showSettlementList.order_date_id" id="putInstructions">
+                            <i class="mdi dataIcon mdi-table-large"></i>
+                            <label for="putInstructions">指令时间</label>
                         </div>
                         <div class="divider" style="background: #ccc;height: 1px;"></div>
                     </div>
@@ -133,6 +143,7 @@
                 <th data-field="">始发地</th>
                 <th data-field="">routeEndId</th>
                 <th data-field="">目的地</th>
+                <th data-field="">指令时间</th>
                 <th data-field="">金额1</th>
                 <th data-field="">金额2</th>
                 <th data-field="">金额3</th>
@@ -149,6 +160,7 @@
                 <td  ng-bind="car.route_start"></td>
                 <td  ng-bind="car.route_end_id"></td>
                 <td  ng-bind="car.route_end"></td>
+                <td  ng-bind="car.order_date_id"></td>
                 <td class="red-text bold" ng-bind="car.price"></td>
                 <td class="red-text bold" ng-bind="car.price_2"></td>
                 <td class="red-text bold" ng-bind="car.price_3"></td>
@@ -157,7 +169,7 @@
             </tr>
             <tr>
             <tr ng-if="fileDetailObj.fileRecord.length==0">
-                <td colspan="12">没有于导入文件对应的车辆信息</td>
+                <td colspan="13">没有于导入文件对应的车辆信息</td>
             </tr>
             </tbody>
         </table>
@@ -215,10 +227,77 @@
             </div>
 
             <!--大图-->
-            <div class="row">
+      <!--      <div class="row">
                 <div class="col s12">
                     <div class="col s12 tableBox" ng-show="tableBox">
                         <img style="width: 100%" src="/assets/images/import_settlement.png" />
+                    </div>
+                </div>
+            </div>-->
+            <div class="row">
+                <div class="col s12">
+                    <div class="col s12 tableBox" ng-show="tableBox">
+                        <div class="col s12">
+                            <div class="col s4 push-s4 fz30 cyan-text center-align" style="padding-bottom:20px;border-bottom: 1px solid #ccc">数据导入须知</div>
+                        </div>
+                        <div class="col s9 push-s3 red-text fz20 mp-20">
+                            <i class="mdi  mdi-checkbox-multiple-blank-circle  cyan-text" ></i>
+                            上传得数据表格必须为csv格式的文件,不支持excel格式的表格文件上传;
+                        </div>
+                        <div class="col s9 push-s3 red-text fz20 mp-20">
+                            <i class="mdi  mdi-checkbox-multiple-blank-circle  cyan-text" ></i>
+                            上传得数据表格,必须遵守模板的数据表头顺序，若顺序错误将无法上传;
+                        </div>
+                        <div class="col s9 push-s3 red-text fz20 mp-20">
+                            <i class="mdi  mdi-checkbox-multiple-blank-circle  cyan-text" ></i>
+                            每个字段的ID编码都可以在系统的数据字典中查询到,若数据字典中查询不到,请联系部门管理员添加数据,再执行上传;
+                        </div>
+
+                        <div class="col s9 push-s3 red-text fz20 mp-20">
+                            <i class="mdi  mdi-checkbox-multiple-blank-circle  cyan-text" ></i>
+                            导入数据中各字段均为必填项，不得为空;
+                        </div>
+                        <div class="col s9 push-s3 red-text fz20 mp-20">
+                            <i class="mdi  mdi-checkbox-multiple-blank-circle  cyan-text" ></i>
+                            如果系统内存在相同的记录，将上传失败;
+                        </div>
+
+                        <div class="col s10 push-s1 mp-40">
+                            <div class="divider cyan" style="height: 2px;"></div>
+                            <table class=" bordered striped text_mid">
+                                <thead class="blue-grey lighten-5">
+                                <tr class="grey-text text-darken-2">
+                                    <th data-field="">VIN</th>
+                                    <th data-field="">委托方ID</th>
+                                    <th data-field="">起始城市ID</th>
+                                    <th data-field="">目的地ID</th>
+                                    <th data-field="">指令时间</th>
+                                    <th data-field="">金额</th>
+                                    <th data-field="">结算次序</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="grey-text text-darken-1">
+                                    <td>LSVAV4BRXGN167064</td>
+                                    <td>103</td>
+                                    <td>101</td>
+                                    <td>102</td>
+                                    <td>20210102</td>
+                                    <td>100.12</td>
+                                    <td>3</td>
+                                </tr>
+                                <tr class="grey-text text-darken-1">
+                                    <td>该字段存放17位车辆VIN码</td>
+                                    <td>由数字编码代替委托方</td>
+                                    <td>由数字编码代替起始城市</td>
+                                    <td>由数字编码代替目的地</td>
+                                    <td>该字段为指令时间</td>
+                                    <td>该字段为结算的金额</td>
+                                    <td>该字段为第几次结算，支持最多5次，不可超过5</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

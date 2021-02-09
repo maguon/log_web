@@ -1,1 +1,1 @@
-﻿VIN,委托方ID,起始城市ID,目的地ID,指令时间,金额,结算次序
+﻿vin,entrustId,routeStartId,routeEndId,orderDateId,price,seq

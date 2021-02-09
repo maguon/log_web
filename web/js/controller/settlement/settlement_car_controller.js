@@ -66,13 +66,13 @@ app.controller("settlement_car_controller", ["$scope","$rootScope","$state","$st
 
         // 过滤条件数据
         var colObjs = [
-            {name: 'VIN', type: 'string', length: 17, require: true},
-            {name: '委托方ID', type: 'number', length: 3, require: true},
-            {name: '起始城市ID', type: 'number', length: 3},
-            {name: '目的地ID', type: 'number', length: 3, require: true},
-            {name: '指令时间', type: 'string'},
-            {name: '金额', type: 'number', require: true},
-            {name: '结算次序', type: 'number', require: true}
+            {name: 'vin', type: 'string', length: 17, require: true},
+            {name: 'entrustId', type: 'number', length: 3, require: true},
+            {name: 'routeStartId', type: 'number', length: 3},
+            {name: 'routeEndId', type: 'number', length: 3, require: true},
+            {name: 'orderDateId', type: 'string'},
+            {name: 'price', type: 'number', require: true},
+            {name: 'seq', type: 'number', require: true}
         ];
         // 头部条件判断
         $scope.titleFilter = function (headerArray) {

@@ -65,7 +65,7 @@
                                 <label for="price"><span style="color: red">*</span>价格(元)/公里</label>
                             </div>
                             <div class="col s4 right-align" style="padding-top:20px ">
-                                总价：<span class="red-text bold fz20"> {{price*distance|number:2}}</span>元
+                                总价：<span class="red-text bold fz20"> {{price*distance|number:4}}</span>元
                             </div>
 
                             <div class="col s12" style="margin-bottom: 10px">
@@ -78,11 +78,11 @@
                                 <label for="distance1">公里数(公里)</label>
                             </div>
                             <div class="col s4 input-field" style="margin: 0">
-                                <input  id="price1" ng-model="price1" type="number"  name="price" required >
+                                <input  id="price1" ng-model="price1" type="number"  name="price"  required  >
                                 <label for="price1">价格(元)/公里</label>
                             </div>
                             <div class="col s4 right-align" style="padding-top:20px ">
-                                二级总价：<span class="red-text bold fz20"> {{price1*distance1|number:2}}</span>元
+                                二级总价：<span class="red-text bold fz20"> {{price1*distance1|number:4}}</span>元
                             </div>
                             </div>
                         </div>

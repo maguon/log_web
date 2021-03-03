@@ -180,7 +180,7 @@
                             <td>{{settlementInfo.order_date | date:'yyyy-MM-dd'}}</td>
                             <td>{{settlementInfo.distance}}</td>
                             <td>{{settlementInfo.fee}} </td>
-                            <td ng-if="settlementInfo.fee!==null&&settlementInfo.distance!==null">{{settlementInfo.distance*settlementInfo.fee |number:2}}</td>
+                            <td ng-if="settlementInfo.fee!==null&&settlementInfo.distance!==null">{{settlementInfo.distance*settlementInfo.fee |number:4}}</td>
                             <td ng-if="settlementInfo.fee==null||settlementInfo.distance==null"></td>
                         </tr>
                         <tr ng-if="settlementList1.length==0&&instruct_starTime1!==undefined&&instruct_endTime1!==undefined">
@@ -401,7 +401,7 @@
                             <td>{{settlementInfo.task_plan_date | date:'yyyy-MM-dd'}}</td>
                             <td>{{settlementInfo.distance}}</td>
                             <td>{{settlementInfo.fee}} </td>
-                            <td ng-if="settlementInfo.fee!==null&&settlementInfo.distance!==null">{{settlementInfo.distance*settlementInfo.fee |number:2}}</td>
+                            <td ng-if="settlementInfo.fee!==null&&settlementInfo.distance!==null">{{settlementInfo.distance*settlementInfo.fee |number:4}}</td>
                             <td ng-if="settlementInfo.fee==null||settlementInfo.distance==null"></td>
                         </tr>
                         <tr ng-if="settlementList.length==0&&instruct_starTime!==undefined&&instruct_endTime!==undefined&&orderStarTime!==undefined&&orderEndTime!==undefined">

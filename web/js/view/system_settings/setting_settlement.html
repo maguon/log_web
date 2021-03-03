@@ -155,11 +155,11 @@
                     <td>{{settlementInfo.order_date | date:'yyyy-MM-dd'}}</td>
                     <td>{{settlementInfo.distance}}</td>
                     <td>{{settlementInfo.fee}} </td>
-                    <td ng-if="settlementInfo.fee!==null&&settlementInfo.distance!==null">{{settlementInfo.distance*settlementInfo.fee |number:2}}</td>
+                    <td ng-if="settlementInfo.fee!==null&&settlementInfo.distance!==null">{{settlementInfo.distance*settlementInfo.fee |number:4}}</td>
                     <td ng-if="settlementInfo.fee==null||settlementInfo.distance==null"></td>
                     <td>{{settlementInfo.two_distance}}</td>
                     <td>{{settlementInfo.two_fee}} </td>
-                    <td ng-if="settlementInfo.two_distance!==null&&settlementInfo.two_fee!==null">{{settlementInfo.two_fee*settlementInfo.two_distance |number:2}}</td>
+                    <td ng-if="settlementInfo.two_distance!==null&&settlementInfo.two_fee!==null">{{settlementInfo.two_fee*settlementInfo.two_distance |number:4}}</td>
                     <td ng-if="settlementInfo.two_distance==null||settlementInfo.two_fee==null"></td>
                 </tr>
                 <tr ng-if="settlementList.length==0&&instruct_starTime!==undefined&&instruct_endTime!==undefined">

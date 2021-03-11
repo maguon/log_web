@@ -142,14 +142,24 @@ app.controller("insurance_compensation_controller", ["$scope", "$rootScope","$st
 
     // 根据质损编号查询质损详细信息
     $scope.searchDamageDetails = function () {
+        $scope.damageInfoCardArr=[];
+        $scope.damageInfoCardArray=[];
         if($scope.damageNumMod !== ""){
             _basic.get($host.api_url + "/damage?damageId=" + $scope.damageNumMod).then(function (data) {
                 if (data.success === true) {
                     if(data.result.length !== 0){
                         if($scope.damageInfoDetailsList.length === 0){
                             $scope.damageInfoDetailsList.push(data.result[0]);
-                            $scope.damageNumMod = "";
-                            // swal("新增成功", "", "success");
+                            _basic.get($host.api_url +'/damageCheckIndemnity?damageId='+ $scope.damageNumMod).then(function (data) {
+                                if (data.success === true) {
+                                    $scope.damageCheckIndemnitArray = data.result;
+                                    getActualMoney();
+                                }
+                                else {
+                                    swal(data.msg, "", "error");
+                                }
+                            });
+
                         }
                         else{
                             // 检测数组中是否有和返回结果相同的id
@@ -161,11 +171,17 @@ app.controller("insurance_compensation_controller", ["$scope", "$rootScope","$st
                             }
                             else{
                                 $scope.damageInfoDetailsList.push(data.result[0]);
-                                $scope.damageNumMod = "";
-                                // swal("新增成功", "", "success");
+                                _basic.get($host.api_url +'/damageCheckIndemnity?damageId='+ $scope.damageNumMod).then(function (data) {
+                                    if (data.success === true) {
+                                        $scope.damageCheckIndemnitArray = data.result;
+                                        getActualMoney();
+                                    }
+                                    else {
+                                        swal(data.msg, "", "error");
+                                    }
+                                });
                             }
                         }
-                        // console.log("damageInfoDetailsList",$scope.damageInfoDetailsList);
                     }
                     else{
                         swal("查无此编号信息", "", "warning");
@@ -174,12 +190,30 @@ app.controller("insurance_compensation_controller", ["$scope", "$rootScope","$st
                 else {
                     swal(data.msg, "", "error");
                 }
+                $scope.damageNumMod == ""
             });
         }
         else{
             swal("请填写质损编号！", "", "error");
         }
     };
+
+    //获取实际金额
+    function getActualMoney(){
+        for (var i = 0; i < $scope.damageInfoDetailsList.length; i++) {
+            for(var j=0;j<$scope.damageCheckIndemnitArray.length;j++){
+                if($scope.damageInfoDetailsList[i].id==$scope.damageCheckIndemnitArray[j].damage_id){
+                    let tempData = $scope.damageInfoDetailsList[i];
+                    tempData.actualMoney = $scope.damageCheckIndemnitArray[j].actual_money;
+                    $scope.damageInfoDetailsList[i]= tempData;
+                }
+                else{
+
+                }
+            }
+        }
+    }
+
 
     // 提交新增质损信息
     $scope.addDamageRecord =  function () {

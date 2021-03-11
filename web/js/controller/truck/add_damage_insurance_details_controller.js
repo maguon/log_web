@@ -1,8 +1,9 @@
 app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$stateParams", "$host", "_basic", function ($scope,$state, $stateParams, $host, _basic) {
     var userId = _basic.getSession(_basic.USER_ID);
-    var damageId = $stateParams.id;
+    var damageInsureId = $stateParams.id;
     $scope.damageNum = "";
-
+    $scope.damageCheckIndemnitArray=[];
+    $scope.damageInfoCardList=[];
     // 返回
     $scope.return = function () {
         $state.go($stateParams.from,{from:"add_damage_insurance_details"}, {reload: true})
@@ -40,7 +41,7 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$
     // 根据质损id查询详细信息
     $scope.getCurrentDamageInfo = function () {
         // 保险公司及赔付信息
-        _basic.get($host.api_url + "/damageInsure?damageInsureId=" + damageId).then(function (data) {
+        _basic.get($host.api_url + "/damageInsure?damageInsureId=" + damageInsureId).then(function (data) {
             if (data.success === true) {
                 $scope.currentInsurInfo = data.result[0];
                 if(data.result[0].declare_date==null){
@@ -64,15 +65,37 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$
 
     // 获取当前关联质损信息卡片
     $scope.getCurrentDamageCard = function () {
-        _basic.get($host.api_url + "/damageBase?damageInsureId=" + damageId).then(function (data) {
+        _basic.get($host.api_url + "/damageBase?damageInsureId=" + damageInsureId).then(function (data) {
             if (data.success === true) {
-                // console.log("damageCardData", data);
                 $scope.damageInfoCardList = data.result;
+                _basic.get($host.api_url +'/damageCheckIndemnity?damageInsureId='+ damageInsureId).then(function (data) {
+                    if (data.success === true) {
+                        $scope.damageCheckIndemnitArray = data.result;
+                        console.log('实际金额',  $scope.damageCheckIndemnitArray,'质损list',  $scope.damageInfoCardList)
+                        for (var i = 0; i < $scope.damageInfoCardList.length; i++) {
+                            for(var j=0;j<$scope.damageCheckIndemnitArray.length;j++){
+                                if($scope.damageInfoCardList[i].id==$scope.damageCheckIndemnitArray[j].damage_id){
+                                    let tempData = $scope.damageInfoCardList[i];
+                                    tempData.actualMoney = $scope.damageCheckIndemnitArray[j].actual_money;
+                                    $scope.damageInfoCardList[i]= tempData;
+                                }
+                                else{
+
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
+
             }
             else {
                 swal(data.msg, "", "error");
             }
         });
+
     };
 
     // 根据质损编号查询质损详细信息
@@ -91,7 +114,7 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$
                         }
                         else {
                             _basic.post($host.api_url + "/user/" + userId + "/damageInsureRel", {
-                                damageInsureId: damageId,
+                                damageInsureId: damageInsureId,
                                 damageId: $scope.damageNum
                             }).then(function (data) {
                                 if (data.success === true) {
@@ -132,7 +155,7 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$
                 cancelButtonText: "取消"
             }).then(function (result) {
                 if (result.value) {
-                    _basic.delete($host.api_url + "/user/" + userId + "/damageInsure/" + damageId + "/damage/" + damageCardId).then(function (data) {
+                    _basic.delete($host.api_url + "/user/" + userId + "/damageInsure/" + damageInsureId + "/damage/" + damageCardId).then(function (data) {
                         if (data.success === true) {
                             // console.log("data",data);
                             $scope.getCurrentDamageCard();
@@ -177,7 +200,7 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$
     };
 
     function putSingleData(){
-        _basic.put($host.api_url + "/user/" + userId + "/damageInsure/" + damageId, {
+        _basic.put($host.api_url + "/user/" + userId + "/damageInsure/" + damageInsureId, {
             cityId: $scope.currentInsurInfo.city_id,
             cityName:$scope.cityName,
             declareDate: moment($scope.declareDate).format('YYYY-MM-DD'),
@@ -219,7 +242,7 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$
             }).then(
             function(result){
                 if (result.value) {
-                    _basic.put($host.api_url + "/user/" + userId + "/damageInsure/" + damageId + "/insureStatus/2", {}).then(function (data) {
+                    _basic.put($host.api_url + "/user/" + userId + "/damageInsure/" + damageInsureId + "/insureStatus/2", {}).then(function (data) {
                         if (data.success === true) {
                             $scope.saveDamageInfo();
                         }

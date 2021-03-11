@@ -99,7 +99,7 @@
                     <!--关联质损信息卡片-->
                     <div class="row col s12" style="margin: 0">
                         <!--这下面加ng-repeat-->
-                        <div class="row col s12 cyan_border" ng-repeat="damage in damageInfoDetailsList" style="border-radius: 5px;background-color: white;color: darkgray">
+                        <div class="row col s12 cyan_border"  ng-repeat="damage in damageInfoDetailsList" style="border-radius: 5px;background-color: white;color: darkgray">
                             <!--头-->
                             <div class="col s12 card_head valign-wrapper" style="padding: 0;border-bottom: 1px solid #ccc">
                                 <div class="col s12 left-align">
@@ -127,7 +127,10 @@
                                 <div class="col s4 left-align">
                                     <p><span style="font-weight: bold">司机 / 货车牌号：</span>{{damage.drive_name}}{{damage.truck_num == null ? "" : " / "}}{{damage.truck_num}}</p>
                                 </div>
-                                <div class="col s12 left-align">
+                                <div class="col s4  left-align">
+                                    <p><span style="font-weight: bold">实际打款金额：</span>{{damage.actualMoney==''||damage.actualMoney==null?'无' :damage.actualMoney}}</p>
+                                </div>
+                                <div class="col s8 left-align">
                                     <p><span style="font-weight: bold">质损说明：</span>{{damage.damage_explain}}</p>
                                 </div>
                             </div>

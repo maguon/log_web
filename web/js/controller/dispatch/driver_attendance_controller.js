@@ -78,6 +78,7 @@ app.controller("driver_attendance_controller", ["$scope","$rootScope", "$state",
         {name: '出勤天数', type: 'number', require: true},
         {name: '出差补助', type: 'number', require: true},
         {name: '满勤补助', type: 'number', require: true},
+        {name: '出车补助', type: 'number', require: true},
         {name: '其他补助', type: 'number', require: true}];
     // 头部条件判断
     $scope.titleFilter = function (headerArray) {
@@ -295,6 +296,7 @@ app.controller("driver_attendance_controller", ["$scope","$rootScope", "$state",
         $scope.addWorkCount=0;
         $scope.addHotelFee =0;
         $scope.addFullWorkFee =0;
+        $scope.addTransfer =0;
         $scope.addOtherFee =0;
         $scope.addRemark ='';
         getDriveNameList();
@@ -327,7 +329,7 @@ app.controller("driver_attendance_controller", ["$scope","$rootScope", "$state",
         else {
             swal("月份必填！", "", "warning")
         }
-        if ($scope.addDrivderId!==''&&$scope.addWorkCount!==''&&$scope.addHotelFee !==''&& $scope.addFullWorkFee!==''&& $scope.addOtherFee!=='') {
+        if ($scope.addDrivderId!==''&&$scope.addWorkCount!==''&&$scope.addHotelFee !==''&& $scope.addFullWorkFee!==''&& $scope.addTransfer!==''&& $scope.addOtherFee!=='') {
             var obj = {
                 "driveId": $scope.addDrivderId.id,
                 "driveName": $scope.addDrivderId.drive_name,
@@ -337,6 +339,7 @@ app.controller("driver_attendance_controller", ["$scope","$rootScope", "$state",
                 "workCount": $scope.addWorkCount,
                 "hotelBonus":$scope.addHotelFee,
                 "fullWorkBonus": $scope.addFullWorkFee,
+                "transferBonus":$scope.addTransfer,
                 "otherBonus":$scope.addOtherFee,
                 "yMonth": $scope.addStartMonth,
                 'remark':$scope.addRemark
@@ -375,6 +378,7 @@ app.controller("driver_attendance_controller", ["$scope","$rootScope", "$state",
             workCount:$scope.socialSecurity.work_count,
             hotelBonus:$scope.socialSecurity.hotel_bonus,
             fullWorkBonus:$scope.socialSecurity.full_work_bonus,
+            transferBonus:$scope.socialSecurity.transfer_bonus,
             otherBonus:$scope.socialSecurity.other_bonus,
             remark:$scope.socialSecurity.remark
         }).then(function (data) {

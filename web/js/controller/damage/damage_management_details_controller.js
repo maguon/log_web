@@ -381,6 +381,7 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
     $scope.changeScPanment = function(scPayment) {
         clearTimeout(timeout);
         timeout = setTimeout(function() {
+
              _basic.put($host.api_url + "/user/" + userId + "/damage/" + damageId+'/scPayment',{
                 scPayment: scPayment
              }).then(function (data) {
@@ -391,7 +392,7 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
                     swal(data.msg, "", "error");
                 }*/
             });
-        }, 3000);
+        }, 500);
     };
 
 

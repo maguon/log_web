@@ -2,6 +2,7 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
     var userId = _basic.getSession(_basic.USER_ID);
     var damageId = $stateParams.id;
     var recordId;
+    var timeout;
     var damageCheckId;
     var indemnityStatus;
     var indemnityId = null;
@@ -355,6 +356,16 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
                     $("#select2-reimbursement_person-container").html($("#reimbursement_person").find("option:selected").text());
                 }
                 $scope.damageInfoBefore = data.result[0];
+                if(data.result[0].sc_payment_date==null){
+                    $scope.damageInfoBefore.sc_payment_date='';
+                }
+                else {
+                    var q=data.result[0].sc_payment_date.toString().slice(0,4);
+                    var w=data.result[0].sc_payment_date.toString().slice(4,6);
+                    var e=data.result[0].sc_payment_date.toString().slice(6,8);
+                    $scope.damageInfoBefore.sc_payment_date=q+'-'+w+'-'+e;
+                }
+
                 $scope.getRemittanceInfo();
             }
             else {
@@ -362,6 +373,27 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
             }
         });
     };
+
+    //改变前端赔付金额
+
+
+
+    $scope.changeScPanment = function(scPayment) {
+        clearTimeout(timeout);
+        timeout = setTimeout(function() {
+             _basic.put($host.api_url + "/user/" + userId + "/damage/" + damageId+'/scPayment',{
+                scPayment: scPayment
+             }).then(function (data) {
+                if (data.success === true) {
+                    $scope.getBeforeDamageInfo();
+                }
+              /*  else {
+                    swal(data.msg, "", "error");
+                }*/
+            });
+        }, 3000);
+    };
+
 
 
     // 获取打款信息
@@ -485,6 +517,7 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
                 transportCost: $scope.damageInfoBefore.transport_cost,
                 underCost: $scope.damageInfoBefore.under_cost,
                 companyCost: $scope.damageInfoBefore.company_cost,
+                scPaymentDate:  moment($scope.damageInfoBefore.sc_payment_date).format('YYYYMMDD'),
                 remark: damageInfoBeforeRemark
             }).then(function (data) {
                 if (data.success === true) {

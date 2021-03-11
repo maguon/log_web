@@ -568,6 +568,34 @@
                         </div>
                     </div>
 
+                    <!--前端赔付日期 前端赔付金额 前端赔付盈亏-->
+                    <div class="row col s12">
+                        <div class="col s4 valign-wrapper">
+                            <div class="col s12 input-field" style="padding: 0">
+                                <input placeholder="" id="sc_payment_date" type="text" class="datepicker"
+                                       ng-model="damageInfoBefore.sc_payment_date" date>
+                                <i class="mdi dataIcon mdi-table-large"></i>
+                                <label for="sc_payment_date" class="active">前端赔付日期</label>
+                            </div>
+                        </div>
+                        <div class="col s4 valign-wrapper">
+                            <div class="col s11 input-field" style="padding: 0">
+                                <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="sc_payment" type="number" ng-model="damageInfoBefore.sc_payment" ng-change="changeScPanment(damageInfoBefore.sc_payment)">
+                                <label style="font-weight: bold" for="sc_payment">前端赔付金额</label>
+                            </div>
+                        </div>
+                        <div class="col s4 valign-wrapper">
+                            <div class="col s11 input-field" style="padding: 0">
+                                <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123)" id="sc_profit" type="number" ng-model="damageInfoBefore.sc_profit" disabled>
+                                <label style="font-weight: bold" for="sc_profit">前端赔付盈亏</label>
+                            </div>
+                            <div class="col s1 left-align" style="padding: 0">
+                                <p>元</p>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <!--分割线-->
                     <div class="row col s12">
                         <div class="col s12">
@@ -628,6 +656,18 @@
                             <p>责任人承担费用：<span style="color: #e18281">{{damageInfoBefore.under_cost.toFixed(2)}}</span> 元</p>
                         </div>
                     </div>
+                    <div class="row col s12 cyan-text" style="font-size: 1.2rem;font-weight: bold">
+                        <div class="col s4">
+                            <p>前端赔付日期：<span style="color: #e18281">{{damageInfoBefore.sc_payment_date}}</span> </p>
+                        </div>
+                        <div class="col s4">
+                            <p>前端赔付金额：<span style="color: #e18281">{{damageInfoBefore.sc_payment.toFixed(2)}}</span> 元</p>
+                        </div>
+                        <div class="col s4">
+                            <p>前端赔付盈亏：<span style="color: #e18281">{{damageInfoBefore.sc_profit.toFixed(2)}}</span> 元</p>
+                        </div>
+                    </div>
+
                     <!--分割线-->
                     <div class="row col s12">
                         <div class="col s12">

@@ -78,7 +78,7 @@ app.controller("driver_attendance_controller", ["$scope","$rootScope", "$state",
         {name: '出勤天数', type: 'number', require: true},
         {name: '出差补助', type: 'number', require: true},
         {name: '满勤补助', type: 'number', require: true},
-        {name: '出车补助', type: 'number', require: true},
+        {name: ' 拼装补助', type: 'number', require: true},
         {name: '其他补助', type: 'number', require: true}];
     // 头部条件判断
     $scope.titleFilter = function (headerArray) {

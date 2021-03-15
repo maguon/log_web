@@ -487,7 +487,14 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
 
     // 保存基本信息
     $scope.saveHandleInfoModify = function (finishFlag) {
+        var momentScPaymentDate;
         var liablePersonText = $("#liable_person").find("option:selected").text().split(" ")[0];
+        if($scope.damageInfoBefore.sc_payment_date==''||$scope.damageInfoBefore.sc_payment_date==null||$scope.damageInfoBefore.sc_payment_date==undefined){
+            momentScPaymentDate='';
+        }
+        else {
+            momentScPaymentDate=moment($scope.damageInfoBefore.sc_payment_date).format('YYYYMMDD')
+        }
         if($scope.damageInfoBefore.remark==null||$scope.damageInfoBefore.remark==undefined){
             damageInfoBeforeRemark ='';
         }
@@ -499,9 +506,9 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
         }
         var repairId = $scope.damageInfoBefore.repair_id == "" ? 0 : $scope.damageInfoBefore.repair_id;
         if(
-            $scope.damageInfoBefore.damage_type != ""
-            && $scope.damageInfoBefore.damage_link_type != ""
-            && $('#reimbursement_person').val() != 0
+            $scope.damageInfoBefore.damage_type !== ""
+            && $scope.damageInfoBefore.damage_link_type !== ""
+            && $('#reimbursement_person').val() !== 0
         ){
             _basic.put($host.api_url + "/user/" + userId + "/damageCheck/" + damageCheckId + "?damageId=" + damageId, {
                 underUserId: $('#liable_person').val(),
@@ -518,7 +525,7 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
                 transportCost: $scope.damageInfoBefore.transport_cost,
                 underCost: $scope.damageInfoBefore.under_cost,
                 companyCost: $scope.damageInfoBefore.company_cost,
-                scPaymentDate:  moment($scope.damageInfoBefore.sc_payment_date).format('YYYYMMDD'),
+                scPaymentDate:momentScPaymentDate  ,
                 remark: damageInfoBeforeRemark
             }).then(function (data) {
                 if (data.success === true) {

@@ -38,6 +38,7 @@
                     <th data-field="">出勤天数</th>
                     <th data-field="">出差补助</th>
                     <th data-field="">满勤补助</th>
+                    <th data-field="">出车补助</th>
                     <th data-field="">其他补助</th>
                     <th data-field="">备注</th>
                 </tr>
@@ -52,11 +53,12 @@
                     <td class="red-text" >{{fileInfo.work_count}}</td>
                     <td class="red-text" >{{fileInfo.hotel_bonus}}</td>
                     <td class="red-text" >{{fileInfo.full_work_bonus}}</td>
+                    <td class="red-text" >{{fileInfo.transfer_bonus}}</td>
                     <td class="red-text" >{{fileInfo.other_bonus}}</td>
                     <td  class="unnecessary" style="max-width: 150px;">{{fileInfo.remark}}</td>
                 </tr>
                 <tr ng-if="securityList.length==0">
-                    <td colspan="10">暂无数据</td>
+                    <td colspan="11">暂无数据</td>
                 </tr>
                 </tbody>
             </table>

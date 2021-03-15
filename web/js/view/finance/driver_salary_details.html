@@ -551,6 +551,7 @@
                             <th data-field="">出勤天数</th>
                             <th data-field="">出差补助</th>
                             <th data-field="">满勤补助</th>
+                            <th data-field="">出车补助</th>
                             <th data-field="">其他补助</th>
                         </tr>
                         </thead>
@@ -562,10 +563,11 @@
                             <td class="red-text" >{{fileInfo.work_count}}</td>
                             <td class="red-text" >{{fileInfo.hotel_bonus}}</td>
                             <td class="red-text" >{{fileInfo.full_work_bonus}}</td>
+                            <td class="red-text" >{{fileInfo.transfer_bonus}}</td>
                             <td class="red-text" >{{fileInfo.other_bonus}}</td>
                         </tr>
                         <tr ng-if="driverAttendanceList.length==0">
-                            <td colspan="7">暂无数据</td>
+                            <td colspan="8">暂无数据</td>
                         </tr>
                         </tbody>
                     </table>
@@ -573,13 +575,16 @@
             </div>
             <div class="col s12 valign-wrapper" style="color: darkgray;font-size: 1.2rem;font-weight: bold;margin: 20px 0">
                 <div class="col s12">
-                    <div class="col s4 center-align" style="padding: 0;">
+                    <div class="col s3 center-align" style="padding: 0;">
                         <p>出差补助：<span class="cyan-text" >{{salaryDetails.hotel_bonus }}</span> 元</p>
                     </div>
-                    <div class="col s4 center-align" style="padding: 0;">
+                    <div class="col s3 center-align" style="padding: 0;">
                         <p>满勤补助：<span class="cyan-text" >{{salaryDetails.full_work_bonus}}</span> 元</p>
                     </div>
-                    <div class="col s4 center-align" style="padding: 0;">
+                    <div class="col s3 center-align" style="padding: 0;">
+                        <p>出车补助：<span class="cyan-text" >{{salaryDetails.transfer_bonus}}</span> 元</p>
+                    </div>
+                    <div class="col s3 center-align" style="padding: 0;">
                         <p>其他补助：<span class="cyan-text" >{{salaryDetails.other_bonus}}</span> 元</p>
                     </div>
                 </div>
@@ -929,8 +934,22 @@
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
                     <span  class="mdi mdi-plus cyan-text"></span>
                 </div>
-                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold"  >
 
+
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold"  >
+                    <div class="col s12 cyan-text" >
+                        <p>出车补助 <span style="font-size: 1rem">(元)</span></p>
+                    </div>
+                    <div class="col s12 input-field" style="color: #e57373;margin: 0">
+                        <p >{{salaryDetails.transfer_bonus.toFixed(2)}}</p>
+                    </div>
+                </div>
+
+                <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
+                    <span  class="mdi mdi-plus cyan-text"></span>
+                </div>
+
+                <div class="col s2 z-depth-1 center-align cyan_border" style="font-weight: bold"  >
                     <div class="col s12 cyan-text" >
                         <p>其他补助 <span style="font-size: 1rem">(元)</span></p>
                     </div>

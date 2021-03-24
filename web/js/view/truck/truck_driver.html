@@ -199,9 +199,22 @@
                                   <span class="lever"></span>
                                 </label>
                         </span>
-                        <a ng-click="openBankNumber(driver.id)" class=""><i
+                        <a ng-click="openBankNumber(driver.id)" style="cursor: pointer"><i
                                 class="mdi mdi-bank look_icon cyan-text lighten-1"></i></a>
+
+
+                        <a ng-if="driver.level==0" ng-click="getDriverLevel(driver.id)" style="width: 30px;height: 30px;padding-left: 15px;cursor: pointer">
+                                                         <span class="grey lighten-2 center white-text" style="width:30px;height:30px;
+                                                        display:inline-block;border-radius: 100%;font-size: 1rem;line-height: 30px;margin-top:5px ">专</span>
+                        </a>
+
+                        <a ng-if="driver.level>0" ng-click="cancelDriverLevel(driver.id)" style="width: 30px;height: 30px;padding-left: 15px;cursor: pointer">
+                                                         <span class="cyan lighten-2 center white-text" style="width:30px;height:30px;
+                                                        display:inline-block;border-radius: 100%;font-size: 1rem;line-height: 30px;margin-top:5px ">专</span>
+                        </a>
+
                     </td>
+
                 </tr>
                 <tr class="grey-text text-darken-1" ng-if="driveList.length == 0">
                     <td colspan="10"><span style="letter-spacing: 2px">暂无数据</span></td>

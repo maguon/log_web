@@ -641,10 +641,10 @@
                             <div class="col s1">
                                 <span style="font-size: 2.2rem" class="mdi mdi-truck"></span>
                             </div>
-                            <div class="col s3">
+                            <div class="col s2">
                                 <p style="font-size: 1.2rem;font-weight: bold;margin: 10px 0">{{dispatchInfo.truck_num}}</p>
                             </div>
-                            <div class="col s2">
+                            <div class="col s1">
                                 <p style="font-size: 1rem;font-weight: bold;margin: 10px 0">{{dispatchInfo.operate_status}}</p>
                             </div>
                             <div class="col s1 right-align">
@@ -664,6 +664,13 @@
                             </div>
                             <div class="col s2 left-align">
                                 <p style="font-size: 1.1rem;color: white;margin: 5px 0;line-height: 26px">{{dispatchInfo.drive_name}}</p>
+                            </div>
+                            <div class="col s2 left-align">
+                                <div style="width: 30px;height: 30px;padding-left: 15px;">
+                                      <span ng-show="dispatchInfo.level > 0" class="white lighten-2 center cyan-text" style="width:30px;height:30px;
+                                 display:inline-block;border-radius: 100%;font-size: 1rem;line-height: 30px;">专</span>
+                                </div>
+
                             </div>
                         </div>
                         <div class="row cyan lighten-2 white-text fz15">

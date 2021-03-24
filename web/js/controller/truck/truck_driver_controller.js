@@ -222,6 +222,60 @@ app.controller("truck_driver_controller", ["$scope","$rootScope","$state","$stat
     }
 
 
+    //改变专线司机等级
+
+    //灰色到蓝色 非专线到专线
+    $scope.getDriverLevel =function(id){
+        swal({
+            title: "确定升级成专线司机吗？",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确认",
+            cancelButtonText: "取消"
+        }).then(
+            function(result){
+                if (result.value) {
+                    _basic.put($host.api_url + "/user/" + userId + "/drive/" + id +'/level', {
+                        "level": 1
+                    }).then(function (data) {
+                        if (data.success === true) {
+                            $scope.searchDriver();
+                        }
+                        else {
+                            swal(data.msg, "", "error");
+                        }
+                    });
+                }
+            });
+    }
+
+    //蓝色到灰色   专线到非专线
+    $scope.cancelDriverLevel =function(id){
+        swal({
+            title: "确定取消专线司机吗？",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确认",
+            cancelButtonText: "取消"
+        }).then(
+            function(result){
+                if (result.value) {
+                    _basic.put($host.api_url + "/user/" + userId + "/drive/" + id +'/level', {
+                        "level": 0
+                    }).then(function (data) {
+                        if (data.success === true) {
+                            $scope.searchDriver();
+                        }
+                        else {
+                            swal(data.msg, "", "error");
+                        }
+                    });
+                }
+            });
+    }
+
     // 分页
     $scope.previous_page = function () {
         $scope.start = $scope.start - ($scope.size-1);

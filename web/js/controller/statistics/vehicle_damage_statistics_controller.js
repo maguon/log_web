@@ -76,7 +76,8 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
                     ["设备故障: 0 辆", 0],
                     ["索赔: 0 辆", 0],
                     ["其他: 0 辆", 0],
-                    ["仓储责任: 0 辆", 0]
+                    ["仓储责任: 0 辆", 0],
+                    ["备用金付款: 0 辆", 0]
 
                 ];
                 // 转化饼图数据格式
@@ -136,6 +137,10 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
                     if(data.result[i].damage_link_type === 14){
                         $scope.truckCountInfo[13][0] = "仓储责任: " + data.result[i].damage_count + " 辆";
                         $scope.truckCountInfo[13][1] = data.result[i].damage_count
+                    }
+                    if(data.result[i].damage_link_type === 15){
+                        $scope.truckCountInfo[14][0] = "备用金付款: " + data.result[i].damage_count + " 辆";
+                        $scope.truckCountInfo[14][1] = data.result[i].damage_count
                     }
                 }
                 $scope.showCompulsoryPie();

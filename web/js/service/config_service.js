@@ -280,7 +280,8 @@ baseService.factory("_config", function () {
         {id: 11, typeName: "设备故障"},
         {id: 12, typeName: "索赔"},
         {id: 13, typeName: "其他"},
-        {id: 14, typeName: "仓储责任"}
+        {id: 14, typeName: "仓储责任"},
+        {id: 15, typeName: "备用金付款"}
 
 
 

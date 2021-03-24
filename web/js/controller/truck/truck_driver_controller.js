@@ -315,7 +315,30 @@ app.controller("truck_driver_controller", ["$scope","$rootScope","$state","$stat
 
 
     };
-    $scope.queryData();
 
+    /*
+* 头车（货车牌号）
+* */
+    function getTruckList () {
+        _basic.get($host.api_url + "/truckFirst?truckType=1").then(function (data) {
+            if (data.success === true) {
+                $scope.truckList = data.result;
+                $('#truck').select2({
+                    placeholder: '主驾货车',
+                    containerCssClass : 'select2_dropdown',
+                    allowClear: true
+                });
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
+
+
+
+
+    $scope.queryData();
+    getTruckList ();
     $scope.searchDriver();
 }]);

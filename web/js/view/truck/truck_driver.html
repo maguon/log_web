@@ -97,9 +97,14 @@
 
 
                 <div class="input-field col" style="width: 20%">
-                    <input id="band_truck" type="text" ng-model="truckNumber">
-                    <label for="band_truck">主驾货车</label>
+                    <select  id="truck" ng-model="truckNumber" style="width: 100%" >
+                        <option value=""></option>
+                        <option ng-repeat="tr in truckList" ng-value="tr.truck_num">{{tr.truck_num}}</option>
+                    </select>
                 </div>
+
+
+
                 <div class="input-field col" style="width: 20%">
                     <select material-select watch ng-model="drivingLicense">
                         <option value="" selected>驾驶类型</option>

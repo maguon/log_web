@@ -386,7 +386,8 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
                 scPayment: scPayment
              }).then(function (data) {
                 if (data.success === true) {
-                    $scope.getBeforeDamageInfo();
+                    updateScProfit();
+                    //$scope.getBeforeDamageInfo();
                 }
               /*  else {
                     swal(data.msg, "", "error");
@@ -395,7 +396,13 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
         }, 500);
     };
 
-
+    function updateScProfit(){
+        _basic.get($host.api_url + "/damageCheck?damageId=" + damageId).then(function (data) {
+            if (data.success === true) {
+                $scope.damageInfoBefore.sc_profit=data.result[0].sc_profit;
+            }
+        })
+    }
 
     // 获取打款信息
     $scope.getRemittanceInfo = function () {

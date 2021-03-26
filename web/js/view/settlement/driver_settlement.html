@@ -93,6 +93,7 @@
                         <th data-field="">车牌号</th>
                         <th data-field="">所属类型</th>
                         <th data-field="">所属公司</th>
+                        <th data-field="">专线</th>
                      <!--   <th data-field="">到库数</th>
                         <th data-field="">非到库数</th>-->
                        <!-- <th data-field="">里程工资</th>
@@ -107,6 +108,8 @@
                         <td>{{settlementInfo.truck_num}}</td>
                         <td>{{settlementInfo.operate_type|carType}}</td>
                         <td>{{settlementInfo.company_name}}</td>
+                        <td ng-if="settlementInfo.level==0"></td>
+                        <td ng-if="settlementInfo.level>0">专</td>
                         <!--<td >{{settlementInfo.storage_car_count}}</td>
                         <td>{{settlementInfo.not_storage_car_count}}</td>-->
                         <!--<td>{{settlementInfo.distance_salary}}</td>
@@ -115,10 +118,10 @@
                         <td>{{settlementInfo.two_output}}</td>
                     </tr>
                     <tr ng-if="settlementList.length==0&&instruct_starTime!==undefined&&instruct_endTime!==undefined">
-                        <td colspan="6">暂无数据</td>
+                        <td colspan="7">暂无数据</td>
                     </tr>
                     <tr ng-if="instruct_starTime==undefined||instruct_endTime==undefined&&settlementList.length==0">
-                        <td colspan="6"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;计划执行时间为必填项</td>
+                        <td colspan="7"><i class="mdi  mdi-alert-circle-outline red-text fz30"></i>&nbsp;&nbsp;&nbsp;计划执行时间为必填项</td>
                     </tr>
                     </tbody>
                 </table>

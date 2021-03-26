@@ -60,6 +60,7 @@
                                     <th data-field="">司机</th>
                                     <th data-field="">货车牌号</th>
                                     <th data-field="">类型</th>
+                                    <th data-field="">专线</th>
                                     <th data-field="">空载/重载/完成任务数</th>
                                     <th data-field="">油耗空载任务数/油耗重载任务数</th>
                                     <th data-field="">倒板数</th>
@@ -74,6 +75,8 @@
                                     <td ng-bind="el.drive_name">1</td>
                                     <td ng-bind="el.truck_num"></td>
                                     <td>{{el.operate_type==1?'自营':'外协'}}</td>
+                                    <td ng-if="el.level==0"></td>
+                                    <td ng-if="el.level>0">专</td>
                                     <td>{{el.no_load_distance_count}}/{{el.load_distance_count}}/{{el.complete_count}}</td>
                                     <td>{{el.no_oil_distance_count}}/{{el.load_oil_distance_count}}</td>
                                     <td ng-bind="el.reverse_count">2</td>
@@ -86,7 +89,7 @@
                                     </td>
                                 </tr>
                                 <tr class="grey-text text-darken-1" ng-if="driveDistanceCount.length == 0">
-                                    <td colspan="10"><span style="letter-spacing: 2px">暂无数据</span></td>
+                                    <td colspan="11"><span style="letter-spacing: 2px">暂无数据</span></td>
                                 </tr>
                             </tbody>
                         </table>

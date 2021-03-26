@@ -212,8 +212,14 @@
                             {{salaryDetails.operate_type == 1 ? "自" : salaryDetails.operate_type == 2 ? "协" : salaryDetails.operate_type == 3 ? "供" : "包"}}
                         </span>
                     </div>
-                    <div class="col s3">
+                    <div class="col s2">
                         <p class="cyan-text" >{{salaryDetails.drive_name}}</p>
+                    </div>
+                    <div class="col s1">
+                        <div style="width: 30px;height: 30px;padding-left: 15px;">
+                                      <span ng-show="salaryDetails.level > 0" class="white lighten-2 center cyan-text" style="width:30px;height:30px;
+                                 display:inline-block;border-radius: 100%;font-size: 1rem;line-height: 30px;">专</span>
+                        </div>
                     </div>
                     <div class="col s3">
                         <p><span style="font-size: 1.6rem;" class="mdi mdi-hospital-building cyan-text"></span>&emsp;{{salaryDetails.company_name}}</p>
@@ -324,17 +330,20 @@
 
             <div class="col s12 valign-wrapper" style="color: darkgray;font-size: 1.2rem;font-weight: bold;margin: 20px 0">
                 <div class="col s12">
-                    <div class="col s3 center-align" style="padding: 0;">
+                    <div class="col colWidth center-align" style="padding: 0;">
+                        <p>里程工资系数：<span class="cyan-text" >{{salaryDetails.s_car_count}}</span></p>
+                    </div>
+                    <div class="col colWidth center-align" style="padding: 0;">
                         <p>里程工资：<span class="cyan-text" >{{salaryDetails.distance_salary}}</span> 元</p>
                     </div>
-                    <div class="col s3 center-align" style="padding: 0;">
+                    <div class="col colWidth center-align" style="padding: 0;">
                         <p>交车打车进门费：<span class="cyan-text" >{{salaryDetails.enter_fee}}</span> 元</p>
                     </div>
-                    <div class="col s3 center-align" style="padding: 0;">
+                    <div class="col colWidth center-align" style="padding: 0;">
                         <p>倒板工资：<span class="cyan-text" >{{salaryDetails.reverse_salary}}</span> 元</p>
                     </div>
-                    <div class="col s3 center-align" style="padding: 0;">
-                        <p>任务工资：<span class="cyan-text" >{{salaryDetails.distance_salary+salaryDetails.reverse_salary+salaryDetails.enter_fee}}</span> 元</p>
+                    <div class="col colWidth center-align" style="padding: 0;">
+                        <p>任务工资：<span class="cyan-text" >{{salaryDetails.distance_salary*salaryDetails.s_car_count+salaryDetails.reverse_salary+salaryDetails.enter_fee}}</span> 元</p>
                     </div>
                 </div>
             </div>

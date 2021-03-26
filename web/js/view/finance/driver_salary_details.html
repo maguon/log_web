@@ -877,7 +877,7 @@
                        <div class="col s3">{{salaryDetails.enter_fee}}</div>
                     </div>
                     <div class="col s12" style="color: #fff">
-                        <p>{{salaryDetails.distance_salary+salaryDetails.reverse_salary+salaryDetails.enter_fee}}</p>
+                        <p>{{salaryDetails.distance_salary*salaryDetails.salary_ratio+salaryDetails.reverse_salary+salaryDetails.enter_fee}}</p>
                     </div>
                 </div>
                 <div class="col s1 center-align" style="font-size: 3rem;padding: 0">
@@ -1189,7 +1189,7 @@
                         <p>应付工资 <span style="font-size: 1rem">(元)</span></p>
                     </div>
                     <div class="col s12" style="color: white">
-                        <p>{{(salaryDetails.distance_salary+salaryDetails.reverse_salary+salaryDetails.enter_fee
+                        <p>{{(salaryDetails.distance_salary*salaryDetails.salary_ratio+salaryDetails.reverse_salary+salaryDetails.enter_fee
                             - salaryDetails.damage_under_fee - salaryDetails.accident_fee - salaryDetails.peccancy_under_fee - salaryDetails.exceed_oil_fee
                             +salaryDetails.full_work_bonus+salaryDetails.transfer_bonus+salaryDetails.other_bonus-salaryDetails.hotel_bonus-salaryDetails.social_security_fee-salaryDetails.food_fee
                             -salaryDetails.loan_fee -salaryDetails.other_fee -salaryDetails.damage_retain_fee -salaryDetails.damage_op_fee -salaryDetails.truck_retain_fee

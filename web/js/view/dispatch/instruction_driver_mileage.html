@@ -75,8 +75,8 @@
                                     <td ng-bind="el.drive_name">1</td>
                                     <td ng-bind="el.truck_num"></td>
                                     <td>{{el.operate_type==1?'自营':'外协'}}</td>
-                                    <td ng-if="el.level==0"></td>
-                                    <td ng-if="el.level>0">专</td>
+                                    <td ng-if="el.level==0">否</td>
+                                    <td ng-if="el.level>0">是</td>
                                     <td>{{el.no_load_distance_count}}/{{el.load_distance_count}}/{{el.complete_count}}</td>
                                     <td>{{el.no_oil_distance_count}}/{{el.load_oil_distance_count}}</td>
                                     <td ng-bind="el.reverse_count">2</td>

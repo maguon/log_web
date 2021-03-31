@@ -8,10 +8,15 @@ app.controller("dispatch_order_details_controller", ["$scope", "$host", "$locati
     // 返回上层
     $scope.return = function (){
         if($stateParams.from === "driver_information_details"){
-            $state.go($stateParams.from, {
+            $state.go($stateParams.from,{
+                reload: true,
+                driverId: $location.search().driverId,
+                from:$stateParams.from
+            });
+            console.log(($stateParams.from,{from:"dispatch_order_details"}, {
                 reload: true,
                 driverId: $location.search().driverId
-            });
+            }))
         }
         else{
             $state.go($stateParams.from,{from:'dispatch_order_details'}, {reload: true})

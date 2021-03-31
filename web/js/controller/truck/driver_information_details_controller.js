@@ -16,7 +16,7 @@ app.controller("driver_information_details_controller", ["$scope","$state", "$ho
 
     // 返回
     $scope.return = function () {
-        $state.go($stateParams.from,{from:"driver_information_details"}, {reload: true})
+        $state.go('driver_information',{from:"driver_information_details"}, {reload: true})
     };
 
     // 获取司机基本信息

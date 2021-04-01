@@ -25,7 +25,7 @@ app.controller("damage_declaration_details_controller", ["$scope","$state", "$st
                 $scope.driverId = data.result[0].drive_id;
                 $scope.truckNum = data.result[0].truck_num;
                 $scope.truckId = data.result[0].truck_id;
-                $scope.makeName = data.result[0].car_model_name;
+               /* $scope.makeName = data.result[0].car_model_name;*/
                 getCarType(data.result[0].make_id)
 
             }
@@ -43,6 +43,7 @@ app.controller("damage_declaration_details_controller", ["$scope","$state", "$st
             _basic.get($host.api_url + "/carMake/" + makeName + "/carModel?modelStatus=1").then(function (data) {
                 if (data.success == true) {
                     $scope.carTypeList = data.result;
+                    $scope.makeName=$scope.currentDamageInfo.car_model_name;
 
                 } else {
                     swal(data.msg, "", "error");

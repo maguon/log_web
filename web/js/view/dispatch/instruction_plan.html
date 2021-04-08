@@ -734,7 +734,7 @@
                                         创建临时路线
                                     </button>
                                 </div>-->
-                                <div class="col s3 right-align">
+                                <div class="col s6 right-align">
                                     <button ng-click="showCreateLine(dispatchInfo.current_city)" style="padding: 0 35px;height: 30px;line-height: 33px" class="btn waves-light waves-effect cyan lighten-1 fz12" type="button">
                                         创建路线
                                     </button>
@@ -1412,7 +1412,7 @@
                     <i class="mdi mdi-magnify" ng-click="updateRightCardList()" style="margin:20px 0 0 10px;font-size: 30px;cursor: pointer"></i>
                 </div>
                 <div class="col s2 flex flex-round">
-                    <i class="mdi mdi-refresh" ng-click="getCarDetails()" style="margin:20px 0 0 10px;font-size: 30px;cursor: pointer"></i>
+                    <i class="mdi mdi-refresh" ng-click="availableLlist()" style="margin:20px 0 0 10px;font-size: 30px;cursor: pointer"></i>
                 </div>
 
                 <div class="col s6" ng-repeat="details in newCarDetailsList">
@@ -1465,8 +1465,7 @@
                                 <div class="col s9">
                                     <p style="font-size: 10px;font-weight: bold;margin: 10px 0">{{details.truck_num}}</p>
                                 </div>
-                                <div class="col s3 center-align" style="padding: 0;">
-                                </div>
+                                <div class="col s3 center-align" style="padding: 0;"> <p style="font-size: 13px;font-weight: bold;margin: 10px 0">{{details.operate_status}}</p></div>
                             </div>
                             <div class="row valign-wrapper">
                                 <div class="col s12" style="padding: 0">

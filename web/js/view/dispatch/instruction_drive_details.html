@@ -88,6 +88,7 @@
                             <th data-field="">计划执行时间</th>
                             <th data-field="">路线</th>
                             <th data-field="">运载车辆数</th>
+                            <th data-field="">送入中转站</th>
                             <th data-field="">起始库-经销商</th>
                             <th data-field="">装载车辆</th>
                             <th data-field="">公里数</th>
@@ -100,6 +101,7 @@
                             <td>{{el.task_plan_date| date:'yyyy-MM-dd'}}</td>
                             <td>{{el.route_start}}-{{el.route_end}}</td>
                             <td>{{el.car_count}}</td>
+                            <td>{{el.transfer_flag ==0?'否':'是'}}</td>
                             <td>{{el.addr_name}}-{{el.short_name}}</td>
                             <td ng-bind="el.real_count"></td>
                             <td ng-bind="el.distance"></td>

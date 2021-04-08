@@ -16,7 +16,6 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     $scope.leftTransferKeyWordStart = null;
     $scope.leftTransferKeyWordEnd =null;
     $scope.rightKeyWord = "";
-    $scope.rightKeyWord2 = "";
     $scope.lineEndCityInfo = "";
     $scope.lineStartDate = "";
     $scope.lineStartTime = "";
@@ -75,7 +74,10 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
     };
 
     // 获取车辆详情信息（右侧信息卡片）
-    $scope.getCarDetails = function () {
+    /*
+    * 可用列表
+    * */
+    $scope.availableLlist = function () {
         _basic.get($host.api_url + "/truckDispatch?dispatchFlag=1").then(function (carDetailsData) {
             if (carDetailsData.success === true) {
                 // 防止过滤出错，将信息为null的转为空字符串
@@ -111,7 +113,11 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             }
         });
     };
-    $scope.getCarDetails2 = function () {
+
+    /*
+    * 不可用列表
+    * */
+    $scope.unavailableLlist = function () {
         _basic.get($host.api_url + "/truckDispatch?dispatchFlag=0").then(function (carDetailsData) {
             if (carDetailsData.success === true) {
                 // 防止过滤出错，将信息为null的转为空字符串
@@ -129,20 +135,20 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                         carDetailsData.result[i].operate_status = "待"
                     }
                 }
-                $scope.carDetailsList2 = carDetailsData.result;
-                $scope.newCarDetailsList2 = $scope.carDetailsList2;
+                $scope.newCarDetailsList2 = carDetailsData.result;
             }
             else {
                 swal(carDetailsData.msg, "", "error");
             }
         });
     };
+
+
+
     // 根据输入的关键字筛选左侧卡片 直达  信息
     $scope.updateLeftCardList = function () {
         $scope.newDispatchCarList = [];
         $scope.newTransferDispatchCarList =[];
-
-
         if($scope.leftKeyWordStart != ""||$scope.leftKeyWordEnd!==''){
             for(var i = 0;i < $scope.disPatchCarList.length;i++){
                 if(($scope.disPatchCarList[i].city_route_start).indexOf($scope.leftKeyWordStart) !== -1 && ($scope.disPatchCarList[i].city_route_end).indexOf($scope.leftKeyWordEnd) !== -1){
@@ -404,7 +410,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             });
         }
         else {
-            $scope.getCarDetails();
+            $scope.availableLlist();
         }
 
     }
@@ -674,7 +680,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                 if (data.success === true) {
                     $('#modifyCarPositionMod').modal('close');
                     swal("设置成功", "", "success");
-                    $scope.getCarDetails();
+                    $scope.availableLlist();
                 }
                 else {
                     swal(data.msg, "", "error");
@@ -792,8 +798,6 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
             }
         }
     }
-
-
 
     // 新增路线 保存  按钮
     $scope.keepLineInfo =function (){
@@ -1050,6 +1054,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         }
         ;
     }
+
     // 新增路线取消按钮
     $scope.hideLineInfo = function () {
         $scope.lineInfo = false;
@@ -1605,7 +1610,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                      routeEnd:sendCityId.city_name,
                      receiveId:$scope.receiveInfo.receive_id,
                      shortName:$scope.receiveInfo.short_name,
-                     receiveFlag:$scope.receiveInfo.receive_flag,
+                     receiveFlag:0,
                      dateId:$scope.receiveInfo.date_id,
                      planDate:$scope.lineDate + " " + $scope.lineStartTime,
                      planCount:$scope.distributeNum,
@@ -1629,11 +1634,11 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                     routeEnd:sendCityId.city_name,
                     receiveId:$scope.receiveInfo.receive_id,
                     shortName:$scope.receiveInfo.short_name,
-                    receiveFlag:$scope.receiveInfo.receive_flag,
+                    receiveFlag:1,
                     dateId:$scope.receiveInfo.date_id,
                     planDate:$scope.lineDate + " " + $scope.lineStartTime,
                     planCount:$scope.distributeNum,
-                    transferFlag:whetherTransfer,
+                    transferFlag:1,
                     transferCityId:transferCityId.id,
                     transferCity:transferCityId.city_name,
                     transferAddrId:transferName.id,
@@ -1698,10 +1703,11 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                     routeEnd:originalRoute.route_end_name,
                     receiveId:$scope.originalRoute.receive_id,
                     shortName:$scope.originalRoute.short_name,
+                    receiveFlag:1,
                     dateId:$scope.originalRoute.date_id,
                     planDate:$scope.lineDate2 + " " + $scope.lineStartTime2,
                     planCount:$scope.distributeNum2,
-                    transferFlag:whetherTransfer2,
+                    transferFlag:1,
                     transferCityId:transferCityId2.id,
                     transferCity:transferCityId2.city_name,
                     transferAddrId:transferName2.id,
@@ -1767,7 +1773,7 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                     routeEndId:sendCityId.id,
                     routeEnd:sendCityId.city_name,
                     receiveId:$scope.receiveInfo.receive_id,
-                    receiveFlag:$scope.receiveInfo.receive_flag,
+                    receiveFlag:0,
                     shortName:$scope.receiveInfo.short_name,
                     dateId:$scope.receiveInfo.date_id,
                     planDate:$scope.lineDate + " " + $scope.lineStartTime,
@@ -1792,11 +1798,11 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                     routeEnd:sendCityId.city_name,
                     receiveId:$scope.receiveInfo.receive_id,
                     shortName:$scope.receiveInfo.short_name,
-                    receiveFlag:$scope.receiveInfo.receive_flag,
+                    receiveFlag:1,
                     dateId:$scope.receiveInfo.date_id,
                     planDate:$scope.lineDate + " " + $scope.lineStartTime,
                     planCount:$scope.distributeNum,
-                    transferFlag:whetherTransfer,
+                    transferFlag:1,
                     transferCityId:transferCityId.id,
                     transferCity:transferCityId.city_name,
                     transferAddrId:transferName.id,
@@ -1861,10 +1867,11 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
                     routeEnd:originalRoute.route_end_name,
                     receiveId:$scope.originalRoute.receive_id,
                     shortName:$scope.originalRoute.short_name,
+                    receiveFlag:1,
                     dateId:$scope.originalRoute.date_id,
                     planDate:$scope.lineDate2 + " " + $scope.lineStartTime2,
                     planCount:$scope.distributeNum2,
-                    transferFlag:whetherTransfer2,
+                    transferFlag:1,
                     transferCityId:transferCityId2.id,
                     transferCity:transferCityId2.city_name,
                     transferAddrId:transferName2.id,
@@ -1912,7 +1919,6 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         })
     };
 
-
     $scope.startCityMod = function (id){
         // 根据卡片信息查询起始目的地信息
         _basic.get($host.api_url + "/notCompletedDpDemand?routeStartId=" +id).then(function (data) {
@@ -1940,14 +1946,12 @@ app.controller("instruction_plan_controller", ["$scope", "$host", "_basic", func
         $('#endCityMod').modal('open');
     }
 
-
-
     // 获取数据
     function queryData() {
         truckDispatchCount();
         $scope.getDeliveryCarInfo();
-        $scope.getCarDetails();
-        $scope.getCarDetails2();
+        $scope.availableLlist();
+        $scope.unavailableLlist();
         getTruckNumber();
     };
     queryData();

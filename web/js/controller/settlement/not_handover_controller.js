@@ -239,7 +239,7 @@ app.controller("not_handover_controller", ["$scope", "$host",'_config', "_basic"
                                 if ($scope.tableContentErrorFilter.length == 0) {
                                     $scope.success_data_box = true;
                                     $scope.dataBox = false;
-                                    swal("正确条数" + $scope.tableContentFilter.length);
+                                    swal("数据格式正确"+ $scope.tableContentFilter.length+"条" );
                                     // 总条数
                                     $scope.orginData_Length = $scope.tableContentFilter.length;
                                     $scope.local_isSuccesss = true;

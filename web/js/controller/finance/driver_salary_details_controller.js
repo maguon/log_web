@@ -389,7 +389,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
 
         }
         else {
-            _basic.put($host.api_url + "/user/" + userId + "/driveSalary/" + id + "/driveActualSalary",{
+         /*   _basic.put($host.api_url + "/user/" + userId + "/driveSalary/" + id + "/driveActualSalary",{
                 otherFee: $scope.salaryDetails.other_fee,
                 foodFee:$scope.salaryDetails.food_fee,
                 loanFee:$scope.salaryDetails.loan_fee,
@@ -404,7 +404,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                     swal(data.msg, "", "error");
                 }
             });
-
+*/
             _basic.put($host.api_url + "/user/" + userId + "/drivePersonalTax",{
                 "driveId": driveId,
                 "yMonth": monthId,
@@ -492,7 +492,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
 
                     }
                     else {
-                        _basic.put($host.api_url + "/user/" + userId + "/driveSalary/" + id + "/driveActualSalary",{
+                       /* _basic.put($host.api_url + "/user/" + userId + "/driveSalary/" + id + "/driveActualSalary",{
                             otherFee: $scope.salaryDetails.other_fee,
                             foodFee:$scope.salaryDetails.food_fee,
                             loanFee:$scope.salaryDetails.loan_fee,
@@ -507,7 +507,7 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                             else {
                                 swal(data.msg, "", "error");
                             }
-                        });
+                        });*/
                         _basic.put($host.api_url + "/user/" + userId + "/drivePersonalTax",{
                             "driveId": driveId,
                             "yMonth": monthId,

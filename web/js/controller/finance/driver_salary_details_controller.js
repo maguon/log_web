@@ -518,6 +518,8 @@ app.controller("driver_salary_details_controller", ["$scope", "$host","$state", 
                             "personalTax": $scope.salaryDetails.personal_tax
                         }).then(function (data) {
                             if (data.success === true) {
+                                $scope.addId=id;
+                                putStatus();
                                 getSalaryDetails();
                             }
                             else {

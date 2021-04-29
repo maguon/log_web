@@ -343,7 +343,7 @@
                         <p>倒板工资：<span class="cyan-text" >{{salaryDetails.reverse_salary}}</span> 元</p>
                     </div>
                     <div class="col colWidth center-align" style="padding: 0;">
-                        <p>任务工资：<span class="cyan-text" >{{salaryDetails.distance_salary*salaryDetails.salary_ratio+salaryDetails.reverse_salary+salaryDetails.enter_fee}}</span> 元</p>
+                        <p>任务工资：<span class="cyan-text" >{{(salaryDetails.distance_salary*salaryDetails.salary_ratio+salaryDetails.reverse_salary+salaryDetails.enter_fee).toFixed(2)}}</span> 元</p>
                     </div>
                 </div>
             </div>

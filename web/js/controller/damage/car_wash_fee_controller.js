@@ -46,7 +46,8 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
         checkedTotalTrailerFee:0,
         checkedCarParkingFee:0,
         checkedTotalRunFee:0,
-        checkedLeadFee:0
+        checkedLeadFee:0,
+        checkedOtherFee:0
     }
 
 
@@ -316,6 +317,8 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
                 $scope.initial.checkedCarParkingFee+= $scope.carWashFeeList[i].car_parking_fee;
                 $scope.initial.checkedTotalRunFee+= $scope.carWashFeeList[i].total_run_fee;
                 $scope.initial.checkedLeadFee+=$scope.carWashFeeList[i].lead_fee;
+                $scope.initial.checkedOtherFee+=$scope.carWashFeeList[i].other_fee;
+
             }
         }
 
@@ -329,7 +332,8 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
                 checkedTotalTrailerFee:0,
                 checkedCarParkingFee:0,
                 checkedTotalRunFee:0,
-                checkedLeadFee:0
+                checkedLeadFee:0,
+                checkedOtherFee:0
             }
 
             //checkbox 为空
@@ -376,6 +380,8 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
             $scope.initial.checkedCarParkingFee+= car.car_parking_fee;
             $scope.initial.checkedTotalRunFee+= car.total_run_fee;
             $scope.initial.checkedLeadFee+= car.lead_fee;
+            $scope.initial.checkedOtherFee+= car.other_fee;
+
         }
 
 
@@ -389,6 +395,7 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
             $scope.initial.checkedCarParkingFee-= car.car_parking_fee;
             $scope.initial.checkedTotalRunFee-= car.total_run_fee;
             $scope.initial.checkedLeadFee-= car.lead_fee;
+            $scope.initial.checkedOtherFee-= car.other_fee;
 
         }
     };
@@ -428,7 +435,8 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
                         checkedTotalTrailerFee:0,
                         checkedCarParkingFee:0,
                         checkedTotalRunFee:0,
-                        checkedLeadFee:0
+                        checkedLeadFee:0,
+                        checkedOtherFee:0
                     };
                     $("[name = 'selectAll']").prop('checked', false);
                     $("#openBatchDeal").modal("close");
@@ -481,7 +489,8 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
             checkedTotalTrailerFee:0,
             checkedCarParkingFee:0,
             checkedTotalRunFee:0,
-            checkedLeadFee:0
+            checkedLeadFee:0,
+            checkedOtherFee:0
         };
 
         $("[name = 'selectAll']").prop('checked', false);
@@ -504,7 +513,8 @@ app.controller("car_wash_fee_controller", ["$scope","$rootScope","$state","$stat
             checkedTotalTrailerFee:0,
             checkedCarParkingFee:0,
             checkedTotalRunFee:0,
-            checkedLeadFee:0
+            checkedLeadFee:0,
+            checkedOtherFee:0
         };
 
         $("[name = 'selectAll']").prop('checked', false);

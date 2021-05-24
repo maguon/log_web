@@ -201,6 +201,8 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
         });
         $scope.addSingMoney ='';
         $scope.addTotalMoney ='';
+        $scope.addSingOtherMoney ='';
+        $scope.addTotalOtherMoney ='';
         $scope.remark ='';
         $('#addSingleMoney').modal('open');
     }
@@ -213,14 +215,27 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
         }
         $scope.addTotalMoney=addSingMoney*dispatchNum;
     }
-    $scope.changeDispatchNum=function (addSingMoney,dispatchNum){
+    $scope.changeSingleOtherMoney =function (addSingMoneyOtherItem,dispatchNum){
+        if(dispatchNum==null){
+            dispatchNum=0;
+        }
+        if(addSingMoneyOtherItem==null||addSingMoneyOtherItem==''){
+            addSingMoneyOtherItem=0;
+        }
+        $scope.addTotalOtherMoney=addSingMoneyOtherItem*dispatchNum;
+    }
+    $scope.changeDispatchNum=function (addSingMoney,addSingOtherMoney,dispatchNum){
         if(dispatchNum==null){
             dispatchNum=0;
         }
         if(addSingMoney==null||addSingMoney==''){
             addSingMoney=0;
         }
+        if(addSingOtherMoney==null||addSingOtherMoney==''){
+            addSingOtherMoney=0;
+        }
         $scope.addTotalMoney=addSingMoney*dispatchNum;
+        $scope.addTotalOtherMoney=addSingOtherMoney*dispatchNum;
     }
     $scope.addDataItem =function () {
         if ($scope.dispatchNum.car_count==0) {
@@ -235,6 +250,9 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
                 "truckId":$scope.dispatchNum.truck_id,
                 "receiveId": $scope.dispatchNum.receive_id,
                 "smallSinglePrice": $scope.addSingMoney,
+                "otherFee": $scope.addSingOtherMoney,
+                "actualOtherFee": $scope.addTotalOtherMoney,
+                "totalOtherFee": $scope.addTotalOtherMoney,
                 'monthFlag':$scope.dispatchNum.month_flag,
                 actualPrice:$scope.addTotalMoney,
                 "totalPrice": $scope.addTotalMoney,
@@ -261,6 +279,7 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
         $scope.dpId='';
         $scope.carItem=null;
         $scope.addSingMoneyItem=undefined;
+        $scope.addSingOtherMoneyItem=undefined;
         $scope.remarkItem='';
         $(".no_car_detail").hide();
         $(".car_detail").hide();
@@ -289,7 +308,7 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
             swal('车辆或者补价不能为空', "", "error");
         }
         else{
-            if ($scope.dispatchNum.car_count==0||$scope.addSingMoneyItem==undefined||$scope.dispatchNum.car_count==null) {
+            if ($scope.dispatchNum.car_count==0||$scope.addSingMoneyItem==undefined||$scope.addSingOtherMoneyItem==undefined||$scope.dispatchNum.car_count==null) {
                 swal('车辆或者补价不能为空', "", "error");
             }
             else {
@@ -300,9 +319,15 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
                     "truckId":$scope.dispatchNum.truck_id,
                     "receiveId": $scope.dispatchNum.receive_id,
                     "smallSinglePrice": $scope.addSingMoneyItem,
+
                     'monthFlag':$scope.dispatchNum.month_flag,
                     actualPrice:$scope.addTotalMoney,
                     "totalPrice": $scope.addTotalMoney,
+
+                    "otherFee": $scope.addSingOtherMoneyItem,
+                    "actualOtherFee": $scope.addTotalOtherMoney,
+                    "totalOtherFee": $scope.addTotalOtherMoney,
+
                     "carCount": $scope.dispatchNum.car_count,
                     "smallCarCount": $scope.dispatchNum.car_count,
                     "type": 1,

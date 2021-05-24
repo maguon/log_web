@@ -162,47 +162,88 @@ app.controller("damage_report_controller", ["$scope", "$host", "_basic", functio
 
     // 提交填写信息转到下一步
     $scope.nextStep = function () {
-        if($scope.carType==undefined||$scope.carType==''){
-            swal("请填写车型！","","error")
-        }
-        else{
-            var truckId = $scope.vinData.drive_name === "" ||$scope.vinData.drive_name === null? 0 : $scope.AccurateDriverInfo.truck_id;
-            var truckNum = $scope.vinData.drive_name === "" ||$scope.vinData.drive_name === null? "" : $scope.AccurateDriverInfo.truck_num;
+        if($scope.vinData){
+            var truckId = $scope.vinData.truck_num === "" ||$scope.vinData.truck_num === null? 0 : $scope.AccurateDriverInfo.truck_id;
+            var truckNum = $scope.vinData.truck_num === "" ||$scope.vinData.truck_num === null? "" : $scope.AccurateDriverInfo.truck_num;
             var driveId = $scope.vinData.drive_name === "" ||$scope.vinData.drive_name === null? 0 : $scope.AccurateDriverInfo.id;
             var driveName = $scope.vinData.drive_name === "" ||$scope.vinData.drive_name === null? "" : $scope.AccurateDriverInfo.drive_name;
             var remark = $scope.damageRemark.replace(/，|,/g, ' ');
-            if($scope.vinCode !== ""){
-                if($scope.vinCode.length === 17 && $scope.vinCheck){
-                    _basic.post($host.api_url + "/user/" + userId + "/damage",{
-                        carId:$scope.vinData.id,
-                        vin:$scope.vinCode,
-                        carModelName:$scope.carType,
-                        truckId:truckId,
-                        truckNum:truckNum,
-                        driveId:driveId,
-                        driveName:driveName,
-                        damageExplain:remark
-                    }).then(function (data) {
-                        if (data.success === true) {
-                            $scope.step_1 = false;
-                            $scope.step_2 = true;
-                            $scope.step_3 = false;
-                            damageId = data.id;
-                        }
-                        else {
-                            swal(data.msg, "", "error");
-                        }
-                    });
-                }
-                else{
-                    swal("VIN有误，请重新填写","","error")
-                }
-            }
-            else{
+            if($scope.carType===undefined||$scope.carType===''){
+                swal("请填写车型！","","error")
+            }else if($scope.vinCode=== ""){
                 swal("请填写VIN","","error")
             }
+            else {
+                if(truckId===0||truckNum===''||driveId===0||driveName===''){
+                    swal({
+                        title: "未查到司机或货车牌号，是否下一步？",
+                        type: "warning",
+                        showCancelButton: true,
+                        cancelButtonText: "取消",
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "确定"
+                    }).then(function (result) {
+                        if (result.value) {
+                            if($scope.vinCode.length === 17 && $scope.vinCheck){
+                                _basic.post($host.api_url + "/user/" + userId + "/damage",{
+                                    carId:$scope.vinData.id,
+                                    vin:$scope.vinCode,
+                                    carModelName:$scope.carType,
+                                    truckId:truckId,
+                                    truckNum:truckNum,
+                                    driveId:driveId,
+                                    driveName:driveName,
+                                    damageExplain:remark
+                                }).then(function (data) {
+                                    if (data.success === true) {
+                                        $scope.step_1 = false;
+                                        $scope.step_2 = true;
+                                        $scope.step_3 = false;
+                                        damageId = data.id;
+                                    }
+                                    else {
+                                        swal(data.msg, "", "error");
+                                    }
+                                });
+                            }
+                            else{
+                                swal("VIN有误，请重新填写","","error")
+                            }
+                        }
+                    })
+                }
+                else {
+                    if($scope.vinCode.length === 17 && $scope.vinCheck){
+                        _basic.post($host.api_url + "/user/" + userId + "/damage",{
+                            carId:$scope.vinData.id,
+                            vin:$scope.vinCode,
+                            carModelName:$scope.carType,
+                            truckId:truckId,
+                            truckNum:truckNum,
+                            driveId:driveId,
+                            driveName:driveName,
+                            damageExplain:remark
+                        }).then(function (data) {
+                            if (data.success === true) {
+                                $scope.step_1 = false;
+                                $scope.step_2 = true;
+                                $scope.step_3 = false;
+                                damageId = data.id;
+                            }
+                            else {
+                                swal(data.msg, "", "error");
+                            }
+                        });
+                    }
+                    else{
+                        swal("VIN有误，请重新填写","","error")
+                    }
+                }
+            }
         }
-
+       else {
+            swal("请填写VIN！","","error")
+        }
     };
 
 

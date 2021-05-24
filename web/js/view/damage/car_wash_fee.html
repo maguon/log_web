@@ -16,12 +16,12 @@
             <div class="row col s12 cyan-text">
 
                 <!--大车洗车费  小车洗车费  拖车费   地跑费  带路费  -->
-                <div class="col input-field colWidth">大车洗车费:<span class="red-text fz22">{{showList.big_single_price*showList.big_car_count}}</span></div>
-                <div class="col input-field colWidth">小车洗车费:<span class="red-text fz22">{{showList.small_single_price*showList.small_car_count}}</span></div>
-                <div class="col input-field colWidth">拖车费:<span class="red-text fz22">{{showList.total_trailer_fee}}</span></div>
-                <div class="col input-field colWidth">地跑费:<span class="red-text fz22">{{showList.total_run_fee}}</span></div>
-                <div class="col input-field colWidth">带路费:<span class="red-text fz22">{{showList.lead_fee}}</span></div>
-
+                <div class="col input-field s2">大车洗车费:<span class="red-text fz22">{{showList.big_single_price*showList.big_car_count}}</span></div>
+                <div class="col input-field s2">小车洗车费:<span class="red-text fz22">{{showList.small_single_price*showList.small_car_count}}</span></div>
+                <div class="col input-field s2">拖车费:<span class="red-text fz22">{{showList.total_trailer_fee}}</span></div>
+                <div class="col input-field s2">地跑费:<span class="red-text fz22">{{showList.total_run_fee}}</span></div>
+                <div class="col input-field s2">带路费:<span class="red-text fz22">{{showList.lead_fee}}</span></div>
+                <div class="col input-field s2">其他费:<span class="red-text fz22">{{showList.total_other_fee}}</span></div>
             </div>
 
 
@@ -29,12 +29,12 @@
 
             <!--大车洗车费单价  小车洗车费单价  拖车费单价 地跑费单价   带路费单价 -->
             <div class="row col s12 cyan-text fz13">
-                <div class="col input-field colWidth">大车洗车费单价:<span class="red-text fz22">{{showList.big_single_price}}</span></div>
-                <div class="col input-field colWidth">小车洗车费单价:<span class="red-text fz22">{{showList.small_single_price}}</span></div>
-                <div class="col input-field colWidth">拖车费单价:<span class="red-text fz22">{{showList.trailer_fee}}</span></div>
-                <div class="col input-field colWidth">地跑费单价:<span class="red-text fz22">{{showList.run_fee}}</span></div>
-                <div class="col input-field colWidth">带路费单价:<span class="red-text fz22">{{showList.lead_fee}}</span></div>
-
+                <div class="col input-field s2">大车洗车费单价:<span class="red-text fz22">{{showList.big_single_price}}</span></div>
+                <div class="col input-field s2">小车洗车费单价:<span class="red-text fz22">{{showList.small_single_price}}</span></div>
+                <div class="col input-field s2">拖车费单价:<span class="red-text fz22">{{showList.trailer_fee}}</span></div>
+                <div class="col input-field s2">地跑费单价:<span class="red-text fz22">{{showList.run_fee}}</span></div>
+                <div class="col input-field s2">带路费单价:<span class="red-text fz22">{{showList.lead_fee}}</span></div>
+                <div class="col input-field s2">其他费单价:<span class="red-text fz22">{{showList.total_other_fee}}</span></div>
             </div>
 
 
@@ -78,11 +78,12 @@
 
 
                 <!--总洗车费金额  总拖车费金额  总提车费金额 总提车费金额   总带路费金额 -->
-                <div class="col input-field colWidth">总洗车费:<span class="red-text fz22">{{initial.checkedWash}}</span></div>
-                <div class="col input-field colWidth">总拖车费:<span class="red-text fz22">{{initial.checkedTotalTrailerFee}}</span></div>
-                <div class="col input-field colWidth">总提车费:<span class="red-text fz22">{{initial.checkedCarParkingFee}}</span></div>
-                <div class="col input-field colWidth">总地跑费:<span class="red-text fz22">{{initial.checkedTotalRunFee}}</span></div>
-                <div class="col input-field colWidth">总带路费:<span class="red-text fz22">{{initial.checkedLeadFee}}</span></div>
+                <div class="col input-field s2">总洗车费:<span class="red-text fz22">{{initial.checkedWash}}</span></div>
+                <div class="col input-field s2">总拖车费:<span class="red-text fz22">{{initial.checkedTotalTrailerFee}}</span></div>
+                <div class="col input-field s2">总提车费:<span class="red-text fz22">{{initial.checkedCarParkingFee}}</span></div>
+                <div class="col input-field s2">总地跑费:<span class="red-text fz22">{{initial.checkedTotalRunFee}}</span></div>
+                <div class="col input-field s2">总带路费:<span class="red-text fz22">{{initial.checkedLeadFee}}</span></div>
+                <div class="col input-field s2">总其他费:<span class="red-text fz22">{{initial.checkedOtherFee}}</span></div>
 
 
 
@@ -273,39 +274,45 @@
 
             <!--全体费用-->
             <div class="col s12 cyan white-text vc-center fz18 bold colHeight" style="border-bottom: 1px solid #fff" ng-if="carWashFeeList.length!==0">
-                <div class="col left-align colWidth">
+                <div class="col left-align s2">
                     总洗车金额:{{boxArrayFee.total_clean_fee}}元
                 </div>
-                <div class="col center-align  colWidth">
+                <div class="col center-align  s2">
                     总拖车金额:{{boxArrayFee.total_trailer_fee}}元
                 </div>
-                <div class="col center-align colWidth">
+                <div class="col center-align s2">
                     总提车金额:{{boxArrayFee.car_parking_fee}}元
                 </div>
-                <div class="col center-align colWidth">
+                <div class="col center-align s2">
                     总地跑金额:{{boxArrayFee.total_run_fee}}元
                 </div>
-                <div class="col right-align colWidth">
+                <div class="col right-align s2">
                     总带路金额:{{boxArrayFee.lead_fee}}元
+                </div>
+                <div class="col right-align s2">
+                    总其他金额:{{boxArrayFee.total_other_fee}}元
                 </div>
             </div>
 
             <!--复选框点击后显示的费用-->
             <div class="col s12 cyan white-text vc-center fz18 bold colHeight" ng-if="initial.selectedIdsArr.length!==0">
-                <div class="col left-align  colWidth">
+                <div class="col left-align  s2">
                     总洗车金额:{{initial.checkedWash}}元
                 </div>
-                <div class="col center-align colWidth">
+                <div class="col center-align s2">
                     总拖车金额:{{initial.checkedTotalTrailerFee}}元
                 </div>
-                <div class="col center-align colWidth">
+                <div class="col center-align s2">
                     总提车金额:{{initial.checkedCarParkingFee}}元
                 </div>
-                <div class="col center-align colWidth">
+                <div class="col center-align s2">
                     总地跑金额:{{initial.checkedTotalRunFee}}元
                 </div>
-                <div class="col right-align colWidth">
+                <div class="col right-align s2">
                     总带路金额:{{initial.checkedLeadFee}}元
+                </div>
+                <div class="col right-align s2">
+                    总其他金额:{{initial.checkedOtherFee}}元
                 </div>
             </div>
 
@@ -327,10 +334,12 @@
                     <th>拖车费</th>
                     <th>地跑费</th>
                     <th>带路费</th>
+                    <th>其他费</th>
                     <th>应发洗车费</th>
                     <th>应发拖车费</th>
                     <th>应发地跑费</th>
                     <th>应发带路费</th>
+                    <th>应发其他费</th>
                     <th>提车费</th>
                     <th>车牌号</th>
                     <th>补发</th>
@@ -369,13 +378,14 @@
 
                     <td>{{car.actual_run_fee}}</td>
                     <td>{{car.actual_lead_fee}}</td>
-
+                    <td>{{car.actual_other_fee}}</td>
 
                     <td>{{car.actual_price}}</td>
                     <td>{{car.total_trailer_fee}}</td>
 
                     <td>{{car.total_run_fee}}</td>
                     <td>{{car.lead_fee}}</td>
+                    <td>{{car.total_other_fee}}</td>
                     <td>{{car.car_parking_fee}}</td>
                     <td>{{car.truck_num}}</td>
                     <td>{{supplementStatus[car.type].status}}</td>
@@ -400,7 +410,7 @@
                     </td>
                 </tr>
                 <tr class="grey-text text-darken-1" ng-if="carWashFeeList.length == 0">
-                    <td colspan="25" >暂无数据</td>
+                    <td colspan="27" >暂无数据</td>
                 </tr>
                 </tbody>
             </table>

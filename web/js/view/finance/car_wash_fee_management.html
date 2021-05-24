@@ -24,7 +24,7 @@
                     <!--添加-->
                     <div class="col s12 valign-wrapper" style="margin-bottom: 15px;margin-top: 15px">
                         <div class="col s12 input-field">
-                            <select id="dispatch_num_mod" ng-model="dispatchNum" material-select watch ng-change="changeDispatchNum(addSingMoney,dispatchNum.car_count)">
+                            <select id="dispatch_num_mod" ng-model="dispatchNum" material-select watch ng-change="changeDispatchNum(addSingMoney,addSingOtherMoney,dispatchNum.car_count)">
                                 <option value="">请选择</option>
                                 <option ng-repeat="el in addWashFeeBox" ng-value="el">{{el.id+'&emsp;'+el.dp_route_task_id + '&emsp;' + el.route_start+'('+ el.addr_name+')'+  ' - ' + el.route_end +'('+ el.short_name+')'+ '&emsp;' + (el.task_plan_date | date:'yyyy-MM-dd')  +"&emsp;&emsp;&emsp;"+el.car_count}}</option>
                             </select>
@@ -34,11 +34,21 @@
                     <div class="col s12 fz14 valign-wrapper cyan-text" style="font-size: 1.2rem;">
                         <div class="col s6  input-field red-text left-align" >
                             <input id="addSingMoney" type="number"  ng-model="addSingMoney" ng-change="changeSingleMoney(addSingMoney,dispatchNum.car_count)">
-                            <label for="addSingMoney">每台补价</label>
+                            <label for="addSingMoney">每台洗车费补价</label>
                         </div>
                         <div class="col s6 input-field red-text right-align">
                             <input id="addTotalMoney" type="number"  ng-model="addTotalMoney" disabled>
-                            <label for="addTotalMoney">总补价</label>
+                            <label for="addTotalMoney">总洗车费补价</label>
+                        </div>
+                    </div>
+                    <div class="col s12 fz14 valign-wrapper cyan-text" style="font-size: 1.2rem;">
+                        <div class="col s6  input-field red-text left-align" >
+                            <input id="addSingOtherMoney" type="number"  ng-model="addSingOtherMoney" ng-change="changeSingleOtherMoney(addSingOtherMoney,dispatchNum.car_count)">
+                            <label for="addSingOtherMoney">每台其他费补价</label>
+                        </div>
+                        <div class="col s6 input-field red-text right-align">
+                            <input id="addTotalOtherMoney" type="number"  ng-model="addTotalOtherMoney" disabled>
+                            <label for="addTotalOtherMoney">总其他费补价</label>
                         </div>
                     </div>
                     <div class="col s12 fz14 valign-wrapper cyan-text" style="font-size: 1.2rem;">
@@ -107,7 +117,7 @@
 
                                     <div class="col s12 valign-wrapper">
                                         <div class="col s12 input-field">
-                                            <select id="dispatch_num_mod1" ng-model="dispatchNum" material-select watch ng-change="changeDispatchNum(addSingMoneyItem,dispatchNum.car_count)">
+                                            <select id="dispatch_num_mod1" ng-model="dispatchNum" material-select watch ng-change="changeDispatchNum(addSingMoneyItem,addSingOtherMoneyItem,dispatchNum.car_count)">
                                                 <option value="">请选择</option>
                                                 <option ng-repeat="el in addWashFeeBox" ng-value="el">{{el.id+'&emsp;'+el.dp_route_task_id + '&emsp;' + el.route_start+'('+ el.addr_name+')'+  ' - ' + el.route_end +'('+ el.short_name+')'+ '&emsp;' + (el.task_plan_date | date:'yyyy-MM-dd')  +"&emsp;&emsp;&emsp;"+el.car_count}}</option>
                                             </select>
@@ -119,15 +129,28 @@
                                         <div class="col s12 fz14 valign-wrapper cyan-text" style="font-size: 1.2rem;">
                                             <div class="col s6  input-field red-text left-align" style="padding: 0">
                                                 <input id="addSingMoney1" type="number"  ng-model="addSingMoneyItem" ng-change="changeSingleMoney(addSingMoneyItem,dispatchNum.car_count)">
-                                                <label for="addSingMoney1">每台补价</label>
+                                                <label for="addSingMoney1">每台洗车费补价</label>
                                             </div>
                                             <div class="col s6 input-field red-text right-align" style="padding: 0">
                                                 <input id="addTotalMoney1" type="number"  ng-model="addTotalMoney" disabled>
-                                                <label for="addTotalMoney1">总补价</label>
+                                                <label for="addTotalMoney1">总洗车费补价</label>
                                             </div>
                                         </div>
 
                                     </div>
+                                <div class=" col s12">
+                                    <div class="col s12 fz14 valign-wrapper cyan-text" style="font-size: 1.2rem;">
+                                        <div class="col s6  input-field red-text left-align" style="padding: 0">
+                                            <input id="addSingOtherMoney1" type="number"  ng-model="addSingOtherMoneyItem" ng-change="changeSingleOtherMoney(addSingOtherMoneyItem,dispatchNum.car_count)">
+                                            <label for="addSingOtherMoney1">每台其他费补价</label>
+                                        </div>
+                                        <div class="col s6 input-field red-text right-align" style="padding: 0">
+                                            <input id="addTotalOtherMoney1" type="number"  ng-model="addTotalOtherMoney" disabled>
+                                            <label for="addTotalOtherMoney1">总其他费补价</label>
+                                        </div>
+                                    </div>
+
+                                </div>
 
                                     <div class="col s12">
                                         <div class="input-field col s12" style="margin-bottom:20px ">
@@ -177,13 +200,13 @@
             <div class="row col s12 cyan-text fz12">
 
                 <!--大车洗车费  小车洗车费  拖车费   地跑费  带路费  -->
-                <div class="col input-field s2" style="margin-top: 0px">大车洗车费:<span class="red-text fz22">{{showList.big_single_price*showList.big_car_count}}</span></div>
-                <div class="col input-field s2" style="margin-top: 0px">小车洗车费:<span class="red-text fz22">{{showList.small_single_price*showList.small_car_count}}</span></div>
-                <div class="col input-field s2" style="margin-top: 0px">拖车费:<span class="red-text fz22">{{showList.total_trailer_fee}}</span></div>
-                <div class="col input-field s2" style="margin-top: 0px">地跑费:<span class="red-text fz22">{{showList.total_run_fee}}</span></div>
-                <div class="col input-field s2" style="margin-top: 0px">带路费:<span class="red-text fz22">{{showList.lead_fee}}</span></div>
-                <div class="col input-field s2" style="margin-top: 0px">提车费:<span class="red-text fz22">{{showList.car_parking_fee}}</span></div>
-
+                <div class="col input-field" style="margin-top: 0px;width: 14%">大车洗车费:<span class="red-text fz22">{{showList.big_single_price*showList.big_car_count}}</span></div>
+                <div class="col input-field" style="margin-top: 0px;width: 14%">小车洗车费:<span class="red-text fz22">{{showList.small_single_price*showList.small_car_count}}</span></div>
+                <div class="col input-field" style="margin-top: 0px;width: 14%">拖车费:<span class="red-text fz22">{{showList.total_trailer_fee}}</span></div>
+                <div class="col input-field" style="margin-top: 0px;width: 14%">地跑费:<span class="red-text fz22">{{showList.total_run_fee}}</span></div>
+                <div class="col input-field" style="margin-top: 0px;width: 14%">带路费:<span class="red-text fz22">{{showList.lead_fee}}</span></div>
+                <div class="col input-field" style="margin-top: 0px;width: 14%">提车费:<span class="red-text fz22">{{showList.car_parking_fee}}</span></div>
+                <div class="col input-field" style="margin-top: 0px;width: 14%">其他费:<span class="red-text fz22">{{showList.total_other_fee}}</span></div>
             </div>
 
 
@@ -191,12 +214,12 @@
 
             <!--大车洗车费单价  小车洗车费单价  拖车费单价 地跑费单价   带路费单价 -->
             <div class="row col s12 cyan-text fz13">
-                <div class="col input-field colWidth" style="margin-top: 0px">大车洗车费单价:<span class="red-text fz22">{{showList.big_single_price}}</span></div>
-                <div class="col input-field colWidth" style="margin-top: 0px">小车洗车费单价:<span class="red-text fz22">{{showList.small_single_price}}</span></div>
-                <div class="col input-field colWidth" style="margin-top: 0px">拖车费单价:<span class="red-text fz22">{{showList.trailer_fee}}</span></div>
-                <div class="col input-field colWidth" style="margin-top: 0px">地跑费单价:<span class="red-text fz22">{{showList.run_fee}}</span></div>
-                <div class="col input-field colWidth" style="margin-top: 0px">带路费单价:<span class="red-text fz22">{{showList.lead_fee}}</span></div>
-
+                <div class="col input-field s2" style="margin-top: 0px">大车洗车费单价:<span class="red-text fz22">{{showList.big_single_price}}</span></div>
+                <div class="col input-field s2" style="margin-top: 0px">小车洗车费单价:<span class="red-text fz22">{{showList.small_single_price}}</span></div>
+                <div class="col input-field s2" style="margin-top: 0px">拖车费单价:<span class="red-text fz22">{{showList.trailer_fee}}</span></div>
+                <div class="col input-field s2" style="margin-top: 0px">地跑费单价:<span class="red-text fz22">{{showList.run_fee}}</span></div>
+                <div class="col input-field s2" style="margin-top: 0px">带路费单价:<span class="red-text fz22">{{showList.lead_fee}}</span></div>
+                <div class="col input-field s2" style="margin-top: 0px">其他费单价:<span class="red-text fz22">{{showList.total_other_fee}}</span></div>
             </div>
 
 
@@ -351,20 +374,23 @@
         </div>
         <div class="row col s12" style="margin-top: 25px">
             <div class="col s12 cyan white-text vc-center fz18" style="height: 60px;border-bottom: 1px solid  #4e84cb;border-top:1px solid  #fff" ng-if="carWashFeeList.length!==0">
-                <div class="col left-align bold" style="width: 20%">
+                <div class="col s2 left-align bold">
                     总洗车金额:{{boxArrayFee.total_clean_fee}}元
                 </div>
-                <div class="col center-align bold" style="width: 20%">
+                <div class="col s2 left-align bold">
                     总拖车金额:{{boxArrayFee.total_trailer_fee}}元
                 </div>
-                <div class="col center-align bold" style="width: 20%">
+                <div class="col s2 left-align bold">
                     总提车金额:{{boxArrayFee.car_parking_fee}}元
                 </div>
-                <div class="col center-align bold" style="width: 20%">
+                <div class="col s2 left-align bold">
                     总地跑金额:{{boxArrayFee.total_run_fee}}元
                 </div>
-                <div class="col right-align bold" style="width: 20%">
+                <div class="col s2 left-align bold">
                     总带路金额:{{boxArrayFee.lead_fee}}元
+                </div>
+                <div class="col s2 left-align bold">
+                    总其他金额:{{boxArrayFee.total_other_fee}}元
                 </div>
             </div>
             <div class="divider cyan" style="height: 2px;"></div>
@@ -383,10 +409,12 @@
 
                     <th data-field="">地跑费</th>
                     <th data-field="">带路费</th>
+                    <th data-field="">其他费</th>
                     <th>应发洗车费</th>
                     <th>应发拖车费</th>
                     <th>应发地跑费</th>
                     <th>应发带路费</th>
+                    <th>应发其他费</th>
                     <th data-field="">提车费</th>
                     <th data-field="">货车牌号</th>
                     <th data-field="">补发</th>
@@ -414,12 +442,13 @@
 
                     <td>{{car.actual_run_fee}}</td>
                     <td>{{car.actual_lead_fee}}</td>
-
+                    <td>{{car.actual_other_fee}}</td>
 
                     <td>{{car.actual_price}}</td>
                     <td>{{car.total_trailer_fee}}</td>
                     <td>{{car.total_run_fee}}</td>
                     <td>{{car.lead_fee}}</td>
+                    <td>{{car.total_other_fee}}</td>
                     <td>{{car.car_parking_fee}}</td>
                     <td>{{car.truck_num}}</td>
                     <td>{{car.type==0?'否':'是'}}</td>
@@ -440,7 +469,7 @@
                     </td>
                 </tr>
                 <tr class="grey-text text-darken-1" ng-if="carWashFeeList.length == 0">
-                    <td colspan="25"><span style="letter-spacing: 2px">暂无数据</span></td>
+                    <td colspan="27"><span style="letter-spacing: 2px">暂无数据</span></td>
                 </tr>
                 </tbody>
             </table>

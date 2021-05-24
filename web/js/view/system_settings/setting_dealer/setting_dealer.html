@@ -198,21 +198,21 @@
                 </div>
             </div>
             <div class="col s3 valign-wrapper">
-                <div class="col s11 input-field">
+                <div class="col s8 input-field">
                     <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123);margin: 0" type="number" ng-model="carWashFeeCount" id="car_wash_fee" name="car_wash_fee">
                     <label class="{{carWashFeeCount != null ? 'active' : 'inactive'}}" for="car_wash_fee">小车洗车费金额</label>
                 </div>
-                <div class="col s1 left-align" style="padding: 0;">
-                    元
+                <div class="col s4 left-align" style="padding: 0;">
+                    元/辆
                 </div>
             </div>
             <div class="col s3 valign-wrapper">
-                <div class="col s11 input-field">
+                <div class="col s8 input-field">
                     <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123);margin: 0" type="number" ng-model="bigCleanFee" id="bigCleanFee" name="bigCleanFee">
                     <label class="{{bigCleanFee != null ? 'active' : 'inactive'}}" for="bigCleanFee">大车洗车费金额</label>
                 </div>
-                <div class="col s1 left-align" style="padding: 0;">
-                    元
+                <div class="col s4 left-align" style="padding: 0;">
+                    元/辆
                 </div>
             </div>
             <div class="col s6 valign-wrapper">
@@ -226,12 +226,12 @@
                 </div>
             </div>
             <div class="col s6 valign-wrapper">
-                <div class="col s11 input-field">
+                <div class="col s10 input-field">
                     <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123);margin:0" type="number" ng-model="trailerFee" id="trailerFee" name="trailerFee">
                     <label class="{{trailerFee != null ? 'active' : 'inactive'}}" for="trailerFee">拖车费金额</label>
                 </div>
-                <div class="col s1 left-align" style="padding: 0;">
-                    元
+                <div class="col s2 left-align" style="padding: 0;">
+                    元/趟
                 </div>
             </div>
             <div class="col s6 valign-wrapper">
@@ -245,12 +245,12 @@
                 </div>
             </div>
             <div class="col s6 valign-wrapper">
-                <div class="col s11 input-field">
+                <div class="col s10 input-field">
                     <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123);margin: 0" type="number" ng-model="runFee" id="runFee" name="runFee">
                     <label class="{{runFee != null ? 'active' : 'inactive'}}" for="runFee">地跑费金额</label>
                 </div>
-                <div class="col s1 left-align" style="padding: 0;">
-                    元
+                <div class="col s2 left-align" style="padding: 0;">
+                    元/趟
                 </div>
             </div>
             <div class="col s6 valign-wrapper">
@@ -264,12 +264,31 @@
                 </div>
             </div>
             <div class="col s6 valign-wrapper">
-                <div class="col s11 input-field">
+                <div class="col s10 input-field">
                     <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123);margin: 0" type="number" ng-model="leadFee" id="leadFee" name="leadFee">
                     <label class="{{leadFee != null ? 'active' : 'inactive'}}" for="leadFee">带路费金额</label>
                 </div>
-                <div class="col s1 left-align" style="padding: 0;">
-                    元
+                <div class="col s2 left-align" style="padding: 0;">
+                    元/趟
+                </div>
+            </div>
+            <div class="col s6 valign-wrapper">
+                <div class="col s12 input-field">
+                    <select  material-select  ng-model="otherMonthFlag" id="otherMonthFlag">
+                        <option ng-value="" selected disabled>请选择</option>
+                        <option ng-value="1">是</option>
+                        <option ng-value="0">否</option>
+                    </select>
+                    <label for="otherMonthFlag">其他费用是否月结</label>
+                </div>
+            </div>
+            <div class="col s6 valign-wrapper">
+                <div class="col s10 input-field">
+                    <input style="font-size: 2rem;text-align: right;color: rgb(230,123,123);margin: 0" type="number" ng-model="otherFee" id="otherFee" name="otherFee">
+                    <label class="{{otherFee != null ? 'active' : 'inactive'}}" for="otherFee">其他费用金额</label>
+                </div>
+                <div class="col s2 left-align" style="padding: 0;">
+                    元/辆
                 </div>
             </div>
         </div>

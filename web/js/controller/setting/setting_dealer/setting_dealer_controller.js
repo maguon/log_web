@@ -208,10 +208,12 @@ app.controller("setting_dealer_controller", ["$scope","$rootScope","$state","$st
         $scope.trailerFee = item.trailer_fee;
         $scope.runFee = item.run_fee;
         $scope.leadFee = item.lead_fee;
+        $scope.otherFee = item.other_fee;
         $scope.monthFlag =item.month_flag;
         $scope.trailerMonthFlag =item.trailer_month_flag;
         $scope.runMonthFlag =item.run_month_flag;
         $scope.leadMonthFlag =item.lead_month_flag;
+        $scope.otherMonthFlag =item.other_month_flag;
       /*  $scope.guardFeeCount = item.guard_fee;*/
         $('#carWashFeeModel').modal('open');
     };
@@ -224,10 +226,12 @@ app.controller("setting_dealer_controller", ["$scope","$rootScope","$state","$st
             trailerFee: ($scope.trailerFee).toFixed(2),
             runFee: ($scope.runFee).toFixed(2),
             leadFee: ($scope.leadFee).toFixed(2),
+            otherFee:($scope.otherFee).toFixed(2),
             monthFlag:$scope.monthFlag,
             trailerMonthFlag:$scope.trailerMonthFlag,
             runMonthFlag:$scope.runMonthFlag,
-            leadMonthFlag:$scope.leadMonthFlag
+            leadMonthFlag:$scope.leadMonthFlag,
+            otherMonthFlag:$scope.otherMonthFlag
         }).then(function (data) {
             if (data.success === true) {
                 swal("修改成功", "", "success");

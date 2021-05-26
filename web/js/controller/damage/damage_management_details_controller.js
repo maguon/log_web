@@ -106,7 +106,6 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
     function  getCarType(makeName){
         _basic.get($host.api_url + "/carMake/" + makeName + "/carModel?modelStatus=1").then(function (data) {
             if (data.success == true) {
-
                 $scope.carTypeList = data.result;
 
             } else {
@@ -123,10 +122,16 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
         } else if (st == "0") {
             $scope.changeSt = "1"
         }
-
         _basic.put($host.api_url + "/user/" + userId + "/damage/" + id + "/hangStatus/" + $scope.changeSt, {}).then(function (data) {
             if (data.success == true) {
-                $scope.getCurrentDamageInfo();
+                if (st == "1") {
+                    $scope.currentDamageInfo.hang_status = "0"
+                } else if (st == "0") {
+                    $scope.currentDamageInfo.hang_status = "1"
+                }
+
+                swal("修改成功！","","success")
+               /* $scope.getCurrentDamageInfo();*/
 
             }
             else {
@@ -148,7 +153,13 @@ app.controller("damage_management_details_controller", ["$scope","$state", "$sta
             }
             else{
                 _basic.put($host.api_url + "/user/" + userId + "/damage/" + damageId,{
+
+
                     carModelName: $scope.currentDamageInfo.car_model_name,
+                    truckId:$scope.currentDamageInfo.truck_id,
+                    truckNum:$scope.currentDamageInfo.truck_num,
+                    driveId:$scope.currentDamageInfo.drive_id,
+                    driveName:$scope.currentDamageInfo.drive_name,
                     damageExplain:remark
                 }).then(function (data) {
                     if (data.success === true) {

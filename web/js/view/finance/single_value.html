@@ -95,15 +95,24 @@
             <th width="200" class="center-align">地跑费</th>
             <th width="200" class="center-align">带路费</th>
             <th width="200" class="center-align">过路费</th>
+
+            <th width="200" class="center-align">经销商其他费用</th>
+
             <th width="200" class="center-align">油费</th>
             <th width="200" class="center-align">油量</th>
             <th width="200" class="center-align">尿素费</th>
             <th width="200" class="center-align">尿素量</th>
             <th width="200" class="center-align">违章罚款个人</th>
             <th width="200" class="center-align">违章罚款公司</th>
-            <th width="200" class="center-align">维修费</th>
-            <th width="200" class="center-align">配件费</th>
-            <th width="200" class="center-align">保养费</th>
+
+            <th width="200" class="center-align">公司维修费</th>
+            <th width="200" class="center-align">公司配件费</th>
+            <th width="200" class="center-align">公司保养费</th>
+
+            <th width="200" class="center-align">在外维修费</th>
+            <th width="200" class="center-align">在外配件费</th>
+            <th width="200" class="center-align">在外保养费</th>
+
             <th width="200" class="center-align">商品车加油</th>
             <th width="200" class="center-align">商品车停车</th>
             <th width="200" class="center-align">货车停车费</th>
@@ -150,15 +159,25 @@
            <td width="200" class="center-align">{{driver.run_fee }}</td>
            <td width="200" class="center-align">{{driver.lead_fee }}</td>
            <td width="200" class="center-align">{{driver.etc_fee}}</td>
+
+           <td width="200" class="center-align">{{driver.other_clean_fee}}</td>
+
            <td width="200" class="center-align">{{driver.oil_fee}}</td>
            <td width="200" class="center-align">{{driver.oil_vol}}</td>
            <td width="200" class="center-align">{{driver.urea_fee}}</td>
            <td width="200" class="center-align">{{driver.urea_vol}}</td>
            <td width="200" class="center-align">{{driver.peccancy_under_fee }}</td>
            <td width="200" class="center-align">{{driver.peccancy_company_fee }}</td>
-           <td width="200" class="center-align">{{driver.repair_fee }}</td>
-           <td width="200" class="center-align">{{driver.parts_fee}}</td>
-           <td width="200" class="center-align">{{driver.maintain_fee }}</td>
+
+
+           <td width="200" class="center-align">{{driver.repair_fee_2 }}</td>
+           <td width="200" class="center-align">{{driver.parts_fee_2}}</td>
+           <td width="200" class="center-align">{{driver.maintain_fee_2 }}</td>
+
+           <td width="200" class="center-align">{{driver.repair_fee_3 }}</td>
+           <td width="200" class="center-align">{{driver.parts_fee_3}}</td>
+           <td width="200" class="center-align">{{driver.maintain_fee_3 }}</td>
+
            <td width="200" class="center-align">{{driver.car_oil_fee }}</td>
            <td width="200" class="center-align">{{driver.car_parking_total_fee }}</td>
            <td width="200" class="center-align">{{driver.truck_parking_fee}}</td>
@@ -207,15 +226,22 @@
                 <th>地跑费</th>
                 <th>带路费</th>
                 <th>过路费</th>
+                <th>经销商其他费用</th>
                 <th>油费</th>
                 <th>油量</th>
                 <th>尿素费</th>
                 <th>尿素量</th>
                 <th>违章罚款个人</th>
                 <th>违章罚款公司</th>
-                <th>维修费</th>
-                <th>配件费</th>
-                <th>保养费</th>
+
+                <th>公司维修费</th>
+                <th>公司配件费</th>
+                <th>公司保养费</th>
+
+                <th>在外维修费</th>
+                <th>在外配件费</th>
+                <th>在外保养费</th>
+
                 <th>商品车加油</th>
                 <th>商品车停车</th>
                 <th>货车停车费</th>
@@ -225,7 +251,7 @@
 
             <tbody style="height: 20px;width: 100%;overflow-y: scroll" >
             <tr class="grey-text text-darken-1">
-                <td colspan="48"><span style="letter-spacing: 2px">暂无数据</span></td>
+                <td colspan="52"><span style="letter-spacing: 2px">暂无数据</span></td>
             </tr>
             </tbody>
         </table>

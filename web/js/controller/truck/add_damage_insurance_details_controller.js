@@ -68,7 +68,19 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$
         _basic.get($host.api_url + "/damageBase?damageInsureId=" + damageInsureId).then(function (data) {
             if (data.success === true) {
                 $scope.damageInfoCardList = data.result;
-                _basic.get($host.api_url +'/damageCheckIndemnity?damageInsureId='+ damageInsureId).then(function (data) {
+                for(let i = 0; i < $scope.damageInfoCardList.length; i++){
+                    _basic.get($host.api_url +'/damageCheckIndemnity?damageId='+ $scope.damageInfoCardList[i].id).then(function (data) {
+                        if (data.success === true&&data.result.length>0) {
+                            $scope.damageCheckIndemnitArray = data.result;
+                            let tempData = $scope.damageInfoCardList[i];
+                            tempData.actualMoney = $scope.damageCheckIndemnitArray[0].actual_money;
+                            $scope.damageInfoCardList[i]= tempData;
+
+                        }
+                    })
+                }
+
+              /*  _basic.get($host.api_url +'/damageCheckIndemnity?damageId=='+ ).then(function (data) {
                     if (data.success === true) {
                         $scope.damageCheckIndemnitArray = data.result;
                         console.log('实际金额',  $scope.damageCheckIndemnitArray,'质损list',  $scope.damageInfoCardList)
@@ -88,7 +100,7 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$
                     else {
                         swal(data.msg, "", "error");
                     }
-                });
+                });*/
 
             }
             else {

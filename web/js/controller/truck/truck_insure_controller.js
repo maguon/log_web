@@ -46,7 +46,7 @@ app.controller("truck_insure_controller", ["$scope", "$state", "$stateParams", "
     var colObjs = [
         {name: '保险公司ID', type: 'number',require: true},
         {name: '保险种类ID', type: 'number',require: true},
-        {name: '保单编号', type: 'number',require: true},
+        {name: '保单编号', type: 'string',require: true},
         {name: '保险金额', type: 'number',require: true},
         {name: '税金额', type: 'number',require: true},
         {name: '车牌号', type: 'string',require: true},

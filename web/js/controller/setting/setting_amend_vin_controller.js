@@ -133,7 +133,7 @@ app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$hos
 
 
     //删除
-    $scope.deleteDataItem = function (id) {
+    $scope.deleteDataItem = function (carId,vin) {
         swal({
             title: "确定删除当前车辆吗？",
             type: "warning",
@@ -143,7 +143,7 @@ app.controller("setting_amend_vin_controller",["$scope","_basic","_config","$hos
             cancelButtonText: "取消"
         }).then(function (result) {
             if (result.value) {
-                _basic.delete($host.api_url + "/user/" + admin + "/car/" + id + '/car').then(function (data) {
+                _basic.delete($host.api_url + "/user/" + admin + "/car/" + carId+'/vin/'+vin + '/car').then(function (data) {
                     if (data.success === true) {
                         $scope.demand_car();
                     }

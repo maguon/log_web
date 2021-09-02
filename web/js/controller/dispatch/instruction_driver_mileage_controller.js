@@ -5,6 +5,12 @@ app.controller("instruction_driver_mileage_controller", ["$scope","$rootScope","
 
     $scope.driver_mileage_startTime = moment(baseService.dateFirst()).format("YYYY-MM-DD");
     $scope.driver_mileage_endTime = moment(baseService.dateLast()).format("YYYY-MM-DD");
+    $scope.boxArray=[{
+        no_oil_distance:0,
+        load_oil_distance:0,
+        no_load_distance:0,
+        load_distance:0
+    }];
     // 司机里程
     $scope.search = function () {
         // 基本检索URL
@@ -28,6 +34,12 @@ app.controller("instruction_driver_mileage_controller", ["$scope","$rootScope","
                 $rootScope.refObj = {pageArray: []};
                 $rootScope.refObj.pageArray.push(pageItems);
                 $scope.driveDistanceCount = data.result;
+                for (var i = 0; i < $scope.driveDistanceCount.length; i++) {
+                    $scope.boxArray[0].no_oil_distance+= $scope.driveDistanceCount[i].no_oil_distance==null?0:$scope.driveDistanceCount[i].no_oil_distance;
+                    $scope.boxArray[0].load_oil_distance+= $scope.driveDistanceCount[i].load_oil_distance==null?0:$scope.driveDistanceCount[i].load_oil_distance
+                    $scope.boxArray[0].no_load_distance+= $scope.driveDistanceCount[i].no_load_distance==null?0:$scope.driveDistanceCount[i].no_load_distance;
+                    $scope.boxArray[0].load_distance+= $scope.driveDistanceCount[i].load_distance==null?0:$scope.driveDistanceCount[i].load_distance;
+                }
             }
             else {
                 swal(data.msg, "", "error")

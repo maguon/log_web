@@ -52,8 +52,18 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col s12" >
-                        <div class="divider cyan" style="height: 2px;"></div>
+                        <div class="col s12 cyan white-text vc-center fz18 bold colHeight" style="border-bottom: 1px solid #fff" ng-if="driveDistanceCount.length!==0">
+                            <div class="col left-align s6">
+                                总油耗空载/重载:{{boxArray[0].no_oil_distance}}/{{boxArray[0].load_oil_distance}}
+                            </div>
+                            <div class="col right-align s6">
+                                总结算空载/重载/总:{{boxArray[0].no_load_distance}}/{{boxArray[0].load_distance}}/{{boxArray[0].no_load_distance+boxArray[0].load_distance}}
+                            </div>
+                        </div>
+
+
                         <table class="bordered striped text_mid">
                             <thead class="blue-grey lighten-5">
                                 <tr class="grey-text text-darken-2">

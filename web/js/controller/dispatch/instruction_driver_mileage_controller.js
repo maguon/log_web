@@ -5,14 +5,14 @@ app.controller("instruction_driver_mileage_controller", ["$scope","$rootScope","
 
     $scope.driver_mileage_startTime = moment(baseService.dateFirst()).format("YYYY-MM-DD");
     $scope.driver_mileage_endTime = moment(baseService.dateLast()).format("YYYY-MM-DD");
-    $scope.boxArray=[{
-        no_oil_distance:0,
-        load_oil_distance:0,
-        no_load_distance:0,
-        load_distance:0
-    }];
     // 司机里程
     $scope.search = function () {
+        $scope.boxArray=[{
+            no_oil_distance:0,
+            load_oil_distance:0,
+            no_load_distance:0,
+            load_distance:0
+        }];
         // 基本检索URL
         var url = $host.api_url + "/driveDistanceLoadStat?";
         // 检索条件

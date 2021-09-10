@@ -1,6 +1,7 @@
 app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$stateParams", "$host", "_basic", function ($scope,$state, $stateParams, $host, _basic) {
     var userId = _basic.getSession(_basic.USER_ID);
     var damageInsureId = $stateParams.id;
+    var recordId;
     $scope.damageNum = "";
     $scope.damageCheckIndemnitArray=[];
     $scope.damageInfoCardList=[];
@@ -192,7 +193,7 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$
         for (var i = 0; i < $scope.damageInfoCardList.length; i++) {
             $scope.damageIdArr.push($scope.damageInfoCardList[i].id);
         }
-        if($scope.currentInsurInfo.city_id==undefined||$scope.declareDate==undefined||$scope.currentInsurInfo.liability_type==undefined||
+        if($scope.currentInsurInfo.city_id==null||$scope.declareDate==''||$scope.declareDate==undefined||$scope.currentInsurInfo.liability_type==undefined||
             $scope.currentInsurInfo.derate_money==null||$scope.currentInsurInfo.car_valuation==null||$scope.currentInsurInfo.invoice_money==null||
         $scope.insuranceCompany==null||$scope.insuranceCompensation==null||$scope.damageMoney==null||
         $scope.insurancePayment==null){
@@ -233,8 +234,6 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$
         }).then(function (data) {
             if (data.success === true) {
                 swal("保存成功", "", "success");
-                $scope.getCurrentDamageInfo();
-                $scope.getCurrentDamageCard();
             }
             else {
                 swal(data.msg, "", "error");
@@ -244,7 +243,13 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$
 
     // 点击完成按钮
     $scope.completeDamageList = function () {
-        swal({
+        if($scope.currentInsurInfo.city_id==null||$scope.declareDate==''||$scope.declareDate==undefined||$scope.currentInsurInfo.liability_type==undefined||
+            $scope.currentInsurInfo.derate_money==null||$scope.currentInsurInfo.car_valuation==null||$scope.currentInsurInfo.invoice_money==null||
+            $scope.insuranceCompany==null||$scope.insuranceCompensation==null||$scope.damageMoney==null||
+            $scope.insurancePayment==null){
+            swal('请输入完整信息!', "", "error");
+        }else {
+            swal({
                 title: "确定完成当前质损吗？",
                 type: "warning",
                 showCancelButton: true,
@@ -252,25 +257,147 @@ app.controller("add_damage_insurance_details_controller", ["$scope", "$state","$
                 confirmButtonText: "确认",
                 cancelButtonText: "取消"
             }).then(
-            function(result){
-                if (result.value) {
-                    _basic.put($host.api_url + "/user/" + userId + "/damageInsure/" + damageInsureId + "/insureStatus/2", {}).then(function (data) {
-                        if (data.success === true) {
-                            $scope.saveDamageInfo();
+                function(result){
+                    if (result.value) {
+                        _basic.put($host.api_url + "/user/" + userId + "/damageInsure/" + damageInsureId + "/insureStatus/2", {}).then(function (data) {
+                            if (data.success === true) {
+                                $scope.getCurrentDamageInfo();
+                                $scope.getCurrentDamageCard();
+                            }
+                            else {
+                                swal(data.msg, "", "error");
+                            }
+                        });
+                    }
+                });
+        }
+
+    };
+
+    var viewer;
+    $scope.insuranceFinish = function () {
+        viewer = new Viewer(document.getElementById('insurance_image'), {
+            url: 'data-original'
+        });
+    };
+    $scope.showPaymentVoucherImage = function () {
+        viewer = new Viewer(document.getElementsByClassName('payment_voucher'), {
+            url: 'data-original'
+        });
+    };
+    // 照片上传函数
+    function uploadBrandImage(filename,dom_obj,callback) {
+        if(filename){
+            if ((/\.(jpe?g|png|gif|svg|bmp|tiff?)$/i).test(filename)) {
+                var max_size_str = dom_obj.attr('max_size');
+                var max_size = 4 * 1024 * 1024; //default: 4M
+                var re = /\d+m/i;
+                if (re.test(max_size_str)) {
+                    max_size = parseInt(max_size_str.substring(0, max_size_str.length - 1)) * 1024 * 1024;
+                    _basic.formPost(dom_obj.parent().parent(), $host.file_url + '/user/' + userId + '/image?imageType=4', function (data) {
+                        if (data.success) {
+                            var imageId = data.imageId;
+                            callback(imageId);
+                        } else {
+                            swal('上传图片失败', "", "error");
                         }
-                        else {
-                            swal(data.msg, "", "error");
-                        }
-                    });
+                    }, function (error) {
+                        swal('服务器内部错误', "", "error");
+                    })
+                }
+
+                if (dom_obj[0].files[0].size > max_size) {
+                    swal('图片文件最大: ' + max_size_str, "", "error");
+                    return false;
+                }
+            }
+            else if (filename && filename.length > 0) {
+                dom_obj.val('');
+                swal('支持的图片类型为. (jpeg,jpg,png,gif,svg,bmp,tiff)', "", "error");
+            }else {
+
+            }
+        }
+    }
+    $scope.openVideo =function (){
+        $(".modal").modal();
+        $("#video").modal("open");
+        var videoJs=document.querySelector('.video-js');
+        var player = videojs(videoJs,{
+            muted: false
+        });
+        player.fluid(true);
+    };
+    //理赔凭证查询
+    function getInsuranceImg(){
+        _basic.get($host.record_url + "/insure?type=2&insureId=" + damageInsureId).then(function (data) {
+            if (data.success === true) {
+                $scope.insuranceImageList = data.result[0].insure_image;
+                recordId = data.result[0]._id;
+                for (var i = 0; i < $scope.insuranceImageList.length; i++) {
+                    $scope.insuranceImageList[i].url = $host.file_url + '/image/' + $scope.insuranceImageList[i].url
+                }
+            }
+            else {
+                swal(data.msg, "", "error");
+            }
+        });
+    }
+    $scope.uploadInsuranceImage = function (dom) {
+        var dom_obj = $(dom);
+        var filename = $(dom).val();
+        uploadBrandImage(filename, dom_obj, function (imageId) {
+            _basic.post($host.record_url + "/user/" + userId + "/insure/" + damageInsureId + "/image", {
+                "username": _basic.getSession(_basic.USER_NAME),
+                "userId": userId,
+                "userType": _basic.getSession(_basic.USER_TYPE),
+                "url": imageId,
+                "type": 2
+            }).then(function (data) {
+                if (data.success == true) {
+                   getInsuranceImg();
+                    if ($scope.insuranceImageList.length != 0) {
+                        viewer.destroy();
+                    }
                 }
             });
+        });
     };
+    // 删除当前照片
+    $scope.deleteImage = function (imageUrl) {
+        var realUrl = imageUrl.split("/")[imageUrl.split("/").length - 1];
+        swal({
+            title: "确认删除该照片？",
+            text: "",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确定",
+            cancelButtonText: "取消"
+        }).then(function (result) {
+            if (result.value) {
+                _basic.delete($host.record_url + "/user/" + userId + "/record/" + recordId + "/insureImage/" + realUrl).then(function (data) {
+                    if (data.success === true) {
+                        swal("删除成功", "", "success");
+                        getInsuranceImg();
+                        if ($scope.insuranceImageList.length != 0) {
+                            viewer.destroy();
+                        }
+                    }
+                    else {
+                        swal(data.msg, "", "error");
+                    }
+                });
+            }
+        })
+    }
 
     // 获取数据
     $scope.queryData = function () {
         $scope.getInsuranceCompany();
         $scope.getCurrentDamageInfo();
         $scope.getCurrentDamageCard();
+        getInsuranceImg()
     };
     $scope.queryData();
 }]);

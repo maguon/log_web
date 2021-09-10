@@ -1,3 +1,11 @@
+<div class="row" style="margin: 0">
+    <div id="video" class="modal modal-fixed-footer" style="width: 75%;height: 500px">
+        <video id="example_video_1" class="video-js vjs-default-skin col s12" controls autoplay="autoplay" preload="none" style="width: 100%;height: 500px;margin: 0;padding: 0">
+            <source src={{videoUrl}} type="video/mp4">
+        </video>
+    </div>
+</div>
+
 <div class="add_damage_insurance_details">
     <div class="storage_storeTitle vc-center ">
         <a class=" storage_goback_btn btn-floating btn waves-effect cyan lighten-1 waves-light " ng-click="return()">
@@ -170,6 +178,41 @@
                     </div>
                 </div>
             </div>
+            <!--理赔凭证-->
+            <div class="row col s12">
+                <div class="col s12">
+                    <div class="col s12 left-align">
+                        <p class="cyan-text" style="font-size: 1.2rem;font-weight: bold;margin: 0">理赔凭证：</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s12" >
+                <div class="col s1">
+                    <form name="uploadImageForm" class="uploadImageForm vc-center" style="display: inline-block"  ng-show="insureStatus == 1">
+                        <div class="upload_btn">
+                            <div style="margin: 0;width: 80px"
+                                 class="storage_car_picture col s4 vc-center p0 cyan lighten-1 white-text">
+                                <input name="image" type="file"
+                                       onchange="angular.element(this).scope().uploadInsuranceImage(this)" max_size="4M">
+                                <i class="mdi mdi-instagram"></i>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col s11" id="insurance_image">
+                    <div class="truck_car_picture col s3 vc-center p0 grey white-text" ng-hide="!video">
+                        <img  class="responsive-img black"  style="width: 265px;height: 200px;"/>
+                        <i class="mdi mdi-video " style="font-size:45px;position: absolute;top:35%;right: 43%;" ng-click="openVideo()"></i>
+                    </div>
+                    <div ng-repeat="img in insuranceImageList" repeat-finish="insuranceFinish()" ng-mouseenter="show=true" ng-mouseleave="show=false" class="truck_car_picture col s3 vc-center p0 grey white-text">
+                        <img ng-src="{{img.url}}" class="responsive-img">
+                        <span ng-show="insureStatus == 1" class="delete_img vc-center black white-text fz19" ng-click="deleteImage(img.url)"><i class="mdi mdi-close"></i></span>
+                        <p style="margin-bottom: 0" class="img_date white-text center-align" ng-show="show" ng-cloak>{{img.name}} 上传于 {{img.timez | date:'yyyy-MM-dd'}}</p>
+                    </div>
+                </div>
+            </div>
+
 
             <!--关联质损输入框-->
             <div class="row col s12" ng-show="insureStatus == 1">

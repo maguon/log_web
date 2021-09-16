@@ -64,6 +64,7 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
         {name: '处理时间', type: 'string', require: true},
         {name: '城市ID', type: 'number', require: true},
         {name: '违章地点', type: 'string', require: true},
+        {name: '编号', type: 'string', require: false},
         {name: '备注', type: 'string', require: false}];
     // 头部条件判断
     $scope.titleFilter = function (headerArray) {

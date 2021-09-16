@@ -323,11 +323,101 @@
             <div class="row">
                 <div class="col s12">
                     <div class="col s12 tableBox" ng-show="tableBox">
+                        <div class="col s12">
+                            <div class="col s4 push-s4 fz30 cyan-text center-align" style="padding-bottom:20px;border-bottom: 1px solid #ccc">数据导入须知</div>
+                        </div>
+                        <div class="col s9 push-s3 red-text fz20 mp-20">
+                            <i class="mdi  mdi-checkbox-multiple-blank-circle  cyan-text" ></i>
+                            上传得数据表格必须为csv格式的文件,不支持excel格式的表格文件上传;
+                        </div>
+                        <div class="col s9 push-s3 red-text fz20 mp-20">
+                            <i class="mdi  mdi-checkbox-multiple-blank-circle  cyan-text" ></i>
+                            上传得数据表格,必须遵守模板的数据表头顺序,若顺序错误将无法上传;
+                        </div>
+                        <div class="col s9 push-s3 red-text fz20 mp-20">
+                            <i class="mdi  mdi-checkbox-multiple-blank-circle  cyan-text" ></i>
+                            每个字段得ID编码都可以在系统的数据字典中查询到,若数据字典中查询不到,请联系部门管理员添加该数据,再执行上传;
+                        </div>
+                        <div class="col s9 push-s3 red-text fz20 mp-20">
+                            <i class="mdi  mdi-checkbox-multiple-blank-circle  cyan-text" ></i>
+                            导入数据中各字段均为必填项,如果未发生数据,则以数字"0"代替;
+                        </div>
+                        <div class="col s9 push-s3 red-text fz20 mp-20">
+                            <i class="mdi  mdi-checkbox-multiple-blank-circle  cyan-text" ></i>
+                            如果系统内存在相同的记录,将上传失败;
+                        </div>
+                        <div class="col s10 push-s1 mp-40">
+                            <div class="divider cyan" style="height: 2px;"></div>
+                            <table class=" bordered striped text_mid">
+                                <thead class="blue-grey lighten-5">
+                                <tr class="grey-text text-darken-2">
+                                    <th data-field="">司机</th>
+                                    <th data-field="">货车牌号</th>
+                                    <th data-field="">扣分</th>
+                                    <th data-field="">买分金额</th>
+                                    <th data-field="">交通罚款</th>
+                                    <th data-field="">处理金额</th>
+                                    <th data-field="">个人承担金额</th>
+                                    <th data-field="">公司承担金额</th>
+                                    <th data-field="">违章时间</th>
+                                    <th data-field="">处理时间</th>
+                                    <th data-field="">城市ID</th>
+                                    <th data-field="">违章地点</th>
+                                    <th data-field="">编号</th>
+                                    <th data-field="">备注</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="grey-text text-darken-1">
+                                    <td>王宝泉</td>
+                                    <td>辽B12345</td>
+                                    <td>1</td>
+                                    <td>100</td>
+                                    <td>200</td>
+                                    <td>300</td>
+                                    <td>100</td>
+                                    <td>200</td>
+                                    <td>2019/5/5</td>
+                                    <td>2019/6/12</td>
+                                    <td>100</td>
+                                    <td>香炉礁</td>
+                                    <td>1234567890123456</td>
+                                    <td>超速</td>
+                                </tr>
+                                <tr class="grey-text text-darken-1">
+                                    <td>司机姓名</td>
+                                    <td>车头车牌号</td>
+                                    <td>扣罚分数</td>
+                                    <td>买分金额</td>
+                                    <td>交通罚款</td>
+                                    <td>处理金额</td>
+                                    <td>司机承担</td>
+                                    <td>公司承担</td>
+                                    <td>违章时间</td>
+                                    <td>处理时间</td>
+                                    <td>数字编号代替城市名</td>
+                                    <td>违章地点</td>
+                                    <td>编号不能重复,长度不得大于40</td>
+                                    <td>必要描述</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+          <!--  <div class="row">
+                <div class="col s12">
+                    <div class="col s12 tableBox" ng-show="tableBox">
                         <img style="width: 100%" src="/assets/images/import_peccancy.png" />
                     </div>
                 </div>
             </div>
-
+-->
             <!--上传错误页-->
             <div class="row dataBox " style="overflow: auto;" ng-show="dataBox">
                 <div class="col s12">

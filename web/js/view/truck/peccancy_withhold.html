@@ -78,7 +78,7 @@
                     <input id="addCompanyDealMoney" name="addCompanyDealMoney"  ng-model="addCompanyMoney" readonly  type="number">
                     <label for="addCompanyDealMoney"><span class="red-text">*</span>公司承担</label>
                 </div>
-                <!--违章地点-->
+                <!--违章城市-->
                 <div class="col s6 input-field"  style="height: 50px">
                     <select id="addCity" name="state" style="width:100%"  ng-model="addCity">
                         <option value=""></option>
@@ -94,6 +94,10 @@
                 <div class="col s12 input-field"  style="height: 50px">
                     <input type="text" ng-model="addPlce" id="addPlce" name="addPlce">
                     <label for="addPlce">违章地点</label>
+                </div>
+                <div class="col s12 input-field"  style="height: 50px">
+                    <input type="text" ng-model="addPlce" id="addNumber" name="addNumber">
+                    <label for="addNumber">编号</label>
                 </div>
                 <div class="col s12 input-field"  style="height: 50px">
                     <input id="addRemark" name="remark"  ng-model="newRemark" type="text">
@@ -199,6 +203,10 @@
                     <div class="col s12 input-field"  style="height: 35px">
                         <input id="putAdress" name="putAdress"  ng-model="putPeccancyList.address" type="text">
                         <label for="putAdress">违章地点</label>
+                    </div>
+                    <div class="col s12 input-field"  style="height: 50px">
+                        <input type="text" ng-model="putPeccancyList.out_id" id="putNumber" name="putNumber">
+                        <label for="putNumber">编号</label>
                     </div>
                     <div class="col s12 input-field"  style="height: 40px">
                         <input id="putRemark" name="remark"  ng-model="putPeccancyList.remark" type="text">
@@ -403,10 +411,6 @@
                                 </tbody>
                             </table>
                         </div>
-
-
-
-
                     </div>
                 </div>
             </div>

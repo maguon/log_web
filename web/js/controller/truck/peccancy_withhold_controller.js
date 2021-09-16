@@ -460,6 +460,7 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
         $scope.addDealMoney='';
         $scope.handleDate='';
         $scope.addPlce='';
+        $scope.addNumber='';
         $scope.newRemark='';
         $scope.addSingeDealMoney ='';
         $scope.addCompanyMoney = '';
@@ -493,6 +494,7 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
                 cityId: $scope.addCity.id,
                 cityName: $scope.addCity.city_name,
                 address: $scope.addPlce,
+                outId:$scope.addNumber,
                 remark: $scope.newRemark
             }).then(function (data) {
                 if (data.success === true) {
@@ -574,6 +576,7 @@ app.controller("peccancy_withhold_controller", ["$scope", "$state", "_basic", "_
             cityId: $scope.putPeccancyList.city_id,
             cityName: $scope.putPeccancyList.city_name,
             address: $scope.putPeccancyList.address,
+            outId: $scope.putPeccancyList.out_id,
             remark: $scope.putPeccancyList.remark
         }).then(function (data) {
             if (data.success === true) {

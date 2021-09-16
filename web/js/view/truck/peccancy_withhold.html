@@ -200,17 +200,17 @@
 
                 <!--违章地点---备注-->
                 <div class="col s12">
-                    <div class="col s12 input-field"  style="height: 35px">
+                    <div class="col s12 input-field">
                         <input id="putAdress" name="putAdress"  ng-model="putPeccancyList.address" type="text">
                         <label for="putAdress">违章地点</label>
                     </div>
-                    <div class="col s12 input-field"  style="height: 50px">
+                    <div class="col s12 input-field">
                         <input type="text" ng-model="putPeccancyList.out_id" id="putNumber" name="putNumber">
                         <label for="putNumber">编号</label>
                     </div>
-                    <div class="col s12 input-field"  style="height: 40px">
+                    <div class="col s12 input-field">
                         <input id="putRemark" name="remark"  ng-model="putPeccancyList.remark" type="text">
-                        <label for="putRemark">备注:</label>
+                        <label for="putRemark">备注</label>
                     </div>
                 </div>
 
@@ -594,6 +594,7 @@
                         <th data-field="">处理时间</th>
                         <th data-field="">违章城市</th>
                         <th data-field="">违章地点</th>
+                        <th data-field="">编号</th>
                         <th data-field="">操作人</th>
                         <th>操作</th>
                     </tr>
@@ -616,6 +617,7 @@
                         <!--违章地点-->
                         <td>{{peccancyInfo.city_name}}</td>
                         <td>{{peccancyInfo.address}}</td>
+                        <td>{{peccancyInfo.out_id}}</td>
                         <td>{{peccancyInfo.op_user_name}}</td>
                         <td  class="operation">
                             <a ng-click="putPeccancy(peccancyInfo.id)" class="cyan-text fz12" style="margin-right: 10px;cursor: pointer;text-align: center">
@@ -624,7 +626,7 @@
                         </td>
                     </tr>
                     <tr ng-if="peccancyList.length==0">
-                        <td colspan="14">暂无数据</td>
+                        <td colspan="15">暂无数据</td>
                     </tr>
                     </tbody>
                 </table>

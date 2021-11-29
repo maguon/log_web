@@ -28,8 +28,8 @@ app.controller("car_detection_statistics_controller", ["$scope", "$rootScope", "
         var obj ={
           /*  op:10,*/
             qaUserId: $scope.manager,
-            dateStart:moment($scope.dateStart).format("YYYYMMDD"),
-            dateEnd:moment($scope.dateEnd).format("YYYYMMDD")
+            dateIdStart:moment($scope.dateStart).format("YYYYMMDD"),
+            dateIdEnd:moment($scope.dateEnd).format("YYYYMMDD")
         };
         if($scope.dateStart==undefined||$scope.dateEnd==undefined){
             swal('请输入完整的时间范围', "", "error");
@@ -53,8 +53,8 @@ app.controller("car_detection_statistics_controller", ["$scope", "$rootScope", "
         var obj ={
            /* op:10,*/
             qaUserId: $scope.manager,
-            dateStart:moment($scope.dateStart).format("YYYYMMDD"),
-            dateEnd:moment($scope.dateEnd).format("YYYYMMDD")
+            dateIdStart:moment($scope.dateStart).format("YYYYMMDD"),
+            dateIdEnd:moment($scope.dateEnd).format("YYYYMMDD")
         };
         if($scope.dateStart==undefined||$scope.dateEnd==undefined){
             swal('请输入完整的时间范围', "", "error");

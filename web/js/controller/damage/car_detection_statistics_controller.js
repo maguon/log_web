@@ -23,20 +23,20 @@ app.controller("car_detection_statistics_controller", ["$scope", "$rootScope", "
     $scope.searchMoveCarList= function (){
         getMoveCar();
     };
-
+/*qaUserId dateStart dateEnd  start size*/
     function getMoveCar(){
         var obj ={
-            op:10,
-            userId: $scope.manager,
-            startDate:$scope.dateStart,
-            endDate:$scope.dateEnd
+          /*  op:10,*/
+            qaUserId: $scope.manager,
+            dateStart:moment($scope.dateStart).format("YYYYMMDD"),
+            dateEnd:moment($scope.dateEnd).format("YYYYMMDD")
         };
         if($scope.dateStart==undefined||$scope.dateEnd==undefined){
             swal('请输入完整的时间范围', "", "error");
             $scope.moveCarList=[];
         }
         else {
-            _basic.get($host.record_url + "/opRecordStat?"+_basic.objToUrl(obj)).then(function (data) {
+            _basic.get($host.api_url + "/user/" + userId+ "/damageQaUserStat?"+_basic.objToUrl(obj)).then(function (data) {
                 if (data.success === true) {
                     $scope.moveCarList = data.result;
                 }
@@ -49,17 +49,19 @@ app.controller("car_detection_statistics_controller", ["$scope", "$rootScope", "
 
     /*导出*/
     $scope.export = function(){
+        var url;
         var obj ={
-            op:10,
-            userId: $scope.manager,
-            startDate:$scope.dateStart,
-            endDate:$scope.dateEnd
+           /* op:10,*/
+            qaUserId: $scope.manager,
+            dateStart:moment($scope.dateStart).format("YYYYMMDD"),
+            dateEnd:moment($scope.dateEnd).format("YYYYMMDD")
         };
         if($scope.dateStart==undefined||$scope.dateEnd==undefined){
             swal('请输入完整的时间范围', "", "error");
         }
         else {
-            window.open($host.record_url + "/opRecord.csv?"+_basic.objToUrl(obj));
+            url=$host.api_url + "/user/" + userId  + "/damageQaUserStat.csv?"+_basic.objToUrl(obj)
+            window.open(url);
         }
     };
 

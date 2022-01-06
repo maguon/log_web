@@ -488,6 +488,7 @@ CommonFilter.filter("mileageSalary", function () {
         var mileageSalary;
         var truck_number = input.split("-")[1];
         var  car_count = input.split("-")[0];
+        var distance = input.split("-")[2];
         if(truck_number==6){
 
             if(car_count<=3){
@@ -524,7 +525,13 @@ CommonFilter.filter("mileageSalary", function () {
             }
 
             else if(car_count==9){
-                mileageSalary =1.1
+                if(distance<500){
+                    mileageSalary =1.4
+                }else if(distance>=500&&distance<1000){
+                    mileageSalary =1.3
+                }else{
+                    mileageSalary =1.2
+                }
             }
             else if(car_count>=10){
                 mileageSalary =1.2

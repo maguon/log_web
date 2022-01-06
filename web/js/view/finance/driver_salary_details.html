@@ -308,7 +308,7 @@
                             <td>{{salary.distance}}</td>
                             <td>{{salary.truck_num + "（" + salary.brand_name + "）"}}</td>
                             <td>{{salary.car_count}}/{{salary.truck_number}}</td>
-                            <td>{{salary.car_count+ "-" +salary.truck_number | mileageSalary}}</td>
+                            <td>{{salary.car_count+ "-" +salary.truck_number+ "-" + salary.distance | mileageSalary}}</td>
                             <td ng-if="salary.load_flag==0" >空载</td>
                             <td ng-if="salary.load_flag==1" >重载</td>
                             <td ng-if="salary.reverse_flag==0" >否</td>

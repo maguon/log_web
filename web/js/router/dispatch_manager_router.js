@@ -362,7 +362,12 @@ app.config(['$stateProvider', "$urlRouterProvider", function ($stateProvider, $u
             templateUrl: "js/view/damage/damage_declaration_details.html",
             controller:'damage_declaration_details_controller'
         })
-
+        .state("single_value",{
+            url:"/single_value",
+            params: {"from": null},
+            templateUrl: "js/view/finance/single_value.html",
+            controller:'single_value_controller'
+        })
         // 维修
         .state("truck_repair", {
             url:"/truck_repair/id/{id}/truckId/{truckId}/type/{type}/status/{status}?from",

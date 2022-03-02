@@ -388,7 +388,12 @@ app.config(['$stateProvider',"$urlRouterProvider",function($stateProvider,$urlRo
             templateUrl: "js/view/finance/car_cost.html",
             controller:'car_cost_controller'
         })
-
+        .state("single_value",{
+            url:"/single_value",
+            params: {"from": null},
+            templateUrl: "js/view/finance/single_value.html",
+            controller:'single_value_controller'
+        })
         .state("driver_information_details",{
             url:"/driver_information_details/driverId/{driverId}/from/{from}",
             templateUrl: "js/view/truck/driver_information_details.html",

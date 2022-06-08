@@ -527,7 +527,7 @@ CommonFilter.filter("mileageSalary", function () {
             else if(car_count==9){
                 if(distance<500){
                     mileageSalary =1.4
-                }else if(distance>=500&&distance<1000){
+                }else if(distance>=500&&distance<=1000){
                     mileageSalary =1.3
                 }else{
                     mileageSalary =1.2

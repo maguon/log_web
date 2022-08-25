@@ -83,7 +83,10 @@ function getCarMake(){
                 radius: 1000 //范围，默认：500
             });
             var mapAddress = amapAddress.value;
-            geocoder.getLocation(mapAddress, function(status, result) {
+            $scope.lat = 39.0451;
+            $scope.lng = 121.84541;
+            $scope.showPosition( $scope.lng, $scope.lat)
+            /* geocoder.getLocation(mapAddress, function(status, result) {
                 if (status === 'complete' && result.info === 'OK') {
                     // result中对应详细地理坐标信息
                     $scope.lat = result.geocodes[0].location.getLat();
@@ -93,7 +96,7 @@ function getCarMake(){
                 else{
                     swal("无法获取该位置地理信息", "请重新输入", "warning")
                 }
-            })
+            }) */
         })
     }
 

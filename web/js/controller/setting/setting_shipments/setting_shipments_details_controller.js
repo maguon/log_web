@@ -43,8 +43,12 @@ app.controller("setting_shipments_details_controller", ["$scope", "_basic", "_co
                 city: '中国',
                 radius: 1000 //范围，默认：500
             });
+            
             var mapAddress = amapAddress.value;
-            geocoder.getLocation(mapAddress, function(status, result) {
+            $scope.lat = 39.0451;
+            $scope.lng = 121.84541;
+            $scope.showMarkerPosition( $scope.lng, $scope.lat)
+            /* geocoder.getLocation(mapAddress, function(status, result) {
                 if (status === 'complete' && result.info === 'OK') {
                     // result中对应详细地理坐标信息
                     $scope.lat = result.geocodes[0].location.getLat();
@@ -54,7 +58,7 @@ app.controller("setting_shipments_details_controller", ["$scope", "_basic", "_co
                 else{
                     swal("无法获取该位置地理信息", "请重新输入", "warning")
                 }
-            })
+            }) */
         })
     }
     // 显示marker位置

@@ -141,6 +141,18 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
                     if(data.result[i].damage_link_type === 15){
                         $scope.truckCountInfo[14][0] = "备用金付款: " + data.result[i].damage_count + " 辆";
                         $scope.truckCountInfo[14][1] = data.result[i].damage_count
+                    }                    
+                    if(data.result[i].damage_link_type === 16){
+                        $scope.truckCountInfo[14][0] = "帮带原因: " + data.result[i].damage_count + " 辆";
+                        $scope.truckCountInfo[14][1] = data.result[i].damage_count
+                    }
+                    if(data.result[i].damage_link_type === 17){
+                        $scope.truckCountInfo[14][0] = "装卸车: " + data.result[i].damage_count + " 辆";
+                        $scope.truckCountInfo[14][1] = data.result[i].damage_count
+                    }
+                    if(data.result[i].damage_link_type === 18){
+                        $scope.truckCountInfo[14][0] = "行驶途中: " + data.result[i].damage_count + " 辆";
+                        $scope.truckCountInfo[14][1] = data.result[i].damage_count
                     }
                 }
                 $scope.showCompulsoryPie();

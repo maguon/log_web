@@ -439,6 +439,18 @@ CommonFilter.filter("damageLinkType", function () {
             case 15:
                 damageLinkType = "备用金付款";
                 break;
+                break;
+            case 16:
+                damageLinkType = "帮带原因";
+                break;
+                break;
+            case 17:
+                damageLinkType = "装卸车";
+                break;
+                break;
+            case 18:
+                damageLinkType = "行驶途中";
+                break;
             default:
                 damageLinkType = "未知";
         }

@@ -281,7 +281,10 @@ baseService.factory("_config", function () {
         {id: 12, typeName: "索赔"},
         {id: 13, typeName: "其他"},
         {id: 14, typeName: "仓储责任"},
-        {id: 15, typeName: "备用金付款"}
+        {id: 15, typeName: "备用金付款"},
+        {id: 16, typeName: "帮带原因"},
+        {id: 17, typeName: "装卸车"},
+        {id: 18, typeName: "行驶途中"}
 
 
 

@@ -441,7 +441,7 @@ CommonFilter.filter("damageLinkType", function () {
                 break;
                 break;
             case 16:
-                damageLinkType = "帮带原因";
+                damageLinkType = "绑带原因";
                 break;
                 break;
             case 17:

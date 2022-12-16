@@ -143,7 +143,7 @@ app.controller("vehicle_damage_statistics_controller", ["$scope", "$host", "_bas
                         $scope.truckCountInfo[14][1] = data.result[i].damage_count
                     }                    
                     if(data.result[i].damage_link_type === 16){
-                        $scope.truckCountInfo[14][0] = "帮带原因: " + data.result[i].damage_count + " 辆";
+                        $scope.truckCountInfo[14][0] = "绑带原因: " + data.result[i].damage_count + " 辆";
                         $scope.truckCountInfo[14][1] = data.result[i].damage_count
                     }
                     if(data.result[i].damage_link_type === 17){

@@ -8,7 +8,7 @@ app.controller("car_wash_fee_management_controller", ["$scope", "$host", "_basic
     $(".car_detail").hide();
     $(".no_car_detail").hide();
     $scope.userDepartment = parseInt(_basic.getSession(_basic.USER_TYPE));
-    if($scope.userDepartment==49||userId=='1'){
+    if($scope.userDepartment==39||userId=='1'){
         $scope.addWashFeeFlag=true
     }
     else {
